@@ -1,19 +1,19 @@
 # 10.2.0 - 10.4.0
 
-## 模块变更
+## Thay đổi module
 
-1. [身份标识模块]   增加不活跃用户通知/清理作业,实现了三个通知模板(账户保持活跃通知、账户停用通知、账户删除通知)
-2. [身份标识模块]   增加不活跃用户实体 `IdentityUserInactive` 需要执行数据库迁移  
-3. [身份标识模块]   增加用户登录Url设置定义: `Abp.Identity.Link.UserLoginUri`, 用于在外部系统中关联用户登录页    
-4. [身份认证模块]   增加用户登录Url定义: `Abp.Account.UserLogin`    
-5. [身份认证模块]   增加关联用户登录功能, 可以实现跨租户用户关联, 切换关联用户登录      
-6. [设置管理模块]   增加身份标识模块缺少的设置项: 启用防止密码重用、防止密码重用数量 
-7. [设置基础模块]   增加设置定义分组、所属设置、优先级、依赖权限、依赖功能、选择项等常用结构扩展  
-8. [设置管理模块]   重构设置管理应用服务接口, 通过预设定的设置定义分组、上下级关系等自动构成Dto结构
+1. [Module danh tính]   Thêm job thông báo/dọn dẹp người dùng không hoạt động, triển khai ba mẫu thông báo (thông báo giữ tài khoản hoạt động, thông báo vô hiệu hóa tài khoản, thông báo xóa tài khoản)
+2. [Module danh tính]   Thêm thực thể người dùng không hoạt động `IdentityUserInactive` cần thực hiện di chuyển cơ sở dữ liệu  
+3. [Module danh tính]   Thêm định nghĩa cài đặt Url đăng nhập người dùng: `Abp.Identity.Link.UserLoginUri`, dùng để liên kết trang đăng nhập người dùng trong hệ thống bên ngoài    
+4. [Module xác thực danh tính]   Thêm định nghĩa Url đăng nhập người dùng: `Abp.Account.UserLogin`    
+5. [Module xác thực danh tính]   Thêm chức năng đăng nhập người dùng liên kết, có thể liên kết người dùng xuyên tenant, chuyển đổi đăng nhập người dùng liên kết      
+6. [Module quản lý cài đặt]   Thêm các mục cài đặt còn thiếu của module danh tính: bật chống tái sử dụng mật khẩu, số lần chống tái sử dụng mật khẩu 
+7. [Module cơ sở cài đặt]   Thêm phần mở rộng cấu trúc thường dùng của định nghĩa cài đặt: nhóm định nghĩa cài đặt, cài đặt thuộc về, mức ưu tiên, quyền hạn phụ thuộc, chức năng phụ thuộc, mục lựa chọn  
+8. [Module quản lý cài đặt]   Tái cấu trúc giao diện dịch vụ ứng dụng quản lý cài đặt, tự động tạo cấu trúc Dto qua nhóm định nghĩa cài đặt đặt trước, quan hệ cấp trên/cấp dưới
 
-## 依赖项变更  
+## Thay đổi dependency  
 
-| 库名称                                       | 原版本    | 现版本 |
+| Tên thư viện                                       | Phiên bản cũ    | Phiên bản mới |
 | -------------------------------------------- | --------- | ------ |
 | Microsoft.AspNetCore.*					   | 10.0.2	   | 10.0.7 |
 | Microsoft.Bcl.AsyncInterfaces			       | 10.0.2	   | 10.0.7 |
@@ -38,7 +38,7 @@
 
 
 
-## 数据库迁移
+## Di chuyển cơ sở dữ liệu
 
 | Project Name             | Database Provider | Scripts                                        | EF Core Version |
 | ------------------------ | ----------------- | ---------------------------------------------- | --------------- |
@@ -49,7 +49,7 @@
 | services/AuthServer      | MySQL             | 20260530061141_Add-Identity-User-Inactive		| 10.0.3          |
 
 
-## 数据库连接字符串
+## Chuỗi kết nối cơ sở dữ liệu
 
 | Module Name                   | ConnectionString Name        | Example(MySQL)                                               |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |

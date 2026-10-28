@@ -12,9 +12,9 @@ import { useRequest } from '@abp/request';
 export function useScopesApi() {
   const { cancel, request } = useRequest();
   /**
-   * 新增范围
-   * @param input 参数
-   * @returns 范围实体数据传输对象
+   * Thêm phạm vi
+   * @param input Tham số
+   * @returns Đối tượng truyền dữ liệu thực thể phạm vi
    */
   function createApi(
     input: OpenIddictScopeCreateDto,
@@ -26,8 +26,8 @@ export function useScopesApi() {
   }
 
   /**
-   * 删除范围
-   * @param id 范围id
+   * Xóa phạm vi
+   * @param id Id phạm vi
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/openiddict/scopes/${id}`, {
@@ -36,9 +36,9 @@ export function useScopesApi() {
   }
 
   /**
-   * 查询范围
-   * @param id 范围id
-   * @returns 范围实体数据传输对象
+   * Truy vấn phạm vi
+   * @param id Id phạm vi
+   * @returns Đối tượng truyền dữ liệu thực thể phạm vi
    */
   function getApi(id: string): Promise<OpenIddictScopeDto> {
     return request<OpenIddictScopeDto>(`/api/openiddict/scopes/${id}`, {
@@ -47,9 +47,9 @@ export function useScopesApi() {
   }
 
   /**
-   * 更新范围
-   * @param id 范围id
-   * @returns 范围实体数据传输对象
+   * Cập nhật phạm vi
+   * @param id Id phạm vi
+   * @returns Đối tượng truyền dữ liệu thực thể phạm vi
    */
   function updateApi(
     id: string,
@@ -62,9 +62,9 @@ export function useScopesApi() {
   }
 
   /**
-   * 查询范围分页列表
-   * @param input 过滤参数
-   * @returns 范围实体数据传输对象分页列表
+   * Truy vấn danh sách phân trang phạm vi
+   * @param input Tham số lọc
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể phạm vi
    */
   function getPagedListApi(
     input?: OpenIddictScopeGetListInput,
@@ -79,8 +79,8 @@ export function useScopesApi() {
   }
 
   /**
-   * 查询可用范围列表
-   * @returns 可用范围实体数据传输对象列表
+   * Truy vấn danh sách phạm vi khả dụng
+   * @returns Danh sách đối tượng truyền dữ liệu thực thể phạm vi khả dụng
    */
   function getAssignableScopesApi(): Promise<
     ListResultDto<OpenIddictScopeDto>

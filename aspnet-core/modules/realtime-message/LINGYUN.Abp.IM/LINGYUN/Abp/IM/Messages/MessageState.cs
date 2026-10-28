@@ -1,28 +1,28 @@
 ﻿namespace LINGYUN.Abp.IM.Messages;
 
 /// <summary>
-/// 消息状态
+/// Trạng thái tin nhắn
 /// </summary>
 public enum MessageState : sbyte
 {
     /// <summary>
-    /// 已发送
+    /// Đã gửi
     /// </summary>
     Send = 0,
     /// <summary>
-    /// 已读
+    /// Đã đọc
     /// </summary>
     Read = 1,
     /// <summary>
-    /// 撤回
+    /// Thu hồi
     /// </summary>
     ReCall = 10,
     /// <summary>
-    /// 发送失败
+    /// Gửi thất bại
     /// </summary>
     Failed = 50,
     /// <summary>
-    /// 退回
+    /// Trả lại
     /// </summary>
     BackTo = 100
 }

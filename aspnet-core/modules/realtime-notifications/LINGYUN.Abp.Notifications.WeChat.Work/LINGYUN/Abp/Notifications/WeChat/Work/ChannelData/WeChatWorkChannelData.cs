@@ -1,21 +1,21 @@
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信渠道数据(载荷)基类
+/// Lớp cơ sở dữ liệu kênh WeChat doanh nghiệp (payload)
 /// </summary>
 /// <remarks>
-/// 每个载荷对应一种企业微信消息载体, 通过 <see cref="Kind"/> 显式声明形态,
-/// 渠道侧使用工厂字典做 O(1) 分派, 不再依赖 if/else 探测顺序。
+/// Mỗi payload tương ứng với một loại vật mang tin nhắn WeChat doanh nghiệp, thông qua <see cref="Kind"/> để khai báo rõ ràng hình thái,
+/// phía kênh sử dụng từ điển factory để phân phối O(1), không còn phụ thuộc vào thứ tự dò tìm if/else.
 /// <para>
-/// 存在性由 <see cref="NotificationChannelDataAttribute.Presence"/> 声明式推导:
-/// 每个载荷都只有一个"标识键", 因此默认的"参与匹配的属性全部存在"即为正确语义,
-/// 无需在载荷类型中实现判定方法。
+/// Tính tồn tại được suy ra một cách khai báo bởi <see cref="NotificationChannelDataAttribute.Presence"/>:
+/// Mỗi payload chỉ có một "khóa định danh", vì vậy ngữ nghĩa mặc định "tất cả các thuộc tính tham gia khớp đều tồn tại" là đúng,
+/// không cần triển khai phương thức xác định trong loại payload.
 /// </para>
 /// </remarks>
 public abstract class WeChatWorkChannelData : NotificationChannelData
 {
     /// <summary>
-    /// 消息载体类型
+    /// Loại vật mang tin nhắn
     /// </summary>
     public abstract WeChatWorkMessageKind Kind { get; }
 }

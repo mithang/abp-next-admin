@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Response;
 /// <summary>
-/// 获取客户列表响应参数
+/// Tham số phản hồi lấy danh sách khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92113" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/92113" />
 /// </remarks>
 public class WeChatWorkGetCustomerListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 外部联系人的userid列表
+    /// Danh sách userid của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]

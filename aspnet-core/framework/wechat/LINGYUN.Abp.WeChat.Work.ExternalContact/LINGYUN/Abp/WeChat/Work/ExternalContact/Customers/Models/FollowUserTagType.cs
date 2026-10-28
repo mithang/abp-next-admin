@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 标签类型
+/// Loại nhãn
 /// </summary>
-[Description("标签类型")]
+[Description("Loại nhãn")]
 public enum FollowUserTagType
 {
     /// <summary>
-    /// 企业设置
+    /// Cài đặt doanh nghiệp
     /// </summary>
-    [Description("企业设置")]
+    [Description("Cài đặt doanh nghiệp")]
     EnterpriseSettings = 1,
     /// <summary>
-    /// 用户自定义
+    /// Người dùng tùy chỉnh
     /// </summary>
-    [Description("用户自定义")]
+    [Description("Người dùng tùy chỉnh")]
     UserCustom = 2,
     /// <summary>
-    /// 规则组标签
+    /// Nhãn nhóm quy tắc
     /// </summary>
-    [Description("规则组标签")]
+    [Description("Nhãn nhóm quy tắc")]
     RuleGroupTags = 3,
 }

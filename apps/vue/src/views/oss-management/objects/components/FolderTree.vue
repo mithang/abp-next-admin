@@ -183,8 +183,8 @@
   }
 
   function refresh(path: string) {
-    // 刷新目录的方式为收起目录，并设置为未加载状态
-    // 当用户手动展开目录时重载目录结果
+    // Cách làm mới thư mục là thu gọn thư mục và đặt thành trạng thái chưa tải
+    // Khi người dùng tự mở rộng thư mục thì tải lại kết quả thư mục
     const keys = expandedKeys.value;
     const findIndex = keys.findLastIndex((key) => key === path);
     if (findIndex >= 0) {

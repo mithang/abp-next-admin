@@ -3,9 +3,9 @@ import type { RequestClientConfig } from '../types';
 
 type DownloadRequestConfig = {
   /**
-   * 定义期望获得的数据类型。
-   * raw: 原始的AxiosResponse，包括headers、status等。
-   * body: 只返回响应数据的BODY部分(Blob)
+   * Định nghĩa kiểu dữ liệu mong muốn nhận được.
+   * raw: AxiosResponse gốc, bao gồm headers, status, v.v.
+   * body: Chỉ trả về phần BODY của dữ liệu phản hồi (Blob)
    */
   responseReturn?: 'body' | 'raw';
 } & Omit<RequestClientConfig, 'responseReturn'>;
@@ -17,10 +17,10 @@ class FileDownloader {
     this.client = client;
   }
   /**
-   * 下载文件
-   * @param url 文件的完整链接
-   * @param config 配置信息，可选。
-   * @returns 如果config.responseReturn为'body'，则返回Blob(默认)，否则返回RequestResponse<Blob>
+   * Tải xuống tệp
+   * @param url Liên kết đầy đủ của tệp
+   * @param config Thông tin cấu hình, tùy chọn.
+   * @returns Nếu config.responseReturn là 'body' thì trả về Blob (mặc định), ngược lại trả về RequestResponse<Blob>
    */
   public async download<T = Blob>(
     url: string,

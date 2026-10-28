@@ -1,32 +1,32 @@
 # LINGYUN.Abp.DataProtectionManagement.HttpApi
 
-数据权限管理HTTP API模块，提供数据权限管理的REST API接口。
+Mô-đun HTTP API quản lý quyền dữ liệu, cung cấp giao diện REST API quản lý quyền dữ liệu.
 
-## 功能
+## Chức năng
 
-* 数据权限管理REST API
-  * 创建数据权限
-  * 更新数据权限
-  * 删除数据权限
-  * 查询数据权限
+* REST API quản lý quyền dữ liệu
+  * Tạo quyền dữ liệu
+  * Cập nhật quyền dữ liệu
+  * Xóa quyền dữ liệu
+  * Truy vấn quyền dữ liệu
 
-## API控制器
+## Bộ điều khiển API
 
-* `DataProtectionController` - 数据权限控制器
-  * `GET /api/data-protection-management/data-protection/{id}` - 获取指定数据权限
-  * `GET /api/data-protection-management/data-protection` - 获取数据权限列表
-  * `POST /api/data-protection-management/data-protection` - 创建数据权限
-  * `PUT /api/data-protection-management/data-protection/{id}` - 更新数据权限
-  * `DELETE /api/data-protection-management/data-protection/{id}` - 删除数据权限
+* `DataProtectionController` - Bộ điều khiển quyền dữ liệu
+  * `GET /api/data-protection-management/data-protection/{id}` - Lấy quyền dữ liệu được chỉ định
+  * `GET /api/data-protection-management/data-protection` - Lấy danh sách quyền dữ liệu
+  * `POST /api/data-protection-management/data-protection` - Tạo quyền dữ liệu
+  * `PUT /api/data-protection-management/data-protection/{id}` - Cập nhật quyền dữ liệu
+  * `DELETE /api/data-protection-management/data-protection/{id}` - Xóa quyền dữ liệu
 
-## 权限验证
+## Xác thực quyền
 
-* 所有API都需要认证
-* 创建数据权限需要 `DataProtectionManagement.DataProtection.Create` 权限
-* 更新数据权限需要 `DataProtectionManagement.DataProtection.Update` 权限
-* 删除数据权限需要 `DataProtectionManagement.DataProtection.Delete` 权限
-* 查询数据权限需要 `DataProtectionManagement.DataProtection` 权限
+* Tất cả API đều cần xác thực
+* Tạo quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection.Create`
+* Cập nhật quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection.Update`
+* Xóa quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection.Delete`
+* Truy vấn quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection`
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

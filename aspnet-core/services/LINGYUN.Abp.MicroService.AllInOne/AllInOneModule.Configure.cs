@@ -1,4 +1,5 @@
 using Savorboard.CAP.InMemoryMessageQueue;
+using Microsoft.AspNetCore.Routing;
 using VoloAbpExceptionHandlingOptions = Volo.Abp.AspNetCore.ExceptionHandling.AbpExceptionHandlingOptions;
 
 namespace LINGYUN.Abp.MicroService.AllInOne;
@@ -22,7 +23,7 @@ public partial class AllInOneModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别，应在0-31之间
+            // Phân biệt bằng cổng mở, phải nằm trong khoảng 0-31
             options.SnowflakeIdOptions.WorkerId = 1;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -98,10 +99,15 @@ public partial class AllInOneModule
             {
                 //builder.UseDataProtection();
 
-                // 禁用https
-                builder.UseAspNetCore()
-                    .DisableTransportSecurityRequirement();
-
+                // SEC-03: không tắt yêu cầu transport security ngoài Development.
+                // Production phải phục vụ token endpoint qua HTTPS (hoặc sau TLS terminator
+                // với ForwardedHeaders); tắt yêu cầu này ở đây từng làm token endpoint
+                // chấp nhận HTTP thuần ngay cả ở production.
+                // SEC-17: App:SslPassword KHÔNG được ghi vào appsettings.json (SEC-02:
+                // appsettings chỉ giữ placeholder rỗng). Khi deploy phải cấp qua biến môi
+                // trường App__SslPassword hoặc user-secrets; thiếu password thì quá trình
+                // khởi động fail-closed khi nạp file .pfx có mật khẩu — không được "sửa"
+                // bằng cách ghi lại password vào appsettings.
                 builder.AddProductionEncryptionAndSigningCertificate(configuration["App:SslFile"], configuration["App:SslPassword"]);
             });
         }
@@ -136,7 +142,7 @@ public partial class AllInOneModule
 
                 //builder.UseDataProtection();
 
-                // 禁用https
+                // Tắt HTTPS
                 builder.UseAspNetCore()
                     .DisableTransportSecurityRequirement();
             });
@@ -169,7 +175,7 @@ public partial class AllInOneModule
     {
         PreConfigure<AbpQuartzOptions>(options =>
         {
-            // 如果使用持久化存储, 则配置quartz持久层
+            // Nếu dùng bộ nhớ bền vững thì cấu hình tầng bền vững của Quartz
             if (configuration.GetValue("Quartz:UsePersistentStore", false))
             {
                 var settings = configuration.GetSection("Quartz:Properties").Get<Dictionary<string, string>>();
@@ -196,8 +202,8 @@ public partial class AllInOneModule
     private void PreConfigureElsa(IServiceCollection services, IConfiguration configuration)
     {
         var elsaSection = configuration.GetSection("Elsa");
-        // 本项目命名空间位于 LINGYUN.Abp 之下, 直接使用 Elsa.* 会被解析为 LINGYUN.Abp.Elsa.* 命名空间,
-        // 因此这里使用 global:: 指定 Elsa 包中的类型
+        // Namespace của dự án này nằm dưới LINGYUN.Abp, dùng trực tiếp Elsa.* sẽ bị phân giải thành namespace LINGYUN.Abp.Elsa.*,
+        // vì vậy ở đây dùng global:: để chỉ định kiểu trong gói Elsa
         var startups = new[]
             {
                 typeof(global::Elsa.Activities.Console.Startup),
@@ -234,17 +240,23 @@ public partial class AllInOneModule
         });
     }
 
-    private void ConfigureAuthServer(IConfiguration configuration)
+    private void ConfigureAuthServer(IConfiguration configuration, IWebHostEnvironment environment)
     {
-        Configure<OpenIddictServerAspNetCoreBuilder>(builder =>
+        // SEC-03: chỉ tắt yêu cầu transport security khi Development. Ở production
+        // OpenIddict phải yêu cầu HTTPS; việc tắt vô điều kiện trước đây làm mọi
+        // request (kể cả token endpoint) chấp nhận HTTP thuần.
+        if (environment.IsDevelopment())
         {
-            builder.DisableTransportSecurityRequirement();
-        });
+            Configure<OpenIddictServerAspNetCoreBuilder>(builder =>
+            {
+                builder.DisableTransportSecurityRequirement();
+            });
 
-        Configure<OpenIddictServerAspNetCoreOptions>(options =>
-        {
-            options.DisableTransportSecurityRequirement = true;
-        });
+            Configure<OpenIddictServerAspNetCoreOptions>(options =>
+            {
+                options.DisableTransportSecurityRequirement = true;
+            });
+        }
 
         Configure<OpenIddictServerOptions>(options =>
         {
@@ -261,7 +273,29 @@ public partial class AllInOneModule
 
     private void ConfigureEndpoints(IServiceCollection services)
     {
-        // 不需要
+        // DEVOPS iter-0001: AllInOne trước đây không có endpoint kiểm tra sức khỏe,
+        // trong khi docker-compose.yml giả định /healthz cho mọi service. Thêm /healthz
+        // theo đúng mẫu các microservice khác (AdminService...) để orchestrator và
+        // health-check script có điểm kiểm tra thống nhất. Đường dẫn cố định "/healthz"
+        // (không đọc App:HealthChecks như các service khác vì ConfigureEndpoints ở đây
+        // không nhận IConfiguration).
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks("/healthz");
+            });
+        });
+
+        services.AddHealthChecks()
+            // DEVOPS iter-0004 (DEV-11): /healthz trước đây rỗng (không check nào) nên
+            // luôn 200 kể cả khi DB/Redis chết. Đăng ký check dependency thật tại đây;
+            // xem HealthChecks/AllInOneHealthChecks.cs. Các microservice khác vẫn dùng
+            // AddHealthChecks() trơ trụi — nhân rộng check này sang chúng là việc còn lại.
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database")
+            .AddCheck<HealthChecks.RedisHealthCheck>("redis");
+
+        // Không cần
         //Configure<AbpEndpointRouterOptions>(options =>
         //{
         //    options.EndpointConfigureActions.Add(
@@ -320,8 +354,11 @@ public partial class AllInOneModule
             {
                 options.ConfigureHttpsDefaults(https =>
                 {
+                    // SEC-17: xem ghi chú ở PreConfigureCertificate — password của file
+                    // .pfx này chỉ cấp qua biến môi trường App__SslPassword hoặc
+                    // user-secrets, không bao giờ ghi vào appsettings.json.
                     https.ServerCertificate = X509CertificateLoader.LoadPkcs12FromFile(
-                        configuration["App:SslFile"]!, 
+                        configuration["App:SslFile"]!,
                         configuration["App:SslPassword"]);
                 });
             });
@@ -388,7 +425,7 @@ public partial class AllInOneModule
         }
     }
     /// <summary>
-    /// 配置数据导出
+    /// Cấu hình xuất dữ liệu
     /// </summary>
     private void ConfigureExporter()
     {
@@ -398,7 +435,7 @@ public partial class AllInOneModule
             {
                 config.DynamicColumns = new[]
                 {
-                    // 忽略某些字段
+                    // Bỏ qua một số trường
                     new DynamicExcelColumn(nameof(BookDto.AuthorId)){ Ignore = true },
                     new DynamicExcelColumn(nameof(BookDto.LastModificationTime)){ Ignore = true },
                     new DynamicExcelColumn(nameof(BookDto.LastModifierId)){ Ignore = true },
@@ -410,7 +447,7 @@ public partial class AllInOneModule
         });
     }
     /// <summary>
-    /// 配置数据权限
+    /// Cấu hình quyền dữ liệu
     /// </summary>
     private void ConfigureEntityDataProtected()
     {
@@ -538,10 +575,10 @@ public partial class AllInOneModule
 
     private void ConfigureExceptionHandling()
     {
-        // 自定义需要处理的异常
+        // Tùy chỉnh các ngoại lệ cần xử lý
         Configure<AbpExceptionHandlingOptions>(options =>
         {
-            //  加入需要处理的异常类型
+            //  Thêm các loại ngoại lệ cần xử lý
             options.Handlers.Add<Volo.Abp.Data.AbpDbConcurrencyException>();
             options.Handlers.Add<AbpInitializationException>();
             options.Handlers.Add<OutOfMemoryException>();
@@ -549,13 +586,13 @@ public partial class AllInOneModule
             options.Handlers.Add<Microsoft.EntityFrameworkCore.DbUpdateException>();
             options.Handlers.Add<System.Data.DBConcurrencyException>();
         });
-        // 自定义需要发送邮件通知的异常类型
+        // Tùy chỉnh các loại ngoại lệ cần gửi thông báo email
         Configure<AbpEmailExceptionHandlingOptions>(options =>
         {
-            // 是否发送堆栈信息
+            // Có gửi thông tin ngăn xếp hay không
             options.SendStackTrace = true;
-            // 未指定异常接收者的默认接收邮件
-            // 指定自己的邮件地址
+            // Email nhận mặc định khi chưa chỉ định người nhận ngoại lệ
+            // Chỉ định địa chỉ email của mình
         });
 
         Configure<VoloAbpExceptionHandlingOptions>(options =>
@@ -567,7 +604,7 @@ public partial class AllInOneModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -576,7 +613,7 @@ public partial class AllInOneModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hóa khi tuần tự hóa tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -602,7 +639,7 @@ public partial class AllInOneModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa thuê bao (multi-tenant)
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -627,7 +664,7 @@ public partial class AllInOneModule
         Configure<AbpAuditingOptions>(options =>
         {
             options.ApplicationName = ApplicationName;
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -670,7 +707,7 @@ public partial class AllInOneModule
                         var controllerNamespace = methodInfo.DeclaringType?.Namespace;
                         if (controllerNamespace?.StartsWith("Elsa") == true)
                         {
-                            // TODO: Elsa 2.x 使用 Swashbuckle 6.x版本不兼容, 忽略Swagger文档
+                            // TODO: Elsa 2.x không tương thích với Swashbuckle 6.x, bỏ qua tài liệu Swagger
                             return false;
                         }
                     }
@@ -693,7 +730,7 @@ public partial class AllInOneModule
 
     private void ConfigureIdentity(IConfiguration configuration)
     {
-        // 增加配置文件定义,在新建租户时需要
+        // Thêm định nghĩa tệp cấu hình, cần khi tạo thuê bao mới
         Configure<IdentityOptions>(options =>
         {
             var identityConfiguration = configuration.GetSection("Identity");
@@ -733,7 +770,7 @@ public partial class AllInOneModule
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
 
             options
                 .AddLanguagesMapOrUpdate(
@@ -741,7 +778,7 @@ public partial class AllInOneModule
                     new NameValue("zh-Hans", "zh"),
                     new NameValue("en", "en"));
 
-            // vben admin 语言映射
+            // Ánh xạ ngôn ngữ của vben admin
             options
                 .AddLanguagesMapOrUpdate(
                     "vben-admin-ui",
@@ -783,7 +820,7 @@ public partial class AllInOneModule
             options.IsEnabled = true;
             // options.IsWrapUnauthorizedEnabled = true;
             options.IgnoreNamespaces.Add("Elsa");
-            // 微信消息不能包装
+            // Tin nhắn WeChat không được đóng gói (wrap)
             options.IgnoreNamespaces.Add("LINGYUN.Abp.WeChat");
         });
     }
@@ -837,22 +874,22 @@ public partial class AllInOneModule
 
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
-            // 允许第三方调用集成服务
+            // Cho phép bên thứ ba gọi dịch vụ tích hợp
             options.ExposeIntegrationServices = true;
         });
 
         Configure<AbpAspNetCoreSessionOptions>(options =>
         {
-            // abp 9.0版本可存储登录IP地域, 开启IP解析
+            // ABP 9.0 có thể lưu trữ khu vực IP đăng nhập, bật phân giải IP
             options.IsParseIpLocation = true;
         });
 
-        // 用于消息中心邮件集中发送
+        // Dùng để gửi email tập trung của trung tâm tin nhắn
         services.Replace(
             ServiceDescriptor.Transient<Volo.Abp.Emailing.IEmailSender, PlatformEmailSender>());
         services.AddKeyedTransient<Volo.Abp.Emailing.IEmailSender, MailKitSmtpEmailSender>("DefaultEmailSender");
 
-        // 用于消息中心短信集中发送
+        // Dùng để gửi SMS tập trung của trung tâm tin nhắn
         services.Replace(
             ServiceDescriptor.Transient<Volo.Abp.Sms.ISmsSender, PlatformSmsSender>());
         services.AddKeyedSingleton<ISmsSender, AliyunSmsSender>("DefaultSmsSender");
@@ -993,11 +1030,11 @@ public partial class AllInOneModule
     {
         Configure<AbpWeChatMessageHandleOptions>(options =>
         {
-            // 回复文本消息
+            // Trả lời tin nhắn văn bản
             options.MapMessage<
                 LINGYUN.Abp.WeChat.Official.Messages.Models.TextMessage,
                 LINGYUN.Abp.MicroService.AllInOne.WeChat.Official.Messages.TextMessageReplyContributor>();
-            // 处理关注事件
+            // Xử lý sự kiện theo dõi
             options.MapEvent<
                 LINGYUN.Abp.WeChat.Official.Messages.Models.UserSubscribeEvent,
                 LINGYUN.Abp.MicroService.AllInOne.WeChat.Official.Messages.UserSubscribeEventContributor>();

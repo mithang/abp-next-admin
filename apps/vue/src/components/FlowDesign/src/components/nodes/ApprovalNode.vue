@@ -7,7 +7,7 @@
     @selected="$emit('selected')"
     @delNode="$emit('delNode')"
     @insertNode="(type) => $emit('insertNode', type)"
-    placeholder="请设置审批人"
+    placeholder="Vui lòng đặt người phê duyệt"
     header-bgc="#ff943e"
   >
     <template #headerIcon>
@@ -41,21 +41,21 @@
           config.assignedUser.forEach((org) => texts.push(org.name));
           return String(texts).replaceAll(',', '、');
         } else {
-          return '请指定审批人';
+          return 'Vui lòng chỉ định người phê duyệt';
         }
       case 'SELF':
-        return '发起人自己';
+        return 'Chính người khởi tạo';
       case 'SELF_SELECT':
-        return config.selfSelect.multiple ? '发起人自选多人' : '发起人自选一人';
+        return config.selfSelect.multiple ? 'Người khởi tạo tự chọn nhiều người' : 'Người khởi tạo tự chọn một người';
       case 'FORM_USER':
         if (!config.formUser || config.formUser === '') {
-          return '表单内联系人（未选择）';
+          return 'Liên hệ trong biểu mẫu（chưa chọn）';
         } else {
           let text = getFormItemById(config.formUser);
           if (text && text.title) {
-            return `表单（${text.title}）内的人员`;
+            return `Người trong biểu mẫu（${text.title}）`;
           } else {
-            return '该表单已被移除😥';
+            return 'Biểu mẫu này đã bị xóa😥';
           }
         }
       case 'ROLE':
@@ -64,10 +64,10 @@
           config.role.forEach((org) => texts.push(org.name));
           return String(texts).replaceAll(',', '、');
         } else {
-          return '指定角色（未设置）';
+          return 'Vai trò được chỉ định（chưa đặt）';
         }
       default:
-        return '未知设置项😥';
+        return 'Mục cài đặt không xác định😥';
     }
   });
   const state = reactive({
@@ -94,8 +94,8 @@
     if (props.config.props.assignedUser.length > 0) {
       return true;
     } else {
-      state.errorInfo = '请指定审批人员';
-      err.push(`${props.config.name} 未指定审批人员`);
+      state.errorInfo = 'Vui lòng chỉ định nhân viên phê duyệt';
+      err.push(`${props.config.name} Chưa chỉ định nhân viên phê duyệt`);
       return false;
     }
   }
@@ -117,8 +117,8 @@
 
   function validate_ROLE(err: string[]) {
     if (props.config.props.role.length <= 0) {
-      state.errorInfo = '请指定负责审批的系统角色';
-      err.push(`${props.config.name} 未指定审批角色`);
+      state.errorInfo = 'Vui lòng chỉ định vai trò hệ thống chịu trách nhiệm phê duyệt';
+      err.push(`${props.config.name} Chưa chỉ định vai trò phê duyệt`);
       return false;
     }
     return true;
@@ -131,8 +131,8 @@
 
   function validate_FORM_USER(err: string[]) {
     if (props.config.props.formUser === '') {
-      state.errorInfo = '请指定表单中的人员组件';
-      err.push(`${props.config.name} 审批人为表单中人员，但未指定`);
+      state.errorInfo = 'Vui lòng chỉ định component người trong biểu mẫu';
+      err.push(`${props.config.name} Người phê duyệt là người trong biểu mẫu，nhưng chưa được chỉ định`);
       return false;
     }
     return true;

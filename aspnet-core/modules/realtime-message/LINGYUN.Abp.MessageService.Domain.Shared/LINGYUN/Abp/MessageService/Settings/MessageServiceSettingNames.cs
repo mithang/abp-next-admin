@@ -8,7 +8,7 @@ public class MessageServiceSettingNames
     {
         public const string Default = GroupName + ".Notifications";
         /// <summary>
-        /// 清理过期消息批次
+        /// Lô dọn dẹp tin nhắn hết hạn
         /// </summary>
         public const string CleanupExpirationBatchCount = Default + ".CleanupExpirationBatchCount";
     }
@@ -17,7 +17,7 @@ public class MessageServiceSettingNames
     {
         public const string Default = GroupName + ".Messages";
         /// <summary>
-        /// 撤回消息过期时间（分）
+        /// Thời gian hết hạn thu hồi tin nhắn (phút)
         /// </summary>
         public const string RecallExpirationTime = Default + ".RecallExpirationTime";
     }

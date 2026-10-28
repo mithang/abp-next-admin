@@ -60,9 +60,9 @@ class NotificationsPage extends BasePage<NotificationsController> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('通知来源: ${payload.formUser ?? ''}', textAlign: TextAlign.left,),
-                            Text('通知类型: ${payload.title}', textAlign: TextAlign.left,),
-                            Text('发布时间: ${notification.creationTime
+                            Text('Nguồn thông báo: ${payload.formUser ?? ''}', textAlign: TextAlign.left,),
+                            Text('Loại thông báo: ${payload.title}', textAlign: TextAlign.left,),
+                            Text('Thời gian đăng: ${notification.creationTime
                                 .format(['yyyy', '-', 'mm', '-', 'dd', ' ', 'HH', ':', 'nn', ':', 'ss'])}',
                               textAlign: TextAlign.left
                             ),
@@ -76,7 +76,7 @@ class NotificationsPage extends BasePage<NotificationsController> {
                           children: [
                             Positioned(
                               left: 10,
-                              child: Center(child: Text('查看详情')),
+                              child: Center(child: Text('Xem chi tiết')),
                             ),
                             Positioned(
                               right: 10,

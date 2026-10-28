@@ -103,4 +103,4 @@ Related Documentation:
 * [IdentityServer4 Documentation](https://identityserver4.readthedocs.io/)
 * [WeChat Work API Documentation](https://work.weixin.qq.com/api/doc)
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Việt](README.md)

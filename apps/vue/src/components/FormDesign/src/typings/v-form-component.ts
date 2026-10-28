@@ -15,69 +15,69 @@ type ColSpanType = number | string;
 
 declare type Value = [number, number] | number;
 /**
- * 组件属性
+ * Thuộc tính component
  */
 export interface IVFormComponent {
   // extends Omit<FormSchema, 'component' | 'label' | 'field' | 'rules'> {
-  // 对应的字段
+  // Trường tương ứng
   field?: string;
-  // 组件类型
+  // Kiểu component
   component: string;
-  // 组件label
+  // Label của component
   label?: string;
-  // 自定义组件控件实例
+  // Thể hiện điều khiển component tùy chỉnh
   componentInstance?: ComponentOptions<any>;
-  // 组件icon
+  // Icon của component
   icon?: string;
-  // 组件校验规则
+  // Quy tắc kiểm tra component
   rules?: Partial<IValidationRule>[];
-  // 是否隐藏
+  // Có ẩn hay không
   hidden?: boolean;
-  // 隐藏label
+  // Ẩn label
   hiddenLabel?: boolean;
-  // 组件宽度
+  // Chiều rộng component
   width?: string;
-  // 是否必选
+  // Có bắt buộc hay không
   required?: boolean;
-  // 必选提示
+  // Nhắc nhở bắt buộc
   message?: string;
-  // 提示信息
+  // Thông tin nhắc nhở
   helpMessage?: string;
-  // 传给给组件的属性，默认会吧所有的props都传递给控件
+  // Thuộc tính truyền cho component, mặc định sẽ truyền tất cả các props cho điều khiển
   componentProps?: IAnyObject;
-  // 监听组件事件对象，以v-on方式传递给控件
+  // Đối tượng sự kiện lắng nghe component, truyền cho điều khiển theo cách v-on
   on?: IAnyObject<(...any: []) => void>;
-  // 组件选项
+  // Tùy chọn component
   options?: IAnyObject;
-  // 唯一标识
+  // Định danh duy nhất
   key?: string;
   // Reference formModelItem
   itemProps?: Partial<FormItem>;
 
   colProps?: Partial<ColEx>;
-  // 联动字段
+  // Trường liên động
   link?: string[];
-  // 联动属性变化的回调
+  // Callback khi thuộc tính liên động thay đổi
   update?: (value: any, formItem: IVFormComponent, fApi: IVFormMethods) => void;
-  // 控件栅格数
+  // Số cột lưới của điều khiển
   // span?: number;
-  // 标签布局
+  // Bố cục nhãn
   labelCol?: IAnyObject;
-  // 组件布局
+  // Bố cục component
   wrapperCol?: IAnyObject;
-  // 子控件
+  // Điều khiển con
   columns?: Array<{ span: number; children: any[] }>;
 }
 
 declare type namesType = string | string[];
 
 /**
- * 表单配置
+ * Cấu hình form
  */
 export interface IFormConfig {
-  // 表单项配置列表
+  // Danh sách cấu hình mục form
   // schemas: IVFormComponent[];
-  // 表单配置
+  // Cấu hình form
   // config: {
   layout?: LayoutType;
   labelLayout?: labelLayout;
@@ -92,7 +92,7 @@ export interface IFormConfig {
   // Internal component size of the form
   size?: 'default' | 'small' | 'large';
   // };
-  // 当前选中项
+  // Mục đang được chọn hiện tại
   currentItem?: IVFormComponent;
   activeKey?: PropsTabKey;
   colon?: boolean;

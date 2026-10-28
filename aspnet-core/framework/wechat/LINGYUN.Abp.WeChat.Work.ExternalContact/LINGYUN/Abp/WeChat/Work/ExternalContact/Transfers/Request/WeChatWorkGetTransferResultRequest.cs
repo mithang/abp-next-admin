@@ -5,29 +5,29 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Request;
 /// <summary>
-/// 查询客户接替状态请求参数
+/// Tham số yêu cầu truy vấn trạng thái bàn giao khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94088" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/94088" />
 /// </remarks>
 public class WeChatWorkGetTransferResultRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 原跟进成员的userid
+    /// Userid của thành viên theo dõi ban đầu
     /// </summary>
     [NotNull]
     [JsonProperty("handover_userid")]
     [JsonPropertyName("handover_userid")]
     public string HandOverUserId { get; }
     /// <summary>
-    /// 接替成员的userid
+    /// Userid của thành viên bàn giao
     /// </summary>
     [NotNull]
     [JsonProperty("takeover_userid")]
     [JsonPropertyName("takeover_userid")]
     public string TakeOverUserId { get; }
     /// <summary>
-    /// 分页查询的cursor，每个分页返回的数据不会超过1000条；不填或为空表示获取第一个分页
+    /// Cursor truy vấn phân trang, dữ liệu trả về trên mỗi trang không vượt quá 1000 bản ghi; không điền hoặc để trống nghĩa là lấy trang đầu tiên
     /// </summary>
     [CanBeNull]
     [JsonProperty("cursor")]

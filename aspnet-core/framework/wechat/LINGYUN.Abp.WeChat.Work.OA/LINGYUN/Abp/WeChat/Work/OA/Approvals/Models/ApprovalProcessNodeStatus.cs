@@ -2,53 +2,53 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 节点状态
+/// Trạng thái nút
 /// </summary>
 public enum ApprovalProcessNodeStatus : byte
 {
     /// <summary>
-    /// 审批中
+    /// Đang phê duyệt
     /// </summary>
-    [Description("审批中")]
+    [Description("Đang phê duyệt")]
     UnderApproval = 1,
     /// <summary>
-    /// 同意
+    /// Đồng ý
     /// </summary>
-    [Description("同意")]
+    [Description("Đồng ý")]
     Agree = 2,
     /// <summary>
-    /// 驳回
+    /// Từ chối
     /// </summary>
-    [Description("驳回")]
+    [Description("Từ chối")]
     Rejection = 3,
     /// <summary>
-    /// 转审
+    /// Chuyển xét duyệt
     /// </summary>
-    [Description("转审")]
+    [Description("Chuyển xét duyệt")]
     TransferForReview = 4,
     /// <summary>
-    /// 退回给指定审批人
+    /// Trả lại cho người phê duyệt được chỉ định
     /// </summary>
-    [Description("退回给指定审批人")]
+    [Description("Trả lại cho người phê duyệt được chỉ định")]
     ReturnToApprover = 11,
     /// <summary>
-    /// 加签
+    /// Thêm người ký
     /// </summary>
-    [Description("加签")]
+    [Description("Thêm người ký")]
     Additional = 12,
     /// <summary>
-    /// 同意并加签
+    /// Đồng ý và thêm người ký
     /// </summary>
-    [Description("同意并加签")]
+    [Description("Đồng ý và thêm người ký")]
     AgreeAndSign = 13,
     /// <summary>
-    /// 办理
+    /// Xử lý
     /// </summary>
-    [Description("办理")]
+    [Description("Xử lý")]
     Processing = 14,
     /// <summary>
-    /// 转交
+    /// Chuyển giao
     /// </summary>
-    [Description("转交")]
+    [Description("Chuyển giao")]
     Transfer = 15,
 }

@@ -71,7 +71,7 @@
           })
           .finally(() => changeLoading(false));
       }
-      // 不加延迟在下次请求不会携带租户标识
+      // Nếu không thêm độ trễ thì lần yêu cầu tiếp theo sẽ không mang theo định danh tenant
       setTimeout(() => {
         abpStore
           .initlizeAbpApplication()

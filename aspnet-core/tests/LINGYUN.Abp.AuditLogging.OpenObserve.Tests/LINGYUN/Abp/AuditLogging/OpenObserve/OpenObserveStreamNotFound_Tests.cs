@@ -9,10 +9,10 @@ using Xunit;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 数据流不存在时的处理
+/// Xử lý khi luồng dữ liệu không tồn tại
 /// </summary>
 /// <remarks>
-/// OpenObserve 未写入过数据时数据流尚未创建, 查询按空结果处理并记录警告日志
+/// Khi OpenObserve chưa từng ghi dữ liệu thì luồng dữ liệu chưa được tạo, truy vấn được xử lý như kết quả rỗng và ghi nhật ký cảnh báo
 /// </remarks>
 public class OpenObserveStreamNotFound_Tests : AbpAuditLoggingOpenObserveTestBase
 {
@@ -32,7 +32,7 @@ public class OpenObserveStreamNotFound_Tests : AbpAuditLoggingOpenObserveTestBas
 
         var tenantId = Guid.NewGuid();
 
-        // 该租户从未写入过数据, 其数据流尚未创建
+        // Tenant này chưa từng ghi dữ liệu, luồng dữ liệu của nó chưa được tạo
         using (_currentTenant.Change(tenantId))
         {
             (await _manager.GetCountAsync()).ShouldBe(0);
@@ -43,7 +43,7 @@ public class OpenObserveStreamNotFound_Tests : AbpAuditLoggingOpenObserveTestBas
                                      entry.Message.Contains("does not exist yet", StringComparison.OrdinalIgnoreCase));
 
         warning.ShouldNotBeNull();
-        // 日志类别为管理器类型(由子类注入的 ILogger<T> 决定)
+        // Danh mục nhật ký là kiểu của trình quản lý (do ILogger<T> được lớp con inject quyết định)
         warning!.Category.ShouldContain("OpenObserveAuditLogManager");
     }
 }

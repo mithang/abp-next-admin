@@ -163,7 +163,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host;
     typeof(AbpBackgroundWorkersHangfireModule),
     typeof(AbpBackgroundJobsHangfireModule),
 
-    //typeof(AbpOssManagementMinioModule), // 取消注释以使用Minio
+    //typeof(AbpOssManagementMinioModule), // Bỏ ghi chú để dùng Minio
     typeof(AbpOssManagementFileSystemModule),
     // typeof(AbpOssManagementImagingModule),
     typeof(AbpOssManagementDomainModule),
@@ -214,7 +214,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host;
     typeof(AbpPermissionManagementDomainOpenIddictModule),
     // typeof(AbpPermissionManagementDomainIdentityServerModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
-    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // 组织机构权限管理
+    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // Quản lý quyền của tổ chức
 
     typeof(AbpEntityFrameworkCorePostgreSqlModule),
 
@@ -325,7 +325,7 @@ public partial class MicroServiceApplicationsSingleModule : AbpModule
         ConfigureCaching(configuration);
         ConfigureAuditing(configuration);
         ConfigureIdentity(configuration);
-        ConfigureAuthServer(configuration);
+        ConfigureAuthServer(configuration, hostingEnvironment);
         ConfigureSwagger(context.Services);
         ConfigureEndpoints(context.Services);
         ConfigureBlobStoring(configuration);

@@ -1,14 +1,14 @@
 # LINGYUN.Abp.Identity.Domain.Shared
 
-身份认证领域共享模块，提供身份认证相关的基础定义。
+Module chia sẻ lĩnh vực xác thực danh tính, cung cấp các định nghĩa cơ sở liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 提供身份认证相关的本地化资源
-* 提供身份认证相关的虚拟文件系统配置
-* 扩展Volo.Abp.Identity.AbpIdentityDomainSharedModule模块
+* Cung cấp tài nguyên bản địa hóa liên quan đến xác thực danh tính
+* Cung cấp cấu hình hệ thống file ảo liên quan đến xác thực danh tính
+* Mở rộng module Volo.Abp.Identity.AbpIdentityDomainSharedModule
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpIdentityDomainSharedModule))]
@@ -18,13 +18,13 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Cấu hình
 
-无需额外配置。
+Không cần cấu hình thêm.
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 引用模块
+1. Tham chiếu module
 ```csharp
 [DependsOn(typeof(AbpIdentityDomainSharedModule))]
 public class YouProjectModule : AbpModule
@@ -32,7 +32,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用本地化资源
+2. Sử dụng tài nguyên bản địa hóa
 ```csharp
 public class YourClass
 {
@@ -50,6 +50,6 @@ public class YourClass
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)

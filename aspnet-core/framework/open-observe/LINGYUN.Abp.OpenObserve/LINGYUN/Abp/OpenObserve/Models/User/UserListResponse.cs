@@ -5,27 +5,27 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.User;
 
 /// <summary>
-/// 用户列表响应
+/// Phản hồi danh sách người dùng
 /// </summary>
 /// <remarks>
-/// 实测响应为 {"data":[...]}, 文档示例为 {"list":[...]}, 两者都做兼容
+/// Phản hồi thực tế là {"data":[...]}, ví dụ trong tài liệu là {"list":[...]}, cả hai đều được hỗ trợ tương thích
 /// </remarks>
 public class UserListResponse
 {
     /// <summary>
-    /// 用户列表
+    /// Danh sách người dùng
     /// </summary>
     [JsonPropertyName("data")]
     public UserInfo[]? Data { get; set; }
 
     /// <summary>
-    /// 用户列表
+    /// Danh sách người dùng
     /// </summary>
     [JsonPropertyName("list")]
     public UserInfo[]? List { get; set; }
 
     /// <summary>
-    /// 用户列表
+    /// Danh sách người dùng
     /// </summary>
     [JsonIgnore]
     public UserInfo[] Users => Data ?? List ?? [];

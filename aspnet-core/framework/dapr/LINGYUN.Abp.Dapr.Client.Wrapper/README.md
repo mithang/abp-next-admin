@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Dapr.Client.Wrapper
 
-Dapr服务间调用，对包装后的响应结果解包  
+Gọi giữa các service Dapr, giải nén (unwrap) kết quả phản hồi đã được đóng gói
 
-## 功能特性
+## Tính năng
 
-* 自动响应结果包装/解包
-* 与ABP包装系统集成
-* 自定义包装响应的错误处理
-* 支持成功/错误代码配置
-* HTTP状态码映射
-* 支持自定义响应包装格式
-* 灵活的包装控制选项
+* Tự động đóng gói/giải nén kết quả phản hồi
+* Tích hợp với hệ thống đóng gói của ABP
+* Xử lý lỗi tùy chỉnh cho phản hồi đã đóng gói
+* Hỗ trợ cấu hình mã thành công/lỗi
+* Ánh xạ mã trạng thái HTTP
+* Hỗ trợ định dạng đóng gói phản hồi tùy chỉnh
+* Tùy chọn kiểm soát đóng gói linh hoạt
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpDaprClientModule))]
@@ -23,25 +23,25 @@ public class AbpDaprClientWrapperModule : AbpModule
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
-模块使用来自`LINGYUN.Abp.Wrapper`包的`AbpWrapperOptions`进行配置：
+Mô-đun được cấu hình bằng `AbpWrapperOptions` từ gói `LINGYUN.Abp.Wrapper`:
 
 ```json
 {
     "Wrapper": {
-        "IsEnabled": true,  // 启用/禁用响应包装
-        "CodeWithSuccess": "0",  // 包装响应中的成功代码
-        "HttpStatusCode": 200,  // 包装响应的默认HTTP状态码
-        "WrapOnError": true,  // 是否包装错误响应
-        "WrapOnSuccess": true  // 是否包装成功响应
+        "IsEnabled": true,  // Bật/tắt đóng gói phản hồi
+        "CodeWithSuccess": "0",  // Mã thành công trong phản hồi đã đóng gói
+        "HttpStatusCode": 200,  // Mã trạng thái HTTP mặc định của phản hồi đã đóng gói
+        "WrapOnError": true,  // Có đóng gói phản hồi lỗi hay không
+        "WrapOnSuccess": true  // Có đóng gói phản hồi thành công hay không
     }
 }
 ```
 
-## 实现示例
+## Ví dụ triển khai
 
-1. 服务定义
+1. Định nghĩa service
 
 ```csharp
 public interface IProductService
@@ -52,7 +52,7 @@ public interface IProductService
 }
 ```
 
-2. 服务实现
+2. Triển khai service
 
 ```csharp
 public class ProductService : IProductService
@@ -66,10 +66,10 @@ public class ProductService : IProductService
 
     public async Task<ProductDto> GetAsync(string id)
     {
-        // 调用会自动处理响应包装
+        // Lời gọi sẽ tự động xử lý việc đóng gói phản hồi
         return await _daprClient.InvokeMethodAsync<ProductDto>(
-            "product-service",  // 目标服务ID
-            $"api/products/{id}",  // 方法路径
+            "product-service",  // ID service đích
+            $"api/products/{id}",  // Đường dẫn phương thức
             HttpMethod.Get
         );
     }
@@ -95,58 +95,58 @@ public class ProductService : IProductService
 }
 ```
 
-## 响应格式
+## Định dạng phản hồi
 
-当启用包装时，响应将采用以下格式：
+Khi bật đóng gói, phản hồi sẽ có định dạng sau:
 
 ```json
 {
-    "code": "0",  // 响应代码，默认"0"表示成功
-    "message": "Success",  // 响应消息
-    "details": null,  // 附加详情（可选）
-    "result": {  // 实际响应数据
-        // ... 响应内容
+    "code": "0",  // Mã phản hồi, mặc định "0" nghĩa là thành công
+    "message": "Success",  // Thông điệp phản hồi
+    "details": null,  // Chi tiết bổ sung (tùy chọn)
+    "result": {  // Dữ liệu phản hồi thực tế
+        // ... Nội dung phản hồi
     }
 }
 ```
 
-## 错误处理
+## Xử lý lỗi
 
-模块自动处理错误响应：
-* 对于包装的响应（带有`AbpWrapResult`头）：
-  * 解包响应并检查代码
-  * 如果代码与`CodeWithSuccess`不匹配，抛出`AbpRemoteCallException`
-  * 在异常中包含错误消息、详情和代码
-  * 支持自定义错误代码映射
-* 对于未包装的响应：
-  * 传递原始响应
-  * 使用标准HTTP错误处理
-  * 保持原始错误信息
+Mô-đun tự động xử lý phản hồi lỗi:
+* Đối với phản hồi đã đóng gói (kèm header `AbpWrapResult`):
+  * Giải nén phản hồi và kiểm tra mã
+  * Nếu mã không khớp với `CodeWithSuccess`, ném ra `AbpRemoteCallException`
+  * Bao gồm thông điệp lỗi, chi tiết và mã trong ngoại lệ
+  * Hỗ trợ ánh xạ mã lỗi tùy chỉnh
+* Đối với phản hồi chưa đóng gói:
+  * Chuyển tiếp phản hồi gốc
+  * Sử dụng xử lý lỗi HTTP tiêu chuẩn
+  * Giữ nguyên thông tin lỗi gốc
 
-### 错误响应示例
+### Ví dụ phản hồi lỗi
 
 ```json
 {
     "code": "ERROR_001",
-    "message": "产品未找到",
-    "details": "ID为'123'的产品不存在",
+    "message": "Không tìm thấy sản phẩm",
+    "details": "Không tồn tại sản phẩm có ID '123'",
     "result": null
 }
 ```
 
-## 高级用法
+## Cách dùng nâng cao
 
-### 1. 控制响应包装
+### 1. Kiểm soát việc đóng gói phản hồi
 
-可以通过HTTP头控制单个请求的响应包装：
+Có thể kiểm soát việc đóng gói phản hồi của từng request riêng lẻ qua header HTTP:
 
 ```csharp
-// 在请求头中添加
+// Thêm vào header của request
 var headers = new Dictionary<string, string>
 {
-    { "X-Abp-Wrap-Result", "true" },  // 强制启用包装
-    // 或
-    { "X-Abp-Dont-Wrap-Result", "true" }  // 强制禁用包装
+    { "X-Abp-Wrap-Result", "true" },  // Bắt buộc bật đóng gói
+    // hoặc
+    { "X-Abp-Dont-Wrap-Result", "true" }  // Bắt buộc tắt đóng gói
 };
 
 await _daprClient.InvokeMethodAsync<ProductDto>(
@@ -158,32 +158,32 @@ await _daprClient.InvokeMethodAsync<ProductDto>(
 );
 ```
 
-### 2. 自定义错误处理
+### 2. Xử lý lỗi tùy chỉnh
 
 ```csharp
 public class CustomErrorHandler : IAbpWrapperErrorHandler
 {
     public Task HandleAsync(AbpWrapperErrorContext context)
     {
-        // 自定义错误处理逻辑
+        // Logic xử lý lỗi tùy chỉnh
         if (context.Response.Code == "CUSTOM_ERROR")
         {
-            // 特殊处理
+            // Xử lý đặc biệt
         }
         return Task.CompletedTask;
     }
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-* 响应包装可以通过以下方式控制：
-  * 配置文件中的全局设置
-  * HTTP头控制单个请求
-  * 代码中的动态控制
-* 错误响应尽可能保持原始错误结构
-* 模块与ABP的远程服务错误处理系统集成
-* 建议在微服务架构中统一使用响应包装
-* 包装格式可以通过继承`IAbpWrapperResponseBuilder`自定义
+* Việc đóng gói phản hồi có thể được kiểm soát bằng các cách sau:
+  * Cài đặt toàn cục trong file cấu hình
+  * Header HTTP kiểm soát từng request riêng lẻ
+  * Kiểm soát động trong code
+* Phản hồi lỗi giữ nguyên cấu trúc lỗi gốc ở mức tối đa có thể
+* Mô-đun tích hợp với hệ thống xử lý lỗi service từ xa của ABP
+* Nên thống nhất sử dụng đóng gói phản hồi trong kiến trúc microservice
+* Định dạng đóng gói có thể tùy chỉnh bằng cách kế thừa `IAbpWrapperResponseBuilder`
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

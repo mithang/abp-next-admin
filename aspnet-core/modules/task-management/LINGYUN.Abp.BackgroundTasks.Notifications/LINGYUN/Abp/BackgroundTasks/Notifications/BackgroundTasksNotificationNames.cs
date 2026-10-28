@@ -4,15 +4,15 @@ public static class BackgroundTasksNotificationNames
 {
     public const string GroupName = "Abp.Notifications.BackgroundTasks";
     /// <summary>
-    /// 作业执行成功
+    /// Công việc thực thi thành công
     /// </summary>
     public const string JobExecuteSucceeded = GroupName + ".ExecuteSucceeded";
     /// <summary>
-    /// 作业执行失败
+    /// Công việc thực thi thất bại
     /// </summary>
     public const string JobExecuteFailed = GroupName + ".ExecuteFailed";
     /// <summary>
-    /// 作业执行完毕
+    /// Công việc thực thi hoàn tất
     /// </summary>
     public const string JobExecuteCompleted = GroupName + ".ExecuteCompleted";
 }

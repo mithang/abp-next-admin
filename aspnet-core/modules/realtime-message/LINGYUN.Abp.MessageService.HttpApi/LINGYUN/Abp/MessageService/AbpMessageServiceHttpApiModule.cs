@@ -22,8 +22,8 @@ public class AbpMessageServiceHttpApiModule : AbpModule
         PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
         {
             options.AddAssemblyResource(
-                typeof(MessageServiceResource), // 用于本地化的资源
-                typeof(AbpMessageServiceApplicationContractsModule).Assembly);  // Dto所在程序集
+                typeof(MessageServiceResource), // Tài nguyên dùng cho bản địa hóa
+                typeof(AbpMessageServiceApplicationContractsModule).Assembly);  // Assembly chứa Dto
         });
     }
 }

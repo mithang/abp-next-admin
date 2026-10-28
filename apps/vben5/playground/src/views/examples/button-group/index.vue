@@ -19,12 +19,12 @@ const radioValue = ref<string | undefined>('a');
 const checkValue = ref(['a', 'b']);
 
 const options = [
-  { label: '选项1', value: 'a' },
-  { label: '选项2', value: 'b', num: 999 },
-  { label: '选项3', value: 'c' },
-  { label: '选项4', value: 'd' },
-  { label: '选项5', value: 'e' },
-  { label: '选项6', value: 'f' },
+  { label: 'Lựa chọn 1', value: 'a' },
+  { label: 'Lựa chọn 2', value: 'b', num: 999 },
+  { label: 'Lựa chọn 3', value: 'c' },
+  { label: 'Lựa chọn 4', value: 'd' },
+  { label: 'Lựa chọn 5', value: 'e' },
+  { label: 'Lựa chọn 6', value: 'f' },
 ];
 
 function resetValues() {
@@ -35,12 +35,15 @@ function resetValues() {
 function beforeChange(v: any, isChecked: boolean) {
   return new Promise((resolve) => {
     message.loading({
-      content: `正在设置${v}为${isChecked ? '选中' : '未选中'}...`,
+      content: `Đang đặt ${v} thành ${isChecked ? 'đã chọn' : 'chưa chọn'}...`,
       duration: 0,
       key: 'beforeChange',
     });
     setTimeout(() => {
-      message.success({ content: `${v} 已设置成功`, key: 'beforeChange' });
+      message.success({
+        content: `${v} đã đặt thành công`,
+        key: 'beforeChange',
+      });
       resolve(true);
     }, 2000);
   });
@@ -73,60 +76,60 @@ const [Form] = useVbenForm({
       component: 'RadioGroup',
       componentProps: {
         options: [
-          { label: '大', value: 'large' },
-          { label: '中', value: 'middle' },
-          { label: '小', value: 'small' },
+          { label: 'Lớn', value: 'large' },
+          { label: 'Vừa', value: 'middle' },
+          { label: 'Nhỏ', value: 'small' },
         ],
       },
       defaultValue: compProps.size,
       fieldName: 'size',
-      label: '尺寸',
+      label: 'Kích thước',
     },
     {
       component: 'RadioGroup',
       componentProps: {
         options: [
-          { label: '无', value: 0 },
-          { label: '小', value: 5 },
-          { label: '中', value: 15 },
-          { label: '大', value: 30 },
+          { label: 'Không có', value: 0 },
+          { label: 'Nhỏ', value: 5 },
+          { label: 'Vừa', value: 15 },
+          { label: 'Lớn', value: 30 },
         ],
       },
       defaultValue: compProps.gap,
       fieldName: 'gap',
-      label: '间距',
+      label: 'Khoảng cách',
     },
     {
       component: 'Switch',
       defaultValue: compProps.showIcon,
       fieldName: 'showIcon',
-      label: '显示图标',
+      label: 'Hiển thị biểu tượng',
     },
     {
       component: 'Switch',
       defaultValue: compProps.disabled,
       fieldName: 'disabled',
-      label: '禁用',
+      label: 'Vô hiệu hóa',
     },
     {
       component: 'Switch',
       defaultValue: false,
       fieldName: 'beforeChange',
-      label: '前置回调',
+      label: 'Callback trước',
     },
     {
       component: 'Switch',
       defaultValue: false,
       fieldName: 'allowClear',
-      label: '允许清除',
-      help: '单选时是否允许取消选中（值为undefined）',
+      label: 'Cho phép xóa',
+      help: 'Khi chọn một, có cho phép hủy chọn hay không (giá trị là undefined)',
     },
     {
       component: 'InputNumber',
       defaultValue: 0,
       fieldName: 'maxCount',
-      label: '最大选中数量',
-      help: '多选时有效，0表示不限制',
+      label: 'Số lượng chọn tối đa',
+      help: 'Có hiệu lực khi chọn nhiều, 0 nghĩa là không giới hạn',
     },
   ],
   showDefaultActions: false,
@@ -136,20 +139,20 @@ const [Form] = useVbenForm({
 function onBtnClick(value: any) {
   const opt = options.find((o) => o.value === value);
   if (opt) {
-    message.success(`点击了按钮${opt.label}，value = ${value}`);
+    message.success(`Đã nhấn nút ${opt.label}, value = ${value}`);
   }
 }
 </script>
 <template>
   <Page
-    title="VbenButtonGroup 按钮组"
-    description="VbenButtonGroup是一个按钮容器，用于包裹一组按钮，协调整体样式。VbenCheckButtonGroup则可以作为一个表单组件，提供单选或多选功能"
+    title="VbenButtonGroup Nhóm nút"
+    description="VbenButtonGroup là một vùng chứa nút, dùng để bao một nhóm nút và điều phối kiểu tổng thể. VbenCheckButtonGroup thì có thể dùng làm component form, cung cấp chức năng chọn một hoặc chọn nhiều"
   >
-    <Card title="基本用法">
+    <Card title="Cách dùng cơ bản">
       <template #extra>
-        <Button type="primary" @click="resetValues">清空值</Button>
+        <Button type="primary" @click="resetValues">Xóa giá trị</Button>
       </template>
-      <p class="mt-4">按钮组：</p>
+      <p class="mt-4">Nhóm nút:</p>
       <div class="mt-2 flex flex-col gap-2">
         <VbenButtonGroup v-bind="compProps" border>
           <VbenButton
@@ -172,7 +175,7 @@ function onBtnClick(value: any) {
           </VbenButton>
         </VbenButtonGroup>
       </div>
-      <p class="mt-4">单选：{{ radioValue }}</p>
+      <p class="mt-4">Chọn một:{{ radioValue }}</p>
       <div class="mt-2 flex flex-col gap-2">
         <VbenCheckButtonGroup
           v-model="radioValue"
@@ -180,7 +183,7 @@ function onBtnClick(value: any) {
           v-bind="compProps"
         />
       </div>
-      <p class="mt-4">单选插槽：{{ radioValue }}</p>
+      <p class="mt-4">Slot chọn một:{{ radioValue }}</p>
       <div class="mt-2 flex flex-col gap-2">
         <VbenCheckButtonGroup
           v-model="radioValue"
@@ -196,7 +199,7 @@ function onBtnClick(value: any) {
           </template>
         </VbenCheckButtonGroup>
       </div>
-      <p class="mt-4">多选{{ checkValue }}</p>
+      <p class="mt-4">Chọn nhiều{{ checkValue }}</p>
       <div class="mt-2 flex flex-col gap-2">
         <VbenCheckButtonGroup
           v-model="checkValue"
@@ -205,7 +208,7 @@ function onBtnClick(value: any) {
           v-bind="compProps"
         />
       </div>
-      <p class="mt-4">自定义图标{{ checkValue }}</p>
+      <p class="mt-4">Biểu tượng tùy chỉnh{{ checkValue }}</p>
       <div class="mt-2 flex flex-col gap-2">
         <VbenCheckButtonGroup
           v-model="checkValue"
@@ -222,7 +225,7 @@ function onBtnClick(value: any) {
       </div>
     </Card>
 
-    <Card title="设置" class="mt-4">
+    <Card title="Cài đặt" class="mt-4">
       <Form />
     </Card>
   </Page>

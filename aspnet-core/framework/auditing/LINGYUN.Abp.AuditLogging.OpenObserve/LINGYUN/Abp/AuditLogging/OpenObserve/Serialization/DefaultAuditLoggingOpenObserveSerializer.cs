@@ -5,11 +5,11 @@ using Volo.Abp.Json;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve.Serialization;
 
 /// <summary>
-/// 默认序列化器
+/// Bộ tuần tự hóa mặc định
 /// </summary>
 /// <remarks>
-/// 直接使用 ABP 的 <see cref="IJsonSerializer"/>, 以复用全局的
-/// <c>AbpSystemTextJsonSerializerModifiersOptions</c> 修饰器配置
+/// Trực tiếp dùng <see cref="IJsonSerializer"/>, để tái sử dụng toàn cục
+/// <c>AbpSystemTextJsonSerializerModifiersOptions</c> cấu hình bộ trang trí
 /// </remarks>
 public class DefaultAuditLoggingOpenObserveSerializer : IAuditLoggingOpenObserveSerializer, ITransientDependency
 {
@@ -38,7 +38,7 @@ public class DefaultAuditLoggingOpenObserveSerializer : IAuditLoggingOpenObserve
         }
         catch (Exception)
         {
-            // 历史数据或非预期结构时返回默认值
+            // Khi dữ liệu lịch sử hoặc cấu trúc không như mong đợi thì trả về giá trị mặc định
             return default;
         }
     }

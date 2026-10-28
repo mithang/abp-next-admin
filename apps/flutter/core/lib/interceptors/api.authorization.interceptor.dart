@@ -23,7 +23,7 @@ class ApiAuthorizationInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    // 需要处理401错误
+    // Cần xử lý lỗi 401
     if (err.response?.statusCode == 401) {
       var token = SessionService.to.token;
       if (token == null || token.refreshToken.isNullOrWhiteSpace() == true)

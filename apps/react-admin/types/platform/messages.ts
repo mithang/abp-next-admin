@@ -1,61 +1,61 @@
 import type { AuditedEntityDto, PagedAndSortedResultRequestDto } from "#/abp-core";
 
-/** 消息状态 */
+/** Trạng thái tin nhắn */
 export enum MessageStatus {
-	/** 发送失败 */
+	/** Gửi thất bại */
 	Failed = 10,
-	/** 未发送 */
+	/** Chưa gửi */
 	Pending = -1,
-	/** 已发送 */
+	/** Đã gửi */
 	Sent = 0,
 }
-/** 邮件优先级 */
+/** Mức độ ưu tiên của email */
 export enum MailPriority {
-	/** 高 */
+	/** Cao */
 	High = 2,
-	/** 低 */
+	/** Thấp */
 	Low = 1,
-	/** 普通 */
+	/** Bình thường */
 	Normal = 0,
 }
 
 interface MessageDto extends AuditedEntityDto<string> {
-	/** 消息内容 */
+	/** Nội dung tin nhắn */
 	content: string;
-	/** 消息发布者 */
+	/** Người phát hành tin nhắn */
 	provider?: string;
-	/** 错误原因 */
+	/** Nguyên nhân lỗi */
 	reason?: string;
-	/** 接收方 */
+	/** Bên nhận */
 	receiver: string;
-	/** 发送次数 */
+	/** Số lần gửi */
 	sendCount: number;
-	/** 发送人 */
+	/** Người gửi */
 	sender?: string;
-	/** 发送时间 */
+	/** Thời gian gửi */
 	sendTime?: Date;
-	/** 状态 */
+	/** Trạng thái */
 	status: MessageStatus;
-	/** 发送人Id */
+	/** Id người gửi */
 	userId?: string;
 }
-/** 邮件附件 */
+/** Tệp đính kèm email */
 interface EmailMessageAttachmentDto {
-	/** 附件存储名称 */
+	/** Tên lưu trữ của tệp đính kèm */
 	blobName: string;
-	/** 附件名称 */
+	/** Tên tệp đính kèm */
 	name: string;
-	/** 附件大小 */
+	/** Kích thước tệp đính kèm */
 	size: number;
 }
-/** 邮件标头 */
+/** Tiêu đề email */
 interface EmailMessageHeaderDto {
-	/** 键名 */
+	/** Tên khóa */
 	key: string;
-	/** 键值 */
+	/** Giá trị khóa */
 	value: string;
 }
-/** 邮件消息 */
+/** Tin nhắn email */
 interface EmailMessageDto extends MessageDto {
 	attachments: EmailMessageAttachmentDto[];
 	cc?: string;

@@ -5,7 +5,7 @@ using Volo.Abp.Settings;
 
 namespace LINGYUN.Abp.MicroService.AdminService.Settings;
 
-// 后台管理项目不引用 Volo.Abp.Account.Application模块,只能自建一个配置
+// Dự án quản trị không tham chiếu Volo.Abp.Account.Applicationmodule,chỉ có thể tự xây dựng một cấu hình
 public class AccountSettingDefinitionProvider : SettingDefinitionProvider
 {
     private const string GroupName = "Identity";

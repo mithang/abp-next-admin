@@ -28,7 +28,7 @@ public class DefaultExceptionWrapHandler : IExceptionWrapHandler
             }
         }
 
-        // 没有处理的异常代码统一用配置代码处理
+        // Các mã ngoại lệ chưa được xử lý sẽ được xử lý thống nhất bằng mã cấu hình
         if (context.ErrorInfo.Code.IsNullOrWhiteSpace())
         {
             if (context.StatusCode.HasValue)

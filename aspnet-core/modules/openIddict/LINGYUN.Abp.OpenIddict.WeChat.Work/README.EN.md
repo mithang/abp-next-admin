@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.WeChat.Work` is a WeChat Work (Enterprise WeChat) authentication extension module based on OpenIddict, supporting WeChat Work authentication flow.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

@@ -54,24 +54,24 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
             var strategyFilterResult = await StrategyFilterBuilder.Build<TEntity, TKey, TEntityAuth>(queryable, dbContext.Set<TEntityAuth>());
             if (strategyFilterResult != null && strategyFilterResult.Strategy != DataAccessStrategy.Custom)
             {
-                // 根据配置的用户数据权限策略进行过滤
+                // Lọc theo chính sách quyền dữ liệu người dùng đã cấu hình
                 queryable = strategyFilterResult.Queryable;
             }
             else
             {
-                // 根据配置的用户实体数据权限规则过滤
+                // Lọc theo quy tắc quyền dữ liệu thực thể người dùng đã cấu hình
                 var dataAccessFilterExp = await _entityTypeFilterBuilder.Build<TEntity>(DataAccessOperation.Read);
                 queryable = queryable.Where(dataAccessFilterExp);
             }
         }
         else
         {
-            // 根据配置的用户实体数据权限规则过滤
+            // Lọc theo quy tắc quyền dữ liệu thực thể người dùng đã cấu hình
             var dataAccessFilterExp = await _entityTypeFilterBuilder.Build<TEntity>(DataAccessOperation.Read);
             queryable = queryable.Where(dataAccessFilterExp);
         }
 
-        // 仅查询授权字段
+        // Chỉ truy vấn các trường được ủy quyền
         var accessFieldExp = await _entityPropertyResultBuilder.Build<TEntity>(DataAccessOperation.Read);
 
         queryable = queryable.Select(accessFieldExp);
@@ -178,7 +178,7 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
     }
 
     /// <summary>
-    /// 创建实体角色数据权限实体
+    /// Tạo thực thể quyền dữ liệu vai trò của thực thể
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="role"></param>
@@ -191,7 +191,7 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
         return entityAuth as TEntityAuth;
     }
     /// <summary>
-    /// 创建实体组织机构数据权限实体
+    /// Tạo thực thể quyền dữ liệu tổ chức của thực thể
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="ouCode"></param>
@@ -204,7 +204,7 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
         return entityAuth as TEntityAuth;
     }
     /// <summary>
-    /// 持久化实体数据权限
+    /// Duy trì quyền dữ liệu thực thể
     /// </summary>
     /// <param name="dbContext"></param>
     /// <param name="entity"></param>
@@ -212,7 +212,7 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
     /// <returns></returns>
     protected async virtual Task PersistenEntityAuthInfoAsync(TDbContext dbContext, TEntity entity, CancellationToken cancellationToken = default)
     {
-        // 可重写此方法以进行分布式持久化数据权限
+        // Có thể ghi đè phương thức này để duy trì quyền dữ liệu theo cách phân tán
         var entityAuth = dbContext.Set<TEntityAuth>();
 
         var entityRoleAuths = CurrentUser.Roles
@@ -223,7 +223,7 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
         await entityAuth.AddRangeAsync(entityRoleAuths.Union(entityOuAuths)!, GetCancellationToken(cancellationToken));
     }
     /// <summary>
-    /// 持久化实体数据权限
+    /// Duy trì quyền dữ liệu thực thể
     /// </summary>
     /// <param name="dbContext"></param>
     /// <param name="entities"></param>
@@ -231,7 +231,7 @@ public abstract class EfCoreDataProtectionRepository<TDbContext, TEntity, TKey, 
     /// <returns></returns>
     protected async virtual Task PersistenEntityAuthInfoAsync(TDbContext dbContext, IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
     {
-        // 可重写此方法以进行分布式持久化数据权限
+        // Có thể ghi đè phương thức này để duy trì quyền dữ liệu theo cách phân tán
 
         var entityAuth = dbContext.Set<TEntityAuth>();
         var entityAuths = new List<TEntityAuth>();

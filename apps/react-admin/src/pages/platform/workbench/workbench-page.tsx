@@ -159,7 +159,7 @@ const WorkbenchPage: React.FC = () => {
 				avatar={userInfo?.avatar}
 				text={userInfo?.realName}
 				notifierCount={unReadCount}
-				description="今日晴，20℃ - 32℃！" // Localize or fetch real weather
+				description="Hôm nay nắng, 20℃ - 32℃!" // Localize or fetch real weather
 			>
 				{welcomeTitle}
 			</WorkbenchHeader>

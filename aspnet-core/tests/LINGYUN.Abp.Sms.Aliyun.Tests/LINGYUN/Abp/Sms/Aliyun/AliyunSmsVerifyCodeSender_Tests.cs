@@ -18,7 +18,7 @@ public class AliyunSmsVerifyCodeSender_Tests : AbpAliyunTestBase
     }
 
     /// <summary>
-    /// 阿里云短信测试
+    /// Kiểm tra SMS Alibaba Cloud
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>
@@ -39,7 +39,7 @@ public class AliyunSmsVerifyCodeSender_Tests : AbpAliyunTestBase
     }
 
     /// <summary>
-    /// 阿里云短信测试
+    /// Kiểm tra SMS Alibaba Cloud
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>

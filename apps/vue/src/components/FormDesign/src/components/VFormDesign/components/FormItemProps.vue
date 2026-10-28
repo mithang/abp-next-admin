@@ -1,10 +1,10 @@
 <!--
- * @Description: 表单项属性，控件属性面板
+ * @Description: Thuộc tính mục form, bảng thuộc tính control
 -->
 <template>
   <div class="properties-content">
     <div class="properties-body" v-if="formConfig.currentItem?.itemProps">
-      <Empty class="hint-box" v-if="!formConfig.currentItem.key" description="未选择控件" />
+      <Empty class="hint-box" v-if="!formConfig.currentItem.key" description="Chưa chọn control" />
       <Form v-else label-align="left" layout="vertical">
         <div v-for="item of baseFormItemProps" :key="item.name">
           <FormItem :label="item.label" v-if="showProps(item.exclude)">
@@ -35,24 +35,24 @@
             />
           </FormItem>
         </div>
-        <FormItem label="控制属性" v-if="controlPropsList.length">
+        <FormItem label="Thuộc tính điều khiển" v-if="controlPropsList.length">
           <Col v-for="item of controlPropsList" :key="item.name">
             <Checkbox v-model:checked="formConfig.currentItem.itemProps[item.name]">
               {{ item.label }}
             </Checkbox>
           </Col>
         </FormItem>
-        <FormItem label="是否必选" v-if="!['Grid'].includes(formConfig.currentItem.component)">
+        <FormItem label="Có bắt buộc hay không" v-if="!['Grid'].includes(formConfig.currentItem.component)">
           <Switch v-model:checked="formConfig.currentItem.itemProps['required']" />
           <Input
             v-if="formConfig.currentItem.itemProps['required']"
             v-model:value="formConfig.currentItem.itemProps['message']"
-            placeholder="请输入必选提示"
+            placeholder="Vui lòng nhập gợi ý bắt buộc"
           />
         </FormItem>
         <FormItem
           v-if="!['Grid'].includes(formConfig.currentItem.component)"
-          label="校验规则"
+          label="Quy tắc kiểm tra"
           :class="{ 'form-rule-props': !!formConfig.currentItem.itemProps['rules'] }"
         >
           <RuleProps />

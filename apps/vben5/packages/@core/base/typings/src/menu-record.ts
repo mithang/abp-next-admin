@@ -2,7 +2,7 @@ import type { Component } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
 /**
- * 扩展路由原始对象
+ * Mở rộng đối tượng gốc của route
  */
 type ExRouteRecordRaw = RouteRecordRaw & {
   parent?: string;
@@ -12,62 +12,62 @@ type ExRouteRecordRaw = RouteRecordRaw & {
 
 interface MenuRecordBadgeRaw {
   /**
-   * 徽标
+   * Huy hiệu
    */
   badge?: string;
   /**
-   * 徽标类型
+   * Loại huy hiệu
    */
   badgeType?: 'dot' | 'normal';
   /**
-   * 徽标颜色
+   * Màu huy hiệu
    */
   badgeVariants?: 'destructive' | 'primary' | string;
 }
 
 /**
- * 菜单原始对象
+ * Đối tượng gốc của menu
  */
 interface MenuRecordRaw extends MenuRecordBadgeRaw {
   /**
-   * 激活时的图标名
+   * Tên biểu tượng khi kích hoạt
    */
   activeIcon?: string;
   /**
-   * 子菜单
+   * Menu con
    */
   children?: MenuRecordRaw[];
   /**
-   * 是否禁用菜单
+   * Có vô hiệu hóa menu không
    * @default false
    */
   disabled?: boolean;
   /**
-   * 图标名
+   * Tên biểu tượng
    */
   icon?: Component | string;
   /**
-   * 菜单名
+   * Tên menu
    */
   name: string;
   /**
-   * 排序号
+   * Số thứ tự
    */
   order?: number;
   /**
-   * 父级路径
+   * Đường dẫn cấp cha
    */
   parent?: string;
   /**
-   * 所有父级路径
+   * Tất cả đường dẫn cấp cha
    */
   parents?: string[];
   /**
-   * 菜单路径，唯一，可当作key
+   * Đường dẫn menu, duy nhất, có thể dùng làm key
    */
   path: string;
   /**
-   * 是否显示菜单
+   * Có hiển thị menu không
    * @default true
    */
   show?: boolean;

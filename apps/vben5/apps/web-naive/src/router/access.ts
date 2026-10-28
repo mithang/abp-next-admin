@@ -29,9 +29,9 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
       });
       return await getAllMenusApi();
     },
-    // 可以指定没有权限跳转403页面
+    // Có thể chỉ định chuyển hướng tới trang 403 khi không có quyền
     forbiddenComponent,
-    // 如果 route.meta.menuVisibleWithForbidden = true
+    // Nếu route.meta.menuVisibleWithForbidden = true
     layoutMap,
     pageMap,
   });

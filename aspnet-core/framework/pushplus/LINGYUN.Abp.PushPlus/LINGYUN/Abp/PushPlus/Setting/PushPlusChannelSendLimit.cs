@@ -1,27 +1,27 @@
 ﻿namespace LINGYUN.Abp.PushPlus.Setting;
 /// <summary>
-/// 发送限制；
-/// 0-无限制，
-/// 1-禁止所有渠道发送，
-/// 2-限制微信渠道，
-/// 3-限制邮件渠道
+/// Giới hạn gửi;
+/// 0-Không giới hạn,
+/// 1-Cấm gửi qua mọi kênh,
+/// 2-Hạn chế kênh WeChat,
+/// 3-Hạn chế kênh email
 /// </summary>
 public enum PushPlusChannelSendLimit
 {
     /// <summary>
-    /// 无限制
+    /// Không giới hạn
     /// </summary>
     None = 0,
     /// <summary>
-    /// 禁止所有渠道发送
+    /// Cấm gửi qua mọi kênh
     /// </summary>
     ForbidAllChannel = 1,
     /// <summary>
-    /// 限制微信渠道
+    /// Hạn chế kênh WeChat
     /// </summary>
     ForbidWeChatChannel = 2,
     /// <summary>
-    /// 限制邮件渠道
+    /// Hạn chế kênh email
     /// </summary>
     ForbidEmailChannel = 3,
 }

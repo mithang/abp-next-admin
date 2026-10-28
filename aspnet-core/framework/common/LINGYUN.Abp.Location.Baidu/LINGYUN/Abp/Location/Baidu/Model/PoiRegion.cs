@@ -4,30 +4,30 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.Location.Baidu.Model;
 
 /// <summary>
-/// 区域面
+/// Khu vực
 /// </summary>
 public class PoiRegion
 {
     /// <summary>
-    /// 归属区域面名称
+    /// Tên khu vực trực thuộc
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 归属区域面类型
+    /// Loại khu vực trực thuộc
     /// </summary>
     public string? Tag { get; set; }
     /// <summary>
-    /// 请求中的坐标与所归属区域面的相对位置关系
+    /// Quan hệ vị trí tương đối giữa tọa độ trong yêu cầu và khu vực trực thuộc
     /// </summary>
     [JsonProperty("direction_desc")]
     [JsonPropertyName("direction_desc")]
     public string? DirectionDesc { get; set; }
     /// <summary>
-    /// poi唯一标识
+    /// Mã định danh duy nhất của POI
     /// </summary>
     public string Uid { get; set; } = default!;
     /// <summary>
-    /// 离坐标点距离
+    /// Khoảng cách tới điểm tọa độ
     /// </summary>
     public string? Distance { get; set; }
 }

@@ -1,50 +1,50 @@
 # LINGYUN.Abp.TextTemplating.Domain
 
-## 模块说明
+## Mô tả module
 
-文本模板领域模块，提供文本模板定义和内容管理的核心功能。
+Module lĩnh vực mẫu văn bản, cung cấp chức năng cốt lõi quản lý định nghĩa và nội dung mẫu văn bản.
 
-### 基础模块
+### Module cơ sở
 
 * Volo.Abp.TextTemplating
 * Volo.Abp.Ddd.Domain
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供文本模板定义的领域实体
-  * TextTemplateDefinition - 文本模板定义实体
-  * TextTemplateContent - 文本模板内容实体
-* 提供文本模板定义的仓储接口
-  * ITextTemplateDefinitionRepository - 文本模板定义仓储接口
-  * ITextTemplateContentRepository - 文本模板内容仓储接口
-* 提供文本模板管理的领域服务
-  * TextTemplateManager - 文本模板管理器
-  * IStaticTemplateDefinitionStore - 静态模板定义存储
-  * IDynamicTemplateDefinitionStore - 动态模板定义存储
+* Cung cấp thực thể lĩnh vực của định nghĩa mẫu văn bản
+  * TextTemplateDefinition - Thực thể định nghĩa mẫu văn bản
+  * TextTemplateContent - Thực thể nội dung mẫu văn bản
+* Cung cấp giao diện kho lưu trữ của định nghĩa mẫu văn bản
+  * ITextTemplateDefinitionRepository - Giao diện kho lưu trữ định nghĩa mẫu văn bản
+  * ITextTemplateContentRepository - Giao diện kho lưu trữ nội dung mẫu văn bản
+* Cung cấp dịch vụ lĩnh vực quản lý mẫu văn bản
+  * TextTemplateManager - Trình quản lý mẫu văn bản
+  * IStaticTemplateDefinitionStore - Kho lưu trữ định nghĩa mẫu tĩnh
+  * IDynamicTemplateDefinitionStore - Kho lưu trữ định nghĩa mẫu động
 
-### 领域服务
+### Dịch vụ lĩnh vực
 
 * TextTemplateManager
-  * 管理文本模板的创建、更新、删除
-  * 处理模板定义与内容的关联
-  * 支持静态和动态模板定义的管理
+  * Quản lý việc tạo, cập nhật, xóa mẫu văn bản
+  * Xử lý liên kết giữa định nghĩa mẫu và nội dung
+  * Hỗ trợ quản lý định nghĩa mẫu tĩnh và động
 
-### 实体属性
+### Thuộc tính thực thể
 
 * TextTemplateDefinition
-  * Name - 模板名称
-  * DisplayName - 显示名称
-  * IsLayout - 是否为布局模板
-  * Layout - 布局名称
-  * IsInlineLocalized - 是否内联本地化
-  * DefaultCultureName - 默认文化名称
-  * LocalizationResourceName - 本地化资源名称
-  * RenderEngine - 渲染引擎
-  * IsStatic - 是否为静态模板
+  * Name - Tên mẫu
+  * DisplayName - Tên hiển thị
+  * IsLayout - Có phải mẫu bố cục hay không
+  * Layout - Tên bố cục
+  * IsInlineLocalized - Có bản địa hóa nội tuyến hay không
+  * DefaultCultureName - Tên văn hóa mặc định
+  * LocalizationResourceName - Tên tài nguyên bản địa hóa
+  * RenderEngine - Công cụ kết xuất
+  * IsStatic - Có phải mẫu tĩnh hay không
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingDomainModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingDomainModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingDomainModule))]
@@ -53,7 +53,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用文本模板管理器
+2. Sử dụng trình quản lý mẫu văn bản
 
 ```csharp
 public class YourService
@@ -67,7 +67,7 @@ public class YourService
 
     public async Task ManageTemplateAsync()
     {
-        // 创建模板定义
+        // Tạo định nghĩa mẫu
         var template = new TextTemplateDefinition(
             Guid.NewGuid(),
             "TemplateName",
@@ -79,4 +79,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

@@ -11,37 +11,37 @@ const formSchema = computed((): VbenFormSchema[] => {
   return [
     {
       fieldName: 'oldPassword',
-      label: '旧密码',
+      label: 'Mật khẩu cũ',
       component: 'VbenInputPassword',
       componentProps: {
-        placeholder: '请输入旧密码',
+        placeholder: 'Vui lòng nhập mật khẩu cũ',
       },
     },
     {
       fieldName: 'newPassword',
-      label: '新密码',
+      label: 'Mật khẩu mới',
       component: 'VbenInputPassword',
       componentProps: {
         passwordStrength: true,
-        placeholder: '请输入新密码',
+        placeholder: 'Vui lòng nhập mật khẩu mới',
       },
     },
     {
       fieldName: 'confirmPassword',
-      label: '确认密码',
+      label: 'Xác nhận mật khẩu',
       component: 'VbenInputPassword',
       componentProps: {
         passwordStrength: true,
-        placeholder: '请再次输入新密码',
+        placeholder: 'Vui lòng nhập lại mật khẩu mới',
       },
       dependencies: {
         rules(values) {
           const { newPassword } = values;
           return z
-            .string({ required_error: '请再次输入新密码' })
-            .min(1, { message: '请再次输入新密码' })
+            .string({ required_error: 'Vui lòng nhập lại mật khẩu mới' })
+            .min(1, { message: 'Vui lòng nhập lại mật khẩu mới' })
             .refine((value) => value === newPassword, {
-              message: '两次输入的密码不一致',
+              message: 'Hai lần nhập mật khẩu không khớp',
             });
         },
         triggerFields: ['newPassword'],
@@ -51,7 +51,7 @@ const formSchema = computed((): VbenFormSchema[] => {
 });
 
 function handleSubmit() {
-  message.success('密码修改成功');
+  message.success('Đổi mật khẩu thành công');
 }
 </script>
 <template>

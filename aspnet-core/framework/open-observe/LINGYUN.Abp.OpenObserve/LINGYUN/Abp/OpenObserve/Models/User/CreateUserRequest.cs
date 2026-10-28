@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.User;
 
 /// <summary>
-/// 创建用户请求
+/// Yêu cầu tạo người dùng
 /// </summary>
 public class CreateUserRequest
 {
     /// <summary>
-    /// 邮箱
+    /// Email
     /// </summary>
     [JsonPropertyName("email")]
     public string Email { get; set; } = default!;
@@ -22,13 +22,13 @@ public class CreateUserRequest
     public string? LastName { get; set; }
 
     /// <summary>
-    /// 密码
+    /// Mật khẩu
     /// </summary>
     [JsonPropertyName("password")]
     public string Password { get; set; } = default!;
 
     /// <summary>
-    /// 角色
+    /// Vai trò
     /// </summary>
     /// <remarks>
     /// admin / user

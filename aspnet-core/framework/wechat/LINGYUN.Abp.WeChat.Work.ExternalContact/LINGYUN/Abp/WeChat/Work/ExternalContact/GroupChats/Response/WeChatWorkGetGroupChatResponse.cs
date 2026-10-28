@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Response;
 /// <summary>
-/// 获取客户群详情响应结果
+/// Kết quả phản hồi lấy chi tiết nhóm khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92122" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/92122" />
 /// </remarks>
 public class WeChatWorkGetGroupChatResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 客户群详情
+    /// Chi tiết nhóm khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("group_chat")]

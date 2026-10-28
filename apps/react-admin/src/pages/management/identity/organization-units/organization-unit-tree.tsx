@@ -28,7 +28,7 @@ const OrganizationUnitTree: React.FC<Props> = ({ onSelected }) => {
 	const [permissionModalVisible, setPermissionModalVisible] = useState(false);
 	const [selectedUnit, setSelectedUnit] = useState<{ id?: string; parentId?: string }>();
 
-	// 获取根节点列表
+	// Lấy danh sách nút gốc
 	const { refetch: refreshTree } = useQuery({
 		queryKey: ["organizationUnits", "root"],
 		queryFn: async () => {
@@ -46,7 +46,7 @@ const OrganizationUnitTree: React.FC<Props> = ({ onSelected }) => {
 		},
 	});
 
-	// 移动节点
+	// Di chuyển nút
 	const { mutateAsync: moveNode } = useMutation({
 		mutationFn: ({ id, parentId }: { id: string; parentId?: string }) => moveTo(id, parentId),
 		onSuccess: () => {
@@ -54,7 +54,7 @@ const OrganizationUnitTree: React.FC<Props> = ({ onSelected }) => {
 		},
 	});
 
-	// 删除节点
+	// Xoá nút
 	const { mutateAsync: deleteNode } = useMutation({
 		mutationFn: deleteApi,
 		onSuccess: () => {
@@ -68,13 +68,13 @@ const OrganizationUnitTree: React.FC<Props> = ({ onSelected }) => {
 			if (node.key === key) {
 				return {
 					...node,
-					children, // 更新子节点
+					children, // Cập nhật nút con
 				};
 			}
 			if (node.children) {
 				return {
 					...node,
-					children: updateTreeData(node.children, key, children), // 递归更新子节点
+					children: updateTreeData(node.children, key, children), // Cập nhật đệ quy nút con
 				};
 			}
 			return node;
@@ -172,7 +172,7 @@ const OrganizationUnitTree: React.FC<Props> = ({ onSelected }) => {
 			>
 				<Tree
 					loadData={async (node) => {
-						// 加载子节点
+						// Tải nút con
 						const nodeKey = String(node.key);
 						const { items } = await getChildrenApi({ id: nodeKey });
 						node.isLeaf = items.length === 0;
@@ -197,8 +197,8 @@ const OrganizationUnitTree: React.FC<Props> = ({ onSelected }) => {
 						const dragKey = String(info.dragNode.key);
 						const dropKey =
 							info.dropPosition === -1
-								? undefined // 作为根节点
-								: String(info.node.key); // 作为子节点
+								? undefined // Đặt làm nút gốc
+								: String(info.node.key); // Đặt làm nút con
 						moveNode({ id: dragKey, parentId: dropKey });
 					}}
 					onRightClick={(_) => {}}

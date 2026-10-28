@@ -6,22 +6,22 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Request;
 /// <summary>
-/// 创建审批模板请求参数
+/// Tham số yêu cầu tạo mẫu phê duyệt
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/97437"/>
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/97437"/>
 /// </remarks>
 public class WeChatWorkCreateTemplateRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 模版名称数组
+    /// Mảng tên mẫu
     /// </summary>
     [NotNull]
     [JsonProperty("template_name")]
     [JsonPropertyName("template_name")]
     public List<TemplateName> TemplateName {  get; set; }
     /// <summary>
-    /// 审批模版控件设置，由多个表单控件及其内容组成，其中包含需要对控件赋值的信息
+    /// Thiết lập điều khiển mẫu phê duyệt, gồm nhiều điều khiển biểu mẫu và nội dung của chúng, trong đó chứa thông tin cần gán giá trị cho điều khiển
     /// </summary>
     [NotNull]
     [JsonProperty("template_content")]

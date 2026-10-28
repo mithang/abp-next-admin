@@ -8,17 +8,17 @@ namespace Microsoft.AspNetCore.Authentication.QQ;
 public class QQConnectOAuthOptions : OAuthOptions
 {
     /// <summary>
-    /// 是否移动端样式
+    /// Có phải kiểu dành cho thiết bị di động hay không
     /// </summary>
     public bool IsMobile { get; set; }
     /// <summary>
-    /// 获取用户OpenID_OAuth2.0
+    /// Lấy OpenID của người dùng_OAuth2.0
     /// </summary>
     public string OpenIdEndpoint { get; set; }
 
     public QQConnectOAuthOptions()
     {
-        // 用于防止初始化错误,会在OAuthHandler.InitializeHandlerAsync中进行重写
+        // Dùng để tránh lỗi khởi tạo, sẽ được ghi đè trong OAuthHandler.InitializeHandlerAsync
         ClientId = "QQConnect";
         ClientSecret = "QQConnect";
 
@@ -32,11 +32,11 @@ public class QQConnectOAuthOptions : OAuthOptions
 
         Scope.Add("get_user_info");
 
-        // 这个原始的属性一定要写进去,框架关联判断是否绑定QQ
+        // Thuộc tính gốc này bắt buộc phải ghi vào, framework dựa vào đó để xác định có liên kết QQ hay không
         ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "openid");
         ClaimActions.MapJsonKey(ClaimTypes.Name, "nickname");
 
-        // 把自定义的身份标识写进令牌
+        // Ghi định danh tùy chỉnh vào token
         ClaimActions.MapJsonKey(AbpQQClaimTypes.OpenId, "openid");
         ClaimActions.MapJsonKey(AbpQQClaimTypes.NickName, "nickname");
         ClaimActions.MapJsonKey(AbpQQClaimTypes.Gender, "gender");

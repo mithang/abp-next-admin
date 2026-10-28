@@ -1,9 +1,9 @@
 # LINGYUN.Abp.Elsa.Server
 
-Elsa.Server.Api集成, 处理elsa默认端点    
+Tích hợp Elsa.Server.Api, xử lý endpoint mặc định của elsa    
 
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 

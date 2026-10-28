@@ -9,41 +9,41 @@ namespace LINGYUN.Abp.Gdpr;
 public interface IGdprRequestAppService : IApplicationService
 {
     /// <summary>
-    /// 获取个人数据请求详情
+    /// Lấy chi tiết yêu cầu dữ liệu cá nhân
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     Task<GdprRequestDto> GetAsync(Guid id);
     /// <summary>
-    /// 获取个人数据请求列表
+    /// Lấy danh sách yêu cầu dữ liệu cá nhân
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<PagedResultDto<GdprRequestDto>> GetListAsync(GdprRequestGetListInput input);
     /// <summary>
-    /// 下载已收集的用户数据
+    /// Tải xuống dữ liệu người dùng đã thu thập
     /// </summary>
     /// <param name="requestId"></param>
     /// <returns></returns>
     Task<IRemoteStreamContent> DownloadPersonalDataAsync(Guid requestId);
     /// <summary>
-    /// 删除个人数据请求
+    /// Xóa yêu cầu dữ liệu cá nhân
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     Task DeleteAsync(Guid id);
     /// <summary>
-    /// 准备用户数据
+    /// Chuẩn bị dữ liệu người dùng
     /// </summary>
     /// <returns></returns>
     Task PreparePersonalDataAsync();
     /// <summary>
-    /// 删除用户数据
+    /// Xóa dữ liệu người dùng
     /// </summary>
     /// <returns></returns>
     Task DeletePersonalDataAsync();
     /// <summary>
-    /// 删除用户账户
+    /// Xóa tài khoản người dùng
     /// </summary>
     /// <returns></returns>
     Task DeletePersonalAccountAsync();

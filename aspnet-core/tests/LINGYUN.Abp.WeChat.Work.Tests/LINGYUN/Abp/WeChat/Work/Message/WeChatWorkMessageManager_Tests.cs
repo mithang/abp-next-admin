@@ -17,7 +17,7 @@ public class WeChatWorkMessageManager_Tests : AbpWeChatWorkTestBase
     [InlineData("1000002")]
     public async Task ReCall_Message_Test(string agentId)
     {
-        var text = new TextMessage("发送一条用于测试撤回接口的消息");
+        var text = new TextMessage("Gửi một tin nhắn dùng để kiểm tra giao diện thu hồi");
         var message = new WeChatWorkTextMessage(agentId, text)
         {
             ToUser = "@all"

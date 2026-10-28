@@ -1,0 +1,19 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Required": "Bắt buộc",
+    "InvalidSelectAccountRequest": "Yêu cầu chọn tài khoản không hợp lệ!",
+    "NoAvailableAccounts": "Không tìm thấy tài khoản khả dụng!",
+    "InvalidSelectAccount": "Tài khoản đã chọn không hợp lệ!",
+    "SelectAccount": "Chọn tài khoản",
+    "CurrentAccount": "Tài khoản hiện tại",
+    "SignedInAs": "Chọn tài khoản để đăng nhập vào {0}",
+    "LastLoginTime": "Đăng nhập lần trước",
+    "Continue": "Tiếp tục",
+    "SwitchToAnotherAccount": "Sử dụng tài khoản khác",
+    "CreateNewAccount": "Tạo tài khoản mới",
+    "SelectedAccountId": "Vui lòng chọn một tài khoản",
+    "RememberSelection": "Ghi nhớ lựa chọn của tôi",
+    "RememberMe": "Duy trì trạng thái đăng nhập"
+  }
+}

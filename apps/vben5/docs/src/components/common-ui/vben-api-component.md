@@ -2,21 +2,21 @@
 outline: deep
 ---
 
-# Vben ApiComponent Api组件包装器
+# Vben ApiComponent Trình bao bọc component Api
 
-框架提供的API“包装器”，它一般不独立使用，主要用于包装其它组件，为目标组件提供自动获取远程数据的能力，但仍然保持了目标组件的原始用法。
+API "trình bao bọc" do framework cung cấp, nó thường không dùng độc lập, chủ yếu dùng để bao bọc các component khác, cung cấp cho component đích khả năng tự động lấy dữ liệu từ xa, nhưng vẫn giữ cách dùng gốc của component đích.
 
-::: info 写在前面
+::: info Viết ở phía trước
 
-我们在各个应用的组件适配器中，使用ApiComponent包装了Select、TreeSelect组件，使得这些组件可以自动获取远程数据并生成选项。其它类似的组件（比如Cascader）如有需要也可以参考示例代码自行进行包装。
+Trong bộ điều hợp component của các ứng dụng, chúng tôi đã dùng ApiComponent để bao bọc các component Select, TreeSelect, giúp các component này có thể tự động lấy dữ liệu từ xa và tạo ra các tùy chọn. Các component tương tự khác (ví dụ Cascader) nếu cần cũng có thể tham khảo code ví dụ để tự bao bọc.
 
 :::
 
-## 基础用法
+## Cách dùng cơ bản
 
-通过 `component` 传入其它组件的定义，并配置相关的其它属性（主要是一些名称映射）。包装组件将通过`api`获取数据（`beforerFetch`、`afterFetch`将分别在`api`运行前、运行后被调用），使用`resultField`从中提取数组，使用`valueField`、`labelField`等来从数据中提取value和label（如果提供了`childrenField`，会将其作为树形结构递归处理每一级数据），之后将处理好的数据通过`optionsPropName`指定的属性传递给目标组件。
+Truyền định nghĩa của component khác qua `component`, và cấu hình các thuộc tính liên quan khác (chủ yếu là một số ánh xạ tên). Component bao bọc sẽ lấy dữ liệu qua `api` (`beforerFetch`, `afterFetch` sẽ lần lượt được gọi trước và sau khi `api` chạy), dùng `resultField` để trích xuất mảng từ đó, dùng `valueField`, `labelField` v.v. để trích xuất value và label từ dữ liệu (nếu cung cấp `childrenField`, sẽ xử lý đệ quy từng cấp dữ liệu dưới dạng cấu trúc cây), sau đó truyền dữ liệu đã xử lý cho component đích qua thuộc tính do `optionsPropName` chỉ định.
 
-::: details 包装级联选择器,点击下拉时开始加载远程数据
+::: details Bao bọc bộ chọn xếp tầng, bắt đầu tải dữ liệu từ xa khi nhấn vào dropdown
 
 ```vue
 <script lang="ts" setup>
@@ -26,72 +26,72 @@ import { Cascader } from 'ant-design-vue';
 
 const treeData: Record<string, any> = [
   {
-    label: '浙江',
+    label: 'Chiết Giang',
     value: 'zhejiang',
     children: [
       {
         value: 'hangzhou',
-        label: '杭州',
+        label: 'Hàng Châu',
         children: [
           {
             value: 'xihu',
-            label: '西湖',
+            label: 'Tây Hồ',
           },
           {
             value: 'sudi',
-            label: '苏堤',
+            label: 'Đê Tô',
           },
         ],
       },
       {
         value: 'jiaxing',
-        label: '嘉兴',
+        label: 'Gia Hưng',
         children: [
           {
             value: 'wuzhen',
-            label: '乌镇',
+            label: 'Ô Trấn',
           },
           {
             value: 'meihuazhou',
-            label: '梅花洲',
+            label: 'Mai Hoa Châu',
           },
         ],
       },
       {
         value: 'zhoushan',
-        label: '舟山',
+        label: 'Chu Sơn',
         children: [
           {
             value: 'putuoshan',
-            label: '普陀山',
+            label: 'Phổ Đà Sơn',
           },
           {
             value: 'taohuadao',
-            label: '桃花岛',
+            label: 'Đảo Đào Hoa',
           },
         ],
       },
     ],
   },
   {
-    label: '江苏',
+    label: 'Giang Tô',
     value: 'jiangsu',
     children: [
       {
         value: 'nanjing',
-        label: '南京',
+        label: 'Nam Kinh',
         children: [
           {
             value: 'zhonghuamen',
-            label: '中华门',
+            label: 'Trung Hoa Môn',
           },
           {
             value: 'zijinshan',
-            label: '紫金山',
+            label: 'Tử Kim Sơn',
           },
           {
             value: 'yuhuatai',
-            label: '雨花台',
+            label: 'Vũ Hoa Đài',
           },
         ],
       },
@@ -99,7 +99,7 @@ const treeData: Record<string, any> = [
   },
 ];
 /**
- * 模拟请求接口
+ * Mô phỏng giao diện yêu cầu
  */
 function fetchApi(): Promise<Record<string, any>> {
   return new Promise((resolve) => {
@@ -123,51 +123,51 @@ function fetchApi(): Promise<Record<string, any>> {
 
 :::
 
-## 并发和缓存
+## Đồng thời và bộ nhớ đệm
 
-有些场景下可能需要使用多个ApiComponent，它们使用了相同的远程数据源（例如用在可编辑的表格中）。如果直接将请求后端接口的函数传递给api属性，则每一个实例都会访问一次接口，这会造成资源浪费，是完全没有必要的。Tanstack Query提供了并发控制、缓存、重试等诸多特性，我们可以将接口请求函数用useQuery包装一下再传递给ApiComponent，这样的话无论页面有多少个使用相同数据源的ApiComponent实例，都只会发起一次远程请求。演示效果请参考 [Playground vue-query](https://www.vben.pro/#/demos/features/vue-query)，具体代码请查看项目文件[concurrency-caching](https://github.com/vbenjs/vue-vben-admin/blob/main/playground/src/views/demos/features/vue-query/concurrency-caching.vue)
+Có một số trường hợp có thể cần dùng nhiều ApiComponent, chúng dùng cùng một nguồn dữ liệu từ xa (ví dụ dùng trong bảng có thể chỉnh sửa). Nếu truyền trực tiếp hàm yêu cầu API backend cho thuộc tính api, thì mỗi instance sẽ truy cập API một lần, gây lãng phí tài nguyên, hoàn toàn không cần thiết. Tanstack Query cung cấp nhiều tính năng như kiểm soát đồng thời, bộ nhớ đệm, thử lại v.v., chúng ta có thể bao bọc hàm yêu cầu API bằng useQuery rồi truyền cho ApiComponent, như vậy dù trang có bao nhiêu instance ApiComponent dùng cùng nguồn dữ liệu thì cũng chỉ gửi một yêu cầu từ xa. Hiệu quả demo tham khảo [Playground vue-query](https://www.vben.pro/#/demos/features/vue-query), code cụ thể xem file dự án [concurrency-caching](https://github.com/vbenjs/vue-vben-admin/blob/main/playground/src/views/demos/features/vue-query/concurrency-caching.vue)
 
 ## API
 
 ### Props
 
-| 属性名 | 描述 | 类型 | 默认值 | 版本要求 |
+| Tên thuộc tính | Mô tả | Kiểu | Giá trị mặc định | Yêu cầu phiên bản |
 | --- | --- | --- | --- | --- |
-| modelValue(v-model) | 当前值 | `any` | - | - |
-| component | 欲包装的组件（以下称为目标组件） | `Component` | - | - |
-| numberToString | 是否将value从数字转为string | `boolean` | `false` | - |
-| api | 获取数据的函数 | `(arg?: any) => Promise<OptionsItem[] \| Record<string, any>>` | - | - |
-| params | 传递给api的参数 | `Record<string, any>` | - | - |
-| resultField | 从api返回的结果中提取options数组的字段名 | `string` | - | - |
-| labelField | label字段名 | `string` | `label` | - |
-| childrenField | 子级数据字段名，需要层级数据的组件可用 | `string` | `` | - |
-| valueField | value字段名 | `string` | `value` | - |
-| optionsPropName | 目标组件接收options数据的属性名称 | `string` | `options` | - |
-| modelPropName | 目标组件的双向绑定属性名，默认为modelValue。部分组件可能为value | `string` | `modelValue` | - |
-| immediate | 是否立即调用api | `boolean` | `true` | - |
-| alwaysLoad | 每次`visibleEvent`事件发生时都重新请求数据 | `boolean` | `false` | - |
-| beforeFetch | 在api请求之前的回调函数 | `AnyPromiseFunction<any, any>` | - | - |
-| afterFetch | 在api请求之后的回调函数 | `AnyPromiseFunction<any, any>` | - | - |
-| options | 直接传入选项数据，也作为api返回空数据时的后备数据 | `OptionsItem[]` | - | - |
-| visibleEvent | 触发重新请求数据的事件名 | `string` | - | - |
-| loadingSlot | 目标组件的插槽名称，用来显示一个"加载中"的图标 | `string` | - | - |
-| autoSelect | 自动设置选项 | `'first' \| 'last' \| 'one'\| ((item: OptionsItem[]) => OptionsItem) \| false` | `false` | >5.5.4 |
+| modelValue(v-model) | Giá trị hiện tại | `any` | - | - |
+| component | Component muốn bao bọc (dưới đây gọi là component đích) | `Component` | - | - |
+| numberToString | Có chuyển value từ số sang string hay không | `boolean` | `false` | - |
+| api | Hàm lấy dữ liệu | `(arg?: any) => Promise<OptionsItem[] \| Record<string, any>>` | - | - |
+| params | Tham số truyền cho api | `Record<string, any>` | - | - |
+| resultField | Tên trường trích xuất mảng options từ kết quả api trả về | `string` | - | - |
+| labelField | Tên trường label | `string` | `label` | - |
+| childrenField | Tên trường dữ liệu cấp con, component cần dữ liệu phân cấp có thể dùng | `string` | `` | - |
+| valueField | Tên trường value | `string` | `value` | - |
+| optionsPropName | Tên thuộc tính component đích nhận dữ liệu options | `string` | `options` | - |
+| modelPropName | Tên thuộc tính liên kết hai chiều của component đích, mặc định là modelValue. Một số component có thể là value | `string` | `modelValue` | - |
+| immediate | Có gọi api ngay lập tức hay không | `boolean` | `true` | - |
+| alwaysLoad | Mỗi khi sự kiện `visibleEvent` xảy ra đều yêu cầu lại dữ liệu | `boolean` | `false` | - |
+| beforeFetch | Hàm callback trước khi yêu cầu api | `AnyPromiseFunction<any, any>` | - | - |
+| afterFetch | Hàm callback sau khi yêu cầu api | `AnyPromiseFunction<any, any>` | - | - |
+| options | Truyền trực tiếp dữ liệu tùy chọn, cũng dùng làm dữ liệu dự phòng khi api trả về dữ liệu rỗng | `OptionsItem[]` | - | - |
+| visibleEvent | Tên sự kiện kích hoạt yêu cầu lại dữ liệu | `string` | - | - |
+| loadingSlot | Tên slot của component đích, dùng để hiển thị biểu tượng "đang tải" | `string` | - | - |
+| autoSelect | Tự động đặt tùy chọn | `'first' \| 'last' \| 'one'\| ((item: OptionsItem[]) => OptionsItem) \| false` | `false` | >5.5.4 |
 
-#### autoSelect 自动设置选项
+#### autoSelect Tự động đặt tùy chọn
 
-如果当前值为undefined，在选项数据成功加载之后，自动从备选项中选择一个作为当前值。默认值为`false`，即不自动选择选项。注意：该属性不应用于多选组件。可选值有：
+Nếu giá trị hiện tại là undefined, sau khi dữ liệu tùy chọn tải thành công, tự động chọn một tùy chọn từ các tùy chọn dự phòng làm giá trị hiện tại. Giá trị mặc định là `false`, tức không tự động chọn tùy chọn. Lưu ý: thuộc tính này không nên áp dụng cho component đa chọn. Các giá trị có thể chọn là:
 
-- `"first"`：自动选择第一个选项
-- `"last"`：自动选择最后一个选项
-- `"one"`：有且仅有一个选项时，自动选择它
-- `自定义函数`：自定义选择逻辑，函数的参数为options，返回值为选择的选项
-- `false`：不自动选择选项
+- `"first"`: Tự động chọn tùy chọn đầu tiên
+- `"last"`: Tự động chọn tùy chọn cuối cùng
+- `"one"`: Khi có và chỉ có một tùy chọn, tự động chọn nó
+- `Hàm tùy chỉnh`: Logic chọn tùy chỉnh, tham số của hàm là options, giá trị trả về là tùy chọn đã chọn
+- `false`: Không tự động chọn tùy chọn
 
 ### Methods
 
-| 方法 | 描述 | 类型 | 版本要求 |
+| Phương thức | Mô tả | Kiểu | Yêu cầu phiên bản |
 | --- | --- | --- | --- |
-| getComponentRef | 获取被包装的组件的实例 | ()=>T | >5.5.4 |
-| updateParam | 设置接口请求参数（将与params属性合并） | (newParams: Record<string, any>)=>void | >5.5.4 |
-| getOptions | 获取已加载的选项数据 | ()=>OptionsItem[] | >5.5.4 |
-| getValue | 获取当前值 | ()=>any | >5.5.4 |
+| getComponentRef | Lấy instance của component được bao bọc | ()=>T | >5.5.4 |
+| updateParam | Đặt tham số yêu cầu API (sẽ hợp nhất với thuộc tính params) | (newParams: Record<string, any>)=>void | >5.5.4 |
+| getOptions | Lấy dữ liệu tùy chọn đã tải | ()=>OptionsItem[] | >5.5.4 |
+| getValue | Lấy giá trị hiện tại | ()=>any | >5.5.4 |

@@ -4,16 +4,16 @@ WORKDIR /app
 
 COPY . /app
 
-## 设置服务器时区.
-## 建议在外部(如docker-compose.yml)中定义
+## Đặt múi giờ máy chủ.
+## Nên định nghĩa ở bên ngoài (ví dụ docker-compose.yml)
 ## Set server time zone.
 ## Suggest defining it externally (such as Docker Compose. yml)
 #ENV TZ=Asia/Shanghai
 #RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
 
 
-## 解决连接SqlServer TLS版本过高问题.
-## 如果数据提供者是SqlServer, 且兼容性版本在120及以下,需要手动取消注释.
+## Khắc phục sự cố phiên bản TLS quá cao khi kết nối SqlServer.
+## Nếu nhà cung cấp dữ liệu là SqlServer và phiên bản tương thích từ 120 trở xuống, cần bỏ ghi chú thủ công.
 ## The version of connection SqlServer TLS is too high.
 ## If the data provider is SqlServer and the compatibility version is 120 and below, manual annotation needs to be cancelled.
 
@@ -38,7 +38,7 @@ COPY . /app
 #RUN sed -i '$a\[system_default_sect]' /etc/ssl/openssl.cnf
 #RUN sed -i '$a\CipherString = DEFAULT:@SECLEVEL=0' /etc/ssl/openssl.cnf
 
-## 阿里源
+## Nguồn mirror Alibaba
 #RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list.d/debian.sources
 #RUN apt-get clean
 #RUN apt-get update
@@ -47,7 +47,7 @@ RUN apt update && apt install wget -y
 
 USER $APP_UID
 
-## .NET 8.0 默认使用8080端口,变更为80端口需要环境变量ASPNETCORE_HTTP_PORTS=80
+## .NET 8.0 mặc định dùng cổng 8080, muốn đổi sang cổng 80 cần biến môi trường ASPNETCORE_HTTP_PORTS=80
 ## .NET 8.0 defaults to port 8080, changing to port 80 requires the environment variable ASPNETCORE.HTTP-PORTS=80
 EXPOSE 8080/tcp
 
@@ -58,30 +58,30 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /build
 
-## 复制构建项目所需配置
+## Sao chép cấu hình cần thiết để build dự án
 COPY ["common.props", "./"]
 COPY ["configureawait.props", "./"]
 COPY ["Directory.Build.props", "./"]
 COPY ["Directory.Packages.props", "./"]
 COPY ["NuGet.Config", "./"]
 
-## 复制项目结构
+## Sao chép cấu trúc dự án
 COPY ["src/", "build/src/"]
 COPY ["migrations/", "build/migrations/"]
 COPY ["host/", "build/host/"]
 RUN dotnet restore "build/host/PackageName.CompanyName.ProjectName.HttpApi.Host/PackageName.CompanyName.ProjectName.HttpApi.Host.csproj"
 
-## 构建
+## Build
 COPY . .
 WORKDIR "/build/host/PackageName.CompanyName.ProjectName.HttpApi.Host"
 RUN dotnet build "./PackageName.CompanyName.ProjectName.HttpApi.Host.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-## 发布
+## Publish
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./PackageName.CompanyName.ProjectName.HttpApi.Host.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-## 运行
+## Chạy
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

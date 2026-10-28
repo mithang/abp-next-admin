@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 重复日程不包含的日期
+/// Ngày không bao gồm trong lịch trình lặp lại
 /// </summary>
 public class ScheduleReminderExcludeTime
 {
     /// <summary>
-    /// 不包含的日期时间戳
+    /// Dấu thời gian của ngày không bao gồm
     /// </summary>
     [NotNull]
     [JsonProperty("start_time")]

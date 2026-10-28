@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.Rules.RulesEngine.Persistent;
 
 /// <summary>
-/// 实现此接口以用于从其他持久化存储中获取规则
+/// Triển khai interface này để lấy quy tắc từ các kho lưu trữ bền vững khác
 /// </summary>
 public interface IWorkflowStore
 {

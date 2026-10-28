@@ -1,17 +1,17 @@
 <!--
- * @Description: 组件属性控件
+ * @Description: Control thuộc tính component
 -->
 <template>
   <div class="properties-content">
     <div class="properties-body" v-if="formConfig.currentItem">
-      <Empty class="hint-box" v-if="!formConfig.currentItem.key" description="未选择组件" />
+      <Empty class="hint-box" v-if="!formConfig.currentItem.key" description="Chưa chọn component" />
 
       <Form label-align="left" layout="vertical">
-        <!--    循环遍历渲染组件属性      -->
+        <!--    Lặp để render thuộc tính component      -->
 
         <div v-if="formConfig.currentItem && formConfig.currentItem.componentProps">
           <FormItem v-for="item in inputOptions" :key="item.name" :label="item.label">
-            <!--     处理数组属性，placeholder       -->
+            <!--     Xử lý thuộc tính mảng，placeholder       -->
 
             <div v-if="item.children">
               <component
@@ -22,7 +22,7 @@
                 v-model:value="formConfig.currentItem.componentProps[item.name][index]"
               />
             </div>
-            <!--     如果不是数组，则正常处理属性值       -->
+            <!--     Nếu không phải mảng，thì xử lý giá trị thuộc tính bình thường       -->
             <component
               v-else
               class="component-prop"
@@ -31,7 +31,7 @@
               v-model:value="formConfig.currentItem.componentProps[item.name]"
             />
           </FormItem>
-          <FormItem label="控制属性">
+          <FormItem label="Thuộc tính điều khiển">
             <Col v-for="item in controlOptions" :key="item.name">
               <Checkbox
                 v-if="showControlAttrs(item.includes)"
@@ -43,7 +43,7 @@
             </Col>
           </FormItem>
         </div>
-        <FormItem label="关联字段">
+        <FormItem label="Trường liên kết">
           <Select
             mode="multiple"
             v-model:value="formConfig.currentItem['link']"
@@ -52,7 +52,7 @@
         </FormItem>
 
         <FormItem
-          label="选项"
+          label="Tùy chọn"
           v-if="
             [
               'Select',
@@ -69,11 +69,11 @@
           <FormOptions />
         </FormItem>
 
-        <FormItem label="表格" v-if="['Table'].includes(formConfig.currentItem.component)">
+        <FormItem label="Bảng" v-if="['Table'].includes(formConfig.currentItem.component)">
           <FormOptions />
         </FormItem>
 
-        <FormItem label="栅格" v-if="['Grid'].includes(formConfig.currentItem.component)">
+        <FormItem label="Lưới" v-if="['Grid'].includes(formConfig.currentItem.component)">
           <FormOptions />
         </FormItem>
       </Form>
@@ -123,7 +123,7 @@
       Row,
     },
     setup() {
-      // 让compuated属性自动更新
+      // Để thuộc tính compuated tự động cập nhật
       const allOptions = ref([] as Omit<IBaseFormAttrs, 'tag'>[]);
       const showControlAttrs = (includes: string[] | undefined) => {
         if (!includes) return true;
@@ -153,10 +153,10 @@
           baseComponentControlAttrs.forEach((item) => {
             item.category = 'control';
             if (!item.includes) {
-              // 如果属性没有include，所有的控件都适用
+              // Nếu thuộc tính không cóinclude，tất cả các control đều áp dụng
               allOptions.value.push(item);
             } else if (item.includes.includes(formConfig.value.currentItem!.component)) {
-              // 如果有include，检查是否包含了当前控件类型
+              // Nếu cóinclude，kiểm tra xem có bao gồm loại control hiện tại không
               allOptions.value.push(item);
             }
           });
@@ -191,13 +191,13 @@
           immediate: true,
         },
       );
-      // 控制性的选项
+      // Tùy chọn mang tính điều khiển
       const controlOptions = computed(() => {
         return allOptions.value.filter((item) => {
           return item.category == 'control';
         });
       });
-      // 非控制性选择
+      // Lựa chọn không mang tính điều khiển
       const inputOptions = computed(() => {
         return allOptions.value.filter((item) => {
           return item.category == 'input';

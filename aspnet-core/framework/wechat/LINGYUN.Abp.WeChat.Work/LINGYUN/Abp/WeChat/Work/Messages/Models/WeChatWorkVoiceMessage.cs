@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信语言消息
+/// Tin nhắn giọng nói của WeChat Work
 /// </summary>
 public class WeChatWorkVoiceMessage : WeChatWorkMessage
 {
@@ -15,20 +15,20 @@ public class WeChatWorkVoiceMessage : WeChatWorkMessage
         Voice = voice;
     }
     /// <summary>
-    /// 语音媒体文件
+    /// Tệp media giọng nói
     /// </summary>
     [NotNull]
     [JsonProperty("voice")]
     [JsonPropertyName("voice")]
     public MediaMessage Voice { get; set; }
     /// <summary>
-    /// 表示是否开启重复消息检查，0表示否，1表示是，默认0
+    /// Cho biết có bật kiểm tra tin nhắn trùng lặp hay không, 0 là không, 1 là có, mặc định là 0
     /// </summary>
     [JsonProperty("enable_duplicate_check")]
     [JsonPropertyName("enable_duplicate_check")]
     public byte EnableDuplicateCheck { get; set; }
     /// <summary>
-    /// 表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时
+    /// Khoảng thời gian kiểm tra tin nhắn trùng lặp, mặc định 1800 giây, tối đa không vượt quá 4 giờ
     /// </summary>
     [JsonProperty("duplicate_check_interval")]
     [JsonPropertyName("duplicate_check_interval")]

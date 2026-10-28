@@ -6,16 +6,16 @@ using Volo.Abp;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信消息构造选项
+/// Tùy chọn xây dựng tin nhắn WeChat Work
 /// </summary>
 /// <remarks>
 /// <para>
-/// 渠道数据的形态到消息载体的转换集中注册在这里, 新增一种消息类型只需要
-/// <c>options.Map(kind, factory)</c>, 不需要修改 Provider 的发布逻辑。
+/// Việc đăng ký tập trung tại đây cho phép chuyển đổi từ dạng dữ liệu kênh sang đối tượng mang tin nhắn, khi thêm một loại tin nhắn mới chỉ cần
+/// <c>options.Map(kind, factory)</c>, không cần sửa logic phát hành của Provider.
 /// </para>
 /// <para>
-/// 相比旧的 <c>if/else</c> 探测链, 这里的分派是 O(1) 且显式的:
-/// 载荷类型与工厂键不一致时会直接抛出异常, 而不是静默发出错误的消息。
+/// So với chuỗi dò tìm <c>if/else</c> cũ, việc điều phối ở đây là O(1) và tường minh:
+/// khi loại tải trọng không khớp với khóa factory, ngoại lệ sẽ được ném ra ngay, thay vì lặng lẽ gửi đi tin nhắn sai.
 /// </para>
 /// </remarks>
 public class AbpWeChatWorkNotificationMessageOptions
@@ -24,12 +24,12 @@ public class AbpWeChatWorkNotificationMessageOptions
         = new Dictionary<WeChatWorkMessageKind, Func<WeChatWorkMessageFactoryContext, WeChatWorkMessageFactoryResult>>();
 
     /// <summary>
-    /// 已注册的消息类型
+    /// Các loại tin nhắn đã đăng ký
     /// </summary>
     public IReadOnlyCollection<WeChatWorkMessageKind> MessageKinds => _factories.Keys;
 
     /// <summary>
-    /// 注册消息构造工厂
+    /// Đăng ký factory xây dựng tin nhắn
     /// </summary>
     public AbpWeChatWorkNotificationMessageOptions Map(
         WeChatWorkMessageKind kind,
@@ -43,7 +43,7 @@ public class AbpWeChatWorkNotificationMessageOptions
     }
 
     /// <summary>
-    /// 构造消息载体
+    /// Xây dựng đối tượng mang tin nhắn
     /// </summary>
     public WeChatWorkMessageFactoryResult Create(WeChatWorkMessageFactoryContext context)
     {
@@ -68,7 +68,7 @@ public class AbpWeChatWorkNotificationMessageOptions
     }
 
     /// <summary>
-    /// 获取已注册的工厂
+    /// Lấy factory đã đăng ký
     /// </summary>
     public bool TryGetFactory(
         WeChatWorkMessageKind kind,

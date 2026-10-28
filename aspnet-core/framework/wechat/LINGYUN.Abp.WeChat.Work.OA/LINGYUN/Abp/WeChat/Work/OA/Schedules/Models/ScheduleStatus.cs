@@ -2,19 +2,19 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日程状态
+/// Trạng thái lịch trình
 /// </summary>
-[Description("日程状态")]
+[Description("Trạng thái lịch trình")]
 public enum ScheduleStatus : uint
 {
     /// <summary>
-    /// 正常
+    /// Bình thường
     /// </summary>
-    [Description("正常")]
+    [Description("Bình thường")]
     Normal = 0,
     /// <summary>
-    /// 已取消
+    /// Đã hủy
     /// </summary>
-    [Description("已取消")]
+    [Description("Đã hủy")]
     Cancelled = 1,
 }

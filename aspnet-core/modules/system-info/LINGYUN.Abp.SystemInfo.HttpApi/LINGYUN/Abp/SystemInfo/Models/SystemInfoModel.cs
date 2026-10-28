@@ -3,7 +3,7 @@
 public class SystemInfoModel
 {
     /// <summary>
-    /// 组件状态集合
+    /// Tập hợp trạng thái thành phần
     /// </summary>
     public ComponentInfoModel[] Components { get; set; } = default!;
 }

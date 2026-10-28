@@ -23,9 +23,9 @@ namespace LINGYUN.Platform
                 var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
                 AsyncHelper.RunSync(async () =>
                 {
-                    // Ô¤ÖÃËÞÖ÷Êý¾Ý
+                    // Dá»¯ liá»‡u mÃ¡y chá»§ Ä‘áº·t trÆ°á»›c
                     await dataSeeder.SeedAsync();
-                    // Ô¤ÖÃ×â»§Êý¾Ý
+                    // Dá»¯ liá»‡u tenant Ä‘áº·t trÆ°á»›c
                     await dataSeeder.SeedAsync(PlatformTestsConsts.TenantId);
                 });
                 AsyncHelper.RunSync(async () =>

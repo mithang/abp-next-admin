@@ -1,10 +1,10 @@
-/** 审计日志权限 */
+/** Quyền nhật ký kiểm toán */
 export const AuditLogPermissions = {
 	Default: "AbpAuditing.AuditLog",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpAuditing.AuditLog.Delete",
 };
-/** 系统日志权限 */
+/** Quyền nhật ký hệ thống */
 export const SystemLogPermissions = {
 	Default: "AbpAuditing.SystemLog",
 };

@@ -8,7 +8,7 @@ namespace LINGYUN.Abp.IM.Groups;
 public interface IGroupStore
 {
     /// <summary>
-    /// 获取群组信息
+    /// Lấy thông tin nhóm
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="groupId"></param>
@@ -17,9 +17,10 @@ public interface IGroupStore
     Task<Group> GetAsync(
         Guid? tenantId,
         string groupId,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群组数
+    /// Lấy số lượng nhóm
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="filter"></param>
@@ -28,9 +29,10 @@ public interface IGroupStore
     Task<int> GetCountAsync(
         Guid? tenantId,
         string? filter = null,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群组列表
+    /// Lấy danh sách nhóm
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="filter"></param>
@@ -45,5 +47,6 @@ public interface IGroupStore
         string? sorting = nameof(Group.Name),
         int skipCount = 0,
         int maxResultCount = 10,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default);
 }

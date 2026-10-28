@@ -10,40 +10,40 @@ namespace LINGYUN.Abp.DataProtection;
 public class AbpDataProtectionOptions
 {
     /// <summary>
-    /// 是否启用数据审计
-    /// 默认: true
+    /// Có bật kiểm toán dữ liệu hay không
+    /// Mặc định: true
     /// </summary>
     public bool IsEnabled { get; set; }
     /// <summary>
-    /// 数据权限策略
+    /// Chính sách quyền dữ liệu
     /// </summary>
     public IList<IDataAccessStrategyContributor> StrategyContributors { get; }
     /// <summary>
-    /// 权限主体
+    /// Chủ thể quyền
     /// </summary>
     public IList<IDataAccessSubjectContributor> SubjectContributors { get; }
     /// <summary>
-    /// 过滤字段关键字
+    /// Từ khóa trường lọc
     /// </summary>
     public IDictionary<string, IDataAccessKeywordContributor> KeywordContributors { get; }
     /// <summary>
-    /// 数据操作
+    /// Thao tác dữ liệu
     /// </summary>
     public IDictionary<DataAccessFilterOperate, IDataAccessOperateContributor> OperateContributors { get; }
     /// <summary>
-    /// 默认实体过滤
+    /// Bộ lọc thực thể mặc định
     /// </summary>
     public IDictionary<Type, Func<IServiceProvider, Type, DataAccessOperation, LambdaExpression>> DefaultEntityFilters { get; }
     /// <summary>
-    /// 实体忽略字段
+    /// Trường bỏ qua của thực thể
     /// </summary>
     public IDictionary<Type, string[]> EntityIgnoreProperties { get; }
     /// <summary>
-    /// 全局忽略字段列表(不参与字段级权限校验)
+    /// Danh sách trường bỏ qua toàn cục (không tham gia kiểm tra quyền cấp trường)
     /// </summary>
     public IList<string> GlobalIgnoreProperties { get; set; }
     /// <summary>
-    /// 审计字段列表(这些字段写入受保护实体的属性列表中,用于前端过滤)
+    /// Danh sách trường kiểm toán (các trường này được ghi vào danh sách thuộc tính của thực thể được bảo vệ, dùng để lọc ở phía giao diện)
     /// </summary>
     public IList<string> AuditedObjectProperties { get; set; }
     public AbpDataProtectionOptions()

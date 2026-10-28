@@ -46,7 +46,7 @@ public class ProjectNameEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 配置Ef
+        // Cấu hìnhEf
         Configure<AbpDbContextOptions>(options =>
         {
 #if MySQL

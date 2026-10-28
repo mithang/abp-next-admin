@@ -4,18 +4,18 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 视频消息
+/// Tin nhắn video
 /// </summary>
 [EventName("video")]
 public class VideoMessage : WeChatWorkGeneralMessage
 {
     /// <summary>
-    /// 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+    /// Id media của hình thu nhỏ tin nhắn video, có thể gọi giao diện tải xuống tệp đa phương tiện để lấy dữ liệu.
     /// </summary>
     [XmlElement("ThumbMediaId")]
     public string ThumbMediaId { get; set; } = default!;
     /// <summary>
-    /// 视频消息媒体id，可以调用获取临时素材接口拉取数据。
+    /// Id media của tin nhắn video, có thể gọi giao diện lấy tài liệu tạm thời để lấy dữ liệu.
     /// </summary>
     [XmlElement("MediaId")]
     public string MediaId { get; set; } = default!;

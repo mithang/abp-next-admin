@@ -1,11 +1,11 @@
 # LINGYUN.Abp.AuditLogging.EntityFrameworkCore
 
-审计模块 EntityFrameworkCore 实现, 此模块仅作为桥梁, 具体实现交给abp官方模块  
+Module kiểm toán triển khai bằng EntityFrameworkCore, module này chỉ đóng vai trò cầu nối, phần triển khai cụ thể do module chính thức của ABP đảm nhiệm  
 
-AuditLogManager    实现了 IAuditLogManager, 审计日志由Volo.Abp.AuditLogging模块管理  
-SecurityLogManager 实现了 ISecurityLogManager, 安全日志由Volo.Abp.Identity模块管理  
+AuditLogManager    triển khai IAuditLogManager, nhật ký kiểm toán do module Volo.Abp.AuditLogging quản lý  
+SecurityLogManager  triển khai ISecurityLogManager, nhật ký bảo mật do module Volo.Abp.Identity quản lý  
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpAuditLoggingEntityFrameworkCoreModule))]
@@ -15,9 +15,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-请遵循 Volo.Abp.AuditLogging、Volo.Abp.Identity模块中的配置  
+Vui lòng tuân theo cấu hình trong các module Volo.Abp.AuditLogging và Volo.Abp.Identity  
 
 ## appsettings.json
 

@@ -93,7 +93,7 @@ const SecurityLogs = () => {
 			hideInSearch: true,
 			render: (_, record) => (
 				<>
-					{/* 展示地址 */}
+					{/* Hiển thị địa chỉ */}
 					{record.extraProperties?.Location && <Tag color="blue">{record.extraProperties.Location}</Tag>}
 					<span>{record.clientIpAddress}</span>
 				</>
@@ -189,8 +189,8 @@ const SecurityLogs = () => {
 													.map((key) => `${key} ${antdOrderToAbpOrder(sorter[key])}`)
 													.join(", ")
 											: undefined,
-										startTime: startTime || undefined, // 转换为 startTime 参数
-										endTime: endTime || undefined, // 转换为 endTime 参数
+										startTime: startTime || undefined, // Chuyển đổi thành tham số startTime
+										endTime: endTime || undefined, // Chuyển đổi thành tham số endTime
 										...rest,
 									}),
 							});

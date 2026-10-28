@@ -46,10 +46,10 @@ public class WeChatWorkMeetingRoomProvider_Tests : AbpWeChatWorkOATestBase
 
         var meetingRoom = res.MeetingRoomList[0];
         meetingRoom.MeetingRoomId.ShouldNotBe(0);
-        meetingRoom.Name.ShouldBe("18F-会议室");
+        meetingRoom.Name.ShouldBe("18F-Phòng họp");
         meetingRoom.Capacity.ShouldBe(10);
-        meetingRoom.City.ShouldBe("深圳");
-        meetingRoom.Building.ShouldBe("腾讯大厦");
+        meetingRoom.City.ShouldBe("Thâm Quyến");
+        meetingRoom.Building.ShouldBe("Tòa nhà Tencent");
         meetingRoom.Floor.ShouldBe("18F");
         meetingRoom.Equipment.ShouldContain(1);
         meetingRoom.Equipment.ShouldContain(2);
@@ -67,7 +67,7 @@ public class WeChatWorkMeetingRoomProvider_Tests : AbpWeChatWorkOATestBase
         var createRes = await CreateMeetingRoomAsync();
 
         var req = new WeChatWorkUpdateMeetingRoomRequest(createRes.MeetingRoomId);
-        req.Name = "18F-会议室1";
+        req.Name = "18F-Phòng họp 1";
         req.WithWhiteboard();
 
         var res = await _provider.UpdateMeetingRoomAsync(req);
@@ -82,7 +82,7 @@ public class WeChatWorkMeetingRoomProvider_Tests : AbpWeChatWorkOATestBase
             new WeChatWorkDeleteMeetingRoomRequest(createRes.MeetingRoomId));
 
         var meetingRoom = getRes.MeetingRoomList[0];
-        meetingRoom.Name.ShouldBe("18F-会议室1");
+        meetingRoom.Name.ShouldBe("18F-Phòng họp 1");
         meetingRoom.Equipment.ShouldContain(4);
     }
 
@@ -162,8 +162,8 @@ public class WeChatWorkMeetingRoomProvider_Tests : AbpWeChatWorkOATestBase
 
     protected async virtual Task<WeChatWorkCreateMeetingRoomResponse> CreateMeetingRoomAsync()
     {
-        var req = new WeChatWorkCreateMeetingRoomRequest("18F-会议室", 10);
-        req.WithLocation("深圳", "腾讯大厦", "18F");
+        var req = new WeChatWorkCreateMeetingRoomRequest("18F-Phòng họp", 10);
+        req.WithLocation("Thâm Quyến", "Tòa nhà Tencent", "18F");
         req.WithTv();
         req.WithPhone();
         req.WithProjection();

@@ -11,8 +11,8 @@ export function useTokensApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除令牌
-   * @param id 令牌id
+   * Xóa mã thông báo
+   * @param id Id mã thông báo
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/openiddict/tokens/${id}`, {
@@ -21,9 +21,9 @@ export function useTokensApi() {
   }
 
   /**
-   * 查询令牌
-   * @param id 令牌id
-   * @returns 令牌实体数据传输对象
+   * Truy vấn mã thông báo
+   * @param id Id mã thông báo
+   * @returns Đối tượng truyền dữ liệu thực thể mã thông báo
    */
   function getApi(id: string): Promise<OpenIddictTokenDto> {
     return request<OpenIddictTokenDto>(`/api/openiddict/tokens/${id}`, {
@@ -32,9 +32,9 @@ export function useTokensApi() {
   }
 
   /**
-   * 查询令牌分页列表
-   * @param input 过滤参数
-   * @returns 令牌实体数据传输对象分页列表
+   * Truy vấn danh sách phân trang mã thông báo
+   * @param input Tham số lọc
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể mã thông báo
    */
   function getPagedListApi(
     input?: OpenIddictTokenGetListInput,

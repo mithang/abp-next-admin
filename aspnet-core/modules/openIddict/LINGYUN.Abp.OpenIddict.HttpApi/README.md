@@ -3,49 +3,49 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.HttpApi%2FLINGYUN.Abp.OpenIddict.HttpApi.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.HttpApi.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.HttpApi)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.HttpApi` 是 OpenIddict 的 HTTP API 模块，提供了 OpenIddict 相关功能的 RESTful API 接口。
+`LINGYUN.Abp.OpenIddict.HttpApi` là mô-đun HTTP API của OpenIddict, cung cấp các giao diện API RESTful cho các chức năng liên quan đến OpenIddict.
 
-[English](./README.EN.md)
+[Tài liệu tiếng Anh](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* OpenIddict 应用程序管理
-  * 创建、更新、删除应用程序
-  * 查询应用程序列表
-  * 获取应用程序详情
+* Quản lý ứng dụng OpenIddict
+  * Tạo, cập nhật, xóa ứng dụng
+  * Truy vấn danh sách ứng dụng
+  * Lấy chi tiết ứng dụng
 
-* OpenIddict 授权管理
-  * 查询授权列表
-  * 获取授权详情
-  * 删除授权记录
+* Quản lý ủy quyền OpenIddict
+  * Truy vấn danh sách ủy quyền
+  * Lấy chi tiết ủy quyền
+  * Xóa bản ghi ủy quyền
 
-* OpenIddict 令牌管理
-  * 查询令牌列表
-  * 获取令牌详情
-  * 删除令牌记录
+* Quản lý mã thông báo OpenIddict
+  * Truy vấn danh sách mã thông báo
+  * Lấy chi tiết mã thông báo
+  * Xóa bản ghi mã thông báo
 
-* OpenIddict 作用域管理
-  * 创建、更新、删除作用域
-  * 查询作用域列表
-  * 获取作用域详情
+* Quản lý phạm vi OpenIddict
+  * Tạo, cập nhật, xóa phạm vi
+  * Truy vấn danh sách phạm vi
+  * Lấy chi tiết phạm vi
 
-* 多语言支持
-  * 集成 ABP 本地化框架
-  * 支持自定义本地化资源
+* Hỗ trợ đa ngôn ngữ
+  * Tích hợp khung bản địa hóa ABP
+  * Hỗ trợ tài nguyên bản địa hóa tùy chỉnh
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.HttpApi
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictHttpApiModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictHttpApiModule))]` vào lớp mô-đun của bạn.
 
-2. 配置权限:
+2. Cấu hình quyền:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -57,10 +57,10 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-3. API 接口使用示例:
+3. Ví dụ sử dụng giao diện API:
 
 ```csharp
-// 注入服务
+// Tiêm dịch vụ
 private readonly IOpenIddictApplicationAppService _applicationService;
 
 public YourService(IOpenIddictApplicationAppService applicationService)
@@ -68,16 +68,16 @@ public YourService(IOpenIddictApplicationAppService applicationService)
     _applicationService = applicationService;
 }
 
-// 创建应用程序
+// Tạo ứng dụng
 var input = new OpenIddictApplicationCreateDto
 {
     ClientId = "your-client-id",
     DisplayName = "Your App",
-    // ... 其他属性
+    // ... các thuộc tính khác
 };
 var result = await _applicationService.CreateAsync(input);
 
-// 查询应用程序列表
+// Truy vấn danh sách ứng dụng
 var query = new OpenIddictApplicationGetListInput
 {
     MaxResultCount = 10,
@@ -87,7 +87,7 @@ var query = new OpenIddictApplicationGetListInput
 var list = await _applicationService.GetListAsync(query);
 ```
 
-## 权限
+## Quyền
 
 * OpenIddict.Applications
   * OpenIddict.Applications.Create
@@ -109,9 +109,9 @@ var list = await _applicationService.GetListAsync(query);
   * OpenIddict.Tokens.Delete
   * OpenIddict.Tokens.ManagePermissions
 
-## 注意事项
+## Lưu ý
 
-* 所有 API 接口都需要相应的权限才能访问
-* 删除应用程序会同时删除相关的授权和令牌
-* API 接口支持多租户场景
-* 建议在生产环境中启用 API 认证和授权
+* Tất cả các giao diện API đều cần quyền tương ứng mới có thể truy cập
+* Xóa ứng dụng sẽ đồng thời xóa các ủy quyền và mã thông báo liên quan
+* Giao diện API hỗ trợ kịch bản đa thuê bao
+* Khuyến nghị bật xác thực và ủy quyền API trong môi trường sản xuất

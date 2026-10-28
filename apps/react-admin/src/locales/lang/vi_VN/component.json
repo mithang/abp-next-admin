@@ -1,0 +1,125 @@
+{
+  "component": {
+    "localizable_input": {
+      "placeholder": "Vui lòng chọn tài nguyên bản địa hóa",
+      "resources": {
+        "fiexed": {
+          "group": "Tùy chỉnh",
+          "label": "Nội dung cố định",
+          "placeholder": "Vui lòng nhập nội dung tùy chỉnh"
+        },
+        "localization": {
+          "group": "Bản địa hóa",
+          "placeholder": "Vui lòng chọn tên"
+        }
+      }
+    },
+    "extra_property_dictionary": {
+      "title": "Thuộc tính mở rộng",
+      "key": "Tên",
+      "value": "Giá trị khóa",
+      "actions": {
+        "title": "Thao tác",
+        "create": "Thêm mới",
+        "update": "Chỉnh sửa",
+        "delete": "Xóa",
+        "clean": "Xóa sạch"
+      },
+      "validator": {
+        "duplicateKey": "Đã thêm một khóa có cùng tên"
+      },
+      "itemWillBeDeleted": "{key} sẽ bị xóa!"
+    },
+    "value_type_nput": {
+      "type": {
+        "name": "Loại",
+        "FREE_TEXT": {
+          "name": "Văn bản tự do"
+        },
+        "TOGGLE": {
+          "name": "Chuyển đổi"
+        },
+        "SELECTION": {
+          "name": "Chọn",
+          "displayText": "Tên hiển thị",
+          "displayTextNotBeEmpty": "Tên hiển thị không được để trống",
+          "value": "Mục đã chọn",
+          "duplicateKeyOrValue": "Tên hoặc giá trị của mục đã chọn không được trùng lặp",
+          "itemsNotBeEmpty": "Danh sách các mục có thể chọn không được để trống",
+          "itemsNotFound": "Mục đã chọn không nằm trong danh sách tùy chọn",
+          "actions": {
+            "title": "Thao tác",
+            "create": "Thêm mới",
+            "update": "Chỉnh sửa",
+            "delete": "Xóa",
+            "clean": "Xóa sạch"
+          },
+          "modal": {
+            "title": "Mục đã chọn"
+          }
+        }
+      },
+      "validator": {
+        "name": "Trình xác thực",
+        "isInvalidValue": "Giá trị không vượt qua kiểm tra {0}, vui lòng kiểm tra tùy chọn trình xác thực.",
+        "NULL": {
+          "name": "Chưa định nghĩa"
+        },
+        "BOOLEAN": {
+          "name": "Loại Boolean"
+        },
+        "NUMERIC": {
+          "name": "Loại số",
+          "minValue": "Giá trị nhỏ nhất",
+          "maxValue": "Giá trị tối đa"
+        },
+        "STRING": {
+          "name": "Loại ký tự",
+          "allowNull": "Cho phép giá trị rỗng",
+          "minLength": "Độ dài tối thiểu",
+          "maxLength": "Độ dài tối đa",
+          "regularExpression": "Biểu thức chính quy"
+        }
+      }
+    },
+    "simple_state_checking": {
+      "title": "Kiểm tra trạng thái",
+      "actions": {
+        "create": "Thêm mới",
+        "update": "Chỉnh sửa",
+        "delete": "Xóa",
+        "clean": "Xóa sạch"
+      },
+      "table": {
+        "name": "Tên",
+        "properties": "Thuộc tính",
+        "actions": "Thao tác"
+      },
+      "form": {
+        "name": "Trình kiểm tra trạng thái"
+      },
+      "requireAuthenticated": {
+        "title": "Cần xác thực người dùng"
+      },
+      "requireFeatures": {
+        "title": "Kiểm tra tính năng cần thiết",
+        "requiresAll": "Yêu cầu tất cả",
+        "requiresAllDesc": "Nếu chọn, cần bật tất cả các tính năng đã chọn.",
+        "featureNames": "Tính năng cần thiết"
+      },
+      "requireGlobalFeatures": {
+        "title": "Kiểm tra tính năng toàn cục",
+        "featureNames": "Tính năng toàn cục cần thiết"
+      },
+      "requirePermissions": {
+        "title": "Kiểm tra quyền cần thiết",
+        "requiresAll": "Yêu cầu tất cả",
+        "requiresAllDesc": "Nếu chọn, cần phải có tất cả các quyền đã chọn.",
+        "permissions": "Quyền cần thiết"
+      }
+    },
+    "table": {
+      "selectedItemWellBeDeleted": "Nhiều mục đã chọn sẽ bị xóa!"
+    }
+  }
+}

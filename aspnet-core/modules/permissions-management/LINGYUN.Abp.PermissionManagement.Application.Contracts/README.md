@@ -1,29 +1,29 @@
 # LINGYUN.Abp.PermissionManagement.Application.Contracts
 
-权限管理应用服务契约模块，定义了权限管理的接口和DTO。
+Mô-đun hợp đồng dịch vụ ứng dụng quản lý quyền, định nghĩa giao diện và DTO quản lý quyền.
 
-## 功能特性
+## Tính năng
 
-* 权限组定义接口
-  * 提供权限组的CRUD操作接口
-  * 支持权限组分页查询
-* 权限定义接口
-  * 提供权限的CRUD操作接口
-  * 支持权限分页查询
-* 权限定义DTO
-  * PermissionGroupDefinitionDto - 权限组定义DTO
-  * PermissionDefinitionDto - 权限定义DTO
-  * 支持权限提供者配置（Role、User、OrganizationUnit等）
-* 权限错误代码定义
-  * 001100 - 权限组已存在
-  * 001010 - 静态权限组不允许修改
-  * 001404 - 权限组不存在
-  * 002100 - 权限已存在
-  * 002010 - 静态权限不允许修改
-  * 002101 - 无法获取权限的组定义
-  * 002404 - 权限不存在
+* Giao diện định nghĩa nhóm quyền
+  * Cung cấp giao diện thao tác CRUD nhóm quyền
+  * Hỗ trợ truy vấn phân trang nhóm quyền
+* Giao diện định nghĩa quyền
+  * Cung cấp giao diện thao tác CRUD quyền
+  * Hỗ trợ truy vấn phân trang quyền
+* DTO định nghĩa quyền
+  * PermissionGroupDefinitionDto - DTO định nghĩa nhóm quyền
+  * PermissionDefinitionDto - DTO định nghĩa quyền
+  * Hỗ trợ cấu hình nhà cung cấp quyền (Role, User, OrganizationUnit, v.v.)
+* Định nghĩa mã lỗi quyền
+  * 001100 - Nhóm quyền đã tồn tại
+  * 001010 - Không cho phép sửa đổi nhóm quyền tĩnh
+  * 001404 - Nhóm quyền không tồn tại
+  * 002100 - Quyền đã tồn tại
+  * 002010 - Không cho phép sửa đổi quyền tĩnh
+  * 002101 - Không thể lấy định nghĩa nhóm của quyền
+  * 002404 - Quyền không tồn tại
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -34,7 +34,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 权限定义
+## Định nghĩa quyền
 
 ```csharp
 public class YourPermissionDefinitionProvider : PermissionDefinitionProvider
@@ -57,7 +57,7 @@ public class YourPermissionDefinitionProvider : PermissionDefinitionProvider
 }
 ```
 
-## 另请参阅
+## Xem thêm
 
 * [LINGYUN.Abp.PermissionManagement.Application](../LINGYUN.Abp.PermissionManagement.Application/README.md)
 * [LINGYUN.Abp.PermissionManagement.Domain.OrganizationUnits](../LINGYUN.Abp.PermissionManagement.Domain.OrganizationUnits/README.md)

@@ -9,26 +9,26 @@ import type {
 import requestClient from "@/api/request";
 
 /**
- * 删除设置定义
- * @param name 设置名称
+ * Xóa định nghĩa cài đặt
+ * @param name Tên cài đặt
  */
 export function deleteApi(name: string): Promise<void> {
 	return requestClient.delete(`/api/setting-management/settings/definitions/${name}`);
 }
 
 /**
- * 查询设置定义
- * @param name 设置名称
- * @returns 设置定义数据传输对象
+ * Truy vấn định nghĩa cài đặt
+ * @param name Tên cài đặt
+ * @returns Đối tượng truyền dữ liệu định nghĩa cài đặt
  */
 export function getApi(name: string): Promise<SettingDefinitionDto> {
 	return requestClient.get<SettingDefinitionDto>(`/api/setting-management/settings/definitions/${name}`);
 }
 
 /**
- * 查询设置定义列表
- * @param input 设置过滤条件
- * @returns 设置定义数据传输对象列表
+ * Truy vấn danh sách định nghĩa cài đặt
+ * @param input Điều kiện lọc cài đặt
+ * @returns Danh sách đối tượng truyền dữ liệu định nghĩa cài đặt
  */
 export function getListApi(input?: SettingDefinitionGetListInput): Promise<ListResultDto<SettingDefinitionDto>> {
 	return requestClient.get<ListResultDto<SettingDefinitionDto>>("/api/setting-management/settings/definitions", {
@@ -37,19 +37,19 @@ export function getListApi(input?: SettingDefinitionGetListInput): Promise<ListR
 }
 
 /**
- * 创建设置定义
- * @param input 设置定义参数
- * @returns 设置定义数据传输对象
+ * Tạo định nghĩa cài đặt
+ * @param input Tham số định nghĩa cài đặt
+ * @returns Đối tượng truyền dữ liệu định nghĩa cài đặt
  */
 export function createApi(input: SettingDefinitionCreateDto): Promise<SettingDefinitionDto> {
 	return requestClient.post<SettingDefinitionDto>("/api/setting-management/settings/definitions", input);
 }
 
 /**
- * 更新设置定义
- * @param name 设置名称
- * @param input 设置定义参数
- * @returns 设置定义数据传输对象
+ * Cập nhật định nghĩa cài đặt
+ * @param name Tên cài đặt
+ * @param input Tham số định nghĩa cài đặt
+ * @returns Đối tượng truyền dữ liệu định nghĩa cài đặt
  */
 export function updateApi(name: string, input: SettingDefinitionUpdateDto): Promise<SettingDefinitionDto> {
 	return requestClient.put<SettingDefinitionDto>(`/api/setting-management/settings/definitions/${name}`, input);

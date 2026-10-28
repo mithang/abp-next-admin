@@ -12,7 +12,7 @@ public class CronGenerator
     public const int MilliSecondsOfMinutes = 60000;
 
     /// <summary>
-    /// 从毫秒计算Cron表达式
+    /// Tính biểu thức Cron từ mili giây
     /// </summary>
     /// <param name="milliseconds"></param>
     /// <returns></returns>
@@ -33,7 +33,7 @@ public class CronGenerator
             return Month(1, 0, 0, 1, (int)(milliseconds / MilliSecondsOfMonth));
         }
 
-        // TODO: 以周为单位的任务Cron
+        // TODO: Tác vụ Cron theo đơn vị tuần
         if (milliseconds >= MilliSecondsOfWeek)
         {
             return Day(0, 0, 1, (int)(milliseconds / MilliSecondsOfWeek));
@@ -57,10 +57,10 @@ public class CronGenerator
         return Seconds(0, (int)(milliseconds / 1000));
     }
     /// <summary>
-    /// 周期性为秒钟的任务
+    /// Tác vụ có chu kỳ theo giây
     /// </summary>
-    /// <param name="second">第几秒开始，默认为第0秒</param>
-    /// <param name="interval">执行周期的间隔，默认为每5秒一次</param>
+    /// <param name="second">Giây bắt đầu, mặc định là giây thứ 0</param>
+    /// <param name="interval">Khoảng cách chu kỳ thực thi, mặc định là mỗi 5 giây một lần</param>
     /// <returns></returns>
     public static string Seconds(int second = 0, int interval = 5)
     {
@@ -70,11 +70,11 @@ public class CronGenerator
     }
 
     /// <summary>
-    /// 周期性为分钟的任务
+    /// Tác vụ có chu kỳ theo phút
     /// </summary>
-    /// <param name="second">第几秒开始，默认为第0秒</param>
-    /// <param name="minute">第几分钟开始，默认为第0分钟</param>
-    /// <param name="interval">执行周期的间隔，默认为每分钟一次</param>
+    /// <param name="second">Giây bắt đầu, mặc định là giây thứ 0</param>
+    /// <param name="minute">Phút bắt đầu, mặc định là phút thứ 0</param>
+    /// <param name="interval">Khoảng cách chu kỳ thực thi, mặc định là mỗi phút một lần</param>
     /// <returns></returns>
     public static string Minute(int second = 0, int minute = 0, int interval = 1)
     {
@@ -85,11 +85,11 @@ public class CronGenerator
     }
 
     /// <summary>
-    /// 周期性为小时的任务
+    /// Tác vụ có chu kỳ theo giờ
     /// </summary>
-    /// <param name="minute">第几分钟开始，默认为第0分钟</param>
-    /// <param name="hour">第几小时开始，默认为0点</param>
-    /// <param name="interval">执行周期的间隔，默认为每小时一次</param>
+    /// <param name="minute">Phút bắt đầu, mặc định là phút thứ 0</param>
+    /// <param name="hour">Giờ bắt đầu, mặc định là 0 giờ</param>
+    /// <param name="interval">Khoảng cách chu kỳ thực thi, mặc định là mỗi giờ một lần</param>
     /// <returns></returns>
     public static string Hour(int minute = 0, int hour = 0, int interval = 1)
     {
@@ -100,12 +100,12 @@ public class CronGenerator
     }
 
     /// <summary>
-    /// 周期性为天的任务
+    /// Tác vụ có chu kỳ theo ngày
     /// </summary>
-    /// <param name="hour">第几小时开始，默认从0点开始</param>
-    /// <param name="minute">第几分钟开始，默认从第0分钟开始</param>
-    /// <param name="day">第几天开始，默认从第1天开始</param>
-    /// <param name="interval">执行周期的间隔，默认为每天一次</param>
+    /// <param name="hour">Giờ bắt đầu, mặc định bắt đầu từ 0 giờ</param>
+    /// <param name="minute">Phút bắt đầu, mặc định bắt đầu từ phút thứ 0</param>
+    /// <param name="day">Ngày bắt đầu, mặc định bắt đầu từ ngày thứ 1</param>
+    /// <param name="interval">Khoảng cách chu kỳ thực thi, mặc định là mỗi ngày một lần</param>
     /// <returns></returns>
     public static string Day(int hour = 0, int minute = 0, int day = 1, int interval = 1)
     {
@@ -117,11 +117,11 @@ public class CronGenerator
     }
 
     /// <summary>
-    /// 周期性为周的任务
+    /// Tác vụ có chu kỳ theo tuần
     /// </summary>
-    /// <param name="dayOfWeek">星期几开始，默认从星期一点开始</param>
-    /// <param name="hour">第几小时开始，默认从0点开始</param>
-    /// <param name="minute">第几分钟开始，默认从第0分钟开始</param>
+    /// <param name="dayOfWeek">Thứ bắt đầu, mặc định bắt đầu từ thứ Hai</param>
+    /// <param name="hour">Giờ bắt đầu, mặc định bắt đầu từ 0 giờ</param>
+    /// <param name="minute">Phút bắt đầu, mặc định bắt đầu từ phút thứ 0</param>
     /// <returns></returns>
     public static string Week(DayOfWeek dayOfWeek = DayOfWeek.Monday, int hour = 0, int minute = 0)
     {
@@ -132,13 +132,13 @@ public class CronGenerator
     }
 
     /// <summary>
-    /// 周期性为月的任务
+    /// Tác vụ có chu kỳ theo tháng
     /// </summary>
-    /// <param name="day">几号开始，默认从一号开始</param>
-    /// <param name="hour">第几小时开始，默认从0点开始</param>
-    /// <param name="minute">第几分钟开始，默认从第0分钟开始</param>
-    /// <param name="month">第几月开始，默认从第1月开始</param>
-    /// <param name="interval">月份间隔</param>
+    /// <param name="day">Ngày bắt đầu, mặc định bắt đầu từ ngày 1</param>
+    /// <param name="hour">Giờ bắt đầu, mặc định bắt đầu từ 0 giờ</param>
+    /// <param name="minute">Phút bắt đầu, mặc định bắt đầu từ phút thứ 0</param>
+    /// <param name="month">Tháng bắt đầu, mặc định bắt đầu từ tháng 1</param>
+    /// <param name="interval">Khoảng cách tháng</param>
     /// <returns></returns>
     public static string Month(int day = 1, int hour = 0, int minute = 0, int month = 1, int interval = 1)
     {
@@ -150,13 +150,13 @@ public class CronGenerator
     }
 
     /// <summary>
-    /// 周期性为年的任务
+    /// Tác vụ có chu kỳ theo năm
     /// </summary>
-    /// <param name="month">几月开始，默认从一月开始</param>
-    /// <param name="day">几号开始，默认从一号开始</param>
-    /// <param name="hour">第几小时开始，默认从0点开始</param>
-    /// <param name="year">第几年开始，默认从2001年开始</param>
-    /// <param name="minute">第几分钟开始，默认从第0分钟开始</param>
+    /// <param name="month">Tháng bắt đầu, mặc định bắt đầu từ tháng 1</param>
+    /// <param name="day">Ngày bắt đầu, mặc định bắt đầu từ ngày 1</param>
+    /// <param name="hour">Giờ bắt đầu, mặc định bắt đầu từ 0 giờ</param>
+    /// <param name="year">Năm bắt đầu, mặc định bắt đầu từ năm 2001</param>
+    /// <param name="minute">Phút bắt đầu, mặc định bắt đầu từ phút thứ 0</param>
     /// <returns></returns>
     public static string Year(int month = 1, int day = 1, int hour = 0, int minute = 0, int year = 2001, int interval = 1)
     {

@@ -7,39 +7,39 @@ const testJsPath =
 
 describe('loadScript', () => {
   beforeEach(() => {
-    // 每个测试前清空 head，保证环境干净
+    // Trước mỗi test, dọn sạch head để đảm bảo môi trường sạch
     document.head.innerHTML = '';
   });
 
   it('should resolve when the script loads successfully', async () => {
     const promise = loadScript(testJsPath);
 
-    // 此时脚本元素已被创建并插入
+    // Lúc này phần tử script đã được tạo và chèn
     const script = document.querySelector(
       `script[src="${testJsPath}"]`,
     ) as HTMLScriptElement;
     expect(script).toBeTruthy();
 
-    // 模拟加载成功
+    // Mô phỏng tải thành công
     script.dispatchEvent(new Event('load'));
 
-    // 等待 promise resolve
+    // Chờ promise resolve
     await expect(promise).resolves.toBeUndefined();
   });
 
   it('should not insert duplicate script and resolve immediately if already loaded', async () => {
-    // 先手动插入一个相同 src 的 script
+    // Trước tiên chèn thủ công một script có cùng src
     const existing = document.createElement('script');
     existing.src = 'bar.js';
     document.head.append(existing);
 
-    // 再次调用
+    // Gọi lại lần nữa
     const promise = loadScript('bar.js');
 
-    // 立即 resolve
+    // Resolve ngay lập tức
     await expect(promise).resolves.toBeUndefined();
 
-    // head 中只保留一个
+    // Trong head chỉ giữ lại một
     const scripts = document.head.querySelectorAll('script[src="bar.js"]');
     expect(scripts).toHaveLength(1);
   });
@@ -52,7 +52,7 @@ describe('loadScript', () => {
     ) as HTMLScriptElement;
     expect(script).toBeTruthy();
 
-    // 模拟加载失败
+    // Mô phỏng tải thất bại
     script.dispatchEvent(new Event('error'));
 
     await expect(promise).rejects.toThrow('Failed to load script: error.js');
@@ -67,13 +67,13 @@ describe('loadScript', () => {
     ) as HTMLScriptElement;
     expect(script).toBeTruthy();
 
-    // 触发一次 load，两个 promise 都应该 resolve
+    // Kích hoạt một lần load, cả hai promise đều phải resolve
     script.dispatchEvent(new Event('load'));
 
     await expect(p1).resolves.toBeUndefined();
     await expect(p2).resolves.toBeUndefined();
 
-    // 只插入一次
+    // Chỉ chèn một lần
     const scripts = document.head.querySelectorAll(
       `script[src="${testJsPath}"]`,
     );

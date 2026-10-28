@@ -5,16 +5,16 @@ import type { UserSubscreNotification } from "#/notifications/subscribes";
 import requestClient from "../../request";
 
 /**
- * 获取我的所有订阅通知
- * @returns 订阅通知列表
+ * Lấy tất cả thông báo đã đăng ký của tôi
+ * @returns Danh sách thông báo đã đăng ký
  */
 export function getMySubscribesApi(): Promise<ListResultDto<UserSubscreNotification>> {
 	return requestClient.get<ListResultDto<UserSubscreNotification>>("/api/notifications/my-subscribes/all");
 }
 
 /**
- * 订阅通知
- * @param name 通知名称
+ * Đăng ký thông báo
+ * @param name Tên thông báo
  */
 export function subscribeApi(name: string): Promise<void> {
 	return requestClient.post("/api/notifications/my-subscribes", {
@@ -23,8 +23,8 @@ export function subscribeApi(name: string): Promise<void> {
 }
 
 /**
- * 取消订阅通知
- * @param name 通知名称
+ * Hủy đăng ký thông báo
+ * @param name Tên thông báo
  */
 export function unSubscribeApi(name: string): Promise<void> {
 	return requestClient.delete(`/api/notifications/my-subscribes?name=${name}`);

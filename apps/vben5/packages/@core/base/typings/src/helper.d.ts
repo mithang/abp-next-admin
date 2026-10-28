@@ -1,11 +1,11 @@
 import type { ComputedRef, MaybeRef } from 'vue';
 
 /**
- * 类型级递归中增加深度计数
+ * Tăng bộ đếm độ sâu trong đệ quy ở cấp kiểu
  */
 type Increment<A extends unknown[]> = [...A, unknown];
 /**
- * 深层递归所有属性为可选
+ * Đệ quy sâu: tất cả thuộc tính đều tùy chọn
  */
 type DeepPartial<
   T,
@@ -20,7 +20,7 @@ type DeepPartial<
     : T;
 
 /**
- * 深层递归所有属性为只读
+ * Đệ quy sâu: tất cả thuộc tính đều chỉ đọc
  */
 type DeepReadonly<
   T,
@@ -35,7 +35,7 @@ type DeepReadonly<
     : T;
 
 /**
- * 任意类型的异步函数
+ * Hàm bất đồng bộ với kiểu bất kỳ
  */
 
 type AnyPromiseFunction<T extends any[] = any[], R = void> = (
@@ -43,57 +43,56 @@ type AnyPromiseFunction<T extends any[] = any[], R = void> = (
 ) => PromiseLike<R>;
 
 /**
- * 任意类型的普通函数
+ * Hàm thông thường với kiểu bất kỳ
  */
 type AnyNormalFunction<T extends any[] = any[], R = void> = (...arg: T) => R;
 
 /**
- * 任意类型的函数
+ * Hàm với kiểu bất kỳ
  */
 type AnyFunction<T extends any[] = any[], R = void> =
-  | AnyNormalFunction<T, R>
-  | AnyPromiseFunction<T, R>;
+  AnyNormalFunction<T, R> | AnyPromiseFunction<T, R>;
 
 /**
- *  T | null 包装
+ *  Bọc T | null
  */
 type Nullable<T> = null | T;
 
 /**
- * T | Not null 包装
+ * Bọc T | Not null
  */
 type NonNullable<T> = T extends null | undefined ? never : T;
 
 /**
- * 字符串类型对象
+ * Đối tượng kiểu chuỗi
  */
 type Recordable<T> = Record<string, T>;
 
 /**
- * 字符串类型对象（只读）
+ * Đối tượng kiểu chuỗi (chỉ đọc)
  */
 interface ReadonlyRecordable<T = any> {
   readonly [key: string]: T;
 }
 
 /**
- * setTimeout 返回值类型
+ * Kiểu giá trị trả về của setTimeout
  */
 type TimeoutHandle = ReturnType<typeof setTimeout>;
 
 /**
- * setInterval 返回值类型
+ * Kiểu giá trị trả về của setInterval
  */
 type IntervalHandle = ReturnType<typeof setInterval>;
 
 /**
- * 也许它是一个计算的 ref，或者一个 getter 函数
+ * Có thể nó là một ref đã tính toán, hoặc một hàm getter
  *
  */
 type MaybeReadonlyRef<T> = (() => T) | ComputedRef<T>;
 
 /**
- * 也许它是一个 ref，或者一个普通值，或者一个 getter 函数
+ * Có thể nó là một ref, hoặc một giá trị thông thường, hoặc một hàm getter
  *
  */
 type MaybeComputedRef<T> = MaybeReadonlyRef<T> | MaybeRef<T>;

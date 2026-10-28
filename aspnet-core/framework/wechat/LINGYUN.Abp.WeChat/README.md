@@ -1,15 +1,15 @@
 # LINGYUN.Abp.WeChat
 
-微信基础模块，提供微信应用开发的基础功能和配置。
+Mô-đun cơ sở WeChat, cung cấp chức năng và cấu hình cơ sở cho việc phát triển ứng dụng WeChat.
 
-## 功能特性
+## Tính năng
 
-* 微信基础配置管理
-* 统一的微信API调用接口
-* 微信AccessToken管理
-* 统一的错误处理机制
+* Quản lý cấu hình cơ sở WeChat
+* Giao diện gọi API WeChat thống nhất
+* Quản lý AccessToken WeChat
+* Cơ chế xử lý lỗi thống nhất
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatModule))]
@@ -19,26 +19,26 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
-    "BaseUrl": "https://api.weixin.qq.com",  // 微信API基础地址
-    "DefaultTimeout": 30000,                  // 默认超时时间（毫秒）
-    "RetryCount": 3,                         // 重试次数
-    "RetryMilliseconds": 1000                // 重试间隔（毫秒）
+    "BaseUrl": "https://api.weixin.qq.com",  // Địa chỉ cơ sở API WeChat
+    "DefaultTimeout": 30000,                  // Thời gian chờ mặc định (mili giây)
+    "RetryCount": 3,                         // Số lần thử lại
+    "RetryMilliseconds": 1000                // Khoảng thời gian thử lại (mili giây)
   }
 }
 ```
 
-## Settings配置
+## Cấu hình Settings
 
-* `WeChat.BaseUrl` : 微信API基础地址
-* `WeChat.DefaultTimeout` : 默认超时时间
-* `WeChat.RetryCount` : 重试次数
-* `WeChat.RetryMilliseconds` : 重试间隔
+* `WeChat.BaseUrl` : Địa chỉ cơ sở API WeChat
+* `WeChat.DefaultTimeout` : Thời gian chờ mặc định
+* `WeChat.RetryCount` : Số lần thử lại
+* `WeChat.RetryMilliseconds` : Khoảng thời gian thử lại
 
-## 更多文档
+## Tài liệu thêm
 
-* [微信基础模块文档](README.EN.md)
+* [Tài liệu mô-đun cơ sở WeChat](README.EN.md)

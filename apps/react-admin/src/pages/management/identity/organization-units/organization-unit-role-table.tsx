@@ -22,7 +22,7 @@ const OrganizationUnitRoleTable: React.FC<Props> = ({ selectedKey }) => {
 	const [modal, contextHolder] = Modal.useModal();
 	const [roleModalVisible, setRoleModalVisible] = useState(false);
 
-	// 获取角色列表
+	// Lấy danh sách vai trò
 	const { data, isLoading, refetch } = useQuery({
 		queryKey: ["organizationUnitRoles", selectedKey],
 		queryFn: () => {
@@ -34,7 +34,7 @@ const OrganizationUnitRoleTable: React.FC<Props> = ({ selectedKey }) => {
 		enabled: !!selectedKey,
 	});
 
-	// 添加角色
+	// Thêm vai trò
 	const { mutateAsync: addRolesToUnit } = useMutation({
 		mutationFn: (roles: IdentityRoleDto[]) => {
 			if (!selectedKey) {
@@ -53,7 +53,7 @@ const OrganizationUnitRoleTable: React.FC<Props> = ({ selectedKey }) => {
 		},
 	});
 
-	// 移除角色
+	// Xóa vai trò
 	const { mutateAsync: removeRole } = useMutation({
 		mutationFn: (roleId: string) => {
 			if (!selectedKey) {

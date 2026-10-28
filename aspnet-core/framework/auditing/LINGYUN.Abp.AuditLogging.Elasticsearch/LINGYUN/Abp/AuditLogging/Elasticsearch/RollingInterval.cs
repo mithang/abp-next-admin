@@ -1,31 +1,31 @@
 ﻿namespace LINGYUN.Abp.AuditLogging.Elasticsearch;
 /// <summary>
-/// 索引滚动间隔
+/// Khoảng thời gian cuộn chỉ mục
 /// </summary>
 public enum RollingInterval
 {
     /// <summary>
-    /// 索引名称不会随时间滚动, 索引中不包含时间范围信息
+    /// Tên chỉ mục không cuộn theo thời gian, trong chỉ mục không chứa thông tin phạm vi thời gian
     /// </summary>
     Infinite,
     /// <summary>
-    /// 每分钟滚动,索引后缀增加yyyyMMddHHmm
+    /// Cuộn mỗi phút, hậu tố chỉ mục thêm yyyyMMddHHmm
     /// </summary>
     Minute,
     /// <summary>
-    /// 每小时滚动,索引后缀增加yyyyMMddHH
+    /// Cuộn mỗi giờ, hậu tố chỉ mục thêm yyyyMMddHH
     /// </summary>
     Hour,
     /// <summary>
-    /// 每天滚动,索引后缀增加yyyyMMdd
+    /// Cuộn mỗi ngày, hậu tố chỉ mục thêm yyyyMMdd
     /// </summary>
     Day,
     /// <summary>
-    /// 每月滚动,索引后缀增加yyyyMM
+    /// Cuộn mỗi tháng, hậu tố chỉ mục thêm yyyyMM
     /// </summary>
     Month,
     /// <summary>
-    /// 每年滚动,索引后缀增加yyyy
+    /// Cuộn mỗi năm, hậu tố chỉ mục thêm yyyy
     /// </summary>
     Year,
 }

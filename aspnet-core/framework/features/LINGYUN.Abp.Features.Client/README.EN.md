@@ -48,4 +48,4 @@ public class YourService
 * This module is mainly used for client feature validation, typically used in conjunction with the LINGYUN.Abp.FeatureManagement.Client module
 * The name of the client feature value provider is "C"
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Trung giản thể](./README.md) | [English](./README.EN.md)

@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Hangfire.Storage.SqlServer
 
-English | [简体中文](README.md)
+English | [Tiếng Trung giản thể](README.md)
 
 ## 1. Introduction
 

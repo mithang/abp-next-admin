@@ -7,7 +7,7 @@ namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 public static class StreamTypeExtensions
 {
     /// <summary>
-    /// 转换为接口所需的字符串值
+    /// Chuyển đổi thành giá trị chuỗi mà API yêu cầu
     /// </summary>
     public static string AsString(this StreamType streamType)
     {

@@ -1,10 +1,10 @@
-## Effects 目录
+## Thư mục Effects
 
-`effects` 目录专门用于存放与轻微耦合相关的代码和逻辑。如果你的包具有以下特点，建议将其放置在 `effects` 目录下：
+Thư mục `effects` chuyên dùng để lưu trữ code và logic liên quan đến coupling nhẹ. Nếu package của bạn có các đặc điểm sau, nên đặt nó trong thư mục `effects`:
 
-- **状态管理**：使用状态管理框架 `pinia`，并包含处理副作用（如异步操作、API 调用）的部分。
-- **用户偏好设置**：使用 `@vben-core/preferences` 处理用户偏好设置，涉及本地存储或浏览器缓存逻辑（如使用 `localStorage`）。
-- **导航和路由**：处理导航、页面跳转等场景，需要管理路由变化的逻辑。
-- **组件库依赖**：包含与特定组件库紧密耦合或依赖大型仓库的部分。
+- **Quản lý trạng thái**: sử dụng framework quản lý trạng thái `pinia`, và bao gồm phần xử lý side effect (như thao tác bất đồng bộ, gọi API).
+- **Cài đặt tùy chọn người dùng**: sử dụng `@vben-core/preferences` để xử lý cài đặt tùy chọn người dùng, liên quan đến logic lưu trữ cục bộ hoặc bộ nhớ đệm trình duyệt (như sử dụng `localStorage`).
+- **Điều hướng và routing**: xử lý các kịch bản điều hướng, chuyển trang, cần quản lý logic thay đổi route.
+- **Phụ thuộc thư viện component**: bao gồm phần coupling chặt chẽ với thư viện component cụ thể hoặc phụ thuộc vào kho lớn.
 
-通过将相关代码归类到 `effects` 目录，可以使项目结构更加清晰，便于维护和扩展。
+Bằng cách phân loại code liên quan vào thư mục `effects`, cấu trúc dự án có thể rõ ràng hơn, thuận tiện cho việc bảo trì và mở rộng.

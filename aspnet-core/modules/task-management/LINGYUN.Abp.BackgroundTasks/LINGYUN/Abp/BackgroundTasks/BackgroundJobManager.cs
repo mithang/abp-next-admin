@@ -46,9 +46,9 @@ public class BackgroundJobManager : IBackgroundJobManager
         TimeSpan? delay = null)
     {
         var jobConfiguration = Options.GetJob<TArgs>();
-         // 用 BeginTime 表达延迟启动，避免与 JobInfo.Interval（重复间隔）语义混用。
-         // 原实现使用 delay.Value.Seconds（仅取秒分量 0-59），
-         // 会让 TimeSpan.FromMinutes(5) 这类整分钟/整小时的延迟退化为 0，导致任务立即执行。
+         // Dùng BeginTime để biểu thị khởi động trễ, tránh nhầm lẫn ngữ nghĩa với JobInfo.Interval (khoảng lặp lại).
+         // Cách triển khai gốc dùng delay.Value.Seconds (chỉ lấy thành phần giây 0-59),
+         // sẽ khiến các độ trễ nguyên phút/nguyên giờ như TimeSpan.FromMinutes(5) suy biến thành 0, làm công việc thực thi ngay lập tức.
          var now = Clock.Now;
          var beginTime = now;
          if (delay.HasValue && delay.Value > TimeSpan.Zero)
@@ -76,7 +76,7 @@ public class BackgroundJobManager : IBackgroundJobManager
              Description = "From the framework background jobs",
              JobType = JobType.Once,
              CreationTime = now,
-            // 确保不会被轮询入队
+            // Đảm bảo không bị đưa vào hàng đợi bởi quá trình thăm dò
             Status = JobStatus.None,
             NodeName = TasksOptions.NodeName,
             Type = typeof(BackgroundJobAdapter<TArgs>).AssemblyQualifiedName!,
@@ -103,10 +103,10 @@ public class BackgroundJobManager : IBackgroundJobManager
             }
         }
 
-        // 存储状态
+        // Lưu trữ trạng thái
         await JobStore.StoreAsync(jobInfo);
 
-        // 发布作业
+        // Phát hành công việc
         await JobPublisher.PublishAsync(jobInfo);
 
         return jobInfo.Id;

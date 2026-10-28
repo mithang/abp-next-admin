@@ -5,41 +5,41 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats;
 /// <summary>
-/// 客户群管理接口
+/// Giao diện quản lý nhóm khách hàng
 /// </summary>
 public interface IWeChatWorkGroupChatProvider
 {
     /// <summary>
-    /// 获取客户群列表
+    /// Lấy danh sách nhóm khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92120" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92120" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetGroupChatListResponse> GetGroupChatListAsync(
         WeChatWorkGetGroupChatListRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取客户群详情
+    /// Lấy chi tiết nhóm khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92122" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92122" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetGroupChatResponse> GetGroupChatAsync(
         WeChatWorkGetGroupChatRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 客户群opengid转换
+    /// Chuyển đổi opengid của nhóm khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94822" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/94822" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkOpengIdToChatIdResponse> OpengIdToChatIdAsync(

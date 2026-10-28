@@ -8,35 +8,35 @@ public class UserCard
 
     public Guid UserId { get; set; }
 
-    #region 细粒度的用户资料
+    #region Hồ sơ người dùng chi tiết
 
     public string UserName { get; set; } = default!;
     /// <summary>
-    /// 头像
+    /// Ảnh đại diện
     /// </summary>
     public string? AvatarUrl { get; set; }
     /// <summary>
-    /// 昵称
+    /// Biệt danh
     /// </summary>
     public string? NickName { get; set; }
     /// <summary>
-    /// 年龄
+    /// Tuổi
     /// </summary>
     public int Age { get; set; }
     /// <summary>
-    /// 性别
+    /// Giới tính
     /// </summary>
     public Sex Sex { get; set; }
     /// <summary>
-    /// 签名
+    /// Chữ ký
     /// </summary>
     public string? Sign { get; set; }
     /// <summary>
-    /// 说明
+    /// Mô tả
     /// </summary>
     public string? Description { get; set; }
     /// <summary>
-    /// 生日
+    /// Ngày sinh
     /// </summary>
     public DateTime? Birthday { get; set; }
 

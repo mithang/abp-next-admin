@@ -153,12 +153,12 @@ public class FakeNotificationSender : INotificationSender, ITransientDependency
 
         Logger.LogDebug($"Persistent notification {notificationInfo.Name}");
 
-        // 持久化通知
+        // Lưu trữ thông báo
         await NotificationStore.InsertNotificationAsync(notificationInfo);
 
         var providers = Enumerable.Reverse(NotificationPublishProviderManager.Providers);
 
-        // 过滤用户指定提供者
+        // Lọc các nhà cung cấp do người dùng chỉ định
         if (useProviders?.Any() == true)
         {
             providers = providers.Where(p => useProviders.Contains(p.Name));
@@ -177,10 +177,10 @@ public class FakeNotificationSender : INotificationSender, ITransientDependency
     }
 
     /// <summary>
-    /// 指定提供者发布通知
+    /// Phát hành thông báo tới nhà cung cấp được chỉ định
     /// </summary>
-    /// <param name="providers">提供者列表</param>
-    /// <param name="notificationInfo">通知信息</param>
+    /// <param name="providers">Danh sách nhà cung cấp</param>
+    /// <param name="notificationInfo">Thông tin thông báo</param>
     /// <returns></returns>
     protected async Task PublishFromProvidersAsync(
         IEnumerable<INotificationPublishProvider> providers,
@@ -193,11 +193,11 @@ public class FakeNotificationSender : INotificationSender, ITransientDependency
         }
     }
     /// <summary>
-    /// 发布通知
+    /// Phát hành thông báo
     /// </summary>
-    /// <param name="provider">通知发布者</param>
-    /// <param name="notificationInfo">通知信息</param>
-    /// <param name="subscriptionUserIdentifiers">订阅用户列表</param>
+    /// <param name="provider">Nhà phát hành thông báo</param>
+    /// <param name="notificationInfo">Thông tin thông báo</param>
+    /// <param name="subscriptionUserIdentifiers">Danh sách người dùng đã đăng ký</param>
     /// <returns></returns>
     protected async Task PublishAsync(
         INotificationPublishProvider provider,
@@ -211,8 +211,8 @@ public class FakeNotificationSender : INotificationSender, ITransientDependency
         // {
         //     notificationInfo.Data = notifacationDataMapping.MappingFunc(notificationInfo.Data);
         // }
-        // 发布
-        // 契约已迁移为 NotificationPublishContext(见 INotificationPublishProvider)
+        // Phát hành
+        // Hợp đồng đã được di chuyển sang NotificationPublishContext (xem INotificationPublishProvider)
         var context = new NotificationPublishContext(notificationInfo, subscriptionUserIdentifiers);
         await provider.PublishAsync(context);
 

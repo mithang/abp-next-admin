@@ -4,17 +4,17 @@ using Volo.Abp.Auditing;
 namespace PackageName.CompanyName.ProjectName.TreeCodes
 {
     /// <summary>
-    /// 定义具有树形编码的实体接口
+    /// Định nghĩa giao diện thực thể có mã cây
     /// </summary>
     public interface IHaveTreeCode : IHasCreationTime
     {
         /// <summary>
-        /// 树形编码
+        /// Mã cây
         /// </summary>
         string TreeCode { get; set; }
         
         /// <summary>
-        /// 父级Id
+        /// Id cấp cha
         /// </summary>
         Guid? ParentId { get; set; }
     }

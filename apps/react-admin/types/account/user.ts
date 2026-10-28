@@ -1,79 +1,79 @@
 interface UserInfo {
 	[property: string]: any;
 	/**
-	 * 邮箱地址
+	 * Địa chỉ email
 	 */
 	email: string;
 	/**
-	 * 邮件地址是否已验证
+	 * Địa chỉ email đã được xác minh chưa
 	 */
 	emailVerified: string;
 	/**
-	 * 名称
+	 * Tên
 	 */
 	givenName: string;
 	/**
-	 * 用户名
+	 * Tên người dùng
 	 */
 	name: string;
 	/**
-	 * 手机号是否已验证
+	 * Số điện thoại đã được xác minh chưa
 	 */
 	phoneNumberVerified: string;
 	/**
-	 * 用户名
+	 * Tên người dùng
 	 */
 	preferredUsername: string;
 	/**
-	 * 角色列表
+	 * Danh sách vai trò
 	 */
 	role: string[];
 	/**
-	 * 用户标识
+	 * Id người dùng
 	 */
 	sub: string;
 	/**
-	 * 用户名
+	 * Tên người dùng
 	 */
 	uniqueName: string;
 }
-/** oauth标准用户信息结构 */
+/** Cấu trúc thông tin người dùng chuẩn oauth */
 interface OAuthUserInfo {
 	[property: string]: any;
 	/**
-	 * 邮箱地址
+	 * Địa chỉ email
 	 */
 	email: string;
 	/**
-	 * 邮件地址是否已验证
+	 * Địa chỉ email đã được xác minh chưa
 	 */
 	email_verified: string;
 	/**
-	 * 名称
+	 * Tên
 	 */
 	given_name: string;
 	/**
-	 * 用户名
+	 * Tên người dùng
 	 */
 	name: string;
 	/**
-	 * 手机号是否已验证
+	 * Số điện thoại đã được xác minh chưa
 	 */
 	phone_number_verified: string;
 	/**
-	 * 用户名
+	 * Tên người dùng
 	 */
 	preferred_username: string;
 	/**
-	 * 角色列表
+	 * Danh sách vai trò
 	 */
 	role: string[];
 	/**
-	 * 用户标识
+	 * Id người dùng
 	 */
 	sub: string;
 	/**
-	 * 用户名
+	 * Tên người dùng
 	 */
 	unique_name: string;
 }

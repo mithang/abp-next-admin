@@ -21,7 +21,7 @@ public class NotificationsHub : AbpHub
 
         if (CurrentTenant.IsAvailable)
         {
-            // 以租户为分组，将用户加入租户通讯组
+            // Nhóm theo đơn vị thuê (tenant), thêm người dùng vào nhóm liên lạc của đơn vị thuê
             await Groups.AddToGroupAsync(Context.ConnectionId, CurrentTenant.GetId().ToString());
         }
         else
@@ -37,7 +37,7 @@ public class NotificationsHub : AbpHub
 
         if (CurrentTenant.IsAvailable)
         {
-            // 以租户为分组，将移除租户通讯组
+            // Nhóm theo đơn vị thuê (tenant), sẽ xóa khỏi nhóm liên lạc của đơn vị thuê
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, CurrentTenant.GetId().ToString());
         }
         else

@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日程参与者详情
+/// Chi tiết người tham gia lịch trình
 /// </summary>
 public class ScheduleAttendeeInfo
 {
     /// <summary>
-    /// 日程参与者ID
+    /// Id người tham gia lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 日程参与者的接受状态
+    /// Trạng thái chấp nhận của người tham gia lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("response_status")]

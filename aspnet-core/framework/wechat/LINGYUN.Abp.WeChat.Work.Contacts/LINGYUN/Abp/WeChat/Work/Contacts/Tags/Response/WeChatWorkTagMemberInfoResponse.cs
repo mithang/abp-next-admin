@@ -5,29 +5,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Tags.Response;
 /// <summary>
-/// 标签成员响应参数
+/// Tham số phản hồi thành viên thẻ
 /// </summary>
 /// <remarks>
-/// 详情见: https://developer.work.weixin.qq.com/document/path/90213
+/// Chi tiết xem tại: https://developer.work.weixin.qq.com/document/path/90213
 /// </remarks>
 public class WeChatWorkTagMemberInfoResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 标签名
+    /// Tên thẻ
     /// </summary>
     [NotNull]
     [JsonProperty("tagname")]
     [JsonPropertyName("tagname")]
     public string TagName { get; set; } = default!;
     /// <summary>
-    /// 标签中包含的成员列表
+    /// Danh sách thành viên thuộc thẻ
     /// </summary>
     [NotNull]
     [JsonProperty("userlist")]
     [JsonPropertyName("userlist")]
     public TagUserInfo[] Users { get; set; } = default!;
     /// <summary>
-    /// 标签中包含的部门id列表
+    /// Danh sách id phòng ban thuộc thẻ
     /// </summary>
     [NotNull]
     [JsonProperty("partylist")]

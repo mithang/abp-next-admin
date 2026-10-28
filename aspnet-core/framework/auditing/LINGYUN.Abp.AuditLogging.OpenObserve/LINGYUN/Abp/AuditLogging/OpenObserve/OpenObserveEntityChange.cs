@@ -5,20 +5,20 @@ using Volo.Abp.Data;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 展平的实体变更记录(写入 OpenObserve 实体变更数据流)
+/// Bản ghi thay đổi thực thể đã làm phẳng (ghi vào luồng dữ liệu thay đổi thực thể của OpenObserve)
 /// </summary>
 /// <remarks>
-/// 纯数据对象, 不包含序列化逻辑(见 <see cref="OpenObserveEntityChangeConverter"/>);
-/// 因为 OpenObserve 会把嵌套数组保存为 JSON 字符串列,
-/// <see cref="EntityChange.PropertyChanges"/> 以 JSON 字符串形式保存
+/// Đối tượng dữ liệu thuần túy, không chứa logic tuần tự hóa (xem <see cref="OpenObserveEntityChangeConverter"/>);
+/// Vì OpenObserve lưu mảng lồng nhau dưới dạng cột chuỗi JSON,
+/// <see cref="EntityChange.PropertyChanges"/> được lưu dưới dạng chuỗi JSON
 /// </remarks>
 public class OpenObserveEntityChange
 {
     /// <summary>
-    /// OpenObserve 文档时间(微秒)
+    /// Thời gian tài liệu OpenObserve (micro giây)
     /// </summary>
     /// <remarks>
-    /// 由 <see cref="EntityChange.ChangeTime"/> 覆盖; 为 null 时使用服务端写入时间
+    /// Được <see cref="EntityChange.ChangeTime"/> ghi đè; khi là null sẽ dùng thời gian ghi của phía máy chủ
     /// </remarks>
     [JsonPropertyName("_timestamp")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -35,7 +35,7 @@ public class OpenObserveEntityChange
     public DateTime ChangeTime { get; set; }
 
     /// <summary>
-    /// 变更类型(<see cref="EntityChangeType"/> 的名称)
+    /// Loại thay đổi (tên của <see cref="EntityChangeType"/>)
     /// </summary>
     public string ChangeType { get; set; }
 
@@ -44,17 +44,17 @@ public class OpenObserveEntityChange
     public string? EntityTypeFullName { get; set; }
 
     /// <summary>
-    /// 审计日志所属用户
+    /// Người dùng sở hữu nhật ký kiểm toán
     /// </summary>
     public Guid? UserId { get; set; }
 
     /// <summary>
-    /// 审计日志所属用户名
+    /// Tên người dùng sở hữu nhật ký kiểm toán
     /// </summary>
     public string? UserName { get; set; }
 
     /// <summary>
-    /// 属性变更明细(JSON 字符串, 由 <see cref="OpenObserveEntityChangeConverter"/> 处理)
+    /// Chi tiết thay đổi thuộc tính (chuỗi JSON, do <see cref="OpenObserveEntityChangeConverter"/> xử lý)
     /// </summary>
     [JsonPropertyName("propertychanges")]
     public string? PropertyChangesJson { get; set; }

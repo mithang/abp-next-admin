@@ -7,43 +7,43 @@ public class IdentitySessionCacheItem
 {
     private const string CacheKeyFormat = "s:{0}";
     /// <summary>
-    /// 登录设备
+    /// Thiết bị đăng nhập
     /// </summary>
     public string Device { get; set; } = default!;
     /// <summary>
-    /// 设备描述
+    /// Mô tả thiết bị
     /// </summary>
     public string? DeviceInfo { get; set; }
     /// <summary>
-    /// 用户Id
+    /// Id người dùng
     /// </summary>
     public Guid UserId { get; set; }
     /// <summary>
-    /// 会话Id
+    /// Id phiên
     /// </summary>
     public string SessionId { get; set; } = default!;
     /// <summary>
-    /// 客户端Id
+    /// Id máy khách
     /// </summary>
     public string? ClientId { get; set; }
     /// <summary>
-    /// IP地址
+    /// Địa chỉ IP
     /// </summary>
     public string? IpAddresses { get; set; }
     /// <summary>
-    /// IP属地
+    /// Vùng thuộc IP
     /// </summary>
     public string? IpRegion { get; set; }
     /// <summary>
-    /// 登录时间
+    /// Thời gian đăng nhập
     /// </summary>
     public DateTime SignedIn { get; set; }
     /// <summary>
-    /// 上次访问时间
+    /// Thời gian truy cập lần cuối
     /// </summary>
     public DateTime? LastAccessed { get; set; }
     /// <summary>
-    /// 过期时间(ms)
+    /// Thời gian hết hạn (ms)
     /// </summary>
     public double? ExpiraIn { get; set; }
 

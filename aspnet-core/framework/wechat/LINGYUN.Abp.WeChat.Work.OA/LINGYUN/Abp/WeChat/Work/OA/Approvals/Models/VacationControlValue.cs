@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 假勤组件-请假组件值
+/// Giá trị thành phần xin nghỉ phép thuộc thành phần chấm công/nghỉ phép
 /// </summary>
 public class VacationControlValue : ControlValue
 {
     /// <summary>
-    /// 请假内容，即申请人在此组件内选择的请假信息
+    /// Nội dung xin nghỉ phép, tức thông tin nghỉ phép mà người nộp đơn đã chọn trong thành phần này
     /// </summary>
     [NotNull]
     [JsonProperty("vacation")]
@@ -30,14 +30,14 @@ public class VacationControlValue : ControlValue
 public class VacationValue
 {
     /// <summary>
-    /// 请假类型，所选选项与假期管理关联，为假期管理中的假期类型
+    /// Loại nghỉ phép; tùy chọn đã chọn liên kết với quản lý kỳ nghỉ, là loại kỳ nghỉ trong quản lý kỳ nghỉ
     /// </summary>
     [NotNull]
     [JsonProperty("selector")]
     [JsonPropertyName("selector")]
     public VacationSelector Selector { get; set; } = default!;
     /// <summary>
-    /// 假勤组件
+    /// Thành phần chấm công/nghỉ phép
     /// </summary>
     [NotNull]
     [JsonProperty("attendance")]
@@ -58,14 +58,14 @@ public class VacationValue
 public class VacationSelector
 {
     /// <summary>
-    /// 选择方式：single-单选；multi-多选，在假勤控件中固定为单选
+    /// Phương thức chọn: single - chọn đơn; multi - chọn nhiều, trong điều khiển chấm công/nghỉ phép cố định là chọn đơn
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 用户所选选项
+    /// Tùy chọn người dùng đã chọn
     /// </summary>
     [NotNull]
     [JsonProperty("options")]
@@ -86,14 +86,14 @@ public class VacationSelector
 public class VacationSelectorOption
 {
     /// <summary>
-    /// 选项key，选项的唯一id，可通过“获取审批模板详情”接口获得vacation_list中item的id值
+    /// Khóa tùy chọn, id duy nhất của tùy chọn, có thể lấy giá trị id của item trong vacation_list qua giao diện “lấy chi tiết mẫu phê duyệt”
     /// </summary>
     [NotNull]
     [JsonProperty("key")]
     [JsonPropertyName("key")]
     public string Key { get; set; } = default!;
     /// <summary>
-    /// 选项值，若配置了多语言则会包含中英文的选项值
+    /// Giá trị tùy chọn; nếu đã cấu hình đa ngôn ngữ thì sẽ bao gồm giá trị tùy chọn tiếng Trung và tiếng Anh
     /// </summary>
     [NotNull]
     [JsonProperty("value")]
@@ -114,14 +114,14 @@ public class VacationSelectorOption
 public class VacationSelectorOptionValue
 {
     /// <summary>
-    /// 选项值
+    /// Giá trị tùy chọn
     /// </summary>
     [NotNull]
     [JsonProperty("text")]
     [JsonPropertyName("text")]
     public string Text { get; set; } = default!;
     /// <summary>
-    /// 多语言名称
+    /// Tên đa ngôn ngữ
     /// </summary>
     [NotNull]
     [JsonProperty("lang")]

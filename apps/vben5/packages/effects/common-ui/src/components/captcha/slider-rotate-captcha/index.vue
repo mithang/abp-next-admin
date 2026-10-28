@@ -99,7 +99,7 @@ function handleImgOnLoad() {
   const { maxDegree, minDegree } = props;
   const ranRotate = Math.floor(
     minDegree! + Math.random() * (maxDegree! - minDegree!),
-  ); // 生成随机角度
+  ); // Tạo góc ngẫu nhiên
   state.randomRotate = ranRotate;
   setImgRotate(ranRotate);
 }
@@ -114,7 +114,7 @@ function handleDragEnd() {
     useTimeoutFn(() => {
       state.toOrigin = false;
       state.showTip = true;
-      //  时间与动画时间保持一致
+      // Thời gian giữ đồng bộ với thời gian animation
     }, 300);
   } else {
     checkPass();

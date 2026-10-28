@@ -59,7 +59,7 @@ public class SingleDbMigrationEventHandler :
     }
     public async virtual Task HandleEventAsync(EntityDeletedEto<TenantEto> eventData)
     {
-        // 租户删除时移除轮询作业
+        // Khi xóa tenant thì loại bỏ tác vụ thăm dò (polling)
         var pollingJob = BuildPollingJobInfo(eventData.Entity.Id, eventData.Entity.Name);
         await JobScheduler.RemoveAsync(pollingJob);
         await JobStore.RemoveAsync(pollingJob.Id);
@@ -171,7 +171,7 @@ public class SingleDbMigrationEventHandler :
 
     protected async virtual Task SeedTenantDefaultRoleAsync(TenantCreatedEto eventData)
     {
-        // 默认用户
+        // Người dùng mặc định
         var roleId = GuidGenerator.Create();
         var defaultRole = new IdentityRole(roleId, "Users", eventData.Id)
         {
@@ -181,14 +181,17 @@ public class SingleDbMigrationEventHandler :
         };
         (await IdentityRoleManager.CreateAsync(defaultRole)).CheckErrors();
 
-        // 所有用户都应该具有查询用户权限, 用于IM场景
+        // SEC-12/SEC-13 (vòng security 6–7): CHỈ seed UserLookup, KHÔNG seed Users.Default.
+        // Users.Default cho phép liệt kê mọi user trong tenant (kể cả tenant admin);
+        // kịch bản IM chỉ cần UserLookup để tra cứu user khi chat. Seed Users.Default
+        // ở đây từng khiến mọi lần thu hồi quyền qua API đều bị cấp lại ở lần
+        // tạo tenant / khởi động tiếp theo trong bản AllInOne.
         await PermissionDataSeeder.SeedAsync(
             RolePermissionValueProvider.ProviderName,
             defaultRole.Name,
             new string[]
             {
-                IdentityPermissions.UserLookup.Default,
-                IdentityPermissions.Users.Default
+                IdentityPermissions.UserLookup.Default
             },
             tenantId: eventData.Id);
     }
@@ -234,7 +237,7 @@ public class SingleDbMigrationEventHandler :
 
             tenantAdminUser.AddRole(tenantAdminRoleId);
 
-            // 创建租户管理用户
+            // Tạo người dùng quản trị tenant
             (await IdentityUserManager.CreateAsync(tenantAdminUser)).CheckErrors();
             (await IdentityUserManager.AddPasswordAsync(tenantAdminUser, adminPassword)).CheckErrors();
         }

@@ -3,15 +3,15 @@
 public enum PackageLevel
 {
     /// <summary>
-    /// 无需更新
+    /// Không cần cập nhật
     /// </summary>
     None = -1,
     /// <summary>
-    /// 资源
+    /// Tài nguyên
     /// </summary>
     Resource = 0,
     /// <summary>
-    /// 整体
+    /// Toàn bộ
     /// </summary>
     Full = 1
 }

@@ -1,27 +1,27 @@
 # LINGYUN.Abp.MessageService.Domain.Shared
 
-消息服务领域共享层模块。
+Module chia sẻ tầng miền của dịch vụ tin nhắn.
 
-## 功能特性
+## Tính năng
 
-* 定义消息服务的基础设施
-* 提供多语言资源
-* 定义异常本地化
-* 定义错误代码
+* Định nghĩa cơ sở hạ tầng của dịch vụ tin nhắn
+* Cung cấp tài nguyên đa ngôn ngữ
+* Định nghĩa bản địa hóa ngoại lệ
+* Định nghĩa mã lỗi
 
-## 依赖模块
+## Module phụ thuộc
 
 * `AbpLocalizationModule`
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.MessageService.Domain.Shared 到你的项目中：
+1. Trước tiên, cần cài đặt LINGYUN.Abp.MessageService.Domain.Shared vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.MessageService.Domain.Shared
 ```
 
-2. 添加 `AbpMessageServiceDomainSharedModule` 到你的模块的依赖列表：
+2. Thêm `AbpMessageServiceDomainSharedModule` vào danh sách phụ thuộc của module của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpMessageServiceDomainSharedModule))]
@@ -30,6 +30,6 @@ public class YourModule : AbpModule
 }
 ```
 
-## 更多
+## Xem thêm
 
 [English document](README.EN.md)

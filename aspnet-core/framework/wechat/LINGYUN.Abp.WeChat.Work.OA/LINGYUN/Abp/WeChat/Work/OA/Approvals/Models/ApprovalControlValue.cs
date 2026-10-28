@@ -5,68 +5,68 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 审批申请单数据
+/// Dữ liệu đơn xin phê duyệt
 /// </summary>
 public class ApprovalControlValue
 {
     /// <summary>
-    /// 文本内容，即申请人在此控件填写的文本内容
+    /// Nội dung văn bản, tức nội dung văn bản mà người nộp đơn đã điền vào control này
     /// </summary>
     [CanBeNull]
     [JsonProperty("text")]
     [JsonPropertyName("text")]
     public string? Text { get; set; }
     /// <summary>
-    /// 数字内容，即申请人在此控件填写的数字内容
+    /// Nội dung số, tức nội dung số mà người nộp đơn đã điền vào control này
     /// </summary>
     [CanBeNull]
     [JsonProperty("new_number")]
     [JsonPropertyName("new_number")]
     public decimal? NewNumber { get; set; }
     /// <summary>
-    /// 金额内容，即申请人在此控件填写的金额内容
+    /// Nội dung số tiền, tức nội dung số tiền mà người nộp đơn đã điền vào control này
     /// </summary>
     [CanBeNull]
     [JsonProperty("new_money")]
     [JsonPropertyName("new_money")]
     public decimal? NewMoney { get; set; }
     /// <summary>
-    /// 所选成员内容，即申请人在此控件选择的成员，多选模式下可以有多个
+    /// Nội dung thành viên đã chọn, tức thành viên mà người nộp đơn đã chọn trong control này, ở chế độ chọn nhiều có thể có nhiều thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("members")]
     [JsonPropertyName("members")]
     public List<MemberValue> Members { get; set; } = default!;
     /// <summary>
-    /// 所选部门内容，即申请人在此控件选择的部门，多选模式下可能有多个
+    /// Nội dung phòng ban đã chọn, tức phòng ban mà người nộp đơn đã chọn trong control này, ở chế độ chọn nhiều có thể có nhiều phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("departments")]
     [JsonPropertyName("departments")]
     public List<DepartmentValue> Departments { get; set; } = default!;
     /// <summary>
-    /// 附件列表
+    /// Danh sách tệp đính kèm
     /// </summary>
     [NotNull]
     [JsonProperty("files")]
     [JsonPropertyName("files")]
     public List<FileValue> Files { get; set; } = default!;
     /// <summary>
-    /// 明细内容，一个明细控件可能包含多个子明细
+    /// Nội dung chi tiết, một control chi tiết có thể chứa nhiều chi tiết con
     /// </summary>
     [NotNull]
     [JsonProperty("children")]
     [JsonPropertyName("children")]
     public List<ApprovalDataChildrenValue> Children { get; set; } = default!;
     /// <summary>
-    /// 选择内容
+    /// Nội dung đã chọn
     /// </summary>
     [CanBeNull]
     [JsonProperty("selector")]
     [JsonPropertyName("selector")]
     public SelectorValue? Selector { get; set; }
     /// <summary>
-    /// 关联审批单
+    /// Đơn phê duyệt liên quan
     /// </summary>
     [NotNull]
     [JsonProperty("related_approval")]
@@ -77,7 +77,7 @@ public class ApprovalControlValue
 public class ApprovalDataChildrenValue
 {
     /// <summary>
-    /// 明细内容，一个明细控件可能包含多个子明细
+    /// Nội dung chi tiết, một control chi tiết có thể chứa nhiều chi tiết con
     /// </summary>
     [NotNull]
     [JsonProperty("list")]

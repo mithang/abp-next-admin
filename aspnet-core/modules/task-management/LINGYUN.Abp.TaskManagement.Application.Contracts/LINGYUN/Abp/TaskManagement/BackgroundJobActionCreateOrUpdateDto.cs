@@ -5,11 +5,11 @@ namespace LINGYUN.Abp.TaskManagement;
 public abstract class BackgroundJobActionCreateOrUpdateDto
 {
     /// <summary>
-    /// 是否启用
+    /// Có bật hay không
     /// </summary>
     public bool IsEnabled { get; set; }
     /// <summary>
-    /// 参数
+    /// Tham số
     /// </summary>
     public ExtraPropertyDictionary Paramters { get; set; }
 

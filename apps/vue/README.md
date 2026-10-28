@@ -5,76 +5,76 @@
 <h1>Vue vben admin</h1>
 </div>
 
-## 简介
+## Giới thiệu
 
-Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3`,`vite2`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
+Vue Vben Admin là một mẫu quản trị trung/hậu đài mã nguồn mở miễn phí. Được phát triển bằng các công nghệ chủ đạo mới nhất như `vue3`, `vite2`, `TypeScript`, là giải pháp frontend trung/hậu đài dùng ngay sau khi cài đặt, cũng có thể dùng để học tập và tham khảo.
 
-## 特性
+## Tính năng
 
-- **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
-- **TypeScript**: 应用程序级 JavaScript 的语言
-- **主题**：可配置的主题
-- **国际化**：内置完善的国际化方案
-- **Mock 数据** 内置 Mock 数据方案
-- **权限** 内置完善的动态路由权限生成方案
-- **组件** 二次封装了多个常用的组件
+- **Công nghệ mới nhất**：Phát triển bằng các công nghệ frontend tiên tiến như Vue3/vite2
+- **TypeScript**: Ngôn ngữ JavaScript cấp ứng dụng
+- **Chủ đề**：Chủ đề có thể cấu hình
+- **Quốc tế hoá**：Giải pháp quốc tế hoá hoàn chỉnh tích hợp sẵn
+- **Dữ liệu Mock** Giải pháp dữ liệu Mock tích hợp sẵn
+- **Quyền hạn** Giải pháp tạo quyền định tuyến động hoàn chỉnh tích hợp sẵn
+- **Thành phần** Đã đóng gói lại nhiều thành phần thường dùng
 
-## 预览
+## Xem trước
 
-![系统日志](./images/logging.png)
+![Nhật ký hệ thống](./images/logging.png)
 
-![审计日志](./images/audit-log.png)
+![Nhật ký kiểm toán](./images/audit-log.png)
 
-![安全日志](./images/security-log.png)
+![Nhật ký bảo mật](./images/security-log.png)
 
-![网关管理](./images/apigateway.png)
+![Quản lý cổng](./images/apigateway.png)
 
-![数据字典](./images/data-dictionary.png)
+![Từ điển dữ liệu](./images/data-dictionary.png)
 
-![对象存储](./images/oss.png)
+![Lưu trữ đối tượng](./images/oss.png)
 
-![特性管理](./images/features.png)
+![Quản lý tính năng](./images/features.png)
 
-![系统设置](./images/settings.png)
+![Cài đặt hệ thống](./images/settings.png)
 
-![菜单管理](./images/menus.png)
+![Quản lý menu](./images/menus.png)
 
-![组织机构](./images/organization-unit.png)
+![Tổ chức](./images/organization-unit.png)
 
-![本地化管理](./images/localization.png)
+![Quản lý bản địa hoá](./images/localization.png)
 
-### 使用 Gitpod
+### Sử dụng Gitpod
 
-在 Gitpod（适用于 GitHub 的免费在线开发环境）中打开项目，并立即开始编码.
+Mở dự án trong Gitpod (môi trường phát triển trực tuyến miễn phí dành cho GitHub) và bắt đầu viết code ngay lập tức.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/anncwb/vue-vben-admin)
 
-## 文档
+## Tài liệu
 
-[文档地址](https://vvbin.cn/doc-next/)
+[Địa chỉ tài liệu](https://vvbin.cn/doc-next/)
 
-## 准备
+## Chuẩn bị
 
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
-- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+- [node](http://nodejs.org/) và [git](https://git-scm.com/) - Môi trường phát triển dự án
+- [Vite](https://vitejs.dev/) - Làm quen với các tính năng của vite
+- [Vue3](https://v3.vuejs.org/) - Làm quen với cú pháp cơ bản của Vue
+- [TypeScript](https://www.typescriptlang.org/) - Làm quen với cú pháp cơ bản của `TypeScript`
+- [Es6+](http://es6.ruanyifeng.com/) - Làm quen với cú pháp cơ bản của es6
+- [Vue-Router-Next](https://next.router.vuejs.org/) - Làm quen với cách dùng cơ bản của vue-router
+- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - Cách dùng cơ bản của ui
+- [Mock.js](https://github.com/nuysoft/Mock) - Cú pháp cơ bản của mockjs
 
-- [abp-vNext-admin](https://github.com/colinin/abp-vue-admin-element-typescript) - 后台服务
+- [abp-vNext-admin](https://github.com/colinin/abp-vue-admin-element-typescript) - Dịch vụ backend
 
-## 安装使用
+## Cài đặt và sử dụng
 
-- 获取项目代码
+- Lấy mã nguồn dự án
 
 ```bash
 git clone https://github.com/anncwb/vue-vben-admin.git
 ```
 
-- 安装依赖
+- Cài đặt các dependency
 
 ```bash
 cd vue-vben-admin

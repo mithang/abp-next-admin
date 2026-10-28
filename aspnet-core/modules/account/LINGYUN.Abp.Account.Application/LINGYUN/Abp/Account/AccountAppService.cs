@@ -67,7 +67,7 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
         var user = await UserManager.FindByLoginAsync(AbpWeChatMiniProgramConsts.ProviderName, wehchatOpenId.OpenId);
         if (user != null)
         {
-            // 应该要抛出微信号已注册异常,而不是直接返回注册用户数据,否则造成用户信息泄露
+            // Nên ném ra ngoại lệ tài khoản WeChat đã đăng ký, chứ không trả trực tiếp dữ liệu người dùng đã đăng ký, nếu không sẽ gây rò rỉ thông tin người dùng
             throw new UserFriendlyException(L["DuplicateWeChat"]);
         }
         var userName = input.UserName;
@@ -76,7 +76,7 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
             userName = "wxid-" + wehchatOpenId.OpenId.ToMd5().ToLower();
         }
 
-        var userEmail = input.EmailAddress;//如果邮件地址不验证,随意写入一个
+        var userEmail = input.EmailAddress;//Nếu địa chỉ email không được xác minh, cứ ghi tạm một địa chỉ
         if (userEmail.IsNullOrWhiteSpace())
         {
             userEmail = $"{userName}@{CurrentTenant.Name ?? "default"}.io";
@@ -162,11 +162,11 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
         var securityTokenCacheItem = await SecurityTokenCache.GetAsync(securityTokenCacheKey);
         if (securityTokenCacheItem == null)
         {
-            // 验证码过期
+            // Mã xác minh đã hết hạn
             throw new UserFriendlyException(L["InvalidVerifyCode"]);
         }
 
-        // 验证码是否有效
+        // Mã xác minh có hiệu lực hay không
         if (input.Code.Equals(securityTokenCacheItem.Token))
         {
             var tempNewUser = new IdentityUser(
@@ -183,7 +183,7 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
                 UserTwoFactorTokenProviderConsts.PhoneNumberRegisterPurpose,
                 input.Code))
             {
-                var userEmail = input.EmailAddress ?? $"{input.PhoneNumber}@{CurrentTenant.Name ?? "default"}.io";//如果邮件地址不验证,随意写入一个
+                var userEmail = input.EmailAddress ?? $"{input.PhoneNumber}@{CurrentTenant.Name ?? "default"}.io";//Nếu địa chỉ email không được xác minh, cứ ghi tạm một địa chỉ
                 var userName = input.UserName ?? input.PhoneNumber;
                 var user = new IdentityUser(GuidGenerator.Create(), userName, userEmail, CurrentTenant.Id)
                 {
@@ -215,15 +215,15 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
                 return;
             }
         }
-        // 验证码无效
+        // Mã xác minh không hợp lệ
         throw new UserFriendlyException(L["InvalidVerifyCode"]);
     }
 
     public async virtual Task SendPhoneResetPasswordCodeAsync(SendPhoneResetPasswordCodeDto input)
     {
-        // 传递 isConfirmed 用户必须是已确认过手机号的
+        // Truyền isConfirmed: người dùng phải là người đã xác nhận số điện thoại
         var user = await GetUserByPhoneNumberAsync(input.PhoneNumber, isConfirmed: true);
-        // 外部认证用户不允许修改密码
+        // Người dùng xác thực bên ngoài không được phép đổi mật khẩu
         if (user.IsExternal)
         {
             throw new BusinessException(code: Volo.Abp.Identity.IdentityErrorCodes.ExternalUserPasswordChange);
@@ -234,21 +234,21 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
             UserTwoFactorTokenProviderConsts.PhoneResetPasswordPurpose);
         var securityTokenCacheItem = await SecurityTokenCache.GetAsync(securityTokenCacheKey);
         var interval = await SettingProvider.GetAsync(IdentitySettingNames.User.SmsRepetInterval, 1);
-        // 能查询到缓存就是重复发送
+        // Tra được bộ nhớ đệm tức là gửi trùng lặp
         if (securityTokenCacheItem != null)
         {
             throw new UserFriendlyException(L["SendRepeatSmsVerifyCode", interval]);
         }
 
         var template = await SettingProvider.GetOrNullAsync(IdentitySettingNames.User.SmsResetPassword);
-        // 生成二次认证码
+        // Tạo mã xác thực lần hai
         var code = await UserManager.GenerateUserTokenAsync(
             user,
             TokenOptions.DefaultPhoneProvider,
             UserTwoFactorTokenProviderConsts.PhoneResetPasswordPurpose);
-        // 发送短信验证码
+        // Gửi mã xác minh qua SMS
         await SecurityCodeSender.SendAsync(input.PhoneNumber, code, template!);
-        // 缓存这个手机号的记录,防重复
+        // Lưu bộ nhớ đệm bản ghi của số điện thoại này, chống trùng lặp
         securityTokenCacheItem = new SecurityTokenCacheItem(code, user.Id, user.SecurityStamp);
         await SecurityTokenCache
             .SetAsync(securityTokenCacheKey, securityTokenCacheItem,
@@ -269,29 +269,29 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
             throw new UserFriendlyException(L["InvalidVerifyCode"]);
         }
         await IdentityOptions.SetAsync();
-        // 传递 isConfirmed 用户必须是已确认过手机号的
+        // Truyền isConfirmed: người dùng phải là người đã xác nhận số điện thoại
         var user = await GetUserByPhoneNumberAsync(input.PhoneNumber, isConfirmed: true);
-        // 外部认证用户不允许修改密码
+        // Người dùng xác thực bên ngoài không được phép đổi mật khẩu
         if (user.IsExternal)
         {
             throw new BusinessException(code: Volo.Abp.Identity.IdentityErrorCodes.ExternalUserPasswordChange);
         }
-        // 验证二次认证码
+        // Xác minh mã xác thực lần hai
         if (!await UserManager.VerifyUserTokenAsync(
             user,
             TokenOptions.DefaultPhoneProvider,
             UserTwoFactorTokenProviderConsts.PhoneResetPasswordPurpose,
             input.Code))
         {
-            // 验证码无效
+            // Mã xác minh không hợp lệ
             throw new UserFriendlyException(L["InvalidVerifyCode"]);
         }
-        // 生成真正的重置密码Token
+        // Tạo Token đặt lại mật khẩu thật
         var resetPwdToken = await UserManager.GeneratePasswordResetTokenAsync(user);
-        // 重置密码
+        // Đặt lại mật khẩu
         (await UserManager.ResetPasswordAsync(user, resetPwdToken, input.NewPassword)).CheckErrors();
 
-        // 移除缓存项
+        // Xóa mục bộ nhớ đệm
         await SecurityTokenCache.RemoveAsync(securityTokenCacheKey);
 
         await IdentitySecurityLogManager.SaveAsync(
@@ -313,15 +313,15 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
         {
             throw new UserFriendlyException(L["SendRepeatSmsVerifyCode", interval]);
         }
-        // 传递 isConfirmed 验证过的用户才允许通过手机登录
+        // Truyền isConfirmed: chỉ người dùng đã xác minh mới được phép đăng nhập bằng điện thoại
         var user = await GetUserByPhoneNumberAsync(input.PhoneNumber, isConfirmed: true);
-        // 登录验证手机号需要使用二次自带的认证
+        // Xác minh đăng nhập bằng số điện thoại cần dùng xác thực lần hai đi kèm
         var code = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
         var template = await SettingProvider.GetOrNullAsync(IdentitySettingNames.User.SmsUserSignin);
 
-        // 发送登录验证码短信
+        // Gửi SMS mã xác minh đăng nhập
         await SecurityCodeSender.SendAsync(input.PhoneNumber, code, template!);
-        // 缓存登录验证码状态,防止同一手机号重复发送
+        // Lưu bộ nhớ đệm trạng thái mã xác minh đăng nhập, ngăn cùng một số điện thoại gửi trùng lặp
         securityTokenCacheItem = new SecurityTokenCacheItem(code, user.Id, user.SecurityStamp);
         await SecurityTokenCache
             .SetAsync(securityTokenCacheKey, securityTokenCacheItem,
@@ -385,7 +385,7 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
             return false;
         }
 
-        // 验证码是否有效
+        // Mã xác minh có hiệu lực hay không
         if (input.VerifyCode.Equals(securityTokenCacheItem.Token))
         {
             var tempNewUser = new IdentityUser(
@@ -422,7 +422,7 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
             throw new UserFriendlyException(L["UserEmailNotConfirmed"]);
         }
 
-        // 登录验证邮件安全码需要使用二次自带的认证
+        // Xác minh đăng nhập bằng mã bảo mật email cần dùng xác thực lần hai đi kèm
         var code = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultEmailProvider);
 
         await sender.SendLoginCodeAsync(code, user.UserName, user.Email);
@@ -486,7 +486,7 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
     }
 
     /// <summary>
-    /// 检查是否允许用户注册
+    /// Kiểm tra có cho phép người dùng đăng ký hay không
     /// </summary>
     /// <returns></returns>
     protected async virtual Task CheckSelfRegistrationAsync()

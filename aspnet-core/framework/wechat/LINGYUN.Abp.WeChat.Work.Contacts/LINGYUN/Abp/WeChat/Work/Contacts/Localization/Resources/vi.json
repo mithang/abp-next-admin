@@ -1,0 +1,12 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Features:Contacts": "Danh bạ",
+    "Features:ContactsDesc": "Tích hợp ứng dụng danh bạ WeChat Doanh nghiệp.",
+    "Features:ContactsEnable": "Bật danh bạ",
+    "Features:ContactsEnableDesc": "Bật để ứng dụng có khả năng sử dụng giao diện danh bạ WeChat Doanh nghiệp.",
+    "DisplayName:WeChatWorkContact.Secret": "Khóa truy cập danh bạ",
+    "Description:WeChatWorkContact.Secret": "Khóa truy cập ứng dụng danh bạ, một số giao diện danh bạ cần secret đồng bộ danh bạ.",
+    "Settings:WeChatWork.WeChatWorkContact": "Danh bạ"
+  }
+}

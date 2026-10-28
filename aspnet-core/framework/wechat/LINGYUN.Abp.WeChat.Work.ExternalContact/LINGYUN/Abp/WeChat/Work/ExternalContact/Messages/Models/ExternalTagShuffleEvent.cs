@@ -4,7 +4,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 企业客户标签重排事件推送
+/// Đẩy sự kiện sắp xếp lại nhãn khách hàng doanh nghiệp
 /// </summary>
 [EventName("change_external_tag_shuffle")]
 public class ExternalTagShuffleEvent : ExternalTagChangeEvent

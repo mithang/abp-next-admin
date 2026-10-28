@@ -1,34 +1,34 @@
 namespace LINGYUN.Abp.OpenObserve.Serialization;
 
 /// <summary>
-/// OpenObserve 序列化器
+/// Bộ tuần tự hóa OpenObserve
 /// </summary>
 /// <remarks>
-/// 统一负责请求体序列化与响应反序列化, 客户端不直接依赖具体的序列化实现。
-/// 默认实现见 <see cref="DefaultOpenObserveSerializer"/>,
-/// 需要自定义(如替换为 Newtonsoft 或其它策略)时实现该接口, 并参考 <see cref="DefaultOpenObserveSerializer"/> 的注册方式覆盖默认实现。
+/// Chịu trách nhiệm thống nhất việc tuần tự hóa thân yêu cầu và giải tuần tự hóa phản hồi, client không phụ thuộc trực tiếp vào cách triển khai tuần tự hóa cụ thể.
+/// Cách triển khai mặc định xem <see cref="DefaultOpenObserveSerializer"/>,
+/// Khi cần tùy chỉnh (ví dụ thay bằng Newtonsoft hoặc chiến lược khác) thì triển khai giao diện này, và tham khảo cách đăng ký của <see cref="DefaultOpenObserveSerializer"/> để ghi đè cách triển khai mặc định.
 /// </remarks>
 public interface IOpenObserveSerializer
 {
     /// <summary>
-    /// 序列化请求体
+    /// Tuần tự hóa thân yêu cầu
     /// </summary>
     string Serialize<T>(T value);
 
     /// <summary>
-    /// 反序列化响应
+    /// Giải tuần tự hóa phản hồi
     /// </summary>
-    /// <param name="jsonString">响应内容</param>
+    /// <param name="jsonString">Nội dung phản hồi</param>
     T? Deserialize<T>(string jsonString);
 
     /// <summary>
-    /// 尝试反序列化响应
+    /// Thử giải tuần tự hóa phản hồi
     /// </summary>
     /// <remarks>
-    /// 用于错误响应等允许解析失败的场景, 解析失败时返回 false 而不抛出异常
+    /// Dùng cho các trường hợp cho phép phân tích thất bại như phản hồi lỗi, khi phân tích thất bại sẽ trả về false thay vì ném ngoại lệ
     /// </remarks>
-    /// <param name="jsonString">响应内容</param>
-    /// <param name="value">反序列化结果</param>
-    /// <returns>解析成功返回 true</returns>
+    /// <param name="jsonString">Nội dung phản hồi</param>
+    /// <param name="value">Kết quả giải tuần tự hóa</param>
+    /// <returns>Trả về true khi phân tích thành công</returns>
     bool TryDeserialize<T>(string jsonString, out T? value);
 }

@@ -9,7 +9,7 @@ export namespace DemoTableApi {
 }
 
 /**
- * 获取示例表格数据
+ * Lấy dữ liệu bảng ví dụ
  */
 async function getExampleTableApi(params: DemoTableApi.PageFetchParams) {
   return requestClient.get('/table/list', { params });

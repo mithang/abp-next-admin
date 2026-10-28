@@ -3,15 +3,15 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Ingestion;
 
 /// <summary>
-/// _bulk 动作行
+/// Dòng hành động _bulk
 /// </summary>
 /// <remarks>
-/// {"index":{"_index":"stream1"}}, 动作名(index/create/update)由外层字典的键决定
+/// {"index":{"_index":"stream1"}}, tên hành động (index/create/update) được quyết định bởi khóa của từ điển ngoài
 /// </remarks>
 public class JsonBulkRequest
 {
     /// <summary>
-    /// 数据流名称
+    /// Tên luồng dữ liệu
     /// </summary>
     [JsonPropertyName("_index")]
     public string Index { get; set; } = default!;

@@ -46,4 +46,4 @@ public async Task YourClientMethod()
 }
 ```
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Trung giản thể](./README.md) | [English](./README.EN.md)

@@ -31,21 +31,21 @@ export const changePasswordApi = (input: ChangePasswordInput) =>
 	requestClient.post("/api/account/my-profile/change-password", input);
 
 /**
- * 发送修改手机号验证码
- * @param input 参数
+ * Gửi mã xác minh đổi số điện thoại
+ * @param input Tham số
  */
 export const sendChangePhoneNumberCodeApi = (input: SendChangePhoneNumberCodeInput) =>
 	requestClient.post("/api/account/my-profile/send-phone-number-change-code", input);
 /**
- * 修改手机号
- * @param input 参数
+ * Đổi số điện thoại
+ * @param input Tham số
  */
 export const changePhoneNumberApi = (input: ChangePhoneNumberInput) =>
 	requestClient.put("/api/account/my-profile/change-phone-number", input);
 
 /**
- * 修改头像
- * @param input 参数
+ * Đổi ảnh đại diện
+ * @param input Tham số
  */
 export const changePictureApi = (input: ChangePictureInput) => {
 	requestClient.post("/api/account/my-profile/picture", input, {
@@ -56,8 +56,8 @@ export const changePictureApi = (input: ChangePictureInput) => {
 };
 
 /**
- * 获取头像
- * @returns 头像文件流
+ * Lấy ảnh đại diện
+ * @returns Luồng tệp ảnh đại diện
  */
 export const getPictureApi = () =>
 	requestClient.get("/api/account/my-profile/picture", {

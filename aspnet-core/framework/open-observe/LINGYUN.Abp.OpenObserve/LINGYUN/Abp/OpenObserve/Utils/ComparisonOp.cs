@@ -1,7 +1,7 @@
 namespace LINGYUN.Abp.OpenObserve.Utils;
 
 /// <summary>
-/// 比较操作符
+/// Toán tử so sánh
 /// </summary>
 public enum ComparisonOp
 {

@@ -12,31 +12,31 @@ import Title from './auth-title.vue';
 
 interface Props {
   /**
-   * @zh_CN 是否处于加载处理状态
+   * @zh_CN Có đang trong trạng thái xử lý tải hay không
    */
   loading?: boolean;
   /**
-   * @zh_CN 登录路径
+   * @zh_CN Đường dẫn đăng nhập
    */
   loginPath?: string;
   /**
-   * @zh_CN 标题
+   * @zh_CN Tiêu đề
    */
   title?: string;
   /**
-   * @zh_CN 描述
+   * @zh_CN Mô tả
    */
   subTitle?: string;
   /**
-   * @zh_CN 按钮文本
+   * @zh_CN Văn bản nút
    */
   submitButtonText?: string;
   /**
-   * @zh_CN 描述
+   * @zh_CN Mô tả
    */
   description?: string;
   /**
-   * @zh_CN 是否显示返回按钮
+   * @zh_CN Có hiển thị nút quay lại hay không
    */
   showBack?: boolean;
 }

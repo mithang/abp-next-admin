@@ -153,8 +153,8 @@ public class MenuManager : DomainService
         {
             var userMenus = await UserMenuRepository.GetListByUserIdAsync(userId, framework);
 
-            // 移除不存在的菜单
-            // TODO: 升级框架版本解决未能删除不需要菜单的问题
+            // Loại bỏ menu không tồn tại
+            // TODO: Nâng cấp phiên bản framework để giải quyết vấn đề không xoá được menu không cần thiết
             // userMenus.RemoveAll(x => !menuIds.Contains(x.MenuId));
             var dels = userMenus.Where(x => !menuIds.Contains(x.MenuId));
             if (dels.Any())
@@ -200,8 +200,8 @@ public class MenuManager : DomainService
         {
             var roleMenus = await RoleMenuRepository.GetListByRoleNameAsync(roleName, framework);
 
-            // 移除不存在的菜单
-            // TODO: 升级框架版本解决未能删除不需要菜单的问题
+            // Loại bỏ menu không tồn tại
+            // TODO: Nâng cấp phiên bản framework để giải quyết vấn đề không xoá được menu không cần thiết
             // roleMenus.RemoveAll(x => !menuIds.Contains(x.MenuId));
             var dels = roleMenus.Where(x => !menuIds.Contains(x.MenuId));
             if (dels.Any())

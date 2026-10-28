@@ -4,25 +4,25 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Contacts.Request;
 /// <summary>
-/// 获取已服务的外部联系人请求参数
+/// Tham số yêu cầu lấy danh sách liên hệ bên ngoài đã phục vụ
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/99434" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/99434" />
 /// </remarks>
 public class WeChatWorkGetExternalContactListRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
+    /// Con trỏ dùng cho truy vấn phân trang, kiểu chuỗi, do lần gọi trước trả về, lần gọi đầu tiên có thể không điền
     /// </summary>
     /// <remarks>
-    /// cursor具有有效期，请勿缓存后使用
+    /// Cursor có thời hạn hiệu lực, không sử dụng sau khi đã lưu vào bộ nhớ đệm
     /// </remarks>
     [CanBeNull]
     [JsonProperty("cursor")]
     [JsonPropertyName("cursor")]
     public string? Cursor { get; }
     /// <summary>
-    /// 返回的最大记录数，整型，默认为1000
+    /// Số bản ghi tối đa trả về, kiểu số nguyên, mặc định là 1000
     /// </summary>
     [CanBeNull]
     [JsonProperty("limit")]

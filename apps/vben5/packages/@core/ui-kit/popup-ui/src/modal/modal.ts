@@ -6,26 +6,26 @@ import type { ModalApi } from './modal-api';
 
 export interface ModalProps {
   /**
-   * 动画类型
+   * Loại hiệu ứng
    * @default 'slide'
    */
   animationType?: 'scale' | 'slide';
   /**
-   * 是否要挂载到内容区域
+   * Có gắn vào vùng nội dung hay không
    * @default false
    */
   appendToMain?: boolean;
   /**
-   * 是否显示边框
+   * Có hiển thị viền hay không
    * @default false
    */
   bordered?: boolean;
   /**
-   * 取消按钮文字
+   * Chữ trên nút huỷ
    */
   cancelText?: string;
   /**
-   * 是否居中
+   * Có căn giữa hay không
    * @default false
    */
   centered?: boolean;
@@ -33,120 +33,120 @@ export interface ModalProps {
   class?: string;
 
   /**
-   * 是否显示右上角的关闭按钮
+   * Có hiển thị nút đóng ở góc trên bên phải hay không
    * @default true
    */
   closable?: boolean;
   /**
-   * 点击弹窗遮罩是否关闭弹窗
+   * Nhấn vào lớp phủ của hộp thoại có đóng hộp thoại hay không
    * @default true
    */
   closeOnClickModal?: boolean;
   /**
-   * 按下 ESC 键是否关闭弹窗
+   * Nhấn phím ESC có đóng hộp thoại hay không
    * @default true
    */
   closeOnPressEscape?: boolean;
   /**
-   * 禁用确认按钮
+   * Vô hiệu hoá nút xác nhận
    */
   confirmDisabled?: boolean;
   /**
-   * 确定按钮 loading
+   * Trạng thái loading của nút xác nhận
    * @default false
    */
   confirmLoading?: boolean;
   /**
-   * 确定按钮文字
+   * Chữ trên nút xác nhận
    */
   confirmText?: string;
   contentClass?: string;
   /**
-   * 弹窗描述
+   * Mô tả hộp thoại
    */
   description?: string;
   /**
-   * 在关闭时销毁弹窗
+   * Huỷ hộp thoại khi đóng
    */
   destroyOnClose?: boolean;
   /**
-   * 是否可拖拽
+   * Có thể kéo thả hay không
    * @default false
    */
   draggable?: boolean;
   /**
-   * 是否显示底部
+   * Có hiển thị phần dưới hay không
    * @default true
    */
   footer?: boolean;
   footerClass?: string;
   /**
-   * 是否全屏
+   * Có toàn màn hình hay không
    * @default false
    */
   fullscreen?: boolean;
   /**
-   * 是否显示全屏按钮
+   * Có hiển thị nút toàn màn hình hay không
    * @default true
    */
   fullscreenButton?: boolean;
   /**
-   * 是否显示顶栏
+   * Có hiển thị thanh trên cùng hay không
    * @default true
    */
   header?: boolean;
   headerClass?: string;
   /**
-   * 弹窗是否显示
+   * Hộp thoại có hiển thị hay không
    * @default false
    */
   loading?: boolean;
   /**
-   * 是否显示遮罩
+   * Có hiển thị lớp phủ hay không
    * @default true
    */
   modal?: boolean;
   /**
-   * 是否自动聚焦
+   * Có tự động focus hay không
    */
   openAutoFocus?: boolean;
   /**
-   * 弹窗遮罩模糊效果
+   * Hiệu ứng làm mờ lớp phủ hộp thoại
    */
   overlayBlur?: number;
   /**
-   * 是否显示取消按钮
+   * Có hiển thị nút huỷ hay không
    * @default true
    */
   showCancelButton?: boolean;
   /**
-   * 是否显示确认按钮
+   * Có hiển thị nút xác nhận hay không
    * @default true
    */
   showConfirmButton?: boolean;
   /**
-   * 提交中（锁定弹窗状态）
+   * Đang gửi (khoá trạng thái hộp thoại)
    */
   submitting?: boolean;
   /**
-   * 弹窗标题
+   * Tiêu đề hộp thoại
    */
   title?: string;
   /**
-   * 弹窗标题提示
+   * Gợi ý tiêu đề hộp thoại
    */
   titleTooltip?: string;
   /**
-   * 弹窗层级
+   * Cấp của hộp thoại
    */
   zIndex?: number;
 }
 
 export interface ModalState extends ModalProps {
-  /** 弹窗打开状态 */
+  /** Trạng thái mở hộp thoại */
   isOpen?: boolean;
   /**
-   * 共享数据
+   * Dữ liệu chung
    */
   sharedData?: Record<string, any>;
 }
@@ -159,35 +159,35 @@ export type ExtendedModalApi = ModalApi & {
 
 export interface ModalApiOptions extends ModalState {
   /**
-   * 独立的弹窗组件
+   * Component hộp thoại độc lập
    */
   connectedComponent?: Component;
   /**
-   * 关闭前的回调，返回 false 可以阻止关闭
+   * Callback trước khi đóng, trả về false có thể ngăn đóng
    * @returns
    */
   onBeforeClose?: () => MaybePromise<boolean | undefined>;
   /**
-   * 点击取消按钮的回调
+   * Callback khi nhấn nút huỷ
    */
   onCancel?: () => void;
   /**
-   * 弹窗关闭动画结束的回调
+   * Callback khi hiệu ứng đóng hộp thoại kết thúc
    * @returns
    */
   onClosed?: () => void;
   /**
-   * 点击确定按钮的回调
+   * Callback khi nhấn nút xác nhận
    */
   onConfirm?: () => void;
   /**
-   * 弹窗状态变化回调
+   * Callback khi trạng thái hộp thoại thay đổi
    * @param isOpen
    * @returns
    */
   onOpenChange?: (isOpen: boolean) => void;
   /**
-   * 弹窗打开动画结束的回调
+   * Callback khi hiệu ứng mở hộp thoại kết thúc
    * @returns
    */
   onOpened?: () => void;

@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     name: 'Demos',
     path: '/demos',
     children: [
-      // 权限控制
+      // Kiểm soát quyền
       {
         meta: {
           icon: 'mdi:shield-key-outline',
@@ -86,7 +86,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 功能
+      // Tính năng
       {
         meta: {
           icon: 'mdi:feature-highlight',
@@ -262,7 +262,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 面包屑导航
+      // Điều hướng breadcrumb
       {
         name: 'BreadcrumbDemos',
         path: '/demos/breadcrumb',
@@ -312,7 +312,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 缺省页
+      // Trang mặc định
       {
         meta: {
           icon: 'mdi:lightbulb-error-outline',
@@ -360,7 +360,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 菜单徽标
+      // Huy hiệu menu
       {
         meta: {
           badgeType: 'dot',
@@ -404,7 +404,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 菜单激活图标
+      // Biểu tượng menu đang kích hoạt
       {
         meta: {
           activeIcon: 'fluent-emoji:radioactive',
@@ -426,7 +426,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 外部链接
+      // Liên kết ngoài
       {
         meta: {
           icon: 'ic:round-settings-input-composite',
@@ -499,7 +499,7 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      // 嵌套菜单
+      // Menu lồng nhau
       {
         meta: {
           icon: 'ic:round-menu',

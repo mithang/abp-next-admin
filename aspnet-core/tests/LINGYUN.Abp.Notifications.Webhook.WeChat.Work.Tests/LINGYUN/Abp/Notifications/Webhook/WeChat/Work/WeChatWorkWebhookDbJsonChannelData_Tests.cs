@@ -10,18 +10,18 @@ using Xunit;
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 从数据库 JSON 字符串解析渠道数据测试
+/// Kiểm thử phân tích dữ liệu kênh từ chuỗi JSON cơ sở dữ liệu
 /// </summary>
 /// <remarks>
 /// <para>
-/// 前面的测试都是"内存中写入 → 读取"的同进程路径, 验证不到持久化往返。
-/// 本组测试补上**真实链路**: 直接给出数据库里存的 JSON 字符串,
-/// 还原为 <see cref="NotificationData"/> 后, 再走渠道侧解析与消息工厂,
-/// 回答"从数据库取到数据后能否正常解析为渠道消息格式"。
+/// Các kiểm thử trước đều là đường cùng tiến trình "ghi trong bộ nhớ → đọc", không kiểm chứng được vòng lặp lưu trữ.
+/// Nhóm kiểm thử này bổ sung **liên kết thật**: trực tiếp đưa ra chuỗi JSON lưu trong cơ sở dữ liệu,
+/// khôi phục thành <see cref="NotificationData"/> rồi đi qua phân tích phía kênh và nhà máy tin nhắn,
+/// trả lời câu hỏi "sau khi lấy dữ liệu từ cơ sở dữ liệu có phân tích bình thường thành định dạng tin nhắn kênh được không".
 /// </para>
 /// <para>
-/// 关键点: 属性包里的值在持久化后是 **JSON 字符串**(而非嵌套对象),
-/// 且模板卡片的判别符 <c>card_type</c> 必须保留, 否则抽象类型无法还原。
+/// Điểm then chốt: giá trị trong gói thuộc tính sau khi lưu trữ là **chuỗi JSON** (không phải đối tượng lồng nhau),
+/// và dấu phân biệt <c>card_type</c> của thẻ mẫu phải được giữ lại, nếu không kiểu trừu tượng không thể khôi phục.
 /// </para>
 /// </remarks>
 public class WeChatWorkWebhookDbJsonChannelData_Tests
@@ -35,17 +35,17 @@ public class WeChatWorkWebhookDbJsonChannelData_Tests
     private AbpNotificationsWebhookWeChatWorkOptions ChannelOptions
         => GetRequiredService<IOptions<AbpNotificationsWebhookWeChatWorkOptions>>().Value;
 
-    // ---------- 1. 模板卡片(抽象类型 + 判别符) ----------
+    // ---------- 1. Thẻ mẫu (kiểu trừu tượng + dấu phân biệt) ----------
 
     /// <summary>
-    /// 数据库中的模板卡片 JSON(转义形式, 与 EF 存的一致)
+    /// JSON thẻ mẫu trong cơ sở dữ liệu (dạng đã thoát ký tự, nhất quán với cách EF lưu)
     /// </summary>
     private const string TemplateCardDbJson =
         "{" +
-        "\"wx-work-hook:template_card\":\"{\\\"sub_title_text\\\":\\\"请查看日志\\\"," +
+        "\"wx-work-hook:template_card\":\"{\\\"sub_title_text\\\":\\\"Vui lòng xem nhật ký\\\"," +
         "\\\"card_type\\\":\\\"text_notice\\\"," +
-        "\\\"main_title\\\":{\\\"title\\\":\\\"构建失败\\\",\\\"desc\\\":\\\"构建 #1234 失败\\\"}," +
-        "\\\"horizontal_content_list\\\":[{\\\"keyname\\\":\\\"分支\\\",\\\"value\\\":\\\"main\\\"}]," +
+        "\\\"main_title\\\":{\\\"title\\\":\\\"Xây dựng thất bại\\\",\\\"desc\\\":\\\"Xây dựng #1234 thất bại\\\"}," +
+        "\\\"horizontal_content_list\\\":[{\\\"keyname\\\":\\\"Nhánh\\\",\\\"value\\\":\\\"main\\\"}]," +
         "\\\"card_action\\\":{\\\"type\\\":1,\\\"url\\\":\\\"https://example.com/build/1\\\"}}\"" +
         "}";
 
@@ -59,18 +59,18 @@ public class WeChatWorkWebhookDbJsonChannelData_Tests
         payload.ShouldNotBeNull();
         payload!.TemplateCard.ShouldNotBeNull();
 
-        // 抽象类型按 card_type 还原为具体类型
+        // Kiểu trừu tượng được khôi phục thành kiểu cụ thể theo card_type
         var card = payload.TemplateCard.ShouldBeOfType<WebhookTextNoticeCardMessage>();
         card.CardType.ShouldBe("text_notice");
-        card.MainTitle!.Title.ShouldBe("构建失败");
-        card.MainTitle!.Description.ShouldBe("构建 #1234 失败");
-        card.SubTitleText.ShouldBe("请查看日志");
+        card.MainTitle!.Title.ShouldBe("Xây dựng thất bại");
+        card.MainTitle!.Description.ShouldBe("Xây dựng #1234 thất bại");
+        card.SubTitleText.ShouldBe("Vui lòng xem nhật ký");
         card.Action!.Url.ShouldBe("https://example.com/build/1");
 
-        // 嵌套列表也要完整还原
+        // Danh sách lồng nhau cũng phải được khôi phục đầy đủ
         card.HorizontalContents.ShouldNotBeNull();
         card.HorizontalContents!.Count.ShouldBe(1);
-        card.HorizontalContents[0].KeyName.ShouldBe("分支");
+        card.HorizontalContents[0].KeyName.ShouldBe("Nhánh");
         card.HorizontalContents[0].Value.ShouldBe("main");
     }
 
@@ -85,13 +85,13 @@ public class WeChatWorkWebhookDbJsonChannelData_Tests
 
         var card = message.ShouldBeOfType<WeChatWorkWebhookTemplateCardMessage>();
         card.TemplateCard.ShouldBeOfType<WebhookTextNoticeCardMessage>()
-            .MainTitle!.Title.ShouldBe("构建失败");
+            .MainTitle!.Title.ShouldBe("Xây dựng thất bại");
     }
 
-    // ---------- 2. 标量载荷 ----------
+    // ---------- 2. Payload vô hướng ----------
 
     private const string TextDbJson =
-        "{\"wx-work-hook:text\":\"构建 #1234 失败\"}";
+        "{\"wx-work-hook:text\":\"Xây dựng #1234 thất bại\"}";
 
     [Fact]
     public void Should_Restore_Text_From_Db_Json()
@@ -101,69 +101,69 @@ public class WeChatWorkWebhookDbJsonChannelData_Tests
         var payload = ChannelDataResolver.Resolve<WeChatWorkWebhookTextChannelData>(data);
 
         payload.ShouldNotBeNull();
-        payload!.Content.ShouldBe("构建 #1234 失败");
+        payload!.Content.ShouldBe("Xây dựng #1234 thất bại");
 
         BuildMessage(Provider, data)
             .ShouldBeOfType<WeChatWorkWebhookTextMessage>()
-            .Text.Content.ShouldBe("构建 #1234 失败");
+            .Text.Content.ShouldBe("Xây dựng #1234 thất bại");
     }
 
-    // ---------- 3. 基础参数与渠道数据共存 ----------
+    // ---------- 3. Tham số cơ bản và dữ liệu kênh cùng tồn tại ----------
 
     [Fact]
     public void Should_Restore_Standard_Data_Alongside_Channel_Data()
     {
-        // 真实库中既有通知基础参数, 也有渠道数据
+        // Trong thư viện thật vừa có tham số cơ bản của thông báo, vừa có dữ liệu kênh
         var data = RestoreFromDbJson(
-            "{\"title\":\"构建失败\",\"message\":\"构建 #1234 失败\",\"formUser\":\"ci\"," +
-            "\"wx-work-hook:text\":\"兜底文本\"}");
+            "{\"title\":\"Xây dựng thất bại\",\"message\":\"Xây dựng #1234 thất bại\",\"formUser\":\"ci\"," +
+            "\"wx-work-hook:text\":\"Văn bản dự phòng\"}");
 
-        data.TryGetData("title").ShouldBe("构建失败");
+        data.TryGetData("title").ShouldBe("Xây dựng thất bại");
         data.TryGetData("formUser").ShouldBe("ci");
 
         var payload = ChannelDataResolver.Resolve<WeChatWorkWebhookTextChannelData>(data);
         payload.ShouldNotBeNull();
-        payload!.Content.ShouldBe("兜底文本");
+        payload!.Content.ShouldBe("Văn bản dự phòng");
     }
 
-    // ---------- 4. 无渠道数据时不误解析 ----------
+    // ---------- 4. Khi không có dữ liệu kênh thì không phân tích nhầm ----------
 
     [Fact]
     public void Should_Resolve_Nothing_When_Db_Json_Has_No_Channel_Data()
     {
         var data = RestoreFromDbJson(
-            "{\"title\":\"构建失败\",\"message\":\"构建 #1234 失败\"}");
+            "{\"title\":\"Xây dựng thất bại\",\"message\":\"Xây dựng #1234 thất bại\"}");
 
         ChannelDataResolver.Resolve(Provider, data).ShouldBeEmpty();
     }
 
-    // ---------- 5. 载荷非法时的行为 ----------
+    // ---------- 5. Hành vi khi payload không hợp lệ ----------
 
     [Fact]
     public void Should_Report_Declared_But_Resolve_Nothing_When_Db_Json_Payload_Is_Invalid()
     {
-        // 模板卡片 JSON 缺少判别符 card_type, 抽象类型无法还原
+        // JSON thẻ mẫu thiếu dấu phân biệt card_type, kiểu trừu tượng không thể khôi phục
         var data = RestoreFromDbJson(
             "{\"wx-work-hook:template_card\":\"{\\\"main_title\\\":{\\\"title\\\":\\\"t\\\"}}\"}");
 
-        // 契约: 生产者确实写了该键 → IsDeclared 为 true,
-        // 但解析失败 → Resolve 返回空(仅记日志), 不抛异常
+        // Hợp đồng: bên sản xuất thực sự đã ghi khóa đó → IsDeclared là true,
+        // nhưng phân tích thất bại → Resolve trả về rỗng (chỉ ghi nhật ký), không ném ngoại lệ
         ChannelDataResolver.IsDeclared(data, typeof(WeChatWorkWebhookTemplateCardChannelData)).ShouldBeTrue();
         ChannelDataResolver.Resolve(Provider, data).ShouldBeEmpty();
 
-        // 诊断信息仍能给出实际命中的键, 便于排查
+        // Thông tin chẩn đoán vẫn có thể đưa ra khóa thực tế đã khớp, thuận tiện cho việc tra soát
         ChannelDataResolver.GetKey(data, typeof(WeChatWorkWebhookTemplateCardChannelData))
             .ShouldBe(WeChatWorkWebhookNotificationDataKeys.TemplateCard);
     }
 
-    // ---------- 辅助 ----------
+    // ---------- Hỗ trợ ----------
 
     /// <summary>
-    /// 模拟"从数据库取出 JSON 字符串"后还原通知数据
+    /// Mô phỏng việc khôi phục dữ liệu thông báo sau khi "lấy chuỗi JSON từ cơ sở dữ liệu"
     /// </summary>
     /// <remarks>
-    /// 与 EF 的属性包值转换器一致: 属性包整体是一个扁平 JSON 对象,
-    /// 复杂渠道数据在其中以 <b>转义后的 JSON 字符串</b> 存放。
+    /// Nhất quán với bộ chuyển đổi giá trị gói thuộc tính của EF: toàn bộ gói thuộc tính là một đối tượng JSON phẳng,
+    /// dữ liệu kênh phức tạp trong đó được lưu dưới dạng <b>chuỗi JSON đã thoát ký tự</b>.
     /// </remarks>
     private NotificationData RestoreFromDbJson(string dbJson)
     {
@@ -179,7 +179,7 @@ public class WeChatWorkWebhookDbJsonChannelData_Tests
 
         return MessageOptions.Create(new WeChatWorkWebhookMessageFactoryContext(
             new NotificationInfo { Name = "Test", ContentType = NotificationContentType.Text },
-            new NotificationStandardData("标题", "内容"),
+            new NotificationStandardData("Tiêu đề", "Nội dung"),
             (WeChatWorkWebhookChannelData)payload[0],
             ChannelOptions)).Message;
     }

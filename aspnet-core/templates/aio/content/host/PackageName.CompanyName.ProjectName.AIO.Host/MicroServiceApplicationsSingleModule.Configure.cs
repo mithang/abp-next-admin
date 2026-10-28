@@ -107,7 +107,7 @@ public partial class MicroServiceApplicationsSingleModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别，应在0-31之间
+            // Phân biệt bằng cổng mở, phải nằm trong khoảng 0-31
             options.SnowflakeIdOptions.WorkerId = 1;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -149,8 +149,8 @@ public partial class MicroServiceApplicationsSingleModule
         var cerConfig = configuration.GetSection("Certificates");
         if (environment.IsProduction() && cerConfig.Exists())
         {
-            // 开发环境下存在证书配置
-            // 且证书文件存在则使用自定义的证书文件来启动Ids服务器
+            // Môi trường phát triển có cấu hình chứng chỉ
+            // Và nếu tệp chứng chỉ tồn tại thì dùng tệp chứng chỉ tùy chỉnh để khởi động máy chủ Ids
             var cerPath = Path.Combine(environment.ContentRootPath, cerConfig["CerPath"]);
             if (File.Exists(cerPath))
             {
@@ -171,9 +171,12 @@ public partial class MicroServiceApplicationsSingleModule
 
                         builder.UseDataProtection();
 
-                        // 禁用https
-                        builder.UseAspNetCore()
-                            .DisableTransportSecurityRequirement();
+                        // SEC-03 (vòng security 7): KHÔNG tắt yêu cầu transport security
+                        // ở nhánh production này. Trước đây nhánh production vẫn gọi
+                        // DisableTransportSecurityRequirement(), nên token endpoint
+                        // chấp nhận HTTP thuần ngay cả khi đã có chứng chỉ production.
+                        // Production phải phục vụ qua HTTPS (hoặc sau TLS terminator
+                        // với ForwardedHeaders).
                     });
                 }
                 else
@@ -223,7 +226,7 @@ public partial class MicroServiceApplicationsSingleModule
 
                     builder.UseDataProtection();
 
-                    // 禁用https
+                    // Vô hiệu hóa https
                     builder.UseAspNetCore()
                         .DisableTransportSecurityRequirement();
                 });
@@ -270,17 +273,23 @@ public partial class MicroServiceApplicationsSingleModule
         });
     }
 
-    private void ConfigureAuthServer(IConfiguration configuration)
+    private void ConfigureAuthServer(IConfiguration configuration, IWebHostEnvironment environment)
     {
-        Configure<OpenIddictServerAspNetCoreBuilder>(builder =>
+        // SEC-03 (vòng security 7): chỉ tắt yêu cầu transport security khi Development.
+        // Trước đây tắt vô điều kiện, nên project scaffold từ template này sẽ chấp
+        // nhận token endpoint qua HTTP thuần ngay cả ở production.
+        if (environment.IsDevelopment())
         {
-            builder.DisableTransportSecurityRequirement();
-        });
+            Configure<OpenIddictServerAspNetCoreBuilder>(builder =>
+            {
+                builder.DisableTransportSecurityRequirement();
+            });
 
-        Configure<OpenIddictServerAspNetCoreOptions>(options =>
-        {
-            options.DisableTransportSecurityRequirement = true;
-        });
+            Configure<OpenIddictServerAspNetCoreOptions>(options =>
+            {
+                options.DisableTransportSecurityRequirement = true;
+            });
+        }
 
         Configure<OpenIddictServerOptions>(options =>
         {
@@ -306,7 +315,7 @@ public partial class MicroServiceApplicationsSingleModule
 
     private void ConfigureEndpoints(IServiceCollection services)
     {
-        // 不需要
+        // Không cần
         //Configure<AbpEndpointRouterOptions>(options =>
         //{
         //    options.EndpointConfigureActions.Add(
@@ -426,7 +435,7 @@ public partial class MicroServiceApplicationsSingleModule
         }
     }
     /// <summary>
-    /// 配置数据导出
+    /// Cấu hình xuất dữ liệu
     /// </summary>
     private void ConfigureExporter()
     {
@@ -436,7 +445,7 @@ public partial class MicroServiceApplicationsSingleModule
             // {
             //     config.DynamicColumns = new[]
             //     {
-            //         // 忽略某些字段
+            //         // Bỏ qua một số trường
             //         new DynamicExcelColumn(nameof(BookDto.AuthorId)){ Ignore = true },
             //         new DynamicExcelColumn(nameof(BookDto.LastModificationTime)){ Ignore = true },
             //         new DynamicExcelColumn(nameof(BookDto.LastModifierId)){ Ignore = true },
@@ -448,7 +457,7 @@ public partial class MicroServiceApplicationsSingleModule
         });
     }
     /// <summary>
-    /// 配置数据权限
+    /// Cấu hình quyền dữ liệu
     /// </summary>
     private void ConfigureEntityDataProtected()
     {
@@ -528,7 +537,7 @@ public partial class MicroServiceApplicationsSingleModule
 
     private void ConfigureDbContext()
     {
-        // 配置Ef
+        // Cấu hình Ef
         Configure<AbpDbContextOptions>(options =>
         {
 #if MySQL
@@ -548,7 +557,7 @@ public partial class MicroServiceApplicationsSingleModule
             options.UseOracle();
             options.UseOracle<ProjectNameDbContext>();
 #elif PostgreSql
-            System.AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);//解决PostgreSql设置为utc时间后无法写入local时区的问题
+            System.AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);// Giải quyết vấn đề PostgreSql sau khi đặt thành thời gian UTC thì không ghi được múi giờ local
             options.UseNpgsql();
             options.UseNpgsql<ProjectNameDbContext>();
 #endif
@@ -565,10 +574,10 @@ public partial class MicroServiceApplicationsSingleModule
 
     private void ConfigureExceptionHandling()
     {
-        // 自定义需要处理的异常
+        // Các ngoại lệ tùy chỉnh cần xử lý
         Configure<AbpExceptionHandlingOptions>(options =>
         {
-            //  加入需要处理的异常类型
+            //  Thêm loại ngoại lệ cần xử lý
             options.Handlers.Add<Volo.Abp.Data.AbpDbConcurrencyException>();
             options.Handlers.Add<AbpInitializationException>();
             options.Handlers.Add<OutOfMemoryException>();
@@ -576,13 +585,13 @@ public partial class MicroServiceApplicationsSingleModule
             options.Handlers.Add<global::Microsoft.EntityFrameworkCore.DbUpdateException>();
             options.Handlers.Add<System.Data.DBConcurrencyException>();
         });
-        // 自定义需要发送邮件通知的异常类型
+        // Loại ngoại lệ tùy chỉnh cần gửi thông báo qua email
         Configure<AbpEmailExceptionHandlingOptions>(options =>
         {
-            // 是否发送堆栈信息
+            // Có gửi thông tin ngăn xếp hay không
             options.SendStackTrace = true;
-            // 未指定异常接收者的默认接收邮件
-            // 指定自己的邮件地址
+            // Email nhận mặc định khi chưa chỉ định người nhận ngoại lệ
+            // Chỉ định địa chỉ email của chính bạn
         });
 
         Configure<VoloAbpExceptionHandlingOptions>(options =>
@@ -594,7 +603,7 @@ public partial class MicroServiceApplicationsSingleModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -603,7 +612,7 @@ public partial class MicroServiceApplicationsSingleModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hóa khi tuần tự hóa tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -627,7 +636,7 @@ public partial class MicroServiceApplicationsSingleModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa thuê bao
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -652,7 +661,7 @@ public partial class MicroServiceApplicationsSingleModule
         Configure<AbpAuditingOptions>(options =>
         {
             options.ApplicationName = ApplicationName;
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -696,7 +705,7 @@ public partial class MicroServiceApplicationsSingleModule
 
     private void ConfigureIdentity(IConfiguration configuration)
     {
-        // 增加配置文件定义,在新建租户时需要
+        // Thêm định nghĩa tệp cấu hình, cần khi tạo thuê bao mới
         Configure<IdentityOptions>(options =>
         {
             var identityConfiguration = configuration.GetSection("Identity");
@@ -736,14 +745,14 @@ public partial class MicroServiceApplicationsSingleModule
     
     private void ConfigureHangfire(IServiceCollection services, IConfiguration configuration)
     {
-        // 配置Hangfire存储和设置
+        // Cấu hình bộ nhớ và cài đặt Hangfire
         Configure<AbpBackgroundWorkerOptions>(options =>
         {
             options.IsEnabled = true;
         });
 
         var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-        // 配置Hangfire
+        // Cấu hình Hangfire
         services.AddHangfire(config =>
         {
             config.UseRedisStorage(redis);
@@ -756,7 +765,7 @@ public partial class MicroServiceApplicationsSingleModule
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
 
             options
                 .AddLanguagesMapOrUpdate(
@@ -764,7 +773,7 @@ public partial class MicroServiceApplicationsSingleModule
                     new NameValue("zh-Hans", "zh"),
                     new NameValue("en", "en"));
 
-            // vben admin 语言映射
+            // Ánh xạ ngôn ngữ vben admin
             options
                 .AddLanguagesMapOrUpdate(
                     "vben-admin-ui",
@@ -919,11 +928,11 @@ public partial class MicroServiceApplicationsSingleModule
     {
         Configure<AbpWeChatMessageHandleOptions>(options =>
         {
-            // 回复文本消息
+            // Trả lời tin nhắn văn bản
             options.MapMessage<
                 LINGYUN.Abp.WeChat.Official.Messages.Models.TextMessage,
                 TextMessageReplyContributor>();
-            // 处理关注事件
+            // Xử lý sự kiện theo dõi
             options.MapEvent<
                 LINGYUN.Abp.WeChat.Official.Messages.Models.UserSubscribeEvent,
                 UserSubscribeEventContributor>();

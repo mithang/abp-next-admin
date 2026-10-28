@@ -41,7 +41,7 @@ public class OpenIddictSessionAuthenticationService : AuthenticationService
         var clientId = principal.FindClientId();
         if (clientId.IsNullOrWhiteSpace())
         {
-            // 从授权回调中获取客户端Id
+            // Lấy Id máy khách từ callback ủy quyền
             clientId = FindClientId(context);
         }
 

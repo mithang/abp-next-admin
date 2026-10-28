@@ -5,21 +5,21 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Cluster;
 
 /// <summary>
-/// 集群信息响应
+/// Phản hồi thông tin cụm
 /// </summary>
 /// <remarks>
-/// 响应结构: {"regions":{"openobserve":{"zo1":{"pending_jobs":0}}}}
+/// Cấu trúc phản hồi: {"regions":{"openobserve":{"zo1":{"pending_jobs":0}}}}
 /// </remarks>
 public class ClusterInfoResponse
 {
     /// <summary>
-    /// 按区域与节点组织的集群信息
+    /// Thông tin cụm được tổ chức theo vùng và nút
     /// </summary>
     [JsonPropertyName("regions")]
     public Dictionary<string, Dictionary<string, ClusterNodeInfo>> Regions { get; set; } = [];
 
     /// <summary>
-    /// 未在模型中声明的字段
+    /// Các trường chưa được khai báo trong mô hình
     /// </summary>
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? ExtraProperties { get; set; }

@@ -131,7 +131,7 @@ export const usePermissionStore = defineStore({
       };
 
       /**
-       * @description 根据设置的首页path，修正routes中的affix标记（固定首页）
+       * @description Dựa theo path trang chủ đã đặt, sửa dấu affix trong routes (cố định trang chủ)
        * */
       const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
         if (!routes || routes.length === 0) return;
@@ -155,7 +155,7 @@ export const usePermissionStore = defineStore({
         try {
           patcher(routes);
         } catch (e) {
-          // 已处理完毕跳出循环
+          // Đã xử lý xong, thoát khỏi vòng lặp
         }
         return;
       };
@@ -261,7 +261,7 @@ export const usePermissionStore = defineStore({
         if (menu.children) {
           r.children = this.filterDynamicRoutes(menu.children);
         }
-        // 修改用户首页
+        // Sửa trang chủ của người dùng
         if (menu.startup) {
           const userStore = useUserStore();
           const userInfo = userStore.getUserInfo;
@@ -273,9 +273,9 @@ export const usePermissionStore = defineStore({
 
       return routeList;
     },
-    /** 验证功能 */
+    /** Xác minh tính năng */
     validationFeatures(meta: RouteMeta) {
-      // 如果声明了必须某些功能而系统为启用此功能,则不加入路由中
+      // Nếu đã khai báo bắt buộc một số tính năng mà hệ thống chưa bật tính năng này, thì không thêm vào route
       if (meta.requiredFeatures) {
         let featureHasEnabled = true;
         const abpStore = useAbpStoreWithOut();

@@ -1,31 +1,31 @@
 # LINGYUN.Abp.Dynamic.Queryable.Application
 
-动态查询应用服务模块，提供基于ABP框架的动态查询功能实现。
+Mô-đun dịch vụ ứng dụng truy vấn động, cung cấp triển khai chức năng truy vấn động dựa trên framework ABP.
 
-## 功能特性
+## Tính năng
 
-* 提供动态查询应用服务基类 `DynamicQueryableAppService<TEntity, TEntityDto>`
-* 自动生成可用字段列表，支持字段本地化
-* 支持字段过滤和忽略
-* 支持枚举类型的选项列表生成
+* Cung cấp lớp cơ sở dịch vụ ứng dụng truy vấn động `DynamicQueryableAppService<TEntity, TEntityDto>`
+* Tự động tạo danh sách trường khả dụng, hỗ trợ bản địa hóa trường
+* Hỗ trợ lọc và bỏ qua trường
+* Hỗ trợ tạo danh sách tùy chọn cho kiểu enum
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 安装 `LINGYUN.Abp.Dynamic.Queryable.Application` NuGet包
+1. Cài đặt gói NuGet `LINGYUN.Abp.Dynamic.Queryable.Application`
 
-2. 添加 `[DependsOn(typeof(AbpDynamicQueryableApplicationModule))]` 到你的模块类
+2. Thêm `[DependsOn(typeof(AbpDynamicQueryableApplicationModule))]` vào lớp mô-đun của bạn
 
-3. 配置选项（可选）
+3. Tùy chọn cấu hình (tùy chọn)
 
 ```csharp
 Configure<AbpDynamicQueryableOptions>(options =>
 {
-    // 添加需要忽略的字段
+    // Thêm các trường cần bỏ qua
     options.IgnoreFields.Add("FieldName");
 });
 ```
 
-### 实现动态查询服务
+### Triển khai dịch vụ truy vấn động
 
 ```csharp
 public class MyEntityAppService : DynamicQueryableAppService<MyEntity, MyEntityDto>
@@ -57,7 +57,7 @@ public class MyEntityAppService : DynamicQueryableAppService<MyEntity, MyEntityD
         return ObjectMapper.Map<List<MyEntity>, List<MyEntityDto>>(entities);
     }
 
-    // 自定义需要忽略的字段（可选）
+    // Tùy chỉnh các trường cần bỏ qua (tùy chọn)
     protected override IEnumerable<string> GetUserDefineIgnoreFields()
     {
         return new[] { "CustomField" };
@@ -65,12 +65,12 @@ public class MyEntityAppService : DynamicQueryableAppService<MyEntity, MyEntityD
 }
 ```
 
-### 配置项说明
+### Mô tả các mục cấu hình
 
-* `IgnoreFields` - 需要在查询中忽略的字段列表
-  * 默认包含：Id、TenantId、IsDeleted、DeleterId、DeletionTime等审计字段
+* `IgnoreFields` - Danh sách các trường cần bỏ qua trong truy vấn
+  * Mặc định bao gồm: các trường kiểm toán như Id, TenantId, IsDeleted, DeleterId, DeletionTime
 
-## 相关链接
+## Liên kết liên quan
 
 * [LINGYUN.Linq.Dynamic.Queryable](../LINGYUN.Linq.Dynamic.Queryable/README.md)
 * [LINGYUN.Abp.Dynamic.Queryable.Application.Contracts](../LINGYUN.Abp.Dynamic.Queryable.Application.Contracts/README.md)

@@ -1,31 +1,31 @@
 # LINGYUN.Abp.Notifications.WxPusher
 
-通过WxPusher实现的ABP通知模块，提供通过WxPusher发送实时通知的功能。
+Module thông báo ABP triển khai qua WxPusher, cung cấp chức năng gửi thông báo thời gian thực qua WxPusher.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 支持多种消息类型
-  * 文本消息
-  * HTML消息
-  * Markdown消息
-* 灵活的消息发送目标
-  * 支持发送到指定用户
-  * 支持发送到指定Topic
-* 多语言支持
-  * 支持本地化消息内容
-  * 支持多语言标题和描述
-* 特性开关控制
-  * 支持通过功能开关控制消息发送
+* Hỗ trợ nhiều loại thông điệp
+  * Thông điệp văn bản
+  * Thông điệp HTML
+  * Thông điệp Markdown
+* Đích gửi thông điệp linh hoạt
+  * Hỗ trợ gửi đến người dùng chỉ định
+  * Hỗ trợ gửi đến Topic chỉ định
+* Hỗ trợ đa ngôn ngữ
+  * Hỗ trợ nội dung thông điệp đã bản địa hóa
+  * Hỗ trợ tiêu đề và mô tả đa ngôn ngữ
+* Điều khiển bằng công tắc tính năng
+  * Hỗ trợ điều khiển việc gửi thông điệp qua công tắc tính năng
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Notifications.WxPusher
 ```
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsWxPusherModule))]
@@ -35,9 +35,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置说明
+## Hướng dẫn cấu hình
 
-### 1. 通知定义配置
+### 1. Cấu hình định nghĩa thông báo
 
 ```csharp
 public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
@@ -47,14 +47,14 @@ public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
         var notification = context.Create(
             name: "App.Notification.Test",
             displayName: L("TestNotification"))
-            .WithContentType(MessageContentType.Text)  // 设置消息类型
-            .WithTopics(new List<int> { 1, 2 })       // 设置消息Topic
-            .WithUrl("https://example.com");          // 设置点击消息跳转的URL
+            .WithContentType(MessageContentType.Text)  // Đặt loại thông điệp
+            .WithTopics(new List<int> { 1, 2 })       // Đặt Topic của thông điệp
+            .WithUrl("https://example.com");          // Đặt URL chuyển hướng khi bấm vào thông điệp
     }
 }
 ```
 
-### 2. 发送通知
+### 2. Gửi thông báo
 
 ```csharp
 public class YourService
@@ -70,28 +70,28 @@ public class YourService
     {
         var notificationData = new NotificationData();
         
-        // 设置消息内容
-        notificationData.TrySetData("title", "消息标题");
-        notificationData.TrySetData("message", "消息内容");
-        notificationData.SetUrl("https://example.com");  // 设置点击消息跳转的URL
+        // Đặt nội dung thông điệp
+        notificationData.TrySetData("title", "Tiêu đề thông điệp");
+        notificationData.TrySetData("message", "Nội dung thông điệp");
+        notificationData.SetUrl("https://example.com");  // Đặt URL chuyển hướng khi bấm vào thông điệp
 
         await _notificationPublisher.PublishAsync(
-            "App.Notification.Test",              // 通知名称
-            notificationData,                     // 通知数据
-            userIds: new[] { "userId" },          // 接收用户ID列表
-            tenantIds: new[] { "tenantId" }       // 租户ID列表
+            "App.Notification.Test",              // Tên thông báo
+            notificationData,                     // Dữ liệu thông báo
+            userIds: new[] { "userId" },          // Danh sách ID người nhận
+            tenantIds: new[] { "tenantId" }       // Danh sách ID tenant
         );
     }
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-1. 需要实现 `IWxPusherUserStore` 接口来管理用户与WxPusher的关联关系。
-2. 消息发送依赖于WxPusher API，需要确保网络连接正常。
-3. 请合理设置消息内容长度，避免超过WxPusher的限制。
-4. 使用多语言功能时，需要确保已正确配置本地化资源。
+1. Cần triển khai giao diện `IWxPusherUserStore` để quản lý quan hệ liên kết giữa người dùng và WxPusher.
+2. Việc gửi thông điệp phụ thuộc vào API WxPusher, cần đảm bảo kết nối mạng bình thường.
+3. Hãy đặt độ dài nội dung thông điệp hợp lý, tránh vượt quá giới hạn của WxPusher.
+4. Khi dùng chức năng đa ngôn ngữ, cần đảm bảo đã cấu hình đúng tài nguyên bản địa hóa.
 
-## 源码位置
+## Vị trí mã nguồn
 
 [LINGYUN.Abp.Notifications.WxPusher](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/modules/realtime-notifications/LINGYUN.Abp.Notifications.WxPusher)

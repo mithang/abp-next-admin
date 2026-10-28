@@ -9,7 +9,7 @@ using Volo.Abp.Users;
 namespace LINGYUN.Abp.DataProtection.Subjects;
 
 /// <summary>
-/// 角色数据权限策略
+/// Chính sách quyền dữ liệu theo vai trò
 /// </summary>
 public class DataAccessStrategyRoleNameContributor : IDataAccessStrategyContributor
 {
@@ -33,7 +33,7 @@ public class DataAccessStrategyRoleNameContributor : IDataAccessStrategyContribu
             }
         }
 
-        // 多个角色配置过策略时, 取权重最大的策略生效
+        // Khi nhiều vai trò đã cấu hình chính sách, chính sách có trọng số lớn nhất sẽ có hiệu lực
         return states.OrderByDescending(x => x.Strategy).FirstOrDefault();
     }
 }

@@ -6,9 +6,9 @@ import { $t } from '@vben/locales';
 import { useVbenModal } from '@vben-core/popup-ui';
 
 interface Props {
-  // 轮询时间，分钟
+  // Thời gian thăm dò, tính bằng phút
   checkUpdatesInterval?: number;
-  // 检查更新的地址
+  // Địa chỉ kiểm tra cập nhật
   checkUpdateUrl?: string;
 }
 
@@ -64,7 +64,7 @@ async function checkForUpdates() {
     return;
   }
 
-  // 首次运行时不提示更新
+  // Lần chạy đầu tiên không nhắc cập nhật
   if (!lastVersionTag.value) {
     lastVersionTag.value = versionTag;
     return;
@@ -85,7 +85,7 @@ function start() {
     return;
   }
 
-  // 每 checkUpdatesInterval(默认值为1) 分钟检查一次
+  // Kiểm tra một lần mỗi checkUpdatesInterval (mặc định là 1) phút
   timer.value = setInterval(
     checkForUpdates,
     props.checkUpdatesInterval * 60 * 1000,

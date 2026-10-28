@@ -1,6 +1,6 @@
 /**
- * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
- * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
+ * Component cơ sở dùng chung cho các component thông dụng, trước đây nằm trong adapter/form nên bị giới hạn phạm vi sử dụng, ở đây tách ra để các nơi khác tiện dùng
+ * Có thể dùng cho các component như vben-form, vben-modal, vben-drawer,
  */
 
 import type { Component, SetupContext } from 'vue';
@@ -47,7 +47,7 @@ const withDefaultPlaceholder = <T extends Component>(
   };
 };
 
-// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
+// Tại đây cần tự điều chỉnh theo thư viện component nghiệp vụ, mọi component cần dùng đều phải khai báo kiểu tại đây
 export type ComponentType =
   | 'AutoComplete'
   | 'Checkbox'
@@ -75,7 +75,7 @@ export type ComponentType =
 
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
-    // 如果你的组件体积比较大，可以使用异步加载
+    // Nếu component của bạn có dung lượng lớn, có thể dùng tải không đồng bộ
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
@@ -83,7 +83,7 @@ async function initComponentAdapter() {
     Checkbox,
     CheckboxGroup,
     DatePicker,
-    // 自定义默认按钮
+    // Tùy chỉnh nút mặc định
     DefaultButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
@@ -92,7 +92,7 @@ async function initComponentAdapter() {
     InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
     InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
     Mentions: withDefaultPlaceholder(Mentions, 'input'),
-    // 自定义主要按钮
+    // Tùy chỉnh nút chính
     PrimaryButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
@@ -109,12 +109,12 @@ async function initComponentAdapter() {
     Upload,
   };
 
-  // 将组件注册到全局共享状态中
+  // Đăng ký component vào trạng thái chia sẻ toàn cục
   globalShareState.setComponents(components);
 
-  // 定义全局共享状态中的消息提示
+  // Định nghĩa gợi ý thông báo trong trạng thái chia sẻ toàn cục
   globalShareState.defineMessage({
-    // 复制成功消息提示
+    // Gợi ý thông báo sao chép thành công
     copyPreferencesSuccess: (title, content) => {
       notification.success({
         description: content,

@@ -15,32 +15,32 @@ const [Form, formApi] = useVbenForm({
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field1',
-      label: '字段1',
+      label: 'Trường 1',
       rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field2',
-      label: '字段2',
+      label: 'Trường 2',
       rules: 'required',
     },
     {
       component: 'Select',
       componentProps: {
         options: [
-          { label: '选项1', value: '1' },
-          { label: '选项2', value: '2' },
+          { label: 'Tùy chọn 1', value: '1' },
+          { label: 'Tùy chọn 2', value: '2' },
         ],
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field3',
-      label: '字段3',
+      label: 'Trường 3',
       rules: 'required',
     },
   ],
@@ -64,12 +64,12 @@ const [Modal, modalApi] = useVbenModal({
       }
     }
   },
-  title: '内嵌表单示例',
+  title: 'Ví dụ biểu mẫu nhúng',
 });
 
 function onSubmit(values: Record<string, any>) {
   message.loading({
-    content: '正在提交中...',
+    content: 'Đang gửi...',
     duration: 0,
     key: 'is-form-submitting',
   });
@@ -77,7 +77,7 @@ function onSubmit(values: Record<string, any>) {
   setTimeout(() => {
     modalApi.close();
     message.success({
-      content: `提交成功：${JSON.stringify(values)}`,
+      content: `Gửi thành công: ${JSON.stringify(values)}`,
       duration: 2,
       key: 'is-form-submitting',
     });

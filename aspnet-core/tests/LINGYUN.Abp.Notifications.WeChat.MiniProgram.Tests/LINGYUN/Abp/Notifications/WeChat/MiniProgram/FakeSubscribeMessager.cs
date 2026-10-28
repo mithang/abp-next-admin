@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-// 本测试项目未全局启用可空上下文, 而本文件需要表达"可空参数"语义
+// Dự án kiểm thử này chưa bật toàn cục ngữ cảnh nullable, nhưng file này cần thể hiện ngữ nghĩa "tham số nullable"
 #nullable enable
 
 namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram;
 
 /// <summary>
-/// 捕获式 <see cref="ISubscribeMessager"/> 假实现
+/// Triển khai giả <see cref="ISubscribeMessager"/> dạng ghi nhận
 /// </summary>
 /// <remarks>
-/// 用于在不真正调用微信接口的前提下, 断言渠道最终发出的模板消息内容。
+/// Dùng để assert nội dung thông báo mẫu mà kênh cuối cùng gửi đi, mà không thực sự gọi API WeChat.
 /// </remarks>
 public class FakeSubscribeMessager : ISubscribeMessager
 {
     /// <summary>
-    /// 已发送的模板消息(按顺序)
+    /// Các thông báo mẫu đã gửi (theo thứ tự)
     /// </summary>
     public List<SubscribeMessage> SentMessages { get; } = new();
 
     /// <summary>
-    /// 已发送的"按模板参数"形式的调用
+    /// Các lệnh gọi đã gửi ở dạng "theo tham số mẫu"
     /// </summary>
     public List<SentTemplateArgs> SentTemplates { get; } = new();
 

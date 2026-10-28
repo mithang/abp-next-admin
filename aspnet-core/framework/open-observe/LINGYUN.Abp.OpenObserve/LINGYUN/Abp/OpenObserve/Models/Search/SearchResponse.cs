@@ -5,132 +5,132 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Search;
 
 /// <summary>
-/// 搜索响应
+/// Phản hồi tìm kiếm
 /// </summary>
 /// <remarks>
-/// 参考: https://openobserve.ai/docs/reference/api/search/
+/// Tham khảo: https://openobserve.ai/docs/reference/api/search/
 /// </remarks>
 public class SearchResponse<THit>
 {
     /// <summary>
-    /// 命中数据
+    /// Dữ liệu kết quả khớp
     /// </summary>
     /// <remarks>
-    /// 每条记录为摄取时的原始行, 并附加 _timestamp(微秒) 与 _p
+    /// Mỗi bản ghi là dòng gốc lúc thu thập, kèm theo _timestamp (micro giây) và _p
     /// </remarks>
     [JsonPropertyName("hits")]
     public THit[] Hits { get; set; } = [];
 
     /// <summary>
-    /// 命中总数
+    /// Tổng số kết quả khớp
     /// </summary>
     [JsonPropertyName("total")]
     public long Total { get; set; }
 
     /// <summary>
-    /// 偏移量
+    /// Độ lệch
     /// </summary>
     /// <remarks>
-    /// 取自 query.from
+    /// Lấy từ query.from
     /// </remarks>
     [JsonPropertyName("from")]
     public long From { get; set; }
 
     /// <summary>
-    /// 数量
+    /// Số lượng
     /// </summary>
     /// <remarks>
-    /// 取自 query.size
+    /// Lấy từ query.size
     /// </remarks>
     [JsonPropertyName("size")]
     public long Size { get; set; }
 
     /// <summary>
-    /// 查询耗时
+    /// Thời gian truy vấn
     /// </summary>
     /// <remarks>
-    /// 单位: 毫秒
+    /// Đơn vị: mili giây
     /// </remarks>
     [JsonPropertyName("took")]
     public long Took { get; set; }
 
     /// <summary>
-    /// 耗时明细
+    /// Chi tiết thời gian
     /// </summary>
     [JsonPropertyName("took_detail")]
     public SearchTookDetail? TookDetail { get; set; }
 
     /// <summary>
-    /// 扫描数据量
+    /// Khối lượng dữ liệu đã quét
     /// </summary>
     /// <remarks>
-    /// 单位: MB
+    /// Đơn vị: MB
     /// </remarks>
     [JsonPropertyName("scan_size")]
     public long ScanSize { get; set; }
 
     /// <summary>
-    /// 扫描记录数
+    /// Số bản ghi đã quét
     /// </summary>
     [JsonPropertyName("scan_records")]
     public long ScanRecords { get; set; }
 
     /// <summary>
-    /// 缓存命中比例
+    /// Tỷ lệ trúng bộ nhớ đệm
     /// </summary>
     [JsonPropertyName("result_cache_ratio")]
     public int? ResultCacheRatio { get; set; }
 
     /// <summary>
-    /// 返回的列
+    /// Các cột trả về
     /// </summary>
     [JsonPropertyName("columns")]
     public string[]? Columns { get; set; }
 
     /// <summary>
-    /// 链路标识
+    /// Định danh liên kết
     /// </summary>
     [JsonPropertyName("trace_id")]
     public string? TraceId { get; set; }
 
     /// <summary>
-    /// 函数执行错误
+    /// Lỗi thực thi hàm
     /// </summary>
     [JsonPropertyName("function_error")]
     public string[]? FunctionError { get; set; }
 
     /// <summary>
-    /// 是否为部分数据
+    /// Có phải dữ liệu một phần hay không
     /// </summary>
     /// <remarks>
-    /// 为 true 时表示响应基于部分数据
+    /// Khi là true, phản hồi dựa trên dữ liệu một phần
     /// </remarks>
     [JsonPropertyName("is_partial")]
     public bool IsPartial { get; set; }
 
     /// <summary>
-    /// 直方图间隔(秒)
+    /// Khoảng biểu đồ histogram (giây)
     /// </summary>
     [JsonPropertyName("histogram_interval")]
     public long? HistogramInterval { get; set; }
 
     /// <summary>
-    /// 服务端调整后的开始时间(微秒)
+    /// Thời gian bắt đầu sau khi phía máy chủ điều chỉnh (micro giây)
     /// </summary>
     /// <remarks>
-    /// 受数据流的 max_query_range 限制时会调整时间范围
+    /// Phạm vi thời gian sẽ được điều chỉnh khi bị giới hạn max_query_range của luồng dữ liệu
     /// </remarks>
     [JsonPropertyName("new_start_time")]
     public long? NewStartTime { get; set; }
 
     /// <summary>
-    /// 服务端调整后的结束时间(微秒)
+    /// Thời gian kết thúc sau khi phía máy chủ điều chỉnh (micro giây)
     /// </summary>
     [JsonPropertyName("new_end_time")]
     public long? NewEndTime { get; set; }
 
     /// <summary>
-    /// 排序方向
+    /// Hướng sắp xếp
     /// </summary>
     /// <remarks>
     /// asc / desc
@@ -139,43 +139,43 @@ public class SearchResponse<THit>
     public string? OrderBy { get; set; }
 
     /// <summary>
-    /// 排序元数据
+    /// Siêu dữ liệu sắp xếp
     /// </summary>
     [JsonPropertyName("order_by_metadata")]
     public string[][]? OrderByMetadata { get; set; }
 
     /// <summary>
-    /// 响应类型
+    /// Loại phản hồi
     /// </summary>
     [JsonPropertyName("response_type")]
     public string? ResponseType { get; set; }
 
     /// <summary>
-    /// 结果格式
+    /// Định dạng kết quả
     /// </summary>
     /// <remarks>
-    /// agent_options.output_format 为 csv/md_table 时返回, 如 csv / md_table / ndjson
+    /// Trả về khi agent_options.output_format là csv/md_table, ví dụ csv / md_table / ndjson
     /// </remarks>
     [JsonPropertyName("format")]
     public string? Format { get; set; }
 
     /// <summary>
-    /// 格式化后的结果
+    /// Kết quả đã định dạng
     /// </summary>
     /// <remarks>
-    /// agent_options.output_format 为 csv/md_table 时, hits 为空, 数据在此字段
+    /// Khi agent_options.output_format là csv/md_table, hits rỗng và dữ liệu nằm trong trường này
     /// </remarks>
     [JsonPropertyName("data")]
     public string? Data { get; set; }
 
     /// <summary>
-    /// 提示信息
+    /// Thông tin gợi ý
     /// </summary>
     [JsonPropertyName("advisory")]
     public string? Advisory { get; set; }
 
     /// <summary>
-    /// 未在模型中声明的字段
+    /// Các trường không được khai báo trong mô hình
     /// </summary>
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? ExtraProperties { get; set; }

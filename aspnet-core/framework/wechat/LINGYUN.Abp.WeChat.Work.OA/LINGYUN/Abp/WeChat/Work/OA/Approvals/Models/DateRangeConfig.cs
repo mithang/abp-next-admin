@@ -4,26 +4,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 时长配置
+/// Cấu hình thời lượng
 /// </summary>
 public class DateRangeConfig
 {
     /// <summary>
-    /// 时间展示类型：halfday-日期；hour-日期+时间
+    /// Loại hiển thị thời gian: halfday-Ngày; hour-Ngày + giờ
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 0-自然日；1-工作日
+    /// 0-Ngày tự nhiên; 1-Ngày làm việc
     /// </summary>
     [NotNull]
     [JsonProperty("official_holiday")]
     [JsonPropertyName("official_holiday")]
     public byte OfficialHoliday { get; set; }
     /// <summary>
-    /// 一天的时长（单位为秒），必须大于0小于等于86400
+    /// Thời lượng một ngày (đơn vị là giây), phải lớn hơn 0 và nhỏ hơn hoặc bằng 86400
     /// </summary>
     [NotNull]
     [JsonProperty("perday_duration")]

@@ -47,7 +47,7 @@ public class FunctionAIToolProvider : IAIToolProvider, ITransientDependency
         }
         else
         {
-            // 框架约定, 自定义Tool只需要定义同步方法（Invoke）或异步方法（InvokeAsync）即可
+            // Quy ước của framework, Tool tùy chỉnh chỉ cần định nghĩa phương thức đồng bộ (Invoke) hoặc phương thức bất đồng bộ (InvokeAsync)
             aiToolMethodInfo = aiToolType.GetMethod("Invoke") ?? aiToolType.GetMethod("InvokeAsync");
         }
 

@@ -136,9 +136,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Kiểm soát form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Khi nhấn Enter có submit form hay không
   submitOnEnter: true,
 };
 
@@ -301,7 +301,7 @@ async function onSendMany(keys: string[]) {
         gridApi.setLoading(true);
         await bulkReSendApi({ recordIds: keys });
         message.success($t('WebhooksManagement.SuccessfullySent'));
-        // 重新查询
+        // Truy vấn lại
         await gridApi.query();
       } finally {
         gridApi.setLoading(false);
@@ -319,11 +319,11 @@ async function onDeleteMany(keys: string[]) {
         gridApi.setLoading(true);
         await bulkDeleteApi({ recordIds: keys });
         message.success($t('AbpUi.DeletedSuccessfully'));
-        // 清理选中的key
+        // Dọn các key đã chọn
         selectedKeys.value = selectedKeys.value.filter(
           (key) => !keys.includes(key),
         );
-        // 重新查询
+        // Truy vấn lại
         await gridApi.query();
       } finally {
         gridApi.setLoading(false);

@@ -6,12 +6,12 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 
 /// <summary>
-/// 审批申请单数据
+/// Dữ liệu đơn xin phê duyệt
 /// </summary>
 public class ApprovalData
 {
     /// <summary>
-    /// 审批申请详情，由多个表单控件及其内容组成，其中包含需要对控件赋值的信息
+    /// Chi tiết đơn xin phê duyệt, gồm nhiều điều khiển biểu mẫu và nội dung của chúng, trong đó chứa thông tin cần gán giá trị cho điều khiển
     /// </summary>
     [NotNull]
     [JsonProperty("contents")]

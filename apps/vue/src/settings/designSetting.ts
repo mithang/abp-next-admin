@@ -6,11 +6,11 @@ export const multipleTabHeight = 30;
 
 export const darkMode = ThemeEnum.LIGHT;
 
-// 页脚固定高度
+// Chiều cao cố định của chân trang
 export const footerHeight = 75;
 
 // .@{namespace}-layout-multiple-header__placeholder
-// 全屏页头动画时长
+// Thời lượng hoạt ảnh của tiêu đề toàn màn hình
 export const layoutMultipleHeadePlaceholderTime = 0.6;
 
 // app theme preset color

@@ -1,47 +1,47 @@
 ﻿namespace LINGYUN.Abp.WeChat.Common.Security.Claims;
 
 /// <summary>
-/// 微信认证身份类型,可以像 <see cref="Volo.Abp.Security.Claims.AbpClaimTypes"/> 自行配置
+/// Loại danh tính xác thực WeChat, có thể tự cấu hình giống như <see cref="Volo.Abp.Security.Claims.AbpClaimTypes"/>
 /// <br />
 /// See: <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html"/>
 /// </summary>
 public class AbpWeChatClaimTypes
 {
     /// <summary>
-    /// 用户的唯一标识
+    /// Định danh duy nhất của người dùng
     /// </summary>
-    public static string OpenId { get; set; } = "wx-openid"; // 可变更
+    public static string OpenId { get; set; } = "wx-openid"; // Có thể thay đổi
     /// <summary>
-    /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+    /// Chỉ xuất hiện trường này sau khi người dùng liên kết tài khoản chính thức với tài khoản nền tảng mở WeChat.
     /// </summary>
-    public static string UnionId { get; set; } = "wx-unionid"; //可变更
+    public static string UnionId { get; set; } = "wx-unionid"; //Có thể thay đổi
     /// <summary>
-    /// 用户昵称
+    /// Biệt danh của người dùng
     /// </summary>
     public static string NickName { get; set; } = "nickname";
     /// <summary>
-    /// 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+    /// Giới tính của người dùng, giá trị 1 là nam, giá trị 2 là nữ, giá trị 0 là chưa xác định
     /// </summary>
     public static string Sex { get; set; } = "sex";
     /// <summary>
-    /// 国家，如中国为CN
+    /// Quốc gia, ví dụ Trung Quốc là CN
     /// </summary>
     public static string Country { get; set; } = "country";
     /// <summary>
-    /// 用户个人资料填写的省份
+    /// Tỉnh mà người dùng đã điền trong hồ sơ cá nhân
     /// </summary>
     public static string Province { get; set; } = "province";
     /// <summary>
-    /// 普通用户个人资料填写的城市
+    /// Thành phố mà người dùng thông thường đã điền trong hồ sơ cá nhân
     /// </summary>
     public static string City { get; set; } = "city";
     /// <summary>
-    /// 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。
-    /// 若用户更换头像，原有头像URL将失效。
+    /// Ảnh đại diện của người dùng, giá trị cuối cùng biểu thị kích thước ảnh đại diện hình vuông (có thể chọn các giá trị 0, 46, 64, 96, 132; 0 biểu thị ảnh đại diện hình vuông 640*640), khi người dùng không có ảnh đại diện thì mục này để trống.
+    /// Nếu người dùng đổi ảnh đại diện, URL ảnh đại diện cũ sẽ hết hiệu lực.
     /// </summary>
     public static string AvatarUrl { get; set; } = "avatar";
     /// <summary>
-    /// 用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+    /// Thông tin đặc quyền của người dùng, mảng json, ví dụ người dùng thẻ Wo của WeChat là (chinaunicom)
     /// </summary>
     public static string Privilege { get; set; } = "privilege";
 }

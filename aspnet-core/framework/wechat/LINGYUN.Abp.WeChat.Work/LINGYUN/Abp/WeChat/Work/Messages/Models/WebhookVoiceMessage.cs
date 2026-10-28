@@ -4,21 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// Webhook语音消息体
+/// Thân tin nhắn giọng nói Webhook
 /// </summary>
 public class WebhookVoiceMessage
 {
     /// <summary>
-    /// 语音文件id，通过下文的文件上传接口获取
+    /// Id tệp giọng nói, thu được qua API tải lên tệp dưới đây
     /// </summary>
     [NotNull]
     [JsonProperty("media_id")]
     [JsonPropertyName("media_id")]
     public string MediaId { get; set; }
     /// <summary>
-    /// 创建一个Webhook语音消息体
+    /// Tạo một thân tin nhắn giọng nói Webhook
     /// </summary>
-    /// <param name="mediaId">语音文件id</param>
+    /// <param name="mediaId">Id tệp giọng nói</param>
     public WebhookVoiceMessage(string mediaId)
     {
         MediaId = mediaId;

@@ -1,62 +1,62 @@
-/** 用户权限 */
+/** Quyền người dùng */
 export const IdentityUserPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpIdentity.Users.Create",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpIdentity.Users.Delete",
-	/** 管理声明 */
+	/** Quản lý claim */
 	ManageClaims: "AbpIdentity.Users.ManageClaims",
-	/** 管理权限 */
+	/** Quản lý quyền */
 	ManagePermissions: "AbpIdentity.Users.ManagePermissions",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpIdentity.Users.Update",
 };
-/** 角色权限 */
+/** Quyền vai trò */
 export const IdentityRolePermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpIdentity.Roles.Create",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpIdentity.Roles.Delete",
-	/** 管理声明 */
+	/** Quản lý claim */
 	ManageClaims: "AbpIdentity.Roles.ManageClaims",
-	/** 管理权限 */
+	/** Quản lý quyền */
 	ManagePermissions: "AbpIdentity.Roles.ManagePermissions",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpIdentity.Roles.Update",
 };
-/** 声明类型权限 */
+/** Quyền loại claim */
 export const IdentityClaimTypePermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpIdentity.IdentityClaimTypes.Create",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpIdentity.IdentityClaimTypes.Delete",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpIdentity.IdentityClaimTypes.Update",
 };
-/** 组织机构权限 */
+/** Quyền tổ chức */
 export const OrganizationUnitPermissions = {
-	/** 管理角色 */
+	/** Quản lý vai trò */
 	ManageRoles: "AbpIdentity.OrganizationUnits.ManageRoles",
-	/** 管理用户 */
+	/** Quản lý người dùng */
 	ManageUsers: "AbpIdentity.OrganizationUnits.ManageUsers",
 };
-/** 安全日志权限 */
+/** Quyền nhật ký bảo mật */
 export const SecurityLogPermissions = {
 	Default: "AbpAuditing.SecurityLog",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpAuditing.SecurityLog.Delete",
 };
-/** 用户会话权限 */
+/** Quyền phiên người dùng */
 export const IdentitySessionPermissions = {
 	Default: "AbpIdentity.IdentitySessions",
-	/** 移除 */
+	/** Thu hồi */
 	Revoke: "AbpIdentity.IdentitySessions.Revoke",
 };
 /**
 /**
- * 搜索用户权限
- * @deprecated 后台服务删除权限后将无法使用.
- * @todo 需要检查abp框架权限定义
+ * Quyền tra cứu người dùng
+ * @deprecated Sau khi dịch vụ backend xóa quyền thì sẽ không thể sử dụng.
+ * @todo Cần kiểm tra định nghĩa quyền của framework ABP
  */
 export const UserLookupPermissions = {
 	Default: "AbpIdentity.UserLookup",

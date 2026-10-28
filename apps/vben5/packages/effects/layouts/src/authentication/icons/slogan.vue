@@ -354,7 +354,7 @@
     </filter>
     <title>87667-SVG8</title>
     <g>
-      <g id="Group备份" transform="translate(40.000000, 350.000000)">
+      <g id="GroupBanSao" transform="translate(40.000000, 350.000000)">
         <linearGradient
           id="Shape_1_"
           gradientTransform="matrix(352.3498 0 0 -229.3688 -21376.5684 335815.1875)"
@@ -425,7 +425,7 @@
           </g>
         </g>
         <path
-          id="Shape备份"
+          id="ShapeBanSao"
           d="M356.1,376L49.6,199c-3.6-2.1-3.6-7.4,0-9.5
 			L339.8,21.9c6.7-3.9,15-3.9,21.7,0l308.6,178.3c3.6,2.1,3.6,7.4,0,9.5L382.1,376C374.1,380.7,364.1,380.7,356.1,376z"
           fill="none"
@@ -510,8 +510,8 @@
           stroke-width="1.0568"
         />
       </g>
-      <g id="编组备份-4" transform="translate(386.000000, 561.000000)">
-        <g id="编组备份-3" transform="translate(0.000000, 69.529529)">
+      <g id="NhomBanSao-4" transform="translate(386.000000, 561.000000)">
+        <g id="NhomBanSao-3" transform="translate(0.000000, 69.529529)">
           <g id="Stroke-1">
             <g>
               <linearGradient
@@ -616,7 +616,7 @@
         </g>
 
         <linearGradient
-          id="矩形_1_"
+          id="HinhChuNhat_1_"
           gradientTransform="matrix(48.245 0 0 -97.3101 13803.5742 121267.3516)"
           gradientUnits="userSpaceOnUse"
           x1="-285.6142"
@@ -629,18 +629,18 @@
         </linearGradient>
 
         <polygon
-          id="矩形"
+          id="HinhChuNhat"
           clip-rule="evenodd"
           enable-background="new    "
-          fill="url(#矩形_1_)"
+          fill="url(#HinhChuNhat_1_)"
           fill-rule="evenodd"
           opacity="0.1977"
           points="
 			0,0 48.2,0 48.2,83.7 24.1,97.3 0,83.7 		"
         />
       </g>
-      <g id="编组-4" transform="translate(71.000000, 199.000000)">
-        <g id="Shape备份-2">
+      <g id="Nhom-4" transform="translate(71.000000, 199.000000)">
+        <g id="ShapeBanSao-2">
           <g>
             <linearGradient
               id="path-19_1_"
@@ -673,8 +673,8 @@
             />
           </g>
         </g>
-        <g id="编组-13" transform="translate(45.000000, 0.000000)">
-          <g id="编组备份-17" transform="translate(90.066225, 54.000000)">
+        <g id="Nhom-13" transform="translate(45.000000, 0.000000)">
+          <g id="NhomBanSao-17" transform="translate(90.066225, 54.000000)">
             <g>
               <g>
                 <linearGradient
@@ -778,7 +778,7 @@
 									"
             />
           </g>
-          <g id="编组备份-16" transform="translate(45.562914, 134.529801)">
+          <g id="NhomBanSao-16" transform="translate(45.562914, 134.529801)">
             <g>
               <g>
                 <linearGradient
@@ -882,7 +882,7 @@
 									"
             />
           </g>
-          <g id="编组备份-18" transform="translate(0.000000, 0.271523)">
+          <g id="NhomBanSao-18" transform="translate(0.000000, 0.271523)">
             <g>
               <g>
                 <linearGradient
@@ -969,7 +969,7 @@
             />
 
             <linearGradient
-              id="矩形备份_1_"
+              id="HinhChuNhatBanSao_1_"
               gradientTransform="matrix(48 0 0 -80.5525 820 129428.7578)"
               gradientUnits="userSpaceOnUse"
               x1="-15.625"
@@ -982,10 +982,10 @@
             </linearGradient>
 
             <polygon
-              id="矩形备份"
+              id="HinhChuNhatBanSao"
               clip-rule="evenodd"
               enable-background="new    "
-              fill="url(#矩形备份_1_)"
+              fill="url(#HinhChuNhatBanSao_1_)"
               fill-rule="evenodd"
               opacity="0.3"
               points="
@@ -993,7 +993,7 @@
             />
 
             <linearGradient
-              id="矩形备份-4_1_"
+              id="HinhChuNhatBanSao-4_1_"
               gradientTransform="matrix(48 0 0 -80.5525 863 129347.75)"
               gradientUnits="userSpaceOnUse"
               x1="-15.625"
@@ -1006,10 +1006,10 @@
             </linearGradient>
 
             <polygon
-              id="矩形备份-4"
+              id="HinhChuNhatBanSao-4"
               clip-rule="evenodd"
               enable-background="new    "
-              fill="url(#矩形备份-4_1_)"
+              fill="url(#HinhChuNhatBanSao-4_1_)"
               fill-rule="evenodd"
               opacity="0.3"
               points="
@@ -1058,9 +1058,9 @@
           </g>
         </g>
       </g>
-      <g id="编组-9" transform="translate(286.000000, 26.000000)">
-        <g id="编组-3" transform="translate(0.000000, 326.797996)">
-          <g id="椭圆形" filter="url(#filter-39)">
+      <g id="Nhom-9" transform="translate(286.000000, 26.000000)">
+        <g id="Nhom-3" transform="translate(0.000000, 326.797996)">
+          <g id="HinhElip" filter="url(#filter-39)">
             <linearGradient
               id="SVGID_15_"
               gradientTransform="matrix(298.9761 -31.4237 -16.5194 -157.172 79324.2969 223473.4688)"
@@ -1082,7 +1082,7 @@
             />
           </g>
           <g transform="translate(0.000000, 32.309947)">
-            <g id="形状结合">
+            <g id="KetHopHinhDang">
               <linearGradient
                 id="SVGID_16_"
                 gradientTransform="matrix(252.8605 0 0 -153.121 46628.3242 218334.6719)"
@@ -1151,7 +1151,7 @@
               />
             </g>
           </g>
-          <g id="Stroke-1备份">
+          <g id="Stroke-1BanSao">
             <g>
               <linearGradient
                 id="path-45_1_"
@@ -1184,7 +1184,7 @@
             </g>
           </g>
         </g>
-        <g id="编组-3备份" transform="translate(24.286045, 0.000000)">
+        <g id="Nhom-3BanSao" transform="translate(24.286045, 0.000000)">
           <g transform="translate(1.000000, 323.847957)">
             <g>
               <linearGradient
@@ -1313,8 +1313,8 @@
           />
         </g>
       </g>
-      <g id="编组-11备份" transform="translate(329.000000, 539.000000)">
-        <g id="编组-6备份" transform="translate(0.000000, 4.148936)">
+      <g id="Nhom-11BanSao" transform="translate(329.000000, 539.000000)">
+        <g id="Nhom-6BanSao" transform="translate(0.000000, 4.148936)">
           <g filter="url(#filter-56)">
             <linearGradient
               id="SVGID_19_"
@@ -1360,7 +1360,7 @@
             r="24.5"
           />
         </g>
-        <g id="编组-6" transform="translate(23.510638, 0.000000)">
+        <g id="Nhom-6" transform="translate(23.510638, 0.000000)">
           <g filter="url(#filter-59)">
             <linearGradient
               id="SVGID_21_"
@@ -1409,7 +1409,7 @@
       </g>
 
       <g
-        id="编组备份-9"
+        id="NhomBanSao-9"
         opacity="0.5"
         transform="translate(488.000000, 172.000000) scale(-1, 1) translate(-488.000000, -172.000000) translate(449.000000, 122.000000)"
       >
@@ -1461,19 +1461,19 @@
             fill="#FFFFFF"
           />
           <path
-            id="XMLID_905_备份"
+            id="XMLID_905_BanSao"
             d="M18.2,14.6L5.5,21.9c-0.4,0.2-0.9,0.1-1.1-0.3c-0.1-0.1-0.1-0.3-0.1-0.4
 				c0-0.9,0.5-1.7,1.3-2.2l12.6-7.3c0.4-0.2,0.9-0.1,1.1,0.3c0.1,0.1,0.1,0.3,0.1,0.4C19.4,13.3,18.9,14.2,18.2,14.6z"
             fill="#FFFFFF"
           />
           <path
-            id="XMLID_905_备份-2"
+            id="XMLID_905_BanSao-2"
             d="M18.2,22.3L5.5,29.6c-0.4,0.2-0.9,0.1-1.1-0.3c-0.1-0.1-0.1-0.3-0.1-0.4
 				c0-0.9,0.5-1.7,1.3-2.2l12.6-7.3c0.4-0.2,0.9-0.1,1.1,0.3c0.1,0.1,0.1,0.3,0.1,0.4C19.4,21,18.9,21.8,18.2,22.3z"
             fill="#FFFFFF"
           />
           <path
-            id="XMLID_905_备份-3"
+            id="XMLID_905_BanSao-3"
             d="M18.2,29.9L5.5,37.2c-0.4,0.2-0.9,0.1-1.1-0.3c-0.1-0.1-0.1-0.3-0.1-0.4
 				c0-0.9,0.5-1.7,1.3-2.2L18.2,27c0.4-0.2,0.9-0.1,1.1,0.3c0.1,0.1,0.1,0.3,0.1,0.4C19.4,28.7,18.9,29.5,18.2,29.9z"
             fill="#FFFFFF"
@@ -1613,7 +1613,7 @@
           stroke-width="0.5"
         />
       </g>
-      <g id="人备份" transform="translate(364.000000, 134.000000)">
+      <g id="NguoiBanSao" transform="translate(364.000000, 134.000000)">
         <path
           id="Path"
           clip-rule="evenodd"
@@ -1791,7 +1791,7 @@
           fill-rule="evenodd"
         />
       </g>
-      <g id="Stroke-1备份-3" opacity="0.2645">
+      <g id="Stroke-1BanSao-3" opacity="0.2645">
         <g filter="url(#filter-79)">
           <path
             id="path-78_1_"
@@ -1824,7 +1824,7 @@
       </g>
 
       <linearGradient
-        id="Stroke-1备份-4_1_"
+        id="Stroke-1BanSao-4_1_"
         gradientTransform="matrix(224 0 0 -130 -22445.5664 235373.9844)"
         gradientUnits="userSpaceOnUse"
         x1="102.0446"
@@ -1836,17 +1836,17 @@
         <stop offset="1" style="stop-color: #fff; stop-opacity: 0" />
       </linearGradient>
       <path
-        id="Stroke-1备份-4"
+        id="Stroke-1BanSao-4"
         d="
 		M333.1,116c-43.6,25.3-43.6,66.7,0,92c43.6,25.3,115,25.3,158.6,0c43.6-25.3,43.6-66.7,0-92C448.1,90.7,376.8,90.7,333.1,116z"
         enable-background="new    "
         fill="none"
         opacity="0.2645"
-        stroke="url(#Stroke-1备份-4_1_)"
+        stroke="url(#Stroke-1BanSao-4_1_)"
       />
 
       <linearGradient
-        id="Stroke-1备份-5_1_"
+        id="Stroke-1BanSao-5_1_"
         gradientTransform="matrix(224 0 0 -130 -22445.5664 235434.9375)"
         gradientUnits="userSpaceOnUse"
         x1="102.0446"
@@ -1859,15 +1859,15 @@
       </linearGradient>
 
       <path
-        id="Stroke-1备份-5"
+        id="Stroke-1BanSao-5"
         d="
 		M333.1,177c-43.6,25.3-43.6,66.7,0,92c43.6,25.3,115,25.3,158.6,0c43.6-25.3,43.6-66.7,0-92C448.1,151.7,376.8,151.7,333.1,177z"
         enable-background="new    "
         fill="none"
         opacity="7.956659e-02"
-        stroke="url(#Stroke-1备份-5_1_)"
+        stroke="url(#Stroke-1BanSao-5_1_)"
       />
-      <g id="编组-15" transform="translate(286.000000, 69.000000)">
+      <g id="Nhom-15" transform="translate(286.000000, 69.000000)">
         <linearGradient
           id="SVGID_34_"
           gradientTransform="matrix(84.647 0 0 -130.0737 15677.0488 226435.8125)"
@@ -1934,7 +1934,7 @@
       </g>
 
       <g
-        id="编组-15备份"
+        id="Nhom-15BanSao"
         transform="translate(524.500000, 179.500000) scale(-1, 1) translate(-524.500000, -179.500000) translate(482.000000, 114.000000)"
       >
         <linearGradient
@@ -2001,7 +2001,7 @@
           fill-rule="evenodd"
         />
       </g>
-      <g id="编组" transform="translate(457.000000, 235.000000)">
+      <g id="Nhom" transform="translate(457.000000, 235.000000)">
         <linearGradient
           id="SVGID_40_"
           gradientTransform="matrix(94.2244 0 0 -135.8154 33551.6523 213971.6875)"
@@ -2068,7 +2068,7 @@
         />
 
         <linearGradient
-          id="Path备份_1_"
+          id="PathBanSao_1_"
           gradientTransform="matrix(5.707 0 0 -15.38 2199.9822 23445.7344)"
           gradientUnits="userSpaceOnUse"
           x1="-372.3728"
@@ -2080,9 +2080,9 @@
           <stop offset="1" style="stop-color: #2afadf" />
         </linearGradient>
         <polygon
-          id="Path备份"
+          id="PathBanSao"
           clip-rule="evenodd"
-          fill="url(#Path备份_1_)"
+          fill="url(#PathBanSao_1_)"
           fill-rule="evenodd"
           points="77.7,133 77.7,121.7
 			72,124.9 72,137 		"
@@ -2149,7 +2149,7 @@
         />
 
         <linearGradient
-          id="Path备份-2_1_"
+          id="PathBanSao-2_1_"
           gradientTransform="matrix(5.78 0 0 -28.2102 2214.8997 43745.1641)"
           gradientUnits="userSpaceOnUse"
           x1="-372.1471"
@@ -2161,17 +2161,17 @@
           <stop offset="1" style="stop-color: #2afadf" />
         </linearGradient>
         <path
-          id="Path备份-2"
+          id="PathBanSao-2"
           clip-rule="evenodd"
           d="M66.8,140.4
 			c-0.6,0.4-1.2,0.7-1.9,1.1c-1.2,0.7-2.5,1.4-3.8,2.1L61,118.7l5.7-3.3L66.8,140.4z"
-          fill="url(#Path备份-2_1_)"
+          fill="url(#PathBanSao-2_1_)"
           fill-rule="evenodd"
         />
       </g>
 
       <g
-        id="编组备份"
+        id="NhomBanSao"
         transform="translate(316.500000, 268.500000) scale(-1, 1) translate(-316.500000, -268.500000) translate(269.000000, 180.000000)"
       >
         <linearGradient
@@ -2220,7 +2220,7 @@
         />
 
         <linearGradient
-          id="路径_1_"
+          id="DuongDan_1_"
           gradientTransform="matrix(-65.0245 0 0 -44.112 16953.9395 71322.6641)"
           gradientUnits="userSpaceOnUse"
           x1="259.3418"
@@ -2233,18 +2233,18 @@
         </linearGradient>
 
         <path
-          id="路径"
+          id="DuongDan"
           d="
 			M84.5,110.9c-11.6-15.5-17.4-14.7-17.4,2.4c0,25.7-11.4,29.9-19.6,17.1c-8.2-12.9-23.3-14.6-28,13.6"
           enable-background="new    "
           fill="none"
           opacity="0.6"
-          stroke="url(#路径_1_)"
+          stroke="url(#DuongDan_1_)"
           stroke-linecap="round"
           stroke-width="3.5247"
         />
       </g>
-      <g id="编组-11" transform="translate(558.000000, 306.000000)">
+      <g id="Nhom-11" transform="translate(558.000000, 306.000000)">
         <g id="product3" transform="translate(11.447727, 0.000000)">
           <g filter="url(#filter-95)">
             <linearGradient
@@ -2267,7 +2267,7 @@
               fill-rule="evenodd"
             />
           </g>
-          <g id="编组-2" transform="translate(0.862170, 124.812382)">
+          <g id="Nhom-2" transform="translate(0.862170, 124.812382)">
             <linearGradient
               id="SVGID_49_"
               gradientTransform="matrix(145.0025 0 0 -83.8574 68008.0859 115279.1875)"
@@ -2344,9 +2344,9 @@
               fill-rule="evenodd"
             />
           </g>
-          <g id="编组-2备份" transform="translate(8.400000, 103.200000)">
+          <g id="Nhom-2BanSao" transform="translate(8.400000, 103.200000)">
             <g
-              id="Path备份-3"
+              id="PathBanSao-3"
               enable-background="new    "
               filter="url(#filter-100)"
               opacity="0.6817"
@@ -2523,7 +2523,7 @@
             fill-rule="evenodd"
           />
         </g>
-        <g id="编组备份-8" transform="translate(47.447727, 63.600000)">
+        <g id="NhomBanSao-8" transform="translate(47.447727, 63.600000)">
           <g
             enable-background="new    "
             filter="url(#filter-106)"
@@ -2599,10 +2599,10 @@
             fill-rule="evenodd"
             points="35.2,81.1 35.2,40.6 0.1,20.4 0.1,60.9 			"
           />
-          <g id="编组-10" transform="translate(4.431004, 28.063025)">
-            <g id="编组-8">
-              <g id="Shape备份-3" transform="translate(0.000000, -0.000000)">
-                <g id="蒙版">
+          <g id="Nhom-10" transform="translate(4.431004, 28.063025)">
+            <g id="Nhom-8">
+              <g id="ShapeBanSao-3" transform="translate(0.000000, -0.000000)">
+                <g id="MatNa">
                   <linearGradient
                     id="SVGID_59_"
                     gradientTransform="matrix(6.3405 0 0 -10.9369 3322.1904 14513.207)"
@@ -2676,7 +2676,7 @@
                   points="6.3,10.9 0,14.6 0,7.3 6.3,3.6 						"
                 />
               </g>
-              <g id="Shape备份-4" transform="translate(9.630049, 5.468450)">
+              <g id="ShapeBanSao-4" transform="translate(9.630049, 5.468450)">
                 <g>
                   <linearGradient
                     id="SVGID_61_"
@@ -2752,7 +2752,7 @@
                   points="6.3,10.9 0,14.6 0,7.3 6.3,3.6 						"
                 />
               </g>
-              <g id="Shape备份-5" transform="translate(19.201017, 11.077510)">
+              <g id="ShapeBanSao-5" transform="translate(19.201017, 11.077510)">
                 <g>
                   <linearGradient
                     id="SVGID_63_"
@@ -2829,7 +2829,7 @@
                 />
               </g>
             </g>
-            <g id="编组-8备份" transform="translate(0.000000, 11.077510)">
+            <g id="Nhom-8BanSao" transform="translate(0.000000, 11.077510)">
               <g transform="translate(0.000000, -0.000000)">
                 <g>
                   <linearGradient
@@ -3058,7 +3058,7 @@
                 />
               </g>
             </g>
-            <g id="编组-8备份-2" transform="translate(0.000000, 22.155020)">
+            <g id="Nhom-8BanSao-2" transform="translate(0.000000, 22.155020)">
               <g transform="translate(0.000000, -0.000000)">
                 <g>
                   <linearGradient
@@ -3310,7 +3310,7 @@
           />
 
           <g
-            id="编组-10备份-4"
+            id="Nhom-10BanSao-4"
             transform="translate(53.703560, 51.063025) scale(-1, 1) translate(-53.703560, -51.063025) translate(40.203560, 28.063025)"
           >
             <g>
@@ -3905,10 +3905,10 @@
         </g>
 
         <g
-          id="椭圆"
+          id="HinhElip"
           transform="translate(83.218192, 86.783330) rotate(5.000000) translate(-83.218192, -86.783330) translate(7.218192, 10.783330)"
         >
-          <g id="编组-5" transform="translate(8.161827, 36.521835)">
+          <g id="Nhom-5" transform="translate(8.161827, 36.521835)">
             <linearGradient
               id="SVGID_96_"
               gradientTransform="matrix(124.0018 47.351 0.1479 -31.3606 42600.2344 62547.3867)"
@@ -3948,7 +3948,7 @@
             />
 
             <ellipse
-              id="椭圆形备份"
+              id="HinhElipBanSao"
               clip-rule="evenodd"
               cx="86"
               cy="30.8"
@@ -4020,7 +4020,7 @@
       </g>
 
       <g
-        id="编组备份-11"
+        id="NhomBanSao-11"
         transform="translate(694.000000, 158.500000) scale(-1, 1) translate(-694.000000, -158.500000) translate(622.000000, 65.000000)"
       >
         <linearGradient
@@ -4197,7 +4197,7 @@
           />
 
           <linearGradient
-            id="路径-2_1_"
+            id="DuongDan-2_1_"
             gradientTransform="matrix(117.4617 0 0 -144.8008 62535.8438 248597.6562)"
             gradientUnits="userSpaceOnUse"
             x1="-531.8884"
@@ -4209,16 +4209,16 @@
             <stop offset="1" style="stop-color: #fff; stop-opacity: 0" />
           </linearGradient>
           <path
-            id="路径-2"
+            id="DuongDan-2"
             clip-rule="evenodd"
             d="M0.6,0.5v77.2l117,67.6l0.5-42
 				c-3.3-3.2-5.5-5.6-6.5-7.3c-4.4-7.6-5.6-14.4-6.1-18.2c-1.1-7.7-9.1-26.4-15.2-23.3c-6.1,3.1-10.8,27.4-17.9,23.3
 				c-7-4-15.5-32-17.3-39.4S46,22.8,41.4,29.7c-1,1.5-4.9,9.1-6,11.5c-7.7,15.9-13.7,7.5-19.1-5C14.1,31.1,9.8,15.4,6.2,6.8
 				C5,3.9,3.2,1.8,0.6,0.5z"
-            fill="url(#路径-2_1_)"
+            fill="url(#DuongDan-2_1_)"
             fill-rule="evenodd"
           />
-          <g id="编组-7" transform="translate(41.723113, 19.522022)">
+          <g id="Nhom-7" transform="translate(41.723113, 19.522022)">
             <path
               id="Fill-11"
               clip-rule="evenodd"
@@ -4328,8 +4328,8 @@
           stroke-width="0.5"
         />
       </g>
-      <g id="编组-16" transform="translate(51.000000, 152.000000)">
-        <g id="云">
+      <g id="Nhom-16" transform="translate(51.000000, 152.000000)">
+        <g id="DamMay">
           <g transform="translate(0.000000, 0.000000)">
             <g>
               <linearGradient
@@ -4393,7 +4393,7 @@
             </mask>
 
             <linearGradient
-              id="矩形备份-3_1_"
+              id="HinhChuNhatBanSao-3_1_"
               gradientTransform="matrix(76.2914 0 0 -67.1042 -3730.5828 110741.1094)"
               gradientUnits="userSpaceOnUse"
               x1="49.8816"
@@ -4408,12 +4408,12 @@
             </linearGradient>
 
             <path
-              id="矩形备份-3"
+              id="HinhChuNhatBanSao-3"
               clip-rule="evenodd"
               d="
 					M100.1-13.4l29.3,15.6l5.2,15.3C112,43,96.4,54.9,87.8,53.2S69.3,34.5,58.3,2.2c10.3-7,18.4-11.6,24.2-13.7
 					S94.1-14.3,100.1-13.4z"
-              fill="url(#矩形备份-3_1_)"
+              fill="url(#HinhChuNhatBanSao-3_1_)"
               fill-rule="evenodd"
               mask="url(#mask-168_1_)"
             />
@@ -4455,7 +4455,7 @@
             </mask>
 
             <linearGradient
-              id="矩形备份-2_1_"
+              id="HinhChuNhatBanSao-2_1_"
               gradientTransform="matrix(76.2914 0 0 -67.1042 -3788.8608 110741.1094)"
               gradientUnits="userSpaceOnUse"
               x1="49.8816"
@@ -4470,11 +4470,11 @@
             </linearGradient>
 
             <path
-              id="矩形备份-2"
+              id="HinhChuNhatBanSao-2"
               clip-rule="evenodd"
               d="
 					M41.8-13.4L71.1,2.2l5.2,15.3C53.7,43,38.1,54.9,29.5,53.2S11,34.5,0,2.2c10.3-7,18.4-11.6,24.2-13.7S35.8-14.3,41.8-13.4z"
-              fill="url(#矩形备份-2_1_)"
+              fill="url(#HinhChuNhatBanSao-2_1_)"
               fill-rule="evenodd"
               mask="url(#mask-168_2_)"
             />
@@ -4540,7 +4540,7 @@
           </g>
 
           <linearGradient
-            id="Fill-1备份_1_"
+            id="Fill-1BanSao_1_"
             gradientTransform="matrix(93.8386 0 0 -89.2609 -4672.3262 147666.9375)"
             gradientUnits="userSpaceOnUse"
             x1="50.6106"
@@ -4552,13 +4552,13 @@
             <stop offset="1" style="stop-color: #060071" />
           </linearGradient>
           <path
-            id="Fill-1备份"
+            id="Fill-1BanSao"
             clip-rule="evenodd"
             d="M86.6,18.8
 				c10.3-6,18.6-1.1,18.7,10.7c0,11.6-7.9,25.6-17.9,31.8l-55.2,32l-0.4,0.2c-11.3,6.3-20.3,0.9-20.4-12.1
 				c0-13.1,9.2-29.2,20.6-35.8c3-1.7,5.9-2.7,8.4-2.8c1.1-12.6,9.9-26.9,20.5-33c11.4-6.6,20.7-1.3,20.8,11.9c0,0.3,0,0.5,0,0.7
 				C83.3,21,84.9,19.7,86.6,18.8"
-            fill="url(#Fill-1备份_1_)"
+            fill="url(#Fill-1BanSao_1_)"
             fill-rule="evenodd"
           />
         </g>

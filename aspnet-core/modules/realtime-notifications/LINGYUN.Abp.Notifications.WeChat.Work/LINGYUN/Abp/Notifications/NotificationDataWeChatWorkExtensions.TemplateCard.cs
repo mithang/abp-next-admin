@@ -8,10 +8,10 @@ public static partial class NotificationDataWeChatWorkExtensions
     private const string TemplateCardMessage = Prefix + "template_card_message";
 
     /// <summary>
-    /// 模板卡片消息通知
+    /// Thông báo tin nhắn thẻ mẫu
     /// </summary>
-    /// <param name="notificationData">通知内容</param>
-    /// <param name="templateCard">模板卡片消息</param>
+    /// <param name="notificationData">Nội dung thông báo</param>
+    /// <param name="templateCard">Tin nhắn thẻ mẫu</param>
     public static void WithTemplateCardMessage(
         this NotificationData notificationData,
         TemplateCard templateCard)
@@ -20,7 +20,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 尝试获取模板卡片消息
+    /// Thử lấy tin nhắn thẻ mẫu
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="textTemplateCard"></param>

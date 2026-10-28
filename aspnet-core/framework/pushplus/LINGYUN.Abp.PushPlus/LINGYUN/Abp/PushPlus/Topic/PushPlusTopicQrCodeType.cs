@@ -2,11 +2,11 @@
 public enum PushPlusTopicQrCodeType
 {
     /// <summary>
-    /// 临时
+    /// Tạm thời
     /// </summary>
     Temporary = 0,
     /// <summary>
-    /// 永久
+    /// Vĩnh viễn
     /// </summary>
     Permanent = 1,
 }

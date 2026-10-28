@@ -36,7 +36,7 @@ public class WeChatWorkOAuthHandler : OAuthHandler<WeChatWorkOAuthOptions>
     }
 
     /// <summary>
-    /// 重写应用配置
+    /// Ghi đè cấu hình ứng dụng
     /// </summary>
     /// <returns></returns>
     protected async override Task InitializeHandlerAsync()
@@ -56,7 +56,7 @@ public class WeChatWorkOAuthHandler : OAuthHandler<WeChatWorkOAuthOptions>
         // Check.NotNullOrEmpty(agentId, nameof(agentId));
         // Check.NotNullOrEmpty(secret, nameof(secret));
 
-        // 用配置项重写
+        // Ghi đè bằng mục cấu hình
         Options.CorpId = corpId ?? "";
         Options.ClientId = agentId ?? "";
         Options.ClientSecret = secret ?? "";
@@ -67,7 +67,7 @@ public class WeChatWorkOAuthHandler : OAuthHandler<WeChatWorkOAuthOptions>
     }
 
     /// <summary>
-    ///  第一步：构建用户授权地址
+    /// Bước 1: Xây dựng địa chỉ ủy quyền người dùng
     /// </summary> 
     protected override string BuildChallengeUrl(AuthenticationProperties properties, string redirectUri)
     {
@@ -99,7 +99,7 @@ public class WeChatWorkOAuthHandler : OAuthHandler<WeChatWorkOAuthOptions>
     }
 
     /// <summary>
-    /// 第二步：code换取access_token
+    /// Bước 2: Đổi code lấy access_token
     /// </summary> 
     protected async override Task<OAuthTokenResponse> ExchangeCodeAsync(OAuthCodeExchangeContext context)
     {
@@ -138,7 +138,7 @@ public class WeChatWorkOAuthHandler : OAuthHandler<WeChatWorkOAuthOptions>
     }
 
     /// <summary>
-    /// 第三步：构建用户票据
+    /// Bước 3: Xây dựng vé (ticket) người dùng
     /// </summary>
     /// <param name="identity"></param>
     /// <param name="properties"></param>

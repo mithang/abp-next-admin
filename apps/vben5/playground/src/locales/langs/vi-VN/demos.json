@@ -1,0 +1,73 @@
+{
+  "title": "Demo",
+  "access": {
+    "frontendPermissions": "Quyền front-end",
+    "backendPermissions": "Quyền back-end",
+    "pageAccess": "Truy cập trang",
+    "buttonControl": "Điều khiển nút",
+    "menuVisible403": "Menu hiển thị (403)",
+    "superVisible": "Super hiển thị",
+    "adminVisible": "Admin có thể xem",
+    "userVisible": "User hiển thị"
+  },
+  "nested": {
+    "title": "Menu lồng nhau",
+    "menu1": "Menu 1",
+    "menu2": "Menu 2",
+    "menu2_1": "Menu 2-1",
+    "menu3": "Menu 3",
+    "menu3_1": "Menu 3-1",
+    "menu3_2": "Menu 3-2",
+    "menu3_2_1": "Menu 3-2-1"
+  },
+  "outside": {
+    "title": "Trang bên ngoài",
+    "embedded": "Nhúng",
+    "externalLink": "Liên kết ngoài"
+  },
+  "badge": {
+    "title": "Huy hiệu menu",
+    "dot": "Nhấp vào logo",
+    "text": "Huy hiệu văn bản",
+    "color": "Màu huy hiệu"
+  },
+  "activeIcon": {
+    "title": "Biểu tượng kích hoạt menu",
+    "children": "Biểu tượng kích hoạt cấp con"
+  },
+  "fallback": {
+    "title": "Trang mặc định"
+  },
+  "features": {
+    "title": "Chức năng",
+    "hideChildrenInMenu": "Ẩn menu con",
+    "loginExpired": "Đăng nhập đã hết hạn",
+    "icons": "Biểu tượng",
+    "watermark": "Hình mờ",
+    "tabs": "Tab",
+    "tabDetail": "Trang chi tiết thẻ",
+    "fullScreen": "Toàn màn hình",
+    "clipboard": "Bảng tạm",
+    "menuWithQuery": "Menu có tham số",
+    "openInNewWindow": "Mở trong cửa sổ mới",
+    "fileDownload": "Tải xuống tệp",
+    "requestParamsSerializer": "Tuần tự hóa tham số"
+  },
+  "breadcrumb": {
+    "navigation": "Điều hướng breadcrumb",
+    "lateral": "Chế độ ngang cấp",
+    "level": "Chế độ phân cấp",
+    "levelDetail": "Chi tiết chế độ phân cấp",
+    "lateralDetail": "Chi tiết chế độ ngang hàng"
+  },
+  "vben": {
+    "title": "Dự án",
+    "about": "Giới thiệu",
+    "document": "Tài liệu",
+    "antdv": "Phiên bản Ant Design Vue",
+    "antdv-next": "Phiên bản Antdv Next",
+    "naive-ui": "Phiên bản Naive UI",
+    "element-plus": "Phiên bản Element Plus",
+    "tdesign": "Phiên bản TDesign Vue"
+  }
+}

@@ -17,31 +17,31 @@ import Title from './components/LoginTitle.vue';
 
 interface Props {
   /**
-   * @zh_CN 默认头像
+   * @zh_CN Ảnh đại diện mặc định
    */
   defaultAvatar?: string;
   /**
-   * @zh_CN 描述
+   * @zh_CN Mô tả
    */
   description?: string;
   /**
-   * @zh_CN 是否处于加载处理状态
+   * @zh_CN Có đang trong trạng thái xử lý tải hay không
    */
   loading?: boolean;
   /**
-   * @zh_CN 登录路径
+   * @zh_CN Đường dẫn đăng nhập
    */
   loginPath?: string;
   /**
-   * @zh_CN 按钮文本
+   * @zh_CN Văn bản nút
    */
   submitButtonText?: string;
   /**
-   * @zh_CN 描述
+   * @zh_CN Mô tả
    */
   subTitle?: string;
   /**
-   * @zh_CN 标题
+   * @zh_CN Tiêu đề
    */
   title?: string;
 }
@@ -120,11 +120,11 @@ async function onCheckCode() {
     return;
   }
   qrcodeInfo.value = result;
-  // 已确认登录
+  // Đã xác nhận đăng nhập
   if (result.status === QrCodeStatus.Confirmed) {
     interval && clearInterval(interval);
     localStorage.removeItem('login_qrocde');
-    // 登录
+    // Đăng nhập
     emits('confirm', result.key, result.tenantId);
   }
 }

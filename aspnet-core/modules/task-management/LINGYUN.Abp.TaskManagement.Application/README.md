@@ -1,64 +1,64 @@
 # LINGYUN.Abp.TaskManagement.Application
 
-任务管理模块的应用层实现，提供后台作业管理的核心功能实现。
+Triển khai tầng ứng dụng của mô-đun quản lý tác vụ, cung cấp chức năng cốt lõi quản lý tác vụ nền.
 
-## 功能实现
+## Triển khai chức năng
 
-### 后台作业管理服务
-- 后台作业信息服务 (BackgroundJobInfoAppService)
-  - 实现作业的CRUD操作
-  - 提供作业控制功能（启动、停止、暂停、恢复等）
-  - 支持批量操作功能
-  - 实现作业查询和过滤
+### Dịch vụ quản lý tác vụ nền
+- Dịch vụ thông tin tác vụ nền (BackgroundJobInfoAppService)
+  - Triển khai các thao tác CRUD của tác vụ
+  - Cung cấp chức năng điều khiển tác vụ (khởi động, dừng, tạm dừng, khôi phục, v.v.)
+  - Hỗ trợ chức năng thao tác hàng loạt
+  - Triển khai truy vấn và lọc tác vụ
 
-### 后台作业行为服务 (BackgroundJobActionAppService)
-- 行为管理功能：
-  - 添加作业行为
-  - 更新作业行为
-  - 删除作业行为
-  - 获取作业行为列表
-- 行为定义管理：
-  - 获取可用的行为定义
-  - 行为参数配置
-  - 行为启用/禁用控制
+### Dịch vụ hành vi tác vụ nền (BackgroundJobActionAppService)
+- Chức năng quản lý hành vi:
+  - Thêm hành vi tác vụ
+  - Cập nhật hành vi tác vụ
+  - Xóa hành vi tác vụ
+  - Lấy danh sách hành vi tác vụ
+- Quản lý định nghĩa hành vi:
+  - Lấy các định nghĩa hành vi khả dụng
+  - Cấu hình tham số hành vi
+  - Điều khiển bật/tắt hành vi
 
-### 后台作业日志服务 (BackgroundJobLogAppService)
-- 日志管理功能：
-  - 获取日志详情
-  - 获取日志列表
-  - 删除日志记录
-- 日志查询功能：
-  - 支持多条件组合查询
-  - 分页查询
-  - 排序功能
-  - 高级过滤
+### Dịch vụ nhật ký tác vụ nền (BackgroundJobLogAppService)
+- Chức năng quản lý nhật ký:
+  - Lấy chi tiết nhật ký
+  - Lấy danh sách nhật ký
+  - Xóa bản ghi nhật ký
+- Chức năng truy vấn nhật ký:
+  - Hỗ trợ truy vấn kết hợp nhiều điều kiện
+  - Truy vấn phân trang
+  - Chức năng sắp xếp
+  - Lọc nâng cao
 
-### 对象映射配置
-- AutoMapper配置文件：
-  - BackgroundJobInfo到BackgroundJobInfoDto的映射
-  - BackgroundJobLog到BackgroundJobLogDto的映射
-  - BackgroundJobAction到BackgroundJobActionDto的映射
+### Cấu hình ánh xạ đối tượng
+- Tệp cấu hình AutoMapper:
+  - Ánh xạ từ BackgroundJobInfo sang BackgroundJobInfoDto
+  - Ánh xạ từ BackgroundJobLog sang BackgroundJobLogDto
+  - Ánh xạ từ BackgroundJobAction sang BackgroundJobActionDto
 
-### 模块配置
-- 依赖模块：
+### Cấu hình mô-đun
+- Các mô-đun phụ thuộc:
   - AbpAutoMapper
   - AbpDynamicQueryable
   - TaskManagementDomain
   - TaskManagementApplication.Contracts
-- 服务配置：
-  - 自动对象映射配置
-  - 验证配置
+- Cấu hình dịch vụ:
+  - Cấu hình ánh xạ đối tượng tự động
+  - Cấu hình xác thực
 
-### 扩展功能
-- 表达式扩展：
-  - AndIf条件表达式
-  - OrIf条件表达式
-- 动态查询支持
-- 本地化资源集成
+### Chức năng mở rộng
+- Mở rộng biểu thức:
+  - Biểu thức điều kiện AndIf
+  - Biểu thức điều kiện OrIf
+- Hỗ trợ truy vấn động
+- Tích hợp tài nguyên bản địa hóa
 
-## 使用方式
+## Cách sử dụng
 
-1. 添加模块依赖：
+1. Thêm phụ thuộc mô-đun:
 ```csharp
 [DependsOn(typeof(TaskManagementApplicationModule))]
 public class YourModule : AbpModule
@@ -67,7 +67,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 注入并使用服务：
+2. Tiêm và sử dụng dịch vụ:
 ```csharp
 public class YourService
 {

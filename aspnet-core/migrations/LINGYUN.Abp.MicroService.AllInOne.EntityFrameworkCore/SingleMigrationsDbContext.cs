@@ -186,8 +186,8 @@ public class SingleMigrationsDbContext :
 
     public DbSet<UserFavoriteMenu> UserFavoriteMenus { get; set; }
 
-    // 本项目命名空间位于 LINGYUN.Abp 之下, 而框架存在 LINGYUN.Abp.Data.* 命名空间,
-    // 简单名 Data 会被解析为命名空间, 因此这里使用完全限定名
+    // Namespace của project này nằm dưới LINGYUN.Abp, trong khi framework có namespace LINGYUN.Abp.Data.*,
+    // Tên đơn Data sẽ bị phân giải thành namespace, vì vậy ở đây dùng tên đủ điều kiện
     public DbSet<LINGYUN.Platform.Datas.Data> Datas { get; set; }
 
     public DbSet<DataItem> DataItems { get; set; }

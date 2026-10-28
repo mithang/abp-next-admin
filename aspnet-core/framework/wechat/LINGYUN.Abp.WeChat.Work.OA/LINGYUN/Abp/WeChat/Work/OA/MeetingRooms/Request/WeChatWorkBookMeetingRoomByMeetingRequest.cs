@@ -5,29 +5,29 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Request;
 /// <summary>
-/// 通过会议预定会议室请求参数
+/// Tham số yêu cầu đặt phòng họp thông qua cuộc họp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93620#%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AE%AE%E9%A2%84%E5%AE%9A%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/93620#%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AE%AE%E9%A2%84%E5%AE%9A%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
 /// </remarks>
 public class WeChatWorkBookMeetingRoomByMeetingRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 会议室id
+    /// Id phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("meetingroom_id")]
     [JsonPropertyName("meetingroom_id")]
     public int MeetingRoomId { get; }
     /// <summary>
-    /// 预定人的userid
+    /// Userid của người đặt
     /// </summary>
     [NotNull]
     [JsonProperty("booker")]
     [JsonPropertyName("booker")]
     public string Booker { get; }
     /// <summary>
-    /// 会议id，仅可使用同应用创建的会议
+    /// Id cuộc họp, chỉ có thể dùng cuộc họp được tạo bởi cùng ứng dụng
     /// </summary>
     [NotNull]
     [JsonProperty("meetingid")]

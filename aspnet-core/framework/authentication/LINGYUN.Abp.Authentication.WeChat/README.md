@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Authentication.WeChat
 
-微信公众号认证模块，集成微信公众号登录功能到ABP应用程序。
+Mô-đun xác thực tài khoản công khai WeChat, tích hợp chức năng đăng nhập bằng tài khoản công khai WeChat vào ứng dụng ABP.
 
-## 功能特性
+## Tính năng
 
-* 微信公众号OAuth2.0认证
-* 支持获取微信用户基本信息（昵称、性别、地区、头像等）
-* 支持UnionId机制，打通公众号与小程序账号体系
-* 支持微信服务器消息验证
-* 支持与ABP身份系统集成
+* Xác thực OAuth2.0 tài khoản công khai WeChat
+* Hỗ trợ lấy thông tin cơ bản của người dùng WeChat (biệt danh, giới tính, khu vực, ảnh đại diện, v.v.)
+* Hỗ trợ cơ chế UnionId, liên thông hệ thống tài khoản giữa tài khoản công khai và mini program
+* Hỗ trợ xác minh tin nhắn từ máy chủ WeChat
+* Hỗ trợ tích hợp với hệ thống danh tính ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAuthenticationWeChatModule))]
@@ -20,62 +20,62 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "Authentication": {
     "WeChat": {
-      "AppId": "你的微信公众号AppId",
-      "AppSecret": "你的微信公众号AppSecret",
-      "ClaimsIssuer": "WeChat", // 可选，默认为 WeChat
-      "CallbackPath": "/signin-wechat", // 可选，默认为 /signin-wechat
-      "Scope": ["snsapi_login", "snsapi_userinfo"], // 可选，默认包含 snsapi_login 和 snsapi_userinfo
+      "AppId": "AppId tài khoản công khai WeChat của bạn",
+      "AppSecret": "AppSecret tài khoản công khai WeChat của bạn",
+      "ClaimsIssuer": "WeChat", // Tùy chọn, mặc định là WeChat
+      "CallbackPath": "/signin-wechat", // Tùy chọn, mặc định là /signin-wechat
+      "Scope": ["snsapi_login", "snsapi_userinfo"], // Tùy chọn, mặc định bao gồm snsapi_login và snsapi_userinfo
       "QrConnect": {
-        "Enabled": false, // 是否启用PC端扫码登录
-        "Endpoint": "https://open.weixin.qq.com/connect/qrconnect" // PC端扫码登录地址
+        "Enabled": false, // Có bật đăng nhập quét mã trên PC hay không
+        "Endpoint": "https://open.weixin.qq.com/connect/qrconnect" // Địa chỉ đăng nhập quét mã trên PC
       }
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置微信公众号参数
-   * 在微信公众平台申请公众号，获取AppId和AppSecret
-   * 在appsettings.json中配置AppId和AppSecret
+1. Cấu hình tham số tài khoản công khai WeChat
+   * Đăng ký tài khoản công khai trên nền tảng công khai WeChat để lấy AppId và AppSecret
+   * Cấu hình AppId và AppSecret trong appsettings.json
 
-2. 添加微信登录
+2. Thêm đăng nhập WeChat
    ```csharp
    public override void ConfigureServices(ServiceConfigurationContext context)
    {
        context.Services.AddAuthentication()
-           .AddWeChat(); // 添加微信登录支持
+           .AddWeChat(); // Thêm hỗ trợ đăng nhập WeChat
    }
    ```
 
-3. 启用微信服务器消息验证（可选）
+3. Bật xác minh tin nhắn máy chủ WeChat (tùy chọn)
    ```csharp
    public void Configure(IApplicationBuilder app)
    {
-       app.UseWeChatSignature(); // 启用微信服务器消息验证中间件
+       app.UseWeChatSignature(); // Bật middleware xác minh tin nhắn máy chủ WeChat
    }
    ```
 
-## 获取的用户信息
+## Thông tin người dùng lấy được
 
-* OpenId - 微信用户唯一标识
-* UnionId - 微信开放平台唯一标识（需要绑定开放平台）
-* NickName - 用户昵称
-* Sex - 用户性别
-* Country - 国家
-* Province - 省份
-* City - 城市
-* AvatarUrl - 用户头像URL
-* Privilege - 用户特权信息
+* OpenId - Định danh duy nhất của người dùng WeChat
+* UnionId - Định danh duy nhất trên nền tảng mở WeChat (cần liên kết nền tảng mở)
+* NickName - Biệt danh người dùng
+* Sex - Giới tính người dùng
+* Country - Quốc gia
+* Province - Tỉnh
+* City - Thành phố
+* AvatarUrl - URL ảnh đại diện người dùng
+* Privilege - Thông tin đặc quyền người dùng
 
-## 更多信息
+## Thông tin thêm
 
-* [微信公众平台开发文档](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html)
-* [ABP认证文档](https://docs.abp.io/en/abp/latest/Authentication)
+* [Tài liệu phát triển nền tảng công khai WeChat](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html)
+* [Tài liệu xác thực ABP](https://docs.abp.io/en/abp/latest/Authentication)

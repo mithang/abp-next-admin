@@ -8,7 +8,7 @@ namespace LINGYUN.Abp.IM.Groups;
 public interface IUserGroupStore
 {
     /// <summary>
-    /// 成员是否在群组
+    /// Thành viên có trong nhóm hay không
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="groupId"></param>
@@ -20,7 +20,7 @@ public interface IUserGroupStore
         Guid userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群组用户身份
+    /// Lấy thông tin danh tính người dùng trong nhóm
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="groupId"></param>
@@ -32,7 +32,7 @@ public interface IUserGroupStore
         Guid userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取用户所在通讯组列表
+    /// Lấy danh sách nhóm liên lạc mà người dùng thuộc về
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="userId"></param>
@@ -42,7 +42,7 @@ public interface IUserGroupStore
         Guid userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群组成员列表
+    /// Lấy danh sách thành viên nhóm
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="groupId"></param>
@@ -52,7 +52,7 @@ public interface IUserGroupStore
         long groupId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群组成员数
+    /// Lấy số lượng thành viên nhóm
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="groupId"></param>
@@ -62,7 +62,7 @@ public interface IUserGroupStore
         long groupId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取通讯组用户
+    /// Lấy người dùng của nhóm liên lạc
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="groupId"></param>
@@ -78,7 +78,7 @@ public interface IUserGroupStore
         int maxResultCount = 10,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 用户加入通讯组
+    /// Người dùng tham gia nhóm liên lạc
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="userId"></param>
@@ -91,7 +91,7 @@ public interface IUserGroupStore
         Guid acceptUserId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 用户退出通讯组
+    /// Người dùng rời khỏi nhóm liên lạc
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="userId"></param>

@@ -6,27 +6,27 @@ namespace LINGYUN.Abp.PushPlus;
 public class PushPlusPagedResponse<T>
 {
     /// <summary>
-    /// 当前页码
+    /// Số trang hiện tại
     /// </summary>
     [JsonProperty("pageNum")]
     public int PageNum { get; set; }
     /// <summary>
-    /// 分页大小
+    /// Kích thước trang
     /// </summary>
     [JsonProperty("pageSize")]
     public int PageSize { get; set; }
     /// <summary>
-    /// 总行数
+    /// Tổng số dòng
     /// </summary>
     [JsonProperty("total")]
     public int Total { get; set; }
     /// <summary>
-    /// 总页数
+    /// Tổng số trang
     /// </summary>
     [JsonProperty("pages")]
     public int Pages { get; set; }
     /// <summary>
-    /// 消息列表
+    /// Danh sách tin nhắn
     /// </summary>
     [JsonProperty("list")]
     public List<T> Items { get; set; }

@@ -10,11 +10,11 @@ import { ComponentType } from '../componentType';
 import { createPlaceholderMessage } from '../helper';
 
 /**
- * @description: 获取组件
+ * @description: Lấy component
  */
 export function getComponent(componentName) {
   const Component = componentMap.get(componentName as ComponentType);
-  if (!Component) throw `您还没注册此组件 ${componentName}`;
+  if (!Component) throw `Bạn chưa đăng ký component này ${componentName}`;
   return Component as ComponentOptions;
 }
 
@@ -31,14 +31,14 @@ export function cellText(cellValue: any): string[] {
 }
 
 /**
- * @description: 方法名转换
+ * @description: Chuyển đổi tên phương thức
  */
 export function getOnName(type: string) {
   return 'on' + type.substring(0, 1).toLocaleUpperCase() + type.substring(1);
 }
 
 /**
- * @description: 获取组件传值所接受的属性
+ * @description: Lấy thuộc tính mà component nhận khi truyền giá trị
  */
 function getModelKey(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
   let prop = 'value';
@@ -51,7 +51,7 @@ function getModelKey(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
 }
 
 /**
- * @description: 回去双向更新的方法
+ * @description: Phương thức cập nhật hai chiều
  */
 function getModelEvent(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
   let type = 'update:value';
@@ -64,7 +64,7 @@ function getModelEvent(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
 }
 
 /**
- * @description: chang值改变方法
+ * @description: Phương thức thay đổi giá trị chang
  * @param {}
  * @return {*}
  * @author: *
@@ -77,7 +77,7 @@ function getClickEvent() {
   return 'click';
 }
 /**
- * @description: 获取方法
+ * @description: Lấy phương thức
  * @param {}
  * @return {*}
  * @author: *
@@ -132,7 +132,7 @@ export function createEvents(
 }
 
 /**
- * @description: 获取属性
+ * @description: Lấy thuộc tính
  */
 export function createProps(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
@@ -154,7 +154,7 @@ export function createProps(
 }
 
 /**
- * @description: 创建单元格默认显示内容
+ * @description: Tạo nội dung hiển thị mặc định của ô
  */
 export function createDefaultRender(
   defaultProps?: { [key: string]: any },
@@ -190,7 +190,7 @@ export function createDefaultRender(
 }
 
 /**
- * @description: 创建编辑单元格
+ * @description: Tạo ô chỉnh sửa
  */
 export function createEditRender(
   defaultProps?: { [key: string]: any },
@@ -226,7 +226,7 @@ export function createEditRender(
 }
 
 /**
- * @description: 创建筛选渲染内容
+ * @description: Tạo nội dung render lọc
  */
 export function createFilterRender(
   defaultProps?: { [key: string]: any },
@@ -263,11 +263,11 @@ export function createFilterRender(
               renderOpts,
               params,
               (value: any) => {
-                // 处理 model 值双向绑定
+                // Xử lý liên kết hai chiều của giá trị model
                 option.data = value;
               },
               () => {
-                // 处理 change 事件相关逻辑
+                // Xử lý logic liên quan đến sự kiện change
                 const { $panel } = params;
                 $panel.changeOption(null, checked, option);
               },
@@ -280,7 +280,7 @@ export function createFilterRender(
 }
 
 /**
- * @description: 默认过滤
+ * @description: Lọc mặc định
  * @param {}
  * @return {*}
  * @author: *
@@ -296,7 +296,7 @@ export function createDefaultFilterRender() {
 }
 
 /**
- * @description: 创建 form表单渲染
+ * @description: Tạo render form
  */
 export function createFormItemRender(
   defaultProps?: { [key: string]: any },
@@ -322,11 +322,11 @@ export function createFormItemRender(
           renderOpts,
           params,
           (value: any) => {
-            // 处理 model 值双向绑定
+            // Xử lý liên kết hai chiều của giá trị model
             XEUtils.set(data, property, value);
           },
           () => {
-            // 处理 change 事件相关逻辑
+            // Xử lý logic liên quan đến sự kiện change
             $form.updateStatus({
               ...params,
               field: property,
@@ -339,7 +339,7 @@ export function createFormItemRender(
 }
 
 /**
- * @description: cell渲染
+ * @description: Render cell
  */
 export function createCellRender(
   getSelectCellValue: Function,
@@ -379,7 +379,7 @@ export function createCellRender(
 }
 
 /**
- * @description: 创建 导出渲染
+ * @description: Tạo render xuất
  * @param {}
  * @return {*}
  * @author: *
@@ -398,7 +398,7 @@ export function createExportMethod(
 }
 
 /**
- * @description: 创建单元格默认显示内容
+ * @description: Tạo nội dung hiển thị mặc định của ô
  */
 export function createToolbarToolRender(
   defaultProps?: { [key: string]: any },

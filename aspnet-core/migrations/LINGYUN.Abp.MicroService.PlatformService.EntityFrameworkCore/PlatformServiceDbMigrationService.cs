@@ -32,7 +32,7 @@ public class PlatformServiceDbMigrationService : EfCoreRuntimeDbMigratorBase<Pla
 
     protected async override Task SeedAsync()
     {
-        // DbMigrator迁移数据种子
+        // Seed dữ liệu DbMigrator
         await DataSeeder.SeedAsync(new DataSeedContext());
     }
 }

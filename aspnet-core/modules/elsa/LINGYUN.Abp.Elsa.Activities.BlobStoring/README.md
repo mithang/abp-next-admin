@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Elsa.Activities.BlobStoring
 
-Elsa工作流的Blob存储活动集成模块
+Module tích hợp activity lưu trữ Blob cho workflow Elsa
 
-## 功能
+## Chức năng
 
-* 提供以下Blob存储活动:
-  * **BlobExists**: 检查Blob是否存在
-  * **WriteBlob**: 写入Blob数据
-  * **ReadBlob**: 读取Blob数据
-  * **DeleteBlob**: 删除Blob数据
+* Cung cấp các activity lưu trữ Blob sau:
+  * **BlobExists**: Kiểm tra Blob có tồn tại hay không
+  * **WriteBlob**: Ghi dữ liệu Blob
+  * **ReadBlob**: Đọc dữ liệu Blob
+  * **DeleteBlob**: Xóa dữ liệu Blob
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(
@@ -26,7 +26,7 @@ public class YouProjectModule : AbpModule
 ```json
 {
     "Elsa": {
-        "BlobStoring": true    // 启用Blob存储活动
+        "BlobStoring": true    // Bật activity lưu trữ Blob
     }
 }
 ```

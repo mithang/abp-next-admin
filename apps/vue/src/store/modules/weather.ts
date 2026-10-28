@@ -19,7 +19,7 @@ export const useWeatherStore = defineStore({
   actions: {
     async updateWeather() {
       const localeStore = useLocaleStoreWithOut();
-      // 中文环境天气api有效
+      // API thời tiết chỉ có hiệu lực trong môi trường tiếng Trung
       if (localeStore.getLocale.includes('zh')) {
         const hour = new Date().getHours();
         if (hour - this.lastUpdateHour != 0) {

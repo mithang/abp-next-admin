@@ -8,8 +8,8 @@ export enum LockType {
   Minutes = 60,
   Hours = 3600,
   Days = 86400,
-  Months = 2678400, // 按31天计算
-  Years = 32140800, // 按31*12天计算
+  Months = 2678400, // tính theo 31 ngày
+  Years = 32140800, // tính theo 31*12 ngày
 }
 
 interface UseLock {
@@ -37,13 +37,13 @@ export function useLock({ emit }: UseLock) {
       defaultValue: LockType.Seconds,
       componentProps: {
         options: [
-          // TODO: 本地化
-          { label: '秒', value: LockType.Seconds },
-          { label: '分', value: LockType.Minutes },
-          { label: '时', value: LockType.Hours },
-          { label: '天', value: LockType.Days },
-          { label: '月', value: LockType.Months },
-          { label: '年', value: LockType.Years },
+          // TODO: bản địa hoá
+          { label: 'giây', value: LockType.Seconds },
+          { label: 'phút', value: LockType.Minutes },
+          { label: 'giờ', value: LockType.Hours },
+          { label: 'ngày', value: LockType.Days },
+          { label: 'tháng', value: LockType.Months },
+          { label: 'năm', value: LockType.Years },
         ],
       },
     },

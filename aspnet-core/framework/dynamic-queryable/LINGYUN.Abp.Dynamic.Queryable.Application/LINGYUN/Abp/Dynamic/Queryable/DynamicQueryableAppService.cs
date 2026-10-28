@@ -14,7 +14,7 @@ namespace LINGYUN.Abp.Dynamic.Queryable;
 public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : ApplicationService, IDynamicQueryableAppService<TEntityDto>
 {
     /// <summary>
-    /// 获取可用字段列表
+    /// Lấy danh sách trường khả dụng
     /// </summary>
     /// <returns></returns>
     public virtual Task<ListResultDto<DynamicParamterDto>> GetAvailableFieldsAsync()
@@ -35,8 +35,8 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
 
         foreach (var propertyInfo in propertyInfos)
         {
-            // 字段本地化描述规则
-            // 在本地化文件中定义 DisplayName:PropertyName
+            // Quy tắc mô tả bản địa hóa trường
+            // Định nghĩa DisplayName:PropertyName trong tệp bản địa hóa
             var localizedProp = L[$"DisplayName:{propertyInfo.Name}"];
             var propertyTypeMap = GetPropertyTypeMap(propertyInfo.PropertyType);
             var dynamicParamter = new DynamicParamterDto
@@ -80,7 +80,7 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
     }
 
     /// <summary>
-    /// 根据动态条件查询数据
+    /// Truy vấn dữ liệu theo điều kiện động
     /// </summary>
     /// <param name="dynamicInput"></param>
     /// <returns></returns>
@@ -125,8 +125,8 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
 
         if (typeof(Enum).IsAssignableFrom(propertyType))
         {
-            // 枚举类型只支持如下操作符
-            // 小于、小于等于、大于、大于等于、等于、不等于、空、非空
+            // Kiểu enum chỉ hỗ trợ các toán tử sau
+            // nhỏ hơn, nhỏ hơn hoặc bằng, lớn hơn, lớn hơn hoặc bằng, bằng, không bằng, rỗng, không rỗng
             availableComparator.AddRange(new[]
             {
                 DynamicComparison.GreaterThan,
@@ -162,8 +162,8 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
             case "System.Byte":
             case "System.SByte":
             case "System.Decimal":
-                // 数值类型只支持如下操作符
-                // 小于、小于等于、大于、大于等于、等于、不等于、空、非空
+                // Kiểu số chỉ hỗ trợ các toán tử sau
+                // nhỏ hơn, nhỏ hơn hoặc bằng, lớn hơn, lớn hơn hoặc bằng, bằng, không bằng, rỗng, không rỗng
                 availableComparator.AddRange(new[]
                 {
                     DynamicComparison.GreaterThan,
@@ -184,8 +184,8 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
                 return ("number", availableComparator.ToArray());
             case "System.Boolean":
             case "System.Guid":
-                // 布尔、Guid类型只支持如下操作符
-                // 等于、不等于、空、非空
+                // Kiểu Boolean, Guid chỉ hỗ trợ các toán tử sau
+                // bằng, không bằng, rỗng, không rỗng
                 availableComparator.AddRange(new[]
                 {
                     DynamicComparison.Equal,
@@ -202,11 +202,11 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
                 return ("boolean", availableComparator.ToArray());
             case "System.Char":
             case "System.String":
-                // 字符类型支持所有操作符
+                // Kiểu ký tự hỗ trợ tất cả các toán tử
                 return ("string", availableComparator.ToArray());
             case "System.DateTime":
-                // 时间类型只支持如下操作符
-                // 小于、小于等于、大于、大于等于、等于、不等于、空、非空
+                // Kiểu thời gian chỉ hỗ trợ các toán tử sau
+                // nhỏ hơn, nhỏ hơn hoặc bằng, lớn hơn, lớn hơn hoặc bằng, bằng, không bằng, rỗng, không rỗng
                 availableComparator.AddRange(new[]
                 {
                     DynamicComparison.GreaterThan,
@@ -238,8 +238,8 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
                 }
                 if (propertyType.IsArray)
                 {
-                    // 数组类型只支持如下操作符
-                    // 包含、不包含、空、非空
+                    // Kiểu mảng chỉ hỗ trợ các toán tử sau
+                    // chứa, không chứa, rỗng, không rỗng
                     availableComparator.AddRange(new[]
                     {
                         DynamicComparison.Contains,
@@ -250,8 +250,8 @@ public abstract class DynamicQueryableAppService<TEntity, TEntityDto> : Applicat
                 }
                 else
                 {
-                    // 未知对象类型只支持如下操作符
-                    // 等于、不等于、空、非空
+                    // Kiểu đối tượng không xác định chỉ hỗ trợ các toán tử sau
+                    // bằng, không bằng, rỗng, không rỗng
                     availableComparator.AddRange(new[]
                    {
                         DynamicComparison.Equal,

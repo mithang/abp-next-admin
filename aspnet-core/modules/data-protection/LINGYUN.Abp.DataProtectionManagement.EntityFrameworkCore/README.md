@@ -1,21 +1,21 @@
 # LINGYUN.Abp.DataProtectionManagement.EntityFrameworkCore
 
-数据权限管理EntityFrameworkCore模块，提供数据权限管理的数据访问实现。
+Module EntityFrameworkCore quản lý quyền dữ liệu, cung cấp triển khai truy cập dữ liệu của quản lý quyền dữ liệu.
 
-## 功能
+## Chức năng
 
-* 数据权限管理仓储实现
-* 数据库映射配置
-* 数据库迁移
+* Triển khai repository quản lý quyền dữ liệu
+* Cấu hình ánh xạ cơ sở dữ liệu
+* Migration cơ sở dữ liệu
 
-## 仓储实现
+## Triển khai repository
 
-* `EfCoreDataProtectionRepository` - 数据权限仓储EF Core实现
-  * 实现 `IDataProtectionRepository` 接口
-  * 提供数据权限的CRUD操作
-  * 支持数据过滤
+* `EfCoreDataProtectionRepository` - Triển khai repository quyền dữ liệu bằng EF Core
+  * Triển khai interface `IDataProtectionRepository`
+  * Cung cấp các thao tác CRUD cho quyền dữ liệu
+  * Hỗ trợ lọc dữ liệu
 
-## 数据库映射配置
+## Cấu hình ánh xạ cơ sở dữ liệu
 
 ```csharp
 public static class DataProtectionDbContextModelCreatingExtensions
@@ -40,9 +40,9 @@ public static class DataProtectionDbContextModelCreatingExtensions
 }
 ```
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 添加模块依赖
+1. Thêm dependency module
 
 ```csharp
 [DependsOn(typeof(AbpDataProtectionManagementEntityFrameworkCoreModule))]
@@ -51,7 +51,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置DbContext
+2. Cấu hình DbContext
 
 ```csharp
 public class YourDbContext : AbpDbContext<YourDbContext>, IDataProtectionManagementDbContext
@@ -67,6 +67,6 @@ public class YourDbContext : AbpDbContext<YourDbContext>, IDataProtectionManagem
 }
 ```
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

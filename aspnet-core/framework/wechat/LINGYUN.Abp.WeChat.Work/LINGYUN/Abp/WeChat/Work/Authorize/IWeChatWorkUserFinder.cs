@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Authorize;
 /// <summary>
-/// 企业微信用户信息查询接口
+/// Giao diện truy vấn thông tin người dùng WeChat doanh nghiệp
 /// </summary>
 public interface IWeChatWorkUserFinder
 {

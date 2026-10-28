@@ -1,27 +1,27 @@
 # LINGYUN.Platform.Application
 
-平台管理模块的应用服务实现层，实现了应用服务接口定义的所有功能。
+Lớp triển khai dịch vụ ứng dụng của module quản lý nền tảng, triển khai mọi chức năng do giao diện dịch vụ ứng dụng định nghĩa.
 
-## 功能特性
+## Tính năng
 
-* 用户收藏菜单服务
-  * 创建收藏菜单
-  * 更新收藏菜单
-  * 删除收藏菜单
-  * 查询收藏菜单列表
-  * 管理其他用户的收藏菜单
+* Dịch vụ menu yêu thích của người dùng
+  * Tạo menu yêu thích
+  * Cập nhật menu yêu thích
+  * Xóa menu yêu thích
+  * Truy vấn danh sách menu yêu thích
+  * Quản lý menu yêu thích của người dùng khác
 
-* 对象映射配置
-  * 实体到DTO的自动映射
-  * 支持自定义映射规则
-  * 支持额外属性映射
+* Cấu hình ánh xạ đối tượng
+  * Ánh xạ tự động từ thực thể sang DTO
+  * Hỗ trợ quy tắc ánh xạ tùy chỉnh
+  * Hỗ trợ ánh xạ thuộc tính bổ sung
 
-* 权限验证
-  * 基于策略的权限验证
-  * 集成ABP授权系统
-  * 细粒度的权限控制
+* Xác thực quyền
+  * Xác thực quyền dựa trên chính sách
+  * Tích hợp hệ thống ủy quyền ABP
+  * Kiểm soát quyền chi tiết
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(PlatformApplicationModule))]
@@ -31,15 +31,15 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务实现
+## Triển khai dịch vụ ứng dụng
 
-* `UserFavoriteMenuAppService`: 用户收藏菜单服务实现
-  * 支持用户自定义菜单图标
-  * 支持用户自定义菜单颜色
-  * 支持用户自定义菜单别名
-  * 支持多框架菜单管理
+* `UserFavoriteMenuAppService`: Triển khai dịch vụ menu yêu thích của người dùng
+  * Hỗ trợ người dùng tùy chỉnh biểu tượng menu
+  * Hỗ trợ người dùng tùy chỉnh màu menu
+  * Hỗ trợ người dùng tùy chỉnh tên hiển thị (alias) của menu
+  * Hỗ trợ quản lý menu đa framework
 
-## 对象映射
+## Ánh xạ đối tượng
 
 ```csharp
 public class PlatformApplicationMappingProfile : Profile
@@ -57,13 +57,13 @@ public class PlatformApplicationMappingProfile : Profile
 }
 ```
 
-## 基础服务
+## Dịch vụ cơ sở
 
-* `PlatformApplicationServiceBase`: 平台管理应用服务基类
-  * 提供通用功能和帮助方法
-  * 统一异常处理
-  * 统一权限验证
+* `PlatformApplicationServiceBase`: Lớp cơ sở của dịch vụ ứng dụng quản lý nền tảng
+  * Cung cấp chức năng chung và phương thức hỗ trợ
+  * Xử lý ngoại lệ thống nhất
+  * Xác thực quyền thống nhất
 
-## 更多
+## Thêm nữa
 
-更多信息请参考 [Platform](../README.md)
+Xem thêm thông tin tại [Platform](../README.md)

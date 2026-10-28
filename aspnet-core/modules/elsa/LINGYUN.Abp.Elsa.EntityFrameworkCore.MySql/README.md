@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Elsa.EntityFrameworkCore.MySql
 
-Elsa工作流的MySql数据库提供程序模块
+Module nhà cung cấp cơ sở dữ liệu MySql cho workflow Elsa
 
-## 功能
+## Tính năng
 
-* 提供Elsa工作流的MySql数据库支持
-* 依赖于 `AbpElsaEntityFrameworkCoreModule` 和 `AbpEntityFrameworkCoreMySQLModule`
-* 预配置以下功能:
-  * 持久化存储
-  * Webhooks存储
-  * 工作流设置存储
+* Cung cấp hỗ trợ cơ sở dữ liệu MySql cho workflow Elsa
+* Phụ thuộc vào `AbpElsaEntityFrameworkCoreModule` và `AbpEntityFrameworkCoreMySQLModule`
+* Các tính năng sau được cấu hình sẵn:
+  * Lưu trữ bền vững
+  * Lưu trữ Webhooks
+  * Lưu trữ cài đặt workflow
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(
@@ -22,14 +22,14 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
     "Elsa": {
-        "Persistence": true,     // 启用持久化存储
-        "Webhooks": true,       // 启用Webhooks存储
-        "WorkflowSettings": true // 启用工作流设置存储
+        "Persistence": true,     // Bật lưu trữ bền vững
+        "Webhooks": true,       // Bật lưu trữ Webhooks
+        "WorkflowSettings": true // Bật lưu trữ cài đặt workflow
     }
 }
 ```

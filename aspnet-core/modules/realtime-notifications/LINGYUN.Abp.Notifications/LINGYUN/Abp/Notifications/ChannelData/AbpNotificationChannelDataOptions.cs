@@ -7,7 +7,7 @@ using Volo.Abp;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)选项
+/// Tùy chọn dữ liệu kênh thông báo (payload)
 /// </summary>
 public class AbpNotificationChannelDataOptions
 {
@@ -17,12 +17,12 @@ public class AbpNotificationChannelDataOptions
     private readonly List<Type> _payloadTypes = new();
 
     /// <summary>
-    /// 已注册的载荷类型
+    /// Các loại payload đã đăng ký
     /// </summary>
     public IReadOnlyList<Type> PayloadTypes => _payloadTypes;
 
     /// <summary>
-    /// 获取指定渠道的载荷集合(按匹配顺序排列)
+    /// Lấy tập hợp payload của kênh đã chỉ định (sắp xếp theo thứ tự khớp)
     /// </summary>
     public NotificationChannelDataDescriptorList GetProviderData(string providerName)
     {
@@ -36,10 +36,10 @@ public class AbpNotificationChannelDataOptions
     }
 
     /// <summary>
-    /// 注册渠道数据(载荷)
+    /// Đăng ký dữ liệu kênh (payload)
     /// </summary>
     /// <remarks>
-    /// 渠道名称、匹配顺序与存在性判定模式来自
+    /// Tên kênh, thứ tự khớp và chế độ phán đoán sự tồn tại lấy từ
     /// <see cref="NotificationChannelDataAttribute"/>。
     /// </remarks>
     public AbpNotificationChannelDataOptions Add<TChannelData>()
@@ -49,11 +49,11 @@ public class AbpNotificationChannelDataOptions
     }
 
     /// <summary>
-    /// 注册渠道数据(载荷)
+    /// Đăng ký dữ liệu kênh (payload)
     /// </summary>
     /// <exception cref="AbpNotificationChannelDataConfigurationException">
-    /// 缺少 <see cref="NotificationChannelDataAttribute"/>、
-    /// 未声明存在性规则, 或同渠道优先级冲突
+    /// Thiếu <see cref="NotificationChannelDataAttribute"/>,
+    /// chưa khai báo quy tắc tồn tại, hoặc xung đột mức độ ưu tiên trong cùng kênh
     /// </exception>
     public AbpNotificationChannelDataOptions Add(Type channelDataType)
     {
@@ -71,8 +71,8 @@ public class AbpNotificationChannelDataOptions
                 $"The channel data type '{channelDataType.FullName}' must be annotated with '{nameof(NotificationChannelDataAttribute)}'.");
         }
 
-        // 注册期即校验存在性声明, 让配置错误在启动阶段暴露。
-        // 校验只依赖声明元数据, 因此不需要解析任何服务。
+        // Ngay trong giai đoạn đăng ký đã kiểm tra khai báo tồn tại, để lỗi cấu hình bộc lộ ngay ở giai đoạn khởi động.
+        // Việc kiểm tra chỉ phụ thuộc vào siêu dữ liệu khai báo, vì vậy không cần phân giải bất kỳ dịch vụ nào.
         NotificationChannelDataPresence.Validate(channelDataType);
 
         var descriptors = GetProviderData(attribute.ProviderName);

@@ -1,0 +1,14 @@
+{
+  "culture": "vi",
+  "texts": {
+    "InactiveIdentitySessionCleanupJob": "Công việc dọn dẹp phiên không hoạt động",
+    "InactiveIdentityUserNotifierJob": "Tác vụ thông báo người dùng không hoạt động",
+    "InactiveIdentityUserCleanupJob": "Tác vụ dọn dẹp người dùng không hoạt động",
+    "DisplayName:SessionInactiveDays": "Thời gian duy trì phiên không hoạt động",
+    "Description:SessionInactiveDays": "Thời gian duy trì phiên không hoạt động, đơn vị: ngày.",
+    "DisplayName:InactivityPeriodDays": "Thời hạn tài khoản không hoạt động",
+    "Description:InactivityPeriodDays": "Khoảng thời gian kể từ lần đăng nhập trước, đơn vị: ngày, khi để trống mặc định là 180 ngày.",
+    "DisplayName:GracePeriodDays": "Thời gian ân hạn vô hiệu hóa tài khoản",
+    "Description:GracePeriodDays": "Thời gian kể từ khi tài khoản bị vô hiệu hóa, đơn vị: ngày, khi để trống mặc định là 60 ngày."
+  }
+}

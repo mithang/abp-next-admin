@@ -6,29 +6,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Response;
 /// <summary>
-/// 批量获取客户详情响应参数
+/// Tham số phản hồi lấy hàng loạt chi tiết khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92994" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92994" />
 /// </remarks>
 public class WeChatWorkBulkGetCustomerResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 外部联系人的userid列表
+    /// Danh sách userid của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_contact_list")]
     [JsonPropertyName("external_contact_list")]
     public List<ExternalContactList> ExternalUserId { get; set; } = new List<ExternalContactList>();
     /// <summary>
-    /// 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
+    /// Con trỏ phân trang, điền vào lần yêu cầu tiếp theo để lấy các bản ghi của trang sau; nếu không còn dữ liệu nữa thì trả về rỗng
     /// </summary>
     [CanBeNull]
     [JsonProperty("next_cursor")]
     [JsonPropertyName("next_cursor")]
     public string? NextCursor { get; set; }
     /// <summary>
-    /// 若请求中所有userid都无有效互通许可，接口直接报错701008。如果部分userid无有效互通许可，接口返回成功
+    /// Nếu tất cả userid trong yêu cầu đều không có giấy phép liên thông hợp lệ, giao diện sẽ báo lỗi trực tiếp 701008. Nếu một phần userid không có giấy phép liên thông hợp lệ, giao diện vẫn trả về thành công
     /// </summary>
     [CanBeNull]
     [JsonProperty("fail_info")]
@@ -39,7 +39,7 @@ public class WeChatWorkBulkGetCustomerResponse : WeChatWorkResponse
 public class WeChatWorkBulkGetCustomerFailInfo
 {
     /// <summary>
-    /// 无许可的userid列表
+    /// Danh sách userid không có giấy phép
     /// </summary>
     [NotNull]
     [JsonProperty("next_cursor")]

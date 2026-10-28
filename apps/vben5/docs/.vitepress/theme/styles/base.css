@@ -10,7 +10,7 @@ html.dark {
   margin: 0;
 }
 
-/* 顶部导航栏选中项样式 */
+/* Kiểu của mục được chọn trên thanh điều hướng trên cùng */
 .VPNavBarMenuLink,
 .VPNavBarMenuGroup {
   border-bottom: 1px solid transparent;

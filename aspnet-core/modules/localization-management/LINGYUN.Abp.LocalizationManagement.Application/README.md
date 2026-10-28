@@ -1,16 +1,16 @@
 # LINGYUN.Abp.LocalizationManagement.Application
 
-本地化管理应用服务层实现模块，提供本地化资源管理的应用服务实现。
+Mô-đun triển khai tầng dịch vụ ứng dụng quản lý bản địa hóa, cung cấp triển khai dịch vụ ứng dụng quản lý tài nguyên bản địa hóa.
 
-## 功能特性
+## Tính năng
 
-* 实现语言管理应用服务
-* 实现资源管理应用服务
-* 实现文本管理应用服务
-* 支持AutoMapper对象映射
-* 提供标准化的CRUD操作
+* Triển khai dịch vụ ứng dụng quản lý ngôn ngữ
+* Triển khai dịch vụ ứng dụng quản lý tài nguyên
+* Triển khai dịch vụ ứng dụng quản lý văn bản
+* Hỗ trợ ánh xạ đối tượng AutoMapper
+* Cung cấp thao tác CRUD chuẩn hóa
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLocalizationManagementApplicationModule))]
@@ -20,33 +20,33 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务
+## Dịch vụ ứng dụng
 
-* `LanguageAppService`: 语言管理应用服务
-  - 创建语言
-  - 更新语言
-  - 删除语言
-  - 获取语言列表
-  - 获取语言详情
+* `LanguageAppService`: Dịch vụ ứng dụng quản lý ngôn ngữ
+  - Tạo ngôn ngữ
+  - Cập nhật ngôn ngữ
+  - Xóa ngôn ngữ
+  - Lấy danh sách ngôn ngữ
+  - Lấy chi tiết ngôn ngữ
 
-* `ResourceAppService`: 资源管理应用服务
-  - 创建资源
-  - 更新资源
-  - 删除资源
-  - 获取资源列表
-  - 获取资源详情
+* `ResourceAppService`: Dịch vụ ứng dụng quản lý tài nguyên
+  - Tạo tài nguyên
+  - Cập nhật tài nguyên
+  - Xóa tài nguyên
+  - Lấy danh sách tài nguyên
+  - Lấy chi tiết tài nguyên
 
-* `TextAppService`: 文本管理应用服务
-  - 创建文本
-  - 更新文本
-  - 删除文本
-  - 获取文本列表
-  - 获取文本详情
+* `TextAppService`: Dịch vụ ứng dụng quản lý văn bản
+  - Tạo văn bản
+  - Cập nhật văn bản
+  - Xóa văn bản
+  - Lấy danh sách văn bản
+  - Lấy chi tiết văn bản
 
-## 权限
+## Quyền
 
-所有应用服务都遵循模块定义的权限要求，详见Domain.Shared模块的权限定义。
+Tất cả dịch vụ ứng dụng đều tuân thủ yêu cầu quyền do mô-đun định nghĩa, xem định nghĩa quyền của mô-đun Domain.Shared.
 
-## 更多信息
+## Thông tin thêm
 
 * [English documentation](./README.EN.md)

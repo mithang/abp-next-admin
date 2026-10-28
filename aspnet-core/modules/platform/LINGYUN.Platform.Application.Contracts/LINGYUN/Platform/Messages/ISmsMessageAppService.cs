@@ -7,25 +7,25 @@ namespace LINGYUN.Platform.Messages;
 public interface ISmsMessageAppService : IApplicationService
 {
     /// <summary>
-    /// 获取短信消息
+    /// Lấy thông báo SMS
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     Task<SmsMessageDto> GetAsync(Guid id);
     /// <summary>
-    /// 删除短信消息
+    /// Xoá thông báo SMS
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     Task DeleteAsync(Guid id);
     /// <summary>
-    /// 重新发送短信消息
+    /// Gửi lại thông báo SMS
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     Task SendAsync(Guid id);
     /// <summary>
-    /// 获取短信消息列表
+    /// Lấy danh sách thông báo SMS
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

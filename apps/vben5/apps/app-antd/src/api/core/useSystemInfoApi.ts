@@ -6,7 +6,7 @@ export function useSystemInfoApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取应用程序状态
+   * Lấy trạng thái ứng dụng
    */
   function getSystemInfoApi(): Promise<SystemInfo> {
     return request<SystemInfo>('/api/system-info', {

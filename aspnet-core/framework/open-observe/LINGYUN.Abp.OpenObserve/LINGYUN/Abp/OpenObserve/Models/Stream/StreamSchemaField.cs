@@ -5,18 +5,18 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 数据流字段定义
+/// Định nghĩa trường luồng dữ liệu
 /// </summary>
 public class StreamSchemaField
 {
     /// <summary>
-    /// 字段名称
+    /// Tên trường
     /// </summary>
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
 
     /// <summary>
-    /// 字段类型
+    /// Kiểu trường
     /// </summary>
     /// <remarks>
     /// Utf8 / Int64 / Float64 / Timestamp / Boolean

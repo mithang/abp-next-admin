@@ -2,58 +2,58 @@
 outline: deep
 ---
 
-# Vben CountToAnimator 数字动画
+# Vben CountToAnimator Hoạt ảnh số
 
-框架提供的数字动画组件，支持数字动画效果。
+Component hoạt ảnh số do framework cung cấp, hỗ trợ hiệu ứng hoạt ảnh số.
 
-> 如果文档内没有参数说明，可以尝试在在线示例内寻找
+> Nếu trong tài liệu không có phần mô tả tham số, bạn có thể thử tìm trong ví dụ trực tuyến
 
-::: info 写在前面
+::: info Lời nói đầu
 
-如果你觉得现有组件的封装不够理想，或者不完全符合你的需求，大可以直接使用原生组件，亦或亲手封装一个适合的组件。框架提供的组件并非束缚，使用与否，完全取决于你的需求与自由。
+Nếu bạn cảm thấy cách đóng gói component hiện tại chưa đủ tốt, hoặc chưa hoàn toàn phù hợp với nhu cầu của mình, bạn hoàn toàn có thể dùng trực tiếp component gốc, hoặc tự tay đóng gói một component phù hợp. Các component do framework cung cấp không phải là ràng buộc, dùng hay không hoàn toàn tùy thuộc vào nhu cầu và sự tự do của bạn.
 
 :::
 
-## 基础用法
+## Cách dùng cơ bản
 
-通过 `start-val` 和 `end-val`设置数字动画的开始值和结束值， 持续时间`3000`ms。
+Thông qua `start-val` và `end-val` để đặt giá trị bắt đầu và giá trị kết thúc của hoạt ảnh số, thời lượng `3000`ms.
 
 <DemoPreview dir="demos/vben-count-to-animator/basic" />
 
-## 自定义前缀及分隔符
+## Tiền tố và dấu phân cách tùy chỉnh
 
-通过 `prefix` 和 `separator` 设置数字动画的前缀和分隔符。
+Thông qua `prefix` và `separator` để đặt tiền tố và dấu phân cách của hoạt ảnh số.
 
 <DemoPreview dir="demos/vben-count-to-animator/custom" />
 
 ### Props
 
-| 属性名     | 描述           | 类型      | 默认值   |
+| Tên thuộc tính     | Mô tả           | Kiểu      | Giá trị mặc định   |
 | ---------- | -------------- | --------- | -------- |
-| startVal   | 起始值         | `number`  | `0`      |
-| endVal     | 结束值         | `number`  | `2021`   |
-| duration   | 动画持续时间   | `number`  | `1500`   |
-| autoplay   | 自动执行       | `boolean` | `true`   |
-| prefix     | 前缀           | `string`  | -        |
-| suffix     | 后缀           | `string`  | -        |
-| separator  | 分隔符         | `string`  | `,`      |
-| color      | 字体颜色       | `string`  | -        |
-| useEasing  | 是否开启动画   | `boolean` | `true`   |
-| transition | 动画效果       | `string`  | `linear` |
-| decimals   | 保留小数点位数 | `number`  | `0`      |
+| startVal   | Giá trị bắt đầu         | `number`  | `0`      |
+| endVal     | Giá trị kết thúc         | `number`  | `2021`   |
+| duration   | Thời lượng hoạt ảnh   | `number`  | `1500`   |
+| autoplay   | Tự động thực thi       | `boolean` | `true`   |
+| prefix     | Tiền tố           | `string`  | -        |
+| suffix     | Hậu tố           | `string`  | -        |
+| separator  | Dấu phân cách         | `string`  | `,`      |
+| color      | Màu chữ       | `string`  | -        |
+| useEasing  | Có bật hoạt ảnh hay không   | `boolean` | `true`   |
+| transition | Hiệu ứng hoạt ảnh       | `string`  | `linear` |
+| decimals   | Số chữ số thập phân giữ lại | `number`  | `0`      |
 
 ### Events
 
-| 事件名         | 描述           | 类型           |
+| Tên sự kiện         | Mô tả           | Kiểu           |
 | -------------- | -------------- | -------------- |
-| started        | 动画已开始     | `()=>void`     |
-| finished       | 动画已结束     | `()=>void`     |
-| ~~onStarted~~  | ~~动画已开始~~ | ~~`()=>void`~~ |
-| ~~onFinished~~ | ~~动画已结束~~ | ~~`()=>void`~~ |
+| started        | Hoạt ảnh đã bắt đầu     | `()=>void`     |
+| finished       | Hoạt ảnh đã kết thúc     | `()=>void`     |
+| ~~onStarted~~  | ~~Hoạt ảnh đã bắt đầu~~ | ~~`()=>void`~~ |
+| ~~onFinished~~ | ~~Hoạt ảnh đã kết thúc~~ | ~~`()=>void`~~ |
 
 ### Methods
 
-| 方法名 | 描述         | 类型       |
+| Tên phương thức | Mô tả         | Kiểu       |
 | ------ | ------------ | ---------- |
-| start  | 开始执行动画 | `()=>void` |
-| reset  | 重置         | `()=>void` |
+| start  | Bắt đầu thực thi hoạt ảnh | `()=>void` |
+| reset  | Đặt lại         | `()=>void` |

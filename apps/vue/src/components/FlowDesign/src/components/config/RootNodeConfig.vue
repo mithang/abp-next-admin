@@ -1,15 +1,15 @@
 <template>
   <div>
-    <p class="desc">选择能发起该审批的人员/部门，不选则默认开放给所有人</p>
+    <p class="desc">Chọn nhân sự/phòng ban có thể khởi tạo phê duyệt này, không chọn thì mặc định mở cho mọi người</p>
     <Button size="small" @click="selectOrg" type="primary" round>
       <template #icon>
         <PlusOutlined />
       </template>
-      请选择</Button
+      Vui lòng chọn</Button
     >
     <OrgItems v-model:value="select" />
     <OrgPicker
-      title="请选择可发起本审批的人员/部门"
+      title="Vui lòng chọn nhân sự/phòng ban có thể khởi tạo phê duyệt này"
       multiple
       ref="orgPickerRef"
       :selected="select"

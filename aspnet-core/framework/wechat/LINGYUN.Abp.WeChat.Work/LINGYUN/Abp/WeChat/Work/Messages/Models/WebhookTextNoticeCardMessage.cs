@@ -6,35 +6,35 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// Webhook 文本通知模版卡片消息体
+/// Thân tin nhắn thẻ mẫu thông báo văn bản Webhook
 /// </summary>
 public class WebhookTextNoticeCardMessage : WebhookTemplateCardMessage
 {
     /// <summary>
-    /// 二级普通文本，建议不超过112个字。模版卡片主要内容的一级标题main_title.title和二级普通文本sub_title_text必须有一项填写
+    /// Văn bản thường cấp hai, nên không quá 112 ký tự. Tiêu đề cấp một main_title.title của nội dung chính thẻ mẫu và văn bản thường cấp hai sub_title_text phải điền ít nhất một mục
     /// </summary>
     [CanBeNull]
     [JsonProperty("sub_title_text")]
     [JsonPropertyName("sub_title_text")]
     public string? SubTitleText { get; set; }
     /// <summary>
-    /// 关键数据样式
+    /// Kiểu dữ liệu quan trọng
     /// </summary>
     [CanBeNull]
     [JsonProperty("emphasis_content")]
     [JsonPropertyName("emphasis_content")]
     public WebhookTemplateCardEmphasisContent? EmphasisContent { get; set; }
     /// <summary>
-    /// 创建一个Webhook 文本通知模版卡片消息体
+    /// Tạo một Thân tin nhắn thẻ mẫu thông báo văn bản Webhook
     /// </summary>
-    /// <param name="action">整体卡片的点击跳转事件</param>
-    /// <param name="mainTitle">模版卡片的主要内容</param>
-    /// <param name="subTitleText">二级普通文本</param>
-    /// <param name="emphasisContent">关键数据样式</param>
-    /// <param name="source">卡片来源样式信息</param>
-    /// <param name="quoteArea">引用文献样式</param>
-    /// <param name="horizontalContents">二级标题+文本列表,列表长度不超过6</param>
-    /// <param name="jumps">跳转指引样式的列表,列表长度不超过3</param>
+    /// <param name="action">Sự kiện chuyển hướng khi nhấn vào toàn bộ thẻ</param>
+    /// <param name="mainTitle">Nội dung chính của thẻ mẫu</param>
+    /// <param name="subTitleText">Văn bản thường cấp hai</param>
+    /// <param name="emphasisContent">Kiểu dữ liệu quan trọng</param>
+    /// <param name="source">Thông tin kiểu nguồn của thẻ</param>
+    /// <param name="quoteArea">Kiểu trích dẫn tài liệu</param>
+    /// <param name="horizontalContents">Danh sách tiêu đề cấp hai + văn bản, độ dài danh sách không quá 6</param>
+    /// <param name="jumps">Danh sách kiểu hướng dẫn chuyển hướng, độ dài danh sách không quá 3</param>
     /// <exception cref="ArgumentException"></exception>
     public WebhookTextNoticeCardMessage(
         WebhookTemplateCardAction action,

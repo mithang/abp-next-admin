@@ -7,7 +7,7 @@ import {
 import { findUpSync } from 'find-up';
 
 /**
- * 查找大仓的根目录
+ * Tìm thư mục gốc của monorepo
  * @param cwd
  */
 function findMonorepoRoot(cwd: string = process.cwd()) {
@@ -19,7 +19,7 @@ function findMonorepoRoot(cwd: string = process.cwd()) {
 }
 
 /**
- * 获取大仓的所有包
+ * Lấy tất cả các package của monorepo
  */
 function getPackagesSync() {
   const root = findMonorepoRoot();
@@ -27,7 +27,7 @@ function getPackagesSync() {
 }
 
 /**
- * 获取大仓的所有包
+ * Lấy tất cả các package của monorepo
  */
 async function getPackages() {
   const root = findMonorepoRoot();
@@ -36,7 +36,7 @@ async function getPackages() {
 }
 
 /**
- * 获取大仓指定的包
+ * Lấy package được chỉ định của monorepo
  */
 async function getPackage(pkgName: string) {
   const { packages } = await getPackages();

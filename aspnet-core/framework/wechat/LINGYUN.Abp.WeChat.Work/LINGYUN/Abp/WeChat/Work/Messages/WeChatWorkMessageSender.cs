@@ -87,7 +87,7 @@ public class WeChatWorkMessageSender : IWeChatWorkMessageSender, ISingletonDepen
         WeChatWorkFeatureNames.Webhook.Limit,
         WeChatWorkFeatureNames.Webhook.LimitInterval,
         LimitPolicy.Minute)]
-    // 消息发送频率限制: https://developer.work.weixin.qq.com/document/path/99110#%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6
+    // Giới hạn tần suất gửi tin nhắn: https://developer.work.weixin.qq.com/document/path/99110#%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E9%A2%91%E7%8E%87%E9%99%90%E5%88%B6
     public async virtual Task<WeChatWorkResponse> SendAsync(string webhookKey, WeChatWorkWebhookMessage message, CancellationToken cancellationToken = default)
     {
         var client = HttpClientFactory.CreateWeChatWorkApiClient();

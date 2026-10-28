@@ -52,4 +52,4 @@ public class YourService
 * Supports localization configuration through AbpFeatureManagementResource
 * Provides permission control for client feature management
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Trung giản thể](./README.md) | [English](./README.EN.md)

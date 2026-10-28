@@ -3,36 +3,36 @@
 namespace LINGYUN.Abp.Location;
 
 /// <summary>
-/// 逆地址
+/// Địa chỉ ngược
 /// </summary>
 public class ReGeocodeLocation
 {
     /// <summary>
-    /// 详细地址
+    /// Địa chỉ chi tiết
     /// </summary>
     public string? Address { get; set; }
     /// <summary>
-    /// 格式化的地址描述
+    /// Mô tả địa chỉ đã định dạng
     /// </summary>
     public string? FormattedAddress { get; set; }
     /// <summary>
-    /// 国家
+    /// Quốc gia
     /// </summary>
     public string? Country { get; set; }
     /// <summary>
-    /// 省份
+    /// Tỉnh
     /// </summary>
     public string? Province { get; set; }
     /// <summary>
-    /// 城市
+    /// Thành phố
     /// </summary>
     public string? City { get; set; }
     /// <summary>
-    /// 区县
+    /// Quận/huyện
     /// </summary>
     public string? District { get; set; }
     /// <summary>
-    /// 街道
+    /// Đường phố
     /// </summary>
     public string? Street { get; set; }
     /// <summary>
@@ -40,23 +40,23 @@ public class ReGeocodeLocation
     /// </summary>
     public string? AdCode { get; set; }
     /// <summary>
-    /// 乡镇
+    /// Thị trấn/xã
     /// </summary>
     public string? Town { get; set; }
     /// <summary>
-    /// 门牌号
+    /// Số nhà
     /// </summary>
     public string? Number { get; set; }
     /// <summary>
-    /// Poi信息列表
+    /// Danh sách thông tin POI
     /// </summary>
     public IEnumerable<Poi> Pois { get; set; }
     /// <summary>
-    /// 道路信息列表
+    /// Danh sách thông tin đường
     /// </summary>
     public IEnumerable<Road> Roads { get; set; }
     /// <summary>
-    /// 附加信息
+    /// Thông tin bổ sung
     /// </summary>
     public IDictionary<string, object> Additionals { get; }
 

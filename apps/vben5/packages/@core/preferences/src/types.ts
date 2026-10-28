@@ -16,73 +16,73 @@ import type {
   ThemeModeType,
 } from '@vben-core/typings';
 
-type SupportedLanguagesType = 'en-US' | 'zh-CN';
+type SupportedLanguagesType = 'en-US' | 'vi-VN' | 'zh-CN';
 
 interface AppPreferences {
-  /** 权限模式 */
+  /** Chế độ quyền truy cập */
   accessMode: AccessModeType;
-  /** 登录注册页面布局 */
+  /** Bố cục trang đăng nhập/đăng ký */
   authPageLayout: AuthPageLayoutType;
-  /** 检查更新轮询时间 */
+  /** Thời gian thăm dò kiểm tra cập nhật */
   checkUpdatesInterval: number;
-  /** 是否开启灰色模式 */
+  /** Có bật chế độ xám hay không */
   colorGrayMode: boolean;
-  /** 是否开启色弱模式 */
+  /** Có bật chế độ mù màu hay không */
   colorWeakMode: boolean;
-  /** 是否开启紧凑模式 */
+  /** Có bật chế độ thu gọn hay không */
   compact: boolean;
-  /** 是否开启内容紧凑模式 */
+  /** Có bật chế độ thu gọn nội dung hay không */
   contentCompact: ContentCompactType;
-  /** 内容紧凑宽度 */
+  /** Chiều rộng thu gọn nội dung */
   contentCompactWidth: number;
-  /** 内容内边距 */
+  /** Khoảng đệm trong nội dung */
   contentPadding: number;
-  /** 内容底部内边距 */
+  /** Khoảng đệm dưới nội dung */
   contentPaddingBottom: number;
-  /** 内容左侧内边距 */
+  /** Khoảng đệm trái nội dung */
   contentPaddingLeft: number;
-  /** 内容右侧内边距 */
+  /** Khoảng đệm phải nội dung */
   contentPaddingRight: number;
-  /** 内容顶部内边距 */
+  /** Khoảng đệm trên nội dung */
   contentPaddingTop: number;
-  // /** 应用默认头像 */
+  // /** Ảnh đại diện mặc định của ứng dụng */
   defaultAvatar: string;
-  /** 默认首页地址 */
+  /** Địa chỉ trang chủ mặc định */
   defaultHomePath: string;
-  // /** 开启动态标题 */
+  // /** Bật tiêu đề động */
   dynamicTitle: boolean;
-  /** 是否开启检查更新 */
+  /** Có bật kiểm tra cập nhật hay không */
   enableCheckUpdates: boolean;
-  /** 是否显示复制偏好设置按钮 */
+  /** Có hiển thị nút sao chép tùy chọn hay không */
   enableCopyPreferences: boolean;
-  /** 是否显示偏好设置 */
+  /** Có hiển thị tùy chọn hay không */
   enablePreferences: boolean;
   /**
-   * @zh_CN 是否开启refreshToken
+   * @zh_CN Có bật refreshToken hay không
    */
   enableRefreshToken: boolean;
   /**
-   * @zh_CN 是否开启首选项导航栏吸顶效果
+   * @zh_CN Có bật hiệu ứng cố định thanh điều hướng tùy chọn hay không
    */
   enableStickyPreferencesNavigationBar: boolean;
-  /** 是否移动端 */
+  /** Có phải thiết bị di động hay không */
   isMobile: boolean;
-  /** 布局方式 */
+  /** Kiểu bố cục */
   layout: LayoutType;
-  /** 支持的语言 */
+  /** Ngôn ngữ được hỗ trợ */
   locale: SupportedLanguagesType;
-  /** 登录过期模式 */
+  /** Chế độ hết hạn đăng nhập */
   loginExpiredMode: LoginExpiredModeType;
-  /** 应用名 */
+  /** Tên ứng dụng */
   name: string;
-  /** 偏好设置按钮位置 */
+  /** Vị trí nút tùy chọn */
   preferencesButtonPosition: PreferencesButtonPositionType;
   /**
-   * @zh_CN 是否开启水印
+   * @zh_CN Có bật watermark hay không
    */
   watermark: boolean;
   /**
-   * @zh_CN 水印文案
+   * @zh_CN Nội dung watermark
    */
   watermarkContent: string;
   /** z-index */
@@ -90,235 +90,235 @@ interface AppPreferences {
 }
 
 interface BreadcrumbPreferences {
-  /** 面包屑是否启用 */
+  /** Breadcrumb có được bật hay không */
   enable: boolean;
-  /** 面包屑是否只有一个时隐藏 */
+  /** Breadcrumb có ẩn khi chỉ có một hay không */
   hideOnlyOne: boolean;
-  /** 面包屑首页图标是否可见 */
+  /** Biểu tượng trang chủ của breadcrumb có hiển thị hay không */
   showHome: boolean;
-  /** 面包屑图标是否可见 */
+  /** Biểu tượng breadcrumb có hiển thị hay không */
   showIcon: boolean;
-  /** 面包屑风格 */
+  /** Kiểu breadcrumb */
   styleType: BreadcrumbStyleType;
 }
 
 interface CopyrightPreferences {
-  /** 版权公司名 */
+  /** Tên công ty bản quyền */
   companyName: string;
-  /** 版权公司名链接 */
+  /** Liên kết tên công ty bản quyền */
   companySiteLink: string;
-  /** 版权日期 */
+  /** Ngày bản quyền */
   date: string;
-  /** 版权是否可见 */
+  /** Bản quyền có hiển thị hay không */
   enable: boolean;
-  /** 备案号 */
+  /** Số đăng ký ICP */
   icp: string;
-  /** 备案号链接 */
+  /** Liên kết số đăng ký ICP */
   icpLink: string;
-  /** 设置面板是否显示*/
+  /** Bảng cài đặt có hiển thị hay không */
   settingShow?: boolean;
 }
 
 interface FooterPreferences {
-  /** 底栏是否可见 */
+  /** Thanh dưới có hiển thị hay không */
   enable: boolean;
-  /** 底栏是否固定 */
+  /** Thanh dưới có cố định hay không */
   fixed: boolean;
-  /** 底栏高度 */
+  /** Chiều cao thanh dưới */
   height: number;
 }
 
 interface HeaderPreferences {
-  /** 顶栏是否启用 */
+  /** Thanh trên có được bật hay không */
   enable: boolean;
-  /** 顶栏高度 */
+  /** Chiều cao thanh trên */
   height: number;
-  /** 顶栏是否隐藏,css-隐藏 */
+  /** Thanh trên có ẩn hay không, ẩn bằng css */
   hidden: boolean;
-  /** 顶栏菜单位置 */
+  /** Vị trí menu thanh trên */
   menuAlign: LayoutHeaderMenuAlignType;
-  /** header显示模式 */
+  /** Chế độ hiển thị header */
   mode: LayoutHeaderModeType;
 }
 
 interface LogoPreferences {
-  /** logo是否可见 */
+  /** Logo có hiển thị hay không */
   enable: boolean;
-  /** logo图片适应方式 */
+  /** Cách logo vừa với khung hình */
   fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
-  /** logo地址 */
+  /** Địa chỉ logo */
   source: string;
-  /** 暗色主题logo地址 (可选，若不设置则使用 source) */
+  /** Địa chỉ logo cho chủ đề tối (tùy chọn, nếu không đặt sẽ dùng source) */
   sourceDark?: string;
 }
 
 interface NavigationPreferences {
-  /** 导航菜单手风琴模式 */
+  /** Chế độ accordion của menu điều hướng */
   accordion: boolean;
-  /** 导航菜单是否切割，只在 layout=mixed-nav 生效 */
+  /** Menu điều hướng có tách ra hay không, chỉ có hiệu lực khi layout=mixed-nav */
   split: boolean;
-  /** 导航菜单风格 */
+  /** Kiểu menu điều hướng */
   styleType: NavigationStyleType;
 }
 
 interface SidebarPreferences {
-  /** 点击目录时自动激活子菜单   */
+  /** Tự động kích hoạt menu con khi nhấp vào danh mục   */
   autoActivateChild: boolean;
-  /** 侧边栏是否折叠 */
+  /** Thanh bên có thu gọn hay không */
   collapsed: boolean;
-  /** 侧边栏折叠按钮是否可见 */
+  /** Nút thu gọn thanh bên có hiển thị hay không */
   collapsedButton: boolean;
-  /** 侧边栏折叠时，是否显示title */
+  /** Khi thanh bên thu gọn, có hiển thị title hay không */
   collapsedShowTitle: boolean;
-  /** 侧边栏折叠宽度 */
+  /** Chiều rộng khi thanh bên thu gọn */
   collapseWidth: number;
-  /** 侧边栏菜单拖拽 */
+  /** Kéo thả menu thanh bên */
   draggable: boolean;
-  /** 侧边栏是否可见 */
+  /** Thanh bên có hiển thị hay không */
   enable: boolean;
-  /** 菜单自动展开状态 */
+  /** Menu tự động mở rộng khi di chuột qua */
   expandOnHover: boolean;
-  /** 侧边栏扩展区域是否折叠 */
+  /** Vùng mở rộng của thanh bên có thu gọn hay không */
   extraCollapse: boolean;
-  /** 侧边栏扩展区域折叠宽度 */
+  /** Chiều rộng thu gọn của vùng mở rộng thanh bên */
   extraCollapsedWidth: number;
-  /** 侧边栏固定按钮是否可见 */
+  /** Nút cố định thanh bên có hiển thị hay không */
   fixedButton: boolean;
-  /** 侧边栏是否隐藏 - css */
+  /** Thanh bên có ẩn hay không - css */
   hidden: boolean;
-  /** 混合侧边栏宽度 */
+  /** Chiều rộng thanh bên hỗn hợp */
   mixedWidth: number;
-  /** 侧边栏宽度 */
+  /** Chiều rộng thanh bên */
   width: number;
 }
 
 interface ShortcutKeyPreferences {
-  /** 是否启用快捷键-全局 */
+  /** Có bật phím tắt - toàn cục hay không */
   enable: boolean;
-  /** 是否启用全局锁屏快捷键 */
+  /** Có bật phím tắt khóa màn hình toàn cục hay không */
   globalLockScreen: boolean;
-  /** 是否启用全局注销快捷键 */
+  /** Có bật phím tắt đăng xuất toàn cục hay không */
   globalLogout: boolean;
-  /** 是否启用全局偏好设置快捷键 */
+  /** Có bật phím tắt tùy chọn toàn cục hay không */
   globalPreferences: boolean;
-  /** 是否启用全局搜索快捷键 */
+  /** Có bật phím tắt tìm kiếm toàn cục hay không */
   globalSearch: boolean;
 }
 
 interface TabbarPreferences {
-  /** 是否开启多标签页拖拽 */
+  /** Có bật kéo thả nhiều tab hay không */
   draggable: boolean;
-  /** 是否开启多标签页 */
+  /** Có bật nhiều tab hay không */
   enable: boolean;
-  /** 标签页高度 */
+  /** Chiều cao tab */
   height: number;
-  /** 开启标签页缓存功能 */
+  /** Bật chức năng cache tab */
   keepAlive: boolean;
-  /** 限制最大数量 */
+  /** Giới hạn số lượng tối đa */
   maxCount: number;
-  /** 是否点击中键时关闭标签 */
+  /** Có đóng tab khi nhấp chuột giữa hay không */
   middleClickToClose: boolean;
-  /** 是否持久化标签 */
+  /** Có lưu trữ tab bền vững hay không */
   persist: boolean;
-  /** 是否开启多标签页图标 */
+  /** Có bật biểu tượng nhiều tab hay không */
   showIcon: boolean;
-  /** 显示最大化按钮 */
+  /** Hiển thị nút tối đa hóa */
   showMaximize: boolean;
-  /** 显示更多按钮 */
+  /** Hiển thị nút xem thêm */
   showMore: boolean;
-  /** 显示刷新按钮 */
+  /** Hiển thị nút làm mới */
   showRefresh: boolean;
-  /** 标签页风格 */
+  /** Kiểu tab */
   styleType: TabsStyleType;
-  /** 是否开启访问历史记录 */
+  /** Có bật lịch sử truy cập hay không */
   visitHistory: boolean;
-  /** 是否开启鼠标滚轮响应 */
+  /** Có bật phản hồi con lăn chuột hay không */
   wheelable: boolean;
 }
 
 interface ThemePreferences {
-  /** 内置主题名 */
+  /** Tên chủ đề tích hợp sẵn */
   builtinType: BuiltinThemeType;
-  /** 错误色 */
+  /** Màu lỗi */
   colorDestructive: string;
-  /** 主题色 */
+  /** Màu chủ đề */
   colorPrimary: string;
-  /** 成功色 */
+  /** Màu thành công */
   colorSuccess: string;
-  /** 警告色 */
+  /** Màu cảnh báo */
   colorWarning: string;
-  /** 字体大小（单位：px） */
+  /** Cỡ chữ (đơn vị: px) */
   fontSize: number;
-  /** 当前主题 */
+  /** Chủ đề hiện tại */
   mode: ThemeModeType;
-  /** 圆角 */
+  /** Bo góc */
   radius: string;
-  /** 是否开启半深色header（只在theme='light'时生效） */
+  /** Có bật header nửa tối hay không (chỉ có hiệu lực khi theme='light') */
   semiDarkHeader: boolean;
-  /** 是否开启半深色菜单（只在theme='light'时生效） */
+  /** Có bật menu nửa tối hay không (chỉ có hiệu lực khi theme='light') */
   semiDarkSidebar: boolean;
-  /** 是否开启半深色子菜单（只在theme='light'时生效） */
+  /** Có bật menu con nửa tối hay không (chỉ có hiệu lực khi theme='light') */
   semiDarkSidebarSub: boolean;
 }
 
 interface TransitionPreferences {
-  /** 页面切换动画是否启用 */
+  /** Hiệu ứng chuyển trang có được bật hay không */
   enable: boolean;
-  // /** 是否开启页面加载loading */
+  // /** Có bật loading khi tải trang hay không */
   loading: boolean;
-  /** 页面切换动画 */
+  /** Hiệu ứng chuyển trang */
   name: PageTransitionType | string;
-  /** 是否开启页面加载进度动画 */
+  /** Có bật hiệu ứng tiến trình tải trang hay không */
   progress: boolean;
 }
 
 interface WidgetPreferences {
-  /** 是否启用全屏部件 */
+  /** Có bật tiện ích toàn màn hình hay không */
   fullscreen: boolean;
-  /** 是否启用全局搜索部件 */
+  /** Có bật tiện ích tìm kiếm toàn cục hay không */
   globalSearch: boolean;
-  /** 是否启用语言切换部件 */
+  /** Có bật tiện ích chuyển đổi ngôn ngữ hay không */
   languageToggle: boolean;
-  /** 是否开启锁屏功能 */
+  /** Có bật chức năng khóa màn hình hay không */
   lockScreen: boolean;
-  /** 是否显示通知部件 */
+  /** Có hiển thị tiện ích thông báo hay không */
   notification: boolean;
-  /** 显示刷新按钮 */
+  /** Hiển thị nút làm mới */
   refresh: boolean;
-  /** 是否显示侧边栏显示/隐藏部件 */
+  /** Có hiển thị tiện ích hiện/ẩn thanh bên hay không */
   sidebarToggle: boolean;
-  /** 是否显示主题切换部件 */
+  /** Có hiển thị tiện ích chuyển đổi chủ đề hay không */
   themeToggle: boolean;
-  /** 是否显示时区部件 */
+  /** Có hiển thị tiện ích múi giờ hay không */
   timezone: boolean;
 }
 
 interface Preferences {
-  /** 全局配置 */
+  /** Cấu hình toàn cục */
   app: AppPreferences;
-  /** 顶栏配置 */
+  /** Cấu hình thanh trên */
   breadcrumb: BreadcrumbPreferences;
-  /** 版权配置 */
+  /** Cấu hình bản quyền */
   copyright: CopyrightPreferences;
-  /** 底栏配置 */
+  /** Cấu hình thanh dưới */
   footer: FooterPreferences;
-  /** 面包屑配置 */
+  /** Cấu hình breadcrumb */
   header: HeaderPreferences;
-  /** logo配置 */
+  /** Cấu hình logo */
   logo: LogoPreferences;
-  /** 导航配置 */
+  /** Cấu hình điều hướng */
   navigation: NavigationPreferences;
-  /** 快捷键配置 */
+  /** Cấu hình phím tắt */
   shortcutKeys: ShortcutKeyPreferences;
-  /** 侧边栏配置 */
+  /** Cấu hình thanh bên */
   sidebar: SidebarPreferences;
-  /** 标签页配置 */
+  /** Cấu hình tab */
   tabbar: TabbarPreferences;
-  /** 主题配置 */
+  /** Cấu hình chủ đề */
   theme: ThemePreferences;
-  /** 动画配置 */
+  /** Cấu hình hiệu ứng */
   transition: TransitionPreferences;
-  /** 功能配置 */
+  /** Cấu hình chức năng */
   widget: WidgetPreferences;
 }
 

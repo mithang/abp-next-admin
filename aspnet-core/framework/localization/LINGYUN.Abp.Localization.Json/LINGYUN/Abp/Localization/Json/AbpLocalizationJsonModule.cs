@@ -3,7 +3,7 @@ using Volo.Abp.Modularity;
 
 namespace LINGYUN.Abp.Localization.Json
 {
-    [System.Obsolete("Volo.Abp.Localization就可实现,将在后续删除")]
+    [System.Obsolete("Volo.Abp.Localization đã có thể thực hiện được, sẽ bị xóa trong các phiên bản sau")]
     [DependsOn(typeof(AbpLocalizationModule))]
     public class AbpLocalizationJsonModule : AbpModule
     {

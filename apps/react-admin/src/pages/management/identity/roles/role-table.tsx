@@ -37,13 +37,13 @@ const RoleTable: React.FC = () => {
 	const [selectedRole, setSelectedRole] = useState<IdentityRoleDto>();
 	const [searchParams, setSearchParams] = useState<{ filter?: string }>({});
 
-	// 获取角色列表
+	// Lấy danh sách vai trò
 	const { data, isLoading } = useQuery({
 		queryKey: ["roles", searchParams],
 		queryFn: () => getPagedListApi(searchParams),
 	});
 
-	// 删除角色
+	// Xóa vai trò
 	const { mutateAsync: deleteRole } = useMutation({
 		mutationFn: deleteApi,
 		onSuccess: () => {

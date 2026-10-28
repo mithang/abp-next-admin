@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// markdown消息
+/// Tin nhắn markdown
 /// </summary>
 public class MarkdownMessage
 {
     /// <summary>
-    /// markdown内容，最长不超过2048个字节，必须是utf8编码
+    /// Nội dung markdown, dài tối đa 2048 byte, phải được mã hóa utf8
     /// </summary>
     [NotNull]
     [JsonProperty("content")]

@@ -3,47 +3,47 @@
 public class AbpIdentityServerErrorConsts
 {
     /// <summary>
-    /// 客户端标识已经存在
+    /// Mã định danh client đã tồn tại
     /// </summary>
     public const string ClientIdExisted = "ClientIdExisted";
 
     /// <summary>
-    /// Api资源已经存在
+    /// Tài nguyên Api đã tồn tại
     /// </summary>
     public const string ApiResourceNameExisted = "ApiResourceNameExisted";
 
     /// <summary>
-    /// Api范围已经存在
+    /// Phạm vi Api đã tồn tại
     /// </summary>
     public const string ApiScopeNameExisted = "ApiScopeNameExisted";
 
     /// <summary>
-    /// 身份资源已经存在
+    /// Tài nguyên định danh đã tồn tại
     /// </summary>
     public const string IdentityResourceNameExisted = "IdentityResourceNameExisted";
 
     /// <summary>
-    /// 身份资源属性已经存在
+    /// Thuộc tính tài nguyên định danh đã tồn tại
     /// </summary>
     public const string IdentityResourcePropertyExisted = "IdentityResourcePropertyExisted";
 
     /// <summary>
-    /// 客户端声明不存在
+    /// Claim của client không tồn tại
     /// </summary>
     public const string ClientClaimNotFound = "ClientClaimNotFound";
 
     /// <summary>
-    /// 客户端密钥不存在
+    /// Khóa bí mật của client không tồn tại
     /// </summary>
     public const string ClientSecretNotFound = "ClientSecretNotFound";
 
     /// <summary>
-    /// 客户端属性不存在
+    /// Thuộc tính của client không tồn tại
     /// </summary>
     public const string ClientPropertyNotFound = "ClientPropertyNotFound";
 
     /// <summary>
-    /// 身份资源属性不存在
+    /// Thuộc tính tài nguyên định danh không tồn tại
     /// </summary>
     public const string IdentityResourcePropertyNotFound = "IdentityResourcePropertyNotFound";
 }

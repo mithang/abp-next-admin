@@ -26,9 +26,9 @@ export default {
     // Custom general sort function
     defaultSortFn: (sortInfo: SorterResult) => {
       const { field, order } = sortInfo;
-      // 格式化排序对象
+      // Định dạng đối tượng sắp xếp
       let sorting = field;
-      // fix: sorting可能为空
+      // fix: sorting có thể rỗng
       if (sorting) {
         switch (order) {
           case 'descend':
@@ -37,7 +37,7 @@ export default {
           case 'ascend':
             sorting = field.concat(' ASC');
             break;
-          // fix: 取消排序
+          // fix: Hủy sắp xếp
           default:
             sorting = '';
             break;

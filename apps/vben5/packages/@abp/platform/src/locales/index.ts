@@ -10,9 +10,9 @@ const localesMap = loadLocalesMapFromDir(
 );
 
 /**
- * 加载平台服务本地化资源
- * @param lang 当前语言
- * @returns 资源集合
+ * Tải tài nguyên bản địa hóa của dịch vụ nền tảng
+ * @param lang Ngôn ngữ hiện tại
+ * @returns Tập hợp tài nguyên
  */
 export async function loadPaltformMessages(lang: SupportedLanguagesType) {
   const locales = localesMap[lang]?.();

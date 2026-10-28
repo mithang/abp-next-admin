@@ -1,14 +1,14 @@
 # LINGYUN.Abp.Aliyun.Features
 
-阿里云服务功能管理模块。
+Mô-đun quản lý tính năng dịch vụ Alibaba Cloud.
 
-## 功能特性
+## Tính năng
 
-* 提供阿里云服务的功能定义和管理
-* 支持启用/禁用阿里云服务功能
-* 与ABP功能管理系统集成
+* Cung cấp định nghĩa và quản lý tính năng dịch vụ Alibaba Cloud
+* Hỗ trợ bật/tắt tính năng dịch vụ Alibaba Cloud
+* Tích hợp với hệ thống quản lý tính năng ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAliyunFeaturesModule))]
@@ -18,20 +18,20 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 功能项
+## Các tính năng
 
-* **Features:AlibabaCloud** - 阿里云服务功能组
-  * **Features:AlibabaCloud:IsEnabled** - 是否启用阿里云服务
-    * 默认值：false
-    * 描述：启用使应用程序拥有阿里云服务的能力
+* **Features:AlibabaCloud** - Nhóm tính năng dịch vụ Alibaba Cloud
+  * **Features:AlibabaCloud:IsEnabled** - Có bật dịch vụ Alibaba Cloud hay không
+    * Giá trị mặc định: false
+    * Mô tả: Bật để ứng dụng có khả năng sử dụng dịch vụ Alibaba Cloud
 
-## 配置项
+## Các mục cấu hình
 
-此模块主要用于功能定义，不包含配置项。
+Mô-đun này chủ yếu dùng để định nghĩa tính năng, không chứa mục cấu hình.
 
-## 注意
+## Lưu ý
 
-* 此模块需要与LINGYUN.Abp.Aliyun模块配合使用
-* 启用阿里云服务功能后，还需要在LINGYUN.Abp.Aliyun模块中配置相应的服务参数
+* Mô-đun này cần được sử dụng cùng với mô-đun LINGYUN.Abp.Aliyun
+* Sau khi bật tính năng dịch vụ Alibaba Cloud, còn cần cấu hình các tham số dịch vụ tương ứng trong mô-đun LINGYUN.Abp.Aliyun
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

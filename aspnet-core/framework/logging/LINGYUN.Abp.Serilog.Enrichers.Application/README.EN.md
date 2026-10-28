@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Serilog.Enrichers.Application
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 A Serilog enricher that adds application identifier to log properties.
 

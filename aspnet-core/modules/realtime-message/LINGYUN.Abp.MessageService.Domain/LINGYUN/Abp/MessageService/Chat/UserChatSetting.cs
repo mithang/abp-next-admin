@@ -7,31 +7,31 @@ namespace LINGYUN.Abp.MessageService.Chat;
 public class UserChatSetting : Entity<long>, IMultiTenant
 {
     /// <summary>
-    /// 租户
+    /// Bên thuê
     /// </summary>
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 用户标识
+    /// Mã định danh người dùng
     /// </summary>
     public virtual Guid UserId { get; protected set; }
     /// <summary>
-    /// 允许匿名聊天
+    /// Cho phép trò chuyện ẩn danh
     /// </summary>
     public virtual bool AllowAnonymous { get; set; }
     /// <summary>
-    /// 允许添加好友
+    /// Cho phép thêm bạn bè
     /// </summary>
     public virtual bool AllowAddFriend { get; set; }
     /// <summary>
-    /// 添加好友需要验证
+    /// Thêm bạn bè cần xác minh
     /// </summary>
     public virtual bool RequireAddFriendValition { get; set; }
     /// <summary>
-    /// 允许接收消息
+    /// Cho phép nhận tin nhắn
     /// </summary>
     public virtual bool AllowReceiveMessage { get; set; }
     /// <summary>
-    /// 允许发送消息
+    /// Cho phép gửi tin nhắn
     /// </summary>
     public virtual bool AllowSendMessage { get; set; }
     protected UserChatSetting() 

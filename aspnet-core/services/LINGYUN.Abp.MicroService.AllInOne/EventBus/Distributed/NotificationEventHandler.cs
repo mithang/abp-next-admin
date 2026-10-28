@@ -13,11 +13,11 @@ using Volo.Abp.Uow;
 namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
 {
     /// <summary>
-    /// 订阅通知发布事件,统一发布消息
+    /// Đăng ký sự kiện phát hành thông báo, phát hành tin nhắn thống nhất
     /// </summary>
     /// <remarks>
-    /// 作用在于SignalR客户端只会与一台服务器建立连接,
-    /// 只有启用了SignlR服务端的才能真正将消息发布到客户端
+    /// Tác dụng là client SignalR chỉ kết nối với một máy chủ,
+    /// chỉ máy chủ đã bật SignalR mới thực sự phát hành tin nhắn tới client
     /// </remarks>
     public class NotificationEventHandler :
         IDistributedEventHandler<NotificationEto<NotificationData>>,
@@ -202,7 +202,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
             {
                 var providers = Enumerable.Reverse(NotificationPublishProviderManager.Providers);
 
-                // 过滤用户指定提供者
+                // Lọc nhà cung cấp do người dùng chỉ định
                 if (eventData.UseProviders.Any())
                 {
                     providers = providers.Where(p => eventData.UseProviders.Contains(p.Name));
@@ -229,15 +229,15 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
 
                 try
                 {
-                    // 由于模板通知受租户影响, 格式化失败的消息将被丢弃.
+                    // Do thông báo mẫu chịu ảnh hưởng của tenant, tin nhắn định dạng thất bại sẽ bị loại bỏ.
                     message = await TemplateRenderer.RenderAsync(
                         templateName: eventData.Data.Name,
-                        // 序列化之后数据可能需要自行处理, 如未处理数据, 将使用默认数据渲染模板
+                        // Sau khi tuần tự hóa, dữ liệu có thể cần tự xử lý; nếu dữ liệu chưa được xử lý, sẽ dùng dữ liệu mặc định để render mẫu
                         model: templateResolveResult.Model ?? eventData.Data.ExtraProperties,
                         cultureName: eventData.Data.Culture,
                         globalContext: new Dictionary<string, object>
                         {
-                            // 模板不支持 $ 字符, 改为普通关键字
+                            // Mẫu không hỗ trợ ký tự $, đổi thành từ khóa thông thường
                             { NotificationKeywords.Name, notification.Name },
                             { NotificationKeywords.FormUser, eventData.Data.FormUser ?? "" },
                             { NotificationKeywords.Id, eventData.Id },
@@ -273,7 +273,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
 
                 if (subscriptionUsers.Any())
                 {
-                    // 发布通知
+                    // Phát hành thông báo
                     foreach (var provider in providers)
                     {
                         await PublishToSubscriberAsync(provider, notificationInfo, subscriptionUsers);
@@ -291,7 +291,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
             {
                 var providers = Enumerable.Reverse(NotificationPublishProviderManager.Providers);
 
-                // 过滤用户指定提供者
+                // Lọc nhà cung cấp do người dùng chỉ định
                 if (eventData.UseProviders.Any())
                 {
                     providers = providers.Where(p => eventData.UseProviders.Contains(p.Name));
@@ -316,13 +316,13 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
 
                 notificationInfo.Data = NotificationDataSerializer.Serialize(notificationInfo.Data);
 
-                // 获取用户订阅
+                // Lấy danh sách đăng ký của người dùng
                 var subscriptionUsers = await GerSubscriptionUsersAsync(
                     notificationInfo.Name,
                     eventData.Users,
                     tenantId);
 
-                // 持久化通知
+                // Lưu bền thông báo
                 await PersistentNotificationAsync(
                     notificationInfo,
                     subscriptionUsers,
@@ -330,7 +330,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
 
                 if (subscriptionUsers.Any())
                 {
-                    // 发布订阅通知
+                    // Phát hành thông báo đã đăng ký
                     foreach (var provider in providers)
                     {
                         await PublishToSubscriberAsync(provider, notificationInfo, subscriptionUsers);
@@ -339,12 +339,12 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
             }
         }
         /// <summary>
-        /// 获取用户订阅列表
+        /// Lấy danh sách đăng ký của người dùng
         /// </summary>
-        /// <param name="notificationName">通知名称</param>
-        /// <param name="sendToUsers">接收用户列表</param>
-        /// <param name="tenantId">租户标识</param>
-        /// <returns>用户订阅列表</returns>
+        /// <param name="notificationName">Tên thông báo</param>
+        /// <param name="sendToUsers">Danh sách người dùng nhận</param>
+        /// <param name="tenantId">Định danh tenant</param>
+        /// <returns>Danh sách đăng ký của người dùng</returns>
         protected async Task<IEnumerable<UserIdentifier>> GerSubscriptionUsersAsync(
             string notificationName,
             IEnumerable<UserIdentifier> sendToUsers,
@@ -352,7 +352,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
         {
             try
             {
-                // 获取用户订阅列表
+                // Lấy danh sách đăng ký của người dùng
                 var userSubscriptions = await NotificationSubscriptionManager.GetUsersSubscriptionsAsync(
                     tenantId,
                     notificationName,
@@ -368,12 +368,12 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
             return new List<UserIdentifier>();
         }
         /// <summary>
-        /// 持久化通知并返回订阅用户列表
+        /// Lưu bền thông báo và trả về danh sách người dùng đăng ký
         /// </summary>
-        /// <param name="notificationInfo">通知实体</param>
-        /// <param name="subscriptionUsers">订阅用户列表</param>
-        /// <param name="sendToProviders">通知发送提供者</param>
-        /// <returns>返回订阅者列表</returns>
+        /// <param name="notificationInfo">Thực thể thông báo</param>
+        /// <param name="subscriptionUsers">Danh sách người dùng đăng ký</param>
+        /// <param name="sendToProviders">Nhà cung cấp gửi thông báo</param>
+        /// <returns>Trả về danh sách người đăng ký</returns>
         protected async Task PersistentNotificationAsync(
             NotificationInfo notificationInfo,
             IEnumerable<UserIdentifier> subscriptionUsers,
@@ -381,7 +381,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
         {
             try
             {
-                // 持久化通知
+                // Lưu bền thông báo
                 await NotificationStore.InsertNotificationAsync(notificationInfo);
 
                 if (!subscriptionUsers.Any())
@@ -389,12 +389,12 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
                     return;
                 }
 
-                // 持久化用户通知
+                // Lưu bền thông báo của người dùng
                 await NotificationStore.InsertUserNotificationsAsync(notificationInfo, subscriptionUsers.Select(u => u.UserId));
 
                 if (notificationInfo.Lifetime == NotificationLifetime.OnlyOne)
                 {
-                    // 一次性通知取消用户订阅
+                    // Thông báo một lần sẽ hủy đăng ký của người dùng
                     await NotificationStore.DeleteUserSubscriptionAsync(
                         notificationInfo.TenantId,
                         subscriptionUsers,
@@ -407,17 +407,17 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
 
                 foreach (var provider in sendToProviders)
                 {
-                    // 处理持久化失败进入后台队列
+                    // Xử lý khi lưu bền thất bại, đưa vào hàng đợi nền
                     await ProcessingFailedToQueueAsync(provider, notificationInfo, subscriptionUsers);
                 }
             }
         }
         /// <summary>
-        /// 发布订阅者通知
+        /// Phát hành thông báo cho người đăng ký
         /// </summary>
-        /// <param name="provider">通知发布者</param>
-        /// <param name="notificationInfo">通知信息</param>
-        /// <param name="subscriptionUsers">订阅用户列表</param>
+        /// <param name="provider">Nhà phát hành thông báo</param>
+        /// <param name="notificationInfo">Thông tin thông báo</param>
+        /// <param name="subscriptionUsers">Danh sách người dùng đăng ký</param>
         /// <returns></returns>
         protected async Task PublishToSubscriberAsync(
             INotificationPublishProvider provider,
@@ -433,7 +433,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
                 if (await provider.CanPublishAsync(notificationInfo))
                 {
                     var context = new NotificationPublishContext(notificationInfo, subscriptionUsers);
-                    // 发布
+                    // Phát hành
                     await provider.PublishAsync(context);
 
                     sendInfo.Sent(context.Exception);
@@ -457,7 +457,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
                 Logger.LogWarning($"Send notification error with provider {provider.Name}");
                 Logger.LogWarning($"Error message:{ex.Message}");
                 Logger.LogDebug($"Failed to send notification {notificationInfo.Name}. Try to push notification to background job");
-                // 发送失败的消息进入后台队列
+                // Tin nhắn gửi thất bại sẽ vào hàng đợi nền
                 await ProcessingFailedToQueueAsync(provider, notificationInfo, subscriptionUsers);
 
                 try
@@ -469,10 +469,10 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
             }
         }
         /// <summary>
-        /// 处理失败的消息进入后台队列
+        /// Xử lý tin nhắn thất bại, đưa vào hàng đợi nền
         /// </summary>
         /// <remarks>
-        /// 注: 如果入队失败,消息将被丢弃.
+        /// Lưu ý: nếu đưa vào hàng đợi thất bại, tin nhắn sẽ bị loại bỏ.
         /// </remarks>
         /// <param name="provider"></param>
         /// <param name="notificationInfo"></param>
@@ -485,7 +485,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
         {
             try
             {
-                // 发送失败的消息进入后台队列
+                // Tin nhắn gửi thất bại sẽ vào hàng đợi nền
                 await BackgroundJobManager.EnqueueAsync(
                     new NotificationPublishJobArgs(
                         notificationInfo.GetId(),

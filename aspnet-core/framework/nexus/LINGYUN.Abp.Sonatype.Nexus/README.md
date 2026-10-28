@@ -1,18 +1,18 @@
 # LINGYUN.Abp.Sonatype.Nexus
 
-[English](./README.EN.md) | 简体中文
+[English](./README.EN.md) | Tiếng Việt
 
-Sonatype Nexus REST API 的 ABP 框架集成模块。
+Mô-đun tích hợp ABP framework cho Sonatype Nexus REST API.
 
-## 功能
+## Tính năng
 
-* 支持 Nexus 仓库管理
-* 支持组件（Component）管理
-* 支持资源（Asset）管理
-* 支持搜索功能
-* 支持基本认证
+* Hỗ trợ quản lý kho Nexus
+* Hỗ trợ quản lý thành phần (Component)
+* Hỗ trợ quản lý tài nguyên (Asset)
+* Hỗ trợ chức năng tìm kiếm
+* Hỗ trợ xác thực cơ bản
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpSonatypeNexusModule))]
@@ -22,11 +22,11 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-### 1. 配置 Nexus 连接
+### 1. Cấu hình kết nối Nexus
 
-在 `appsettings.json` 中配置 Nexus 连接选项：
+Cấu hình tùy chọn kết nối Nexus trong `appsettings.json`:
 
 ```json
 {
@@ -38,7 +38,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### 2. 使用仓库管理
+### 2. Sử dụng quản lý kho
 
 ```csharp
 public class MyService
@@ -58,7 +58,7 @@ public class MyService
 }
 ```
 
-### 3. 使用组件管理
+### 3. Sử dụng quản lý thành phần
 
 ```csharp
 public class MyService
@@ -79,7 +79,7 @@ public class MyService
 }
 ```
 
-### 4. 使用资源管理
+### 4. Sử dụng quản lý tài nguyên
 
 ```csharp
 public class MyService
@@ -99,22 +99,22 @@ public class MyService
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
-* BaseUrl - Nexus 服务器地址
-* UserName - 用户名
-* Password - 密码
+* BaseUrl - Địa chỉ máy chủ Nexus
+* UserName - Tên người dùng
+* Password - Mật khẩu
 
-## 最佳实践
+## Thực tiễn tốt nhất
 
-1. 妥善保管认证信息，避免泄露
-2. 合理规划仓库结构和组件分类
-3. 定期清理不需要的组件和资源
-4. 使用适当的错误处理机制
+1. Bảo quản cẩn thận thông tin xác thực, tránh rò rỉ
+2. Quy hoạch hợp lý cấu trúc kho và phân loại thành phần
+3. Định kỳ dọn dẹp các thành phần và tài nguyên không cần thiết
+4. Sử dụng cơ chế xử lý lỗi phù hợp
 
-## 注意事项
+## Lưu ý
 
-1. 确保 Nexus 服务器已正确配置并可访问
-2. 上传大文件时需要注意网络状况和超时设置
-3. 删除操作不可恢复，请谨慎操作
-4. 部分操作需要管理员权限
+1. Đảm bảo máy chủ Nexus đã được cấu hình đúng và có thể truy cập
+2. Khi tải lên tệp lớn cần chú ý tình trạng mạng và cài đặt thời gian chờ
+3. Thao tác xóa không thể khôi phục, vui lòng thao tác cẩn thận
+4. Một số thao tác cần quyền quản trị viên

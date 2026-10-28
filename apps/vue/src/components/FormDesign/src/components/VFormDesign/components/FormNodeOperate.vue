@@ -1,5 +1,5 @@
 <!--
- * @Description: 节点操作复制删除控件
+ * @Description: Control thao tác node: sao chép, xóa
 -->
 <template>
   <div class="copy-delete-box">
@@ -39,13 +39,13 @@
         return props.schema.key === props.currentItem.key ? 'active' : 'unactivated';
       });
       /**
-       * 删除当前项
+       * Xóa mục hiện tại
        */
       const handleDelete = () => {
         const traverse = (schemas: IVFormComponent[]) => {
           schemas.some((formItem, index) => {
             const { component, key } = formItem;
-            // 处理栅格和标签页布局
+            // Xử lý bố cục lưới và tab
             ['Grid', 'Tabs'].includes(component) &&
               formItem.columns?.forEach((item) => traverse(item.children));
             if (key === props.currentItem.key) {

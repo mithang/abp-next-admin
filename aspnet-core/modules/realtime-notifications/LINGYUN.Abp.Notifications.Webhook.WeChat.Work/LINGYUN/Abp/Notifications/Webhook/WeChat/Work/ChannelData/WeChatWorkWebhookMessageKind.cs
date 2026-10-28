@@ -1,47 +1,47 @@
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 企业微信 Webhook 消息载体类型
+/// Loại đối tượng mang tin nhắn Webhook của WeChat Work
 /// </summary>
 /// <remarks>
-/// 取值与框架 <c>WeChatWorkWebhookMessage.MsgType</c> 一致。
+/// Giá trị nhất quán với <c>WeChatWorkWebhookMessage.MsgType</c> của framework.
 /// </remarks>
 public enum WeChatWorkWebhookMessageKind
 {
     /// <summary>
-    /// 未指定
+    /// Chưa chỉ định
     /// </summary>
     None = 0,
     /// <summary>
-    /// 文本
+    /// Văn bản
     /// </summary>
     Text = 1,
     /// <summary>
-    /// markdown
+    /// Markdown
     /// </summary>
     Markdown = 2,
     /// <summary>
-    /// markdown_v2
+    /// Markdown_v2
     /// </summary>
     MarkdownV2 = 3,
     /// <summary>
-    /// 图片
+    /// Hình ảnh
     /// </summary>
     Image = 4,
     /// <summary>
-    /// 图文
+    /// Tin tức đồ họa
     /// </summary>
     News = 5,
     /// <summary>
-    /// 文件
+    /// Tệp
     /// </summary>
     File = 6,
     /// <summary>
-    /// 语音
+    /// Giọng nói
     /// </summary>
     Voice = 7,
     /// <summary>
-    /// 模板卡片
+    /// Thẻ mẫu
     /// </summary>
     TemplateCard = 8
 }

@@ -1,13 +1,13 @@
 # LINGYUN.Abp.AI.Tools
 
-AI 工具模块. 
+Mô-đun công cụ AI. 
 
-参考: [AI 工具调用](https://learn.microsoft.com/zh-cn/dotnet/ai/conceptual/ai-tools)  
+Tham khảo: [Gọi công cụ AI](https://learn.microsoft.com/zh-cn/dotnet/ai/conceptual/ai-tools)  
 
-## 功能特性
+## Tính năng
 
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAIToolsModule))]
@@ -17,13 +17,13 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
 * [AbpAICoreModule](../LINGYUN.Abp.AI.Core)  
 
-## 自定义函数
+## Hàm tùy chỉnh
 
-> 注意: 自定义函数遵循一个约定: 同步工具需要定义一个名为 `Invoke` 的函数; 异步工具需要定义一个名为 `InvokeAsync` 的函数, 如需使用DI容器, 需要将工具注入到容器  
+> Lưu ý: Hàm tùy chỉnh tuân theo một quy ước: công cụ đồng bộ cần định nghĩa một hàm tên `Invoke`; công cụ bất đồng bộ cần định nghĩa một hàm tên `InvokeAsync`, nếu cần sử dụng DI container thì cần inject công cụ vào container  
 
 ```csharp
 
@@ -51,17 +51,17 @@ public class NowTimeAIToolDefinitionProvider : AIToolDefinitionProvider
 }
 ```
 
-## 扩展
+## Mở rộng
 
-实现 `IAIToolProvider` 接口, 以增加其他工具调用  
-实现 `IDynamicAIToolDefinitionStore` 接口, 以增加动态AI工具管理  
+Triển khai giao diện `IAIToolProvider` để bổ sung các lệnh gọi công cụ khác  
+Triển khai giao diện `IDynamicAIToolDefinitionStore` để bổ sung quản lý công cụ AI động  
 
 ```csharp
 public class McpAIToolProvider : IAIToolProvider, ITransientDependency
 {
     public virtual Task<AITool[]> CreateToolsAsync(AIToolDefinition definition)
     {
-        // 你的具体实现
+        // Triển khai cụ thể của bạn
     }
 }
 

@@ -256,39 +256,39 @@ public class BlobManager : DomainService
 
         try
         {
-            // 创建分片文件缓存目录
+            // Tạo thư mục cache file phân mảnh
             DirectoryHelper.CreateIfNotExists(tempFilePath);
 
             var cancellationToken = GetCancellationToken();
 
-            // 创建分片文件
+            // Tạo file phân mảnh
             var tempSavedFile = Path.Combine(tempFilePath, $"{chunkNumber}.chunk");
-            // 分片传输中断重续时删除原文件
+            // Xóa file gốc khi truyền phân mảnh bị gián đoạn rồi tiếp tục lại
             FileHelper.DeleteIfExists(tempSavedFile);
-            // 当前分片文件缓存
+            // Cache file phân mảnh hiện tại
             using (var fs = File.OpenWrite(tempSavedFile))
             {
                 await file.GetStream().CopyToAsync(fs, cancellationToken);
             }
-            // 最后一个分片时合并文件
+            // Gộp file khi nhận phân mảnh cuối cùng
             if (chunkNumber == totalChunks)
             {
                 var mergeTmpFile = Path.Combine(tempFilePath, name);
                 FileHelper.DeleteIfExists(mergeTmpFile);
-                // 创建临时合并文件流
+                // Tạo luồng file gộp tạm thời
                 using (var mergeFileStream = new FileStream(mergeTmpFile, FileMode.Create, FileAccess.ReadWrite))
                 {
-                    // 获取并排序所有分片文件
+                    // Lấy và sắp xếp tất cả file phân mảnh
                     var mergeFiles = Directory.GetFiles(tempFilePath, "*.chunk").OrderBy(name => name);
-                    // 创建临时合并文件
+                    // Tạo file gộp tạm thời
                     foreach (var mergeFile in mergeFiles)
                     {
-                        // 写入到合并文件流
+                        // Ghi vào luồng file gộp
                         await mergeFileStream.WriteAsync(await FileHelper.ReadAllBytesAsync(mergeFile), cancellationToken);
-                        // 删除已参与合并的临时文件分片
+                        // Xóa các phân mảnh tạm thời đã tham gia gộp
                         FileHelper.DeleteIfExists(mergeFile);
                     }
-                    // 创建Blob对象
+                    // Tạo đối tượng Blob
                     BlobContainer blobContainer;
                     Blob? parentBlob = null;
                     if (Guid.TryParse(containerIdOrName, out var containerId))
@@ -310,18 +310,18 @@ public class BlobManager : DomainService
                         mergeFileStream.Length,
                         parentBlob);
 
-                    // 多分片文件流合并上传
+                    // Tải lên luồng file đã gộp từ nhiều phân mảnh
                     mergeFileStream.Seek(0, SeekOrigin.Begin);
 
                     await UploadBlobAsync(blobContainer, blob, mergeFileStream, compareMd5);
                 }
-                // 文件保存之后删除临时文件目录
+                // Xóa thư mục tạm thời sau khi lưu file
                 DirectoryHelper.DeleteIfExists(tempFilePath, true);
             }
         }
         catch
         {
-            // 发生异常删除临时文件目录
+            // Xóa thư mục tạm thời khi xảy ra ngoại lệ
             DirectoryHelper.DeleteIfExists(tempFilePath, true);
             throw;
         }
@@ -346,7 +346,10 @@ public class BlobManager : DomainService
         string fallbackUrlPrefix,
         bool isAttachmentContent = true)
     {
-        var cacheKey = $"{fallbackUrlPrefix}{Clock.Now:yyyy-MM-ddHH}{blob.Name}".ToMd5();
+        // Khóa tải xuống là capability token: phải ngẫu nhiên, không được suy ra từ
+        // tên file + giờ (MD5 đoán được cho phép tải blob riêng tư mà không cần quyền
+        // vì DownloadByKeyAsync không kiểm tra policy). Mỗi lần tạo URL là một khóa mới.
+        var cacheKey = Guid.NewGuid().ToString("N");
         var cacheItem = await _blobDownloadKeyCache.GetAsync(cacheKey);
         if (cacheItem == null)
         {
@@ -363,7 +366,7 @@ public class BlobManager : DomainService
 
             if (downloadUrl.IsNullOrWhiteSpace())
             {
-                // 特殊对象存储提供者（FileSystem）无法生成下载链接, 回退指定的请求Url
+                // Nhà cung cấp lưu trữ đối tượng đặc biệt (FileSystem) không thể tạo liên kết tải xuống, dùng Url yêu cầu đã chỉ định làm phương án dự phòng
                 downloadUrl = $"{fallbackUrlPrefix.EnsureEndsWith('/')}{cacheKey}";
             }
 

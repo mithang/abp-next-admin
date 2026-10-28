@@ -2,13 +2,13 @@
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Features;
 /// <summary>
-/// 企业微信通讯录模块功能
+/// Tính năng mô-đun danh bạ WeChat Work
 /// </summary>
 public static class WeChatWorkContactsFeatureNames
 {
     public const string GroupName = WeChatWorkFeatureNames.GroupName + ".Contacts";
     /// <summary>
-    /// 启用企业微信通讯录
+    /// Bật danh bạ WeChat Work
     /// </summary>
     public const string Enable = GroupName + ".Enable";
 }

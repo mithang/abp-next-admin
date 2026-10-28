@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Auditing.Application.Contracts
 
-审计日志应用层契约模块，定义审计日志的应用服务接口和数据传输对象。
+Mô-đun hợp đồng tầng ứng dụng nhật ký kiểm toán, định nghĩa giao diện dịch vụ ứng dụng nhật ký kiểm toán và đối tượng truyền dữ liệu.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 审计日志应用服务接口定义
-* 审计日志数据传输对象（DTO）定义
-* 审计日志权限定义
-* 审计日志查询参数定义
+* Định nghĩa giao diện dịch vụ ứng dụng nhật ký kiểm toán
+* Định nghĩa đối tượng truyền dữ liệu (DTO) nhật ký kiểm toán
+* Định nghĩa quyền nhật ký kiểm toán
+* Định nghĩa tham số truy vấn nhật ký kiểm toán
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAuditingApplicationContractsModule))]
@@ -21,14 +21,14 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 权限定义
+## Định nghĩa quyền
 
-* AuditLogging.AuditLogs - 审计日志管理
-  - AuditLogging.AuditLogs.Delete - 删除审计日志
-  - AuditLogging.SecurityLogs - 安全日志管理
-  - AuditLogging.SecurityLogs.Delete - 删除安全日志
+* AuditLogging.AuditLogs - Quản lý nhật ký kiểm toán
+  - AuditLogging.AuditLogs.Delete - Xóa nhật ký kiểm toán
+  - AuditLogging.SecurityLogs - Quản lý nhật ký bảo mật
+  - AuditLogging.SecurityLogs.Delete - Xóa nhật ký bảo mật
 
-## 服务接口
+## Giao diện dịch vụ
 
 * IAuditLogAppService
   ```csharp
@@ -52,11 +52,11 @@ public class YouProjectModule : AbpModule
   }
   ```
 
-## 数据传输对象
+## Đối tượng truyền dữ liệu
 
-* AuditLogDto - 审计日志DTO
-* SecurityLogDto - 安全日志DTO
-* GetAuditLogsInput - 获取审计日志输入参数
-* GetSecurityLogsInput - 获取安全日志输入参数
-* DeleteManyAuditLogsInput - 批量删除审计日志输入参数
-* DeleteManySecurityLogsInput - 批量删除安全日志输入参数
+* AuditLogDto - DTO nhật ký kiểm toán
+* SecurityLogDto - DTO nhật ký bảo mật
+* GetAuditLogsInput - Tham số đầu vào lấy nhật ký kiểm toán
+* GetSecurityLogsInput - Tham số đầu vào lấy nhật ký bảo mật
+* DeleteManyAuditLogsInput - Tham số đầu vào xóa hàng loạt nhật ký kiểm toán
+* DeleteManySecurityLogsInput - Tham số đầu vào xóa hàng loạt nhật ký bảo mật

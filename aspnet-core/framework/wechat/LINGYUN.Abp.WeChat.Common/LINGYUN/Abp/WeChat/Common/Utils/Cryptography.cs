@@ -28,9 +28,9 @@ public class Cryptography
         return outval;
     }
     /// <summary>
-    /// 解密方法
+    /// Phương thức giải mã
     /// </summary>
-    /// <param name="Input">密文</param>
+    /// <param name="Input">Bản mã</param>
     /// <param name="EncodingAESKey"></param>
     /// <returns></returns>
     /// 
@@ -104,11 +104,11 @@ public class Cryptography
 #else
         var aes = Aes.Create();
 #endif
-        //秘钥的大小，以位为单位
+        //Kích thước của khóa bí mật, tính theo bit
         aes.KeySize = 256;
-        //支持的块大小
+        //Kích thước khối được hỗ trợ
         aes.BlockSize = 128;
-        //填充模式
+        //Chế độ đệm
         aes.Padding = PaddingMode.PKCS7;
         aes.Mode = CipherMode.CBC;
         aes.Key = Key;
@@ -136,11 +136,11 @@ public class Cryptography
 #else
         var aes = Aes.Create();
 #endif
-        //秘钥的大小，以位为单位
+        //Kích thước của khóa bí mật, tính theo bit
         aes.KeySize = 256;
-        //支持的块大小
+        //Kích thước khối được hỗ trợ
         aes.BlockSize = 128;
-        //填充模式
+        //Chế độ đệm
         //aes.Padding = PaddingMode.PKCS7;
         aes.Padding = PaddingMode.None;
         aes.Mode = CipherMode.CBC;
@@ -149,14 +149,14 @@ public class Cryptography
         var encrypt = aes.CreateEncryptor(aes.Key, aes.IV);
         byte[] xBuff = null;
 
-        #region 自己进行PKCS7补位，用系统自己带的不行
+        #region Tự thực hiện đệm PKCS7, không dùng chế độ đệm sẵn có của hệ thống
         var msg = new byte[Input.Length + 32 - Input.Length % 32];
         Array.Copy(Input, msg, Input.Length);
         var pad = KCS7Encoder(Input.Length);
         Array.Copy(pad, 0, msg, Input.Length, pad.Length);
         #endregion
 
-        #region 注释的也是一种方法，效果一样
+        #region Cách đã chú thích cũng là một phương pháp, hiệu quả tương tự
         //ICryptoTransform transform = aes.CreateEncryptor();
         //byte[] xBuff = transform.TransformFinalBlock(msg, 0, msg.Length);
         #endregion
@@ -177,13 +177,13 @@ public class Cryptography
     private static byte[] KCS7Encoder(int text_length)
     {
         var block_size = 32;
-        // 计算需要填充的位数
+        // Tính số bit cần đệm
         var amount_to_pad = block_size - text_length % block_size;
         if (amount_to_pad == 0)
         {
             amount_to_pad = block_size;
         }
-        // 获得补位所用的字符
+        // Lấy ký tự dùng để đệm
         var pad_chr = chr(amount_to_pad);
         var tmp = "";
         for (var index = 0; index < amount_to_pad; index++)
@@ -193,10 +193,10 @@ public class Cryptography
         return Encoding.UTF8.GetBytes(tmp);
     }
     /**
-     * 将数字转化成ASCII码对应的字符，用于对明文进行补码
+     * Chuyển số thành ký tự tương ứng với mã ASCII, dùng để đệm bản rõ
      * 
-     * @param a 需要转化的数字
-     * @return 转化得到的字符
+     * @param a Số cần chuyển đổi
+     * @return Ký tự thu được sau khi chuyển đổi
      */
     static char chr(int a)
     {

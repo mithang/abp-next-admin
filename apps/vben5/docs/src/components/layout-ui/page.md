@@ -2,43 +2,43 @@
 outline: deep
 ---
 
-# Page 常规页面组件
+# Page Component trang thông thường
 
-提供一个常规页面布局的组件，包括头部、内容区域、底部三个部分。
+Cung cấp một component bố cục trang thông thường, gồm ba phần: đầu trang, vùng nội dung và chân trang.
 
-::: info 写在前面
+::: info Lưu ý ban đầu
 
-本组件是一个基本布局组件。如果有更多的通用页面布局需求（比如双列布局等），可以根据实际需求自行封装。
+Component này là một component bố cục cơ bản. Nếu có thêm nhu cầu bố cục trang chung (ví dụ bố cục hai cột), bạn có thể tự đóng gói theo nhu cầu thực tế.
 
 :::
 
-## 基础用法
+## Cách dùng cơ bản
 
-将`Page`作为你的业务页面的根组件即可。
+Chỉ cần dùng `Page` làm component gốc của trang nghiệp vụ của bạn là được.
 
 ### Props
 
-| 属性名 | 描述 | 类型 | 默认值 | 说明 |
+| Tên thuộc tính | Mô tả | Kiểu | Giá trị mặc định | Ghi chú |
 | --- | --- | --- | --- | --- |
-| title | 页面标题 | `string\|slot` | - | - |
-| description | 页面描述（标题下的内容） | `string\|slot` | - | - |
-| contentClass | 内容区域的class | `string` | - | - |
-| headerClass | 头部区域的class | `string` | - | - |
-| footerClass | 底部区域的class | `string` | - | - |
-| autoContentHeight | 自动调整内容区域的高度 | `boolean` | `false` | - |
+| title | Tiêu đề trang | `string\|slot` | - | - |
+| description | Mô tả trang (nội dung dưới tiêu đề) | `string\|slot` | - | - |
+| contentClass | class của vùng nội dung | `string` | - | - |
+| headerClass | class của vùng đầu trang | `string` | - | - |
+| footerClass | class của vùng chân trang | `string` | - | - |
+| autoContentHeight | Tự động điều chỉnh chiều cao vùng nội dung | `boolean` | `false` | - |
 
-::: tip 注意
+::: tip Lưu ý
 
-如果`title`、`description`、`extra`三者均未提供有效内容（通过`props`或者`slots`均可），则页面头部区域不会渲染。
+Nếu cả ba `title`, `description`, `extra` đều không cung cấp nội dung hợp lệ (qua `props` hoặc `slots` đều được), thì vùng đầu trang sẽ không được render.
 
 :::
 
 ### Slots
 
-| 插槽名称    | 描述         |
+| Tên slot | Mô tả |
 | ----------- | ------------ |
-| default     | 页面内容     |
-| title       | 页面标题     |
-| description | 页面描述     |
-| extra       | 页面头部右侧 |
-| footer      | 页面底部     |
+| default     | Nội dung trang     |
+| title       | Tiêu đề trang     |
+| description | Mô tả trang     |
+| extra       | Phía phải đầu trang |
+| footer      | Chân trang     |

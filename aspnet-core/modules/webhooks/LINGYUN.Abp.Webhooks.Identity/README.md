@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Webhooks.Identity
 
-Webhook身份集成模块，提供与ABP身份系统的集成支持。
+Mô-đun tích hợp identity Webhook, cung cấp hỗ trợ tích hợp với hệ thống identity ABP.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 与ABP身份系统集成
-* 支持用户和租户级别的Webhook
-* 身份相关的Webhook事件
+* Tích hợp với hệ thống identity ABP
+* Hỗ trợ Webhook ở cấp người dùng và tenant
+* Sự kiện Webhook liên quan đến identity
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksIdentityModule))]
@@ -20,9 +20,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 处理身份相关的Webhook
+1. Xử lý Webhook liên quan đến identity
 ```csharp
 public class YourIdentityWebhookHandler : IWebhookHandler, ITransientDependency
 {
@@ -30,13 +30,13 @@ public class YourIdentityWebhookHandler : IWebhookHandler, ITransientDependency
     {
         if (webhook.WebhookName == "User.Created")
         {
-            // 处理用户创建事件
+            // Xử lý sự kiện tạo người dùng
         }
     }
 }
 ```
 
-2. 发布身份相关的Webhook
+2. Xuất bản Webhook liên quan đến identity
 ```csharp
 public class YourService
 {

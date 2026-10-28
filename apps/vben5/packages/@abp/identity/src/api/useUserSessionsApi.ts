@@ -8,9 +8,9 @@ export function useUserSessionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询会话列表
-   * @param { GetUserSessionsInput } input 查询参数
-   * @returns { Promise<PagedResultDto<IdentitySessionDto>> } 用户会话列表
+   * Truy vấn danh sách phiên
+   * @param { GetUserSessionsInput } input Tham số truy vấn
+   * @returns { Promise<PagedResultDto<IdentitySessionDto>> } Danh sách phiên người dùng
    */
   function getSessionsApi(
     input?: GetUserSessionsInput,
@@ -24,8 +24,8 @@ export function useUserSessionsApi() {
     );
   }
   /**
-   * 撤销会话
-   * @param { string } sessionId 会话id
+   * Thu hồi phiên
+   * @param { string } sessionId ID phiên
    * @returns { Promise<void> }
    */
   function revokeSessionApi(sessionId: string): Promise<void> {

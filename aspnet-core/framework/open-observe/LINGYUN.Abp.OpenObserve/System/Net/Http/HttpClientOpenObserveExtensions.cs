@@ -18,7 +18,7 @@ internal static class HttpClientOpenObserveExtensions
                 var options = sp.GetRequiredService<IOptions<AbpOpenObserveOptions>>().Value;
 
                 client.BaseAddress = new Uri(options.Endpoint, UriKind.Absolute);
-                // 搜索接口的 timeout 默认 600 秒, HttpClient 默认 100 秒会把请求中断
+                // Timeout của API tìm kiếm mặc định là 600 giây, HttpClient mặc định 100 giây sẽ làm gián đoạn yêu cầu
                 client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
 
                 var authenticationHeader = options.CreateAuthorizationHeader();

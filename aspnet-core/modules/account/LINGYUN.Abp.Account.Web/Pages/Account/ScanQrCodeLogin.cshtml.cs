@@ -104,7 +104,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
             EnableLocalLogin = await SettingProvider.IsTrueAsync(AccountSettingNames.EnableLocalLogin);
 
             var qrCodeInfo = await QrCodeLoginProvider.GetCodeAsync(Input.Key);
-            // 二维码扫描后用户Id不为空
+            // Sau khi quét mã QR, Id người dùng không rỗng
             if (qrCodeInfo == null || qrCodeInfo.Token.IsNullOrWhiteSpace() == true)
             {
                 Alerts.Danger(L["QrCode:Invalid"]);
@@ -117,7 +117,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
                 var user = await UserManager.FindByIdAsync(qrCodeInfo.UserId!);
                 if (user == null)
                 {
-                    // TODO: 用户验证无效?
+                    // TODO: Xác thực người dùng không hợp lệ?
                     Alerts.Danger(L["QrCode:Invalid"]);
                     return Page();
                 }
@@ -139,7 +139,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
                     return await HandleLinkUserLogin(user);
                 }
 
-                // TODO: 记住登录
+                // TODO: Ghi nhớ đăng nhập
                 await SignInManager.SignInAsync(user, true);
 
                 await QrCodeLoginProvider.RemoveAsync(Input.Key);
@@ -237,7 +237,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
         {
             var redirectUrl = await base.GetRedirectUrlAsync(returnUrl!, returnUrlHash);
 
-            // 使用正则表达式移除 LinkUser 参数
+            // Sử dụng biểu thức chính quy để loại bỏ tham số LinkUser
             redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkToken=[^&]*", "");
             redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkUserId=[^&]*", "");
             redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkTenantId=[^&]*", "");
@@ -274,7 +274,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
                     return false;
                 }
             }
-            // TODO: 替换框架对于空格符号的编码错误
+            // TODO: Thay thế lỗi mã hóa ký tự khoảng trắng của framework
             LinkToken = LinkToken.Replace(" ", "+");
             return await IdentityLinkUserAppService.VerifyLinkTokenAsync(new VerifyLinkTokenInput()
             {

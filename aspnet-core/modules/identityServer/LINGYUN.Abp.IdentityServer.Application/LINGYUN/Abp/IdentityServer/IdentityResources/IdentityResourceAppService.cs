@@ -97,7 +97,7 @@ public class IdentityResourceAppService : AbpIdentityServerAppServiceBase, IIden
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.IdentityResources.ManageClaims))
         {
-            // 删除不存在的UserClaim
+            // Xóa UserClaim không tồn tại
             identityResource.UserClaims.RemoveAll(claim => input.UserClaims.Any(inputClaim => claim.Type == inputClaim.Type));
             foreach (var inputClaim in input.UserClaims)
             {
@@ -111,7 +111,7 @@ public class IdentityResourceAppService : AbpIdentityServerAppServiceBase, IIden
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.IdentityResources.ManageProperties))
         {
-            // 删除不存在的Property
+            // Xóa Property không tồn tại
             identityResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
             foreach (var inputProp in input.Properties)
             {

@@ -217,7 +217,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
         {
             var redirectUrl = await base.GetRedirectUrlAsync(returnUrl!, returnUrlHash);
 
-            // 使用正则表达式移除 LinkUser 参数
+            // Dùng biểu thức chính quy để loại bỏ tham số LinkUser
             redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkToken=[^&]*", "");
             redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkUserId=[^&]*", "");
             redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkTenantId=[^&]*", "");
@@ -254,7 +254,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
                     return false;
                 }
             }
-            // TODO: 替换框架对于空格符号的编码错误
+            // TODO: Thay thế lỗi mã hóa ký tự khoảng trắng của framework
             LinkToken = LinkToken.Replace(" ", "+");
             return await IdentityLinkUserAppService.VerifyLinkTokenAsync(new VerifyLinkTokenInput()
             {

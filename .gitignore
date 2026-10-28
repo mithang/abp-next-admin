@@ -41,3 +41,9 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sw*
+
+# SEC-02 (2026-10-27): signing certificates must never be committed.
+# The OpenIddict signing cert committed before 2026-10-27 is compromised by
+# exposure; it was rotated in the working tree and must stay out of git.
+# Production deployments provision their own cert + App:SslPassword via env.
+*.pfx

@@ -2,133 +2,133 @@
 outline: deep
 ---
 
-# Vben Alert 轻量提示框
+# Vben Alert hộp nhắc nhẹ
 
-框架提供的一些用于轻量提示的弹窗，仅使用js代码即可快速动态创建提示而不需要在template写任何代码。
+Một số hộp thoại nhắc nhẹ do framework cung cấp, chỉ cần dùng mã js là có thể nhanh chóng tạo nhắc một cách động mà không cần viết bất kỳ mã nào trong template.
 
-::: info 应用场景
+::: info Kịch bản ứng dụng
 
-Alert提供的功能与Modal类似，但只适用于简单应用场景。例如临时性、动态地弹出模态确认框、输入框等。如果对弹窗有更复杂的需求，请使用VbenModal
+Chức năng mà Alert cung cấp tương tự như Modal, nhưng chỉ phù hợp với các kịch bản ứng dụng đơn giản. Ví dụ như tạm thời, tự động bật hộp thoại xác nhận dạng modal, hộp nhập liệu, v.v. Nếu có nhu cầu phức tạp hơn về hộp thoại, vui lòng sử dụng VbenModal
 
 :::
 
-::: tip 注意
+::: tip Lưu ý
 
-Alert提供的快捷方法alert、confirm、prompt动态创建的弹窗在已打开的情况下，不支持HMR（热更新），代码变更后需要关闭这些弹窗后重新打开。
+Các hộp thoại được tạo động bằng các phương thức nhanh alert, confirm, prompt mà Alert cung cấp, trong trường hợp đã mở, không hỗ trợ HMR (cập nhật nóng), sau khi thay đổi mã cần đóng các hộp thoại này rồi mở lại.
 
 :::
 
 ::: tip README
 
-下方示例代码中的，存在一些主题色未适配、样式缺失的问题，这些问题只在文档内会出现，实际使用并不会有这些问题，可忽略，不必纠结。
+Trong mã ví dụ bên dưới, tồn tại một số vấn đề về màu chủ đề chưa được điều chỉnh, thiếu kiểu dáng, những vấn đề này chỉ xuất hiện trong tài liệu, khi sử dụng thực tế sẽ không có những vấn đề này, có thể bỏ qua, không cần bận tâm.
 
 :::
 
-## 基础用法
+## Cách dùng cơ bản
 
-使用 `alert` 创建只有一个确认按钮的提示框。
+Dùng `alert` để tạo hộp nhắc chỉ có một nút xác nhận.
 
 <DemoPreview dir="demos/vben-alert/alert" />
 
-使用 `confirm` 创建有确认和取消按钮的提示框。
+Dùng `confirm` để tạo hộp nhắc có nút xác nhận và nút hủy.
 
 <DemoPreview dir="demos/vben-alert/confirm" />
 
-使用 `prompt` 创建有确认和取消按钮、接受用户输入的提示框。
+Dùng `prompt` để tạo hộp nhắc có nút xác nhận và nút hủy, nhận dữ liệu người dùng nhập vào.
 
 <DemoPreview dir="demos/vben-alert/prompt" />
 
 ## useAlertContext
 
-当弹窗的content、footer、icon使用自定义组件时，在这些组件中可以使用 `useAlertContext` 获取当前弹窗的上下文对象，用来主动控制弹窗。
+Khi content, footer, icon của hộp thoại sử dụng component tùy chỉnh, trong các component này có thể dùng `useAlertContext` để lấy đối tượng ngữ cảnh của hộp thoại hiện tại, dùng để chủ động điều khiển hộp thoại.
 
-::: tip 注意
+::: tip Lưu ý
 
-`useAlertContext`只能用在setup或者函数式组件中。
+`useAlertContext` chỉ có thể dùng trong setup hoặc component hàm.
 
 :::
 
 ### Methods
 
-| 方法      | 描述               | 类型     | 版本要求 |
+| Phương thức | Mô tả              | Kiểu     | Yêu cầu phiên bản |
 | --------- | ------------------ | -------- | -------- |
-| doConfirm | 调用弹窗的确认操作 | ()=>void | >5.5.4   |
-| doCancel  | 调用弹窗的取消操作 | ()=>void | >5.5.4   |
+| doConfirm | Gọi thao tác xác nhận của hộp thoại | ()=>void | >5.5.4   |
+| doCancel  | Gọi thao tác hủy của hộp thoại | ()=>void | >5.5.4   |
 
-## 类型说明
+## Mô tả kiểu
 
 ```ts
-/** 预置的图标类型 */
+/** Kiểu biểu tượng đặt sẵn */
 export type IconType = 'error' | 'info' | 'question' | 'success' | 'warning';
 
 export type BeforeCloseScope = {
-  /** 是否为点击确认按钮触发的关闭 */
+  /** Có phải là đóng do nhấn nút xác nhận hay không */
   isConfirm: boolean;
 };
 
 /**
- * alert 属性
+ * Thuộc tính alert
  */
 export type AlertProps = {
-  /** 关闭前的回调，如果返回false，则终止关闭 */
+  /** Callback trước khi đóng, nếu trả về false thì hủy việc đóng */
   beforeClose?: (
     scope: BeforeCloseScope,
   ) => boolean | Promise<boolean | undefined> | undefined;
-  /** 边框 */
+  /** Viền */
   bordered?: boolean;
-  /** 按钮对齐方式 */
+  /** Cách căn chỉnh nút */
   buttonAlign?: 'center' | 'end' | 'start';
-  /** 取消按钮的标题 */
+  /** Tiêu đề của nút hủy */
   cancelText?: string;
-  /** 是否居中显示 */
+  /** Có hiển thị ở giữa hay không */
   centered?: boolean;
-  /** 确认按钮的标题 */
+  /** Tiêu đề của nút xác nhận */
   confirmText?: string;
-  /** 弹窗容器的额外样式 */
+  /** Kiểu bổ sung của vùng chứa hộp thoại */
   containerClass?: string;
-  /** 弹窗提示内容 */
+  /** Nội dung nhắc của hộp thoại */
   content: Component | string;
-  /** 弹窗内容的额外样式 */
+  /** Kiểu bổ sung của nội dung hộp thoại */
   contentClass?: string;
-  /** 执行beforeClose回调期间，在内容区域显示一个loading遮罩*/
+  /** Trong thời gian thực thi callback beforeClose, hiển thị một lớp phủ loading trong vùng nội dung */
   contentMasking?: boolean;
-  /** 弹窗底部内容（与按钮在同一个容器中） */
+  /** Nội dung cuối hộp thoại (nằm cùng vùng chứa với các nút) */
   footer?: Component | string;
-  /** 弹窗的图标（在标题的前面） */
+  /** Biểu tượng của hộp thoại (ở phía trước tiêu đề) */
   icon?: Component | IconType;
   /**
-   * 弹窗遮罩模糊效果
+   * Hiệu ứng làm mờ lớp phủ hộp thoại
    */
   overlayBlur?: number;
-  /** 是否显示取消按钮 */
+  /** Có hiển thị nút hủy hay không */
   showCancel?: boolean;
-  /** 弹窗标题 */
+  /** Tiêu đề hộp thoại */
   title?: string;
 };
 
-/** prompt 属性 */
+/** Thuộc tính prompt */
 export type PromptProps<T = any> = {
-  /** 关闭前的回调，如果返回false，则终止关闭 */
+  /** Callback trước khi đóng, nếu trả về false thì hủy việc đóng */
   beforeClose?: (scope: {
     isConfirm: boolean;
     value: T | undefined;
   }) => boolean | Promise<boolean | undefined> | undefined;
-  /** 用于接受用户输入的组件 */
+  /** Component dùng để nhận dữ liệu người dùng nhập */
   component?: Component;
-  /** 输入组件的属性 */
+  /** Thuộc tính của component nhập liệu */
   componentProps?: Recordable<any>;
-  /** 输入组件的插槽 */
+  /** Slot của component nhập liệu */
   componentSlots?: Recordable<Component>;
-  /** 默认值 */
+  /** Giá trị mặc định */
   defaultValue?: T;
-  /** 输入组件的值属性名 */
+  /** Tên thuộc tính giá trị của component nhập liệu */
   modelPropName?: string;
 } & Omit<AlertProps, 'beforeClose'>;
 
 /**
- * 函数签名
- * alert和confirm的函数签名相同。
- * confirm默认会显示取消按钮，而alert默认只有一个按钮
+ * Chữ ký hàm
+ * Chữ ký hàm của alert và confirm giống nhau.
+ * confirm mặc định sẽ hiển thị nút hủy, còn alert mặc định chỉ có một nút
  *  */
 export function alert(options: AlertProps): Promise<void>;
 export function alert(
@@ -142,18 +142,18 @@ export function alert(
 ): Promise<void>;
 
 /**
- * 弹出输入框的函数签名。
- * beforeClose的参数会传入用户当前输入的值
- * component指定接受用户输入的组件，默认为Input
- * componentProps 为输入组件设置的属性数据
- * defaultValue 默认的值
- * modelPropName 输入组件的值属性名称。默认为modelValue
+ * Chữ ký hàm của hộp nhập liệu bật lên.
+ * Tham số của beforeClose sẽ nhận giá trị người dùng đang nhập
+ * component chỉ định component nhận dữ liệu người dùng nhập, mặc định là Input
+ * componentProps là dữ liệu thuộc tính được đặt cho component nhập liệu
+ * defaultValue là giá trị mặc định
+ * modelPropName là tên thuộc tính giá trị của component nhập liệu. Mặc định là modelValue
  */
 export async function prompt<T = any>(
   options: Omit<AlertProps, 'beforeClose'> & {
     beforeClose?: (
       scope: BeforeCloseScope & {
-        /** 输入组件的当前值 */
+        /** Giá trị hiện tại của component nhập liệu */
         value: T;
       },
     ) => boolean | Promise<boolean | undefined> | undefined;

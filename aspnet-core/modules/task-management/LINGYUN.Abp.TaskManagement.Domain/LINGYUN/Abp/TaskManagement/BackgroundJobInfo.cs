@@ -12,103 +12,103 @@ public class BackgroundJobInfo : AuditedAggregateRoot<string>, IMultiTenant
 {
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 任务名称
+    /// Tên tác vụ
     /// </summary>
     public virtual string Name { get; protected set; } = default!;
     /// <summary>
-    /// 任务分组
+    /// Nhóm tác vụ
     /// </summary>
     public virtual string Group { get; protected set; } = default!;
     /// <summary>
-    /// 任务类型
+    /// Loại tác vụ
     /// </summary>
     public virtual string Type { get; protected set; } = default!;
     /// <summary>
-    /// 上一次执行结果
+    /// Kết quả thực thi lần trước
     /// </summary>
     public virtual string? Result { get; protected set; }
     /// <summary>
-    /// 任务参数
+    /// Tham số tác vụ
     /// </summary>
     public virtual ExtraPropertyDictionary Args { get; set; } = default!;
     /// <summary>
-    /// 任务状态
+    /// Trạng thái tác vụ
     /// </summary>
     public virtual JobStatus Status { get; protected set; }
     /// <summary>
-    /// 是否启用
+    /// Có bật hay không
     /// </summary>
     public virtual bool IsEnabled { get; set; }
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public virtual string? Description { get; set; }
     /// <summary>
-    /// 任务独占超时时长（秒）
-    /// 0或更小不生效
+    /// Thời lượng timeout độc quyền của tác vụ (giây)
+    /// 0 hoặc nhỏ hơn thì không có hiệu lực
     /// </summary>
     public virtual int LockTimeOut { get; set; }
     /// <summary>
-    /// 开始时间
+    /// Thời gian bắt đầu
     /// </summary>
     public virtual DateTime BeginTime { get; protected set; }
     /// <summary>
-    /// 结束时间
+    /// Thời gian kết thúc
     /// </summary>
     public virtual DateTime? EndTime { get; protected set; }
     /// <summary>
-    /// 上次执行时间
+    /// Thời gian thực thi lần trước
     /// </summary>
     public virtual DateTime? LastRunTime { get; protected set; }
     /// <summary>
-    /// 下次执行时间
+    /// Thời gian thực thi lần tới
     /// </summary>
     public virtual DateTime? NextRunTime { get; protected set; }
     /// <summary>
-    /// 任务类别
+    /// Danh mục tác vụ
     /// </summary>
     public virtual JobType JobType { get; protected set; }
     /// <summary>
-    /// Cron表达式，如果是持续任务需要指定
+    /// Biểu thức Cron, nếu là tác vụ liên tục thì cần chỉ định
     /// </summary>
     public virtual string? Cron { get; protected set; }
     /// <summary>
-    /// 作业来源
+    /// Nguồn công việc
     /// </summary>
     public virtual JobSource Source { get; protected set; }
     /// <summary>
-    /// 任务优先级
+    /// Mức độ ưu tiên của tác vụ
     /// </summary>
     public virtual JobPriority Priority { get; protected set; }
     /// <summary>
-    /// 触发次数
+    /// Số lần kích hoạt
     /// </summary>
     public virtual int TriggerCount { get; set; }
     /// <summary>
-    /// 失败重试次数
+    /// Số lần thử lại khi thất bại
     /// </summary>
     public virtual int TryCount { get; set; }
     /// <summary>
-    /// 失败重试上限
-    /// 默认：50
+    /// Giới hạn thử lại khi thất bại
+    /// Mặc định: 50
     /// </summary>
     public virtual int MaxTryCount { get; set; }
     /// <summary>
-    /// 最大执行次数
-    /// 默认：0, 无限制
+    /// Số lần thực thi tối đa
+    /// Mặc định: 0, không giới hạn
     /// </summary>
     public virtual int MaxCount { get; set; }
     /// <summary>
-    /// 间隔时间，单位秒，与Cron表达式冲突
-    /// 默认: 300
+    /// Khoảng thời gian, đơn vị giây, xung đột với biểu thức Cron
+    /// Mặc định: 300
     /// </summary>
     public virtual int Interval { get; protected set; }
     /// <summary>
-    /// 连续失败且不会再次执行
+    /// Thất bại liên tục và sẽ không thực thi lại
     /// </summary>
     public virtual bool IsAbandoned { get; set; }
     /// <summary>
-    /// 指定作业运行节点
+    /// Chỉ định nút chạy công việc
     /// </summary>
     public virtual string? NodeName { get; protected set; }
     protected BackgroundJobInfo() { }
@@ -143,8 +143,8 @@ public class BackgroundJobInfo : AuditedAggregateRoot<string>, IMultiTenant
 
         Status = JobStatus.Queuing;
 
-        // TODO: 是否需要将参数挪到另一个实体? 
-        // 任务参数的建议是尽量最小化, 仅存储关键信息
+        // TODO: Có cần chuyển tham số sang một thực thể khác không? 
+        // Đề xuất tham số tác vụ là càng tối thiểu càng tốt, chỉ lưu trữ thông tin quan trọng
         Args = new ExtraPropertyDictionary();
         if (args != null)
         {

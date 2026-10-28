@@ -23,7 +23,7 @@ public class AbpAIToolsMcpModule : AbpModule
 
         Configure<AbpAIToolsOptions>(options =>
         {
-            // Mcp工具
+            // Công cụ Mcp
             options.AIToolProviders.Add<McpAIToolProvider>();
         });
 

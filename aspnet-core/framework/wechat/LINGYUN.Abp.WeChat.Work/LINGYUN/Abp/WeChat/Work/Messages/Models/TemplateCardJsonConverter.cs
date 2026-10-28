@@ -8,18 +8,18 @@ using System.Reflection;
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 
 /// <summary>
-/// 模板卡片消息序列化
+/// Tuần tự hóa thông điệp thẻ mẫu
 /// </summary>
 /// <remarks>
 /// <para>
-/// <see cref="TemplateCard"/> 是抽象类型, Newtonsoft.Json 无法直接实例化它,
-/// 导致模板卡片一经序列化(例如作为通知数据持久化、或进入失败重试队列)就再也无法还原:
+/// <see cref="TemplateCard"/> là kiểu trừu tượng, Newtonsoft.Json không thể khởi tạo trực tiếp nó,
+/// khiến thẻ mẫu một khi đã được tuần tự hóa (ví dụ như dữ liệu thông báo được lưu trữ bền vững, hoặc đi vào hàng đợi thử lại khi thất bại) thì không thể khôi phục lại được nữa:
 /// <c>Could not create an instance of type ... Type is an interface or abstract class</c>。
 /// </para>
 /// <para>
-/// 这里按 <c>card_type</c> 判别符还原具体的卡片类型。判别符在构造函数中传递给基类
-/// (例如 <c>base("template_card", taskId)</c>), 通过读取构造函数 IL 中的字符串常量获得,
-/// 因此新增卡片类型无需修改本转换器。
+/// Ở đây khôi phục kiểu thẻ cụ thể theo bộ phân biệt <c>card_type</c>. Bộ phân biệt được truyền cho lớp cơ sở trong hàm khởi tạo
+/// (ví dụ <c>base("template_card", taskId)</c>), thu được bằng cách đọc hằng chuỗi trong IL của hàm khởi tạo,
+/// do đó khi thêm kiểu thẻ mới không cần sửa đổi bộ chuyển đổi này.
 /// </para>
 /// </remarks>
 public class TemplateCardJsonConverter : JsonConverter
@@ -33,11 +33,11 @@ public class TemplateCardJsonConverter : JsonConverter
     private static bool _initialized;
 
     /// <summary>
-    /// 仅接管抽象卡片类型
+    /// Chỉ tiếp quản kiểu thẻ trừu tượng
     /// </summary>
     /// <remarks>
-    /// 具体卡片类型由本转换器显式指定目标类型后递归解析,
-    /// 若这里对具体类型也返回 true 会造成无限递归。
+    /// Kiểu thẻ cụ thể được phân tích đệ quy sau khi bộ chuyển đổi này chỉ định rõ kiểu đích,
+    /// nếu ở đây cũng trả về true cho kiểu cụ thể sẽ gây ra đệ quy vô hạn.
     /// </remarks>
     public override bool CanConvert(Type objectType)
     {
@@ -79,7 +79,7 @@ public class TemplateCardJsonConverter : JsonConverter
     }
 
     /// <summary>
-    /// 解析卡片的具体类型
+    /// Phân tích kiểu cụ thể của thẻ
     /// </summary>
     private static Type? ResolveCardType(string? cardType, Type targetType)
     {
@@ -102,13 +102,13 @@ public class TemplateCardJsonConverter : JsonConverter
             return mappedType;
         }
 
-        // 缺少判别符时, 目标是具体类型则直接使用它
+        // Khi thiếu bộ phân biệt, nếu đích là kiểu cụ thể thì dùng trực tiếp nó
         if (!targetType.IsAbstract)
         {
             return targetType;
         }
 
-        // 抽象目标且判别符缺失时, 按历史行为回退到文本模板卡片
+        // Khi đích là kiểu trừu tượng và thiếu bộ phân biệt, theo hành vi trước đây sẽ quay về thẻ mẫu văn bản
         return CardTypes.TryGetValue(nameof(TextTemplateCard), out var fallbackType) ? fallbackType : null;
     }
 
@@ -144,11 +144,11 @@ public class TemplateCardJsonConverter : JsonConverter
     }
 
     /// <summary>
-    /// 获取卡片类型的判别符
+    /// Lấy bộ phân biệt của kiểu thẻ
     /// </summary>
     /// <remarks>
-    /// 判别符由构造函数传递给基类, 因此读取构造函数 IL 中的字符串常量。
-    /// 同时以类型名作为兜底键。
+    /// Bộ phân biệt được truyền cho lớp cơ sở bởi hàm khởi tạo, do đó đọc hằng chuỗi trong IL của hàm khởi tạo.
+    /// Đồng thời dùng tên kiểu làm khóa dự phòng.
     /// </remarks>
     private static IEnumerable<string> GetDiscriminators(Type cardType)
     {
@@ -172,7 +172,7 @@ public class TemplateCardJsonConverter : JsonConverter
             }
             catch
             {
-                // 读取 IL 失败不影响兜底判别符
+                // Đọc IL thất bại không ảnh hưởng đến bộ phân biệt dự phòng
             }
         }
 
@@ -203,7 +203,7 @@ public class TemplateCardJsonConverter : JsonConverter
             }
             catch
             {
-                // 不是字符串元数据标记, 继续扫描
+                // Không phải thẻ siêu dữ liệu chuỗi, tiếp tục quét
             }
         }
 

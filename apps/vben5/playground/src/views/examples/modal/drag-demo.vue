@@ -15,5 +15,7 @@ const [Modal, modalApi] = useVbenModal({
 });
 </script>
 <template>
-  <Modal title="可拖拽示例"> 鼠标移动到 header 上，可拖拽弹窗 </Modal>
+  <Modal title="Ví dụ có thể kéo thả">
+    Di chuyển chuột lên header để kéo thả hộp thoại
+  </Modal>
 </template>

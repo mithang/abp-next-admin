@@ -2,59 +2,59 @@
 public enum DynamicComparison
 {
     /// <summary>
-    /// 等于
+    /// Bằng
     /// </summary>
     Equal = 0,
     /// <summary>
-    /// 不等于
+    /// Không bằng
     /// </summary>
     NotEqual = 1,
     /// <summary>
-    /// 小于
+    /// Nhỏ hơn
     /// </summary>
     LessThan = 2,
     /// <summary>
-    /// 小于等于
+    /// Nhỏ hơn hoặc bằng
     /// </summary>
     LessThanOrEqual = 3,
     /// <summary>
-    /// 大于
+    /// Lớn hơn
     /// </summary>
     GreaterThan = 4,
     /// <summary>
-    /// 大于等于
+    /// Lớn hơn hoặc bằng
     /// </summary>
     GreaterThanOrEqual = 5,
     /// <summary>
-    /// 左包含
+    /// Bắt đầu bằng
     /// </summary>
     StartsWith = 6,
     /// <summary>
-    /// 左不包含
+    /// Không bắt đầu bằng
     /// </summary>
     NotStartsWith = 7,
     /// <summary>
-    /// 右包含
+    /// Kết thúc bằng
     /// </summary>
     EndsWith = 8,
     /// <summary>
-    /// 右不包含
+    /// Không kết thúc bằng
     /// </summary>
     NotEndsWith = 9,
     /// <summary>
-    /// 包含
+    /// Chứa
     /// </summary>
     Contains = 10,
     /// <summary>
-    /// 不包含
+    /// Không chứa
     /// </summary>
     NotContains = 11,
     /// <summary>
-    /// 空值
+    /// Giá trị rỗng
     /// </summary>
     Null = 12,
     /// <summary>
-    /// 非空
+    /// Khác rỗng
     /// </summary>
     NotNull = 13
 }

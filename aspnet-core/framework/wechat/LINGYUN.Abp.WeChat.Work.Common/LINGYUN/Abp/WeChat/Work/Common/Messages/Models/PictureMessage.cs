@@ -4,18 +4,18 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 图片消息
+/// Thông điệp hình ảnh
 /// </summary>
 [EventName("picture")]
 public class PictureMessage : WeChatWorkGeneralMessage
 {
     /// <summary>
-    /// 图片链接（由系统生成）
+    /// Liên kết hình ảnh (do hệ thống tạo)
     /// </summary>
     [XmlElement("PicUrl")]
     public string PicUrl { get; set; } = default!;
     /// <summary>
-    /// 图片消息媒体id，可以调用获取临时素材接口拉取数据。
+    /// Id media của thông điệp hình ảnh, có thể gọi giao diện lấy tài nguyên tạm thời để lấy dữ liệu.
     /// </summary>
     [XmlElement("MediaId")]
     public string MediaId { get; set; } = default!;

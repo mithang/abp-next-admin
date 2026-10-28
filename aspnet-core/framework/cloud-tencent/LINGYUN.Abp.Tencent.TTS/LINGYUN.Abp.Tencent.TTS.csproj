@@ -12,7 +12,7 @@
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
 		<Description>
-			腾讯云语音合成
+			Tổng hợp giọng nói Tencent Cloud
 			https://cloud.tencent.com/document/product/1073
 		</Description>
 	</PropertyGroup>

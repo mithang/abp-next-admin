@@ -38,7 +38,7 @@ class LocalizationService extends ServiceBase implements TranslationService {
     var currentLanguage$ = _sessionService.getLanguage$();
     var localizations$ = _configStateService.getLocalization$();
 
-    // 本地化
+    // Bản địa hóa
     Rx.combineLatest2(currentLanguage$, localizations$, (currentLang, localizations) {
       if (currentLang == null || localizations == null) return null;
       if (currentLang.isNullOrWhiteSpace() || localizations.resources == null) return null;

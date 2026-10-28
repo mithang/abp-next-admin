@@ -9,25 +9,25 @@ import type { RouteMeta } from "#/router";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 /**
- * 返回当前路由Meta信息
+ * Trả về thông tin Meta của route hiện tại
  */
 export function useCurrentRouteMeta() {
 	// const pathname = usePathname();
 	const { push } = useRouter();
 
-	// 获取路由组件实例
+	// Lấy instance component của route
 	const children = useOutlet();
 
-	// 获取所有匹配的路由
+	// Lấy tất cả route khớp
 	const matchs = useMatches();
 
-	// 获取拍平后的路由菜单
+	// Lấy menu route đã làm phẳng
 	const flattenedRoutes = useFlattenedRoutes();
 
 	const [currentRouteMeta, setCurrentRouteMeta] = useState<RouteMeta>();
 
 	useEffect(() => {
-		// 获取当前匹配的路由
+		// Lấy route khớp hiện tại
 		const lastRoute = matchs.at(-1);
 		if (!lastRoute) return;
 
@@ -58,12 +58,12 @@ export function useCurrentRouteMeta() {
 export const replaceDynamicParams = (menuKey: string, params: Params<string>) => {
 	let replacedPathName = menuKey;
 
-	// 解析路由路径中的参数名称
+	// Phân tích tên tham số trong đường dẫn route
 	const paramNames = menuKey.match(/:\w+/g);
 
 	if (paramNames) {
 		for (const paramName of paramNames) {
-			// 去掉冒号，获取参数名称
+			// Bỏ dấu hai chấm để lấy tên tham số
 			const paramKey = paramName.slice(1);
 			if (!params[paramKey]) continue;
 

@@ -7,69 +7,69 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// Webhook模板卡片消息体
+/// Thân tin nhắn thẻ mẫu Webhook
 /// </summary>
 public abstract class WebhookTemplateCardMessage
 {
     /// <summary>
-    /// 模版卡片的模版类型
+    /// Loại mẫu của thẻ mẫu
     /// </summary>
     [CanBeNull]
     [JsonProperty("card_type")]
     [JsonPropertyName("card_type")]
     public string? CardType { get; set; }
     /// <summary>
-    /// 卡片来源样式信息，不需要来源样式可不填写
+    /// Thông tin kiểu nguồn của thẻ, có thể bỏ trống nếu không cần kiểu nguồn
     /// </summary>
     [CanBeNull]
     [JsonProperty("source")]
     [JsonPropertyName("source")]
     public WebhookTemplateCardSource? Source { get; set; }
     /// <summary>
-    /// 模版卡片的主要内容，包括一级标题和标题辅助信息
+    /// Nội dung chính của thẻ mẫu, gồm tiêu đề cấp một và thông tin phụ của tiêu đề
     /// </summary>
     [CanBeNull]
     [JsonProperty("main_title")]
     [JsonPropertyName("main_title")]
     public WebhookTemplateCardMainTitle? MainTitle { get; set; }
     /// <summary>
-    /// 引用文献样式，建议不与关键数据共用
+    /// Kiểu trích dẫn tài liệu, khuyến nghị không dùng chung với dữ liệu quan trọng
     /// </summary>
     [CanBeNull]
     [JsonProperty("quote_area")]
     [JsonPropertyName("quote_area")]
     public WebhookTemplateCardQuoteArea? QuoteArea { get; set; }
     /// <summary>
-    /// 二级标题+文本列表，该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过6
+    /// Danh sách tiêu đề cấp hai + văn bản, trường này có thể là mảng rỗng, nhưng nếu có dữ liệu cần xác nhận trường tương ứng có bắt buộc hay không, độ dài danh sách không vượt quá 6
     /// </summary>
     [CanBeNull]
     [JsonProperty("horizontal_content_list")]
     [JsonPropertyName("horizontal_content_list")]
     public List<WebhookTemplateCardHorizontalContent>? HorizontalContents { get; set; }
     /// <summary>
-    /// 跳转指引样式的列表，该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过3
+    /// Danh sách kiểu hướng dẫn chuyển hướng, trường này có thể là mảng rỗng, nhưng nếu có dữ liệu cần xác nhận trường tương ứng có bắt buộc hay không, độ dài danh sách không vượt quá 3
     /// </summary>
     [CanBeNull]
     [JsonProperty("jump_list")]
     [JsonPropertyName("jump_list")]
     public List<WebhookTemplateCardJump>? Jumps { get; set; }
     /// <summary>
-    /// 整体卡片的点击跳转事件，text_notice模版卡片中该字段为必填项
+    /// Sự kiện chuyển hướng khi nhấp vào toàn bộ thẻ, trường này là bắt buộc trong thẻ mẫu text_notice
     /// </summary>
     [CanBeNull]
     [JsonProperty("card_action")]
     [JsonPropertyName("card_action")]
     public WebhookTemplateCardAction? Action { get; set; }
     /// <summary>
-    /// 创建一个Webhook模板卡片消息体
+    /// Tạo một thân tin nhắn thẻ mẫu Webhook
     /// </summary>
-    /// <param name="cardType">模版卡片的模版类型</param>
-    /// <param name="action">整体卡片的点击跳转事件</param>
-    /// <param name="mainTitle">模版卡片的主要内容</param>
-    /// <param name="source">卡片来源样式信息</param>
-    /// <param name="quoteArea">引用文献样式</param>
-    /// <param name="horizontalContents">二级标题+文本列表,列表长度不超过6</param>
-    /// <param name="jumps">跳转指引样式的列表,列表长度不超过3</param>
+    /// <param name="cardType">Loại mẫu của thẻ mẫu</param>
+    /// <param name="action">Sự kiện chuyển hướng khi nhấp vào toàn bộ thẻ</param>
+    /// <param name="mainTitle">Nội dung chính của thẻ mẫu</param>
+    /// <param name="source">Thông tin kiểu nguồn của thẻ</param>
+    /// <param name="quoteArea">Kiểu trích dẫn tài liệu</param>
+    /// <param name="horizontalContents">Danh sách tiêu đề cấp hai + văn bản, độ dài danh sách không vượt quá 6</param>
+    /// <param name="jumps">Danh sách kiểu hướng dẫn chuyển hướng, độ dài danh sách không vượt quá 3</param>
     /// <exception cref="ArgumentException"></exception>
     protected WebhookTemplateCardMessage(
         string cardType,

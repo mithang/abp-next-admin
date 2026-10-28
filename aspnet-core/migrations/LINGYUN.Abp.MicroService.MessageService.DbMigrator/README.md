@@ -1,22 +1,22 @@
 # LINGYUN.Abp.MicroService.MessageService.DbMigrator
 
-实时消息数据库迁移控制台应用程序，用于执行实时消息系统的数据库迁移和初始化种子数据。
+Ứng dụng console di chuyển cơ sở dữ liệu tin nhắn thời gian thực, dùng để thực thi di chuyển cơ sở dữ liệu và khởi tạo dữ liệu seed của hệ thống tin nhắn thời gian thực.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 自动执行数据库迁移
-* 初始化系统必要的种子数据
-* 支持命令行参数配置
-* 集成Autofac依赖注入容器
-* 继承实时消息系统的所有迁移功能
-* 支持SignalR消息管理
-* 支持消息分组管理
-* 支持消息订阅管理
-* 支持消息历史记录
+* Tự động thực thi di chuyển cơ sở dữ liệu
+* Khởi tạo dữ liệu seed cần thiết cho hệ thống
+* Hỗ trợ cấu hình tham số dòng lệnh
+* Tích hợp bộ chứa dependency injection Autofac
+* Kế thừa toàn bộ chức năng di chuyển của hệ thống tin nhắn thời gian thực
+* Hỗ trợ quản lý tin nhắn SignalR
+* Hỗ trợ quản lý nhóm tin nhắn
+* Hỗ trợ quản lý đăng ký tin nhắn
+* Hỗ trợ lịch sử tin nhắn
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -25,45 +25,45 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "RealtimeMessageDbMigrator": "你的数据库连接字符串"
+    "RealtimeMessageDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置RealtimeMessageDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Trong appsettings.json, cấu hình chuỗi kết nối RealtimeMessageDbMigrator
 
-2. 运行迁移程序
+2. Chạy chương trình di chuyển
    ```bash
    dotnet run
    ```
 
-## 命令行参数
+## Tham số dòng lệnh
 
 * --database-provider
-  * 指定数据库提供程序 (默认: MySQL)
+  * Chỉ định nhà cung cấp cơ sở dữ liệu (mặc định: MySQL)
 * --connection-string
-  * 指定数据库连接字符串
+  * Chỉ định chuỗi kết nối cơ sở dữ liệu
 * --skip-db-migrations
-  * 跳过数据库迁移
+  * Bỏ qua di chuyển cơ sở dữ liệu
 * --skip-seed-data
-  * 跳过种子数据初始化
+  * Bỏ qua khởi tạo dữ liệu seed
 
-## 种子数据
+## Dữ liệu seed
 
-* 默认消息组配置
-* 基础消息订阅配置
-* 系统消息模板
-* 默认权限配置
+* Cấu hình nhóm tin nhắn mặc định
+* Cấu hình đăng ký tin nhắn cơ bản
+* Mẫu tin nhắn hệ thống
+* Cấu hình quyền mặc định
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [SignalR文档](https://docs.microsoft.com/aspnet/core/signalr/introduction)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu SignalR](https://docs.microsoft.com/aspnet/core/signalr/introduction)

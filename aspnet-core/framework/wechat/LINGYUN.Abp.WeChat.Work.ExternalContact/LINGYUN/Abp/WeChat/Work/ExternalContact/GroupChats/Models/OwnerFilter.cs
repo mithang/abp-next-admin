@@ -6,12 +6,12 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Models;
 /// <summary>
-/// 群主过滤
+/// Lọc theo chủ nhóm
 /// </summary>
 public class OwnerFilter
 {
     /// <summary>
-    /// 用户ID列表。最多100个
+    /// Danh sách ID người dùng. Tối đa 100
     /// </summary>
     [NotNull]
     [JsonProperty("userid_list")]

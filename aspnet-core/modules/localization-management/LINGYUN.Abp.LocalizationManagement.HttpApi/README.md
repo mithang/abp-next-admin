@@ -1,16 +1,16 @@
 # LINGYUN.Abp.LocalizationManagement.HttpApi
 
-本地化管理HTTP API模块，提供RESTful风格的API接口。
+Mô-đun HTTP API quản lý bản địa hóa, cung cấp giao diện API theo phong cách RESTful.
 
-## 功能特性
+## Tính năng
 
-* 提供本地化管理的HTTP API接口
-* 支持语言、资源、文本的REST操作
-* 集成ABP动态API功能
-* 支持API版本控制
-* 支持Swagger文档生成
+* Cung cấp giao diện HTTP API quản lý bản địa hóa
+* Hỗ trợ thao tác REST trên ngôn ngữ, tài nguyên, văn bản
+* Tích hợp tính năng API động của ABP
+* Hỗ trợ kiểm soát phiên bản API
+* Hỗ trợ tạo tài liệu Swagger
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLocalizationManagementHttpApiModule))]
@@ -20,13 +20,13 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API控制器
+## Bộ điều khiển API
 
-* `LanguageController`: 语言管理API控制器
-* `ResourceController`: 资源管理API控制器
-* `TextController`: 文本管理API控制器
+* `LanguageController`: Bộ điều khiển API quản lý ngôn ngữ
+* `ResourceController`: Bộ điều khiển API quản lý tài nguyên
+* `TextController`: Bộ điều khiển API quản lý văn bản
 
-## 配置项
+## Mục cấu hình
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -45,12 +45,12 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-## API路由
+## Tuyến API
 
-* `/api/localization-management/languages` - 语言管理相关API
-* `/api/localization-management/resources` - 资源管理相关API
-* `/api/localization-management/texts` - 文本管理相关API
+* `/api/localization-management/languages` - API liên quan đến quản lý ngôn ngữ
+* `/api/localization-management/resources` - API liên quan đến quản lý tài nguyên
+* `/api/localization-management/texts` - API liên quan đến quản lý văn bản
 
-## 更多信息
+## Thông tin thêm
 
 * [English documentation](./README.EN.md)

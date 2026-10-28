@@ -6,18 +6,18 @@ namespace LINGYUN.Platform.Packages;
 public abstract class PackageCreateOrUpdateDto
 {
     /// <summary>
-    /// 版本说明
+    /// Ghi chú phiên bản
     /// </summary>
     [Required]
     [DynamicMaxLength(typeof(PackageConsts), nameof(PackageConsts.MaxNoteLength))]
     public string Note { get; set; } = default!;
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     [DynamicMaxLength(typeof(PackageConsts), nameof(PackageConsts.MaxDescriptionLength))] 
     public string? Description { get; set; }
     /// <summary>
-    /// 强制更新
+    /// Cập nhật bắt buộc
     /// </summary>
     public bool ForceUpdate { get; set; }
 

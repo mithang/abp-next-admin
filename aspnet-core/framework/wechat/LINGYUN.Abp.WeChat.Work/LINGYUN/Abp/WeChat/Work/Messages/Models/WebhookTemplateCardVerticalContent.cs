@@ -4,29 +4,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 卡片二级垂直内容
+/// Nội dung dọc cấp hai của thẻ
 /// </summary>
 public class WebhookTemplateCardVerticalContent
 {
     /// <summary>
-    /// 卡片二级标题，建议不超过26个字
+    /// Tiêu đề cấp hai của thẻ, nên không vượt quá 26 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string? Title { get; set; }
     /// <summary>
-    /// 二级普通文本，建议不超过112个字
+    /// Văn bản thường cấp hai, nên không vượt quá 112 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]
     [JsonPropertyName("desc")]
     public string? Description { get; set; }
     /// <summary>
-    /// 创建一个卡片二级垂直内容
+    /// Tạo một nội dung dọc cấp hai của thẻ
     /// </summary>
-    /// <param name="title">卡片二级标题</param>
-    /// <param name="description">二级普通文本</param>
+    /// <param name="title">Tiêu đề cấp hai của thẻ</param>
+    /// <param name="description">Văn bản thường cấp hai</param>
     public WebhookTemplateCardVerticalContent(string title, string? description = null)
     {
         Title = title;

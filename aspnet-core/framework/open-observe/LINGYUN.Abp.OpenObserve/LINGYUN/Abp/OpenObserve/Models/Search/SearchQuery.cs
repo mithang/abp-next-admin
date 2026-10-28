@@ -4,118 +4,118 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Search;
 
 /// <summary>
-/// 搜索查询条件
+/// Điều kiện truy vấn tìm kiếm
 /// </summary>
 public class SearchQuery
 {
     /// <summary>
-    /// SQL 查询语句
+    /// Câu lệnh truy vấn SQL
     /// </summary>
     /// <remarks>
-    /// 使用 SQL 过滤数据, 默认按 _timestamp 排序, 可用 order by 覆盖,
-    /// 使用 from/size 做分页
+    /// Dùng SQL để lọc dữ liệu, mặc định sắp xếp theo _timestamp, có thể ghi đè bằng order by,
+    /// Dùng from/size để phân trang
     /// </remarks>
     [JsonPropertyName("sql")]
     public string Sql { get; set; }
 
     /// <summary>
-    /// 开始时间(微秒)
+    /// Thời gian bắt đầu (micro giây)
     /// </summary>
     /// <remarks>
-    /// 必须提供, 否则会全量扫描
+    /// Bắt buộc phải cung cấp, nếu không sẽ quét toàn bộ
     /// </remarks>
     [JsonPropertyName("start_time")]
     public long StartTime { get; set; }
 
     /// <summary>
-    /// 结束时间(微秒)
+    /// Thời gian kết thúc (micro giây)
     /// </summary>
     [JsonPropertyName("end_time")]
     public long EndTime { get; set; }
 
     /// <summary>
-    /// 偏移量
+    /// Độ lệch
     /// </summary>
     [JsonPropertyName("from")]
     public long From { get; set; }
 
     /// <summary>
-    /// 返回条数
+    /// Số bản ghi trả về
     /// </summary>
     [JsonPropertyName("size")]
     public long Size { get; set; }
 
     /// <summary>
-    /// 快速模式
+    /// Chế độ nhanh
     /// </summary>
     /// <remarks>
-    /// 仅扫描 Interesting Fields, 需服务端开启 ZO_QUICK_MODE_ENABLED
+    /// Chỉ quét Interesting Fields, cần phía máy chủ bật ZO_QUICK_MODE_ENABLED
     /// </remarks>
     [JsonPropertyName("quick_mode")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool QuickMode { get; set; }
 
     /// <summary>
-    /// 查询类型标签
+    /// Nhãn loại truy vấn
     /// </summary>
     [JsonPropertyName("query_type")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? QueryType { get; set; }
 
     /// <summary>
-    /// 是否统计命中总数
+    /// Có thống kê tổng số kết quả trúng hay không
     /// </summary>
     [JsonPropertyName("track_total_hits")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool TrackTotalHits { get; set; }
 
     /// <summary>
-    /// 是否使用函数
+    /// Có sử dụng hàm hay không
     /// </summary>
     [JsonPropertyName("uses_zo_fn")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool UsesZoFn { get; set; }
 
     /// <summary>
-    /// 应用于结果的函数名称(VRL/JS)
+    /// Tên hàm áp dụng cho kết quả (VRL/JS)
     /// </summary>
     [JsonPropertyName("query_fn")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? QueryFn { get; set; }
 
     /// <summary>
-    /// 是否跳过 WAL
+    /// Có bỏ qua WAL hay không
     /// </summary>
     [JsonPropertyName("skip_wal")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool SkipWal { get; set; }
 
     /// <summary>
-    /// 是否流式输出
+    /// Có xuất dạng luồng hay không
     /// </summary>
     [JsonPropertyName("streaming_output")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool StreamingOutput { get; set; }
 
     /// <summary>
-    /// 流式标识
+    /// Định danh luồng
     /// </summary>
     [JsonPropertyName("streaming_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? StreamingId { get; set; }
 
     /// <summary>
-    /// 直方图间隔(秒)
+    /// Khoảng biểu đồ tần suất (giây)
     /// </summary>
     [JsonPropertyName("histogram_interval")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public long HistogramInterval { get; set; }
 
     /// <summary>
-    /// 时区
+    /// Múi giờ
     /// </summary>
     /// <remarks>
-    /// 固定偏移, 如 +08:00, 应用于未指定第三个参数的 histogram() 分桶
+    /// Độ lệch cố định, ví dụ +08:00, áp dụng cho việc chia bucket của histogram() khi không chỉ định tham số thứ ba
     /// </remarks>
     [JsonPropertyName("timezone")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -136,7 +136,7 @@ public class SearchQuery
     }
 
     /// <summary>
-    /// 设置时间范围
+    /// Đặt khoảng thời gian
     /// </summary>
     public virtual SearchQuery WithTimeRange(DateTime startTime, DateTime endTime)
     {
@@ -147,7 +147,7 @@ public class SearchQuery
     }
 
     /// <summary>
-    /// 设置分页
+    /// Đặt phân trang
     /// </summary>
     public virtual SearchQuery WithPaging(long from, long size)
     {

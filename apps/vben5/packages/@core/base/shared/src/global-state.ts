@@ -1,6 +1,6 @@
 /**
- * 全局复用的变量、组件、配置，各个模块之间共享
- * 通过单例模式实现,单例必须注意不受请求影响，例如用户信息这些需要根据请求获取的。后续如果有ssr需求，也不会影响
+ * Các biến, component, cấu hình dùng chung toàn cục, được chia sẻ giữa các module
+ * Triển khai bằng mẫu singleton; singleton phải chú ý không bị ảnh hưởng bởi request, ví dụ thông tin người dùng cần lấy theo request. Về sau nếu có nhu cầu SSR cũng sẽ không bị ảnh hưởng
  */
 
 interface ComponentsState {
@@ -21,7 +21,7 @@ class GlobalShareState {
   #message: MessageState = {};
 
   /**
-   * 定义框架内部各个场景的消息提示
+   * Định nghĩa thông báo cho từng tình huống bên trong framework
    */
   public defineMessage({ copyPreferencesSuccess }: MessageState) {
     this.#message = {

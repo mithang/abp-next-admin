@@ -5,9 +5,9 @@ import type { EmailMessageDto, EmailMessageGetListInput } from "#/platform/messa
 import requestClient from "../request";
 
 /**
- * 获取邮件消息分页列表
- * @param {EmailMessageGetListInput} input 参数
- * @returns {Promise<PagedResultDto<EmailMessageDto>>} 邮件消息列表
+ * Lấy danh sách phân trang tin nhắn email
+ * @param {EmailMessageGetListInput} input Tham số
+ * @returns {Promise<PagedResultDto<EmailMessageDto>>} Danh sách tin nhắn email
  */
 export function getPagedListApi(input?: EmailMessageGetListInput): Promise<PagedResultDto<EmailMessageDto>> {
 	return requestClient.get<PagedResultDto<EmailMessageDto>>("/api/platform/messages/email", {
@@ -16,16 +16,16 @@ export function getPagedListApi(input?: EmailMessageGetListInput): Promise<Paged
 }
 
 /**
- * 获取邮件消息
+ * Lấy tin nhắn email
  * @param id Id
- * @returns {EmailMessageDto} 邮件消息
+ * @returns {EmailMessageDto} Tin nhắn email
  */
 export function getApi(id: string): Promise<EmailMessageDto> {
 	return requestClient.get<EmailMessageDto>(`/api/platform/messages/email/${id}`);
 }
 
 /**
- * 删除邮件消息
+ * Xóa tin nhắn email
  * @param id Id
  * @returns {void}
  */
@@ -34,7 +34,7 @@ export function deleteApi(id: string): Promise<void> {
 }
 
 /**
- * 发送邮件消息
+ * Gửi tin nhắn email
  * @param id Id
  * @returns {void}
  */

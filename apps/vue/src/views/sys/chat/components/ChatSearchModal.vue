@@ -1,7 +1,7 @@
 <template>
-  <BasicModal v-bind="$attrs" title="搜索" :width="660" :min-height="400">
+  <BasicModal v-bind="$attrs" title="Tìm kiếm" :width="660" :min-height="400">
     <Tabs>
-      <TabPane key="user" tab="找好友">
+      <TabPane key="user" tab="Tìm bạn bè">
         <List
           :grid="{ gutter: 10, column: 3 }"
           size="large"
@@ -23,7 +23,7 @@
                 </template>
                 <template #description>
                   <Button size="small" type="primary" @click="handleAddNewFriend(item)"
-                    >加好友</Button
+                    >Thêm bạn bè</Button
                   >
                 </template>
               </ListItemMeta>
@@ -31,7 +31,7 @@
           </template>
         </List>
       </TabPane>
-      <TabPane key="group" tab="找群">
+      <TabPane key="group" tab="Tìm nhóm">
         <List
           :grid="{ gutter: 10, column: 3 }"
           size="large"
@@ -52,7 +52,7 @@
                   <Avatar v-else size="large" :src="userAvatar" />
                 </template>
                 <template #description>
-                  <Button size="small" type="primary" @click="handleJoinGroup(item)">加入群</Button>
+                  <Button size="small" type="primary" @click="handleJoinGroup(item)">Tham gia nhóm</Button>
                 </template>
               </ListItemMeta>
             </ListItem>

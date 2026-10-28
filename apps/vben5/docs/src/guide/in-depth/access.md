@@ -2,25 +2,25 @@
 outline: deep
 ---
 
-# 权限
+# Quyền hạn
 
-框架内置了三种权限控制方式：
+Framework tích hợp sẵn ba cách kiểm soát quyền hạn:
 
-- 通过用户角色来判断菜单或者按钮是否可以访问
-- 通过接口来判断菜单或者按钮是否可以访问
-- 混合模式：同时使用前端和后端权限控制
+- Dựa vào vai trò người dùng để xác định menu hoặc nút có thể truy cập hay không
+- Dựa vào API để xác định menu hoặc nút có thể truy cập hay không
+- Chế độ hỗn hợp: đồng thời sử dụng kiểm soát quyền hạn frontend và backend
 
-## 前端访问控制
+## Kiểm soát truy cập frontend
 
-**实现原理**: 在前端固定写死路由的权限，指定路由有哪些权限可以查看。只初始化通用的路由，需要权限才能访问的路由没有被加入路由表内。在登录后或者其他方式获取用户角色后，通过角色去遍历路由表，获取该角色可以访问的路由表，生成路由表，再通过 `router.addRoute` 添加到路由实例，实现权限的过滤。
+**Nguyên lý triển khai**: Cố định sẵn quyền hạn của route ở frontend, chỉ định route nào có những quyền hạn nào mới được xem. Chỉ khởi tạo các route chung, các route cần quyền hạn mới truy cập được chưa được đưa vào bảng route. Sau khi đăng nhập hoặc lấy vai trò người dùng bằng cách khác, duyệt bảng route theo vai trò để lấy bảng route mà vai trò đó có thể truy cập, tạo bảng route, rồi thêm vào instance route qua `router.addRoute`, thực hiện lọc quyền hạn.
 
-**缺点**: 权限相对不自由，如果后台改动角色，前台也需要跟着改动。适合角色较固定的系统
+**Nhược điểm**: Quyền hạn tương đối kém linh hoạt, nếu backend thay đổi vai trò thì frontend cũng cần thay đổi theo. Phù hợp với hệ thống có vai trò tương đối cố định
 
-### 步骤
+### Các bước
 
-- 确保当前模式为前端访问控制模式
+- Đảm bảo chế độ hiện tại là chế độ kiểm soát truy cập frontend
 
-调整对应应用目录下的`preferences.ts`，确保`accessMode='frontend'`。
+Điều chỉnh `preferences.ts` trong thư mục ứng dụng tương ứng, đảm bảo `accessMode='frontend'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -28,15 +28,15 @@ import { defineOverridesPreferences } from '@vben/preferences';
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   app: {
-    // 默认值，可不填
+    // Giá trị mặc định, có thể không điền
     accessMode: 'frontend',
   },
 });
 ```
 
-- 配置路由权限
+- Cấu hình quyền hạn route
 
-**如果不配置，默认可见**
+**Nếu không cấu hình, mặc định hiển thị**
 
 ```ts {3}
  {
@@ -46,21 +46,21 @@ export const overridesPreferences = defineOverridesPreferences({
 },
 ```
 
-- 确保接口返回的角色和路由表的权限匹配
+- Đảm bảo vai trò do API trả về khớp với quyền hạn của bảng route
 
-可查看应用下的 `src/store/auth`,找到下面代码，
+Có thể xem `src/store/auth` trong ứng dụng, tìm đoạn mã dưới đây,
 
 ```ts
-// 设置登录用户信息，需要确保 userInfo.roles 是一个数组，且包含路由表中的权限
-// 例如：userInfo.roles=['super', 'admin']
+// Thiết lập thông tin người dùng đăng nhập, cần đảm bảo userInfo.roles là một mảng và chứa quyền hạn trong bảng route
+// Ví dụ: userInfo.roles=['super', 'admin']
 authStore.setUserInfo(userInfo);
 ```
 
-到这里，就已经配置完成，你需要确保登录后，接口返回的角色和路由表的权限匹配，否则无法访问。
+Đến đây là đã cấu hình xong, bạn cần đảm bảo sau khi đăng nhập, vai trò do API trả về khớp với quyền hạn của bảng route, nếu không sẽ không thể truy cập.
 
-### 菜单可见，但禁止访问
+### Menu hiển thị nhưng cấm truy cập
 
-有时候，我们需要菜单可见，但是禁止访问，可以通过下面的方式实现，设置 `menuVisibleWithForbidden` 为 `true`，此时菜单可见，但是禁止访问，会跳转403页面。
+Đôi khi, chúng ta cần menu hiển thị nhưng cấm truy cập, có thể thực hiện bằng cách dưới đây, đặt `menuVisibleWithForbidden` thành `true`, lúc này menu hiển thị nhưng cấm truy cập, sẽ chuyển đến trang 403.
 
 ```ts
 {
@@ -70,17 +70,17 @@ authStore.setUserInfo(userInfo);
 },
 ```
 
-## 后端访问控制
+## Kiểm soát truy cập backend
 
-**实现原理**: 是通过接口动态生成路由表，且遵循一定的数据结构返回。前端根据需要处理该数据为可识别的结构，再通过 `router.addRoute` 添加到路由实例，实现权限的动态生成。
+**Nguyên lý triển khai**: Tạo bảng route động qua API và trả về theo một cấu trúc dữ liệu nhất định. Frontend xử lý dữ liệu này thành cấu trúc có thể nhận biết theo nhu cầu, rồi thêm vào instance route qua `router.addRoute`, thực hiện tạo quyền hạn động.
 
-**缺点**: 后端需要提供符合规范的数据结构，前端需要处理数据结构，适合权限较为复杂的系统。
+**Nhược điểm**: Backend cần cung cấp cấu trúc dữ liệu đúng chuẩn, frontend cần xử lý cấu trúc dữ liệu, phù hợp với hệ thống có quyền hạn tương đối phức tạp.
 
-### 步骤
+### Các bước
 
-- 确保当前模式为后端访问控制模式
+- Đảm bảo chế độ hiện tại là chế độ kiểm soát truy cập backend
 
-调整对应应用目录下的`preferences.ts`，确保`accessMode='backend'`。
+Điều chỉnh `preferences.ts` trong thư mục ứng dụng tương ứng, đảm bảo `accessMode='backend'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -93,24 +93,24 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-- 确保接口返回的菜单数据结构正确
+- Đảm bảo cấu trúc dữ liệu menu do API trả về là chính xác
 
-可查看应用下的 `src/router/access.ts`,找到下面代码，
+Có thể xem `src/router/access.ts` trong ứng dụng, tìm đoạn mã dưới đây,
 
 ```ts {5}
 async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     fetchMenuListAsync: async () => {
-      // 这个接口为后端返回的菜单数据
+      // API này là dữ liệu menu do backend trả về
       return await getAllMenus();
     },
   });
 }
 ```
 
-- 接口返回菜单数据，可看注释说明
+- Dữ liệu menu do API trả về, có thể xem phần giải thích trong chú thích
 
-::: details 接口返回菜单数据示例
+::: details Ví dụ dữ liệu menu do API trả về
 
 ```ts
 const dashboardMenus = [
@@ -126,7 +126,7 @@ const dashboardMenus = [
       {
         name: 'Analytics',
         path: '/analytics',
-        // 这里为页面的路径，需要去掉 views/ 和 .vue
+        // Đây là đường dẫn của trang, cần bỏ views/ và .vue
         component: '/dashboard/analytics/index',
         meta: {
           affixTab: true,
@@ -149,7 +149,7 @@ const dashboardMenus = [
     component: '/test/index',
     meta: {
       title: 'page.test',
-      // 部分特殊页面如果不需要基础布局（页面顶部和侧边栏），可将noBasicLayout设置为true
+      // Một số trang đặc biệt nếu không cần layout cơ sở (phần đầu trang và thanh bên), có thể đặt noBasicLayout thành true
       noBasicLayout: true,
     },
   },
@@ -158,19 +158,19 @@ const dashboardMenus = [
 
 :::
 
-到这里，就已经配置完成，你需要确保登录后，接口返回的菜单格式正确，否则无法访问。
+Đến đây là đã cấu hình xong, bạn cần đảm bảo sau khi đăng nhập, định dạng menu do API trả về là chính xác, nếu không sẽ không thể truy cập.
 
-## 混合访问控制
+## Kiểm soát truy cập hỗn hợp
 
-**实现原理**: 混合模式同时结合了前端访问控制和后端访问控制两种方式。系统会并行处理前端固定路由权限和后端动态菜单数据，最终将两部分路由合并，提供更灵活的权限控制方案。
+**Nguyên lý triển khai**: Chế độ hỗn hợp đồng thời kết hợp hai cách kiểm soát truy cập frontend và kiểm soát truy cập backend. Hệ thống xử lý song song quyền hạn route cố định ở frontend và dữ liệu menu động ở backend, cuối cùng hợp nhất hai phần route, mang lại phương án kiểm soát quyền hạn linh hoạt hơn.
 
-**优点**: 兼具前端控制的性能优势和后端控制的灵活性，适合复杂业务场景下的权限管理。
+**Ưu điểm**: Vừa có lợi thế hiệu năng của kiểm soát frontend vừa có tính linh hoạt của kiểm soát backend, phù hợp với quản lý quyền hạn trong các nghiệp vụ phức tạp.
 
-### 步骤
+### Các bước
 
-- 确保当前模式为混合访问控制模式
+- Đảm bảo chế độ hiện tại là chế độ kiểm soát truy cập hỗn hợp
 
-调整对应应用目录下的`preferences.ts`，确保`accessMode='mixed'`。
+Điều chỉnh `preferences.ts` trong thư mục ứng dụng tương ứng, đảm bảo `accessMode='mixed'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -183,27 +183,27 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-- 配置前端路由权限
+- Cấu hình quyền hạn route frontend
 
-同[前端访问控制](#前端访问控制)模式的路由权限配置方式。
+Giống cách cấu hình quyền hạn route của chế độ [Kiểm soát truy cập frontend](#kiem-soat-truy-cap-frontend).
 
-- 配置后端菜单接口
+- Cấu hình API menu backend
 
-同[后端访问控制](#后端访问控制)模式的接口配置方式。
+Giống cách cấu hình API của chế độ [Kiểm soát truy cập backend](#kiem-soat-truy-cap-backend).
 
-- 确保角色和权限匹配
+- Đảm bảo vai trò và quyền hạn khớp nhau
 
-需要同时满足前端路由权限配置和后端菜单数据返回的要求，确保用户角色与两种模式的权限配置都匹配。
+Cần đồng thời đáp ứng yêu cầu cấu hình quyền hạn route frontend và dữ liệu menu do backend trả về, đảm bảo vai trò người dùng khớp với cấu hình quyền hạn của cả hai chế độ.
 
-到这里，就已经配置完成，混合模式会自动合并前端和后端的路由，提供完整的权限控制功能。
+Đến đây là đã cấu hình xong, chế độ hỗn hợp sẽ tự động hợp nhất route frontend và backend, cung cấp đầy đủ chức năng kiểm soát quyền hạn.
 
-## 按钮细粒度控制
+## Kiểm soát nút ở mức chi tiết
 
-在某些情况下，我们需要对按钮进行细粒度的控制，我们可以借助接口或者角色来控制按钮的显示。
+Trong một số trường hợp, chúng ta cần kiểm soát nút ở mức chi tiết, có thể dựa vào API hoặc vai trò để kiểm soát việc hiển thị nút.
 
-### 权限码
+### Mã quyền hạn
 
-权限码为接口返回的权限码，通过权限码来判断按钮是否显示，逻辑在`src/store/auth`下：
+Mã quyền hạn là mã quyền hạn do API trả về, dựa vào mã quyền hạn để xác định nút có hiển thị hay không, logic nằm trong `src/store/auth`:
 
 ```ts
 const [fetchUserInfoResult, accessCodes] = await Promise.all([
@@ -216,13 +216,13 @@ authStore.setUserInfo(userInfo);
 accessStore.setAccessCodes(accessCodes);
 ```
 
-找到 `getAccessCodes` 对应的接口，可根据业务逻辑进行调整。
+Tìm API tương ứng với `getAccessCodes`, có thể điều chỉnh theo logic nghiệp vụ.
 
-权限码返回的数据结构为字符串数组，例如：`['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010']`
+Cấu trúc dữ liệu mã quyền hạn trả về là mảng chuỗi, ví dụ: `['AC_100100', 'AC_100110', 'AC_100120', 'AC_100010']`
 
-有了权限码，就可以使用 `@vben/access` 提供的`AccessControl`组件及API来进行按钮的显示与隐藏。
+Khi đã có mã quyền hạn, có thể dùng component `AccessControl` và API do `@vben/access` cung cấp để hiển thị và ẩn nút.
 
-#### 组件方式
+#### Cách dùng component
 
 ```vue
 <script lang="ts" setup>
@@ -232,23 +232,23 @@ const { accessMode, hasAccessByCodes } = useAccess();
 </script>
 
 <template>
-  <!-- 需要指明 type="code" -->
+  <!-- Cần chỉ rõ type="code" -->
   <AccessControl :codes="['AC_100100']" type="code">
-    <Button> Super 账号可见 ["AC_1000001"] </Button>
+    <Button> Tài khoản Super hiển thị ["AC_1000001"] </Button>
   </AccessControl>
   <AccessControl :codes="['AC_100030']" type="code">
-    <Button> Admin 账号可见 ["AC_100010"] </Button>
+    <Button> Tài khoản Admin hiển thị ["AC_100010"] </Button>
   </AccessControl>
   <AccessControl :codes="['AC_1000001']" type="code">
-    <Button> User 账号可见 ["AC_1000001"] </Button>
+    <Button> Tài khoản User hiển thị ["AC_1000001"] </Button>
   </AccessControl>
   <AccessControl :codes="['AC_100100', 'AC_100010']" type="code">
-    <Button> Super & Admin 账号可见 ["AC_100100","AC_1000001"] </Button>
+    <Button> Tài khoản Super & Admin hiển thị ["AC_100100","AC_1000001"] </Button>
   </AccessControl>
 </template>
 ```
 
-#### API方式
+#### Cách dùng API
 
 ```vue
 <script lang="ts" setup>
@@ -259,46 +259,46 @@ const { hasAccessByCodes } = useAccess();
 
 <template>
   <Button v-if="hasAccessByCodes(['AC_100100'])">
-    Super 账号可见 ["AC_1000001"]
+    Tài khoản Super hiển thị ["AC_1000001"]
   </Button>
   <Button v-if="hasAccessByCodes(['AC_100030'])">
-    Admin 账号可见 ["AC_100010"]
+    Tài khoản Admin hiển thị ["AC_100010"]
   </Button>
   <Button v-if="hasAccessByCodes(['AC_1000001'])">
-    User 账号可见 ["AC_1000001"]
+    Tài khoản User hiển thị ["AC_1000001"]
   </Button>
   <Button v-if="hasAccessByCodes(['AC_100100', 'AC_1000001'])">
-    Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+    Tài khoản Super & Admin hiển thị ["AC_100100","AC_1000001"]
   </Button>
 </template>
 ```
 
-#### 指令方式
+#### Cách dùng directive
 
-> 指令支持绑定单个或多个权限码。单个时可以直接传入字符串或数组中包含一个权限码，多个权限码则传入数组。
+> Directive hỗ trợ bind một hoặc nhiều mã quyền hạn. Khi chỉ có một mã, có thể truyền trực tiếp chuỗi hoặc mảng chứa một mã quyền hạn, khi có nhiều mã quyền hạn thì truyền mảng.
 
 ```vue
 <template>
   <Button class="mr-4" v-access:code="'AC_100100'">
-    Super 账号可见 'AC_100100'
+    Tài khoản Super hiển thị 'AC_100100'
   </Button>
   <Button class="mr-4" v-access:code="['AC_100030']">
-    Admin 账号可见 ["AC_100010"]
+    Tài khoản Admin hiển thị ["AC_100010"]
   </Button>
   <Button class="mr-4" v-access:code="['AC_1000001']">
-    User 账号可见 ["AC_1000001"]
+    Tài khoản User hiển thị ["AC_1000001"]
   </Button>
   <Button class="mr-4" v-access:code="['AC_100100', 'AC_1000001']">
-    Super & Admin 账号可见 ["AC_100100","AC_1000001"]
+    Tài khoản Super & Admin hiển thị ["AC_100100","AC_1000001"]
   </Button>
 </template>
 ```
 
-### 角色
+### Vai trò
 
-角色判断方式不需要接口返回的权限码，直接通过角色来判断按钮是否显示。
+Cách xác định theo vai trò không cần mã quyền hạn do API trả về, trực tiếp dựa vào vai trò để xác định nút có hiển thị hay không.
 
-#### 组件方式
+#### Cách dùng component
 
 ```vue
 <script lang="ts" setup>
@@ -307,21 +307,21 @@ import { AccessControl } from '@vben/access';
 
 <template>
   <AccessControl :codes="['super']">
-    <Button> Super 角色可见 </Button>
+    <Button> Vai trò Super hiển thị </Button>
   </AccessControl>
   <AccessControl :codes="['admin']">
-    <Button> Admin 角色可见 </Button>
+    <Button> Vai trò Admin hiển thị </Button>
   </AccessControl>
   <AccessControl :codes="['user']">
-    <Button> User 角色可见 </Button>
+    <Button> Vai trò User hiển thị </Button>
   </AccessControl>
   <AccessControl :codes="['super', 'admin']">
-    <Button> Super & Admin 角色可见 </Button>
+    <Button> Vai trò Super & Admin hiển thị </Button>
   </AccessControl>
 </template>
 ```
 
-#### API方式
+#### Cách dùng API
 
 ```vue
 <script lang="ts" setup>
@@ -331,27 +331,27 @@ const { hasAccessByRoles } = useAccess();
 </script>
 
 <template>
-  <Button v-if="hasAccessByRoles(['super'])"> Super 账号可见 </Button>
-  <Button v-if="hasAccessByRoles(['admin'])"> Admin 账号可见 </Button>
-  <Button v-if="hasAccessByRoles(['user'])"> User 账号可见 </Button>
+  <Button v-if="hasAccessByRoles(['super'])"> Tài khoản Super hiển thị </Button>
+  <Button v-if="hasAccessByRoles(['admin'])"> Tài khoản Admin hiển thị </Button>
+  <Button v-if="hasAccessByRoles(['user'])"> Tài khoản User hiển thị </Button>
   <Button v-if="hasAccessByRoles(['super', 'admin'])">
-    Super & Admin 账号可见
+    Tài khoản Super & Admin hiển thị
   </Button>
 </template>
 ```
 
-#### 指令方式
+#### Cách dùng directive
 
-> 指令支持绑定单个或多个角色。单个时可以直接传入字符串或数组中包含一个角色，多个角色均可访问则传入数组。
+> Directive hỗ trợ bind một hoặc nhiều vai trò. Khi chỉ có một vai trò, có thể truyền trực tiếp chuỗi hoặc mảng chứa một vai trò, khi nhiều vai trò đều có thể truy cập thì truyền mảng.
 
 ```vue
 <template>
-  <Button class="mr-4" v-access:role="'super'"> Super 角色可见 </Button>
-  <Button class="mr-4" v-access:role="['super']"> Super 角色可见 </Button>
-  <Button class="mr-4" v-access:role="['admin']"> Admin 角色可见 </Button>
-  <Button class="mr-4" v-access:role="['user']"> User 角色可见 </Button>
+  <Button class="mr-4" v-access:role="'super'"> Vai trò Super hiển thị </Button>
+  <Button class="mr-4" v-access:role="['super']"> Vai trò Super hiển thị </Button>
+  <Button class="mr-4" v-access:role="['admin']"> Vai trò Admin hiển thị </Button>
+  <Button class="mr-4" v-access:role="['user']"> Vai trò User hiển thị </Button>
   <Button class="mr-4" v-access:role="['super', 'admin']">
-    Super & Admin 角色可见
+    Vai trò Super & Admin hiển thị
   </Button>
 </template>
 ```

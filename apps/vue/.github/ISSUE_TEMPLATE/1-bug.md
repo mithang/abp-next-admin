@@ -7,9 +7,9 @@ assignees: ''
 ---
 
 <!--
-抱歉，您遇到了一个错误。感谢您抽出宝贵的时间进行举报！
+Xin lỗi, bạn đã gặp phải một lỗi. Cảm ơn bạn đã dành thời gian quý báu để báo cáo!
 
-请尽可能填写以下模板。
+Vui lòng điền mẫu dưới đây càng đầy đủ càng tốt.
 
 Ouch, sorry you’ve run into a bug.  Thank for taking the time to report it!
 

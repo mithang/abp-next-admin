@@ -149,18 +149,18 @@ export const useMultipleTabStore = defineStore({
         this.tabList.splice(updateIndex, 1, curTab);
       } else {
         // Add tab
-        // 获取动态路由打开数，超过 0 即代表需要控制打开数
+        // Lấy số route động đang mở, vượt quá 0 tức là cần kiểm soát số lượng mở
         const dynamicLevel = meta?.dynamicLevel ?? -1;
         if (dynamicLevel > 0) {
-          // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
-          // 首先获取到真实的路由，使用配置方式减少计算开销.
+          // Nếu cấp của route động lớn hơn 0 thì phải giới hạn số lượng mở của route đó
+          // Trước tiên lấy route thực, dùng cách cấu hình để giảm chi phí tính toán.
           // const realName: string = path.match(/(\S*)\//)![1];
           const realPath = meta?.realPath ?? '';
-          // 获取到已经打开的动态路由数, 判断是否大于某一个值
+          // Lấy số route động đã mở, xác định xem có lớn hơn một giá trị nào đó không
           if (
             this.tabList.filter((e) => e.meta?.realPath ?? '' === realPath).length >= dynamicLevel
           ) {
-            // 关闭第一个
+            // Đóng cái đầu tiên
             const index = this.tabList.findIndex((item) => item.meta.realPath === realPath);
             index !== -1 && this.tabList.splice(index, 1);
           }
@@ -222,11 +222,11 @@ export const useMultipleTabStore = defineStore({
       if (index !== -1) {
         await this.closeTab(this.tabList[index], router);
         const { currentRoute, replace } = router;
-        // 检查当前路由是否存在于tabList中
+        // Kiểm tra route hiện tại có tồn tại trong tabList không
         const isActivated = this.tabList.findIndex((item) => {
           return item.fullPath === currentRoute.value.fullPath;
         });
-        // 如果当前路由不存在于TabList中，尝试切换到其它路由
+        // Nếu route hiện tại không tồn tại trong TabList, thử chuyển sang route khác
         if (isActivated === -1) {
           let pageIndex;
           if (index > 0) {

@@ -1,19 +1,19 @@
-# LINGYUN.Abp.WeChat.Work.Handlers
+﻿# LINGYUN.Abp.WeChat.Work.Handlers
 
-企业微信消息处理模块，提供企业微信消息和事件处理的基础实现。
+Mô-đun xử lý thông điệp của WeChat Work, cung cấp triển khai cơ bản cho việc xử lý thông điệp và sự kiện của WeChat Work.
 
-## 功能特性
+## Tính năng
 
-* 文本消息处理
-* 图片消息处理
-* 语音消息处理
-* 视频消息处理
-* 位置消息处理
-* 链接消息处理
-* 事件消息处理
-* 自定义消息处理器扩展
+* Xử lý thông điệp văn bản
+* Xử lý thông điệp hình ảnh
+* Xử lý thông điệp thoại
+* Xử lý thông điệp video
+* Xử lý thông điệp vị trí
+* Xử lý thông điệp liên kết
+* Xử lý thông điệp sự kiện
+* Mở rộng trình xử lý thông điệp tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatWorkHandlersModule))]
@@ -23,45 +23,45 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "Work": {
       "Handlers": {
-        "DefaultResponseType": "text",  // 默认响应类型：text/image/voice/video/news
-        "DefaultResponse": "",          // 默认响应内容
-        "EnableDefaultResponse": true   // 是否启用默认响应
+        "DefaultResponseType": "text",  // Loại phản hồi mặc định: text/image/voice/video/news
+        "DefaultResponse": "",          // Nội dung phản hồi mặc định
+        "EnableDefaultResponse": true   // Có bật phản hồi mặc định hay không
       }
     }
   }
 }
 ```
 
-## 自定义处理器
+## Trình xử lý tùy chỉnh
 
-要实现自定义消息处理器，需要继承相应的基类：
+Để triển khai trình xử lý thông điệp tùy chỉnh, cần kế thừa lớp cơ sở tương ứng:
 
-* 文本消息：`WeChatWorkTextMessageHandlerBase`
-* 图片消息：`WeChatWorkImageMessageHandlerBase`
-* 语音消息：`WeChatWorkVoiceMessageHandlerBase`
-* 视频消息：`WeChatWorkVideoMessageHandlerBase`
-* 位置消息：`WeChatWorkLocationMessageHandlerBase`
-* 链接消息：`WeChatWorkLinkMessageHandlerBase`
-* 事件消息：`WeChatWorkEventMessageHandlerBase`
+* Thông điệp văn bản: `WeChatWorkTextMessageHandlerBase`
+* Thông điệp hình ảnh: `WeChatWorkImageMessageHandlerBase`
+* Thông điệp thoại: `WeChatWorkVoiceMessageHandlerBase`
+* Thông điệp video: `WeChatWorkVideoMessageHandlerBase`
+* Thông điệp vị trí: `WeChatWorkLocationMessageHandlerBase`
+* Thông điệp liên kết: `WeChatWorkLinkMessageHandlerBase`
+* Thông điệp sự kiện: `WeChatWorkEventMessageHandlerBase`
 
-## 事件处理器
+## Trình xử lý sự kiện
 
-内置以下事件处理器：
+Các trình xử lý sự kiện tích hợp sẵn:
 
-* 应用菜单事件处理器
-* 进入应用事件处理器
-* 上报地理位置事件处理器
-* 异步任务完成事件处理器
-* 外部联系人事件处理器
-* 通讯录变更事件处理器
+* Trình xử lý sự kiện menu ứng dụng
+* Trình xử lý sự kiện vào ứng dụng
+* Trình xử lý sự kiện báo cáo vị trí địa lý
+* Trình xử lý sự kiện hoàn thành tác vụ bất đồng bộ
+* Trình xử lý sự kiện liên hệ bên ngoài
+* Trình xử lý sự kiện thay đổi danh bạ
 
-## 更多文档
+## Tài liệu thêm
 
-* [企业微信消息处理模块文档](README.EN.md)
+* [Tài liệu mô-đun xử lý thông điệp của WeChat Work](README.EN.md)

@@ -2,7 +2,7 @@
 
 Webhook management domain module that provides webhook storage and management functionality.
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)
 
 ## Features
 

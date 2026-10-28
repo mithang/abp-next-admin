@@ -27,7 +27,7 @@ public class NotificationTemplateResolver : INotificationTemplateResolver, ITran
 
             foreach (var resolveContributor in _options.TemplateResolvers)
             {
-                // TODO: 设定为每一个通知都配置自己的解析提供者?
+                // TODO: Đặt thành mỗi thông báo đều cấu hình provider phân giải riêng của mình?
                 /**
                    if (resolveContributor.Name.Equals(template.Name))
                    {

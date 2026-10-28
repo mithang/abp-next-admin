@@ -21,9 +21,9 @@ export function useOrganizationUnitsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 新增组织机构
-   * @param input 参数
-   * @returns 组织机构实体数据传输对象
+   * Thêm mới tổ chức
+   * @param input Tham số
+   * @returns Đối tượng truyền dữ liệu thực thể tổ chức
    */
   function createApi(
     input: OrganizationUnitCreateDto,
@@ -35,8 +35,8 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 删除组织机构
-   * @param id 组织机构id
+   * Xóa tổ chức
+   * @param id Id tổ chức
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/identity/organization-units/${id}`, {
@@ -45,9 +45,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询组织机构
-   * @param id 组织机构id
-   * @returns 组织机构实体数据传输对象
+   * Truy vấn tổ chức
+   * @param id Id tổ chức
+   * @returns Đối tượng truyền dữ liệu thực thể tổ chức
    */
   function getApi(id: string): Promise<OrganizationUnitDto> {
     return request<OrganizationUnitDto>(
@@ -59,9 +59,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 更新组织机构
-   * @param id 组织机构id
-   * @returns 组织机构实体数据传输对象
+   * Cập nhật tổ chức
+   * @param id Id tổ chức
+   * @returns Đối tượng truyền dữ liệu thực thể tổ chức
    */
   function updateApi(
     id: string,
@@ -77,9 +77,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询组织机构分页列表
-   * @param input 过滤参数
-   * @returns 组织机构实体数据传输对象分页列表
+   * Truy vấn danh sách phân trang tổ chức
+   * @param input Tham số lọc
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể tổ chức
    */
   function getPagedListApi(
     input?: GetOrganizationUnitPagedListInput,
@@ -94,8 +94,8 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询根组织机构列表
-   * @returns 组织机构实体数据传输对象列表
+   * Truy vấn danh sách tổ chức gốc
+   * @returns Danh sách đối tượng truyền dữ liệu thực thể tổ chức
    */
   function getRootListApi(): Promise<ListResultDto<OrganizationUnitDto>> {
     return request<ListResultDto<OrganizationUnitDto>>(
@@ -107,8 +107,8 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询组织机构列表
-   * @returns 组织机构实体数据传输对象列表
+   * Truy vấn danh sách tổ chức
+   * @returns Danh sách đối tượng truyền dữ liệu thực thể tổ chức
    */
   function getAllListApi(): Promise<ListResultDto<OrganizationUnitDto>> {
     return request<ListResultDto<OrganizationUnitDto>>(
@@ -120,9 +120,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询下级组织机构列表
-   * @param input 查询参数
-   * @returns 组织机构实体数据传输对象列表
+   * Truy vấn danh sách tổ chức cấp dưới
+   * @param input Tham số truy vấn
+   * @returns Danh sách đối tượng truyền dữ liệu thực thể tổ chức
    */
   function getChildrenApi(
     input: OrganizationUnitGetChildrenDto,
@@ -137,10 +137,10 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询组织机构用户列表
-   * @param id 组织机构id
-   * @param input 查询过滤参数
-   * @returns 用户实体数据传输对象分页列表
+   * Truy vấn danh sách người dùng của tổ chức
+   * @param id Id tổ chức
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể người dùng
    */
   function getUserListApi(
     id: string,
@@ -156,9 +156,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询未加入组织机构的用户列表
-   * @param input 查询过滤参数
-   * @returns 用户实体数据传输对象分页列表
+   * Truy vấn danh sách người dùng chưa tham gia tổ chức
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể người dùng
    */
   function getUnaddedUserListApi(
     input: GetUnaddedUserListInput,
@@ -173,9 +173,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 用户添加到组织机构
-   * @param id 组织机构id
-   * @param input 用户id列表
+   * Thêm người dùng vào tổ chức
+   * @param id Id tổ chức
+   * @param input Danh sách id người dùng
    */
   function addMembers(
     id: string,
@@ -188,10 +188,10 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询组织机构角色列表
-   * @param id 组织机构id
-   * @param input 查询过滤参数
-   * @returns 角色实体数据传输对象分页列表
+   * Truy vấn danh sách vai trò của tổ chức
+   * @param id Id tổ chức
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể vai trò
    */
   function getRoleListApi(
     id: string,
@@ -207,9 +207,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 查询未加入组织机构的角色列表
-   * @param input 查询过滤参数
-   * @returns 角色实体数据传输对象分页列表
+   * Truy vấn danh sách vai trò chưa tham gia tổ chức
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể vai trò
    */
   function getUnaddedRoleListApi(
     input: GetUnaddedRoleListInput,
@@ -224,9 +224,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 角色添加到组织机构
-   * @param id 组织机构id
-   * @param input 角色id列表
+   * Thêm vai trò vào tổ chức
+   * @param id Id tổ chức
+   * @param input Danh sách id vai trò
    */
   function addRoles(
     id: string,
@@ -239,9 +239,9 @@ export function useOrganizationUnitsApi() {
   }
 
   /**
-   * 移动组织机构
-   * @param id 组织机构id
-   * @param parentId 父级组织机构id
+   * Di chuyển tổ chức
+   * @param id Id tổ chức
+   * @param parentId Id tổ chức cấp trên
    */
   function moveTo(id: string, parentId?: string): Promise<void> {
     return request(`api/identity/organization-units/${id}/move`, {

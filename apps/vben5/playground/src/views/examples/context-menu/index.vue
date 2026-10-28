@@ -12,33 +12,33 @@ const needHidden = (role: string) => {
 const contextMenus = () => {
   return [
     {
-      text: '刷新',
+      text: 'Làm mới',
       key: 'refresh',
       handler: (data: any) => {
-        message.success('刷新成功', data);
+        message.success('Làm mới thành công', data);
       },
       hidden: needHidden('admin'),
     },
     {
-      text: '关闭当前',
+      text: 'Đóng tab hiện tại',
       key: 'close-current',
       handler: (data: any) => {
-        message.success('关闭当前', data);
+        message.success('Đóng tab hiện tại', data);
       },
       hidden: needHidden('user'),
     },
     {
-      text: '关闭其他',
+      text: 'Đóng các tab khác',
       key: 'close-other',
       handler: (data: any) => {
-        message.success('关闭其他', data);
+        message.success('Đóng các tab khác', data);
       },
     },
     {
-      text: '关闭所有',
+      text: 'Đóng tất cả',
       key: 'close-all',
       handler: (data: any) => {
-        message.success('关闭所有', data);
+        message.success('Đóng tất cả', data);
       },
     },
   ];
@@ -46,13 +46,18 @@ const contextMenus = () => {
 </script>
 
 <template>
-  <Page title="Context Menu 上下文菜单">
-    <Card title="基本使用">
-      <div>一共四个菜单（刷新、关闭当前、关闭其他、关闭所有）</div>
+  <Page title="Menu ngữ cảnh Context Menu">
+    <Card title="Cách dùng cơ bản">
+      <div>
+        Tổng cộng bốn menu (làm mới, đóng tab hiện tại, đóng các tab khác, đóng
+        tất cả)
+      </div>
       <br />
       <br />
       <VbenContextMenu :menus="contextMenus" :modal="true" item-class="pr-6">
-        <Button> 右键点击我打开上下文菜单(有隐藏项) </Button>
+        <Button>
+          Nhấp chuột phải vào tôi để mở menu ngữ cảnh (có mục ẩn)
+        </Button>
       </VbenContextMenu>
     </Card>
   </Page>

@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 规则组
+/// Nhóm quy tắc
 /// </summary>
 public class CustomerStrategy
 {
     /// <summary>
-    /// 规则组id
+    /// ID nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("strategy_id")]

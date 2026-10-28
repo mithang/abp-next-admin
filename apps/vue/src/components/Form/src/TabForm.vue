@@ -11,7 +11,7 @@
       :style="tabsStyle.style"
       :tabBarStyle="tabsStyle.tabBarStyle"
     >
-      <!-- fix bug: forceRender 必须强制渲染，否则form验证会失效 -->
+      <!-- fix bug: forceRender phải được hiển thị bắt buộc, nếu không việc xác thực form sẽ không hiệu lực -->
       <TabPane
         v-for="tabSchema in getTabSchema"
         :key="tabSchema.key"

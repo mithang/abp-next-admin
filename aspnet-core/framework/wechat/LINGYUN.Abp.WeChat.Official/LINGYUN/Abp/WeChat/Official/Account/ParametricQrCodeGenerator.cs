@@ -76,7 +76,7 @@ public class ParametricQrCodeGenerator : IParametricQrCodeGenerator, ITransientD
 
         var cacheOptions = new DistributedCacheEntryOptions
         {
-            // 设置绝对过期时间为Token有效期剩余的二分钟
+            // Đặt thời gian hết hạn tuyệt đối bằng hai phút còn lại của thời hạn hiệu lực Token
             AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(ticketModel.ExpireSeconds)
         };
 

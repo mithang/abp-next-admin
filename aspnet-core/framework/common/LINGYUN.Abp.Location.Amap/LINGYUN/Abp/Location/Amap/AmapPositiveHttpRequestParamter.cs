@@ -3,41 +3,41 @@
 namespace LINGYUN.Abp.Location.Amap
 {
     /// <summary>
-    /// 高德地图正地址解析请求参数
+    /// Tham số yêu cầu phân giải địa chỉ thuận của bản đồ Amap
     /// </summary>
     public class AmapPositiveHttpRequestParamter
     {
         /// <summary>
-        /// 结构化的地址
-        /// 规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦，如：北京市朝阳区阜通东大街6号。
-        /// 如果需要解析多个地址的话，请用"|"进行间隔，并且将 batch 参数设置为 true，最多支持 10 个地址进进行"|"分割形式的请求
+        /// Địa chỉ có cấu trúc
+        /// Quy tắc tuân theo: quốc gia, tỉnh, thành phố, quận/huyện, thị trấn, thôn/xã, đường phố, số nhà, khu dân cư, tòa nhà, ví dụ: số 6 đường Futong Đông, quận Triều Dương, Bắc Kinh.
+        /// Nếu cần phân giải nhiều địa chỉ, hãy dùng "|" để phân tách và đặt tham số batch thành true, tối đa hỗ trợ 10 địa chỉ gửi dạng phân tách bằng "|"
         /// </summary>
         [NotNull]
         public string Address { get; set; }
         /// <summary>
-        /// 城市
-        /// 可选输入内容包括：指定城市的中文（如北京）、指定城市的中文全拼（beijing）、citycode（010）、adcode（110000），不支持县级市。
-        /// 当指定城市查询内容为空时，会进行全国范围内的地址转换检索。
+        /// Thành phố
+        /// Nội dung nhập tùy chọn gồm: tên thành phố (ví dụ: Bắc Kinh), phiên âm đầy đủ tên thành phố (beijing), citycode (010), adcode (110000), không hỗ trợ thành phố cấp huyện.
+        /// Khi nội dung truy vấn thành phố được chỉ định để trống, hệ thống sẽ tìm kiếm chuyển đổi địa chỉ trên phạm vi toàn quốc.
         /// </summary>
         [CanBeNull]
         public string City { get; set; }
         /// <summary>
-        /// 批量查询控制
-        /// batch 参数设置为 true 时进行批量查询操作，最多支持 10 个地址进行批量查询。
-        /// batch 参数设置为 false 时进行单点查询，此时即使传入多个地址也只返回第一个地址的解析查询结果
+        /// Điều khiển truy vấn hàng loạt
+        /// Khi tham số batch được đặt thành true sẽ thực hiện truy vấn hàng loạt, tối đa hỗ trợ 10 địa chỉ.
+        /// Khi tham số batch được đặt thành false sẽ truy vấn từng điểm, lúc này dù truyền nhiều địa chỉ cũng chỉ trả về kết quả phân giải của địa chỉ đầu tiên
         /// </summary>
         [CanBeNull]
         public bool Batch { get; set; } = false;
         /// <summary>
-        /// 数字签名
+        /// Chữ ký số
         /// </summary>
         [CanBeNull]
 
         public string Sig { get; set; }
         /// <summary>
-        /// 返回数据格式类型
-        /// 可选输入内容包括：JSON，XML。设置 JSON 返回结果数据将会以JSON结构构成；
-        /// 如果设置 XML 返回结果数据将以 XML 结构构成。
+        /// Loại định dạng dữ liệu trả về
+        /// Nội dung nhập tùy chọn gồm: JSON, XML. Đặt JSON thì dữ liệu kết quả trả về sẽ được cấu thành theo cấu trúc JSON;
+        /// nếu đặt XML thì dữ liệu kết quả trả về sẽ được cấu thành theo cấu trúc XML.
         /// </summary>
         [CanBeNull]
         public string Output { get; set; } = "JSON";

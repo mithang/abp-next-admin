@@ -34,4 +34,4 @@ The module uses AutoMapper to implement automatic mapping for the following obje
 * `EntityPropertyChange` -> `EntityPropertyChangeDto`
 * `EntityChange` -> `EntityChangeDto`
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

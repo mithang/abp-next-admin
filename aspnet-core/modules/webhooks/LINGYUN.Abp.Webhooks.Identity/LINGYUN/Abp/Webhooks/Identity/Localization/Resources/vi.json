@@ -1,0 +1,20 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Webhooks:Identity": "Xác thực danh tính",
+    "Webhooks:CreateRole": "Tạo vai trò",
+    "Webhooks:CreateRoleDesc": "Đã tạo một vai trò mới",
+    "Webhooks:UpdateRole": "Chỉnh sửa vai trò",
+    "Webhooks:UpdateRoleDesc": "Một thuộc tính vai trò đã thay đổi",
+    "Webhooks:DeleteRole": "Xóa vai trò",
+    "Webhooks:DeleteRoleDesc": "Vai trò đã xóa",
+    "Webhooks:ChangeRoleName": "Thay đổi tên vai trò",
+    "Webhooks:ChangeRoleNameDesc": "Tên của một vai trò đã bị thay đổi",
+    "Webhooks:CreateUser": "Tạo người dùng",
+    "Webhooks:CreateUserDesc": "Một người dùng mới đã được tạo",
+    "Webhooks:UpdateUser": "Chỉnh sửa người dùng",
+    "Webhooks:UpdateUserDesc": "Một thuộc tính người dùng đã thay đổi",
+    "Webhooks:DeleteUser": "Xóa người dùng",
+    "Webhooks:DeleteUserDesc": "Người dùng đã xóa"
+  }
+}

@@ -7,54 +7,54 @@ namespace LINGYUN.Abp.WxPusher.User;
 public class UserProfile
 {
     /// <summary>
-    /// 用户uid
+    /// Uid người dùng
     /// </summary>
     [JsonProperty("uid")]
     public string Uid { get; set; } = default!;
     /// <summary>
-    /// 用户关注的应用或者主题id，根据type来区分
+    /// Id ứng dụng hoặc chủ đề mà người dùng theo dõi, phân biệt theo type
     /// </summary>
     [JsonProperty("appOrTopicId")]
     public long? AppOrTopicId { get; set; }
     /// <summary>
-    /// 新用户微信不再返回 ，强制返回空
+    /// WeChat không còn trả về đối với người dùng mới, bắt buộc trả về rỗng
     /// </summary>
     [JsonProperty("headImg")]
     public string? HeadImg { get; set; }
     /// <summary>
-    /// 创建时间
+    /// Thời gian tạo
     /// </summary>
     [JsonProperty("createTime")]
     public long CreateTime { get; set; }
     /// <summary>
-    /// 新用户微信不再返回 ，强制返回空
+    /// WeChat không còn trả về đối với người dùng mới, bắt buộc trả về rỗng
     /// </summary>
     [JsonProperty("nickName")]
     public string? NickName { get; set; }
     /// <summary>
-    /// 是否拉黑
+    /// Có bị chặn hay không
     /// </summary>
     [JsonProperty("reject")]
     public bool Reject { get; set; }
     /// <summary>
-    /// 如果调用删除或者拉黑接口，需要这个id
+    /// Nếu gọi giao diện xóa hoặc chặn thì cần id này
     /// </summary>
     [JsonProperty("id")]
     public int Id { get; set; }
     /// <summary>
-    /// 关注类型，
-    /// 0：关注应用，
-    /// 1：关注topic
+    /// Loại theo dõi,
+    /// 0: theo dõi ứng dụng,
+    /// 1: theo dõi topic
     /// </summary>
     [JsonProperty("type")]
     public FlowType Type { get; set; }
     /// <summary>
-    /// 关注的应用或者主题名字
+    /// Tên ứng dụng hoặc chủ đề đã theo dõi
     /// </summary>
     [JsonProperty("target")]
     public string? Target { get; set; }
     /// <summary>
-    /// 0表示用户不是付费用户，大于0表示用户付费订阅到期时间，毫秒级时间戳
+    /// 0 nghĩa là người dùng không phải người dùng trả phí, lớn hơn 0 nghĩa là thời gian hết hạn đăng ký trả phí của người dùng, dấu thời gian ở mức mili giây
     /// </summary>
     [JsonProperty("payEndTime")]
     public long PayEndTime { get; set; }

@@ -2,16 +2,16 @@
 
 namespace LINGYUN.Abp.Gdpr;
 /// <summary>
-/// 用户个人账户提供者
+/// Nhà cung cấp tài khoản cá nhân của người dùng
 /// </summary>
 public interface IGdprUserAccountProvider
 {
     /// <summary>
-    /// 提供者名称
+    /// Tên nhà cung cấp
     /// </summary>
     string Name { get; }
     /// <summary>
-    /// 删除用户账户
+    /// Xóa tài khoản người dùng
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>

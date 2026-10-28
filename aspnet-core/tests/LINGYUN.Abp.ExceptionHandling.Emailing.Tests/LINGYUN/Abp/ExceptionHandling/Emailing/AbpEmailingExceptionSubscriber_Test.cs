@@ -36,7 +36,7 @@ namespace LINGYUN.Abp.ExceptionHandling.Emailing
                     await _notifier.NotifyAsync(
                         new ExceptionNotificationContext(
                             new TestSendEmailException(
-                                "测试中文异常模板推送", ex), LogLevel.Warning));
+                                "Kiểm tra đẩy mẫu ngoại lệ tiếng Trung", ex), LogLevel.Warning));
                 }
             }
         }

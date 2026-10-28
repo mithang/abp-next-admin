@@ -2,11 +2,11 @@
 public enum PushPlusUserFollowStatus
 {
     /// <summary>
-    /// 已关注
+    /// Đã theo dõi
     /// </summary>
     Follow = 0,
     /// <summary>
-    /// 未关注
+    /// Chưa theo dõi
     /// </summary>
     NoFollow = 1,
 }

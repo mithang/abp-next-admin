@@ -9,53 +9,53 @@ import { getAllMenusApi } from '#/api';
 const message = useMessage();
 const [Form, formApi] = useVbenForm({
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
   },
   layout: 'horizontal',
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi hàng, màn hình vừa 2 mục mỗi hàng, màn hình nhỏ 1 mục mỗi hàng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
   handleSubmit: (values) => {
-    message.success(`表单数据：${JSON.stringify(values)}`);
+    message.success(`Dữ liệu form: ${JSON.stringify(values)}`);
   },
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần đăng ký trong #/adapter.ts và thêm kiểu
       component: 'ApiSelect',
-      // 对应组件的参数
+      // Tham số của component tương ứng
       componentProps: {
-        // 菜单接口转options格式
+        // Chuyển API menu sang định dạng options
         afterFetch: (data: { name: string; path: string }[]) => {
           return data.map((item: any) => ({
             label: item.name,
             value: item.path,
           }));
         },
-        // 菜单接口
+        // API menu
         api: getAllMenusApi,
       },
-      // 字段名
+      // Tên trường
       fieldName: 'api',
-      // 界面显示的label
+      // Label hiển thị trên giao diện
       label: 'ApiSelect',
       rules: 'required',
     },
     {
       component: 'ApiTreeSelect',
-      // 对应组件的参数
+      // Tham số của component tương ứng
       componentProps: {
-        // 菜单接口
+        // API menu
         api: getAllMenusApi,
         childrenField: 'children',
-        // 菜单接口转options格式
+        // Chuyển API menu sang định dạng options
         labelField: 'name',
         valueField: 'path',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'apiTree',
-      // 界面显示的label
+      // Label hiển thị trên giao diện
       label: 'ApiTreeSelect',
       rules: 'required',
     },
@@ -92,13 +92,13 @@ const [Form, formApi] = useVbenForm({
       label: 'RadioButton',
       componentProps: {
         isButton: true,
-        class: 'flex flex-wrap', // 如果选项过多，可以添加class来自动折叠
+        class: 'flex flex-wrap', // Nếu có quá nhiều tùy chọn, có thể thêm class để tự động thu gọn
         options: [
-          { value: 'A', label: '选项A' },
-          { value: 'B', label: '选项B' },
-          { value: 'C', label: '选项C' },
-          { value: 'D', label: '选项D' },
-          { value: 'E', label: '选项E' },
+          { value: 'A', label: 'Tùy chọn A' },
+          { value: 'B', label: 'Tùy chọn B' },
+          { value: 'C', label: 'Tùy chọn C' },
+          { value: 'D', label: 'Tùy chọn D' },
+          { value: 'E', label: 'Tùy chọn E' },
         ],
       },
       rules: 'selectRequired',
@@ -109,9 +109,9 @@ const [Form, formApi] = useVbenForm({
       label: 'Checkbox',
       componentProps: {
         options: [
-          { value: 'A', label: '选项A' },
-          { value: 'B', label: '选项B' },
-          { value: 'C', label: '选项C' },
+          { value: 'A', label: 'Tùy chọn A' },
+          { value: 'B', label: 'Tùy chọn B' },
+          { value: 'C', label: 'Tùy chọn C' },
         ],
       },
       rules: 'selectRequired',
@@ -146,12 +146,14 @@ function setFormValues() {
 </script>
 <template>
   <Page
-    description="表单适配器重新包装了CheckboxGroup和RadioGroup，可以通过options属性传递选项数据（选项数据将作为子组件的属性）"
-    title="表单演示"
+    description="Adapter form đã đóng gói lại CheckboxGroup và RadioGroup, có thể truyền dữ liệu tùy chọn qua thuộc tính options（dữ liệu tùy chọn sẽ trở thành thuộc tính của component con）"
+    title="Demo form"
   >
-    <NCard title="基础表单">
+    <NCard title="Form cơ bản">
       <template #header-extra>
-        <NButton type="primary" @click="setFormValues">设置表单值</NButton>
+        <NButton type="primary" @click="setFormValues">
+          Đặt giá trị form
+        </NButton>
       </template>
       <Form />
     </NCard>

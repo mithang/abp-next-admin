@@ -45,12 +45,12 @@ public class AliyunSettingAppService : ApplicationService, IAliyunSettingAppServ
     {
         var settingGroups = new SettingGroupResult();
 
-        // 无权限返回空结果,直接报错的话,网关聚合会抛出异常
+        // Không có quyền thì trả về kết quả rỗng, nếu báo lỗi trực tiếp thì quá trình tổng hợp gateway sẽ ném ra ngoại lệ
         if (await FeatureChecker.IsEnabledAsync(AliyunFeatureNames.Enable) && 
             await PermissionChecker.IsGrantedAsync(AliyunSettingPermissionNames.Settings))
         {
             var aliyunSettingGroup = new SettingGroupDto(L["DisplayName:Aliyun"], L["Description:Aliyun"]);
-            #region 访问控制
+            #region Kiểm soát truy cập
 
             var ramSetting = aliyunSettingGroup.AddSetting(L["DisplayName:Aliyun.RAM"], L["Description:Aliyun.RAM"]);
 
@@ -106,7 +106,7 @@ public class AliyunSettingAppService : ApplicationService, IAliyunSettingAppServ
 
             #endregion
 
-            #region 短信
+            #region Tin nhắn SMS
 
             if (await FeatureChecker.IsEnabledAsync(AliyunFeatureNames.Sms.Enable))
             {
@@ -177,7 +177,7 @@ public class AliyunSettingAppService : ApplicationService, IAliyunSettingAppServ
 
             #endregion
 
-            #region 验证码
+            #region Mã xác minh
 
             var captchaSetting = aliyunSettingGroup.AddSetting(L["DisplayName:Aliyun.Captcha"], L["DisplayName:Aliyun.Captcha"]);
             captchaSetting.AddDetail(

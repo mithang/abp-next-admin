@@ -5,21 +5,21 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Messages.Models;
 /// <summary>
-/// 删除日程事件
+/// Sự kiện xóa lịch trình
 /// </summary>
 /// <remarks>
-/// 当日程管理员在API创建的日历上删除了日程后，触发该事件。
+/// Khi quản trị viên lịch trình xóa lịch trình trên lịch đã tạo qua API, sự kiện này sẽ được kích hoạt.
 /// </remarks>
 [EventName("delete_schedule")]
 public class DeleteScheduleEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 日历ID
+    /// ID lịch
     /// </summary>
     [XmlElement("CalId")]
     public string? CalId { get; set; }
     /// <summary>
-    /// 日程ID
+    /// ID lịch trình
     /// </summary>
     [XmlElement("ScheduleId")]
     public string ScheduleId { get; set; } = default!;

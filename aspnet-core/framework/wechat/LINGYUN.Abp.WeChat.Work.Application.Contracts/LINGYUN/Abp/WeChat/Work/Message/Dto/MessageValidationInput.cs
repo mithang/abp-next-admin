@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.WeChat.Work.Message;
 public class MessageValidationInput : WeChatWorkMessage
 {
     /// <summary>
-    /// 加密的字符串。需要解密得到消息内容明文，解密后有random、msg_len、msg、receiveid四个字段，其中msg即为消息内容明文
+    /// Chuỗi đã mã hóa. Cần giải mã để lấy nội dung tin nhắn dạng plaintext, sau khi giải mã có bốn trường random, msg_len, msg, receiveid, trong đó msg chính là nội dung tin nhắn dạng plaintext
     /// </summary>
     [Required]
     [JsonPropertyName("echostr")]

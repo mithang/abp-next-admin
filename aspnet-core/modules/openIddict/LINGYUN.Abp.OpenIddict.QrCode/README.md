@@ -3,44 +3,44 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.QrCode%2FLINGYUN.Abp.OpenIddict.QrCode.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.QrCode.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.QrCode)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.QrCode` 是 OpenIddict 的扫码登录认证扩展模块，提供了扫码登录认证功能。
+`LINGYUN.Abp.OpenIddict.QrCode` là mô-đun mở rộng xác thực đăng nhập bằng quét mã của OpenIddict, cung cấp chức năng xác thực đăng nhập bằng quét mã.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 扫码二维码登录
+* Đăng nhập bằng quét mã QR
 
-* 安全日志
-  * 记录登录尝试
-  * 记录登录失败
+* Nhật ký bảo mật
+  * Ghi lại lần thử đăng nhập
+  * Ghi lại lần đăng nhập thất bại
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.QrCode
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictQrCodeModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictQrCodeModule))]` vào lớp mô-đun của bạn.
 
-2. 配置 OpenIddict 服务器:
+2. Cấu hình máy chủ OpenIddict:
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
     PreConfigure<OpenIddictServerBuilder>(builder =>
     {
-        // 允许门户认证流程
+        // Cho phép luồng xác thực cổng
         builder.AllowQrCodeFlow();
     });
 }
 ```
 
-3. 使用示例:
+3. Ví dụ sử dụng:
 
 ```http
 POST /connect/token
@@ -51,18 +51,18 @@ qrcode_key=a73faf8936f649868223a9287317d8d1&
 scope=openid profile
 ```
 
-## 认证流程
+## Luồng xác thực
 
-1. 二维码验证
-   * 用户提供二维码Key (qrcode_key_)
-   * 如未提供或无效，返回无效的二维码错误
+1. Xác minh mã QR
+   * Người dùng cung cấp Key mã QR (qrcode_key_)
+   * Nếu không cung cấp hoặc không hợp lệ, trả về lỗi mã QR không hợp lệ
 
-## 参数说明
+## Mô tả tham số
 
-* qrcode_key_ (必填)
-  * 二维码Key
+* qrcode_key_ (bắt buộc)
+  * Key mã QR
 
-## 注意事项
+## Lưu ý
 
-* 所有认证操作都会记录安全日志
-* 建议在生产环境中使用 HTTPS
+* Mọi thao tác xác thực đều được ghi vào nhật ký bảo mật
+* Khuyến nghị sử dụng HTTPS trong môi trường sản xuất

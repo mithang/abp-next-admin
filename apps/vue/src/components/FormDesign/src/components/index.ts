@@ -27,7 +27,7 @@ import {
   Table,
 } from 'ant-design-vue';
 
-//ant-desing本身的Form控件库
+//Thư viện điều khiển Form của chính ant-design
 
 const componentMap = new Map<string, Component>();
 componentMap.set('Radio', Radio);

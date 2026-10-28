@@ -14,7 +14,7 @@ using Volo.Abp.Identity;
 namespace PackageName.CompanyName.ProjectName.Users
 {
     /// <summary>
-    /// 用户
+    /// Người dùng
     /// </summary>
     public class UserAppService : ApplicationService, IUserAppService
     {
@@ -33,22 +33,22 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 创建用户
+        /// Tạo người dùng
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Create)]
         public async Task<UserDto> CreateAsync(CreateUpdateUserDto input)
         {
-            // 参数检查和验证逻辑可以在这里添加
+            // Logic kiểm tra và xác thực tham số có thể được thêm tại đây
             if (string.IsNullOrEmpty(input.NickName))
             {
-                throw new UserFriendlyException("昵称不能为空");
+                throw new UserFriendlyException("Biệt danh không được để trống");
             }
             if (string.IsNullOrEmpty(input.Password))
             {
-                throw new UserFriendlyException("密码不能为空");
+                throw new UserFriendlyException("Mật khẩu không được để trống");
             }
 
-            // 使用UserManager创建用户
+            // Sử dụng UserManager để tạo người dùng
             var user = await _userManager.CreateAsync(
                 input.NickName,
                 input.Password,
@@ -56,17 +56,17 @@ namespace PackageName.CompanyName.ProjectName.Users
                 input.Position,
                 input.IsActive);
 
-            // 返回DTO对象
+            // Trả về đối tượng DTO
             return await MapToUserDtoAsync(user);
         }
 
         /// <summary>
-        /// 更新用户
+        /// Cập nhật người dùng
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Update)]
         public async Task<UserDto> UpdateAsync(Guid id, CreateUpdateUserDto input)
         {
-            // 使用UserManager更新用户基本信息
+            // Sử dụng UserManager để cập nhật thông tin cơ bản của người dùng
             var user = await _userManager.UpdateAsync(
                 id,
                 input.NickName,
@@ -75,7 +75,7 @@ namespace PackageName.CompanyName.ProjectName.Users
                 input.Position,
                 input.IsActive);
 
-            // 确保更新后的用户状态与DTO中的一致
+            // Đảm bảo trạng thái người dùng sau khi cập nhật nhất quán với trạng thái trong DTO
             if (user.IdentityUser != null)
             {
                 bool currentIsActive = user.IdentityUser.LockoutEnd == null || user.IdentityUser.LockoutEnd < DateTimeOffset.Now;
@@ -86,12 +86,12 @@ namespace PackageName.CompanyName.ProjectName.Users
                 }
             }
 
-            // 返回DTO对象
+            // Trả về đối tượng DTO
             return await MapToUserDtoAsync(user);
         }
 
         /// <summary>
-        /// 删除用户
+        /// Xóa người dùng
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Delete)]
         public Task DeleteAsync(Guid id)
@@ -100,7 +100,7 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 获取用户
+        /// Lấy người dùng
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Default)]
         public async Task<UserDto> GetAsync(Guid id)
@@ -110,30 +110,30 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// Lấy danh sách người dùng
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Default)]
         public async Task<PagedResultDto<UserItemDto>> GetListAsync(UserPagedAndSortedResultRequestDto input)
         {
-            // 创建查询
+            // Tạo truy vấn
             var query = await CreateFilteredQueryAsync(input);
 
-            // 获取总记录数
+            // Lấy tổng số bản ghi
             var totalCount = await AsyncExecuter.CountAsync(query);
 
-            // 获取已排序和分页的查询结果
+            // Lấy kết quả truy vấn đã sắp xếp và phân trang
             var users = await AsyncExecuter.ToListAsync(
                 query.OrderBy(input.Sorting ?? nameof(User.NickName))
                     .Skip(input.SkipCount)
                     .Take(input.MaxResultCount));
 
-            // 转换为DTO并返回
+            // Chuyển đổi sang DTO và trả về
             var userDtos = new List<UserItemDto>();
             foreach (var user in users)
             {
                 var userDto = ObjectMapper.Map<User, UserItemDto>(user);
 
-                // 填充角色信息
+                // Điền thông tin vai trò
                 if (user.IdentityUser != null)
                 {
                     var roles = await _identityUserManager.GetRolesAsync(user.IdentityUser);
@@ -148,7 +148,7 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 修改用户密码
+        /// Đổi mật khẩu người dùng
         /// </summary>
         [Authorize]
         public async Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword)
@@ -157,7 +157,7 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 重置用户密码（管理员操作）
+        /// Đặt lại mật khẩu người dùng (thao tác của quản trị viên)
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Update)]
         public async Task ResetPasswordAsync(Guid id, string newPassword)
@@ -166,7 +166,7 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 启用或禁用用户
+        /// Bật hoặc tắt người dùng
         /// </summary>
         [Authorize(ProjectNamePermissions.User.Update)]
         public async Task SetUserActiveStatusAsync(Guid id, bool isActive)
@@ -175,29 +175,29 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 创建基础查询，应用过滤条件
+        /// Tạo truy vấn cơ sở, áp dụng điều kiện lọc
         /// </summary>
         protected async virtual Task<IQueryable<User>> CreateFilteredQueryAsync(
             UserPagedAndSortedResultRequestDto input)
         {
-            // 获取基础查询，并加载相关实体
+            // Lấy truy vấn cơ sở và tải các thực thể liên quan
             var query = await _userRepository.WithDetailsAsync(
                 x => x.IdentityUser);
 
-            // 应用过滤条件
+            // Áp dụng điều kiện lọc
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(input.NickName),
                     x => x.NickName.Contains(input.NickName));
         }
 
         /// <summary>
-        /// 将User实体映射为UserDto，并填充权限信息
+        /// Ánh xạ thực thể User thành UserDto và điền thông tin quyền
         /// </summary>
         private async Task<UserDto> MapToUserDtoAsync(User user)
         {
             var userDto = ObjectMapper.Map<User, UserDto>(user);
 
-            // 设置用户状态和角色信息
+            // Thiết lập trạng thái người dùng và thông tin vai trò
             if (user.IdentityUser != null)
             {
                 var roles = await _identityUserManager.GetRolesAsync(user.IdentityUser);

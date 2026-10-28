@@ -28,7 +28,7 @@ public class PhysicalFileWorkflowsResolveContributor : FileProviderWorkflowsReso
 
     protected override IFileProvider? BuildFileProvider(RulesInitializationContext context)
     {
-        // 未指定路径不启用
+        // Không bật nếu chưa chỉ định đường dẫn
         if (!_fileResolveOptions.PhysicalPath.IsNullOrWhiteSpace() &&
             Directory.Exists(_fileResolveOptions.PhysicalPath))
         {

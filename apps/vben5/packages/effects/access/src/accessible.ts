@@ -25,25 +25,25 @@ async function generateAccessible(
   const { router } = options;
 
   options.routes = cloneDeep(options.routes);
-  // 生成路由
+  // Tạo route
   const accessibleRoutes = await generateRoutes(mode, options);
 
   const root = router.getRoutes().find((item) => item.path === '/');
 
-  // 获取已有的路由名称列表
+  // Lấy danh sách tên route đã có
   const names = root?.children?.map((item) => item.name) ?? [];
 
-  // 动态添加到router实例内
+  // Thêm động vào instance router
   accessibleRoutes.forEach((route) => {
     if (root && !route.meta?.noBasicLayout) {
-      // 为了兼容之前的版本用法，如果包含子路由，则将component移除，以免出现多层BasicLayout
-      // 如果你的项目已经跟进了本次修改，移除了所有自定义菜单首级的BasicLayout，可以将这段if代码删除
+      // Để tương thích với cách dùng của phiên bản trước, nếu chứa route con thì loại bỏ component để tránh xuất hiện nhiều lớp BasicLayout
+      // Nếu dự án của bạn đã theo kịp sửa đổi lần này và đã loại bỏ mọi BasicLayout ở cấp đầu của menu tùy chỉnh thì có thể xóa đoạn code if này
       if (route.children && route.children.length > 0) {
         delete route.component;
       }
-      // 根据router name判断，如果路由已经存在，则不再添加
+      // Dựa vào router name để xác định, nếu route đã tồn tại thì không thêm nữa
       if (names?.includes(route.name)) {
-        // 找到已存在的路由索引并更新，不更新会造成切换用户时，一级目录未更新，homePath 在二级目录导致的404问题
+        // Tìm chỉ mục của route đã tồn tại và cập nhật, nếu không cập nhật sẽ gây ra việc khi chuyển người dùng thì thư mục cấp một không được cập nhật, homePath ở thư mục cấp hai gây ra lỗi 404
         const index = root.children?.findIndex(
           (item) => item.name === route.name,
         );
@@ -65,7 +65,7 @@ async function generateAccessible(
     router.addRoute(root);
   }
 
-  // 生成菜单
+  // Tạo menu
   const accessibleMenus = generateMenus(accessibleRoutes, options.router);
 
   return { accessibleMenus, accessibleRoutes };
@@ -108,12 +108,12 @@ async function generateRoutes(
   }
 
   /**
-   * 调整路由树，做以下处理：
-   * 1. 对未添加redirect的路由添加redirect
-   * 2. 将懒加载的组件名称修改为当前路由的名称（如果启用了keep-alive的话）
+   * Điều chỉnh cây route, thực hiện các xử lý sau:
+   * 1. Thêm redirect cho route chưa được thêm redirect
+   * 2. Đổi tên component tải lười thành tên của route hiện tại (nếu đã bật keep-alive)
    */
   resultRoutes = mapTree(resultRoutes, (route) => {
-    // 重新包装component，使用与路由名称相同的name以支持keep-alive的条件缓存。
+    // Đóng gói lại component, dùng name giống với tên route để hỗ trợ bộ nhớ đệm có điều kiện của keep-alive.
     if (
       route.meta?.keepAlive &&
       isFunction(route.component) &&
@@ -135,13 +135,13 @@ async function generateRoutes(
       };
     }
 
-    // 如果有redirect或者没有子路由，则直接返回
+    // Nếu có redirect hoặc không có route con thì trả về trực tiếp
     if (route.redirect || !route.children || route.children.length === 0) {
       return route;
     }
     const firstChild = route.children[0];
 
-    // 如果子路由不是以/开头，则直接返回,这种情况需要计算全部父级的path才能得出正确的path，这里不做处理
+    // Nếu route con không bắt đầu bằng / thì trả về trực tiếp, trường hợp này cần tính toàn bộ path của các cấp cha mới ra được path chính xác, tại đây không xử lý
     if (!firstChild?.path || !firstChild.path.startsWith('/')) {
       return route;
     }

@@ -697,7 +697,7 @@ type BuiltinThemeType =
 
 :::
 
-::: details 内置主题css变量 - dark
+::: details Biến CSS của theme tích hợp - dark
 
 ```css
 .dark,
@@ -706,7 +706,7 @@ type BuiltinThemeType =
   /* Default background color of <body />...etc */
   --background: 222.34deg 10.43% 12.27%;
 
-  /* 主体区域背景色 */
+  /* Màu nền khu vực chính */
   --background-deep: 220deg 13.06% 9%;
   --foreground: 0 0% 95%;
 
@@ -729,7 +729,7 @@ type BuiltinThemeType =
   --muted: 240 3.7% 15.9%;
   --muted-foreground: 240 5% 64.9%;
 
-  /* 主题颜色 */
+  /* Màu theme */
 
   /* --primary: 245 82% 67%; */
   --primary-foreground: 0 0% 98%;
@@ -749,7 +749,7 @@ type BuiltinThemeType =
   --warning: 42 84% 61%;
   --warning-foreground: 0 0% 98%;
 
-  /* 颜色次要 */
+  /* Màu phụ */
   --secondary: 240 5% 17%;
   --secondary-foreground: 0 0% 98%;
 
@@ -773,7 +773,7 @@ type BuiltinThemeType =
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
 
-  /* 基本圆角大小 */
+  /* Kích thước bo góc cơ bản */
   --radius: 0.5rem;
 
   /* ============= Custom ============= */

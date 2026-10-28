@@ -2,19 +2,19 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日历通知范围成员权限
+/// Quyền của thành viên trong phạm vi thông báo lịch
 /// </summary>
-[Description("日历通知范围成员权限")]
+[Description("Quyền của thành viên trong phạm vi thông báo lịch")]
 public enum CalendarSharePermission
 {
     /// <summary>
-    /// 可查看
+    /// Có thể xem
     /// </summary>
-    [Description("可查看")]
+    [Description("Có thể xem")]
     View = 1,
     /// <summary>
-    /// 仅查看闲忙状态
+    /// Chỉ xem trạng thái bận/rảnh
     /// </summary>
-    [Description("仅查看闲忙状态")]
+    [Description("Chỉ xem trạng thái bận/rảnh")]
     OnlyBusy = 3
 }

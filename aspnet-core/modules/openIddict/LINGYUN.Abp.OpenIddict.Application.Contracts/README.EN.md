@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.Application.Contracts` is the contract layer for OpenIddict application services, defining the interfaces, DTOs, and permissions required for OpenIddict management.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

@@ -1,21 +1,21 @@
 # LINGYUN.Abp.MicroService.AuthServer.EntityFrameworkCore
 
-认证服务器数据库迁移模块，提供认证服务器所需的数据库迁移功能。
+Module migration cơ sở dữ liệu máy chủ xác thực, cung cấp chức năng migration cơ sở dữ liệu mà máy chủ xác thực cần.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成OpenIddict认证框架的数据库迁移
-* 集成ABP Identity模块的数据库迁移
-* 集成ABP权限管理模块的数据库迁移
-* 集成ABP设置管理模块的数据库迁移
-* 集成ABP特性管理模块的数据库迁移
-* 集成ABP SaaS多租户模块的数据库迁移
-* 集成文本模板模块的数据库迁移
-* 支持MySQL数据库
+* Tích hợp migration cơ sở dữ liệu của framework xác thực OpenIddict
+* Tích hợp migration cơ sở dữ liệu của module ABP Identity
+* Tích hợp migration cơ sở dữ liệu của module quản lý quyền ABP
+* Tích hợp migration cơ sở dữ liệu của module quản lý cài đặt ABP
+* Tích hợp migration cơ sở dữ liệu của module quản lý tính năng ABP
+* Tích hợp migration cơ sở dữ liệu của module đa tenant SaaS ABP
+* Tích hợp migration cơ sở dữ liệu của module mẫu văn bản
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(
@@ -35,22 +35,22 @@ public class YourModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "AuthServerDbMigrator": "你的数据库连接字符串"
+    "AuthServerDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置AuthServerDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Cấu hình chuỗi kết nối AuthServerDbMigrator trong appsettings.json
 
-2. 添加数据库上下文
+2. Thêm DbContext
    ```csharp
    public override void ConfigureServices(ServiceConfigurationContext context)
    {
@@ -63,14 +63,14 @@ public class YourModule : AbpModule
    }
    ```
 
-3. 执行数据库迁移
-   * 使用EF Core命令行工具执行迁移
+3. Thực thi migration cơ sở dữ liệu
+   * Dùng công cụ dòng lệnh EF Core để thực thi migration
    ```bash
    dotnet ef database update
    ```
 
-## 注意事项
+## Lưu ý
 
-* 确保数据库连接字符串中包含正确的权限，以便能够创建和修改数据库表
-* 在执行迁移之前，建议先备份数据库
-* 迁移脚本会自动处理模块间的依赖关系
+* Đảm bảo chuỗi kết nối cơ sở dữ liệu có quyền chính xác để có thể tạo và sửa bảng cơ sở dữ liệu
+* Trước khi thực thi migration, nên sao lưu cơ sở dữ liệu trước
+* Script migration sẽ tự động xử lý quan hệ phụ thuộc giữa các module

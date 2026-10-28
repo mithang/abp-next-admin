@@ -3,8 +3,8 @@ import type { ApplicationLocalizationDto } from "#/abp-core";
 import requestClient from "../../request";
 
 /**
- * 获取应用程序语言
- * @returns 本地化配置
+ * Lấy ngôn ngữ của ứng dụng
+ * @returns Cấu hình bản địa hóa
  */
 export function getLocalizationApi(options: {
 	cultureName: string;

@@ -2,12 +2,12 @@
 
 namespace LINGYUN.Abp.Sms.Aliyun;
 /// <summary>
-/// 阿里云发送短信验证码接口
+/// Giao diện gửi mã xác minh SMS của Alibaba Cloud
 /// </summary>
 public interface IAliyunSmsVerifyCodeSender
 {
     /// <summary>
-    /// 发送短信验证码
+    /// Gửi mã xác minh SMS
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>

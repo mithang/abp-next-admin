@@ -5,29 +5,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Response;
 /// <summary>
-/// 获取待分配的离职成员列表响应结果
+/// Kết quả phản hồi lấy danh sách thành viên đã nghỉ việc đang chờ phân công
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92124" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/92124" />
 /// </remarks>
 public class WeChatWorkGetUnassignedListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 待分配离职成员的客户
+    /// Khách hàng của thành viên đã nghỉ việc đang chờ phân công
     /// </summary>
     [NotNull]
     [JsonProperty("info")]
     [JsonPropertyName("info")]
     public UnassignedCustomerInfo[] Info { get; set; } = default!;
     /// <summary>
-    /// 是否是最后一条记录
+    /// Có phải là bản ghi cuối cùng hay không
     /// </summary>
     [NotNull]
     [JsonProperty("is_last")]
     [JsonPropertyName("is_last")]
     public bool IsLast { get; set; }
     /// <summary>
-    /// 分页查询游标,已经查完则返回空("")，使用page_id作为查询参数时不返回
+    /// Con trỏ truy vấn phân trang, khi đã truy vấn xong sẽ trả về rỗng (""), không trả về khi dùng page_id làm tham số truy vấn
     /// </summary>
     [CanBeNull]
     [JsonProperty("next_cursor")]

@@ -3,12 +3,12 @@ using System;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// OpenObserve 时间戳工具
+/// Công cụ dấu thời gian OpenObserve
 /// </summary>
 public static class OpenObserveTimestampHelper
 {
     /// <summary>
-    /// 转换为微秒时间戳
+    /// Chuyển đổi thành dấu thời gian micro giây
     /// </summary>
     public static long ToMicroseconds(DateTime time)
     {
@@ -16,15 +16,15 @@ public static class OpenObserveTimestampHelper
     }
 
     /// <summary>
-    /// 尝试用日志时间覆盖 <c>_timestamp</c>
+    /// Thử ghi đè <c>_timestamp</c> bằng thời gian của nhật ký
     /// </summary>
     /// <remarks>
-    /// OpenObserve 默认仅允许写入 <c>ZO_INGEST_ALLOWED_UPTO</c>(默认 5)小时内的数据,
-    /// 超出窗口的数据会被服务端丢弃, 因此超出时返回 null 由服务端使用写入时间
+    /// OpenObserve mặc định chỉ cho phép ghi dữ liệu trong vòng <c>ZO_INGEST_ALLOWED_UPTO</c> (mặc định là 5) giờ,
+    /// dữ liệu vượt quá cửa sổ này sẽ bị máy chủ loại bỏ, vì vậy khi vượt quá sẽ trả về null để máy chủ dùng thời gian ghi
     /// </remarks>
-    /// <param name="time">日志自身的业务时间(如 AuditLog.ExecutionTime / SecurityLog.CreationTime)</param>
-    /// <param name="now">当前时间</param>
-    /// <param name="allowedUptoHours">允许回溯的小时数, 需与服务端 ZO_INGEST_ALLOWED_UPTO 一致</param>
+    /// <param name="time">Thời gian nghiệp vụ của chính nhật ký (ví dụ AuditLog.ExecutionTime / SecurityLog.CreationTime)</param>
+    /// <param name="now">Thời gian hiện tại</param>
+    /// <param name="allowedUptoHours">Số giờ được phép truy hồi, cần khớp với ZO_INGEST_ALLOWED_UPTO của máy chủ</param>
     public static long? TryGetTimestamp(DateTime time, DateTime now, int allowedUptoHours)
     {
         if (time == default)

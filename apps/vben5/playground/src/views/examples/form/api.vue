@@ -12,38 +12,38 @@ import { useVbenForm } from '#/adapter/form';
 const isReverseActionButtons = ref(false);
 
 const [BaseForm, formApi] = useVbenForm({
-  // 翻转操作按钮的位置
+  // Đảo ngược vị trí nút thao tác
   actionButtonsReverse: isReverseActionButtons.value,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Dùng chung cho tất cả các trường biểu mẫu, có thể ghi đè riêng trong biểu mẫu
   commonConfig: {
-    // 所有表单项
+    // Tất cả các trường biểu mẫu
     componentProps: {
       class: 'w-full',
     },
   },
-  // 使用 tailwindcss grid布局
-  // 提交函数
+  // Sử dụng bố cục grid tailwindcss
+  // Hàm gửi
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
   layout: 'horizontal',
-  // 水平布局，label和input在同一行
+  // Bố cục ngang, label và input trên cùng một dòng
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần đăng ký trong #/adapter.ts và thêm kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số của component tương ứng
       componentProps: {
-        placeholder: '请输入用户名',
+        placeholder: 'Vui lòng nhập tên người dùng',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'field1',
-      // 界面显示的label
+      // label hiển thị trên giao diện
       label: 'field1',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field2',
       label: 'field2',
@@ -55,22 +55,22 @@ const [BaseForm, formApi] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       fieldName: 'fieldOptions',
-      label: '下拉选',
+      label: 'Danh sách thả xuống',
     },
   ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi dòng, màn hình vừa hiển thị 2 mục mỗi dòng, màn hình nhỏ hiển thị 1 mục mỗi dòng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
@@ -110,7 +110,7 @@ function handleClick(
           newSchema.push({
             component: 'Input',
             componentProps: {
-              placeholder: '请输入',
+              placeholder: 'Vui lòng nhập',
             },
             fieldName: `field${i}${Date.now()}`,
             label: `field+`,
@@ -133,7 +133,7 @@ function handleClick(
       break;
     }
     case 'componentRef': {
-      // 获取下拉组件的实例，并调用它的focus方法
+      // Lấy thể hiện của component thả xuống và gọi phương thức focus của nó
       formApi.getFieldComponentRef<RefSelectProps>('fieldOptions')?.focus?.();
       break;
     }
@@ -193,7 +193,7 @@ function handleClick(
 
     case 'updateActionAlign': {
       formApi.setState({
-        // 可以自行调整class
+        // Có thể tự điều chỉnh class
         actionWrapperClass: 'text-center',
       });
       break;
@@ -210,15 +210,15 @@ function handleClick(
           componentProps: {
             options: [
               {
-                label: '选项1',
+                label: 'Tùy chọn 1',
                 value: '1',
               },
               {
-                label: '选项2',
+                label: 'Tùy chọn 2',
                 value: '2',
               },
               {
-                label: '选项3',
+                label: 'Tùy chọn 3',
                 value: '3',
               },
             ],
@@ -226,7 +226,9 @@ function handleClick(
           fieldName: 'fieldOptions',
         },
       ]);
-      message.success('字段 `fieldOptions` 下拉选项更新成功。');
+      message.success(
+        'Trường `fieldOptions` cập nhật tùy chọn thả xuống thành công.',
+      );
       break;
     }
     case 'updateSubmitButton': {
@@ -240,34 +242,45 @@ function handleClick(
 </script>
 
 <template>
-  <Page description="表单组件api操作示例。" title="表单组件">
+  <Page
+    description="Ví dụ thao tác api component biểu mẫu."
+    title="Component biểu mẫu"
+  >
     <Space class="mb-5 flex-wrap">
       <Button @click="handleClick('updateSchema')">updateSchema</Button>
-      <Button @click="handleClick('labelWidth')">更改labelWidth</Button>
-      <Button @click="handleClick('resetLabelWidth')">还原labelWidth</Button>
-      <Button @click="handleClick('disabled')">禁用表单</Button>
-      <Button @click="handleClick('resetDisabled')">解除禁用</Button>
+      <Button @click="handleClick('labelWidth')">Thay đổi labelWidth</Button>
+      <Button @click="handleClick('resetLabelWidth')">
+        Khôi phục labelWidth
+      </Button>
+      <Button @click="handleClick('disabled')">Vô hiệu hóa biểu mẫu</Button>
+      <Button @click="handleClick('resetDisabled')">Hủy vô hiệu hóa</Button>
       <Button @click="handleClick('reverseActionButtons')">
-        翻转操作按钮位置
+        Đảo ngược vị trí nút thao tác
       </Button>
-      <Button @click="handleClick('hiddenAction')">隐藏操作按钮</Button>
-      <Button @click="handleClick('showAction')">显示操作按钮</Button>
-      <Button @click="handleClick('hiddenResetButton')">隐藏重置按钮</Button>
-      <Button @click="handleClick('showResetButton')">显示重置按钮</Button>
-      <Button @click="handleClick('hiddenSubmitButton')">隐藏提交按钮</Button>
-      <Button @click="handleClick('showSubmitButton')">显示提交按钮</Button>
-      <Button @click="handleClick('updateResetButton')">修改重置按钮</Button>
-      <Button @click="handleClick('updateSubmitButton')">修改提交按钮</Button>
+      <Button @click="handleClick('hiddenAction')">Ẩn nút thao tác</Button>
+      <Button @click="handleClick('showAction')">Hiển thị nút thao tác</Button>
+      <Button @click="handleClick('hiddenResetButton')">Ẩn nút đặt lại</Button>
+      <Button @click="handleClick('showResetButton')">
+        Hiển thị nút đặt lại
+      </Button>
+      <Button @click="handleClick('hiddenSubmitButton')">Ẩn nút gửi</Button>
+      <Button @click="handleClick('showSubmitButton')">Hiển thị nút gửi</Button>
+      <Button @click="handleClick('updateResetButton')">Sửa nút đặt lại</Button>
+      <Button @click="handleClick('updateSubmitButton')">Sửa nút gửi</Button>
       <Button @click="handleClick('updateActionAlign')">
-        调整操作按钮位置
+        Điều chỉnh vị trí nút thao tác
       </Button>
-      <Button @click="handleClick('batchAddSchema')"> 批量添加表单项 </Button>
+      <Button @click="handleClick('batchAddSchema')">
+        Thêm hàng loạt trường biểu mẫu
+      </Button>
       <Button @click="handleClick('batchDeleteSchema')">
-        批量删除表单项
+        Xóa hàng loạt trường biểu mẫu
       </Button>
-      <Button @click="handleClick('componentRef')">下拉组件获取焦点</Button>
+      <Button @click="handleClick('componentRef')">
+        Component thả xuống nhận tiêu điểm
+      </Button>
     </Space>
-    <Card title="操作示例">
+    <Card title="Ví dụ thao tác">
       <BaseForm />
     </Card>
   </Page>

@@ -26,4 +26,4 @@ SaaS application service contract module, defining application service interface
 
 ## More
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

@@ -6,23 +6,23 @@ namespace LINGYUN.Abp.DataProtectionManagement;
 public class EntityTypeInfoDto : AuditedEntityDto<Guid>
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public string DisplayName { get; set; } = default!;
     /// <summary>
-    /// 类型全名
+    /// Tên đầy đủ của loại
     /// </summary>
     public string TypeFullName { get; set; } = default!;
     /// <summary>
-    /// 是否启用数据审计
+    /// Có bật kiểm tra dữ liệu hay không
     /// </summary>
     public bool IsAuditEnabled { get; set; }
     /// <summary>
-    /// 实体属性列表
+    /// Danh sách thuộc tính thực thể
     /// </summary>
     public virtual List<EntityPropertyInfoDto> Properties { get; set; } = new List<EntityPropertyInfoDto>();
 }

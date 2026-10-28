@@ -41,7 +41,7 @@ namespace LINGYUN.Abp.OpenApi
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            // 测试环境不需要主机地址
+            // Môi trường kiểm tra không cần địa chỉ máy chủ
             context.Services.AddHttpClient("opensdk");
             context.Services.AddSingleton<IClientProxy, ClientProxy>();
 
@@ -74,7 +74,7 @@ namespace LINGYUN.Abp.OpenApi
                     ).AddVirtualJson("/LINGYUN/Abp/AspNetCore/Mvc/Localization/Resources");
 
                 options.Languages.Add(new LanguageInfo("en", "en", "English"));
-                options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+                options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
             });
 
             Configure<RazorPagesOptions>(options =>

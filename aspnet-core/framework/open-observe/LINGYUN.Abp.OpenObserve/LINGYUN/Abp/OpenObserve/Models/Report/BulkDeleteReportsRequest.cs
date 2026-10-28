@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Report;
 
 /// <summary>
-/// 批量删除报表请求
+/// Yêu cầu xóa hàng loạt báo cáo
 /// </summary>
 public class BulkDeleteReportsRequest
 {

@@ -4,11 +4,11 @@ import type { AxiosResponse } from "axios";
 export function errorFormat(response: AxiosResponse) {
 	const _defaultErrorHeaderKey: string = "_abperrorformat";
 	const { data, headers } = response;
-	/** 是否请求错误 */
+	/** Có phải lỗi yêu cầu hay không */
 	function hasError(): boolean {
 		return headers[_defaultErrorHeaderKey] === "true";
 	}
-	/** 如果请求错误,抛出异常 */
+	/** Nếu yêu cầu lỗi, ném ngoại lệ */
 	function throwIfError(): void {
 		if (!hasError()) return;
 		const errorJson = data.error as RemoteServiceErrorInfo;

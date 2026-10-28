@@ -12,7 +12,7 @@ export function flattenTrees<T extends { children?: T[] }>(trees: T[] = []): T[]
 	}, trees);
 }
 
-//将平铺的节点列表转换为树形结构
+//Chuyển đổi danh sách nút phẳng thành cấu trúc cây
 
 interface TreeHelperConfig {
 	children: string;
@@ -29,7 +29,7 @@ const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAU
 
 //
 // /**
-//  * 注意此函数会在list原始数据上操作，会改变原始数据
+//  * Lưu ý hàm này sẽ thao tác trên dữ liệu gốc của list, làm thay đổi dữ liệu gốc
 //  * @param list
 //  * @param config
 //  * @returns
@@ -60,7 +60,7 @@ export function listToTree<T = any>(list: any[], config: Partial<TreeHelperConfi
 	const result: T[] = [];
 	const { id, pid, children } = conf;
 
-	// 创建 list 的深拷贝，避免修改原始数据
+	// Tạo bản sao sâu của list, tránh sửa đổi dữ liệu gốc
 	const clonedList = list.map((node) => ({ ...node }));
 
 	for (const node of clonedList) {

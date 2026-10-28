@@ -1,29 +1,29 @@
 # LINGYUN.Abp.IdentityServer.WeChat.Work
 
-IdentityServer企业微信认证模块，提供基于企业微信的身份认证功能。
+Mô-đun xác thực WeChat Doanh nghiệp của IdentityServer, cung cấp chức năng xác thực danh tính dựa trên WeChat Doanh nghiệp.
 
-## 功能特性
+## Tính năng
 
-* 企业微信认证
-  * `WeChatWorkGrantValidator` - 企业微信授权验证器
-    * 支持企业微信登录
-    * 支持多租户
-    * 自动用户注册
-    * 安全日志记录
-    * 事件通知
-    * 本地化支持
+* Xác thực WeChat Doanh nghiệp
+  * `WeChatWorkGrantValidator` - Trình xác thực ủy quyền WeChat Doanh nghiệp
+    * Hỗ trợ đăng nhập WeChat Doanh nghiệp
+    * Hỗ trợ đa tenant
+    * Tự động đăng ký người dùng
+    * Ghi nhật ký bảo mật
+    * Thông báo sự kiện
+    * Hỗ trợ bản địa hóa
 
-* 认证流程
-  1. 用户通过企业微信发起登录请求
-  2. 验证AgentId和Code的有效性
-  3. 获取企业微信用户信息
-  4. 验证用户注册状态
-     * 已注册用户直接登录
-     * 未注册用户根据配置自动注册
-  5. 生成访问令牌
-  6. 记录安全日志和事件
+* Quy trình xác thực
+  1. Người dùng gửi yêu cầu đăng nhập qua WeChat Doanh nghiệp
+  2. Xác thực tính hợp lệ của AgentId và Code
+  3. Lấy thông tin người dùng WeChat Doanh nghiệp
+  4. Xác thực trạng thái đăng ký của người dùng
+     * Người dùng đã đăng ký đăng nhập trực tiếp
+     * Người dùng chưa đăng ký tự động đăng ký theo cấu hình
+  5. Tạo mã truy cập
+  6. Ghi nhật ký bảo mật và sự kiện
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -35,14 +35,14 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `AbpIdentityServerDomainModule` - ABP IdentityServer领域模块
-* `AbpWeChatWorkModule` - ABP企业微信模块
+* `AbpIdentityServerDomainModule` - Mô-đun miền ABP IdentityServer
+* `AbpWeChatWorkModule` - Mô-đun ABP WeChat Doanh nghiệp
 
-## 配置使用
+## Cấu hình và sử dụng
 
-### 配置企业微信认证
+### Cấu hình xác thực WeChat Doanh nghiệp
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -54,53 +54,53 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-### 认证请求参数
+### Tham số yêu cầu xác thực
 
-* `grant_type`: "wechat_work" (必填)
-* `agent_id`: 企业微信应用ID (必填)
-* `code`: 企业微信授权码 (必填)
-* `scope`: 请求范围 (可选)
+* `grant_type`: "wechat_work" (bắt buộc)
+* `agent_id`: ID ứng dụng WeChat Doanh nghiệp (bắt buộc)
+* `code`: Mã ủy quyền WeChat Doanh nghiệp (bắt buộc)
+* `scope`: Phạm vi yêu cầu (tùy chọn)
 
-### 认证响应
+### Phản hồi xác thực
 
-* 认证成功:
+* Xác thực thành công:
 ```json
 {
-    "access_token": "访问令牌",
-    "expires_in": 有效期,
+    "access_token": "Mã truy cập",
+    "expires_in": Thời hạn hiệu lực,
     "token_type": "Bearer",
-    "refresh_token": "刷新令牌"
+    "refresh_token": "Mã làm mới"
 }
 ```
 
-* 认证失败:
+* Xác thực thất bại:
 ```json
 {
     "error": "invalid_grant",
-    "error_description": "错误描述"
+    "error_description": "Mô tả lỗi"
 }
 ```
 
-### 配置选项
+### Tùy chọn cấu hình
 
-* 快速登录
+* Đăng nhập nhanh
 ```csharp
 Configure<AbpSettingOptions>(options =>
 {
-    // 启用未注册用户快速登录
+    // Bật đăng nhập nhanh cho người dùng chưa đăng ký
     options.SetDefault(WeChatWorkSettingNames.EnabledQuickLogin, true);
 });
 ```
 
-### 错误类型
+### Loại lỗi
 
-* `invalid_grant`: 授权验证失败
-  * AgentId或Code无效
-  * 用户未注册且未启用快速登录
-  * 企业微信API调用失败
+* `invalid_grant`: Xác thực ủy quyền thất bại
+  * AgentId hoặc Code không hợp lệ
+  * Người dùng chưa đăng ký và chưa bật đăng nhập nhanh
+  * Lời gọi API WeChat Doanh nghiệp thất bại
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [企业微信开发文档](https://work.weixin.qq.com/api/doc)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu phát triển WeChat Doanh nghiệp](https://work.weixin.qq.com/api/doc)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

@@ -3,7 +3,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 弹出系统拍照发图的事件推送
+/// Đẩy sự kiện bật chụp ảnh hệ thống để gửi ảnh
 /// </summary>
 [EventName("pic_sysphoto")]
 public class PictureSystemPushEvent : PicturePushEvent

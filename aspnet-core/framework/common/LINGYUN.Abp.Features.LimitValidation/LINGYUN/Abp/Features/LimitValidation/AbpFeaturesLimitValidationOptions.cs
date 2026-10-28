@@ -14,12 +14,12 @@ public class AbpFeaturesLimitValidationOptions
         EffectPolicys = new Dictionary<LimitPolicy, Func<DateTime, int, long>>();
     }
     /// <summary>
-    /// 变更功能限制策略时长计算方法
+    /// Thay đổi phương thức tính thời lượng của chính sách giới hạn tính năng
     /// </summary>
-    /// <param name="policy">限制策略</param>
-    /// <param name="func">自定义的计算方法</param>
+    /// <param name="policy">Chính sách giới hạn</param>
+    /// <param name="func">Phương thức tính tùy chỉnh</param>
     /// <remarks>
-    /// 返回值一定要是秒钟刻度
+    /// Giá trị trả về nhất định phải theo đơn vị giây
     /// </remarks>
     public void MapEffectPolicy(LimitPolicy policy,[NotNull] Func<DateTime, int, long> func)
     {
@@ -49,13 +49,13 @@ public class AbpFeaturesLimitValidationOptions
 
         MapEffectPolicy(LimitPolicy.Days, (now, tick) =>
         {
-            // 按天计算应取当天
+            // Tính theo ngày thì lấy ngày hiện tại
             return (long)(now.Date.AddDays(tick) - now).TotalSeconds;
         });
 
         MapEffectPolicy(LimitPolicy.Weeks,(now, tick) =>
         {
-            // 按周计算应取当周
+            // Tính theo tuần thì lấy tuần hiện tại
             var nowDate = now.Date;
             var dayOfWeek = (int)nowDate.DayOfWeek - 1;
             if (nowDate.DayOfWeek == DayOfWeek.Sunday)
@@ -69,7 +69,7 @@ public class AbpFeaturesLimitValidationOptions
 
         MapEffectPolicy(LimitPolicy.Month, (now, tick) =>
         {
-            // 按月计算应取当月
+            // Tính theo tháng thì lấy tháng hiện tại
             var utcOnceDayOfMonth = new DateTime(now.Year, now.Month, 1, 0, 0, 0, 0);
 
             return (long)(utcOnceDayOfMonth.AddMonths(tick) - now).TotalSeconds; 
@@ -77,7 +77,7 @@ public class AbpFeaturesLimitValidationOptions
 
         MapEffectPolicy(LimitPolicy.Years, (now, tick) => 
         {
-            // 按年计算应取当年
+            // Tính theo năm thì lấy năm hiện tại
             var utcOnceDayOfYear = new DateTime(now.Year, 1, 1, 0, 0, 0, 0);
 
             return (long)(utcOnceDayOfYear.AddYears(tick) - now).TotalSeconds; 

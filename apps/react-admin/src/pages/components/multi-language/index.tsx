@@ -14,10 +14,10 @@ export default function MultiLanguagePage() {
 	// 	locale,
 	// 	language: { icon, label },
 	// } = useLocale();
-	const locale = useLocale(); // 当前语言标识
-	const { icon, label } = useLanguage(); // 当前语言对象
+	const locale = useLocale(); // Định danh ngôn ngữ hiện tại
+	const { icon, label } = useLanguage(); // Đối tượng ngôn ngữ hiện tại
 	const { i18n } = useTranslation();
-	const setLocale = useSetLocale(); // 切换语言的方法
+	const setLocale = useSetLocale(); // Phương thức chuyển đổi ngôn ngữ
 
 	return (
 		<Space direction="vertical" size="middle" style={{ display: "flex" }}>
@@ -34,6 +34,7 @@ export default function MultiLanguagePage() {
 				<Radio.Group onChange={(e) => setLocale(e.target.value, i18n)} value={locale}>
 					<Radio value={LocalEnum.en_US}>English</Radio>
 					<Radio value={LocalEnum.zh_CN}>Chinese</Radio>
+					<Radio value={LocalEnum.vi_VN}>Vietnamese</Radio>
 				</Radio.Group>
 
 				<div className="flex items-center text-4xl">

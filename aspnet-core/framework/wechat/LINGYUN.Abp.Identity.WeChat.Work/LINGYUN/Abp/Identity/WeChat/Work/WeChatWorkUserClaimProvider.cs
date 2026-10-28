@@ -67,7 +67,7 @@ public class WeChatWorkUserClaimProvider : IWeChatWorkUserClaimProvider
 
     protected virtual string? GetUserOpenIdOrNull(IdentityUser? user, string provider)
     {
-        // 微信扩展登录后openid存储在Login中
+        // Sau khi đăng nhập mở rộng WeChat, openid được lưu trong Login
         var userLogin = user?.Logins
             .Where(login => login.LoginProvider == provider)
             .FirstOrDefault();

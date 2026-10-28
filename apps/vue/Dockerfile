@@ -1,12 +1,12 @@
-FROM nginx:latest
+FROM nginx:1.30.6-alpine
 LABEL maintainer="colin.in@foxmail.com"
 
-# 将vue构建后的dist目录中的内容复制到docker容器中nginx默认配置的部署目录
+# Sao chép nội dung thư mục dist sau khi build vue vào thư mục triển khai cấu hình mặc định của nginx trong container docker
 COPY ./dist /usr/share/nginx/html
  
-# 将docker容器中默认的配置替换为本地配置
+# Thay cấu hình mặc định trong container docker bằng cấu hình local
 COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# 端口映射
+# Ánh xạ cổng
 EXPOSE 80

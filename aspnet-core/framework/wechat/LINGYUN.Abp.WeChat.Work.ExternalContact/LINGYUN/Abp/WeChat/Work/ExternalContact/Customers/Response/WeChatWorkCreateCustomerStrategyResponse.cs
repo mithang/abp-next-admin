@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Response;
 /// <summary>
-/// 创建新的规则组响应参数
+/// Tham số phản hồi tạo nhóm quy tắc mới
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94883" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/94883" />
 /// </remarks>
 public class WeChatWorkCreateCustomerStrategyResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 规则组id
+    /// Id nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("strategy_id")]

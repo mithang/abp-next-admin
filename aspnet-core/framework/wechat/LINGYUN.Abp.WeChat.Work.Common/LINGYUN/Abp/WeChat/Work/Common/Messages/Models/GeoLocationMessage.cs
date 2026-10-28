@@ -4,33 +4,33 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 地理位置消息
+/// Tin nhắn vị trí địa lý
 /// </summary>
 [EventName("geo_location")]
 public class GeoLocationMessage : WeChatWorkGeneralMessage
 {
     /// <summary>
-    /// 地理位置纬度
+    /// Vĩ độ vị trí địa lý
     /// </summary>
     [XmlElement("Location_X")]
     public double Latitude { get; set; }
     /// <summary>
-    /// 地理位置经度
+    /// Kinh độ vị trí địa lý
     /// </summary>
     [XmlElement("Location_Y")]
     public double Longitude { get; set; }
     /// <summary>
-    /// 地图缩放大小
+    /// Mức thu phóng bản đồ
     /// </summary>
     [XmlElement("Scale")]
     public double Scale { get; set; }
     /// <summary>
-    /// 地理位置信息
+    /// Thông tin vị trí địa lý
     /// </summary>
     [XmlElement("Label")]
     public string? Label { get; set; }
     /// <summary>
-    /// app类型，在企业微信固定返回wxwork，在微信不返回该字段
+    /// Loại app, trong WeChat Work luôn trả về wxwork, trong WeChat thì không trả về trường này
     /// </summary>
     [XmlElement("AppType")]
     public string? AppType { get; set; }

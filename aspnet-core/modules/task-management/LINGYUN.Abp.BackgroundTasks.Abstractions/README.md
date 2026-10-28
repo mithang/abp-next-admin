@@ -1,16 +1,16 @@
 # LINGYUN.Abp.BackgroundTasks.Abstractions
 
-后台任务（队列）模块抽象层，定义一些基本构造与接口  
+Lớp trừu tượng của mô-đun tác vụ nền (hàng đợi), định nghĩa một số cấu trúc và giao diện cơ bản  
 
-## 特性参数  
+## Tham số đặc tính  
 
-* DisableJobActionAttribute		标记此特性不处理作业触发后行为  
-* DisableJobStatusAttribute		标记此特性不处理作业状态  
-* DisableAuditingAttribute		标记此特性不记录作业日志  
+* DisableJobActionAttribute		Đánh dấu đặc tính này không xử lý hành vi sau khi tác vụ được kích hoạt  
+* DisableJobStatusAttribute		Đánh dấu đặc tính này không xử lý trạng thái tác vụ  
+* DisableAuditingAttribute		Đánh dấu đặc tính này không ghi nhật ký tác vụ  
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksAbstractionsModule))]

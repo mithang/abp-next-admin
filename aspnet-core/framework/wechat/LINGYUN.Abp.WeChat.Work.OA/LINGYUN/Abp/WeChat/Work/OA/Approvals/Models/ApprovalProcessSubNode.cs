@@ -5,40 +5,40 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 子节点
+/// Nút con
 /// </summary>
 public class ApprovalProcessSubNode
 {
     /// <summary>
-    /// 处理人信息
+    /// Thông tin người xử lý
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 审批/办理意见
+    /// Ý kiến phê duyệt/xử lý
     /// </summary>
     [NotNull]
     [JsonProperty("speech")]
     [JsonPropertyName("speech")]
     public string Speech { get; set; } = default!;
     /// <summary>
-    /// 子节点状态 1-审批中；2-同意；3-驳回；4-转审；11-退回给指定审批人；12-加签；13-同意并加签；14-办理；15-转交
+    /// Trạng thái nút con: 1 - đang phê duyệt; 2 - đồng ý; 3 - từ chối; 4 - chuyển xét duyệt; 11 - trả lại cho người phê duyệt được chỉ định; 12 - thêm người ký; 13 - đồng ý và thêm người ký; 14 - xử lý; 15 - chuyển giao
     /// </summary>
     [NotNull]
     [JsonProperty("sp_yj")]
     [JsonPropertyName("sp_yj")]
     public ApprovalProcessNodeStatus Status { get; set; }
     /// <summary>
-    /// 操作时间
+    /// Thời gian thao tác
     /// </summary>
     [NotNull]
     [JsonProperty("sptime")]
     [JsonPropertyName("sptime")]
     public long SpTime { get; set; }
     /// <summary>
-    /// 附件，微盘文件无法获取
+    /// Tệp đính kèm, không thể lấy được tệp trên WeDrive
     /// </summary>
     [CanBeNull]
     [JsonProperty("media_ids")]

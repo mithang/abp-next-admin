@@ -6,7 +6,7 @@ interface OAuthError {
 
 export function handleOAuthError() {
 	function formatError(error: OAuthError) {
-		// TODO: 解决oauth消息国际化.
+		// TODO: Giải quyết việc quốc tế hóa thông điệp oauth.
 		return error.error_description;
 	}
 

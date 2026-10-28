@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'auth.g.dart';
 
-/// 企业平台认证请求承载体
+/// Thể mang yêu cầu xác thực cổng doanh nghiệp
 @JsonSerializable()
 class PortalTokenRequest extends TokenRequest {
   PortalTokenRequest({
@@ -16,13 +16,13 @@ class PortalTokenRequest extends TokenRequest {
     clientId: clientId,
     clientSecret: clientSecret,
   );
-  /// 用户名
+  /// Tên người dùng
   @JsonKey(name: 'username')
   String userName;
-  /// 密码
+  /// Mật khẩu
   @JsonKey(name: 'password')
   String password;
-  /// 双因素认证提供者
+  /// Nhà cung cấp xác thực hai yếu tố
   @JsonKey(name: 'enterpriseId')
   String? enterpriseId;
 
@@ -36,7 +36,7 @@ class PortalTokenRequest extends TokenRequest {
   Map<String, dynamic> toJson() => _$PortalTokenRequestToJson(this);
 }
 
-/// 双因素身份认证手机认证请求承载体
+/// Thể mang yêu cầu xác thực bằng điện thoại cho xác thực hai yếu tố
 @JsonSerializable()
 class TwoFactorPhoneNumberTokenRequest extends PhoneNumberTokenRequest {
   TwoFactorPhoneNumberTokenRequest({
@@ -47,10 +47,10 @@ class TwoFactorPhoneNumberTokenRequest extends PhoneNumberTokenRequest {
     required this.twoFactorProvider,
     required this.twoFactorCode,
   });
-  /// 双因素认证提供者
+  /// Nhà cung cấp xác thực hai yếu tố
   @JsonKey(name: 'twoFactorProvider')
   String twoFactorProvider;
-  /// 双因素认证验证码
+  /// Mã xác minh xác thực hai yếu tố
   @JsonKey(name: 'twoFactorCode')
   String twoFactorCode;
 
@@ -65,7 +65,7 @@ class TwoFactorPhoneNumberTokenRequest extends PhoneNumberTokenRequest {
   Map<String, dynamic> toJson() => _$TwoFactorPhoneNumberTokenRequestToJson(this);
 }
 
-/// 身份认证手机验证请求承载体
+/// Thể mang yêu cầu xác minh điện thoại cho xác thực danh tính
 @JsonSerializable()
 class PhoneNumberTokenRequest extends TokenRequest {
   PhoneNumberTokenRequest({
@@ -74,11 +74,11 @@ class PhoneNumberTokenRequest extends TokenRequest {
     required this.phoneNumber,
     required this.code,
   }) : super(grantType: 'phone_verify', clientId: clientId, clientSecret: clientSecret);
-  /// 手机号
+  /// Số điện thoại
   // ignore: non_constant_identifier_names
   @JsonKey(name: 'phone_number')
   late String phoneNumber;
-  /// 验证码
+  /// Mã xác minh
   // ignore: non_constant_identifier_names
   @JsonKey(name: 'phone_verify_code')
   late String code;
@@ -92,7 +92,7 @@ class PhoneNumberTokenRequest extends TokenRequest {
   Map<String, dynamic> toJson() => _$PhoneNumberTokenRequestToJson(this);
 }
 
-/// 双因素身份认证密码认证请求承载体
+/// Thể mang yêu cầu xác thực bằng mật khẩu cho xác thực hai yếu tố
 @JsonSerializable()
 class TwoFactorPasswordTokenRequest extends PasswordTokenRequest {
   TwoFactorPasswordTokenRequest({
@@ -103,10 +103,10 @@ class TwoFactorPasswordTokenRequest extends PasswordTokenRequest {
     required this.twoFactorProvider,
     required this.twoFactorCode,
   });
-  /// 双因素认证提供者
+  /// Nhà cung cấp xác thực hai yếu tố
   @JsonKey(name: 'twoFactorProvider')
   String twoFactorProvider;
-  /// 双因素认证验证码
+  /// Mã xác minh xác thực hai yếu tố
   @JsonKey(name: 'twoFactorCode')
   String twoFactorCode;
 
@@ -121,7 +121,7 @@ class TwoFactorPasswordTokenRequest extends PasswordTokenRequest {
   Map<String, dynamic> toJson() => _$TwoFactorPasswordTokenRequestToJson(this);
 }
 
-/// 身份认证密码验证请求承载体
+/// Thể mang yêu cầu xác minh mật khẩu cho xác thực danh tính
 @JsonSerializable()
 class PasswordTokenRequest extends TokenRequest {
   PasswordTokenRequest({
@@ -134,10 +134,10 @@ class PasswordTokenRequest extends TokenRequest {
     clientId: clientId,
     clientSecret: clientSecret,
   );
-  /// 用户名
+  /// Tên người dùng
   @JsonKey(name: 'username')
   String userName;
-  /// 密码
+  /// Mật khẩu
   @JsonKey(name: 'password')
   String password;
 
@@ -150,7 +150,7 @@ class PasswordTokenRequest extends TokenRequest {
   Map<String, dynamic> toJson() => _$PasswordTokenRequestToJson(this);
 }
 
-/// 刷新令牌请求承载体
+/// Thể mang yêu cầu làm mới token
 @JsonSerializable()
 class RefreshTokenRequest extends TokenRequest {
   RefreshTokenRequest({
@@ -162,7 +162,7 @@ class RefreshTokenRequest extends TokenRequest {
     clientId: clientId,
     clientSecret: clientSecret,
   );
-  /// 刷新令牌
+  /// Token làm mới
   // ignore: non_constant_identifier_names
   @JsonKey(name: 'refresh_token')
   late String refreshToken;
@@ -176,22 +176,22 @@ class RefreshTokenRequest extends TokenRequest {
   Map<String, dynamic> toJson() => _$RefreshTokenRequestToJson(this);
 }
 
-/// 身份认证请求承载体
+/// Thể mang yêu cầu xác thực danh tính
 abstract class TokenRequest {
   TokenRequest({
     required this.grantType,
     required this.clientId,
     this.clientSecret,
   });
-  /// 认证类型
+  /// Loại xác thực
   // ignore: non_constant_identifier_names
   @JsonKey(name: 'grant_type')
   late String grantType;
-  /// 客户端标识
+  /// Mã định danh client
   // ignore: non_constant_identifier_names
   @JsonKey(name: 'client_id')
   late String clientId;
-  /// 客户端密钥
+  /// Khóa bí mật client
   // ignore: non_constant_identifier_names
   @JsonKey(name: 'client_secret')
   String? clientSecret;
@@ -201,21 +201,21 @@ abstract class TokenRequest {
   }
 }
 
-/// 双因素认证请求承载
+/// Thể mang yêu cầu xác thực hai yếu tố
 abstract class TwoFactorRequest {
   TwoFactorRequest({
     required this.twoFactorProvider,
     required this.twoFactorCode,
   });
-  /// 双因素认证提供者
+  /// Nhà cung cấp xác thực hai yếu tố
   @JsonKey(name: 'twoFactorProvider')
   String twoFactorProvider;
-  /// 双因素认证验证码
+  /// Mã xác minh xác thực hai yếu tố
   @JsonKey(name: 'twoFactorCode')
   String twoFactorCode;
 }
 
-/// 身份认证令牌承载体
+/// Thể mang token xác thực danh tính
 @JsonSerializable()
 class Token {
   Token({
@@ -226,22 +226,22 @@ class Token {
     this.refreshToken,
     this.scope,
   });
-  /// 令牌
+  /// Token
   @JsonKey(name: 'access_token')
   String accessToken;
-  /// 过期时间
+  /// Thời gian hết hạn
   @JsonKey(name: 'expires_in')
   int? expiresIn;
-  /// 过期时间
+  /// Thời gian hết hạn
   @JsonKey(name: 'expiration')
   DateTime? expiration;
-  /// 令牌类型
+  /// Loại token
   @JsonKey(name: 'token_type')
   String? tokenType;
-  /// 刷新令牌
+  /// Token làm mới
   @JsonKey(name: 'refresh_token')
   String? refreshToken;
-  /// 范围
+  /// Phạm vi
   @JsonKey(name: 'scope')
   String? scope;
 

@@ -16,8 +16,8 @@ watch(blur, (val) => {
 });
 </script>
 <template>
-  <Modal title="遮罩层模糊">
-    <p>调整滑块来改变遮罩层模糊程度：{{ blur }}</p>
+  <Modal title="Làm mờ lớp phủ">
+    <p>Điều chỉnh thanh trượt để thay đổi độ mờ của lớp phủ:{{ blur }}</p>
     <Slider v-model:value="blur" :max="30" :min="0" />
   </Modal>
 </template>

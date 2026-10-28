@@ -1,6 +1,6 @@
 /*
-  天气接口
-  数据来源: http://www.nmc.cn (中央气象台)
+  Giao diện thời tiết
+  Nguồn dữ liệu: http://www.nmc.cn (Đài Khí tượng Trung ương)
 */
 import { defHttp } from '/@/utils/http/axios';
 import { Position, Province, WeatherResult } from './model';

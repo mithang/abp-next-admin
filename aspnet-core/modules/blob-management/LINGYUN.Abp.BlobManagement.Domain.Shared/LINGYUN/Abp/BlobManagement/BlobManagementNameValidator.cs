@@ -5,12 +5,12 @@ using Volo.Abp;
 namespace LINGYUN.Abp.BlobManagement;
 
 /// <summary>
-/// BlobManagement 名称校验
+/// Kiểm tra tên BlobManagement
 /// </summary>
 public static class BlobManagementNameValidator
 {
     /// <summary>
-    /// 不允许出现的字符(各平台非法字符的并集, 含路径分隔符)
+    /// Các ký tự không được phép (hợp của các ký tự không hợp lệ trên các nền tảng, bao gồm ký tự phân tách đường dẫn)
     /// </summary>
     public static readonly char[] InvalidNameCharacters =
     [
@@ -18,11 +18,11 @@ public static class BlobManagementNameValidator
     ];
 
     /// <summary>
-    /// 校验单一名称(容器名、文件/目录名), 不合法时抛出异常
+    /// Kiểm tra một tên đơn (tên container, tên tệp/thư mục), ném ngoại lệ khi không hợp lệ
     /// </summary>
     /// <remarks>
-    /// 不允许路径分隔符, 否则会产生容器别名或把层级写进名字;
-    /// 依次检查: 空值 → 穿越段(./..) → 非法字符 → 结尾点/空格 → 保留设备名。
+    /// Không cho phép ký tự phân tách đường dẫn, nếu không sẽ tạo bí danh container hoặc ghi cấp bậc vào tên;
+    /// Kiểm tra lần lượt: giá trị rỗng → đoạn traversal (./..) → ký tự không hợp lệ → dấu chấm/khoảng trắng ở cuối → tên thiết bị dự trữ.
     /// </remarks>
     public static void CheckName(string? name, string errorCode)
     {
@@ -33,11 +33,11 @@ public static class BlobManagementNameValidator
     }
 
     /// <summary>
-    /// 校验名称路径(如 <see cref="Blob.FullName"/>), 不合法时抛出异常
+    /// Kiểm tra đường dẫn tên (ví dụ <see cref="Blob.FullName"/>), ném ngoại lệ khi không hợp lệ
     /// </summary>
     /// <remarks>
-    /// 允许 '/' 与 '\' 作为分隔符, 但逐段按单一名称规则校验;
-    /// 先去掉前导 '/' (模块约定全名以 '/' 开头), 再拒绝绝对路径与 UNC。
+    /// Cho phép '/' và '\' làm ký tự phân tách, nhưng kiểm tra từng đoạn theo quy tắc tên đơn;
+    /// Trước tiên loại bỏ '/' ở đầu (quy ước của module là tên đầy đủ bắt đầu bằng '/'), sau đó từ chối đường dẫn tuyệt đối và UNC.
     /// </remarks>
     public static void CheckPath(string? path, string errorCode)
     {
@@ -48,7 +48,7 @@ public static class BlobManagementNameValidator
     }
 
     /// <summary>
-    /// 是否为合法路径(逐段校验, 允许分隔符)
+    /// Có phải là đường dẫn hợp lệ không (kiểm tra từng đoạn, cho phép ký tự phân tách)
     /// </summary>
     public static bool IsValidPath(string? path)
     {
@@ -83,7 +83,7 @@ public static class BlobManagementNameValidator
     }
 
     /// <summary>
-    /// 是否为合法单一名称(不含分隔符)
+    /// Có phải là tên đơn hợp lệ không (không chứa ký tự phân tách)
     /// </summary>
     public static bool IsValidName(string? name)
     {
@@ -91,7 +91,7 @@ public static class BlobManagementNameValidator
     }
 
     /// <summary>
-    /// 是否为合法路径段
+    /// Có phải là đoạn đường dẫn hợp lệ không
     /// </summary>
     public static bool IsValidSegment(string? segment)
     {
@@ -116,7 +116,7 @@ public static class BlobManagementNameValidator
     }
 
     /// <summary>
-    /// 是否为 Windows 保留设备名(CON/PRN/AUX/NUL/COM1-9/LPT1-9)
+    /// Có phải là tên thiết bị dự trữ của Windows không (CON/PRN/AUX/NUL/COM1-9/LPT1-9)
     /// </summary>
     public static bool IsReservedDeviceName(string name)
     {
@@ -153,7 +153,7 @@ public static class BlobManagementNameValidator
     }
 
     /// <summary>
-    /// 创建名称非法异常
+    /// Tạo ngoại lệ tên không hợp lệ
     /// </summary>
     public static BusinessException CreateInvalidNameException(string? name, string errorCode)
     {

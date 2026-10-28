@@ -30,7 +30,10 @@ const resize = (size?: TSize, rect?: TSize) => {
 </script>
 
 <template>
-  <Page description="Resize组件基础示例" title="Resize组件">
+  <Page
+    description="Ví dụ cơ bản của component Resize"
+    title="Component Resize"
+  >
     <div class="m-4 bg-blue-500 p-48 text-xl">
       <div v-for="size in sizeList" :key="size.width">
         {{

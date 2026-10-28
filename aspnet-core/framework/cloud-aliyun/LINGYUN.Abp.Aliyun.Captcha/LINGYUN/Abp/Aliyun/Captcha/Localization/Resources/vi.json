@@ -1,0 +1,16 @@
+{
+  "culture": "vi",
+  "texts": {
+    "DisplayName:Aliyun.Captcha": "Dịch vụ mã xác minh",
+    "DisplayName:SceneId": "Mã định danh duy nhất của kịch bản",
+    "Description:SceneId": "Định danh duy nhất của kịch bản mã xác minh, lấy trong bảng điều khiển.",
+    "DisplayName:Prefix": "Nhãn danh tính",
+    "Description:Prefix": "Định danh, lấy tại khu vực thẻ thông tin cơ bản của instance trên trang tổng quan bảng điều khiển.",
+    "DisplayName:UseEncryptedSceneId": "Mã hóa định danh tình huống",
+    "Description:UseEncryptedSceneId": "Mã xác minh phía frontend có sử dụng mã định danh kịch bản đã mã hóa hay không, chế độ này có thể ngăn chặn hiệu quả việc chiếm dụng dịch vụ hoặc gọi độc hại do rò rỉ sceneId.",
+    "DisplayName:EKey": "Khóa đã mã hóa",
+    "Description:EKey": "Khóa bí mật đã mã hóa, tại khu vực phía trên bên phải của trang tổng quan bảng điều khiển, lấy khóa dùng để mã hóa (ekey).",
+    "DisplayName:EncryptedExpireTimeSec": "Thời gian hiệu lực của chuỗi đã mã hóa",
+    "Description:EncryptedExpireTimeSec": "Thời gian hiệu lực của chuỗi mã hóa (đơn vị: giây, phạm vi giá trị từ 1 đến 86400 (tức 1 giây đến 24 giờ)."
+  }
+}

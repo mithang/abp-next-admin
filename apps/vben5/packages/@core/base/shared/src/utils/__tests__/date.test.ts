@@ -21,9 +21,9 @@ describe('dateUtils', () => {
   const sampleTimestamp = Date.parse(sampleISO);
 
   beforeEach(() => {
-    // 重置时区
+    // Đặt lại múi giờ
     dayjs.tz.setDefault();
-    setCurrentTimezone(); // 重置为系统默认
+    setCurrentTimezone(); // Đặt lại về mặc định hệ thống
   });
 
   afterEach(() => {
@@ -136,7 +136,7 @@ describe('dateUtils', () => {
     it('should update dayjs default timezone', () => {
       setCurrentTimezone('America/New_York');
       const d = dayjs('2024-01-01T00:00:00Z');
-      // 校验时区转换生效（小时变化）
+      // Kiểm chứng chuyển đổi múi giờ có hiệu lực (giờ thay đổi)
       expect(d.tz().format('HH')).not.toBe('00');
     });
   });

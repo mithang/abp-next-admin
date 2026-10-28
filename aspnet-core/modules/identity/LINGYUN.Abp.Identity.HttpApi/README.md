@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.HttpApi
 
-身份认证HTTP API模块，提供身份认证相关的HTTP API接口。
+Mô-đun HTTP API xác thực danh tính, cung cấp giao diện HTTP API liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展Volo.Abp.Identity.AbpIdentityHttpApiModule模块
-* 提供身份认证相关的HTTP API接口
-* 支持本地化资源的MVC数据注解
-* 自动注册MVC应用程序部件
+* Mở rộng mô-đun Volo.Abp.Identity.AbpIdentityHttpApiModule
+* Cung cấp giao diện HTTP API liên quan đến xác thực danh tính
+* Hỗ trợ chú thích dữ liệu MVC của tài nguyên bản địa hóa
+* Tự động đăng ký thành phần ứng dụng MVC
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -21,27 +21,27 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API控制器
+## Bộ điều khiển API
 
-* IdentityUserController - 用户管理API
-* IdentityRoleController - 角色管理API
-* IdentityClaimTypeController - 声明类型管理API
-* IdentitySecurityLogController - 安全日志API
-* IdentitySettingsController - 身份认证设置API
-* ProfileController - 用户配置文件API
+* IdentityUserController - API quản lý người dùng
+* IdentityRoleController - API quản lý vai trò
+* IdentityClaimTypeController - API quản lý loại khai báo
+* IdentitySecurityLogController - API nhật ký bảo mật
+* IdentitySettingsController - API cài đặt xác thực danh tính
+* ProfileController - API hồ sơ người dùng
 
-## API路由
+## Tuyến API
 
-* `/api/identity/users` - 用户管理API路由
-* `/api/identity/roles` - 角色管理API路由
-* `/api/identity/claim-types` - 声明类型管理API路由
-* `/api/identity/security-logs` - 安全日志API路由
-* `/api/identity/settings` - 身份认证设置API路由
-* `/api/identity/my-profile` - 用户配置文件API路由
+* `/api/identity/users` - Tuyến API quản lý người dùng
+* `/api/identity/roles` - Tuyến API quản lý vai trò
+* `/api/identity/claim-types` - Tuyến API quản lý loại khai báo
+* `/api/identity/security-logs` - Tuyến API nhật ký bảo mật
+* `/api/identity/settings` - Tuyến API cài đặt xác thực danh tính
+* `/api/identity/my-profile` - Tuyến API hồ sơ người dùng
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置本地化
+1. Cấu hình bản địa hóa
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
@@ -52,15 +52,15 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 使用API
+2. Sử dụng API
 ```csharp
-// 获取用户列表
+// Lấy danh sách người dùng
 GET /api/identity/users
 
-// 获取指定用户
+// Lấy người dùng chỉ định
 GET /api/identity/users/{id}
 
-// 创建用户
+// Tạo người dùng
 POST /api/identity/users
 {
     "userName": "admin",
@@ -68,18 +68,18 @@ POST /api/identity/users
     "password": "1q2w3E*"
 }
 
-// 更新用户
+// Cập nhật người dùng
 PUT /api/identity/users/{id}
 {
     "userName": "admin",
     "email": "admin@abp.io"
 }
 
-// 删除用户
+// Xóa người dùng
 DELETE /api/identity/users/{id}
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
-* [ABP HTTP API文档](https://docs.abp.io/en/abp/latest/API/HTTP-API)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu HTTP API ABP](https://docs.abp.io/en/abp/latest/API/HTTP-API)

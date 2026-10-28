@@ -1,13 +1,13 @@
 # LINGYUN.Abp.Elsa.EntityFrameworkCore
 
-Elsa工作流的EntityFrameworkCore集成模块
+Mô-đun tích hợp EntityFrameworkCore cho quy trình làm việc Elsa
 
-## 功能
+## Tính năng
 
-* 提供Elsa工作流的EntityFrameworkCore集成
-* 依赖于 `AbpElsaModule` 和 `AbpEntityFrameworkCoreModule`
+* Cung cấp tích hợp EntityFrameworkCore cho quy trình làm việc Elsa
+* Phụ thuộc vào `AbpElsaModule` và `AbpEntityFrameworkCoreModule`
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(
@@ -18,9 +18,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 数据库提供程序
+## Nhà cung cấp cơ sở dữ liệu
 
-本模块是数据库提供程序无关的基础模块，你需要根据实际使用的数据库选择以下对应的模块：
+Mô-đun này là mô-đun cơ sở không phụ thuộc vào nhà cung cấp cơ sở dữ liệu, bạn cần chọn mô-đun tương ứng dưới đây theo cơ sở dữ liệu thực tế đang sử dụng:
 
 * [SqlServer](../LINGYUN.Abp.Elsa.EntityFrameworkCore.SqlServer/README.md)
 * [PostgreSql](../LINGYUN.Abp.Elsa.EntityFrameworkCore.PostgreSql/README.md)

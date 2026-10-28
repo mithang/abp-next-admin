@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages;
 /// <summary>
-/// 企业微信消息解析器
+/// Trình phân tích tin nhắn WeChat Work
 /// </summary>
 public interface IWeChatWorkMessageResolver
 {
     /// <summary>
-    /// 解析企业微信消息
+    /// Phân tích tin nhắn WeChat Work
     /// </summary>
-    /// <param name="messageData">企业微信消息</param>
+    /// <param name="messageData">Tin nhắn WeChat Work</param>
     /// <returns></returns>
     Task<MessageResolveResult> ResolveAsync(MessageResolveData messageData);
 }

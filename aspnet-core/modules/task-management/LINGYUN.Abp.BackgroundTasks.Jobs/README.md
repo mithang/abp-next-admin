@@ -1,19 +1,19 @@
 # LINGYUN.Abp.BackgroundTasks.Jobs
 
-后台任务（队列）常用作业模块  
+Mô-đun job thường dùng cho tác vụ nền (hàng đợi)  
 
-## 作业列表  
+## Danh sách job  
 
-* [ConsoleJob](./LINGYUN/Abp/BackgroundTasks/Jobs/ConsoleJob):							控制台输出  
-* [HttpRequestJob](./LINGYUN/Abp/BackgroundTasks/Jobs/HttpRequestJob):					Http请求  
-* [SendEmailJob](./LINGYUN/Abp/BackgroundTasks/Jobs/SendEmailJob):						发送邮件  
-* [SendSmsJob](./LINGYUN/Abp/BackgroundTasks/Jobs/SendSmsJob):							发送短信  
-* [ServiceInvocationJob](./LINGYUN/Abp/BackgroundTasks/Jobs/ServiceInvocationJob):		服务间调用（Http请求的扩展）  
-* [SleepJob](./LINGYUN/Abp/BackgroundTasks/Jobs/SleepJob):								休眠,使作业延期执行  
+* [ConsoleJob](./LINGYUN/Abp/BackgroundTasks/Jobs/ConsoleJob):							Xuất ra console  
+* [HttpRequestJob](./LINGYUN/Abp/BackgroundTasks/Jobs/HttpRequestJob):					Yêu cầu Http  
+* [SendEmailJob](./LINGYUN/Abp/BackgroundTasks/Jobs/SendEmailJob):						Gửi email  
+* [SendSmsJob](./LINGYUN/Abp/BackgroundTasks/Jobs/SendSmsJob):							Gửi SMS  
+* [ServiceInvocationJob](./LINGYUN/Abp/BackgroundTasks/Jobs/ServiceInvocationJob):		Gọi giữa các dịch vụ (mở rộng của yêu cầu Http)  
+* [SleepJob](./LINGYUN/Abp/BackgroundTasks/Jobs/SleepJob):								Tạm dừng, khiến job được thực thi trễ  
 
-## 配置使用
+## Cấu hình và sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksJobsModule))]

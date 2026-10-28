@@ -1,15 +1,15 @@
 # LINGYUN.Platform.Domain.Shared
 
-平台管理模块的共享领域层，定义了平台管理所需的基本类型、枚举和常量。
+Lớp lĩnh vực chia sẻ của module quản lý nền tảng, định nghĩa các kiểu cơ bản, enum và hằng số cần thiết cho quản lý nền tảng.
 
-## 功能特性
+## Tính năng
 
-* 定义平台管理基础枚举
-* 定义平台管理常量
-* 定义平台管理本地化资源
-* 定义平台管理领域共享接口
+* Định nghĩa enum cơ sở quản lý nền tảng
+* Định nghĩa hằng số quản lý nền tảng
+* Định nghĩa tài nguyên bản địa hóa quản lý nền tảng
+* Định nghĩa giao diện chia sẻ lĩnh vực quản lý nền tảng
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(PlatformDomainSharedModule))]
@@ -19,12 +19,12 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 引用模块
-2. 使用定义的枚举和常量
-3. 使用本地化资源
+1. Tham chiếu module
+2. Sử dụng enum và hằng số đã định nghĩa
+3. Sử dụng tài nguyên bản địa hóa
 
-## 更多
+## Thêm
 
-更多信息请参考 [Platform](../README.md)
+Để biết thêm thông tin, vui lòng tham khảo [Platform](../README.md)

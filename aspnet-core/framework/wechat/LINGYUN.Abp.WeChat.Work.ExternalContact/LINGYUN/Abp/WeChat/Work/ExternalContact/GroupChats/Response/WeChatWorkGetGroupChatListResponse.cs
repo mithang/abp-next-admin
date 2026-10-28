@@ -5,22 +5,22 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Response;
 /// <summary>
-/// 获取客户群列表响应结果
+/// Kết quả phản hồi lấy danh sách nhóm khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92120" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92120" />
 /// </remarks>
 public class WeChatWorkGetGroupChatListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 客户群列表
+    /// Danh sách nhóm khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("group_chat_list")]
     [JsonPropertyName("group_chat_list")]
     public GroupChat[] GroupChatList { get; set; } = default!;
     /// <summary>
-    /// 分页游标，下次请求时填写以获取之后分页的记录。如果该字段返回空则表示已没有更多数据
+    /// Con trỏ phân trang, điền vào lần yêu cầu tiếp theo để lấy các bản ghi của trang sau. Nếu trường này trả về rỗng thì nghĩa là không còn dữ liệu nữa
     /// </summary>
     [CanBeNull]
     [JsonProperty("next_cursor")]

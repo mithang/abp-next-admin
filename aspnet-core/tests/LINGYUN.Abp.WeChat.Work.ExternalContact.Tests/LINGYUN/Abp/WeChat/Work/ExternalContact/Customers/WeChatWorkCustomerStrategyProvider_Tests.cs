@@ -45,5 +45,5 @@ public class WeChatWorkCustomerStrategyProvider_Tests : AbpWeChatWorkExternalCon
         exception.Message.ShouldContain($"invalid strategy_id:0");
     }
 
-    // TODO: 其他敏感接口自行实现测试
+    // TODO: Tự triển khai kiểm tra cho các giao diện nhạy cảm khác
 }

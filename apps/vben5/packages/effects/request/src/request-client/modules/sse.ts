@@ -4,7 +4,7 @@ import type { RequestClient } from '../request-client';
 import type { SseRequestOptions } from '../types';
 
 /**
- * SSE模块
+ * Mô-đun SSE
  */
 class SSE {
   private client: RequestClient;
@@ -25,10 +25,10 @@ class SSE {
   }
 
   /**
-   * SSE请求方法
-   * @param url - 请求URL
-   * @param data - 请求数据
-   * @param requestOptions - SSE请求选项
+   * Phương thức yêu cầu SSE
+   * @param url - URL yêu cầu
+   * @param data - Dữ liệu yêu cầu
+   * @param requestOptions - Tùy chọn yêu cầu SSE
    */
   public async requestSSE(
     url: string,
@@ -117,20 +117,20 @@ class SSE {
 
 function safeJoinUrl(baseUrl: string | undefined, url: string): string {
   if (!baseUrl) {
-    return url; // 没有 baseUrl，直接返回 url
+    return url; // Không có baseUrl, trả về trực tiếp url
   }
 
-  // 如果 url 本身就是绝对地址，直接返回
+  // Nếu bản thân url đã là địa chỉ tuyệt đối, trả về trực tiếp
   if (/^https?:\/\//i.test(url)) {
     return url;
   }
 
-  // 如果 baseUrl 是完整 URL，就用 new URL
+  // Nếu baseUrl là URL đầy đủ, dùng new URL
   if (/^https?:\/\//i.test(baseUrl)) {
     return new URL(url, baseUrl).toString();
   }
 
-  // 否则，当作路径拼接
+  // Ngược lại, coi như nối đường dẫn
   return `${baseUrl.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
 }
 

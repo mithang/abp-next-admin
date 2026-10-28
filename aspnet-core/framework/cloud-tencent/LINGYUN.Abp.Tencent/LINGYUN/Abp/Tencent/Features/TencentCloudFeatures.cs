@@ -8,7 +8,7 @@ public static class TencentCloudFeatures
     {
         public const string GroupName = TencentCloudFeatures.GroupName + ".Sms";
         /// <summary>
-        /// 启用短信
+        /// Bật SMS
         /// </summary>
         public const string Enable = GroupName + ".Enable";
     }
@@ -17,12 +17,12 @@ public static class TencentCloudFeatures
     {
         public const string GroupName = TencentCloudFeatures.GroupName + ".BlobStoring";
         /// <summary>
-        /// 启用对象存储
+        /// Bật lưu trữ đối tượng
         /// </summary>
         public const string Enable = GroupName + ".Enable";
         /// <summary>
-        /// 最大流大小限制, 小于等于0无效, 单位(MB)
-        /// 默认： 0
+        /// Giới hạn kích thước luồng tối đa, nhỏ hơn hoặc bằng 0 thì không hợp lệ, đơn vị (MB)
+        /// Mặc định: 0
         /// </summary>
         public const string MaximumStreamSize = GroupName + ".MaximumStreamSize";
     }

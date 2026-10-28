@@ -16,23 +16,23 @@ class RequestClient {
 	public addResponseInterceptor: InterceptorManager["addResponseInterceptor"];
 
 	public download: FileDownloader["download"];
-	// 是否正在刷新token
+	// Có đang làm mới token không
 	public isRefreshing = false;
-	// 刷新token队列
+	// Hàng đợi làm mới token
 	public refreshTokenQueue: ((token: string) => void)[] = [];
 	public upload: FileUploader["upload"];
 
 	/**
-	 * 构造函数，用于创建Axios实例
-	 * @param options - Axios请求配置，可选
+	 * Hàm khởi tạo, dùng để tạo instance Axios
+	 * @param options - Cấu hình request Axios, tùy chọn
 	 */
 	constructor(options: RequestClientOptions = {}) {
-		// 合并默认配置和传入的配置
+		// Gộp cấu hình mặc định và cấu hình truyền vào
 		const defaultConfig: CreateAxiosDefaults = {
 			headers: {
 				"Content-Type": "application/json;charset=utf-8",
 			},
-			// 默认超时时间
+			// Thời gian timeout mặc định
 			timeout: 10_000,
 		};
 		const { ...axiosConfig } = options;
@@ -41,49 +41,49 @@ class RequestClient {
 
 		bindMethods(this);
 
-		// 实例化拦截器管理器
+		// Khởi tạo trình quản lý interceptor
 		const interceptorManager = new InterceptorManager(this.instance);
 		this.addRequestInterceptor = interceptorManager.addRequestInterceptor.bind(interceptorManager);
 		this.addResponseInterceptor = interceptorManager.addResponseInterceptor.bind(interceptorManager);
 
-		// 实例化文件上传器
+		// Khởi tạo trình tải lên file
 		const fileUploader = new FileUploader(this);
 		this.upload = fileUploader.upload.bind(fileUploader);
-		// 实例化文件下载器
+		// Khởi tạo trình tải xuống file
 		const fileDownloader = new FileDownloader(this);
 		this.download = fileDownloader.download.bind(fileDownloader);
 	}
 
 	/**
-	 * DELETE请求方法
+	 * Phương thức request DELETE
 	 */
 	public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
 		return this.request<T>(url, { ...config, method: "DELETE" });
 	}
 
 	/**
-	 * GET请求方法
+	 * Phương thức request GET
 	 */
 	public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
 		return this.request<T>(url, { ...config, method: "GET" });
 	}
 
 	/**
-	 * POST请求方法
+	 * Phương thức request POST
 	 */
 	public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
 		return this.request<T>(url, { ...config, data, method: "POST" });
 	}
 
 	/**
-	 * PUT请求方法
+	 * Phương thức request PUT
 	 */
 	public put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
 		return this.request<T>(url, { ...config, data, method: "PUT" });
 	}
 
 	/**
-	 * 通用的请求方法
+	 * Phương thức request chung
 	 */
 	public async request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
 		try {

@@ -1,10 +1,10 @@
 # LINGYUN.Abp.Notifications.TuiJuhe
 
-通知模块的TuiJuhe实现  
+Triển khai TuiJuhe của module thông báo  
 
-使应用可通过TuiJuhe发布实时通知  
+Cho phép ứng dụng phát hành thông báo thời gian thực qua TuiJuhe  
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsTuiJuheModule))]

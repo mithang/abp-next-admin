@@ -4,22 +4,22 @@ namespace LINGYUN.Platform.Feedbacks;
 public enum FeedbackStatus
 {
     /// <summary>
-    /// 新增
+    /// Mới tạo
     /// </summary>
     [Description("FeedbackStatus:Created")]
     Created = 1,
     /// <summary>
-    /// 处理中
+    /// Đang xử lý
     /// </summary>
     [Description("FeedbackStatus:InProgress")]
     InProgress = 2,
     /// <summary>
-    /// 已关闭
+    /// Đã đóng
     /// </summary>
     [Description("FeedbackStatus:Closed")]
     Closed = 3,
     /// <summary>
-    /// 已解决
+    /// Đã giải quyết
     /// </summary>
     [Description("FeedbackStatus:Resolved")]
     Resolved = 4

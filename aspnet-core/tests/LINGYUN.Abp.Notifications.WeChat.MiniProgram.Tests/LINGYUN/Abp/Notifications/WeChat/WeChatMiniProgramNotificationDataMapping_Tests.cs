@@ -40,7 +40,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
             // mappingOpenIdData.TryGetData("openid").ShouldNotBeNull();
             // mappingOpenIdData.TryGetData("openid").ToString().ShouldBe("TEST");
 
-            // // 按照预定义规则,这条数据被丢弃
+            // // Theo quy tắc định sẵn, dữ liệu này bị bỏ qua
             // mappingOpenIdData.TryGetData("otherDataKey").ShouldBeNull();
         }
 
@@ -53,7 +53,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
 
             // var mappingStandardData = mappingStandardItem.MappingFunc(_notificationData);
 
-            // // 按照自定义规则,其他数据被丢弃
+            // // Theo quy tắc tùy chỉnh, các dữ liệu khác bị bỏ qua
             // mappingStandardData.TryGetData("openid").ShouldBeNull();
             // mappingStandardData.TryGetData("otherDataKey").ShouldBeNull();
             // mappingStandardData.ExtraProperties.Count.ShouldBe(6);
@@ -68,7 +68,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
 
             // var mappingOriginData = mappingOriginItem.MappingFunc(_notificationData);
 
-            // // 按照自定义规则,所有数据被保留
+            // // Theo quy tắc tùy chỉnh, tất cả dữ liệu được giữ lại
             // mappingOriginData.TryGetData(NotificationWeChatMiniProgramOptions.DefaultMsgPrefix + "openid").ShouldNotBeNull();
             // mappingOriginData.TryGetData("otherDataKey").ShouldNotBeNull();
             // mappingOriginData.ExtraProperties.Count.ShouldBe(8);

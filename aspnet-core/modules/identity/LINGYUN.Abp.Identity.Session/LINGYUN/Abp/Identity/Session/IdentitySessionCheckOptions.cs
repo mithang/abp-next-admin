@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.Identity.Session;
 /// <summary>
-/// 用于会话管理的配置
+/// Cấu hình dùng cho quản lý phiên
 /// </summary>
 public class IdentitySessionCheckOptions
 {
     /// <summary>
-    /// 保持访问时长
-    /// 默认: 1分钟
+    /// Thời lượng duy trì quyền truy cập
+    /// Mặc định: 1 phút
     /// </summary>
     /// <remarks>
-    /// 刷新缓存会话间隔时长
+    /// Khoảng thời gian giữa các lần làm mới phiên trong cache
     /// </remarks>
     public TimeSpan KeepAccessTimeSpan { get; set; }
     /// <summary>
-    /// 会话同步间隔（ms）
-    /// 默认: 10分钟
+    /// Khoảng thời gian đồng bộ phiên (ms)
+    /// Mặc định: 10 phút
     /// </summary>
     /// <remarks>
-    /// 从缓存同步到持久化的间隔时长
+    /// Khoảng thời gian đồng bộ từ cache sang bộ nhớ bền vững
     /// </remarks>
     public TimeSpan SessionSyncTimeSpan { get; set; }
     public IdentitySessionCheckOptions()

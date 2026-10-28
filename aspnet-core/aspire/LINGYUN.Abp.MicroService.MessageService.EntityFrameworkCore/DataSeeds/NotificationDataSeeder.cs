@@ -50,7 +50,7 @@ public class NotificationDataSeeder : ITransientDependency
 
             var tenantAdminUserIdentifier = new UserIdentifier(adminUserId, adminEmailAddress);
 
-            // 租户管理员订阅事件
+            // Sự kiện đăng ký của quản trị viên tenant
             await NotificationSubscriptionManager
                 .SubscribeAsync(
                     context.TenantId,

@@ -6,36 +6,36 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Report;
 
 /// <summary>
-/// 报表关联的仪表盘
+/// Dashboard liên kết với báo cáo
 /// </summary>
 public class ReportDashboardReference
 {
     /// <summary>
-    /// 仪表盘标识
+    /// Mã định danh dashboard
     /// </summary>
     [JsonPropertyName("dashboard")]
     public string Dashboard { get; set; } = default!;
 
     /// <summary>
-    /// 仪表盘所在文件夹
+    /// Thư mục chứa dashboard
     /// </summary>
     [JsonPropertyName("folder")]
     public string? Folder { get; set; }
 
     /// <summary>
-    /// 页签
+    /// Tab
     /// </summary>
     [JsonPropertyName("tabs")]
     public string[]? Tabs { get; set; }
 
     /// <summary>
-    /// 变量
+    /// Biến
     /// </summary>
     [JsonPropertyName("variables")]
     public JsonNode? Variables { get; set; }
 
     /// <summary>
-    /// 时间范围
+    /// Phạm vi thời gian
     /// </summary>
     [JsonPropertyName("timerange")]
     public ReportTimeRange? TimeRange { get; set; }

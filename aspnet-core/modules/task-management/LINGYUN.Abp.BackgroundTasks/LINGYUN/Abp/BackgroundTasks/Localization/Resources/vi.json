@@ -1,0 +1,27 @@
+{
+  "culture": "vi",
+  "texts": {
+    "JobAction:Failed": "Thất bại",
+    "JobAction:Successed": "Thành công",
+    "JobAction:Completed": "Hoàn thành",
+    "Status:None": "Chưa định nghĩa",
+    "Status:Completed": "Đã hoàn thành",
+    "Status:Running": "Đang chạy",
+    "Status:Queuing": "Đang trong hàng đợi",
+    "Status:Paused": "Đã tạm dừng",
+    "Status:FailedRetry": "Thử lại khi thất bại",
+    "Status:Stopped": "Đã dừng",
+    "JobType:Once": "Một lần",
+    "JobType:Period": "Định kỳ",
+    "JobType:Persistent": "Tính liên tục",
+    "Priority:Low": "Thấp",
+    "Priority:BelowNormal": "Thấp hơn bình thường",
+    "Priority:Normal": "Bình thường",
+    "Priority:AboveNormal": "Cao hơn bình thường",
+    "Priority:High": "Cao",
+    "Source:None": "Chưa định nghĩa",
+    "Source:Source": "Nguồn",
+    "Source:User": "Người dùng",
+    "Source:System": "Tích hợp sẵn trong hệ thống"
+  }
+}

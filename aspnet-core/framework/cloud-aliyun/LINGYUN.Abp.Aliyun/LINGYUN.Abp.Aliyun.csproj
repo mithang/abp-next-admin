@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>阿里云SDK基础框架</Description>
+		<Description>Framework cơ sở SDK Alibaba Cloud</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

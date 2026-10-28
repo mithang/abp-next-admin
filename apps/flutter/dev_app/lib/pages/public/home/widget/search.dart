@@ -66,7 +66,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
       );
     }
     return const Center(
-      child: Text('没有结果'),
+      child: Text('Không có kết quả'),
     );
   }
 

@@ -2,7 +2,7 @@
 
 Localization Management Database Migration Module, providing database migration functionality for the localization management system.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

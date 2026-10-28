@@ -1,37 +1,37 @@
 # LINGYUN.Abp.Saas.Application
 
-SaaS应用服务层模块，实现了租户和版本管理的应用服务接口。
+Module tầng dịch vụ ứng dụng SaaS, triển khai giao diện dịch vụ ứng dụng quản lý tenant và phiên bản.
 
-## 功能特性
+## Tính năng
 
-* 租户管理服务(TenantAppService)
-  * 创建租户
-  * 更新租户
-  * 删除租户
-  * 获取租户列表
-  * 获取租户详情
-  * 管理租户连接字符串
-  * 管理租户功能
+* Dịch vụ quản lý tenant (TenantAppService)
+  * Tạo tenant
+  * Cập nhật tenant
+  * Xoá tenant
+  * Lấy danh sách tenant
+  * Lấy chi tiết tenant
+  * Quản lý chuỗi kết nối tenant
+  * Quản lý tính năng tenant
 
-* 版本管理服务(EditionAppService)
-  * 创建版本
-  * 更新版本
-  * 删除版本
-  * 获取版本列表
-  * 获取版本详情
-  * 管理版本功能
+* Dịch vụ quản lý phiên bản (EditionAppService)
+  * Tạo phiên bản
+  * Cập nhật phiên bản
+  * Xoá phiên bản
+  * Lấy danh sách phiên bản
+  * Lấy chi tiết phiên bản
+  * Quản lý tính năng phiên bản
 
-## 权限验证
+## Xác thực quyền
 
-所有应用服务方法都已添加相应的权限验证，确保只有具有对应权限的用户才能访问。
+Tất cả các phương thức dịch vụ ứng dụng đều đã được thêm xác thực quyền tương ứng, đảm bảo chỉ người dùng có quyền tương ứng mới được truy cập.
 
-## 对象映射
+## Ánh xạ đối tượng
 
-使用AutoMapper实现了以下对象映射：
+Đã sử dụng AutoMapper để triển khai các ánh xạ đối tượng sau:
 * Edition <-> EditionDto
 * Tenant <-> TenantDto
 * TenantConnectionString <-> TenantConnectionStringDto
 
-## 更多
+## Thêm
 
 [English](README.EN.md)

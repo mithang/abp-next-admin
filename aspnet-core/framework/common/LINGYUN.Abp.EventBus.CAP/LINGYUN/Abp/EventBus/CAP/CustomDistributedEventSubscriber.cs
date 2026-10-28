@@ -41,7 +41,7 @@ internal class CustomDistributedEventSubscriber : ICustomDistributedEventSubscri
                 if (!factories.Contains(factory))
                 {
                     factories.Add(factory);
-                    // TODO 客户端订阅
+                    // TODO Đăng ký phía client
                 }
             });
     }
@@ -54,7 +54,7 @@ internal class CustomDistributedEventSubscriber : ICustomDistributedEventSubscri
                 if (factories.Contains(factory))
                 {
                     factories.Remove(factory);
-                    // TODO 客户端退订
+                    // TODO Hủy đăng ký phía client
                 }
             });
     }

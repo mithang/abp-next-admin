@@ -1,4 +1,4 @@
-English | [简体中文](./README.md)
+English | [Tiếng Trung giản thể](./README.md)
 
 [RELEASE](./RELEASE.md) RELEASE
 
@@ -17,7 +17,7 @@ This is a [vue-vben-admin](https://github.com/anncwb/vue-vben-admin) -based Abp 
 If you don't need a microservices architecture, you can choose the monolithic service deployment option. Monolithic services are characterized by simple deployment and easy maintenance.
 
 - [Monolithic Service Startup Guide](./docs/startup-aio-readme.en.md)
-- [单体服务启动说明](./docs/startup-aio-readme.md)
+- [Hướng dẫn khởi động dịch vụ đơn khối](./docs/startup-aio-readme.md)
 
 ### Microservices Deployment
 

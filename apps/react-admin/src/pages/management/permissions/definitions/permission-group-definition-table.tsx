@@ -38,7 +38,7 @@ const PermissionGroupDefinitionTable: React.FC = () => {
 
 	const [searchParams, setSearchParams] = useState<{ filter?: string }>({});
 
-	// 获取权限组列表
+	// Lấy danh sách nhóm quyền
 	const { data, isLoading } = useQuery({
 		queryKey: ["permissionGroups", searchParams],
 		queryFn: async () => {
@@ -53,7 +53,7 @@ const PermissionGroupDefinitionTable: React.FC = () => {
 		},
 	});
 
-	// 删除权限组
+	// Xóa nhóm quyền
 	const { mutateAsync: deleteGroup } = useMutation({
 		mutationFn: deleteApi,
 		onSuccess: () => {
@@ -140,7 +140,7 @@ const PermissionGroupDefinitionTable: React.FC = () => {
 														label: $t("AbpPermissionManagement.PermissionDefinitions:AddNew"),
 													}
 												: null,
-										].filter((item) => item !== null), // 过滤
+										].filter((item) => item !== null), // Lọc
 										onClick: ({ key }) => handleMenuClick(key as string, record),
 									}}
 								>
@@ -184,7 +184,7 @@ const PermissionGroupDefinitionTable: React.FC = () => {
 					request={async (params) => {
 						const { filter } = params;
 						setSearchParams({ filter });
-						// 强制重新请求数据
+						// Buộc yêu cầu lại dữ liệu
 						await queryClient.invalidateQueries({ queryKey: ["permissionGroups"] });
 						return { data, success: true, total: data?.length };
 					}}

@@ -26,7 +26,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DataSeeder
         private readonly IUnitOfWorkManager _unitOfWorkManager;
 
         /// <summary>
-        /// 构造函数
+        /// Hàm khởi tạo
         /// </summary>
         public ProjectNameDataSeeder(
             ICurrentTenant currentTenant,
@@ -47,47 +47,47 @@ namespace PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DataSeeder
         }
 
         /// <summary>
-        /// 初始化数据
+        /// Khởi tạo dữ liệu
         /// </summary>
-        /// <param name="context">数据种子上下文</param>
-        /// <returns>任务</returns>
+        /// <param name="context">Ngữ cảnh seed dữ liệu</param>
+        /// <returns>Tác vụ</returns>
         public async Task SeedAsync(DataSeedContext context)
         {
             using (_currentTenant.Change(context.TenantId))
             {
-                _logger.LogInformation("开始初始化数据...");
+                _logger.LogInformation("Bắt đầu khởi tạo dữ liệu...");
 
-                // 初始化角色
+                // Khởi tạo vai trò
                 using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
                 {
                     await SeedRolesAsync();
                     await uow.CompleteAsync();
                 }
 
-                // 初始化用户数据
+                // Khởi tạo dữ liệu người dùng
                 using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
                 {
                     await SeedUsersAsync();
                     await uow.CompleteAsync();
                 }
 
-                _logger.LogInformation("数据初始化完成");
+                _logger.LogInformation("Khởi tạo dữ liệu hoàn tất");
             }
         }
 
         /// <summary>
-        /// 初始化角色数据
+        /// Khởi tạo dữ liệu vai trò
         /// </summary>
         private async Task SeedRolesAsync()
         {
-            // 超级管理员
+            // Quản trị viên cấp cao
             await CreateRoleIfNotExistsAsync(
-                "超级管理员",
-                "系统超级管理员，拥有所有权限");
+                "Quản trị viên cấp cao",
+                "Quản trị viên cấp cao của hệ thống, có mọi quyền");
         }
 
         /// <summary>
-        /// 创建角色（如果不存在）
+        /// Tạo vai trò (nếu chưa tồn tại)
         /// </summary>
         private async Task CreateRoleIfNotExistsAsync(string roleName, string description)
         {
@@ -104,51 +104,51 @@ namespace PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DataSeeder
 
                 await _identityRoleManager.CreateAsync(role);
 
-                _logger.LogInformation($"创建角色：{roleName}");
+                _logger.LogInformation($"Đã tạo vai trò: {roleName}");
             }
         }
 
         /// <summary>
-        /// 初始化用户数据
+        /// Khởi tạo dữ liệu người dùng
         /// </summary>
         private async Task SeedUsersAsync()
         {
 
-            // 查找超级管理员角色
-            var superAdminRole = await _identityRoleManager.FindByNameAsync("超级管理员");
+            // Tìm vai trò Quản trị viên cấp cao
+            var superAdminRole = await _identityRoleManager.FindByNameAsync("Quản trị viên cấp cao");
             if (superAdminRole == null)
             {
-                _logger.LogError("未找到超级管理员角色，无法为用户分配角色");
+                _logger.LogError("Không tìm thấy vai trò Quản trị viên cấp cao, không thể gán vai trò cho người dùng");
                 return;
             }
 
-            // 创建用户数据（使用固定用户名避免生成问题）
-            await CreateUserIfNotExistsAsync("user1", "user1", "超级管理员");
-            await CreateUserIfNotExistsAsync("user2", "user2", "超级管理员");
-            await CreateUserIfNotExistsAsync("user3", "user3",  "超级管理员");
-            await CreateUserIfNotExistsAsync("user4", "user4", "超级管理员");
+            // Tạo dữ liệu người dùng (dùng tên người dùng cố định để tránh lỗi phát sinh)
+            await CreateUserIfNotExistsAsync("user1", "user1", "Quản trị viên cấp cao");
+            await CreateUserIfNotExistsAsync("user2", "user2", "Quản trị viên cấp cao");
+            await CreateUserIfNotExistsAsync("user3", "user3",  "Quản trị viên cấp cao");
+            await CreateUserIfNotExistsAsync("user4", "user4", "Quản trị viên cấp cao");
         }
 
         /// <summary>
-        /// 创建用户（如果不存在）
+        /// Tạo người dùng (nếu chưa tồn tại)
         /// </summary>
         private async Task CreateUserIfNotExistsAsync(
             string name,
             string userName,
             string roles)
         {
-            // 检查用户是否已存在
+            // Kiểm tra người dùng đã tồn tại hay chưa
             var existingUser = await _userRepository.FindAsync(u => u.NickName == name);
             if (existingUser != null)
             {
-                _logger.LogInformation($"用户[{name}]已存在，跳过创建");
+                _logger.LogInformation($"Người dùng [{name}] đã tồn tại, bỏ qua việc tạo");
                 return;
             }
 
             var identityUser = await _identityUserManager.FindByNameAsync(userName);
             if (identityUser == null)
             {
-                // 创建Identity用户
+                // Tạo người dùng Identity
                 identityUser = new IdentityUser(
                     _guidGenerator.Create(),
                     userName,
@@ -159,15 +159,15 @@ namespace PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DataSeeder
                     Surname = ""
                 };
 
-                // 设置默认密码 123456
+                // Đặt mật khẩu mặc định 123456
                 var identityResult = await _identityUserManager.CreateAsync(identityUser, "123456");
                 if (!identityResult.Succeeded)
                 {
-                    _logger.LogError($"创建Identity用户[{name}]失败: {string.Join(", ", identityResult.Errors.Select(e => e.Description))}");
+                    _logger.LogError($"Tạo người dùng Identity [{name}] thất bại: {string.Join(", ", identityResult.Errors.Select(e => e.Description))}");
                     return;
                 }
 
-                // 分配角色
+                // Gán vai trò
                 if (!string.IsNullOrWhiteSpace(roles))
                 {
                     var roleNames = roles.Split(',', StringSplitOptions.RemoveEmptyEntries);
@@ -180,45 +180,45 @@ namespace PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DataSeeder
                             var roleResult = await _identityUserManager.AddToRoleAsync(identityUser, trimmedRoleName);
                             if (!roleResult.Succeeded)
                             {
-                                _logger.LogWarning($"为用户[{name}]分配角色[{trimmedRoleName}]失败: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
+                                _logger.LogWarning($"Gán vai trò [{trimmedRoleName}] cho người dùng [{name}] thất bại: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
                             }
                         }
                         else
                         {
-                            _logger.LogWarning($"角色[{trimmedRoleName}]不存在，无法为用户[{name}]分配");
+                            _logger.LogWarning($"Vai trò [{trimmedRoleName}] không tồn tại, không thể gán cho người dùng [{name}]");
                         }
                     }
                 }
 
-                // 创建系统用户
+                // Tạo người dùng hệ thống
                 var user = new User(
                     _guidGenerator.Create(),
                     name,
                     identityUser.Id);
 
-                // 保存用户
+                // Lưu người dùng
                 await _userRepository.InsertAsync(user);
 
-                _logger.LogInformation($"创建用户：{name}，用户名：{userName}");
+                _logger.LogInformation($"Đã tạo người dùng: {name}, tên người dùng: {userName}");
             }
             else
             {
-                _logger.LogInformation($"Identity用户[{userName}]已存在，检查是否需要创建业务用户");
+                _logger.LogInformation($"Người dùng Identity [{userName}] đã tồn tại, kiểm tra xem có cần tạo người dùng nghiệp vụ không");
 
-                // 检查是否需要创建业务用户
+                // Kiểm tra xem có cần tạo người dùng nghiệp vụ không
                 var businessUser = await _userRepository.FindAsync(u => u.IdentityUserId == identityUser.Id);
                 if (businessUser == null)
                 {
-                    // 创建系统用户
+                    // Tạo người dùng hệ thống
                     var user = new User(
                         _guidGenerator.Create(),
                         name,
                         identityUser.Id);
 
-                    // 保存用户
+                    // Lưu người dùng
                     await _userRepository.InsertAsync(user);
 
-                    _logger.LogInformation($"为已存在的Identity用户创建业务用户：{name}");
+                    _logger.LogInformation($"Đã tạo người dùng nghiệp vụ cho người dùng Identity đã tồn tại: {name}");
                 }
             }
         }

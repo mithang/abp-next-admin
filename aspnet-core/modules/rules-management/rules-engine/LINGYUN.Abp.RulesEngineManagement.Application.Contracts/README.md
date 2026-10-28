@@ -1,68 +1,68 @@
 # LINGYUN.Abp.RulesEngineManagement.Application.Contracts
 
-## 1. 介绍
+## 1. Giới thiệu
 
-规则引擎管理模块的应用服务契约层，定义了规则引擎管理所需的接口、DTO等。
+Tầng hợp đồng dịch vụ ứng dụng của mô-đun quản lý công cụ quy tắc, định nghĩa các giao diện, DTO v.v. cần cho việc quản lý công cụ quy tắc.
 
-## 2. 功能
+## 2. Chức năng
 
-* 定义了规则引擎管理的应用服务接口
-* 定义了数据传输对象（DTOs）
-* 定义了权限
+* Định nghĩa giao diện dịch vụ ứng dụng quản lý công cụ quy tắc
+* Định nghĩa đối tượng truyền dữ liệu (DTOs)
+* Định nghĩa quyền
 
-## 3. 应用服务接口
+## 3. Giao diện dịch vụ ứng dụng
 
 * IRuleRecordAppService
-  * 提供规则记录的CRUD操作接口
-  * 支持按名称查询规则
-  * 支持分页查询
+  * Cung cấp giao diện thao tác CRUD cho bản ghi quy tắc
+  * Hỗ trợ truy vấn quy tắc theo tên
+  * Hỗ trợ truy vấn phân trang
   
 * IWorkflowRecordAppService
-  * 提供工作流记录的CRUD操作接口
-  * 支持按名称和类型查询工作流
-  * 支持分页查询
+  * Cung cấp giao diện thao tác CRUD cho bản ghi quy trình làm việc
+  * Hỗ trợ truy vấn quy trình làm việc theo tên và loại
+  * Hỗ trợ truy vấn phân trang
 
-## 4. 数据传输对象
+## 4. Đối tượng truyền dữ liệu
 
-### 4.1 规则记录DTOs
+### 4.1 DTOs bản ghi quy tắc
 
 * RuleRecordDto
 * CreateRuleRecordDto
 * UpdateRuleRecordDto
 * RuleRecordGetListInput
 
-### 4.2 工作流记录DTOs
+### 4.2 DTOs bản ghi quy trình làm việc
 
 * WorkflowRecordDto
 * CreateWorkflowRecordDto
 * UpdateWorkflowRecordDto
 * WorkflowRecordGetListInput
 
-### 4.3 参数记录DTOs
+### 4.3 DTOs bản ghi tham số
 
 * ParamRecordDto
 * CreateParamRecordDto
 * UpdateParamRecordDto
 
-### 4.4 动作记录DTOs
+### 4.4 DTOs bản ghi hành động
 
 * ActionRecordDto
 * CreateActionRecordDto
 * UpdateActionRecordDto
 
-## 5. 权限定义
+## 5. Định nghĩa quyền
 
 * RulesEngineManagement.Rule
-  * 规则管理权限
-  * 包含创建、修改、删除、查询权限
+  * Quyền quản lý quy tắc
+  * Bao gồm quyền tạo, sửa, xóa, truy vấn
   
 * RulesEngineManagement.Workflow
-  * 工作流管理权限
-  * 包含创建、修改、删除、查询权限
+  * Quyền quản lý quy trình làm việc
+  * Bao gồm quyền tạo, sửa, xóa, truy vấn
 
-## 6. 依赖
+## 6. Phụ thuộc
 
 * Volo.Abp.Ddd.Application.Contracts
 * LINGYUN.Abp.RulesEngineManagement.Domain.Shared
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

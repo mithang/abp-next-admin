@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 
 /**
- * 生产基于内容的 hash，可自定义长度
+ * Tạo hash dựa trên nội dung, có thể tùy chỉnh độ dài
  * @param content
  * @param hashLSize
  */

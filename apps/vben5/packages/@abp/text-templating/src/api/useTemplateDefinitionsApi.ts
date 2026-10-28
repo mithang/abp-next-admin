@@ -13,9 +13,9 @@ export function useTemplateDefinitionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 新增模板定义
-   * @param input 参数
-   * @returns 模板定义数据传输对象
+   * Thêm mới định nghĩa mẫu
+   * @param input Tham số
+   * @returns Đối tượng truyền dữ liệu định nghĩa mẫu
    */
   function createApi(
     input: TextTemplateDefinitionCreateDto,
@@ -29,8 +29,8 @@ export function useTemplateDefinitionsApi() {
     );
   }
   /**
-   * 删除模板定义
-   * @param name 模板名称
+   * Xóa định nghĩa mẫu
+   * @param name Tên mẫu
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/text-templating/template/definitions/${name}`, {
@@ -38,9 +38,9 @@ export function useTemplateDefinitionsApi() {
     });
   }
   /**
-   * 获取模板定义
-   * @param name 模板名称
-   * @returns 模板定义数据传输对象
+   * Lấy định nghĩa mẫu
+   * @param name Tên mẫu
+   * @returns Đối tượng truyền dữ liệu định nghĩa mẫu
    */
   function getApi(name: string): Promise<TextTemplateDefinitionDto> {
     return request<TextTemplateDefinitionDto>(
@@ -51,9 +51,9 @@ export function useTemplateDefinitionsApi() {
     );
   }
   /**
-   * 获取模板定义列表
-   * @param input 过滤参数
-   * @returns 模板定义数据传输对象列表
+   * Lấy danh sách định nghĩa mẫu
+   * @param input Tham số lọc
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa mẫu
    */
   function getListApi(
     input?: TextTemplateDefinitionGetListInput,
@@ -67,9 +67,9 @@ export function useTemplateDefinitionsApi() {
     );
   }
   /**
-   * 更新模板定义
-   * @param name 模板名称
-   * @returns 模板定义数据传输对象
+   * Cập nhật định nghĩa mẫu
+   * @param name Tên mẫu
+   * @returns Đối tượng truyền dữ liệu định nghĩa mẫu
    */
   function updateApi(
     name: string,

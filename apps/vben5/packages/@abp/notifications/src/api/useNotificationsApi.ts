@@ -15,8 +15,8 @@ import { useRequest } from '@abp/request';
 export function useNotificationsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取可用通知提供者列表
-   * @returns {Promise<ListResultDto<NotificationProviderDto>>} 可用通知提供者列表
+   * Lấy danh sách nhà cung cấp thông báo khả dụng
+   * @returns {Promise<ListResultDto<NotificationProviderDto>>} Danh sách nhà cung cấp thông báo khả dụng
    */
   function getAssignableProvidersApi(): Promise<
     ListResultDto<NotificationProviderDto>
@@ -29,8 +29,8 @@ export function useNotificationsApi() {
     );
   }
   /**
-   * 获取可用通知列表
-   * @returns {Promise<ListResultDto<NotificationGroupDto>>} 可用通知列表
+   * Lấy danh sách thông báo khả dụng
+   * @returns {Promise<ListResultDto<NotificationGroupDto>>} Danh sách thông báo khả dụng
    */
   function getAssignableNotifiersApi(): Promise<
     ListResultDto<NotificationGroupDto>
@@ -43,8 +43,8 @@ export function useNotificationsApi() {
     );
   }
   /**
-   * 获取可用通知模板列表
-   * @returns {Promise<ListResultDto<NotificationTemplateDto>>} 可用通知模板列表
+   * Lấy danh sách mẫu thông báo khả dụng
+   * @returns {Promise<ListResultDto<NotificationTemplateDto>>} Danh sách mẫu thông báo khả dụng
    */
   function getAssignableTemplatesApi(): Promise<
     ListResultDto<NotificationTemplateDto>
@@ -57,8 +57,8 @@ export function useNotificationsApi() {
     );
   }
   /**
-   * 发送通知
-   * @param input 参数
+   * Gửi thông báo
+   * @param input Tham số
    * @returns {Promise<void>}
    */
   function sendNotiferApi(input: NotificationSendInput): Promise<void> {
@@ -68,8 +68,8 @@ export function useNotificationsApi() {
     });
   }
   /**
-   * 发送模板通知
-   * @param input 参数
+   * Gửi thông báo mẫu
+   * @param input Tham số
    * @returns {Promise<void>}
    */
   function sendTemplateNotiferApi(

@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>阿里云短信服务</Description>
+		<Description>Dịch vụ SMS Alibaba Cloud</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

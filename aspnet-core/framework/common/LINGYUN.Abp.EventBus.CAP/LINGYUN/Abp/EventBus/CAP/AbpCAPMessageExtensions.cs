@@ -4,12 +4,12 @@ using System;
 namespace LINGYUN.Abp.EventBus.CAP;
 
 /// <summary>
-/// CAP消息扩展
+/// Mở rộng thông điệp CAP
 /// </summary>
 public static class AbpCAPMessageExtensions
 {
     /// <summary>
-    /// 尝试获取消息标头中的租户标识
+    /// Thử lấy định danh tenant trong tiêu đề thông điệp
     /// </summary>
     /// <param name="message"></param>
     /// <param name="tenantId"></param>
@@ -30,7 +30,7 @@ public static class AbpCAPMessageExtensions
         return false;
     }
     /// <summary>
-    /// 获取消息标头中的租户标识
+    /// Lấy định danh tenant trong tiêu đề thông điệp
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>
@@ -44,7 +44,7 @@ public static class AbpCAPMessageExtensions
         return null;
     }
     /// <summary>
-    /// 尝试获取消息标头中的链路标识
+    /// Thử lấy định danh liên kết trong tiêu đề thông điệp
     /// </summary>
     /// <param name="message"></param>
     /// <param name="correlationId"></param>
@@ -56,7 +56,7 @@ public static class AbpCAPMessageExtensions
         return message.Headers.TryGetValue(AbpCAPHeaders.CorrelationId, out correlationId);
     }
     /// <summary>
-    /// 获取消息标头中的链路标识
+    /// Lấy định danh liên kết trong tiêu đề thông điệp
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>

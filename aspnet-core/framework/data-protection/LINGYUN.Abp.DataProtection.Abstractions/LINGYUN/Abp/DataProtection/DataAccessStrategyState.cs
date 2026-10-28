@@ -6,17 +6,17 @@ namespace LINGYUN.Abp.DataProtection;
 public class DataAccessStrategyState
 {
     /// <summary>
-    /// 权限主体
+    /// Chủ thể quyền
     /// </summary>
     public string SubjectName { get; set; } = default!;
 
     /// <summary>
-    /// 权限主体标识
+    /// Định danh chủ thể quyền
     /// </summary>
     public string[] SubjectKeys { get; set; } = default!;
 
     /// <summary>
-    /// 权限策略
+    /// Chính sách quyền
     /// </summary>
     public DataAccessStrategy Strategy { get; set; }
     public DataAccessStrategyState()

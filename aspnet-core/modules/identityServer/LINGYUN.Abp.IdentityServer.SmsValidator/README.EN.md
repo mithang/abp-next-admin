@@ -89,4 +89,4 @@ Related Documentation:
 * [IdentityServer4 Documentation](https://identityserver4.readthedocs.io/)
 * [ABP Identity Documentation](https://docs.abp.io/en/abp/latest/Modules/Identity)
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Việt](README.md)

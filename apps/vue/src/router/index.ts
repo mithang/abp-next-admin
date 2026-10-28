@@ -4,7 +4,7 @@ import type { App } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { basicRoutes } from './routes';
 
-// 白名单应该包含基本静态路由
+// Danh sách trắng nên chứa các route tĩnh cơ bản
 const WHITE_NAME_LIST: string[] = [];
 const getRouteNames = (array: any[]) =>
   array.forEach((item) => {

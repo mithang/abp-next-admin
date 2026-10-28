@@ -3,17 +3,17 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 企业客户标签变更事件推送
+/// Đẩy sự kiện thay đổi thẻ khách hàng doanh nghiệp
 /// </summary>
 public abstract class ExternalTagChangeEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 变更类型
+    /// Loại thay đổi
     /// </summary>
     [XmlElement("ChangeType")]
     public string ChangeType { get; set; } = default!;
     /// <summary>
-    /// 标签或标签组所属的规则组id，只回调给“客户联系”应用
+    /// Id nhóm quy tắc mà thẻ hoặc nhóm thẻ thuộc về, chỉ gọi lại cho ứng dụng “Liên hệ khách hàng”
     /// </summary>
     [XmlElement("StrategyId")]
     public string StrategyId { get; set; } = default!;

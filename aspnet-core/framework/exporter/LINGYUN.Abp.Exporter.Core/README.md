@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Exporter.Core
 
-数据导出/导入核心层
+Lớp lõi xuất/nhập dữ liệu
 
-## 配置使用
+## Cấu hình sử dụng
 
 
 ```csharp
@@ -16,7 +16,7 @@
     }
 ```
 
-> 导出数据
+> Xuất dữ liệu
 ```csharp
     public class ExportDemoClass
     {
@@ -45,7 +45,7 @@
     }
 ```
 
-> 导入数据
+> Nhập dữ liệu
 ```csharp
     public class ImportDemoClass
     {
@@ -60,7 +60,7 @@
         {
             var demos = await _importerProvider.ImportAsync<DemoClass>(stream);
 
-            // 其他操作
+            // Các thao tác khác
         }
     }
 

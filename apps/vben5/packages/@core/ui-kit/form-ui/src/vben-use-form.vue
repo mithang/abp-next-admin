@@ -23,7 +23,7 @@ import {
   provideFormProps,
   useFormInitial,
 } from './use-form-context';
-// 通过 extends 会导致热更新卡死，所以重复写了一遍
+// Việc dùng extends sẽ khiến hot update bị kẹt, vì vậy đã viết lại một lần
 interface Props extends VbenFormProps {
   formApi?: ExtendedFormApi;
 }
@@ -45,7 +45,7 @@ props.formApi?.mount?.(form, componentRefMap);
 
 const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: value });
-  // 触发收起展开状态变化回调
+  // Kích hoạt callback thay đổi trạng thái thu gọn/mở rộng
   forward.value.handleCollapsedChange?.(value);
 };
 
@@ -53,8 +53,8 @@ function handleKeyDownEnter(event: KeyboardEvent) {
   if (!state?.value.submitOnEnter || !forward.value.formApi?.isMounted) {
     return;
   }
-  // 如果是 textarea 不阻止默认行为，否则会导致无法换行。
-  // 跳过 textarea 的回车提交处理
+  // Nếu là textarea thì không chặn hành vi mặc định, nếu không sẽ không thể xuống dòng.
+  // Bỏ qua xử lý gửi form bằng Enter của textarea
   if (event.target instanceof HTMLTextAreaElement) {
     return;
   }
@@ -70,7 +70,7 @@ const handleValuesChangeDebounced = useDebounceFn(async () => {
 const valuesCache: Recordable<any> = {};
 
 onMounted(async () => {
-  // 只在挂载后开始监听，form.values会有一个初始化的过程
+  // Chỉ bắt đầu lắng nghe sau khi mount, form.values sẽ có một quá trình khởi tạo
   await nextTick();
   watch(
     () => form.values,
@@ -92,7 +92,7 @@ onMounted(async () => {
           });
 
           if (changedFields.length > 0) {
-            // 调用handleValuesChange回调，传入所有表单值的深拷贝和变更的字段列表
+            // Gọi callback handleValuesChange, truyền vào bản sao sâu (deep copy) của tất cả giá trị form và danh sách các trường đã thay đổi
             const values = await forward.value.formApi?.getValues();
             forward.value.handleValuesChange(
               cloneDeep(values ?? {}) as Record<string, any>,

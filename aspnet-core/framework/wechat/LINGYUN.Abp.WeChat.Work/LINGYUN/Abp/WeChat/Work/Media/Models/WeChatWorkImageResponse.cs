@@ -4,7 +4,7 @@ namespace LINGYUN.Abp.WeChat.Work.Media.Models;
 public class WeChatWorkImageResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 上传后得到的图片URL。永久有效
+    /// URL hình ảnh nhận được sau khi tải lên. Có hiệu lực vĩnh viễn
     /// </summary>
     [JsonProperty("url")]
     public string Url { get; set; } = default!;

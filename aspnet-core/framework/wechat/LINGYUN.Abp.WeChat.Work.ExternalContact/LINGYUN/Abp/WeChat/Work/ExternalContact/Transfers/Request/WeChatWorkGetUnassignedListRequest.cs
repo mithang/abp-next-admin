@@ -6,14 +6,14 @@ namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Request;
 public class WeChatWorkGetUnassignedListRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 分页查询游标，字符串类型，适用于数据量较大的情况，如果使用该参数则无需填写page_id，该参数由上一次调用返回
+    /// Con trỏ truy vấn phân trang, kiểu chuỗi, dùng khi khối lượng dữ liệu lớn; nếu dùng tham số này thì không cần điền page_id, tham số này do lần gọi trước trả về
     /// </summary>
     [CanBeNull]
     [JsonProperty("cursor")]
     [JsonPropertyName("cursor")]
     public string? Cursor { get; set; }
     /// <summary>
-    /// 每次返回的最大记录数，默认为1000，最大值为1000
+    /// Số bản ghi tối đa trả về mỗi lần, mặc định là 1000, giá trị tối đa là 1000
     /// </summary>
     [CanBeNull]
     [JsonProperty("page_size")]

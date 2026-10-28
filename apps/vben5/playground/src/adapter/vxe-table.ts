@@ -31,7 +31,7 @@ setupVbenVxeTable({
         },
 
         formConfig: {
-          // 全局禁用vxe-table的表单配置，使用formOptions
+          // Vô hiệu hóa toàn cục cấu hình biểu mẫu của vxe-table, dùng formOptions
           enabled: false,
         },
         minHeight: 180,
@@ -52,7 +52,7 @@ setupVbenVxeTable({
     });
 
     /**
-     * 解决vxeTable在热更新时可能会出错的问题
+     * Giải quyết vấn đề vxeTable có thể bị lỗi khi hot update
      */
     vxeUI.renderer.forEach((_item, key) => {
       if (key.startsWith('Cell')) {
@@ -60,7 +60,7 @@ setupVbenVxeTable({
       }
     });
 
-    // 表格配置项可以用 cellRender: { name: 'CellImage' },
+    // Mục cấu hình bảng có thể dùng cellRender: { name: 'CellImage' },
     vxeUI.renderer.add('CellImage', {
       renderTableDefault(renderOpts, params) {
         const { props } = renderOpts;
@@ -69,7 +69,7 @@ setupVbenVxeTable({
       },
     });
 
-    // 表格配置项可以用 cellRender: { name: 'CellLink' },
+    // Mục cấu hình bảng có thể dùng cellRender: { name: 'CellLink' },
     vxeUI.renderer.add('CellLink', {
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
@@ -81,7 +81,7 @@ setupVbenVxeTable({
       },
     });
 
-    // 单元格渲染： Tag
+    // Kết xuất ô: Tag
     vxeUI.renderer.add('CellTag', {
       renderTableDefault({ options, props }, { column, row }) {
         const value = get(row, column.field);
@@ -130,7 +130,7 @@ setupVbenVxeTable({
     });
 
     /**
-     * 注册表格的操作按钮渲染器
+     * Đăng ký trình kết xuất nút thao tác của bảng
      */
     vxeUI.renderer.add('CellOperation', {
       renderTableDefault({ attrs, options, props }, { column, row }) {
@@ -220,11 +220,11 @@ setupVbenVxeTable({
             Popconfirm,
             {
               /**
-               * 当popconfirm用在固定列中时，将固定列作为弹窗的容器时可能会因为固定列较窄而无法容纳弹窗
-               * 将表格主体区域作为弹窗容器时又会因为固定列的层级较高而遮挡弹窗
-               * 将body或者表格视口区域作为弹窗容器时又会导致弹窗无法跟随表格滚动。
-               * 鉴于以上各种情况，一种折中的解决方案是弹出层展示时，禁止操作表格的滚动条。
-               * 这样既解决了弹窗的遮挡问题，又不至于让弹窗随着表格的滚动而跑出视口区域。
+               * Khi popconfirm được dùng trong cột cố định, nếu lấy cột cố định làm container cho popup thì có thể vì cột cố định quá hẹp nên không chứa được popup
+               * Khi lấy vùng thân bảng làm container cho popup thì lại vì cột cố định có thứ bậc cao hơn nên che mất popup
+               * Khi lấy body hoặc vùng viewport của bảng làm container cho popup thì lại khiến popup không thể cuộn theo bảng.
+               * Xét các trường hợp trên, một giải pháp dung hòa là khi lớp popup hiển thị, cấm thao tác với thanh cuộn của bảng.
+               * Như vậy vừa giải quyết được vấn đề popup bị che, vừa không để popup chạy ra ngoài vùng viewport theo thao tác cuộn của bảng.
                */
               getPopupContainer(el) {
                 viewportWrapper = el.closest('.vxe-table--viewport-wrapper');
@@ -236,7 +236,7 @@ setupVbenVxeTable({
               ...opt,
               icon: undefined,
               onOpenChange: (open: boolean) => {
-                // 当弹窗打开时，禁止表格的滚动
+                // Khi popup mở, cấm cuộn bảng
                 if (open) {
                   viewportWrapper?.style.setProperty('pointer-events', 'none');
                 } else {
@@ -278,7 +278,7 @@ setupVbenVxeTable({
       },
     });
 
-    // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
+    // Tại đây có thể tự mở rộng cấu hình toàn cục của vxe-table, ví dụ định dạng tùy chỉnh
     // vxeUI.formats.add
   },
   useVbenForm,

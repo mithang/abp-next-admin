@@ -9,7 +9,7 @@ class AbpWrapperRemoteServiceErrorInterceptor extends Interceptor {
     if (abpErrorMap != null && abpErrorMap.contains('true')) {
       var errorJson = err.response!.data['error'];
       if (errorJson == null && err.response!.data?.type == 'application/json') {
-        // 读取流
+        // Đọc luồng
       }
       else {
         var remoteServiceErrorInfo = RemoteServiceErrorInfo.fromJson(errorJson);

@@ -1,14 +1,14 @@
 # LINGYUN.Abp.EntityChange.HttpApi
 
-实体变更追踪与恢复的HTTP API模块。
+Mô-đun HTTP API theo dõi và khôi phục thay đổi thực thể.
 
-## 功能
+## Tính năng
 
-* 提供实体变更查询的HTTP API
-* 提供实体恢复的HTTP API
-* 支持多语言本地化
+* Cung cấp HTTP API truy vấn thay đổi thực thể
+* Cung cấp HTTP API khôi phục thực thể
+* Hỗ trợ bản địa hóa đa ngôn ngữ
 
-## 基本用法
+## Cách sử dụng cơ bản
 
 ```csharp
 [DependsOn(typeof(AbpEntityChangeHttpApiModule))]
@@ -21,19 +21,19 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API端点
+## Điểm cuối API
 
-* `EntityChangeController`: 实体变更控制器
-  * GET `/api/entity-changes`: 获取实体变更历史记录列表
+* `EntityChangeController`: Bộ điều khiển thay đổi thực thể
+  * GET `/api/entity-changes`: Lấy danh sách lịch sử thay đổi thực thể
 
-* `EntityRestoreController`: 实体恢复控制器
-  * PUT `/api/entity-restore`: 恢复单个实体到指定版本
-  * PUT `/api/{EntityId}/entity-restore`: 恢复指定ID的实体
-  * PUT `/api/{EntityId}/v/{EntityChangeId}/entity-restore`: 恢复指定ID的实体到指定版本
-  * PUT `/api/entites-restore`: 批量恢复实体到指定版本
+* `EntityRestoreController`: Bộ điều khiển khôi phục thực thể
+  * PUT `/api/entity-restore`: Khôi phục một thực thể về phiên bản chỉ định
+  * PUT `/api/{EntityId}/entity-restore`: Khôi phục thực thể có ID chỉ định
+  * PUT `/api/{EntityId}/v/{EntityChangeId}/entity-restore`: Khôi phục thực thể có ID chỉ định về phiên bản chỉ định
+  * PUT `/api/entites-restore`: Khôi phục hàng loạt thực thể về phiên bản chỉ định
 
-## 本地化
+## Bản địa hóa
 
-模块使用 `AbpEntityChangeResource` 作为本地化资源，支持多语言显示。
+Mô-đun sử dụng `AbpEntityChangeResource` làm tài nguyên bản địa hóa, hỗ trợ hiển thị đa ngôn ngữ.
 
 [English](./README.EN.md)

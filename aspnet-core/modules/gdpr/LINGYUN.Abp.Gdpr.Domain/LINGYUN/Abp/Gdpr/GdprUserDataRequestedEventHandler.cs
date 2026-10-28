@@ -9,7 +9,7 @@ using Volo.Abp.Uow;
 namespace LINGYUN.Abp.Gdpr;
 
 /// <summary>
-/// 用户个人数据收集事件监听器<br />
+/// Trình lắng nghe sự kiện thu thập dữ liệu cá nhân của người dùng<br />
 /// See: https://abp.io/docs/latest/modules/gdpr#gdpruserdatarequestedeto
 /// </summary>
 /// <param name="options"></param>

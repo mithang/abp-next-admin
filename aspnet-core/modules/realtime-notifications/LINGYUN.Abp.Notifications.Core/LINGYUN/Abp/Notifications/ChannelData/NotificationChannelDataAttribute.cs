@@ -3,44 +3,44 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据契约
+/// Hợp đồng dữ liệu kênh thông báo
 /// </summary>
 /// <remarks>
 /// <para>
-/// 渠道数据(载荷)是发布渠道与生产者之间约定的数据结构。
-/// 生产者通过 <see cref="INotificationChannelDataSerializer"/> 写入载荷,
-/// 渠道通过 <see cref="INotificationChannelDataResolver"/> 解析载荷。
+/// Dữ liệu kênh (tải trọng/payload) là cấu trúc dữ liệu đã thỏa thuận giữa kênh phát hành và nhà sản xuất.
+/// Nhà sản xuất ghi tải trọng thông qua <see cref="INotificationChannelDataSerializer"/>,
+/// Kênh phân giải tải trọng thông qua <see cref="INotificationChannelDataResolver"/>.
 /// </para>
 /// <para>
-/// 载荷的存在性由 <see cref="Presence"/> 声明式表达, 结合
-/// <see cref="NotificationChannelPropertyAttribute"/> 的键定义自动推导,
-/// 无需在载荷类型中实现判定方法。
+/// Sự tồn tại của tải trọng được biểu đạt một cách khai báo bởi <see cref="Presence"/>, kết hợp với
+/// định nghĩa khóa của <see cref="NotificationChannelPropertyAttribute"/> để tự suy ra,
+/// không cần triển khai phương thức phán đoán trong kiểu tải trọng.
 /// </para>
 /// <para>
-/// 若既未声明 <see cref="Presence"/>、又没有可参与匹配的属性,
-/// 注册时会抛出 <see cref="AbpNotificationChannelDataConfigurationException"/>:
-/// 让"忘了定义存在性"在启动阶段暴露, 而不是在生产环境静默丢弃通知。
+/// Nếu vừa không khai báo <see cref="Presence"/>, vừa không có thuộc tính nào có thể tham gia khớp,
+/// khi đăng ký sẽ ném ra <see cref="AbpNotificationChannelDataConfigurationException"/>:
+/// để việc "quên định nghĩa tính tồn tại" bị lộ ra ở giai đoạn khởi động, thay vì âm thầm loại bỏ thông báo trong môi trường sản xuất.
 /// </para>
 /// </remarks>
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 public sealed class NotificationChannelDataAttribute : Attribute
 {
     /// <summary>
-    /// 渠道名称, 对应 <see cref="INotificationPublishProvider.Name"/>
+    /// Tên kênh, tương ứng với <see cref="INotificationPublishProvider.Name"/>
     /// </summary>
     public string ProviderName { get; }
 
     /// <summary>
-    /// 载荷在同一个渠道内的匹配顺序, 数值越小越先匹配
+    /// Thứ tự khớp của tải trọng trong cùng một kênh, giá trị càng nhỏ càng khớp trước
     /// </summary>
     /// <remarks>
-    /// 用于表达渠道内的显式规则, 匹配顺序必须声明,
-    /// 不允许依赖注册顺序或字段探测顺序。
+    /// Dùng để biểu đạt quy tắc tường minh trong kênh, thứ tự khớp bắt buộc phải khai báo,
+    /// không được phụ thuộc vào thứ tự đăng ký hay thứ tự thăm dò trường.
     /// </remarks>
     public int Priority { get; set; }
 
     /// <summary>
-    /// 存在性判定模式, 默认按"参与匹配的属性全部存在"判定
+    /// Chế độ phán đoán tính tồn tại, mặc định phán đoán theo "tất cả các thuộc tính tham gia khớp đều tồn tại"
     /// </summary>
     public NotificationChannelDataPresenceMode Presence { get; set; } = NotificationChannelDataPresenceMode.DeclaredProperties;
 

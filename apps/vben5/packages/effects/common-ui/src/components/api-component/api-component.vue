@@ -20,56 +20,52 @@ type OptionsItem = {
 };
 
 interface Props {
-  /** 组件 */
+  /** Thành phần */
   component: Component;
-  /** 是否将value从数字转为string */
+  /** Có chuyển value từ số sang string hay không */
   numberToString?: boolean;
-  /** 获取options数据的函数 */
+  /** Hàm lấy dữ liệu options */
   api?: (arg?: any) => Promise<OptionsItem[] | Record<string, any>>;
-  /** 传递给api的参数 */
+  /** Tham số truyền cho api */
   params?: Record<string, any>;
-  /** 从api返回的结果中提取options数组的字段名 */
+  /** Tên trường trích mảng options từ kết quả api trả về */
   resultField?: string;
-  /** label字段名 */
+  /** Tên trường label */
   labelField?: string;
-  /** children字段名，需要层级数据的组件可用 */
+  /** Tên trường children, dùng được cho component cần dữ liệu phân cấp */
   childrenField?: string;
-  /** value字段名 */
+  /** Tên trường value */
   valueField?: string;
-  /** disabled字段名 */
+  /** Tên trường disabled */
   disabledField?: string;
-  /** 组件接收options数据的属性名 */
+  /** Tên thuộc tính component nhận dữ liệu options */
   optionsPropName?: string;
-  /** 是否立即调用api */
+  /** Có gọi api ngay hay không */
   immediate?: boolean;
-  /** 每次`visibleEvent`事件发生时都重新请求数据 */
+  /** Gọi lại dữ liệu mỗi khi sự kiện `visibleEvent` xảy ra */
   alwaysLoad?: boolean;
-  /** 在api请求之前的回调函数 */
+  /** Hàm callback trước khi gọi api */
   beforeFetch?: AnyPromiseFunction<any, any>;
-  /** 在api请求之后的回调函数 */
+  /** Hàm callback sau khi gọi api */
   afterFetch?: AnyPromiseFunction<any, any>;
-  /** 直接传入选项数据，也作为api返回空数据时的后备数据 */
+  /** Truyền trực tiếp dữ liệu lựa chọn, đồng thời làm dữ liệu dự phòng khi api trả về dữ liệu rỗng */
   options?: OptionsItem[];
-  /** 组件的插槽名称，用来显示一个"加载中"的图标 */
+  /** Tên slot của component, dùng để hiển thị biểu tượng "đang tải" */
   loadingSlot?: string;
-  /** 触发api请求的事件名 */
+  /** Tên sự kiện kích hoạt gọi api */
   visibleEvent?: string;
-  /** 组件的v-model属性名，默认为modelValue。部分组件可能为value */
+  /** Tên thuộc tính v-model của component, mặc định là modelValue. Một số component có thể là value */
   modelPropName?: string;
   /**
-   * 自动选择
-   * - `first`：自动选择第一个选项
-   * - `last`：自动选择最后一个选项
-   * - `one`: 当请求的结果只有一个选项时，自动选择该选项
-   * - 函数：自定义选择逻辑，函数的参数为请求的结果数组，返回值为选择的选项
-   * - false：不自动选择(默认)
+   * Tự động chọn
+   * - `first`: tự động chọn lựa chọn đầu tiên
+   * - `last`: tự động chọn lựa chọn cuối cùng
+   * - `one`: khi kết quả request chỉ có một lựa chọn thì tự động chọn lựa chọn đó
+   * - Hàm: logic chọn tùy chỉnh, tham số của hàm là mảng kết quả request, giá trị trả về là lựa chọn được chọn
+   * - false: không tự động chọn (mặc định)
    */
   autoSelect?:
-    | 'first'
-    | 'last'
-    | 'one'
-    | ((item: OptionsItem[]) => OptionsItem)
-    | false;
+    'first' | 'last' | 'one' | ((item: OptionsItem[]) => OptionsItem) | false;
 }
 
 defineOptions({ name: 'ApiComponent', inheritAttrs: false });
@@ -105,9 +101,9 @@ const attrs = useAttrs();
 const innerParams = ref({});
 const refOptions = ref<OptionsItem[]>([]);
 const loading = ref(false);
-// 首次是否加载过了
+// Đã tải lần đầu hay chưa
 const isFirstLoaded = ref(false);
-// 标记是否有待处理的请求
+// Cờ đánh dấu có request đang chờ xử lý hay không
 const hasPendingRequest = ref(false);
 
 const getOptions = computed(() => {
@@ -165,7 +161,7 @@ async function fetchApi() {
     return;
   }
 
-  // 如果正在加载，标记有待处理的请求并返回
+  // Nếu đang tải, đánh dấu có request đang chờ xử lý và trả về
   if (loading.value) {
     hasPendingRequest.value = true;
     return;
@@ -198,10 +194,10 @@ async function fetchApi() {
     isFirstLoaded.value = false;
   } finally {
     loading.value = false;
-    // 如果有待处理的请求，立即触发新的请求
+    // Nếu có request đang chờ xử lý, kích hoạt ngay request mới
     if (hasPendingRequest.value) {
       hasPendingRequest.value = false;
-      // 使用 nextTick 确保状态更新完成后再触发新请求
+      // Dùng nextTick để đảm bảo cập nhật trạng thái xong mới kích hoạt request mới
       await nextTick();
       fetchApi();
     }
@@ -270,13 +266,13 @@ function emitChange() {
 }
 const componentRef = ref();
 defineExpose({
-  /** 获取options数据 */
+  /** Lấy dữ liệu options */
   getOptions: () => unref(getOptions),
-  /** 获取当前值 */
+  /** Lấy giá trị hiện tại */
   getValue: () => unref(modelValue),
-  /** 获取被包装的组件实例 */
+  /** Lấy instance của component được bọc */
   getComponentRef: <T = any,>() => componentRef.value as T,
-  /** 更新Api参数 */
+  /** Cập nhật tham số Api */
   updateParam(newParams: Record<string, any>) {
     innerParams.value = newParams;
   },

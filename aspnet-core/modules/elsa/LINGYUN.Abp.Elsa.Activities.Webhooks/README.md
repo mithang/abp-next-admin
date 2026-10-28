@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Elsa.Activities.Webhooks
 
-Elsa工作流的Webhook活动集成模块
+Mô-đun tích hợp hoạt động Webhook cho quy trình làm việc Elsa
 
-## 功能
+## Tính năng
 
-* 提供 **PublishWebhook** 活动用于发布Webhook
-  * 支持发送数据到订阅者
-  * 支持自定义HTTP头部
-  * 支持JavaScript、JSON和Liquid语法
-  * 集成ABP框架的 `IWebhookPublisher` 接口
-  * 支持多租户
+* Cung cấp hoạt động **PublishWebhook** để phát hành Webhook
+  * Hỗ trợ gửi dữ liệu tới người đăng ký
+  * Hỗ trợ đầu mục HTTP tùy chỉnh
+  * Hỗ trợ cú pháp JavaScript, JSON và Liquid
+  * Tích hợp giao diện `IWebhookPublisher` của khung ABP
+  * Hỗ trợ đa tenant
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(
@@ -27,17 +27,17 @@ public class YouProjectModule : AbpModule
 ```json
 {
     "Elsa": {
-        "PublishWebhook": true    // 启用Webhook活动
+        "PublishWebhook": true    // Bật hoạt động Webhook
     }
 }
 ```
 
-## 活动参数
+## Tham số hoạt động
 
-* **WebhooName**: Webhook的唯一名称
-* **WebhookData**: 要发送的数据
-* **SendExactSameData**: 是否直接发送原始数据（如果为true，将直接发送参数中的数据给客户端）
-* **UseOnlyGivenHeaders**: 是否仅使用给定的头部（如果为true，将仅使用给定的头部；如果为false，给定的头部将添加到订阅中预定义的头部）
-* **Headers**: 要发送的HTTP头部（高级选项）
+* **WebhooName**: Tên duy nhất của Webhook
+* **WebhookData**: Dữ liệu cần gửi
+* **SendExactSameData**: Có gửi trực tiếp dữ liệu gốc hay không (nếu là true, sẽ gửi trực tiếp dữ liệu trong tham số cho máy khách)
+* **UseOnlyGivenHeaders**: Có chỉ sử dụng các đầu mục đã cho hay không (nếu là true, sẽ chỉ sử dụng các đầu mục đã cho; nếu là false, các đầu mục đã cho sẽ được thêm vào các đầu mục đã định nghĩa trước trong đăng ký)
+* **Headers**: Đầu mục HTTP cần gửi (tùy chọn nâng cao)
 
 [English](./README.EN.md)

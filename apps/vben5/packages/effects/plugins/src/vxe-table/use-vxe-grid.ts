@@ -14,9 +14,9 @@ import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';
 
 type FilteredSlots<T> = {
-  [K in keyof VxeGridSlots<T> as K extends 'form'
-    ? never
-    : K]: VxeGridSlots<T>[K];
+  [
+    K in keyof VxeGridSlots<T> as K extends 'form' ? never : K
+  ]: VxeGridSlots<T>[K];
 };
 
 export function useVbenVxeGrid<
@@ -32,22 +32,34 @@ export function useVbenVxeGrid<
 
   const Grid = defineComponent(
     (props: VxeGridProps<T>, { attrs, slots }) => {
+      // Tách `class` khỏi attrs: kiểu ClassValue của Vue (chấp nhận false/null)
+      // rộng hơn ClassType của VxeGridProps. Khi parent không truyền class thì
+      // giữ nguyên props.class; ngược lại chuẩn hóa false/null về undefined —
+      // tương đương khi render (Vue đều coi là không có class).
+      const { class: attrsClass, ...restAttrs } = attrs;
+      const mergedClass =
+        attrsClass === undefined ? props.class : attrsClass || undefined;
       onBeforeUnmount(() => {
         api.unmount();
       });
-      api.setState({ ...props, ...attrs });
-      return () => h(VxeGrid, { ...props, ...attrs, api: extendedApi }, slots);
+      api.setState({ ...props, ...restAttrs, class: mergedClass });
+      return () =>
+        h(
+          VxeGrid,
+          { ...props, ...restAttrs, class: mergedClass, api: extendedApi },
+          slots,
+        );
     },
     {
       name: 'VbenVxeGrid',
       inheritAttrs: false,
       slots: Object as SlotsType<
         {
-          // 表格标题
+          // Tiêu đề bảng
           'table-title': undefined;
-          // 工具栏左侧部分
+          // Phần bên trái thanh công cụ
           'toolbar-actions': VxeGridSlotTypes.DefaultSlotParams<T>;
-          // 工具栏右侧部分
+          // Phần bên phải thanh công cụ
           'toolbar-tools': VxeGridSlotTypes.DefaultSlotParams<T>;
         } & FilteredSlots<T>
       >,

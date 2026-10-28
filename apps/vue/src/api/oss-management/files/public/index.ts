@@ -2,7 +2,7 @@ import { OssObject } from '../../objects/model';
 import { defHttp } from '/@/utils/http/axios';
 
 export const formatUrl = (url: string) => {
-  // 格式化路径为公共目录
+  // Định dạng đường dẫn thành thư mục công khai
   return `/api/files/static/public/p/${url}`;
 };
 

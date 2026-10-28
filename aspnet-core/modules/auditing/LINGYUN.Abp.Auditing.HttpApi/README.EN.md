@@ -2,7 +2,7 @@
 
 HTTP API module for audit logging, providing REST API interfaces for audit logging functionality.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

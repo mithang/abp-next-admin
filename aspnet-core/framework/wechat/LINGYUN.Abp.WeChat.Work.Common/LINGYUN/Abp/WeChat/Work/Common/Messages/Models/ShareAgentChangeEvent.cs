@@ -3,12 +3,12 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 企业互联共享应用事件
+/// Sự kiện ứng dụng được chia sẻ liên doanh nghiệp
 /// </summary>
 /// <remarks>
-/// 本事件触发时机为：
-/// 1. 上级企业把自建应用共享给下级企业使用
-/// 2. 上级企业把下级企业从共享应用中移除
+/// Thời điểm kích hoạt sự kiện này là:
+/// 1. Doanh nghiệp cấp trên chia sẻ ứng dụng tự xây cho doanh nghiệp cấp dưới sử dụng
+/// 2. Doanh nghiệp cấp trên loại doanh nghiệp cấp dưới khỏi ứng dụng được chia sẻ
 /// </remarks>
 [EventName("share_agent_change")]
 public class ShareAgentChangeEvent : WeChatWorkEventMessage

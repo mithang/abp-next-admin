@@ -22,16 +22,16 @@ namespace LINGYUN.Abp.Location.Baidu
             var location = await _provider.ReGeocodeAsync(lat, lng, radius);
 
             location.ShouldNotBeNull();
-            location.Address.ShouldBe("北京市西城区煤市街与前门西后河沿街交叉路口往西北约50米");
-            location.FormattedAddress.ShouldBe("西城区正阳市场");
+            location.Address.ShouldBe("Khoảng 50 mét về phía tây bắc từ giao lộ đường Môi Thị và đường Tiền Môn Tây Hậu Hà Duyên, quận Tây Thành, Bắc Kinh");
+            location.FormattedAddress.ShouldBe("Chợ Chính Dương, quận Tây Thành");
 
             // TODO
         }
 
         [Theory]
-        [InlineData("北京市东城区广场东侧路", "北京", 39.9102810304917, 116.40588509187855, "道路")]
-        [InlineData("天安门-城楼检票处(入口)", "北京", 39.91573869262374, 116.40366250438577, "NoClass")]
-        [InlineData("国家图书馆(古籍馆)", "北京", 39.92968852456012, 116.39170686652291, "教育")]
+        [InlineData("Đường phía đông Quảng trường, quận Đông Thành, Bắc Kinh", "Bắc Kinh", 39.9102810304917, 116.40588509187855, "Đường bộ")]
+        [InlineData("Thiên An Môn - Quầy soát vé thành lầu (lối vào)", "Bắc Kinh", 39.91573869262374, 116.40366250438577, "NoClass")]
+        [InlineData("Thư viện Quốc gia (Quán cổ tịch)", "Bắc Kinh", 39.92968852456012, 116.39170686652291, "Giáo dục")]
         public async Task Geocode_Test(string address, string city, double lat, double lng, string level)
         {
             var location = await _provider.GeocodeAsync(address, city);

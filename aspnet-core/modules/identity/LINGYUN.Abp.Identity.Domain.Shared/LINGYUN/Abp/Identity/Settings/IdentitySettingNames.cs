@@ -7,27 +7,27 @@ public static class IdentitySettingNames
     {
         private const string UserPrefix = Prefix + ".User";
         /// <summary>
-        /// 用户手机验证短信模板
+        /// Mẫu SMS xác thực số điện thoại người dùng
         /// </summary>
         public const string SmsPhoneNumberConfirmed = UserPrefix + ".SmsPhoneNumberConfirmed";
         /// <summary>
-        /// 用户注册短信验证码模板号
+        /// Mã mẫu SMS xác thực khi đăng ký người dùng
         /// </summary>
         public const string SmsNewUserRegister = UserPrefix + ".SmsNewUserRegister";
         /// <summary>
-        /// 用户登录短信验证码模板号
+        /// Mã mẫu SMS xác thực khi đăng nhập người dùng
         /// </summary>
         public const string SmsUserSignin = UserPrefix + ".SmsUserSignin";
         /// <summary>
-        /// 用户重置密码短信验证码模板号
+        /// Mã mẫu SMS xác thực khi đặt lại mật khẩu người dùng
         /// </summary>
         public const string SmsResetPassword = UserPrefix + ".SmsResetPassword";
         /// <summary>
-        /// 短信验证码重复间隔时间
+        /// Thời gian giãn cách lặp lại mã xác thực SMS
         /// </summary>
         public const string SmsRepetInterval = UserPrefix + ".SmsRepetInterval";
         /// <summary>
-        /// 邮件注册验证码重复间隔时间
+        /// Thời gian giãn cách lặp lại mã xác thực đăng ký qua email
         /// </summary>
         public const string EmailRegisterRepetInterval = UserPrefix + ".EmailRegisterRepetInterval";
     }
@@ -36,12 +36,12 @@ public static class IdentitySettingNames
     {
         private const string SessionPrefix = Prefix + ".Session";
         /// <summary>
-        /// 并发登录策略
+        /// Chính sách đăng nhập đồng thời
         /// see: https://github.com/abpio/abp-commercial-docs/blob/dev/en/modules/identity/session-management.md#prevent-concurrent-login
         /// </summary>
         public const string ConcurrentLoginStrategy = SessionPrefix + ".ConcurrentLoginStrategy";
         /// <summary>
-        /// 限制相同设备登录数量
+        /// Giới hạn số lượng đăng nhập trên cùng loại thiết bị
         /// </summary>
         public const string LogoutFromSameTypeDevicesLimit = SessionPrefix + ".LogoutFromSameTypeDevicesLimit";
     }
@@ -74,7 +74,7 @@ public static class IdentitySettingNames
     {
         private const string LinkPrefix = Prefix + ".Link";
         /// <summary>
-        /// 用户登录页(包含协议的登录地址串,用于发送用户登录邮件中的链接)
+        /// Trang đăng nhập của người dùng (chuỗi địa chỉ đăng nhập bao gồm giao thức, dùng cho liên kết trong email đăng nhập gửi cho người dùng)
         /// </summary>
         public const string UserLoginUri = LinkPrefix + ".UserLoginUri";
     }

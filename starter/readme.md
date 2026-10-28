@@ -1,10 +1,10 @@
-**快速启动后端项目：**
-1. 使用 `00.auto-config-docker.cmd` 自动配置docker环境
-2. 使用 `01.migrate-db.cmd` 迁移数据库
-3. 使用 `80.start-host.cmd` 启动后端项目
+**Khởi động nhanh dự án backend:**
+1. Dùng `00.auto-config-docker.cmd` để tự động cấu hình môi trường docker
+2. Dùng `01.migrate-db.cmd` để di chuyển cơ sở dữ liệu
+3. Dùng `80.start-host.cmd` để khởi động dự án backend
 
-注：请按自己电脑运行速度调整 `80.start-host.cmd` 文件中的 `stime` 参数。
+Lưu ý: hãy điều chỉnh tham số `stime` trong tệp `80.start-host.cmd` theo tốc độ chạy của máy tính của bạn.
 
-**快速启动前端项目：**
-1. 使用 `91.install-node-module.cmd` 安装npm依赖
-2. 使用 `99.start-all.cmd` 启动项目
+**Khởi động nhanh dự án frontend:**
+1. Dùng `91.install-node-module.cmd` để cài đặt các dependency npm
+2. Dùng `99.start-all.cmd` để khởi động dự án

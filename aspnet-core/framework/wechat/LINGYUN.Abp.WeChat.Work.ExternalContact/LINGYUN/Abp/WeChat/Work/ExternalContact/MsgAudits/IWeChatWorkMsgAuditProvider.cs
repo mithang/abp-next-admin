@@ -5,42 +5,42 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits;
 /// <summary>
-/// 会话存档接口
+/// Giao diện lưu trữ phiên trò chuyện
 /// </summary>
 public interface IWeChatWorkMsgAuditProvider
 {
     /// <summary>
-    /// 获取会话内容存档开启成员列表
+    /// Lấy danh sách thành viên đã bật lưu trữ nội dung phiên trò chuyện
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91614" />
+    /// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/91614" />
     /// </remarks>
     Task<WeChatWorkGetPermitUserListResponse> GetPermitUserListAsync(
         WeChatWorkGetPermitUserListRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取单聊会话同意情况
+    /// Lấy tình trạng đồng ý của phiên trò chuyện riêng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
+    /// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
     /// </remarks>
     Task<WeChatWorkCheckSingleAgreeResponse> CheckSingleAgreeAsync(
         WeChatWorkCheckSingleAgreeRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群聊会话同意情况
+    /// Lấy tình trạng đồng ý của phiên trò chuyện nhóm
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
+    /// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
     /// </remarks>
     Task<WeChatWorkCheckRoomAgreeResponse> CheckRoomAgreeAsync(
         WeChatWorkCheckRoomAgreeRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取会话内容存档内部群信息
+    /// Lấy thông tin nhóm nội bộ của lưu trữ nội dung phiên trò chuyện
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92951" />
+    /// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/92951" />
     /// </remarks>
     Task<WeChatWorkGetGroupChatResponse> GetGroupChatAsync(
         WeChatWorkGetGroupChatRequest request,

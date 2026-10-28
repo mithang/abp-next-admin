@@ -61,7 +61,7 @@ public class PlatformServiceDbMigrationEventHandler :
         var hostDefaultConnectionString = Configuration.GetConnectionString(ConnectionStrings.DefaultConnectionStringName);
         using (CurrentTenant.Change(eventData.Id))
         {
-            // 需要回收策略为回收且存在默认连接字符串且默认连接字符串与宿主不同
+            // Cần chính sách thu hồi là thu hồi và tồn tại chuỗi kết nối mặc định, đồng thời chuỗi kết nối mặc định khác với host
             if (eventData.Strategy == RecycleStrategy.Recycle && !eventData.DefaultConnectionString.IsNullOrWhiteSpace())
             {
                 var hostConnection = new DbConnectionStringBuilder()

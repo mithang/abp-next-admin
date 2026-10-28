@@ -5,19 +5,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat;
 /// <summary>
-/// 微信请求响应
+/// Phản hồi yêu cầu WeChat
 /// </summary>
 [Serializable]
 public class WeChatResponse
 {
     /// <summary>
-    /// 错误码
+    /// Mã lỗi
     /// </summary>
     [JsonProperty("errcode")]
     [JsonPropertyName("errcode")]
     public int ErrorCode { get; set; }
     /// <summary>
-    /// 错误消息
+    /// Tin nhắn lỗi
     /// </summary>
     [JsonProperty("errmsg")]
     [JsonPropertyName("errmsg")]

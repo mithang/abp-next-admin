@@ -69,7 +69,7 @@ const getLockEnd = (row: IdentityUserDto) => {
   if (row.lockoutEnd) {
     const lockTime = new Date(row.lockoutEnd);
     if (lockTime) {
-      // 锁定时间高于当前时间不显示
+      // Thời gian khóa lớn hơn thời gian hiện tại thì không hiển thị
       const nowTime = new Date();
       return lockTime < nowTime;
     }
@@ -129,7 +129,7 @@ const { hasAccessByCodes } = useAccess();
 const { cancel, deleteApi, getPagedListApi, unLockApi } = useUsersApi();
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: false,
   schema: [
     {
@@ -139,9 +139,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển biểu mẫu có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi biểu mẫu khi nhấn Enter hay không
   submitOnEnter: true,
 };
 

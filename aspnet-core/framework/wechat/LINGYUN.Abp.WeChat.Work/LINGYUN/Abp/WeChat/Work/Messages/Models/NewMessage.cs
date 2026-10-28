@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 图文消息载体
+/// Đối tượng chứa tin nhắn đồ họa-văn bản
 /// </summary>
 public class NewMessagePayload
 {
     /// <summary>
-    /// 图文消息列表
+    /// Danh sách tin nhắn đồ họa-văn bản
     /// </summary>
     [NotNull]
     [JsonProperty("articles")]
@@ -22,7 +22,7 @@ public class NewMessagePayload
     }
 }
 /// <summary>
-/// 图文消息
+/// Tin nhắn đồ họa-văn bản
 /// </summary>
 public class NewMessage
 {
@@ -43,43 +43,43 @@ public class NewMessage
     }
 
     /// <summary>
-    /// 标题，不超过128个字节，超过会自动截断（支持id转译）
+    /// Tiêu đề, không quá 128 byte, vượt quá sẽ tự động cắt ngắn (hỗ trợ chuyển đổi id)
     /// </summary>
     [NotNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string Title { get; set; }
     /// <summary>
-    /// 描述，不超过512个字节，超过会自动截断（支持id转译）
+    /// Mô tả, không quá 512 byte, vượt quá sẽ tự động cắt ngắn (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("description")]
     [JsonPropertyName("description")]
     public string Description { get; set; }
     /// <summary>
-    /// 点击后跳转的链接。
-    /// 最长2048字节，请确保包含了协议头(http/https)，小程序或者url必须填写一个
+    /// Liên kết chuyển đến sau khi nhấp vào.
+    /// Dài nhất 2048 byte, hãy đảm bảo đã bao gồm tiêu đề giao thức (http/https), chương trình mini hoặc url phải điền một trong hai
     /// </summary>
     [CanBeNull]
     [JsonProperty("url")]
     [JsonPropertyName("url")]
     public string Url { get; set; }
     /// <summary>
-    /// 图文消息的图片链接，最长2048字节，支持JPG、PNG格式，较好的效果为大图 1068*455，小图150*150。
+    /// Liên kết hình ảnh của tin nhắn đồ họa-văn bản, dài nhất 2048 byte, hỗ trợ định dạng JPG, PNG, hiệu quả tốt hơn với ảnh lớn 1068*455, ảnh nhỏ 150*150.
     /// </summary>
     [CanBeNull]
     [JsonProperty("picurl")]
     [JsonPropertyName("picurl")]
     public string PictureUrl { get; set; }
     /// <summary>
-    /// 小程序appid，必须是与当前应用关联的小程序，appid和pagepath必须同时填写，填写后会忽略url字段
+    /// Appid của chương trình mini, phải là chương trình mini liên kết với ứng dụng hiện tại, appid và pagepath phải điền đồng thời, sau khi điền sẽ bỏ qua trường url
     /// </summary>
     [CanBeNull]
     [JsonProperty("appid")]
     [JsonPropertyName("appid")]
     public string AppId { get; set; }
     /// <summary>
-    /// 点击消息卡片后的小程序页面，最长128字节，仅限本小程序内的页面。appid和pagepath必须同时填写，填写后会忽略url字段
+    /// Trang chương trình mini sau khi nhấp vào thẻ tin nhắn, dài nhất 128 byte, chỉ giới hạn trong các trang của chương trình mini này. appid và pagepath phải điền đồng thời, sau khi điền sẽ bỏ qua trường url
     /// </summary>
     [CanBeNull]
     [JsonProperty("pagepath")]

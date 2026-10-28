@@ -1,0 +1,23 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Languages": "Ngôn ngữ",
+    "Resources": "Tài nguyên",
+    "Texts": "Tài liệu",
+    "DisplayName:Key": "Tên khóa",
+    "DisplayName:Value": "Giá trị khóa",
+    "DisplayName:Name": "Tên",
+    "DisplayName:CultureName": "Tên văn hóa",
+    "DisplayName:ResourceName": "Tên tài nguyên",
+    "DisplayName:TargetCultureName": "Văn hóa đích",
+    "DisplayName:TargetValue": "Giá trị đích",
+    "DisplayName:Any": "Tất cả",
+    "DisplayName:OnlyNull": "Chỉ giới hạn giá trị rỗng",
+    "DisplayName:Filter": "Lọc",
+    "DisplayName:UiCultureName": "Tên tệp Ui",
+    "DisplayName:DisplayName": "Tên hiển thị",
+    "DisplayName:FlagIcon": "Biểu tượng cờ",
+    "DisplayName:Description": "Mô tả",
+    "DisplayName:DefaultCultureName": "Văn hóa mặc định"
+  }
+}

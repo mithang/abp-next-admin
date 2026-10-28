@@ -95,8 +95,8 @@ public class TencentCaptchaValidator : ICaptchaValidator
                     ex.RequestId, ex.ErrorCode, ex.Message);
             if (ex.RequestId.IsNullOrWhiteSpace())
             {
-                // 业务容灾, 请求腾讯云失败时默认验证通过
-                // 参考源码, 网络请求失败时没有RequestId字段
+                // Dự phòng nghiệp vụ, khi yêu cầu Tencent Cloud thất bại thì mặc định xác thực thành công
+                // Tham khảo mã nguồn, khi yêu cầu mạng thất bại thì không có trường RequestId
                 logContext.Action = IdentitySecurityLogExtendActionConsts.CaptchaSucceeded;
                 return true;
             }

@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work;
 /// <summary>
-/// 企业微信请求响应
+/// Phản hồi yêu cầu WeChat Doanh nghiệp
 /// </summary>
 [Serializable]
 public class WeChatWorkResponse
 {
     /// <summary>
-    /// 错误码
+    /// Mã lỗi
     /// </summary>
     [JsonProperty("errcode")]
     [JsonPropertyName("errcode")]
     public int ErrorCode { get; set; }
     /// <summary>
-    /// 错误消息
+    /// Tin nhắn lỗi
     /// </summary>
     [JsonProperty("errmsg")]
     [JsonPropertyName("errmsg")]

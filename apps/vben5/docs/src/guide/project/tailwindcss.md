@@ -1,17 +1,17 @@
 # Tailwind CSS
 
-[Tailwind CSS](https://tailwindcss.com/) 是一个实用性优先的CSS框架，用于快速构建自定义设计。
+[Tailwind CSS](https://tailwindcss.com/) là một CSS framework ưu tiên tính tiện ích, dùng để nhanh chóng xây dựng thiết kế tùy chỉnh.
 
-## 配置
+## Cấu hình
 
-项目的配置文件位于 `internal/tailwind-config` 下，你可以在这里修改 Tailwind CSS 的配置。
+Tệp cấu hình của dự án nằm trong `internal/tailwind-config`, bạn có thể sửa cấu hình Tailwind CSS tại đây.
 
-::: tip 包使用 tailwindcss 的限制
+::: tip Giới hạn khi package sử dụng tailwindcss
 
-当前只有对应的包下面存在 `tailwind.config.mjs` 文件才会启用 tailwindcss 的编译，否则不会启用 tailwindcss。如果你是纯粹的 SDK 包，不需要使用 tailwindcss，可以不用创建 `tailwind.config.mjs` 文件。
+Hiện tại chỉ khi dưới package tương ứng tồn tại tệp `tailwind.config.mjs` thì quá trình biên dịch tailwindcss mới được bật, ngược lại tailwindcss sẽ không được bật. Nếu bạn là package SDK thuần túy, không cần dùng tailwindcss, thì có thể không cần tạo tệp `tailwind.config.mjs`.
 
 :::
 
-## 提示
+## Lưu ý
 
-现`tailwindcss`已至v4.x版本，使用方法与`tailwindcss: ^3.4.17`有差异，v4.0无法与v3.x版本兼容，在开发前请确认`package.json`中的`tailwindcss`版本。
+Hiện `tailwindcss` đã lên phiên bản v4.x, cách sử dụng khác với `tailwindcss: ^3.4.17`, v4.0 không tương thích với phiên bản v3.x, trước khi phát triển hãy xác nhận phiên bản `tailwindcss` trong `package.json`.

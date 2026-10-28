@@ -8,7 +8,7 @@ import {
 } from '@vben-core/shared/utils';
 
 /**
- * 依次从插槽、attrs、props、state 中获取值
+ * Lần lượt lấy giá trị từ slot, attrs, props, state
  * @param key
  * @param props
  * @param state
@@ -23,8 +23,8 @@ export function usePriorityValue<
   const attrs = useAttrs() as T;
 
   const value = computed((): T[K] => {
-    // props不管有没有传，都会有默认值，会影响这里的顺序，
-    // 通过判断原始props是否有值来判断是否传入
+    // props dù có được truyền hay không cũng đều có giá trị mặc định, sẽ ảnh hưởng đến thứ tự ở đây,
+    // Xác định có được truyền vào hay không bằng cách kiểm tra props gốc có giá trị hay không
     const rawProps = (instance?.vnode?.props || {}) as T;
 
     const standardRawProps = {} as T;
@@ -35,7 +35,7 @@ export function usePriorityValue<
     const propsKey =
       standardRawProps?.[key] === undefined ? undefined : props[key];
 
-    // slot可以关闭
+    // slot có thể đóng
     return getFirstNonNullOrUndefined(
       slots[key as string],
       attrs[key],
@@ -48,7 +48,7 @@ export function usePriorityValue<
 }
 
 /**
- * 批量获取state中的值（每个值都是ref）
+ * Lấy hàng loạt giá trị trong state (mỗi giá trị đều là ref)
  * @param props
  * @param state
  */
@@ -66,7 +66,7 @@ export function usePriorityValues<
 }
 
 /**
- * 批量获取state中的值（集中在一个computed，用于透传）
+ * Lấy hàng loạt giá trị trong state (tập trung trong một computed, dùng để truyền xuyên suốt)
  * @param props
  * @param state
  */

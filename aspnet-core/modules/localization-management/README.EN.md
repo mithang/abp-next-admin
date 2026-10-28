@@ -94,7 +94,7 @@ The module provides the following REST API endpoints:
 
 ## More Information
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Việt](./README.md)
 
 ## Change Log
 

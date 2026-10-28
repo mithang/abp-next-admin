@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Response;
 /// <summary>
-/// openid转userid响应参数
+/// Tham số phản hồi chuyển openid sang userid
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90202" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/90202" />
 /// </remarks>
 public class WeChatWorkConvertToUserIdResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 该openid在企业微信对应的成员userid
+    /// userid thành viên tương ứng với openid này trong WeChat Work
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]

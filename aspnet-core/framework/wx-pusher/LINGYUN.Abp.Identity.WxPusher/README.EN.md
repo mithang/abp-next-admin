@@ -2,7 +2,7 @@
 
 Implementation of the IWxPusherUserStore interface for the Identity module, retrieving subscribed topic lists through user Claims.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

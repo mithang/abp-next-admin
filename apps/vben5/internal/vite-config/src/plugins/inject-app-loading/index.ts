@@ -8,8 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { readPackageJSON } from '@vben/node-utils';
 
 /**
- * 用于生成将loading样式注入到项目中
- * 为多app提供loading样式，无需在每个 app -> index.html单独引入
+ * Dùng để tạo và chèn kiểu loading vào dự án
+ * Cung cấp kiểu loading cho nhiều app, không cần chèn riêng trong từng app -> index.html
  */
 async function viteInjectAppLoadingPlugin(
   isBuild: boolean,
@@ -21,8 +21,8 @@ async function viteInjectAppLoadingPlugin(
   const envRaw = isBuild ? 'prod' : 'dev';
   const cacheName = `'${env.VITE_APP_NAMESPACE}-${version}-${envRaw}-preferences-theme'`;
 
-  // 获取缓存的主题
-  // 保证黑暗主题下，刷新页面时，loading也是黑暗主题
+  // Lấy chủ đề đã lưu trong bộ nhớ đệm
+  // Đảm bảo khi làm mới trang ở chế độ tối, loading cũng ở chế độ tối
   const injectScript = `
   <script data-app-loading="inject-js">
   var theme = localStorage.getItem(${cacheName});
@@ -49,10 +49,10 @@ async function viteInjectAppLoadingPlugin(
 }
 
 /**
- * 用于获取loading的html模板
+ * Dùng để lấy mẫu html của loading
  */
 async function getLoadingRawByHtmlTemplate(loadingTemplate: string) {
-  // 支持在app内自定义loading模板，模版参考default-loading.html即可
+  // Hỗ trợ tùy chỉnh mẫu loading trong app, mẫu tham khảo default-loading.html là đủ
   let appLoadingPath = join(process.cwd(), loadingTemplate);
 
   if (!fs.existsSync(appLoadingPath)) {

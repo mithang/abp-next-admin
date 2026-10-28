@@ -1,0 +1,29 @@
+{
+  "culture": "vi",
+  "texts": {
+    "InactiveUserReminderNotifier": "Thông báo giữ tài khoản hoạt động",
+    "InactiveUserDeactivationNotifier": "Thông báo vô hiệu hóa tài khoản",
+    "InactiveUserDeletionNotifier": "Thông báo xóa tài khoản",
+    "InactiveUserReminderHeader": "Nhắc nhở giữ tài khoản hoạt động",
+    "InactiveUserReminderWarning": "Chúng tôi nhận thấy tài khoản của bạn đã lâu không hoạt động, để giữ tài khoản của bạn luôn hoạt động và an toàn, chúng tôi khuyên bạn nên đăng nhập tài khoản.",
+    "InactiveUserReminderAction": "Nếu bạn muốn giữ lại tài khoản của mình, vui lòng trong",
+    "InactiveUserReminderReactivate": "Đăng nhập trước đó.",
+    "InactiveUserReminderClosure": "Nếu bạn không còn cần tài khoản này nữa, bạn không cần thực hiện bất kỳ thao tác nào. Nhưng xin lưu ý, nếu đến hạn",
+    "InactiveUserReminderInactive": "Trước đó bạn vẫn chưa đăng nhập tài khoản, hệ thống sẽ vô hiệu hóa tài khoản của bạn, lúc này bạn sẽ không thể đăng nhập tài khoản của mình.",
+    "InactiveUserDeactivationNotice": "Thông báo này nhằm thông báo cho bạn rằng, do bạn đã liên tục",
+    "InactiveUserDeactivationWarning": " ngày chưa đăng nhập, tài khoản của bạn đã bị vô hiệu hóa, dữ liệu của bạn vẫn được lưu trữ nhưng không thể truy cập, nếu cần bạn có thể tại",
+    "InactiveUserDeactivationAction": "Trước đó đã liên hệ với chúng tôi để khôi phục tài khoản, nếu không xử lý kịp thời tài khoản sẽ bị xóa vĩnh viễn.",
+    "NoReactionClosure": "Nếu bạn không muốn kích hoạt lại tài khoản, bạn không cần thực hiện thêm thao tác nào. Sau khi hết thời hạn kích hoạt lại, tài khoản của bạn sẽ tự động vào hàng đợi xóa.",
+    "AutomatedNotification": "Đây là thông báo được gửi tự động, vui lòng không trả lời trực tiếp email này.",
+    "InactiveUserDeactivationHeader": "Thông báo vô hiệu hóa tài khoản",
+    "InactiveUserDeletionHeader": "Thông báo xóa tài khoản",
+    "InactiveUserDeletionNotice": "Do không hoạt động trong thời gian dài và không phản hồi các thông báo trước đó, tài khoản của bạn đã bị xóa vĩnh viễn, dữ liệu liên quan đến bạn đã bị loại bỏ khỏi nền tảng.",
+    "WhatYouCanDo": "Bạn có thể:",
+    "CreateNewAccountInstructions": "Nếu cần tiếp tục sử dụng dịch vụ, vui lòng",
+    "CreateNewAccountStep1": "Tạo tài khoản mới",
+    "CreateNewAccountStep2": "Cài đặt hồ sơ cá nhân",
+    "CreateNewAccountStep3": "Đăng ký lại dịch vụ",
+    "LastSignInTime": "Thời gian đăng nhập lần trước",
+    "SignInToAccount": "Tài khoản đăng nhập"
+  }
+}

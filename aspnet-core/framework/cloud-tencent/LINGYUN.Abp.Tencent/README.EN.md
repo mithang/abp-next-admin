@@ -84,4 +84,4 @@ All configurations support multi-tenant settings, allowing different Tencent Clo
 * [Tencent Cloud API Key Management](https://console.cloud.tencent.com/cam/capi)
 * [Tencent Cloud Regions and Availability Zones](https://cloud.tencent.com/document/product/213/6091)
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

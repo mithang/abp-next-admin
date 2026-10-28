@@ -7,7 +7,7 @@ import { AuthPageLayout, BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 import Login from '#/views/_core/authentication/login.vue';
 
-/** 全局404页面 */
+/** Trang 404 toàn cục */
 const fallbackNotFoundRoute: RouteRecordRaw = {
   component: () => import('#/views/_core/fallback/not-found.vue'),
   meta: {
@@ -20,7 +20,7 @@ const fallbackNotFoundRoute: RouteRecordRaw = {
   path: '/:path(.*)*',
 };
 
-/** 基本路由，这些路由是必须存在的 */
+/** Các route cơ bản, những route này bắt buộc phải tồn tại */
 const coreRoutes: RouteRecordRaw[] = [
   {
     component: () => import('#/views/_core/fallback/login-callback.vue'),
@@ -34,9 +34,9 @@ const coreRoutes: RouteRecordRaw[] = [
     path: '/signin-callback',
   },
   /**
-   * 根路由
-   * 使用基础布局，作为所有页面的父级容器，子级就不必配置BasicLayout。
-   * 此路由必须存在，且不应修改
+   * Route gốc
+   * Sử dụng layout cơ sở làm container cha cho tất cả các trang, các route con không cần cấu hình BasicLayout nữa.
+   * Route này bắt buộc phải tồn tại và không nên sửa đổi
    */
   {
     component: BasicLayout,

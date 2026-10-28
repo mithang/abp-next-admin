@@ -46,7 +46,7 @@ public class QuartzJobScheduler : IJobScheduler, IJobPublisher, ISingletonDepend
                 await Scheduler.PauseTrigger(trigger.Key, cancellationToken);
             }
 
-            // 当暂停作业时, 需要停止已经在执行中的作业
+            // Khi tạm dừng công việc, cần dừng các công việc đang thực thi
             await Scheduler.Interrupt(jobKey, cancellationToken);
         }
     }
@@ -118,7 +118,7 @@ public class QuartzJobScheduler : IJobScheduler, IJobPublisher, ISingletonDepend
             await Scheduler.PauseTrigger(trigger.Key, cancellationToken);
         }
 
-        // 当删除作业时, 需要停止已经在执行中的作业
+        // Khi xóa công việc, cần dừng các công việc đang thực thi
         await Scheduler.Interrupt(jobKey, cancellationToken);
 
         await Scheduler.DeleteJob(jobKey, cancellationToken);
@@ -161,7 +161,7 @@ public class QuartzJobScheduler : IJobScheduler, IJobPublisher, ISingletonDepend
     {
         if (!Scheduler.InStandbyMode)
         {
-            //等待任务运行完成
+            //Chờ tác vụ chạy hoàn tất
             await Scheduler.Standby(cancellationToken);
         }
         return !Scheduler.InStandbyMode;

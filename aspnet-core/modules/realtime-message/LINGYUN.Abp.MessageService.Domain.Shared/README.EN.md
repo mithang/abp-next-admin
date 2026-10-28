@@ -32,4 +32,4 @@ public class YourModule : AbpModule
 
 ## More
 
-[中文文档](README.md)
+[Tiếng Việt](README.md)

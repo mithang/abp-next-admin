@@ -4,21 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信Webhook Markdown消息
+/// Tin nhắn Markdown Webhook của WeChat Work
 /// </summary>
 public class WeChatWorkWebhookMarkdownMessage : WeChatWorkWebhookMessage
 {
     /// <summary>
-    /// Markdown消息体
+    /// Thân tin nhắn Markdown
     /// </summary>
     [NotNull]
     [JsonProperty("markdown")]
     [JsonPropertyName("markdown")]
     public WebhookMarkdownMessage Markdown { get; set; }
     /// <summary>
-    /// 创建一个企业微信Webhook Markdown消息
+    /// Tạo một tin nhắn Markdown Webhook của WeChat Work
     /// </summary>
-    /// <param name="markdown">Markdown消息体</param>
+    /// <param name="markdown">Thân tin nhắn Markdown</param>
     public WeChatWorkWebhookMarkdownMessage(WebhookMarkdownMessage markdown)
     : base("markdown")
     {

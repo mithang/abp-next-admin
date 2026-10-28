@@ -1,25 +1,25 @@
 # LINGYUN.Abp.BlobStoring.Aliyun
 
-ABP框架对象存储提供者**IBlobProvider**的阿里云OSS实现。
+Bản triển khai Alibaba Cloud OSS của nhà cung cấp lưu trữ đối tượng **IBlobProvider** trong khung ABP.
 
-## 功能特性
+## Tính năng
 
-* 实现ABP的IBlobProvider接口，使用阿里云OSS服务
-* 支持多租户Blob存储
-* 自动创建Bucket
-* 可配置的Bucket访问控制
-* 支持STS Token访问
-* 可自定义的Blob命名策略
+* Triển khai giao diện IBlobProvider của ABP, sử dụng dịch vụ Alibaba Cloud OSS
+* Hỗ trợ lưu trữ Blob đa thuê bao
+* Tự động tạo Bucket
+* Kiểm soát truy cập Bucket có thể cấu hình
+* Hỗ trợ truy cập bằng STS Token
+* Chiến lược đặt tên Blob có thể tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
-首先定义**appsettings.json**文件：
+Trước tiên, định nghĩa tệp **appsettings.json**:
 
 ```json
 {
   "Aliyun": {
     "OSS": {
-      "BucketName": "你定义的BucketName",
+      "BucketName": "BucketName bạn định nghĩa",
       "Endpoint": "http://oss-cn-shanghai.aliyuncs.com",
       "CreateBucketIfNotExists": true
     }
@@ -27,7 +27,7 @@ ABP框架对象存储提供者**IBlobProvider**的阿里云OSS实现。
 }
 ```
 
-然后在项目中引用模块：
+Sau đó tham chiếu mô-đun trong dự án:
 
 ```csharp
 [DependsOn(typeof(AbpBlobStoringAliyunModule))]
@@ -37,49 +37,49 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置说明
+## Mô tả cấu hình
 
-### OSS配置
+### Cấu hình OSS
 
 * **BucketName**
-  * 说明：OSS存储空间名称
-  * 类型：可选
-  * 默认值：容器名称
+  * Mô tả: Tên không gian lưu trữ OSS
+  * Loại: Tùy chọn
+  * Giá trị mặc định: Tên vùng chứa
 
 * **Endpoint**
-  * 说明：OSS服务的接入点
-  * 类型：必须
-  * 示例：http://oss-cn-shanghai.aliyuncs.com
+  * Mô tả: Điểm truy cập của dịch vụ OSS
+  * Loại: Bắt buộc
+  * Ví dụ:http://oss-cn-shanghai.aliyuncs.com
 
 * **CreateBucketIfNotExists**
-  * 说明：如果Bucket不存在是否自动创建
-  * 类型：可选
-  * 默认值：false
+  * Mô tả: Có tự động tạo Bucket nếu Bucket chưa tồn tại hay không
+  * Loại: Tùy chọn
+  * Giá trị mặc định:false
 
 * **CreateBucketReferer**
-  * 说明：Bucket访问白名单
-  * 类型：可选
+  * Mô tả: Danh sách trắng truy cập Bucket
+  * Loại: Tùy chọn
 
-### Blob命名规则
+### Quy tắc đặt tên Blob
 
-* 容器（Bucket）名称规则：
-  * 长度必须在3-63字符之间
-  * 只能包含小写字母、数字和短横线
-  * 必须以字母或数字开头
-  * 不能以短横线开头或结尾
+* Quy tắc tên vùng chứa (Bucket):
+  * Độ dài phải từ 3–63 ký tự
+  * Chỉ được chứa chữ thường, chữ số và dấu gạch ngang
+  * Phải bắt đầu bằng chữ cái hoặc chữ số
+  * Không được bắt đầu hoặc kết thúc bằng dấu gạch ngang
 
-* Blob名称规则：
-  * 租户：`tenants/{tenantId}/{blobName}`
-  * 宿主：`host/{blobName}`
+* Quy tắc tên Blob:
+  * Thuê bao:`tenants/{tenantId}/{blobName}`
+  * Máy chủ (host):`host/{blobName}`
 
-## 性能优化
+## Tối ưu hiệu năng
 
-* 使用分布式缓存存储STS Token
-* 支持数据冗余配置
-* 可配置的Bucket访问控制以提高安全性
+* Sử dụng bộ nhớ đệm phân tán để lưu trữ STS Token
+* Hỗ trợ cấu hình dự phòng dữ liệu
+* Kiểm soát truy cập Bucket có thể cấu hình để nâng cao bảo mật
 
-## 相关模块
+## Mô-đun liên quan
 
-* [LINGYUN.Abp.Aliyun](../../cloud-aliyun/LINGYUN.Abp.Aliyun/README.md) - 提供阿里云基础集成
+* [LINGYUN.Abp.Aliyun](../../cloud-aliyun/LINGYUN.Abp.Aliyun/README.md) - Cung cấp tích hợp cơ sở Alibaba Cloud
 
 [Click to view English documentation](README.EN.md)

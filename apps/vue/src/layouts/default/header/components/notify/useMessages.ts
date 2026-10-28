@@ -20,7 +20,7 @@ import { useSignalR } from '/@/hooks/web/useSignalR';
 export function useMessages() {
   const messageRef = ref<TabItem>({
     key: '2',
-    name: '消息',
+    name: 'Tin nhắn',
     list: [],
   });
   const { t } = useI18n();
@@ -68,7 +68,7 @@ export function useMessages() {
   }
 
   function onMessageReceived(message: ChatMessage) {
-    // 处理需要本地化的系统消息
+    // Xử lý tin nhắn hệ thống cần bản địa hóa
     if (
       message.source === MessageSourceTye.System &&
       (message.extraProperties.L === true || message.extraProperties.L === 'true')
@@ -159,18 +159,18 @@ export function useMessages() {
         break;
     }
   }
-  /** 注册IM事件处理器 */
+  /** Đăng ký bộ xử lý sự kiện IM */
   function _registerIMEventHandler() {
-    // 读取消息事件
+    // Sự kiện đọc tin nhắn
     emitter.on(ChatEventEnum.USER_MESSAGE_READ, _read);
-    // 读取消息事件
+    // Sự kiện đọc tin nhắn
     emitter.on(ChatEventEnum.USER_MESSAGE_RECALL, _recall);
-    // 订阅发送消息事件
+    // Đăng ký sự kiện gửi tin nhắn
     emitter.on(ChatEventEnum.USER_SEND_MESSAGE, _sendMessage);
-    // 订阅通知事件,处理IM相关消息
+    // Đăng ký sự kiện thông báo, xử lý tin nhắn liên quan đến IM
     emitter.on(NotifyEventEnum.NOTIFICATIONS_RECEVIED, _mapChatNotifyEvent);
   }
-  /** 释放IM事件处理器 */
+  /** Hủy đăng ký bộ xử lý sự kiện IM */
   function _releaseIMEventHandler() {
     emitter.off(ChatEventEnum.USER_MESSAGE_READ, _read);
     emitter.off(ChatEventEnum.USER_MESSAGE_RECALL, _recall);

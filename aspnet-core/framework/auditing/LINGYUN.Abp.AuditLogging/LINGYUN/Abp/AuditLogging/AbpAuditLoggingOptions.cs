@@ -4,49 +4,49 @@ namespace LINGYUN.Abp.AuditLogging;
 public class AbpAuditLoggingOptions
 {
     /// <summary>
-    /// 是否启用审计日志记录
+    /// Có bật ghi nhật ký kiểm toán hay không
     /// </summary>
     public bool IsAuditLogEnabled { get; set; }
     /// <summary>
-    /// 使用审计日志队列
+    /// Sử dụng hàng đợi nhật ký kiểm toán
     /// </summary>
     /// <remarks>
-    /// 不启用队列则直接写入到持久化设施
+    /// Nếu không bật hàng đợi thì ghi trực tiếp vào cơ sở lưu trữ bền vững
     /// </remarks>
     public bool UseAuditLogQueue { get; set; }
     /// <summary>
-    /// 审计日志最大队列大小
+    /// Kích thước tối đa của hàng đợi nhật ký kiểm toán
     /// </summary>
     public int MaxAuditLogQueueSize { get; set; }
     /// <summary>
-    /// 一次处理审计日志队列大小
+    /// Kích thước xử lý hàng đợi nhật ký kiểm toán mỗi lần
     /// </summary>
     public int BatchAuditLogSize { get; set; }
     /// <summary>
-    /// 审计日志贡献者列表,用于写入前修改自定义属性
+    /// Danh sách contributor của nhật ký kiểm toán, dùng để sửa thuộc tính tùy chỉnh trước khi ghi
     /// </summary>
     public List<IAuditLogInfoContributor> AuditLogInfoContributors { get; }
     /// <summary>
-    /// 是否启用安全日志记录
+    /// Có bật ghi nhật ký bảo mật hay không
     /// </summary>
     public bool IsSecurityLogEnabled { get; set; }
     /// <summary>
-    /// 使用安全日志队列
+    /// Sử dụng hàng đợi nhật ký bảo mật
     /// </summary>
     /// <remarks>
-    /// 不启用队列则直接写入到持久化设施
+    /// Nếu không bật hàng đợi thì ghi trực tiếp vào cơ sở lưu trữ bền vững
     /// </remarks>
     public bool UseSecurityLogQueue { get; set; }
     /// <summary>
-    /// 安全日志最大队列大小
+    /// Kích thước tối đa của hàng đợi nhật ký bảo mật
     /// </summary>
     public int MaxSecurityLogQueueSize { get; set; }
     /// <summary>
-    /// 一次处理安全日志队列大小
+    /// Kích thước xử lý hàng đợi nhật ký bảo mật mỗi lần
     /// </summary>
     public int BatchSecurityLogSize { get; set; }
     /// <summary>
-    /// 安全日志贡献者列表,用于写入前修改自定义属性
+    /// Danh sách contributor của nhật ký bảo mật, dùng để sửa thuộc tính tùy chỉnh trước khi ghi
     /// </summary>
     public List<ISecurityLogInfoContributor> SecurityLogInfoContributors { get; }
     public AbpAuditLoggingOptions()

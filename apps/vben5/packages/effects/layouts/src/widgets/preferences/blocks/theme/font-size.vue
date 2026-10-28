@@ -23,7 +23,7 @@ const min = 15;
 const max = 22;
 const step = 1;
 
-// 限制输入值在 min 和 max 之间
+// Giới hạn giá trị nhập trong khoảng min và max
 watch(
   modelValue,
   (newValue) => {

@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.Notifications;
 public class AbpNotificationsOptions
 {
     /// <summary>
-    /// 自定义通知集合
+    /// Tập hợp thông báo tùy chỉnh
     /// </summary>
     public ITypeList<INotificationDefinitionProvider> DefinitionProviders { get; }
 

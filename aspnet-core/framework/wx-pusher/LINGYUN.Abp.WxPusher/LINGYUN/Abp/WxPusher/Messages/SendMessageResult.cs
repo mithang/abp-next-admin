@@ -7,50 +7,50 @@ namespace LINGYUN.Abp.WxPusher.Messages;
 public class SendMessageResult
 {
     /// <summary>
-    /// 状态码
+    /// Mã trạng thái
     /// </summary>
     [JsonProperty("code")]
     public int Code { get; set; } = default!;
     /// <summary>
-    /// 消息标识
+    /// Định danh tin nhắn
     /// </summary>
     [JsonProperty("messageId")]
-    [Obsolete("废弃，请不要再使用，后续会删除这个字段, see: https://wxpusher.dingliqc.com/docs/#/?id=%e5%8f%91%e9%80%81%e6%b6%88%e6%81%af")]
+    [Obsolete("Đã lỗi thời, vui lòng không sử dụng nữa, trường này sẽ bị xóa sau, see: https://wxpusher.dingliqc.com/docs/#/?id=%e5%8f%91%e9%80%81%e6%b6%88%e6%81%af")]
     public long? MessageId { get; set; }
     /// <summary>
-    /// 消息内容标识
+    /// Định danh nội dung tin nhắn
     /// </summary>
     /// <remarks>
-    /// 调用一次接口，生成一个，你可以通过此id调用删除消息接口，删除消息。
-    /// 本次发送的所有用户共享此消息内容。
+    /// Mỗi lần gọi giao diện sẽ tạo một id, bạn có thể dùng id này để gọi giao diện xóa tin nhắn và xóa tin nhắn.
+    /// Tất cả người dùng trong lần gửi này cùng dùng chung nội dung tin nhắn này.
     /// </remarks>
     [JsonProperty("messageContentId")]
     public long ContentId { get; set; }
     /// <summary>
-    /// 消息发送标识
+    /// Định danh gửi tin nhắn
     /// </summary>
     /// <remarks>
-    /// 每个uid用户或者topicId生成一个，可以通过这个id查询对某个用户的发送状态
+    /// Mỗi người dùng uid hoặc topicId sẽ tạo một id, có thể dùng id này để truy vấn trạng thái gửi tới một người dùng nào đó
     /// </remarks>
     [JsonProperty("sendRecordId")]
     public long RecordId { get; set; }
     /// <summary>
-    /// 状态
+    /// Trạng thái
     /// </summary>
     [JsonProperty("status")]
     public string Status { get; set; } = default!;
     /// <summary>
-    /// 用户标识
+    /// Định danh người dùng
     /// </summary>
     [JsonProperty("uid")]
     public string Uid { get; set; } = default!;
     /// <summary>
-    /// 群组标识
+    /// Định danh nhóm
     /// </summary>
     [JsonProperty("topicId")]
     public long? TopicId { get; set; }
     /// <summary>
-    /// 是否调用成功
+    /// Có gọi thành công hay không
     /// </summary>
     public bool IsSuccessed => Code == 1000;
 }

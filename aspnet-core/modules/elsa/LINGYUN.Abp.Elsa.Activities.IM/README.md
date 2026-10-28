@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Elsa.Activities.IM
 
-Elsa工作流的即时消息活动集成模块
+Mô-đun tích hợp hoạt động nhắn tin tức thời cho quy trình làm việc Elsa
 
-## 功能
+## Tính năng
 
-* 提供 **SendMessage** 活动用于发送即时消息
-  * 支持发送用户消息和群组消息
-  * 集成ABP框架的 `IMessageSender` 接口
-  * 支持多租户
+* Cung cấp hoạt động **SendMessage** để gửi tin nhắn tức thời
+  * Hỗ trợ gửi tin nhắn người dùng và tin nhắn nhóm
+  * Tích hợp giao diện `IMessageSender` của khung ABP
+  * Hỗ trợ đa tenant
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(
@@ -25,21 +25,21 @@ public class YouProjectModule : AbpModule
 ```json
 {
     "Elsa": {
-        "IM": true    // 启用即时消息活动
+        "IM": true    // Bật hoạt động nhắn tin tức thời
     }
 }
 ```
 
-## 活动参数
+## Tham số hoạt động
 
-* **Content**: 消息内容
-* **FormUser**: 发送者用户ID
-* **FormUserName**: 发送者用户名
-* **To**: 接收用户ID（用户消息）
-* **GroupId**: 接收群组ID（群组消息）
+* **Content**: Nội dung tin nhắn
+* **FormUser**: ID người dùng gửi
+* **FormUserName**: Tên người dùng gửi
+* **To**: ID người dùng nhận (tin nhắn người dùng)
+* **GroupId**: ID nhóm nhận (tin nhắn nhóm)
 
-## 输出参数
+## Tham số đầu ra
 
-* **MessageId**: 发送的消息ID
+* **MessageId**: ID tin nhắn đã gửi
 
 [English](./README.EN.md)

@@ -1,10 +1,10 @@
 # LINGYUN.Abp.BackgroundTasks.EventBus
 
-后台任务（队列）模块分布式事件模块,集成模块使应用程序具备处理作业事件能力  
+Mô-đun sự kiện phân tán của mô-đun tác vụ nền (hàng đợi); mô-đun tích hợp giúp ứng dụng có khả năng xử lý sự kiện công việc  
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksEventBusModule))]

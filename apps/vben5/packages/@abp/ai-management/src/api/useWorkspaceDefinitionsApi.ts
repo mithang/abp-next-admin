@@ -14,9 +14,9 @@ export function useWorkspaceDefinitionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取工作区详情
-   * @param id 工作区id
-   * @returns 工作区详情
+   * Lấy chi tiết không gian làm việc
+   * @param id Id không gian làm việc
+   * @returns Chi tiết không gian làm việc
    */
   function getApi(id: string): Promise<WorkspaceDefinitionRecordDto> {
     return request<WorkspaceDefinitionRecordDto>(
@@ -28,9 +28,9 @@ export function useWorkspaceDefinitionsApi() {
   }
 
   /**
-   * 获取工作区分页列表
-   * @param input 查询过滤参数
-   * @returns 工作区分页列表
+   * Lấy danh sách phân trang không gian làm việc
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang không gian làm việc
    */
   function getPagedListApi(
     input?: WorkspaceDefinitionRecordGetPagedListInput,
@@ -45,8 +45,8 @@ export function useWorkspaceDefinitionsApi() {
   }
 
   /**
-   * 获取可用模型提供者列表
-   * @returns 模型提供者列表
+   * Lấy danh sách nhà cung cấp mô hình khả dụng
+   * @returns Danh sách nhà cung cấp mô hình
    */
   function getAvailableProviderListApi(): Promise<
     ListResultDto<ChatClientProviderDto>
@@ -60,8 +60,8 @@ export function useWorkspaceDefinitionsApi() {
   }
 
   /**
-   * 删除工作区
-   * @param id 工作区id
+   * Xóa không gian làm việc
+   * @param id Id không gian làm việc
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/ai-management/workspaces/${id}`, {
@@ -70,9 +70,9 @@ export function useWorkspaceDefinitionsApi() {
   }
 
   /**
-   * 新增工作区
-   * @param input 参数
-   * @returns 工作区详情
+   * Thêm không gian làm việc
+   * @param input Tham số
+   * @returns Chi tiết không gian làm việc
    */
   function createApi(
     input: WorkspaceDefinitionRecordCreateDto,
@@ -87,10 +87,10 @@ export function useWorkspaceDefinitionsApi() {
   }
 
   /**
-   * 编辑工作区
-   * @param id 工作区id
-   * @param input 参数
-   * @returns 工作区详情
+   * Sửa không gian làm việc
+   * @param id Id không gian làm việc
+   * @param input Tham số
+   * @returns Chi tiết không gian làm việc
    */
   function updateApi(
     id: string,

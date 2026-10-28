@@ -22,9 +22,9 @@ function Login() {
 	const { t } = useTranslation();
 	const token = useUserToken();
 
-	// 判断用户是否有权限
+	// Kiểm tra người dùng có quyền hay không
 	if (token.accessToken) {
-		// 如果有授权，则跳转到首页
+		// Nếu có quyền, chuyển hướng về trang chủ
 		return <Navigate to={HOMEPAGE} replace />;
 	}
 

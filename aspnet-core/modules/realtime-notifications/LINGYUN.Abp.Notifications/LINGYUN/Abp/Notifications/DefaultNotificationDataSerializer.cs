@@ -22,7 +22,7 @@ public class DefaultNotificationDataSerializer : INotificationDataSerializer, IS
         {
             if (source.NeedLocalizer())
             {
-                // 潜在的空对象引用修复
+                // Sửa lỗi tham chiếu đối tượng rỗng tiềm ẩn
                 if (source.ExtraProperties.TryGetValue("title", out var title) && 
                     title != null &&
                     title is not LocalizableStringInfo)

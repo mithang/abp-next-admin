@@ -1,4 +1,6 @@
 ﻿using LINGYUN.Abp.BlobManagement.Dtos;
+using LINGYUN.Abp.BlobManagement.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,13 @@ using Volo.Abp.Specifications;
 
 namespace LINGYUN.Abp.BlobManagement;
 
+// SEC-22 (security iter 10): BlobContainer CRUD previously had no authorization at
+// all — anonymous callers could list/get/create/delete containers (verified live:
+// anon POST created a container, anon GET listed all 6 system containers). The
+// BlobContainer.* permissions already existed in the definition provider but were
+// never enforced. Class-level Default covers Get/GetList; Create/Delete get their
+// own permission, following the IdentityServer/PermissionDefinition pattern.
+[Authorize(BlobManagementPermissionNames.BlobContainer.Default)]
 public class BlobContainerAppService : BlobManagementApplicationService, IBlobContainerAppService
 {
     private readonly AbpBlobManagementOptions _options;
@@ -27,6 +36,7 @@ public class BlobContainerAppService : BlobManagementApplicationService, IBlobCo
         _options = options.Value;
     }
 
+    [Authorize(BlobManagementPermissionNames.BlobContainer.Create)]
     public async virtual Task<BlobContainerDto> CreateAsync(BlobContainerCreateDto input)
     {
         var blobContainer = await _blobManager.CreateContainerAsync(input.Name);
@@ -34,6 +44,7 @@ public class BlobContainerAppService : BlobManagementApplicationService, IBlobCo
         return ObjectMapper.Map<BlobContainer, BlobContainerDto>(blobContainer);
     }
 
+    [Authorize(BlobManagementPermissionNames.BlobContainer.Delete)]
     public async virtual Task DeleteAsync(Guid id)
     {
         var blobContainer = await _blobContainerRepository.GetAsync(id);

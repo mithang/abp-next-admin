@@ -1,20 +1,20 @@
 # LINGYUN.Abp.FeatureManagement.Application
 
-功能管理应用服务模块，提供了功能定义的管理服务实现。
+Mô-đun dịch vụ ứng dụng quản lý tính năng, cung cấp triển khai dịch vụ quản lý định nghĩa tính năng.
 
-## 功能特性
+## Tính năng
 
-* 功能定义管理
-  * 支持创建、更新、删除功能定义
-  * 支持功能定义的本地化
-  * 支持功能定义的值类型序列化
-* 功能组定义管理
-  * 支持创建、更新、删除功能组定义
-  * 支持功能组的本地化
-* 支持静态和动态功能定义存储
-* 集成ABP功能管理模块
+* Quản lý định nghĩa tính năng
+  * Hỗ trợ tạo, cập nhật, xóa định nghĩa tính năng
+  * Hỗ trợ bản địa hóa định nghĩa tính năng
+  * Hỗ trợ tuần tự hóa kiểu giá trị của định nghĩa tính năng
+* Quản lý định nghĩa nhóm tính năng
+  * Hỗ trợ tạo, cập nhật, xóa định nghĩa nhóm tính năng
+  * Hỗ trợ bản địa hóa nhóm tính năng
+* Hỗ trợ lưu trữ định nghĩa tính năng tĩnh và động
+* Tích hợp mô-đun quản lý tính năng ABP
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -25,7 +25,7 @@ public class AbpFeatureManagementApplicationModule : AbpModule
 }
 ```
 
-## 权限定义
+## Định nghĩa quyền
 
 * FeatureManagement.GroupDefinitions
   * FeatureManagement.GroupDefinitions.Create
@@ -36,9 +36,9 @@ public class AbpFeatureManagementApplicationModule : AbpModule
   * FeatureManagement.Definitions.Update
   * FeatureManagement.Definitions.Delete
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP功能管理文档](https://docs.abp.io/en/abp/latest/Features)
-* [功能管理最佳实践](https://docs.abp.io/en/abp/latest/Best-Practices/Features)
+* [Tài liệu quản lý tính năng ABP](https://docs.abp.io/en/abp/latest/Features)
+* [Thực hành tốt nhất về quản lý tính năng](https://docs.abp.io/en/abp/latest/Best-Practices/Features)
 
 [English](README.EN.md)

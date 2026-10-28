@@ -2,11 +2,11 @@
 public class JsApiTicketInfo
 {
     /// <summary>
-    /// 生成签名所需的 jsapi_ticket，最长为512字节
+    /// jsapi_ticket cần để tạo chữ ký, dài tối đa 512 byte
     /// </summary>
     public string Ticket { get; set; } = default!;
     /// <summary>
-    /// 凭证的有效时间（秒）
+    /// Thời gian hiệu lực của chứng thực (giây)
     /// </summary>
     public int ExpiresIn { get; set; }
     public JsApiTicketInfo()

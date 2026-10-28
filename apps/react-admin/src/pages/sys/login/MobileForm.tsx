@@ -13,7 +13,7 @@ function MobileForm() {
 		console.log("Received values of form: ", values);
 	};
 
-	const [countdown, setCountdown] = useState(0); // 倒计时的秒数
+	const [countdown, setCountdown] = useState(0); // Số giây đếm ngược
 	const [second, setSecond] = useState(0);
 	const { loginState, backToLogin } = useLoginStateContext();
 
@@ -25,9 +25,9 @@ function MobileForm() {
 	};
 
 	const reset = () => {
-		// TODO: 发送验证码请求
+		// TODO: Gửi yêu cầu mã xác minh
 
-		// 启动倒计时
+		// Bắt đầu đếm ngược
 		setCountdown(0);
 		setSecond(60);
 	};

@@ -40,11 +40,11 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   finished: [];
   /**
-   * @deprecated 请使用{@link finished}事件
+   * @deprecated Vui lòng dùng sự kiện {@link finished}
    */
   onFinished: [];
   /**
-   * @deprecated 请使用{@link started}事件
+   * @deprecated Vui lòng dùng sự kiện {@link started}
    */
   onStarted: [];
   started: [];

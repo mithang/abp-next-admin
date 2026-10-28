@@ -21,8 +21,8 @@ function showCustomAlert() {
     buttonAlign: 'center',
     content: h(Result, {
       status: 'success',
-      subTitle: '已成功创建订单。订单ID：2017182818828182881',
-      title: '操作成功',
+      subTitle: 'Đã tạo đơn hàng thành công. ID đơn hàng: 2017182818828182881',
+      title: 'Thao tác thành công',
     }),
   });
 }

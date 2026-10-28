@@ -5,47 +5,47 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 小程序通知消息
+/// Thông báo của mini program
 /// </summary>
 public class MiniProgramMessage
 {
     /// <summary>
-    /// 小程序appid，必须是与当前应用关联的小程序
+    /// appid của mini program, phải là mini program liên kết với ứng dụng hiện tại
     /// </summary>
     [NotNull]
     [JsonProperty("appid")]
     [JsonPropertyName("appid")]
     public string AppId { get; set; } = default!;
     /// <summary>
-    /// 消息标题，长度限制4-12个汉字（支持id转译）
+    /// Tiêu đề thông báo, giới hạn độ dài 4-12 ký tự tiếng Trung (hỗ trợ chuyển đổi id)
     /// </summary>
     [NotNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string Title { get; set; } = default!;
     /// <summary>
-    /// 点击消息卡片后的小程序页面，最长1024个字节，仅限本小程序内的页面。该字段不填则消息点击后不跳转。
+    /// Trang mini program sau khi nhấn vào thẻ thông báo, tối đa 1024 byte, chỉ giới hạn các trang trong mini program này. Nếu không điền trường này thì khi nhấn vào thông báo sẽ không chuyển trang.
     /// </summary>
     [CanBeNull]
     [JsonProperty("page")]
     [JsonPropertyName("page")]
     public string? Page { get; set; }
     /// <summary>
-    /// 消息描述，长度限制4-12个汉字（支持id转译）
+    /// Mô tả thông báo, giới hạn độ dài 4-12 ký tự tiếng Trung (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("description")]
     [JsonPropertyName("description")]
     public string? Description { get; set; }
     /// <summary>
-    /// 是否放大第一个content_item
+    /// Có phóng to content_item đầu tiên hay không
     /// </summary>
     [CanBeNull]
     [JsonProperty("emphasis_first_item")]
     [JsonPropertyName("emphasis_first_item")]
     public bool? EmphasisFirstItem { get; set; }
     /// <summary>
-    /// 消息内容键值对，最多允许10个item
+    /// Cặp khóa-giá trị của nội dung thông báo, tối đa cho phép 10 item
     /// </summary>
     [CanBeNull]
     [JsonProperty("content_item")]
@@ -72,14 +72,14 @@ public class MiniProgramMessage
 public class MiniProgramContent
 {
     /// <summary>
-    /// 长度10个汉字以内
+    /// Độ dài trong 10 ký tự tiếng Trung
     /// </summary>
     [NotNull]
     [JsonProperty("key")]
     [JsonPropertyName("key")]
     public string Key { get; set; } = default!;
     /// <summary>
-    /// 长度30个汉字以内（支持id转译）
+    /// Độ dài trong 30 ký tự tiếng Trung (hỗ trợ chuyển đổi id)
     /// </summary>
     [NotNull]
     [JsonProperty("value")]

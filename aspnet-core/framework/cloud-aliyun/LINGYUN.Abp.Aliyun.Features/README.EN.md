@@ -34,4 +34,4 @@ This module is mainly used for feature definition and does not contain configura
 * This module needs to be used in conjunction with the LINGYUN.Abp.Aliyun module
 * After enabling Alibaba Cloud service features, you still need to configure the corresponding service parameters in the LINGYUN.Abp.Aliyun module
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Trung](README.md)

@@ -6,26 +6,26 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Request;
 /// <summary>
-/// 分配离职成员的客户请求参数
+/// Tham số yêu cầu phân bổ khách hàng của thành viên đã nghỉ việc
 /// </summary>
 public class WeChatWorkResignedTransferCustomerRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 原跟进成员的userid
+    /// userid của thành viên theo dõi ban đầu
     /// </summary>
     [NotNull]
     [JsonProperty("handover_userid")]
     [JsonPropertyName("handover_userid")]
     public string HandoverUserId { get; }
     /// <summary>
-    /// 接替成员的userid
+    /// userid của thành viên tiếp nhận
     /// </summary>
     [NotNull]
     [JsonProperty("takeover_userid")]
     [JsonPropertyName("takeover_userid")]
     public string TakeoverUserId { get; }
     /// <summary>
-    /// 客户的external_userid列表，每次最多分配100个客户
+    /// Danh sách external_userid của khách hàng, mỗi lần phân bổ tối đa 100 khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]

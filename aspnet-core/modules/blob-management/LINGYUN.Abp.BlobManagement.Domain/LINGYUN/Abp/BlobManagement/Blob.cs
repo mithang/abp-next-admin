@@ -69,13 +69,13 @@ public class Blob : AuditedAggregateRoot<Guid>, IMultiTenant
     }
 
     /// <summary>
-    /// 设置文件/目录名称
+    /// Đặt tên tệp/thư mục
     /// </summary>
     public void SetName([NotNull] string name)
     {
         Name = Check.NotNullOrWhiteSpace(name, nameof(name), BlobConsts.MaxNameLength);
 
-        // 名称是当前目录下的单一路径段, 会参与 FullName 组合
+        // Tên là một đoạn đường dẫn duy nhất trong thư mục hiện tại, sẽ tham gia vào việc kết hợp FullName
         BlobManagementNameValidator.CheckName(Name, BlobManagementErrorCodes.Blob.InvalidName);
     }
 
@@ -88,7 +88,7 @@ public class Blob : AuditedAggregateRoot<Guid>, IMultiTenant
     }
 
     /// <summary>
-    /// 设置全名(相对容器根目录的路径)
+    /// Đặt tên đầy đủ (đường dẫn tương đối so với thư mục gốc của container)
     /// </summary>
     public void SetFullName(string fullName)
     {

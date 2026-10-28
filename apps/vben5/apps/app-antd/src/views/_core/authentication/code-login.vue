@@ -67,9 +67,9 @@ async function onSendCode() {
   });
 }
 /**
- * 异步处理登录操作
+ * Xử lý đăng nhập bất đồng bộ
  * Asynchronously handle the login process
- * @param values 登录表单数据
+ * @param values Dữ liệu biểu mẫu đăng nhập
  */
 async function handleLogin(values: Recordable<any>) {
   try {

@@ -55,15 +55,15 @@ const defaultModel: IdentityUserVto = {
 
 const activedTab = ref('info');
 const form = ref<FormInstance>();
-/** 可分配的角色列表 */
+/** Danh sách vai trò có thể gán */
 const assignedRoles = ref<TransferItem[]>([]);
-/** 组织机构 */
+/** Tổ chức */
 const organizationUnits = ref<DataNode[]>([]);
-/** 已加载的组织机构Keys */
+/** Các key tổ chức đã tải */
 const loadedOuKeys = ref<string[]>([]);
-/** 用户拥有的组织机构节点keys */
+/** Các key nút tổ chức mà người dùng sở hữu */
 const checkedOuKeys = ref<string[]>([]);
-/** 表单数据 */
+/** Dữ liệu biểu mẫu */
 const formModel = ref<IdentityUserVto>({ ...defaultModel });
 
 const { isTrue } = useSettings();
@@ -139,19 +139,19 @@ const [Modal, modalApi] = useVbenModal({
   title: $t('AbpIdentity.Users'),
 });
 
-/** 检查管理角色权限 */
+/** Kiểm tra quyền quản lý vai trò */
 function checkManageRolePolicy() {
   return hasAccessByCodes(['AbpIdentity.Users.Update.ManageRoles']);
 }
 
-/** 检查管理组织机构权限 */
+/** Kiểm tra quyền quản lý tổ chức */
 function checkManageOuPolicy() {
   return hasAccessByCodes(['AbpIdentity.Users.ManageOrganizationUnits']);
 }
 
 /**
- * 初始化用户信息
- * @param userId 用户id
+ * Khởi tạo thông tin người dùng
+ * @param userId Id người dùng
  */
 async function initUserInfo(userId: string) {
   const [userInfo, userRoleResult] = await Promise.all([
@@ -167,7 +167,7 @@ async function initUserInfo(userId: string) {
   });
 }
 
-/** 初始化可用角色列表 */
+/** Khởi tạo danh sách vai trò khả dụng */
 async function initAssignableRoles() {
   const { items } = await getAssignableRolesApi();
   assignedRoles.value = items.map((item) => {
@@ -180,8 +180,8 @@ async function initAssignableRoles() {
 }
 
 /**
- * 初始化组织机构树
- * @param userId 用户id
+ * Khởi tạo cây tổ chức
+ * @param userId Id người dùng
  */
 async function initOrganizationUnitTree(userId: string) {
   const [ouResult, userOuResult] = await Promise.all([
@@ -199,7 +199,7 @@ async function initOrganizationUnitTree(userId: string) {
   checkedOuKeys.value = userOuResult.items.map((item) => item.id);
 }
 
-/** 加载组织机构树节点 */
+/** Tải nút cây tổ chức */
 async function onLoadOuChildren(node: EventDataNode) {
   const nodeKey = String(node.key);
   const { items } = await getChildrenApi({ id: nodeKey });
@@ -226,7 +226,7 @@ async function onLoadOuChildren(node: EventDataNode) {
       :wrapper-col="{ span: 18 }"
     >
       <Tabs v-model:active-key="activedTab">
-        <!-- 基本信息 -->
+        <!-- Thông tin cơ bản -->
         <TabPane key="info" :tab="$t('AbpIdentity.UserInformations')">
           <FormItem :label="$t('AbpIdentity.DisplayName:IsActive')">
             <Checkbox v-model:checked="formModel.isActive">
@@ -285,7 +285,7 @@ async function onLoadOuChildren(node: EventDataNode) {
             </Checkbox>
           </FormItem>
         </TabPane>
-        <!-- 角色 -->
+        <!-- Vai trò -->
         <TabPane
           v-if="checkManageRolePolicy()"
           key="role"
@@ -306,7 +306,7 @@ async function onLoadOuChildren(node: EventDataNode) {
             class="tree-transfer"
           />
         </TabPane>
-        <!-- 组织机构 -->
+        <!-- Tổ chức -->
         <TabPane
           v-if="formModel.id && checkManageOuPolicy()"
           key="ou"
@@ -325,7 +325,7 @@ async function onLoadOuChildren(node: EventDataNode) {
           />
           <Empty v-else />
         </TabPane>
-        <!-- 详细信息 -->
+        <!-- Thông tin chi tiết -->
         <TabPane
           v-if="formModel.id"
           key="details"

@@ -40,4 +40,4 @@ public class YouProjectModule : AbpModule
 * **UseOnlyGivenHeaders**: If true, webhook will only contain given headers; if false, given headers will be added to predefined headers in subscription
 * **Headers**: HTTP headers to be sent (advanced option)
 
-[中文文档](./README.md)
+[Tiếng Việt](./README.md)

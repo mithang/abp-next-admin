@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.Notifications.PushPlus;
 
 /// <summary>
-/// 捕获式 <see cref="IPushPlusMessageSender"/> 假实现
+/// Triển khai giả dạng thu thập <see cref="IPushPlusMessageSender"/>
 /// </summary>
 public class FakePushPlusMessageSender : IPushPlusMessageSender
 {

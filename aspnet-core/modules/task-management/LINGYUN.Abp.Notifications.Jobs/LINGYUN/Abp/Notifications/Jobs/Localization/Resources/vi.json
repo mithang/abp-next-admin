@@ -1,0 +1,7 @@
+{
+  "culture": "vi",
+  "texts": {
+    "NotificationCleanupJob": "Dọn dẹp tác vụ thông báo hết hạn",
+    "Notification:BatchCount": "Số lượng lô"
+  }
+}

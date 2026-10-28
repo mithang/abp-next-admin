@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 无效的输入内容
+/// Nội dung nhập không hợp lệ
 /// </summary>
 public class CalendarFailResult
 {
     /// <summary>
-    /// 无效的日历通知范围成员列表
+    /// Danh sách thành viên trong phạm vi thông báo lịch không hợp lệ
     /// </summary>
     [CanBeNull]
     [JsonProperty("shares")]

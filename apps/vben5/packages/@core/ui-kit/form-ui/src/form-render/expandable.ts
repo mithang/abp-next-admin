@@ -9,13 +9,13 @@ import {
 } from '@vueuse/core';
 
 /**
- * 动态计算行数
+ * Tính toán động số hàng
  */
 export function useExpandable(props: FormRenderProps) {
   const wrapperRef = useTemplateRef<HTMLElement>('wrapperRef');
   const isVisible = useElementVisibility(wrapperRef);
   const rowMapping = ref<Record<number, number>>({});
-  // 是否已经计算过一次
+  // Đã tính toán một lần hay chưa
   const isCalculated = ref(false);
 
   const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -27,7 +27,7 @@ export function useExpandable(props: FormRenderProps) {
     for (let index = 1; index <= rows; index++) {
       maxItem += mapping?.[index] ?? 0;
     }
-    // 保持一行
+    // Giữ một hàng
     return maxItem - 1 || 1;
   });
 
@@ -57,9 +57,9 @@ export function useExpandable(props: FormRenderProps) {
     if (!wrapperRef.value) {
       return;
     }
-    // 小屏幕不计算
+    // Màn hình nhỏ không tính toán
     // if (breakpoints.smaller('sm').value) {
-    //   // 保持一行
+    //   // Giữ một hàng
     //   rowMapping.value = { 1: 2 };
     //   return;
     // }
@@ -77,7 +77,7 @@ export function useExpandable(props: FormRenderProps) {
     formItems.forEach((el) => {
       const itemRect = el.getBoundingClientRect();
 
-      // 计算元素在第几行
+      // Tính phần tử đang ở hàng thứ mấy
       const itemTop = itemRect.top - containerRect.top;
       let rowStart = 0;
       let cumulativeHeight = 0;

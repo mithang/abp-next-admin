@@ -1,22 +1,22 @@
 # LINGYUN.Abp.IdentityServer.LinkUser
 
-IdentityServer用户关联模块，提供用户关联的扩展授权类型支持。
+Mô-đun liên kết người dùng IdentityServer, cung cấp hỗ trợ loại cấp quyền mở rộng cho liên kết người dùng.
 
-## 功能特性
+## Tính năng
 
-* 扩展授权验证器
-  * `LinkUserGrantValidator` - 用户关联授权验证器
-    * 授权类型：`link_user`
-    * 支持验证访问令牌
-    * 支持验证用户关联关系
-    * 支持多租户场景
-    * 支持自定义声明扩展
+* Trình xác thực cấp quyền mở rộng
+  * `LinkUserGrantValidator` - Trình xác thực cấp quyền liên kết người dùng
+    * Loại cấp quyền: `link_user`
+    * Hỗ trợ xác thực mã truy cập
+    * Hỗ trợ xác thực quan hệ liên kết người dùng
+    * Hỗ trợ kịch bản đa tenant
+    * Hỗ trợ mở rộng claim tùy chỉnh
 
-* 本地化支持
-  * 内置中英文资源
-  * 支持扩展其他语言
+* Hỗ trợ bản địa hóa
+  * Tài nguyên tích hợp tiếng Trung và tiếng Anh
+  * Hỗ trợ mở rộng thêm ngôn ngữ khác
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -28,20 +28,20 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `AbpIdentityServerDomainModule` - ABP IdentityServer领域模块
+* `AbpIdentityServerDomainModule` - Mô-đun miền ABP IdentityServer
 
-## 配置使用
+## Cấu hình sử dụng
 
-### 授权请求参数
+### Tham số yêu cầu cấp quyền
 
-* `grant_type` - 必须为 `link_user`
-* `access_token` - 当前用户的访问令牌
-* `LinkUserId` - 要关联的用户ID
-* `LinkTenantId` - 要关联的用户所属租户ID（可选）
+* `grant_type` - Phải là `link_user`
+* `access_token` - Mã truy cập của người dùng hiện tại
+* `LinkUserId` - ID người dùng cần liên kết
+* `LinkTenantId` - ID tenant của người dùng cần liên kết (tùy chọn)
 
-### 授权请求示例
+### Ví dụ yêu cầu cấp quyền
 
 ```http
 POST /connect/token
@@ -53,14 +53,14 @@ LinkUserId=target_user_id&
 LinkTenantId=target_tenant_id
 ```
 
-### 自定义声明扩展
+### Mở rộng claim tùy chỉnh
 
 ```csharp
 public class CustomLinkUserGrantValidator : LinkUserGrantValidator
 {
     protected override Task AddCustomClaimsAsync(List<Claim> customClaims, IdentityUser user, ExtensionGrantValidationContext context)
     {
-        // 添加自定义声明
+        // Thêm claim tùy chỉnh
         customClaims.Add(new Claim("custom_claim", "custom_value"));
 
         return base.AddCustomClaimsAsync(customClaims, user, context);
@@ -68,8 +68,8 @@ public class CustomLinkUserGrantValidator : LinkUserGrantValidator
 }
 ```
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Authentication)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu xác thực ABP](https://docs.abp.io/en/abp/latest/Authentication)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

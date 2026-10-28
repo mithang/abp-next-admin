@@ -1,10 +1,10 @@
 <!--
- * @Description: 工具栏
+ * @Description: Thanh công cụ
 -->
 <template>
   <div class="operating-area">
-    <!-- 头部操作按钮区域 start -->
-    <!-- 操作左侧区域 start -->
+    <!-- Vùng nút thao tác ở đầu trang start -->
+    <!-- Vùng bên trái thao tác start -->
     <div class="left-btn-box">
       <Tooltip v-for="item in toolbarsConfigs" :title="item.title" :key="item.icon">
         <a @click="$emit(item.event)" class="toolbar-text">
@@ -12,19 +12,19 @@
         </a>
       </Tooltip>
       <Divider type="vertical" />
-      <Tooltip title="撤销">
+      <Tooltip title="Hoàn tác">
         <a :class="{ disabled: !canUndo }" :disabled="!canUndo" @click="undo">
           <Icon icon="ant-design:undo-outlined" />
         </a>
       </Tooltip>
-      <Tooltip title="重做">
+      <Tooltip title="Làm lại">
         <a :class="{ disabled: !canRedo }" :disabled="!canRedo" @click="redo">
           <Icon icon="ant-design:redo-outlined" />
         </a>
       </Tooltip>
     </div>
   </div>
-  <!-- 操作区域 start -->
+  <!-- Vùng thao tác start -->
 </template>
 <script lang="ts">
   import { defineComponent, inject, reactive, toRefs } from 'vue';
@@ -51,37 +51,37 @@
       }>({
         toolbarsConfigs: [
           {
-            title: '预览-支持布局',
+            title: 'Xem trước - hỗ trợ bố cục',
             type: 'preview',
             event: 'handlePreview',
             icon: 'ant-design:chrome-filled',
           },
           {
-            title: '预览-不支持布局',
+            title: 'Xem trước - không hỗ trợ bố cục',
             type: 'preview',
             event: 'handlePreview2',
             icon: 'ant-design:chrome-filled',
           },
           {
-            title: '导入JSON',
+            title: 'Nhập JSON',
             type: 'importJson',
             event: 'handleOpenImportJsonModal',
             icon: 'ant-design:import-outlined',
           },
           {
-            title: '生成JSON',
+            title: 'Tạo JSON',
             type: 'exportJson',
             event: 'handleOpenJsonModal',
             icon: 'ant-design:export-outlined',
           },
           {
-            title: '生成代码',
+            title: 'Tạo code',
             type: 'exportCode',
             event: 'handleOpenCodeModal',
             icon: 'ant-design:code-filled',
           },
           {
-            title: '清空',
+            title: 'Dọn sạch',
             type: 'reset',
             event: 'handleClearFormItems',
             icon: 'ant-design:clear-outlined',

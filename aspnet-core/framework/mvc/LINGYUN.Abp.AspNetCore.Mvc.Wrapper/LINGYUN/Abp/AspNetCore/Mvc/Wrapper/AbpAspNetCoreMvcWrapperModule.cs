@@ -43,14 +43,14 @@ public class AbpAspNetCoreMvcWrapperModule : AbpModule
 
         Configure<AbpWrapperOptions>(options =>
         {
-            // 即使重写端点也不包装返回结果
+            // Ngay cả khi ghi đè endpoint cũng không đóng gói kết quả trả về
             // api/abp/api-definition
             // options.IgnoreReturnTypes.Add<ApplicationApiDescriptionModel>();
             // api/abp/application-configuration
             //  options.IgnoreReturnTypes.Add<ApplicationConfigurationDto>();
             // api/abp/application-localization
             // options.IgnoreReturnTypes.Add<ApplicationLocalizationDto>(); 
-            // 文件流
+            // Luồng tệp
             options.IgnoreReturnTypes.Add<IRemoteStreamContent>();
             // options.IgnoreReturnTypes.Add<FileResult>();
 
@@ -76,13 +76,13 @@ public class AbpAspNetCoreMvcWrapperModule : AbpModule
             // Application Configuration Script
             options.IgnoreControllers.Add<AbpApplicationConfigurationScriptController>();
 
-            // 官方模块不包装结果
+            // Mô-đun chính thức không đóng gói kết quả
             // options.IgnoreNamespaces.Add("Volo.Abp");
 
-            // oidc端点不包装结果
+            // Endpoint oidc không đóng gói kết quả
             options.IgnorePrefixUrls.Add("/connect");
 
-            // 返回本地化的 404 错误消息
+            // Trả về thông báo lỗi 404 đã bản địa hóa
             options.MessageWithEmptyResult = (serviceProvider) =>
             {
                 var localizer = serviceProvider.GetRequiredService<IStringLocalizer<AbpMvcWrapperResource>>();

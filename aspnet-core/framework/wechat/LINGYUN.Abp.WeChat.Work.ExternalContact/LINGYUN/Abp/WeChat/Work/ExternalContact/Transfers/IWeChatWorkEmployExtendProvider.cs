@@ -5,41 +5,41 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers;
 /// <summary>
-/// 在职继承接口
+/// Giao diện kế thừa khi đang tại chức
 /// </summary>
 public interface IWeChatWorkEmployExtendProvider
 {
     /// <summary>
-    /// 分配在职成员的客户
+    /// Phân bổ khách hàng của thành viên đang tại chức
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92124"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92124"/>
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkTransferCustomerResponse> TransferCustomerAsync(
         WeChatWorkTransferCustomerRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询客户接替状态
+    /// Truy vấn trạng thái tiếp nhận khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94088"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/94088"/>
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetTransferResultResponse> GetTransferResultAsync(
         WeChatWorkGetTransferResultRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 分配在职成员的客户群
+    /// Phân bổ nhóm khách hàng của thành viên đang tại chức
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95703"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/95703"/>
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGroupChatOnjobTransferResponse> GroupChatOnjobTransferAsync(

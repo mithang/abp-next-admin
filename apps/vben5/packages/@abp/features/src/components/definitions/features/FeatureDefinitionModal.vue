@@ -308,7 +308,7 @@ function onSelectionChange(items: SelectionStringValueItem[]) {
       :wrapper-col="{ span: 18 }"
     >
       <Tabs v-model:active-key="activeTab">
-        <!-- 基本信息 -->
+        <!-- Thông tin cơ bản -->
         <TabPane key="basic" :tab="$t('AbpFeatureManagement.BasicInfo')">
           <FormItem
             :label="$t('AbpFeatureManagement.DisplayName:GroupName')"
@@ -480,7 +480,7 @@ function onSelectionChange(items: SelectionStringValueItem[]) {
             />
           </FormItem>
         </TabPane>
-        <!-- 属性 -->
+        <!-- Thuộc tính -->
         <TabPane key="props" :tab="$t('AbpFeatureManagement.Properties')">
           <PropertyTable
             :data="formModel.extraProperties"

@@ -5,18 +5,18 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 审批状态通知事件
+/// Sự kiện thông báo trạng thái phê duyệt
 /// </summary>
 [EventName("open_approval_change")]
 public class ApprovalStatusChangeEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 事件KEY值
+    /// Giá trị KEY sự kiện
     /// </summary>
     [XmlElement("EventKey")]
     public string EventKey { get; set; } = default!;
     /// <summary>
-    /// 审批信息
+    /// Thông tin phê duyệt
     /// </summary>
     [XmlElement("ApprovalInfo")]
     public ApprovalInfo ApprovalInfo { get; set; } = default!;
@@ -29,166 +29,166 @@ public class ApprovalStatusChangeEvent : WeChatWorkEventMessage
 public class ApprovalInfo
 {
     /// <summary>
-    /// 审批单编号，由开发者在发起申请时自定义
+    /// Số đơn phê duyệt, do nhà phát triển tự định nghĩa khi khởi tạo đơn
     /// </summary>
     [XmlElement("ThirdNo")]
     public string ThirdNo { get; set; } = default!;
     /// <summary>
-    /// 审批模板名称
+    /// Tên mẫu phê duyệt
     /// </summary>
     [XmlElement("OpenSpName")]
     public string OpenSpName { get; set; } = default!;
     /// <summary>
-    /// 审批模板id
+    /// Id mẫu phê duyệt
     /// </summary>
     [XmlElement("OpenTemplateId")]
     public string OpenTemplateId { get; set; } = default!;
     /// <summary>
-    /// 申请单当前审批状态：
-    /// 1-审批中；
-    /// 2-已通过；
-    /// 3-已驳回；
-    /// 4-已取消
+    /// Trạng thái phê duyệt hiện tại của đơn:
+    /// 1-Đang phê duyệt;
+    /// 2-Đã thông qua;
+    /// 3-Đã từ chối;
+    /// 4-Đã hủy
     /// </summary>
     [XmlElement("OpenSpStatus")]
     public byte OpenSpStatus { get; set; }
     /// <summary>
-    /// 提交申请时间
+    /// Thời gian nộp đơn
     /// </summary>
     [XmlElement("ApplyTime")]
     public int ApplyTime { get; set; }
     /// <summary>
-    /// 提交者姓名
+    /// Tên người nộp đơn
     /// </summary>
     [XmlElement("ApplyUserName")]
     public string ApplyUserName { get; set; } = default!;
     /// <summary>
-    /// 提交者userid
+    /// Userid người nộp đơn
     /// </summary>
     [XmlElement("ApplyUserId")]
     public string ApplyUserId { get; set; } = default!;
     /// <summary>
-    /// 提交者所在部门
+    /// Phòng ban của người nộp đơn
     /// </summary>
     [XmlElement("ApplyUserParty")]
     public string? ApplyUserParty { get; set; }
     /// <summary>
-    /// 提交者头像
+    /// Ảnh đại diện người nộp đơn
     /// </summary>
     [XmlElement("ApplyUserImage")]
     public string? ApplyUserImage { get; set; }
     /// <summary>
-    /// 审批流程信息
+    /// Thông tin quy trình phê duyệt
     /// </summary>
     [XmlElement("ApprovalNodes")]
     public List<ApprovalNode> ApprovalNodes { get; set; } = default!;
     /// <summary>
-    /// 抄送信息，可能有多个抄送人
+    /// Thông tin CC, có thể có nhiều người nhận CC
     /// </summary>
     [XmlElement("NotifyNodes")]
     public List<NotifyNode>? NotifyNodes { get; set; }
     /// <summary>
-    /// 当前审批节点：0-第一个审批节点；1-第二个审批节点…以此类推
+    /// Nút phê duyệt hiện tại: 0-Nút phê duyệt đầu tiên; 1-Nút phê duyệt thứ hai… cứ thế tiếp tục
     /// </summary>
     [XmlElement("approverstep")]
     public int ApproverStep { get; set; }
 }
 
 /// <summary>
-/// 审批流程信息，可以有多个审批节点
+/// Thông tin quy trình phê duyệt, có thể có nhiều nút phê duyệt
 /// </summary>
 [XmlRoot("ApprovalNode")]
 public class ApprovalNode
 {
     /// <summary>
-    /// 节点审批操作状态：
-    /// 1-审批中；
-    /// 2-已同意；
-    /// 3-已驳回；
-    /// 4-已转审
+    /// Trạng thái thao tác phê duyệt của nút:
+    /// 1-Đang phê duyệt;
+    /// 2-Đã đồng ý;
+    /// 3-Đã từ chối;
+    /// 4-Đã chuyển xét duyệt
     /// </summary>
     [XmlElement("NodeStatus")]
     public byte NodeStatus { get; set; }
     /// <summary>
-    /// 审批节点属性：
-    /// 1-或签；
-    /// 2-会签
+    /// Thuộc tính nút phê duyệt:
+    /// 1-Ký hoặc (một người ký);
+    /// 2-Ký hội đồng
     /// </summary>
     [XmlElement("NodeAttr")]
     public byte NodeAttr { get; set; }
     /// <summary>
-    /// 审批节点类型：
-    /// 1-固定成员；
-    /// 2-标签；
-    /// 3-上级
+    /// Loại nút phê duyệt:
+    /// 1-Thành viên cố định;
+    /// 2-Nhãn;
+    /// 3-Cấp trên
     /// </summary>
     [XmlElement("NodeType")]
     public byte NodeType { get; set; }
     /// <summary>
-    /// 审批节点信息，当节点为标签或上级时，一个节点可能有多个分支
+    /// Thông tin nút phê duyệt, khi nút là nhãn hoặc cấp trên, một nút có thể có nhiều nhánh
     /// </summary>
     [XmlElement("Items")]
     public List<ApprovalNodeItem> Items { get; set; } = default!;
 }
 /// <summary>
-/// 审批节点分支，当节点为标签或上级时，一个节点可能有多个分支
+/// Nhánh nút phê duyệt, khi nút là nhãn hoặc cấp trên, một nút có thể có nhiều nhánh
 /// </summary>
 [XmlRoot("Item")]
 public class ApprovalNodeItem
 {
     /// <summary>
-    /// 分支审批人姓名
+    /// Tên người phê duyệt của nhánh
     /// </summary>
     [XmlElement("ItemName")]
     public string ItemName { get; set; } = default!;
     /// <summary>
-    /// 分支审批人userid
+    /// Userid người phê duyệt của nhánh
     /// </summary>
     [XmlElement("ItemUserId")]
     public string ItemUserId { get; set; } = default!;
     /// <summary>
-    /// 分支审批人头像
+    /// Ảnh đại diện người phê duyệt của nhánh
     /// </summary>
     [XmlElement("ItemImage")]
     public string? ItemImage { get; set; }
     /// <summary>
-    /// 分支审批审批操作状态：
-    /// 1-审批中；
-    /// 2-已同意；
-    /// 3-已驳回；
-    /// 4-已转审
+    /// Trạng thái thao tác phê duyệt của nhánh:
+    /// 1-Đang phê duyệt;
+    /// 2-Đã đồng ý;
+    /// 3-Đã từ chối;
+    /// 4-Đã chuyển xét duyệt
     /// </summary>
     [XmlElement("ItemStatus")]
     public byte ItemStatus { get; set; }
     /// <summary>
-    /// 分支审批人审批意见
+    /// Ý kiến phê duyệt của người phê duyệt nhánh
     /// </summary>
     [XmlElement("ItemSpeech")]
     public string? ItemSpeech { get; set; }
     /// <summary>
-    /// 分支审批人审批意见
+    /// Ý kiến phê duyệt của người phê duyệt nhánh
     /// </summary>
     [XmlElement("ItemOpTime")]
     public int ItemOpTime { get; set; }
 }
 /// <summary>
-/// 抄送人信息
+/// Thông tin người nhận CC
 /// </summary>
 [XmlRoot("NotifyNode")]
 public class NotifyNode
 {
     /// <summary>
-    /// 抄送人姓名
+    /// Tên người nhận CC
     /// </summary>
     [XmlElement("ItemName")]
     public string ItemName { get; set; } = default!;
     /// <summary>
-    /// 抄送人userid
+    /// Userid người nhận CC
     /// </summary>
     [XmlElement("ItemUserId")]
     public string ItemUserId { get; set; } = default!;
     /// <summary>
-    /// 抄送人头像
+    /// Ảnh đại diện người nhận CC
     /// </summary>
     [XmlElement("ItemImage")]
     public string? ItemImage { get; set; }

@@ -56,7 +56,7 @@ public class EntityPropertyResultBuilder : IEntityPropertyResultBuilder, ITransi
             allowProperties.AddIfNotContains(entityIgnoreProps);
         }
         
-        // 默认实体相关标识需要带上, 否则无法返回查询结果
+        // Định danh liên quan đến thực thể mặc định cần được kèm theo, nếu không sẽ không trả về được kết quả truy vấn
         allowProperties.AddIfNotContains(_options.GlobalIgnoreProperties);
 
         var memberBindings = new List<MemberBinding>();
@@ -103,7 +103,7 @@ public class EntityPropertyResultBuilder : IEntityPropertyResultBuilder, ITransi
             allowProperties.AddIfNotContains(entityIgnoreProps);
         }
 
-        // 默认实体相关标识需要带上, 否则无法返回查询结果
+        // Định danh liên quan đến thực thể mặc định cần được kèm theo, nếu không sẽ không trả về được kết quả truy vấn
         allowProperties.AddIfNotContains(_options.GlobalIgnoreProperties);
 
         var param = Expression.Parameter(typeof(TEntity), "e");
@@ -125,7 +125,7 @@ public class EntityPropertyResultBuilder : IEntityPropertyResultBuilder, ITransi
 
     private bool ShouldApplyFilter(Type entityType, DataAccessOperation operation)
     {
-        // TODO: 使用一个范围标志来确定当前需要禁用的数据权限操作
+        // TODO: Sử dụng một cờ phạm vi để xác định thao tác quyền dữ liệu hiện cần vô hiệu hóa
         if (!_dataFilter.IsEnabled<IDataProtected>())
         {
             return false;

@@ -10,9 +10,9 @@ import { useRequest } from '@abp/request';
 export function useEmailMessagesApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取邮件消息分页列表
-   * @param {EmailMessageGetListInput} input 参数
-   * @returns {Promise<PagedResultDto<EmailMessageDto>>} 邮件消息列表
+   * Lấy danh sách phân trang tin nhắn email
+   * @param {EmailMessageGetListInput} input Tham số
+   * @returns {Promise<PagedResultDto<EmailMessageDto>>} Danh sách tin nhắn email
    */
   function getPagedListApi(
     input?: EmailMessageGetListInput,
@@ -26,9 +26,9 @@ export function useEmailMessagesApi() {
     );
   }
   /**
-   * 获取邮件消息
+   * Lấy tin nhắn email
    * @param id Id
-   * @returns {EmailMessageDto} 邮件消息
+   * @returns {EmailMessageDto} Tin nhắn email
    */
   function getApi(id: string): Promise<EmailMessageDto> {
     return request<EmailMessageDto>(`/api/platform/messages/email/${id}`, {
@@ -36,7 +36,7 @@ export function useEmailMessagesApi() {
     });
   }
   /**
-   * 删除邮件消息
+   * Xóa tin nhắn email
    * @param id Id
    * @returns {void}
    */
@@ -46,7 +46,7 @@ export function useEmailMessagesApi() {
     });
   }
   /**
-   * 发送邮件消息
+   * Gửi tin nhắn email
    * @param id Id
    * @returns {void}
    */

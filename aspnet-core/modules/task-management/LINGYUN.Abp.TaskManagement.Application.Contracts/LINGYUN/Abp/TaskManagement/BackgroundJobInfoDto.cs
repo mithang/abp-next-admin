@@ -10,103 +10,103 @@ public class BackgroundJobInfoDto : ExtensibleAuditedEntityDto<string>, IHasConc
 {
     public string ConcurrencyStamp { get; set; } = default!;
     /// <summary>
-    /// 任务名称
+    /// Tên tác vụ
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 任务分组
+    /// Nhóm tác vụ
     /// </summary>
     public string Group { get; set; } = default!;
     /// <summary>
-    /// 任务类型
+    /// Loại tác vụ
     /// </summary>
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 返回参数
+    /// Tham số trả về
     /// </summary>
     public string? Result { get; set; }
     /// <summary>
-    /// 任务参数
+    /// Tham số tác vụ
     /// </summary>
     public ExtraPropertyDictionary Args { get; set; } = new ExtraPropertyDictionary();
     /// <summary>
-    /// 任务状态
+    /// Trạng thái tác vụ
     /// </summary>
     public JobStatus Status { get; set; }
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public string? Description { get; set; }
     /// <summary>
-    /// 开始时间
+    /// Thời gian bắt đầu
     /// </summary>
     public DateTime BeginTime { get; set; }
     /// <summary>
-    /// 结束时间
+    /// Thời gian kết thúc
     /// </summary>
     public DateTime? EndTime { get; set; }
     /// <summary>
-    /// 上次运行时间
+    /// Thời gian chạy lần trước
     /// </summary>
     public DateTime? LastRunTime { get; set; }
     /// <summary>
-    /// 下一次执行时间
+    /// Thời gian thực thi lần tới
     /// </summary>
     public DateTime? NextRunTime { get; set; }
     /// <summary>
-    /// 任务类别
+    /// Danh mục tác vụ
     /// </summary>
     public JobType JobType { get; set; }
     /// <summary>
-    /// Cron表达式，如果是持续任务需要指定
+    /// Biểu thức Cron, cần chỉ định nếu là tác vụ liên tục
     /// </summary>
     public string? Cron { get; set; }
     /// <summary>
-    /// 触发次数
+    /// Số lần kích hoạt
     /// </summary>
     public int TriggerCount { get; set; }
     /// <summary>
-    /// 失败重试次数
+    /// Số lần thử lại khi thất bại
     /// </summary>
     public int TryCount { get; set; }
     /// <summary>
-    /// 失败重试上限
-    /// 默认：50
+    /// Giới hạn thử lại khi thất bại
+    /// Mặc định: 50
     /// </summary>
     public int MaxTryCount { get; set; }
     /// <summary>
-    /// 最大执行次数
-    /// 默认：0, 无限制
+    /// Số lần thực thi tối đa
+    /// Mặc định: 0, không giới hạn
     /// </summary>
     public int MaxCount { get; set; }
     /// <summary>
-    /// 连续失败且不会再次执行
+    /// Thất bại liên tục và sẽ không thực thi lại
     /// </summary>
     public bool IsAbandoned { get; set; }
     /// <summary>
-    /// 是否启用
+    /// Có bật hay không
     /// </summary>
     public bool IsEnabled { get; set; }
     /// <summary>
-    /// 间隔时间，单位秒，与Cron表达式冲突
-    /// 默认: 300
+    /// Thời gian khoảng cách, đơn vị giây, xung đột với biểu thức Cron
+    /// Mặc định: 300
     /// </summary>
     public int Interval { get; set; } = 300;
     /// <summary>
-    /// 任务优先级
+    /// Mức độ ưu tiên của tác vụ
     /// </summary>
     public JobPriority Priority { get; set; }
     /// <summary>
-    /// 作业来源
+    /// Nguồn gốc của job
     /// </summary>
     public JobSource Source { get; set; }
     /// <summary>
-    /// 任务独占超时时长（秒）
-    /// 0或更小不生效
+    /// Thời gian chờ độc quyền của tác vụ (giây)
+    /// 0 hoặc nhỏ hơn sẽ không có hiệu lực
     /// </summary>
     public int LockTimeOut { get; set; }
     /// <summary>
-    /// 指定作业运行节点
+    /// Chỉ định nút chạy job
     /// </summary>
     public string? NodeName { get; set; }
 }

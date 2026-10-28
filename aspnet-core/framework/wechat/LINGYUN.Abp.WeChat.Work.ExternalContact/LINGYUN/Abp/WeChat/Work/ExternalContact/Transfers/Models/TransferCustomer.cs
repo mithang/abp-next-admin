@@ -6,14 +6,14 @@ namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Models;
 public class TransferCustomer
 {
     /// <summary>
-    /// 客户的外部联系人userid
+    /// userid liên hệ bên ngoài của khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]
     [JsonPropertyName("external_userid")]
     public string ExternalUserid { get; set; } = default!;
     /// <summary>
-    /// 对此客户进行分配的结果, 具体可参考全局错误码, 0表示成功发起接替,待24小时后自动接替,并不代表最终接替成功
+    /// Kết quả phân bổ cho khách hàng này, tham khảo mã lỗi toàn cục; 0 nghĩa là đã khởi tạo chuyển giao thành công, sau 24 giờ sẽ tự động chuyển giao, không có nghĩa là chuyển giao cuối cùng đã thành công
     /// </summary>
     [NotNull]
     [JsonProperty("errcode")]

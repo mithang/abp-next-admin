@@ -40,9 +40,9 @@ class MainPage extends GetView<MainController> {
 
   BottomNavigationBarItem _bottomNavigationBarItem(IconData activeIcon, String title){
     return BottomNavigationBarItem(
-      icon: Icon(activeIcon), // 图标
-      activeIcon: Icon(activeIcon), // 高亮图标
-      label: title, // 标题 背景色，仅在 BottomNavigatinBar 中生效，在 iOS 风格组件中无效
+      icon: Icon(activeIcon), // Biểu tượng
+      activeIcon: Icon(activeIcon), // Biểu tượng nổi bật
+      label: title, // Tiêu đề. Màu nền chỉ có hiệu lực trong BottomNavigatinBar, không có hiệu lực trong thành phần kiểu iOS
     );
   }
 }

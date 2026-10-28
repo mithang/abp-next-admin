@@ -15,16 +15,16 @@ using Volo.Abp.Timing;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 安全日志 OpenObserve 管理器
+/// Trình quản lý nhật ký bảo mật OpenObserve
 /// </summary>
 /// <remarks>
-/// OpenObserve 的限制与处理方式参见 <see cref="OpenObserveAuditLoggingManagerBase"/>
+/// Xem phần giới hạn và cách xử lý của OpenObserve tại <see cref="OpenObserveAuditLoggingManagerBase"/>
 /// </remarks>
 [Dependency(ReplaceServices = true)]
 public class OpenObserveSecurityLogManager : OpenObserveAuditLoggingManagerBase, ISecurityLogManager, ITransientDependency
 {
     /// <summary>
-    /// 表达式成员名 -> 数据流列名(数据流列名一律小写)
+    /// Tên thành viên biểu thức -> tên cột luồng dữ liệu (tên cột luồng dữ liệu đều viết thường)
     /// </summary>
     protected readonly static Dictionary<string, string> MapedFields = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -78,7 +78,7 @@ public class OpenObserveSecurityLogManager : OpenObserveAuditLoggingManagerBase,
     }
 
     /// <summary>
-    /// OpenObserve 不支持删除记录
+    /// OpenObserve không hỗ trợ xóa bản ghi
     /// </summary>
     protected virtual BusinessException CreateDeleteNotSupportedException()
     {
@@ -157,7 +157,7 @@ public class OpenObserveSecurityLogManager : OpenObserveAuditLoggingManagerBase,
     }
 
     /// <summary>
-    /// 由查询参数构建条件
+    /// Xây dựng điều kiện từ tham số truy vấn
     /// </summary>
     protected virtual List<Condition> BuildConditions(
         string? applicationName = null,

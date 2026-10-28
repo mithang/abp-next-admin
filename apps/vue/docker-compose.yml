@@ -2,6 +2,11 @@ version: '3.4'
 
 services:
   ui:
+    # DEV-10 (devops iter-0007, provisional): static nginx
+    # serving a built SPA; 256m is a generous dev cap. Needs
+    # verification by a real `docker compose up` (Docker BLOCKED).
+    mem_limit: 256m
+    cpus: 0.5
     build:
       context: .
     restart: always

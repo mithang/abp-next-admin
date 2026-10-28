@@ -1,0 +1,18 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Webhooks:Saas": "Saas",
+    "Webhooks:CreateEdition": "Tạo phiên bản",
+    "Webhooks:CreateEditionDesc": "Đã tạo một phiên bản mới",
+    "Webhooks:UpdateEdition": "Chỉnh sửa phiên bản",
+    "Webhooks:UpdateEditionDesc": "Một thuộc tính phiên bản đã thay đổi",
+    "Webhooks:DeleteEdition": "Xóa phiên bản",
+    "Webhooks:DeleteEditionDesc": "Phiên bản đã xóa",
+    "Webhooks:CreateTenant": "Tạo tenant",
+    "Webhooks:CreateTenantDesc": "Một tenant mới đã được tạo",
+    "Webhooks:UpdateTenant": "Chỉnh sửa bên thuê",
+    "Webhooks:UpdateTenantDesc": "Đã thay đổi một thuộc tính của bên thuê",
+    "Webhooks:DeleteTenant": "Xóa bên thuê",
+    "Webhooks:DeleteTenantDesc": "Đã xóa tenant"
+  }
+}

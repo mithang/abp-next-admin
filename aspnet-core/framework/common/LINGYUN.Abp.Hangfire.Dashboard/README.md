@@ -1,28 +1,28 @@
 # LINGYUN.Abp.Hangfire.Dashboard
 
-[English](README.EN.md) | 简体中文
+[English](README.EN.md) | Tiếng Việt
 
-## 1. 介绍
+## 1. Giới thiệu
 
-`LINGYUN.Abp.Hangfire.Dashboard` 是一个用于集成Hangfire仪表板的ABP模块，它提供了一个用户友好的Web界面来监控和管理Hangfire后台作业。该模块支持权限控制和认证，确保仪表板的安全访问。
+`LINGYUN.Abp.Hangfire.Dashboard` là một mô-đun ABP dùng để tích hợp bảng điều khiển (dashboard) Hangfire, nó cung cấp một giao diện Web thân thiện với người dùng để giám sát và quản lý các tác vụ nền Hangfire. Mô-đun này hỗ trợ kiểm soát quyền và xác thực, đảm bảo quyền truy cập an toàn vào bảng điều khiển.
 
-## 2. 功能特性
+## 2. Tính năng
 
-* 集成Hangfire仪表板
-* 基于ABP权限系统的访问控制
-* 支持通过iframe加载仪表板
-* 支持访问令牌认证
-* 仪表板权限缓存机制
+* Tích hợp bảng điều khiển Hangfire
+* Kiểm soát truy cập dựa trên hệ thống quyền của ABP
+* Hỗ trợ tải bảng điều khiển qua iframe
+* Hỗ trợ xác thực bằng mã truy cập (access token)
+* Cơ chế bộ nhớ đệm (cache) cho quyền của bảng điều khiển
 
-## 3. 安装
+## 3. Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Hangfire.Dashboard
 ```
 
-## 4. 使用方法
+## 4. Cách sử dụng
 
-1. 添加 `AbpHangfireDashboardModule` 到模块依赖中:
+1. Thêm `AbpHangfireDashboardModule` vào các phụ thuộc của mô-đun:
 
 ```csharp
 [DependsOn(typeof(AbpHangfireDashboardModule))]
@@ -31,19 +31,19 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置中间件:
+2. Cấu hình middleware:
 
 ```csharp
 public override void OnApplicationInitialization(ApplicationInitializationContext context)
 {
     var app = context.GetApplicationBuilder();
     
-    // 添加Hangfire认证中间件
+    // Thêm middleware xác thực Hangfire
     app.UseHangfireAuthorication();
 }
 ```
 
-3. 配置仪表板选项:
+3. Cấu hình tùy chọn của bảng điều khiển:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -58,26 +58,26 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-## 5. 认证和授权
+## 5. Xác thực và phân quyền
 
-### 5.1 认证方式
+### 5.1 Phương thức xác thực
 
-模块支持以下认证方式：
-* 通过URL参数传递访问令牌: `?access_token=your_token`
-* 通过Cookie传递访问令牌
-* 通过Authorization Header传递访问令牌
+Mô-đun hỗ trợ các phương thức xác thực sau:
+* Truyền mã truy cập qua tham số URL: `?access_token=your_token`
+* Truyền mã truy cập qua Cookie
+* Truyền mã truy cập qua Header Authorization
 
-### 5.2 权限缓存
+### 5.2 Bộ nhớ đệm quyền
 
-权限检查结果会被缓存5分钟，以提高性能。
+Kết quả kiểm tra quyền sẽ được lưu vào bộ nhớ đệm trong 5 phút để cải thiện hiệu năng.
 
-## 6. 依赖项
+## 6. Phụ thuộc
 
 * Volo.Abp.Authorization
 * Volo.Abp.Hangfire
 * Microsoft.Extensions.Caching.Memory
 
-## 7. 文档和资源
+## 7. Tài liệu và tài nguyên
 
-* [Hangfire官方文档](https://docs.hangfire.io/)
-* [ABP框架文档](https://docs.abp.io/)
+* [Tài liệu chính thức của Hangfire](https://docs.hangfire.io/)
+* [Tài liệu framework ABP](https://docs.abp.io/)

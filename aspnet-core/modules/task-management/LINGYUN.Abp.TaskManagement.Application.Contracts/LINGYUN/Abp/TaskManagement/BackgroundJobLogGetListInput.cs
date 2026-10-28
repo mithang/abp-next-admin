@@ -7,31 +7,31 @@ public class BackgroundJobLogGetListInput : PagedAndSortedResultRequestDto
 {
     public string? JobId { get; set; }
     /// <summary>
-    /// 其他过滤条件
+    /// Điều kiện lọc khác
     /// </summary>
     public string? Filter { get; set; }
     /// <summary>
-    /// 存在异常
+    /// Có ngoại lệ
     /// </summary>
     public bool? HasExceptions { get; set; }
     /// <summary>
-    /// 任务名称
+    /// Tên tác vụ
     /// </summary>
     public string? Name { get; set; }
     /// <summary>
-    /// 任务分组
+    /// Nhóm tác vụ
     /// </summary>
     public string? Group { get; set; }
     /// <summary>
-    /// 任务类型
+    /// Loại tác vụ
     /// </summary>
     public string? Type { get; set; }
     /// <summary>
-    /// 开始触发时间
+    /// Thời gian kích hoạt bắt đầu
     /// </summary>
     public DateTime? BeginRunTime { get; set; }
     /// <summary>
-    /// 结束触发时间
+    /// Thời gian kích hoạt kết thúc
     /// </summary>
     public DateTime? EndRunTime { get; set; }
 }

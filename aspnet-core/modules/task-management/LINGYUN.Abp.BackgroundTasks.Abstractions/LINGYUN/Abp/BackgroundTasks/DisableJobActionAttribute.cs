@@ -2,7 +2,7 @@
 
 namespace LINGYUN.Abp.BackgroundTasks;
 /// <summary>
-/// 禁用作业调度行为
+/// Vô hiệu hóa hành vi lập lịch công việc
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class DisableJobActionAttribute : Attribute

@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日历公开范围
+/// Phạm vi công khai lịch
 /// </summary>
 public class CalendarPublicRange
 {
     /// <summary>
-    /// 公开的成员列表范围
+    /// Phạm vi danh sách thành viên được công khai
     /// </summary>
     [CanBeNull]
     [JsonProperty("userids")]
     [JsonPropertyName("userids")]
     public string[]? UserIds { get; set; }
     /// <summary>
-    /// 公开的部门列表范围
+    /// Phạm vi danh sách phòng ban được công khai
     /// </summary>
     [CanBeNull]
     [JsonProperty("partyids")]

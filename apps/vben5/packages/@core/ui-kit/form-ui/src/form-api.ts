@@ -61,11 +61,11 @@ export class FormApi {
   public store: Store<VbenFormProps>;
 
   /**
-   * 组件实例映射
+   * Ánh xạ thể hiện của component
    */
   private componentRefMap: Map<string, unknown> = new Map();
 
-  // 最后一次点击提交时的表单值
+  // Giá trị form tại lần nhấn gửi gần nhất
   private latestSubmissionValues: null | Recordable<any> = null;
 
   private prevState: null | VbenFormProps = null;
@@ -95,9 +95,9 @@ export class FormApi {
   }
 
   /**
-   * 获取字段组件实例
-   * @param fieldName 字段名
-   * @returns 组件实例
+   * Lấy thể hiện component của trường
+   * @param fieldName Tên trường
+   * @returns Thể hiện component
    */
   getFieldComponentRef<T = ComponentPublicInstance>(
     fieldName: string,
@@ -125,7 +125,7 @@ export class FormApi {
   }
 
   /**
-   * 获取当前聚焦的字段，如果没有聚焦的字段则返回undefined
+   * Lấy trường đang được focus, nếu không có trường nào được focus thì trả về undefined
    */
   getFocusedField() {
     for (const fieldName of this.componentRefMap.keys()) {
@@ -222,7 +222,7 @@ export class FormApi {
   }
 
   /**
-   * 根据字段名移除表单项
+   * Xóa mục form theo tên trường
    * @param fields
    */
   async removeSchemaByFields(fields: string[]) {
@@ -237,7 +237,7 @@ export class FormApi {
   }
 
   /**
-   * 重置表单
+   * Đặt lại form
    */
   async resetForm(
     state?: Partial<FormState<GenericObject>> | undefined,
@@ -256,8 +256,8 @@ export class FormApi {
   }
 
   /**
-   * 滚动到第一个错误字段
-   * @param errors 验证错误对象
+   * Cuộn tới trường lỗi đầu tiên
+   * @param errors Đối tượng lỗi xác thực
    */
   scrollToFirstError(errors: Record<string, any> | string) {
     // https://github.com/logaretm/vee-validate/discussions/3835
@@ -272,7 +272,7 @@ export class FormApi {
       `[name="${firstErrorFieldName}"]`,
     ) as HTMLElement;
 
-    // 如果通过 name 属性找不到，尝试通过组件引用查找, 正常情况下不会走到这，怕哪天 vee-validate 改了 name 属性有个兜底的
+    // Nếu không tìm thấy qua thuộc tính name, thử tìm qua tham chiếu component; bình thường sẽ không đi tới đây, chỉ phòng trường hợp một ngày nào đó vee-validate đổi thuộc tính name thì vẫn có phương án dự phòng
     if (!el) {
       const componentRef = this.getFieldComponentRef(firstErrorFieldName);
       if (componentRef && componentRef.$el instanceof HTMLElement) {
@@ -281,7 +281,7 @@ export class FormApi {
     }
 
     if (el) {
-      // 滚动到错误字段，添加一些偏移量以确保字段完全可见
+      // Cuộn tới trường lỗi, thêm một chút độ lệch để đảm bảo trường hiển thị đầy đủ
       el.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
@@ -314,9 +314,9 @@ export class FormApi {
   }
 
   /**
-   * 设置表单值
+   * Đặt giá trị form
    * @param fields record
-   * @param filterFields 过滤不在schema中定义的字段 默认为true
+   * @param filterFields Lọc các trường không được định nghĩa trong schema, mặc định là true
    * @param shouldValidate
    */
   async setValues(
@@ -331,10 +331,10 @@ export class FormApi {
     }
 
     /**
-     * 合并算法有待改进，目前的算法不支持object类型的值。
-     * antd的日期时间相关组件的值类型为dayjs对象
-     * element-plus的日期时间相关组件的值类型可能为Date对象
-     * 以上两种类型需要排除深度合并
+     * Thuật toán hợp nhất còn cần cải thiện, thuật toán hiện tại không hỗ trợ giá trị kiểu object.
+     * Giá trị của các component ngày giờ của antd có kiểu là đối tượng dayjs
+     * Giá trị của các component ngày giờ của element-plus có thể có kiểu là đối tượng Date
+     * Hai kiểu trên cần được loại khỏi quá trình hợp nhất sâu
      */
     const fieldMergeFn = createMerge((obj, key, value) => {
       if (key in obj) {
@@ -448,7 +448,7 @@ export class FormApi {
 
   private async getForm() {
     if (!this.isMounted) {
-      // 等待form挂载
+      // Chờ form được mount
       await this.stateHandler.waitForCondition();
     }
     if (!this.form?.meta) {
@@ -468,11 +468,11 @@ export class FormApi {
         if (Array.isArray(value)) {
           return value.join(sep);
         } else if (typeof value === 'string') {
-          // 处理空字符串的情况
+          // Xử lý trường hợp chuỗi rỗng
           if (value === '') {
             return [];
           }
-          // 处理复杂分隔符的情况
+          // Xử lý trường hợp dấu phân tách phức tạp
           const escapedSeparator = sep.replaceAll(
             /[.*+?^${}()|[\]\\]/g,
             String.raw`\$&`,
@@ -484,7 +484,7 @@ export class FormApi {
       });
     };
 
-    // 处理简单数组格式 ['field1', 'field2', ';'] 或 ['field1', 'field2']
+    // Xử lý định dạng mảng đơn giản ['field1', 'field2', ';'] hoặc ['field1', 'field2']
     if (arrayToStringFields.every((item) => typeof item === 'string')) {
       const lastItem =
         arrayToStringFields[arrayToStringFields.length - 1] || '';
@@ -497,11 +497,11 @@ export class FormApi {
       return;
     }
 
-    // 处理嵌套数组格式 [['field1'], ';']
+    // Xử lý định dạng mảng lồng nhau [['field1'], ';']
     arrayToStringFields.forEach((fieldConfig) => {
       if (Array.isArray(fieldConfig)) {
         const [fields, separator = ','] = fieldConfig;
-        // 根据类型定义，fields 应该始终是字符串数组
+        // Theo định nghĩa kiểu, fields phải luôn là mảng chuỗi
         if (!Array.isArray(fields)) {
           console.warn(
             `Invalid field configuration: fields should be an array of strings, got ${typeof fields}`,
@@ -581,7 +581,7 @@ export class FormApi {
   private updateState() {
     const currentSchema = this.state?.schema ?? [];
     const prevSchema = this.prevState?.schema ?? [];
-    // 进行了删除schema操作
+    // Đã thực hiện thao tác xóa schema
     if (currentSchema.length < prevSchema.length) {
       const currentFields = new Set(
         currentSchema.map((item) => item.fieldName),

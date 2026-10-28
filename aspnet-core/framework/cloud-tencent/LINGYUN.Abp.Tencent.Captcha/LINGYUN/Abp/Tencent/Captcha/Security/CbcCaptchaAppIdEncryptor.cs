@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.Tencent.Captcha.Security;
 
 public class CbcCaptchaAppIdEncryptor : ICaptchaAppIdEncryptor
 {
-    private const int IvLengthBytes = 16; // CBC 模式 IV 为 16 字节
+    private const int IvLengthBytes = 16; // IV ở chế độ CBC là 16 byte
     public string Encrypt(string plaintext, byte[] key, byte[] iv, byte[]? aad = null)
     {
         ArgumentNullException.ThrowIfNull(plaintext);
@@ -22,7 +22,7 @@ public class CbcCaptchaAppIdEncryptor : ICaptchaAppIdEncryptor
 
         byte[] encrypted;
 
-        // .NET 的 Aes 默认使用 PKCS7 填充，与 Java 的 PKCS5Padding 等价
+        // Aes của .NET mặc định dùng đệm PKCS7, tương đương với PKCS5Padding của Java
         using (var aes = Aes.Create())
         {
             aes.KeySize = 256;
@@ -36,7 +36,7 @@ public class CbcCaptchaAppIdEncryptor : ICaptchaAppIdEncryptor
             encrypted = encryptor.TransformFinalBlock(plaintextBytes, 0, plaintextBytes.Length);
         }
 
-        // 拼接 IV + 密文
+        // Nối IV + bản mã
         var ivAndCiphertext = new byte[iv.Length + encrypted.Length];
         Buffer.BlockCopy(iv, 0, ivAndCiphertext, 0, iv.Length);
         Buffer.BlockCopy(encrypted, 0, ivAndCiphertext, iv.Length, encrypted.Length);

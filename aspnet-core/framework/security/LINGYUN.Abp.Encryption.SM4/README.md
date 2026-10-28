@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Encryption.SM4
 
-数据加密模块,采用国密SM4算法,使用 **AbpStringEncryptionOptions** 配置无缝切换(密钥长度固定为128位以符合算法要求)  
+Mô-đun mã hóa dữ liệu, sử dụng thuật toán quốc mật SM4, dùng **AbpStringEncryptionOptions** để cấu hình chuyển đổi liền mạch (độ dài khóa cố định 128 bit để đáp ứng yêu cầu thuật toán)  
 
-## 配置使用
+## Cấu hình sử dụng
 
 
 ```csharp

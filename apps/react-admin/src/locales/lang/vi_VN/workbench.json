@@ -1,0 +1,39 @@
+{
+  "workbench": {
+    "header": {
+      "welcome": {
+        "atoon": "Chào buổi trưa, {0}, nhớ nghỉ ngơi nhé~",
+        "afternoon": "Chào buổi chiều, {0}, thư giãn đúng lúc có thể nâng cao hiệu quả công việc~",
+        "evening": "Chào buổi tối, {0}, vẫn đang làm việc sao? Đến giờ tan làm rồi~",
+        "morning": "Chào buổi sáng, {0}, hãy bắt đầu ngày làm việc của bạn nào~"
+      },
+      "notifier": {
+        "title": "Thông báo",
+        "count": "({0})"
+      }
+    },
+    "content": {
+      "favoriteMenu": {
+        "title": "Thường dùng",
+        "home": "Trang chủ",
+        "dashboard": "Bảng điều khiển",
+        "profile": "Trung tâm cá nhân",
+        "settings": "Cài đặt cá nhân",
+        "notifiers": "Tin nhắn thông báo",
+        "manage": "Quản lý menu",
+        "create": "Thêm menu",
+        "delete": "Xóa menu",
+        "select": "Chọn menu",
+        "color": "Chọn màu",
+        "alias": "Bí danh tùy chỉnh",
+        "icon": "Biểu tượng tùy chỉnh"
+      },
+      "trends": {
+        "title": "Tin nhắn mới nhất"
+      },
+      "todo": {
+        "title": "Việc cần làm"
+      }
+    }
+  }
+}

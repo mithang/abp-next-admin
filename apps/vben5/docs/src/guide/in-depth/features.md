@@ -1,14 +1,14 @@
-# 常用功能
+# Tính năng thường dùng
 
-一些常用的功能合集。
+Tổng hợp một số tính năng thường dùng.
 
-## 登录认证过期
+## Hết hạn xác thực đăng nhập
 
-当接口返回`401`状态码时，框架会认为登录认证过期，登录超时会跳转到登录页或者打开登录弹窗。在应用目录下的`preferences.ts`可以配置：
+Khi interface trả về mã trạng thái `401`, framework sẽ coi xác thực đăng nhập đã hết hạn, khi đăng nhập quá hạn sẽ chuyển đến trang đăng nhập hoặc mở popup đăng nhập. Có thể cấu hình trong `preferences.ts` dưới thư mục ứng dụng:
 
-### 跳转登录页面
+### Chuyển đến trang đăng nhập
 
-登录超时会跳转到登录页
+Khi đăng nhập quá hạn sẽ chuyển đến trang đăng nhập
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -21,13 +21,13 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-### 打开登录弹窗
+### Mở popup đăng nhập
 
-登录超时会打开登录弹窗
+Khi đăng nhập quá hạn sẽ mở popup đăng nhập
 
 ![](/guide/login-expired.png)
 
-配置：
+Cấu hình:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -40,11 +40,11 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 动态标题
+## Tiêu đề động
 
-- 默认值：`true`
+- Giá trị mặc định:`true`
 
-开启后网页标题随着路由的`title`而变化。在应用目录下的`preferences.ts`，开启或者关闭即可。
+Sau khi bật, tiêu đề trang web thay đổi theo `title` của route. Trong `preferences.ts` dưới thư mục ứng dụng, bật hoặc tắt là được.
 
 ```ts
 export const overridesPreferences = defineOverridesPreferences({
@@ -55,11 +55,11 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 页面水印
+## Watermark trang
 
-- 默认值：`false`
+- Giá trị mặc định:`false`
 
-开启后网页会显示水印，在应用目录下的`preferences.ts`，开启或者关闭即可。
+Sau khi bật, trang web sẽ hiển thị watermark, trong `preferences.ts` dưới thư mục ứng dụng, bật hoặc tắt là được.
 
 ```ts
 export const overridesPreferences = defineOverridesPreferences({
@@ -70,7 +70,7 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-如果你想更新水印的内容，可以这么做，参数可以参考 [watermark-js-plus](https://zhensherlock.github.io/watermark-js-plus/)：
+Nếu bạn muốn cập nhật nội dung watermark, có thể làm như sau, tham số có thể tham khảo [watermark-js-plus](https://zhensherlock.github.io/watermark-js-plus/):
 
 ```ts
 import { useWatermark } from '@vben/hooks';
@@ -78,7 +78,7 @@ import { useWatermark } from '@vben/hooks';
 const { destroyWatermark, updateWatermark } = useWatermark();
 
 await updateWatermark({
-  // 水印内容
+  // Nội dung watermark
   content: 'hello my watermark',
 });
 ```

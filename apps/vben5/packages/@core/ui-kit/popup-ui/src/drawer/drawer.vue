@@ -104,10 +104,10 @@ const {
 // );
 
 /**
- * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+ * Khi bật keepAlive, việc quay lại trực tiếp bằng nút trình duyệt/cử chỉ sẽ không đóng hộp thoại
  */
 onDeactivated(() => {
-  // 如果弹窗没有被挂载到内容区域，则关闭弹窗
+  // Nếu hộp thoại chưa được gắn vào vùng nội dung thì đóng hộp thoại
   if (!appendToMain.value) {
     props.drawerApi?.close();
   }
@@ -154,9 +154,9 @@ const getAppendTo = computed(() => {
 });
 
 /**
- * destroyOnClose功能完善
+ * Hoàn thiện tính năng destroyOnClose
  */
-// 是否打开过
+// Đã từng mở hay chưa
 const hasOpened = ref(false);
 const isClosed = ref(true);
 watch(

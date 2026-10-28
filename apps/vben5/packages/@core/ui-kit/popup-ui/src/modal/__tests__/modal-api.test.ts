@@ -34,12 +34,12 @@ vi.mock('@vben-core/shared/store', () => {
 
 describe('modalApi', () => {
   let modalApi: ModalApi;
-  // 使用 modalState 而不是 state
+  // Dùng modalState thay vì state
   let modalState: ModalState;
 
   beforeEach(() => {
     modalApi = new ModalApi();
-    // 获取 modalApi 内的 state
+    // Lấy state bên trong modalApi
     modalState = modalApi.store.state;
   });
 

@@ -3,39 +3,39 @@ using IP2Region.Net.XDB;
 namespace LINGYUN.Abp.IP2Region;
 
 /// <summary>
-/// IP2Region 选项
+/// Tùy chọn IP2Region
 /// </summary>
 public class AbpIP2RegionOptions
 {
     /// <summary>
-    /// IPv4 数据库文件
+    /// Tệp cơ sở dữ liệu IPv4
     /// </summary>
     /// <remarks>
-    /// 支持物理文件路径与虚拟文件系统路径(默认使用内置的 ip2region_v4.xdb 资源):
-    /// * 传入物理文件路径时优先按物理文件加载, 便于替换/更新离线库;
-    /// * 否则从虚拟文件系统读取内置资源。
+    /// Hỗ trợ đường dẫn tệp vật lý và đường dẫn hệ thống tệp ảo (mặc định dùng tài nguyên tích hợp sẵn ip2region_v4.xdb):
+    /// * Khi truyền đường dẫn tệp vật lý, ưu tiên tải theo tệp vật lý để tiện thay thế/cập nhật thư viện ngoại tuyến;
+    /// * Ngược lại, đọc tài nguyên tích hợp sẵn từ hệ thống tệp ảo.
     /// </remarks>
     public string IPv4DatabaseFile { get; set; } = AbpIP2RegionModule.DefaultIPv4DatabaseFile;
 
     /// <summary>
-    /// IPv6 数据库文件
+    /// Tệp cơ sở dữ liệu IPv6
     /// </summary>
     /// <remarks>
-    /// 与 <see cref="IPv4DatabaseFile"/> 一致(物理文件优先);
-    /// IPv6 离线库可选, 文件不存在时 IPv6 查询返回 null。
+    /// Giống <see cref="IPv4DatabaseFile"/> (ưu tiên tệp vật lý);
+    /// Thư viện ngoại tuyến IPv6 là tùy chọn, khi tệp không tồn tại truy vấn IPv6 trả về null.
     /// </remarks>
     public string IPv6DatabaseFile { get; set; } = AbpIP2RegionModule.DefaultIPv6DatabaseFile;
 
     /// <summary>
-    /// 缓存策略
+    /// Chính sách bộ nhớ đệm
     /// </summary>
     /// <remarks>
-    /// 默认 <see cref="CachePolicy.Content"/>: 将离线库全部加载到内存后再查询, 是**并发安全**的策略
-    /// (IPv4 库约 10MB、IPv6 库约 35MB)。
+    /// Mặc định <see cref="CachePolicy.Content"/>: tải toàn bộ thư viện ngoại tuyến vào bộ nhớ rồi mới truy vấn, là chính sách **an toàn đồng thời**
+    /// (thư viện IPv4 khoảng 10MB, thư viện IPv6 khoảng 35MB).
     /// 
-    /// <see cref="CachePolicy.File"/> 与 <see cref="CachePolicy.VectorIndex"/> 基于"共享数据流 + Seek"实现,
-    /// 而 <c>ISearcher</c> 注册为单例, 多线程并发查询会互相打断数据流定位,
-    /// 仅在能够保证串行查询(或自行保证线程安全)时使用。
+    /// <see cref="CachePolicy.File"/> và <see cref="CachePolicy.VectorIndex"/> được triển khai dựa trên "luồng dữ liệu dùng chung + Seek",
+    /// trong khi <c>ISearcher</c> được đăng ký dạng singleton, truy vấn đồng thời đa luồng sẽ làm gián đoạn lẫn nhau vị trí luồng dữ liệu,
+    /// chỉ dùng khi có thể đảm bảo truy vấn tuần tự (hoặc tự đảm bảo an toàn luồng).
     /// </remarks>
     public CachePolicy CachePolicy { get; set; } = CachePolicy.Content;
 }

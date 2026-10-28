@@ -12,13 +12,13 @@ export function useNotifications() {
 	const { publish, subscribe, unSubscribe } = useEventBus();
 	const { init, off, on, onStart, stop } = useSignalR();
 
-	/** 注册通知 */
+	/** Đăng ký thông báo */
 	function register() {
 		_registerEvents();
 		_init();
 	}
 
-	/** 释放通知 */
+	/** Giải phóng thông báo */
 	function release() {
 		_releaseEvents();
 		stop();
@@ -33,18 +33,18 @@ export function useNotifications() {
 		});
 	}
 
-	/** 注册通知事件 */
+	/** Đăng ký sự kiện thông báo */
 	function _registerEvents() {
 		subscribe(Events.UserLogout, stop);
 	}
 
-	/** 释放通知事件 */
+	/** Giải phóng sự kiện thông báo */
 	function _releaseEvents() {
 		unSubscribe(Events.UserLogout, stop);
 		off(Events.GetNotification, _onNotifyReceived);
 	}
 
-	/** 接收通知回调 */
+	/** Callback nhận thông báo */
 	function _onNotifyReceived(notificationInfo: NotificationInfo) {
 		const notification = deserialize(notificationInfo);
 		if (notification.type === NotificationType.ServiceCallback) {
@@ -55,7 +55,7 @@ export function useNotifications() {
 		_notification(notification);
 	}
 
-	/** 通知推送 */
+	/** Đẩy thông báo */
 	function _notification(notifier: Notification) {
 		let message = notifier.description;
 		switch (notifier.contentType) {

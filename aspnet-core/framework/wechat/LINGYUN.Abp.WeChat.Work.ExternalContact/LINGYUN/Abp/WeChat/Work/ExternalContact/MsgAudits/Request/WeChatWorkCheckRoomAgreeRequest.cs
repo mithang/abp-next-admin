@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits.Request;
 /// <summary>
-/// 获取群聊会话同意情况请求参数
+/// Tham số yêu cầu lấy tình trạng đồng ý phiên trò chuyện nhóm
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
 /// </remarks>
 public class WeChatWorkCheckRoomAgreeRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 待查询的roomid
+    /// roomid cần truy vấn
     /// </summary>
     [NotNull]
     [JsonProperty("roomid")]

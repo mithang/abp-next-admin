@@ -1,0 +1,17 @@
+{
+  "auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "codeLogin": "Đăng nhập bằng mã xác minh",
+    "qrcodeLogin": "Đăng nhập bằng mã QR",
+    "forgetPassword": "Quên mật khẩu",
+    "oidcLogin": "Đăng nhập trung tâm xác thực",
+    "oidcLoginMessage": "Vui lòng nhấp Xác nhận để chuyển đến trung tâm xác thực đăng nhập",
+    "processingLogin": "Đăng nhập thành công, đang chuyển hướng..."
+  },
+  "dashboard": {
+    "title": "Tổng quan",
+    "analytics": "Trang phân tích",
+    "workspace": "Bàn làm việc"
+  }
+}

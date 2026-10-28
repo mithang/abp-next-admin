@@ -3,17 +3,17 @@ using Volo.Abp.Content;
 
 namespace LINGYUN.Abp.Exporter;
 /// <summary>
-/// 数据导出服务接口
+/// Giao diện dịch vụ xuất dữ liệu
 /// </summary>
-/// <typeparam name="TEntityExportDto">导出的实体数据传输对象</typeparam>
-/// <typeparam name="TEntityListGetInput">实体数据过滤数据对象</typeparam>
+/// <typeparam name="TEntityExportDto">Đối tượng truyền dữ liệu thực thể được xuất</typeparam>
+/// <typeparam name="TEntityListGetInput">Đối tượng dữ liệu lọc thực thể</typeparam>
 public interface IExporterAppService<TEntityExportDto, TEntityListGetInput>
      where TEntityExportDto : class, new()
 {
     /// <summary>
-    /// 导出数据（默认实现Excel）
+    /// Xuất dữ liệu (mặc định triển khai bằng Excel)
     /// </summary>
-    /// <param name="input">数据过滤条件</param>
+    /// <param name="input">Điều kiện lọc dữ liệu</param>
     /// <returns></returns>
     Task<IRemoteStreamContent> ExportAsync(TEntityListGetInput input);
 }

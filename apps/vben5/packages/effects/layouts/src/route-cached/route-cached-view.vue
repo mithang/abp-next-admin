@@ -18,7 +18,7 @@ const { removeCachedRoute } = tabbarStore;
 const { getEnabledTransition, getTransitionName } = useLayoutHook();
 
 /**
- * 是否启用tab
+ * Có bật tab hay không
  */
 const enableTabbar = computed(() => preferences.tabbar.enable);
 
@@ -32,7 +32,7 @@ const computedCachedRouteKeys = computed(() => {
 });
 
 /**
- * 监听缓存路由变化，删除不存在的缓存路由
+ * Lắng nghe thay đổi route đã cache, xóa route đã cache không còn tồn tại
  */
 watch(computedCachedRouteKeys, (keys) => {
   unref(getCachedRoutes).forEach((item) => {
@@ -43,13 +43,13 @@ watch(computedCachedRouteKeys, (keys) => {
 });
 
 /**
- * 所有缓存的route
+ * Tất cả route đã cache
  */
 const computedCachedRoutes = computed(() => {
   if (!unref(enableTabbar)) {
     return [];
   }
-  // 刷新路由可刷新缓存
+  // Làm mới route có thể làm mới cache
   const excludeCachedTabKeys = unref(getExcludeCachedTabs);
   return [...unref(getCachedRoutes).values()].filter((item) => {
     const componentType: any = item.component.type || {};
@@ -62,7 +62,7 @@ const computedCachedRoutes = computed(() => {
 });
 
 /**
- * 是否显示
+ * Có hiển thị hay không
  */
 const computedShowView = computed(() => unref(computedCachedRoutes).length > 0);
 

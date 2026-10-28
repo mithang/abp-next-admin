@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.WebSockets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
@@ -56,7 +57,7 @@ public class InternalGatewayModule : AbpModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别
+            // Phân biệt theo cổng mở
             options.SnowflakeIdOptions.WorkerId = 0;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -171,6 +172,20 @@ public class InternalGatewayModule : AbpModule
                 handler.ActivityHeadersPropagator = null;
             })
             .LoadFromConfig(configuration.GetSection("ReverseProxy"));
+
+        // DEVOPS iter-0006 (DEV-11): gateway truoc day khong co /healthz.
+        // Map /healthz qua AbpEndpointRouter (hoat dong moi moi truong, nhu
+        // cac microservice) + check Redis that (noi DataProtection phu thuoc).
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks(configuration["App:HealthChecks"] ?? "/healthz");
+            });
+        });
+
+        context.Services.AddHealthChecks()
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -185,11 +200,11 @@ public class InternalGatewayModule : AbpModule
         app.UseCorrelationId();
         app.UseCors();
 
-        // 认证
+        // Xác thực
         app.UseAuthentication();
         // jwt
         app.UseDynamicClaims();
-        // 授权
+        // Phân quyền
         app.UseAuthorization();
 
         if (env.IsDevelopment())

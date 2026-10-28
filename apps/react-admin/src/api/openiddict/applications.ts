@@ -9,45 +9,45 @@ import type {
 import requestClient from "../request";
 
 /**
- * 创建应用
- * @param input 参数
- * @returns 应用实体数据传输对象
+ * Tạo ứng dụng
+ * @param input Tham số
+ * @returns Đối tượng truyền dữ liệu thực thể ứng dụng
  */
 export function createApi(input: OpenIddictApplicationCreateDto): Promise<OpenIddictApplicationDto> {
 	return requestClient.post<OpenIddictApplicationDto>("/api/openiddict/applications", input);
 }
 
 /**
- * 删除应用
- * @param id 应用id
+ * Xóa ứng dụng
+ * @param id Id ứng dụng
  */
 export function deleteApi(id: string): Promise<void> {
 	return requestClient.delete(`/api/openiddict/applications/${id}`);
 }
 
 /**
- * 查询应用
- * @param id 应用id
- * @returns 应用实体数据传输对象
+ * Truy vấn ứng dụng
+ * @param id Id ứng dụng
+ * @returns Đối tượng truyền dữ liệu thực thể ứng dụng
  */
 export function getApi(id: string): Promise<OpenIddictApplicationDto> {
 	return requestClient.get<OpenIddictApplicationDto>(`/api/openiddict/applications/${id}`);
 }
 
 /**
- * 更新应用
- * @param id 应用id
- * @param input 更新参数
- * @returns 应用实体数据传输对象
+ * Cập nhật ứng dụng
+ * @param id Id ứng dụng
+ * @param input Tham số cập nhật
+ * @returns Đối tượng truyền dữ liệu thực thể ứng dụng
  */
 export function updateApi(id: string, input: OpenIddictApplicationUpdateDto): Promise<OpenIddictApplicationDto> {
 	return requestClient.put<OpenIddictApplicationDto>(`/api/openiddict/applications/${id}`, input);
 }
 
 /**
- * 查询应用分页列表
- * @param input 过滤参数
- * @returns 应用实体数据传输对象分页列表
+ * Truy vấn danh sách phân trang ứng dụng
+ * @param input Tham số lọc
+ * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể ứng dụng
  */
 export function getPagedListApi(
 	input?: OpenIddictApplicationGetListInput,

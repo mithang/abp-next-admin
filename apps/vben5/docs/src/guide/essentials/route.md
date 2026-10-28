@@ -2,60 +2,60 @@
 outline: deep
 ---
 
-# 路由和菜单
+# Route và Menu
 
-在项目中，框架提供了一套基础的路由系统，并**根据路由文件自动生成对应的菜单结构**。
+Trong dự án, framework cung cấp một hệ thống route cơ bản và **tự động tạo cấu trúc menu tương ứng dựa trên file route**.
 
-## 路由类型
+## Các loại route
 
-路由分为核心路由、静态路由和动态路由，核心路由是框架内置的路由，包含了根路由、登录路由、404路由等；静态路由是在项目启动时就已经确定的路由；动态路由一般是在用户登录后，根据用户的权限动态生成的路由。
+Route được chia thành route lõi, route tĩnh và route động. Route lõi là route tích hợp sẵn của framework, bao gồm route gốc, route đăng nhập, route 404, v.v.; route tĩnh là route đã được xác định khi dự án khởi động; route động thường được tạo động sau khi người dùng đăng nhập, dựa trên quyền của người dùng.
 
-静态路由和动态路由都会走权限控制，可以通过配置路由的 `meta` 属性中的 `authority` 字段来控制权限，可以参考[路由权限控制](https://github.com/vbenjs/vue-vben-admin/blob/main/playground/src/router/routes/modules/demos.ts)。
+Route tĩnh và route động đều đi qua kiểm soát quyền, có thể kiểm soát quyền bằng cách cấu hình trường `authority` trong thuộc tính `meta` của route, tham khảo [Kiểm soát quyền route](https://github.com/vbenjs/vue-vben-admin/blob/main/playground/src/router/routes/modules/demos.ts).
 
-### 核心路由
+### Route lõi
 
-核心路由是框架内置的路由，包含了根路由、登录路由、404路由等，核心路由的配置在应用下 `src/router/routes/core` 目录下
+Route lõi là route tích hợp sẵn của framework, bao gồm route gốc, route đăng nhập, route 404, v.v. Cấu hình route lõi nằm trong thư mục `src/router/routes/core` của ứng dụng.
 
 ::: tip
 
-核心路由主要用于框架的基础功能，因此不建议将业务相关的路由放在核心路由中，推荐将业务相关的路由放在静态路由或动态路由中。
+Route lõi chủ yếu dùng cho các chức năng cơ bản của framework, vì vậy không nên đặt các route liên quan đến nghiệp vụ vào route lõi, nên đặt các route nghiệp vụ vào route tĩnh hoặc route động.
 
 :::
 
-### 静态路由
+### Route tĩnh
 
-静态路由的配置在应用下 `src/router/routes/index` 目录下，打开注释的文件内容:
+Cấu hình route tĩnh nằm trong thư mục `src/router/routes/index` của ứng dụng, nội dung file sau khi bỏ ghi chú:
 
 ::: tip
 
-权限控制是通过路由的 `meta` 属性中的 `authority` 字段来控制的，如果你的页面项目不需要权限控制，可以不设置 `authority` 字段。
+Kiểm soát quyền được thực hiện thông qua trường `authority` trong thuộc tính `meta` của route, nếu dự án trang của bạn không cần kiểm soát quyền thì có thể không đặt trường `authority`.
 
 :::
 
 ```ts
-// 有需要可以自行打开注释，并创建文件夹
+// Nếu cần có thể tự bỏ ghi chú và tạo thư mục
 // const externalRouteFiles = import.meta.glob('./external/**/*.ts', { eager: true }); // [!code --]
 const staticRouteFiles = import.meta.glob('./static/**/*.ts', { eager: true }); // [!code ++]
-/** 动态路由 */
+/** Route động */
 const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles);
 
-/** 外部路由列表，访问这些页面可以不需要Layout，可能用于内嵌在别的系统 */
+/** Danh sách route bên ngoài, truy cập các trang này có thể không cần Layout, có thể dùng để nhúng vào hệ thống khác */
 // const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles) // [!code --]
 const externalRoutes: RouteRecordRaw[] = []; // [!code --]
 const externalRoutes: RouteRecordRaw[] = mergeRouteModules(externalRouteFiles); // [!code ++]
 ```
 
-### 动态路由
+### Route động
 
-动态路由的配置在对应应用 `src/router/routes/modules` 目录下，这个目录下存放了所有的路由文件。每个文件的内容格式如下，与 Vue Router 的路由配置格式一致，以下为二级路由和多级路由的配置。
+Cấu hình route động nằm trong thư mục `src/router/routes/modules` của ứng dụng tương ứng, thư mục này chứa tất cả các file route. Định dạng nội dung của mỗi file như sau, nhất quán với định dạng cấu hình route của Vue Router, dưới đây là cấu hình route hai cấp và route nhiều cấp.
 
-## 路由定义
+## Định nghĩa route
 
-静态路由与动态路由的配置方式一致，以下为二级路由和多级路由的配置：
+Cách cấu hình route tĩnh và route động giống nhau, dưới đây là cấu hình route hai cấp và route nhiều cấp:
 
-### 二级路由
+### Route hai cấp
 
-::: details 二级路由示例代码
+::: details Mã ví dụ route hai cấp
 
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
@@ -97,15 +97,15 @@ export default routes;
 
 :::
 
-### 多级路由
+### Route nhiều cấp
 
 ::: tip
 
-- 如果没有特殊情况，父级路由的 `redirect` 属性，不需要指定，默认会指向第一个子路由。
+- Nếu không có trường hợp đặc biệt, thuộc tính `redirect` của route cha không cần chỉ định, mặc định sẽ trỏ đến route con đầu tiên.
 
 :::
 
-::: details 多级路由示例代码
+::: details Mã ví dụ route nhiều cấp
 
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
@@ -124,7 +124,7 @@ const routes: RouteRecordRaw[] = [
     path: '/demos',
     redirect: '/demos/access',
     children: [
-      // 嵌套菜单
+      // Menu lồng nhau
       {
         meta: {
           icon: 'ic:round-menu',
@@ -220,13 +220,13 @@ export default routes;
 
 :::
 
-## 新增页面
+## Thêm trang mới
 
-新增一个页面，你只需要添加一个路由及对应的页面组件即可。
+Để thêm một trang mới, bạn chỉ cần thêm một route và component trang tương ứng.
 
-### 添加路由
+### Thêm route
 
-在对应的路由文件中添加一个路由对象，如下：
+Thêm một đối tượng route vào file route tương ứng, như sau:
 
 ```ts
 import type { RouteRecordRaw } from 'vue-router';
@@ -261,9 +261,9 @@ const routes: RouteRecordRaw[] = [
 export default routes;
 ```
 
-### 添加页面组件
+### Thêm component trang
 
-在`#/views/home/`下，新增一个`index.vue`文件，如下：
+Trong thư mục `#/views/home/`, tạo mới một file `index.vue`, như sau:
 
 ```vue
 <template>
@@ -273,13 +273,13 @@ export default routes;
 </template>
 ```
 
-### 验证
+### Kiểm chứng
 
-到这里页面已添加完成，访问 `http://localhost:5555/home/index` 出现对应的页面即可。
+Đến đây trang đã được thêm xong, truy cập `http://localhost:5555/home/index` và thấy trang tương ứng là được.
 
-## 路由配置
+## Cấu hình route
 
-路由配置项主要在对象路由的 `meta` 属性中，以下为常用的配置项：
+Các mục cấu hình route chủ yếu nằm trong thuộc tính `meta` của đối tượng route, dưới đây là các mục cấu hình thường dùng:
 
 ```ts {5-8}
 const routes = [
@@ -294,43 +294,43 @@ const routes = [
 ];
 ```
 
-::: details 路由Meta配置类型定义
+::: details Định nghĩa kiểu Meta của route
 
 ```ts
 interface RouteMeta {
   /**
-   * 激活图标（菜单）
+   * Biểu tượng khi kích hoạt (menu)
    */
   activeIcon?: string;
   /**
-   * 当前激活的菜单，有时候不想激活现有菜单，需要激活父级菜单时使用
+   * Menu đang kích hoạt hiện tại, đôi khi không muốn kích hoạt menu hiện tại mà cần kích hoạt menu cha thì dùng
    */
   activePath?: string;
   /**
-   * 是否固定标签页
+   * Có cố định tab hay không
    * @default false
    */
   affixTab?: boolean;
   /**
-   * 固定标签页的顺序
+   * Thứ tự của tab cố định
    * @default 0
    */
   affixTabOrder?: number;
   /**
-   * 需要特定的角色标识才可以访问
+   * Cần có định danh vai trò cụ thể mới được truy cập
    * @default []
    */
   authority?: string[];
   /**
-   * 徽标
+   * Huy hiệu
    */
   badge?: string;
   /**
-   * 徽标类型
+   * Kiểu huy hiệu
    */
   badgeType?: 'dot' | 'normal';
   /**
-   * 徽标颜色
+   * Màu huy hiệu
    */
   badgeVariants?:
     | 'default'
@@ -340,81 +340,81 @@ interface RouteMeta {
     | 'warning'
     | string;
   /**
-   * 路由的完整路径作为key（默认true）
+   * Dùng đường dẫn đầy đủ của route làm key (mặc định true)
    */
   fullPathKey?: boolean;
   /**
-   * 当前路由的子级在菜单中不展现
+   * Các route con của route hiện tại không hiển thị trong menu
    * @default false
    */
   hideChildrenInMenu?: boolean;
   /**
-   * 当前路由在面包屑中不展现
+   * Route hiện tại không hiển thị trong breadcrumb
    * @default false
    */
   hideInBreadcrumb?: boolean;
   /**
-   * 当前路由在菜单中不展现
+   * Route hiện tại không hiển thị trong menu
    * @default false
    */
   hideInMenu?: boolean;
   /**
-   * 当前路由在标签页不展现
+   * Route hiện tại không hiển thị trong tab
    * @default false
    */
   hideInTab?: boolean;
   /**
-   * 图标（菜单/tab）
+   * Biểu tượng (menu/tab)
    */
   icon?: string;
   /**
-   * iframe 地址
+   * Địa chỉ iframe
    */
   iframeSrc?: string;
   /**
-   * 忽略权限，直接可以访问
+   * Bỏ qua quyền, có thể truy cập trực tiếp
    * @default false
    */
   ignoreAccess?: boolean;
   /**
-   * 开启KeepAlive缓存
+   * Bật bộ nhớ đệm KeepAlive
    */
   keepAlive?: boolean;
   /**
-   * 外链-跳转路径
+   * Liên kết ngoài - đường dẫn chuyển hướng
    */
   link?: string;
   /**
-   * 路由是否已经加载过
+   * Route đã được tải hay chưa
    */
   loaded?: boolean;
   /**
-   * 标签页最大打开数量
+   * Số lượng tab mở tối đa
    * @default false
    */
   maxNumOfOpenTab?: number;
   /**
-   * 菜单可以看到，但是访问会被重定向到403
+   * Menu có thể nhìn thấy, nhưng truy cập sẽ bị chuyển hướng đến 403
    */
   menuVisibleWithForbidden?: boolean;
   /**
-   * 当前路由不使用基础布局（仅在顶级生效）
+   * Route hiện tại không dùng layout cơ bản (chỉ có hiệu lực ở cấp cao nhất)
    */
   noBasicLayout?: boolean;
   /**
-   * 在新窗口打开
+   * Mở trong cửa sổ mới
    */
   openInNewWindow?: boolean;
   /**
-   * 用于路由->菜单排序
+   * Dùng để sắp xếp route -> menu
    */
   order?: number;
   /**
-   * 菜单所携带的参数
+   * Tham số mà menu mang theo
    */
   query?: Recordable;
   /**
-   * 标题名称
+   * Tên tiêu đề
    */
   title: string;
 }
@@ -424,191 +424,191 @@ interface RouteMeta {
 
 ### title
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置页面的标题，会在菜单和标签页中显示。一般会配合国际化使用。
+Dùng để cấu hình tiêu đề của trang, sẽ hiển thị trong menu và tab. Thông thường sẽ dùng kết hợp với i18n.
 
 ### icon
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置页面的图标，会在菜单和标签页中显示。一般会配合图标库使用，如果是`http`链接，会自动加载图片。
+Dùng để cấu hình biểu tượng của trang, sẽ hiển thị trong menu và tab. Thông thường sẽ dùng kết hợp với thư viện biểu tượng, nếu là liên kết `http` thì sẽ tự động tải hình ảnh.
 
 ### activeIcon
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置页面的激活图标，会在菜单中显示。一般会配合图标库使用，如果是`http`链接，会自动加载图片。
+Dùng để cấu hình biểu tượng khi kích hoạt của trang, sẽ hiển thị trong menu. Thông thường sẽ dùng kết hợp với thư viện biểu tượng, nếu là liên kết `http` thì sẽ tự động tải hình ảnh.
 
 ### keepAlive
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面是否开启缓存，开启后页面会缓存，不会重新加载，仅在标签页启用时有效。
+Dùng để cấu hình trang có bật bộ nhớ đệm hay không, sau khi bật trang sẽ được lưu đệm, không tải lại, chỉ có hiệu lực khi tab được bật.
 
 ### hideInMenu
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面是否在菜单中隐藏，隐藏后页面不会在菜单中显示。
+Dùng để cấu hình trang có bị ẩn trong menu hay không, sau khi ẩn trang sẽ không hiển thị trong menu.
 
 ### hideInTab
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面是否在标签页中隐藏，隐藏后页面不会在标签页中显示。
+Dùng để cấu hình trang có bị ẩn trong tab hay không, sau khi ẩn trang sẽ không hiển thị trong tab.
 
 ### hideInBreadcrumb
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面是否在面包屑中隐藏，隐藏后页面不会在面包屑中显示。
+Dùng để cấu hình trang có bị ẩn trong breadcrumb hay không, sau khi ẩn trang sẽ không hiển thị trong breadcrumb.
 
 ### hideChildrenInMenu
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面的子页面是否在菜单中隐藏，隐藏后子页面不会在菜单中显示。
+Dùng để cấu hình các trang con của trang có bị ẩn trong menu hay không, sau khi ẩn các trang con sẽ không hiển thị trong menu.
 
 ### authority
 
-- 类型：`string[]`
-- 默认值：`[]`
+- Kiểu: `string[]`
+- Giá trị mặc định: `[]`
 
-用于配置页面的权限，只有拥有对应权限的用户才能访问页面，不配置则不需要权限。
+Dùng để cấu hình quyền của trang, chỉ người dùng có quyền tương ứng mới được truy cập trang, nếu không cấu hình thì không cần quyền.
 
 ### badge
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置页面的徽标，会在菜单显示。
+Dùng để cấu hình huy hiệu của trang, sẽ hiển thị trong menu.
 
 ### badgeType
 
-- 类型：`'dot' | 'normal'`
-- 默认值：`'normal'`
+- Kiểu: `'dot' | 'normal'`
+- Giá trị mặc định: `'normal'`
 
-用于配置页面的徽标类型，`dot` 为小红点，`normal` 为文本。
+Dùng để cấu hình kiểu huy hiệu của trang, `dot` là chấm đỏ nhỏ, `normal` là văn bản.
 
 ### badgeVariants
 
-- 类型：`'default' | 'destructive' | 'primary' | 'success' | 'warning' | string`
-- 默认值：`'success'`
+- Kiểu: `'default' | 'destructive' | 'primary' | 'success' | 'warning' | string`
+- Giá trị mặc định: `'success'`
 
-用于配置页面的徽标颜色。
+Dùng để cấu hình màu huy hiệu của trang.
 
 ### fullPathKey
 
-- 类型：`boolean`
-- 默认值：`true`
+- Kiểu: `boolean`
+- Giá trị mặc định: `true`
 
-是否将路由的完整路径作为tab key（默认true）
+Có dùng đường dẫn đầy đủ của route làm tab key hay không (mặc định true)
 
 ### activePath
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置当前激活的菜单，有时候页面没有显示在菜单内，需要激活父级菜单时使用。
+Dùng để cấu hình menu đang kích hoạt hiện tại, đôi khi trang không hiển thị trong menu mà cần kích hoạt menu cha thì dùng.
 
 ### affixTab
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面是否固定标签页，固定后页面不可关闭。
+Dùng để cấu hình trang có cố định tab hay không, sau khi cố định trang không thể đóng.
 
 ### affixTabOrder
 
-- 类型：`number`
-- 默认值：`0`
+- Kiểu: `number`
+- Giá trị mặc định: `0`
 
-用于配置页面固定标签页的排序, 采用升序排序。
+Dùng để cấu hình thứ tự của tab cố định của trang, sắp xếp theo thứ tự tăng dần.
 
 ### iframeSrc
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置内嵌页面的 `iframe` 地址，设置后会在当前页面内嵌对应的页面。
+Dùng để cấu hình địa chỉ `iframe` của trang nhúng, sau khi đặt sẽ nhúng trang tương ứng vào trong trang hiện tại.
 
 ### ignoreAccess
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面是否忽略权限，直接可以访问。
+Dùng để cấu hình trang có bỏ qua quyền hay không, có thể truy cập trực tiếp.
 
 ### link
 
-- 类型：`string`
-- 默认值：`''`
+- Kiểu: `string`
+- Giá trị mặc định: `''`
 
-用于配置外链跳转路径，会在新窗口打开。
+Dùng để cấu hình đường dẫn chuyển hướng liên kết ngoài, sẽ mở trong cửa sổ mới.
 
 ### maxNumOfOpenTab
 
-- 类型：`number`
-- 默认值：`-1`
+- Kiểu: `number`
+- Giá trị mặc định: `-1`
 
-用于配置标签页最大打开数量，设置后会在打开新标签页时自动关闭最早打开的标签页(仅在打开同名标签页时生效)。
+Dùng để cấu hình số lượng tab mở tối đa, sau khi đặt, khi mở tab mới sẽ tự động đóng tab mở sớm nhất (chỉ có hiệu lực khi mở tab cùng tên).
 
 ### menuVisibleWithForbidden
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置页面在菜单可以看到，但是访问会被重定向到403。
+Dùng để cấu hình trang có thể nhìn thấy trong menu, nhưng truy cập sẽ bị chuyển hướng đến 403.
 
 ### openInNewWindow
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-设置为 `true` 时，会在新窗口打开页面。
+Khi đặt là `true`, trang sẽ mở trong cửa sổ mới.
 
 ### order
 
-- 类型：`number`
-- 默认值：`0`
+- Kiểu: `number`
+- Giá trị mặc định: `0`
 
-用于配置页面的排序，用于路由到菜单排序。
+Dùng để cấu hình thứ tự của trang, dùng để sắp xếp route thành menu.
 
-_注意:_ 排序仅针对一级菜单有效，二级菜单的排序需要在对应的一级菜单中按代码顺序设置。
+_Lưu ý:_ Thứ tự chỉ có hiệu lực đối với menu cấp một, thứ tự của menu cấp hai cần được đặt theo thứ tự code trong menu cấp một tương ứng.
 
 ### query
 
-- 类型：`Recordable`
-- 默认值：`{}`
+- Kiểu: `Recordable`
+- Giá trị mặc định: `{}`
 
-用于配置页面的菜单参数，会在菜单中传递给页面。
+Dùng để cấu hình tham số menu của trang, sẽ truyền cho trang trong menu.
 
 ### noBasicLayout
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置当前路由不使用基础布局，仅在顶级时生效。默认情况下，所有的路由都会被包裹在基础布局中（包含顶部以及侧边等导航部件），如果你的页面不需要这些部件，可以设置 `noBasicLayout` 为 `true`。
+Dùng để cấu hình route hiện tại không dùng layout cơ bản, chỉ có hiệu lực ở cấp cao nhất. Theo mặc định, tất cả các route đều được bao trong layout cơ bản (bao gồm các thành phần điều hướng như thanh trên cùng và thanh bên), nếu trang của bạn không cần các thành phần này, có thể đặt `noBasicLayout` thành `true`.
 
 ### domCached
 
-- 类型：`boolean`
-- 默认值：`false`
+- Kiểu: `boolean`
+- Giá trị mặc định: `false`
 
-用于配置当前路由是否要将route对应dom元素缓存起来。对于一些复杂页面切换tab浏览器回流/重绘会导致卡顿， `domCached` 设为 `true`可解决该问题，但是也有代价：1、内存占用升高 2、vue的部分生命周期不会触发
+Dùng để cấu hình route hiện tại có cần lưu đệm phần tử dom tương ứng với route hay không. Đối với một số trang phức tạp, khi chuyển tab trình duyệt reflow/repaint sẽ gây giật lag, đặt `domCached` thành `true` có thể giải quyết vấn đề này, nhưng cũng có cái giá phải trả: 1. mức sử dụng bộ nhớ tăng cao 2. một phần vòng đời của vue sẽ không được kích hoạt
 
-## 路由刷新
+## Làm mới route
 
-路由刷新方式如下：
+Cách làm mới route như sau:
 
 ```vue
 <script setup lang="ts">
@@ -616,23 +616,23 @@ import { useRefresh } from '@vben/hooks';
 
 const { refresh } = useRefresh();
 
-// 刷新当前路由
+// Làm mới route hiện tại
 refresh();
 </script>
 ```
 
-## 标签页与路由控制
+## Tab và kiểm soát route
 
-在某些场景下，需要单个路由打开多个标签页，或者修改路由的query不打开新的标签页
+Trong một số trường hợp, cần mở nhiều tab cho một route duy nhất, hoặc sửa query của route mà không mở tab mới
 
-每个标签页Tab使用唯一的key标识，设置Tab key有三种方式，优先级由高到低：
+Mỗi tab dùng key duy nhất để định danh, có ba cách đặt Tab key, mức độ ưu tiên từ cao đến thấp:
 
-- 使用路由query参数pageKey
+- Dùng tham số query pageKey của route
 
 ```vue
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-// 跳转路由
+// Chuyển hướng route
 const router = useRouter();
 router.push({
   path: 'path',
@@ -642,10 +642,10 @@ router.push({
 });
 ```
 
-- 路由的完整路径作为key
+- Đường dẫn đầy đủ của route làm key
 
-`meta` 属性中的 `fullPathKey`不为false，则使用路由`fullPath`作为key
+Thuộc tính `fullPathKey` trong `meta` không phải là false thì dùng `fullPath` của route làm key
 
-- 路由的path作为key
+- path của route làm key
 
-`meta` 属性中的 `fullPathKey`为false，则使用路由`path`作为key
+Thuộc tính `fullPathKey` trong `meta` là false thì dùng `path` của route làm key

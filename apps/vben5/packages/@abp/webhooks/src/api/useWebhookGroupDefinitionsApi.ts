@@ -13,8 +13,8 @@ export function useWebhookGroupDefinitionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除Webhook分组定义
-   * @param name Webhook分组名称
+   * Xóa định nghĩa nhóm Webhook
+   * @param name Tên nhóm Webhook
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/webhooks/definitions/groups/${name}`, {
@@ -23,9 +23,9 @@ export function useWebhookGroupDefinitionsApi() {
   }
 
   /**
-   * 查询Webhook分组定义
-   * @param name Webhook分组名称
-   * @returns Webhook分组定义数据传输对象
+   * Truy vấn định nghĩa nhóm Webhook
+   * @param name Tên nhóm Webhook
+   * @returns Đối tượng truyền dữ liệu định nghĩa nhóm Webhook
    */
   function getApi(name: string): Promise<WebhookGroupDefinitionDto> {
     return request<WebhookGroupDefinitionDto>(
@@ -37,9 +37,9 @@ export function useWebhookGroupDefinitionsApi() {
   }
 
   /**
-   * 查询Webhook分组定义列表
-   * @param input Webhook分组过滤条件
-   * @returns Webhook分组定义数据传输对象列表
+   * Truy vấn danh sách định nghĩa nhóm Webhook
+   * @param input Điều kiện lọc nhóm Webhook
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa nhóm Webhook
    */
   function getListApi(
     input?: WebhookGroupDefinitionGetListInput,
@@ -54,9 +54,9 @@ export function useWebhookGroupDefinitionsApi() {
   }
 
   /**
-   * 创建Webhook分组定义
-   * @param input Webhook分组定义参数
-   * @returns Webhook分组定义数据传输对象
+   * Tạo định nghĩa nhóm Webhook
+   * @param input Tham số định nghĩa nhóm Webhook
+   * @returns Đối tượng truyền dữ liệu định nghĩa nhóm Webhook
    */
   function createApi(
     input: WebhookGroupDefinitionCreateDto,
@@ -71,10 +71,10 @@ export function useWebhookGroupDefinitionsApi() {
   }
 
   /**
-   * 更新Webhook分组定义
-   * @param name Webhook分组名称
-   * @param input Webhook分组定义参数
-   * @returns Webhook分组定义数据传输对象
+   * Cập nhật định nghĩa nhóm Webhook
+   * @param name Tên nhóm Webhook
+   * @param input Tham số định nghĩa nhóm Webhook
+   * @returns Đối tượng truyền dữ liệu định nghĩa nhóm Webhook
    */
   function updateApi(
     name: string,

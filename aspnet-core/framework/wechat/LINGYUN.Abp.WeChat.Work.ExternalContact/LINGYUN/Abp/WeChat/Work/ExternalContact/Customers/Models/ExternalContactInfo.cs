@@ -5,81 +5,81 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 外部联系人信息
+/// Thông tin liên hệ bên ngoài
 /// </summary>
 public class ExternalContactInfo
 {
     /// <summary>
-    /// 外部联系人的userid
+    /// userid của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]
     [JsonPropertyName("external_userid")]
     public string ExternalUserId { get; set; } = default!;
     /// <summary>
-    /// 外部联系人的名称
+    /// Tên của liên hệ bên ngoài
     /// </summary>
     /// <remarks>
-    /// 如果是微信用户，则返回其微信昵称。<br />
-    /// 如果是企业微信联系人，则返回其设置对外展示的别名或实名
+    /// Nếu là người dùng WeChat, trả về biệt danh WeChat của họ.<br />
+    /// Nếu là liên hệ WeChat doanh nghiệp, trả về bí danh hoặc tên thật mà họ đã đặt để hiển thị ra bên ngoài
     /// </remarks>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 外部联系人头像
+    /// Ảnh đại diện của liên hệ bên ngoài
     /// </summary>
     [CanBeNull]
     [JsonProperty("avatar")]
     [JsonPropertyName("avatar")]
     public string? Avatar { get; set; }
     /// <summary>
-    /// 外部联系人的类型
+    /// Loại của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public ExternalContactType Type { get; set; }
     /// <summary>
-    /// 外部联系人性别
+    /// Giới tính của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("gender")]
     [JsonPropertyName("gender")]
     public ExternalContactGender Gender { get; set; }
     /// <summary>
-    /// 外部联系人在微信开放平台的唯一身份标识（微信unionid），通过此字段企业可将外部联系人与公众号/小程序用户关联起来。<br />
-    /// 仅当联系人类型是微信用户，且企业绑定了微信开发者ID有此字段
+    /// Định danh duy nhất của liên hệ bên ngoài trên nền tảng mở WeChat (unionid WeChat), thông qua trường này doanh nghiệp có thể liên kết liên hệ bên ngoài với người dùng tài khoản công khai/tiểu trình.<br />
+    /// Chỉ có trường này khi loại liên hệ là người dùng WeChat và doanh nghiệp đã liên kết ID nhà phát triển WeChat
     /// </summary>
     [CanBeNull]
     [JsonProperty("unionid")]
     [JsonPropertyName("unionid")]
     public string? UnionId { get; set; }
     /// <summary>
-    /// 外部联系人的职位，如果外部企业或用户选择隐藏职位，则不返回，仅当联系人类型是企业微信用户时有此字段
+    /// Chức vụ của liên hệ bên ngoài; nếu doanh nghiệp hoặc người dùng bên ngoài chọn ẩn chức vụ thì không trả về, chỉ có trường này khi loại liên hệ là người dùng WeChat doanh nghiệp
     /// </summary>
     [CanBeNull]
     [JsonProperty("position")]
     [JsonPropertyName("position")]
     public string? Position { get; set; }
     /// <summary>
-    /// 外部联系人所在企业的简称，仅当联系人类型是企业微信用户时有此字段
+    /// Tên viết tắt của doanh nghiệp nơi liên hệ bên ngoài làm việc, chỉ có trường này khi loại liên hệ là người dùng WeChat doanh nghiệp
     /// </summary>
     [CanBeNull]
     [JsonProperty("corp_name")]
     [JsonPropertyName("corp_name")]
     public string? CorpName { get; set; }
     /// <summary>
-    /// 外部联系人所在企业的主体名称，仅当联系人类型是企业微信用户时有此字段<br />
-    /// 仅企业自建应用可获取
+    /// Tên chủ thể của doanh nghiệp nơi liên hệ bên ngoài làm việc, chỉ có trường này khi loại liên hệ là người dùng WeChat doanh nghiệp<br />
+    /// Chỉ ứng dụng tự xây dựng của doanh nghiệp mới lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("corp_full_name")]
     [JsonPropertyName("corp_full_name")]
     public string? CorpFullName { get; set; }
     /// <summary>
-    /// 外部联系人的自定义展示信息
+    /// Thông tin hiển thị tùy chỉnh của liên hệ bên ngoài
     /// </summary>
     [CanBeNull]
     [JsonProperty("external_profile")]

@@ -5,18 +5,18 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 数据流信息
+/// Thông tin luồng dữ liệu
 /// </summary>
 public class StreamInfo
 {
     /// <summary>
-    /// 数据流名称
+    /// Tên luồng dữ liệu
     /// </summary>
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
 
     /// <summary>
-    /// 存储类型
+    /// Loại lưu trữ
     /// </summary>
     /// <remarks>
     /// s3 / disk
@@ -25,7 +25,7 @@ public class StreamInfo
     public string? StorageType { get; set; }
 
     /// <summary>
-    /// 数据流类型
+    /// Loại luồng dữ liệu
     /// </summary>
     /// <remarks>
     /// logs / metrics / traces
@@ -34,22 +34,22 @@ public class StreamInfo
     public string? StreamType { get; set; }
 
     /// <summary>
-    /// 统计信息
+    /// Thông tin thống kê
     /// </summary>
     [JsonPropertyName("stats")]
     public StreamStats? Stats { get; set; }
 
     /// <summary>
-    /// 字段定义
+    /// Định nghĩa trường
     /// </summary>
     /// <remarks>
-    /// 查询参数 fetchSchema 为 false 时不返回
+    /// Khi tham số truy vấn fetchSchema là false thì không trả về
     /// </remarks>
     [JsonPropertyName("schema")]
     public StreamSchemaField[]? Schema { get; set; }
 
     /// <summary>
-    /// 数据流设置
+    /// Cài đặt luồng dữ liệu
     /// </summary>
     [JsonPropertyName("settings")]
     public StreamSettingsInfo? Settings { get; set; }

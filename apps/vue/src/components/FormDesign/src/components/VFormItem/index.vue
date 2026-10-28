@@ -23,7 +23,7 @@
         v-else-if="schema.component == 'Divider' && schema.label && !formItemProps.hiddenLabel"
         >{{ schema.label }}</Divider
       >
-      <!-- 部分控件需要一个空div -->
+      <!-- Một số control cần một div trống -->
       <div
         ><component
           class="v-form-item-wrapper"
@@ -87,7 +87,7 @@
         let { field, required, rules, labelCol, wrapperCol } = unref(props.schema);
         const { colon } = props.formConfig;
         const { itemProps } = unref(props.schema);
-        //<editor-fold desc="布局属性">
+        //<editor-fold desc="Thuộc tính bố cục">
         labelCol = labelCol
           ? labelCol
           : formConfig.layout === 'horizontal'
@@ -107,7 +107,7 @@
             ? { display: 'flex' }
             : {};
         /**
-         * 将字符串正则格式化成正则表达式
+         * Định dạng regex dạng chuỗi thành biểu thức chính quy
          */
         const newConfig = Object.assign(
           {},
@@ -140,7 +140,7 @@
           emit(schema.componentProps?.handle);
       };
       /**
-       * 处理异步属性，异步属性会导致一些属性渲染错误，如defaultValue异步加载会导致渲染不出来，故而此处只处理options，treeData，同步属性在cmpProps中处理
+       * Xử lý thuộc tính bất đồng bộ; thuộc tính bất đồng bộ có thể gây lỗi render cho một số thuộc tính, ví dụ defaultValue tải bất đồng bộ sẽ không render được, vì vậy ở đây chỉ xử lý options, treeData, các thuộc tính đồng bộ được xử lý trong cmpProps
        */
       const asyncProps = asyncComputed(async () => {
         let { options, treeData } = props.schema.componentProps ?? {};
@@ -152,7 +152,7 @@
         };
       });
       /**
-       * 处理同步属性
+       * Xử lý thuộc tính đồng bộ
        */
       const cmpProps = computed(() => {
         const isCheck =
@@ -191,7 +191,7 @@
   .ml-5 {
     margin-left: 5px;
   }
-  // form字段中的标签有ant-col，不能使用width:100%
+  // Nhãn trong trường form có ant-col, không thể dùng width:100%
   :deep(.ant-col) {
     width: auto;
   }

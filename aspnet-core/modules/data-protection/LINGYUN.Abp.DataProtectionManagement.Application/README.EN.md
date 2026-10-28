@@ -36,4 +36,4 @@ Data protection management application service module, providing application ser
 
 ## Related Links
 
-* [中文文档](./README.md)
+* [Tiếng Việt](./README.md)

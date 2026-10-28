@@ -6,7 +6,7 @@ using Xunit;
 namespace LINGYUN.Abp.BlobManagement;
 
 /// <summary>
-/// 存储容器
+/// Vùng chứa lưu trữ
 /// </summary>
 public class BlobContainer_Tests : AbpBlobManagementDomainTestBase
 {
@@ -39,7 +39,7 @@ public class BlobContainer_Tests : AbpBlobManagementDomainTestBase
     [InlineData("users")]
     [InlineData("my-container")]
     [InlineData("my_container.1")]
-    [InlineData("对象存储")]
+    [InlineData("lưu trữ đối tượng")]
     public void Should_Allow_Legitimate_Names(string name)
     {
         var container = new TestBlobContainer();
@@ -50,7 +50,7 @@ public class BlobContainer_Tests : AbpBlobManagementDomainTestBase
     }
 
     /// <summary>
-    /// 实体构造函数为 internal, 测试用子类暴露受保护构造函数
+    /// Hàm tạo của thực thể là internal, lớp con dùng cho kiểm thử công khai hàm tạo protected
     /// </summary>
     private sealed class TestBlobContainer : BlobContainer
     {

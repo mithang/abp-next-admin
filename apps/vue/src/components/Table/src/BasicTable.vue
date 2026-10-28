@@ -44,7 +44,7 @@
           <HeaderCell :column="column" />
         </slot>
       </template>
-       <!-- 增加对antdv3.x兼容 -->
+       <!-- Tăng khả năng tương thích với antdv3.x -->
       <template #bodyCell="data">
         <slot name="bodyCell" v-bind="data || {}"></slot>
       </template>
@@ -211,7 +211,7 @@
       function handleTableChange(pagination: any, filters: any, sorter: any, extra: any) {
         onTableChange(pagination, filters, sorter);
         emit('change', pagination, filters, sorter);
-        // 解决通过useTable注册onChange时不起作用的问题
+        // Khắc phục vấn đề onChange đăng ký qua useTable không có tác dụng
         const { onChange } = unref(getProps);
         onChange && isFunction(onChange) && onChange(pagination, filters, sorter, extra);
       }
@@ -502,7 +502,7 @@
       overflow-x: hidden;
 
       // .ant-table-body {
-      //   overflow: auto !important; // 注释解决列头宽度不一致问题
+      //   overflow: auto !important; // Comment khắc phục vấn đề độ rộng tiêu đề cột không nhất quán
       // }
 
       &-title {

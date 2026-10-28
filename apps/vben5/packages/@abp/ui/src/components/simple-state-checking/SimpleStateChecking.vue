@@ -77,7 +77,7 @@ const getTableColumns = computed(() => {
     ...columns,
     ...(props.disabled
       ? []
-      : [
+      : ([
           {
             align: 'center',
             dataIndex: 'action',
@@ -86,7 +86,7 @@ const getTableColumns = computed(() => {
             title: $t('component.simple_state_checking.table.actions'),
             width: 180,
           },
-        ]),
+        ] satisfies ColumnsType)),
   ];
 });
 const getSimpleCheckers = computed(() => {

@@ -46,7 +46,7 @@ type WorkspaceDefinitionVto = Omit<
   'creationTime'
 > & { apiKey?: string };
 
-// 默认表单数据
+// Dữ liệu biểu mẫu mặc định
 const defaultModel: WorkspaceDefinitionVto = {
   id: '',
   name: '',
@@ -66,20 +66,20 @@ const { deserialize: deserializeLocalizableString } =
 const { getPagedListApi: getAIToolPagedListApi } = useAIToolsApi();
 const { createApi, updateApi, getApi, getAvailableProviderListApi } =
   useWorkspaceDefinitionsApi();
-// 表单允许编辑
+// Biểu mẫu cho phép chỉnh sửa
 const isAllowUpdate = ref(false);
-// 表单
+// Biểu mẫu
 const form = useTemplateRef<FormInstance>('formEl');
-// 表单数据
+// Dữ liệu biểu mẫu
 const formModel = ref<WorkspaceDefinitionVto>({ ...defaultModel });
-// 模型提供者选项
+// Tùy chọn nhà cung cấp mô hình
 const providerOptions = ref<NonNullable<SelectProps['options']>>([]);
-// 模型选项
+// Tùy chọn mô hình
 const modelOptions = ref<NonNullable<SelectProps['options']>>([]);
-// AI工具
+// Công cụ AI
 const aiToolOptions = ref<NonNullable<SelectProps['options']>>([]);
 
-// 工作区编辑模态框
+// Hộp thoại chỉnh sửa không gian làm việc
 const [Modal, modalApi] = useVbenModal({
   title: $t('AIManagement.Workspaces:New'),
   class: 'w-1/2',
@@ -91,7 +91,7 @@ const [Modal, modalApi] = useVbenModal({
     isOpen && (await onInit());
   },
 });
-/** 初始化工作区数据 */
+/** Khởi tạo dữ liệu không gian làm việc */
 async function onInit() {
   try {
     modalApi.setState({
@@ -119,7 +119,7 @@ async function onInit() {
     });
   }
 }
-/** 初始化模型选项 */
+/** Khởi tạo tùy chọn mô hình */
 async function onInitProviderOptions() {
   modelOptions.value = [];
   const { items } = await getAvailableProviderListApi();
@@ -137,7 +137,7 @@ async function onInitProviderOptions() {
   });
 }
 
-/** 初始化AI工具选项 */
+/** Khởi tạo tùy chọn công cụ AI */
 const onSearchAIToolOptions = debounce((filter?: string) => {
   getAIToolPagedListApi({ isEnabled: true, filter }).then((res) => {
     aiToolOptions.value = res.items.map((item) => {
@@ -162,7 +162,7 @@ function onProviderChange(_: SelectValue, option: DefaultOptionType) {
   modelOptions.value = option.models;
 }
 
-/** 提交表单 */
+/** Gửi biểu mẫu */
 async function onSubmit() {
   await form.value?.validate();
   try {

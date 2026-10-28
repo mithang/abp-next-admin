@@ -7,56 +7,56 @@ namespace LINGYUN.Abp.IdentityServer.Clients;
 public class ClientCloneDto
 {
     /// <summary>
-    /// 客户端标识
+    /// Định danh client
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientIdMaxLength))]
     public string ClientId { get; set; } = default!;
     /// <summary>
-    /// 客户端名称
+    /// Tên client
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientNameMaxLength))]
     public string ClientName { get; set; } = default!;
     /// <summary>
-    /// 说明
+    /// Mô tả
     /// </summary>
     [DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.DescriptionMaxLength))]
     public string? Description { get; set; }
     /// <summary>
-    /// 复制客户端授权类型
+    /// Sao chép loại cấp quyền của client
     /// </summary>
     public bool CopyAllowedGrantType { get; set; }
     /// <summary>
-    /// 复制客户端重定向 Uri
+    /// Sao chép Uri chuyển hướng của client
     /// </summary>
     public bool CopyRedirectUri { get; set; }
     /// <summary>
-    /// 复制客户端作用域
+    /// Sao chép phạm vi của client
     /// </summary>
     public bool CopyAllowedScope { get; set; }
     /// <summary>
-    /// 复制客户端声明
+    /// Sao chép claim của client
     /// </summary>
     public bool CopyClaim { get; set; }
     /// <summary>
-    /// 复制客户端密钥
+    /// Sao chép khóa bí mật của client
     /// </summary>
     public bool CopySecret { get; set; }
     /// <summary>
-    /// 复制客户端跨域来源
+    /// Sao chép nguồn CORS được phép của client
     /// </summary>
     public bool CopyAllowedCorsOrigin { get; set; }
     /// <summary>
-    /// 复制客户端注销重定向 Uri
+    /// Sao chép Uri chuyển hướng sau khi đăng xuất của client
     /// </summary>
     public bool CopyPostLogoutRedirectUri { get; set; }
     /// <summary>
-    /// 复制客户端属性
+    /// Sao chép thuộc tính của client
     /// </summary>
     public bool CopyPropertie { get; set; }
     /// <summary>
-    /// 复制客户端 IdP 限制
+    /// Sao chép giới hạn IdP của client
     /// </summary>
     public bool CopyIdentityProviderRestriction { get; set; }
     public ClientCloneDto()

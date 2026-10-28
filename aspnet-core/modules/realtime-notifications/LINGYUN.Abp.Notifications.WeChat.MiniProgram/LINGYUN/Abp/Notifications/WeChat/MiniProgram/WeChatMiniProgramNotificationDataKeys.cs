@@ -3,56 +3,56 @@ using System;
 namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram;
 
 /// <summary>
-/// 微信小程序通知数据键
+/// Khóa dữ liệu thông báo của Mini Program WeChat
 /// </summary>
 /// <remarks>
 /// <para>
-/// 键名统一带本渠道前缀(<see cref="Prefix"/>), 与其它渠道保持一致,
-/// 避免不同渠道的键在同一个通知数据属性包中相互冲突。
+/// Tên khóa thống nhất mang tiền tố của kênh này (<see cref="Prefix"/>), nhất quán với các kênh khác,
+/// tránh xung đột giữa các khóa của các kênh khác nhau trong cùng một gói thuộc tính dữ liệu thông báo。
 /// </para>
 /// <para>
-/// 读取过程大小写不敏感(精确匹配优先), 因此生产者使用任意大小写都能命中。
+/// Quá trình đọc không phân biệt chữ hoa chữ thường (ưu tiên khớp chính xác), vì vậy bên sản xuất dùng chữ hoa/thường tùy ý đều khớp được。
 /// </para>
 /// </remarks>
 public static class WeChatMiniProgramNotificationDataKeys
 {
     /// <summary>
-    /// 本渠道的数据键前缀
+    /// Tiền tố khóa dữ liệu của kênh này
     /// </summary>
     public const string Prefix = "wx-mp:";
 
     /// <summary>
-    /// 小程序模板标识(载荷标识键)
+    /// Định danh mẫu Mini Program (khóa định danh tải trọng)
     /// </summary>
     public const string TemplateId = Prefix + "template_id";
 
     /// <summary>
-    /// 点击跳转的小程序页面
+    /// Trang Mini Program sẽ chuyển đến khi nhấn
     /// </summary>
     public const string RedirectPage = Prefix + "redirect_page";
 
     /// <summary>
-    /// 跳转小程序类型
+    /// Loại Mini Program sẽ chuyển đến
     /// </summary>
     public const string WeAppState = Prefix + "weapp_state";
 
     /// <summary>
-    /// 小程序语言
+    /// Ngôn ngữ Mini Program
     /// </summary>
     public const string WeAppLanguage = Prefix + "weapp_language";
 
     /// <summary>
-    /// 历史遗留的无前缀键
+    /// Khóa cũ không có tiền tố còn tồn tại vì lý do lịch sử
     /// </summary>
     /// <remarks>
     /// <para>
-    /// 早期版本使用无前缀键, 已安装的生产者可能仍在写入, 因此保留**只读兼容**。
+    /// Các phiên bản trước dùng khóa không có tiền tố, bên sản xuất đã cài đặt có thể vẫn đang ghi, vì vậy giữ lại để **tương thích chỉ đọc**。
     /// </para>
     /// <para>
-    /// <b>已弃用</b>: 新代码请使用带前缀的常量(<see cref="TemplateId"/> 等)。
-    /// 唯一允许的读取点是渠道侧的历史回退
+    /// <b>Đã lỗi thời</b>: mã mới hãy dùng hằng số có tiền tố (<see cref="TemplateId"/> v.v.).
+    /// Điểm đọc duy nhất được phép là cơ chế dự phòng lịch sử phía kênh
     /// (<c>WeChatMiniProgramNotificationPublishProvider.ApplyLegacyKeys</c>),
-    /// 它命中遗留键时会记录告警以推动生产者迁移。
+    /// Khi khớp khóa cũ, nó sẽ ghi cảnh báo để thúc đẩy bên sản xuất di chuyển。
     /// </para>
     /// </remarks>
     [Obsolete("The legacy non-prefixed keys are deprecated. Use the prefixed constants instead, for example WeChatMiniProgramNotificationDataKeys.TemplateId. They are kept for read-only fallback to remain compatible with already deployed producers.")]
@@ -61,31 +61,31 @@ public static class WeChatMiniProgramNotificationDataKeys
 #pragma warning disable CS0618 // Type or member is obsolete: the nested class references its own members
 
         /// <summary>
-        /// 历史: 小程序模板标识
+        /// Lịch sử: định danh mẫu Mini Program
         /// </summary>
         [Obsolete("The legacy non-prefixed key is deprecated. Use WeChatMiniProgramNotificationDataKeys.TemplateId instead.")]
         public const string TemplateId = "TemplateId";
 
         /// <summary>
-        /// 历史: 点击跳转的小程序页面
+        /// Lịch sử: trang Mini Program sẽ chuyển đến khi nhấn
         /// </summary>
         [Obsolete("The legacy non-prefixed key is deprecated. Use WeChatMiniProgramNotificationDataKeys.RedirectPage instead.")]
         public const string RedirectPage = "RedirectPage";
 
         /// <summary>
-        /// 历史: 跳转小程序类型
+        /// Lịch sử: loại Mini Program sẽ chuyển đến
         /// </summary>
         [Obsolete("The legacy non-prefixed key is deprecated. Use WeChatMiniProgramNotificationDataKeys.WeAppState instead.")]
         public const string WeAppState = "WeAppState";
 
         /// <summary>
-        /// 历史: 小程序语言
+        /// Lịch sử: ngôn ngữ Mini Program
         /// </summary>
         [Obsolete("The legacy non-prefixed key is deprecated. Use WeChatMiniProgramNotificationDataKeys.WeAppLanguage instead.")]
         public const string WeAppLanguage = "WeAppLanguage";
 
         /// <summary>
-        /// 全部历史键
+        /// Tất cả các khóa lịch sử
         /// </summary>
         public static readonly string[] All =
         {

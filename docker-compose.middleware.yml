@@ -1,3 +1,11 @@
+# DEV-05 (devops iter-0005): middleware credentials are parameterized.
+# Each secret below reads from an environment variable (or a .env file next
+# to this compose file) and falls back to the previous in-repo dev default.
+# WARNING — dev only: change every default before any shared/staging/
+# production deploy; never rely on these defaults outside local dev.
+# Example override: MYSQL_ROOT_PASSWORD=<new-value> docker compose -f
+# docker-compose.middleware.yml up -d
+
 version: '3.4'
 
 services:
@@ -12,17 +20,30 @@ services:
     ports:
       - "6379:6379"
     restart: always
+    # DEV-10 (devops iter-0003, partial): local Redis 7.4.2 measured
+    # 5.77 MB used_memory / ~10 MB RSS with maxmemory unset (unbounded by
+    # default), so a container cap is the only guard against a runaway key
+    # load. 256m is ~25x the measured idle use; cpus 0.5 fits a cache
+    # on a shared dev host. Same mem_limit/cpus convention as
+    # docker-compose.allinone.yml (honored by `docker compose up`).
+    mem_limit: 256m
+    cpus: 0.5
     networks:
       - abp-next-admin
 
   abp-mysql:
-    image: mysql
+    # DEV-02 (devops iter-0010): pinned to 8.0.46 — untagged `mysql` now
+    # resolves to 8.4+/9.x, where --default-authentication-plugin (below)
+    # was removed, so mysqld would refuse to start with this command.
+    # Tag verified via Docker Hub API; `docker compose up` still needs
+    # verification (Docker BLOCKED).
+    image: mysql:8.0.46
     hostname: abp-mysql
     container_name: abp-mysql
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-123456}
       - MYSQL_ROOT_HOST=%
       - TZ=Asia/Shanghai
     command:
@@ -37,11 +58,21 @@ services:
       - ./deploy/middleware/mysql/logs:/logs
       - ./deploy/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     restart: always
+    # DEV-10 (devops iter-0007, provisional): this file sets
+    # max_connections=1024; 2g covers the default buffer pool plus
+    # per-connection overhead on a dev host. Needs verification by a
+    # real `docker compose up` (Docker BLOCKED).
+    mem_limit: 2g
+    cpus: 1.0
     networks:
       - abp-next-admin
 
   abp-rabbitmq:
-    image: rabbitmq:management
+    # DEV-02 (devops iter-0010): pinned to 3.13.1-management — same broker
+    # version the Aspire AppHost provisions (3.13.1); the floating
+    # `management` tag previously tracked latest. Tag verified via
+    # Docker Hub API; `docker compose up` still needs verification.
+    image: rabbitmq:3.13.1-management
     hostname: abp-rabbitmq
     container_name: abp-rabbitmq
     ports:
@@ -49,15 +80,21 @@ services:
       - "15672:15672"
       - "25672:25672"
     environment:
-      - RABBITMQ_ERLANG_COOKIE=8ue48g9FJQ87YV9Hfd8yhg==
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE:-8ue48g9FJQ87YV9Hfd8yhg==}
       - RABBITMQ_DEFAULT_VHOST=/
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-admin}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-123456}
       - TZ=Asia/Shanghai
     volumes:
       - ./deploy/middleware/rabbitmq/logs:/var/log/rabbitmq
       - ./deploy/middleware/rabbitmq/data:/var/lib/rabbitmq
     restart: always
+    # DEV-10 (devops iter-0007, provisional): Erlang VM +
+    # management plugin; no in-file memory setting to derive from, so
+    # 1g is a dev cap, not a tuned value. Needs verification by a
+    # real `docker compose up` (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     networks:
       - abp-next-admin
 
@@ -65,6 +102,12 @@ services:
     image: elasticsearch:7.16.3
     container_name: abp-elasticsearch
     restart: always
+    # DEV-10 (devops iter-0003, partial, code-derived not measured):
+    # ES_JAVA_OPTS below fixes the JVM heap at 2g; Elasticsearch guidance
+    # is heap <= 50% of container memory, so the container cap is 4g.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED here).
+    mem_limit: 4g
+    cpus: 1.0
     environment:
       - "cluster.name=elasticsearch"
       - "discovery.type=single-node"
@@ -83,6 +126,11 @@ services:
     image: kibana:7.16.3
     container_name: abp-kibana
     restart: always
+    # DEV-10 (devops iter-0007, provisional): Node.js Kibana
+    # 7.16; no heap setting in this file, so 2g is a dev cap.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    mem_limit: 2g
+    cpus: 1.0
     depends_on:
       - abp-elasticsearch
     environment:
@@ -99,6 +147,12 @@ services:
     image: logstash:7.16.3
     container_name: abp-logstash
     restart: always
+    # DEV-10 (devops iter-0007, provisional): Logstash 7.x
+    # defaults to a 1g JVM heap; container 2g keeps heap <= 50% of
+    # container memory, same rule as abp-elasticsearch in iter-0003.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    mem_limit: 2g
+    cpus: 1.0
     environment:
       - TZ=Asia/Shanghai
     depends_on:
@@ -114,10 +168,15 @@ services:
     image: openobserve/openobserve:v1.0.4
     container_name: abp-openobserve
     restart: always
+    # DEV-10 (devops iter-0007, provisional): single Rust
+    # binary; no memory setting in this file, so 1g is a dev cap.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - "ZO_DATA_DIR=/data"
       - "ZO_ROOT_USER_EMAIL=admin@abp.io"
-      - "ZO_ROOT_USER_PASSWORD=ww1Z5L%6"
+      - "ZO_ROOT_USER_PASSWORD=${ZO_ROOT_USER_PASSWORD:-ww1Z5L%6}"
       - "TZ=Asia/Shanghai"
     volumes:
       - ./deploy/openobserve/data:/data
@@ -131,6 +190,11 @@ services:
     image: otel/opentelemetry-collector-contrib:0.162.0
     container_name: abp-otel-collector
     restart: always
+    # DEV-10 (devops iter-0007, provisional): Go collector
+    # with a small pipeline (OTLP -> OpenObserve); 512m is a dev cap.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    mem_limit: 512m
+    cpus: 0.5
     volumes:
       - ./deploy/openobserve/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     ports:

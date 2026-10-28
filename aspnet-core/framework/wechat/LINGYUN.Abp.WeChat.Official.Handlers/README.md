@@ -1,23 +1,23 @@
 # LINGYUN.Abp.WeChat.Official.Handlers
 
-微信公众号消息处理模块，提供微信公众号消息和事件处理的基础实现。
+Module xử lý tin nhắn tài khoản công khai WeChat, cung cấp triển khai cơ bản cho việc xử lý tin nhắn và sự kiện của tài khoản công khai WeChat.
 
-## 功能特性
+## Tính năng
 
-* 文本消息处理
-* 图片消息处理
-* 语音消息处理
-* 视频消息处理
-* 小视频消息处理
-* 地理位置消息处理
-* 链接消息处理
-* 关注/取消关注事件处理
-* 扫描带参数二维码事件处理
-* 上报地理位置事件处理
-* 自定义菜单事件处理
-* 模板消息事件处理
+* Xử lý tin nhắn văn bản
+* Xử lý tin nhắn hình ảnh
+* Xử lý tin nhắn giọng nói
+* Xử lý tin nhắn video
+* Xử lý tin nhắn video ngắn
+* Xử lý tin nhắn vị trí địa lý
+* Xử lý tin nhắn liên kết
+* Xử lý sự kiện theo dõi/hủy theo dõi
+* Xử lý sự kiện quét mã QR có tham số
+* Xử lý sự kiện báo cáo vị trí địa lý
+* Xử lý sự kiện menu tùy chỉnh
+* Xử lý sự kiện tin nhắn mẫu
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpWeChatOfficialHandlersModule))]
@@ -27,32 +27,32 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "Official": {
       "Handlers": {
-        "DefaultResponseType": "text",  // 默认响应类型：text/image/voice/video/music/news
-        "DefaultResponse": "",          // 默认响应内容
-        "EnableDefaultResponse": true   // 是否启用默认响应
+        "DefaultResponseType": "text",  // Loại phản hồi mặc định: text/image/voice/video/music/news
+        "DefaultResponse": "",          // Nội dung phản hồi mặc định
+        "EnableDefaultResponse": true   // Có bật phản hồi mặc định hay không
       }
     }
   }
 }
 ```
 
-## 自定义处理器
+## Trình xử lý tùy chỉnh
 
-要实现自定义消息处理器，需要继承相应的基类：
+Để triển khai trình xử lý tin nhắn tùy chỉnh, cần kế thừa lớp cơ sở tương ứng:
 
-* 文本消息：`WeChatOfficialTextMessageHandlerBase`
-* 图片消息：`WeChatOfficialImageMessageHandlerBase`
-* 语音消息：`WeChatOfficialVoiceMessageHandlerBase`
-* 视频消息：`WeChatOfficialVideoMessageHandlerBase`
-* 事件消息：`WeChatOfficialEventMessageHandlerBase`
+* Tin nhắn văn bản：`WeChatOfficialTextMessageHandlerBase`
+* Tin nhắn hình ảnh：`WeChatOfficialImageMessageHandlerBase`
+* Tin nhắn giọng nói：`WeChatOfficialVoiceMessageHandlerBase`
+* Tin nhắn video：`WeChatOfficialVideoMessageHandlerBase`
+* Tin nhắn sự kiện：`WeChatOfficialEventMessageHandlerBase`
 
-## 更多文档
+## Tài liệu thêm
 
-* [微信公众号消息处理模块文档](README.EN.md)
+* [Tài liệu module xử lý tin nhắn tài khoản công khai WeChat](README.EN.md)

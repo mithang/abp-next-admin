@@ -74,13 +74,13 @@ public class PortalGrantValidator : IExtensionGrantValidator
     {
         /*  ************************************
          * 
-         * 启用平台登录后，需要管理员在宿主端定义企业信息, 并关联到某个租户
+         * Sau khi bật đăng nhập nền tảng, quản trị viên cần định nghĩa thông tin doanh nghiệp ở phía host và liên kết với một tenant nào đó
          * 
-         *  1、用户使用protal发起登录请求
-         *  2、检查是否携带企业标识字段 EnterpriseId
-         *  2.1、未携带 EnterpriseId 字段, 检索关联了租户信息的企业列表, 通过自定义标头反馈给用户端
-         *  2.2、检索关联 EnterpriseId 的租户信息, 切换指定租户, 通过 password 方式来进行登录验证
-         *  3、登录成功返回token
+         *  1、Người dùng dùng portal để gửi yêu cầu đăng nhập
+         *  2、Kiểm tra xem có mang theo trường định danh doanh nghiệp EnterpriseId hay không
+         *  2.1、Nếu không mang theo trường EnterpriseId, truy vấn danh sách doanh nghiệp đã liên kết thông tin tenant rồi phản hồi cho phía client qua tiêu đề tùy chỉnh
+         *  2.2、Truy vấn thông tin tenant liên kết với EnterpriseId, chuyển sang tenant đã chỉ định rồi xác thực đăng nhập bằng phương thức password
+         *  3、Đăng nhập thành công thì trả về token
          * 
          *  *************************************/
 
@@ -99,7 +99,7 @@ public class PortalGrantValidator : IExtensionGrantValidator
                     TokenRequestErrors.InvalidGrant,
                     customResponse: new Dictionary<string, object>
                     {
-                        // 是否可直接选择的模式
+                        // Chế độ có thể chọn trực tiếp hay không
                         { "Enterprises", JsonConvert.SerializeObject(enterprises.Select(x => new { Id = x.Id, Name = x.Name, Logo = x.Logo })) },
                     });
                 return;

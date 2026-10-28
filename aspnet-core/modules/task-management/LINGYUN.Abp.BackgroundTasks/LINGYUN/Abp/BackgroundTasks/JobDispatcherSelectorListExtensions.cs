@@ -16,7 +16,7 @@ public static class JobDispatcherSelectorListExtensions
     /// <param name="selectors"></param>
     /// <param name="setup"></param>
     /// <remarks>
-    /// Tips: 仅作用于适用于<see cref="IBackgroundJobManager" /> 接口的作业预配置
+    /// Tips: Chỉ áp dụng cho cấu hình trước của tác vụ phù hợp với giao diện <see cref="IBackgroundJobManager" />
     /// </remarks>
     public static void AddJob<TJob>([NotNull] this IJobDispatcherSelectorList selectors, [CanBeNull] Action<JobTypeSelector>? setup = null)
     {
@@ -50,7 +50,7 @@ public static class JobDispatcherSelectorListExtensions
     /// <param name="selectors"></param>
     /// <param name="setup"></param>
     /// <remarks>
-    /// Tips: 仅作用于适用于<see cref="IBackgroundWorker" /> 接口的作业预配置
+    /// Tips: Chỉ áp dụng cho cấu hình trước của tác vụ phù hợp với giao diện <see cref="IBackgroundWorker" />
     /// </remarks>
     public static void AddWorker<TWorker>([NotNull] this IJobDispatcherSelectorList selectors, [CanBeNull] Action<JobTypeSelector>? setup = null)
         where TWorker : IBackgroundWorker

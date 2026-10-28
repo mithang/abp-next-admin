@@ -8,11 +8,11 @@ public class PlatformSettingNames
     {
         public const string Default = GroupName + ".AppVersion";
         /// <summary>
-        /// 文件限制长度
+        /// Độ dài giới hạn của tệp
         /// </summary>
         public const string VersionFileLimitLength = Default + ".VersionFileLimitLength";
         /// <summary>
-        /// 允许的文件扩展名类型
+        /// Loại phần mở rộng tệp được phép
         /// </summary>
         public const string AllowVersionFileExtensions = Default + ".AllowVersionFileExtensions";
     }

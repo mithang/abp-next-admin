@@ -119,8 +119,8 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useLocalization } from '/@/hooks/abp/useLocalization';
 
-  // 由于通知可能需要前端本地化的特性
-  // 此模块需要所有的本地化资源
+  // Vì thông báo có thể cần tính năng bản địa hóa phía frontend
+  // Mô-đun này cần tất cả tài nguyên bản địa hóa
   const { L } = useLocalization();
 
   const [registerTable, { reload, clearSelectedRowKeys }] = useTable({

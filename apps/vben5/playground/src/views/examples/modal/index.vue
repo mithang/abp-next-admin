@@ -26,12 +26,12 @@ import SharedDataDemo from './shared-data-demo.vue';
 defineOptions({ name: 'ModalExample' });
 
 const [BaseModal, baseModalApi] = useVbenModal({
-  // 连接抽离的组件
+  // Kết nối component đã tách ra
   connectedComponent: BaseDemo,
 });
 
 const [InContentModal, inContentModalApi] = useVbenModal({
-  // 连接抽离的组件
+  // Kết nối component đã tách ra
   connectedComponent: InContentModalDemo,
 });
 
@@ -86,8 +86,8 @@ function openDynamicModal() {
 function openSharedModal() {
   sharedModalApi
     .setData({
-      content: '外部传递的数据 content',
-      payload: '外部传递的数据 payload',
+      content: 'Dữ liệu content truyền từ bên ngoài',
+      payload: 'Dữ liệu payload truyền từ bên ngoài',
     })
     .open();
 }
@@ -101,13 +101,13 @@ function openBlurModal() {
 }
 
 function handleUpdateTitle() {
-  dynamicModalApi.setState({ title: '外部动态标题' }).open();
+  dynamicModalApi.setState({ title: 'Tiêu đề động từ bên ngoài' }).open();
 }
 
 function openFormModal() {
   formModalApi
     .setData({
-      // 表单值
+      // Giá trị form
       values: { field1: 'abc', field2: '123' },
     })
     .open();
@@ -115,15 +115,15 @@ function openFormModal() {
 
 function openAlert() {
   alert({
-    content: '这是一个弹窗',
+    content: 'Đây là một hộp thoại',
     icon: 'success',
   }).then(() => {
-    message.info('用户关闭了弹窗');
+    message.info('Người dùng đã đóng hộp thoại');
   });
 }
 
 onBeforeUnmount(() => {
-  // 清除所有弹窗
+  // Xóa tất cả hộp thoại
   clearAllAlerts();
 });
 
@@ -131,7 +131,7 @@ function openConfirm() {
   confirm({
     beforeClose({ isConfirm }) {
       if (!isConfirm) return;
-      // 这里可以做一些异步操作
+      // Có thể thực hiện một số thao tác bất đồng bộ tại đây
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(true);
@@ -139,35 +139,35 @@ function openConfirm() {
       });
     },
     centered: false,
-    content: '这是一个确认弹窗',
+    content: 'Đây là một hộp thoại xác nhận',
     icon: 'question',
   })
     .then(() => {
-      message.success('用户确认了操作');
+      message.success('Người dùng đã xác nhận thao tác');
     })
     .catch(() => {
-      message.error('用户取消了操作');
+      message.error('Người dùng đã hủy thao tác');
     });
 }
 
 async function openPrompt() {
   prompt<string>({
     async beforeClose({ isConfirm, value }) {
-      if (isConfirm && value === '芝士') {
-        message.error('不能吃芝士');
+      if (isConfirm && value === 'phô mai') {
+        message.error('Không được ăn phô mai');
         return false;
       }
     },
-    componentProps: { placeholder: '不能吃芝士...' },
-    content: '中午吃了什么？',
+    componentProps: { placeholder: 'Không được ăn phô mai...' },
+    content: 'Buổi trưa đã ăn gì?',
     icon: 'question',
     overlayBlur: 3,
   })
     .then((res) => {
-      message.success(`用户输入了：${res}`);
+      message.success(`Người dùng đã nhập: ${res}`);
     })
     .catch(() => {
-      message.error('用户取消了输入');
+      message.error('Người dùng đã hủy nhập liệu');
     });
 }
 </script>
@@ -175,8 +175,8 @@ async function openPrompt() {
 <template>
   <Page
     auto-content-height
-    description="弹窗组件常用于在不离开当前页面的情况下，显示额外的信息、表单或操作提示，更多api请查看组件文档。"
-    title="弹窗组件示例"
+    description="Hộp thoại thường được dùng để hiển thị thông tin bổ sung, form hoặc gợi ý thao tác mà không cần rời khỏi trang hiện tại, xem thêm API trong tài liệu component."
+    title="Ví dụ về component hộp thoại"
   >
     <template #extra>
       <DocButton path="/components/common-ui/vben-modal" />
@@ -191,82 +191,94 @@ async function openPrompt() {
     <NestedModal />
     <BlurModal />
     <Flex wrap="wrap" class="w-full" gap="10">
-      <Card class="w-[300px]" title="基本使用">
-        <p>一个基础的弹窗示例</p>
+      <Card class="w-[300px]" title="Sử dụng cơ bản">
+        <p>Một ví dụ hộp thoại cơ bản</p>
         <template #actions>
-          <Button type="primary" @click="openBaseModal">打开弹窗</Button>
+          <Button type="primary" @click="openBaseModal">Mở hộp thoại</Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="指定容器+关闭后不销毁">
-        <p>在内容区域打开弹窗的示例</p>
+      <Card
+        class="w-[300px]"
+        title="Chỉ định container + không hủy sau khi đóng"
+      >
+        <p>Ví dụ mở hộp thoại trong khu vực nội dung</p>
         <template #actions>
-          <Button type="primary" @click="openInContentModal">打开弹窗</Button>
-        </template>
-      </Card>
-
-      <Card class="w-[300px]" title="内容高度自适应">
-        <p>可根据内容并自动调整高度</p>
-        <template #actions>
-          <Button type="primary" @click="openAutoHeightModal">
-            打开弹窗
+          <Button type="primary" @click="openInContentModal">
+            Mở hộp thoại
           </Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="可拖拽示例">
-        <p>配置 draggable 可开启拖拽功能</p>
+      <Card class="w-[300px]" title="Chiều cao nội dung tự thích ứng">
+        <p>Có thể tự động điều chỉnh chiều cao theo nội dung</p>
         <template #actions>
-          <Button type="primary" @click="openDragModal"> 打开弹窗 </Button>
+          <Button type="primary" @click="openAutoHeightModal">
+            Mở hộp thoại
+          </Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="动态配置示例">
-        <p>通过 setState 动态调整弹窗数据</p>
+      <Card class="w-[300px]" title="Ví dụ kéo thả">
+        <p>Cấu hình draggable để bật tính năng kéo thả</p>
+        <template #actions>
+          <Button type="primary" @click="openDragModal"> Mở hộp thoại </Button>
+        </template>
+      </Card>
+
+      <Card class="w-[300px]" title="Ví dụ cấu hình động">
+        <p>Điều chỉnh dữ liệu hộp thoại động qua setState</p>
         <template #extra>
-          <Button type="link" @click="openDynamicModal">打开弹窗</Button>
+          <Button type="link" @click="openDynamicModal">Mở hộp thoại</Button>
         </template>
         <template #actions>
           <Button type="primary" @click="handleUpdateTitle">
-            外部修改标题并打开
+            Sửa tiêu đề từ bên ngoài và mở
           </Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="内外数据共享示例">
-        <p>通过共享 sharedData 来进行数据交互</p>
+      <Card class="w-[300px]" title="Ví dụ chia sẻ dữ liệu trong/ngoài">
+        <p>Tương tác dữ liệu bằng cách chia sẻ sharedData</p>
         <template #actions>
           <Button type="primary" @click="openSharedModal">
-            打开弹窗并传递数据
+            Mở hộp thoại và truyền dữ liệu
           </Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="表单弹窗示例">
-        <p>弹窗与表单结合</p>
+      <Card class="w-[300px]" title="Ví dụ hộp thoại form">
+        <p>Hộp thoại kết hợp với form</p>
         <template #actions>
-          <Button type="primary" @click="openFormModal"> 打开表单弹窗 </Button>
+          <Button type="primary" @click="openFormModal">
+            Mở hộp thoại form
+          </Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="嵌套弹窗示例">
-        <p>在已经打开的弹窗中再次打开弹窗</p>
+      <Card class="w-[300px]" title="Ví dụ hộp thoại lồng nhau">
+        <p>Mở lại hộp thoại trong hộp thoại đã mở</p>
         <template #actions>
-          <Button type="primary" @click="openNestedModal">打开嵌套弹窗</Button>
+          <Button type="primary" @click="openNestedModal">
+            Mở hộp thoại lồng nhau
+          </Button>
         </template>
       </Card>
 
-      <Card class="w-[300px]" title="遮罩模糊示例">
-        <p>遮罩层应用类似毛玻璃的模糊效果</p>
+      <Card class="w-[300px]" title="Ví dụ làm mờ lớp phủ">
+        <p>Lớp phủ áp dụng hiệu ứng mờ tương tự kính mờ</p>
         <template #actions>
-          <Button type="primary" @click="openBlurModal">打开弹窗</Button>
+          <Button type="primary" @click="openBlurModal">Mở hộp thoại</Button>
         </template>
       </Card>
-      <Card class="w-[300px]" title="轻量提示弹窗">
+      <Card class="w-[300px]" title="Hộp thoại nhắc nhẹ">
         <template #extra>
           <DocButton path="/components/common-ui/vben-alert" />
         </template>
-        <p>通过快捷方法创建动态提示弹窗，适合一些轻量的提示和确认、输入等</p>
+        <p>
+          Tạo hộp thoại nhắc động bằng phương thức nhanh, phù hợp cho các nhắc,
+          xác nhận, nhập liệu nhẹ
+        </p>
         <template #actions>
           <Button type="primary" @click="openAlert">Alert</Button>
           <Button type="primary" @click="openConfirm">Confirm</Button>

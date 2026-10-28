@@ -6,13 +6,13 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 企业微信“审批应用”审批状态通知事件
+/// Sự kiện thông báo thay đổi trạng thái phê duyệt của “ứng dụng phê duyệt” WeChat Doanh nghiệp
 /// </summary>
 [EventName("sys_approval_change")]
 public class SysApprovalStatusChangeEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 审批信息
+    /// Thông tin phê duyệt
     /// </summary>
     [XmlElement("ApprovalInfo")]
     public SysApprovalInfo ApprovalInfo { get; set; } = default!;
@@ -26,80 +26,80 @@ public class SysApprovalStatusChangeEvent : WeChatWorkEventMessage
 public class SysApprovalInfo
 {
     /// <summary>
-    /// 审批编号（字符串类型）
+    /// Số phê duyệt (kiểu chuỗi)
     /// </summary>
     [XmlElement("SpNoStr")]
     public string SpNoStr { get; set; } = default!;
     /// <summary>
-    /// 审批申请类型名称（审批模板名称）
+    /// Tên loại đơn phê duyệt (tên mẫu phê duyệt)
     /// </summary>
     [XmlElement("SpName")]
     public string SpName { get; set; } = default!;
     /// <summary>
-    /// 申请单状态：1-审批中；2-已通过；3-已驳回；4-已撤销；6-通过后撤销；7-已删除；10-已支付
+    /// Trạng thái đơn: 1-Đang phê duyệt; 2-Đã thông qua; 3-Đã từ chối; 4-Đã thu hồi; 6-Thu hồi sau khi thông qua; 7-Đã xóa; 10-Đã thanh toán
     /// </summary>
     [XmlElement("SpStatus")]
     public byte SpStatus { get; set; }
     /// <summary>
-    /// 审批模板id。可在“获取审批申请详情”、“审批状态变化回调通知”中获得，也可在审批模板的模板编辑页面链接中获得。
+    /// Id mẫu phê duyệt. Có thể lấy trong “Lấy chi tiết đơn phê duyệt”, “Thông báo callback thay đổi trạng thái phê duyệt”, hoặc trong liên kết trang chỉnh sửa mẫu của mẫu phê duyệt.
     /// </summary>
     [XmlElement("TemplateId")]
     public string TemplateId { get; set; } = default!;
     /// <summary>
-    /// 审批申请提交时间,Unix时间戳
+    /// Thời gian nộp đơn phê duyệt, dấu thời gian Unix
     /// </summary>
     [XmlElement("ApplyTime")]
     public int ApplyTime { get; set; }
     /// <summary>
-    /// 申请人信息
+    /// Thông tin người nộp đơn
     /// </summary>
     [XmlElement("Applyer")]
     public SysApprovalApplyer Applyer { get; set; } = default!;
     /// <summary>
-    /// 审批流程信息，可能有多个审批节点。
+    /// Thông tin quy trình phê duyệt, có thể có nhiều nút phê duyệt.
     /// </summary>
     [XmlElement("SpRecord")]
     public List<SysApprovalRecord>? SpRecord { get; set; }
     /// <summary>
-    /// 抄送信息，可能有多个抄送节点
+    /// Thông tin gửi bản sao, có thể có nhiều nút gửi bản sao
     /// </summary>
     [XmlElement("Notifyer")]
     public List<SysApprovalNotifyer>? Notifyer { get; set; }
     /// <summary>
-    /// 审批申请备注信息，可能有多个备注节点
+    /// Thông tin ghi chú của đơn phê duyệt, có thể có nhiều nút ghi chú
     /// </summary>
     [XmlElement("Comments")]
     public List<SysApprovalComment>? Comments { get; set; }
     /// <summary>
-    /// 审批流程列表
+    /// Danh sách quy trình phê duyệt
     /// </summary>
     [XmlElement("ProcessList")]
     public List<SysApprovalProcess>? ProcessList { get; set; }
     /// <summary>
-    /// 审批申请状态变化类型：1-提单；2-同意；3-驳回；4-转审；5-催办；6-撤销；8-通过后撤销；10-添加备注；11-回退给指定审批人；12-添加审批人；13-加签并同意； 14-已办理； 15-已转交
+    /// Loại thay đổi trạng thái đơn phê duyệt: 1-Nộp đơn; 2-Đồng ý; 3-Từ chối; 4-Chuyển xét duyệt; 5-Đôn đốc; 6-Thu hồi; 8-Thu hồi sau khi thông qua; 10-Thêm ghi chú; 11-Trả lại cho người phê duyệt được chỉ định; 12-Thêm người phê duyệt; 13-Ký thêm và đồng ý; 14-Đã xử lý; 15-Đã chuyển giao
     /// </summary>
     [XmlElement("StatuChangeEvent")]
     public byte StatuChangeEvent { get; set; }
     /// <summary>
-    /// 审批编号
+    /// Số phê duyệt
     /// </summary>
     /// <remarks>
-    /// 局校审批单不返回此字段，其他类型审批单会返回此字段，不推荐使用此字段
+    /// Đơn phê duyệt của trường học/cục không trả về trường này, các loại đơn phê duyệt khác sẽ trả về trường này, không khuyến nghị sử dụng trường này
     /// </remarks>
     [XmlElement("SpNo")]
-    [Obsolete("局校审批单不返回此字段，其他类型审批单会返回此字段，不推荐使用此字段")]
+    [Obsolete("Đơn phê duyệt của trường học/cục không trả về trường này, các loại đơn phê duyệt khác sẽ trả về trường này, không khuyến nghị sử dụng trường này")]
     public string? SpNo { get; set; }
 }
 
 public class SysApprovalApplyer
 {
     /// <summary>
-    /// 申请人userid
+    /// Userid của người nộp đơn
     /// </summary>
     [XmlElement("UserId")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 申请人所在部门pid
+    /// Pid phòng ban của người nộp đơn
     /// </summary>
     [XmlElement("Party")]
     public string? Party { get; set; }
@@ -108,17 +108,17 @@ public class SysApprovalApplyer
 public class SysApprovalRecord
 {
     /// <summary>
-    /// 审批节点状态：1-审批中；2-已同意；3-已驳回；4-已转审
+    /// Trạng thái nút phê duyệt: 1-Đang phê duyệt; 2-Đã đồng ý; 3-Đã từ chối; 4-Đã chuyển xét duyệt
     /// </summary>
     [XmlElement("SpStatus")]
     public byte SpStatus { get; set; }
     /// <summary>
-    /// 节点审批方式：1-或签；2-会签
+    /// Phương thức phê duyệt của nút: 1-Một người ký là đủ; 2-Tất cả cùng ký
     /// </summary>
     [XmlElement("ApproverAttr")]
     public byte ApproverAttr { get; set; }
     /// <summary>
-    /// 节点审批方式：1-或签；2-会签
+    /// Phương thức phê duyệt của nút: 1-Một người ký là đủ; 2-Tất cả cùng ký
     /// </summary>
     [XmlElement("Details")]
     public List<SysApprovalRecordDetail>? Details { get; set; }
@@ -127,27 +127,27 @@ public class SysApprovalRecord
 public class SysApprovalRecordDetail
 {
     /// <summary>
-    /// 分支审批人
+    /// Người phê duyệt nhánh
     /// </summary>
     [XmlElement("Approver")]
     public SysApprovalApplyer Approver { get; set; } = default!;
     /// <summary>
-    /// 审批意见字段
+    /// Trường ý kiến phê duyệt
     /// </summary>
     [XmlElement("Speech")]
     public string? Speech { get; set; }
     /// <summary>
-    /// 分支审批人审批状态：1-审批中；2-已同意；3-已驳回；4-已转审
+    /// Trạng thái phê duyệt của người phê duyệt nhánh: 1-Đang phê duyệt; 2-Đã đồng ý; 3-Đã từ chối; 4-Đã chuyển xét duyệt
     /// </summary>
     [XmlElement("SpStatus")]
     public byte SpStatus { get; set; }
     /// <summary>
-    /// 节点分支审批人审批操作时间，0为尚未操作
+    /// Thời gian thao tác phê duyệt của người phê duyệt nhánh, 0 là chưa thao tác
     /// </summary>
     [XmlElement("SpTime")]
     public int SpTime { get; set; }
     /// <summary>
-    /// 节点分支审批人审批意见附件，赋值为media_id具体使用请参考：文档-获取临时素材
+    /// Tệp đính kèm ý kiến phê duyệt của người phê duyệt nhánh, gán giá trị là media_id; cách dùng cụ thể xem: Tài liệu - Lấy tài liệu tạm thời
     /// </summary>
     [XmlElement("Attach")]
     public string? Attach { get; set; }
@@ -156,7 +156,7 @@ public class SysApprovalRecordDetail
 public class SysApprovalNotifyer
 {
     /// <summary>
-    /// 节点抄送人userid
+    /// Userid của người nhận bản sao của nút
     /// </summary>
     [XmlElement("UserId")]
     public string UserId { get; set; } = default!;
@@ -165,27 +165,27 @@ public class SysApprovalNotifyer
 public class SysApprovalComment
 {
     /// <summary>
-    /// 备注人信息
+    /// Thông tin người ghi chú
     /// </summary>
     [XmlElement("CommentUserInfo")]
     public SysApprovalCommenter CommentUserInfo { get; set; } = default!;
     /// <summary>
-    /// 备注提交时间
+    /// Thời gian nộp ghi chú
     /// </summary>
     [XmlElement("CommentTime")]
     public int CommentTime { get; set; }
     /// <summary>
-    /// 备注文本内容
+    /// Nội dung văn bản ghi chú
     /// </summary>
     [XmlElement("CommentContent")]
     public string? CommentContent { get; set; }
     /// <summary>
-    /// 备注id
+    /// Id ghi chú
     /// </summary>
     [XmlElement("CommentId")]
     public string CommentId { get; set; } = default!;
     /// <summary>
-    /// 备注意见附件，值是附件media_id
+    /// Tệp đính kèm ý kiến ghi chú, giá trị là media_id của tệp đính kèm
     /// </summary>
     [XmlElement("Attach")]
     public string? Attach { get; set; }
@@ -194,7 +194,7 @@ public class SysApprovalComment
 public class SysApprovalCommenter
 {
     /// <summary>
-    /// 节点抄送人userid
+    /// Userid của người nhận bản sao của nút
     /// </summary>
     [XmlElement("UserId")]
     public string UserId { get; set; } = default!;
@@ -203,7 +203,7 @@ public class SysApprovalCommenter
 public class SysApprovalProcess
 {
     /// <summary>
-    /// 流程节点
+    /// Nút quy trình
     /// </summary>
     [XmlElement("NodeList")]
     public List<SysApprovalProcessNode>? NodeList { get; set; }
@@ -212,22 +212,22 @@ public class SysApprovalProcess
 public class SysApprovalProcessNode
 {
     /// <summary>
-    /// 节点类型 1 审批人 2 抄送人 3办理人
+    /// Loại nút: 1 Người phê duyệt, 2 Người nhận bản sao, 3 Người xử lý
     /// </summary>
     [XmlElement("NodeType")]
     public byte NodeType { get; set; }
     /// <summary>
-    /// 节点状态 1-审批中；2-同意；3-驳回；4-转审；11-退回给指定审批人；12-加签；13-同意并加签；14-办理；15-转交
+    /// Trạng thái nút: 1-Đang phê duyệt; 2-Đồng ý; 3-Từ chối; 4-Chuyển xét duyệt; 11-Trả lại cho người phê duyệt được chỉ định; 12-Ký thêm; 13-Đồng ý và ký thêm; 14-Xử lý; 15-Chuyển giao
     /// </summary>
     [XmlElement("SpStatus")]
     public byte SpStatus { get; set; }
     /// <summary>
-    /// 多人办理方式 1-会签；2-或签 3-依次审批
+    /// Cách xử lý nhiều người: 1-Cùng ký; 2-Một người ký là đủ; 3-Phê duyệt lần lượt
     /// </summary>
     [XmlElement("ApvRel")]
     public byte ApvRel { get; set; }
     /// <summary>
-    /// 子节点列表
+    /// Danh sách nút con
     /// </summary>
     [XmlElement("SubNodeList")]
     public List<SysApprovalProcessSubNode>? SubNodeList { get; set; }
@@ -236,27 +236,27 @@ public class SysApprovalProcessNode
 public class SysApprovalProcessSubNode
 {
     /// <summary>
-    /// 处理人信息
+    /// Thông tin người xử lý
     /// </summary>
     [XmlElement("UserInfo")]
     public SysApprovalProcesser UserInfo { get; set; } = default!;
     /// <summary>
-    /// 审批/办理意见
+    /// Ý kiến phê duyệt/xử lý
     /// </summary>
     [XmlElement("Speech")]
     public string? Speech { get; set; }
     /// <summary>
-    /// 子节点状态 1-审批中；2-同意；3-驳回；4-转审；11-退回给指定审批人；12-加签；13-同意并加签；14-办理；15-转交
+    /// Trạng thái nút con: 1-Đang phê duyệt; 2-Đồng ý; 3-Từ chối; 4-Chuyển xét duyệt; 11-Trả lại cho người phê duyệt được chỉ định; 12-Ký thêm; 13-Đồng ý và ký thêm; 14-Xử lý; 15-Chuyển giao
     /// </summary>
     [XmlElement("SpYj")]
     public byte SpYj { get; set; }
     /// <summary>
-    /// 操作时间
+    /// Thời gian thao tác
     /// </summary>
     [XmlElement("Sptime")]
     public int Sptime { get; set; }
     /// <summary>
-    /// 备注意见附件，值是附件media_id
+    /// Tệp đính kèm ý kiến ghi chú, giá trị là media_id của tệp đính kèm
     /// </summary>
     [XmlElement("MediaIds")]
     public string? MediaIds { get; set; }
@@ -265,7 +265,7 @@ public class SysApprovalProcessSubNode
 public class SysApprovalProcesser
 {
     /// <summary>
-    /// 处理人userid	
+    /// Userid của người xử lý	
     /// </summary>
     [XmlElement("UserId")]
     public string UserId { get; set; } = default!;

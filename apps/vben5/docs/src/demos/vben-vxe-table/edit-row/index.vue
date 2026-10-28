@@ -18,7 +18,7 @@ interface RowType {
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
-    { title: '序号', type: 'seq', width: 50 },
+    { title: 'STT', type: 'seq', width: 50 },
     { editRender: { name: 'input' }, field: 'category', title: 'Category' },
     { editRender: { name: 'input' }, field: 'color', title: 'Color' },
     {
@@ -28,7 +28,7 @@ const gridOptions: VxeGridProps<RowType> = {
     },
     { field: 'price', title: 'Price' },
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'Date' },
-    { slots: { default: 'action' }, title: '操作' },
+    { slots: { default: 'action' }, title: 'Thao tác' },
   ],
   editConfig: {
     mode: 'row',
@@ -65,7 +65,7 @@ async function saveRowEvent(row: RowType) {
   setTimeout(() => {
     gridApi.setLoading(false);
     message.success({
-      content: `保存成功！category=${row.category}`,
+      content: `Lưu thành công! category=${row.category}`,
     });
   }, 600);
 }
@@ -80,11 +80,11 @@ const cancelRowEvent = (_row: RowType) => {
     <Grid>
       <template #action="{ row }">
         <template v-if="hasEditStatus(row)">
-          <Button type="link" @click="saveRowEvent(row)">保存</Button>
-          <Button type="link" @click="cancelRowEvent(row)">取消</Button>
+          <Button type="link" @click="saveRowEvent(row)">Lưu</Button>
+          <Button type="link" @click="cancelRowEvent(row)">Hủy</Button>
         </template>
         <template v-else>
-          <Button type="link" @click="editRowEvent(row)">编辑</Button>
+          <Button type="link" @click="editRowEvent(row)">Sửa</Button>
         </template>
       </template>
     </Grid>

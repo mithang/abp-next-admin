@@ -12,17 +12,17 @@ public class WebhooksManagementOptions
     /// </summary>
     public bool IsDynamicWebhookStoreEnabled { get; set; }
     /// <summary>
-    /// 缓存刷新时间
+    /// Thời gian làm mới bộ nhớ đệm
     /// default: 30 seconds
     /// </summary>
     public TimeSpan WebhooksCacheRefreshInterval { get; set; }
     /// <summary>
-    /// 申请时间戳超时时间
+    /// Thời gian hết hạn của dấu thời gian khi yêu cầu
     /// default: 2 minutes
     /// </summary>
     public TimeSpan WebhooksCacheStampTimeOut { get; set; }
     /// <summary>
-    /// 时间戳过期时间
+    /// Thời gian hết hạn của dấu thời gian
     /// default: 30 minutes
     /// </summary>
     public TimeSpan WebhooksCacheStampExpiration { get; set; }
@@ -32,7 +32,7 @@ public class WebhooksManagementOptions
 
         WebhooksCacheRefreshInterval = TimeSpan.FromSeconds(30);
         WebhooksCacheStampTimeOut = TimeSpan.FromMinutes(2);
-        // 30分钟过期重新刷新缓存
+        // Hết hạn sau 30 phút thì làm mới lại bộ nhớ đệm
         WebhooksCacheStampExpiration = TimeSpan.FromMinutes(30);
     }
 }

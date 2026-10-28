@@ -108,7 +108,7 @@ public class ApiScopeAppService : AbpIdentityServerAppServiceBase, IApiScopeAppS
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.ApiScopes.ManageClaims))
         {
-            // 删除不存在的UserClaim
+            // Xóa UserClaim không tồn tại
             apiScope.UserClaims.RemoveAll(claim => !input.UserClaims.Any(inputClaim => claim.Type == inputClaim.Type));
             foreach (var inputClaim in input.UserClaims)
             {
@@ -122,7 +122,7 @@ public class ApiScopeAppService : AbpIdentityServerAppServiceBase, IApiScopeAppS
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.ApiScopes.ManageProperties))
         {
-            // 删除不存在的Property
+            // Xóa Property không tồn tại
             apiScope.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
             foreach (var inputProp in input.Properties)
             {

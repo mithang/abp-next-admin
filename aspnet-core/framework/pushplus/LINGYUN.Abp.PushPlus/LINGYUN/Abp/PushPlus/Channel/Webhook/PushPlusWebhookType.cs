@@ -2,19 +2,19 @@
 public enum PushPlusWebhookType
 {
     /// <summary>
-    /// 企业微信
+    /// WeChat doanh nghiệp
     /// </summary>
     WeWork = 1,
     /// <summary>
-    /// 钉钉
+    /// DingTalk
     /// </summary>
     DingTalk = 2,
     /// <summary>
-    /// 飞书
+    /// Feishu
     /// </summary>
     FeiShu = 3,
     /// <summary>
-    /// Server酱
+    /// ServerChan
     /// </summary>
     SctFtqq = 4,
 }

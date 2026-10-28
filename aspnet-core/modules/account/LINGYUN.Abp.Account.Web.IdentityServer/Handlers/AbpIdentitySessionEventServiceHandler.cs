@@ -10,7 +10,7 @@
 
 //namespace LINGYUN.Abp.IdentityServer.Session;
 ///// <summary>
-///// 持久化用户会话
+///// Lưu trữ phiên người dùng
 ///// </summary>
 //public class AbpIdentitySessionEventServiceHandler : IAbpIdentityServerEventServiceHandler, ITransientDependency
 //{
@@ -41,17 +41,17 @@
 //    {
 //        if (evt is UserLoginSuccessEvent loginEvent)
 //        {
-//            // 用户登录事件
+//            // Sự kiện đăng nhập người dùng
 //            return RaiseUserLoginSuccessEventAsync(loginEvent);
 //        }
 //        if (evt is UserLogoutSuccessEvent logoutEvent)
 //        {
-//            // 用户退出事件
+//            // Sự kiện đăng xuất người dùng
 //            return RaiseUserLogoutSuccessEventAsync(logoutEvent);
 //        }
 //        if (evt is TokenRevokedSuccessEvent revokeEvent)
 //        {
-//            // 撤销令牌事件
+//            // Sự kiện thu hồi token
 //            return RaiseTokenRevokedSuccessEventAsync(revokeEvent);
 //        }
 //        return Task.CompletedTask;

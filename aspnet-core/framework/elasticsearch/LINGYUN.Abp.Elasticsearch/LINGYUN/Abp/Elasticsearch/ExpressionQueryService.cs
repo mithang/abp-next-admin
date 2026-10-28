@@ -70,7 +70,7 @@ public class ExpressionQueryService : IExpressionQueryService, ITransientDepende
             }
         }
 
-        // 数量超过10000且存在排序时才可以使用SearchAfter特性
+        // Chỉ có thể sử dụng tính năng SearchAfter khi số lượng vượt quá 10000 và có sắp xếp
         return skipCount >= 10000 && sorts != null
             ? await SearchAfter<TDocument>(
                 client, 
@@ -202,7 +202,7 @@ public class ExpressionQueryService : IExpressionQueryService, ITransientDepende
         int skipCount,
         CancellationToken cancellationToken = default)
     {
-        // 10000以内直接取最后一条数据
+        // Trong phạm vi 10000 thì lấy trực tiếp bản ghi cuối cùng
         if (skipCount < 10000)
         {
             var response = await client.SearchAsync<EmptyDocument>(
@@ -225,7 +225,7 @@ public class ExpressionQueryService : IExpressionQueryService, ITransientDepende
             return hit?.Sort?.ToList();
         }
 
-        // 获取第9999条数据Hits作为searchAfter
+        // Lấy Hits của bản ghi thứ 9999 làm searchAfter
         var firstResponse = await client.SearchAsync<EmptyDocument>(
             dsl => dsl.Indices(indexName)
                     .Query(query)

@@ -65,4 +65,4 @@ The application service contract layer of the rules engine management module, de
 * Volo.Abp.Ddd.Application.Contracts
 * LINGYUN.Abp.RulesEngineManagement.Domain.Shared
 
-[查看中文文档](README.md)
+[Tiếng Việt](README.md)

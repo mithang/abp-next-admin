@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Description>Cap分布式事件总线</Description>
+		<Description>Bus sự kiện phân tán Cap</Description>
 		<RootNamespace />
 	</PropertyGroup>
 

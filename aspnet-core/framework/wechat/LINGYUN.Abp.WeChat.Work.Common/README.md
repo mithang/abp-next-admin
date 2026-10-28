@@ -1,18 +1,18 @@
-# LINGYUN.Abp.WeChat.Work.Common
+﻿# LINGYUN.Abp.WeChat.Work.Common
 
-企业微信通用模块，提供企业微信应用开发的基础功能实现。
+Mô-đun chung của WeChat Work, cung cấp triển khai chức năng cơ bản cho việc phát triển ứng dụng WeChat Work.
 
-## 功能特性
+## Tính năng
 
-* 统一的消息处理框架
-* 统一的消息加解密机制
-* 统一的事件处理机制
-* 统一的API调用接口
-* 统一的错误处理机制
-* AccessToken管理
-* JsApi Ticket管理
+* Khung xử lý thông điệp thống nhất
+* Cơ chế mã hóa/giải mã thông điệp thống nhất
+* Cơ chế xử lý sự kiện thống nhất
+* Giao diện gọi API thống nhất
+* Cơ chế xử lý lỗi thống nhất
+* Quản lý AccessToken
+* Quản lý JsApi Ticket
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatWorkCommonModule))]
@@ -22,7 +22,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
@@ -30,16 +30,16 @@ public class YouProjectModule : AbpModule
     "Work": {
       "Common": {
         "MessageHandlerFactory": {
-          "MessageResolvers": [],           // 消息解析器列表
-          "MessageHandlers": []             // 消息处理器列表
+          "MessageResolvers": [],           // Danh sách trình phân tích thông điệp
+          "MessageHandlers": []             // Danh sách trình xử lý thông điệp
         },
         "AccessToken": {
-          "CacheExpiration": 7200,         // AccessToken缓存时间（秒）
-          "CacheKey": "WeChat:Work:AccessToken:{0}" // AccessToken缓存键模板
+          "CacheExpiration": 7200,         // Thời gian lưu đệm AccessToken (giây)
+          "CacheKey": "WeChat:Work:AccessToken:{0}" // Mẫu khóa lưu đệm AccessToken
         },
         "JsApiTicket": {
-          "CacheExpiration": 7200,         // JsApi Ticket缓存时间（秒）
-          "CacheKey": "WeChat:Work:JsApiTicket:{0}" // JsApi Ticket缓存键模板
+          "CacheExpiration": 7200,         // Thời gian lưu đệm JsApi Ticket (giây)
+          "CacheKey": "WeChat:Work:JsApiTicket:{0}" // Mẫu khóa lưu đệm JsApi Ticket
         }
       }
     }
@@ -47,25 +47,25 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 消息处理
+## Xử lý thông điệp
 
-* 支持文本消息处理
-* 支持图片消息处理
-* 支持语音消息处理
-* 支持视频消息处理
-* 支持位置消息处理
-* 支持链接消息处理
-* 支持事件消息处理
+* Hỗ trợ xử lý thông điệp văn bản
+* Hỗ trợ xử lý thông điệp hình ảnh
+* Hỗ trợ xử lý thông điệp thoại
+* Hỗ trợ xử lý thông điệp video
+* Hỗ trợ xử lý thông điệp vị trí
+* Hỗ trợ xử lý thông điệp liên kết
+* Hỗ trợ xử lý thông điệp sự kiện
 
-## 事件处理
+## Xử lý sự kiện
 
-* 支持应用菜单事件
-* 支持进入应用事件
-* 支持上报地理位置事件
-* 支持异步任务完成事件
-* 支持外部联系人事件
-* 支持通讯录变更事件
+* Hỗ trợ sự kiện menu ứng dụng
+* Hỗ trợ sự kiện vào ứng dụng
+* Hỗ trợ sự kiện báo cáo vị trí địa lý
+* Hỗ trợ sự kiện hoàn thành tác vụ bất đồng bộ
+* Hỗ trợ sự kiện liên hệ bên ngoài
+* Hỗ trợ sự kiện thay đổi danh bạ
 
-## 更多文档
+## Tài liệu thêm
 
-* [企业微信通用模块文档](README.EN.md)
+* [Tài liệu mô-đun chung của WeChat Work](README.EN.md)

@@ -2,17 +2,17 @@
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 弹出系统发图的事件推送
+/// Đẩy sự kiện hệ thống bật lên để gửi ảnh
 /// </summary>
 public abstract class PicturePushEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 事件KEY值
+    /// Giá trị KEY của sự kiện
     /// </summary>
     [XmlElement("EventKey")]
     public string EventKey { get; set; } = default!;
     /// <summary>
-    /// 事件KEY值
+    /// Giá trị KEY của sự kiện
     /// </summary>
     [XmlElement("SendPicsInfo")]
     public PictureInfo SendPicsInfo { get; set; } = default!;
@@ -21,12 +21,12 @@ public abstract class PicturePushEvent : WeChatWorkEventMessage
 public class PictureInfo
 {
     /// <summary>
-    /// 发送的图片数量
+    /// Số lượng ảnh đã gửi
     /// </summary>
     [XmlElement("Count")]
     public int Count { get; set; }
     /// <summary>
-    /// 发送的图片数量
+    /// Số lượng ảnh đã gửi
     /// </summary>
     [XmlArrayItem("Item")]
     public Picture? Picture { get; set; }
@@ -36,7 +36,7 @@ public class PictureInfo
 public class Picture
 {
     /// <summary>
-    /// 图片的MD5值，开发者若需要，可用于验证接收到图片
+    /// Giá trị MD5 của ảnh, nhà phát triển nếu cần có thể dùng để xác minh ảnh đã nhận
     /// </summary>
     [XmlElement("PicMd5Sum")]
     public string PicMd5Sum { get; set; } = default!;

@@ -19,12 +19,12 @@ public class IdentityNotificationDefinitionProvider : NotificationDefinitionProv
             NotificationType.ServiceCallback,
             NotificationLifetime.Persistent,
             NotificationContentType.Json,
-            allowSubscriptionToClients: false) // 客户端禁用, 所有新用户必须订阅此通知
+            allowSubscriptionToClients: false) // Vô hiệu hóa ở máy khách, mọi người dùng mới đều phải đăng ký thông báo này
             .WithProviders(
-                NotificationProviderNames.SignalR, // 实时通知处理会话过期事件
-                NotificationProviderNames.Emailing); // 邮件通知会话过期
+                NotificationProviderNames.SignalR, // Thông báo thời gian thực xử lý sự kiện hết hạn phiên làm việc
+                NotificationProviderNames.Emailing); // Thông báo qua email khi phiên làm việc hết hạn
 
-        // 账号保持活跃通知
+        // Thông báo giữ tài khoản hoạt động
         group.AddNotification(
             IdentityNotificationNames.IdentityUser.InactiveUserReminderNotifier,
             L("InactiveUserReminderNotifier"),
@@ -32,9 +32,9 @@ public class IdentityNotificationDefinitionProvider : NotificationDefinitionProv
             NotificationType.User,
             NotificationLifetime.Persistent,
             NotificationContentType.Html,
-            allowSubscriptionToClients: false) // 客户端禁用, 所有新用户必须订阅此通知
+            allowSubscriptionToClients: false) // Vô hiệu hóa ở máy khách, mọi người dùng mới đều phải đăng ký thông báo này
             .WithProviders(NotificationProviderNames.Emailing);
-        // 账号停用通知
+        // Thông báo vô hiệu hóa tài khoản
         group.AddNotification(
             IdentityNotificationNames.IdentityUser.InactiveUserDeactivationNotifier,
             L("InactiveUserDeactivationNotifier"),
@@ -42,9 +42,9 @@ public class IdentityNotificationDefinitionProvider : NotificationDefinitionProv
             NotificationType.User,
             NotificationLifetime.Persistent,
             NotificationContentType.Html,
-            allowSubscriptionToClients: false) // 客户端禁用, 所有新用户必须订阅此通知
+            allowSubscriptionToClients: false) // Vô hiệu hóa ở máy khách, mọi người dùng mới đều phải đăng ký thông báo này
             .WithProviders(NotificationProviderNames.Emailing);
-        // 账号删除通知不需要添加,直接发送邮件通知即可,因为发布通知时用户已删除
+        // Thông báo xóa tài khoản không cần thêm, chỉ cần gửi thông báo qua email, vì khi phát hành thông báo thì người dùng đã bị xóa
     }
 
     private static ILocalizableString L(string name)

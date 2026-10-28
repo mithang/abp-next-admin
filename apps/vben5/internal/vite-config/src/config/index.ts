@@ -15,7 +15,7 @@ function defineConfig(
 ): VbenViteConfig {
   let projectType = type;
 
-  // 根据包是否存在 index.html,自动判断类型
+  // Tự động xác định loại dựa trên việc package có tồn tại index.html hay không
   if (projectType === 'auto') {
     const htmlPath = join(process.cwd(), 'index.html');
     projectType = existsSync(htmlPath) ? 'application' : 'library';

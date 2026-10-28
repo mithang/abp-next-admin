@@ -7,22 +7,22 @@ namespace LINGYUN.Abp.Location.Amap
     public abstract class AmapHttpResponse
     {
         /// <summary>
-        /// 返回结果状态值
+        /// Giá trị trạng thái của kết quả trả về
         /// </summary>
         /// <remarks>
-        /// 返回值为 0 或 1，0 表示请求失败；1 表示请求成功。
+        /// Giá trị trả về là 0 hoặc 1, 0 nghĩa là yêu cầu thất bại; 1 nghĩa là yêu cầu thành công.
         /// </remarks>
         public int Status { get; set; }
         /// <summary>
-        /// 返回状态说明
+        /// Mô tả trạng thái trả về
         /// </summary>
         /// <remarks>
-        /// 当 status 为 0 时，info 会返回具体错误原因，否则返回“OK”。
+        /// Khi status bằng 0, info sẽ trả về nguyên nhân lỗi cụ thể, ngược lại trả về “OK”.
         /// </remarks>
         public string Info { get; set; }
 
         /// <summary>
-        /// 返回状态码
+        /// Mã trạng thái trả về
         /// </summary>
         public string InfoCode { get; set; }
 

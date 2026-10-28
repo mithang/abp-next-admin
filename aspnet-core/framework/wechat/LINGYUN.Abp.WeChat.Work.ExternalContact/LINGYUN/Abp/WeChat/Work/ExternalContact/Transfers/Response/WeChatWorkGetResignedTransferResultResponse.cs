@@ -5,22 +5,22 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Response;
 /// <summary>
-/// 查询离职人员客户接替状态响应结果
+/// Kết quả phản hồi truy vấn trạng thái tiếp nhận khách hàng của nhân viên đã nghỉ việc
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94082" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/94082" />
 /// </remarks>
 public class WeChatWorkGetResignedTransferResultResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 转接客户
+    /// Khách hàng được chuyển tiếp
     /// </summary>
     [NotNull]
     [JsonProperty("customer")]
     [JsonPropertyName("customer")]
     public UnassignedTransferCustomerResult[] Customer { get; set; } = default!;
     /// <summary>
-    /// 下个分页的起始cursor
+    /// cursor bắt đầu của trang tiếp theo
     /// </summary>
     [CanBeNull]
     [JsonProperty("next_cursor")]

@@ -12,7 +12,7 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         IEnumerable<Guid> idList,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取最后一个菜单
+    /// Lấy menu cuối cùng
     /// </summary>
     /// <param name="parentId"></param>
     /// <param name="cancellationToken"></param>
@@ -21,7 +21,7 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         Guid? parentId = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 根据名称查询菜单
+    /// Truy vấn menu theo tên
     /// </summary>
     /// <param name="menuName"></param>
     /// <param name="cancellationToken"></param>
@@ -30,7 +30,7 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         string menuName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询主菜单,每一个布局页创建的时候都要创建路径为 / 的主菜单
+    /// Truy vấn menu chính, mỗi khi tạo một trang bố cục đều phải tạo menu chính có đường dẫn là /
     /// </summary>
     /// <param name="platformType"></param>
     /// <param name="cancellationToken"></param>
@@ -39,7 +39,7 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         string? framework = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取子节点
+    /// Lấy nút con
     /// </summary>
     /// <param name="parentId"></param>
     /// <param name="cancellationToken"></param>
@@ -49,7 +49,7 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         CancellationToken cancellationToken = default
     );
     /// <summary>
-    /// 通过父菜单编码查询子菜单
+    /// Truy vấn menu con theo mã của menu cha
     /// </summary>
     /// <param name="code"></param>
     /// <param name="parentId"></param>
@@ -61,11 +61,11 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         CancellationToken cancellationToken = default
     );
     /// <summary>
-    /// 查找用户可访问菜单
+    /// Tìm các menu mà người dùng có thể truy cập
     /// </summary>
-    /// <param name="userId">用户标识</param>
-    /// <param name="roles">角色列表</param>
-    /// <param name="platformType">平台类型</param>
+    /// <param name="userId">Định danh người dùng</param>
+    /// <param name="roles">Danh sách vai trò</param>
+    /// <param name="platformType">Loại nền tảng</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<List<Menu>> GetUserMenusAsync(
@@ -74,10 +74,10 @@ public interface IMenuRepository : IBasicRepository<Menu, Guid>
         string? framework = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查找角色可访问菜单
+    /// Tìm các menu mà vai trò có thể truy cập
     /// </summary>
-    /// <param name="roles">角色列表</param>
-    /// <param name="platformType">平台类型</param>
+    /// <param name="roles">Danh sách vai trò</param>
+    /// <param name="platformType">Loại nền tảng</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<List<Menu>> GetRoleMenusAsync(

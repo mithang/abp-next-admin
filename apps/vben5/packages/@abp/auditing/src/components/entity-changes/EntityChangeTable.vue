@@ -27,14 +27,14 @@ const props = defineProps<{
 
 const { getChangeTypeColor, getChangeTypeValue } = useAuditlogs();
 
-/** 实体变更表格分页配置 */
+/** Cấu hình phân trang bảng thay đổi thực thể */
 const pagerConfig = reactive<VxeGridPropTypes.PagerConfig>({
   currentPage: 1,
   pageSize: 10,
   pageSizes: [10, 25, 50, 100],
   total: 0,
 });
-/** 实体变更表格数据列配置 */
+/** Cấu hình cột dữ liệu bảng thay đổi thực thể */
 const columnsConfig = reactive<VxeGridPropTypes.Columns<EntityChangeDto>>([
   {
     align: 'left',
@@ -91,7 +91,7 @@ const columnsConfig = reactive<VxeGridPropTypes.Columns<EntityChangeDto>>([
     width: 280,
   },
 ]);
-/** 属性变更表格数据列配置 */
+/** Cấu hình cột dữ liệu bảng thay đổi thuộc tính */
 const subColumnsConfig = reactive<VxeGridPropTypes.Columns<PropertyChange>>([
   {
     align: 'left',
@@ -124,14 +124,14 @@ const subColumnsConfig = reactive<VxeGridPropTypes.Columns<PropertyChange>>([
     width: 220,
   },
 ]);
-/** 实体变更表格数据源(计算分页) */
+/** Nguồn dữ liệu bảng thay đổi thực thể (tính phân trang) */
 const getEntityChanges = computed(() => {
   const entityChanges = props.data ?? [];
   const current = pagerConfig.currentPage ?? 1;
   const pageSize = pagerConfig.pageSize ?? 10;
   return entityChanges.slice((current - 1) * pageSize, pageSize * current);
 });
-/** 页码变更事件 */
+/** Sự kiện thay đổi số trang */
 function onPageChange(
   params: VxeGridDefines.PageChangeEventParams<EntityChangeDto>,
 ) {

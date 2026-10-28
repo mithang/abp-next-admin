@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Features.LimitValidation.Redis.Client
 
-基于Redis的客户端功能限制验证组件
+Thành phần xác thực giới hạn tính năng phía client dựa trên Redis
 
-## 功能特性
+## Tính năng
 
-* 继承自LINGYUN.Abp.Features.LimitValidation.Redis的所有功能
-* 专门针对客户端应用的功能限制验证
-* 支持客户端特定的限制策略
+* Kế thừa mọi tính năng của LINGYUN.Abp.Features.LimitValidation.Redis
+* Xác thực giới hạn tính năng chuyên biệt cho ứng dụng client
+* Hỗ trợ chính sách giới hạn riêng cho client
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 添加模块依赖
+1. Thêm dependency module
 
 ```csharp
 [DependsOn(typeof(AbpFeaturesValidationRedisClientModule))]
@@ -20,7 +20,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 配置Redis选项（与LINGYUN.Abp.Features.LimitValidation.Redis相同）
+2. Cấu hình tùy chọn Redis (giống LINGYUN.Abp.Features.LimitValidation.Redis)
 
 ```json
 {
@@ -35,15 +35,15 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 使用示例
+## Ví dụ sử dụng
 
 ```csharp
-// 限制客户端某个功能每天最多调用1000次
+// Giới hạn một tính năng phía client tối đa 1000 lần gọi mỗi ngày
 [RequiresLimitFeature("YourClientFeature.DailyLimit", "YourClientFeature.Interval", LimitPolicy.Days)]
 public async Task YourClientMethod()
 {
-    // 客户端业务逻辑
+    // Logic nghiệp vụ phía client
 }
 ```
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Trung giản thể](./README.md) | [English](./README.EN.md)

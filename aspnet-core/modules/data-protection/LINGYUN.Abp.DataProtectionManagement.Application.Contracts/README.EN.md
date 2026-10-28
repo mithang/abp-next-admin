@@ -33,4 +33,4 @@ Data protection management application service contracts module, providing appli
 
 ## Related Links
 
-* [中文文档](./README.md)
+* [Tiếng Việt](./README.md)

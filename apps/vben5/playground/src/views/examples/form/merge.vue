@@ -38,15 +38,15 @@ const [FirstForm, firstFormApi] = useVbenForm({
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'formFirst',
-      label: '表单1字段',
+      label: 'Trường form 1',
       rules: 'required',
     },
   ],
   submitButtonOptions: {
-    content: '下一步',
+    content: 'Bước tiếp theo',
   },
   wrapperClass: 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1',
 });
@@ -60,16 +60,16 @@ const [SecondForm, secondFormApi] = useVbenForm({
   handleSubmit: onSecondSubmit,
   layout: 'horizontal',
   resetButtonOptions: {
-    content: '上一步',
+    content: 'Bước trước',
   },
   schema: [
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'formSecond',
-      label: '表单2字段',
+      label: 'Trường form 2',
       rules: 'required',
     },
   ],
@@ -88,23 +88,25 @@ async function handleMergeSubmit() {
 
 <template>
   <Page
-    description="表单组件合并示例：在某些场景下，例如分步表单，需要合并多个表单并统一提交。默认情况下，使用 Object.assign 规则合并表单。如果需要特殊处理数据，可以传入 false。"
-    title="表单组件"
+    description="Ví dụ gộp component form: Trong một số trường hợp, ví dụ form nhiều bước, cần gộp nhiều form và gửi chung. Theo mặc định, dùng quy tắc Object.assign để gộp form. Nếu cần xử lý dữ liệu đặc biệt, có thể truyền false."
+    title="Component form"
   >
-    <Card title="基础示例">
+    <Card title="Ví dụ cơ bản">
       <template #extra>
         <Switch
           v-model="needMerge"
-          checked-children="开启字段合并"
+          checked-children="Bật gộp trường"
           class="mr-4"
-          un-checked-children="关闭字段合并"
+          un-checked-children="Tắt gộp trường"
         />
-        <Button type="primary" @click="handleMergeSubmit">合并提交</Button>
+        <Button type="primary" @click="handleMergeSubmit">
+          Gửi sau khi gộp
+        </Button>
       </template>
       <div class="mx-auto max-w-lg">
         <Steps :current="currentTab" class="steps">
-          <Step title="表单1" />
-          <Step title="表单2" />
+          <Step title="Form 1" />
+          <Step title="Form 2" />
         </Steps>
         <div class="p-20">
           <FirstForm v-show="currentTab === 0" />

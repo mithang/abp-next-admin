@@ -1,66 +1,66 @@
 # 10.6.0 - 10.7.0
 
-## 模块变更
+## Thay đổi module
 
-1. [动态定义]   新增 LINGYUN.Abp.Dynamic.Definitions 动态定义模块,以统一的机制承载功能/权限/设置/通知/Webhook/AI 的定义扩展.
-2. [功能管理]   重写 ABP 默认的 FeatureDefinitionManager,实现内置定义与动态定义的合并、忽略、覆盖三种策略.
-3. [权限管理]   重写 PermissionDefinitionManager,实现合并、忽略、覆盖三种策略.
-4. [设置管理]   重写 SettingDefinitionManager,实现合并、忽略、覆盖三种策略.
-5. [通知管理]   重写 NotificationDefinitionManager,实现合并、忽略、覆盖三种策略.
-6. [Webhook管理]   重写 WebhookDefinitionManager,实现合并、忽略、覆盖三种策略.
-7. [AI管理]   重写 WorkspaceDefinitionManager 与 AIToolDefinitionManager,实现合并、忽略、覆盖三种策略.
-8. [定义管理]   功能/权限/设置定义变更后触发本地事件,便于订阅方刷新缓存.
-9. [定义管理]   优化定义管理页面与权限列表样式.
-10. [账号模块]   增强用户安全:创建用户时校验双因素策略、登录时绑定双因素认证器、注册时校验双因素与邮箱确认、登录时校验邮箱确认.
-11. [账号模块]   集成图片验证码(LazyCaptcha)与腾讯云验证码,覆盖登录、注册与验证码校验接口.
-12. [账号模块]   重构登录页面,增加密码显示/隐藏、页面内容标题、"返回登录"按钮样式等交互.
-13. [账号模块]   用户注册改为通过邮件确认;完善验证码与恢复代码的校验流程.
-14. [身份模块]   增加用户操作安全日志记录,补齐验证码相关安全日志.
-15. [身份模块]   重构会话模块,增强会话校验安全性,用户密码变更后使用户会话失效.
-16. [身份模块]   admin 角色强制启用双因素认证,且禁止被设置为默认角色.
-17. [身份模块]   提高安全相关设置的默认值.
-18. [个人中心]   增加绑定信息校验器;同步 Identity 接口的 HttpClientProxy.
-19. [审计日志]   审计日志不再记录租户连接字符串.
-20. [OpenIddict模块]   增加 JsonWebKeySet 支持,并优化 OpenIddict 管理功能与身份令牌映射.
-21. [OpenIddict模块]   企业微信授权拆分为网页授权与小程序两条授权流程(wecom_oauth / wecom_mp),并新增小程序临时登录凭证换取会话的实现.
-22. [OpenIddict模块]   二维码登录改为使用二维码自身携带的租户,不再接受请求参数 tenant_id;并细化二维码登录的安全日志动作.
-23. [IdentityServer模块]   企业微信授权校验器同步拆分为网页授权与小程序两个校验器.
-24. [系统日志]   新增 OpenObserve 日志查询提供者,支持以 OpenObserve 替代 Elasticsearch 查询系统日志.
-25. [审计日志]   新增基于 OpenObserve 的审计日志存储:审计日志、安全日志、实体变更、操作分流入不同数据流,并按租户分流.
-26. [审计日志]   新增审计日志与安全日志的信息贡献者扩展点,允许模块在不替换存储实现的前提下补充日志信息.
-27. [日志模块]   Elasticsearch 与 OpenObserve 日志提供者内置 Serilog 增强器(ApplicationName / UniqueId).
-28. [系统日志]   审计/安全日志的索引名称启用滚动策略.
-29. [OpenTelemetry模块]   增加 Redis 追踪仪表,移除已弃用的 Zipkin 导出器配置.
-30. [IP定位]   优化 IP 地址地理位置的解析与名称本地化.
-31. [IP定位]   位置备注规则改为可配置(按国家/省份移除),由独立的配置节绑定.
-32. [IP定位]   所有服务、网关与 Aspire 宿主启用审计日志的 IP 位置解析.
-33. [IP定位]   MaxMind GeoIP2 离线库改为由使用方在部署时自行提供,模块不再内置分发;库文件缺失时回退空解读器并记录警告.
-34. [IP定位]   各宿主的默认位置解析提供者由 MaxMind GeoIP2 切换为 IP2Region(内置离线库).
-35. [通知模块]   抽象模板卡片消息支持 JSON 往返:新增 Newtonsoft 与 System.Text.Json 两个转换器,按 card_type 还原具体卡片类型.
-36. [通知模块]   通知数据扩展按消息类型拆分为多个分部文件,并补充保密消息、ID转译、重复消息检查等开关.
-37. [通知模块]   新增按渠道声明通知载荷的机制,属性包按渠道前缀划分命名空间承载,渠道新增字段无需变更通知表结构.
-38. [通知模块]   优化渠道载荷属性元数据的构建,去除全局锁并改为延迟初始化.
-39. [TuiJuhe模块]   通知发布契约统一为 NotificationPublishContext(与其他渠道保持一致).
-40. [Blob管理]   修复本地文件系统存储提供者的路径穿越漏洞,新增跨平台的名称与路径校验规则.
-41. [Blob管理]   文件存在性检查改为按容器标识过滤,移除容器表关联查询.
-42. [部署]   容器编排中为各服务开启审计日志的 IP 位置解析与备注移除规则;补充容器端口与运行配置说明.
-43. [CLI]   新增 blob-migration 命令,用于从旧版本地文件系统存储迁移文件到 BlobManagement.
-44. [CLI]   改进 blob-migration:补齐参数提示,指定目录不存在时告警并终止操作.
-45. [项目结构]   微服务工程统一重命名为 LINGYUN.Abp.MicroService.*,单应用工程更名为 LINGYUN.Abp.MicroService.AllInOne.
-46. [项目结构]   移除历史遗留的 IdentityServer 与 AIO 单体应用宿主工程.
-47. [项目结构]   新增 AI 微服务工程及其数据迁移工程,并在 Aspire 编排中增加对应宿主.
-48. [项目结构]   从解决方案中摘除 v1 版 VueVbenAdmin 平台模块(导航/设置/主题),保留 v5 版本导航.
-49. [部署]   优化 Dockerfile、Docker Compose 与镜像构建脚本.
-50. [模板]   微服务模板升级到 10.7.0,同步打包、织入与日志配置,并为模板 Host 新增 appsettings.Production.json.
-51. [构建]   包输出与是否生成包改为按条件控制;新增 abppkg 打包内容与客户端代理描述文件自动内嵌;ConfigureAwait 织入仅在 Release 生效,并移除各工程冗余的 FodyWeavers 配置文件.
+1. [Định nghĩa động] Thêm mới module định nghĩa động LINGYUN.Abp.Dynamic.Definitions, dùng cơ chế thống nhất để chứa phần mở rộng định nghĩa của chức năng/quyền hạn/cài đặt/thông báo/Webhook/AI.
+2. [Quản lý chức năng] Viết lại FeatureDefinitionManager mặc định của ABP, thực hiện ba chiến lược hợp nhất, bỏ qua, ghi đè giữa định nghĩa tích hợp sẵn và định nghĩa động.
+3. [Quản lý quyền hạn] Viết lại PermissionDefinitionManager, thực hiện ba chiến lược hợp nhất, bỏ qua, ghi đè.
+4. [Quản lý cài đặt] Viết lại SettingDefinitionManager, thực hiện ba chiến lược hợp nhất, bỏ qua, ghi đè.
+5. [Quản lý thông báo] Viết lại NotificationDefinitionManager, thực hiện ba chiến lược hợp nhất, bỏ qua, ghi đè.
+6. [Quản lý Webhook] Viết lại WebhookDefinitionManager, thực hiện ba chiến lược hợp nhất, bỏ qua, ghi đè.
+7. [Quản lý AI] Viết lại WorkspaceDefinitionManager và AIToolDefinitionManager, thực hiện ba chiến lược hợp nhất, bỏ qua, ghi đè.
+8. [Quản lý định nghĩa] Sau khi định nghĩa chức năng/quyền hạn/cài đặt thay đổi sẽ kích hoạt sự kiện nội bộ, thuận tiện cho bên đăng ký làm mới bộ nhớ đệm.
+9. [Quản lý định nghĩa] Tối ưu giao diện trang quản lý định nghĩa và danh sách quyền hạn.
+10. [Module tài khoản] Tăng cường bảo mật người dùng: khi tạo người dùng kiểm tra chính sách xác thực hai yếu tố, khi đăng nhập liên kết trình xác thực hai yếu tố, khi đăng ký kiểm tra xác thực hai yếu tố và xác nhận email, khi đăng nhập kiểm tra xác nhận email.
+11. [Module tài khoản] Tích hợp mã xác minh hình ảnh (LazyCaptcha) và mã xác minh Tencent Cloud, bao phủ các giao diện đăng nhập, đăng ký và kiểm tra mã xác minh.
+12. [Module tài khoản] Tái cấu trúc trang đăng nhập, thêm tương tác như hiển thị/ẩn mật khẩu, tiêu đề nội dung trang, kiểu nút "Quay lại đăng nhập".
+13. [Module tài khoản] Đăng ký người dùng chuyển sang xác nhận qua email; hoàn thiện quy trình kiểm tra mã xác minh và mã khôi phục.
+14. [Module danh tính] Thêm ghi nhật ký bảo mật cho thao tác người dùng, bổ sung nhật ký bảo mật liên quan đến mã xác minh.
+15. [Module danh tính] Tái cấu trúc module phiên làm việc, tăng cường tính bảo mật khi kiểm tra phiên, sau khi người dùng đổi mật khẩu sẽ làm phiên làm việc hết hiệu lực.
+16. [Module danh tính] Vai trò admin bắt buộc bật xác thực hai yếu tố và cấm đặt làm vai trò mặc định.
+17. [Module danh tính] Nâng cao giá trị mặc định của các cài đặt liên quan đến bảo mật.
+18. [Trung tâm cá nhân] Thêm bộ kiểm tra thông tin liên kết; đồng bộ HttpClientProxy của giao diện Identity.
+19. [Nhật ký kiểm toán] Nhật ký kiểm toán không còn ghi chuỗi kết nối của tenant.
+20. [Module OpenIddict] Thêm hỗ trợ JsonWebKeySet và tối ưu chức năng quản lý OpenIddict cùng ánh xạ token danh tính.
+21. [Module OpenIddict] Ủy quyền WeChat Work tách thành hai luồng ủy quyền: ủy quyền web và mini program (wecom_oauth / wecom_mp), đồng thời thêm triển khai đổi chứng chỉ đăng nhập tạm thời của mini program lấy phiên làm việc.
+22. [Module OpenIddict] Đăng nhập bằng mã QR chuyển sang dùng tenant mà chính mã QR mang theo, không còn nhận tham số yêu cầu tenant_id; đồng thời chi tiết hóa hành động nhật ký bảo mật khi đăng nhập bằng mã QR.
+23. [Module IdentityServer] Bộ kiểm tra ủy quyền WeChat Work đồng bộ tách thành hai bộ kiểm tra: ủy quyền web và mini program.
+24. [Nhật ký hệ thống] Thêm nhà cung cấp truy vấn nhật ký OpenObserve, hỗ trợ dùng OpenObserve thay cho Elasticsearch để truy vấn nhật ký hệ thống.
+25. [Nhật ký kiểm toán] Thêm bộ lưu trữ nhật ký kiểm toán dựa trên OpenObserve: nhật ký kiểm toán, nhật ký bảo mật, thay đổi thực thể, thao tác được phân luồng vào các luồng dữ liệu khác nhau và phân luồng theo tenant.
+26. [Nhật ký kiểm toán] Thêm điểm mở rộng đóng góp thông tin cho nhật ký kiểm toán và nhật ký bảo mật, cho phép module bổ sung thông tin nhật ký mà không cần thay thế triển khai lưu trữ.
+27. [Module nhật ký] Nhà cung cấp nhật ký Elasticsearch và OpenObserve tích hợp sẵn bộ tăng cường Serilog (ApplicationName / UniqueId).
+28. [Nhật ký hệ thống] Tên chỉ mục của nhật ký kiểm toán/bảo mật bật chính sách cuộn (rolling).
+29. [Module OpenTelemetry] Thêm công cụ đo theo dõi Redis, loại bỏ cấu hình bộ xuất Zipkin đã lỗi thời.
+30. [Định vị IP] Tối ưu việc phân giải vị trí địa lý của địa chỉ IP và bản địa hóa tên.
+31. [Định vị IP] Quy tắc ghi chú vị trí chuyển thành có thể cấu hình (loại bỏ theo quốc gia/tỉnh), được liên kết bởi một mục cấu hình độc lập.
+32. [Định vị IP] Tất cả dịch vụ, gateway và host Aspire đều bật phân giải vị trí IP cho nhật ký kiểm toán.
+33. [Định vị IP] Thư viện ngoại tuyến MaxMind GeoIP2 chuyển sang do bên sử dụng tự cung cấp khi triển khai, module không còn phân phối tích hợp sẵn; khi thiếu tệp thư viện sẽ quay về trình đọc rỗng và ghi cảnh báo.
+34. [Định vị IP] Nhà cung cấp phân giải vị trí mặc định của các host chuyển từ MaxMind GeoIP2 sang IP2Region (thư viện ngoại tuyến tích hợp sẵn).
+35. [Module thông báo] Tin nhắn thẻ mẫu trừu tượng hỗ trợ chuyển đổi JSON hai chiều: thêm hai bộ chuyển đổi Newtonsoft và System.Text.Json, khôi phục loại thẻ cụ thể theo card_type.
+36. [Module thông báo] Phần mở rộng dữ liệu thông báo tách thành nhiều tệp từng phần theo loại tin nhắn, đồng thời bổ sung các công tắc như tin nhắn bảo mật, dịch ID, kiểm tra tin nhắn trùng lặp.
+37. [Module thông báo] Thêm cơ chế khai báo tải trọng thông báo theo kênh, gói thuộc tính được mang theo không gian tên phân chia theo tiền tố kênh, kênh thêm trường mới không cần thay đổi cấu trúc bảng thông báo.
+38. [Module thông báo] Tối ưu việc xây dựng siêu dữ liệu thuộc tính tải trọng kênh, loại bỏ khóa toàn cục và chuyển sang khởi tạo lười biếng.
+39. [Module TuiJuhe] Hợp đồng phát hành thông báo thống nhất thành NotificationPublishContext (nhất quán với các kênh khác).
+40. [Quản lý Blob] Sửa lỗ hổng vượt qua đường dẫn của nhà cung cấp lưu trữ hệ thống tệp cục bộ, thêm quy tắc kiểm tra tên và đường dẫn đa nền tảng.
+41. [Quản lý Blob] Kiểm tra sự tồn tại của tệp chuyển sang lọc theo định danh container, loại bỏ truy vấn liên kết bảng container.
+42. [Triển khai] Trong điều phối container, bật phân giải vị trí IP của nhật ký kiểm toán và quy tắc loại bỏ ghi chú cho từng dịch vụ; bổ sung mô tả cổng container và cấu hình chạy.
+43. [CLI] Thêm lệnh blob-migration, dùng để di chuyển tệp từ bộ lưu trữ hệ thống tệp cục bộ cũ sang BlobManagement.
+44. [CLI] Cải tiến blob-migration: bổ sung gợi ý tham số, khi thư mục chỉ định không tồn tại sẽ cảnh báo và dừng thao tác.
+45. [Cấu trúc dự án] Các dự án microservice thống nhất đổi tên thành LINGYUN.Abp.MicroService.*, dự án ứng dụng đơn đổi tên thành LINGYUN.Abp.MicroService.AllInOne.
+46. [Cấu trúc dự án] Loại bỏ các dự án host ứng dụng nguyên khối IdentityServer và AIO còn tồn tại từ trước.
+47. [Cấu trúc dự án] Thêm dự án microservice AI và dự án di chuyển dữ liệu của nó, đồng thời thêm host tương ứng trong điều phối Aspire.
+48. [Cấu trúc dự án] Loại khỏi solution module nền tảng VueVbenAdmin phiên bản v1 (điều hướng/cài đặt/chủ đề), giữ lại điều hướng phiên bản v5.
+49. [Triển khai] Tối ưu Dockerfile, Docker Compose và script xây dựng image.
+50. [Mẫu] Mẫu microservice nâng cấp lên 10.7.0, đồng bộ cấu hình đóng gói, weaving và nhật ký, đồng thời thêm appsettings.Production.json cho Host mẫu.
+51. [Xây dựng] Đầu ra gói và việc có tạo gói hay không chuyển sang điều khiển theo điều kiện; thêm nội dung đóng gói abppkg và tự động nhúng tệp mô tả proxy client; weaving ConfigureAwait chỉ có hiệu lực ở Release, đồng thời loại bỏ các tệp cấu hình FodyWeavers dư thừa của từng dự án.
 
-## 依赖项变更
+## Thay đổi dependency
 
-| 库名称                                                  | 原版本          | 现版本        |
+| Tên thư viện                                                  | Phiên bản cũ          | Phiên bản mới        |
 | ------------------------------------------------------- | --------------- | ------------- |
 | AlibabaCloud.SDK.Captcha20230305                        |                 | 1.1.4         |
 | Duende.IdentityModel                                    |                 | 7.1.0         |
-| IdentityModel                                           | 7.0.0           | (移除)        |
+| IdentityModel                                           | 7.0.0           | (Đã loại bỏ)        |
 | Lazy.Captcha.Core                                       |                 | 2.2.5         |
 | MaxMind.GeoIP2                                          |                 | 6.1.0         |
 | Microsoft.AspNetCore.*                                  | 10.0.9          | 10.0.11       |
@@ -91,19 +91,19 @@
 | System.Threading.Channels                               | 10.0.9          | 10.0.11       |
 | Volo.Abp.*                                              | 10.6.0          | 10.7.0        |
 | Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite            | 5.6.0           | 5.7.0         |
-| aliyun-net-sdk-core                                     | 1.6.2           | (移除)        |
+| aliyun-net-sdk-core                                     | 1.6.2           | (Đã loại bỏ)        |
 
-## 数据库迁移
+## Di chuyển cơ sở dữ liệu
 
 | Project Name       | Database Provider | Scripts                              | EF Core Version |
 | ------------------ | ----------------- | ------------------------------------ | --------------- |
 | services/AIService | MySQL             | 20261007004411_Initial-AI-Service    | 10.0.11         |
 
-> 说明:本版本新增 AI 微服务,其数据迁移工程为 `LINGYUN.Abp.MicroService.AIService.EntityFrameworkCore` / `.DbMigrator`,连接字符串名为 `AIServiceDbMigrator`.
+> Lưu ý: Phiên bản này thêm mới microservice AI, dự án di chuyển dữ liệu của nó là `LINGYUN.Abp.MicroService.AIService.EntityFrameworkCore` / `.DbMigrator`, tên chuỗi kết nối là `AIServiceDbMigrator`.
 >
-> 其余数据库无新增迁移脚本,仅迁移工程名随本版本的工程重命名而变化:原 `LY.*` 系列统一为 `LINGYUN.Abp.MicroService.*`,`services/Single` 更名为 `LINGYUN.Abp.MicroService.AllInOne`,原 `services/BackendAdmin` 已随旧版宿主一并移除.升级时请按新的工程名执行迁移,历史数据无需结构变更.
+> Các cơ sở dữ liệu còn lại không có script di chuyển mới, chỉ tên dự án di chuyển thay đổi theo việc đổi tên dự án của phiên bản này: dòng `LY.*` thống nhất thành `LINGYUN.Abp.MicroService.*`,`services/Single` đổi tên thành `LINGYUN.Abp.MicroService.AllInOne`, `services/BackendAdmin` cũ đã bị loại bỏ cùng với host cũ. Khi nâng cấp, hãy thực hiện di chuyển theo tên dự án mới, dữ liệu lịch sử không cần thay đổi cấu trúc.
 
-## 数据库连接字符串
+## Chuỗi kết nối cơ sở dữ liệu
 
 | Module Name                   | ConnectionString Name        | Example(MySQL)                                               |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |
@@ -129,16 +129,16 @@
 | labp/WebhooksManagement       | WebhooksManagement           | Server=127.0.0.1;Database=abp;User Id=root;Password=123456;SslMode=None |
 | labp/Elsa                     | Workflow                     | Server=127.0.0.1;Database=abp;User Id=root;Password=123456;SslMode=None |
 
-> 本版本未新增或改名连接字符串键,配置结构与 10.6.0 一致;上表按模块归并,项目名称请按本版本的工程命名对应.
+> Phiên bản này không thêm mới hay đổi tên khóa chuỗi kết nối, cấu trúc cấu hình nhất quán với 10.6.0; bảng trên được gộp theo module, tên dự án hãy đối chiếu theo cách đặt tên dự án của phiên bản này.
 
-## 升级注意事项
+## Lưu ý khi nâng cấp
 
-1. **MaxMind GeoIP2 的破坏性变更**:模块不再内置 `GeoLite2-City.mmdb`,公开常量 `AbpMaxMindGeoIP2Module.DefaultDatabaseFile` 已移除.如需继续使用,请自行下载 GeoLite2 离线库并配置 `MaxMindGeoIP2:DatabaseFile`(或环境变量 `MaxMindGeoIP2__DatabaseFile`);未配置时位置解析返回空结果并记录警告.各宿主默认已切换为 IP2Region,通常无需额外处理.
+1. **Thay đổi phá vỡ của MaxMind GeoIP2**: module không còn tích hợp sẵn `GeoLite2-City.mmdb`,hằng số công khai `AbpMaxMindGeoIP2Module.DefaultDatabaseFile` đã bị loại bỏ. Nếu cần tiếp tục sử dụng, hãy tự tải thư viện ngoại tuyến GeoLite2 và cấu hình `MaxMindGeoIP2:DatabaseFile`(hoặc biến môi trường `MaxMindGeoIP2__DatabaseFile`); khi chưa cấu hình, phân giải vị trí trả về kết quả rỗng và ghi cảnh báo. Các host mặc định đã chuyển sang IP2Region, thông thường không cần xử lý thêm.
 
-2. **企业微信授权类型变更**:授权类型由 `wecom` 改为 `wecom_oauth`,并新增小程序授权类型 `wecom_mp`.旧客户端若仍在发送 `grant_type=wecom` 将认证失败,需同步升级.同时 `WeChatWorkTokenExtensionGrant` / `WeChatWorkGrantValidator` 已改为抽象类.
+2. **Thay đổi loại ủy quyền WeChat Work**: loại ủy quyền đổi từ `wecom` thành `wecom_oauth`,đồng thời thêm loại ủy quyền mini program `wecom_mp`.Client cũ nếu vẫn gửi `grant_type=wecom` sẽ xác thực thất bại, cần nâng cấp đồng bộ. Đồng thời `WeChatWorkTokenExtensionGrant` / `WeChatWorkGrantValidator` đã đổi thành lớp trừu tượng.
 
-3. **二维码登录不再接受 `tenant_id`**:租户信息取自二维码自身,请求参数中的 `tenant_id` 会被忽略(不报错).此前依赖该参数指定租户的调用方需移除该参数.
+3. **Đăng nhập bằng mã QR không còn nhận `tenant_id`**: thông tin tenant lấy từ chính mã QR, tham số `tenant_id` sẽ bị bỏ qua (không báo lỗi). Bên gọi trước đây dựa vào tham số này để chỉ định tenant cần loại bỏ tham số đó.
 
-4. **Fody 织入配置变更**:`ConfigureAwait` 织入仅在 Release 配置生效,并通过公共属性文件内联 `WeaverConfiguration`;各工程原有的 `FodyWeavers.xml` / `.xsd` 已移除.若有自定义 Fody 配置,请改为在工程内显式声明.
+4. **Thay đổi cấu hình weaving Fody**:`ConfigureAwait` weaving chỉ có hiệu lực ở cấu hình Release và nội tuyến `WeaverConfiguration` qua tệp thuộc tính chung; các `FodyWeavers.xml` / `.xsd` cũ của từng dự án đã bị loại bỏ. Nếu có cấu hình Fody tùy chỉnh, hãy chuyển sang khai báo tường minh trong dự án.
 
-5. **打包行为变更**:`GeneratePackageOnBuild` 改为按条件控制(不再对所有 `LINGYUN*` 程序集生效),并新增 `*.abppkg` 内容打包与 `HttpApi.Client` 程序集自动内嵌 `*generate-proxy.json`.如依赖旧的打包产物路径,请确认 `LocalNuget` 输出.
+5. **Thay đổi hành vi đóng gói**:`GeneratePackageOnBuild` chuyển sang điều khiển theo điều kiện (không còn có hiệu lực với mọi assembly `LINGYUN*`), đồng thời thêm đóng gói nội dung `*.abppkg` và tự động nhúng `*generate-proxy.json` vào assembly `HttpApi.Client`. Nếu phụ thuộc vào đường dẫn sản phẩm đóng gói cũ, hãy xác nhận đầu ra `LocalNuget`.

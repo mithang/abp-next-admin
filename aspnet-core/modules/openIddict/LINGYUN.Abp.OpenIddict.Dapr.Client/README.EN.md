@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.Dapr.Client` is a Dapr-based OpenIddict client module that provides functionality to call OpenIddict remote services using the Dapr service invocation building block.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

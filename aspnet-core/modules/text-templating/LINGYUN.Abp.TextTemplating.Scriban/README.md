@@ -1,30 +1,30 @@
 # LINGYUN.Abp.TextTemplating.Scriban
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板 Scriban 引擎模块，提供基于 Scriban 语法的模板渲染实现。
+Mô-đun engine Scriban cho mẫu văn bản, cung cấp triển khai kết xuất mẫu dựa trên cú pháp Scriban.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * Volo.Abp.TextTemplating.Scriban
 * LINGYUN.Abp.TextTemplating.Domain
 
-### 功能定义
+### Định nghĩa tính năng
 
-* 提供 Scriban 模板渲染引擎
-  * ScribanTemplateRenderingEngine - Scriban 模板渲染引擎实现
-* 支持以下功能
-  * 使用 Scriban 语法编写模板
-  * 支持模型绑定
-  * 支持布局模板
-  * 支持条件语句和循环
-  * 支持自定义函数和过滤器
-  * 支持字符串操作和格式化
-  * 支持数组和对象操作
+* Cung cấp engine kết xuất mẫu Scriban
+  * ScribanTemplateRenderingEngine - Triển khai engine kết xuất mẫu Scriban
+* Hỗ trợ các tính năng sau
+  * Viết mẫu bằng cú pháp Scriban
+  * Hỗ trợ model binding
+  * Hỗ trợ mẫu bố cục
+  * Hỗ trợ câu lệnh điều kiện và vòng lặp
+  * Hỗ trợ hàm và bộ lọc tùy chỉnh
+  * Hỗ trợ thao tác và định dạng chuỗi
+  * Hỗ trợ thao tác mảng và đối tượng
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingScribanModule` 依赖
+1. Thêm dependency `AbpTextTemplatingScribanModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingScribanModule))]
@@ -33,17 +33,17 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 创建和使用 Scriban 模板
+2. Tạo và sử dụng mẫu Scriban
 
 ```csharp
-// 创建模板定义
+// Tạo định nghĩa mẫu
 var template = new TextTemplateDefinition(
     Guid.NewGuid(),
     "Welcome",
     "Welcome Email Template",
     renderEngine: "Scriban");
 
-// 模板内容示例
+// Ví dụ nội dung mẫu
 <!DOCTYPE html>
 <html>
 <body>
@@ -60,7 +60,7 @@ var template = new TextTemplateDefinition(
 </body>
 </html>
 
-// 使用模板
+// Sử dụng mẫu
 public class YourService
 {
     private readonly ITemplateRenderer _templateRenderer;
@@ -90,4 +90,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

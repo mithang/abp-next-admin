@@ -1,9 +1,9 @@
 <!--
- * @Description: 渲染代码
+ * @Description: Render code
 -->
 <template>
   <Modal
-    title="代码"
+    title="Code"
     :footer="null"
     :visible="visible"
     @cancel="visible = false"
@@ -28,7 +28,7 @@
       :formData="formData"
       v-model="fApi"
     />
-    <a-button @click="submit">提交</a-button>
+    <a-button @click="submit">Gửi</a-button>
   </div>
 </template>
 <script>

@@ -13,13 +13,13 @@ namespace LINGYUN.Abp.OpenObserve;
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 日志摄取 - JSON
+    /// Thu thập nhật ký - JSON
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/{stream}/_json
-    /// 请求体为 JSON 数组: [ {..}, {..} ]
-    /// 响应: {"code":200,"status":[{"name":"stream1","successful":2,"failed":0}]}
-    /// 参考: https://openobserve.ai/docs/reference/api/ingestion/logs/json/
+    /// Thân yêu cầu là mảng JSON: [ {..}, {..} ]
+    /// Phản hồi: {"code":200,"status":[{"name":"stream1","successful":2,"failed":0}]}
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/ingestion/logs/json/
     /// </remarks>
     public async virtual Task<JsonResponse> JsonRequestAsync<TData>(
         string? organization,
@@ -39,11 +39,11 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 日志摄取 - JSON(单条记录)
+    /// Thu thập nhật ký - JSON (một bản ghi)
     /// </summary>
     /// <remarks>
-    /// 单条记录使用独立方法名, 避免与 <see cref="JsonRequestAsync{TData}(string?, string, IEnumerable{TData}, CancellationToken)"/> 产生重载歧义
-    /// (传入数组时会优先命中泛型单条重载, 导致请求体被多包一层数组)
+    /// Một bản ghi dùng tên phương thức riêng, tránh gây mơ hồ khi nạp chồng với <see cref="JsonRequestAsync{TData}(string?, string, IEnumerable{TData}, CancellationToken)"/>
+    /// (Khi truyền vào một mảng, phương thức nạp chồng đơn bản ghi dạng generic sẽ được ưu tiên khớp, khiến thân yêu cầu bị bọc thêm một lớp mảng)
     /// </remarks>
     public async virtual Task<JsonResponse> JsonRecordAsync<TData>(
         string? organization,
@@ -55,15 +55,15 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 日志摄取 - Bulk
+    /// Thu thập nhật ký - Bulk
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/_bulk
-    /// 请求体为 NDJSON, 每两条为一组: 第一行为动作行 {"index":{"_index":"stream1"}}, 第二行为记录数据
-    /// 响应为 Elasticsearch _bulk 兼容结构: {"took":0,"errors":false,"items":[{"index":{...}}]}
-    /// 参考: https://openobserve.ai/docs/reference/api/ingestion/logs/bulk/
+    /// Thân yêu cầu là NDJSON, cứ hai dòng thành một nhóm: dòng đầu là dòng hành động {"index":{"_index":"stream1"}}, dòng thứ hai là dữ liệu bản ghi
+    /// Phản hồi có cấu trúc tương thích với _bulk của Elasticsearch: {"took":0,"errors":false,"items":[{"index":{...}}]}
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/ingestion/logs/bulk/
     /// </remarks>
-    /// <param name="action">动作: index / create / update, 默认 index</param>
+    /// <param name="action">Hành động: index / create / update, mặc định là index</param>
     public async virtual Task<JsonBulkResponse> JsonBulkAsync<TData>(
         string? organization,
         string stream,
@@ -76,13 +76,13 @@ public partial class OpenObserveClient
         var builder = new StringBuilder();
         foreach (var data in datas)
         {
-            // 动作行: {"index":{"_index":"stream1"}}
+            // Dòng hành động: {"index":{"_index":"stream1"}}
             builder.AppendLine(Serializer.Serialize(
                 new Dictionary<string, JsonBulkRequest>
                 {
                     [action] = new JsonBulkRequest { Index = stream },
                 }));
-            // 记录数据行
+            // Dòng dữ liệu bản ghi
             builder.AppendLine(Serializer.Serialize(data));
         }
 
@@ -98,13 +98,13 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 日志摄取 - Multi
+    /// Thu thập nhật ký - Multi
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/{stream}/_multi
-    /// 请求体为 NDJSON, 每行一个记录对象(没有动作行)
-    /// 响应与 _json 相同: {"code":200,"status":[{"name":"stream1","successful":2,"failed":0}]}
-    /// 参考: https://openobserve.ai/docs/reference/api/ingestion/logs/multi/
+    /// Thân yêu cầu là NDJSON, mỗi dòng là một đối tượng bản ghi (không có dòng hành động)
+    /// Phản hồi giống với _json: {"code":200,"status":[{"name":"stream1","successful":2,"failed":0}]}
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/ingestion/logs/multi/
     /// </remarks>
     public async virtual Task<JsonResponse> JsonMultiAsync<TData>(
         string? organization,
@@ -132,7 +132,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 摄取失败时创建异常
+    /// Tạo ngoại lệ khi thu thập thất bại
     /// </summary>
     protected virtual Func<OpenObserveErrorResponse, HttpResponseMessage, Exception> ThrowIfIngestionException(string stream)
     {

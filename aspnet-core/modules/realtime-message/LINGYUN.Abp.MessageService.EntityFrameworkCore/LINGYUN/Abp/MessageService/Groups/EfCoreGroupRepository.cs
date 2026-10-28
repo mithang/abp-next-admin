@@ -24,11 +24,13 @@ public class EfCoreGroupRepository : EfCoreRepository<IMessageServiceDbContext, 
 
     public async virtual Task<int> GetCountAsync(
         string? filter = null,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default)
     {
         return await (await GetDbSetAsync())
             .WhereIf(!filter.IsNullOrWhiteSpace(), x =>
                 x.Name.Contains(filter!) || x.Tag!.Contains(filter!))
+            .WhereIf(allowAnonymousOnly, x => x.AllowAnonymous)
             .CountAsync(GetCancellationToken(cancellationToken));
     }
 
@@ -37,6 +39,7 @@ public class EfCoreGroupRepository : EfCoreRepository<IMessageServiceDbContext, 
         string? sorting = nameof(ChatGroup.Name),
         int skipCount = 0,
         int maxResultCount = 10,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default)
     {
         if (sorting.IsNullOrWhiteSpace())
@@ -46,6 +49,7 @@ public class EfCoreGroupRepository : EfCoreRepository<IMessageServiceDbContext, 
         return await (await GetDbSetAsync())
             .WhereIf(!filter.IsNullOrWhiteSpace(), x =>
                 x.Name.Contains(filter!) || x.Tag!.Contains(filter!))
+            .WhereIf(allowAnonymousOnly, x => x.AllowAnonymous)
             .OrderBy(sorting)
             .PageBy(skipCount, maxResultCount)
             .ToListAsync(GetCancellationToken(cancellationToken));

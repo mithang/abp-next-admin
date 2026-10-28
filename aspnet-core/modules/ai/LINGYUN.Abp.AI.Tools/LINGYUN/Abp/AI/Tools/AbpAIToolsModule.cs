@@ -27,7 +27,7 @@ public class AbpAIToolsModule : AbpModule
 
         Configure<AbpAIToolsOptions>(options =>
         {
-            // 自定义函数工具
+            // Công cụ hàm tùy chỉnh
             options.AIToolProviders.Add<FunctionAIToolProvider>();
         });
 
@@ -44,10 +44,10 @@ public class AbpAIToolsModule : AbpModule
                         config.ToolMode = ChatToolMode.Auto;
                         config.AllowMultipleToolCalls = true;
 
-                        // 添加发现的工具
+                        // Thêm các công cụ đã phát hiện
                         config.Tools = workspaceAITools;
                     })
-                    // 启用以支持函数式工具
+                    // Bật để hỗ trợ công cụ dạng hàm
                     .UseFunctionInvocation();
             });
         });

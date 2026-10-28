@@ -1,39 +1,39 @@
 # LINGYUN.Abp.DataProtectionManagement.Application
 
-数据权限管理应用服务模块，提供数据权限管理的应用服务实现。
+Mô-đun dịch vụ ứng dụng quản lý quyền dữ liệu, cung cấp triển khai dịch vụ ứng dụng quản lý quyền dữ liệu.
 
-## 功能
+## Tính năng
 
-* 数据权限管理应用服务
-  * 创建数据权限
-  * 更新数据权限
-  * 删除数据权限
-  * 查询数据权限
-* 自动映射配置
-* 权限验证
+* Dịch vụ ứng dụng quản lý quyền dữ liệu
+  * Tạo quyền dữ liệu
+  * Cập nhật quyền dữ liệu
+  * Xóa quyền dữ liệu
+  * Truy vấn quyền dữ liệu
+* Cấu hình ánh xạ tự động
+* Xác thực quyền
 
-## 应用服务实现
+## Triển khai dịch vụ ứng dụng
 
-* `DataProtectionAppService` - 数据权限应用服务
-  * 实现 `IDataProtectionAppService` 接口
-  * 提供数据权限的CRUD操作
-  * 包含权限验证
-  * 包含数据验证
+* `DataProtectionAppService` - Dịch vụ ứng dụng quyền dữ liệu
+  * Triển khai giao diện `IDataProtectionAppService`
+  * Cung cấp các thao tác CRUD quyền dữ liệu
+  * Bao gồm xác thực quyền
+  * Bao gồm xác thực dữ liệu
 
-## 自动映射配置
+## Cấu hình ánh xạ tự động
 
-* `DataProtectionManagementApplicationAutoMapperProfile` - 自动映射配置文件
+* `DataProtectionManagementApplicationAutoMapperProfile` - Tệp cấu hình ánh xạ tự động
   * `DataProtection` -> `DataProtectionDto`
   * `DataProtectionCreateDto` -> `DataProtection`
   * `DataProtectionUpdateDto` -> `DataProtection`
 
-## 权限验证
+## Xác thực quyền
 
-* 创建数据权限需要 `DataProtectionManagement.DataProtection.Create` 权限
-* 更新数据权限需要 `DataProtectionManagement.DataProtection.Update` 权限
-* 删除数据权限需要 `DataProtectionManagement.DataProtection.Delete` 权限
-* 查询数据权限需要 `DataProtectionManagement.DataProtection` 权限
+* Tạo quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection.Create`
+* Cập nhật quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection.Update`
+* Xóa quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection.Delete`
+* Truy vấn quyền dữ liệu cần quyền `DataProtectionManagement.DataProtection`
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

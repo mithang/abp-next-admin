@@ -24,7 +24,7 @@ namespace LINGYUN.Abp.Tests
             var configurationOptions = new AbpConfigurationBuilderOptions
             {
                 EnvironmentName = "Development",
-                // 测试环境机密配置
+                // Cấu hình bí mật cho môi trường kiểm tra
                 UserSecretsId = Environment.GetEnvironmentVariable("APPLICATION_USER_SECRETS_ID"),
                 UserSecretsAssembly = typeof(AbpTestsBaseModule).Assembly
             };

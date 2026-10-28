@@ -25,7 +25,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         _expressionQueryTranslator = GetRequiredService<IExpressionQueryTranslator>();
     }
 
-    #region 索引初始化
+    #region Khởi tạo chỉ mục
 
     protected override void AfterInitialize()
     {
@@ -121,7 +121,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 基础查询测试
+    #region Kiểm thử truy vấn cơ bản
 
     [Fact]
     public async virtual Task Translate_ConstantTrue_ReturnsMatchAllQuery()
@@ -147,7 +147,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 相等性查询测试
+    #region Kiểm thử truy vấn bằng nhau
 
     [Fact]
     public async virtual Task Translate_Equal_NumericField_ReturnsTermQuery()
@@ -282,7 +282,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region Null 比较测试
+    #region Kiểm thử so sánh Null
 
     [Fact]
     public async virtual Task Translate_EqualNull_ReturnsMustNotExistsQuery()
@@ -356,7 +356,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 逻辑运算测试
+    #region Kiểm thử phép toán logic
 
     [Fact]
     public async virtual Task Translate_AndAlso_TwoConditions_ReturnsBoolFilterWithTwoQueries()
@@ -426,7 +426,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         query.Bool.Filter.ShouldNotBeNull();
         query.Bool.Filter.Count.ShouldBe(2);
 
-        // 检查第一个 filter 是否为 Should 查询
+        // Kiểm tra filter đầu tiên có phải là truy vấn Should không
         var shouldQuery = query.Bool.Filter.FirstOrDefault(q => q.Bool?.Should != null);
         shouldQuery.ShouldNotBeNull();
         shouldQuery.Bool.ShouldNotBeNull();
@@ -464,7 +464,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 范围查询测试
+    #region Kiểm thử truy vấn theo khoảng
 
     [Fact]
     public async virtual Task Translate_GreaterThan_ReturnsRangeQuery()
@@ -554,7 +554,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         query.Bool.Filter.ShouldNotBeNull();
         query.Bool.Filter.Count.ShouldBe(2);
 
-        // 两个 filter 都应该是 DateRangeQuery
+        // Cả hai filter đều phải là DateRangeQuery
         query.Bool.Filter.ShouldAllBe(filter => filter.Range is DateRangeQuery);
     }
 
@@ -573,7 +573,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 字符串方法测试
+    #region Kiểm thử phương thức chuỗi
 
     [Fact]
     public async virtual Task Translate_StringContains_KeywordField_ReturnsWildcardQuery()
@@ -732,7 +732,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         query.Bool.MinimumShouldMatch.ShouldNotBeNull();
         query.Bool.MinimumShouldMatch.Value1.ShouldBe(1);
 
-        // 验证包含 Exists 查询（must_not）
+        // Xác minh có chứa truy vấn Exists (must_not)
         var nullCheckQuery = query.Bool.Should.FirstOrDefault(q => q.Bool?.MustNot != null);
         nullCheckQuery.ShouldNotBeNull();
         nullCheckQuery.Bool.ShouldNotBeNull();
@@ -740,7 +740,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         nullCheckQuery.Bool.MustNot.Count.ShouldBe(1);
         nullCheckQuery.Bool.MustNot.First().Exists.ShouldNotBeNull();
 
-        // 验证包含空字符串 Term 查询
+        // Xác minh có chứa truy vấn Term chuỗi rỗng
         var emptyStringQuery = query.Bool.Should.FirstOrDefault(q => q.Term != null);
         emptyStringQuery.ShouldNotBeNull();
         emptyStringQuery.Term.ShouldNotBeNull();
@@ -762,7 +762,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         query.Bool.MinimumShouldMatch.ShouldNotBeNull();
         query.Bool.MinimumShouldMatch.Value1.ShouldBe(1);
 
-        // 验证包含 Exists 查询（must_not）
+        // Xác minh có chứa truy vấn Exists (must_not)
         var nullCheckQuery = query.Bool.Should.FirstOrDefault(q => q.Bool?.MustNot != null);
         nullCheckQuery.ShouldNotBeNull();
         nullCheckQuery.Bool.ShouldNotBeNull();
@@ -770,14 +770,14 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         nullCheckQuery.Bool.MustNot.Count.ShouldBe(1);
         nullCheckQuery.Bool.MustNot.First().Exists.ShouldNotBeNull();
 
-        // 验证包含空字符串 Term 查询
+        // Xác minh có chứa truy vấn Term chuỗi rỗng
         var emptyStringQuery = query.Bool.Should.FirstOrDefault(q => q.Term != null);
         emptyStringQuery.ShouldNotBeNull();
         emptyStringQuery.Term.ShouldNotBeNull();
         emptyStringQuery.Term.Value.TryGetString(out var termValue).ShouldBeTrue();
         termValue.ShouldBe(string.Empty);
 
-        // 验证包含正则表达式查询
+        // Xác minh có chứa truy vấn biểu thức chính quy
         var regexpQuery = query.Bool.Should.FirstOrDefault(q => q.Regexp != null);
         regexpQuery.ShouldNotBeNull();
         regexpQuery.Regexp.ShouldNotBeNull();
@@ -873,7 +873,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 集合方法测试
+    #region Kiểm thử phương thức tập hợp
 
     [Fact]
     public async virtual Task Translate_EnumerableContains_Tags_ReturnsTermsQuery()
@@ -976,7 +976,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 嵌套属性测试
+    #region Kiểm thử thuộc tính lồng nhau
 
     [Fact]
     public async virtual Task Translate_NestedObjectProperty_ReturnsQueryWithNestedPath()
@@ -1017,7 +1017,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region Nullable 属性测试
+    #region Kiểm thử thuộc tính Nullable
 
     [Fact]
     public async virtual Task Translate_NullableDate_HasValue_ReturnsExistsQuery()
@@ -1033,7 +1033,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 复杂表达式测试
+    #region Kiểm thử biểu thức phức tạp
 
     [Fact]
     public async virtual Task Translate_ComplexExpression_ReturnsCorrectQuery()
@@ -1056,7 +1056,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         query.Bool.Filter.ShouldNotBeNull();
         query.Bool.Filter.Count.ShouldBe(6);
 
-        // 1. 验证年龄范围查询
+        // 1. Xác minh truy vấn khoảng tuổi
         var rangeQueries = query.Bool.Filter.Where(q => q.Range != null).ToList();
         rangeQueries.Count.ShouldBe(2);
 
@@ -1070,20 +1070,20 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         maxAgeRange.Lte.ShouldNotBeNull();
         maxAgeRange.Lte!.Value.ShouldBe(maxAge);
 
-        // 2. 验证 Exists 查询
+        // 2. Xác minh truy vấn Exists
         var existsQuery = query.Bool.Filter.FirstOrDefault(q => q.Exists != null);
         existsQuery.ShouldNotBeNull();
         existsQuery.Exists.ShouldNotBeNull();
         existsQuery.Exists.Field.ToString().ShouldBe("Name.keyword");
 
-        // 3. 验证通配符查询
+        // 3. Xác minh truy vấn ký tự đại diện
         var wildcardQuery = query.Bool.Filter.FirstOrDefault(q => q.Wildcard != null);
         wildcardQuery.ShouldNotBeNull();
         wildcardQuery.Wildcard.ShouldNotBeNull();
         wildcardQuery.Wildcard.Value.ShouldBe("test*");
         wildcardQuery.Wildcard.Field.ToString().ShouldBe("Name.keyword");
 
-        // 4. 验证 Term 查询
+        // 4. Xác minh truy vấn Term
         var termQuery = query.Bool.Filter.FirstOrDefault(q => q.Term != null);
         termQuery.ShouldNotBeNull();
         termQuery.Term.ShouldNotBeNull();
@@ -1091,7 +1091,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
         termQuery.Term.Value.TryGetBool(out var boolValue).ShouldBeTrue();
         boolValue.Value.ShouldBeTrue();
 
-        // 5. 验证 Should 查询
+        // 5. Xác minh truy vấn Should
         var shouldQuery = query.Bool.Filter.FirstOrDefault(q => q.Bool?.Should != null);
         shouldQuery.ShouldNotBeNull();
         shouldQuery.Bool.ShouldNotBeNull();
@@ -1146,7 +1146,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 边界情况测试
+    #region Kiểm thử trường hợp biên
 
     [Fact]
     public async virtual Task Translate_UnsupportedMethod_ThrowsNotSupportedException()
@@ -1222,7 +1222,7 @@ public abstract class ExpressionQueryTranslatorTests<TStartupModule> : AbpIntegr
 
     #endregion
 
-    #region 使用 Theory 的参数化测试
+    #region Kiểm thử tham số hóa dùng Theory
 
     [Theory]
     [InlineData(TestEnum.Active, 1)]

@@ -3,20 +3,20 @@
 namespace LINGYUN.Abp.Identity;
 
 /// <summary>
-/// 安全令牌验证缓存
+/// Bộ nhớ đệm xác thực mã thông báo bảo mật
 /// </summary>
 public class SecurityTokenCacheItem
 {
     /// <summary>
-    /// 用于验证的Token
+    /// Token dùng để xác thực
     /// </summary>
     public string Token { get; set; } = default!;
     /// <summary>
-    /// 用于验证的用户Id
+    /// Id người dùng dùng để xác thực
     /// </summary>
     public Guid UserId { get; set; }
     /// <summary>
-    /// 用于验证的安全令牌
+    /// Mã thông báo bảo mật dùng để xác thực
     /// </summary>
     public string SecurityToken { get; set; } = default!;
 
@@ -33,10 +33,10 @@ public class SecurityTokenCacheItem
     }
 
     /// <summary>
-    /// 生成查询Key
+    /// Tạo khóa truy vấn
     /// </summary>
-    /// <param name="phoneNumber">手机号</param>
-    /// <param name="purpose">安全令牌用途</param>
+    /// <param name="phoneNumber">Số điện thoại di động</param>
+    /// <param name="purpose">Mục đích sử dụng mã thông báo bảo mật</param>
     /// <returns></returns>
     public static string CalculateSmsCacheKey(string phoneNumber, string purpose)
     {
@@ -44,10 +44,10 @@ public class SecurityTokenCacheItem
     }
 
     /// <summary>
-    /// 生成查询Key
+    /// Tạo khóa truy vấn
     /// </summary>
-    /// <param name="email">邮件地址</param>
-    /// <param name="purpose">安全令牌用途</param>
+    /// <param name="email">Địa chỉ email</param>
+    /// <param name="purpose">Mục đích sử dụng mã thông báo bảo mật</param>
     /// <returns></returns>
     public static string CalculateEmailCacheKey(string email, string purpose)
     {

@@ -3,7 +3,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 长期未使用应用临时停用事件
+/// Sự kiện tạm dừng ứng dụng do không sử dụng trong thời gian dài
 /// </summary>
 [EventName("close_inactive_agent")]
 public class CloseInActiveAgentEvent : WeChatWorkEventMessage

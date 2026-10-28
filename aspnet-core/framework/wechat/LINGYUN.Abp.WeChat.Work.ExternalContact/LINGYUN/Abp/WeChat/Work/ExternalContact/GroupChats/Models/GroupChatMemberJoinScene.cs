@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Models;
 /// <summary>
-/// 入群方式
+/// Cách tham gia nhóm
 /// </summary>
-[Description("入群方式")]
+[Description("Cách tham gia nhóm")]
 public enum GroupChatMemberJoinScene
 {
     /// <summary>
-    /// 由群成员邀请入群（直接邀请入群）
+    /// Được thành viên nhóm mời vào nhóm (mời trực tiếp vào nhóm)
     /// </summary>
-    [Description("直接邀请入群")]
+    [Description("Mời trực tiếp vào nhóm")]
     DirectInvitation = 1,
     /// <summary>
-    /// 由群成员邀请入群（通过邀请链接入群）
+    /// Được thành viên nhóm mời vào nhóm (vào nhóm qua liên kết mời)
     /// </summary>
-    [Description("通过邀请链接入群")]
+    [Description("Vào nhóm qua liên kết mời")]
     InvitationLink = 2,
     /// <summary>
-    /// 通过扫描群二维码入群
+    /// Vào nhóm bằng cách quét mã QR của nhóm
     /// </summary>
-    [Description("通过扫描群二维码入群")]
+    [Description("Vào nhóm bằng cách quét mã QR của nhóm")]
     ScanQrCode = 3,
 }

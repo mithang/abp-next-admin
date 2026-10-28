@@ -7,7 +7,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     private const string ToPartyKey = Prefix + "to_party";
 
     /// <summary>
-    /// 设定发送到所有应用
+    /// Đặt gửi tới tất cả ứng dụng
     /// </summary>
     /// <param name="notification"></param>
     /// <returns></returns>
@@ -18,7 +18,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 设定消息应用标识
+    /// Đặt mã định danh ứng dụng tin nhắn
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="agentId"></param>
@@ -31,7 +31,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取消息应用标识
+    /// Lấy mã định danh ứng dụng tin nhắn
     /// </summary>
     /// <param name="notification"></param>
     public static string? GetAgentIdOrNull(
@@ -46,7 +46,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 指定接收消息的标签，标签ID列表，多个接收者用‘|’分隔，最多支持100个。
+    /// Chỉ định nhãn nhận tin nhắn, danh sách ID nhãn, nhiều người nhận dùng ‘|’ để phân tách, tối đa hỗ trợ 100 cái.
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="tag"></param>
@@ -59,7 +59,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取接收消息的标签
+    /// Lấy nhãn nhận tin nhắn
     /// </summary>
     /// <param name="notification"></param>
     public static string? GetTagOrNull(
@@ -74,7 +74,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 指定接收消息的部门，部门ID列表，多个接收者用‘|’分隔，最多支持100个。
+    /// Chỉ định phòng ban nhận tin nhắn, danh sách ID phòng ban, nhiều người nhận dùng ‘|’ để phân tách, tối đa hỗ trợ 100 cái.
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="party"></param>
@@ -87,7 +87,7 @@ public static class NotificationDefinitionWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取接收消息的部门
+    /// Lấy phòng ban nhận tin nhắn
     /// </summary>
     /// <param name="notification"></param>
     public static string? GetPartyOrNull(

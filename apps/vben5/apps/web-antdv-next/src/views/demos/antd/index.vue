@@ -26,7 +26,7 @@ function success() {
 function notify(type: NotificationType) {
   notification[type]({
     duration: 2.5,
-    title: '说点啥呢',
+    title: 'Nói gì đây nhỉ',
     type,
   });
 }
@@ -34,10 +34,10 @@ function notify(type: NotificationType) {
 
 <template>
   <Page
-    description="支持多语言，主题功能集成切换等"
-    title="Ant Design Vue组件使用演示"
+    description="Hỗ trợ đa ngôn ngữ, tích hợp chuyển đổi tính năng chủ đề, v.v."
+    title="Demo sử dụng component Ant Design Vue"
   >
-    <Card class="mb-5" title="按钮">
+    <Card class="mb-5" title="Nút bấm">
       <Space>
         <Button>Default</Button>
         <Button type="primary"> Primary </Button>
@@ -47,19 +47,19 @@ function notify(type: NotificationType) {
     </Card>
     <Card class="mb-5" title="Message">
       <Space>
-        <Button @click="info"> 信息 </Button>
-        <Button danger @click="error"> 错误 </Button>
-        <Button @click="warning"> 警告 </Button>
-        <Button @click="success"> 成功 </Button>
+        <Button @click="info"> Thông tin </Button>
+        <Button danger @click="error"> Lỗi </Button>
+        <Button @click="warning"> Cảnh báo </Button>
+        <Button @click="success"> Thành công </Button>
       </Space>
     </Card>
 
     <Card class="mb-5" title="Notification">
       <Space>
-        <Button @click="notify('info')"> 信息 </Button>
-        <Button danger @click="notify('error')"> 错误 </Button>
-        <Button @click="notify('warning')"> 警告 </Button>
-        <Button @click="notify('success')"> 成功 </Button>
+        <Button @click="notify('info')"> Thông tin </Button>
+        <Button danger @click="notify('error')"> Lỗi </Button>
+        <Button @click="notify('warning')"> Cảnh báo </Button>
+        <Button @click="notify('success')"> Thành công </Button>
       </Space>
     </Card>
   </Page>

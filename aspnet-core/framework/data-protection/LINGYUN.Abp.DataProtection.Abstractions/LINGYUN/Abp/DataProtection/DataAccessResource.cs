@@ -7,32 +7,32 @@ namespace LINGYUN.Abp.DataProtection;
 public class DataAccessResource
 {
     /// <summary>
-    /// 权限主体
+    /// Chủ thể quyền
     /// </summary>
     public string SubjectName { get; set; } = default!;
 
     /// <summary>
-    /// 权限主体标识
+    /// Định danh chủ thể quyền
     /// </summary>
     public string SubjectId { get; set; } = default!;
 
     /// <summary>
-    /// 实体类型全名
+    /// Tên đầy đủ của loại thực thể
     /// </summary>
     public string EntityTypeFullName { get; set; } = default!;
 
     /// <summary>
-    /// 数据权限操作
+    /// Thao tác quyền dữ liệu
     /// </summary>
     public DataAccessOperation Operation { get; set; }
 
     /// <summary>
-    /// 获取或设置 数据过滤规则
+    /// Lấy hoặc đặt quy tắc lọc dữ liệu
     /// </summary>
     public DataAccessFilterGroup? FilterGroup { get; set; }
 
     /// <summary>
-    /// 允许操作的属性列表
+    /// Danh sách thuộc tính được phép thao tác
     /// </summary>
     public List<string> AccessedProperties { get; set; }
 

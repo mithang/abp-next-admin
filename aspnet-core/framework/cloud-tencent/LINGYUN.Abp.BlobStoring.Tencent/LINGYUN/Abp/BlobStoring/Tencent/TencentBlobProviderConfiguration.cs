@@ -14,14 +14,14 @@ public class TencentBlobProviderConfiguration
         set => _containerConfiguration.SetConfiguration(TencentBlobProviderConfigurationNames.AppId, Check.NotNullOrWhiteSpace(value, nameof(value)));
     }
     /// <summary>
-    /// 区域
+    /// Vùng
     /// </summary>
     public string? Region {
         get => _containerConfiguration.GetConfiguration<string>(TencentBlobProviderConfigurationNames.Region);
         set => _containerConfiguration.SetConfiguration(TencentBlobProviderConfigurationNames.Region, value);
     }
     /// <summary>
-    /// 命名空间
+    /// Không gian tên
     /// </summary>
     public string BucketName
     {
@@ -29,7 +29,7 @@ public class TencentBlobProviderConfiguration
         set => _containerConfiguration.SetConfiguration(TencentBlobProviderConfigurationNames.BucketName, Check.NotNullOrWhiteSpace(value, nameof(value)));
     }
     /// <summary>
-    /// 命名空间不存在是否创建
+    /// Có tạo không gian tên khi chưa tồn tại hay không
     /// </summary>
     public bool CreateBucketIfNotExists
     {
@@ -37,7 +37,7 @@ public class TencentBlobProviderConfiguration
         set => _containerConfiguration.SetConfiguration(TencentBlobProviderConfigurationNames.CreateBucketIfNotExists, value);
     }
     /// <summary>
-    /// 创建命名空间时防盗链列表
+    /// Danh sách chống liên kết trộm khi tạo không gian tên
     /// </summary>
     public List<string>? CreateBucketReferer {
         get => _containerConfiguration.GetConfigurationOrDefault(TencentBlobProviderConfigurationNames.CreateBucketReferer, new List<string>());

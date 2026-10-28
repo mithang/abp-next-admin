@@ -8,7 +8,7 @@ defineOptions({
 });
 
 const transitionProgress = defineModel<boolean>('transitionProgress', {
-  // 默认值
+  // Giá trị mặc định
   default: false,
 });
 const transitionName = defineModel<string>('transitionName');

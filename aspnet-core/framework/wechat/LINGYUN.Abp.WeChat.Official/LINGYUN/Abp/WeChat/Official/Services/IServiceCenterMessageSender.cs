@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Official.Services;
 /// <summary>
-/// 客服中心消息接口
+/// Interface tin nhắn trung tâm dịch vụ khách hàng
 /// </summary>
 public interface IServiceCenterMessageSender
 {

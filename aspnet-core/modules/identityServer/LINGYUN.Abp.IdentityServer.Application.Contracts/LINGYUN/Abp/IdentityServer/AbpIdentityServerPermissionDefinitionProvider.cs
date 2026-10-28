@@ -9,11 +9,11 @@ public class AbpIdentityServerPermissionDefinitionProvider : PermissionDefinitio
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        // TODO: 身份认证服务器应该只能主机管辖
-        // 增加 MultiTenancySides.Host
+        // TODO: Máy chủ xác thực danh tính chỉ nên thuộc về máy chủ (host)
+        // Thêm MultiTenancySides.Host
         // var identityServerGroup = context.AddGroup(AbpIdentityServerPermissions.GroupName, L("Permissions:IdentityServer"), MultiTenancySides.Host);
 
-        // 与 LINGYUN.Abp.FeatureManagement.Client 模块搭配,这样干可以不依赖于模块优先级
+        // Kết hợp với mô-đun LINGYUN.Abp.FeatureManagement.Client, làm như vậy sẽ không phụ thuộc vào mức độ ưu tiên của mô-đun
         var identityServerGroup = context.GetGroupOrNull(AbpIdentityServerPermissions.GroupName);
         if (identityServerGroup == null)
         {
@@ -22,7 +22,7 @@ public class AbpIdentityServerPermissionDefinitionProvider : PermissionDefinitio
                     name: AbpIdentityServerPermissions.GroupName,
                     displayName: L("Permissions:IdentityServer"));
         }
-        // 客户端权限
+        // Quyền máy khách
         var clientPermissions = identityServerGroup.AddPermission(AbpIdentityServerPermissions.Clients.Default, L("Permissions:Clients"), MultiTenancySides.Host);
         clientPermissions.AddChild(AbpIdentityServerPermissions.Clients.Create, L("Permissions:Create"), MultiTenancySides.Host);
         clientPermissions.AddChild(AbpIdentityServerPermissions.Clients.Update, L("Permissions:Update"), MultiTenancySides.Host);
@@ -33,7 +33,7 @@ public class AbpIdentityServerPermissionDefinitionProvider : PermissionDefinitio
         clientPermissions.AddChild(AbpIdentityServerPermissions.Clients.ManageSecrets, L("Permissions:ManageSecrets"), MultiTenancySides.Host);
         clientPermissions.AddChild(AbpIdentityServerPermissions.Clients.ManageProperties, L("Permissions:ManageProperties"), MultiTenancySides.Host);
 
-        // Api资源权限
+        // Quyền tài nguyên Api
         var apiResourcePermissions = identityServerGroup.AddPermission(AbpIdentityServerPermissions.ApiResources.Default, L("Permissions:ApiResources"), MultiTenancySides.Host);
         apiResourcePermissions.AddChild(AbpIdentityServerPermissions.ApiResources.Create, L("Permissions:Create"), MultiTenancySides.Host);
         apiResourcePermissions.AddChild(AbpIdentityServerPermissions.ApiResources.Update, L("Permissions:Update"), MultiTenancySides.Host);
@@ -43,7 +43,7 @@ public class AbpIdentityServerPermissionDefinitionProvider : PermissionDefinitio
         apiResourcePermissions.AddChild(AbpIdentityServerPermissions.ApiResources.ManageScopes, L("Permissions:ManageScopes"), MultiTenancySides.Host);
         apiResourcePermissions.AddChild(AbpIdentityServerPermissions.ApiResources.ManageProperties, L("Permissions:ManageProperties"), MultiTenancySides.Host);
 
-        // Api范围权限
+        // Quyền phạm vi Api
         var apiScopePermissions = identityServerGroup.AddPermission(AbpIdentityServerPermissions.ApiScopes.Default, L("Permissions:ApiScopes"), MultiTenancySides.Host);
         apiScopePermissions.AddChild(AbpIdentityServerPermissions.ApiScopes.Create, L("Permissions:Create"), MultiTenancySides.Host);
         apiScopePermissions.AddChild(AbpIdentityServerPermissions.ApiScopes.Update, L("Permissions:Update"), MultiTenancySides.Host);
@@ -51,7 +51,7 @@ public class AbpIdentityServerPermissionDefinitionProvider : PermissionDefinitio
         apiScopePermissions.AddChild(AbpIdentityServerPermissions.ApiScopes.ManageClaims, L("Permissions:ManageClaims"), MultiTenancySides.Host);
         apiScopePermissions.AddChild(AbpIdentityServerPermissions.ApiScopes.ManageProperties, L("Permissions:ManageProperties"), MultiTenancySides.Host);
 
-        // 身份资源权限
+        // Quyền tài nguyên danh tính
         var identityResourcePermissions = identityServerGroup.AddPermission(AbpIdentityServerPermissions.IdentityResources.Default, L("Permissions:IdentityResources"), MultiTenancySides.Host);
         identityResourcePermissions.AddChild(AbpIdentityServerPermissions.IdentityResources.Create, L("Permissions:Create"), MultiTenancySides.Host);
         identityResourcePermissions.AddChild(AbpIdentityServerPermissions.IdentityResources.Update, L("Permissions:Update"), MultiTenancySides.Host);
@@ -59,7 +59,7 @@ public class AbpIdentityServerPermissionDefinitionProvider : PermissionDefinitio
         identityResourcePermissions.AddChild(AbpIdentityServerPermissions.IdentityResources.ManageClaims, L("Permissions:ManageClaims"), MultiTenancySides.Host);
         identityResourcePermissions.AddChild(AbpIdentityServerPermissions.IdentityResources.ManageProperties, L("Permissions:ManageProperties"), MultiTenancySides.Host);
 
-        // 持久授权
+        // Ủy quyền bền vững
         var persistedGrantPermissions = identityServerGroup.AddPermission(AbpIdentityServerPermissions.Grants.Default, L("Permissions:Grants"), MultiTenancySides.Host);
         persistedGrantPermissions.AddChild(AbpIdentityServerPermissions.Grants.Delete, L("Permissions:Delete"), MultiTenancySides.Host);
     }

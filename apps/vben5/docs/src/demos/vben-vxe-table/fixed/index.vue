@@ -18,7 +18,7 @@ interface RowType {
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
-    { fixed: 'left', title: '序号', type: 'seq', width: 50 },
+    { fixed: 'left', title: 'Số thứ tự', type: 'seq', width: 50 },
     { field: 'category', title: 'Category', width: 300 },
     { field: 'color', title: 'Color', width: 300 },
     { field: 'productName', title: 'Product Name', width: 300 },
@@ -33,7 +33,7 @@ const gridOptions: VxeGridProps<RowType> = {
       field: 'action',
       fixed: 'right',
       slots: { default: 'action' },
-      title: '操作',
+      title: 'Thao tác',
       width: 120,
     },
   ],
@@ -60,7 +60,7 @@ const [Grid] = useVbenVxeGrid({ gridOptions });
   <div class="vp-raw w-full">
     <Grid>
       <template #action>
-        <Button type="link">编辑</Button>
+        <Button type="link">Chỉnh sửa</Button>
       </template>
     </Grid>
   </div>

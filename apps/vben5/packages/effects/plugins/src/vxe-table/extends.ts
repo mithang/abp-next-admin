@@ -45,8 +45,8 @@ function extendProxyOption(
       params,
       {
         /**
-         * 开启toolbarConfig.refresh功能
-         * 点击刷新按钮 这里的值为PointerEvent 会携带错误参数
+         * Bật chức năng toolbarConfig.refresh
+         * Khi nhấn nút làm mới, giá trị ở đây là PointerEvent và sẽ mang theo tham số lỗi
          */
         ...(customValues instanceof PointerEvent ? {} : customValues),
         ...formValues,

@@ -1,16 +1,16 @@
-[Client](./LINGYUN.Abp.Dapr.Client/README.md) | Dapr.Actors 文档
+[Client](./LINGYUN.Abp.Dapr.Client/README.md) | Tài liệu Dapr.Actors
 
-# Dapr.Actors 集成
+# Tích hợp Dapr.Actors
 
-## 配置使用
+## Cấu hình sử dụng
 
-项目设计与 **Volo.Abp.Http.Client** 类似  
+Thiết kế dự án tương tự **Volo.Abp.Http.Client**  
 
-### 1、接口定义
+### 1. Định nghĩa interface
 
 ```c#
 
-// 定义在接口上的RemoteService.Name会被作为Actor的名称注册到Dapr
+// RemoteService.Name được định nghĩa trên interface sẽ được đăng ký vào Dapr dưới tên Actor
 [RemoteService(Name = "System")]
 public interface ISystemActor : IActor
 {
@@ -24,11 +24,11 @@ public class SystemActorInterfaceModule : AbpModule
 
 ```
 
-### 2、服务端
+### 2. Phía máy chủ
 
-引用 LINGYUN.Abp.Dapr.Actors.AspNetCore
+Tham chiếu LINGYUN.Abp.Dapr.Actors.AspNetCore
 
-* 实现接口
+* Triển khai interface
 
 ```c#
 
@@ -42,11 +42,11 @@ public class SystemActor : Actor, ISystemActor
 
 ```
 
-* 创建模块
+* Tạo module
 
 ```c#
 
-// 模块会自动搜索实现了IActor的服务,注册为Dapr的Actors
+// Module sẽ tự động tìm kiếm các service đã triển khai IActor và đăng ký thành Actors của Dapr
 [DependsOn(
         typeof(AbpDaprActorsAspNetCoreModule))]
 public class SystemActorServerModule : AbpModule
@@ -56,21 +56,21 @@ public class SystemActorServerModule : AbpModule
 
 ```
 
-* 发布到Dapr
+* Phát hành lên Dapr
 
 ```shell
-# --app-port .net程序映射端口
-# -H 对外暴露 http 监听端口
-# -G 对外暴露 grpc 监听端口
+# --app-port cổng ánh xạ của chương trình .NET
+# -H cổng lắng nghe http công khai ra bên ngoài
+# -G cổng lắng nghe grpc công khai ra bên ngoài
 dapr run --app-id myapp --app-port 5000 -H 50000 -G 40001 -- dotnet run
 
 ```
 
-### 3、客户端
+### 3. Phía máy khách
 
-引用 LINGYUN.Abp.Dapr.Actors
+Tham chiếu LINGYUN.Abp.Dapr.Actors
 
-* 配置文件 **appsettings.json**
+* Tệp cấu hình **appsettings.json**
 
 ```json
 
@@ -84,26 +84,26 @@ dapr run --app-id myapp --app-port 5000 -H 50000 -G 40001 -- dotnet run
 
 ```
 
-* 客户端代码  
+* Mã phía máy khách  
 
 ```c#
 
-// 模块依赖
+// Phụ thuộc module
 [DependsOn(
         typeof(AbpDaprActorsModule))]
 public class SystemActorClientModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 注册代理类似于 Volo.Abp.Http.Client 模块
+        // Đăng ký proxy tương tự module Volo.Abp.Http.Client
         context.Services.AddDaprActorProxies(
-            typeof(SystemActorInterfaceModule).Assembly, // 搜索 SystemActorInterfaceModule 模块下的IActor定义
+            typeof(SystemActorInterfaceModule).Assembly, // Tìm kiếm định nghĩa IActor trong module SystemActorInterfaceModule
             "Shop"
         );
     }
 }
 
-// 调用方法，直接依赖注入即可
+// Gọi phương thức, chỉ cần dependency injection trực tiếp là được
 public class InvokeClass
 {
     private readonly ISystemActor _systemActor;
@@ -121,4 +121,4 @@ public class InvokeClass
 
 ```
 
-## 其他
+## Khác

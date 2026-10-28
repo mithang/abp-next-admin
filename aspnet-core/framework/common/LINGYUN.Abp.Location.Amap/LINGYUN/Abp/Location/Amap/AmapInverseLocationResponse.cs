@@ -1,7 +1,7 @@
 ﻿namespace LINGYUN.Abp.Location.Amap
 {
     /// <summary>
-    /// 逆地址解析结果
+    /// Kết quả phân tích địa chỉ ngược
     /// </summary>
     public class AmapInverseLocationResponse : AmapHttpResponse
     {

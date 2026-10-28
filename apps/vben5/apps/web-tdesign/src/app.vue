@@ -21,7 +21,7 @@ watch(
 );
 
 const customConfig: GlobalConfigProvider = {
-  // 可以在此处定义更多自定义配置，具体可配置内容参看 API 文档
+  // Có thể định nghĩa thêm nhiều cấu hình tùy chỉnh tại đây, nội dung cấu hình cụ thể xem tài liệu API
   calendar: {},
   table: {},
   pagination: {},

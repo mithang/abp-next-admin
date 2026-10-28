@@ -5,35 +5,35 @@ import type { EditionCreateDto, EditionDto, EditionUpdateDto, GetEditionPagedLis
 import requestClient from "../request";
 
 /**
- * 创建版本
- * @param {EditionCreateDto} input 参数
- * @returns 创建的版本
+ * Tạo phiên bản
+ * @param {EditionCreateDto} input Tham số
+ * @returns Phiên bản đã tạo
  */
 export function createApi(input: EditionCreateDto): Promise<EditionDto> {
 	return requestClient.post<EditionDto>("/api/saas/editions", input);
 }
 
 /**
- * 编辑版本
- * @param {string} id 参数
- * @param {EditionUpdateDto} input 参数
- * @returns 编辑的版本
+ * Chỉnh sửa phiên bản
+ * @param {string} id Tham số
+ * @param {EditionUpdateDto} input Tham số
+ * @returns Phiên bản đã chỉnh sửa
  */
 export function updateApi(id: string, input: EditionUpdateDto): Promise<EditionDto> {
 	return requestClient.put<EditionDto>(`/api/saas/editions/${id}`, input);
 }
 
 /**
- * 查询版本
+ * Truy vấn phiên bản
  * @param {string} id Id
- * @returns 查询的版本
+ * @returns Phiên bản đã truy vấn
  */
 export function getApi(id: string): Promise<EditionDto> {
 	return requestClient.get<EditionDto>(`/api/saas/editions/${id}`);
 }
 
 /**
- * 删除版本
+ * Xóa phiên bản
  * @param {string} id Id
  * @returns {void}
  */
@@ -42,8 +42,8 @@ export function deleteApi(id: string): Promise<void> {
 }
 
 /**
- * 查询版本分页列表
- * @param {GetEditionPagedListInput} input 参数
+ * Truy vấn danh sách phân trang phiên bản
+ * @param {GetEditionPagedListInput} input Tham số
  * @returns {void}
  */
 export function getPagedListApi(input?: GetEditionPagedListInput): Promise<PagedResultDto<EditionDto>> {

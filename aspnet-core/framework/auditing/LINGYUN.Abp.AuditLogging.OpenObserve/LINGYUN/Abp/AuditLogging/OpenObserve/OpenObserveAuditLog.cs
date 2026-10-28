@@ -5,19 +5,19 @@ using Volo.Abp.Data;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 写入 OpenObserve 的审计日志文档
+/// Tài liệu nhật ký kiểm toán ghi vào OpenObserve
 /// </summary>
 /// <remarks>
-/// 继承 <see cref="AuditLog"/> 并追加 <c>_timestamp</c> 列(由 <see cref="AuditLog.ExecutionTime"/> 覆盖);
-/// 实体变更与操作写入由 AuditLogStream 计算出的独立数据流
+/// Kế thừa <see cref="AuditLog"/> và bổ sung cột <c>_timestamp</c> (được ghi đè bởi <see cref="AuditLog.ExecutionTime"/>);
+/// Thay đổi thực thể và thao tác được ghi vào luồng dữ liệu độc lập do AuditLogStream tính toán
 /// </remarks>
 public class OpenObserveAuditLog : AuditLog
 {
     /// <summary>
-    /// OpenObserve 文档时间(微秒)
+    /// Thời gian tài liệu OpenObserve (micro giây)
     /// </summary>
     /// <remarks>
-    /// 由 <see cref="AuditLog.ExecutionTime"/> 覆盖; 为 null 时使用服务端写入时间
+    /// Được ghi đè bởi <see cref="AuditLog.ExecutionTime"/>; khi null sẽ dùng thời gian ghi phía máy chủ
     /// </remarks>
     [JsonPropertyName("_timestamp")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -49,11 +49,11 @@ public class OpenObserveAuditLog : AuditLog
             Exceptions = auditLog.Exceptions,
             Comments = auditLog.Comments,
             HttpStatusCode = auditLog.HttpStatusCode,
-            // 实体变更与操作写入独立数据流(见 GetEntityChangeStream / GetActionStream), 主文档不再冗余保存, 详情按需从子流获取
+            // Thay đổi thực thể và thao tác được ghi vào luồng dữ liệu độc lập (xem GetEntityChangeStream / GetActionStream), tài liệu chính không còn lưu trùng lặp, chi tiết lấy từ luồng con khi cần
             EntityChanges = new List<EntityChange>(),
             Actions = new List<AuditLogAction>(),
             ExtraProperties = auditLog.ExtraProperties ?? new ExtraPropertyDictionary(),
-            // _timestamp 由写入器按 AuditLog.ExecutionTime 覆盖(见 OpenObserveTimestampHelper)
+            // _timestamp được writer ghi đè theo AuditLog.ExecutionTime (xem OpenObserveTimestampHelper)
             Timestamp = null,
         };
     }

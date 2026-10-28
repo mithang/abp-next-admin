@@ -1,31 +1,31 @@
 # LINGYUN.Abp.TextTemplating.HttpApi.Client
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板 HTTP API 客户端模块，提供文本模板管理的 HTTP 客户端代理实现。
+Mô-đun máy khách HTTP API mẫu văn bản, cung cấp triển khai proxy máy khách HTTP cho quản lý mẫu văn bản.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * LINGYUN.Abp.TextTemplating.Application.Contracts
 * Volo.Abp.Http.Client
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供文本模板管理的 HTTP 客户端代理
-  * TextTemplateDefinitionClientProxy - 模板定义管理客户端代理
-  * TextTemplateContentClientProxy - 模板内容管理客户端代理
-* 实现以下应用服务接口
+* Cung cấp proxy máy khách HTTP cho quản lý mẫu văn bản
+  * TextTemplateDefinitionClientProxy - Proxy máy khách quản lý định nghĩa mẫu
+  * TextTemplateContentClientProxy - Proxy máy khách quản lý nội dung mẫu
+* Triển khai các giao diện dịch vụ ứng dụng sau
   * ITextTemplateDefinitionAppService
   * ITextTemplateContentAppService
 
-### 配置项
+### Mục cấu hình
 
 * AbpTextTemplatingRemoteServiceConsts
-  * RemoteServiceName - 远程服务名称 (默认: "AbpTextTemplating")
+  * RemoteServiceName - Tên dịch vụ từ xa (mặc định: "AbpTextTemplating")
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingHttpApiClientModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingHttpApiClientModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingHttpApiClientModule))]
@@ -33,7 +33,7 @@ public class YouProjectModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 配置远程服务
+        // Cấu hình dịch vụ từ xa
         Configure<AbpRemoteServiceOptions>(options =>
         {
             options.RemoteServices.Default.BaseUrl = "http://localhost:44315/";
@@ -42,7 +42,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 注入并使用客户端代理
+2. Tiêm và sử dụng proxy máy khách
 
 ```csharp
 public class YourService
@@ -56,11 +56,11 @@ public class YourService
 
     public async Task ManageTemplateAsync()
     {
-        // 获取模板定义列表
+        // Lấy danh sách định nghĩa mẫu
         var templates = await _templateDefinitionAppService.GetListAsync(
             new TextTemplateDefinitionGetListInput());
     }
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

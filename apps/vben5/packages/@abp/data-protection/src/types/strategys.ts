@@ -1,16 +1,16 @@
-/** 数据访问策略 */
+/** Chiến lược truy cập dữ liệu */
 enum DataAccessStrategy {
-  /** 可以访问所有数据 */
+  /** Có thể truy cập tất cả dữ liệu */
   All = 0,
-  /** 仅当前用户组织机构及下级机构 */
+  /** Chỉ tổ chức của người dùng hiện tại và các tổ chức cấp dưới */
   CurrentAndSubOrganizationUnits = 5,
-  /** 仅当前用户组织机构 */
+  /** Chỉ tổ chức của người dùng hiện tại */
   CurrentOrganizationUnits = 4,
-  /** 仅当前用户角色 */
+  /** Chỉ vai trò của người dùng hiện tại */
   CurrentRoles = 3,
-  /** 仅当前用户 */
+  /** Chỉ người dùng hiện tại */
   CurrentUser = 2,
-  /** 自定义规则 */
+  /** Quy tắc tùy chỉnh */
   Custom = 1,
 }
 

@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Saas.HttpApi.Client
 
-SaaS HTTP API客户端模块，提供了租户和版本管理的HTTP客户端代理实现。
+Mô-đun client HTTP API SaaS, cung cấp triển khai proxy client HTTP cho quản lý tenant và edition.
 
-## 功能特性
+## Tính năng
 
-* HTTP客户端代理
-  * ITenantAppService的HTTP客户端实现
-  * IEditionAppService的HTTP客户端实现
+* Proxy client HTTP
+  * Triển khai client HTTP của ITenantAppService
+  * Triển khai client HTTP của IEditionAppService
 
-## 使用方式
+## Cách sử dụng
 
-1. 安装模块
+1. Cài đặt mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpSaasHttpApiClientModule))]
@@ -19,7 +19,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置远程服务
+2. Cấu hình dịch vụ từ xa
 
 ```json
 {
@@ -31,7 +31,7 @@ public class YourModule : AbpModule
 }
 ```
 
-3. 注入并使用服务
+3. Inject và sử dụng dịch vụ
 
 ```csharp
 public class YourService
@@ -49,6 +49,6 @@ public class YourService
 }
 ```
 
-## 更多
+## Thêm
 
 [English](README.EN.md)

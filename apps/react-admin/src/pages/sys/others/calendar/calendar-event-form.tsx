@@ -40,7 +40,7 @@ export default function CalendarEventForm({
 	const [form] = Form.useForm();
 
 	useEffect(() => {
-		// 当 initValues 改变时，手动更新表单的值
+		// Khi initValues thay đổi, cập nhật thủ công giá trị của biểu mẫu
 		const { color = COLORS[0], ...others } = initValues;
 		form.setFieldsValue({ ...others, color });
 	}, [initValues, form]);

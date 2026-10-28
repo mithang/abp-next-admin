@@ -4,11 +4,11 @@ namespace LINGYUN.Abp.Identity;
 public class GetMySessionsInput : PagedAndSortedResultRequestDto
 {
     /// <summary>
-    /// 设备
+    /// Thiết bị
     /// </summary>
     public string? Device { get; set; }
     /// <summary>
-    /// 客户端id
+    /// Id máy khách
     /// </summary>
     public string? ClientId { get; set; }
 }

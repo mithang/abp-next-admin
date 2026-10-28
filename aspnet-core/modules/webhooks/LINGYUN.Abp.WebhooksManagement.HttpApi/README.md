@@ -1,19 +1,19 @@
 # LINGYUN.Abp.WebhooksManagement.HttpApi
 
-Webhook管理HTTP API模块，提供Webhook管理的REST API接口。
+Mô-đun Webhook Management HTTP API, cung cấp giao diện REST API quản lý Webhook.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* Webhook订阅REST API
-* Webhook组REST API
-* Webhook定义REST API
-* Webhook日志REST API
-* 自动API路由
-* API权限控制
+* REST API đăng ký Webhook
+* REST API nhóm Webhook
+* REST API định nghĩa Webhook
+* REST API nhật ký Webhook
+* Tự động định tuyến API
+* Kiểm soát quyền API
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksManagementHttpApiModule))]
@@ -23,16 +23,16 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API路由
+## Định tuyến API
 
-* /api/webhooks-management/subscriptions - Webhook订阅管理
-* /api/webhooks-management/groups - Webhook组管理
-* /api/webhooks-management/definitions - Webhook定义管理
-* /api/webhooks-management/logs - Webhook日志查询
+* /api/webhooks-management/subscriptions - Quản lý đăng ký Webhook
+* /api/webhooks-management/groups - Quản lý nhóm Webhook
+* /api/webhooks-management/definitions - Quản lý định nghĩa Webhook
+* /api/webhooks-management/logs - Truy vấn nhật ký Webhook
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置API路由
+1. Cấu hình định tuyến API
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
@@ -48,18 +48,18 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 调用API示例
+2. Ví dụ gọi API
 ```http
-### 创建Webhook订阅
+### Tạo đăng ký Webhook
 POST /api/webhooks-management/subscriptions
 {
     "webhookUri": "https://your-webhook-endpoint",
     "webhooks": ["YourWebhook"]
 }
 
-### 查询Webhook订阅
+### Truy vấn đăng ký Webhook
 GET /api/webhooks-management/subscriptions?maxResultCount=10&skipCount=0
 
-### 查询Webhook日志
+### Truy vấn nhật ký Webhook
 GET /api/webhooks-management/logs?maxResultCount=10&skipCount=0
 ```

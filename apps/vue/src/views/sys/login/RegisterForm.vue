@@ -31,7 +31,7 @@
 
       <FormItem class="enter-x">
         <Button size="large" block @click="setLoginState(LoginStateEnum.MOBILE_REGISTER)">
-          {{ L('通过手机号注册') }}
+          {{ L('Đăng ký bằng số điện thoại') }}
         </Button>
       </FormItem>
 

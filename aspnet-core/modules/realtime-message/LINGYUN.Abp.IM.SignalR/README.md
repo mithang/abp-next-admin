@@ -1,27 +1,27 @@
 # LINGYUN.Abp.IM.SignalR
 
-基于 SignalR 实现的即时通讯模块。
+Mô-đun nhắn tin tức thời được triển khai dựa trên SignalR.
 
-## 功能特性
+## Tính năng
 
-* 基于 SignalR 实现的消息发送者提供程序
-* 集成 ABP SignalR 模块
-* 多语言支持
+* Nhà cung cấp trình gửi thông điệp được triển khai dựa trên SignalR
+* Tích hợp mô-đun ABP SignalR
+* Hỗ trợ đa ngôn ngữ
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
 * [LINGYUN.Abp.IM](../LINGYUN.Abp.IM/README.md)
 * `AbpAspNetCoreSignalRModule`
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.IM.SignalR 到你的项目中：
+1. Trước tiên, cần cài đặt LINGYUN.Abp.IM.SignalR vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.IM.SignalR
 ```
 
-2. 添加 `AbpIMSignalRModule` 到你的模块的依赖列表：
+2. Thêm `AbpIMSignalRModule` vào danh sách phụ thuộc của mô-đun của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpIMSignalRModule))]
@@ -30,6 +30,6 @@ public class YourModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
 [English document](README.EN.md)

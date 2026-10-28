@@ -1,9 +1,9 @@
 <!--
  Access control component for fine-grained access control.
- TODO: 可以扩展更完善的功能：
- 1. 支持多个权限码，只要有一个权限码满足即可 或者 多个权限码全部满足
- 2. 支持多个角色，只要有一个角色满足即可 或者 多个角色全部满足
- 3. 支持自定义权限码和角色的判断逻辑
+ TODO: Có thể mở rộng thêm các tính năng hoàn thiện hơn:
+ 1. Hỗ trợ nhiều mã quyền, chỉ cần một mã quyền thỏa mãn là được hoặc tất cả các mã quyền đều thỏa mãn
+ 2. Hỗ trợ nhiều vai trò, chỉ cần một vai trò thỏa mãn là được hoặc tất cả các vai trò đều thỏa mãn
+ 3. Hỗ trợ logic phán đoán tùy chỉnh cho mã quyền và vai trò
 -->
 <script lang="ts" setup>
 import { computed } from 'vue';
@@ -18,7 +18,7 @@ interface Props {
   codes?: string[];
 
   /**
-   * 通过什么方式来控制组件，如果是 role，则传入角色，如果是 code，则传入权限码
+   * Điều khiển component bằng cách nào, nếu là role thì truyền vai trò, nếu là code thì truyền mã quyền
    * @default 'role'
    */
   type?: 'code' | 'role';

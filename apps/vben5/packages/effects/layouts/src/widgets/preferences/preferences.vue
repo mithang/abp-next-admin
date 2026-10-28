@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, useAttrs } from 'vue';
 
 import { Settings } from '@vben/icons';
 import { $t, loadLocaleMessages } from '@vben/locales';
@@ -16,7 +16,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
 });
 
 /**
- * preferences 转成 vue props
+ * Chuyển preferences thành props của vue
  * preferences.widget.fullscreen=>widgetFullscreen
  */
 const attrs = computed(() => {
@@ -29,8 +29,24 @@ const attrs = computed(() => {
   return result;
 });
 
+// Gộp fallthrough attrs với preferences attrs như template cũ
+// (`{ ...$attrs, ...attrs }`), nhưng chuẩn hóa `class` từ ClassValue của Vue
+// (chấp nhận false/null) về ClassType của DrawerProps — tương đương khi render.
+const fallthroughAttrs = useAttrs();
+const drawerAttrs = computed(() => {
+  const { class: fallthroughClass, ...rest } = fallthroughAttrs;
+  return {
+    ...rest,
+    ...attrs.value,
+    class:
+      fallthroughClass === undefined
+        ? undefined
+        : fallthroughClass || undefined,
+  };
+});
+
 /**
- * preferences 转成 vue listener
+ * Chuyển preferences thành listener của vue
  * preferences.widget.fullscreen=>@update:widgetFullscreen
  */
 const listen = computed(() => {
@@ -56,7 +72,7 @@ const listen = computed(() => {
 </script>
 <template>
   <div>
-    <Drawer v-bind="{ ...$attrs, ...attrs }" v-on="listen" />
+    <Drawer v-bind="drawerAttrs" v-on="listen" />
 
     <div @click="() => drawerApi.open()">
       <slot>

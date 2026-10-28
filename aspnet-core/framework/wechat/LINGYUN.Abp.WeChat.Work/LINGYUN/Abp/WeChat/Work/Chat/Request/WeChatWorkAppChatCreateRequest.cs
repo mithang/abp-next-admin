@@ -21,33 +21,33 @@ public class WeChatWorkAppChatCreateRequest : WeChatWorkAppChatRequest
     }
 
     /// <summary>
-    /// 群聊名，最多50个utf8字符，超过将截断
+    /// Tên nhóm trò chuyện, tối đa 50 ký tự utf8, vượt quá sẽ bị cắt ngắn
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public virtual string Name { get; set; }
     /// <summary>
-    /// 指定群主的id。
-    /// 如果不指定，系统会随机从userlist中选一人作为群主
+    /// Id của chủ nhóm được chỉ định.
+    /// Nếu không chỉ định, hệ thống sẽ chọn ngẫu nhiên một người từ userlist làm chủ nhóm
     /// </summary>
     [CanBeNull]
     [JsonProperty("owner")]
     [JsonPropertyName("owner")]
     public virtual string? Owner { get; set; }
     /// <summary>
-    /// 群成员id列表。
-    /// 至少2人，至多2000人
+    /// Danh sách id thành viên nhóm.
+    /// Ít nhất 2 người, tối đa 2000 người
     /// </summary>
     [NotNull]
     [JsonProperty("userlist")]
     [JsonPropertyName("userlist")]
     public virtual List<string> Users { get; set; }
     /// <summary>
-    /// 群聊的唯一标志，不能与已有的群重复；
-    /// 字符串类型，最长32个字符。
-    /// 只允许字符0-9及字母a-zA-Z。
-    /// 如果不填，系统会随机生成群id
+    /// Dấu hiệu duy nhất của nhóm trò chuyện, không được trùng với nhóm đã có;
+    /// Kiểu chuỗi, tối đa 32 ký tự.
+    /// Chỉ cho phép ký tự 0-9 và chữ cái a-zA-Z.
+    /// Nếu không điền, hệ thống sẽ tự động tạo ngẫu nhiên id nhóm
     /// </summary>
     [CanBeNull]
     [JsonProperty("chatid")]

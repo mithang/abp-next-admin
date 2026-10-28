@@ -169,7 +169,7 @@
       .login({
         password: data.password,
         username: data.userName,
-        mode: 'none', //不要默认的错误提示
+        mode: 'none', //Không dùng thông báo lỗi mặc định
       })
       .then((userInfo) => {
         notification.success({

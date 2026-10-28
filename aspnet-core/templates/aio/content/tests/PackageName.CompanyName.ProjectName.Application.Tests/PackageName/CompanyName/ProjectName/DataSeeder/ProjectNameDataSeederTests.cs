@@ -14,7 +14,7 @@ using Xunit;
 namespace PackageName.CompanyName.ProjectName.DataSeeder
 {
     /// <summary>
-    /// 数据种子初始化测试
+    /// Kiểm thử khởi tạo dữ liệu seed
     /// </summary>
     [Collection("Database")]
     public class ProjectNameDataSeederTests : ProjectNameApplicationTestBase
@@ -41,18 +41,18 @@ namespace PackageName.CompanyName.ProjectName.DataSeeder
             // Act
             await _inspectionDataSeeder.SeedAsync(context);
 
-            // Assert - 使用单元工作方法包装所有数据库操作
+            // Assert - Dùng phương thức unit of work để bọc mọi thao tác cơ sở dữ liệu
             await WithUnitOfWorkAsync(async () =>
             {
-                // 测试角色
+                // Kiểm thử vai trò
                 var roles = await _identityRoleRepository.GetListAsync();
-                roles.Count.ShouldBeGreaterThanOrEqualTo(7); // 至少应该有 7 个角色
+                roles.Count.ShouldBeGreaterThanOrEqualTo(7); // Ít nhất phải có 7 vai trò
 
-                var superAdminRole = await _identityRoleRepository.FindByNormalizedNameAsync("超级管理员".ToUpperInvariant());
+                var superAdminRole = await _identityRoleRepository.FindByNormalizedNameAsync("Quản trị viên cấp cao".ToUpperInvariant());
                 superAdminRole.ShouldNotBeNull();
-                // 测试用户
+                // Kiểm thử người dùng
                 var users = await _userRepository.GetListAsync();
-                users.Count.ShouldBeGreaterThanOrEqualTo(10); // 至少应该有 10 个用户
+                users.Count.ShouldBeGreaterThanOrEqualTo(10); // Ít nhất phải có 10 người dùng
 
                 foreach (var user in users)
                 {
@@ -67,15 +67,15 @@ namespace PackageName.CompanyName.ProjectName.DataSeeder
         }
 
         [Theory]
-        [InlineData("超级管理员")]
-        [InlineData("普通用户")]
+        [InlineData("Quản trị viên cấp cao")]
+        [InlineData("Người dùng thông thường")]
         public async Task Should_Create_Roles(string roleName)
         {
             // Arrange
             var context = new DataSeedContext();
             await _inspectionDataSeeder.SeedAsync(context);
 
-            // Act & Assert - 使用单元工作方法包装
+            // Act & Assert - Dùng phương thức unit of work để bọc
             await WithUnitOfWorkAsync(async () =>
             {
                 var role = await _identityRoleRepository.FindByNormalizedNameAsync(roleName.ToUpperInvariant());
@@ -95,7 +95,7 @@ namespace PackageName.CompanyName.ProjectName.DataSeeder
             var context = new DataSeedContext();
             await _inspectionDataSeeder.SeedAsync(context);
 
-            // Act & Assert - 使用单元工作方法包装
+            // Act & Assert - Dùng phương thức unit of work để bọc
             await WithUnitOfWorkAsync(async () =>
             {
                 var users = await _userRepository.GetListAsync();
@@ -112,13 +112,13 @@ namespace PackageName.CompanyName.ProjectName.DataSeeder
             });
         }
         
-        // 添加单元工作方法
+        // Thêm phương thức unit of work
         protected override Task<TResult> WithUnitOfWorkAsync<TResult>(Func<Task<TResult>> func)
         {
             return WithUnitOfWorkAsync(new AbpUnitOfWorkOptions(), func);
         }
         
-        // 可选：添加重载方法以支持更多场景
+        // Tùy chọn: thêm phương thức nạp chồng để hỗ trợ thêm trường hợp
         protected async override Task<TResult> WithUnitOfWorkAsync<TResult>(AbpUnitOfWorkOptions options, Func<Task<TResult>> func)
         {
             using (var scope = ServiceProvider.CreateScope())

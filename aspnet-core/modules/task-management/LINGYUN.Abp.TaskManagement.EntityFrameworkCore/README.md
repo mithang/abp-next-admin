@@ -1,64 +1,64 @@
 # LINGYUN.Abp.TaskManagement.EntityFrameworkCore
 
-任务管理模块的Entity Framework Core实现，提供数据库访问和持久化。
+Triển khai Entity Framework Core của mô-đun quản lý tác vụ, cung cấp truy cập cơ sở dữ liệu và lưu trữ bền vững.
 
-## 功能
+## Tính năng
 
-### 数据库上下文
-- TaskManagementDbContext用于管理数据库操作
-- 可配置的表前缀和架构
-- 支持多租户
+### Ngữ cảnh cơ sở dữ liệu
+- TaskManagementDbContext dùng để quản lý các thao tác cơ sở dữ liệu
+- Tiền tố bảng và lược đồ có thể cấu hình
+- Hỗ trợ đa thuê bao
 
-### 实体配置
-- 后台作业信息：
-  - 表名：{prefix}BackgroundJobs
-  - 对Name和Group建立索引
-  - 带长度约束的属性
-  - 支持额外属性
-- 后台作业日志：
-  - 表名：{prefix}BackgroundJobLogs
-  - 对JobGroup和JobName建立索引
-  - 带长度约束的属性
-- 后台作业行为：
-  - 表名：{prefix}BackgroundJobActions
-  - 对Name建立索引
-  - 支持参数的额外属性
+### Cấu hình thực thể
+- Thông tin tác vụ nền:
+  - Tên bảng: {prefix}BackgroundJobs
+  - Tạo chỉ mục trên Name và Group
+  - Thuộc tính có ràng buộc độ dài
+  - Hỗ trợ thuộc tính mở rộng
+- Nhật ký tác vụ nền:
+  - Tên bảng: {prefix}BackgroundJobLogs
+  - Tạo chỉ mục trên JobGroup và JobName
+  - Thuộc tính có ràng buộc độ dài
+- Hành vi tác vụ nền:
+  - Tên bảng: {prefix}BackgroundJobActions
+  - Tạo chỉ mục trên Name
+  - Hỗ trợ thuộc tính mở rộng cho tham số
 
-### 仓储实现
-- 后台作业信息仓储：
-  - CRUD操作
-  - 作业状态管理
-  - 作业过滤和查询
-  - 支持作业过期
-  - 等待作业列表管理
-  - 周期性任务管理
-- 后台作业日志仓储：
-  - 日志存储和检索
-  - 日志过滤和查询
-  - 分页支持
-- 后台作业行为仓储：
-  - 行为存储和检索
-  - 参数管理
+### Triển khai kho lưu trữ
+- Kho lưu trữ thông tin tác vụ nền:
+  - Các thao tác CRUD
+  - Quản lý trạng thái tác vụ
+  - Lọc và truy vấn tác vụ
+  - Hỗ trợ hết hạn tác vụ
+  - Quản lý danh sách tác vụ đang chờ
+  - Quản lý tác vụ định kỳ
+- Kho lưu trữ nhật ký tác vụ nền:
+  - Lưu trữ và truy xuất nhật ký
+  - Lọc và truy vấn nhật ký
+  - Hỗ trợ phân trang
+- Kho lưu trữ hành vi tác vụ nền:
+  - Lưu trữ và truy xuất hành vi
+  - Quản lý tham số
 
-### 查询功能
-- 动态排序
-- 分页
-- 按规范过滤
-- 异步操作
-- 只读操作的无跟踪查询
+### Chức năng truy vấn
+- Sắp xếp động
+- Phân trang
+- Lọc theo đặc tả
+- Thao tác bất đồng bộ
+- Truy vấn không theo dõi cho thao tác chỉ đọc
 
-### 性能优化
-- 高效索引
-- 支持批量操作
-- 针对作业状态的优化查询
+### Tối ưu hiệu năng
+- Chỉ mục hiệu quả
+- Hỗ trợ thao tác hàng loạt
+- Truy vấn tối ưu theo trạng thái tác vụ
 
-### 多租户支持
-- 租户特定的数据隔离
-- 跨租户操作
-- 租户感知的仓储
+### Hỗ trợ đa thuê bao
+- Cô lập dữ liệu theo từng thuê bao
+- Thao tác xuyên thuê bao
+- Kho lưu trữ nhận biết thuê bao
 
-### 集成功能
-- ABP框架集成
-- Entity Framework Core约定
-- 复杂类型的值转换器
-- 额外属性支持
+### Tính năng tích hợp
+- Tích hợp ABP Framework
+- Quy ước của Entity Framework Core
+- Bộ chuyển đổi giá trị cho kiểu phức tạp
+- Hỗ trợ thuộc tính mở rộng

@@ -6,12 +6,12 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Report;
 
 /// <summary>
-/// 调度频率
+/// Tần suất lập lịch
 /// </summary>
 public class ReportFrequency
 {
     /// <summary>
-    /// 频率类型
+    /// Loại tần suất
     /// </summary>
     /// <remarks>
     /// once / hours / days / weeks / months / cron
@@ -20,19 +20,19 @@ public class ReportFrequency
     public string? Type { get; set; }
 
     /// <summary>
-    /// 间隔
+    /// Khoảng thời gian
     /// </summary>
     [JsonPropertyName("interval")]
     public int? Interval { get; set; }
 
     /// <summary>
-    /// cron 表达式
+    /// Biểu thức cron
     /// </summary>
     [JsonPropertyName("cron")]
     public string? Cron { get; set; }
 
     /// <summary>
-    /// 是否对齐时间
+    /// Có căn chỉnh thời gian hay không
     /// </summary>
     [JsonPropertyName("align_time")]
     public bool? AlignTime { get; set; }

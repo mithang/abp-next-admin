@@ -65,7 +65,7 @@ const [RoleChangeDrawer, roleChangeDrawerApi] = useVbenDrawer({
 });
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: false,
   schema: [
     {
@@ -75,9 +75,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển biểu mẫu có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi biểu mẫu khi nhấn Enter hay không
   submitOnEnter: true,
 };
 
@@ -299,7 +299,7 @@ function onPermissionChange(_name: string, key: string) {
                 {{ $t('AbpAuditLogging.EntitiesChanged') }}
               </MenuItem>
               <MenuItem key="entity-rules">
-                {{ '数据权限' }}
+                {{ 'Quyền dữ liệu' }}
               </MenuItem>
             </Menu>
           </template>

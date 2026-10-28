@@ -12,9 +12,9 @@ export function useUserLookupApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 通过id查询用户
-   * @param id 用户id
-   * @returns 用户实体数据传输对象
+   * Truy vấn người dùng theo id
+   * @param id Id người dùng
+   * @returns Đối tượng truyền dữ liệu thực thể người dùng
    */
   function findByIdApi(id: string): Promise<IdentityUserDto> {
     return request<IdentityUserDto>(`/api/identity/users/lookup/${id}`, {
@@ -23,9 +23,9 @@ export function useUserLookupApi() {
   }
 
   /**
-   * 通过用户名查询用户
-   * @param userName 用户名
-   * @returns 用户实体数据传输对象
+   * Truy vấn người dùng theo tên người dùng
+   * @param userName Tên người dùng
+   * @returns Đối tượng truyền dữ liệu thực thể người dùng
    */
   function findByUserNameApi(userName: string): Promise<IdentityUserDto> {
     return request<IdentityUserDto>(
@@ -37,9 +37,9 @@ export function useUserLookupApi() {
   }
 
   /**
-   * 搜索用户列表
-   * @param input 搜索过滤条件
-   * @returns 用户实体数据传输对象列表
+   * Tìm kiếm danh sách người dùng
+   * @param input Điều kiện lọc tìm kiếm
+   * @returns Danh sách đối tượng truyền dữ liệu thực thể người dùng
    */
   function searchApi(
     input?: UserLookupSearchInput,
@@ -54,8 +54,8 @@ export function useUserLookupApi() {
   }
 
   /**
-   * 搜索用户数量
-   * @param input 搜索过滤条件
+   * Tìm kiếm số lượng người dùng
+   * @param input Điều kiện lọc tìm kiếm
    */
   function countApi(input?: UserLookupCountInput): Promise<number> {
     return request<number>(`/api/identity/users/lookup/count`, {

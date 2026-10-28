@@ -66,7 +66,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
             var user = await SignInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                // À´“ÚÀÿ–≈œ¢—È÷§ ß∞‹,“ª∞„∂º «≥¨ ±¡ÀªÚ’ﬂ”√ªß–≈œ¢±‰∏¸
+                // X√°c th·ª±c th√¥ng tin hai y·∫øu t·ªë th·∫•t b·∫°i, th∆∞·ªùng l√† do h·∫øt th·ªùi gian ch·ªù ho·∫∑c th√¥ng tin ng∆∞·ªùi d√πng ƒë√£ thay ƒë·ªïi
                 Alerts.Warning(L["TwoFactorAuthenticationInvaidUser"]);
                 return Page();
             }
@@ -107,7 +107,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
 
             if (Input.SelectedProvider == "Authenticator")
             {
-                // ”√ªßÕ®π˝” º˛/∂Ã–≈¡¥Ω”Ω¯»Î ⁄»®“≥√Ê
+                // Ng∆∞·ªùi d√πng v√†o trang ·ªßy quy·ªÅn qua li√™n k·∫øt email/SMS
                 return RedirectToPage("VerifyAuthenticatorCode", new
                 {
                     returnUrl = ReturnUrl,
@@ -115,7 +115,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
                     rememberMe = RememberMe,
                 });
             }
-            // …˙≥…—È÷§¬Î
+            // T·∫°o m√£ x√°c th·ª±c
             var code = await UserManager.GenerateTwoFactorTokenAsync(user, Input.SelectedProvider);
             if (string.IsNullOrWhiteSpace(code))
             {
@@ -137,7 +137,7 @@ namespace LINGYUN.Abp.Account.Web.Pages.Account
                 var templateCode = await SettingProvider.GetOrNullAsync(IdentitySettingNames.User.SmsUserSignin);
                 Check.NotNullOrWhiteSpace(templateCode, nameof(IdentitySettingNames.User.SmsUserSignin));
 
-                // TODO: “‘∫Û¿©’π∂Ã–≈ƒ£∞Â∑¢ÀÕ
+                // TODO: V·ªÅ sau m·ªü r·ªông g·ª≠i m·∫´u SMS
                 var smsMessage = new SmsMessage(phoneNumber!, code);
                 smsMessage.Properties.Add("code", code);
                 smsMessage.Properties.Add("TemplateCode", templateCode);

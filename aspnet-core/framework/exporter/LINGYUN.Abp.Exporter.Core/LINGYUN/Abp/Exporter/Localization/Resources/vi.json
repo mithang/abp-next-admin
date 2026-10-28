@@ -1,0 +1,6 @@
+{
+  "culture": "vi",
+  "texts": {
+    "AbpExporter:010001": "Đã xảy ra một số lỗi trong quá trình nhập dữ liệu, vui lòng kiểm tra tính hợp lệ của dữ liệu!"
+  }
+}

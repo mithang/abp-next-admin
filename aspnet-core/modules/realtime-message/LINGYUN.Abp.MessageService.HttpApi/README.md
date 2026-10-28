@@ -1,27 +1,27 @@
 # LINGYUN.Abp.MessageService.HttpApi
 
-消息服务 HTTP API 模块。
+Mô-đun HTTP API của dịch vụ tin nhắn.
 
-## 功能特性
+## Tính năng
 
-* 提供消息服务的 HTTP API 接口
-* 支持 MVC 数据注解本地化
-* 自动注册 API 控制器
+* Cung cấp giao diện HTTP API cho dịch vụ tin nhắn
+* Hỗ trợ bản địa hóa chú thích dữ liệu MVC
+* Tự động đăng ký bộ điều khiển API
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
 * [LINGYUN.Abp.MessageService.Application.Contracts](../LINGYUN.Abp.MessageService.Application.Contracts/README.md)
 * `AbpAspNetCoreMvcModule`
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.MessageService.HttpApi 到你的项目中：
+1. Trước tiên, cần cài đặt LINGYUN.Abp.MessageService.HttpApi vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.MessageService.HttpApi
 ```
 
-2. 添加 `AbpMessageServiceHttpApiModule` 到你的模块的依赖列表：
+2. Thêm `AbpMessageServiceHttpApiModule` vào danh sách phụ thuộc của mô-đun của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpMessageServiceHttpApiModule))]
@@ -30,6 +30,6 @@ public class YourModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
 [English document](README.EN.md)

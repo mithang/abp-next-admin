@@ -7,10 +7,10 @@ function useContentSpinner() {
   const spinning = ref(false);
   const startTime = ref(0);
   const router = useRouter();
-  const minShowTime = 500; // 最小显示时间
+  const minShowTime = 500; // Thời gian hiển thị tối thiểu
   const enableLoading = computed(() => preferences.transition.loading);
 
-  // 结束加载动画
+  // Kết thúc hoạt ảnh tải
   const onEnd = () => {
     if (!enableLoading.value) {
       return;
@@ -25,7 +25,7 @@ function useContentSpinner() {
     }
   };
 
-  // 路由前置守卫
+  // Bộ bảo vệ trước route
   router.beforeEach((to) => {
     if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;
@@ -35,7 +35,7 @@ function useContentSpinner() {
     return true;
   });
 
-  // 路由后置守卫
+  // Bộ bảo vệ sau route
   router.afterEach((to) => {
     if (to.meta.loaded || !enableLoading.value || to.meta.iframeSrc) {
       return true;

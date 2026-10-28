@@ -1,28 +1,28 @@
 # LINGYUN.Abp.BackgroundWorkers.Hangfire
 
-[English](README.EN.md) | 简体中文
+[English](README.EN.md) | Tiếng Trung giản thể
 
-## 1. 介绍
+## 1. Giới thiệu
 
-`LINGYUN.Abp.BackgroundWorkers.Hangfire` 是一个基于Hangfire实现的ABP后台工作者模块。它提供了一种可靠的方式来管理和执行长期运行的后台任务，支持自动启动、停止和定期执行等功能。
+`LINGYUN.Abp.BackgroundWorkers.Hangfire` là một module background worker của ABP được triển khai dựa trên Hangfire. Nó cung cấp một cách đáng tin cậy để quản lý và thực thi các tác vụ nền chạy dài, hỗ trợ tự động khởi động, dừng và thực thi định kỳ.
 
-## 2. 功能特性
+## 2. Tính năng
 
-* 支持后台工作者的自动启动和停止
-* 支持定期执行的后台任务
-* 与ABP后台工作者系统无缝集成
-* 支持工作者状态管理
-* 支持依赖注入
+* Hỗ trợ tự động khởi động và dừng background worker
+* Hỗ trợ tác vụ nền thực thi định kỳ
+* Tích hợp liền mạch với hệ thống background worker của ABP
+* Hỗ trợ quản lý trạng thái worker
+* Hỗ trợ dependency injection
 
-## 3. 安装
+## 3. Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.BackgroundWorkers.Hangfire
 ```
 
-## 4. 使用方法
+## 4. Cách sử dụng
 
-1. 添加 `AbpBackgroundWorkersHangfireModule` 到模块依赖中:
+1. Thêm `AbpBackgroundWorkersHangfireModule` vào phụ thuộc module:
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundWorkersHangfireModule))]
@@ -31,7 +31,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 创建后台工作者:
+2. Tạo background worker:
 
 ```csharp
 public class YourBackgroundWorker : AsyncPeriodicBackgroundWorkerBase
@@ -41,18 +41,18 @@ public class YourBackgroundWorker : AsyncPeriodicBackgroundWorkerBase
         IServiceScopeFactory serviceScopeFactory) 
         : base(timer, serviceScopeFactory)
     {
-        Timer.Period = 5000; // 每5秒执行一次
+        Timer.Period = 5000; // Thực thi mỗi 5 giây
     }
 
     protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
     {
-        // 在这里实现你的后台任务逻辑
+        // Triển khai logic tác vụ nền của bạn tại đây
         await Task.CompletedTask;
     }
 }
 ```
 
-3. 注册后台工作者:
+3. Đăng ký background worker:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -60,23 +60,23 @@ public override void ConfigureServices(ServiceConfigurationContext context)
     context.Services.AddTransient<YourBackgroundWorker>();
     Configure<AbpBackgroundWorkerOptions>(options =>
     {
-        options.IsEnabled = true; // 启用后台工作者
+        options.IsEnabled = true; // Bật background worker
     });
 }
 ```
 
-## 5. 配置项
+## 5. Các mục cấu hình
 
-### 5.1 工作者配置
+### 5.1 Cấu hình worker
 
-* `AbpBackgroundWorkerOptions.IsEnabled`: 是否启用后台工作者。默认值: `true`
+* `AbpBackgroundWorkerOptions.IsEnabled`: Có bật background worker hay không. Giá trị mặc định: `true`
 
-## 6. 依赖项
+## 6. Các phụ thuộc
 
 * Volo.Abp.BackgroundWorkers
 * LINGYUN.Abp.BackgroundJobs.Hangfire
 
-## 7. 文档和资源
+## 7. Tài liệu và tài nguyên
 
-* [Hangfire官方文档](https://docs.hangfire.io/)
-* [ABP框架文档](https://docs.abp.io/)
+* [Tài liệu chính thức Hangfire](https://docs.hangfire.io/)
+* [Tài liệu framework ABP](https://docs.abp.io/)

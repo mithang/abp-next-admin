@@ -17,7 +17,7 @@
       :wrapper-col="{ span: 18 }"
     >
       <Tabs v-model:activeKey="tabActivedKey" @change="handleChangeTab">
-        <!-- Api 资源基本信息 -->
+        <!-- Thông tin cơ bản của tài nguyên Api -->
         <TabPane key="basic" :tab="L('Basics')">
           <FormItem name="enabled" :label="L('Enabled')">
             <Checkbox v-model:checked="modelRef.enabled">{{ L('Enabled') }}</Checkbox>
@@ -44,12 +44,12 @@
           </FormItem>
         </TabPane>
 
-        <!-- Api 资源用户声明 -->
+        <!-- Khai báo người dùng của tài nguyên Api -->
         <TabPane key="claim" :tab="L('UserClaim')">
           <UserClaim :target-claims="targetClaims" @change="handleClaimChange" />
         </TabPane>
 
-        <!-- Api 资源密钥/属性 -->
+        <!-- Khóa/thuộc tính của tài nguyên Api -->
         <TabPane key="advanced">
           <template #tab>
             <Dropdown>

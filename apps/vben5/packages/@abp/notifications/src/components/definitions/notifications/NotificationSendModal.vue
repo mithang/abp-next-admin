@@ -60,7 +60,7 @@ const getMarkdownToolbar = computed(() => {
       x.toLocaleLowerCase().includes('wechat'),
     )
   ) {
-    // 微信仅支持部分markdown语法
+    // WeChat chỉ hỗ trợ một phần cú pháp markdown
     // see: https://developer.work.weixin.qq.com/document/path/96458#%E6%94%AF%E6%8C%81%E7%9A%84markdown%E8%AF%AD%E6%B3%95
     return ['headings', 'bold', 'italic', 'strike', 'link', 'code', 'quote'];
   }

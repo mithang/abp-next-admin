@@ -1,16 +1,16 @@
 /**
  *
- * @param str 字符串是否为空或空格
+ * @param str Chuỗi có rỗng hay chỉ chứa khoảng trắng hay không
  */
 export function isNullOrWhiteSpace(str?: string) {
 	return str === undefined || str === null || str === "" || str === " ";
 }
 
 /**
- * 格式化字符串
- * @param formatted 需要处理的字符串
- * @param args 参数列表，可以是数组，也可以是对象
- * @returns 返回格式化的字符串
+ * Định dạng chuỗi
+ * @param formatted Chuỗi cần xử lý
+ * @param args Danh sách tham số, có thể là mảng hoặc đối tượng
+ * @returns Trả về chuỗi đã định dạng
  * @example format('Hello, {0}!', ['World'])
  * @example format('Hello, {name}!', {name: 'World'})
  */

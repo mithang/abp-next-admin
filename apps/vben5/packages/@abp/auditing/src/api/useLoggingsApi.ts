@@ -8,8 +8,8 @@ export function useLoggingsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取系统日志
-   * @param id 日志id
+   * Lấy nhật ký hệ thống
+   * @param id Id nhật ký
    */
   function getApi(id: string): Promise<LogDto> {
     return request<LogDto>(`/api/auditing/logging/${id}`, {
@@ -18,8 +18,8 @@ export function useLoggingsApi() {
   }
 
   /**
-   * 获取系统日志分页列表
-   * @param input 参数
+   * Lấy danh sách phân trang nhật ký hệ thống
+   * @param input Tham số
    */
   function getPagedListApi(
     input: LogGetListInput,

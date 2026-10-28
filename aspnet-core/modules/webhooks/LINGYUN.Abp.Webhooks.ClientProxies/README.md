@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Webhooks.ClientProxies
 
-Webhook客户端代理模块，提供Webhook客户端的代理实现。
+Mô-đun proxy client Webhook, cung cấp triển khai proxy cho client Webhook.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* Webhook客户端代理
-* HTTP客户端配置
-* 自动重试机制
-* 错误处理
+* Proxy client Webhook
+* Cấu hình HTTP client
+* Cơ chế tự động thử lại
+* Xử lý lỗi
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksClientProxiesModule))]
@@ -21,23 +21,23 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Cấu hình
 
 ```json
 {
   "Webhooks": {
     "ClientProxies": {
-      "RetryCount": 3,  // 重试次数
-      "RetryInterval": "00:00:05",  // 重试间隔
-      "HttpTimeout": "00:00:30"  // HTTP请求超时时间
+      "RetryCount": 3,  // Số lần thử lại
+      "RetryInterval": "00:00:05",  // Khoảng thời gian thử lại
+      "HttpTimeout": "00:00:30"  // Thời gian chờ yêu cầu HTTP
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置客户端代理
+1. Cấu hình proxy client
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
@@ -49,7 +49,7 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 使用客户端代理
+2. Sử dụng proxy client
 ```csharp
 public class YourService
 {

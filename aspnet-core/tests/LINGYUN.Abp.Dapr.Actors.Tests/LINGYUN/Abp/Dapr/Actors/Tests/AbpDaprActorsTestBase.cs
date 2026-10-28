@@ -12,7 +12,7 @@ namespace LINGYUN.Abp.Dapr.Actors.Tests
 
         //protected override void BeforeAddApplication(IServiceCollection services)
         //{
-        //    // TODO: 运行测试前先启动宿主进程 dapr run --app-id testdapr --app-port 5000 -H 10000 -- dotnet run --no-build
+        //    // TODO: Trước khi chạy kiểm tra, khởi động tiến trình máy chủ trước: dapr run --app-id testdapr --app-port 5000 -H 10000 -- dotnet run --no-build
         //    var workingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "../../../../LINGYUN.Abp.Dapr.AspNetCore.TestHost");
         //    _hostProcess = Process.Start(new ProcessStartInfo
         //    {
@@ -22,7 +22,7 @@ namespace LINGYUN.Abp.Dapr.Actors.Tests
         //        UseShellExecute = true
         //    });
 
-        //    // 等待.NET进程启动完毕
+        //    // Đợi tiến trình .NET khởi động xong
         //    Thread.Sleep(15000);
         //}
 

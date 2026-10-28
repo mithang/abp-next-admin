@@ -1,5 +1,5 @@
 /**
- * 该文件可自行根据业务逻辑进行调整
+ * File này có thể tự điều chỉnh theo logic nghiệp vụ
  */
 import type { RequestClientOptions } from '@vben/request';
 
@@ -28,7 +28,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   });
 
   /**
-   * 重新认证逻辑
+   * Logic xác thực lại
    */
   async function doReAuthenticate() {
     console.warn('Access token or refresh token is invalid or expired. ');
@@ -46,7 +46,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
   }
 
   /**
-   * 刷新token逻辑
+   * Logic làm mới token
    */
   async function doRefreshToken() {
     const accessStore = useAccessStore();
@@ -60,7 +60,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     return token ? `Bearer ${token}` : null;
   }
 
-  // 请求头处理
+  // Xử lý tiêu đề yêu cầu
   client.addRequestInterceptor({
     fulfilled: async (config) => {
       const accessStore = useAccessStore();
@@ -71,7 +71,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     },
   });
 
-  // 处理返回的响应数据格式
+  // Xử lý định dạng dữ liệu phản hồi trả về
   client.addResponseInterceptor(
     defaultResponseInterceptor({
       codeField: 'code',
@@ -80,7 +80,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     }),
   );
 
-  // token过期的处理
+  // Xử lý khi token hết hạn
   client.addResponseInterceptor(
     authenticateResponseInterceptor({
       client,
@@ -91,14 +91,14 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     }),
   );
 
-  // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
+  // Xử lý lỗi chung, nếu không rơi vào logic xử lý lỗi phía trên thì sẽ vào đây
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
-      // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-      // 当前mock接口返回的错误字段是 error 或者 message
+      // Tại đây có thể tùy chỉnh theo nghiệp vụ, bạn có thể lấy thông tin trong error để xử lý tùy chỉnh, đưa ra gợi ý khác nhau theo từng code thay vì dùng trực tiếp message.error để hiển thị msg
+      // Trường lỗi mà API mock hiện tại trả về là error hoặc message
       const responseData = error?.response?.data ?? {};
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
-      // 如果没有错误信息，则会根据状态码进行提示
+      // Nếu không có thông tin lỗi, sẽ hiển thị gợi ý theo mã trạng thái
       message.error(errorMessage || msg);
     }),
   );

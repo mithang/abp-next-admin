@@ -5,14 +5,14 @@ namespace LINGYUN.Abp.PushPlus.Topic;
 public class PushPlusTopicQrCode
 {
     /// <summary>
-    /// 群组二维码图片路径
+    /// Đường dẫn hình ảnh mã QR của nhóm
     /// </summary>
     [JsonProperty("qrCodeImgUrl")]
     public string QrCodeImgUrl { get; set; } = default!;
     /// <summary>
-    /// 二维码类型；
-    /// 0-临时二维码，
-    /// 1-永久二维码
+    /// Loại mã QR;
+    /// 0 - Mã QR tạm thời,
+    /// 1 - Mã QR vĩnh viễn
     /// </summary>
     [JsonProperty("forever")]
     public PushPlusTopicQrCodeType Forever { get; set; }

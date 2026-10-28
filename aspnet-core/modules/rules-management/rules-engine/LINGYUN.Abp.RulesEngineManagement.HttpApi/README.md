@@ -1,36 +1,36 @@
 # LINGYUN.Abp.RulesEngineManagement.HttpApi
 
-## 1. 介绍
+## 1. Giới thiệu
 
-规则引擎管理模块的HTTP API层，提供了基于RESTful的API接口。
+Tầng HTTP API của mô-đun quản lý công cụ quy tắc, cung cấp giao diện API dựa trên RESTful。
 
-## 2. 功能
+## 2. Chức năng
 
-* 实现了规则记录的HTTP API接口
-* 实现了工作流记录的HTTP API接口
-* 提供了API接口的路由配置
+* Đã triển khai giao diện HTTP API cho bản ghi quy tắc
+* Đã triển khai giao diện HTTP API cho bản ghi quy trình làm việc
+* Cung cấp cấu hình tuyến cho giao diện API
 
-## 3. API接口
+## 3. Giao diện API
 
-### 3.1 规则记录API
+### 3.1 API bản ghi quy tắc
 
 * RuleRecordController
-  * 基路径: api/rules-engine-management/rules
-  * 提供规则记录的CRUD操作API
-  * 支持分页查询API
-  * 实现了权限验证
+  * Đường dẫn cơ sở: api/rules-engine-management/rules
+  * Cung cấp API thao tác CRUD cho bản ghi quy tắc
+  * Hỗ trợ API truy vấn phân trang
+  * Đã triển khai xác minh quyền
 
-### 3.2 工作流记录API
+### 3.2 API bản ghi quy trình làm việc
 
 * WorkflowRecordController
-  * 基路径: api/rules-engine-management/workflows
-  * 提供工作流记录的CRUD操作API
-  * 支持分页查询API
-  * 实现了权限验证
+  * Đường dẫn cơ sở: api/rules-engine-management/workflows
+  * Cung cấp API thao tác CRUD cho bản ghi quy trình làm việc
+  * Hỗ trợ API truy vấn phân trang
+  * Đã triển khai xác minh quyền
 
-## 4. 依赖
+## 4. Phụ thuộc
 
 * Volo.Abp.AspNetCore.Mvc
 * LINGYUN.Abp.RulesEngineManagement.Application.Contracts
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

@@ -1,18 +1,18 @@
-/** 容器权限 */
+/** Quyền container */
 export const ContainerPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpOssManagement.Container.Create",
 	Default: "AbpOssManagement.Container",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpOssManagement.Container.Delete",
 };
-/** 容器权限 */
+/** Quyền container */
 export const OssObjectPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpOssManagement.OssObject.Create",
 	Default: "AbpOssManagement.OssObject",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpOssManagement.OssObject.Delete",
-	/** 下载 */
+	/** Tải xuống */
 	Download: "AbpOssManagement.OssObject.Download",
 };

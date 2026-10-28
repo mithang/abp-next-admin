@@ -74,7 +74,7 @@ public class EsqlExpressionQueryService : ExpressionQueryService, ITransientDepe
             query = query.Keep(sourceIncludes.Select(f => f.Name!).ToArray());
         }
 
-        // TODO: 需要构建范围过滤条件,加入到query中以实现分页查询
+        // TODO: Cần xây dựng điều kiện lọc theo phạm vi, thêm vào query để thực hiện truy vấn phân trang
         // See: https://www.elastic.co/docs/reference/elasticsearch/clients/dotnet/linq-to-esql#linq-esql-sorting
         return await query
             .Take(maxResultCount)

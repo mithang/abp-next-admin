@@ -2,88 +2,88 @@
 outline: deep
 ---
 
-# 快速开始 {#quick-start}
+# Bắt đầu nhanh {#quick-start}
 
-## 前置准备
+## Chuẩn bị trước
 
-::: info 环境要求
+::: info Yêu cầu môi trường
 
-在启动项目前，你需要确保你的环境满足以下要求：
+Trước khi khởi động dự án, bạn cần đảm bảo môi trường của mình đáp ứng các yêu cầu sau:
 
-- [Node.js](https://nodejs.org/en) 20.15.0 及以上版本，推荐使用 [fnm](https://github.com/Schniz/fnm) 、 [nvm](https://github.com/nvm-sh/nvm) 或者直接使用[pnpm](https://pnpm.io/cli/env) 进行版本管理。
-- [Git](https://git-scm.com/) 任意版本。
+- [Node.js](https://nodejs.org/en) phiên bản 20.15.0 trở lên, nên sử dụng [fnm](https://github.com/Schniz/fnm) , [nvm](https://github.com/nvm-sh/nvm) hoặc trực tiếp sử dụng [pnpm](https://pnpm.io/cli/env) để quản lý phiên bản.
+- [Git](https://git-scm.com/) phiên bản bất kỳ.
 
-验证你的环境是否满足以上要求，你可以通过以下命令查看版本：
+Để kiểm tra môi trường của bạn có đáp ứng các yêu cầu trên hay không, bạn có thể xem phiên bản bằng các lệnh sau:
 
 ```bash
-# 出现相应 node LTS版本即可
+# Chỉ cần xuất hiện phiên bản node LTS tương ứng là được
 node -v
-# 出现相应 git 版本即可
+# Chỉ cần xuất hiện phiên bản git tương ứng là được
 git -v
 ```
 
 :::
 
-## 启动项目
+## Khởi động dự án
 
-### 获取源码
+### Lấy mã nguồn
 
 ::: code-group
 
 ```sh [GitHub]
-# clone 代码
+# clone mã nguồn
 git clone https://github.com/vbenjs/vue-vben-admin.git
 ```
 
 ```sh [Gitee]
-# clone 代码
-# Gitee 的代码可能不是最新的
+# clone mã nguồn
+# Mã nguồn trên Gitee có thể không phải là mới nhất
 git clone https://gitee.com/annsion/vue-vben-admin.git
 ```
 
 :::
 
-::: danger 注意
+::: danger Lưu ý
 
-注意存放代码的目录及所有父级目录不能存在中文、韩文、日文以及空格，否则安装依赖后启动会出错。
+Lưu ý thư mục chứa mã nguồn và tất cả các thư mục cha không được chứa tiếng Trung, tiếng Hàn, tiếng Nhật và khoảng trắng, nếu không sau khi cài đặt phụ thuộc sẽ bị lỗi khi khởi động.
 
 :::
 
-### 安装依赖
+### Cài đặt phụ thuộc
 
-在你的代码目录内打开终端，并执行以下命令:
+Mở terminal trong thư mục mã nguồn của bạn và thực thi các lệnh sau:
 
 ```bash
-# 进入项目目录
+# Vào thư mục dự án
 cd vue-vben-admin
 
-# 使用项目指定的pnpm版本进行依赖安装
+# Cài đặt phụ thuộc bằng phiên bản pnpm mà dự án chỉ định
 npm i -g corepack
 
-# 安装依赖
+# Cài đặt phụ thuộc
 pnpm install
 ```
 
-::: tip 注意
+::: tip Lưu ý
 
-- 项目只支持使用 `pnpm` 进行依赖安装，默认会使用 `corepack` 来安装指定版本的 `pnpm`。:
-- 如果你的网络环境无法访问npm源，你可以设置系统的环境变量`COREPACK_NPM_REGISTRY=https://registry.npmmirror.com`，然后再执行`pnpm install`。
-- 如果你不想使用`corepack`，你需要禁用`corepack`，然后使用你自己的`pnpm`进行安装。
+- Dự án chỉ hỗ trợ sử dụng `pnpm` để cài đặt phụ thuộc, mặc định sẽ sử dụng `corepack` để cài đặt phiên bản `pnpm` đã chỉ định.:
+- Nếu môi trường mạng của bạn không thể truy cập nguồn npm, bạn có thể đặt biến môi trường hệ thống `COREPACK_NPM_REGISTRY=https://registry.npmmirror.com`, sau đó thực thi `pnpm install`.
+- Nếu bạn không muốn sử dụng `corepack`, bạn cần vô hiệu hóa `corepack`, sau đó sử dụng `pnpm` của riêng bạn để cài đặt.
 
 :::
 
-### 运行项目
+### Chạy dự án
 
-#### 选择项目
+#### Chọn dự án
 
-执行以下命令运行项目:
+Thực thi lệnh sau để chạy dự án:
 
 ```bash
-# 启动项目
+# Khởi động dự án
 pnpm dev
 ```
 
-此时，你会看到类似如下的输出，选择你需要运行的项目：
+Lúc này, bạn sẽ thấy đầu ra tương tự như sau, hãy chọn dự án bạn cần chạy:
 
 ```bash
 │
@@ -97,11 +97,11 @@ pnpm dev
 └
 ```
 
-现在，你可以在浏览器访问 `http://localhost:5555` 查看项目。
+Bây giờ, bạn có thể truy cập `http://localhost:5555` trên trình duyệt để xem dự án.
 
-#### 运行指定项目
+#### Chạy dự án chỉ định
 
-如果你不想选择项目，可以直接运行以下命令运行你需要的应用：
+Nếu bạn không muốn chọn dự án, bạn có thể trực tiếp chạy các lệnh sau để chạy ứng dụng bạn cần:
 
 ```bash
 pnpm run dev:antd

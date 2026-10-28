@@ -8,18 +8,18 @@ const [Drawer, drawerApi] = useVbenDrawer({
   onConfirm() {
     console.info('onConfirm');
   },
-  title: '动态修改配置示例',
+  title: 'Ví dụ sửa đổi cấu hình động',
 });
 
 function handleUpdateTitle() {
-  drawerApi.setState({ title: '内部动态标题' });
+  drawerApi.setState({ title: 'Tiêu đề động nội bộ' });
 }
 </script>
 <template>
   <Drawer>
     <div class="flex-col-center">
       <VbenButton class="mb-3" type="primary" @click="handleUpdateTitle()">
-        内部动态修改标题
+        Sửa đổi tiêu đề động nội bộ
       </VbenButton>
     </div>
   </Drawer>

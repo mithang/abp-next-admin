@@ -93,7 +93,7 @@ const SettingForm: React.FC<Props> = ({ getApi, submitApi, onChange, slots }) =>
 	};
 
 	const renderSettingInput = (detail: SettingDetail) => {
-		// 如果存在自定义槽位，优先使用槽位
+		// Nếu tồn tại slot tùy chỉnh, ưu tiên sử dụng slot
 		if (detail.slot && slots?.[detail.slot]) {
 			const SlotComponent = slots[detail.slot];
 			// return <SlotComponent detail={detail} onChange={(_)=>{}} />;

@@ -10,12 +10,12 @@ namespace LINGYUN.Abp.Notifications;
 public class NotificationGroupDefinition
 {
     /// <summary>
-    /// 通知组名称
+    /// Tên nhóm thông báo
     /// </summary>
     [NotNull]
     public string Name { get; set; }
     /// <summary>
-    /// 通知组显示名称
+    /// Tên hiển thị của nhóm thông báo
     /// </summary>
     [NotNull]
     public ILocalizableString DisplayName
@@ -25,7 +25,7 @@ public class NotificationGroupDefinition
     }
     private ILocalizableString _displayName = default!;
     /// <summary>
-    /// 通知组说明
+    /// Mô tả nhóm thông báo
     /// </summary>
     [CanBeNull]
     public ILocalizableString? Description { get; set; }

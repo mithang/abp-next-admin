@@ -22,7 +22,7 @@ public class WorkdayCalendarService : IWorkdayCalendarService, ITransientDepende
     public async virtual Task<DateOnly> GetNextWorkdayAsync(DateOnly date)
     {
         var nextDay = date.AddDays(1);
-        // 以31天为限
+        // Giới hạn trong 31 ngày
         var maxAttempts = 30;
 
         for (var i = 0; i < maxAttempts; i++)
@@ -34,32 +34,32 @@ public class WorkdayCalendarService : IWorkdayCalendarService, ITransientDepende
             nextDay = nextDay.AddDays(1);
         }
 
-        // 如果30天内都找不到工作日，返回原日期+1天
+        // Nếu không tìm thấy ngày làm việc nào trong 30 ngày, trả về ngày gốc + 1 ngày
         return date.AddDays(1);
     }
 
     public async virtual Task<bool> IsWorkdayAsync(DateOnly date)
     {
-        // 特殊工作日定义
+        // Định nghĩa ngày làm việc đặc biệt
         var specialDate = await _workdayCalendarStore.FindSpecialDateAsync(date);
         if (specialDate != null)
         {
             return specialDate.Type == SpecialDateType.SpecialWorkday;
         }
-        // 获取默认工作日历定义
+        // Lấy định nghĩa lịch làm việc mặc định
         var calendar = await _workdayCalendarStore.FindDefaultCalendarAsync();
         if (calendar == null)
         {
-            // 未定义默认工作日历, 获取系统定义工作日范围
+            // Chưa định nghĩa lịch làm việc mặc định, lấy phạm vi ngày làm việc do hệ thống định nghĩa
             return _options.DefaultWorkdays.Contains(date.DayOfWeek);
         }
-        // 特殊工作日范围
+        // Phạm vi ngày làm việc đặc biệt
         if (calendar.SpecialDates != null &&
             calendar.SpecialDates.Any(x => x.Date == date && x.Type == SpecialDateType.SpecialWorkday))
         {
             return true;
         }
-        // 工作日范围
+        // Phạm vi ngày làm việc
         if (!calendar.Workdays.Contains(date.DayOfWeek))
         {
             return false;
@@ -71,17 +71,17 @@ public class WorkdayCalendarService : IWorkdayCalendarService, ITransientDepende
     public async virtual Task<bool> IsInWorkTimeAsync(DateTime time)
     {
         var nowDate = DateOnly.FromDateTime(time);
-        // 特殊工作日定义
+        // Định nghĩa ngày làm việc đặc biệt
         var specialDate = await _workdayCalendarStore.FindSpecialDateAsync(nowDate);
         if (specialDate != null)
         {
             return specialDate.Type == SpecialDateType.SpecialWorkday;
         }
-        // 获取默认工作日历定义
+        // Lấy định nghĩa lịch làm việc mặc định
         var calendar = await _workdayCalendarStore.FindDefaultCalendarAsync();
         if (calendar == null)
         {
-            // 未定义默认工作日历, 获取系统定义工作日范围
+            // Chưa định nghĩa lịch làm việc mặc định, lấy phạm vi ngày làm việc do hệ thống định nghĩa
             if (!_options.DefaultWorkdays.Contains(nowDate.DayOfWeek))
             {
                 return false;
@@ -94,18 +94,18 @@ public class WorkdayCalendarService : IWorkdayCalendarService, ITransientDepende
 
             return true;
         }
-        // 特殊工作日范围
+        // Phạm vi ngày làm việc đặc biệt
         if (calendar.SpecialDates != null &&
             calendar.SpecialDates.Any(x => x.Date == nowDate && x.Type == SpecialDateType.SpecialWorkday))
         {
             return true;
         }
-        // 工作日范围
+        // Phạm vi ngày làm việc
         if (!calendar.Workdays.Contains(nowDate.DayOfWeek))
         {
             return false;
         }
-        // 工作时间范围
+        // Phạm vi giờ làm việc
         if (calendar.EnableWorkTimeRestriction && 
             calendar.WorkTimes != null)
         {

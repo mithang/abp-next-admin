@@ -1,19 +1,19 @@
 <!--
- * @Description: 右侧属性配置面板
+ * @Description: Bảng cấu hình thuộc tính phía bên phải
 -->
 <template>
   <div>
     <Tabs v-model:activeKey="formConfig.activeKey" :tabBarStyle="{ margin: 0 }">
-      <TabPane :key="1" tab="表单">
+      <TabPane :key="1" tab="Biểu mẫu">
         <FormProps />
       </TabPane>
-      <TabPane :key="2" tab="控件">
+      <TabPane :key="2" tab="Điều khiển">
         <FormItemProps />
       </TabPane>
-      <TabPane :key="3" tab="栅格">
+      <TabPane :key="3" tab="Lưới">
         <ComponentColumnProps />
       </TabPane>
-      <TabPane :key="4" tab="组件">
+      <TabPane :key="4" tab="Thành phần">
         <slot v-if="slotProps" :name="slotProps.component + 'Props'"></slot>
         <ComponentProps v-else />
       </TabPane>

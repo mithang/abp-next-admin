@@ -66,8 +66,7 @@ export function setupVbenForm<
   const baseModelPropName =
     config?.baseModelPropName ?? DEFAULT_MODEL_PROP_NAME;
   const modelPropNameMap = config?.modelPropNameMap as
-    | Record<BaseFormComponentType, string>
-    | undefined;
+    Record<BaseFormComponentType, string> | undefined;
 
   const components = globalShareState.getComponents();
 
@@ -79,7 +78,7 @@ export function setupVbenForm<
       COMPONENT_BIND_EVENT_MAP[key] = baseModelPropName;
     }
 
-    // 覆盖特殊组件的modelPropName
+    // Ghi đè modelPropName của các component đặc biệt
     if (modelPropNameMap && modelPropNameMap[key]) {
       COMPONENT_BIND_EVENT_MAP[key] = modelPropNameMap[key];
     }

@@ -3,47 +3,47 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 interface BasicUserInfo {
   [key: string]: any;
   /**
-   * 头像
+   * Ảnh đại diện
    */
   avatar: string;
   /**
-   * 用户昵称
+   * Biệt danh người dùng
    */
   realName: string;
   /**
-   * 用户角色
+   * Vai trò người dùng
    */
   roles?: string[];
   /**
-   * 用户id
+   * Id người dùng
    */
   userId: string;
   /**
-   * 用户名
+   * Tên người dùng
    */
   username: string;
 }
 
 interface AccessState {
   /**
-   * 用户信息
+   * Thông tin người dùng
    */
   userInfo: BasicUserInfo | null;
   /**
-   * 用户角色
+   * Vai trò người dùng
    */
   userRoles: string[];
 }
 
 /**
- * @zh_CN 用户信息相关
+ * @zh_CN Thông tin người dùng liên quan
  */
 export const useUserStore = defineStore('core-user', {
   actions: {
     setUserInfo(userInfo: BasicUserInfo | null) {
-      // 设置用户信息
+      // Đặt thông tin người dùng
       this.userInfo = userInfo;
-      // 设置角色信息
+      // Đặt thông tin vai trò
       const roles = userInfo?.roles ?? [];
       this.setUserRoles(roles);
     },
@@ -57,7 +57,7 @@ export const useUserStore = defineStore('core-user', {
   }),
 });
 
-// 解决热更新问题
+// Khắc phục vấn đề cập nhật nóng
 const hot = import.meta.hot;
 if (hot) {
   hot.accept(acceptHMRUpdate(useUserStore, hot));

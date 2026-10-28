@@ -13,12 +13,12 @@ public class AbpAIToolsHttpOptiions
 
     public List<Action<IServiceProvider, HttpClientHandler>> ClientHandlerActions { get; }
     /// <summary>
-    /// 自定义Http请求响应处理
+    /// Xử lý phản hồi yêu cầu Http tuỳ chỉnh
     /// </summary>
     /// <remarks>
-    /// 参数1: HttpAITool工具名称
-    /// 参数2: IServiceProvider
-    /// 参数3: 请求响应
+    /// Tham số 1: Tên công cụ HttpAITool
+    /// Tham số 2: IServiceProvider
+    /// Tham số 3: Phản hồi yêu cầu
     /// </remarks>
     public IDictionary<string, Func<IServiceProvider, HttpResponseMessage, Task<object>>> HttpResponseActions { get; }
     public AbpAIToolsHttpOptiions()

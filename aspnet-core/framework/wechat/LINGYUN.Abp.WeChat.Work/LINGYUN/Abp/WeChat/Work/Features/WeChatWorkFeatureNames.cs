@@ -4,7 +4,7 @@ public static class WeChatWorkFeatureNames
 {
     public const string GroupName = "WeChat.Work";
     /// <summary>
-    /// 启用企业微信
+    /// Bật WeChat Work doanh nghiệp
     /// </summary>
     public const string Enable = GroupName + ".Enable";
 
@@ -12,15 +12,15 @@ public static class WeChatWorkFeatureNames
     {
         public const string GroupName = WeChatWorkFeatureNames.GroupName + ".Message";
         /// <summary>
-        /// 启用消息推送
+        /// Bật đẩy tin nhắn
         /// </summary>
         public const string Enable = GroupName + ".Enable";
         /// <summary>
-        /// 发送次数上限
+        /// Giới hạn số lần gửi
         /// </summary>
         public const string Limit = GroupName + ".Limit";
         /// <summary>
-        /// 发送次数上限时长
+        /// Thời lượng giới hạn số lần gửi
         /// </summary>
         public const string LimitInterval = GroupName + ".LimitInterval";
     }
@@ -31,15 +31,15 @@ public static class WeChatWorkFeatureNames
         public static class Message
         {
             /// <summary>
-            /// 启用消息推送
+            /// Bật đẩy tin nhắn
             /// </summary>
             public const string Enable = GroupName + ".Enable";
             /// <summary>
-            /// 发送次数上限
+            /// Giới hạn số lần gửi
             /// </summary>
             public const string Limit = GroupName + ".Limit";
             /// <summary>
-            /// 发送次数上限时长
+            /// Thời lượng giới hạn số lần gửi
             /// </summary>
             public const string LimitInterval = GroupName + ".LimitInterval";
         }
@@ -49,15 +49,15 @@ public static class WeChatWorkFeatureNames
     {
         public const string GroupName = WeChatWorkFeatureNames.GroupName + ".Webhook";
         /// <summary>
-        /// 启用消息推送
+        /// Bật đẩy tin nhắn
         /// </summary>
         public const string Enable = GroupName + ".Enable";
         /// <summary>
-        /// 发送次数上限
+        /// Giới hạn số lần gửi
         /// </summary>
         public const string Limit = GroupName + ".Limit";
         /// <summary>
-        /// 发送次数上限时长
+        /// Thời lượng giới hạn số lần gửi
         /// </summary>
         public const string LimitInterval = GroupName + ".LimitInterval";
     }

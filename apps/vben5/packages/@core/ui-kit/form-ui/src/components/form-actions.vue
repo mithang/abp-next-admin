@@ -99,7 +99,7 @@ const actionWrapperClass = computed(() => {
       cls.push('col-[-2/-1]');
       break;
     }
-    // 'inline' 不需要额外类名，保持默认
+    // 'inline' không cần class bổ sung, giữ mặc định
   }
 
   switch (actionPosition) {
@@ -112,7 +112,7 @@ const actionWrapperClass = computed(() => {
       break;
     }
     default: {
-      // case 'right': 默认右对齐
+      // case 'right': mặc định căn phải
       cls.push('justify-end');
       break;
     }
@@ -129,7 +129,7 @@ defineExpose({
 <template>
   <div :class="cn(actionWrapperClass)">
     <template v-if="rootProps.actionButtonsReverse">
-      <!-- 提交按钮前 -->
+      <!-- Trước nút gửi -->
       <slot name="submit-before"></slot>
 
       <component
@@ -143,7 +143,7 @@ defineExpose({
       </component>
     </template>
 
-    <!-- 重置按钮前 -->
+    <!-- Trước nút đặt lại -->
     <slot name="reset-before"></slot>
 
     <component
@@ -157,7 +157,7 @@ defineExpose({
     </component>
 
     <template v-if="!rootProps.actionButtonsReverse">
-      <!-- 提交按钮前 -->
+      <!-- Trước nút gửi -->
       <slot name="submit-before"></slot>
 
       <component
@@ -171,7 +171,7 @@ defineExpose({
       </component>
     </template>
 
-    <!-- 展开按钮前 -->
+    <!-- Trước nút mở rộng -->
     <slot name="expand-before"></slot>
 
     <VbenExpandableArrow
@@ -182,7 +182,7 @@ defineExpose({
       <span>{{ collapsed ? $t('expand') : $t('collapse') }}</span>
     </VbenExpandableArrow>
 
-    <!-- 展开按钮后 -->
+    <!-- Sau nút mở rộng -->
     <slot name="expand-after"></slot>
   </div>
 </template>

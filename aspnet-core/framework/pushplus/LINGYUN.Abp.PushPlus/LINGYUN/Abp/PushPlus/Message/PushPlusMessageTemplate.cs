@@ -1,35 +1,35 @@
 ﻿namespace LINGYUN.Abp.PushPlus.Message;
 /// <summary>
-/// 模板（template）枚举。默认使用html模板
+/// Enum mẫu (template). Mặc định sử dụng mẫu html
 /// </summary>
 public enum PushPlusMessageTemplate
 {
     /// <summary>
-    /// 默认模板，支持html文本
+    /// Mẫu mặc định, hỗ trợ văn bản html
     /// </summary>
     Html = 0,
     /// <summary>
-    /// 纯文本展示，不转义html
+    /// Hiển thị dạng văn bản thuần, không escape html
     /// </summary>
     Text = 1,
     /// <summary>
-    /// 内容基于json格式展示
+    /// Nội dung hiển thị theo định dạng json
     /// </summary>
     Json = 2,
     /// <summary>
-    /// 内容基于markdown格式展示
+    /// Nội dung hiển thị theo định dạng markdown
     /// </summary>
     Markdown = 3,
     /// <summary>
-    /// 阿里云监控报警定制模板
+    /// Mẫu tùy chỉnh cảnh báo giám sát Alibaba Cloud
     /// </summary>
     CloudMonitor = 4,
     /// <summary>
-    /// jenkins插件定制模板
+    /// Mẫu tùy chỉnh plugin jenkins
     /// </summary>
     Jenkins = 5,
     /// <summary>
-    /// 路由器插件定制模板
+    /// Mẫu tùy chỉnh plugin router
     /// </summary>
     Route = 6
 }

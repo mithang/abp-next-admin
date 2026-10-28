@@ -9,16 +9,16 @@ namespace Microsoft.AspNetCore.Authentication.WeChat.Work;
 public class WeChatWorkOAuthOptions : OAuthOptions
 {
     /// <summary>
-    /// 企业Id
+    /// Id doanh nghiệp
     /// </summary>
     public string CorpId { get; set; }
     /// <summary>
-    /// 访问用户敏感信息端点
+    /// Endpoint thông tin nhạy cảm của người dùng
     /// </summary>
     public string UserDetailEndpoint { get; set; }
     public WeChatWorkOAuthOptions()
     {
-        // 用于防止初始化错误,会在OAuthHandler.InitializeHandlerAsync中进行重写
+        // Dùng để ngăn lỗi khởi tạo, sẽ được ghi đè trong OAuthHandler.InitializeHandlerAsync
         CorpId = "CorpId";
         ClientId = "ClientId";
         ClientSecret = "ClientSecret";
@@ -38,7 +38,7 @@ public class WeChatWorkOAuthOptions : OAuthOptions
         ClaimActions.MapJsonKey(ClaimTypes.Name, "userid");
         ClaimActions.MapJsonKey("sub", "userid");
 
-        // 把自定义的身份标识写进令牌
+        // Ghi định danh tùy chỉnh vào token
         ClaimActions.MapJsonKey(AbpWeChatWorkClaimTypes.UserId, "userid");
         ClaimActions.MapJsonKey(AbpWeChatWorkClaimTypes.QrCode, "qr_code");
         ClaimActions.MapJsonKey(AbpWeChatWorkClaimTypes.BizMail, "biz_mail");

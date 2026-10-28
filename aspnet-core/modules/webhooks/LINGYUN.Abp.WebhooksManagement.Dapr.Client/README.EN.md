@@ -2,7 +2,7 @@
 
 Webhook management Dapr client integration module that provides integration with Dapr service invocation building block.
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)
 
 ## Features
 

@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.EntityFrameworkCore
 
-通知系统的EntityFrameworkCore模块，提供了通知系统的数据访问实现。
+Mô-đun EntityFrameworkCore của hệ thống thông báo, cung cấp triển khai truy cập dữ liệu của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知实体映射配置
-* 通知仓储实现
-* 通知订阅仓储实现
-* 支持多数据库
-* 支持自定义仓储扩展
+* Cấu hình ánh xạ thực thể thông báo
+* Triển khai kho lưu trữ thông báo
+* Triển khai kho lưu trữ đăng ký thông báo
+* Hỗ trợ nhiều cơ sở dữ liệu
+* Hỗ trợ mở rộng kho lưu trữ tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsEntityFrameworkCoreModule))]
@@ -20,28 +20,28 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 实体映射
+## Ánh xạ thực thể
 
 ### NotificationEfCoreEntityTypeConfiguration
 
-* Notification - 通知实体映射
-  * Id - 主键映射
-  * NotificationName - 通知名称映射
-  * Data - 通知数据映射
-  * CreationTime - 创建时间映射
-  * Type - 通知类型映射
-  * Severity - 通知严重程度映射
+* Notification - Ánh xạ thực thể thông báo
+  * Id - Ánh xạ khóa chính
+  * NotificationName - Ánh xạ tên thông báo
+  * Data - Ánh xạ dữ liệu thông báo
+  * CreationTime - Ánh xạ thời gian tạo
+  * Type - Ánh xạ loại thông báo
+  * Severity - Ánh xạ mức độ nghiêm trọng của thông báo
 
 ### NotificationSubscriptionEfCoreEntityTypeConfiguration
 
-* NotificationSubscription - 通知订阅实体映射
-  * UserId - 用户标识映射
-  * NotificationName - 通知名称映射
-  * CreationTime - 创建时间映射
+* NotificationSubscription - Ánh xạ thực thể đăng ký thông báo
+  * UserId - Ánh xạ định danh người dùng
+  * NotificationName - Ánh xạ tên thông báo
+  * CreationTime - Ánh xạ thời gian tạo
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置DbContext
+1. Cấu hình DbContext
 ```csharp
 public class YourDbContext : AbpDbContext<YourDbContext>
 {
@@ -57,7 +57,7 @@ public class YourDbContext : AbpDbContext<YourDbContext>
 }
 ```
 
-2. 配置连接字符串
+2. Cấu hình chuỗi kết nối
 ```json
 {
   "ConnectionStrings": {
@@ -66,7 +66,7 @@ public class YourDbContext : AbpDbContext<YourDbContext>
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [Entity Framework Core文档](https://docs.microsoft.com/ef/core/)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu Entity Framework Core](https://docs.microsoft.com/ef/core/)

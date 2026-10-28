@@ -4,25 +4,25 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Dashboard;
 
 /// <summary>
-/// 新增/更新仪表盘面板请求
+/// Yêu cầu thêm mới/cập nhật panel của dashboard
 /// </summary>
 /// <remarks>
-/// panel 为 v8 面板对象, 文档未给出完整 schema, 因此使用自由 JSON
-/// 新增时 layout 可省略(自动计算), 更新时省略 layout 表示保留原布局
+/// panel là đối tượng panel v8, tài liệu chưa đưa ra schema đầy đủ nên sử dụng JSON tự do
+/// Khi thêm mới có thể bỏ qua layout (tự động tính toán); khi cập nhật, bỏ qua layout nghĩa là giữ nguyên bố cục gốc
 /// </remarks>
 public class SaveDashboardPanelRequest
 {
     /// <summary>
-    /// 面板定义
+    /// Định nghĩa panel
     /// </summary>
     [JsonPropertyName("panel")]
     public JsonNode? Panel { get; set; }
 
     /// <summary>
-    /// 页签标识
+    /// Mã định danh tab
     /// </summary>
     /// <remarks>
-    /// 默认第一个页签
+    /// Tab đầu tiên theo mặc định
     /// </remarks>
     [JsonPropertyName("tabId")]
     public string? TabId { get; set; }

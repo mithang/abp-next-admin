@@ -19,16 +19,16 @@ using System.Text;
 namespace LINGYUN.Abp.IP2Region;
 
 /// <summary>
-/// ip2region 离线查询器
+/// Trình truy vấn ngoại tuyến ip2region
 /// </summary>
 /// <remarks>
-/// 支持 IPv4 与 IPv6 两个离线数据文件:
-/// * <see cref="AbpSearcher(CachePolicy, Stream)"/>: 只加载一个数据文件, 查询时按地址的字节长度选择比较方式
-///   (IPv4 为 4 字节、IPv6 为 16 字节), 即由调用方保证数据文件与查询地址的版本一致;
-/// * <see cref="AbpSearcher(CachePolicy, Stream, Stream?)"/>: 同时加载 IPv4 与 IPv6 数据文件, 按地址族自动路由,
-///   未提供对应地址族的数据文件时返回 <c>null</c>(避免使用错误的数据文件解析出错误的地理位置)。
+/// Hỗ trợ hai tệp dữ liệu ngoại tuyến IPv4 và IPv6:
+/// * <see cref="AbpSearcher(CachePolicy, Stream)"/>: Chỉ tải một tệp dữ liệu, khi truy vấn chọn cách so sánh theo độ dài byte của địa chỉ
+///   (IPv4 là 4 byte, IPv6 là 16 byte), tức bên gọi đảm bảo tệp dữ liệu và địa chỉ truy vấn cùng phiên bản;
+/// * <see cref="AbpSearcher(CachePolicy, Stream, Stream?)"/>: Đồng thời tải tệp dữ liệu IPv4 và IPv6, tự động định tuyến theo họ địa chỉ,
+///   Khi không cung cấp tệp dữ liệu tương ứng với họ địa chỉ thì trả về <c>null</c> (tránh dùng sai tệp dữ liệu để phân tích ra vị trí địa lý sai).
 /// 
-/// IPv4 映射的 IPv6 地址(如 <c>::ffff:1.2.3.4</c>)会归一到 IPv4 查询。
+/// Địa chỉ IPv6 ánh xạ IPv4 (ví dụ <c>::ffff:1.2.3.4</c>) sẽ được chuẩn hóa về truy vấn IPv4.
 /// </remarks>
 public class AbpSearcher : ISearcher
 {
@@ -37,21 +37,21 @@ public class AbpSearcher : ISearcher
     private readonly bool _isDualDatabase;
 
     /// <summary>
-    /// 只加载一个数据文件(IPv4 或 IPv6)
+    /// Chỉ tải một tệp dữ liệu (IPv4 hoặc IPv6)
     /// </summary>
-    /// <param name="cachePolicy">缓存策略</param>
-    /// <param name="xdbStream">数据文件流</param>
+    /// <param name="cachePolicy">Chiến lược bộ nhớ đệm</param>
+    /// <param name="xdbStream">Luồng tệp dữ liệu</param>
     public AbpSearcher(CachePolicy cachePolicy, Stream xdbStream)
         : this(cachePolicy, xdbStream, null, false)
     {
     }
 
     /// <summary>
-    /// 同时加载 IPv4 与 IPv6 数据文件, 按地址族自动路由
+    /// Đồng thời tải tệp dữ liệu IPv4 và IPv6, tự động định tuyến theo họ địa chỉ
     /// </summary>
-    /// <param name="cachePolicy">缓存策略</param>
-    /// <param name="xdbStream">IPv4 数据文件流</param>
-    /// <param name="ipv6XdbStream">IPv6 数据文件流, 未提供时 IPv6 查询返回 <c>null</c></param>
+    /// <param name="cachePolicy">Chiến lược bộ nhớ đệm</param>
+    /// <param name="xdbStream">Luồng tệp dữ liệu IPv4</param>
+    /// <param name="ipv6XdbStream">Luồng tệp dữ liệu IPv6, khi không cung cấp thì truy vấn IPv6 trả về <c>null</c></param>
     public AbpSearcher(CachePolicy cachePolicy, Stream xdbStream, Stream? ipv6XdbStream)
         : this(cachePolicy, xdbStream, ipv6XdbStream, true)
     {
@@ -83,7 +83,7 @@ public class AbpSearcher : ISearcher
     /// </summary>
     public string? Search(IPAddress ipAddress)
     {
-        // IPv4 映射的 IPv6 地址归一到 IPv4 查询
+        // Chuẩn hóa địa chỉ IPv6 ánh xạ IPv4 về truy vấn IPv4
         if (ipAddress.IsIPv4MappedToIPv6)
         {
             ipAddress = ipAddress.MapToIPv4();
@@ -101,7 +101,7 @@ public class AbpSearcher : ISearcher
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    [Obsolete("已弃用，请改用其他方法；Deprecated; please use Search(string) or Search(IPAddress) method.")]
+    [Obsolete("Đã lỗi thời, vui lòng dùng phương pháp khác; Deprecated; please use Search(string) or Search(IPAddress) method.")]
     [ExcludeFromCodeCoverage]
     public string? Search(uint ipAddress)
     {
@@ -112,10 +112,10 @@ public class AbpSearcher : ISearcher
     }
 
     /// <summary>
-    /// 按地址族选择数据文件
+    /// Chọn tệp dữ liệu theo họ địa chỉ
     /// </summary>
     /// <remarks>
-    /// 单文件模式(只加载一个数据文件)下不做路由, 沿用按字节长度比较的行为
+    /// Ở chế độ một tệp (chỉ tải một tệp dữ liệu) thì không định tuyến, giữ nguyên hành vi so sánh theo độ dài byte
     /// </remarks>
     private ICacheStrategy? ResolveCacheStrategy(IPAddress ipAddress)
     {
@@ -126,7 +126,7 @@ public class AbpSearcher : ISearcher
                 return _ipv6CacheStrategy;
             }
 
-            // 双文件模式下缺少 IPv6 数据文件, 不使用 IPv4 数据文件解析
+            // Ở chế độ hai tệp mà thiếu tệp dữ liệu IPv6 thì không dùng tệp dữ liệu IPv4 để phân tích
             return _isDualDatabase ? null : _cacheStrategy;
         }
 
@@ -135,18 +135,18 @@ public class AbpSearcher : ISearcher
 
     private string? SearchCore(ICacheStrategy cacheStrategy, byte[] ipBytes)
     {
-        // 重置 IO 计数器
+        // Đặt lại bộ đếm IO
         cacheStrategy.ResetIoCount();
         _cacheStrategy.ResetIoCount();
         _ipv6CacheStrategy?.ResetIoCount();
 
-        // 每个 vector 索引项的字节数
+        // Số byte của mỗi mục chỉ mục vector
         var vectorIndexSize = 8;
 
-        // vector 索引的列数
+        // Số cột của chỉ mục vector
         var vectorIndexCols = 256;
 
-        // 计算得到 vector 索引项的开始地址。
+        // Tính ra địa chỉ bắt đầu của mục chỉ mục vector.
         var il0 = ipBytes[0];
         var il1 = ipBytes[1];
         var idx = il0 * vectorIndexCols * vectorIndexSize + il1 * vectorIndexSize;

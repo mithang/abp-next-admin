@@ -41,4 +41,4 @@ public class YouProjectModule : AbpModule
 * **Template**: Template name
 * **Model**: Model parameters used to format the template content
 
-[中文文档](./README.md)
+[Tiếng Việt](./README.md)

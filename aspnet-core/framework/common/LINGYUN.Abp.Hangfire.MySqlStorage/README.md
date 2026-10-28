@@ -1,27 +1,27 @@
 # LINGYUN.Abp.Hangfire.Storage.MySql
 
-[English](README.EN.md) | 简体中文
+[English](README.EN.md) | Tiếng Việt
 
-## 1. 介绍
+## 1. Giới thiệu
 
-`LINGYUN.Abp.Hangfire.Storage.MySql` 是一个用于配置Hangfire使用MySQL作为存储的ABP模块。该模块提供了简单的配置方式，让你能够轻松地将MySQL作为Hangfire的持久化存储。
+`LINGYUN.Abp.Hangfire.Storage.MySql` là một mô-đun ABP dùng để cấu hình Hangfire sử dụng MySQL làm bộ nhớ lưu trữ. Mô-đun này cung cấp cách cấu hình đơn giản, giúp bạn dễ dàng sử dụng MySQL làm bộ nhớ bền vững (persistent storage) của Hangfire.
 
-## 2. 功能特性
+## 2. Tính năng
 
-* 简单的MySQL存储配置
-* 支持自定义连接字符串
-* 支持MySQL存储选项配置
-* 与ABP配置系统无缝集成
+* Cấu hình bộ nhớ lưu trữ MySQL đơn giản
+* Hỗ trợ chuỗi kết nối tùy chỉnh
+* Hỗ trợ cấu hình tùy chọn lưu trữ MySQL
+* Tích hợp liền mạch với hệ thống cấu hình của ABP
 
-## 3. 安装
+## 3. Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Hangfire.Storage.MySql
 ```
 
-## 4. 使用方法
+## 4. Cách sử dụng
 
-1. 添加 `AbpHangfireMySqlStorageModule` 到模块依赖中:
+1. Thêm `AbpHangfireMySqlStorageModule` vào các phụ thuộc của mô-đun:
 
 ```csharp
 [DependsOn(typeof(AbpHangfireMySqlStorageModule))]
@@ -30,7 +30,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 在appsettings.json中配置连接字符串和存储选项:
+2. Cấu hình chuỗi kết nối và tùy chọn lưu trữ trong appsettings.json:
 
 ```json
 {
@@ -48,30 +48,30 @@ public class YourModule : AbpModule
 }
 ```
 
-## 5. 配置项
+## 5. Mục cấu hình
 
-### 5.1 连接字符串配置
+### 5.1 Cấu hình chuỗi kết nối
 
-模块会按以下顺序查找连接字符串：
+Mô-đun sẽ tìm chuỗi kết nối theo thứ tự sau:
 1. `Hangfire:MySql:Connection`
 2. `ConnectionStrings:Default`
 
-### 5.2 存储选项
+### 5.2 Tùy chọn lưu trữ
 
-* `TablePrefix`: 数据表前缀
-* `CommandBatchMaxTimeout`: 命令批处理最大超时时间
-* `SlidingInvisibilityTimeout`: 滑动不可见超时时间
-* `QueuePollInterval`: 队列轮询间隔
-* `UseRecommendedIsolationLevel`: 是否使用推荐的隔离级别
-* `DisableGlobalLocks`: 是否禁用全局锁
+* `TablePrefix`: Tiền tố của bảng dữ liệu
+* `CommandBatchMaxTimeout`: Thời gian chờ tối đa của quá trình xử lý lệnh theo lô
+* `SlidingInvisibilityTimeout`: Thời gian chờ không hiển thị dạng trượt (sliding)
+* `QueuePollInterval`: Khoảng thời gian thăm dò hàng đợi
+* `UseRecommendedIsolationLevel`: Có sử dụng mức cô lập được khuyến nghị hay không
+* `DisableGlobalLocks`: Có tắt khóa toàn cục hay không
 
-## 6. 依赖项
+## 6. Phụ thuộc
 
 * Volo.Abp.Hangfire
 * Hangfire.MySql.Core
 
-## 7. 文档和资源
+## 7. Tài liệu và tài nguyên
 
-* [Hangfire官方文档](https://docs.hangfire.io/)
-* [Hangfire.MySql.Core文档](https://github.com/arnoldasgudas/Hangfire.MySqlStorage)
-* [ABP框架文档](https://docs.abp.io/)
+* [Tài liệu chính thức của Hangfire](https://docs.hangfire.io/)
+* [Tài liệu Hangfire.MySql.Core](https://github.com/arnoldasgudas/Hangfire.MySqlStorage)
+* [Tài liệu framework ABP](https://docs.abp.io/)

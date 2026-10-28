@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Members.Models;
 /// <summary>
-/// 性别
+/// Giới tính
 /// </summary>
-[Description("性别")]
+[Description("Giới tính")]
 public enum Gender
 {
     /// <summary>
-    /// 未知
+    /// Không xác định
     /// </summary>
-    [Description("未知")]
+    [Description("Không xác định")]
     None = 0,
     /// <summary>
-    /// 男性
+    /// Nam
     /// </summary>
-    [Description("男性")]
+    [Description("Nam")]
     Male = 1,
     /// <summary>
-    /// 女性
+    /// Nữ
     /// </summary>
-    [Description("女性")]
+    [Description("Nữ")]
     FeMale = 2,
 }

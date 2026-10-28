@@ -13,7 +13,7 @@ namespace LINGYUN.Abp.MaxMindGeoIP2;
 public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
 {
     /// <summary>
-    /// 默认选项: 数据库文件需由使用方提供(不再内置离线库)、内存映射模式
+    /// Tùy chọn mặc định: tệp cơ sở dữ liệu do bên sử dụng cung cấp (không còn tích hợp thư viện ngoại tuyến), chế độ ánh xạ bộ nhớ
     /// </summary>
     [Fact]
     public void TestDefaultOptions()
@@ -23,13 +23,13 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
         defaultOptions.DatabaseFileExists().ShouldBeFalse();
         defaultOptions.FileAccessMode.ShouldBe(FileAccessMode.MemoryMapped);
 
-        // 测试宿主: 离线库路径由配置提供(未配置时回退到本地离线库文件)
+        // Máy chủ kiểm thử: đường dẫn thư viện ngoại tuyến do cấu hình cung cấp (khi chưa cấu hình sẽ quay lại tệp thư viện ngoại tuyến cục bộ)
         var options = GetRequiredService<IOptions<AbpMaxMindGeoIP2Options>>().Value;
         options.FileAccessMode.ShouldBe(FileAccessMode.MemoryMapped);
     }
 
     /// <summary>
-    /// 离线库应正确加载(GeoLite2-City), GeoIP2 的 Name 为离线库默认名称, 本地化名称在 Names 中
+    /// Thư viện ngoại tuyến phải tải đúng (GeoLite2-City), Name của GeoIP2 là tên mặc định của thư viện ngoại tuyến, tên bản địa hóa nằm trong Names
     /// </summary>
     [Fact]
     public void TestDatabaseReader()
@@ -40,27 +40,27 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
 
         reader.TryCity(IPAddress.Parse("223.5.5.5"), out var response).ShouldBeTrue();
         response!.Country.Name.ShouldBe("China");
-        response.Country.Names["zh-CN"].ShouldBe("中国");
+        response.Country.Names["zh-CN"].ShouldBe("Trung Quốc");
         response.MostSpecificSubdivision.Name.ShouldBe("Zhejiang");
-        response.MostSpecificSubdivision.Names["zh-CN"].ShouldBe("浙江");
+        response.MostSpecificSubdivision.Names["zh-CN"].ShouldBe("Chiết Giang");
         response.City.Name.ShouldBe("Hangzhou");
-        response.City.Names["zh-CN"].ShouldBe("杭州");
+        response.City.Names["zh-CN"].ShouldBe("Hàng Châu");
 
         reader.TryCity(IPAddress.Parse("2400:3200::1"), out var ipv6Response).ShouldBeTrue();
         ipv6Response!.Country.IsoCode.ShouldBe("CN");
     }
 
     /// <summary>
-    /// 通过 IIPLocationResolver 解析位置(当前文化为简体中文时的备注, 规则与 IP2Region 模块一致)
+    /// Phân tích vị trí qua IIPLocationResolver (ghi chú khi văn hóa hiện tại là tiếng Trung giản thể, quy tắc giống mô-đun IP2Region)
     /// </summary>
     [Theory]
-    [InlineData("8.8.8.8", "美国")]
-    [InlineData("2001:4860:4860::8888", "美国")]
-    [InlineData("223.5.5.5", "浙江杭州")]
-    [InlineData("2400:3200::1", "浙江杭州")]
-    [InlineData("103.151.173.211", "日本")]
-    [InlineData("2a00:1450:4001:81b::200e", "德国")]
-    [InlineData("220.246.0.1", "香港")]
+    [InlineData("8.8.8.8", "Mỹ")]
+    [InlineData("2001:4860:4860::8888", "Mỹ")]
+    [InlineData("223.5.5.5", "Chiết GiangHàng Châu")]
+    [InlineData("2400:3200::1", "Chiết GiangHàng Châu")]
+    [InlineData("103.151.173.211", "Nhật Bản")]
+    [InlineData("2a00:1450:4001:81b::200e", "Đức")]
+    [InlineData("220.246.0.1", "Hồng Kông")]
     public async Task TestSearchLocation(string ip, string shouldBeRemarks)
     {
         UseCulture("zh-CN");
@@ -75,7 +75,7 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
     }
 
     /// <summary>
-    /// 国家名称匹配到移除列表(RemoveCountry)时从备注中移除, 仅有国家数据时备注为空
+    /// Khi tên quốc gia khớp với danh sách loại bỏ (RemoveCountry) thì bị loại khỏi ghi chú, chỉ có dữ liệu quốc gia thì ghi chú trống
     /// </summary>
     [Theory]
     [InlineData("114.114.114.114")]
@@ -89,21 +89,21 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
         var result = await resolver.ResolveAsync(ip);
 
         result.Location.ShouldNotBeNull();
-        result.Location.Country.ShouldBe("中国");
+        result.Location.Country.ShouldBe("Trung Quốc");
         result.Location.Remarks.ShouldBeNullOrEmpty();
     }
 
     /// <summary>
-    /// 地理名称按当前文化从 Names 中获取, 完整文化不存在时按语言获取, 都没有时回退到 Name
+    /// Tên địa lý lấy từ Names theo văn hóa hiện tại, khi không có văn hóa đầy đủ thì lấy theo ngôn ngữ, khi đều không có thì quay lại Name
     /// </summary>
     [Theory]
-    // 完整文化名称(zh-CN / en / ja 等)
-    [InlineData("zh-CN", "223.5.5.5", "浙江杭州")]
+    // Tên văn hóa đầy đủ (zh-CN / en / ja, v.v.)
+    [InlineData("zh-CN", "223.5.5.5", "Chiết GiangHàng Châu")]
     [InlineData("en-US", "223.5.5.5", "China")]
-    [InlineData("ja-JP", "2a00:1450:4001:81b::200e", "ドイツ連邦共和国")]
-    // 完整文化不存在(es-MX), 按语言名称(es)获取
+    [InlineData("ja-JP", "2a00:1450:4001:81b::200e", "Cộng hòa Liên bang Đức")]
+    // Văn hóa đầy đủ không tồn tại (es-MX), lấy theo tên ngôn ngữ (es)
     [InlineData("es-MX", "8.8.8.8", "Estados Unidos")]
-    // 离线库没有该语言(ko), 回退到 Name(离线库默认语言)
+    // Thư viện ngoại tuyến không có ngôn ngữ đó (ko), quay lại Name (ngôn ngữ mặc định của thư viện ngoại tuyến)
     [InlineData("ko-KR", "8.8.8.8", "United States")]
     [InlineData("ko-KR", "223.5.5.5", "China")]
     public async Task TestSearchLocationByCulture(string culture, string ip, string shouldBeRemarks)
@@ -119,7 +119,7 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
     }
 
     /// <summary>
-    /// 内网、回环、保留地址以及离线库未收录的地址: 国家/省份/城市/备注均为空
+    /// Địa chỉ mạng nội bộ, loopback, địa chỉ dự trữ và địa chỉ thư viện ngoại tuyến chưa thu thập: quốc gia/tỉnh/thành phố/ghi chú đều trống
     /// </summary>
     [Theory]
     [InlineData("10.0.0.1")]
@@ -143,7 +143,7 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
     }
 
     /// <summary>
-    /// 非法地址、本地回环与未指定地址由 IIPLocationResolver 统一处理, 不返回位置
+    /// Địa chỉ không hợp lệ, loopback cục bộ và địa chỉ chưa chỉ định do IIPLocationResolver xử lý thống nhất, không trả về vị trí
     /// </summary>
     [Theory]
     [InlineData("not-an-ip")]
@@ -162,7 +162,7 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
     }
 
     /// <summary>
-    /// 查询器为单例且线程安全, 并发查询应返回正确结果
+    /// Trình truy vấn là singleton và an toàn luồng, truy vấn đồng thời phải trả về kết quả đúng
     /// </summary>
     [Fact]
     public async Task TestSearchConcurrently()
@@ -173,11 +173,11 @@ public class IPLocationResolverTest : AbpMaxMindGeoIP2TestBase
 
         var expected = new (string Ip, string Remarks)[]
         {
-            ("8.8.8.8", "美国"),
-            ("223.5.5.5", "浙江杭州"),
-            ("220.246.0.1", "香港"),
-            ("2001:4860:4860::8888", "美国"),
-            ("2400:3200::1", "浙江杭州"),
+            ("8.8.8.8", "Mỹ"),
+            ("223.5.5.5", "Chiết GiangHàng Châu"),
+            ("220.246.0.1", "Hồng Kông"),
+            ("2001:4860:4860::8888", "Mỹ"),
+            ("2400:3200::1", "Chiết GiangHàng Châu"),
         };
 
         var tasks = Enumerable.Range(0, System.Environment.ProcessorCount * 4)

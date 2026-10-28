@@ -1,65 +1,65 @@
-[English](./README.en.md) | 简体中文
+[English](./README.en.md) | Tiếng Việt
 
-[更新说明](./RELEASE.md) 更新说明
+[Hướng dẫn cập nhật](./RELEASE.md) Hướng dẫn cập nhật
 
-## 总览
+## Tổng quan
 
-这是一个基于 [vue-vben-admin](https://github.com/anncwb/vue-vben-admin) 的Abp框架后台管理界面
+Đây là giao diện quản trị backend của framework Abp dựa trên [vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
 
 ## Build
 
 [![Build](https://github.com/colinin/abp-next-admin/actions/workflows/build.yml/badge.svg)](https://github.com/colinin/abp-next-admin/actions/workflows/build.yml)  [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.Core.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.Core)
 
-## 部署方案
+## Phương án triển khai
 
-### 单体服务部署
+### Triển khai dịch vụ đơn khối
 
-如果您不需要微服务架构，可以选择单体服务部署方案。单体服务具有部署简单、维护方便的特点。
+Nếu bạn không cần kiến trúc microservice, bạn có thể chọn phương án triển khai dịch vụ đơn khối. Dịch vụ đơn khối có đặc điểm triển khai đơn giản, bảo trì thuận tiện.
 
-- [单体服务启动说明](./docs/startup-aio-readme.md)
+- [Hướng dẫn khởi động dịch vụ đơn khối](./docs/startup-aio-readme.md)
 - [Monolithic Service Startup Guide](./docs/startup-aio-readme.en.md)
 
-### 微服务部署
+### Triển khai microservice
 
-如果您需要更高的可扩展性和更灵活的服务架构，可以选择微服务部署方案。
+Nếu bạn cần khả năng mở rộng cao hơn và kiến trúc dịch vụ linh hoạt hơn, bạn có thể chọn phương án triển khai microservice.
 
-## 快速搭建微服务启动项目
+## Nhanh chóng tạo dự án khởi động microservice
 
-### 0、设置hosts文件
-windows下，修改 C:\Windows\System32\drivers\etc\hosts 文件；
-linux下，修改 /etc/hosts；
-增加如下配置：
+### 0. Thiết lập file hosts
+Trên Windows, sửa file C:\Windows\System32\drivers\etc\hosts;
+Trên Linux, sửa /etc/hosts;
+Thêm cấu hình sau:
 ```
 	127.0.0.1 host.docker.internal
 ```
-linux下，修改完hosts后需要重启网络，在shell中执行：
+Trên Linux, sau khi sửa xong hosts cần khởi động lại mạng, thực thi trong shell:
 ```shell
 	/etc/init.d/network restart
 ```
 
-### 1、安装dotnet工具
+### 1. Cài đặt công cụ dotnet
 
 ```shell
   dotnet tool install --global LINGYUN.Abp.Cli
 ```
 
-### 2、安装.NET模板
+### 2. Cài đặt template .NET
 
 ```shell
   dotnet new --install LINGYUN.Abp.MicroService.Templates
 ```
 
-### 3、使用cli创建一个项目
+### 3. Dùng CLI tạo một dự án
 
 ```shell
-  # 使用 sqlserver 连接字符串初始化一个项目
-  # MyCompanyName 公司名称
-  # MyProjectName 项目名称
-  # MyPackageName 包名
-  # -o  输出到指定目录,见abp cli
-  # --dbms  指定数据库驱动,见abp cli
-  # --cs    指定数据库连接字符串
-  # --no-random-port 不使用随机端口（默认应用端口5000、dapr监听端口3500）
+  # Dùng chuỗi kết nối sqlserver để khởi tạo một dự án
+  # MyCompanyName Tên công ty
+  # MyProjectName Tên dự án
+  # MyPackageName Tên gói
+  # -o  Xuất ra thư mục chỉ định, xem abp cli
+  # --dbms  Chỉ định driver cơ sở dữ liệu, xem abp cli
+  # --cs    Chỉ định chuỗi kết nối cơ sở dữ liệu
+  # --no-random-port Không dùng cổng ngẫu nhiên (mặc định cổng ứng dụng 5000, cổng lắng nghe dapr 3500)
   labp create MyCompanyName.MyProjectName -pk MyPackageName -o "D:\Project" --dbms sqlserver --cs "Server=127.0.0.1;Database=MyProject;User Id=sa;Password=123456" --no-random-port
 
   cd D:\Project\host\MyPackageName.MyCompanyName.MyProjectName.HttpApi.Host
@@ -72,35 +72,35 @@ linux下，修改完hosts后需要重启网络，在shell中执行：
 
 ```
 
-### 问题反馈
+### Phản hồi vấn đề
 
-* 作者不是自由职业者，并没有那么多时间维护项目，如果出现问题，可以邮件联系 **colin.in@foxmail.com**，也可以加入QQ群聊: 795966922  
+* Tác giả không phải freelancer, không có nhiều thời gian để bảo trì dự án, nếu gặp vấn đề, có thể liên hệ qua email **colin.in@foxmail.com**, hoặc tham gia nhóm chat QQ: 795966922
 
-## 截图
+## Ảnh chụp màn hình
 
-![系统日志](./apps/vue/images/logging.png)
+![Nhật ký hệ thống](./apps/vue/images/logging.png)
 
-![审计日志](./apps/vue/images/audit-log.png)
+![Nhật ký kiểm toán](./apps/vue/images/audit-log.png)
 
-![安全日志](./apps/vue/images/security-log.png)
+![Nhật ký bảo mật](./apps/vue/images/security-log.png)
 
-![数据字典](./apps/vue/images/data-dictionary.png)
+![Từ điển dữ liệu](./apps/vue/images/data-dictionary.png)
 
-![对象存储](./apps/vue/images/oss.png)
+![Lưu trữ đối tượng](./apps/vue/images/oss.png)
 
-![特性管理](./apps/vue/images/features.png)
+![Quản lý tính năng](./apps/vue/images/features.png)
 
-![系统设置](./apps/vue/images/settings.png)
+![Cài đặt hệ thống](./apps/vue/images/settings.png)
 
-![菜单管理](./apps/vue/images/menus.png)
+![Quản lý menu](./apps/vue/images/menus.png)
 
-![组织机构](./apps/vue/images/organization-unit.png)
+![Tổ chức](./apps/vue/images/organization-unit.png)
 
-![本地化管理](./apps/vue/images/localization.png)
+![Quản lý bản địa hoá](./apps/vue/images/localization.png)
 
-## 相关项目
+## Dự án liên quan
 
-后端项目
+Dự án backend
 
 [abpframework/abp](https://github.com/abpframework/abp) (abp vNext)
 
@@ -108,307 +108,307 @@ linux下，修改完hosts后需要重启网络，在shell中执行：
 
 [DotNetCore/CAP](https://github.com/dotnetcore/CAP) (CAP)
 
-前端项目
+Dự án frontend
 
 [vue-vben-admin](https://github.com/anncwb/vue-vben-admin.git) (vue-vben-admin)
 
-## 准备
+## Chuẩn bị
 
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
-- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+- [node](http://nodejs.org/) và [git](https://git-scm.com/) - Môi trường phát triển dự án
+- [Vite](https://vitejs.dev/) - Làm quen với các tính năng của vite
+- [Vue3](https://v3.vuejs.org/) - Làm quen với cú pháp cơ bản của Vue
+- [TypeScript](https://www.typescriptlang.org/) - Làm quen với cú pháp cơ bản của `TypeScript`
+- [Es6+](http://es6.ruanyifeng.com/) - Làm quen với cú pháp cơ bản của es6
+- [Vue-Router-Next](https://next.router.vuejs.org/) - Làm quen với cách dùng cơ bản của vue-router
+- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - Cách dùng cơ bản của UI
+- [Mock.js](https://github.com/nuysoft/Mock) - Cú pháp cơ bản của mockjs
 
-## 目录结构
+## Cấu trúc thư mục
 
-### 前端：apps/vben5（pnpm workspace + turbo 的 monorepo）
+### Frontend: apps/vben5 (monorepo pnpm workspace + turbo)
 
 ```bash
 apps/vben5/
-├── apps/                        # 可独立运行的 UI 应用
-│   ├── app-antd/                # ABP 业务前端（当前使用：pnpm dev:app / pnpm build:app）
-│   ├── web-antd/                # vben 官方 antd 示例应用
-│   ├── web-antdv-next/          # antdv-next 示例应用
-│   ├── web-ele/                 # Element Plus 示例应用
-│   ├── web-naive/               # Naive UI 示例应用
-│   └── web-tdesign/             # TDesign 示例应用
+├── apps/                        # Ứng dụng UI có thể chạy độc lập
+│   ├── app-antd/                # Frontend nghiệp vụ ABP (đang dùng: pnpm dev:app / pnpm build:app)
+│   ├── web-antd/                # Ứng dụng mẫu antd chính thức của vben
+│   ├── web-antdv-next/          # Ứng dụng mẫu antdv-next
+│   ├── web-ele/                 # Ứng dụng mẫu Element Plus
+│   ├── web-naive/               # Ứng dụng mẫu Naive UI
+│   └── web-tdesign/             # Ứng dụng mẫu TDesign
 ├── packages/
-│   ├── @abp/                    # ABP 业务模块包（27 个）
-│   │   ├── account/             # 账户、外部登录（第三方账号绑定）
-│   │   ├── ai-management/       # AI 管理（工作区、工具、智能体）
-│   │   ├── auditing/            # 审计日志、安全日志
-│   │   ├── blob-management/     # 对象存储（容器、文件）
-│   │   ├── cache-management/    # 缓存管理
-│   │   ├── components/          # ABP 前端通用业务组件
-│   │   ├── core/                # ABP 前端核心（请求、权限、菜单等基础能力）
-│   │   ├── data-protection/     # 数据保护（实体/字段级访问控制）
-│   │   ├── demo/                # 示例模块
-│   │   ├── features/            # 特性（Feature）管理
-│   │   ├── gdpr/                # GDPR 数据导出与删除
-│   │   ├── identity/            # 用户、角色、组织机构、会话、登录日志
-│   │   ├── localization/        # 本地化（语言、资源、文本）
-│   │   ├── notifications/       # 通知（通知定义、我的通知、发送记录）
-│   │   ├── openiddict/          # OpenIddict（应用、作用域、授权、令牌）
-│   │   ├── oss/                 # OSS/Blob 文件列表
-│   │   ├── permissions/         # 权限定义与授权
-│   │   ├── platform/            # 平台（布局、菜单、数据字典、邮件/短信）
-│   │   ├── request/             # HTTP 请求封装（令牌、错误处理、租户头）
-│   │   ├── saas/                # 租户与版本（Edition）
-│   │   ├── settings/            # 设置定义与设置值
-│   │   ├── signalr/             # SignalR 实时通信
-│   │   ├── tasks/               # 后台任务（作业管理）
-│   │   ├── text-templating/     # 文本模板
-│   │   ├── ui/                  # ABP 前端 UI 组件库
-│   │   ├── webhooks/            # Webhook 定义、订阅与发送记录
-│   │   └── wechat/              # 微信（公众号、企业微信等）
-│   ├── @core/                   # 内核：base / ui-kit / forward
-│   ├── effects/                 # 通用能力：plugins / hooks / common-ui 等
-│   ├── icons/  types/           # 图标、类型定义
-│   └── ...                      # 其余公共包（见 pnpm-workspace.yaml）
-├── internal/                    # 工程化配置：vite-config / lint-configs / tailwind-config / tsconfig / node-utils
-├── docs/                        # VitePress 文档
-├── playground/                  # 组件与示例演练场
-├── scripts/                     # 清理、构建、部署等脚本
-├── package.json                 # 根脚本：dev / dev:app / build:app / lint / format / test:unit / check:type
-├── pnpm-workspace.yaml          # workspace 划分与依赖 catalog
-├── turbo.json                   # turbo 流水线配置
-└── vitest.config.ts             # 单元测试（vitest）配置
+│   ├── @abp/                    # Các gói module nghiệp vụ ABP (27 gói)
+│   │   ├── account/             # Tài khoản, đăng nhập bên ngoài (liên kết tài khoản bên thứ ba)
+│   │   ├── ai-management/       # Quản lý AI (workspace, công cụ, agent)
+│   │   ├── auditing/            # Nhật ký kiểm toán, nhật ký bảo mật
+│   │   ├── blob-management/     # Lưu trữ đối tượng (container, file)
+│   │   ├── cache-management/    # Quản lý bộ nhớ đệm
+│   │   ├── components/          # Component nghiệp vụ dùng chung cho frontend ABP
+│   │   ├── core/                # Lõi frontend ABP (khả năng cơ bản như request, quyền, menu)
+│   │   ├── data-protection/     # Bảo vệ dữ liệu (kiểm soát truy cập cấp thực thể/trường)
+│   │   ├── demo/                # Module mẫu
+│   │   ├── features/            # Quản lý tính năng (Feature)
+│   │   ├── gdpr/                # GDPR xuất và xoá dữ liệu
+│   │   ├── identity/            # Người dùng, vai trò, tổ chức, phiên, nhật ký đăng nhập
+│   │   ├── localization/        # Bản địa hoá (ngôn ngữ, tài nguyên, văn bản)
+│   │   ├── notifications/       # Thông báo (định nghĩa thông báo, thông báo của tôi, bản ghi gửi)
+│   │   ├── openiddict/          # OpenIddict (ứng dụng, phạm vi, uỷ quyền, token)
+│   │   ├── oss/                 # Danh sách file OSS/Blob
+│   │   ├── permissions/         # Định nghĩa quyền và uỷ quyền
+│   │   ├── platform/            # Nền tảng (bố cục, menu, từ điển dữ liệu, email/SMS)
+│   │   ├── request/             # Đóng gói request HTTP (token, xử lý lỗi, header tenant)
+│   │   ├── saas/                # Tenant và phiên bản (Edition)
+│   │   ├── settings/            # Định nghĩa cài đặt và giá trị cài đặt
+│   │   ├── signalr/             # Giao tiếp thời gian thực SignalR
+│   │   ├── tasks/               # Nhiệm vụ nền (quản lý job)
+│   │   ├── text-templating/     # Template văn bản
+│   │   ├── ui/                  # Thư viện component UI cho frontend ABP
+│   │   ├── webhooks/            # Webhook: định nghĩa, đăng ký và bản ghi gửi
+│   │   └── wechat/              # WeChat (tài khoản công khai, WeChat doanh nghiệp, v.v.)
+│   ├── @core/                   # Nhân: base / ui-kit / forward
+│   ├── effects/                 # Khả năng dùng chung: plugins / hooks / common-ui, v.v.
+│   ├── icons/  types/           # Định nghĩa icon, kiểu
+│   └── ...                      # Các gói công khai còn lại (xem pnpm-workspace.yaml)
+├── internal/                    # Cấu hình kỹ thuật: vite-config / lint-configs / tailwind-config / tsconfig / node-utils
+├── docs/                        # Tài liệu VitePress
+├── playground/                  # Sân chơi component và mẫu
+├── scripts/                     # Các script dọn dẹp, build, triển khai, v.v.
+├── package.json                 # Script gốc: dev / dev:app / build:app / lint / format / test:unit / check:type
+├── pnpm-workspace.yaml          # Phân chia workspace và dependency catalog
+├── turbo.json                   # Cấu hình pipeline turbo
+└── vitest.config.ts             # Cấu hình unit test (vitest)
 ```
 
-### 后端：aspnet-core 与配套目录
+### Backend: aspnet-core và các thư mục kèm theo
 
 ```bash
 .
 ├── aspnet-core/
-│   ├── services/                # 各服务宿主（含 Dockerfile）
-│   │   ├── LINGYUN.Abp.MicroService.AuthServer/        # 认证服务（STS，44385）
-│   │   ├── LINGYUN.Abp.MicroService.IdentityService/   # 身份服务（30015）
-│   │   ├── LINGYUN.Abp.MicroService.AdminService/      # 管理服务（30010）
-│   │   ├── LINGYUN.Abp.MicroService.LocalizationService/# 本地化服务（30030）
-│   │   ├── LINGYUN.Abp.MicroService.PlatformService/   # 平台服务（30025）
-│   │   ├── LINGYUN.Abp.MicroService.MessageService/    # 消息服务（30020）
-│   │   ├── LINGYUN.Abp.MicroService.TaskService/       # 任务服务（30040）
-│   │   ├── LINGYUN.Abp.MicroService.WebhookService/    # Webhook 服务（30045）
-│   │   ├── LINGYUN.Abp.MicroService.WorkflowService/   # 工作流服务（30050）
-│   │   ├── LINGYUN.Abp.MicroService.WeChatService/     # 微信服务（30060）
-│   │   ├── LINGYUN.Abp.MicroService.AIService/         # AI 服务（30070）
-│   │   ├── LINGYUN.Abp.MicroService.AllInOne/        # 单体应用（30000，合并网关与全部模块）
-│   │   ├── LY.MicroService.IdentityServer/             # IdentityServer 版本服务与宿主
-│   │   ├── LINGYUN.Abp.Applications/  LY.AIO.Applications.Single/  # 其它宿主
-│   │   └── Publish/             # 发布输出目录（容器镜像构建使用）
-│   ├── modules/                 # 业务模块，每个模块按 DDD 分层（Domain / Application / EntityFrameworkCore / HttpApi ...）
-│   │   ├── account/             # 账户与登录（含 OpenIddict/IdentityServer 的 Web 集成、验证码）
-│   │   ├── identity/            # 用户、角色、组织机构、会话、登录日志
-│   │   ├── identityServer/      # IdentityServer4 相关实现
-│   │   ├── openIddict/          # OpenIddict 服务端（应用、作用域、令牌、Portal、二维码、短信、微信登录）
-│   │   ├── permissions-management/  # 权限管理与授权
-│   │   ├── saas/                # 多租户与版本
-│   │   ├── settings/  feature-management/  # 设置、特性管理
-│   │   ├── localization-management/  text-templating/  # 本地化、文本模板
-│   │   ├── auditing/  data-protection/  gdpr/  captcha/  # 审计、数据保护、GDPR、验证码
-│   │   ├── blob-management/  caching-management/  # 对象存储、缓存管理
-│   │   ├── platform/  project/  system-info/  demo/  # 平台、项目、系统信息、示例
-│   │   ├── realtime-message/  realtime-notifications/  # 即时消息、实时通知
-│   │   ├── task-management/  rules-management/  webhooks/  # 后台任务、规则引擎、Webhook
-│   │   ├── ai/  elsa/           # AI 能力、工作流（Elsa）
-│   ├── framework/               # 基础框架包（33 个分组），常用分组：
-│   │   ├── common/  core 相关基础包（LINGYUN.Abp.Core、CAP、Hangfire、BlobStoring、SignalR ...）
-│   │   ├── security/  authentication/  authorization/   # 安全、登录方式、授权
-│   │   ├── auditing/  logging/  telemetry/              # 审计、日志、链路追踪（OpenTelemetry/SkyWalking）
-│   │   ├── multi-tenancy 相关：tenants/                 # 多租户与版本
-│   │   ├── wechat/  wx-pusher/  pushplus/  tui-juhe/    # 微信、消息推送
-│   │   ├── cloud-aliyun/  cloud-tencent/                # 阿里云、腾讯云集成
-│   │   ├── dapr/  elasticsearch/  efcore/  data-protection/  # Dapr、ES、EF Core、数据保护
-│   │   ├── dynamic-queryable/  dynamic-definition/  exporter/  # 动态查询、动态定义、导入导出
-│   │   ├── localization/  settings/  features/  mvc/  open-api/  cli/  ...  # 其它基础包
-│   ├── migrations/              # 各服务的 DbMigrator 与 EntityFrameworkCore 迁移项目（deploy.ps1 会依次执行）
-│   ├── aspire/                  # .NET Aspire：LINGYUN.Abp.MicroService.AppHost 及各服务的 Aspire 宿主
-│   ├── templates/               # dotnet new 项目模板（micro 微服务 / aio 单体）
-│   ├── tests/                   # 单元测试项目
-│   ├── LINGYUN.MicroService.All.slnx            # 全量解决方案
-│   ├── LINGYUN.MicroService.Aspire.slnx         # Aspire 解决方案
-│   └── LINGYUN.MicroService.AllInOne.slnx  # 单体解决方案
+│   ├── services/                # Host của từng dịch vụ (kèm Dockerfile)
+│   │   ├── LINGYUN.Abp.MicroService.AuthServer/        # Dịch vụ xác thực (STS, 44385)
+│   │   ├── LINGYUN.Abp.MicroService.IdentityService/   # Dịch vụ identity (30015)
+│   │   ├── LINGYUN.Abp.MicroService.AdminService/      # Dịch vụ quản trị (30010)
+│   │   ├── LINGYUN.Abp.MicroService.LocalizationService/# Dịch vụ bản địa hoá (30030)
+│   │   ├── LINGYUN.Abp.MicroService.PlatformService/   # Dịch vụ nền tảng (30025)
+│   │   ├── LINGYUN.Abp.MicroService.MessageService/    # Dịch vụ tin nhắn (30020)
+│   │   ├── LINGYUN.Abp.MicroService.TaskService/       # Dịch vụ nhiệm vụ (30040)
+│   │   ├── LINGYUN.Abp.MicroService.WebhookService/    # Dịch vụ Webhook (30045)
+│   │   ├── LINGYUN.Abp.MicroService.WorkflowService/   # Dịch vụ quy trình làm việc (30050)
+│   │   ├── LINGYUN.Abp.MicroService.WeChatService/     # Dịch vụ WeChat (30060)
+│   │   ├── LINGYUN.Abp.MicroService.AIService/         # Dịch vụ AI (30070)
+│   │   ├── LINGYUN.Abp.MicroService.AllInOne/        # Ứng dụng đơn khối (30000, gộp gateway và toàn bộ module)
+│   │   ├── LY.MicroService.IdentityServer/             # Dịch vụ và host phiên bản IdentityServer
+│   │   ├── LINGYUN.Abp.Applications/  LY.AIO.Applications.Single/  # Các host khác
+│   │   └── Publish/             # Thư mục đầu ra publish (dùng để build image container)
+│   ├── modules/                 # Module nghiệp vụ, mỗi module phân tầng theo DDD (Domain / Application / EntityFrameworkCore / HttpApi ...)
+│   │   ├── account/             # Tài khoản và đăng nhập (kèm tích hợp Web OpenIddict/IdentityServer, mã xác minh)
+│   │   ├── identity/            # Người dùng, vai trò, tổ chức, phiên, nhật ký đăng nhập
+│   │   ├── identityServer/      # Triển khai liên quan IdentityServer4
+│   │   ├── openIddict/          # Phía server OpenIddict (ứng dụng, phạm vi, token, Portal, mã QR, SMS, đăng nhập WeChat)
+│   │   ├── permissions-management/  # Quản lý quyền và uỷ quyền
+│   │   ├── saas/                # Đa tenant và phiên bản
+│   │   ├── settings/  feature-management/  # Cài đặt, quản lý tính năng
+│   │   ├── localization-management/  text-templating/  # Bản địa hoá, template văn bản
+│   │   ├── auditing/  data-protection/  gdpr/  captcha/  # Kiểm toán, bảo vệ dữ liệu, GDPR, mã xác minh
+│   │   ├── blob-management/  caching-management/  # Lưu trữ đối tượng, quản lý bộ nhớ đệm
+│   │   ├── platform/  project/  system-info/  demo/  # Nền tảng, dự án, thông tin hệ thống, mẫu
+│   │   ├── realtime-message/  realtime-notifications/  # Tin nhắn tức thời, thông báo thời gian thực
+│   │   ├── task-management/  rules-management/  webhooks/  # Nhiệm vụ nền, engine quy tắc, Webhook
+│   │   ├── ai/  elsa/           # Khả năng AI, quy trình làm việc (Elsa)
+│   ├── framework/               # Các gói framework cơ bản (33 nhóm), các nhóm thường dùng:
+│   │   ├── common/  core Các gói cơ bản liên quan (LINGYUN.Abp.Core, CAP, Hangfire, BlobStoring, SignalR ...)
+│   │   ├── security/  authentication/  authorization/   # Bảo mật, phương thức đăng nhập, uỷ quyền
+│   │   ├── auditing/  logging/  telemetry/              # Kiểm toán, nhật ký, trace liên kết (OpenTelemetry/SkyWalking)
+│   │   ├── multi-tenancy Liên quan: tenants/                 # Đa tenant và phiên bản
+│   │   ├── wechat/  wx-pusher/  pushplus/  tui-juhe/    # WeChat, đẩy tin nhắn
+│   │   ├── cloud-aliyun/  cloud-tencent/                # Tích hợp Alibaba Cloud, Tencent Cloud
+│   │   ├── dapr/  elasticsearch/  efcore/  data-protection/  # Dapr, ES, EF Core, bảo vệ dữ liệu
+│   │   ├── dynamic-queryable/  dynamic-definition/  exporter/  # Truy vấn động, định nghĩa động, import/export
+│   │   ├── localization/  settings/  features/  mvc/  open-api/  cli/  ...  # Các gói cơ bản khác
+│   ├── migrations/              # Dự án migration DbMigrator và EntityFrameworkCore của từng dịch vụ (deploy.ps1 sẽ thực thi lần lượt)
+│   ├── aspire/                  # .NET Aspire: LINGYUN.Abp.MicroService.AppHost và host Aspire của từng dịch vụ
+│   ├── templates/               # Template dự án dotnet new (micro microservice / aio đơn khối)
+│   ├── tests/                   # Dự án unit test
+│   ├── LINGYUN.MicroService.All.slnx            # Solution đầy đủ
+│   ├── LINGYUN.MicroService.Aspire.slnx         # Solution Aspire
+│   └── LINGYUN.MicroService.AllInOne.slnx  # Solution đơn khối
 ├── gateways/
-│   ├── internal/                # 内部网关（YARP）：Internal.Gateway / OpenApi.Gateway + yarp*.json 路由
-│   └── web/                     # Web 网关：LY.MicroService.ApiGateway
-├── apps/                        # 前端：vben5（当前）/ vue（旧版）
-├── build/                       # 构建与迁移脚本：build-aspnetcore-ef-update.ps1、build-aspnetcore-docker-build.ps1 ...
-├── deploy/                      # 一键部署脚本（deploy.ps1）、中间件数据与各服务日志目录
-├── docs/                        # 文档（单体服务启动指南等）
-├── docker-compose.yml                        # 后端服务编排
-├── docker-compose.override.yml               # 镜像标签、卷映射与启动顺序
-├── docker-compose.override.configuration.yml # 各服务环境变量（连接串、CAP、Redis、Elasticsearch 等）
-├── docker-compose.middleware.yml             # 中间件：MySQL/Redis/RabbitMQ/Elasticsearch/Kibana/Logstash/OpenObserve
-├── docker-compose.override.agile.yml         # AgileConfig 配置中心（可选）
-├── Directory.Build.props  Directory.Packages.props  NuGet.Config  common.props  # 统一构建与包版本管理
-└── README.md  README.en.md  RELEASE.md  LICENSE  # 文档与许可
+│   ├── internal/                # Gateway nội bộ (YARP): Internal.Gateway / OpenApi.Gateway + route yarp*.json
+│   └── web/                     # Gateway Web: LY.MicroService.ApiGateway
+├── apps/                        # Frontend: vben5 (hiện tại) / vue (phiên bản cũ)
+├── build/                       # Script build và migration: build-aspnetcore-ef-update.ps1, build-aspnetcore-docker-build.ps1 ...
+├── deploy/                      # Script triển khai một chạm (deploy.ps1), dữ liệu middleware và thư mục log của từng dịch vụ
+├── docs/                        # Tài liệu (hướng dẫn khởi động dịch vụ đơn khối, v.v.)
+├── docker-compose.yml                        # Điều phối dịch vụ backend
+├── docker-compose.override.yml               # Tag image, map volume và thứ tự khởi động
+├── docker-compose.override.configuration.yml # Biến môi trường của từng dịch vụ (chuỗi kết nối, CAP, Redis, Elasticsearch, v.v.)
+├── docker-compose.middleware.yml             # Middleware: MySQL/Redis/RabbitMQ/Elasticsearch/Kibana/Logstash/OpenObserve
+├── docker-compose.override.agile.yml         # Trung tâm cấu hình AgileConfig (tuỳ chọn)
+├── Directory.Build.props  Directory.Packages.props  NuGet.Config  common.props  # Quản lý build và phiên bản gói thống nhất
+└── README.md  README.en.md  RELEASE.md  LICENSE  # Tài liệu và giấy phép
 ```
 
-## 启动项目
+## Khởi động dự án
 
-本项目提供三种启动方式，按需选择：
+Dự án này cung cấp ba cách khởi động, hãy chọn theo nhu cầu:
 
-| 方式 | 说明 | 中间件 | 前端 |
+| Cách | Mô tả | Middleware | Frontend |
 | --- | --- | --- | --- |
-| 方式一：微服务 | 完整微服务架构，后端全部以容器运行 | 需**先启动** `docker-compose.middleware.yml` | 单独启动 vben5 |
-| 方式二：Aspire | AppHost 编排本地微服务开发环境 | AppHost 自动创建容器（PostgreSQL/Redis/RabbitMQ/Elasticsearch/Kibana） | AppHost 自动启动 |
-| 方式三：单体 | 网关、认证与业务模块合并为一个进程 | 需**先启动** `docker-compose.middleware.yml` | 单独启动 vben5 |
+| Cách 1: Microservice | Kiến trúc microservice đầy đủ, toàn bộ backend chạy bằng container | Cần **khởi động trước** `docker-compose.middleware.yml` | Khởi động riêng vben5 |
+| Cách 2: Aspire | AppHost điều phối môi trường phát triển microservice local | AppHost tự tạo container (PostgreSQL/Redis/RabbitMQ/Elasticsearch/Kibana) | AppHost tự khởi động |
+| Cách 3: Đơn khối | Gateway, xác thực và module nghiệp vụ gộp thành một tiến trình | Cần **khởi động trước** `docker-compose.middleware.yml` | Khởi động riêng vben5 |
 
-### 通用前提
+### Điều kiện tiên quyết chung
 
-- **.NET SDK 10**（`dotnet --version`）
-- **Docker / Docker Compose**（方式一、三的中间件；方式二的中间件容器同样由 Docker 提供）
-- **Node.js 20+ 与 pnpm**（前端位于 `apps/vben5`，为 pnpm monorepo，`preinstall` 会执行 `only-allow pnpm`）
-- **hosts**：Windows 修改 `C:\Windows\System32\drivers\etc\hosts`，Linux 修改 `/etc/hosts`，增加如下配置
+- **.NET SDK 10** (`dotnet --version`)
+- **Docker / Docker Compose** (middleware của cách 1, 3; container middleware của cách 2 cũng do Docker cung cấp)
+- **Node.js 20+ và pnpm** (frontend nằm tại `apps/vben5`, là pnpm monorepo, `preinstall` sẽ thực thi `only-allow pnpm`)
+- **hosts**: Windows sửa `C:\Windows\System32\drivers\etc\hosts`, Linux sửa `/etc/hosts`, thêm cấu hình sau
   ```
   127.0.0.1 host.docker.internal
   ```
-  （容器内通过 `extra_hosts: host.docker.internal:host-gateway` 访问宿主机上的中间件）
+  (Bên trong container truy cập middleware trên máy host qua `extra_hosts: host.docker.internal:host-gateway`)
 
 ---
 
-### 方式一：微服务启动
+### Cách 1: Khởi động microservice
 
-#### 1) 一键启动：deploy/deploy.ps1
+#### 1) Khởi động một chạm: deploy/deploy.ps1
 
 ```powershell
 cd ./deploy
 powershell -ExecutionPolicy Bypass -File .\deploy.ps1
 ```
 
-脚本依次完成（见 `deploy/deploy.ps1`）：
+Script lần lượt hoàn thành (xem `deploy/deploy.ps1`):
 
-1. 启动中间件：`docker-compose -f .\docker-compose.middleware.yml -p labp up -d --build`（MySQL、Redis、RabbitMQ、Elasticsearch、Kibana、Logstash、OpenObserve）
-2. 等待 30 秒，等 MySQL 初始化完成
-3. 依次执行 8 个数据库迁移项目（`dotnet run --no-build`，**因此执行脚本前必须先构建过后端**）
-4. 构建 12 个后端镜像（`labp-*-service:10.6.0`）
-5. 启动后端：`docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml -f .\docker-compose.override.configuration.yml -p labp up -d`
-6. 在 `apps/vben5` 下执行 `pnpm dev:app` 启动前端
+1. Khởi động middleware: `docker-compose -f .\docker-compose.middleware.yml -p labp up -d --build` (MySQL, Redis, RabbitMQ, Elasticsearch, Kibana, Logstash, OpenObserve)
+2. Chờ 30 giây, đợi MySQL khởi tạo xong
+3. Lần lượt thực thi 8 dự án migration cơ sở dữ liệu (`dotnet run --no-build`, **do đó trước khi chạy script phải build backend trước**)
+4. Build 12 image backend (`labp-*-service:10.6.0`)
+5. Khởi động backend: `docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml -f .\docker-compose.override.configuration.yml -p labp up -d`
+6. Trong `apps/vben5` thực thi `pnpm dev:app` để khởi động frontend
 
-注意：
+Lưu ý:
 
-- 必须在 **deploy 目录**下执行脚本（脚本内部使用相对路径）。
-- 脚本调用的是 `docker-compose`（Compose V1 命令）；本机只安装 Compose V2 插件时，请把脚本中的 `docker-compose` 改为 `docker compose`。
-- 脚本不包含 AgileConfig（`docker-compose.override.agile.yml`），配置均来自 `docker-compose.override.configuration.yml`。
+- Phải thực thi script trong thư mục **deploy** (bên trong script dùng đường dẫn tương đối).
+- Script gọi `docker-compose` (lệnh Compose V1); khi máy local chỉ cài plugin Compose V2, hãy đổi `docker-compose` trong script thành `docker compose`.
+- Script không bao gồm AgileConfig (`docker-compose.override.agile.yml`), cấu hình đều lấy từ `docker-compose.override.configuration.yml`.
 
-#### 2) 手动启动（与脚本等价，务必先启动中间件）
+#### 2) Khởi động thủ công (tương đương script, nhất định phải khởi động middleware trước)
 
 ```powershell
-# ① 启动中间件（务必先启动）
+# ① Khởi động middleware (nhất định phải khởi động trước)
 docker-compose -f .\docker-compose.middleware.yml -p labp up -d
-# 首次启动请等待 30 秒以上，让 MySQL 执行 deploy/mysql/docker-entrypoint-initdb.d 下的初始化脚本
+# Lần khởi động đầu tiên hãy chờ hơn 30 giây, để MySQL thực thi script khởi tạo trong deploy/mysql/docker-entrypoint-initdb.d
 
-# ② 数据库迁移：使用迁移脚本（内部对 aspnet-core/migrations 下的 8 个 *.DbMigrator 依次执行 dotnet run，会自动构建）
+# ② Migration cơ sở dữ liệu: dùng script migration (bên trong lần lượt thực thi dotnet run cho 8 *.DbMigrator trong aspnet-core/migrations, sẽ tự động build)
 cd .\build
 .\build-aspnetcore-ef-update.ps1
 
-# ③ 构建后端镜像：生成 12 个 labp-*-service:10.6.0（标签必须与 docker-compose.override.yml 中的 image 一致）
+# ③ Build image backend: tạo 12 image labp-*-service:10.6.0 (tag phải khớp với image trong docker-compose.override.yml)
 .\build-aspnetcore-docker-build.ps1
 
-# ④ 启动后端（三个 compose 文件缺一不可）
+# ④ Khởi động backend (thiếu một trong ba file compose cũng không được)
 docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml -f .\docker-compose.override.configuration.yml -p labp up -d
 
-# ⑤ 启动前端
+# ⑤ Khởi động frontend
 cd .\apps\vben5
 pnpm install
 pnpm dev:app
 ```
 
-手动步骤说明：
+Giải thích các bước thủ công:
 
-- ②③ 两个脚本都必须在 **build 目录**下执行（脚本内部相对引用 `./build-aspnetcore-common.ps1`）。
-- `build-aspnetcore-ef-update.ps1` 内部使用 `dotnet run`（会先构建再运行），因此手动流程**不需要**预先构建后端；而一键脚本 `deploy.ps1` 使用 `dotnet run --no-build`，所以走一键脚本前必须先构建过后端。
-- 只想迁移某个服务时，可直接进入对应目录执行，例如：
+- Hai script ②③ đều phải thực thi trong thư mục **build** (bên trong script tham chiếu tương đối `./build-aspnetcore-common.ps1`).
+- Bên trong `build-aspnetcore-ef-update.ps1` dùng `dotnet run` (sẽ build trước rồi mới chạy), do đó quy trình thủ công **không cần** build backend trước; còn script một chạm `deploy.ps1` dùng `dotnet run --no-build`, nên trước khi đi theo script một chạm phải build backend trước.
+- Nếu chỉ muốn migrate một dịch vụ nào đó, có thể trực tiếp vào thư mục tương ứng để thực thi, ví dụ:
 
   ```powershell
   cd .\aspnet-core\migrations\LINGYUN.Abp.MicroService.AuthServer.DbMigrator
   dotnet run
   ```
 
-#### 3) 访问地址
+#### 3) Địa chỉ truy cập
 
-| 组件 | 地址 |
+| Thành phần | Địa chỉ |
 | --- | --- |
-| 前端（vben5，`@abp/app-antd`） | http://localhost:5666 |
-| API 网关 | http://localhost:30000 |
-| 认证服务（STS） | http://localhost:44385 |
-| 身份 / 管理 / 平台 / 消息 / 本地化 | 30015 / 30010 / 30025 / 30020 / 30030 |
-| 任务 / Webhook / 工作流 / 微信 / AI | 30040 / 30045 / 30050 / 30060 / 30070 |
+| Frontend (vben5, `@abp/app-antd`) | http://localhost:5666 |
+| API gateway | http://localhost:30000 |
+| Dịch vụ xác thực (STS) | http://localhost:44385 |
+| Identity / Quản trị / Nền tảng / Tin nhắn / Bản địa hoá | 30015 / 30010 / 30025 / 30020 / 30030 |
+| Nhiệm vụ / Webhook / Quy trình làm việc / WeChat / AI | 30040 / 30045 / 30050 / 30060 / 30070 |
 | Kibana | http://localhost:5601 |
-| RabbitMQ 管理台 | http://localhost:15672 （admin / 123456） |
-| MySQL | localhost:3306 （root / 123456，数据库 `abp`） |
+| Bảng quản trị RabbitMQ | http://localhost:15672 (admin / 123456) |
+| MySQL | localhost:3306 (root / 123456, cơ sở dữ liệu `abp`) |
 | Redis | localhost:6379 |
-| OpenObserve 管理台 | http://localhost:5080 （admin@abp.io / ww1Z5L%6） |
+| Bảng quản trị OpenObserve | http://localhost:5080 (admin@abp.io / ww1Z5L%6) |
 
-### 方式二：Aspire 启动
+### Cách 2: Khởi động Aspire
 
-AppHost 会自动拉起它自己的中间件容器（PostgreSQL、Redis、RabbitMQ、Elasticsearch、Kibana），在 Development 环境下自动执行各服务的数据库迁移项目，并自动以 `pnpm dev:app` 启动 vben5 前端，**不需要**再启动 `docker-compose.middleware.yml`。
+AppHost sẽ tự động kéo lên các container middleware của chính nó (PostgreSQL, Redis, RabbitMQ, Elasticsearch, Kibana), trong môi trường Development tự động thực thi các dự án migration cơ sở dữ liệu của từng dịch vụ, và tự động khởi động frontend vben5 bằng `pnpm dev:app`, **không cần** khởi động thêm `docker-compose.middleware.yml`.
 
 ```powershell
 cd ./aspnet-core/aspire/LINGYUN.Abp.MicroService.AppHost
 aspire run
 ```
 
-- 需要安装 Aspire CLI（版本需与 AppHost 的 `Aspire.AppHost.Sdk` 13.x 匹配）：`dotnet tool install --global Aspire.Cli`；不使用 CLI 时也可以直接 `dotnet run --project .\LINGYUN.Abp.MicroService.AppHost.csproj`。
-- 需要 Docker 处于运行状态，且 `apps/vben5` 已经执行过 `pnpm install`（AppHost 会运行 `pnpm dev:app`，前端端口固定 5666）。
-- 启动后终端会输出 Aspire Dashboard 地址，可在面板中查看资源状态、日志与链路。
-- AppHost 占用的宿主机端口与方式一的中间件完全重叠（6379/9200/5601/5672/15672/5432 等），**请勿与方式一的中间件同时运行**。
+- Cần cài Aspire CLI (phiên bản phải khớp với `Aspire.AppHost.Sdk` 13.x của AppHost): `dotnet tool install --global Aspire.Cli`; khi không dùng CLI cũng có thể trực tiếp `dotnet run --project .\LINGYUN.Abp.MicroService.AppHost.csproj`.
+- Cần Docker đang chạy, và `apps/vben5` đã thực thi `pnpm install` (AppHost sẽ chạy `pnpm dev:app`, cổng frontend cố định 5666).
+- Sau khi khởi động, terminal sẽ xuất địa chỉ Aspire Dashboard, có thể xem trạng thái tài nguyên, nhật ký và trace trên bảng điều khiển.
+- Các cổng máy host mà AppHost chiếm hoàn toàn trùng với middleware của cách 1 (6379/9200/5601/5672/15672/5432, v.v.), **xin đừng chạy đồng thời với middleware của cách 1**.
 
-### 方式三：单体服务启动
+### Cách 3: Khởi động dịch vụ đơn khối
 
-单体服务把网关、认证与各业务模块合并到一个进程，但**仍然依赖中间件，必须先启动中间件**：
+Dịch vụ đơn khối gộp gateway, xác thực và các module nghiệp vụ thành một tiến trình, nhưng **vẫn phụ thuộc middleware, phải khởi động middleware trước**:
 
 ```powershell
-# ① 启动中间件
+# ① Khởi động middleware
 docker-compose -f .\docker-compose.middleware.yml -p labp up -d
-# 首次启动请等待 30 秒以上
+# Lần khởi động đầu tiên hãy chờ hơn 30 giây
 
-# ② 启动单体服务
+# ② Khởi động dịch vụ đơn khối
 cd .\aspnet-core\services\LINGYUN.Abp.MicroService.AllInOne
 dotnet run --launch-profile Single.MySql.Dev
 
-# ③ 启动前端
+# ③ Khởi động frontend
 cd .\apps\vben5
 pnpm install
 pnpm dev:app
 ```
 
-- 默认地址 **http://localhost:30000**：`App:SelfUrl` 与 `AuthServer:Authority` 均指向它，认证端点与 API 同端口。
-- **建议显式指定 Profile**：不指定时 `dotnet run` 使用 `launchSettings.json` 中的第一个 Profile（当前为 `Single.PostgreSql.Dev`）。使用默认数据库（MySQL）请用 `Single.MySql.Dev`，其它可选 `Single.PostgreSql.Dev`、`Single.SqlServer.Dev`。
-- 各数据库连接串见 `appsettings.Development.MySql.json` / `appsettings.Development.PostgreSql.json` / `appsettings.Development.SqlServer.json`。
+- Địa chỉ mặc định **http://localhost:30000**: `App:SelfUrl` và `AuthServer:Authority` đều trỏ tới nó, endpoint xác thực và API cùng cổng.
+- **Khuyến nghị chỉ định rõ Profile**: khi không chỉ định, `dotnet run` dùng Profile đầu tiên trong `launchSettings.json` (hiện là `Single.PostgreSql.Dev`). Dùng cơ sở dữ liệu mặc định (MySQL) hãy dùng `Single.MySql.Dev`, các lựa chọn khác là `Single.PostgreSql.Dev`, `Single.SqlServer.Dev`.
+- Chuỗi kết nối của từng cơ sở dữ liệu xem tại `appsettings.Development.MySql.json` / `appsettings.Development.PostgreSql.json` / `appsettings.Development.SqlServer.json`.
 
-### 常见问题
+### Câu hỏi thường gặp
 
-- **`docker-compose` 命令不存在**：脚本使用的是 Compose V1 命令；仅安装 Compose V2 时请改用 `docker compose`。
-- **提示找不到镜像 `labp-*-service:10.6.0`**：`docker-compose.override.yml` 通过 `image:` 引用预构建镜像，请先执行 `build/build-aspnetcore-docker-build.ps1`（方式一·手动启动 步骤 ③）。
-- **一键脚本迁移报错（`dotnet run --no-build`）**：`deploy.ps1` 内部使用 `--no-build`，执行脚本前需先构建后端（`dotnet build .\aspnet-core\LINGYUN.MicroService.All.slnx`）；手动迁移请改用 **build/build-aspnetcore-ef-update.ps1**（内部 `dotnet run`，会自动构建）。
-- **前端依赖安装失败**：`apps/vben5` 强制使用 pnpm（`preinstall` 会执行 `only-allow pnpm`），请使用 `pnpm install` / `pnpm dev:app`。
-- **容器内连不上宿主机中间件**：确认 hosts 文件包含 `127.0.0.1 host.docker.internal`。
+- **Lệnh `docker-compose` không tồn tại**: script dùng lệnh Compose V1; khi chỉ cài Compose V2 hãy đổi sang `docker compose`.
+- **Nhắc không tìm thấy image `labp-*-service:10.6.0`**: `docker-compose.override.yml` tham chiếu image đã build trước qua `image:`, hãy thực thi trước `build/build-aspnetcore-docker-build.ps1` (cách 1 · khởi động thủ công bước ③).
+- **Script một chạm báo lỗi khi migrate (`dotnet run --no-build`)**: bên trong `deploy.ps1` dùng `--no-build`, trước khi thực thi script cần build backend trước (`dotnet build .\aspnet-core\LINGYUN.MicroService.All.slnx`); migrate thủ công hãy đổi sang **build/build-aspnetcore-ef-update.ps1** (bên trong `dotnet run`, sẽ tự động build).
+- **Cài đặt dependency frontend thất bại**: `apps/vben5` bắt buộc dùng pnpm (`preinstall` sẽ thực thi `only-allow pnpm`), hãy dùng `pnpm install` / `pnpm dev:app`.
+- **Bên trong container không kết nối được middleware máy host**: xác nhận file hosts chứa `127.0.0.1 host.docker.internal`.
 
 ---
 
-### 代码格式检查以及自动修复
+### Kiểm tra định dạng code và tự động sửa
 
-在 `apps/vben5` 下执行（vben5 强制使用 pnpm）：
+Thực thi trong `apps/vben5` (vben5 bắt buộc dùng pnpm):
 
 ```bash
 cd apps/vben5
 
-# 代码检查
+# Kiểm tra code
 pnpm lint
 
-# 自动修复
+# Tự động sửa
 pnpm format
 
-# 类型检查
+# Kiểm tra kiểu
 pnpm check:type
 ```
 
-### 运行单元测试
+### Chạy unit test
 
 ```bash
 cd apps/vben5
@@ -416,41 +416,41 @@ cd apps/vben5
 pnpm test:unit
 ```
 
-## 如何贡献
+## Cách đóng góp
 
-非常欢迎你的加入！提一个 Issue 或者提交一个 Pull Request。
+Rất hoan nghênh bạn tham gia! Tạo một Issue hoặc gửi một Pull Request.
 
 **Pull Request:**
 
-1. Fork 代码!
-2. 创建自己的分支: `git checkout -b feat/xxxx`
-3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
-4. 推送您的分支: `git push origin feat/xxxx`
-5. 提交`pull request`
+1. Fork code!
+2. Tạo nhánh của riêng bạn: `git checkout -b feat/xxxx`
+3. Commit thay đổi của bạn: `git commit -am 'feat(function): add xxxxx'`
+4. Push nhánh của bạn: `git push origin feat/xxxx`
+5. Gửi `pull request`
 
-## Git 贡献提交规范
+## Quy chuẩn commit đóng góp Git
 
-- 参考 [vue](./apps/vue/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+- Tham khảo quy chuẩn [vue](./apps/vue/.github/COMMIT_CONVENTION.md) ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
 
-  - `feat` 增加新功能
-  - `fix` 修复问题/BUG
-  - `style` 代码风格相关无影响运行结果的
-  - `perf` 优化/性能提升
-  - `refactor` 重构
-  - `revert` 撤销修改
-  - `test` 测试相关
-  - `docs` 文档/注释
-  - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
-  - `ci` 持续集成
-  - `types` 类型定义文件更改
-  - `wip` 开发中
+  - `feat` Thêm tính năng mới
+  - `fix` Sửa vấn đề/BUG
+  - `style` Liên quan phong cách code, không ảnh hưởng kết quả chạy
+  - `perf` Tối ưu / nâng cao hiệu năng
+  - `refactor` Tái cấu trúc
+  - `revert` Hoàn tác thay đổi
+  - `test` Liên quan kiểm thử
+  - `docs` Tài liệu / chú thích
+  - `chore` Cập nhật dependency / sửa cấu hình scaffold, v.v.
+  - `workflow` Cải tiến workflow
+  - `ci` Tích hợp liên tục
+  - `types` Thay đổi file định nghĩa kiểu
+  - `wip` Đang phát triển
 
-## 浏览器支持
+## Hỗ trợ trình duyệt
 
-本地开发推荐使用`Chrome 80+` 浏览器
+Phát triển local khuyến nghị dùng trình duyệt `Chrome 80+`
 
-支持现代浏览器, 不支持 IE
+Hỗ trợ trình duyệt hiện đại, không hỗ trợ IE
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: | :-: |

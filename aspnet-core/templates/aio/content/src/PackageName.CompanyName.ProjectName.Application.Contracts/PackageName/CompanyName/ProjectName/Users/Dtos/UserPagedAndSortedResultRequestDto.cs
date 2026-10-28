@@ -7,7 +7,7 @@ namespace PackageName.CompanyName.ProjectName.Users.Dtos
     public class UserPagedAndSortedResultRequestDto : PagedAndSortedResultRequestDto
     {
         /// <summary>
-        /// 用户名称
+        /// Tên người dùng
         /// </summary>
         public string NickName { get; set; }
     }

@@ -35,8 +35,6 @@ defineOptions({
 const MenuItem = Menu.Item;
 
 const AuditLogIcon = createIconifyIcon('fluent-mdl2:compliance-audit');
-const CheckIcon = createIconifyIcon('ant-design:check-outlined');
-const CloseIcon = createIconifyIcon('ant-design:close-outlined');
 const SecretIcon = createIconifyIcon('codicon:gist-secret');
 const PermissionsOutlined = createIconifyIcon('icon-park-outline:permissions');
 
@@ -45,7 +43,7 @@ const { hasAccessByCodes } = useAccess();
 const { deleteApi, getPagedListApi } = useApplicationsApi();
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: false,
   schema: [
     {
@@ -55,9 +53,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Kiểm soát form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Nhấn Enter có submit form hay không
   submitOnEnter: true,
 };
 
@@ -245,18 +243,6 @@ const onMenuClick = (row: OpenIddictApplicationDto, info: MenuInfo) => {
       >
         {{ $t('AbpOpenIddict.Applications:AddNew') }}
       </Button>
-    </template>
-    <template #required="{ row }">
-      <div class="flex flex-row justify-center">
-        <CheckIcon v-if="row.required" class="text-green-500" />
-        <CloseIcon v-else class="text-red-500" />
-      </div>
-    </template>
-    <template #static="{ row }">
-      <div class="flex flex-row justify-center">
-        <CheckIcon v-if="row.isStatic" class="text-green-500" />
-        <CloseIcon v-else class="text-red-500" />
-      </div>
     </template>
     <template #action="{ row }">
       <div class="flex flex-row">

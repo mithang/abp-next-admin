@@ -5,8 +5,8 @@ import { useRequest } from '@abp/request';
 export function useLocalizationsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取应用程序语言
-   * @returns 本地化配置
+   * Lấy ngôn ngữ của ứng dụng
+   * @returns Cấu hình bản địa hoá
    */
   function getLocalizationApi(options: {
     cultureName: string;

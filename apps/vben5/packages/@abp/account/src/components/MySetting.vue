@@ -170,7 +170,7 @@ async function onUpdateProfile(input: UpdateProfileDto) {
       message.success(
         $t('AbpAccount.PersonalSettingsChangedConfirmationModalTitle'),
       );
-      // 刷新页面重载用户信息
+      // Làm mới trang để tải lại thông tin người dùng
       window.location.reload();
     },
     title: $t('AbpUi.AreYouSure'),

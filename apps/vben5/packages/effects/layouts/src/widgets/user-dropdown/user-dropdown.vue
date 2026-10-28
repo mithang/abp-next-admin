@@ -32,19 +32,19 @@ import { LockScreenModal } from '../lock-screen';
 
 interface Props {
   /**
-   * 头像
+   * Ảnh đại diện
    */
   avatar?: string;
   /**
-   * @zh_CN 描述
+   * @zh_CN Mô tả
    */
   description?: string;
   /**
-   * 是否启用快捷键
+   * Có bật phím tắt hay không
    */
   enableShortcutKey?: boolean;
   /**
-   * 菜单数组
+   * Mảng menu
    */
   menus?: Array<{
     handler: AnyFunction;
@@ -53,16 +53,16 @@ interface Props {
   }>;
 
   /**
-   * 标签文本
+   * Văn bản nhãn
    */
   tagText?: string;
   /**
-   * 文本
+   * Văn bản
    */
   text?: string;
-  /** 触发方式 */
+  /** Cách kích hoạt */
   trigger?: 'both' | 'click' | 'hover';
-  /** hover触发时，延迟响应的时间 */
+  /** Thời gian trì hoãn phản hồi khi kích hoạt bằng hover */
   hoverDelay?: number;
 }
 

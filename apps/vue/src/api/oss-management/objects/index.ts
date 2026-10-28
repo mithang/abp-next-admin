@@ -19,7 +19,7 @@ export const downloadUrl = '/api/files/static/{bucket}/p/{path}/{name}';
 
 export function generateOssUrl(bucket: string, path: string, object: string) {
   if (path) {
-    // 对 Path部分的 URL 编码
+    // Mã hóa URL cho phần Path
     path = encodeURIComponent(path);
     if (path !== '.%2F' && path.endsWith('%2F')) {
       path = path.substring(0, path.length - 3);
@@ -39,26 +39,26 @@ export const downloadBlob = (bucket: string, path: string, object: string) => {
 };
 
 /**
- * 分片上传文件
- * @param params 文件参数
- * @param event 事件参数
- * @returns 上传成功后响应
+ * Tải lên tệp theo từng phần
+ * @param params Tham số tệp
+ * @param event Tham số sự kiện
+ * @returns Phản hồi sau khi tải lên thành công
  */
 export const uploadObject = (params: UploadFileParams, event: any) => {
-  // 常规块大小
+  // Kích thước khối thông thường
   const chunkSize: number = params.chunkSize ?? 2 * 1024 * 1024;
-  // 块总数
+  // Tổng số khối
   const totalChunks = Math.ceil(params.file.size / chunkSize);
-  // 总大小
+  // Tổng kích thước
   const totalSize = params.file.size;
-  // 文件名
+  // Tên tệp
   const fileName = params.filename ?? (params.file as File).name;
-  // 已完成大小
+  // Kích thước đã hoàn thành
   let loadedSize = 0;
-  // 返回包装的结果
+  // Trả về kết quả đã đóng gói
   return new Promise<AxiosResponse<any>>(async (resolve, reject) => {
     function onPregress(progress: number, res: AxiosResponse) {
-      // 回调上传进度
+      // Callback tiến độ tải lên
       if (isFunction(event)) {
         event({
           loaded: progress,
@@ -87,15 +87,15 @@ export const uploadObject = (params: UploadFileParams, event: any) => {
       }
     }
     function uploadFunc(num: number) {
-      // 计算分片索引
+      // Tính chỉ số phần
       const nextSize = Math.min(num * chunkSize, params.file.size);
-      // 切割文件
+      // Cắt tệp
       const fileData = params.file.slice((num - 1) * chunkSize, nextSize);
-      // 当前分片大小
+      // Kích thước phần hiện tại
       const currentChunksSize = fileData.size;
       const requestConfig = {
         url: uploadUrl,
-        // 超时时间设置长时间
+        // Đặt thời gian chờ dài
         timeout: 600000,
       };
       const requestData = {
@@ -115,7 +115,7 @@ export const uploadObject = (params: UploadFileParams, event: any) => {
           file: fileData,
         })
         .then((res) => {
-          // 当前进度
+          // Tiến độ hiện tại
           loadedSize += currentChunksSize;
           onPregress(loadedSize, res);
           return Promise.resolve(res);
@@ -124,10 +124,10 @@ export const uploadObject = (params: UploadFileParams, event: any) => {
           return Promise.reject(error);
         });
     }
-    // TODO: 支持一次上传多个分片文件
+    // TODO: Hỗ trợ tải lên nhiều tệp phần trong một lần
     for (let num = 1; num <= totalChunks; num++) {
       try {
-        // 上传第一个分片采用同步的方式，如果出现错误其他分片不再上传
+        // Tải lên phần đầu tiên theo cách đồng bộ, nếu xảy ra lỗi thì các phần khác sẽ không tải lên nữa
         const res = await uploadFunc(num);
         onPregress(loadedSize, res);
       } catch (error) {

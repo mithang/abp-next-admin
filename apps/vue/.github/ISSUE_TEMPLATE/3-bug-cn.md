@@ -1,28 +1,28 @@
 ---
-name: 🐛 Bug 报告
-about: 向我们报告一个Bug以帮助我们改进
+name: 🐛 Bug Báo cáo
+about: Báo cáo cho chúng tôi mộtBugđể giúp chúng tôi cải thiện
 title: ''
 labels: 'bug: pending triage'
 assignees: ''
 ---
 
-**⚠️ 重要 ⚠️ 在进一步操作之前，请检查下列选项。如果您忽视此模板或者没有提供关键信息，您的 Issue 将直接被关闭**
+**⚠️ Quan trọng ⚠️ Trước khi thực hiện thêm，Vui lòng kiểm tra các tùy chọn sau。Nếu bạn bỏ qua mẫu này hoặc không cung cấp thông tin quan trọng，Issue của bạn sẽ bị đóng trực tiếp**
 
-- [ ] 已阅读 [文档](https://anncwb.github.io/vue-vben-admin-doc/).
-- [ ] 确保您的代码已是最新或者所报告的 Bug 在最新版本中可以重现. (部分 Bug 可能已经在最近的代码中修复)
-- [ ] 已在 Issues 中搜索了相关的关键词
-- [ ] 不是 ant design vue 组件库的 Bug
+- [ ] Đã đọc [Tài liệu](https://anncwb.github.io/vue-vben-admin-doc/).
+- [ ] Đảm bảo code của bạn đã là mới nhất hoặc Bug được báo cáo Bug có thể tái hiện trong phiên bản mới nhất. (Một phần Bug có thể đã được sửa trong code gần đây)
+- [ ] Đã tìm kiếm các từ khóa liên quan trong Issues
+- [ ] Không phải Bug của thư viện component ant design vue
 
-### 描述 Bug
+### Mô tả Bug
 
-请清晰地描述此 Bug 的具体表现。
+Vui lòng mô tả rõ ràng biểu hiện cụ thể của Bug này.
 
-### 复现 Bug
+### Tái hiện Bug
 
-请描述在演示页面中复现 Bug 的详细步骤，以确保我们可以理解并定位问题。部分 Bug 如果未在 Demo 中涉及，请务必提供关键代码
+Vui lòng mô tả các bước chi tiết để tái hiện Bug trong trang demo, để đảm bảo chúng tôi có thể hiểu và xác định vấn đề.Một số Bug nếu chưa liên quan trong Demo, vui lòng nhất định cung cấp code quan trọng
 
-## 系统信息
+## Thông tin hệ thống
 
-- 操作系统:
-- Node 版本:
-- 包管理器 (npm/yarn/pnpm) 及其版本:
+- Hệ điều hành:
+- Phiên bản Node:
+- Trình quản lý gói (npm/yarn/pnpm) và phiên bản của nó:

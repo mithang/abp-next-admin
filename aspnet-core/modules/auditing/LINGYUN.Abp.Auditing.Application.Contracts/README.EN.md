@@ -2,7 +2,7 @@
 
 Application layer contracts module for audit logging, defining application service interfaces and data transfer objects.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

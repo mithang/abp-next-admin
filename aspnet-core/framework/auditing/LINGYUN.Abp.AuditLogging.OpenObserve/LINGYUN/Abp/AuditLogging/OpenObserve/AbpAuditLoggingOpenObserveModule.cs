@@ -10,11 +10,11 @@ using Volo.Abp.VirtualFileSystem;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 审计日志 OpenObserve 模块
+/// Mô-đun Nhật ký kiểm toán OpenObserve
 /// </summary>
 /// <remarks>
-/// 模块不对数据流做任何处理(不探测、不创建、不修改设置):
-/// OpenObserve 会在首次写入时自动创建数据流, 保留策略等设置请在 OpenObserve 侧配置
+/// Mô-đun không thực hiện bất kỳ xử lý nào đối với luồng dữ liệu (không thăm dò, không tạo, không sửa đổi cài đặt):
+/// OpenObserve sẽ tự động tạo luồng dữ liệu khi ghi lần đầu, các cài đặt như chính sách lưu giữ vui lòng cấu hình phía OpenObserve
 /// </remarks>
 [DependsOn(
     typeof(AbpAuditLoggingModule),

@@ -25,14 +25,14 @@ interface UsePermission {
 
 export function usePermissions({ getPropsRef }: UsePermission) {
   const { L } = useLocalization('AbpPermissionManagement');
-  /** 弹出层标题 */
+  /** Tiêu đề lớp bật lên */
   const title = ref('');
-  /** 权限树 */
+  /** Cây quyền */
   const permissionTree = ref<PermissionTree[]>([]);
   /**
-   * 获取授权数据
-   * @param name 授权提供者名称
-   * @param key  授权提供者标识
+   * Lấy dữ liệu cấp quyền
+   * @param name Tên nhà cung cấp cấp quyền
+   * @param key  Mã định danh nhà cung cấp cấp quyền
    */
   function handleGetPermission(name: string, key?: string) {
     get({ providerName: name, providerKey: key }).then((res) => {
@@ -41,8 +41,8 @@ export function usePermissions({ getPropsRef }: UsePermission) {
     });
   }
 
-  /** 当前tab名称
-   * @description 格式：权限显示名称+(已授权数量)
+  /** Tên tab hiện tại
+   * @description Định dạng: tên hiển thị quyền + (số lượng đã cấp quyền)
    */
   const permissionTab = computed(() => {
     return (tree: PermissionTree) => {
@@ -51,30 +51,30 @@ export function usePermissions({ getPropsRef }: UsePermission) {
     };
   });
 
-  /** 是否禁用所有权限复选框 */
+  /** Có vô hiệu hóa mọi hộp kiểm quyền hay không */
   const permissionTreeDisabled = computed(() => {
     const abpStore = useAbpStoreWithOut();
     const props = unref(getPropsRef);
     const { currentUser } = abpStore.getApplication;
     // if (props.providerName === 'R') {
-    //   // 当前登录用户组禁止操作本身组权限
-    //   // 应该允许
+    //   // Nhóm người dùng đang đăng nhập bị cấm thao tác quyền của chính nhóm mình
+    //   // Nên cho phép
     //   return currentUser.roles.includes(props.providerKey!);
     // }
-    // 当前登录用户禁止操作本身权限
+    // Người dùng đang đăng nhập bị cấm thao tác quyền của chính mình
     return currentUser.id === props.providerKey;
   });
 
-  /** 当前tab下已授权权限节点标识（勾选复选框） */
+  /** Mã định danh nút quyền đã cấp quyền dưới tab hiện tại (đã tick hộp kiểm) */
   const permissionGrantKeys = computed(() => {
     return (tree: PermissionTree) => {
       return getGrantedPermissionKeys(tree.children);
     };
   });
 
-  /** 当前tab下权限复选框状态
-   * @returns checked 是否选中
-   * @returns indeterminate 是否不确定状态（半选）
+  /** Trạng thái hộp kiểm quyền dưới tab hiện tại
+   * @returns checked Có được chọn hay không
+   * @returns indeterminate Có ở trạng thái không xác định (chọn một nửa) hay không
    */
   const permissionTabCheckState = computed(() => {
     return (tree: PermissionTree) => {
@@ -87,7 +87,7 @@ export function usePermissions({ getPropsRef }: UsePermission) {
     };
   });
 
-  /** 权限树复选框状态 */
+  /** Trạng thái hộp kiểm của cây quyền */
   const permissionTreeCheckState = computed(() => {
     const treeList = unref(permissionTree);
     const grantCount = getGrantPermissionsCount(treeList);
@@ -98,36 +98,36 @@ export function usePermissions({ getPropsRef }: UsePermission) {
     };
   });
 
-  /** 变更所有授权数据 */
+  /** Thay đổi mọi dữ liệu cấp quyền */
   function handleGrantAllPermission(e) {
     if (!unref(permissionTreeDisabled)) {
       updateChildrenGrant(unref(permissionTree), e.target.checked);
     }
   }
 
-  /** 变更当前tab下的授权数据 */
+  /** Thay đổi dữ liệu cấp quyền dưới tab hiện tại */
   function handleGrantPermissions(tree, e) {
     if (!unref(permissionTreeDisabled)) {
       updateChildrenGrant(tree.children, e.target.checked);
     }
   }
 
-  /** 当选中某个授权节点时事件 */
+  /** Sự kiện khi chọn một nút cấp quyền */
   function handlePermissionGranted(tree, _selectedKeys, info) {
     const permission = find(tree.children, info.node.eventKey) as PermissionTree;
     if (!permission) return;
     permission.isGranted = info.checked;
     if (permission.parentName && info.checked) {
-      // 子权限授权后父权限也必须授权
+      // Sau khi cấp quyền cho quyền con thì quyền cha cũng phải được cấp quyền
       updateParentGrant(tree, permission.parentName, true);
     }
     if (permission.children && !info.checked) {
-      // 父权限取消授权，子权限全部取消授权
+      // Khi hủy cấp quyền cho quyền cha, mọi quyền con đều bị hủy cấp quyền
       updateChildrenGrant(permission.children, false);
     }
   }
 
-  /** 保存授权数据 */
+  /** Lưu dữ liệu cấp quyền */
   function handleSavePermission() {
     const props = unref(getPropsRef);
     const provider: PermissionProvider = {
@@ -140,7 +140,7 @@ export function usePermissions({ getPropsRef }: UsePermission) {
     });
   }
 
-  /** 监听授权提供者标识，重新检索权限 */
+  /** Theo dõi mã định danh nhà cung cấp cấp quyền, truy vấn lại quyền */
   watch(
     () => unref(getPropsRef).providerKey,
     (key) => {

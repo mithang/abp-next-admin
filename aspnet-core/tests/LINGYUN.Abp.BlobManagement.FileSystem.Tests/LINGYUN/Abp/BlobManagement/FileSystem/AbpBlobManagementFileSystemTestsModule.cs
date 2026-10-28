@@ -16,7 +16,7 @@ namespace LINGYUN.Abp.BlobManagement.FileSystem;
 public class AbpBlobManagementFileSystemTestsModule : AbpModule
 {
     /// <summary>
-    /// 测试根目录(每个测试宿主一个)
+    /// Thư mục gốc kiểm thử (mỗi test host một thư mục)
     /// </summary>
     public static string RootPath { get; } = Path.Combine(
         Path.GetTempPath(),
@@ -24,18 +24,18 @@ public class AbpBlobManagementFileSystemTestsModule : AbpModule
         Guid.NewGuid().ToString("N"));
 
     /// <summary>
-    /// 测试用存储根目录(BlobManagement:FileSystem:BasePath)
+    /// Thư mục gốc lưu trữ dùng cho kiểm thử (BlobManagement:FileSystem:BasePath)
     /// </summary>
     public static string BasePath { get; } = Path.Combine(RootPath, "blobs");
 
     /// <summary>
-    /// 存储根目录之外的目录, 用于验证穿越/越权访问会被拒绝
+    /// Thư mục ngoài thư mục gốc lưu trữ, dùng để kiểm chứng truy cập vượt quyền sẽ bị từ chối
     /// </summary>
     public static string OutsidePath { get; } = Path.Combine(RootPath, "outside");
 
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        // 让生产模块按配置启用 FileSystem provider(BlobManagement:Provider)
+        // Để module production bật FileSystem provider theo cấu hình (BlobManagement:Provider)
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
@@ -52,13 +52,13 @@ public class AbpBlobManagementFileSystemTestsModule : AbpModule
 
     public override void OnApplicationShutdown(ApplicationShutdownContext context)
     {
-        // 清理测试目录
+        // Dọn dẹp thư mục kiểm thử
         if (Directory.Exists(RootPath))
         {
             Directory.Delete(RootPath, true);
         }
 
-        // 外层目录在所有测试宿主结束后为空时一并移除
+        // Thư mục ngoài sẽ được xóa cùng lúc khi trống sau khi tất cả test host kết thúc
         var parentPath = Path.GetDirectoryName(RootPath);
         if (parentPath != null &&
             Directory.Exists(parentPath) &&

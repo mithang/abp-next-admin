@@ -7,7 +7,7 @@
     @selected="$emit('selected')"
     @delNode="$emit('delNode')"
     @insertNode="(type) => $emit('insertNode', type)"
-    placeholder="请设置延时时间"
+    placeholder="Vui lòng đặt thời gian trễ"
     header-bgc="#f25643"
   >
     <template #headerIcon>
@@ -43,9 +43,9 @@
 
   const content = computed(() => {
     if (props.config.props.type === 'FIXED') {
-      return `等待 ${props.config.props.time} ${getName(props.config.props.unit)}`;
+      return `Chờ ${props.config.props.time} ${getName(props.config.props.unit)}`;
     } else if (props.config.props.type === 'AUTO') {
-      return `至当天 ${props.config.props.dateTime}`;
+      return `Đến ${props.config.props.dateTime} trong ngày`;
     } else {
       return undefined;
     }
@@ -54,13 +54,13 @@
   function getName(unit: string) {
     switch (unit) {
       case 'D':
-        return '天';
+        return 'ngày';
       case 'H':
-        return '小时';
+        return 'giờ';
       case 'M':
-        return '分钟';
+        return 'phút';
       default:
-        return '未知';
+        return 'Không xác định';
     }
   }
 
@@ -70,20 +70,20 @@
       if (props.config.props.type === 'AUTO') {
         if ((props.config.props.dateTime || '') === '') {
           state.showError = true;
-          state.errorInfo = '请选择时间点';
+          state.errorInfo = 'Vui lòng chọn thời điểm';
         }
       } else {
         if (props.config.props.time <= 0) {
           state.showError = true;
-          state.errorInfo = '请设置延时时长';
+          state.errorInfo = 'Vui lòng đặt thời lượng trễ';
         }
       }
     } catch (e) {
       state.showError = true;
-      state.errorInfo = '配置出现问题';
+      state.errorInfo = 'Cấu hình gặp vấn đề';
     }
     if (state.showError) {
-      err.push(`${props.config.name} 未设置延时规则`);
+      err.push(`${props.config.name} chưa đặt quy tắc trễ`);
     }
     return !state.showError;
   }

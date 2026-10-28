@@ -19,7 +19,7 @@ namespace PackageName.CompanyName.ProjectName.EntityFrameworkCore;
 )]
 public class ProjectNameEntityFrameworkCoreTestModule : AbpModule
 {
-    // 数据库配置
+    // Cấu hình cơ sở dữ liệu
     private const string DefaultPostgresConnectionString =
         "Host=127.0.0.1;Port=5432;Database=test_db;User Id=postgres;Password=postgres;";
 
@@ -28,7 +28,7 @@ public class ProjectNameEntityFrameworkCoreTestModule : AbpModule
         var connectionString = Environment.GetEnvironmentVariable("TEST_CONNECTION_STRING") ??
                                DefaultPostgresConnectionString;
 
-        // 配置数据库连接字符串
+        // Cấu hình chuỗi kết nối cơ sở dữ liệu
         Configure<AbpDbConnectionOptions>(options =>
         {
             options.ConnectionStrings.Default = connectionString;
@@ -40,7 +40,7 @@ public class ProjectNameEntityFrameworkCoreTestModule : AbpModule
             options.AddDefaultRepositories(true);
         });
 
-        // 配置所有DbContext
+        // Cấu hình tất cả DbContext
         Configure<AbpDbContextOptions>(options =>
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -56,14 +56,14 @@ public class ProjectNameEntityFrameworkCoreTestModule : AbpModule
     public override void OnPreApplicationInitialization(ApplicationInitializationContext context)
     {
         var dbContext = context.ServiceProvider.GetRequiredService<SingleMigrationsDbContext>();
-        // 重置数据库
+        // Đặt lại cơ sở dữ liệu
         dbContext.Database.EnsureDeleted();
-        // // 创建数据库
+        // // Tạo cơ sở dữ liệu
         dbContext.Database.EnsureCreated();
         dbContext.Database.GenerateCreateScript();
         // dbContext.Database.Migrate();
 
-        // 初始化种子数据
+        // Khởi tạo dữ liệu seed
         var dataSeeder = context.ServiceProvider.GetRequiredService<IDataSeeder>();
         AsyncHelper.RunSync(() => dataSeeder.SeedAsync());
     }

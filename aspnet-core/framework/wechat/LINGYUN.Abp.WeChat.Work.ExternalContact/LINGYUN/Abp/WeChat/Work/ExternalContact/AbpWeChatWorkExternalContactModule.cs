@@ -9,7 +9,7 @@ using Volo.Abp.VirtualFileSystem;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact;
 /// <summary>
-/// 企业微信客户联系模块
+/// Module liên hệ khách hàng của WeChat doanh nghiệp
 /// </summary>
 [DependsOn(typeof(AbpWeChatWorkModule))]
 public class AbpWeChatWorkExternalContactModule : AbpModule
@@ -18,7 +18,7 @@ public class AbpWeChatWorkExternalContactModule : AbpModule
     {
         Configure<AbpWeChatWorkMessageResolveOptions>(options =>
         {
-            // 企业客户变更事件
+            // Sự kiện thay đổi khách hàng doanh nghiệp
             options.MapEvent("change_external_contact", context =>
             {
                 var changeType = context.GetMessageData("ChangeType");
@@ -34,7 +34,7 @@ public class AbpWeChatWorkExternalContactModule : AbpModule
                     _ => throw new AbpWeChatException($"Contact change event change_external_contact:{changeType} is not mounted!"),
                 };
             });
-            // 客户群变更事件
+            // Sự kiện thay đổi nhóm khách hàng
             options.MapEvent("change_external_chat", context =>
             {
                 var changeType = context.GetMessageData("ChangeType");
@@ -42,7 +42,7 @@ public class AbpWeChatWorkExternalContactModule : AbpModule
                 {
                     case "create": return context.GetWeChatMessage<ExternalChatCreateEvent>();
                     case "update":
-                        // 客户群变更事件
+                        // Sự kiện thay đổi nhóm khách hàng
                         var updateDetail = context.GetMessageData("UpdateDetail");
                         return updateDetail switch
                         {
@@ -57,7 +57,7 @@ public class AbpWeChatWorkExternalContactModule : AbpModule
                     default: throw new AbpWeChatException($"Contact change event change_external_chat:{changeType} is not mounted!");
                 }
             });
-            // 企业客户标签事件
+            // Sự kiện nhãn khách hàng doanh nghiệp
             options.MapEvent("change_external_tag", context =>
             {
                 var changeType = context.GetMessageData("ChangeType");
@@ -70,7 +70,7 @@ public class AbpWeChatWorkExternalContactModule : AbpModule
                     _ => throw new AbpWeChatException($"Contact change event change_external_tag:{changeType} is not mounted!"),
                 };
             });
-            // 产生会话回调事件
+            // Sự kiện gọi lại (callback) khi phát sinh phiên trò chuyện
             options.MapEvent("msgaudit_notify", context => context.GetWeChatMessage<ExternalContactMsgAuditNotifyEvent>());
         });
 

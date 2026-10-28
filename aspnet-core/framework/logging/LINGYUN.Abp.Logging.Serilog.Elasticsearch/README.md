@@ -1,19 +1,19 @@
 # LINGYUN.Abp.Logging.Serilog.Elasticsearch
 
-简体中文 | [English](./README.EN.md)
+Tiếng Việt | [English](./README.EN.md)
 
-ILoggingProvider 接口的ES实现, 从ES中检索日志信息  
+Triển khai ES của giao diện ILoggingProvider, truy xuất thông tin nhật ký từ ES  
 
-## 功能特性
+## Tính năng
 
-* 基于Elasticsearch的日志存储和检索
-* 支持多种日志级别（Debug、Information、Warning、Error、Critical）
-* 支持Serilog和Microsoft.Extensions.Logging日志级别的自动映射
-* 支持丰富的查询条件（时间范围、日志级别、机器名称、环境名称等）
-* 支持异常信息的存储和检索
-* 支持多租户
+* Lưu trữ và truy xuất nhật ký dựa trên Elasticsearch
+* Hỗ trợ nhiều cấp độ nhật ký (Debug, Information, Warning, Error, Critical)
+* Hỗ trợ tự động ánh xạ cấp độ nhật ký của Serilog và Microsoft.Extensions.Logging
+* Hỗ trợ điều kiện truy vấn phong phú (khoảng thời gian, cấp độ nhật ký, tên máy, tên môi trường, v.v.)
+* Hỗ trợ lưu trữ và truy xuất thông tin ngoại lệ
+* Hỗ trợ đa tenant
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLoggingSerilogElasticsearchModule))]
@@ -23,9 +23,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-*  AbpLoggingSerilogElasticsearchOptions.IndexFormat	必须和Serilog配置项中的IndexFormat相同,否则无法定位到正确的索引  
+*  AbpLoggingSerilogElasticsearchOptions.IndexFormat	phải giống IndexFormat trong mục cấu hình Serilog, nếu không sẽ không định vị được chỉ mục đúng  
 
 ## appsettings.json
 
@@ -42,9 +42,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 注入 ILoggingManager 接口：
+1. Tiêm giao diện ILoggingManager:
 ```csharp
 public class YourService
 {
@@ -57,9 +57,9 @@ public class YourService
 }
 ```
 
-2. 查询日志：
+2. Truy vấn nhật ký:
 ```csharp
-// 获取日志列表
+// Lấy danh sách nhật ký
 var logs = await _loggingManager.GetListAsync(
     startTime: DateTime.Now.AddDays(-1),
     maxResultCount: 10,
@@ -69,35 +69,35 @@ var logs = await _loggingManager.GetListAsync(
     application: "YourApp"
 );
 
-// 获取日志总数
+// Lấy tổng số nhật ký
 var count = await _loggingManager.GetCountAsync(
     startTime: DateTime.Now.AddDays(-1),
     level: LogLevel.Error
 );
 
-// 获取单条日志
+// Lấy một bản ghi nhật ký
 var log = await _loggingManager.GetAsync(id);
 ```
 
-## 支持的查询条件
+## Điều kiện truy vấn được hỗ trợ
 
-* 时间范围（startTime、endTime）
-* 日志级别（level）
-* 机器名称（machineName）
-* 环境名称（environment）
-* 应用名称（application）
-* 上下文（context）
-* 请求ID（requestId）
-* 请求路径（requestPath）
-* 关联ID（correlationId）
-* 进程ID（processId）
-* 线程ID（threadId）
-* 是否包含异常（hasException）
+* Khoảng thời gian (startTime, endTime)
+* Cấp độ nhật ký (level)
+* Tên máy (machineName)
+* Tên môi trường (environment)
+* Tên ứng dụng (application)
+* Ngữ cảnh (context)
+* ID yêu cầu (requestId)
+* Đường dẫn yêu cầu (requestPath)
+* ID tương quan (correlationId)
+* ID tiến trình (processId)
+* ID luồng (threadId)
+* Có chứa ngoại lệ hay không (hasException)
 
-## 注意事项
+## Lưu ý
 
-1. IndexFormat配置必须与Serilog配置保持一致，默认格式为"logstash-{0:yyyy.MM.dd}"
-2. 支持多租户，会自动根据当前租户ID过滤日志
-3. 查询结果支持分页和排序
-4. 支持请求路径的模糊匹配
-5. 支持异常信息的存在性查询
+1. Cấu hình IndexFormat phải nhất quán với cấu hình Serilog, định dạng mặc định là "logstash-{0:yyyy.MM.dd}"
+2. Hỗ trợ đa tenant, sẽ tự động lọc nhật ký theo ID tenant hiện tại
+3. Kết quả truy vấn hỗ trợ phân trang và sắp xếp
+4. Hỗ trợ khớp mờ đường dẫn yêu cầu
+5. Hỗ trợ truy vấn theo sự tồn tại của thông tin ngoại lệ

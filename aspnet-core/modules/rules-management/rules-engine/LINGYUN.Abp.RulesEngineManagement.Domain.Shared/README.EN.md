@@ -39,4 +39,4 @@ The shared domain layer of the rules engine management module, containing consta
 * Volo.Abp.Validation
 * LINGYUN.Abp.Rules.RulesEngine
 
-[查看中文文档](README.md)
+[Tiếng Việt](README.md)

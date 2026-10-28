@@ -3,18 +3,18 @@ using System;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// OpenObserve 数据流名称规范器
+/// Bộ chuẩn hoá tên luồng dữ liệu OpenObserve
 /// </summary>
 /// <remarks>
-/// 参考 Elasticsearch 实现的 <c>IIndexNameNormalizer</c>: 不同租户使用不同数据流,
-/// 避免多租户数据混在一起
+/// Tham khảo cách triển khai <c>IIndexNameNormalizer</c> của Elasticsearch: mỗi tenant dùng một luồng dữ liệu khác nhau,
+/// tránh dữ liệu của nhiều tenant bị trộn lẫn với nhau
 /// </remarks>
 public interface IOpenObserveStreamNameNormalizer
 {
     /// <summary>
-    /// 规范化数据流名称(追加租户后缀)
+    /// Chuẩn hoá tên luồng dữ liệu (thêm hậu tố tenant)
     /// </summary>
-    /// <param name="stream">基础数据流名称</param>
-    /// <param name="tenantId">租户标识, 为空时使用当前租户</param>
+    /// <param name="stream">Tên luồng dữ liệu cơ sở</param>
+    /// <param name="tenantId">Định danh tenant, khi trống sẽ dùng tenant hiện tại</param>
     string NormalizeStream(string stream, Guid? tenantId = null);
 }

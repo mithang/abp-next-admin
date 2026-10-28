@@ -6,26 +6,26 @@ using Volo.Abp.Identity;
 
 namespace LINGYUN.Abp.Identity.Session;
 /// <summary>
-/// 用户会话持久化
+/// Lưu trữ phiên người dùng
 /// </summary>
 public interface IIdentitySessionStore
 {
     /// <summary>
-    /// 创建用户会话
+    /// Tạo phiên người dùng
     /// </summary>
-    /// <param name="sessionId">会话id</param>
-    /// <param name="device">设备</param>
-    /// <param name="deviceInfo">设备信息</param>
-    /// <param name="userId">用户id</param>
-    /// <param name="clientId">客户端id</param>
-    /// <param name="ipAddresses">ip地址</param>
-    /// <param name="signedIn">登录时间</param>
-    /// <param name="lastAccessed">上次访问时间</param>
-    /// <param name="ipRegion">IP地域</param>
-    /// <param name="userName">用户名称</param>
-    /// <param name="tenantId">租户id</param>
+    /// <param name="sessionId">Id phiên</param>
+    /// <param name="device">Thiết bị</param>
+    /// <param name="deviceInfo">Thông tin thiết bị</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="clientId">Id máy khách</param>
+    /// <param name="ipAddresses">Địa chỉ IP</param>
+    /// <param name="signedIn">Thời gian đăng nhập</param>
+    /// <param name="lastAccessed">Thời gian truy cập lần cuối</param>
+    /// <param name="ipRegion">Vùng IP</param>
+    /// <param name="userName">Tên người dùng</param>
+    /// <param name="tenantId">Id tenant</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>创建完成的 <seealso cref="IdentitySession"/></returns>
+    /// <returns><seealso cref="IdentitySession"/> đã được tạo</returns>
     Task<IdentitySession> CreateAsync(
         string sessionId,
         string device,
@@ -40,95 +40,95 @@ public interface IIdentitySessionStore
         Guid? tenantId = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 更新用户会话
+    /// Cập nhật phiên người dùng
     /// </summary>
-    /// <param name="session">用户会话实体</param>
+    /// <param name="session">Thực thể phiên người dùng</param>
     /// <param name="cancellationToken"></param>
     /// <returns>a completed task.</returns>
     Task UpdateAsync(
         IdentitySession session,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询用户会话
+    /// Truy vấn phiên người dùng
     /// </summary>
-    /// <param name="id">会话key</param>
+    /// <param name="id">Khóa phiên</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>查询到的<seealso cref="IdentitySession"/></returns>
+    /// <returns><seealso cref="IdentitySession"/> đã truy vấn được</returns>
     /// <exception cref="Volo.Abp.Domain.Entities.EntityNotFoundException"></exception>
     Task<IdentitySession> GetAsync(
         Guid id,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询用户会话
+    /// Truy vấn phiên người dùng
     /// </summary>
-    /// <param name="id">会话key</param>
+    /// <param name="id">Khóa phiên</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>如果存在返回 <seealso cref="IdentitySession"/> 的实例, 否则返回 null.</returns>
+    /// <returns>Nếu tồn tại, trả về <seealso cref="IdentitySession"/> , ngược lại trả về null.</returns>
     Task<IdentitySession?> FindAsync(
         Guid id,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询用户会话
+    /// Truy vấn phiên người dùng
     /// </summary>
-    /// <param name="sessionId">会话id</param>
+    /// <param name="sessionId">Id phiên</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>查询到的<seealso cref="IdentitySession"/></returns>
+    /// <returns><seealso cref="IdentitySession"/> đã truy vấn được</returns>
     /// <exception cref="Volo.Abp.Domain.Entities.EntityNotFoundException"></exception>
     Task<IdentitySession> GetAsync(
         string sessionId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询用户会话
+    /// Truy vấn phiên người dùng
     /// </summary>
-    /// <param name="sessionId">会话id</param>
+    /// <param name="sessionId">Id phiên</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>如果存在返回 <seealso cref="IdentitySession"/> 的实例, 否则返回 null.</returns>
+    /// <returns>Nếu tồn tại, trả về <seealso cref="IdentitySession"/> , ngược lại trả về null.</returns>
     Task<IdentitySession?> FindAsync(
         string sessionId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 查询用户最后一次会话
+    /// Truy vấn phiên gần nhất của người dùng
     /// </summary>
-    /// <param name="userId">用户id</param>
-    /// <param name="device">设备</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="device">Thiết bị</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>如果存在返回 <seealso cref="IdentitySession"/> 的实例, 否则返回 null.</returns>
+    /// <returns>Nếu tồn tại, trả về <seealso cref="IdentitySession"/> , ngược lại trả về null.</returns>
     Task<IdentitySession?> FindLastAsync(
         Guid userId,
         string device,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 会话是否已存在
+    /// Phiên đã tồn tại hay chưa
     /// </summary>
-    /// <param name="sessionId">会话id</param>
+    /// <param name="sessionId">Id phiên</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>如果存在,返回true, 否则返回false.</returns>
+    /// <returns>Nếu tồn tại, trả về true, ngược lại trả về false.</returns>
     Task<bool> ExistAsync(
         string sessionId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销用户会话
+    /// Thu hồi phiên người dùng
     /// </summary>
-    /// <param name="id">会话key</param>
+    /// <param name="id">Khóa phiên</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeAsync(
         Guid id,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销用户会话
+    /// Thu hồi phiên người dùng
     /// </summary>
-    /// <param name="sessionId">会话id</param>
+    /// <param name="sessionId">Id phiên</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeAsync(
         string sessionId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销全部会话
+    /// Thu hồi tất cả phiên
     /// </summary>
-    /// <param name="userId">用户id</param>
-    /// <param name="exceptSessionId">排除会话key</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="exceptSessionId">Khóa phiên loại trừ</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeAllAsync(
@@ -136,11 +136,11 @@ public interface IIdentitySessionStore
         Guid? exceptSessionId = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销全部会话
+    /// Thu hồi tất cả phiên
     /// </summary>
-    /// <param name="userId">用户id</param>
-    /// <param name="device">设备</param>
-    /// <param name="exceptSessionId">排除会话key</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="device">Thiết bị</param>
+    /// <param name="exceptSessionId">Khóa phiên loại trừ</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeAllAsync(
@@ -149,21 +149,21 @@ public interface IIdentitySessionStore
         Guid? exceptSessionId = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销不活跃会话
+    /// Thu hồi các phiên không hoạt động
     /// </summary>
-    /// <param name="inactiveTimeSpan">不活跃的时间间隔</param>
+    /// <param name="inactiveTimeSpan">Khoảng thời gian không hoạt động</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeAllAsync(
         TimeSpan inactiveTimeSpan,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销指定的会话
+    /// Thu hồi các phiên chỉ định
     /// </summary>
-    /// <param name="userId">用户id</param>
-    /// <param name="device">设备</param>
-    /// <param name="exceptSessionId">排除会话id</param>
-    /// <param name="maxCount">最大数量</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="device">Thiết bị</param>
+    /// <param name="exceptSessionId">Id phiên loại trừ</param>
+    /// <param name="maxCount">Số lượng tối đa</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeWithAsync(
@@ -173,9 +173,9 @@ public interface IIdentitySessionStore
         int maxCount = 0,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 撤销会话列表
+    /// Thu hồi danh sách phiên
     /// </summary>
-    /// <param name="identitySessions">会话列表</param>
+    /// <param name="identitySessions">Danh sách phiên</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task RevokeManyAsync(

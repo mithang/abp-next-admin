@@ -6,12 +6,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 说明文字控件配置
+/// Cấu hình control văn bản hướng dẫn
 /// </summary>
 public class TipsControlConfig : ControlConfig
 {
     /// <summary>
-    /// 说明文字控件
+    /// Control văn bản hướng dẫn
     /// </summary>
     [NotNull]
     [JsonProperty("tips")]
@@ -31,7 +31,7 @@ public class TipsControlConfig : ControlConfig
 public class TipsConfig
 {
     /// <summary>
-    /// 说明文字数组，元素为不同语言的富文本说明文字
+    /// Mảng văn bản hướng dẫn, mỗi phần tử là văn bản hướng dẫn dạng rich text của một ngôn ngữ khác nhau
     /// </summary>
     [NotNull]
     [JsonProperty("tips_content")]
@@ -51,14 +51,14 @@ public class TipsConfig
 public class TipsContent
 {
     /// <summary>
-    /// 某个语言的富文本说明
+    /// Văn bản hướng dẫn dạng rich text của một ngôn ngữ
     /// </summary>
     [NotNull]
     [JsonProperty("text")]
     [JsonPropertyName("text")]
     public TipsContentText Text { get; set; } = default!;
     /// <summary>
-    /// 多语言名称
+    /// Tên đa ngôn ngữ
     /// </summary>
     [NotNull]
     [JsonProperty("lang")]
@@ -79,7 +79,7 @@ public class TipsContent
 public class TipsContentText
 {
     /// <summary>
-    /// 说明文字分段
+    /// Đoạn văn bản hướng dẫn
     /// </summary>
     [NotNull]
     [JsonProperty("sub_text")]
@@ -99,14 +99,14 @@ public class TipsContentText
 public class TipsContentSubText
 {
     /// <summary>
-    /// 文本类型 1:纯文本 2:链接，每个说明文字中只支持包含一个链接
+    /// Loại văn bản 1: văn bản thuần túy 2: liên kết, mỗi văn bản hướng dẫn chỉ hỗ trợ chứa một liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public byte Type { get; set; }
     /// <summary>
-    /// 内容
+    /// Nội dung
     /// </summary>
     [NotNull]
     [JsonProperty("content")]
@@ -141,7 +141,7 @@ public abstract class SubTextContent
 public class TipsContentPlainText : SubTextContent
 {
     /// <summary>
-    /// 纯文本文字
+    /// Văn bản thuần túy
     /// </summary>
     [NotNull]
     [JsonProperty("content")]
@@ -152,14 +152,14 @@ public class TipsContentPlainText : SubTextContent
 public class TipsContentLinkText : SubTextContent
 {
     /// <summary>
-    /// 链接标题
+    /// Tiêu đề liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string Title { get; set; } = default!;
     /// <summary>
-    /// 链接url，不能超过600个字符
+    /// URL liên kết, không được vượt quá 600 ký tự
     /// </summary>
     [NotNull]
     [StringLength(600)]

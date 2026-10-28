@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Departments.Models;
 /// <summary>
-/// 部门
+/// Phòng ban
 /// </summary>
 public class Department
 {
     /// <summary>
-    /// 部门名称
+    /// Tên phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 部门id
+    /// Id phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("id")]

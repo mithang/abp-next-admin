@@ -12,7 +12,7 @@ export interface Props {
   allowClear?: boolean;
   pageSize?: number;
   /**
-   * 可以通过prefix获取系统中使用的图标集
+   * Có thể lấy tập biểu tượng đang dùng trong hệ thống qua prefix
    */
   prefix?: string;
   readonly?: boolean;
@@ -71,7 +71,7 @@ const handleChange = (icon: string) => {
     :readonly="props.readonly"
     :style="{ width }"
     class="cursor-pointer"
-    placeholder="点击选中图标"
+    placeholder="Nhấn để chọn biểu tượng"
     @click="triggerPopover"
   >
     <template #addonAfter>

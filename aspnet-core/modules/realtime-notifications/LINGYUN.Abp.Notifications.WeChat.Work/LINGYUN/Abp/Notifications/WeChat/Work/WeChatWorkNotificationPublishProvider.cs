@@ -16,7 +16,7 @@ using Volo.Abp.Settings;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信通知发布渠道
+/// Kênh phát hành thông báo WeChat Work
 /// </summary>
 public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
 {
@@ -73,7 +73,7 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
         var contact = await ResolveContactAsync(context, notificationDefine, cancellationToken);
         if (contact.IsEmpty())
         {
-            // touser、toparty、totag不能同时为空：https://developer.work.weixin.qq.com/document/path/90236
+            // touser, toparty, totag không được đồng thời để trống: https://developer.work.weixin.qq.com/document/path/90236
             context.Cancel("Unable to send work weixin messages because The recipient/department/label cannot be empty simultaneously.");
             Logger.LogWarning(context.Reason);
             return;
@@ -99,7 +99,7 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
 
                 if (!response.IsSuccessed)
                 {
-                    // 企业微信以业务错误码返回失败, 必须让上层感知, 否则失败会被记录为成功
+                    // WeChat Work trả về thất bại bằng mã lỗi nghiệp vụ, tầng trên bắt buộc phải nhận biết, nếu không thất bại sẽ bị ghi nhận thành thành công
                     context.Cancel(
                         $"Unable to send work weixin messages, error code: {response.ErrorCode}, error message: {response.ErrorMessage}");
 
@@ -133,10 +133,10 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
     }
 
     /// <summary>
-    /// 解析消息接收者
+    /// Phân tích người nhận tin nhắn
     /// </summary>
     /// <remarks>
-    /// 成员标识由企业微信身份绑定关系解析, 部门与标签优先取通知数据, 其次取通知定义。
+    /// Định danh thành viên được phân tích từ quan hệ liên kết danh tính WeChat Work, phòng ban và nhãn ưu tiên lấy từ dữ liệu thông báo, sau đó lấy từ định nghĩa thông báo.
     /// </remarks>
     protected async virtual Task<WeChatWorkNotificationContact> ResolveContactAsync(
         NotificationPublishContext context,
@@ -160,11 +160,11 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
     }
 
     /// <summary>
-    /// 解析待发送的消息载体集合
+    /// Phân tích tập hợp carrier tin nhắn chờ gửi
     /// </summary>
     /// <remarks>
-    /// 优先使用生产者显式声明的渠道数据(载荷);
-    /// 未声明时按通知内容类型推导默认载体, 保证既有生产者的行为不变。
+    /// Ưu tiên sử dụng dữ liệu kênh (payload) mà producer khai báo tường minh;
+    /// Khi chưa khai báo thì suy ra carrier mặc định theo loại nội dung thông báo, đảm bảo hành vi của producer hiện có không thay đổi.
     /// </remarks>
     protected virtual List<WeChatWorkMessageFactoryResult> ResolveMessages(
         NotificationPublishContext context,
@@ -202,11 +202,11 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
     }
 
     /// <summary>
-    /// 解析渠道数据(载荷)
+    /// Phân tích dữ liệu kênh (payload)
     /// </summary>
     /// <remarks>
-    /// 区分"生产者未写入载荷"与"载荷已写入但无法解析":
-    /// 后者是生产者错误, 必须明确报错, 而不是静默回退到默认载体。
+    /// Phân biệt "producer chưa ghi payload" với "payload đã ghi nhưng không thể phân tích":
+    /// Trường hợp sau là lỗi của producer, phải báo lỗi rõ ràng, thay vì lặng lẽ quay về carrier mặc định.
     /// </remarks>
     protected virtual bool TryResolveChannelData(
         NotificationPublishContext context,
@@ -238,7 +238,7 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
     }
 
     /// <summary>
-    /// 按通知内容类型推导默认的消息载体
+    /// Suy ra carrier tin nhắn mặc định theo loại nội dung thông báo
     /// </summary>
     protected virtual WeChatWorkChannelData? CreateDefaultChannelData(
         NotificationPublishContext context,
@@ -257,9 +257,9 @@ public class WeChatWorkNotificationPublishProvider : NotificationPublishProvider
                 {
                     TextCard = new TextCardMessage(
                         standardData.Title ?? string.Empty,
-                        // 旧实现丢弃了 description, 这里补全文本卡片的描述
+                        // Triển khai cũ đã bỏ qua description, tại đây bổ sung mô tả của thẻ văn bản
                         standardData.Description.IsNullOrWhiteSpace() ? standardData.Message : standardData.Description!,
-                        // 跳转地址应由生产者通过载荷显式指定, 默认不可点击
+                        // Địa chỉ chuyển hướng phải do producer chỉ định tường minh qua payload, mặc định không thể nhấn
                         "javascript:;")
                 };
 

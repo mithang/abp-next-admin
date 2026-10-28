@@ -264,7 +264,7 @@ public class EfCoreMenuRepository : EfCoreRepository<IPlatformDbContext, Menu, G
         return (await GetQueryableAsync()).IncludeDetails();
     }
 
-    [System.Obsolete("将在abp框架移除之后删除")]
+    [System.Obsolete("Sẽ bị xóa sau khi khung ABP bị loại bỏ")]
     public override IQueryable<Menu> WithDetails()
     {
         return GetQueryable().IncludeDetails();

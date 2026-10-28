@@ -2,28 +2,28 @@ import type { NameValue } from './global';
 
 type SettingValue = NameValue<string>;
 /**
- * 设置接口
+ * Giao diện cài đặt
  */
 interface ISettingProvider {
   /**
-   * 获取设定值结合
-   * @param names 过滤的设置名称
+   * Lấy tập hợp giá trị cài đặt
+   * @param names tên cài đặt cần lọc
    */
   getAll(...names: string[]): SettingValue[];
   /**
-   * 查询 number 类型设定值
-   * @param name 设置名称
-   * @returns 返回类型为 number 的设定值, 默认0
+   * Truy vấn giá trị cài đặt kiểu number
+   * @param name Tên cài đặt
+   * @returns Trả về giá trị cài đặt kiểu number, mặc định là 0
    */
   getNumber(name: string): number;
   /**
-   * 获取设定值,如果为空返回空字符串
-   * @param name 设置名称
+   * Lấy giá trị cài đặt, nếu rỗng thì trả về chuỗi rỗng
+   * @param name Tên cài đặt
    */
   getOrEmpty(name: string): string;
   /**
-   * 查询 boolean 类型设定值
-   * @param name 设置名称
+   * Truy vấn giá trị cài đặt kiểu boolean
+   * @param name Tên cài đặt
    */
   isTrue(name: string): boolean;
 }

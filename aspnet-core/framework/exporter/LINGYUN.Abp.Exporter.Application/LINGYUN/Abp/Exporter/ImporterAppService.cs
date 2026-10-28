@@ -24,19 +24,19 @@ public abstract class ImporterAppService<TEntity, TEntityImportDto> : Applicatio
         await SaveManyEntities(entities);
     }
     /// <summary>
-    /// 实现方法用以从导入数据中提取文件流
+    /// Phương thức triển khai dùng để trích xuất luồng tệp từ dữ liệu nhập vào
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     protected abstract Task<Stream> GetImportStream(TEntityImportDto input);
     /// <summary>
-    /// 实现方法用以保存实体列表到持久化设施
+    /// Phương thức triển khai dùng để lưu danh sách thực thể vào cơ sở lưu trữ bền vững
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
     protected abstract Task SaveManyEntities(ICollection<TEntity> entities);
     /// <summary>
-    /// 实现方法用以实体数据传输对象映射
+    /// Phương thức triển khai dùng để ánh xạ đối tượng truyền dữ liệu thực thể
     /// </summary>
     /// <param name="entitieDtoList"></param>
     /// <returns></returns>

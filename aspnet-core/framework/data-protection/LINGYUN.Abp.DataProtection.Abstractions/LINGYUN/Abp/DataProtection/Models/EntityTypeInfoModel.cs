@@ -5,15 +5,15 @@ namespace LINGYUN.Abp.DataProtection.Models;
 public class EntityTypeInfoModel
 {
     /// <summary>
-    /// 实体名称
+    /// Tên thực thể
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public string DisplayName { get; set; } = default!;
     /// <summary>
-    /// 可访问属性列表
+    /// Danh sách thuộc tính có thể truy cập
     /// </summary>
     public List<EntityPropertyInfoModel> Properties { get; set; } = new List<EntityPropertyInfoModel>();
 }

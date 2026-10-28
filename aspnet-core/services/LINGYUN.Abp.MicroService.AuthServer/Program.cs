@@ -40,12 +40,12 @@ public class Program
                 AuthServerModule.ApplicationName = Environment.GetEnvironmentVariable("APPLICATION_NAME")
                     ?? AuthServerModule.ApplicationName;
                 options.ApplicationName = AuthServerModule.ApplicationName;
-                // 从环境变量取用户机密配置, 适用于容器测试
+                // Lấy cấu hình bí mật người dùng từ biến môi trường, phù hợp để kiểm thử container
                 options.Configuration.UserSecretsId = Environment.GetEnvironmentVariable("APPLICATION_USER_SECRETS_ID");
-                // 如果容器没有指定用户机密, 从项目读取
+                // Nếu container không chỉ định bí mật người dùng, đọc từ dự án
                 options.Configuration.UserSecretsAssembly = typeof(AuthServerModule).Assembly;
-                // 搜索 Modules 目录下所有文件作为插件
-                // 取消显示引用所有其他项目的模块，改为通过插件的形式引用
+                // Tìm kiếm tất cả tệp trong thư mục Modules làm plugin
+                // Hủy tham chiếu hiển thị tới mô-đun của tất cả các dự án khác, chuyển sang tham chiếu dưới dạng plugin
                 var pluginFolder = Path.Combine(
                         Directory.GetCurrentDirectory(), "Modules");
                 DirectoryHelper.CreateIfNotExists(pluginFolder);

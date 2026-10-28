@@ -25,8 +25,8 @@ public class AbpMaxMindGeoIP2TestModule : AbpModule
     {
         Configure<AbpIPLocationResolveOptions>(options =>
         {
-            // 中国IP不显示国家(从备注中移除)
-            options.RemoveCountry = new[] { "中国" };
+            // IP Trung Quốc không hiển thị quốc gia (loại khỏi ghi chú)
+            options.RemoveCountry = new[] { "Trung Quốc" };
         });
     }
 }

@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Elsa
 
-[elsa-core](https://github.com/elsa-workflows/elsa-core) 工作流的abp集成  
+[elsa-core](https://github.com/elsa-workflows/elsa-core) tích hợp abp cho workflow
 
-## 特性
+## Tính năng
 
-* 提供默认**AbpActivity**与多租户集成  
-* 定义**AbpTenantAccessor**与多租户集成  
-* 定义**AbpElsaIdGenerator**通过**IGuidGenerator**接口生成工作流标识  
-* 定义**abp**相关JavaScript扩展  
+* Cung cấp **AbpActivity** mặc định tích hợp với đa thuê bao
+* Định nghĩa **AbpTenantAccessor** tích hợp với đa thuê bao
+* Định nghĩa **AbpElsaIdGenerator** tạo định danh workflow qua giao diện **IGuidGenerator**
+* Mở rộng JavaScript liên quan đến **abp**
 
-## 配置使用
+## Cấu hình và sử dụng
 
 ```csharp
 
@@ -22,7 +22,7 @@
         {
             PreConfigure<ElsaOptionsBuilder>(elsa =>
             {
-                // 自定义elsa相关配置
+                // Tùy chỉnh cấu hình liên quan đến elsa
             });
         }
     }

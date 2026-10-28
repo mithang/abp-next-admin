@@ -5,14 +5,14 @@ using System.Text;
 namespace LINGYUN.Abp.OpenObserve.Utils;
 
 /// <summary>
-/// OpenObserve 查询字符串构造
+/// Trình tạo chuỗi truy vấn OpenObserve
 /// </summary>
 internal static class OpenObserveQueryString
 {
     /// <summary>
-    /// 构造查询字符串
+    /// Tạo chuỗi truy vấn
     /// </summary>
-    /// <returns>如 "?type=logs&amp;delete_all=true", 无参数时返回空字符串</returns>
+    /// <returns>như "?type=logs&amp;delete_all=true", khi không có tham số thì trả về chuỗi rỗng</returns>
     public static string Build(params (string Name, object? Value)[] parameters)
     {
         var builder = new StringBuilder();
@@ -45,7 +45,7 @@ internal static class OpenObserveQueryString
     }
 
     /// <summary>
-    /// 构造查询字符串
+    /// Tạo chuỗi truy vấn
     /// </summary>
     public static string Build(IDictionary<string, object?> parameters)
     {

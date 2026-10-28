@@ -1,24 +1,24 @@
 /**
- * @zh_CN 栈数据结构
+ * @zh_CN Cấu trúc dữ liệu ngăn xếp
  */
 export class Stack<T> {
   /**
-   * @zh_CN 栈内元素数量
+   * @zh_CN Số lượng phần tử trong ngăn xếp
    */
   get size() {
     return this.items.length;
   }
   /**
-   * @zh_CN 是否去重
+   * @zh_CN Có khử trùng lặp hay không
    */
   private readonly dedup: boolean;
   /**
-   * @zh_CN 栈内元素
+   * @zh_CN Các phần tử trong ngăn xếp
    */
   private items: T[] = [];
 
   /**
-   * @zh_CN 栈的最大容量
+   * @zh_CN Dung lượng tối đa của ngăn xếp
    */
   private readonly maxSize?: number;
 
@@ -28,35 +28,35 @@ export class Stack<T> {
   }
 
   /**
-   * @zh_CN 清空栈内元素
+   * @zh_CN Xóa sạch các phần tử trong ngăn xếp
    */
   clear() {
     this.items.length = 0;
   }
 
   /**
-   * @zh_CN 查看栈顶元素
-   * @returns 栈顶元素
+   * @zh_CN Xem phần tử ở đỉnh ngăn xếp
+   * @returns Phần tử ở đỉnh ngăn xếp
    */
   peek(): T | undefined {
     return this.items[this.items.length - 1];
   }
 
   /**
-   * @zh_CN 出栈
-   * @returns 栈顶元素
+   * @zh_CN Lấy ra khỏi ngăn xếp
+   * @returns Phần tử ở đỉnh ngăn xếp
    */
   pop(): T | undefined {
     return this.items.pop();
   }
 
   /**
-   * @zh_CN 入栈
-   * @param items 要入栈的元素
+   * @zh_CN Đưa vào ngăn xếp
+   * @param items Các phần tử cần đưa vào ngăn xếp
    */
   push(...items: T[]) {
     items.forEach((item) => {
-      // 去重
+      // Khử trùng lặp
       if (this.dedup) {
         const index = this.items.indexOf(item);
         if (index !== -1) {
@@ -70,23 +70,23 @@ export class Stack<T> {
     });
   }
   /**
-   * @zh_CN 移除栈内元素
-   * @param itemList 要移除的元素列表
+   * @zh_CN Loại bỏ các phần tử trong ngăn xếp
+   * @param itemList Danh sách các phần tử cần loại bỏ
    */
   remove(...itemList: T[]) {
     this.items = this.items.filter((i) => !itemList.includes(i));
   }
   /**
-   * @zh_CN 保留栈内元素
-   * @param itemList 要保留的元素列表
+   * @zh_CN Giữ lại các phần tử trong ngăn xếp
+   * @param itemList Danh sách các phần tử cần giữ lại
    */
   retain(itemList: T[]) {
     this.items = this.items.filter((i) => itemList.includes(i));
   }
 
   /**
-   * @zh_CN 转换为数组
-   * @returns 栈内元素数组
+   * @zh_CN Chuyển đổi thành mảng
+   * @returns Mảng các phần tử trong ngăn xếp
    */
   toArray(): T[] {
     return [...this.items];
@@ -94,10 +94,10 @@ export class Stack<T> {
 }
 
 /**
- * @zh_CN 创建一个栈实例
- * @param dedup 是否去重
- * @param maxSize 栈的最大容量
- * @returns 栈实例
+ * @zh_CN Tạo một thể hiện ngăn xếp
+ * @param dedup Có khử trùng lặp hay không
+ * @param maxSize Dung lượng tối đa của ngăn xếp
+ * @returns Thể hiện ngăn xếp
  */
 export const createStack = <T>(dedup = true, maxSize?: number) =>
   new Stack<T>(dedup, maxSize);

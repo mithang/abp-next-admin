@@ -13,7 +13,7 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
         context.Add(GetManage());
         context.Add(GetSaas());
         context.Add(GetPlatform());
-        // TODO: 网关不再需要动态管理
+        // TODO: Gateway không còn cần quản lý động
         // context.Add(GetApiGateway());
         context.Add(GetLocalization());
         context.Add(GetOssManagement());
@@ -27,27 +27,27 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var dashboard = new ApplicationMenu(
             name: "Vben Dashboard",
-            displayName: "仪表盘",
+            displayName: "Bảng điều khiển",
             url: "/dashboard",
             component: "",
-            description: "仪表盘",
+            description: "Bảng điều khiển",
             icon: "ion:grid-outline",
             redirect: "/dashboard/workbench");
 
         dashboard.AddItem(
             new ApplicationMenu(
                 name: "Analysis",
-                displayName: "分析页",
+                displayName: "Trang phân tích",
                 url: "/dashboard/analysis",
                 component: "/dashboard/analysis/index",
-                description: "分析页"));
+                description: "Trang phân tích"));
         dashboard.AddItem(
            new ApplicationMenu(
                name: "Workbench",
-               displayName: "工作台",
+               displayName: "Bàn làm việc",
                url: "/dashboard/workbench",
                component: "/dashboard/workbench/index",
-               description: "工作台"));
+               description: "Bàn làm việc"));
 
 
         return new NavigationDefinition(dashboard);
@@ -57,278 +57,278 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var manage = new ApplicationMenu(
             name: "Manage",
-            displayName: "管理",
+            displayName: "Quản lý",
             url: "/manage",
             component: "",
-            description: "管理",
+            description: "Quản lý",
             icon: "ant-design:control-outlined");
 
         var identity = manage.AddItem(
             new ApplicationMenu(
                 name: "Identity",
-                displayName: "身份认证管理",
+                displayName: "Quản lý xác thực danh tính",
                 url: "/manage/identity",
                 component: "",
-                description: "身份认证管理"));
+                description: "Quản lý xác thực danh tính"));
         identity.AddItem(
           new ApplicationMenu(
               name: "User",
-              displayName: "用户",
+              displayName: "Người dùng",
               url: "/manage/identity/user",
               component: "/identity/user/index",
-              description: "用户"));
+              description: "Người dùng"));
         identity.AddItem(
           new ApplicationMenu(
               name: "Role",
-              displayName: "角色",
+              displayName: "Vai trò",
               url: "/manage/identity/role",
               component: "/identity/role/index",
-              description: "角色"));
+              description: "Vai trò"));
         identity.AddItem(
           new ApplicationMenu(
               name: "Claim",
-              displayName: "身份标识",
+              displayName: "Định danh",
               url: "/manage/identity/claim-types",
               component: "/identity/claim-types/index",
-              description: "身份标识",
+              description: "Định danh",
               multiTenancySides: MultiTenancySides.Host));
         identity.AddItem(
           new ApplicationMenu(
               name: "OrganizationUnits",
-              displayName: "组织机构",
+              displayName: "Tổ chức",
               url: "/manage/identity/organization-units",
               component: "/identity/organization-units/index",
-              description: "组织机构"));
+              description: "Tổ chức"));
         identity.AddItem(
           new ApplicationMenu(
               name: "SecurityLogs",
-              displayName: "安全日志",
+              displayName: "Nhật ký bảo mật",
               url: "/manage/identity/security-logs",
               component: "/identity/security-logs/index",
-              description: "安全日志")
-            // 此路由需要依赖安全日志特性
+              description: "Nhật ký bảo mật")
+            // Route này cần phụ thuộc tính năng nhật ký bảo mật
             .SetProperty("requiredFeatures", "AbpAuditing.Logging.SecurityLog"));
 
         manage.AddItem(new ApplicationMenu(
                name: "AuditLogs",
-               displayName: "审计日志",
+               displayName: "Nhật ký kiểm toán",
                url: "/manage/audit-logs",
                component: "/auditing/index",
-               description: "审计日志")
-            // 此路由需要依赖审计日志特性
+               description: "Nhật ký kiểm toán")
+            // Route này cần phụ thuộc tính năng nhật ký kiểm toán
             .SetProperty("requiredFeatures", "AbpAuditing.Logging.AuditLog"));
 
         var settingManagement = manage.AddItem(new ApplicationMenu(
                name: "SettingManagement",
-               displayName: "设置管理",
+               displayName: "Quản lý cài đặt",
                url: "/manage/settings",
                component: "LAYOUT",
-               description: "设置管理",
+               description: "Quản lý cài đặt",
                icon: "ant-design:setting-outlined",
                multiTenancySides: MultiTenancySides.Host)
-            // 此路由需要依赖设置管理特性
+            // Route này cần phụ thuộc tính năng quản lý cài đặt
             .SetProperty("requiredFeatures", "SettingManagement.Enable"));
         settingManagement.AddItem(new ApplicationMenu(
                name: "SystemSettings",
-               displayName: "系统设置",
+               displayName: "Cài đặt hệ thống",
                url: "/manage/settings/system-setting",
                component: "/settings-management/settings/index",
-               description: "系统设置",
+               description: "Cài đặt hệ thống",
                multiTenancySides: MultiTenancySides.Host));
         settingManagement.AddItem(new ApplicationMenu(
                name: "SettingDefinitions",
-               displayName: "设置定义",
+               displayName: "Định nghĩa cài đặt",
                url: "/manage/settings/definitions",
                component: "/settings-management/definitions/index",
-               description: "设置定义",
+               description: "Định nghĩa cài đặt",
                multiTenancySides: MultiTenancySides.Host));
 
         var featureManagement = manage.AddItem(new ApplicationMenu(
                name: "FeaturesManagement",
-               displayName: "功能管理",
+               displayName: "Quản lý tính năng",
                url: "/manage/feature-management",
                component: "LAYOUT",
-               description: "功能管理",
+               description: "Quản lý tính năng",
                icon: "ant-design:gold-outlined",
                multiTenancySides: MultiTenancySides.Host));
         featureManagement.AddItem(new ApplicationMenu(
                name: "FeaturesGroupDefinitions",
-               displayName: "功能分组",
+               displayName: "Nhóm tính năng",
                url: "/manage/feature-management/definitions/groups",
                component: "/feature-management/definitions/groups/index",
-               description: "功能分组",
+               description: "Nhóm tính năng",
                multiTenancySides: MultiTenancySides.Host));
         featureManagement.AddItem(new ApplicationMenu(
                name: "FeaturesDefinitions",
-               displayName: "功能定义",
+               displayName: "Định nghĩa tính năng",
                url: "/manage/feature-management/definitions/features",
                component: "/feature-management/definitions/features/index",
-               description: "功能定义",
+               description: "Định nghĩa tính năng",
                multiTenancySides: MultiTenancySides.Host));
 
         var permissionManagement = manage.AddItem(new ApplicationMenu(
               name: "PermissionsManagement",
-              displayName: "权限管理",
+              displayName: "Quản lý quyền",
               url: "/manage/permission-management",
               component: "LAYOUT",
-              description: "权限管理",
+              description: "Quản lý quyền",
               icon: "arcticons:permissionsmanager",
               multiTenancySides: MultiTenancySides.Host));
         permissionManagement.AddItem(new ApplicationMenu(
                name: "PermissionsGroupDefinitions",
-               displayName: "权限分组",
+               displayName: "Nhóm quyền",
                url: "/manage/permission-management/definitions/groups",
                component: "/permission-management/definitions/groups/index",
-               description: "权限分组",
+               description: "Nhóm quyền",
                multiTenancySides: MultiTenancySides.Host));
         permissionManagement.AddItem(new ApplicationMenu(
                name: "PermissionsDefinitions",
-               displayName: "权限定义",
+               displayName: "Định nghĩa quyền",
                url: "/manage/permission-management/definitions/permissions",
                component: "/permission-management/definitions/permissions/index",
-               description: "权限定义",
+               description: "Định nghĩa quyền",
                multiTenancySides: MultiTenancySides.Host));
 
         var notificationManagement = manage.AddItem(new ApplicationMenu(
               name: "RealtimeNotifications",
-              displayName: "通知管理",
+              displayName: "Quản lý thông báo",
               url: "/realtime/notifications",
               component: "LAYOUT",
-              description: "通知管理",
+              description: "Quản lý thông báo",
               icon: "ant-design:notification-outlined",
               multiTenancySides: MultiTenancySides.Host));
         notificationManagement.AddItem(new ApplicationMenu(
                name: "NotificationsGroupDefinitions",
-               displayName: "通知分组",
+               displayName: "Nhóm thông báo",
                url: "/realtime/notifications/definitions/groups",
                component: "/realtime/notifications/definitions/groups/index",
-               description: "通知分组",
+               description: "Nhóm thông báo",
                multiTenancySides: MultiTenancySides.Host));
         notificationManagement.AddItem(new ApplicationMenu(
                name: "NotificationsDefinitions",
-               displayName: "通知定义",
+               displayName: "Định nghĩa thông báo",
                url: "/realtime/notifications/definitions/notifications",
                component: "/realtime/notifications/definitions/notifications/index",
-               description: "通知定义",
+               description: "Định nghĩa thông báo",
                multiTenancySides: MultiTenancySides.Host));
 
         var identityServer = manage.AddItem(
                 new ApplicationMenu(
                     name: "IdentityServer",
-                    displayName: "身份认证服务器",
+                    displayName: "Máy chủ xác thực danh tính",
                     url: "/manage/identity-server",
                     component: "",
-                    description: "身份认证服务器",
+                    description: "Máy chủ xác thực danh tính",
                     multiTenancySides: MultiTenancySides.Host));
         identityServer.AddItem(
             new ApplicationMenu(
                 name: "Clients",
-                displayName: "客户端",
+                displayName: "Máy khách",
                 url: "/manage/identity-server/clients",
                 component: "/identity-server/clients/index",
-                description: "客户端",
+                description: "Máy khách",
                 multiTenancySides: MultiTenancySides.Host));
         identityServer.AddItem(
             new ApplicationMenu(
                 name: "ApiResources",
-                displayName: "Api 资源",
+                displayName: "Tài nguyên Api",
                 url: "/manage/identity-server/api-resources",
                 component: "/identity-server/api-resources/index",
-                description: "Api 资源",
+                description: "Tài nguyên Api",
                 multiTenancySides: MultiTenancySides.Host));
         identityServer.AddItem(
             new ApplicationMenu(
                 name: "IdentityResources",
-                displayName: "身份资源",
+                displayName: "Tài nguyên danh tính",
                 url: "/manage/identity-server/identity-resources",
                 component: "/identity-server/identity-resources/index",
-                description: "身份资源",
+                description: "Tài nguyên danh tính",
                 multiTenancySides: MultiTenancySides.Host));
         identityServer.AddItem(
             new ApplicationMenu(
                 name: "ApiScopes",
-                displayName: "Api 范围",
+                displayName: "Phạm vi Api",
                 url: "/manage/identity-server/api-scopes",
                 component: "/identity-server/api-scopes/index",
-                description: "Api 范围",
+                description: "Phạm vi Api",
                 multiTenancySides: MultiTenancySides.Host));
         identityServer.AddItem(
             new ApplicationMenu(
                 name: "PersistedGrants",
-                displayName: "持久授权",
+                displayName: "Ủy quyền bền vững",
                 url: "/manage/identity-server/persisted-grants",
                 component: "/identity-server/persisted-grants/index",
-                description: "持久授权",
+                description: "Ủy quyền bền vững",
                 multiTenancySides: MultiTenancySides.Host));
 
         var openIddict = manage.AddItem(
                 new ApplicationMenu(
                     name: "OpenIddict",
-                    displayName: "身份认证服务器",
+                    displayName: "Máy chủ xác thực danh tính",
                     url: "/manage/openiddict",
                     component: "LAYOUT",
-                    description: "身份认证服务器(OpenIddict)",
+                    description: "Máy chủ xác thực danh tính(OpenIddict)",
                     multiTenancySides: MultiTenancySides.Host));
         openIddict.AddItem(
             new ApplicationMenu(
                 name: "OpenIddictApplications",
-                displayName: "应用管理",
+                displayName: "Quản lý ứng dụng",
                 url: "/manage/openiddict/applications",
                 component: "/openiddict/applications/index",
-                description: "应用管理",
+                description: "Quản lý ứng dụng",
                 multiTenancySides: MultiTenancySides.Host));
         openIddict.AddItem(
             new ApplicationMenu(
                 name: "OpenIddictAuthorizations",
-                displayName: "授权管理",
+                displayName: "Quản lý ủy quyền",
                 url: "/manage/openiddict/authorizations",
                 component: "/openiddict/authorizations/index",
-                description: "授权管理",
+                description: "Quản lý ủy quyền",
                 multiTenancySides: MultiTenancySides.Host));
         openIddict.AddItem(
             new ApplicationMenu(
                 name: "OpenIddictScopes",
-                displayName: "Api 范围",
+                displayName: "Phạm vi Api",
                 url: "/manage/openiddict/scopes",
                 component: "/openiddict/scopes/index",
-                description: "Api 范围",
+                description: "Phạm vi Api",
                 multiTenancySides: MultiTenancySides.Host));
         openIddict.AddItem(
             new ApplicationMenu(
                 name: "OpenIddictTokens",
-                displayName: "授权令牌",
+                displayName: "Token ủy quyền",
                 url: "/manage/openiddict/tokens",
                 component: "/openiddict/tokens/index",
-                description: "授权令牌",
+                description: "Token ủy quyền",
                 multiTenancySides: MultiTenancySides.Host));
 
         manage.AddItem(
             new ApplicationMenu(
                 name: "Logs",
-                displayName: "系统日志",
+                displayName: "Nhật ký hệ thống",
                 url: "/sys/logs",
                 component: "/sys/logging/index",
-                description: "系统日志",
+                description: "Nhật ký hệ thống",
                 multiTenancySides: MultiTenancySides.Host));
 
         manage.AddItem(
             new ApplicationMenu(
                 name: "ApiDocument",
-                displayName: "Api 文档",
+                displayName: "Tài liệu Api",
                 url: "/openapi",
                 component: "IFrame",
-                description: "Api 文档",
+                description: "Tài liệu Api",
                 multiTenancySides: MultiTenancySides.Host)
-            // TODO: 注意在部署完毕之后手动修改此菜单iframe地址
+            // TODO: Lưu ý sửa địa chỉ iframe của menu này thủ công sau khi triển khai xong
             .SetProperty("frameSrc", "http://127.0.0.1:30000/swagger/index.html"));
 
         manage.AddItem(
             new ApplicationMenu(
                 name: "Caches",
-                displayName: "缓存管理",
+                displayName: "Quản lý bộ nhớ đệm",
                 url: "/manage/cache",
                 component: "/caching-management/cache/index",
-                description: "缓存管理"));
+                description: "Quản lý bộ nhớ đệm"));
 
         return new NavigationDefinition(manage);
     }
@@ -346,18 +346,18 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
         saas.AddItem(
           new ApplicationMenu(
               name: "Tenants",
-              displayName: "租户管理",
+              displayName: "Quản lý tenant",
               url: "/saas/tenants",
               component: "/saas/tenant/index",
-              description: "租户管理",
+              description: "Quản lý tenant",
               multiTenancySides: MultiTenancySides.Host));
         saas.AddItem(
           new ApplicationMenu(
               name: "Editions",
-              displayName: "版本管理",
+              displayName: "Quản lý phiên bản",
               url: "/saas/editions",
               component: "/saas/editions/index",
-              description: "版本管理",
+              description: "Quản lý phiên bản",
               multiTenancySides: MultiTenancySides.Host));
 
         return new NavigationDefinition(saas);
@@ -367,32 +367,32 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var platform = new ApplicationMenu(
             name: "Platform",
-            displayName: "平台管理",
+            displayName: "Quản lý nền tảng",
             url: "/platform",
             component: "",
-            description: "平台管理",
+            description: "Quản lý nền tảng",
             icon: "ep:platform");
         platform.AddItem(
           new ApplicationMenu(
               name: "DataDictionary",
-              displayName: "数据字典",
+              displayName: "Từ điển dữ liệu",
               url: "/platform/data-dic",
               component: "/platform/dataDic/index",
-              description: "数据字典"));
+              description: "Từ điển dữ liệu"));
         platform.AddItem(
           new ApplicationMenu(
               name: "Layout",
-              displayName: "布局",
+              displayName: "Bố cục",
               url: "/platform/layout",
               component: "/platform/layout/index",
-              description: "布局"));
+              description: "Bố cục"));
         platform.AddItem(
           new ApplicationMenu(
               name: "Menu",
-              displayName: "菜单",
+              displayName: "Menu",
               url: "/platform/menu",
               component: "/platform/menu/index",
-              description: "菜单"));
+              description: "Menu"));
 
         return new NavigationDefinition(platform);
     }
@@ -401,43 +401,43 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var apiGateway = new ApplicationMenu(
             name: "ApiGateway",
-            displayName: "网关管理",
+            displayName: "Quản lý gateway",
             url: "/api-gateway",
             component: "",
-            description: "网关管理",
+            description: "Quản lý gateway",
             icon: "ant-design:gateway-outlined",
             multiTenancySides: MultiTenancySides.Host);
         apiGateway.AddItem(
           new ApplicationMenu(
               name: "RouteGroup",
-              displayName: "路由分组",
+              displayName: "Nhóm route",
               url: "/api-gateway/group",
               component: "/api-gateway/group/index",
-              description: "路由分组",
+              description: "Nhóm route",
               multiTenancySides: MultiTenancySides.Host));
         apiGateway.AddItem(
           new ApplicationMenu(
               name: "GlobalConfiguration",
-              displayName: "公共配置",
+              displayName: "Cấu hình chung",
               url: "/api-gateway/global",
               component: "/api-gateway/global/index",
-              description: "公共配置",
+              description: "Cấu hình chung",
               multiTenancySides: MultiTenancySides.Host));
         apiGateway.AddItem(
           new ApplicationMenu(
               name: "Route",
-              displayName: "路由管理",
+              displayName: "Quản lý route",
               url: "/api-gateway/route",
               component: "/api-gateway/route/index",
-              description: "路由管理",
+              description: "Quản lý route",
               multiTenancySides: MultiTenancySides.Host));
         apiGateway.AddItem(
          new ApplicationMenu(
              name: "AggregateRoute",
-             displayName: "聚合路由",
+             displayName: "Route tổng hợp",
              url: "/api-gateway/aggregate",
              component: "/api-gateway/aggregate/index",
-             description: "聚合路由",
+             description: "Route tổng hợp",
              multiTenancySides: MultiTenancySides.Host));
 
         return new NavigationDefinition(apiGateway);
@@ -447,37 +447,37 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var localization = new ApplicationMenu(
             name: "Localization",
-            displayName: "本地化管理",
+            displayName: "Quản lý bản địa hóa",
             url: "/localization",
             component: "",
-            description: "本地化管理",
+            description: "Quản lý bản địa hóa",
             icon: "ant-design:translation-outlined",
             multiTenancySides: MultiTenancySides.Host);
         localization.AddItem(
           new ApplicationMenu(
               name: "Languages",
-              displayName: "语言管理",
+              displayName: "Quản lý ngôn ngữ",
               url: "/localization/languages",
               component: "/localization/languages/index",
-              description: "语言管理",
+              description: "Quản lý ngôn ngữ",
               multiTenancySides: MultiTenancySides.Host)
             );
         localization.AddItem(
           new ApplicationMenu(
               name: "Resources",
-              displayName: "资源管理",
+              displayName: "Quản lý tài nguyên",
               url: "/localization/resources",
               component: "/localization/resources/index",
-              description: "资源管理",
+              description: "Quản lý tài nguyên",
               multiTenancySides: MultiTenancySides.Host)
             );
         localization.AddItem(
           new ApplicationMenu(
               name: "Texts",
-              displayName: "文档管理",
+              displayName: "Quản lý tài liệu",
               url: "/localization/texts",
               component: "/localization/texts/index",
-              description: "文档管理",
+              description: "Quản lý tài liệu",
               multiTenancySides: MultiTenancySides.Host)
             );
 
@@ -488,25 +488,25 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var oss = new ApplicationMenu(
             name: "OssManagement",
-            displayName: "对象存储",
+            displayName: "Lưu trữ đối tượng",
             url: "/oss",
             component: "",
-            description: "对象存储",
+            description: "Lưu trữ đối tượng",
             icon: "ant-design:file-twotone");
         oss.AddItem(
           new ApplicationMenu(
               name: "Containers",
-              displayName: "容器管理",
+              displayName: "Quản lý container",
               url: "/oss/containers",
               component: "/oss-management/containers/index",
-              description: "容器管理"));
+              description: "Quản lý container"));
         oss.AddItem(
           new ApplicationMenu(
               name: "Objects",
-              displayName: "文件管理",
+              displayName: "Quản lý tệp",
               url: "/oss/objects",
               component: "/oss-management/objects/index",
-              description: "文件管理"));
+              description: "Quản lý tệp"));
 
         return new NavigationDefinition(oss);
     }
@@ -515,25 +515,25 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var task = new ApplicationMenu(
             name: "TaskManagement",
-            displayName: "任务调度平台",
+            displayName: "Nền tảng lập lịch tác vụ",
             url: "/task-management",
             component: "",
-            description: "任务调度平台",
+            description: "Nền tảng lập lịch tác vụ",
             icon: "bi:list-task");
         task.AddItem(
           new ApplicationMenu(
               name: "BackgroundJobs",
-              displayName: "任务管理",
+              displayName: "Quản lý tác vụ",
               url: "/task-management/background-jobs",
               component: "/task-management/background-jobs/index",
-              description: "任务管理"));
+              description: "Quản lý tác vụ"));
         task.AddItem(
           new ApplicationMenu(
               name: "BackgroundJobInfoDetail",
-              displayName: "任务详情",
+              displayName: "Chi tiết tác vụ",
               url: "/task-management/background-jobs/:id",
               component: "/task-management/background-jobs/components/BackgroundJobInfoDetail",
-              description: "任务详情")
+              description: "Chi tiết tác vụ")
           .SetProperty("hideMenu", "true")
           .SetProperty("hideTab", "true"));
 
@@ -553,34 +553,34 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
         webhooks.AddItem(
           new ApplicationMenu(
               name: "Subscriptions",
-              displayName: "管理订阅",
+              displayName: "Quản lý đăng ký",
               url: "/webhooks/subscriptions",
               component: "/webhooks/subscriptions/index",
-              description: "管理订阅",
+              description: "Quản lý đăng ký",
               multiTenancySides: MultiTenancySides.Host));
         webhooks.AddItem(
           new ApplicationMenu(
               name: "SendAttempts",
-              displayName: "管理记录",
+              displayName: "Quản lý bản ghi",
               url: "/webhooks/send-attempts",
               component: "/webhooks/send-attempts/index",
-              description: "管理记录",
+              description: "Quản lý bản ghi",
               multiTenancySides: MultiTenancySides.Host));
         webhooks.AddItem(
           new ApplicationMenu(
               name: "WebhooksGroupDefinitions",
-              displayName: "Webhook 分组",
+              displayName: "Nhóm Webhook",
               url: "/webhooks/definitions/groups",
               component: "/webhooks/definitions/groups/index",
-              description: "Webhook 分组",
+              description: "Nhóm Webhook",
               multiTenancySides: MultiTenancySides.Host));
         webhooks.AddItem(
           new ApplicationMenu(
               name: "WebhooksDefinitions",
-              displayName: "Webhook 定义",
+              displayName: "Định nghĩa Webhook",
               url: "/webhooks/definitions/webhooks",
               component: "/webhooks/definitions/webhooks/index",
-              description: "Webhook 定义",
+              description: "Định nghĩa Webhook",
               multiTenancySides: MultiTenancySides.Host));
 
         return new NavigationDefinition(webhooks);
@@ -590,18 +590,18 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var messages = new ApplicationMenu(
             name: "Messages",
-            displayName: "消息管理",
+            displayName: "Quản lý tin nhắn",
             url: "/messages",
             component: "",
-            description: "消息管理",
+            description: "Quản lý tin nhắn",
             icon: "ant-design:message-outlined");
         messages.AddItem(
           new ApplicationMenu(
               name: "Notifications",
-              displayName: "通知管理",
+              displayName: "Quản lý thông báo",
               url: "/messages/notifications",
               component: "/messages/notifications/index",
-              description: "通知管理"));
+              description: "Quản lý thông báo"));
 
         return new NavigationDefinition(messages);
     }
@@ -610,19 +610,19 @@ public class AbpUINavigationVueVbenAdminNavigationDefinitionProvider : Navigatio
     {
         var textTemplating = new ApplicationMenu(
             name: "Templates",
-            displayName: "模板管理",
+            displayName: "Quản lý mẫu",
             url: "/text-templating",
             component: "",
-            description: "模板管理",
+            description: "Quản lý mẫu",
             icon: "eos-icons:templates-outlined",
             multiTenancySides: MultiTenancySides.Host);
         textTemplating.AddItem(
           new ApplicationMenu(
               name: "TextTemplates",
-              displayName: "文本模板",
+              displayName: "Mẫu văn bản",
               url: "/text-templating/text-templates",
               component: "/text-templating/templates/index",
-              description: "文本模板",
+              description: "Mẫu văn bản",
               multiTenancySides: MultiTenancySides.Host));
 
         return new NavigationDefinition(textTemplating);

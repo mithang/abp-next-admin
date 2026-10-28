@@ -1,18 +1,18 @@
 # @vben/hooks
 
-用于多个 `app` 公用的 hook，继承了 `@vben/hooks` 的所有能力。业务上有通用 hooks 可以放在这里。
+Hook dùng chung cho nhiều `app`, kế thừa mọi khả năng của `@vben/hooks`. Nếu nghiệp vụ có hook dùng chung thì có thể đặt ở đây.
 
-## 用法
+## Cách dùng
 
-### 添加依赖
+### Thêm dependency
 
 ```bash
-# 进入目标应用目录，例如 apps/xxxx-app
+# Vào thư mục ứng dụng đích, ví dụ apps/xxxx-app
 # cd apps/xxxx-app
 pnpm add @vben/hooks
 ```
 
-### 使用
+### Sử dụng
 
 ```ts
 import { useNamespace } from '@vben/hooks';

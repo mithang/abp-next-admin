@@ -1,6 +1,6 @@
 ﻿namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 新增日历
+/// Tạo lịch mới
 /// </summary>
 public class CreateCalendar : CreateOrUpdateCalendar
 {

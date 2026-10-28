@@ -8,7 +8,7 @@ using Volo.Abp.Users;
 namespace LINGYUN.Abp.Account.Web.OpenIddict.Handlers;
 
 /// <summary>
-/// 用户退出登录终止会话
+/// Người dùng đăng xuất sẽ kết thúc phiên
 /// </summary>
 public class ProcessSignOutIdentitySession : IOpenIddictServerHandler<OpenIddictServerEvents.ProcessSignOutContext>
 {

@@ -28,7 +28,7 @@ interface Props {
 	readonly?: boolean;
 }
 
-//TODO 测试和修改这个modal
+//TODO Kiểm tra và sửa modal này
 const PermissionModal: React.FC<Props> = ({
 	visible,
 	onClose,
@@ -59,7 +59,7 @@ const PermissionModal: React.FC<Props> = ({
 		}
 	}, [permissionData]);
 
-	// 更新权限
+	// Cập nhật quyền
 	const { mutateAsync: updatePermissions, isPending: isUpdating } = useMutation({
 		mutationFn: (permissions: any) => updateApi({ providerKey, providerName }, { permissions }),
 		onSuccess: () => {
@@ -70,7 +70,7 @@ const PermissionModal: React.FC<Props> = ({
 		},
 	});
 
-	// 计算权限状态
+	// Tính trạng thái quyền
 	const permissionState = useMemo(() => {
 		const grantCount = getGrantPermissionsCount(permissionTree);
 		const permissionCount = getPermissionsCount(permissionTree);
@@ -80,7 +80,7 @@ const PermissionModal: React.FC<Props> = ({
 		};
 	}, [permissionTree, checkedKeys]);
 
-	// 全选所有节点权限
+	// Chọn tất cả quyền của mọi nút
 	const handleCheckAll = (e: CheckboxChangeEvent) => {
 		const { checked } = e.target;
 		const newCheckedKeys: string[] = [];
@@ -99,7 +99,7 @@ const PermissionModal: React.FC<Props> = ({
 		setCheckedKeys(newCheckedKeys);
 	};
 
-	// 全选当前节点权限
+	// Chọn tất cả quyền của nút hiện tại
 	const handleNodeCheckAll = (e: CheckboxChangeEvent, permission: PermissionTree) => {
 		const { checked } = e.target;
 		const children = getChildren(permission.children ?? []);
@@ -114,25 +114,25 @@ const PermissionModal: React.FC<Props> = ({
 		permission.isGranted = checked;
 	};
 
-	// 处理节点选中状态
+	// Xử lý trạng thái chọn của nút
 	const handleNodeCheck = (permission: PermissionTree, _keys: any, info: any) => {
 		const nodeKey = String(info.node.key);
 		const index = checkedKeys.indexOf(nodeKey);
 		setCheckedKeys((prev) => (index === -1 ? [...prev, nodeKey] : prev.filter((key) => key !== nodeKey)));
 
 		const checked = info.checked;
-		// ✅ 递归更新 `permissionTree`
+		// ✅ Cập nhật đệ quy `permissionTree`
 		setPermissionTree((prevTree) => {
-			const newTree = [...prevTree]; // 创建新数组，确保 React 触发更新
+			const newTree = [...prevTree]; // Tạo mảng mới, đảm bảo React kích hoạt cập nhật
 
-			// 递归函数：更新 `isGranted`
+			// Hàm đệ quy: cập nhật `isGranted`
 			const updateTree = (tree: PermissionTree[]): PermissionTree[] => {
 				return tree.map((node) => {
 					if (node.name === nodeKey) {
-						return { ...node, isGranted: checked }; // 复制对象，确保 React 重新渲染
+						return { ...node, isGranted: checked }; // Sao chép đối tượng, đảm bảo React render lại
 					}
 					if (node.children) {
-						return { ...node, children: updateTree(node.children) }; // 递归处理子节点
+						return { ...node, children: updateTree(node.children) }; // Xử lý đệ quy nút con
 					}
 					return node;
 				});
@@ -142,15 +142,15 @@ const PermissionModal: React.FC<Props> = ({
 		});
 		const currentPermission = info.node as PermissionTree;
 
-		// 上级权限联动
+		// Liên động quyền cấp trên
 		checkParentGrant(permission, currentPermission, checked);
-		// 下级权限联动
+		// Liên động quyền cấp dưới
 		checkChildrenGrant(currentPermission, checked);
-		// 自身授权
+		// Tự cấp quyền
 		currentPermission.isGranted = checked;
 	};
 
-	// 处理下级权限联动
+	// Xử lý liên động quyền cấp dưới
 	const checkChildrenGrant = (current: PermissionTree, isGranted: boolean) => {
 		const children = getChildren(current.children);
 		if (!isGranted) {
@@ -163,7 +163,7 @@ const PermissionModal: React.FC<Props> = ({
 		}
 	};
 
-	// 处理上级权限联动
+	// Xử lý liên động quyền cấp trên
 	const checkParentGrant = (root: PermissionTree, current: PermissionTree, isGranted: boolean) => {
 		if (!isGranted || !current.parentName) return;
 

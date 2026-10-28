@@ -26,4 +26,4 @@ This module is database provider agnostic. You need to choose one of the followi
 * [PostgreSql](../LINGYUN.Abp.Elsa.EntityFrameworkCore.PostgreSql/README.md)
 * [MySql](../LINGYUN.Abp.Elsa.EntityFrameworkCore.MySql/README.md)
 
-[中文文档](./README.md)
+[Tiếng Việt](./README.md)

@@ -6,14 +6,14 @@ namespace LINGYUN.Abp.OpenObserve;
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 内部指标(Prometheus 文本格式)
+    /// Chỉ số nội bộ (định dạng văn bản Prometheus)
     /// </summary>
     /// <remarks>
-    /// GET /metrics, 注意该接口不在 /api 前缀下
-    /// 需要服务端开启 ZO_PROMETHEUS_ENABLE=true, 未开启时返回空内容
-    /// 参考: https://openobserve.ai/docs/reference/api/metrics/
+    /// GET /metrics, lưu ý endpoint này không nằm dưới tiền tố /api
+    /// Cần bật ZO_PROMETHEUS_ENABLE=true ở phía server, nếu chưa bật sẽ trả về nội dung rỗng
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/metrics/
     /// </remarks>
-    /// <returns>Prometheus 文本格式内容(text/plain; version=0.0.4)</returns>
+    /// <returns>Nội dung định dạng văn bản Prometheus (text/plain; version=0.0.4)</returns>
     public async virtual Task<string> GetMetricsAsync(
         CancellationToken cancellationToken = default)
     {

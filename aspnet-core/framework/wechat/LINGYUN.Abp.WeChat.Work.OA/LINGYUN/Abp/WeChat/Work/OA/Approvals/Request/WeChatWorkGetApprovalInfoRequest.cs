@@ -7,44 +7,44 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Request;
 /// <summary>
-/// 批量获取审批单号请求参数
+/// Tham số yêu cầu lấy hàng loạt số đơn phê duyệt
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91816"/>
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/91816"/>
 /// </remarks>
 public class WeChatWorkGetApprovalInfoRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 审批单提交的时间范围，开始时间，UNix时间戳
+    /// Khoảng thời gian nộp đơn phê duyệt, thời gian bắt đầu, dấu thời gian Unix
     /// </summary>
     [NotNull]
     [JsonProperty("starttime")]
     [JsonPropertyName("starttime")]
     public long StartTime { get; set; }
     /// <summary>
-    /// 审批单提交的时间范围，结束时间，Unix时间戳
+    /// Khoảng thời gian nộp đơn phê duyệt, thời gian kết thúc, dấu thời gian Unix
     /// </summary>
     [NotNull]
     [JsonProperty("endtime")]
     [JsonPropertyName("endtime")]
     public long EndTime { get; set; }
     /// <summary>
-    /// 分页查询游标，默认为空串，后续使用返回的new_next_cursor进行分页拉取
+    /// Con trỏ phân trang truy vấn, mặc định là chuỗi rỗng, sau đó dùng new_next_cursor trả về để lấy dữ liệu phân trang
     /// </summary>
     [CanBeNull]
     [JsonProperty("new_cursor")]
     [JsonPropertyName("new_cursor")]
     public string? NewCursor { get; set; } = "";
     /// <summary>
-    /// 一次请求拉取审批单数量，默认值为100，上限值为100。
-    /// 若accesstoken为自建应用，仅允许获取在应用可见范围内申请人提交的表单，返回的sp_no_list个数可能和size不一致，开发者需用next_cursor判断表单记录是否拉取完
+    /// Số lượng đơn phê duyệt lấy trong một yêu cầu, giá trị mặc định là 100, giá trị tối đa là 100.
+    /// Nếu accesstoken thuộc ứng dụng tự xây dựng, chỉ được phép lấy các biểu mẫu do người nộp đơn gửi trong phạm vi hiển thị của ứng dụng, số lượng sp_no_list trả về có thể không khớp với size, nhà phát triển cần dùng next_cursor để xác định đã lấy hết bản ghi biểu mẫu hay chưa
     /// </summary>
     [NotNull]
     [JsonProperty("size")]
     [JsonPropertyName("size")]
     public int Size { get; set; }
     /// <summary>
-    /// 筛选条件，可对批量拉取的审批申请设置约束条件，支持设置多个条件
+    /// Điều kiện lọc, có thể đặt ràng buộc cho các đơn phê duyệt lấy hàng loạt, hỗ trợ đặt nhiều điều kiện
     /// </summary>
     [CanBeNull]
     [JsonProperty("filters")]

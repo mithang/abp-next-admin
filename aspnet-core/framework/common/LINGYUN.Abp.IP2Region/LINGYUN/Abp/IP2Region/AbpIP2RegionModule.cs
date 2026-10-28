@@ -15,12 +15,12 @@ namespace LINGYUN.Abp.IP2Region;
 public class AbpIP2RegionModule : AbpModule
 {
     /// <summary>
-    /// 内置的 IPv4 离线库(虚拟文件系统路径)
+    /// Thư viện ngoại tuyến IPv4 tích hợp sẵn (đường dẫn hệ thống tệp ảo)
     /// </summary>
     public const string DefaultIPv4DatabaseFile = "/LINGYUN/Abp/IP2Region/Resources/ip2region_v4.xdb";
 
     /// <summary>
-    /// 内置的 IPv6 离线库(虚拟文件系统路径)
+    /// Thư viện ngoại tuyến IPv6 tích hợp sẵn (đường dẫn hệ thống tệp ảo)
     /// </summary>
     public const string DefaultIPv6DatabaseFile = "/LINGYUN/Abp/IP2Region/Resources/ip2region_v6.xdb";
 
@@ -39,13 +39,13 @@ public class AbpIP2RegionModule : AbpModule
         {
             var options = serviceProvider.GetRequiredService<IOptions<AbpIP2RegionOptions>>().Value;
 
-            // 物理文件优先, 便于替换/更新离线库; 否则使用内置资源
+            // Ưu tiên tệp vật lý, thuận tiện cho việc thay thế/cập nhật thư viện ngoại tuyến; nếu không sẽ dùng tài nguyên tích hợp sẵn
             var ipv4XdbStream = CreateDatabaseStream(serviceProvider, options.IPv4DatabaseFile, true);
 
-            // IPv6 数据文件较大且可选(可通过打包时排除该资源来减小体积), 不存在时不加载, IPv6 查询返回 null
+            // Tệp dữ liệu IPv6 khá lớn và là tùy chọn (có thể giảm kích thước bằng cách loại trừ tài nguyên này khi đóng gói), nếu không tồn tại sẽ không tải, truy vấn IPv6 trả về null
             var ipv6XdbStream = CreateDatabaseStream(serviceProvider, options.IPv6DatabaseFile, false);
 
-            // 按地址族自动选择数据文件
+            // Tự động chọn tệp dữ liệu theo họ địa chỉ
             return new AbpSearcher(options.CachePolicy, ipv4XdbStream!, ipv6XdbStream);
         });
 
@@ -56,10 +56,10 @@ public class AbpIP2RegionModule : AbpModule
     }
 
     /// <summary>
-    /// 创建离线库数据流
+    /// Tạo luồng dữ liệu của thư viện ngoại tuyến
     /// </summary>
     /// <remarks>
-    /// 物理文件优先, 其次为虚拟文件系统路径(内置资源)
+    /// Ưu tiên tệp vật lý, tiếp theo là đường dẫn hệ thống tệp ảo (tài nguyên tích hợp sẵn)
     /// </remarks>
     private static Stream? CreateDatabaseStream(IServiceProvider serviceProvider, string databaseFile, bool required)
     {

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信群聊文本卡片消息
+/// Tin nhắn thẻ văn bản trong nhóm chat WeChat Work
 /// </summary>
 public class WeChatWorkAppChatTextCardMessage : WeChatWorkAppChatMessage
 {
@@ -16,17 +16,17 @@ public class WeChatWorkAppChatTextCardMessage : WeChatWorkAppChatMessage
         TextCard = textcard;
     }
     /// <summary>
-    /// 卡片消息
+    /// Tin nhắn thẻ
     /// </summary>
     [NotNull]
     [JsonProperty("textcard")]
     [JsonPropertyName("textcard")]
     public TextCardMessage TextCard { get; set; }
     /// <summary>
-    /// 表示是否是保密消息，
-    /// 0表示可对外分享，
-    /// 1表示不能分享且内容显示水印，
-    /// 默认为0
+    /// Cho biết có phải là tin nhắn bảo mật hay không,
+    /// 0 nghĩa là có thể chia sẻ ra ngoài,
+    /// 1 nghĩa là không thể chia sẻ và nội dung hiển thị hình mờ,
+    /// Mặc định là 0
     /// </summary>
     [JsonProperty("safe")]
     [JsonPropertyName("safe")]

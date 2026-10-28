@@ -62,6 +62,14 @@ try
     app.UseDynamicClaims();
     // 授权
     app.UseAuthorization();
+    // DEVOPS iter-0009: swagger middleware only in Development, same
+    // fix as ApiGateway Program.cs (iter-0008). The swagger provider is
+    // registered by AddAbpSwaggerGenWithOAuth, which is skipped when no
+    // AuthServer:Authority is configured -- but UseSwagger() used to run
+    // unconditionally, and Swashbuckle resolves ISwaggerProvider eagerly,
+    // so EVERY request (including /healthz) answered 500 in Production.
+    if (app.Environment.IsDevelopment())
+    {
     // Swagger
     app.UseSwagger();
     // Swagger可视化界面
@@ -73,6 +81,7 @@ try
         options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
         options.OAuthScopes(configuration["AuthServer:Audience"]);
     });
+    }
     // 审计日志
     app.UseAuditing();
     app.UseAbpSerilogEnrichers();

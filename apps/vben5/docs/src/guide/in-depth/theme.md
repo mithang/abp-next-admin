@@ -1,30 +1,30 @@
-# 主题
+# Chủ đề
 
-框架基于 [shadcn-vue](https://www.shadcn-vue.com/themes.html) 和 [tailwindcss](https://tailwindcss.com/) 构建，提供了丰富的主题配置，可以通过简单的配置实现各种主题切换，满足个性化需求。您可以选择使用 CSS 变量或 Tailwind CSS 实用程序类进行主题设置。
+Framework được xây dựng dựa trên [shadcn-vue](https://www.shadcn-vue.com/themes.html) và [tailwindcss](https://tailwindcss.com/), cung cấp cấu hình chủ đề phong phú, có thể chuyển đổi nhiều chủ đề khác nhau chỉ bằng cấu hình đơn giản, đáp ứng nhu cầu cá nhân hoá. Bạn có thể chọn sử dụng biến CSS hoặc lớp tiện ích Tailwind CSS để thiết lập chủ đề.
 
-## Css 变量
+## Biến CSS
 
-项目遵循 [shadcn-vue](https://www.shadcn-vue.com/themes.html) 的主题配置，示例：
+Dự án tuân theo cấu hình chủ đề của [shadcn-vue](https://www.shadcn-vue.com/themes.html), ví dụ:
 
 ```html
 <div class="bg-background text-foreground" />
 ```
 
-我们对颜色使用一个简单的约定。`background`变量用于组件的背景颜色，`foreground`变量用于文本颜色。
+Chúng ta sử dụng một quy ước đơn giản cho màu sắc. Biến `background` dùng cho màu nền của component, biến `foreground` dùng cho màu chữ.
 
-以下组件的`background`将为`hsl(var(--primary))`，`foreground`将为`hsl(var(--primary-foreground))`。
+`background` của các component sau sẽ là `hsl(var(--primary))`, `foreground` sẽ là `hsl(var(--primary-foreground))`.
 
-## 详细的CSS变量列表
+## Danh sách chi tiết các biến CSS
 
-::: warning 注意
+::: warning Lưu ý
 
-css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要加 `hsl()`和 `，`。
+Màu sắc trong biến CSS phải sử dụng định dạng `hsl`, ví dụ `0 0% 100%`, không cần thêm `hsl()` và `,`.
 
 :::
 
-你可以查看下面的CSS变量列表，以了解所有可用的变量。
+Bạn có thể xem danh sách biến CSS dưới đây để biết tất cả các biến khả dụng.
 
-::: details 默认主题 css 变量
+::: details Biến CSS của chủ đề mặc định
 
 ```css
 :root {
@@ -36,7 +36,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
 
-  /* 主体区域背景色 */
+  /* Màu nền khu vực nội dung chính */
   --background-deep: 216 20.11% 95.47%;
   --foreground: 210 6% 21%;
 
@@ -52,7 +52,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
 
-  /* 主题颜色 */
+  /* Màu chủ đề */
 
   --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
@@ -102,10 +102,10 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
   /* ============= custom ============= */
 
-  /* 遮罩颜色 */
+  /* Màu lớp phủ */
   --overlay: 0deg 0% 0% / 30%;
 
-  /* 基本文字大小 */
+  /* Cỡ chữ cơ bản */
   --font-size-base: 16px;
 
   /* =============component & UI============= */
@@ -125,7 +125,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
 :::
 
-::: details 默认主题黑暗模式 css 变量
+::: details Biến CSS chế độ tối của chủ đề mặc định
 
 ```css
 .dark,
@@ -134,7 +134,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   /* Default background color of <body />...etc */
   --background: 222.34deg 10.43% 12.27%;
 
-  /* 主体区域背景色 */
+  /* Màu nền khu vực nội dung chính */
   --background-deep: 220deg 13.06% 9%;
   --foreground: 0 0% 95%;
 
@@ -152,7 +152,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   --muted: 220deg 6.82% 17.25%;
   --muted-foreground: 215 20.2% 65.1%;
 
-  /* 主题颜色 */
+  /* Màu chủ đề */
 
   /* --primary: 245 82% 67%; */
   --primary-foreground: 0 0% 98%;
@@ -172,7 +172,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   --warning: 42 84% 61%;
   --warning-foreground: 0 0% 98%;
 
-  /* 颜色次要 */
+  /* Màu phụ */
   --secondary: 240 5% 17%;
   --secondary-foreground: 0 0% 98%;
 
@@ -196,15 +196,15 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
 
-  /* 基本圆角大小 */
+  /* Kích thước bo góc cơ bản */
   --radius: 0.5rem;
 
   /* ============= Custom ============= */
 
-  /* 遮罩颜色 */
+  /* Màu lớp phủ */
   --overlay: 0deg 0% 0% / 40%;
 
-  /* 基本文字大小 */
+  /* Cỡ chữ cơ bản */
   --font-size-base: 16px;
 
   /* =============component & UI============= */
@@ -220,11 +220,11 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 
 :::
 
-## 覆盖默认的 CSS 变量
+## Ghi đè biến CSS mặc định
 
-你只需要在你的项目中覆盖你想要修改的 CSS 变量即可。例如，要更改默认卡片背景色，你可以在你的 CSS 文件中添加以下内容进行覆盖：
+Bạn chỉ cần ghi đè các biến CSS mà bạn muốn thay đổi trong dự án của mình. Ví dụ, để thay đổi màu nền thẻ mặc định, bạn có thể thêm nội dung sau vào file CSS của mình để ghi đè:
 
-### 默认主题下
+### Trong chủ đề mặc định
 
 ```css
 :root {
@@ -233,7 +233,7 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 }
 ```
 
-### 黑暗模式下
+### Trong chế độ tối
 
 ```css
 .dark,
@@ -244,17 +244,17 @@ css 变量内的颜色，必须使用 `hsl` 格式，如 `0 0% 100%`，不需要
 }
 ```
 
-## 更改品牌主色
+## Thay đổi màu chủ đạo của thương hiệu
 
 ::: tip
 
-- 需要使用 `hsl` 格式颜色格式。
-- 修改后需要清空缓存才可生效。
-- 你可以借助 [第三方工具](https://www.w3schools.com/colors/colors_hsl.asp)来转换颜色。
+- Cần sử dụng định dạng màu `hsl`.
+- Sau khi sửa đổi cần xoá bộ nhớ đệm mới có hiệu lực.
+- Bạn có thể dùng [công cụ bên thứ ba](https://www.w3schools.com/colors/colors_hsl.asp) để chuyển đổi màu sắc.
 
 :::
 
-只需要在应用目录下的`preferences.ts`，自定义配置主色即可：
+Chỉ cần tuỳ chỉnh màu chủ đạo trong `preferences.ts` ở thư mục ứng dụng là được:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -262,21 +262,21 @@ import { defineOverridesPreferences } from '@vben/preferences';
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
   theme: {
-    // 错误色
+    // Màu lỗi
     colorDestructive: 'hsl(348 100% 61%)',
-    // 主题色
+    // Màu chủ đề
     colorPrimary: 'hsl(212 100% 45%)',
-    // 成功色
+    // Màu thành công
     colorSuccess: 'hsl(144 57% 58%)',
-    // 警告色
+    // Màu cảnh báo
     colorWarning: 'hsl(42 84% 61%)',
   },
 });
 ```
 
-## 内置主题
+## Chủ đề tích hợp sẵn
 
-框架中内置了多种主题，你可以在`preferences.ts`中进行配置：
+Framework tích hợp sẵn nhiều chủ đề, bạn có thể cấu hình trong `preferences.ts`:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -289,11 +289,11 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-### 内置主题列表
+### Danh sách chủ đề tích hợp sẵn
 
-框架内置了 16种主题，且还支持自定义主题。理论上，你可以无限制的扩展主题。
+Framework tích hợp sẵn 16 chủ đề, và còn hỗ trợ chủ đề tuỳ chỉnh. Về lý thuyết, bạn có thể mở rộng chủ đề không giới hạn.
 
-::: details 内置主题类型列表
+::: details Danh sách loại chủ đề tích hợp sẵn
 
 ```ts
 type BuiltinThemeType =
@@ -319,7 +319,7 @@ type BuiltinThemeType =
 
 :::
 
-::: details 内置主题css变量 - light
+::: details Biến CSS của chủ đề tích hợp sẵn - light
 
 ```css
 :root {
@@ -331,7 +331,7 @@ type BuiltinThemeType =
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
 
-  /* 主体区域背景色 */
+  /* Màu nền khu vực nội dung chính */
   --background-deep: 216 20.11% 95.47%;
   --foreground: 222 84% 5%;
 
@@ -351,7 +351,7 @@ type BuiltinThemeType =
   --muted: 240 4.8% 95.9%;
   --muted-foreground: 240 3.8% 46.1%;
 
-  /* 主题颜色 */
+  /* Màu chủ đề */
 
   --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
@@ -401,10 +401,10 @@ type BuiltinThemeType =
 
   /* ============= custom ============= */
 
-  /* 遮罩颜色 */
+  /* Màu lớp phủ */
   --overlay: 0deg 0% 0% / 30%;
 
-  /* 基本文字大小 */
+  /* Cỡ chữ cơ bản */
   --font-size-base: 16px;
 
   /* =============component & UI============= */
@@ -697,7 +697,7 @@ type BuiltinThemeType =
 
 :::
 
-::: details 内置主题css变量 - dark
+::: details Biến CSS của chủ đề tích hợp sẵn - dark
 
 ```css
 .dark,
@@ -706,7 +706,7 @@ type BuiltinThemeType =
   /* Default background color of <body />...etc */
   --background: 222.34deg 10.43% 12.27%;
 
-  /* 主体区域背景色 */
+  /* Màu nền khu vực nội dung chính */
   --background-deep: 220deg 13.06% 9%;
   --foreground: 0 0% 95%;
 
@@ -729,7 +729,7 @@ type BuiltinThemeType =
   --muted: 240 3.7% 15.9%;
   --muted-foreground: 240 5% 64.9%;
 
-  /* 主题颜色 */
+  /* Màu chủ đề */
 
   /* --primary: 245 82% 67%; */
   --primary-foreground: 0 0% 98%;
@@ -749,7 +749,7 @@ type BuiltinThemeType =
   --warning: 42 84% 61%;
   --warning-foreground: 0 0% 98%;
 
-  /* 颜色次要 */
+  /* Màu phụ */
   --secondary: 240 5% 17%;
   --secondary-foreground: 0 0% 98%;
 
@@ -773,15 +773,15 @@ type BuiltinThemeType =
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
 
-  /* 基本圆角大小 */
+  /* Kích thước bo góc cơ bản */
   --radius: 0.5rem;
 
   /* ============= Custom ============= */
 
-  /* 遮罩颜色 */
+  /* Màu lớp phủ */
   --overlay: 0deg 0% 0% / 40%;
 
-  /* 基本文字大小 */
+  /* Cỡ chữ cơ bản */
   --font-size-base: 16px;
 
   /* =============component & UI============= */
@@ -1137,11 +1137,11 @@ type BuiltinThemeType =
 
 :::
 
-## 新增主题
+## Thêm chủ đề mới
 
-想要新增主题，只需按照以下步骤进行：
+Muốn thêm chủ đề mới, chỉ cần làm theo các bước sau:
 
-- 在应用的 `src/preferences.ts`内新增一个主题配置。
+- Thêm một cấu hình chủ đề trong `src/preferences.ts` của ứng dụng.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -1154,7 +1154,7 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-- 在你的css文件中，新增主题的css变量。
+- Thêm biến CSS của chủ đề mới trong file CSS của bạn.
 
 ```css
 /* light */
@@ -1205,9 +1205,9 @@ export const overridesPreferences = defineOverridesPreferences({
 }
 ```
 
-## 黑暗模式
+## Chế độ tối
 
-框架中内置了多种主题，你可以在`preferences.ts`中进行配置，黑暗主题同样会读取css变量来进行配置：
+Framework tích hợp sẵn nhiều chủ đề, bạn có thể cấu hình trong `preferences.ts`, chủ đề tối cũng sẽ đọc biến CSS để cấu hình:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -1220,11 +1220,11 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 自定义侧边栏颜色
+## Tuỳ chỉnh màu thanh bên
 
-侧边栏颜色通过`--sidebar`变量来配置
+Màu thanh bên được cấu hình qua biến `--sidebar`
 
-### 默认主题下
+### Trong chủ đề mặc định
 
 ```css
 :root {
@@ -1232,7 +1232,7 @@ export const overridesPreferences = defineOverridesPreferences({
 }
 ```
 
-### 黑暗模式下
+### Trong chế độ tối
 
 ```css
 .dark,
@@ -1242,11 +1242,11 @@ export const overridesPreferences = defineOverridesPreferences({
 }
 ```
 
-## 自定义顶栏颜色
+## Tuỳ chỉnh màu thanh trên cùng
 
-侧边栏颜色通过`--header`变量来配置
+Màu thanh bên được cấu hình qua biến `--header`
 
-### 默认主题下
+### Trong chủ đề mặc định
 
 ```css
 :root {
@@ -1254,7 +1254,7 @@ export const overridesPreferences = defineOverridesPreferences({
 }
 ```
 
-### 黑暗模式下
+### Trong chế độ tối
 
 ```css
 .dark,
@@ -1264,9 +1264,9 @@ export const overridesPreferences = defineOverridesPreferences({
 }
 ```
 
-## 色弱模式
+## Chế độ mù màu
 
-一般用于特殊场景，将设置为色弱模式，你可以在`preferences.ts`中进行配置：
+Thường dùng cho các trường hợp đặc biệt, đặt thành chế độ mù màu, bạn có thể cấu hình trong `preferences.ts`:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -1279,9 +1279,9 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 灰色模式
+## Chế độ xám
 
-一般用于特殊场景，将网页置灰，你可以在`preferences.ts`中进行配置：
+Thường dùng cho các trường hợp đặc biệt, làm cho trang web chuyển sang xám, bạn có thể cấu hình trong `preferences.ts`:
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';

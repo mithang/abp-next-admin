@@ -1,0 +1,12 @@
+{
+  "culture": "vi",
+  "texts": {
+    "EmailNotifierLayout": "Mẫu thông báo email",
+    "Notifications:MultiTenancy": "Thông báo bên thuê",
+    "Notifications:Users": "Thông báo người dùng",
+    "Notifications:NewTenantRegisterd": "Thông báo tạo tenant",
+    "Notifications:WelcomeToApplication": "Thông báo chào mừng người dùng",
+    "Notifications:Primitives": "Thông báo tiêu chuẩn",
+    "Notifications:ExceptionNotifier": "Đẩy thông báo bất thường"
+  }
+}

@@ -33,7 +33,7 @@ public class AbpEmailingExceptionSubscriber : AbpExceptionSubscriberBase
 
     protected override async Task SendErrorNotifierAsync(ExceptionSendNotifierContext context)
     {
-        // 需不需要用 SettingProvider 来获取?
+        // Có cần dùng SettingProvider để lấy không?
         var receivedUsers = EmailOptions.GetReceivedEmailOrDefault(context.Exception.GetType());
 
         if (!receivedUsers.IsNullOrWhiteSpace())

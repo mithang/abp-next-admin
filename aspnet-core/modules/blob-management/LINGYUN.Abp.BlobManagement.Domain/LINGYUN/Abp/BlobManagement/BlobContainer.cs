@@ -29,13 +29,13 @@ public class BlobContainer : AuditedAggregateRoot<Guid>, IMultiTenant
     }
 
     /// <summary>
-    /// 设置容器名称
+    /// Thiết lập tên container
     /// </summary>
     public void SetName([NotNull] string name)
     {
         Name = Check.NotNullOrWhiteSpace(name, nameof(name), BlobContainerConsts.MaxNameLength);
 
-        // 容器名作为一级目录名参与路径组合
+        // Tên container đóng vai trò tên thư mục cấp một tham gia kết hợp đường dẫn
         BlobManagementNameValidator.CheckName(Name, BlobManagementErrorCodes.Container.InvalidName);
     }
 

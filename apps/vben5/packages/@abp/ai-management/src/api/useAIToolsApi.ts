@@ -14,9 +14,9 @@ export function useAIToolsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取AI工具详情
-   * @param id AI工具id
-   * @returns AI工具详情
+   * Lấy chi tiết công cụ AI
+   * @param id Id công cụ AI
+   * @returns Chi tiết công cụ AI
    */
   function getApi(id: string): Promise<AIToolDefinitionRecordDto> {
     return request<AIToolDefinitionRecordDto>(
@@ -28,9 +28,9 @@ export function useAIToolsApi() {
   }
 
   /**
-   * 获取AI工具分页列表
-   * @param input 查询过滤参数
-   * @returns AI工具分页列表
+   * Lấy danh sách phân trang công cụ AI
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang công cụ AI
    */
   function getPagedListApi(
     input?: AIToolDefinitionRecordGetPagedListInput,
@@ -45,8 +45,8 @@ export function useAIToolsApi() {
   }
 
   /**
-   * 获取可用AI工具提供者列表
-   * @returns AI工具提供者列表
+   * Lấy danh sách nhà cung cấp công cụ AI khả dụng
+   * @returns Danh sách nhà cung cấp công cụ AI
    */
   function getAvailableProviderListApi(): Promise<
     ListResultDto<AIToolProviderDto>
@@ -60,8 +60,8 @@ export function useAIToolsApi() {
   }
 
   /**
-   * 删除AI工具
-   * @param id AI工具id
+   * Xóa công cụ AI
+   * @param id Id công cụ AI
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/ai-management/tools/${id}`, {
@@ -70,9 +70,9 @@ export function useAIToolsApi() {
   }
 
   /**
-   * 新增AI工具
-   * @param input 参数
-   * @returns AI工具详情
+   * Thêm công cụ AI
+   * @param input Tham số
+   * @returns Chi tiết công cụ AI
    */
   function createApi(
     input: AIToolDefinitionRecordCreateDto,
@@ -84,10 +84,10 @@ export function useAIToolsApi() {
   }
 
   /**
-   * 编辑AI工具
-   * @param id AI工具id
-   * @param input 参数
-   * @returns AI工具详情
+   * Sửa công cụ AI
+   * @param id Id công cụ AI
+   * @param input Tham số
+   * @returns Chi tiết công cụ AI
    */
   function updateApi(
     id: string,

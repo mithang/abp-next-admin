@@ -3,12 +3,12 @@ using LINGYUN.Abp.Notifications;
 namespace LINGYUN.Abp.Notifications.PushPlus;
 
 /// <summary>
-/// PushPlus 渠道数据(载荷)
+/// Dữ liệu kênh PushPlus (payload)
 /// </summary>
 /// <remarks>
-/// webhook 与 callback 是"可选参数"而非互斥的"载荷标识":
-/// 写入其中任意一个即表示生产者要使用 PushPlus 渠道,
-/// 因此存在性判定模式声明为 <see cref="NotificationChannelDataPresenceMode.AnyDeclaredProperty"/>。
+/// webhook và callback là "tham số tùy chọn" chứ không phải "định danh payload" loại trừ lẫn nhau:
+/// Ghi bất kỳ tham số nào trong số đó tức là nhà sản xuất muốn sử dụng kênh PushPlus,
+/// Do đó chế độ xác định sự tồn tại được khai báo là <see cref="NotificationChannelDataPresenceMode.AnyDeclaredProperty"/>.
 /// </remarks>
 [NotificationChannelData(
     PushPlusNotificationPublishProvider.ProviderName,
@@ -17,13 +17,13 @@ namespace LINGYUN.Abp.Notifications.PushPlus;
 public class PushPlusChannelData : NotificationChannelData
 {
     /// <summary>
-    /// webhook 地址
+    /// Địa chỉ webhook
     /// </summary>
     [NotificationChannelProperty(PushPlusNotificationDataKeys.Webhook)]
     public virtual string? Webhook { get; set; }
 
     /// <summary>
-    /// 回调地址
+    /// Địa chỉ callback
     /// </summary>
     [NotificationChannelProperty(PushPlusNotificationDataKeys.CallbackUrl)]
     public virtual string? CallbackUrl { get; set; }

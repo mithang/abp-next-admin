@@ -1,17 +1,17 @@
 # LINGYUN.Abp.FeatureManagement.Client
 
-针对客户端的功能验证管理授权
+Quản lý ủy quyền xác thực tính năng dành cho phía máy khách
 
-## 功能特性
+## Tính năng
 
-* 提供客户端功能管理提供者(ClientFeatureManagementProvider)
-* 支持客户端功能的权限管理
-* 支持本地化资源管理
-* 与ABP框架的功能管理模块无缝集成
+* Cung cấp nhà cung cấp quản lý tính năng máy khách (ClientFeatureManagementProvider)
+* Hỗ trợ quản lý quyền của tính năng máy khách
+* Hỗ trợ quản lý tài nguyên bản địa hóa
+* Tích hợp liền mạch với mô-đun quản lý tính năng của framework ABP
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpFeatureManagementClientModule))]
@@ -21,12 +21,12 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 权限配置
+2. Cấu hình quyền
 
-模块预定义了以下权限：
-* FeatureManagement.ManageClientFeatures：管理客户端功能的权限
+Mô-đun đã định nghĩa sẵn các quyền sau:
+* FeatureManagement.ManageClientFeatures：Quyền quản lý tính năng máy khách
 
-3. 使用示例
+3. Ví dụ sử dụng
 
 ```csharp
 public class YourService
@@ -40,16 +40,16 @@ public class YourService
 
     public async Task SetClientFeatureAsync(string clientId, string featureName, string value)
     {
-        // 设置客户端功能值
+        // Thiết lập giá trị tính năng máy khách
         await _featureManager.SetForClientAsync(clientId, featureName, value);
     }
 }
 ```
 
-## 更多
+## Thêm
 
-* 本模块依赖于LINGYUN.Abp.Features.Client模块
-* 支持通过AbpFeatureManagementResource进行本地化配置
-* 提供了针对客户端功能管理的权限控制
+* Mô-đun này phụ thuộc vào mô-đun LINGYUN.Abp.Features.Client
+* Hỗ trợ cấu hình bản địa hóa thông qua AbpFeatureManagementResource
+* Cung cấp kiểm soát quyền đối với quản lý tính năng máy khách
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Việt](./README.md) | [English](./README.EN.md)

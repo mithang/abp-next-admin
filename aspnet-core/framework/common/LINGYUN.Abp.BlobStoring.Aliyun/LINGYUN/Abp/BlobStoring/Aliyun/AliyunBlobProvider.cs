@@ -99,7 +99,7 @@ public class AliyunBlobProvider : BlobProviderBase, ITransientDependency
         var blobName = AliyunBlobNameCalculator.Calculate(args);
         var configuration = args.Configuration.GetAliyunConfiguration();
 
-        // 先检查Bucket
+        // Kiểm tra Bucket trước
         if (configuration.CreateBucketIfNotExists)
         {
             await CreateBucketIfNotExists(ossClient, args, configuration.CreateBucketAcl);
@@ -107,17 +107,17 @@ public class AliyunBlobProvider : BlobProviderBase, ITransientDependency
 
         var bucketName = GetBucketName(args);
 
-        // 是否已存在
+        // Đã tồn tại hay chưa
         if (await BlobExistsAsync(ossClient, args, blobName))
         {
-            // 是否覆盖
+            // Có ghi đè hay không
             if (!args.OverrideExisting)
             {
                 throw new BlobAlreadyExistsException($"Saving BLOB '{args.BlobName}' does already exists in the bucketName '{GetBucketName(args)}'! Set {nameof(args.OverrideExisting)} if it should be overwritten.");
             }
             else
             {
-                // 删除原文件
+                // Xóa tệp gốc
                 await ossClient.DeleteObjectAsync(
                     new DeleteObjectRequest
                     {
@@ -127,7 +127,7 @@ public class AliyunBlobProvider : BlobProviderBase, ITransientDependency
                     cancellationToken: args.CancellationToken);
             }
         }
-        // 保存
+        // Lưu
         await ossClient.PutObjectAsync(
             new PutObjectRequest
             {

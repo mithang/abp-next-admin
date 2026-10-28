@@ -3,13 +3,13 @@
 namespace LINGYUN.Platform;
 
 /// <summary>
-/// 平台类型
+/// Loại nền tảng
 /// </summary>
 [Flags]
 public enum PlatformType
 {
     /// <summary>
-    /// 未定义
+    /// Chưa xác định
     /// </summary>
     None = 0,
     /// <summary>
@@ -21,7 +21,7 @@ public enum PlatformType
     /// </summary>
     WinForm = 4,
     /// <summary>
-    /// Windows桌面通用
+    /// Dùng chung cho Windows desktop
     /// </summary>
     Desktop = WinCe | WinForm,
     /// <summary>
@@ -33,11 +33,11 @@ public enum PlatformType
     /// </summary>
     WebMvc = 16,
     /// <summary>
-    /// 其他Mvvm架构
+    /// Kiến trúc Mvvm khác
     /// </summary>
     WebMvvm = 32,
     /// <summary>
-    /// Web通用
+    /// Dùng chung cho Web
     /// </summary>
     Web = WebForm | WebMvc | WebMvvm,
     /// <summary>
@@ -49,15 +49,15 @@ public enum PlatformType
     /// </summary>
     iOS = 128,
     /// <summary>
-    /// 移动端通用
+    /// Dùng chung cho thiết bị di động
     /// </summary>
     Mobile = Android | iOS,
     /// <summary>
-    /// 小程序
+    /// Mini Program
     /// </summary>
     MiniProgram = 256,
     /// <summary>
-    /// 所有平台通用
+    /// Dùng chung cho mọi nền tảng
     /// </summary>
     All = Desktop | Web | Mobile | MiniProgram
 }

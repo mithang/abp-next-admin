@@ -5,7 +5,7 @@ import { execa } from 'execa';
 export * from '@changesets/git';
 
 /**
- * 获取暂存区文件
+ * Lấy các file trong khu vực tạm (staged)
  */
 async function getStagedFiles(): Promise<string[]> {
   try {

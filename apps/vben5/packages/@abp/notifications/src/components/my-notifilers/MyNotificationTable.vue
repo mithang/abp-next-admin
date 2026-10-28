@@ -41,7 +41,7 @@ const BookMarkIcon = createIconifyIcon('material-symbols:bookmark-outline');
 const selectedKeys = ref<string[]>([]);
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: false,
   schema: [
     {
@@ -73,9 +73,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi form khi nhấn Enter hay không
   submitOnEnter: true,
 };
 
@@ -207,14 +207,14 @@ const [NotificationModal, modalApi] = useVbenModal({
   ),
 });
 
-/** 点击行标记已读 */
+/** Nhấn vào hàng để đánh dấu đã đọc */
 async function onClickRead(row: Notification) {
   modalApi.setData(row);
   modalApi.open();
   await _onRead([row.id], NotificationReadState.Read);
 }
 
-/** 行标记阅读状态 */
+/** Hàng đánh dấu trạng thái đọc */
 async function onRowRead(row: Notification, info: MenuInfo) {
   switch (info.key) {
     case 'read': {
@@ -226,7 +226,7 @@ async function onRowRead(row: Notification, info: MenuInfo) {
   }
 }
 
-/** 批量标记阅读状态 */
+/** Đánh dấu trạng thái đọc hàng loạt */
 async function onBulkRead(info: MenuInfo) {
   switch (info.key) {
     case 'read': {

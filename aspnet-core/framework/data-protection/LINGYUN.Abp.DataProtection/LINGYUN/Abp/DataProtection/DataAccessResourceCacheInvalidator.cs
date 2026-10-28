@@ -22,7 +22,7 @@ public class DataAccessResourceCacheInvalidator : IDistributedEventHandler<DataA
         {
             await _resourceStore.SetAsync(eventData.Resource);
 
-            // 角色权限策略变更为自定义规则
+            // Chính sách quyền theo vai trò được thay đổi thành quy tắc tùy chỉnh
             await _strategyStateStore.SetAsync(
                 new DataAccessStrategyState(
                     eventData.Resource.SubjectName,

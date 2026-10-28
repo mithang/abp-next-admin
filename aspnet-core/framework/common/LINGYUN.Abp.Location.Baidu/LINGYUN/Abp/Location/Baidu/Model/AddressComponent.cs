@@ -9,77 +9,77 @@ namespace LINGYUN.Abp.Location.Baidu.Model;
 public class AddressComponent
 {
     /// <summary>
-    /// 国家
+    /// Quốc gia
     /// </summary>
     public string? Country { get; set; }
     /// <summary>
-    /// 国家国家编码
+    /// Mã quốc gia
     /// </summary>
     [JsonProperty("country_code")]
     [JsonPropertyName("country_code")]
     public int CountryCode { get; set; }
     /// <summary>
-    /// 国家英文缩写（三位）
+    /// Tên viết tắt tiếng Anh của quốc gia (ba ký tự)
     /// </summary>
     [JsonProperty("country_code_iso")]
     [JsonPropertyName("country_code_iso")]
     public string? CountryCodeIso { get; set; }
     /// <summary>
-    /// 国家英文缩写（两位）
+    /// Tên viết tắt tiếng Anh của quốc gia (hai ký tự)
     /// </summary>
     [JsonProperty("country_code_iso2")]
     [JsonPropertyName("country_code_iso2")]
     public string? CountryCodeIso2 { get; set; }
     /// <summary>
-    /// 省名
+    /// Tên tỉnh
     /// </summary>
     public string? Province { get; set; }
     /// <summary>
-    /// 城市名
+    /// Tên thành phố
     /// </summary>
     public string? City { get; set; }
     /// <summary>
-    /// 城市所在级别（仅国外有参考意义。
-    /// 国外行政区划与中国有差异，城市对应的层级不一定为『city』。
-    /// country、province、city、district、town分别对应0-4级，若city_level=3，则district层级为该国家的city层级）
+    /// Cấp của thành phố (chỉ có ý nghĩa tham khảo đối với nước ngoài.
+    /// Đơn vị hành chính ở nước ngoài khác với Trung Quốc, cấp tương ứng với thành phố không nhất thiết là “city”.
+    /// country, province, city, district, town tương ứng lần lượt với các cấp 0-4; nếu city_level=3 thì cấp district là cấp city của quốc gia đó)
     /// </summary>
     [JsonProperty("city_level")]
     [JsonPropertyName("city_level")]
     public int CityLevel { get; set; }
     /// <summary>
-    /// 区县名
+    /// Tên quận/huyện
     /// </summary>
     public string? District { get; set; }
     /// <summary>
-    /// 乡镇名
+    /// Tên xã/thị trấn
     /// </summary>
     public string? Town { get; set; }
     /// <summary>
-    /// 乡镇id
+    /// Id xã/thị trấn
     /// </summary>
     [JsonProperty("town_code")]
     [JsonPropertyName("town_code")]
     public string? TownCode { get; set; }
     /// <summary>
-    /// 街道名（行政区划中的街道层级）
+    /// Tên đường (cấp đường phố trong đơn vị hành chính)
     /// </summary>
     public string? Street { get; set; }
     /// <summary>
-    /// 街道门牌号
+    /// Số nhà trên đường
     /// </summary>
     [JsonProperty("street_number")]
     [JsonPropertyName("street_number")]
     public string? StreetNumber { get; set; }
     /// <summary>
-    /// 行政区划代码
+    /// Mã đơn vị hành chính
     /// </summary>
     public string? AdCode { get; set; }
     /// <summary>
-    /// 相对当前坐标点的方向，当有门牌号的时候返回数据
+    /// Hướng tương đối so với điểm tọa độ hiện tại, dữ liệu được trả về khi có số nhà
     /// </summary>
     public string? Direction { get; set; }
     /// <summary>
-    /// 相对当前坐标点的距离，当有门牌号的时候返回数据
+    /// Khoảng cách tương đối so với điểm tọa độ hiện tại, dữ liệu được trả về khi có số nhà
     /// </summary>
     public string? Distance { get; set; }
 }

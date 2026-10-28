@@ -163,7 +163,7 @@ const [PermissionGrantedModal, grantedModalApi] = useVbenModal({
   ),
 });
 
-/** 全选所有节点权限 */
+/** Chọn tất cả quyền của mọi nút */
 function onCheckAll(e: CheckboxChangeEvent) {
   checkedNodeKeys.value = [];
   permissionTree.value.forEach((current) => {
@@ -178,7 +178,7 @@ function onCheckAll(e: CheckboxChangeEvent) {
   });
 }
 
-/** 全选当前节点权限 */
+/** Chọn tất cả quyền của nút hiện tại */
 function onCheckNodeAll(e: CheckboxChangeEvent, permission: PermissionTree) {
   const children = getChildren(permission.children ?? []);
   children.forEach((permission) => {
@@ -223,17 +223,17 @@ function onCheckNode(permission: PermissionTree, _keys: any, info: CheckInfo) {
       ? [...checkedNodeKeys.value, nodeKey]
       : checkedNodeKeys.value.filter((key) => key !== nodeKey);
   const currentPermission = info.node.dataRef as unknown as PermissionTree;
-  // 上级权限联动
+  // Liên động quyền cấp trên
   checkParentGrant(permission, currentPermission, info.checked);
-  // 下级权限联动
+  // Liên động quyền cấp dưới
   checkChildrenGrant(currentPermission, info.checked);
-  // 自身授权
+  // Tự cấp quyền
   currentPermission.isGranted = info.checked;
 }
 
 function checkChildrenGrant(current: PermissionTree, isGranted: boolean) {
   const children = getChildren(current.children);
-  // 应取消子权限的所有授权
+  // Cần hủy mọi ủy quyền của quyền con
   if (!isGranted) {
     const childKeys: string[] = [];
     children.forEach((node) => {

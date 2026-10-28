@@ -4,8 +4,8 @@ import { Fallback } from '@vben/common-ui';
 
 <template>
   <Fallback
-    description="点击菜单，将会带上参数"
+    description="Nhấn vào menu sẽ kèm theo tham số"
     status="coming-soon"
-    title="菜单带参示例"
+    title="Ví dụ menu kèm tham số"
   />
 </template>

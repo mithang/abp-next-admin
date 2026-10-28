@@ -9,17 +9,17 @@ public class DataAccessStrategyStateCacheItem
 {
     private const string CacheKeyFormat = "sn:{0};si:{1}";
     /// <summary>
-    /// 权限主体
+    /// Chủ thể quyền
     /// </summary>
     public string SubjectName { get; set; } = default!;
 
     /// <summary>
-    /// 权限主体标识
+    /// Định danh chủ thể quyền
     /// </summary>
     public string SubjectId { get; set; } = default!;
 
     /// <summary>
-    /// 权限策略
+    /// Chính sách quyền
     /// </summary>
     public DataAccessStrategy Strategy { get; set; }
     public DataAccessStrategyStateCacheItem()

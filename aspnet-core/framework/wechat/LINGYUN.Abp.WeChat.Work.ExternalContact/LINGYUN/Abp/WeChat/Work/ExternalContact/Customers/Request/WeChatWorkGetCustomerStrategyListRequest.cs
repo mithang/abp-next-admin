@@ -5,22 +5,22 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Request;
 /// <summary>
-/// 获取规则组列表请求参数
+/// Tham số yêu cầu lấy danh sách nhóm quy tắc
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94883#%E8%8E%B7%E5%8F%96%E8%A7%84%E5%88%99%E7%BB%84%E5%88%97%E8%A1%A8" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/94883#%E8%8E%B7%E5%8F%96%E8%A7%84%E5%88%99%E7%BB%84%E5%88%97%E8%A1%A8" />
 /// </remarks>
 public class WeChatWorkGetCustomerStrategyListRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 分页查询游标，首次调用可不填
+    /// Con trỏ truy vấn phân trang, lần gọi đầu tiên có thể không điền
     /// </summary>
     [CanBeNull]
     [JsonProperty("cursor")]
     [JsonPropertyName("cursor")]
     public string? Cursor { get; }
     /// <summary>
-    /// 分页大小,默认为1000，最大不超过1000
+    /// Kích thước trang, mặc định là 1000, tối đa không vượt quá 1000
     /// </summary>
     [CanBeNull]
     [JsonProperty("limit")]

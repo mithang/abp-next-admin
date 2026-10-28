@@ -3,11 +3,11 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据配置异常
+/// Ngoại lệ cấu hình dữ liệu kênh
 /// </summary>
 /// <remarks>
-/// 注册期契约校验失败时抛出, 目的: 让配置错误在启动阶段暴露,
-/// 而不是在生产环境静默丢弃通知。
+/// Được ném khi kiểm tra hợp đồng trong giai đoạn đăng ký thất bại, mục đích: để lỗi cấu hình lộ ra ngay ở giai đoạn khởi động,
+/// thay vì âm thầm loại bỏ thông báo trong môi trường production.
 /// </remarks>
 public class AbpNotificationChannelDataConfigurationException : Exception
 {

@@ -14,7 +14,7 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (event: 'change', feature: FeatureDto, groupIndex: number): void;
+  (event: 'change', feature: FeatureDto, groupIndex: number, value: any): void;
 }>();
 </script>
 
@@ -25,7 +25,7 @@ const emit = defineEmits<{
         :node="root"
         :group-index="groupIndex"
         :base-indent-size="baseIndentSize"
-        @change="(feature, idx) => emit('change', feature, idx)"
+        @change="(feature, idx, value) => emit('change', feature, idx, value)"
       />
     </div>
   </Card>

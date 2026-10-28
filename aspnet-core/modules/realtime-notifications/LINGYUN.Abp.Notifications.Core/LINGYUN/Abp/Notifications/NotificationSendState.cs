@@ -1,23 +1,23 @@
 ﻿namespace LINGYUN.Abp.Notifications;
 /// <summary>
-/// 发送状态
+/// Trạng thái gửi
 /// </summary>
 public enum NotificationSendState
 {
     /// <summary>
-    /// 未发送
+    /// Chưa gửi
     /// </summary>
     None,
     /// <summary>
-    /// 提供者禁用
+    /// Nhà cung cấp đã bị vô hiệu hóa
     /// </summary>
     Disabled,
     /// <summary>
-    /// 已发送
+    /// Đã gửi
     /// </summary>
     Sent,
     /// <summary>
-    /// 发送失败
+    /// Gửi thất bại
     /// </summary>
     Failed
 }

@@ -5,42 +5,42 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers;
 /// <summary>
-/// 客户管理接口
+/// Giao diện quản lý khách hàng
 /// </summary>
 public interface IWeChatWorkCustomerProvider
 {
     /// <summary>
-    /// 获取客户列表
+    /// Lấy danh sách khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92113" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92113" />
     /// </remarks>
-    /// <param name="userId">企业成员的userid</param>
+    /// <param name="userId">userid của thành viên doanh nghiệp</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetCustomerListResponse> GetCustomerListAsync(
         string userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 批量获取客户详情
+    /// Lấy hàng loạt chi tiết khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92994" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92994" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkBulkGetCustomerResponse> BulkGetCustomerAsync(
         WeChatWorkBulkGetCustomerRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取客户详情
+    /// Lấy chi tiết khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92114" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92114" />
     /// </remarks>
-    /// <param name="externalUserid">外部联系人的userid，注意不是企业成员的账号</param>
-    /// <param name="cursor">上次请求返回的next_cursor</param>
+    /// <param name="externalUserid">userid của liên hệ bên ngoài, lưu ý không phải tài khoản của thành viên doanh nghiệp</param>
+    /// <param name="cursor">next_cursor mà lần yêu cầu trước trả về</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetCustomerResponse> GetCustomerAsync(
@@ -48,12 +48,12 @@ public interface IWeChatWorkCustomerProvider
         string? cursor = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 修改客户备注信息
+    /// Sửa thông tin ghi chú của khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92115" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92115" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkResponse> UpdateCustomerRemarkAsync(

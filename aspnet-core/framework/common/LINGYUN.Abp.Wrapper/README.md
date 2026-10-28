@@ -1,22 +1,22 @@
 # LINGYUN.Abp.Wrapper
 
-包装器模块，用于统一包装API返回结果和异常处理。
+Mô-đun wrapper, dùng để đóng gói thống nhất kết quả trả về của API và xử lý ngoại lệ.
 
-## 功能
+## Tính năng
 
-* 统一的返回结果包装
-* 灵活的异常处理机制
-* 支持多种忽略策略
-* 可配置的空结果处理
-* 自定义异常处理器
+* Đóng gói thống nhất kết quả trả về
+* Cơ chế xử lý ngoại lệ linh hoạt
+* Hỗ trợ nhiều chính sách bỏ qua
+* Xử lý kết quả rỗng có thể cấu hình
+* Bộ xử lý ngoại lệ tùy chỉnh
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Wrapper
 ```
 
-## 配置使用
+## Cấu hình và sử dụng
 
 ```csharp
 [DependsOn(typeof(AbpWrapperModule))]
@@ -26,43 +26,43 @@ public class YouProjectModule : AbpModule
     {
         Configure<AbpWrapperOptions>(options =>
         {
-            // 启用包装器
+            // Bật wrapper
             options.IsEnabled = true;
             
-            // 自定义未处理异常的错误代码
+            // Tùy chỉnh mã lỗi của ngoại lệ chưa được xử lý
             options.CodeWithUnhandled = "500";
             
-            // 忽略特定前缀的URL
+            // Bỏ qua URL có tiền tố cụ thể
             options.IgnorePrefixUrls.Add("/api/health");
             
-            // 添加自定义异常处理器
+            // Thêm bộ xử lý ngoại lệ tùy chỉnh
             options.AddHandler<CustomException>(new CustomExceptionHandler());
         });
     }
 }
 ```
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
-*	AbpWrapperOptions.IsEnabled						是否包装返回结果,默认: false  
-*	AbpWrapperOptions.CodeWithUnhandled				出现未处理异常时的返回错误代码，默认500  
-*	AbpWrapperOptions.CodeWithSuccess				处理成功返回代码，默认0  
-*	AbpWrapperOptions.ErrorWithEmptyResult			请求资源时，如果资源为空是否返回错误消息，默认false    
-*	AbpWrapperOptions.HttpStatusCode				包装后的Http响应代码, 默认: 200
-*	AbpWrapperOptions.CodeWithEmptyResult			当返回空对象时返回错误代码，默认: 404  
-*	AbpWrapperOptions.MessageWithEmptyResult		当返回空对象时返回错误消息, 默认: Not Found  
+*	AbpWrapperOptions.IsEnabled						Có đóng gói kết quả trả về hay không, mặc định: false  
+*	AbpWrapperOptions.CodeWithUnhandled				Mã lỗi trả về khi xuất hiện ngoại lệ chưa được xử lý, mặc định 500  
+*	AbpWrapperOptions.CodeWithSuccess				Mã trả về khi xử lý thành công, mặc định 0  
+*	AbpWrapperOptions.ErrorWithEmptyResult			Khi yêu cầu tài nguyên, nếu tài nguyên rỗng thì có trả về thông báo lỗi hay không, mặc định false    
+*	AbpWrapperOptions.HttpStatusCode				Mã phản hồi Http sau khi đóng gói, mặc định: 200
+*	AbpWrapperOptions.CodeWithEmptyResult			Mã lỗi trả về khi trả về đối tượng rỗng, mặc định: 404  
+*	AbpWrapperOptions.MessageWithEmptyResult		Thông báo lỗi trả về khi trả về đối tượng rỗng, mặc định: Not Found  
 
-*	AbpWrapperOptions.IgnorePrefixUrls				指定哪些Url开头的地址不需要处理  
-*	AbpWrapperOptions.IgnoreNamespaces				指定哪些命名空间开头不需要处理  
-*	AbpWrapperOptions.IgnoreControllers				指定哪些控制器不需要处理  
-*	AbpWrapperOptions.IgnoreReturnTypes				指定哪些返回结果类型不需要处理  
-*	AbpWrapperOptions.IgnoreExceptions				指定哪些异常类型不需要处理  
-*	AbpWrapperOptions.IgnoredInterfaces				指定哪些接口不需要处理（默认实现**IWrapDisabled**接口不进行处理）  
+*	AbpWrapperOptions.IgnorePrefixUrls				Chỉ định những địa chỉ bắt đầu bằng Url nào không cần xử lý  
+*	AbpWrapperOptions.IgnoreNamespaces				Chỉ định những namespace bắt đầu bằng nào không cần xử lý  
+*	AbpWrapperOptions.IgnoreControllers				Chỉ định những controller nào không cần xử lý  
+*	AbpWrapperOptions.IgnoreReturnTypes				Chỉ định những kiểu kết quả trả về nào không cần xử lý  
+*	AbpWrapperOptions.IgnoreExceptions				Chỉ định những kiểu ngoại lệ nào không cần xử lý  
+*	AbpWrapperOptions.IgnoredInterfaces				Chỉ định những giao diện nào không cần xử lý (mặc định giao diện triển khai **IWrapDisabled** sẽ không được xử lý)  
 
 
-## 使用示例
+## Ví dụ sử dụng
 
-### 1. 基本使用
+### 1. Sử dụng cơ bản
 
 ```csharp
 public class TestController : AbpController
@@ -74,7 +74,7 @@ public class TestController : AbpController
 }
 ```
 
-### 2. 忽略包装
+### 2. Bỏ qua đóng gói
 
 ```csharp
 [IgnoreWrapResult]
@@ -87,7 +87,7 @@ public class HealthController : AbpController
 }
 ```
 
-### 3. 自定义异常处理
+### 3. Xử lý ngoại lệ tùy chỉnh
 
 ```csharp
 public class CustomExceptionHandler : IExceptionWrapHandler
@@ -95,12 +95,12 @@ public class CustomExceptionHandler : IExceptionWrapHandler
     public void Wrap(ExceptionWrapContext context)
     {
         context.WithCode("CUSTOM_ERROR")
-               .WithMessage("发生自定义异常")
+               .WithMessage("Đã xảy ra ngoại lệ tùy chỉnh")
                .WithDetails(context.Exception.Message);
     }
 }
 ```
 
-## 链接
+## Liên kết
 
 * [English document](./README.EN.md)

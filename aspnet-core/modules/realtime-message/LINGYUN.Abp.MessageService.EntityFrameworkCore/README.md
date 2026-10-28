@@ -1,32 +1,32 @@
 # LINGYUN.Abp.MessageService.EntityFrameworkCore
 
-消息服务的 EntityFrameworkCore 实现模块。
+Mô-đun triển khai EntityFrameworkCore của dịch vụ tin nhắn.
 
-## 功能特性
+## Tính năng
 
-* 实现消息服务的数据访问层
-* 提供默认仓储实现
-* 实现以下实体的仓储：
-  * ChatGroup - 聊天组
-  * UserChatGroup - 用户聊天组
-  * UserChatCard - 用户聊天卡片
-  * UserChatSetting - 用户聊天设置
-  * UserChatFriend - 用户聊天好友
+* Triển khai tầng truy cập dữ liệu của dịch vụ tin nhắn
+* Cung cấp triển khai kho lưu trữ mặc định
+* Triển khai kho lưu trữ cho các thực thể sau:
+  * ChatGroup - Nhóm trò chuyện
+  * UserChatGroup - Nhóm trò chuyện của người dùng
+  * UserChatCard - Thẻ trò chuyện của người dùng
+  * UserChatSetting - Cài đặt trò chuyện của người dùng
+  * UserChatFriend - Bạn trò chuyện của người dùng
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
 * [LINGYUN.Abp.MessageService.Domain](../LINGYUN.Abp.MessageService.Domain/README.md)
 * `AbpEntityFrameworkCoreModule`
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.MessageService.EntityFrameworkCore 到你的项目中：
+1. Trước tiên, bạn cần cài đặt LINGYUN.Abp.MessageService.EntityFrameworkCore vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.MessageService.EntityFrameworkCore
 ```
 
-2. 添加 `AbpMessageServiceEntityFrameworkCoreModule` 到你的模块的依赖列表：
+2. Thêm `AbpMessageServiceEntityFrameworkCoreModule` vào danh sách phụ thuộc của mô-đun của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpMessageServiceEntityFrameworkCoreModule))]
@@ -35,7 +35,7 @@ public class YourModule : AbpModule
 }
 ```
 
-3. 在你的 DbContext 中添加消息服务相关的 DbSet：
+3. Thêm các DbSet liên quan đến dịch vụ tin nhắn vào DbContext của bạn:
 
 ```csharp
 public class YourDbContext : AbpDbContext<YourDbContext>, IMessageServiceDbContext
@@ -53,6 +53,6 @@ public class YourDbContext : AbpDbContext<YourDbContext>, IMessageServiceDbConte
 }
 ```
 
-## 更多
+## Thêm nữa
 
 [English document](README.EN.md)

@@ -10,7 +10,7 @@ namespace LINGYUN.Abp.IP2Region;
 public class PhysicalFileSearcherTest : AbpIP2RegionPhysicalFileTestBase
 {
     /// <summary>
-    /// 离线库配置为物理文件(优先于内置资源)
+    /// Thư viện ngoại tuyến được cấu hình dạng file vật lý (ưu tiên hơn tài nguyên tích hợp sẵn)
     /// </summary>
     [Fact]
     public void TestOptionsUsePhysicalFiles()
@@ -24,13 +24,13 @@ public class PhysicalFileSearcherTest : AbpIP2RegionPhysicalFileTestBase
     }
 
     /// <summary>
-    /// 从物理文件加载的 IPv4 / IPv6 离线库均可正常查询
+    /// Thư viện ngoại tuyến IPv4 / IPv6 tải từ file vật lý đều có thể truy vấn bình thường
     /// </summary>
     [Theory]
-    [InlineData("114.114.114.114", "中国|江苏省|南京市|0|CN")]
+    [InlineData("114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN")]
     [InlineData("8.8.8.8", "United States|California|0|Google LLC|US")]
     [InlineData("2001:4860:4860::8888", "United States|Florida|Miami|Google LLC|US")]
-    [InlineData("2400:3200::1", "中国|浙江省|杭州市|阿里|CN")]
+    [InlineData("2400:3200::1", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
     public void TestSearchFromPhysicalFile(string ip, string shouldBeRegion)
     {
         var searcher = GetRequiredService<ISearcher>();
@@ -39,7 +39,7 @@ public class PhysicalFileSearcherTest : AbpIP2RegionPhysicalFileTestBase
     }
 
     /// <summary>
-    /// 位置解析使用默认备注规则(未配置移除列表时仅显示国家名称)
+    /// Phân tích vị trí dùng quy tắc ghi chú mặc định (khi chưa cấu hình danh sách loại bỏ thì chỉ hiển thị tên quốc gia)
     /// </summary>
     [Fact]
     public async Task TestResolveLocationFromPhysicalFile()
@@ -49,9 +49,9 @@ public class PhysicalFileSearcherTest : AbpIP2RegionPhysicalFileTestBase
         var result = await resolver.ResolveAsync("223.5.5.5");
 
         result.Location.ShouldNotBeNull();
-        result.Location.Country.ShouldBe("中国");
-        result.Location.Province.ShouldBe("浙江省");
-        result.Location.City.ShouldBe("杭州市");
-        result.Location.Remarks.ShouldBe("中国");
+        result.Location.Country.ShouldBe("Trung Quốc");
+        result.Location.Province.ShouldBe("Chiết Giang");
+        result.Location.City.ShouldBe("Hàng Châu");
+        result.Location.Remarks.ShouldBe("Trung Quốc");
     }
 }

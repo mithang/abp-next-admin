@@ -18,52 +18,52 @@ import App from './app.vue';
 import { router } from './router';
 
 async function bootstrap(namespace: string) {
-  // 初始化组件适配器
+  // Khởi tạo adapter component
   await initComponentAdapter();
 
-  // 初始化表单组件
+  // Khởi tạo component form
   await initSetupVbenForm();
 
-  // // 设置弹窗的默认配置
+  // // Đặt cấu hình mặc định của popup
   // setDefaultModalProps({
   //   fullscreenButton: false,
   // });
-  // // 设置抽屉的默认配置
+  // // Đặt cấu hình mặc định của drawer
   // setDefaultDrawerProps({
   //   zIndex: 2000,
   // });
   const app = createApp(App);
 
-  // 注册Element Plus提供的v-loading指令
+  // Đăng ký directive v-loading do Element Plus cung cấp
   app.directive('loading', ElLoading.directive);
 
-  // 注册Vben提供的v-loading和v-spinning指令
+  // Đăng ký directive v-loading và v-spinning do Vben cung cấp
   registerLoadingDirective(app, {
-    loading: false, // Vben提供的v-loading指令和Element Plus提供的v-loading指令二选一即可，此处false表示不注册Vben提供的v-loading指令
+    loading: false, // Chỉ cần chọn một trong hai directive v-loading do Vben cung cấp và directive v-loading do Element Plus cung cấp, false tại đây nghĩa là không đăng ký directive v-loading do Vben cung cấp
     spinning: 'spinning',
   });
 
-  // 国际化 i18n 配置
+  // Cấu hình quốc tế hóa i18n
   await setupI18n(app);
 
-  // 配置 pinia-tore
+  // Cấu hình pinia store
   await initStores(app, { namespace });
 
-  // 安装权限指令
+  // Cài đặt directive quyền
   registerAccessDirective(app);
 
-  // 初始化 tippy
+  // Khởi tạo tippy
   const { initTippy } = await import('@vben/common-ui/es/tippy');
   initTippy(app);
 
-  // 配置路由及路由守卫
+  // Cấu hình route và route guard
   app.use(router);
 
-  // 配置Motion插件
+  // Cấu hình plugin Motion
   const { MotionPlugin } = await import('@vben/plugins/motion');
   app.use(MotionPlugin);
 
-  // 动态更新标题
+  // Cập nhật tiêu đề động
   watchEffect(() => {
     if (preferences.app.dynamicTitle) {
       const routeTitle = router.currentRoute.value.meta?.title;

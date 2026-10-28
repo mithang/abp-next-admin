@@ -3,87 +3,87 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Search;
 
 /// <summary>
-/// 搜索请求
+/// Yêu cầu tìm kiếm
 /// </summary>
 public class SearchRequest
 {
     /// <summary>
-    /// 查询条件
+    /// Điều kiện truy vấn
     /// </summary>
     [JsonPropertyName("query")]
     public SearchQuery Query { get; }
 
     /// <summary>
-    /// 搜索来源
+    /// Nguồn tìm kiếm
     /// </summary>
     /// <remarks>
-    /// 支持 ui / dashboards / reports / alerts 等, 请求体中的值优先于查询字符串
+    /// Hỗ trợ ui / dashboards / reports / alerts, v.v.; giá trị trong thân yêu cầu được ưu tiên hơn chuỗi truy vấn
     /// </remarks>
     [JsonPropertyName("search_type")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? SearchTypeString { get; set; }
 
     /// <summary>
-    /// 超时时间(秒)
+    /// Thời gian chờ (giây)
     /// </summary>
     /// <remarks>
-    /// 默认值由服务端 ZO_QUERY_TIMEOUT=600 决定
+    /// Giá trị mặc định do phía máy chủ ZO_QUERY_TIMEOUT=600 quyết định
     /// </remarks>
     [JsonPropertyName("timeout")]
     public int? Timeout { get; }
 
     /// <summary>
-    /// agent/MCP 客户端选项
+    /// Tùy chọn client agent/MCP
     /// </summary>
     [JsonPropertyName("agent_options")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public SearchAgentOptions? AgentOptions { get; }
 
     /// <summary>
-    /// SQL 编码方式
+    /// Cách mã hóa SQL
     /// </summary>
     /// <remarks>
-    /// 为空或 base64, 为 base64 时 query.sql 需 URL Base64 编码, 服务端解码后置空
+    /// Để trống hoặc base64; khi là base64 thì query.sql cần được mã hóa URL Base64, phía máy chủ giải mã xong sẽ để trống
     /// </remarks>
     [JsonPropertyName("encoding")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Encoding { get; set; }
 
     /// <summary>
-    /// 查询的区域
+    /// Khu vực truy vấn
     /// </summary>
     /// <remarks>
-    /// 默认查询所有区域, local 表示仅本地区域
+    /// Mặc định truy vấn tất cả các khu vực, local nghĩa là chỉ khu vực cục bộ
     /// </remarks>
     [JsonPropertyName("regions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? Regions { get; set; }
 
     /// <summary>
-    /// 查询的集群
+    /// Cụm truy vấn
     /// </summary>
     /// <remarks>
-    /// local 表示仅本地集群
+    /// local nghĩa là chỉ cụm cục bộ
     /// </remarks>
     [JsonPropertyName("clusters")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? Clusters { get; set; }
 
     /// <summary>
-    /// 是否使用缓存
+    /// Có sử dụng bộ nhớ đệm hay không
     /// </summary>
     /// <remarks>
-    /// 查询字符串中的 use_cache 会覆盖该值
+    /// use_cache trong chuỗi truy vấn sẽ ghi đè giá trị này
     /// </remarks>
     [JsonPropertyName("use_cache")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? UseCache { get; set; }
 
     /// <summary>
-    /// 是否清理缓存
+    /// Có xóa bộ nhớ đệm hay không
     /// </summary>
     /// <remarks>
-    /// 查询字符串中的 clear_cache 会覆盖该值
+    /// clear_cache trong chuỗi truy vấn sẽ ghi đè giá trị này
     /// </remarks>
     [JsonPropertyName("clear_cache")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

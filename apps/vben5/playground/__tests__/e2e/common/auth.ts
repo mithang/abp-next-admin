@@ -3,7 +3,7 @@ import type { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export async function authLogin(page: Page) {
-  // 确保登录表单正常
+  // Đảm bảo biểu mẫu đăng nhập bình thường
   const usernameInput = await page.locator(`input[name='username']`);
   await expect(usernameInput).toBeVisible();
 
@@ -15,32 +15,32 @@ export async function authLogin(page: Page) {
   await expect(sliderCaptcha).toBeVisible();
   await expect(sliderCaptchaAction).toBeVisible();
 
-  // 拖动验证码滑块
-  // 获取拖动按钮的位置
+  // Kéo thanh trượt mã xác minh
+  // Lấy vị trí của nút kéo
   const sliderCaptchaBox = await sliderCaptcha.boundingBox();
-  if (!sliderCaptchaBox) throw new Error('滑块未找到');
+  if (!sliderCaptchaBox) throw new Error('Không tìm thấy thanh trượt');
 
   const actionBoundingBox = await sliderCaptchaAction.boundingBox();
-  if (!actionBoundingBox) throw new Error('要拖动的按钮未找到');
+  if (!actionBoundingBox) throw new Error('Không tìm thấy nút cần kéo');
 
-  // 计算起始位置和目标位置
-  const startX = actionBoundingBox.x + actionBoundingBox.width / 2; // div 中心的 x 坐标
-  const startY = actionBoundingBox.y + actionBoundingBox.height / 2; // div 中心的 y 坐标
+  // Tính vị trí bắt đầu và vị trí đích
+  const startX = actionBoundingBox.x + actionBoundingBox.width / 2; // Tọa độ x của tâm div
+  const startY = actionBoundingBox.y + actionBoundingBox.height / 2; // Tọa độ y của tâm div
 
-  const targetX = startX + sliderCaptchaBox.width + actionBoundingBox.width; // 向右拖动容器的宽度
-  const targetY = startY; // y 坐标保持不变
+  const targetX = startX + sliderCaptchaBox.width + actionBoundingBox.width; // Chiều rộng kéo container sang phải
+  const targetY = startY; // Tọa độ y giữ nguyên
 
-  // 模拟鼠标拖动
-  await page.mouse.move(startX, startY); // 移动到 action 的中心
-  await page.mouse.down(); // 按下鼠标
-  await page.mouse.move(targetX, targetY, { steps: 20 }); // 拖动到目标位置
-  await page.mouse.up(); // 松开鼠标
+  // Mô phỏng kéo chuột
+  await page.mouse.move(startX, startY); // Di chuyển đến tâm của action
+  await page.mouse.down(); // Nhấn chuột
+  await page.mouse.move(targetX, targetY, { steps: 20 }); // Kéo đến vị trí đích
+  await page.mouse.up(); // Thả chuột
 
-  // 在拖动后进行断言，检查action是否在预期位置,
+  // Sau khi kéo, thực hiện assert, kiểm tra action có ở vị trí kỳ vọng,
   const newActionBoundingBox = await sliderCaptchaAction.boundingBox();
   expect(newActionBoundingBox?.x).toBeGreaterThan(actionBoundingBox.x);
 
-  // 到这里已经校验成功，点击进行登录
+  // Đến đây đã xác minh thành công, nhấn để đăng nhập
   await page.waitForTimeout(300);
   await page.getByRole('button', { name: 'login' }).click();
 }

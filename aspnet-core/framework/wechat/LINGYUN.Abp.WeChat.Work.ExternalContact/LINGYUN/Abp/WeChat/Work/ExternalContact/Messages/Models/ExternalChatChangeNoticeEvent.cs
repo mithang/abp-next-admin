@@ -4,7 +4,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 客户群群公告变更事件推送
+/// Đẩy sự kiện đổi thông báo nhóm khách hàng
 /// </summary>
 [EventName("external_chat_change_notice")]
 public class ExternalChatChangeNoticeEvent : ExternalChatUpdateEvent

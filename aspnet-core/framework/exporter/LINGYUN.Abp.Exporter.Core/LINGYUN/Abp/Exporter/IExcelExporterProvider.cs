@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.Exporter;
 /// <summary>
-/// Excel数据导出
+/// Xuất dữ liệu Excel
 /// </summary>
 public interface IExcelExporterProvider
 {
     /// <summary>
-    /// 数据导出
+    /// Xuất dữ liệu
     /// </summary>
-    /// <param name="data">导出数据</param>
+    /// <param name="data">Dữ liệu xuất</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<Stream> ExportAsync(object data, CancellationToken cancellationToken = default);

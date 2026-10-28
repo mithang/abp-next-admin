@@ -1,16 +1,16 @@
 # LINGYUN.Abp.WebhooksManagement.Dapr.Client
 
-Webhook管理Dapr客户端集成模块，提供与Dapr服务调用构建块的集成支持。
+Module tích hợp client Dapr quản lý Webhook, cung cấp hỗ trợ tích hợp với khối xây dựng gọi dịch vụ Dapr.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 支持通过Dapr服务调用访问Webhook管理服务
-* 与Dapr服务调用构建块无缝集成
-* 支持分布式服务调用
+* Hỗ trợ truy cập dịch vụ quản lý Webhook thông qua gọi dịch vụ Dapr
+* Tích hợp liền mạch với khối xây dựng gọi dịch vụ Dapr
+* Hỗ trợ gọi dịch vụ phân tán
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksManagementDaprClientModule))]
@@ -20,22 +20,22 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Hạng mục cấu hình
 
 ```json
 {
   "WebhooksManagement": {
     "Dapr": {
-      "AppId": "webhooks-management",  // Webhook管理服务的Dapr应用ID
-      "HttpEndpoint": "http://localhost:3500"  // Dapr sidecar HTTP端点
+      "AppId": "webhooks-management",  // ID ứng dụng Dapr của dịch vụ quản lý Webhook
+      "HttpEndpoint": "http://localhost:3500"  // Điểm cuối HTTP của Dapr sidecar
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置Dapr客户端
+1. Cấu hình client Dapr
 ```csharp
 Configure<AbpWebhooksManagementDaprClientOptions>(options =>
 {
@@ -44,7 +44,7 @@ Configure<AbpWebhooksManagementDaprClientOptions>(options =>
 });
 ```
 
-2. 使用Webhook管理客户端
+2. Sử dụng client quản lý Webhook
 ```csharp
 public class YourService
 {

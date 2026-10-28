@@ -4,72 +4,72 @@ using System;
 namespace LINGYUN.Abp.TaskManagement;
 
 /// <summary>
-/// 后台任务过滤
+/// Bộ lọc tác vụ nền
 /// </summary>
 public class BackgroundJobInfoFilter
 {
     /// <summary>
-    /// 其他过滤条件
+    /// Điều kiện lọc khác
     /// </summary>
     public string? Filter { get; set; }
     /// <summary>
-    /// 任务名称
+    /// Tên tác vụ
     /// </summary>
     public string? Name { get; set; }
     /// <summary>
-    /// 任务分组
+    /// Nhóm tác vụ
     /// </summary>
     public string? Group { get; set; }
     /// <summary>
-    /// 任务类型
+    /// Loại tác vụ
     /// </summary>
     public string? Type { get; set; }
     /// <summary>
-    /// 节点名称
+    /// Tên nút
     /// </summary>
     public string? NodeName { get; set; }
     /// <summary>
-    /// 任务状态
+    /// Trạng thái tác vụ
     /// </summary>
     public JobStatus? Status { get; set; }
     /// <summary>
-    /// 开始时间
+    /// Thời gian bắt đầu
     /// </summary>
     public DateTime? BeginTime { get; set; }
     /// <summary>
-    /// 结束时间
+    /// Thời gian kết thúc
     /// </summary>
     public DateTime? EndTime { get; set; }
     /// <summary>
-    /// 上次起始触发时间
+    /// Thời gian kích hoạt bắt đầu lần trước
     /// </summary>
     public DateTime? BeginLastRunTime { get; set; }
     /// <summary>
-    /// 上次截止触发时间
+    /// Thời gian kích hoạt kết thúc lần trước
     /// </summary>
     public DateTime? EndLastRunTime { get; set; }
     /// <summary>
-    /// 起始创建时间
+    /// Thời gian tạo bắt đầu
     /// </summary>
     public DateTime? BeginCreationTime { get; set; }
     /// <summary>
-    /// 截止创建时间
+    /// Thời gian tạo kết thúc
     /// </summary>
     public DateTime? EndCreationTime { get; set; }
     /// <summary>
-    /// 是否已放弃任务
+    /// Tác vụ đã bị bỏ hay chưa
     /// </summary>
     public bool? IsAbandoned { get; set; }
     /// <summary>
-    /// 是否持续性任务
+    /// Có phải tác vụ bền vững hay không
     /// </summary>
     public JobType? JobType { get; set; }
     /// <summary>
-    /// 优先级
+    /// Mức ưu tiên
     /// </summary>
     public JobPriority? Priority { get; set; }
     /// <summary>
-    /// 作业来源
+    /// Nguồn công việc
     /// </summary>
     public JobSource? Source { get; set; }
 }

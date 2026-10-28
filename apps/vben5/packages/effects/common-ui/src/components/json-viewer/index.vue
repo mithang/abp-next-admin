@@ -67,7 +67,7 @@ function handleClick(event: MouseEvent) {
   emit('click', event);
 }
 
-// 支持显示 bigint 数据，如较长的订单号
+// Hỗ trợ hiển thị dữ liệu bigint, ví dụ số đơn hàng dài
 const jsonData = computed<Record<string, any>>(() => {
   if (typeof props.value !== 'string') {
     return props.value || {};

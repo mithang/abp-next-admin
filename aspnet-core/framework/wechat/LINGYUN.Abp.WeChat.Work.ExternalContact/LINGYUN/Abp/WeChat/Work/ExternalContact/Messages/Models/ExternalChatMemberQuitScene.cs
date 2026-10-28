@@ -3,21 +3,21 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 成员的退群方式
+/// Cách thành viên rời nhóm
 /// </summary>
-[Description("成员的退群方式")]
+[Description("Cách thành viên rời nhóm")]
 public enum ExternalChatMemberQuitScene
 {
     /// <summary>
-    /// 自己退群
+    /// Tự rời nhóm
     /// </summary>
     [XmlEnum("0")]
-    [Description("自己退群")]
+    [Description("Tự rời nhóm")]
     UserSelf = 0,
     /// <summary>
-    /// 群主/群管理员移出
+    /// Chủ nhóm/quản trị viên nhóm xóa khỏi nhóm
     /// </summary>
     [XmlEnum("1")]
-    [Description("群主/群管理员移出")]
+    [Description("Chủ nhóm/quản trị viên nhóm xóa khỏi nhóm")]
     Admin = 1
 }

@@ -13,6 +13,7 @@ using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -82,7 +84,7 @@ public partial class AuthServerModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别，应在0-31之间
+            // Phân biệt bằng cổng mở, phải nằm trong khoảng 0-31
             options.SnowflakeIdOptions.WorkerId = 1;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -143,18 +145,27 @@ public partial class AuthServerModule
 
             PreConfigure<OpenIddictServerBuilder>(builder =>
             {
+                // SEC-17: App:SslPassword KHÔNG được ghi vào appsettings.json (SEC-02:
+                // appsettings chỉ giữ placeholder rỗng). Khi deploy phải cấp qua biến môi
+                // trường App__SslPassword hoặc user-secrets; thiếu password thì quá trình
+                // khởi động fail-closed khi nạp file .pfx có mật khẩu — không được "sửa"
+                // bằng cách ghi lại password vào appsettings.
                 builder.AddProductionEncryptionAndSigningCertificate(configuration["App:SslFile"], configuration["App:SslPassword"]);
             });
         }
 
-        PreConfigure<OpenIddictServerBuilder>(builder =>
+        // SEC-03: chỉ tắt yêu cầu transport security khi Development.
+        if (environment.IsDevelopment())
         {
-            // builder.UseDataProtection();
+            PreConfigure<OpenIddictServerBuilder>(builder =>
+            {
+                // builder.UseDataProtection();
 
-            // 禁用https
-            builder.UseAspNetCore()
-                .DisableTransportSecurityRequirement();
-        });
+                // Tắt https (chỉ Development)
+                builder.UseAspNetCore()
+                    .DisableTransportSecurityRequirement();
+            });
+        }
 
         var wildcardDomains = configuration.GetSection("App:WildcardDomains").Get<List<string>>();
         if (wildcardDomains?.Count > 0)
@@ -191,7 +202,24 @@ public partial class AuthServerModule
                 });
         });
 
-        services.AddHealthChecks();
+        // DEVOPS iter-0006 (DEV-11): /healthz truoc day tro trui (AddHealthChecks()
+        // khong check nao) nen luon 200 ke ca khi DB/Redis chet. Dang ky check
+        // dependency that tai day; xem HealthChecks/AuthServerHealthChecks.cs. Quet DbContext tu
+        // IServiceCollection: ABP chay ConfigureServices cua module phu thuoc truoc
+        // module host, nen luc ConfigureMvc chay thi cac DbContext da duoc dang ky.
+        var dbContextTypes = services
+            .Where(s => s.ServiceType.IsClass && !s.ServiceType.IsAbstract
+                && typeof(DbContext).IsAssignableFrom(s.ServiceType))
+            .Select(s => s.ServiceType)
+            .Distinct()
+            .ToList();
+        services.AddSingleton(sp => new HealthChecks.DatabaseHealthCheck(
+            dbContextTypes,
+            sp.GetRequiredService<IServiceScopeFactory>(),
+            sp.GetService<ILogger<HealthChecks.DatabaseHealthCheck>>()));
+        services.AddHealthChecks()
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database")
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 
     private void ConfigureDataSeeder()
@@ -228,7 +256,7 @@ public partial class AuthServerModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -237,7 +265,7 @@ public partial class AuthServerModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hóa khi tuần tự hóa tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -288,7 +316,7 @@ public partial class AuthServerModule
     }
     private void ConfigureIdentity(IConfiguration configuration)
     {
-        // 增加配置文件定义,在新建租户时需要
+        // Thêm định nghĩa tệp cấu hình, cần khi tạo tenant mới
         Configure<IdentityOptions>(options =>
         {
             var identityConfiguration = configuration.GetSection("Identity");
@@ -315,7 +343,7 @@ public partial class AuthServerModule
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
 
             options.Resources
                 .Get<AccountResource>()
@@ -353,7 +381,7 @@ public partial class AuthServerModule
         {
             // options.IsEnabledForGetRequests = true;
             options.ApplicationName = ApplicationName;
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -378,17 +406,21 @@ public partial class AuthServerModule
         });
     }
 
-    private void ConfigureAuthServer(IConfiguration configuration)
+    private void ConfigureAuthServer(IConfiguration configuration, IWebHostEnvironment environment)
     {
-        Configure<OpenIddictServerAspNetCoreBuilder>(builder =>
+        // SEC-03: chỉ tắt yêu cầu transport security khi Development.
+        if (environment.IsDevelopment())
         {
-            builder.DisableTransportSecurityRequirement();
-        });
+            Configure<OpenIddictServerAspNetCoreBuilder>(builder =>
+            {
+                builder.DisableTransportSecurityRequirement();
+            });
 
-        Configure<OpenIddictServerAspNetCoreOptions>(options =>
-        {
-            options.DisableTransportSecurityRequirement = true;
-        });
+            Configure<OpenIddictServerAspNetCoreOptions>(options =>
+            {
+                options.DisableTransportSecurityRequirement = true;
+            });
+        }
 
         Configure<OpenIddictServerOptions>(options =>
         {
@@ -452,7 +484,7 @@ public partial class AuthServerModule
     }
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa tenant
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -504,7 +536,7 @@ public partial class AuthServerModule
     {
         PreConfigure<AbpHttpClientBuilderOptions>(options =>
         {
-            // http服务间调用发送不需要包装结果的请求头
+            // Gọi http giữa các service gửi header yêu cầu không cần đóng gói kết quả
             options.ProxyClientActions.Add(
                 (_, _, client) =>
                 {

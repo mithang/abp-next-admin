@@ -8,14 +8,14 @@ namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Tags.Request;
 public class WeChatWorkCreateStrategyTagRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 规则组id
+    /// id nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("strategy_id")]
     [JsonPropertyName("strategy_id")]
     public int StrategyId { get; }
     /// <summary>
-    /// 标签组id
+    /// id nhóm thẻ
     /// </summary>
     [CanBeNull]
     [JsonProperty("group_id")]
@@ -24,7 +24,7 @@ public class WeChatWorkCreateStrategyTagRequest : WeChatWorkRequest
 
     private string? _groupName;
     /// <summary>
-    /// 标签组名称，最长为30个字符
+    /// Tên nhóm thẻ, tối đa 30 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("group_name")]
@@ -38,14 +38,14 @@ public class WeChatWorkCreateStrategyTagRequest : WeChatWorkRequest
         }
     }
     /// <summary>
-    /// 标签组排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
+    /// Giá trị thứ tự sắp xếp của nhóm thẻ, giá trị order lớn hơn sẽ xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [CanBeNull]
     [JsonProperty("order")]
     [JsonPropertyName("order")]
     public int? Order { get; set; }
     /// <summary>
-    /// 添加的标签组
+    /// Nhóm thẻ được thêm
     /// </summary>
     [CanBeNull]
     [JsonProperty("tag")]
@@ -65,14 +65,14 @@ public class WeChatWorkCreateStrategyTagRequest : WeChatWorkRequest
 public class NewStrategyTag
 {
     /// <summary>
-    /// 添加的标签名称，最长为30个字符
+    /// Tên thẻ được thêm, tối đa 30 ký tự
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; }
     /// <summary>
-    /// 标签次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
+    /// Giá trị thứ tự của thẻ. Giá trị order lớn hơn sẽ xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [CanBeNull]
     [JsonProperty("order")]

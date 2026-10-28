@@ -5,18 +5,18 @@ namespace LINGYUN.Abp.Calendar;
 public  class AbpCalendarOptions
 {
     /// <summary>
-    /// 默认工作日范围
-    /// 默认: 周一到周五
+    /// Phạm vi ngày làm việc mặc định
+    /// Mặc định: thứ Hai đến thứ Sáu
     /// </summary>
     public DayOfWeek[] DefaultWorkdays { get; set; }
     /// <summary>
-    /// 是否启用工作时间限制
-    /// 默认: true
+    /// Có bật giới hạn giờ làm việc hay không
+    /// Mặc định: true
     /// </summary>
     public bool EnableWorkTimeRestriction { get; set; }
     /// <summary>
-    /// 默认工作时间范围
-    /// 默认: 09:00-12:00、13:00-18:00
+    /// Phạm vi giờ làm việc mặc định
+    /// Mặc định: 09:00-12:00, 13:00-18:00
     /// </summary>
     public WorkTimeRange[] DefaultWorkTimes { get; set; }
 

@@ -26,7 +26,7 @@ export enum SessionTimeoutProcessingEnum {
 }
 
 /**
- * 权限模式
+ * Chế độ quyền
  */
 export enum PermissionModeEnum {
   // role

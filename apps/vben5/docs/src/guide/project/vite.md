@@ -1,8 +1,8 @@
 # Vite Config
 
-项目封装了一层vite配置，并集成了一些插件，方便在多个包以及应用内复用，使用方式如下：
+Dự án đã đóng gói một lớp cấu hình vite và tích hợp một số plugin, thuận tiện để tái sử dụng trong nhiều package và ứng dụng, cách dùng như sau:
 
-## 应用
+## Ứng dụng
 
 ```ts
 // vite.config.mts
@@ -11,13 +11,13 @@ import { defineConfig } from '@vben/vite-config';
 export default defineConfig(async () => {
   return {
     application: {},
-    // vite配置，参考vite官方文档进行覆盖
+    // Cấu hình vite, tham khảo tài liệu chính thức của vite để ghi đè
     vite: {},
   };
 });
 ```
 
-## 包
+## Package
 
 ```ts
 // vite.config.mts
@@ -26,7 +26,7 @@ import { defineConfig } from '@vben/vite-config';
 export default defineConfig(async () => {
   return {
     library: {},
-    // vite配置，参考vite官方文档进行覆盖
+    // Cấu hình vite, tham khảo tài liệu chính thức của vite để ghi đè
     vite: {},
   };
 });

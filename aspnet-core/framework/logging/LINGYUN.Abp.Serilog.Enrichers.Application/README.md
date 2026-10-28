@@ -1,18 +1,18 @@
 # LINGYUN.Abp.Serilog.Enrichers.Application
 
-简体中文 | [English](./README.EN.md)
+Tiếng Việt | [English](./README.EN.md)
 
-日志属性添加应用程序标识  
+Thêm định danh ứng dụng vào thuộc tính log
 
-## 功能特性
+## Tính năng
 
-* 为日志事件添加应用程序名称
-* 支持自定义应用程序名称字段
-* 支持代码配置和JSON配置两种方式
-* 缓存日志事件属性以提高性能
-* 与Serilog无缝集成
+* Thêm tên ứng dụng vào sự kiện log
+* Hỗ trợ tùy chỉnh trường tên ứng dụng
+* Hỗ trợ cả hai cách cấu hình bằng code và bằng JSON
+* Lưu trữ đệm (cache) thuộc tính sự kiện log để cải thiện hiệu năng
+* Tích hợp liền mạch với Serilog
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpSerilogEnrichersApplicationModule))]
@@ -25,25 +25,25 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-以下为字段常量，需要明确变更：
+Dưới đây là các hằng số trường, cần thay đổi một cách rõ ràng:
 
-* AbpSerilogEnrichersConsts.ApplicationNamePropertyName - 用于自定义ApplicationName字段的名称
-* AbpSerilogEnrichersConsts.ApplicationName - 在日志中标识当前应用的名称
+* AbpSerilogEnrichersConsts.ApplicationNamePropertyName - Dùng để tùy chỉnh tên trường ApplicationName
+* AbpSerilogEnrichersConsts.ApplicationName - Tên dùng để định danh ứng dụng hiện tại trong log
 
-## 使用方法
+## Cách sử dụng
 
-### 代码配置方式
+### Cách cấu hình bằng code
 
 ```csharp
 Log.Logger = new LoggerConfiguration()
     .Enrich.WithApplicationName()
-    // ...其他配置...
+    // ...các cấu hình khác...
     .CreateLogger();
 ```
 
-### JSON配置方式
+### Cách cấu hình bằng JSON
 
 ```json
 {
@@ -56,13 +56,13 @@ Log.Logger = new LoggerConfiguration()
 }
 ```
 
-## 实现细节
+## Chi tiết triển khai
 
-该enricher为每个日志事件添加一个名为"ApplicationName"（可配置）的属性，其值为`AbpSerilogEnrichersConsts.ApplicationName`中指定的值。为了提高性能，属性会被缓存。
+Enricher này thêm vào mỗi sự kiện log một thuộc tính có tên "ApplicationName" (có thể cấu hình), giá trị của nó là giá trị được chỉ định trong `AbpSerilogEnrichersConsts.ApplicationName`. Để cải thiện hiệu năng, thuộc tính sẽ được lưu trữ đệm.
 
-## 最佳实践
+## Thực hành tốt nhất
 
-1. 在应用程序启动时尽早设置应用程序名称：
+1. Đặt tên ứng dụng càng sớm càng tốt khi ứng dụng khởi động:
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
@@ -70,9 +70,9 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 为应用程序使用一致的命名约定，以便于日志过滤。
+2. Sử dụng quy ước đặt tên nhất quán cho ứng dụng để thuận tiện cho việc lọc log.
 
-3. 考虑通过配置文件设置应用程序名称：
+3. Cân nhắc đặt tên ứng dụng thông qua file cấu hình:
 ```json
 {
   "App": {
@@ -84,8 +84,8 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 AbpSerilogEnrichersConsts.ApplicationName = configuration["App:Name"];
 ```
 
-## 注意事项
+## Lưu ý
 
-1. 应用程序名称一旦设置就是静态的，对应用程序的所有日志条目都相同
-2. enricher使用属性缓存来提高性能
-3. 只有在日志事件中不存在该属性时才会添加
+1. Tên ứng dụng một khi đã đặt là tĩnh, giống nhau đối với mọi mục log của ứng dụng
+2. Enricher sử dụng bộ nhớ đệm thuộc tính để cải thiện hiệu năng
+3. Thuộc tính chỉ được thêm khi nó chưa tồn tại trong sự kiện log

@@ -1,36 +1,36 @@
 # LINGYUN.Abp.DistributedLocking.Dapr
 
-基于Dapr分布式锁API的ABP分布式锁实现。该模块提供了与Dapr分布式锁服务的无缝集成，支持跨服务、跨实例的分布式锁定功能。
+Triển khai khóa phân tán ABP dựa trên API khóa phân tán Dapr. Mô-đun này cung cấp tích hợp liền mạch với dịch vụ khóa phân tán Dapr, hỗ trợ chức năng khóa phân tán xuyên dịch vụ, xuyên phiên bản.
 
-参考文档: [Dapr Distributed Lock API](https://docs.dapr.io/developing-applications/building-blocks/distributed-lock/distributed-lock-api-overview/)
+Tài liệu tham khảo: [Dapr Distributed Lock API](https://docs.dapr.io/developing-applications/building-blocks/distributed-lock/distributed-lock-api-overview/)
 
-## 功能特性
+## Tính năng
 
-* 与ABP分布式锁系统集成
-* 支持自定义锁资源拥有者标识
-* 支持可配置的锁定超时时间
-* 支持锁资源自动释放
-* 支持多种锁存储组件
-* 支持锁获取和释放的事件通知
-* 支持分布式锁的健康检查
+* Tích hợp với hệ thống khóa phân tán ABP
+* Hỗ trợ tùy chỉnh định danh chủ sở hữu tài nguyên khóa
+* Hỗ trợ thời gian chờ khóa có thể cấu hình
+* Hỗ trợ tự động giải phóng tài nguyên khóa
+* Hỗ trợ nhiều thành phần lưu trữ khóa
+* Hỗ trợ thông báo sự kiện khi lấy và giải phóng khóa
+* Hỗ trợ kiểm tra sức khỏe cho khóa phân tán
 
-## 配置选项
+## Tùy chọn cấu hình
 
 ```json
 {
     "DistributedLocking": {
         "Dapr": {
-            "StoreName": "lockstore",  // Dapr组件中定义的存储名称
-            "DefaultIdentifier": "dapr-lock-owner",  // 默认锁资源拥有者标识
-            "DefaultTimeout": "00:00:30"  // 默认锁定超时时间（30秒）
+            "StoreName": "lockstore",  // Tên lưu trữ được định nghĩa trong thành phần Dapr
+            "DefaultIdentifier": "dapr-lock-owner",  // Định danh chủ sở hữu tài nguyên khóa mặc định
+            "DefaultTimeout": "00:00:30"  // Thời gian chờ khóa mặc định (30 giây)
         }
     }
 }
 ```
 
-## 基础使用
+## Cách dùng cơ bản
 
-### 1. 模块配置
+### 1. Cấu hình mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpDistributedLockingDaprModule))]
@@ -38,18 +38,18 @@ public class YourProjectModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 基础配置
+        // Cấu hình cơ bản
         Configure<AbpDistributedLockingDaprOptions>(options =>
         {
-            options.StoreName = "redis-lock";  // 使用Redis作为锁存储
-            options.DefaultIdentifier = "my-service";  // 自定义锁拥有者标识
-            options.DefaultTimeout = TimeSpan.FromMinutes(1);  // 设置默认超时时间为1分钟
+            options.StoreName = "redis-lock";  // Sử dụng Redis làm bộ lưu trữ khóa
+            options.DefaultIdentifier = "my-service";  // Tùy chỉnh định danh chủ sở hữu khóa
+            options.DefaultTimeout = TimeSpan.FromMinutes(1);  // Đặt thời gian chờ mặc định là 1 phút
         });
     }
 }
 ```
 
-### 2. 基本用法
+### 2. Cách dùng cơ bản
 
 ```csharp
 public class OrderService
@@ -63,33 +63,33 @@ public class OrderService
 
     public async Task ProcessOrderAsync(string orderId)
     {
-        // 尝试获取锁
+        // Thử lấy khóa
         using (var handle = await _lockProvider.TryAcquireAsync($"order:{orderId}"))
         {
             if (handle != null)
             {
                 try
                 {
-                    // 执行需要加锁的业务逻辑
+                    // Thực thi logic nghiệp vụ cần khóa
                     await ProcessOrderInternalAsync(orderId);
                 }
                 catch (Exception ex)
                 {
-                    // 处理异常
-                    _logger.LogError(ex, "处理订单时发生错误");
+                    // Xử lý ngoại lệ
+                    _logger.LogError(ex, "Đã xảy ra lỗi khi xử lý đơn hàng");
                     throw;
                 }
             }
             else
             {
-                throw new ConcurrencyException("订单正在被其他进程处理");
+                throw new ConcurrencyException("Đơn hàng đang được xử lý bởi tiến trình khác");
             }
         }
     }
 }
 ```
 
-### 3. 高级用法
+### 3. Cách dùng nâng cao
 
 ```csharp
 public class InventoryService
@@ -107,11 +107,11 @@ public class InventoryService
 
     public async Task UpdateInventoryAsync(string productId, int quantity)
     {
-        // 自定义锁配置
+        // Cấu hình khóa tùy chỉnh
         var lockOptions = new DistributedLockOptions
         {
-            Timeout = TimeSpan.FromSeconds(10),  // 自定义超时时间
-            RetryDelay = TimeSpan.FromMilliseconds(100)  // 重试延迟
+            Timeout = TimeSpan.FromSeconds(10),  // Thời gian chờ tùy chỉnh
+            RetryDelay = TimeSpan.FromMilliseconds(100)  // Độ trễ thử lại
         };
 
         try
@@ -122,32 +122,32 @@ public class InventoryService
             {
                 if (handle == null)
                 {
-                    _logger.LogWarning("无法获取库存锁，产品ID: {ProductId}", productId);
-                    throw new ConcurrencyException("无法获取库存锁");
+                    _logger.LogWarning("Không thể lấy khóa tồn kho, ID sản phẩm: {ProductId}", productId);
+                    throw new ConcurrencyException("Không thể lấy khóa tồn kho");
                 }
 
-                // 执行库存更新操作
+                // Thực thi thao tác cập nhật tồn kho
                 await UpdateInventoryInternalAsync(productId, quantity);
             }
         }
         catch (Exception ex) when (ex is not ConcurrencyException)
         {
-            _logger.LogError(ex, "更新库存时发生错误");
+            _logger.LogError(ex, "Đã xảy ra lỗi khi cập nhật tồn kho");
             throw;
         }
     }
 }
 ```
 
-## 组件配置
+## Cấu hình thành phần
 
-### Redis锁存储配置示例
+### Ví dụ cấu hình bộ lưu trữ khóa Redis
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: redis-lock  # 对应StoreName配置
+  name: redis-lock  # Tương ứng với cấu hình StoreName
 spec:
   type: lock.redis
   version: v1
@@ -164,7 +164,7 @@ spec:
       value: 5s
 ```
 
-### Consul锁存储配置示例
+### Ví dụ cấu hình bộ lưu trữ khóa Consul
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
@@ -183,11 +183,11 @@ spec:
       value: http
 ```
 
-## 核心接口
+## Giao diện cốt lõi
 
 ### ILockOwnerFinder
 
-提供锁资源持有者标识的接口。
+Giao diện cung cấp định danh chủ sở hữu tài nguyên khóa.
 
 ```csharp
 public interface ILockOwnerFinder
@@ -196,11 +196,11 @@ public interface ILockOwnerFinder
 }
 ```
 
-默认实现 `LockOwnerFinder` 会：
-1. 优先使用当前用户ID作为锁拥有者标识
-2. 如果用户未登录，则使用配置的 `DefaultIdentifier`
+Triển khai mặc định `LockOwnerFinder` sẽ:
+1. Ưu tiên dùng ID người dùng hiện tại làm định danh chủ sở hữu khóa
+2. Nếu người dùng chưa đăng nhập, dùng `DefaultIdentifier` đã cấu hình
 
-### 自定义锁拥有者标识实现
+### Triển khai tùy chỉnh định danh chủ sở hữu khóa
 
 ```csharp
 public class CustomLockOwnerFinder : ILockOwnerFinder
@@ -214,43 +214,43 @@ public class CustomLockOwnerFinder : ILockOwnerFinder
 
     public string GetOwner()
     {
-        // 使用租户ID和机器名称组合作为锁拥有者标识
+        // Dùng tổ hợp ID tenant và tên máy làm định danh chủ sở hữu khóa
         return $"{_currentTenant.Id ?? "host"}-{Environment.MachineName}";
     }
 }
 
-// 注册自定义实现
+// Đăng ký triển khai tùy chỉnh
 context.Services.AddTransient<ILockOwnerFinder, CustomLockOwnerFinder>();
 ```
 
-## 最佳实践
+## Thực tiễn tốt nhất
 
-1. **合理设置超时时间**
-   - 根据业务操作的预期执行时间设置合适的超时时间
-   - 避免设置过长的超时时间，以防止死锁
+1. **Đặt thời gian chờ hợp lý**
+   - Đặt thời gian chờ phù hợp theo thời gian thực thi dự kiến của thao tác nghiệp vụ
+   - Tránh đặt thời gian chờ quá dài để ngăn deadlock
 
-2. **正确的锁粒度**
-   - 锁的范围应该尽可能小，只锁定必要的资源
-   - 避免长时间持有锁，及时释放
+2. **Độ chi tiết khóa phù hợp**
+   - Phạm vi khóa nên càng nhỏ càng tốt, chỉ khóa tài nguyên cần thiết
+   - Tránh giữ khóa lâu, giải phóng kịp thời
 
-3. **异常处理**
-   - 始终在 using 块中使用锁
-   - 妥善处理锁获取失败的情况
-   - 记录关键的锁操作日志
+3. **Xử lý ngoại lệ**
+   - Luôn dùng khóa trong khối using
+   - Xử lý đúng cách trường hợp lấy khóa thất bại
+   - Ghi nhật ký các thao tác khóa quan trọng
 
-4. **性能优化**
-   - 使用合适的存储组件
-   - 配置适当的重试策略
-   - 监控锁的使用情况
+4. **Tối ưu hiệu năng**
+   - Dùng thành phần lưu trữ phù hợp
+   - Cấu hình chiến lược thử lại phù hợp
+   - Giám sát tình hình sử dụng khóa
 
-## 注意事项
+## Lưu ý
 
-* 确保Dapr Sidecar已正确配置并运行
-* 分布式锁组件需要在Dapr配置中正确定义
-* 合理设置锁的超时时间，避免死锁
-* 正确处理锁获取失败的情况
-* 在高并发场景下注意性能影响
-* 建议配置锁组件的健康检查
-* 重要操作建议添加日志记录
+* Đảm bảo Dapr Sidecar đã được cấu hình đúng và đang chạy
+* Thành phần khóa phân tán cần được định nghĩa đúng trong cấu hình Dapr
+* Đặt thời gian chờ khóa hợp lý, tránh deadlock
+* Xử lý đúng cách trường hợp lấy khóa thất bại
+* Chú ý ảnh hưởng hiệu năng trong tình huống đồng thời cao
+* Nên cấu hình kiểm tra sức khỏe cho thành phần khóa
+* Nên thêm ghi nhật ký cho các thao tác quan trọng
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

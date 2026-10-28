@@ -1,29 +1,29 @@
-# 社区交流
+# Trao đổi cộng đồng
 
-社区交流群主要是为了方便大家交流，提问，解答问题，分享经验等。偏自助方式，如果你有问题，可以通过以下方式加入社区交流群：
+Nhóm trao đổi cộng đồng chủ yếu để mọi người thuận tiện trao đổi, đặt câu hỏi, giải đáp thắc mắc, chia sẻ kinh nghiệm, v.v. Theo hướng tự phục vụ là chính, nếu bạn có câu hỏi, có thể tham gia nhóm trao đổi cộng đồng bằng các cách sau:
 
-- [QQ频道](https://pd.qq.com/s/16p8lvvob)：推荐！！！主要提供问题解答，分享经验等。
-- QQ群：[大群](https://qm.qq.com/q/MEmHoCLbG0)，[1群](https://qm.qq.com/q/YacMHPYAMu)、[2群](https://qm.qq.com/q/ajVKZvFICk)、[3群](https://qm.qq.com/q/36zdwThP2E)，[4群](https://qm.qq.com/q/sCzSlm3504)，[5群](https://qm.qq.com/q/ya9XrtbS6s)，主要的使用者交流群。
-- [Discord](https://discord.com/invite/VU62jTecad): 主要提供问题解答，分享经验等。
+- [Kênh QQ](https://pd.qq.com/s/16p8lvvob)：Được khuyên dùng!!! Chủ yếu cung cấp giải đáp thắc mắc, chia sẻ kinh nghiệm, v.v.
+- Nhóm QQ:[Nhóm lớn](https://qm.qq.com/q/MEmHoCLbG0)，[Nhóm 1](https://qm.qq.com/q/YacMHPYAMu)、[Nhóm 2](https://qm.qq.com/q/ajVKZvFICk)、[Nhóm 3](https://qm.qq.com/q/36zdwThP2E)，[Nhóm 4](https://qm.qq.com/q/sCzSlm3504)，[Nhóm 5](https://qm.qq.com/q/ya9XrtbS6s)，Nhóm trao đổi chính của người dùng.
+- [Discord](https://discord.com/invite/VU62jTecad): Chủ yếu cung cấp giải đáp thắc mắc, chia sẻ kinh nghiệm, v.v.
 
 ::: tip
 
-免费QQ群人数上限200，将会不定期清理。推荐加入QQ频道进行交流
+Số người tối đa của nhóm QQ miễn phí là 200, sẽ được dọn dẹp không định kỳ. Khuyên tham gia kênh QQ để trao đổi
 
 :::
 
-## 微信群
+## Nhóm WeChat
 
-作者主要通过微信群提供帮助，如果你有问题，可以通过以下方式加入微信群。
+Tác giả chủ yếu hỗ trợ qua nhóm WeChat, nếu bạn có câu hỏi, có thể tham gia nhóm WeChat bằng cách sau.
 
-通过微信联系作者，注明加群来意：
+Liên hệ tác giả qua WeChat, ghi rõ ý định xin vào nhóm:
 
 ::: tip
 
-因为微信群人数有限制，加微信群要求：
+Vì số người trong nhóm WeChat có giới hạn, yêu cầu để vào nhóm WeChat:
 
-- 通过[赞助](../sponsor/personal.md)任意金额。
-- 发送赞助`截图`，备注`加入微信群`即可。
+- Thông qua [tài trợ](../sponsor/personal.md) với bất kỳ số tiền nào.
+- Gửi `ảnh chụp màn hình` tài trợ, ghi chú `tham gia nhóm WeChat` là được.
 
 :::
 

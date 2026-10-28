@@ -6,8 +6,8 @@ using Volo.Abp.Http.Modeling;
 
 namespace LINGYUN.Abp.Cli.ServiceProxying.TypeScript;
 
-// 自用，请勿使用
-// 适用于uni-app的axios
+// Chỉ dùng nội bộ, vui lòng không sử dụng
+// axios dùng cho uni-app
 public class UniAppAxiosHttpApiScriptGenerator : IHttpApiScriptGenerator, ITransientDependency
 {
     public const string Name = "uni-app-axios";
@@ -84,7 +84,7 @@ public class UniAppAxiosHttpApiScriptGenerator : IHttpApiScriptGenerator, ITrans
                     apiScriptBuilder.Append(", ");
                 }
 
-                // 需要格式化url
+                // Cần định dạng url
                 var formatUrlPath = string.Concat("{", paramter.Name, "}");
                 if (url.Contains(formatUrlPath))
                 {

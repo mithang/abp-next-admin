@@ -1,22 +1,22 @@
 # LINGYUN.Abp.Notifications
 
-[English](./README.EN.md) | 简体中文
+[English](./README.EN.md) | Tiếng Việt
 
-实时通知基础模块。
+Mô-đun nền tảng thông báo thời gian thực.
 
-## 功能
+## Tính năng
 
-* 支持多种通知类型（系统、用户、应用、服务回调）
-* 支持多种通知生命周期（一次性、持久化）
-* 支持多种通知内容类型（文本、JSON、HTML、Markdown）
-* 支持多种通知严重级别（成功、信息、警告、错误、致命）
-* 支持通知订阅管理
-* 支持通知状态管理（已读/未读）
-* 支持多租户
-* 支持本地化
-* 支持自定义通知提供程序
+* Hỗ trợ nhiều loại thông báo (hệ thống, người dùng, ứng dụng, gọi lại dịch vụ)
+* Hỗ trợ nhiều vòng đời thông báo (một lần, bền vững)
+* Hỗ trợ nhiều loại nội dung thông báo (văn bản, JSON, HTML, Markdown)
+* Hỗ trợ nhiều mức độ nghiêm trọng của thông báo (thành công, thông tin, cảnh báo, lỗi, nghiêm trọng)
+* Hỗ trợ quản lý đăng ký thông báo
+* Hỗ trợ quản lý trạng thái thông báo (đã đọc/chưa đọc)
+* Hỗ trợ đa tenant
+* Hỗ trợ bản địa hóa
+* Hỗ trợ nhà cung cấp thông báo tùy chỉnh
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationModule))]
@@ -26,9 +26,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-### 1. 发送通知
+### 1. Gửi thông báo
 
 ```csharp
 public class MyService
@@ -43,8 +43,8 @@ public class MyService
     public async Task SendNotificationAsync()
     {
         var data = new NotificationData();
-        data.TrySetData("title", "测试通知");
-        data.TrySetData("message", "这是一条测试通知");
+        data.TrySetData("title", "Thông báo thử nghiệm");
+        data.TrySetData("message", "Đây là một thông báo thử nghiệm");
 
         await _notificationSender.SendNofiterAsync(
             "TestNotification",
@@ -54,7 +54,7 @@ public class MyService
 }
 ```
 
-### 2. 管理通知订阅
+### 2. Quản lý đăng ký thông báo
 
 ```csharp
 public class MyService
@@ -75,55 +75,55 @@ public class MyService
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
 ```json
 {
   "Notifications": {
     "PublishProviders": [
-      "SignalR"  // 可选的通知提供程序
+      "SignalR"  // Nhà cung cấp thông báo tùy chọn
     ]
   }
 }
 ```
 
-## 通知类型
+## Loại thông báo
 
-* Application - 平台通知
-* System - 系统通知
-* User - 用户通知
-* ServiceCallback - 服务回调通知
+* Application - Thông báo nền tảng
+* System - Thông báo hệ thống
+* User - Thông báo người dùng
+* ServiceCallback - Thông báo gọi lại dịch vụ
 
-## 通知生命周期
+## Vòng đời thông báo
 
-* OnlyOne - 一次性通知
-* Persistent - 持久化通知
+* OnlyOne - Thông báo một lần
+* Persistent - Thông báo bền vững
 
-## 通知内容类型
+## Loại nội dung thông báo
 
-* Text - 文本
+* Text - Văn bản
 * Json - JSON
 * Html - HTML
 * Markdown - Markdown
 
-## 通知严重级别
+## Mức độ nghiêm trọng của thông báo
 
-* Success - 成功
-* Info - 信息
-* Warn - 警告
-* Fatal - 致命
-* Error - 错误
+* Success - Thành công
+* Info - Thông tin
+* Warn - Cảnh báo
+* Fatal - Nghiêm trọng
+* Error - Lỗi
 
-## 最佳实践
+## Thực hành tốt nhất
 
-1. 根据实际需求选择合适的通知类型和生命周期
-2. 合理使用通知严重级别，避免滥用高级别通知
-3. 为通知添加适当的本地化支持
-4. 定期清理过期的通知数据
+1. Chọn loại thông báo và vòng đời phù hợp với nhu cầu thực tế
+2. Sử dụng mức độ nghiêm trọng của thông báo một cách hợp lý, tránh lạm dụng mức độ cao
+3. Thêm hỗ trợ bản địa hóa phù hợp cho thông báo
+4. Định kỳ dọn dẹp dữ liệu thông báo đã hết hạn
 
-## 注意事项
+## Lưu ý
 
-1. 持久化通知需要实现 INotificationStore 接口
-2. 自定义通知提供程序需要实现 INotificationPublishProvider 接口
-3. 通知名称应该具有唯一性和描述性
-4. 考虑多租户场景下的数据隔离
+1. Thông báo bền vững cần triển khai giao diện INotificationStore
+2. Nhà cung cấp thông báo tùy chỉnh cần triển khai giao diện INotificationPublishProvider
+3. Tên thông báo nên duy nhất và có tính mô tả
+4. Cân nhắc việc cách ly dữ liệu trong bối cảnh đa tenant

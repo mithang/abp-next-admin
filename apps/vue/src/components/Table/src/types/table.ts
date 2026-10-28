@@ -25,9 +25,9 @@ export interface TableCurrentDataSource<T = Recordable> {
 export interface TableRowSelection<T = any> extends ITableRowSelection {
   /**
    * Callback executed when selected rows change
-   * @param selectedRowKeys 已选的 keyValues
-   * @param selectedRows 已选的 records
-   * @param isClickCustomRow 是否是点击行触发（反之，就是点击checkbox/radiobox）
+   * @param selectedRowKeys keyValues đã chọn
+   * @param selectedRows records đã chọn
+   * @param isClickCustomRow Có phải được kích hoạt khi nhấn vào hàng hay không (ngược lại, tức là nhấn checkbox/radiobox)
    * @returns void
    */
   onChange?: (selectedRowKeys: Key[], selectedRows: T[], isClickCustomRow?: boolean) => void;
@@ -132,13 +132,13 @@ export interface TableActionType {
 }
 
 export interface FetchSetting {
-  // 请求接口当前页数
+  // Số trang hiện tại của API yêu cầu
   pageField: string;
-  // 每页显示多少条
+  // Số bản ghi hiển thị mỗi trang
   sizeField: string;
-  // 请求结果列表字段  支持 a.b.c
+  // Trường danh sách kết quả yêu cầu, hỗ trợ a.b.c
   listField: string;
-  // 请求结果总数字段  支持 a.b.c
+  // Trường tổng số kết quả yêu cầu, hỗ trợ a.b.c
   totalField: string;
 }
 
@@ -152,90 +152,90 @@ export interface TableSetting {
 }
 
 export interface BasicTableProps<T = any> {
-  // 点击行选中
+  // Nhấn vào hàng để chọn
   clickToRowSelect?: boolean;
   isTreeTable?: boolean;
-  accordion?: boolean; // isTreeTable 或 expandRowByClick 时支持
-  // 自定义排序方法
+  accordion?: boolean; // Hỗ trợ khi isTreeTable hoặc expandRowByClick
+  // Phương thức sắp xếp tùy chỉnh
   sortFn?: (sortInfo: SorterResult) => any;
-  // 排序方法
+  // Phương thức sắp xếp
   filterFn?: (data: Partial<Recordable<string[]>>) => any;
-  // 取消表格的默认padding
+  // Hủy padding mặc định của bảng
   inset?: boolean;
-  // 显示表格设置
+  // Hiển thị cài đặt bảng
   showTableSetting?: boolean;
   tableSetting?: TableSetting;
-  // 斑马纹
+  // Sọc ngựa vằn
   striped?: boolean;
-  // 是否自动生成key
+  // Có tự động tạo key hay không
   autoCreateKey?: boolean;
-  // 计算合计行的方法
+  // Phương thức tính hàng tổng cộng
   summaryFunc?: (...arg: any) => Recordable[];
-  // 自定义合计表格内容
+  // Nội dung bảng tổng cộng tùy chỉnh
   summaryData?: Recordable[];
-  // 是否显示合计行
+  // Có hiển thị hàng tổng cộng hay không
   showSummary?: boolean;
-  // 是否可拖拽列
+  // Có thể kéo thả cột hay không
   canColDrag?: boolean;
-  // 接口请求对象
+  // Đối tượng yêu cầu API
   api?: (...arg: any) => Promise<any>;
-  // 请求之前处理参数
+  // Xử lý tham số trước khi yêu cầu
   beforeFetch?: Fn;
-  // 响应之前处理结果
+  // Xử lý kết quả trước khi phản hồi
   beforeResponse?: Fn;
-  // 自定义处理接口返回参数
+  // Xử lý tùy chỉnh tham số trả về của API
   afterFetch?: Fn;
-  // 查询条件请求之前处理
+  // Xử lý trước khi yêu cầu điều kiện truy vấn
   handleSearchInfoFn?: Fn;
-  // 请求接口配置
+  // Cấu hình API yêu cầu
   fetchSetting?: Partial<FetchSetting>;
-  // 立即请求接口
+  // Yêu cầu API ngay lập tức
   immediate?: boolean;
-  // 在开起搜索表单的时候，如果没有数据是否显示表格
+  // Khi mở biểu mẫu tìm kiếm, nếu không có dữ liệu thì có hiển thị bảng hay không
   emptyDataIsShowTable?: boolean;
-  // 额外的请求参数
+  // Tham số yêu cầu bổ sung
   searchInfo?: Recordable;
-  // 默认的排序参数
+  // Tham số sắp xếp mặc định
   defSort?: Recordable;
-  // 使用搜索表单
+  // Sử dụng biểu mẫu tìm kiếm
   useSearchForm?: boolean;
-  // 表单配置
+  // Cấu hình biểu mẫu
   formConfig?: Partial<FormProps>;
-  // 高级查询配置
+  // Cấu hình truy vấn nâng cao
   advancedSearchConfig?: Partial<AdvanceSearchProps>;
-  // 使用已选择提示
+  // Sử dụng nhắc đã chọn
   useSelectedAlert?: boolean;
-  // 列配置
+  // Cấu hình cột
   columns: BasicColumn[];
-  // 是否显示序号列
+  // Có hiển thị cột số thứ tự hay không
   showIndexColumn?: boolean;
-  // 序号列配置
+  // Cấu hình cột số thứ tự
   indexColumnProps?: BasicColumn;
   actionColumn?: BasicColumn;
-  // 文本超过宽度是否显示。。。
+  // Văn bản vượt quá chiều rộng có hiển thị hay không...
   ellipsis?: boolean;
-  // 是否继承父级高度（父级高度-表单高度-padding高度）
+  // Có kế thừa chiều cao của phần tử cha hay không (chiều cao phần tử cha - chiều cao biểu mẫu - chiều cao padding)
   isCanResizeParent?: boolean;
-  // 是否可以自适应高度
+  // Có thể tự điều chỉnh chiều cao hay không
   canResize?: boolean;
-  // 自适应高度偏移， 计算结果-偏移量
+  // Độ lệch chiều cao tự điều chỉnh, kết quả tính toán - độ lệch
   resizeHeightOffset?: number;
 
-  // 在分页改变的时候清空选项
+  // Xóa lựa chọn khi phân trang thay đổi
   clearSelectOnPageChange?: boolean;
   //
   rowKey?: InstanceType<typeof AntDesignVueTable>['$props']['rowKey'];
-  // 数据
+  // Dữ liệu
   dataSource?: Recordable[];
-  // 标题右侧提示
+  // Nhắc phía bên phải tiêu đề
   titleHelpMessage?: string | string[];
-  // 表格滚动最大高度
+  // Chiều cao tối đa khi cuộn bảng
   maxHeight?: number;
-  // 是否显示边框
+  // Có hiển thị viền hay không
   bordered?: boolean;
-  // 分页配置
+  // Cấu hình phân trang
   pagination?: PaginationProps | boolean;
-  // loading加载
+  // loading đang tải
   loading?: boolean;
 
   /**
@@ -327,7 +327,7 @@ export interface BasicTableProps<T = any> {
   rowSelection?: TableRowSelection;
 
   /**
-   * Show table selection bar（显示多选状态栏）
+   * Show table selection bar (Hiển thị thanh trạng thái chọn nhiều)
    * @type boolean
    */
   showSelectionBar?: boolean;
@@ -457,7 +457,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
 
   slots?: Recordable;
 
-  // 自定义header渲染
+  // Kết xuất header tùy chỉnh
   customHeaderRender?: (column: BasicColumn) => string | VNodeChild | JSX.Element;
   // Whether to hide the column by default, it can be displayed in the column configuration
   defaultHidden?: boolean;
@@ -483,11 +483,11 @@ export interface BasicColumn extends ColumnProps<Recordable> {
   editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
   editValueMap?: (value: any) => string;
   onEditRow?: () => void;
-  // 权限编码控制是否显示
+  // Mã quyền kiểm soát việc hiển thị
   auth?: RoleEnum | RoleEnum[] | string | string[];
-  // 业务控制是否显示
+  // Nghiệp vụ kiểm soát việc hiển thị
   ifShow?: boolean | ((column: BasicColumn) => boolean);
-  // 自定义修改后显示的内容
+  // Nội dung hiển thị tùy chỉnh sau khi sửa
   editRender?: (opt: {
     text: string | number | boolean | Recordable;
     record: Recordable;
@@ -495,7 +495,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
     index: number;
     currentValue: string | number | boolean | Recordable;
   }) => VNodeChild | JSX.Element;
-  // 动态 Disabled
+  // Disabled động
   editDynamicDisabled?: boolean | ((record: Recordable) => boolean);
 }
 

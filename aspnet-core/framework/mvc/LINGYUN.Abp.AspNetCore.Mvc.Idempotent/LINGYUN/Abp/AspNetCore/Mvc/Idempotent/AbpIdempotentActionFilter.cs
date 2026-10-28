@@ -35,8 +35,8 @@ public class AbpIdempotentActionFilter : IAsyncActionFilter, ITransientDependenc
 
             var actionArguments = context.ActionArguments.ToImmutableDictionary();
             string idempotentKey;
-            // 可以用户传递幂等性token
-            // 否则通过用户定义action创建token
+            // Người dùng có thể truyền token lũy đẳng
+            // Ngược lại, tạo token thông qua action do người dùng định nghĩa
             if (context.HttpContext.Request.Headers.TryGetValue(options.IdempotentTokenName, out var key))
             {
                 idempotentKey = key.ToString();
@@ -58,7 +58,7 @@ public class AbpIdempotentActionFilter : IAsyncActionFilter, ITransientDependenc
                 methodInfo,
                 idempotentKey,
                 actionArguments);
-            // 进行幂等性校验
+            // Thực hiện kiểm tra tính lũy đẳng
             await using var grant = await idempotentChecker.IsGrantAsync(checkContext);
             if (grant.Successed)
             {

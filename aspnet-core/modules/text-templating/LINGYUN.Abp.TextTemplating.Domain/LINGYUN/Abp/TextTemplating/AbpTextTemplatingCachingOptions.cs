@@ -5,11 +5,11 @@ namespace LINGYUN.Abp.TextTemplating;
 public class AbpTextTemplatingCachingOptions
 {
     /// <summary>
-    /// 文本模板缓存最小过期时间
+    /// Thời gian hết hạn tối thiểu của bộ nhớ đệm mẫu văn bản
     /// </summary>
     public TimeSpan? MinimumCacheDuration { get; set; }
     /// <summary>
-    /// 文本模板缓存绝对过期时间
+    /// Thời gian hết hạn tuyệt đối của bộ nhớ đệm mẫu văn bản
     /// </summary>
     public TimeSpan? MaximumCacheDuration { get; set; }
     /// <summary>
@@ -21,17 +21,17 @@ public class AbpTextTemplatingCachingOptions
     /// </summary>
     public bool IsDynamicTemplateDefinitionStoreEnabled { get; set; }
     /// <summary>
-    /// 缓存刷新时间
+    /// Thời gian làm mới bộ nhớ đệm
     /// default: 2 hours
     /// </summary>
     public TimeSpan TemplateDefinitionsCacheRefreshInterval { get; set; }
     /// <summary>
-    /// 申请时间戳超时时间
+    /// Thời gian chờ của dấu thời gian yêu cầu
     /// default: 1 minutes
     /// </summary>
     public TimeSpan TemplateDefinitionsCacheStampTimeOut { get; set; }
     /// <summary>
-    /// 时间戳过期时间
+    /// Thời gian hết hạn của dấu thời gian
     /// default: 30 days
     /// </summary>
     public TimeSpan TemplateDefinitionsCacheStampExpiration { get; set; }

@@ -179,7 +179,7 @@ public class MessageStore : IMessageStore, ITransientDependency
         ChatMessage chatMessage,
         CancellationToken cancellationToken = default)
     {
-        // 检查接收用户
+        // Kiểm tra người nhận
         if (!chatMessage.ToUserId.HasValue)
         {
             throw new BusinessException(MessageServiceErrorCodes.UseNotFount);
@@ -195,7 +195,7 @@ public class MessageStore : IMessageStore, ITransientDependency
         {
             if (!userChatSetting.AllowReceiveMessage)
             {
-                // 当前发送的用户不接收消息
+                // Người nhận hiện tại không nhận tin nhắn
                 throw new BusinessException(MessageServiceErrorCodes.UserHasRejectAllMessage);
             }
 
@@ -206,7 +206,7 @@ public class MessageStore : IMessageStore, ITransientDependency
 
             if (chatMessage.IsAnonymous && !userChatSetting.AllowAnonymous)
             {
-                // 当前用户不允许匿名发言
+                // Người dùng hiện tại không cho phép gửi ẩn danh
                 throw new BusinessException(MessageServiceErrorCodes.UserNotAllowedToSpeakAnonymously);
             }
         }
@@ -245,18 +245,18 @@ public class MessageStore : IMessageStore, ITransientDependency
                .UserHasBlackedAsync(groupId, chatMessage.FormUserId, cancellationToken);
         if (userHasBlacked)
         {
-            // 当前发送的用户已被拉黑
+            // Người gửi hiện tại đã bị chặn
             throw new BusinessException(MessageServiceErrorCodes.GroupUserHasBlack);
         }
         var group = await _groupRepository.GetByIdAsync(groupId, cancellationToken);
         if (!group.AllowSendMessage)
         {
-            // 当前群组不允许发言
+            // Nhóm hiện tại không cho phép gửi tin nhắn
             throw new BusinessException(MessageServiceErrorCodes.GroupNotAllowedToSpeak);
         }
         if (chatMessage.IsAnonymous && !group.AllowAnonymous)
         {
-            // 当前群组不允许匿名发言
+            // Nhóm hiện tại không cho phép gửi ẩn danh
             throw new BusinessException(MessageServiceErrorCodes.GroupNotAllowedToSpeakAnonymously);
         }
 

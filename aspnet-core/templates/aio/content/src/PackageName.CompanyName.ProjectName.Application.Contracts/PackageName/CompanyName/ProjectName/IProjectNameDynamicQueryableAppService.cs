@@ -2,9 +2,9 @@
 
 namespace PackageName.CompanyName.ProjectName;
 /// <summary>
-/// 提供动态查询接口定义
+/// Cung cấp định nghĩa interface truy vấn động
 /// </summary>
-/// <typeparam name="TEntityDto">实体dto类型</typeparam>
+/// <typeparam name="TEntityDto">Kiểu dto thực thể</typeparam>
 public interface IProjectNameDynamicQueryableAppService<TEntityDto> : IDynamicQueryableAppService<TEntityDto>
 {
 }

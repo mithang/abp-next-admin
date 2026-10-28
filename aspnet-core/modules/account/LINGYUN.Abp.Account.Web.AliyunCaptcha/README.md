@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Account.Web.AliyunCaptcha
 
-阿里云验证码组件集成模块,可使用阿里云验证码能力  
+Mô-đun tích hợp thành phần mã xác minh Alibaba Cloud, có thể sử dụng khả năng mã xác minh của Alibaba Cloud  
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAccountWebAliyunCaptchaModule))]
@@ -12,25 +12,25 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-` 请在启动项目或系统设置中配置阿里云相关参数,否则造成登录页验证码组件无法加载  
+` Vui lòng cấu hình các tham số liên quan đến Alibaba Cloud trong dự án khởi động hoặc cài đặt hệ thống, nếu không thành phần mã xác minh trên trang đăng nhập sẽ không tải được  
 
-*	Abp.Aliyun.Authorization.RegionId      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.AccessKeyId      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.AccessKeySecret      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.UseSecurityTokenService      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.RamRoleArn      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.RoleSessionName      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.DurationSeconds      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Authorization.Policy      阿里云访问控制相关配置,具体参考AbpAliyunModule模块
-*	Abp.Aliyun.Captcha.SceneId     验证码场景的唯一标识, 需加密
-*	Abp.Aliyun.Captcha.Prefix     控制台获取的身份标, 需加密
-*	Abp.Aliyun.Captcha.UseEncryptedSceneId    使用加密验证码场景标识
-*	Abp.Aliyun.Captcha.EKey    控制台获取的ekey, 需加密
-*	Abp.Aliyun.Captcha.EncryptedExpireTimeSec   密文过期时间，单位秒，范围 1~86400
+*	Abp.Aliyun.Authorization.RegionId      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.AccessKeyId      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.AccessKeySecret      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.UseSecurityTokenService      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.RamRoleArn      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.RoleSessionName      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.DurationSeconds      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Authorization.Policy      Cấu hình liên quan đến kiểm soát truy cập Alibaba Cloud, tham khảo cụ thể mô-đun AbpAliyunModule
+*	Abp.Aliyun.Captcha.SceneId     Định danh duy nhất của kịch bản mã xác minh, cần mã hóa
+*	Abp.Aliyun.Captcha.Prefix     Định danh lấy từ console, cần mã hóa
+*	Abp.Aliyun.Captcha.UseEncryptedSceneId    Sử dụng định danh kịch bản mã xác minh đã mã hóa
+*	Abp.Aliyun.Captcha.EKey    ekey lấy từ console, cần mã hóa
+*	Abp.Aliyun.Captcha.EncryptedExpireTimeSec   Thời gian hết hạn của bản mã, đơn vị giây, phạm vi 1~86400
 
-示例配置：
+Cấu hình mẫu:
 
 ```json
 {

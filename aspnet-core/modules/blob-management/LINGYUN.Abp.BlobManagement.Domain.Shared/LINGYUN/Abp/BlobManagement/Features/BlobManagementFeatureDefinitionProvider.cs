@@ -49,13 +49,13 @@ public class BlobManagementFeatureDefinitionProvider : FeatureDefinitionProvider
             defaultValue: "1000",
             displayName: L("Features:DisplayName:DownloadLimit"),
             description: L("Features:Description:DownloadLimit"),
-            valueType: new FreeTextStringValueType(new NumericValueValidator(0, 100_0000))); // 上限100万次调用
+            valueType: new FreeTextStringValueType(new NumericValueValidator(0, 100_0000))); // Giới hạn tối đa 1 triệu lần gọi
         blobDefaultFeature.CreateChild(
             name: BlobManagementFeatureNames.Blob.DownloadInterval,
             defaultValue: "1",
             displayName: L("Features:DisplayName:DownloadInterval"),
             description: L("Features:Description:DownloadInterval"),
-            valueType: new FreeTextStringValueType(new NumericValueValidator(1, 12))); // 上限12月
+            valueType: new FreeTextStringValueType(new NumericValueValidator(1, 12))); // Giới hạn tối đa 12 tháng
 
         blobDefaultFeature.CreateChild(
             name: BlobManagementFeatureNames.Blob.UploadFile,
@@ -68,13 +68,13 @@ public class BlobManagementFeatureDefinitionProvider : FeatureDefinitionProvider
             defaultValue: "1000",
             displayName: L("Features:DisplayName:UploadLimit"),
             description: L("Features:Description:UploadLimit"),
-            valueType: new FreeTextStringValueType(new NumericValueValidator(0, 100_0000))); // 上限100万次调用
+            valueType: new FreeTextStringValueType(new NumericValueValidator(0, 100_0000))); // Giới hạn tối đa 1 triệu lần gọi
         blobDefaultFeature.CreateChild(
             name: BlobManagementFeatureNames.Blob.UploadInterval,
             defaultValue: "1",
             displayName: L("Features:DisplayName:UploadInterval"),
             description: L("Features:Description:UploadInterval"),
-            valueType: new FreeTextStringValueType(new NumericValueValidator(1, 12))); // 上限12月
+            valueType: new FreeTextStringValueType(new NumericValueValidator(1, 12))); // Giới hạn tối đa 12 tháng
     }
 
     protected ILocalizableString L(string name)

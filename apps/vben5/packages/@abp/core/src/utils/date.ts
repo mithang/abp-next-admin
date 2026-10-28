@@ -22,10 +22,10 @@ type Format =
   | (string & {});
 
 /**
- * @zh_CN 格式化时间
- * @param date 需要格式化的时间
- * @param format 格式化字符串,参考dayJs文档
- * @returns 返回格式化后的时间字符串
+ * @zh_CN Định dạng thời gian
+ * @param date thời gian cần định dạng
+ * @param format chuỗi định dạng,tham khảo tài liệu dayJs
+ * @returns Trả về chuỗi thời gian sau khi định dạng
  */
 export function formatToDateTime(
   date?: FormatDate,
@@ -35,10 +35,10 @@ export function formatToDateTime(
 }
 
 /**
- * @zh_CN 格式化日期
- * @param date 需要格式化的日期
- * @param format 格式化字符串,参考dayJs文档
- * @returns 返回格式化后的日期字符串
+ * @zh_CN Định dạng ngày
+ * @param date ngày cần định dạng
+ * @param format chuỗi định dạng,tham khảo tài liệu dayJs
+ * @returns Trả về chuỗi ngày sau khi định dạng
  */
 export function formatToDate(
   date?: FormatDate,
@@ -51,21 +51,21 @@ export function formatToDate(
 }
 
 /**
- * @zh_CN 转换为日期
- * @param date 日期/字符串
- * @returns 日期
+ * @zh_CN Chuyển đổi thành ngày
+ * @param date ngày/chuỗi
+ * @returns ngày
  */
 export function toDate(date: dayjs.ConfigType): dayjs.Dayjs {
   return dayjs(date);
 }
 
 /**
- * @zh_CN 获取指定日期
- * @param days 天数
- * @returns 返回指定天数之后的日期
+ * @zh_CN Lấy ngày chỉ định
+ * @param days số ngày
+ * @returns Trả về ngày sau số ngày chỉ định
  */
 export function getAppointDate(days: number): dayjs.Dayjs {
-  const today = new Date(); // 获取当前日期
+  const today = new Date(); // Lấy ngày hiện tại
   const tomorrow = new Date(
     today.getFullYear(),
     today.getMonth(),
@@ -75,8 +75,8 @@ export function getAppointDate(days: number): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取本周第一天
- * @returns 返回本周第一天
+ * @zh_CN Lấy ngày đầu tiên của tuần này
+ * @returns Trả về ngày đầu tiên của tuần này
  */
 export function firstDayOfWeek(): dayjs.Dayjs {
   const now = new Date();
@@ -90,16 +90,16 @@ export function firstDayOfWeek(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取本周最后一天
- * @returns 返回本周最后一天
+ * @zh_CN Lấy ngày cuối cùng của tuần này
+ * @returns Trả về ngày cuối cùng của tuần này
  */
 export function lastDayOfWeek(): dayjs.Dayjs {
   return firstDayOfWeek().add(6, 'day');
 }
 
 /**
- * @zh_CN 获取当月第一天
- * @returns 返回当月第一天
+ * @zh_CN Lấy ngày đầu tiên của tháng này
+ * @returns Trả về ngày đầu tiên của tháng này
  */
 export function firstDayOfMonth(): dayjs.Dayjs {
   const now = new Date();
@@ -107,8 +107,8 @@ export function firstDayOfMonth(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取当月最后一天00:00:00
- * @returns 返回当月最后一天00:00:00
+ * @zh_CN Lấy ngày cuối cùng của tháng này00:00:00
+ * @returns Trả về ngày cuối cùng của tháng này00:00:00
  */
 export function lastDayOfMonth(): dayjs.Dayjs {
   const now = new Date();
@@ -116,8 +116,8 @@ export function lastDayOfMonth(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取当月最后一天23:59:59
- * @returns 返回当月最后一天23:59:59
+ * @zh_CN Lấy ngày cuối cùng của tháng này23:59:59
+ * @returns Trả về ngày cuối cùng của tháng này23:59:59
  */
 export function lastDateOfMonth(): dayjs.Dayjs {
   const now = new Date();
@@ -127,8 +127,8 @@ export function lastDateOfMonth(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取上个月第一天
- * @returns 返回上个月第一天
+ * @zh_CN Lấy ngày đầu tiên của tháng trước
+ * @returns Trả về ngày đầu tiên của tháng trước
  */
 export function firstDayOfLastMonth(): dayjs.Dayjs {
   const now = new Date();
@@ -136,19 +136,19 @@ export function firstDayOfLastMonth(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取上个月最后一天23:59:59
- * @returns 返回上个月最后一天23:59:59
+ * @zh_CN Lấy ngày cuối cùng của tháng trước23:59:59
+ * @returns Trả về ngày cuối cùng của tháng trước23:59:59
  */
 export function lastDateOfLastMonth(): dayjs.Dayjs {
   const now = new Date();
   return dayjs(
-    new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999), // 当月第0天 = 上月最后一天
+    new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999), // ngày thứ 0 của tháng này = ngày cuối cùng của tháng trước
   );
 }
 
 /**
- * @zh_CN 获取本年第一天
- * @returns 返回本年第一天
+ * @zh_CN Lấy ngày đầu tiên của năm này
+ * @returns Trả về ngày đầu tiên của năm này
  */
 export function firstDayOfYear(): dayjs.Dayjs {
   const now = new Date();
@@ -156,8 +156,8 @@ export function firstDayOfYear(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取本年最后一天
- * @returns 返回本年最后一天
+ * @zh_CN Lấy ngày cuối cùng của năm này
+ * @returns Trả về ngày cuối cùng của năm này
  */
 export function lastDayOfYear(): dayjs.Dayjs {
   const now = new Date();
@@ -165,8 +165,8 @@ export function lastDayOfYear(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取最近半年第一天
- * @returns 返回最近半年第一天
+ * @zh_CN Lấy ngày đầu tiên của nửa năm gần nhất
+ * @returns Trả về ngày đầu tiên của nửa năm gần nhất
  */
 export function firstDayOfLastHalfYear(): dayjs.Dayjs {
   const now = new Date();
@@ -174,8 +174,8 @@ export function firstDayOfLastHalfYear(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取本季度第一天
- * @returns 返回本季度第一天
+ * @zh_CN Lấy ngày đầu tiên của quý này
+ * @returns Trả về ngày đầu tiên của quý này
  */
 export function firstDayOfQuarter(): dayjs.Dayjs {
   const now = new Date();
@@ -184,8 +184,8 @@ export function firstDayOfQuarter(): dayjs.Dayjs {
 }
 
 /**
- * @zh_CN 获取本季度最后一天
- * @returns 返回本季度最后一天
+ * @zh_CN Lấy ngày cuối cùng của quý này
+ * @returns Trả về ngày cuối cùng của quý này
  */
 export function lastDayOfQuarter(): dayjs.Dayjs {
   const now = new Date();

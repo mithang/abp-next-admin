@@ -3,8 +3,8 @@ import type { FeatureProvider, GetFeatureListResultDto, UpdateFeaturesDto } from
 import requestClient from "../../request";
 
 /**
- * 删除功能
- * @param {FeatureProvider} provider 参数
+ * Xóa tính năng
+ * @param {FeatureProvider} provider Tham số
  * @returns {Promise<void>}
  */
 export function deleteApi(provider: FeatureProvider): Promise<void> {
@@ -14,9 +14,9 @@ export function deleteApi(provider: FeatureProvider): Promise<void> {
 }
 
 /**
- * 查询功能
- * @param {FeatureProvider} provider 参数
- * @returns {Promise<GetFeatureListResultDto>} 功能实体数据传输对象
+ * Truy vấn tính năng
+ * @param {FeatureProvider} provider Tham số
+ * @returns {Promise<GetFeatureListResultDto>} Đối tượng truyền dữ liệu thực thể tính năng
  */
 export function getApi(provider: FeatureProvider): Promise<GetFeatureListResultDto> {
 	return requestClient.get<GetFeatureListResultDto>("/api/feature-management/features", {
@@ -25,9 +25,9 @@ export function getApi(provider: FeatureProvider): Promise<GetFeatureListResultD
 }
 
 /**
- * 更新功能
+ * Cập nhật tính năng
  * @param {FeatureProvider} provider
- * @param {UpdateFeaturesDto} input 参数
+ * @param {UpdateFeaturesDto} input Tham số
  * @returns {Promise<void>}
  */
 export function updateApi(provider: FeatureProvider, input: UpdateFeaturesDto): Promise<void> {

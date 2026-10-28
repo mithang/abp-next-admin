@@ -1,55 +1,55 @@
-# 项目更新
+# Cập nhật dự án
 
-## 为什么无法像 npm 插件一样更新
+## Vì sao không thể cập nhật như plugin npm
 
-因为项目是一个完整的项目模版，不是一个插件或者安装包，无法像插件一样更新，你使用代码后，会根据业务需求，进行二次开发，需要自行手动合并升级。
+Vì dự án là một template dự án hoàn chỉnh, không phải plugin hay gói cài đặt, nên không thể cập nhật như plugin; sau khi bạn dùng code, sẽ phát triển lần hai theo nhu cầu nghiệp vụ và cần tự hợp nhất, nâng cấp thủ công.
 
-## 我需要怎么做
+## Tôi cần làm gì
 
-项目采用了 `Monorepo` 的方式进行管理，并将一些比较核心的代码进行了抽离，比如 `packages/@core`、`packages/effects`，只要业务代码没有修改这部分代码，那么你可以直接拉取最新代码，然后合并到你的分支上，只需要简单的处理部分冲突即可。其余文件夹只会进行一些小的调整，不会对业务代码产生影响。
+Dự án được quản lý theo cách `Monorepo` và đã tách một số code khá cốt lõi, ví dụ `packages/@core`, `packages/effects`; chỉ cần code nghiệp vụ không sửa phần code này thì bạn có thể trực tiếp kéo code mới nhất rồi hợp nhất vào nhánh của mình, chỉ cần xử lý đơn giản một phần xung đột. Các thư mục còn lại chỉ điều chỉnh nhỏ, không ảnh hưởng code nghiệp vụ.
 
-::: tip 推荐
+::: tip Khuyến nghị
 
-建议关注仓库动态，积极去合并，不要长时间积累，否则将会导致合并冲突过多，增加合并难度。
+Nên theo dõi hoạt động của kho, tích cực hợp nhất, đừng tích lũy lâu, nếu không sẽ dẫn đến quá nhiều xung đột hợp nhất, làm tăng độ khó hợp nhất.
 
 :::
 
-## 使用 Git 更新代码
+## Cập nhật code bằng Git
 
-1. 克隆代码
+1. Clone code
 
 ```bash
 git clone https://github.com/vbenjs/vue-vben-admin.git
 ```
 
-2. 添加自己的公司 git 源地址
+2. Thêm địa chỉ nguồn git của công ty mình
 
 ```bash
-# up 为源名称,可以随意设置
-# gitUrl为开源最新代码
+# up là tên nguồn, có thể đặt tùy ý
+# gitUrl là code mã nguồn mở mới nhất
 git remote add up gitUrl;
 ```
 
-3. 提交代码到自己公司 git
+3. Commit code lên git công ty mình
 
 ```bash
-# 提交代码到自己公司
-# main为分支名 需要自行根据情况修改
+# Commit code lên công ty mình
+# main là tên nhánh, cần tự sửa theo tình hình
 git push up main
 
-# 同步公司的代码
-# main为分支名 需要自行根据情况修改
+# Đồng bộ code của công ty
+# main là tên nhánh, cần tự sửa theo tình hình
 git pull up main
 ```
 
-4. 如何同步开源最新代码
+4. Cách đồng bộ code mã nguồn mở mới nhất
 
 ```bash
 git pull origin main
 ```
 
-::: tip 提示
+::: tip Lưu ý
 
-同步代码的时候会出现冲突。只需要把冲突解决即可
+Khi đồng bộ code sẽ xuất hiện xung đột. Chỉ cần giải quyết xung đột là được
 
 :::

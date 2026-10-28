@@ -1,19 +1,19 @@
 # LINGYUN.Abp.FeatureManagement.HttpApi
 
-功能管理HTTP API模块，提供了功能定义管理的REST API接口。
+Mô-đun HTTP API quản lý tính năng, cung cấp các giao diện REST API quản lý định nghĩa tính năng。
 
-## 功能特性
+## Tính năng
 
-* 功能定义管理API
-  * 创建、更新、删除功能定义
-  * 查询功能定义列表
-* 功能组定义管理API
-  * 创建、更新、删除功能组定义
-  * 查询功能组定义列表
-* 支持本地化
-* 集成ABP功能管理模块
+* API quản lý định nghĩa tính năng
+  * Tạo, cập nhật, xóa định nghĩa tính năng
+  * Truy vấn danh sách định nghĩa tính năng
+* API quản lý định nghĩa nhóm tính năng
+  * Tạo, cập nhật, xóa định nghĩa nhóm tính năng
+  * Truy vấn danh sách định nghĩa nhóm tính năng
+* Hỗ trợ bản địa hóa
+* Tích hợp mô-đun quản lý tính năng ABP
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -24,9 +24,9 @@ public class AbpFeatureManagementHttpApiModule : AbpModule
 }
 ```
 
-## API路由
+## Tuyến API
 
-### 功能定义
+### Định nghĩa tính năng
 
 * GET /api/feature-management/definitions
 * GET /api/feature-management/definitions/{name}
@@ -34,7 +34,7 @@ public class AbpFeatureManagementHttpApiModule : AbpModule
 * PUT /api/feature-management/definitions/{name}
 * DELETE /api/feature-management/definitions/{name}
 
-### 功能组定义
+### Định nghĩa nhóm tính năng
 
 * GET /api/feature-management/group-definitions
 * GET /api/feature-management/group-definitions/{name}
@@ -42,15 +42,15 @@ public class AbpFeatureManagementHttpApiModule : AbpModule
 * PUT /api/feature-management/group-definitions/{name}
 * DELETE /api/feature-management/group-definitions/{name}
 
-## 本地化配置
+## Cấu hình bản địa hóa
 
-模块使用ABP的本地化系统，主要使用以下资源：
+Mô-đun sử dụng hệ thống bản địa hóa của ABP, chủ yếu dùng các tài nguyên sau:
 * AbpFeatureManagementResource
 * AbpValidationResource
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP Web API文档](https://docs.abp.io/en/abp/latest/API/Auto-API-Controllers)
-* [ABP功能管理文档](https://docs.abp.io/en/abp/latest/Features)
+* [Tài liệu ABP Web API](https://docs.abp.io/en/abp/latest/API/Auto-API-Controllers)
+* [Tài liệu quản lý tính năng ABP](https://docs.abp.io/en/abp/latest/Features)
 
 [English](README.EN.md)

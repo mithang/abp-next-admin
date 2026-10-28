@@ -1,5 +1,5 @@
 <!--
- * @Description: 表单渲染器，根据json生成表单
+ * @Description: Trình render form, tạo form từ json
 -->
 <template>
   <div class="v-form-container">
@@ -95,7 +95,7 @@
         });
       };
       /**
-       * 获取表单属性
+       * Lấy thuộc tính form
        */
       const formModelProps = computed(
         () => omit(props.formConfig, ['disabled', 'labelWidth', 'schemas']) as Recordable,
@@ -108,7 +108,7 @@
         formModelNew.value[key] = value;
       };
       provide<(key: String, value: any) => void>('setFormModelMethod', setFormModel);
-      // 把祖先组件的方法项注入到子组件中，子组件可通过inject获取
+      // Inject các phương thức của component tổ tiên vào component con, component con có thể lấy qua inject
       return {
         eFormModel,
         submit,

@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日程更新操作模式
+/// Chế độ thao tác cập nhật lịch trình
 /// </summary>
-[Description("日程更新操作模式")]
+[Description("Chế độ thao tác cập nhật lịch trình")]
 public enum ScheduleUpdateMode : uint
 {
     /// <summary>
-    /// 全部修改
+    /// Sửa tất cả
     /// </summary>
-    [Description("全部修改")]
+    [Description("Sửa tất cả")]
     ModifyAll = 0,
     /// <summary>
-    /// 仅修改此日程
+    /// Chỉ sửa lịch trình này
     /// </summary>
-    [Description("仅修改此日程")]
+    [Description("Chỉ sửa lịch trình này")]
     ModifyThisSchedule = 1,
     /// <summary>
-    /// 修改将来的所有日程
+    /// Sửa tất cả lịch trình trong tương lai
     /// </summary>
-    [Description("修改将来的所有日程")]
+    [Description("Sửa tất cả lịch trình trong tương lai")]
     ModifyAllFutureSchedules = 2,
 }

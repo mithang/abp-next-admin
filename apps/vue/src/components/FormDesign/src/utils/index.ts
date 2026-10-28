@@ -5,8 +5,8 @@ import { cloneDeep, isArray, isFunction, isNumber, uniqueId } from 'lodash-es';
 // import { withInstall } from '/@/utils';
 
 /**
- * 组件install方法
- * @param comp 需要挂载install方法的组件
+ * Phương thức install của component
+ * @param comp Component cần gắn phương thức install
  */
 // export function withInstall<T extends { name: string }>(comp: T) {
 //   return Object.assign(comp, {
@@ -17,9 +17,9 @@ import { cloneDeep, isArray, isFunction, isNumber, uniqueId } from 'lodash-es';
 // }
 
 /**
- * 生成key
- * @param [formItem] 需要生成 key 的控件，可选，如果不传，默认返回一个唯一 key
- * @returns {string|boolean} 返回一个唯一 id 或者 false
+ * Tạo key
+ * @param [formItem] Control cần tạo key, tùy chọn, nếu không truyền thì mặc định trả về một key duy nhất
+ * @returns {string|boolean} Trả về một id duy nhất hoặc false
  */
 export function generateKey(formItem?: IVFormComponent): string | boolean {
   if (formItem && formItem.component) {
@@ -33,10 +33,10 @@ export function generateKey(formItem?: IVFormComponent): string | boolean {
 }
 
 /**
- * 移除数组中指定元素，value可以是一个数字下标，也可以是一个函数，删除函数第一个返回true的元素
- * @param array {Array<T>} 需要移除元素的数组
+ * Xóa phần tử chỉ định trong mảng, value có thể là một chỉ số dạng số, cũng có thể là một hàm, xóa phần tử đầu tiên mà hàm trả về true
+ * @param array {Array<T>} Mảng cần xóa phần tử
  * @param value {number | ((item: T, index: number, array: Array<T>) => boolean}
- * @returns {T} 返回删除的数组项
+ * @returns {T} Trả về mục mảng đã xóa
  */
 export function remove<T>(
   array: Array<T>,
@@ -56,7 +56,7 @@ export function remove<T>(
 }
 
 /**
- * 判断数据类型
+ * Xác định kiểu dữ liệu
  * @param value
  */
 export function getType(value: any): string {
@@ -64,8 +64,8 @@ export function getType(value: any): string {
 }
 
 /**
- * 生成唯一guid
- * @returns {String} 唯一id标识符
+ * Tạo guid duy nhất
+ * @returns {String} Định danh id duy nhất
  */
 export function randomUUID(): string {
   function S4() {
@@ -75,7 +75,7 @@ export function randomUUID(): string {
 }
 
 /**
- * 驼峰转下划线
+ * Chuyển camelCase thành snake_case
  * @param str
  */
 export function toLine(str: string) {
@@ -83,7 +83,7 @@ export function toLine(str: string) {
 }
 
 /**
- * 遍历表单项
+ * Duyệt qua các mục form
  * @param array
  * @param cb
  */
@@ -92,7 +92,7 @@ export function formItemsForEach(array: IVFormComponent[], cb: (item: IVFormComp
   const traverse = (schemas: IVFormComponent[]) => {
     schemas.forEach((formItem: IVFormComponent) => {
       if (['Grid'].includes(formItem.component)) {
-        // 栅格布局
+        // Bố cục lưới
         formItem.columns?.forEach((item) => traverse(item.children));
       } else {
         cb(formItem);
@@ -103,7 +103,7 @@ export function formItemsForEach(array: IVFormComponent[], cb: (item: IVFormComp
 }
 
 /**
- * 查找表单项
+ * Tìm mục form
  */
 export const findFormItem: (
   schemas: IVFormComponent[],
@@ -113,7 +113,7 @@ export const findFormItem: (
   const traverse = (schemas: IVFormComponent[]): boolean => {
     return schemas.some((formItem: IVFormComponent) => {
       const { component: type } = formItem;
-      // 处理栅格
+      // Xử lý lưới
       if (['Grid'].includes(type)) {
         return formItem.columns?.some((item) => traverse(item.children));
       }
@@ -126,7 +126,7 @@ export const findFormItem: (
 };
 
 /**
- * 打开json模态框时删除当前项属性
+ * Xóa thuộc tính của mục hiện tại khi mở hộp thoại json
  * @param formConfig {IFormConfig}
  * @returns {IFormConfig}
  */
@@ -143,7 +143,7 @@ export const removeAttrs = (formConfig: IFormConfig): IFormConfig => {
 };
 
 /**
- * 处理异步选项属性，如 select treeSelect 等选项属性如果传递为函数并且返回Promise对象，获取异步返回的选项属性
+ * Xử lý thuộc tính tùy chọn bất đồng bộ, ví dụ các thuộc tính tùy chọn như select, treeSelect nếu được truyền dưới dạng hàm và trả về đối tượng Promise, thì lấy thuộc tính tùy chọn trả về một cách bất đồng bộ
  * @param {(() => Promise<any[]>) | any[]} options
  * @return {Promise<any[]>}
  */
@@ -159,7 +159,7 @@ export const handleAsyncOptions = async (
 };
 
 /**
- * 格式化表单项校验规则配置
+ * Định dạng cấu hình quy tắc kiểm tra của mục form
  * @param {IVFormComponent[]} schemas
  */
 export const formatRules = (schemas: IVFormComponent[]) => {
@@ -174,7 +174,7 @@ export const formatRules = (schemas: IVFormComponent[]) => {
 };
 
 /**
- * 将校验规则中的正则字符串转换为正则对象
+ * Chuyển chuỗi regex trong quy tắc kiểm tra thành đối tượng regex
  * @param {IValidationRule[]} rules
  * @return {IValidationRule[]}
  */
@@ -187,7 +187,7 @@ export const strToReg = (rules: IValidationRule[]) => {
 };
 
 /**
- * 执行一段字符串代码，并返回执行结果，如果执行出错，则返回该参数
+ * Thực thi một đoạn mã dạng chuỗi và trả về kết quả thực thi, nếu thực thi lỗi thì trả về chính tham số đó
  * @param code
  * @return {any}
  */

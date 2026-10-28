@@ -22,9 +22,9 @@ public class AbpWeChatOfficialModule : AbpModule
             options.MapEvent("subscribe", context =>
             {
                 return context.HasMessageKey("Ticket")
-                    // 用户未关注公众号时, 扫描带参数二维码后进行关注的事件
+                    // Sự kiện khi người dùng chưa theo dõi tài khoản chính thức quét mã QR có tham số rồi theo dõi
                     ? context.GetWeChatMessage<ParametricQrCodeEvent>()
-                    // 用户关注/取消关注
+                    // Người dùng theo dõi/hủy theo dõi
                     : context.GetWeChatMessage<UserSubscribeEvent>();
             });
             options.MapEvent("unsubscribe", context => context.GetWeChatMessage<UserUnSubscribeEvent>());
@@ -41,9 +41,9 @@ public class AbpWeChatOfficialModule : AbpModule
             options.MapMessage("location", context => context.GetWeChatMessage<GeoLocationMessage>());
             options.MapMessage("link", context => context.GetWeChatMessage<LinkMessage>());
 
-            // 事件处理器
+            // Bộ xử lý sự kiện
             options.MessageResolvers.AddIfNotContains(new WeChatOfficialEventResolveContributor());
-            // 消息处理器
+            // Bộ xử lý tin nhắn
             options.MessageResolvers.AddIfNotContains(new WeChatOfficialMessageResolveContributor());
         });
 

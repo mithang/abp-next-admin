@@ -18,8 +18,8 @@ import DocButton from '../doc-button.vue';
 
 const keyword = ref('');
 const fetching = ref(false);
-// 模拟远程获取数据
-function fetchRemoteOptions({ keyword = '选项' }: Record<string, any>) {
+// Mô phỏng việc lấy dữ liệu từ xa
+function fetchRemoteOptions({ keyword = 'Tùy chọn' }: Record<string, any>) {
   fetching.value = true;
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -34,92 +34,94 @@ function fetchRemoteOptions({ keyword = '选项' }: Record<string, any>) {
 }
 
 const [BaseForm, baseFormApi] = useVbenForm({
-  // 所有表单项共用，可单独在表单内覆盖
+  // Dùng chung cho tất cả các trường biểu mẫu, có thể ghi đè riêng trong từng biểu mẫu
   commonConfig: {
-    // 在label后显示一个冒号
+    // Hiển thị dấu hai chấm sau label
     colon: true,
-    // 所有表单项
+    // Tất cả các trường biểu mẫu
     componentProps: {
       class: 'w-full',
     },
   },
   fieldMappingTime: [['rangePicker', ['startTime', 'endTime'], 'YYYY-MM-DD']],
-  // 提交函数
+  // Hàm xử lý gửi biểu mẫu
   handleSubmit: onSubmit,
   handleValuesChange(_values, fieldsChanged) {
-    message.info(`表单以下字段发生变化：${fieldsChanged.join('，')}`);
+    message.info(
+      `Các trường sau của biểu mẫu đã thay đổi: ${fieldsChanged.join(', ')}`,
+    );
   },
 
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input trên cùng một dòng
   layout: 'horizontal',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Thành phần cần được đăng ký trong #/adapter.ts và bổ sung kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số của thành phần tương ứng
       componentProps: {
-        placeholder: '请输入用户名',
+        placeholder: 'Vui lòng nhập tên người dùng',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'username',
-      // 界面显示的label
-      label: '字符串',
+      // Label hiển thị trên giao diện
+      label: 'Chuỗi ký tự',
       rules: 'required',
     },
     {
       component: 'Input',
       fieldName: 'desc',
-      // 界面显示的description
-      description: '这是表单描述',
-      label: '字符串(带描述)',
+      // Description hiển thị trên giao diện
+      description: 'Đây là mô tả của biểu mẫu',
+      label: 'Chuỗi ký tự (có mô tả)',
     },
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Thành phần cần được đăng ký trong #/adapter.ts và bổ sung kiểu
       component: 'ApiSelect',
-      // 对应组件的参数
+      // Tham số của thành phần tương ứng
       componentProps: {
-        // 菜单接口转options格式
+        // Chuyển đổi API menu sang định dạng options
         afterFetch: (data: { name: string; path: string }[]) => {
           return data.map((item: any) => ({
             label: item.name,
             value: item.path,
           }));
         },
-        // 菜单接口
+        // API menu
         api: getAllMenusApi,
         autoSelect: 'first',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'api',
-      // 界面显示的label
+      // Label hiển thị trên giao diện
       label: 'ApiSelect',
     },
     {
       component: 'ApiSelect',
-      // 对应组件的参数
+      // Tham số của thành phần tương ứng
       componentProps: () => {
         return {
           api: fetchRemoteOptions,
-          // 禁止本地过滤
+          // Tắt lọc cục bộ
           filterOption: false,
-          // 如果正在获取数据，使用插槽显示一个loading
+          // Nếu đang tải dữ liệu, dùng slot để hiển thị trạng thái loading
           notFoundContent: fetching.value ? undefined : null,
-          // 搜索词变化时记录下来， 使用useDebounceFn防抖。
+          // Ghi lại khi từ khóa tìm kiếm thay đổi, sử dụng useDebounceFn để chống rung (debounce).
           onSearch: useDebounceFn((value: string) => {
             keyword.value = value;
           }, 300),
-          // 远程搜索参数。当搜索词变化时，params也会更新
+          // Tham số tìm kiếm từ xa. Khi từ khóa tìm kiếm thay đổi, params cũng sẽ được cập nhật
           params: {
             keyword: keyword.value || undefined,
           },
           showSearch: true,
         };
       },
-      // 字段名
+      // Tên trường
       fieldName: 'remoteSearch',
-      // 界面显示的label
-      label: '远程搜索',
+      // Label hiển thị trên giao diện
+      label: 'Tìm kiếm từ xa',
       renderComponentContent: () => {
         return {
           notFoundContent: fetching.value ? h(Spin) : undefined,
@@ -129,41 +131,41 @@ const [BaseForm, baseFormApi] = useVbenForm({
     },
     {
       component: 'ApiTreeSelect',
-      // 对应组件的参数
+      // Tham số của thành phần tương ứng
       componentProps: {
-        // 菜单接口
+        // API menu
         api: getAllMenusApi,
-        // 菜单接口转options格式
+        // Chuyển đổi API menu sang định dạng options
         labelField: 'name',
         valueField: 'path',
         childrenField: 'children',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'apiTree',
-      // 界面显示的label
+      // Label hiển thị trên giao diện
       label: 'ApiTreeSelect',
     },
     {
       component: 'InputPassword',
       componentProps: {
-        placeholder: '请输入密码',
+        placeholder: 'Vui lòng nhập mật khẩu',
       },
       fieldName: 'password',
-      label: '密码',
+      label: 'Mật khẩu',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'number',
-      label: '数字(带后缀)',
+      label: 'Số (có hậu tố)',
       suffix: () => '¥',
     },
     {
       component: 'IconPicker',
       fieldName: 'icon',
-      label: '图标',
+      label: 'Biểu tượng',
     },
     {
       colon: false,
@@ -173,36 +175,36 @@ const [BaseForm, baseFormApi] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       fieldName: 'options',
-      label: () => h(Tag, { color: 'warning' }, () => '😎自定义：'),
+      label: () => h(Tag, { color: 'warning' }, () => '😎Tùy chỉnh:'),
     },
     {
       component: 'RadioGroup',
       componentProps: {
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
       },
       fieldName: 'radioGroup',
-      label: '单选组',
+      label: 'Nhóm chọn đơn',
     },
     {
       component: 'Radio',
@@ -220,17 +222,17 @@ const [BaseForm, baseFormApi] = useVbenForm({
         name: 'cname',
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
       },
       fieldName: 'checkboxGroup',
-      label: '多选组',
+      label: 'Nhóm chọn nhiều',
     },
     {
       component: 'Checkbox',
@@ -238,12 +240,12 @@ const [BaseForm, baseFormApi] = useVbenForm({
       label: '',
       renderComponentContent: () => {
         return {
-          default: () => ['我已阅读并同意'],
+          default: () => ['Tôi đã đọc và đồng ý'],
         };
       },
       rules: z
         .boolean()
-        .refine((v) => v, { message: '为什么不同意？勾上它！' }),
+        .refine((v) => v, { message: 'Tại sao không đồng ý? Hãy tích chọn!' }),
     },
     {
       component: 'Mentions',
@@ -258,15 +260,15 @@ const [BaseForm, baseFormApi] = useVbenForm({
             value: 'zombieJ',
           },
         ],
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'mentions',
-      label: '提及',
+      label: 'Đề cập',
     },
     {
       component: 'Rate',
       fieldName: 'rate',
-      label: '评分',
+      label: 'Đánh giá',
     },
     {
       component: 'Switch',
@@ -275,29 +277,33 @@ const [BaseForm, baseFormApi] = useVbenForm({
       },
       fieldName: 'switch',
       help: () =>
-        ['这是一个多行帮助信息', '第二行', '第三行'].map((v) => h('p', v)),
-      label: '开关',
+        [
+          'Đây là thông tin trợ giúp nhiều dòng',
+          'Dòng thứ hai',
+          'Dòng thứ ba',
+        ].map((v) => h('p', v)),
+      label: 'Công tắc',
     },
     {
       component: 'DatePicker',
       fieldName: 'datePicker',
-      label: '日期选择框',
+      label: 'Hộp chọn ngày',
     },
     {
       component: 'RangePicker',
       fieldName: 'rangePicker',
-      label: '范围选择器',
+      label: 'Bộ chọn khoảng',
     },
     {
       component: 'TimePicker',
       fieldName: 'timePicker',
-      label: '时间选择框',
+      label: 'Hộp chọn thời gian',
     },
     {
       component: 'TreeSelect',
       componentProps: {
         allowClear: true,
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
         treeData: [
           {
@@ -338,24 +344,24 @@ const [BaseForm, baseFormApi] = useVbenForm({
         treeNodeFilterProp: 'label',
       },
       fieldName: 'treeSelect',
-      label: '树选择',
+      label: 'Chọn cây',
     },
     {
       component: 'Upload',
       componentProps: {
-        // 更多属性见：https://ant.design/components/upload-cn
+        // Xem thêm thuộc tính tại: https://ant.design/components/upload-cn
         accept: '.png,.jpg,.jpeg',
-        // 自动携带认证信息
+        // Tự động kèm thông tin xác thực
         customRequest: upload_file,
         disabled: false,
         maxCount: 1,
-        // 单位：MB
+        // Đơn vị: MB
         maxSize: 2,
         multiple: false,
         showUploadList: true,
-        // 上传列表的内建样式，支持四种基本样式 text, picture, picture-card 和 picture-circle
+        // Kiểu hiển thị tích hợp của danh sách tải lên, hỗ trợ bốn kiểu cơ bản text, picture, picture-card và picture-circle
         listType: 'picture-card',
-        // onChange事件已被重写，如需自定义请在此基础上扩展
+        // Sự kiện onChange đã được ghi đè, nếu cần tùy chỉnh hãy mở rộng trên cơ sở này
         handleChange: ({ file }: { file: UploadFile }) => {
           const { name, status } = file;
           if (status === 'done') {
@@ -382,9 +388,9 @@ const [BaseForm, baseFormApi] = useVbenForm({
         maxCount: 1,
         maxSize: 2,
         listType: 'picture-card',
-        // 是否启用图片裁剪(多选或者非图片不唤起裁剪框)
+        // Có bật cắt ảnh hay không (chọn nhiều hoặc không phải ảnh thì không mở khung cắt)
         crop: true,
-        // 裁剪比例
+        // Tỷ lệ cắt
         aspectRatio: '1:1',
       },
       fieldName: 'cropImage',
@@ -397,7 +403,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'selectRequired',
     },
   ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi hàng, màn hình vừa 2 mục mỗi hàng, màn hình nhỏ 1 mục mỗi hàng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
@@ -438,7 +444,7 @@ function onSubmit(values: Record<string, any>) {
     });
     return;
   }
-  // 如果需要可提交前替换为需要的urls
+  // Nếu cần, có thể thay thế bằng các urls mong muốn trước khi gửi
   values.files = doneFiles.map((file) => file.response?.url || file.url);
   values.cropImage = doneCrop.map((file) => file.response?.url || file.url);
   message.success({
@@ -448,7 +454,7 @@ function onSubmit(values: Record<string, any>) {
 
 function handleSetFormValue() {
   /**
-   * 设置表单值(多个)
+   * Đặt giá trị biểu mẫu (nhiều trường)
    */
   baseFormApi.setValues({
     checkboxGroup: ['1'],
@@ -474,7 +480,7 @@ function handleSetFormValue() {
     username: '1',
   });
 
-  // 设置单个表单值
+  // Đặt giá trị cho một trường biểu mẫu
   baseFormApi.setFieldValue('checkbox', true);
 }
 </script>
@@ -482,22 +488,26 @@ function handleSetFormValue() {
 <template>
   <Page
     content-class="flex flex-col gap-4"
-    description="表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。"
-    title="表单组件"
+    description="Ví dụ cơ bản về thành phần biểu mẫu. Lưu ý: mã tham số dùng trong trang này sẽ kèm một số chú thích đơn giản để dễ hiểu, vui lòng xem kỹ."
+    title="Thành phần biểu mẫu"
   >
     <template #description>
       <div class="text-muted-foreground">
         <p>
-          表单组件基础示例，请注意，该页面用到的参数代码会添加一些简单注释，方便理解，请仔细查看。
+          Ví dụ cơ bản về thành phần biểu mẫu. Lưu ý: mã tham số dùng trong
+          trang này sẽ kèm một số chú thích đơn giản để dễ hiểu, vui lòng xem
+          kỹ.
         </p>
       </div>
     </template>
     <template #extra>
       <DocButton class="mb-2" path="/components/common-ui/vben-form" />
     </template>
-    <Card title="基础示例">
+    <Card title="Ví dụ cơ bản">
       <template #extra>
-        <Button type="primary" @click="handleSetFormValue">设置表单值</Button>
+        <Button type="primary" @click="handleSetFormValue">
+          Đặt giá trị biểu mẫu
+        </Button>
       </template>
       <BaseForm />
     </Card>

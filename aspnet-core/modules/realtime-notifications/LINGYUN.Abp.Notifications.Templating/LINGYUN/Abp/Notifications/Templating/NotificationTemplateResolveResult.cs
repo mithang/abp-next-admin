@@ -4,7 +4,7 @@ namespace LINGYUN.Abp.Notifications.Templating;
 public class NotificationTemplateResolveResult
 {
     /// <summary>
-    /// 模板数据
+    /// Dữ liệu mẫu
     /// </summary>
     public object? Model { get; set; }
 

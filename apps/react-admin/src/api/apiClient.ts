@@ -5,28 +5,28 @@ import userStore, { useUserToken } from "@/store/userStore";
 
 import { toast } from "sonner";
 //TODO rm
-// 创建 axios 实例
+// Tạo axios instance
 const axiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_APP_BASE_API,
 	timeout: 50000,
 	headers: { "Content-Type": "application/json;charset=utf-8" },
 });
 
-// 请求拦截
+// Interceptor cho request
 axiosInstance.interceptors.request.use(
 	(config) => {
-		// 在请求被发送之前做些什么
+		// Làm gì đó trước khi request được gửi đi
 		const { accessToken } = useUserToken();
 		config.headers.Authorization = `${accessToken}`;
 		return config;
 	},
 	(error) => {
-		// 请求错误时做些什么
+		// Làm gì đó khi request lỗi
 		return Promise.reject(error);
 	},
 );
 
-// 响应拦截
+// Interceptor cho response
 axiosInstance.interceptors.response.use(
 	(res: AxiosResponse<any>) => {
 		const { data, status, headers } = res;
@@ -46,7 +46,7 @@ axiosInstance.interceptors.response.use(
 			return data;
 		}
 
-		// 业务请求错误
+		// Lỗi request nghiệp vụ
 		throw new Error(t("sys.api.apiRequestFailed"));
 	},
 	(error: AxiosError<any>) => {

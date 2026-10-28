@@ -13,27 +13,27 @@ const showCaching = refAutoReset(true, 1000);
 </script>
 
 <template>
-  <Page title="Vue Query示例">
+  <Page title="Ví dụ Vue Query">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <Card title="分页查询">
+      <Card title="Truy vấn phân trang">
         <PaginatedQueries />
       </Card>
-      <Card title="无限滚动">
+      <Card title="Cuộn vô hạn">
         <InfiniteQueries class="h-[300px] overflow-auto" />
       </Card>
-      <Card title="错误重试">
+      <Card title="Thử lại khi lỗi">
         <QueryRetries />
       </Card>
       <Card
-        title="并发和缓存"
+        title="Đồng thời và bộ nhớ đệm"
         v-spinning="!showCaching"
         :body-style="{ minHeight: '330px' }"
       >
         <template #extra>
-          <Button @click="showCaching = false">重新加载</Button>
+          <Button @click="showCaching = false">Tải lại</Button>
         </template>
         <ConcurrencyCaching v-if="showCaching" />
-        <Empty v-else description="正在加载..." />
+        <Empty v-else description="Đang tải..." />
       </Card>
     </div>
   </Page>

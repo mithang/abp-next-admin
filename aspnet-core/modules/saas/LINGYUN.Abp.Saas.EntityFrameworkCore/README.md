@@ -1,38 +1,38 @@
 # LINGYUN.Abp.Saas.EntityFrameworkCore
 
-SaaS EntityFrameworkCore模块，实现了租户和版本的数据访问层。
+Mô-đun SaaS EntityFrameworkCore, triển khai tầng truy cập dữ liệu cho tenant và phiên bản.
 
-## 功能特性
+## Tính năng
 
-* 实体映射配置
-  * 租户实体映射
-  * 版本实体映射
-  * 租户连接字符串实体映射
+* Cấu hình ánh xạ thực thể
+  * Ánh xạ thực thể tenant
+  * Ánh xạ thực thể phiên bản
+  * Ánh xạ thực thể chuỗi kết nối tenant
 
-* 仓储实现
-  * EfCoreTenantRepository：租户仓储实现
-  * EfCoreEditionRepository：版本仓储实现
+* Triển khai kho lưu trữ
+  * EfCoreTenantRepository: triển khai kho lưu trữ tenant
+  * EfCoreEditionRepository: triển khai kho lưu trữ phiên bản
 
-* 数据库表
-  * AbpEditions：版本表
-  * AbpTenants：租户表
-  * AbpTenantConnectionStrings：租户连接字符串表
+* Bảng cơ sở dữ liệu
+  * AbpEditions: bảng phiên bản
+  * AbpTenants: bảng tenant
+  * AbpTenantConnectionStrings: bảng chuỗi kết nối tenant
 
-## 配置说明
+## Hướng dẫn cấu hình
 
-可以通过配置修改数据库表前缀和Schema：
+Có thể sửa tiền tố bảng cơ sở dữ liệu và Schema bằng cấu hình:
 
 ```json
 {
   "AbpSaas": {
     "EntityFrameworkCore": {
-      "TablePrefix": "Abp",  // 数据库表前缀
-      "Schema": null         // 数据库Schema
+      "TablePrefix": "Abp",  // Tiền tố bảng cơ sở dữ liệu
+      "Schema": null         // Schema cơ sở dữ liệu
     }
   }
 }
 ```
 
-## 更多
+## Xem thêm
 
 [English](README.EN.md)

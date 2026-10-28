@@ -33,7 +33,7 @@ public class AbpCAPEventBusModule : AbpModule
 
         context.Services.AddCAPEventBus(options =>
         {
-            // 取消默认的五分钟高频清理
+            // Hủy việc dọn dẹp tần suất cao mặc định mỗi năm phút
             // options.CollectorCleaningInterval = 360_0000;
 
             configuration.GetSection("CAP:EventBus").Bind(options);
@@ -46,7 +46,7 @@ public class AbpCAPEventBusModule : AbpModule
                     var exceptionNotifier = failed.ServiceProvider.GetService<IFailedThresholdCallbackNotifier>();
                     if (exceptionNotifier != null)
                     {
-                        // TODO: 作为异常处理?
+                        // TODO: Xử lý như ngoại lệ?
                         await exceptionNotifier.NotifyAsync(new AbpCAPExecutionFailedException(failed.MessageType, failed.Message));
                     }
                 };

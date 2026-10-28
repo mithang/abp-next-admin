@@ -125,4 +125,4 @@ The module provides the following feature switches:
 * [Tencent Cloud SMS Service](https://cloud.tencent.com/document/product/382)
 * [SMS Console](https://console.cloud.tencent.com/smsv2)
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

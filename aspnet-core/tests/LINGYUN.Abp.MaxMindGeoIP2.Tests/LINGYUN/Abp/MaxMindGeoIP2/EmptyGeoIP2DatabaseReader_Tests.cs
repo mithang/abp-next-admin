@@ -8,10 +8,10 @@ using Xunit;
 namespace LINGYUN.Abp.MaxMindGeoIP2;
 
 /// <summary>
-/// 空 GeoIP2 解读器
+/// Trình đọc GeoIP2 rỗng
 /// </summary>
 /// <remarks>
-/// 未提供离线库文件时使用, 相当于解读了一份空内容: 所有查询都返回"无数据"
+/// Dùng khi không cung cấp file thư viện ngoại tuyến, tương đương với việc đọc một nội dung rỗng: mọi truy vấn đều trả về "không có dữ liệu"
 /// </remarks>
 public class EmptyGeoIP2DatabaseReader_Tests
 {
@@ -56,7 +56,7 @@ public class EmptyGeoIP2DatabaseReader_Tests
     }
 
     /// <summary>
-    /// 非 Try 方法与真实解读器未命中时的行为一致: 抛出 AddressNotFoundException
+    /// Các phương thức không phải Try có hành vi giống khi trình đọc thật không tìm thấy: ném AddressNotFoundException
     /// </summary>
     [Fact]
     public void Should_Throw_Address_Not_Found()
@@ -75,7 +75,7 @@ public class EmptyGeoIP2DatabaseReader_Tests
     }
 
     /// <summary>
-    /// 空解读器不提供数据库元数据
+    /// Trình đọc rỗng không cung cấp siêu dữ liệu cơ sở dữ liệu
     /// </summary>
     [Fact]
     public void Should_Not_Provide_Metadata()
@@ -84,7 +84,7 @@ public class EmptyGeoIP2DatabaseReader_Tests
     }
 
     /// <summary>
-    /// 选项: 未指定数据库文件时判定为不存在
+    /// Tùy chọn: khi chưa chỉ định file cơ sở dữ liệu thì được xác định là không tồn tại
     /// </summary>
     [Fact]
     public void Should_Check_Database_File()

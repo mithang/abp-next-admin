@@ -13,17 +13,17 @@ public class AbpNotificationsManagementOptions
     /// </summary>
     public bool IsDynamicNotificationsStoreEnabled { get; set; }
     /// <summary>
-    /// 缓存刷新时间
+    /// Thời gian làm mới bộ nhớ đệm
     /// default: 30 seconds
     /// </summary>
     public TimeSpan NotificationsCacheRefreshInterval { get; set; }
     /// <summary>
-    /// 申请时间戳超时时间
+    /// Thời gian hết hạn dấu thời gian của yêu cầu
     /// default: 2 minutes
     /// </summary>
     public TimeSpan NotificationsCacheStampTimeOut { get; set; }
     /// <summary>
-    /// 时间戳过期时间
+    /// Thời gian hết hạn dấu thời gian
     /// default: 30 days
     /// </summary>
     public TimeSpan NotificationsCacheStampExpiration { get; set; }
@@ -33,7 +33,7 @@ public class AbpNotificationsManagementOptions
 
         NotificationsCacheRefreshInterval = TimeSpan.FromSeconds(30);
         NotificationsCacheStampTimeOut = TimeSpan.FromMinutes(2);
-        // 30天过期重新刷新缓存
+        // Hết hạn sau 30 ngày sẽ làm mới lại bộ nhớ đệm
         NotificationsCacheStampExpiration = TimeSpan.FromDays(30);
     }
 }

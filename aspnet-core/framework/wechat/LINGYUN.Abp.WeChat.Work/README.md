@@ -1,20 +1,20 @@
 # LINGYUN.Abp.WeChat.Work
 
-企业微信集成模块，提供企业微信应用开发所需的功能支持。
+Mô-đun tích hợp WeChat doanh nghiệp, cung cấp hỗ trợ chức năng cần thiết cho việc phát triển ứng dụng WeChat doanh nghiệp.
 
-## 功能特性
+## Tính năng
 
-* 企业微信身份验证
-* 通讯录管理
-* 消息推送
-* 素材管理
-* 客户联系
-* 应用管理
-* 身份验证
-* 企业支付
-* 电子发票
+* Xác thực danh tính WeChat doanh nghiệp
+* Quản lý danh bạ
+* Đẩy tin nhắn
+* Quản lý tài nguyên
+* Liên hệ khách hàng
+* Quản lý ứng dụng
+* Xác thực danh tính
+* Thanh toán doanh nghiệp
+* Hóa đơn điện tử
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatWorkModule))]
@@ -24,32 +24,32 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Cấu hình
 
 ```json
 {
   "WeChat": {
     "Work": {
-      "CorpId": "",               // 企业ID
-      "AgentId": 0,              // 应用ID
-      "Secret": "",              // 应用密钥
-      "Token": "",               // 消息Token
-      "EncodingAESKey": "",      // 消息加密密钥
-      "ApiUrl": "https://qyapi.weixin.qq.com" // API地址
+      "CorpId": "",               // ID doanh nghiệp
+      "AgentId": 0,              // ID ứng dụng
+      "Secret": "",              // Khóa bí mật ứng dụng
+      "Token": "",               // Token tin nhắn
+      "EncodingAESKey": "",      // Khóa mã hóa tin nhắn
+      "ApiUrl": "https://qyapi.weixin.qq.com" // Địa chỉ API
     }
   }
 }
 ```
 
-## Settings配置
+## Cấu hình Settings
 
-* `WeChat.Work.CorpId`: 企业ID
-* `WeChat.Work.AgentId`: 应用ID
-* `WeChat.Work.Secret`: 应用密钥
-* `WeChat.Work.Token`: 消息Token
-* `WeChat.Work.EncodingAESKey`: 消息加密密钥
-* `WeChat.Work.ApiUrl`: API地址
+* `WeChat.Work.CorpId`: ID doanh nghiệp
+* `WeChat.Work.AgentId`: ID ứng dụng
+* `WeChat.Work.Secret`: Khóa bí mật ứng dụng
+* `WeChat.Work.Token`: Token tin nhắn
+* `WeChat.Work.EncodingAESKey`: Khóa mã hóa tin nhắn
+* `WeChat.Work.ApiUrl`: Địa chỉ API
 
-## 更多文档
+## Tài liệu khác
 
-* [企业微信集成模块文档](README.EN.md)
+* [Tài liệu mô-đun tích hợp WeChat doanh nghiệp](README.EN.md)

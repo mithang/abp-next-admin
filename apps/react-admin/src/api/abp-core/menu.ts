@@ -2,7 +2,7 @@
 // import requestClient from '../request';
 
 /**
- * 获取用户所有菜单
+ * Lấy tất cả menu của người dùng
  */
 // export async function getAllMenusApi() {
 //   return requestClient.get<RouteRecordStringComponent[]>('/menu/all');

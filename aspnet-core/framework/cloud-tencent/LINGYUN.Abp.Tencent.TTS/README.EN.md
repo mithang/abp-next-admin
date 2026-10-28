@@ -90,4 +90,4 @@ public class YourService
 * [Tencent Cloud TTS Service](https://cloud.tencent.com/document/product/1073)
 * [Tencent Cloud TTS SDK Documentation](https://cloud.tencent.com/document/product/1073/37927)
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

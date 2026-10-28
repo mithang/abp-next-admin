@@ -1,4 +1,5 @@
 ﻿using DotNetCore.CAP;
+using Microsoft.Extensions.Logging;
 using LINGYUN.Abp.AI;
 using LINGYUN.Abp.AI.Agent;
 using LINGYUN.Abp.AIManagement;
@@ -13,6 +14,10 @@ using Medallion.Threading.Redis;
 using Microsoft.Agents.AI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
@@ -62,7 +67,7 @@ public partial class AIServiceModule
     {
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别，应在0-31之间
+            // Phân biệt bằng cổng đang mở, phải nằm trong khoảng 0-31
             options.SnowflakeIdOptions.WorkerId = 19;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -109,7 +114,7 @@ public partial class AIServiceModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -118,7 +123,7 @@ public partial class AIServiceModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hoá khi tuần tự hoá tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -221,6 +226,33 @@ public partial class AIServiceModule
         {
             options.ExposeIntegrationServices = true;
         });
+
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks(configuration["App:HealthChecks"] ?? "/healthz");
+            });
+        });
+
+        // DEVOPS iter-0006 (DEV-11): /healthz truoc day tro trui (AddHealthChecks()
+        // khong check nao) nen luon 200 ke ca khi DB/Redis chet. Dang ky check
+        // dependency that tai day; xem HealthChecks/AIServiceHealthChecks.cs. Quet DbContext tu
+        // IServiceCollection: ABP chay ConfigureServices cua module phu thuoc truoc
+        // module host, nen luc ConfigureMvc chay thi cac DbContext da duoc dang ky.
+        var dbContextTypes = services
+            .Where(s => s.ServiceType.IsClass && !s.ServiceType.IsAbstract
+                && typeof(DbContext).IsAssignableFrom(s.ServiceType))
+            .Select(s => s.ServiceType)
+            .Distinct()
+            .ToList();
+        services.AddSingleton(sp => new HealthChecks.DatabaseHealthCheck(
+            dbContextTypes,
+            sp.GetRequiredService<IServiceScopeFactory>(),
+            sp.GetService<ILogger<HealthChecks.DatabaseHealthCheck>>()));
+        services.AddHealthChecks()
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database")
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 
     private void ConfigureVirtualFileSystem()
@@ -233,7 +265,7 @@ public partial class AIServiceModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa tenant
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -266,7 +298,7 @@ public partial class AIServiceModule
     {
         Configure<AbpAuditingOptions>(options =>
         {
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi của thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -322,11 +354,11 @@ public partial class AIServiceModule
 
     private void ConfigureLocalization()
     {
-        // 支持本地化语言类型
+        // Các loại ngôn ngữ bản địa hoá được hỗ trợ
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
 
             options.Resources
                    .Get<IdentityResource>()
@@ -431,7 +463,7 @@ public partial class AIServiceModule
 
     private void PreConfigureWrapper()
     {
-        // 服务间调用不包装
+        // Lời gọi giữa các service không được đóng gói kết quả
         PreConfigure<AbpHttpClientBuilderOptions>(options =>
         {
             options.ProxyClientActions.Add(

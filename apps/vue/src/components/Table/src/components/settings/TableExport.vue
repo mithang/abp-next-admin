@@ -54,19 +54,19 @@
 
   function exportDataToExcel(options) {
     const dataSource = table.getDataSource();
-    // 列排序过滤
+    // Sắp xếp và lọc cột
     const columns = table.getColumns()
       .filter((col) => !col.flag || col.flag === 'DEFAULT')
       .filter((col) => isString(col.title) && isString(col.dataIndex));
-    // 标题列
+    // Cột tiêu đề
     const header: {[key:string]: string} = {};
     columns.forEach((col) => {
       header[String(col.dataIndex)] = String(col.title);
     });
-    // 数据列
+    // Cột dữ liệu
     const rows: {[key:string]: string}[] = [];
     dataSource.forEach((data) => fillDataRows(columns, data, rows));
-    // 输出到excel
+    // Xuất ra excel
     jsonToSheetXlsx({
       data: rows,
       header: header,

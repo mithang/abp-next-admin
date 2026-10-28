@@ -66,7 +66,7 @@ class NotificationsController extends GetxController with ScrollMixin {
   Future<void> onEndScroll() async {
     if (state.hasMore) {
       _state.update((val) {
-        // 防止多次触发
+        // Ngăn kích hoạt nhiều lần
         val!.hasMore = false;
         val.skipCount = val.skipCount + val.maxResultCount;
       });

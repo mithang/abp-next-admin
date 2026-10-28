@@ -14,23 +14,23 @@ import Title from './auth-title.vue';
 interface Props {
   formSchema: VbenFormSchema[];
   /**
-   * @zh_CN 是否处于加载处理状态
+   * @zh_CN Có đang ở trạng thái xử lý tải hay không
    */
   loading?: boolean;
   /**
-   * @zh_CN 登录路径
+   * @zh_CN Đường dẫn đăng nhập
    */
   loginPath?: string;
   /**
-   * @zh_CN 标题
+   * @zh_CN Tiêu đề
    */
   title?: string;
   /**
-   * @zh_CN 描述
+   * @zh_CN Mô tả
    */
   subTitle?: string;
   /**
-   * @zh_CN 按钮文本
+   * @zh_CN Văn bản nút
    */
   submitButtonText?: string;
 }

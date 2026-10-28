@@ -23,7 +23,7 @@
           <Checkbox v-model:checked="isIndexColumnShow" @change="onIndexColumnShowChange">
             {{ t('component.table.settingIndexColumnShow') }}
           </Checkbox>
-          <!-- 设置了 rowSelection 才出现 -->
+          <!-- Chỉ xuất hiện khi đã thiết lập rowSelection -->
           <Checkbox
             v-model:checked="isRowSelectionShow"
             @change="onRowSelectionShowChange"
@@ -120,7 +120,7 @@
   import Sortablejs from 'sortablejs';
   import { INDEX_COLUMN_FLAG } from '/@/components/Table/src/const';
 
-  // 列表设置缓存
+  // Bộ nhớ đệm cài đặt danh sách
   import { useTableSettingStore } from '/@/store/modules/tableSetting';
   import { useRoute } from 'vue-router';
   import { TableRowSelection } from '/@/components/Table/src/types/table';
@@ -141,7 +141,7 @@
   const props = withDefaults(
     defineProps<{
       /**
-       * 是否缓存列的设置
+       * Có lưu bộ nhớ đệm cài đặt cột hay không
        */
       cache?: boolean;
     }>(),
@@ -154,43 +154,43 @@
     return isFunction(attrs.getPopupContainer) ? attrs.getPopupContainer() : getParentContainer();
   };
 
-  // 是否已经从缓存恢复
+  // Đã khôi phục từ bộ nhớ đệm hay chưa
   let isRestored = false;
   let isInnerChange = false;
 
-  // 列可选项
+  // Các tùy chọn cột
   const columnOptions = ref<ColumnOptionsType[]>([]);
   const columnOptionsRef = ref(null);
-  // 已选列
+  // Cột đã chọn
   const columnCheckedOptions = ref<string[]>([]);
-  // 已选变化
+  // Thay đổi cột đã chọn
   watch(columnCheckedOptions, () => {
-    // 恢复缓存后生效
+    // Có hiệu lực sau khi khôi phục bộ nhớ đệm
     if (isRestored) {
-      // 显示
+      // Hiển thị
       columnOptions.value
         .filter((o) => columnCheckedOptions.value.includes(o.value))
         .forEach((o) => {
           o.column.defaultHidden = false;
         });
-      // 隐藏
+      // Ẩn
       columnOptions.value
         .filter((o) => !columnCheckedOptions.value.includes(o.value))
         .forEach((o) => {
           o.column.defaultHidden = true;
           o.fixed = undefined;
         });
-      // 从 列可选项 更新 全选状态
+      // Cập nhật trạng thái chọn tất cả từ các tùy chọn cột
       isColumnAllSelectedUpdate();
 
-      // 列表列更新
+      // Cập nhật cột danh sách
       tableColumnsUpdate();
-      // 更新列缓存
+      // Cập nhật bộ nhớ đệm cột
       props.cache && columnOptionsSave();
     }
   });
 
-  // 全选
+  // Chọn tất cả
   const isColumnAllSelected = ref<boolean>(false);
   const onColumnAllSelectChange = () => {
     if (columnCheckedOptions.value.length < columnOptions.value.length) {
@@ -200,7 +200,7 @@
     }
   };
 
-  // 半选状态
+  // Trạng thái chọn một phần
   const indeterminate = computed(() => {
     return (
       columnCheckedOptions.value.length > 0 &&
@@ -208,33 +208,33 @@
     );
   });
 
-  // 是否显示序号列
+  // Có hiển thị cột số thứ tự hay không
   const isIndexColumnShow = ref<boolean>(false);
-  // 序号列更新
+  // Cập nhật cột số thứ tự
   const onIndexColumnShowChange = (e: CheckboxChangeEvent) => {
-    // 更新 showIndexColumn
+    // Cập nhật showIndexColumn
     showIndexColumnUpdate(e.target.checked);
-    // 更新 showIndexColumn 缓存
+    // Cập nhật bộ nhớ đệm showIndexColumn
     props.cache &&
       typeof route.name === 'string' &&
       tableSettingStore.setShowIndexColumn(route.name, e.target.checked);
   };
 
-  // 是否显示选择列
+  // Có hiển thị cột chọn hay không
   const isRowSelectionShow = ref<boolean>(false);
-  // 选择列更新
+  // Cập nhật cột chọn
   const onRowSelectionShowChange = (e: CheckboxChangeEvent) => {
-    // 更新 showRowSelection
+    // Cập nhật showRowSelection
     showRowSelectionUpdate(e.target.checked);
-    // 更新 showRowSelection 缓存
+    // Cập nhật bộ nhớ đệm showRowSelection
     props.cache &&
       typeof route.name === 'string' &&
       tableSettingStore.setShowRowSelection(route.name, e.target.checked);
   };
 
-  // 是否可改变列大小
+  // Có thể thay đổi kích thước cột hay không
   const isAllowResizeColumn = ref<boolean>(false);
-  // 改变列大小
+  // Thay đổi kích thước cột
   const onColumnAllowResizeChange = (e: CheckboxChangeEvent) => {
     const columns = getTableColumns();
     columns.forEach((col) => {
@@ -247,35 +247,35 @@
       tableSettingStore.setAllowResizeColumn(route.name, e.target.checked);
   }
 
-  // 更新列缓存
+  // Cập nhật bộ nhớ đệm cột
   const columnOptionsSave = () => {
     if (typeof route.name === 'string') {
-      // 按路由 name 作为缓存的key（若一个路由内存在多个表格，需自行调整缓存key来源）
+      // Dùng name của route làm key cho bộ nhớ đệm (nếu trong một route có nhiều bảng, cần tự điều chỉnh nguồn key bộ nhớ đệm)
       tableSettingStore.setColumns(route.name, columnOptions.value);
     }
   };
 
-  // 重置
+  // Đặt lại
   const onReset = () => {
-    // 重置默认值
+    // Đặt lại giá trị mặc định
     isIndexColumnShow.value = defaultIsIndexColumnShow;
-    // 序号列更新
+    // Cập nhật cột số thứ tự
     onIndexColumnShowChange({
       target: { checked: defaultIsIndexColumnShow },
     } as CheckboxChangeEvent);
-    // 重置默认值
+    // Đặt lại giá trị mặc định
     isRowSelectionShow.value = defaultIsRowSelectionShow;
-    // 选择列更新
+    // Cập nhật cột chọn
     onRowSelectionShowChange({
       target: { checked: defaultIsRowSelectionShow },
     } as CheckboxChangeEvent);
-    // 重置默认值
+    // Đặt lại giá trị mặc định
     columnOptions.value = cloneDeep(defaultColumnOptions);
-    // 更新表单状态
+    // Cập nhật trạng thái form
     formUpdate();
   };
 
-  // 设置列的 fixed
+  // Thiết lập fixed cho cột
   const onColumnFixedChange = (opt: ColumnOptionsType, type: 'left' | 'right') => {
     if (type === 'left') {
       if (!opt.fixed || opt.fixed === 'right') {
@@ -291,16 +291,16 @@
       }
     }
 
-    // 列表列更新
+    // Cập nhật cột danh sách
     tableColumnsUpdate();
-    // 更新列缓存
+    // Cập nhật bộ nhớ đệm cột
     props.cache && columnOptionsSave();
   };
 
-  // 沿用逻辑
+  // Giữ nguyên logic
   const sortableFix = async () => {
-    // Sortablejs存在bug，不知道在哪个步骤中会向el append了一个childNode，因此这里先清空childNode
-    // 有可能复现上述问题的操作：拖拽一个元素，快速的上下移动，最后放到最后的位置中松手
+    // Sortablejs có bug, không rõ ở bước nào sẽ append một childNode vào el, vì vậy ở đây xóa childNode trước
+    // Thao tác có thể tái hiện vấn đề trên: kéo một phần tử, di chuyển lên xuống nhanh, cuối cùng thả ở vị trí cuối cùng
     if (columnOptionsRef.value) {
       const el = (columnOptionsRef.value as InstanceType<typeof Checkbox.Group>).$el;
       Array.from(el.children).forEach((item) => el.removeChild(item));
@@ -308,7 +308,7 @@
     await nextTick();
   };
 
-  // 列是否显示逻辑
+  // Logic cột có hiển thị hay không
   const columnIfShow = (column?: Partial<Omit<BasicColumn, 'children'>>) => {
     if (column) {
       if ('ifShow' in column) {
@@ -323,19 +323,19 @@
     return false;
   };
 
-  // 获取数据列
+  // Lấy cột dữ liệu
   const getTableColumns = () => {
     return table
       .getColumns({ ignoreIndex: true, ignoreAction: true })
       .filter((col) => columnIfShow(col));
   };
 
-  // 设置列表列
+  // Thiết lập cột danh sách
   const tableColumnsSet = (columns: BasicColumn[]) => {
     isInnerChange = true;
     table?.setColumns(columns);
 
-    // 沿用逻辑
+    // Giữ nguyên logic
     const columnChangeParams: ColumnChangeParam[] = columns.map((col) => ({
       dataIndex: col.dataIndex ? col.dataIndex.toString() : '',
       fixed: col.fixed,
@@ -344,22 +344,22 @@
     emit('columns-change', columnChangeParams);
   };
 
-  // 列表列更新
+  // Cập nhật cột danh sách
   const tableColumnsUpdate = () => {
-    // 考虑了所有列
+    // Đã xét tất cả các cột
     const columns = cloneDeep(table.getColumns());
 
-    // 从左 fixed 最一列开始排序（除了 序号列）
+    // Sắp xếp bắt đầu từ cột fixed ngoài cùng bên trái (trừ cột số thứ tự)
     let count = columns.filter(
       (o) => o.flag !== INDEX_COLUMN_FLAG && (o.fixed === 'left' || o.fixed === true),
     ).length;
 
-    // 序号列提前
+    // Cột số thứ tự lên trước
     if (isIndexColumnShow.value) {
       count++;
     }
 
-    // 按 columnOptions 的排序 调整 table.getColumns() 的顺序和值
+    // Điều chỉnh thứ tự và giá trị của table.getColumns() theo thứ tự của columnOptions
     for (const opt of columnOptions.value) {
       const colIdx = columns.findIndex((o) => o.dataIndex === opt.value);
       //
@@ -368,27 +368,27 @@
         target.defaultHidden = opt.column?.defaultHidden;
         target.fixed = opt.fixed;
         columns.splice(colIdx, 1);
-        columns.splice(count++, 0, target); // 递增插入
+        columns.splice(count++, 0, target); // Chèn tăng dần
       }
     }
 
-    // 是否存在 action
+    // Có tồn tại action hay không
     const actionIndex = columns.findIndex((o) => o.dataIndex === 'action');
     if (actionIndex > -1) {
       const actionCol = columns.splice(actionIndex, 1);
       columns.push(actionCol[0]);
     }
 
-    // 设置列表列
+    // Thiết lập cột danh sách
     tableColumnsSet(columns);
   };
 
-  // 打开浮窗
+  // Mở cửa sổ nổi
   const onOpenChange = async () => {
     await nextTick();
 
     if (columnOptionsRef.value) {
-      // 注册排序实例
+      // Đăng ký instance sắp xếp
       const el = (columnOptionsRef.value as InstanceType<typeof Checkbox.Group>).$el;
       Sortablejs.create(unref(el), {
         animation: 500,
@@ -404,7 +404,7 @@
 
           const options = cloneDeep(columnOptions.value);
 
-          // 排序
+          // Sắp xếp
           if (oldIndex > newIndex) {
             options.splice(newIndex, 0, options[oldIndex]);
             options.splice(oldIndex + 1, 1);
@@ -413,24 +413,24 @@
             options.splice(oldIndex, 1);
           }
 
-          // 更新 列可选项
+          // Cập nhật các tùy chọn cột
           columnOptions.value = options;
 
-          // 列表列更新
+          // Cập nhật cột danh sách
           tableColumnsUpdate();
-          // 更新列缓存
+          // Cập nhật bộ nhớ đệm cột
           props.cache && columnOptionsSave();
         },
       });
     }
   };
 
-  // remove消失的列、push新出现的列
+  // Xóa các cột đã biến mất, thêm các cột mới xuất hiện
   const diff = () => {
     if (typeof route.name === 'string') {
       let cache = tableSettingStore.getColumns(route.name);
       if (cache) {
-        // value、label是否一致
+        // value và label có khớp nhau hay không
         if (
           JSON.stringify(columnOptions.value.map((o) => ({ value: o.value, label: o.label }))) !==
           JSON.stringify(cache.map((o) => ({ value: o.value, label: o.label })))
@@ -440,16 +440,16 @@
             return map;
           }, {});
           if (Array.isArray(cache)) {
-            // remove消失的列
+            // Xóa các cột đã biến mất
             cache = cache.filter((o) => map[o.value]);
-            // 更新label
+            // Cập nhật label
             cache.forEach((o) => {
               o.label = map[o.value];
             });
             const cacheKeys = cache.map((o) => o.value);
-            // push新出现的列
+            // Thêm các cột mới xuất hiện
             cache = cache.concat(columnOptions.value.filter((o) => !cacheKeys.includes(o.value)));
-            // 更新缓存
+            // Cập nhật bộ nhớ đệm
             tableSettingStore.setColumns(route.name, cache);
           }
         }
@@ -457,63 +457,63 @@
     }
   };
 
-  // 从缓存恢复
+  // Khôi phục từ bộ nhớ đệm
   const restore = () => {
     if (typeof route.name === 'string') {
       const isIndexColumnShowCache = tableSettingStore.getShowIndexColumn(route.name);
-      // 设置过才恢复
+      // Chỉ khôi phục khi đã từng thiết lập
       if (typeof isIndexColumnShowCache === 'boolean') {
         isIndexColumnShow.value = defaultIsIndexColumnShow && isIndexColumnShowCache;
       }
 
       const isRowSelectionShowCache = tableSettingStore.getShowRowSelection(route.name);
-      // 设置过才恢复
+      // Chỉ khôi phục khi đã từng thiết lập
       if (typeof isRowSelectionShowCache === 'boolean') {
         isRowSelectionShow.value = defaultIsRowSelectionShow && isRowSelectionShowCache;
       }
 
       const allowResizeColumnCache = tableSettingStore.getAllowResizeColumn(route.name);
-      // 设置过才恢复
+      // Chỉ khôi phục khi đã từng thiết lập
       if (typeof allowResizeColumnCache === 'boolean') {
         isAllowResizeColumn.value = defaultIsAllowResizeColumn && allowResizeColumnCache;
       }
     }
-    // 序号列更新
+    // Cập nhật cột số thứ tự
     onIndexColumnShowChange({
       target: { checked: isIndexColumnShow.value },
     } as CheckboxChangeEvent);
-    // 选择列更新
+    // Cập nhật cột chọn
     onRowSelectionShowChange({
       target: { checked: isRowSelectionShow.value },
     } as CheckboxChangeEvent);
 
     if (typeof route.name === 'string') {
       const cache = tableSettingStore.getColumns(route.name);
-      // 设置过才恢复
+      // Chỉ khôi phục khi đã từng thiết lập
       if (Array.isArray(cache)) {
         columnOptions.value = cache;
       }
     }
   };
 
-  // 从 列可选项 更新 已选列
+  // Cập nhật các cột đã chọn từ các tùy chọn cột
   const columnCheckedOptionsUpdate = () => {
     columnCheckedOptions.value = columnOptions.value
       .filter((o) => !o.column?.defaultHidden)
       .map((o) => o.value);
   };
-  // 从 列可选项 更新 全选状态
+  // Cập nhật trạng thái chọn tất cả từ các tùy chọn cột
   const isColumnAllSelectedUpdate = () => {
     isColumnAllSelected.value = columnOptions.value.length === columnCheckedOptions.value.length;
   };
-  // 更新 showIndexColumn
+  // Cập nhật showIndexColumn
   const showIndexColumnUpdate = (showIndexColumn) => {
     isInnerChange = true;
     table.setProps({
       showIndexColumn,
     });
   };
-  // 更新 rowSelection
+  // Cập nhật rowSelection
   const showRowSelectionUpdate = (showRowSelection) => {
     isInnerChange = true;
     table.setProps({
@@ -526,25 +526,25 @@
     });
   };
 
-  // 更新表单状态
+  // Cập nhật trạng thái form
   const formUpdate = () => {
-    // 从 列可选项 更新 已选列
+    // Cập nhật các cột đã chọn từ các tùy chọn cột
     columnCheckedOptionsUpdate();
 
-    // 从 列可选项 更新 全选状态
+    // Cập nhật trạng thái chọn tất cả từ các tùy chọn cột
     isColumnAllSelectedUpdate();
 
-    // 更新 showIndexColumn
+    // Cập nhật showIndexColumn
     showIndexColumnUpdate(isIndexColumnShow.value);
 
-    // 更新 showRowSelection
+    // Cập nhật showRowSelection
     showRowSelectionUpdate(isRowSelectionShow.value);
 
-    // 列表列更新
+    // Cập nhật cột danh sách
     tableColumnsUpdate();
   };
 
-  // 默认值
+  // Giá trị mặc định
   let defaultIsIndexColumnShow: boolean = false;
   let defaultIsRowSelectionShow: boolean = false;
   let defaultIsAllowResizeColumn: boolean = false;
@@ -553,16 +553,16 @@
 
   const init = async () => {
     if (!isRestored) {
-      // 获取数据列
+      // Lấy cột dữ liệu
       const columns = getTableColumns();
 
-      // 沿用逻辑
+      // Giữ nguyên logic
       table.setCacheColumns?.(columns);
 
-      // 生成 默认值
+      // Tạo giá trị mặc định
       const options: ColumnOptionsType[] = [];
       for (const col of columns) {
-        // 只缓存 string 类型的列
+        // Chỉ lưu bộ nhớ đệm các cột kiểu string
         options.push({
           label:
             typeof col.title === 'string'
@@ -583,39 +583,39 @@
         });
       }
 
-      // 默认值 缓存
+      // Bộ nhớ đệm giá trị mặc định
       defaultIsIndexColumnShow = table.getBindValues.value.showIndexColumn || false;
       defaultRowSelection = table.getRowSelection();
-      defaultIsRowSelectionShow = !!defaultRowSelection; // 设置了 rowSelection 才出现
+      defaultIsRowSelectionShow = !!defaultRowSelection; // Chỉ xuất hiện khi đã thiết lập rowSelection
       defaultColumnOptions = options;
 
-      // 默认值 赋值
+      // Gán giá trị mặc định
       isIndexColumnShow.value = defaultIsIndexColumnShow;
       isRowSelectionShow.value = defaultIsRowSelectionShow;
       columnOptions.value = cloneDeep(options);
 
-      // remove消失的列、push新出现的列
+      // Xóa các cột đã biến mất, thêm các cột mới xuất hiện
       props.cache && diff();
 
-      // 从缓存恢复
+      // Khôi phục từ bộ nhớ đệm
       props.cache && restore();
 
-      // 更新表单状态
+      // Cập nhật trạng thái form
       formUpdate();
 
       isRestored = true;
     }
   };
 
-  // 初始化
+  // Khởi tạo
   const once = async () => {
-    // 仅执行一次
+    // Chỉ thực thi một lần
     await sortableFix();
     init();
   };
   once();
 
-  // 外部列改变
+  // Cột bên ngoài thay đổi
   const getColumns = computed(() => {
     return table?.getColumns();
   });

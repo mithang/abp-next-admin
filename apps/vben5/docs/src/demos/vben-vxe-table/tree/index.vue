@@ -16,7 +16,7 @@ interface RowType {
   type: string;
 }
 
-// 数据实例
+// Ví dụ dữ liệu
 // const MOCK_TREE_TABLE_DATA = [
 //   {
 //     date: '2020-08-01',
@@ -71,9 +71,9 @@ const collapseAll = () => {
     <Grid>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="expandAll">
-          展开全部
+          Mở rộng tất cả
         </Button>
-        <Button type="primary" @click="collapseAll"> 折叠全部 </Button>
+        <Button type="primary" @click="collapseAll"> Thu gọn tất cả </Button>
       </template>
     </Grid>
   </div>

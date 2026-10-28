@@ -3,11 +3,11 @@
 namespace LINGYUN.Abp.OpenObserve.Models.Search;
 
 /// <summary>
-/// 字段取值响应
+/// Phản hồi giá trị trường
 /// </summary>
 /// <remarks>
 /// GET /api/{organization}/{stream}/_values
-/// 参考: https://openobserve.ai/docs/reference/api/search/
+/// Tham khảo: https://openobserve.ai/docs/reference/api/search/
 /// </remarks>
 public class ValuesResponse
 {
@@ -15,7 +15,7 @@ public class ValuesResponse
     public long Took { get; set; }
 
     /// <summary>
-    /// 耗时明细
+    /// Chi tiết thời gian tiêu tốn
     /// </summary>
     [JsonPropertyName("took_detail")]
     public SearchTookDetail? TookDetail { get; set; }

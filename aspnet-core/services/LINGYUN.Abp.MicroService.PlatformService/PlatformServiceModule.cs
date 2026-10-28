@@ -71,10 +71,10 @@ namespace LINGYUN.Abp.MicroService.PlatformService;
     typeof(AbpIP2RegionModule),
     typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(AbpUINavigationVueVbenAdmin5Module),
-    typeof(AbpBlobManagementAliyunModule),    // 阿里云存储提供者模块
-    typeof(AbpBlobManagementTencentModule),   // 腾讯云存储提供者模块
-    typeof(AbpBlobManagementMinioModule),     // Minio存储提供者模块
-    typeof(AbpBlobManagementFileSystemModule),// 本地文件系统提供者模块
+    typeof(AbpBlobManagementAliyunModule),    // Mô-đun nhà cung cấp lưu trữ Alibaba Cloud
+    typeof(AbpBlobManagementTencentModule),   // Mô-đun nhà cung cấp lưu trữ Tencent Cloud
+    typeof(AbpBlobManagementMinioModule),     // Mô-đun nhà cung cấp lưu trữ Minio
+    typeof(AbpBlobManagementFileSystemModule),// Mô-đun nhà cung cấp hệ thống tệp cục bộ
     typeof(AbpBlobManagementMimeCheckModule),
     typeof(AbpBlobManagementApplicationModule),
     typeof(AbpBlobManagementHttpApiModule),
@@ -100,8 +100,8 @@ namespace LINGYUN.Abp.MicroService.PlatformService;
     typeof(AbpEmailingExceptionHandlingModule),
     typeof(AbpCAPEventBusModule),
     typeof(AbpFeaturesValidationRedisModule),
-    // typeof(AbpFeaturesClientModule),// 当需要客户端特性限制时取消注释此模块
-    // typeof(AbpFeaturesValidationRedisClientModule),// 当需要客户端特性限制时取消注释此模块
+    // typeof(AbpFeaturesClientModule),// Bỏ chú thích mô-đun này khi cần giới hạn tính năng phía client
+    // typeof(AbpFeaturesValidationRedisClientModule),// Bỏ chú thích mô-đun này khi cần giới hạn tính năng phía client
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpLocalizationCultureMapModule),
     typeof(AbpTelemetryOpenTelemetryModule),
@@ -180,30 +180,30 @@ public partial class PlatformServiceModule : AbpModule
         var env = context.GetEnvironment();
 
         app.UseForwardedHeaders();
-        // 本地化
+        // Bản địa hóa
         app.UseMapRequestLocalization();
-        // http调用链
+        // Chuỗi gọi HTTP
         app.UseCorrelationId();
-        // 虚拟文件系统
+        // Hệ thống tệp ảo
         app.MapAbpStaticAssets();
-        // 路由
+        // Định tuyến
         app.UseRouting();
-        // 跨域
+        // Truy cập liên miền
         app.UseCors();
-        // 认证
+        // Xác thực
         app.UseAuthentication();
         app.UseJwtTokenMiddleware();
-        // 多租户
+        // Đa tenant
         app.UseMultiTenancy();
-        // 会话
+        // Phiên làm việc
         app.UseDynamicClaims();
-        // 授权
+        // Phân quyền
         app.UseAuthorization();
         if (env.IsDevelopment())
         {
             // Swagger
             app.UseSwagger();
-            // Swagger可视化界面
+            // Giao diện trực quan Swagger
             app.UseAbpSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support Platform Service API");
@@ -213,11 +213,11 @@ public partial class PlatformServiceModule : AbpModule
                 options.OAuthScopes(configuration["AuthServer:Audience"]);
             });
         }
-        // 审计日志
+        // Nhật ký kiểm toán
         app.UseAuditing();
-        // 记录请求信息
+        // Ghi thông tin yêu cầu
         app.UseAbpSerilogEnrichers();
-        // 路由
+        // Định tuyến
         app.UseConfiguredEndpoints();
     }
 }

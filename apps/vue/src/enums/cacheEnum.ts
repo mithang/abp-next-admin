@@ -30,7 +30,7 @@ export const APP_LOCAL_CACHE_KEY = 'COMMON__LOCAL__KEY__';
 // base global session key
 export const APP_SESSION_CACHE_KEY = 'COMMON__SESSION__KEY__';
 
-// table 列设置
+// Cài đặt cột của bảng
 export const TABLE_SETTING_KEY = 'TABLE__SETTING__KEY__';
 
 export enum CacheTypeEnum {

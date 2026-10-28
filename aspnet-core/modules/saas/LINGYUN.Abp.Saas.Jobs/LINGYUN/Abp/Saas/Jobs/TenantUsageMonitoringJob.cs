@@ -35,7 +35,7 @@ public class TenantUsageMonitoringJob : IJobRunnable
         using (currentTenant.Change(null))
         {
             var tenantId = context.GetJobData<Guid>(PropertyTenantId);
-            // TODO: 租户已删除需要取消作业运行
+            // TODO: Tenant đã bị xóa cần hủy việc chạy job
             var tenant = await repository.GetAsync(tenantId);
             if (!tenant.DisableTime.HasValue)
             {
@@ -48,15 +48,15 @@ public class TenantUsageMonitoringJob : IJobRunnable
                 {
                     var adminEmail = context.GetString(PropertyAdminEmail);
                     var emailSender = context.GetRequiredService<IEmailSender>();
-                    // TODO: 需要使用模板发送
-                    await emailSender.SendAsync(adminEmail, "资源超时预警", "您好, 您的平台资源已到超时预警时间, 过期资源将会被回收, 且无法恢复, 请注意及时延长使用时间或对资源备份!");
+                    // TODO: Cần gửi bằng mẫu (template)
+                    await emailSender.SendAsync(adminEmail, "Cảnh báo hết thời gian sử dụng tài nguyên", "Xin chào, tài nguyên nền tảng của bạn đã đến thời gian cảnh báo hết hạn, tài nguyên quá hạn sẽ bị thu hồi và không thể khôi phục, vui lòng kịp thời gia hạn thời gian sử dụng hoặc sao lưu tài nguyên!");
                     return;
                 }
 
                 var expiredRecoveryTime = await featureChecker.GetAsync(SaasFeatureNames.Tenant.ExpiredRecoveryTime, 15);
                 if (clock.Now > tenant.DisableTime && clock.Now.Subtract(TimeSpan.FromDays(expiredRecoveryTime)) <= tenant.DisableTime)
                 {
-                    // 租户已过期且达到最大宽限时间, 删除租户
+                    // Tenant đã hết hạn và đạt thời gian gia hạn tối đa, xóa tenant
                     await repository.DeleteAsync(tenant);
                 }
             }

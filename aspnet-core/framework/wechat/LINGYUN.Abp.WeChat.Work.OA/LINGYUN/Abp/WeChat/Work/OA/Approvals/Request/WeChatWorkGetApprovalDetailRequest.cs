@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Request;
 /// <summary>
-/// 获取审批申请详情请求参数
+/// Tham số yêu cầu lấy chi tiết đơn xin phê duyệt
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91983"/>
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/91983"/>
 /// </remarks>
 public class WeChatWorkGetApprovalDetailRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 审批单编号
+    /// Số đơn phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("sp_no")]

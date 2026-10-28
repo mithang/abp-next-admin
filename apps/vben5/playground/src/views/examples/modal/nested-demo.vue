@@ -17,8 +17,8 @@ function openNestedModal() {
 }
 </script>
 <template>
-  <Modal title="嵌套弹窗示例">
-    <Button @click="openNestedModal" type="primary">打开子弹窗</Button>
+  <Modal title="Ví dụ cửa sổ bật lồng nhau">
+    <Button @click="openNestedModal" type="primary">Mở cửa sổ bật con</Button>
     <BaseModal />
   </Modal>
 </template>

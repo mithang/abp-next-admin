@@ -30,7 +30,7 @@ public class AIServiceDbMigrationEventHandler : EfCoreDatabaseMigrationEventHand
 
     protected async override Task AfterTenantCreated(TenantCreatedEto eventData, bool schemaMigrated)
     {
-        // 新租户数据种子
+        // Seed dữ liệu tenant mới
         var context = new DataSeedContext(eventData.Id);
         if (eventData.Properties != null)
         {

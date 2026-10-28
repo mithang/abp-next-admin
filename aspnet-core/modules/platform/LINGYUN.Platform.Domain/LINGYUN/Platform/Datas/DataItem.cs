@@ -61,7 +61,7 @@ public class DataItem : FullAuditedAggregateRoot<Guid>, IMultiTenant
         switch (ValueType)
         {
             case ValueType.Array:
-                DefaultValue = "";// 当数据类型为数组对象时，需要前端来做转换了，约定的分隔符为英文逗号
+                DefaultValue = "";// Khi kiểu dữ liệu là đối tượng mảng, cần phía giao diện (frontend) thực hiện chuyển đổi, dấu phân tách theo quy ước là dấu phẩy tiếng Anh
                 break;
             case ValueType.Boolean:
                 DefaultValue = "false";
@@ -72,7 +72,7 @@ public class DataItem : FullAuditedAggregateRoot<Guid>, IMultiTenant
             case ValueType.DateTime:
                 if (!AllowBeNull)
                 {
-                    DefaultValue = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); // TODO: 以当前时间作为默认值?
+                    DefaultValue = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); // TODO: Lấy thời gian hiện tại làm giá trị mặc định?
                 }
                 DefaultValue = !AllowBeNull ? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : "";
                 break;

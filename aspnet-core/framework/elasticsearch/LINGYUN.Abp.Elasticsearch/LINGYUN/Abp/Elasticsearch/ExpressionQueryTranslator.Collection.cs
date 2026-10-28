@@ -9,26 +9,26 @@ namespace LINGYUN.Abp.Elasticsearch;
 public partial class ExpressionQueryTranslator
 {
     /// <summary>
-    /// 翻译集合 Contains
+    /// Dịch Contains của tập hợp
     /// </summary>
     private Query TranslateCollectionContains(MethodCallExpression node, string? prefix, IndexMappingInfo? mappingInfo)
     {
-        // list.Contains(value) 或 hashSet.Contains(value)
-        // 有两种情况：
-        // 1. 外部集合.Contains(字段) - 例如：new[]{"a","b"}.Contains(x.xxx)
-        // 2. 字段.Contains(值) - 例如：x.Y.Contains("B")
+        // list.Contains(value) hoặc hashSet.Contains(value)
+        // Có hai trường hợp:
+        // 1. Tập hợp bên ngoài.Contains(trường) - ví dụ: new[]{"a","b"}.Contains(x.xxx)
+        // 2. Trường.Contains(giá trị) - ví dụ: x.Y.Contains("B")
 
         Expression collectionExpr = node.Object!;
         Expression valueExpr = node.Arguments[0];
 
-        // 判断哪个是字段，哪个是值
+        // Xác định đâu là trường, đâu là giá trị
         var collectionIsField = IsFieldLike(collectionExpr);
         var valueIsField = IsFieldLike(valueExpr);
 
         if (collectionIsField && !valueIsField)
         {
-            // 情况 2：字段.Contains(值)
-            // 这通常用于集合字段，如 x.Tags.Contains("B")
+            // Trường hợp 2: Trường.Contains(giá trị)
+            // Thường dùng cho trường tập hợp, ví dụ x.Tags.Contains("B")
             var field = ResolveField(collectionExpr, prefix, mappingInfo);
             var value = Evaluate(valueExpr);
 
@@ -37,16 +37,16 @@ public partial class ExpressionQueryTranslator
                 return new MatchNoneQuery();
             }
 
-            // 对于集合字段，使用 Terms 查询或 Term 查询
-            // 如果字段是数组或集合类型，单个值的 Contains 实际上就是 Term 查询
+            // Đối với trường tập hợp, dùng truy vấn Terms hoặc truy vấn Term
+            // Nếu trường là kiểu mảng hoặc tập hợp, Contains với một giá trị đơn thực chất chính là truy vấn Term
             return BuildEquality(field, value);
         }
         else if (!collectionIsField && valueIsField)
         {
-            // 情况 1：外部集合.Contains(字段)
+            // Trường hợp 1: Tập hợp bên ngoài.Contains(trường)
             var field = ResolveField(valueExpr, prefix, mappingInfo);
 
-            // 尝试获取集合的值
+            // Thử lấy giá trị của tập hợp
             var collectionValue = Evaluate(collectionExpr);
 
             if (collectionValue is IEnumerable enumerable && collectionValue is not string)
@@ -58,25 +58,25 @@ public partial class ExpressionQueryTranslator
                 }
                 if (values.Count == 1)
                 {
-                    // 如果集合只有一个值，使用 TermQuery
+                    // Nếu tập hợp chỉ có một giá trị, dùng TermQuery
                     return BuildEquality(field, values[0]);
                 }
-                // 多个值使用 TermsQuery
+                // Nhiều giá trị dùng TermsQuery
                 return new TermsQuery { Field = field.Path, Terms = new TermsQueryField(values) };
             }
 
-            // 如果集合值无法获取，使用默认处理
+            // Nếu không lấy được giá trị tập hợp, dùng cách xử lý mặc định
             var defaultValue = Evaluate(valueExpr);
             return BuildEquality(field, defaultValue!);
         }
         else if (collectionIsField && valueIsField)
         {
-            // 两个都是字段，这种情况较少见
+            // Cả hai đều là trường, trường hợp này ít gặp
             throw new NotSupportedException($"Unsupported Contains with two field expressions: {node}");
         }
         else
         {
-            // 两个都不是字段，尝试直接求值
+            // Cả hai đều không phải trường, thử tính trực tiếp
             var collectionValue = Evaluate(collectionExpr);
             var value = Evaluate(valueExpr);
 

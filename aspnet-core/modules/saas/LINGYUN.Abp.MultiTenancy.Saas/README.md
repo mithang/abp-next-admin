@@ -1,45 +1,45 @@
 # LINGYUN.Abp.MultiTenancy.Saas
 
-多租户SaaS管理模块，提供租户管理、版本管理等功能。
+Module quản lý SaaS đa tenant, cung cấp quản lý tenant, quản lý phiên bản (edition) và các chức năng khác.
 
-## 功能特性
+## Tính năng
 
-* 租户管理：创建、编辑、删除租户，管理租户连接字符串
-* 版本管理：创建、编辑、删除版本，管理版本功能
-* 租户过期管理：支持租户过期时间设置、过期预警、过期资源回收
-* 租户功能管理：支持为租户分配功能权限
+* Quản lý tenant: tạo, sửa, xoá tenant, quản lý chuỗi kết nối của tenant
+* Quản lý phiên bản: tạo, sửa, xoá phiên bản, quản lý tính năng của phiên bản
+* Quản lý hết hạn tenant: hỗ trợ cài đặt thời gian hết hạn tenant, cảnh báo hết hạn, thu hồi tài nguyên khi hết hạn
+* Quản lý tính năng tenant: hỗ trợ gán quyền tính năng cho tenant
 
-## 配置使用
+## Cấu hình sử dụng
 
-### 模块配置
+### Cấu hình module
 
 ```json
 {
   "AbpSaas": {
     "Tenants": {
-      "RecycleStrategy": "1",           // 资源回收策略：0-保留，1-回收
-      "ExpirationReminderDays": "15",   // 过期预警天数，范围1-30天
-      "ExpiredRecoveryTime": "15"       // 过期回收时长，范围1-30天
+      "RecycleStrategy": "1",           // Chiến lược thu hồi tài nguyên: 0-Giữ lại, 1-Thu hồi
+      "ExpirationReminderDays": "15",   // Số ngày cảnh báo hết hạn, phạm vi 1-30 ngày
+      "ExpiredRecoveryTime": "15"       // Thời gian thu hồi khi hết hạn, phạm vi 1-30 ngày
     }
   }
 }
 ```
 
-### 权限配置
+### Cấu hình quyền
 
 * AbpSaas.Editions
-  * AbpSaas.Editions.Create：创建版本
-  * AbpSaas.Editions.Update：更新版本
-  * AbpSaas.Editions.Delete：删除版本
-  * AbpSaas.Editions.ManageFeatures：管理版本功能
+  * AbpSaas.Editions.Create: Tạo phiên bản
+  * AbpSaas.Editions.Update: Cập nhật phiên bản
+  * AbpSaas.Editions.Delete: Xoá phiên bản
+  * AbpSaas.Editions.ManageFeatures: Quản lý tính năng phiên bản
 
 * AbpSaas.Tenants
-  * AbpSaas.Tenants.Create：创建租户
-  * AbpSaas.Tenants.Update：更新租户
-  * AbpSaas.Tenants.Delete：删除租户
-  * AbpSaas.Tenants.ManageFeatures：管理租户功能
-  * AbpSaas.Tenants.ManageConnectionStrings：管理租户连接字符串
+  * AbpSaas.Tenants.Create: Tạo tenant
+  * AbpSaas.Tenants.Update: Cập nhật tenant
+  * AbpSaas.Tenants.Delete: Xoá tenant
+  * AbpSaas.Tenants.ManageFeatures: Quản lý tính năng tenant
+  * AbpSaas.Tenants.ManageConnectionStrings: Quản lý chuỗi kết nối tenant
 
-## 更多
+## Thêm
 
 [English](README.EN.md)

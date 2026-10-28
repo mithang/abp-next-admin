@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.Emailing
 
-通知系统的邮件发送模块，提供了通过邮件发送通知的功能。
+Mô-đun gửi thư của hệ thống thông báo, cung cấp chức năng gửi thông báo qua thư điện tử。
 
-## 功能特性
+## Tính năng
 
-* 邮件通知发送
-* 邮件模板支持
-* 支持HTML格式邮件
-* 支持多收件人
-* 支持抄送和密送
+* Gửi thông báo qua thư điện tử
+* Hỗ trợ mẫu thư điện tử
+* Hỗ trợ thư điện tử định dạng HTML
+* Hỗ trợ nhiều người nhận
+* Hỗ trợ gửi CC và BCC
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsEmailingModule))]
@@ -20,7 +20,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
@@ -37,9 +37,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置邮件设置
+1. Cấu hình cài đặt thư điện tử
 ```csharp
 Configure<AbpEmailingOptions>(options =>
 {
@@ -48,7 +48,7 @@ Configure<AbpEmailingOptions>(options =>
 });
 ```
 
-2. 发送邮件通知
+2. Gửi thông báo qua thư điện tử
 ```csharp
 public class YourNotificationHandler : INotificationHandler
 {
@@ -71,28 +71,28 @@ public class YourNotificationHandler : INotificationHandler
 }
 ```
 
-3. 使用邮件模板
+3. Sử dụng mẫu thư điện tử
 ```csharp
 public async Task SendWithTemplateAsync()
 {
     var template = await _templateRenderer.RenderAsync(
         "DefaultTemplate",
         new { 
-            Title = "通知标题",
-            Content = "通知内容"
+            Title = "Tiêu đề thông báo",
+            Content = "Nội dung thông báo"
         }
     );
 
     await _emailSender.SendAsync(
         to: "user@example.com",
-        subject: "通知",
+        subject: "Thông báo",
         body: template,
         isBodyHtml: true
     );
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [邮件发送文档](https://docs.abp.io/en/abp/latest/Emailing)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu gửi thư điện tử](https://docs.abp.io/en/abp/latest/Emailing)

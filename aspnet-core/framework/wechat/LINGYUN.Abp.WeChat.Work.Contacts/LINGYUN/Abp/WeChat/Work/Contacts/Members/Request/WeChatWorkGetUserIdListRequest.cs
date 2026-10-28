@@ -5,22 +5,22 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Request;
 /// <summary>
-/// 获取成员ID列表请求参数
+/// Tham số yêu cầu lấy danh sách ID thành viên
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/96067" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/96067" />
 /// </remarks>
 public class WeChatWorkGetUserIdListRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填
+    /// Con trỏ dùng cho truy vấn phân trang, kiểu chuỗi, do lần gọi trước trả về, lần gọi đầu tiên không điền
     /// </summary>
     [CanBeNull]
     [JsonProperty("cursor")]
     [JsonPropertyName("cursor")]
     public string? Cursor { get; set; }
     /// <summary>
-    /// 分页，预期请求的数据量，取值范围 1 ~ 10000
+    /// Phân trang, lượng dữ liệu dự kiến yêu cầu, phạm vi giá trị 1 ~ 10000
     /// </summary>
     [CanBeNull]
     [JsonProperty("limit")]

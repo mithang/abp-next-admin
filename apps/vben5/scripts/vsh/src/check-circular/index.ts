@@ -6,7 +6,7 @@ import { getStagedFiles } from '@vben/node-utils';
 
 import { circularDepsDetect } from 'circular-dependency-scanner';
 
-// 默认配置
+// Cấu hình mặc định
 const DEFAULT_CONFIG = {
   allowedExtensions: ['.cjs', '.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
   ignoreDirs: [
@@ -20,10 +20,10 @@ const DEFAULT_CONFIG = {
     'packages/@core/ui-kit/menu-ui/src/',
     'packages/@core/ui-kit/popup-ui/src/',
   ],
-  threshold: 0, // 循环依赖的阈值
+  threshold: 0, // Ngưỡng phụ thuộc vòng tròn
 } as const;
 
-// 类型定义
+// Định nghĩa kiểu
 type CircularDependencyResult = string[];
 
 interface CheckCircularConfig {
@@ -38,12 +38,12 @@ interface CommandOptions {
   verbose: boolean;
 }
 
-// 缓存机制
+// Cơ chế cache
 const cache = new Map<string, CircularDependencyResult[]>();
 
 /**
- * 格式化循环依赖的输出
- * @param circles - 循环依赖结果
+ * Định dạng đầu ra của phụ thuộc vòng tròn
+ * @param circles - Kết quả phụ thuộc vòng tròn
  */
 function formatCircles(circles: CircularDependencyResult[]): void {
   if (circles.length === 0) {
@@ -59,11 +59,11 @@ function formatCircles(circles: CircularDependencyResult[]): void {
 }
 
 /**
- * 检查项目中的循环依赖
- * @param options - 检查选项
- * @param options.staged - 是否只检查暂存区文件
- * @param options.verbose - 是否显示详细信息
- * @param options.config - 自定义配置
+ * Kiểm tra phụ thuộc vòng tròn trong dự án
+ * @param options - Tùy chọn kiểm tra
+ * @param options.staged - Có chỉ kiểm tra các file trong vùng stage hay không
+ * @param options.verbose - Có hiển thị thông tin chi tiết hay không
+ * @param options.config - Cấu hình tùy chỉnh
  * @returns Promise<void>
  */
 async function checkCircular({
@@ -72,16 +72,16 @@ async function checkCircular({
   verbose,
 }: CommandOptions): Promise<void> {
   try {
-    // 合并配置
+    // Gộp cấu hình
     const finalConfig = {
       ...DEFAULT_CONFIG,
       ...config,
     };
 
-    // 生成忽略模式
+    // Tạo mẫu bỏ qua
     const ignorePattern = `**/{${finalConfig.ignoreDirs.join(',')}}/**`;
 
-    // 检查缓存
+    // Kiểm tra cache
     const cacheKey = `${staged}-${process.cwd()}-${ignorePattern}`;
     if (cache.has(cacheKey)) {
       const cachedResults = cache.get(cacheKey);
@@ -91,7 +91,7 @@ async function checkCircular({
       return;
     }
 
-    // 检测循环依赖
+    // Phát hiện phụ thuộc vòng tròn
     const results = await circularDepsDetect({
       absolute: staged,
       cwd: process.cwd(),
@@ -102,7 +102,7 @@ async function checkCircular({
       let files = await getStagedFiles();
       const allowedExtensions = new Set(finalConfig.allowedExtensions);
 
-      // 过滤文件列表
+      // Lọc danh sách file
       files = files.filter((file) => allowedExtensions.has(extname(file)));
 
       const circularFiles: CircularDependencyResult[] = [];
@@ -116,16 +116,16 @@ async function checkCircular({
         }
       }
 
-      // 更新缓存
+      // Cập nhật cache
       cache.set(cacheKey, circularFiles);
       verbose && formatCircles(circularFiles);
     } else {
-      // 更新缓存
+      // Cập nhật cache
       cache.set(cacheKey, results);
       verbose && formatCircles(results);
     }
 
-    // 如果发现循环依赖，只输出警告信息
+    // Nếu phát hiện phụ thuộc vòng tròn, chỉ xuất thông tin cảnh báo
     if (results.length > 0) {
       console.log(
         '\n⚠️ Warning: Circular dependencies found, please check and fix',
@@ -140,8 +140,8 @@ async function checkCircular({
 }
 
 /**
- * 定义检查循环依赖的命令
- * @param cac - CAC实例
+ * Định nghĩa lệnh kiểm tra phụ thuộc vòng tròn
+ * @param cac - Thể hiện CAC
  */
 function defineCheckCircularCommand(cac: CAC): void {
   cac

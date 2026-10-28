@@ -26,8 +26,8 @@ export function setDefaultModalProps(props: Partial<ModalProps>) {
 export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   options: ModalApiOptions = {},
 ) {
-  // Modal一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
-  // 外部的Modal通过provide/inject传递api
+  // Modal thường được tách riêng ra, vì vậy nếu có truyền vào connectedComponent thì đó là lời gọi từ bên ngoài, kết nối với component bên trong
+  // Modal bên ngoài truyền api qua provide/inject
 
   const { connectedComponent } = options;
   if (connectedComponent) {
@@ -37,8 +37,8 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
       (props: TParentModalProps, { attrs, slots }) => {
         provide(USER_MODAL_INJECT_KEY, {
           extendApi(api: ExtendedModalApi) {
-            // 不能直接给 reactive 赋值，会丢失响应
-            // 不能用 Object.assign,会丢失 api 的原型函数
+            // Không thể gán trực tiếp cho reactive, sẽ mất tính phản ứng
+            // Không thể dùng Object.assign, sẽ mất hàm prototype của api
             Object.setPrototypeOf(extendedApi, api);
           },
           consumed: false,
@@ -75,7 +75,7 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
   }
 
   let injectData = inject<any>(USER_MODAL_INJECT_KEY, {});
-  // 这个数据已经被使用了，说明这个弹窗是嵌套的弹窗，不应该merge上层的配置
+  // Dữ liệu này đã được sử dụng, nghĩa là popup này là popup lồng nhau, không nên merge cấu hình của tầng trên
   if (injectData.consumed) {
     injectData = {};
   } else {
@@ -112,12 +112,20 @@ export function useVbenModal<TParentModalProps extends ModalProps = ModalProps>(
 
   const Modal = defineComponent(
     (props: ModalProps, { attrs, slots }) => {
+      // Như use-vxe-grid/use-drawer, nhưng ModalProps.class chỉ là string nên
+      // class dạng object/array từ attrs cần cast hẹp về kiểu prop; runtime
+      // không đổi vì VbenModal render class qua chuẩn hóa class của Vue.
+      const { class: attrsClass, ...restAttrs } = attrs;
+      const mergedClass = (
+        attrsClass === undefined ? props.class : attrsClass || undefined
+      ) as ModalProps['class'];
       return () =>
         h(
           VbenModal,
           {
             ...props,
-            ...attrs,
+            ...restAttrs,
+            class: mergedClass,
             modalApi: extendedApi,
           },
           slots,
@@ -150,7 +158,7 @@ async function checkProps(api: ExtendedModalApi, attrs: Record<string, any>) {
 
   for (const attr of Object.keys(attrs)) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
-      // connectedComponent存在时，不要传入Modal的props，会造成复杂度提升，如果你需要修改Modal的props，请使用 useModal 或者api
+      // khi connectedComponent tồn tại, đừng truyền props của Modal, sẽ làm tăng độ phức tạp; nếu bạn cần sửa props của Modal, hãy dùng useModal hoặc api
       console.warn(
         `[Vben Modal]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Modal, please use useVbenModal or api.`,
       );

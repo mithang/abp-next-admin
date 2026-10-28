@@ -21,7 +21,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EventBus.Distributed
             _notificationSubscriptionManager = notificationSubscriptionManager;
         }
         /// <summary>
-        /// 接收添加用户事件,初始化IM用户种子
+        /// Nhận sự kiện thêm người dùng,khởi tạo seed người dùng IM
         /// </summary>
         /// <param name="eventData"></param>
         /// <returns></returns>

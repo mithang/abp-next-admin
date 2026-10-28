@@ -20,7 +20,7 @@
     setup() {
       const { t } = useI18n();
       const { toggle, isFullscreen } = useFullscreen();
-      // 重新检查全屏状态
+      // Kiểm tra lại trạng thái toàn màn hình
       isFullscreen.value = !!(
         document.fullscreenElement ||
         document.webkitFullscreenElement ||

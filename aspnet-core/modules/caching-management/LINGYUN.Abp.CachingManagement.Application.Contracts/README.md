@@ -1,36 +1,36 @@
 # LINGYUN.Abp.CachingManagement.Application.Contracts
 
-缓存管理应用服务契约模块。
+Mô-đun hợp đồng dịch vụ ứng dụng quản lý bộ nhớ đệm.
 
-## 接口
+## Giao diện
 
 ### ICacheAppService
 
-缓存管理应用服务接口，提供以下功能：
+Giao diện dịch vụ ứng dụng quản lý bộ nhớ đệm, cung cấp các chức năng sau:
 
-* `GetKeysAsync`: 获取缓存键列表
-* `GetValueAsync`: 获取缓存值
-* `SetAsync`: 设置缓存值
-* `RefreshAsync`: 刷新缓存
-* `RemoveAsync`: 删除缓存
+* `GetKeysAsync`: Lấy danh sách khóa bộ nhớ đệm
+* `GetValueAsync`: Lấy giá trị bộ nhớ đệm
+* `SetAsync`: Đặt giá trị bộ nhớ đệm
+* `RefreshAsync`: Làm mới bộ nhớ đệm
+* `RemoveAsync`: Xóa bộ nhớ đệm
 
-## 权限
+## Quyền
 
-* AbpCachingManagement.Cache：缓存管理
-  * AbpCachingManagement.Cache.Refresh：刷新缓存
-  * AbpCachingManagement.Cache.Delete：删除缓存
-  * AbpCachingManagement.Cache.ManageValue：管理缓存值
+* AbpCachingManagement.Cache：Quản lý bộ nhớ đệm
+  * AbpCachingManagement.Cache.Refresh：Làm mới bộ nhớ đệm
+  * AbpCachingManagement.Cache.Delete：Xóa bộ nhớ đệm
+  * AbpCachingManagement.Cache.ManageValue：Quản lý giá trị bộ nhớ đệm
 
-## 安装
+## Cài đặt
 
 ```bash
 abp add-module LINGYUN.Abp.CachingManagement
 ```
 
-## 更多
+## Thêm
 
-有关更多信息，请参阅以下资源：
+Để biết thêm thông tin, hãy tham khảo các tài nguyên sau:
 
-* [应用服务实现](../LINGYUN.Abp.CachingManagement.Application/README.md)
+* [Triển khai dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application/README.md)
 * [HTTP API](../LINGYUN.Abp.CachingManagement.HttpApi/README.md)
-* [领域层](../LINGYUN.Abp.CachingManagement.Domain/README.md)
+* [Tầng miền](../LINGYUN.Abp.CachingManagement.Domain/README.md)

@@ -41,4 +41,4 @@ public class AbpFeatureManagementApplicationModule : AbpModule
 * [ABP Feature Management Documentation](https://docs.abp.io/en/abp/latest/Features)
 * [Feature Management Best Practices](https://docs.abp.io/en/abp/latest/Best-Practices/Features)
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

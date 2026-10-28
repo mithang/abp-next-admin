@@ -12,7 +12,7 @@ public class IP2RegionIPLocationResolveContributor : IPLocationResolveContributo
 
     public override Task ResolveAsync(IIPLocationResolveContext context)
     {
-        // 非法地址、本地回环与未指定地址由 IIPLocationResolver 统一处理, 此处不再判断
+        // Địa chỉ không hợp lệ, loopback cục bộ và địa chỉ chưa chỉ định do IIPLocationResolver xử lý thống nhất, không xét thêm ở đây
         var searcher = context.ServiceProvider.GetRequiredService<ISearcher>();
         var region = searcher.Search(context.IpAddress);
 
@@ -23,12 +23,12 @@ public class IP2RegionIPLocationResolveContributor : IPLocationResolveContributo
 
         var regions = region!.Split('|');
         // |    0    |      1      |  2 |  3   |   4  | 5 | 6 |
-        // 39.128.0.0|39.128.31.255|中国|云南省|昆明市|移动|CN
+        // 39.128.0.0|39.128.31.255|Trung Quốc|Vân Nam|Côn Minh|China Mobile|CN
         // regions:
-        // 中国|云南省|昆明市|移动|CN
+        // Trung Quốc|Vân Nam|Côn Minh|China Mobile|CN
 
-        // 内网、链路本地、组播、保留地址等特殊地址段(离线库返回 Reserved|Reserved|Reserved|0|0):
-        // 不返回国家/省份/城市, Remarks 为空
+        // Các dải địa chỉ đặc biệt như mạng nội bộ, link-local, multicast, địa chỉ dự trữ (thư viện ngoại tuyến trả về Reserved|Reserved|Reserved|0|0):
+        // Không trả về quốc gia/tỉnh/thành phố, Remarks rỗng
         if (string.Equals(regions[0], "Reserved", StringComparison.OrdinalIgnoreCase))
         {
             context.Location = new IPLocation();

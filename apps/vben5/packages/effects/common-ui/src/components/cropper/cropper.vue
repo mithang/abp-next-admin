@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 
-// 定义组件参数
+// Định nghĩa tham số của component
 const props = defineProps<{
-  /** 裁剪比例 格式如 '1:1', '16:9', '3:4' 等（非必填） */
+  /** Tỉ lệ cắt, định dạng như '1:1', '16:9', '3:4' v.v. (không bắt buộc) */
   aspectRatio?: string;
-  /** 容器高度（默认400） */
+  /** Chiều cao vùng chứa (mặc định 400) */
   height?: number;
-  /** 图片地址 */
+  /** Địa chỉ ảnh */
   img: string;
-  /** 容器宽度（默认500） */
+  /** Chiều rộng vùng chứa (mặc định 500) */
   width?: number;
 }>();
 
@@ -25,7 +25,7 @@ const CROPPER_CONSTANTS = {
 type Point = [number, number]; // [clientX, clientY]
 type Dimension = [number, number, number, number]; // [top, right, bottom, left]
 
-// 拖拽点类型
+// Kiểu điểm kéo thả
 type DragAction =
   | 'bottom'
   | 'bottom-left'
@@ -37,7 +37,7 @@ type DragAction =
   | 'top-left'
   | 'top-right';
 
-// DOM 引用
+// Tham chiếu DOM
 const containerRef = ref<HTMLDivElement | null>(null);
 const bgImageRef = ref<HTMLImageElement | null>(null);
 // const maskRef = ref<HTMLDivElement | null>(null);
@@ -45,9 +45,9 @@ const maskViewRef = ref<HTMLDivElement | null>(null);
 const cropperRef = ref<HTMLDivElement | null>(null);
 // const cropperViewRef = ref<HTMLDivElement | null>(null);
 
-// 响应式数据
+// Dữ liệu phản ứng
 const isCropperVisible = ref<boolean>(false);
-const validAspectRatio = ref<null | number>(null); // 有效比例值（null表示无固定比例）
+const validAspectRatio = ref<null | number>(null); // Giá trị tỉ lệ hợp lệ (null nghĩa là không cố định tỉ lệ)
 const containerWidth = ref<number>(
   props.width ?? CROPPER_CONSTANTS.DEFAULT_WIDTH,
 );
@@ -55,11 +55,11 @@ const containerHeight = ref<number>(
   props.height ?? CROPPER_CONSTANTS.DEFAULT_HEIGHT,
 );
 
-// 裁剪区域尺寸（top, right, bottom, left）
+// Kích thước vùng cắt (top, right, bottom, left)
 const currentDimension = ref<Dimension>([50, 50, 50, 50]);
 const initDimension = ref<Dimension>([50, 50, 50, 50]);
 
-// 拖拽状态
+// Trạng thái kéo thả
 const dragging = ref<boolean>(false);
 const startPoint = ref<Point>([0, 0]);
 const startDimension = ref<Dimension>([0, 0, 0, 0]);
@@ -67,32 +67,32 @@ const direction = ref<Dimension>([0, 0, 0, 0]);
 const moving = ref<boolean>(false);
 
 /**
- * 计算图片的适配尺寸，保证完整显示且不超过最大宽高限制
+ * Tính kích thước vừa vặn của ảnh, đảm bảo hiển thị đầy đủ và không vượt giới hạn rộng/cao tối đa
  */
 const calculateImageFitSize = () => {
   if (!bgImageRef.value) return;
 
-  // 获取图片原始尺寸
+  // Lấy kích thước gốc của ảnh
   const imgWidth = bgImageRef.value.naturalWidth;
   const imgHeight = bgImageRef.value.naturalHeight;
 
   if (imgWidth === 0 || imgHeight === 0) return;
 
-  // 计算缩放比例（使用传入的width/height，默认500/400）
+  // Tính tỉ lệ co giãn (dùng width/height được truyền vào, mặc định 500/400)
   const widthRatio =
     (props.width ?? CROPPER_CONSTANTS.DEFAULT_WIDTH) / imgWidth;
   const heightRatio =
     (props.height ?? CROPPER_CONSTANTS.DEFAULT_HEIGHT) / imgHeight;
-  const scaleRatio = Math.min(widthRatio, heightRatio, 1); // 不放大图片，只缩小
+  const scaleRatio = Math.min(widthRatio, heightRatio, 1); // Không phóng to ảnh, chỉ thu nhỏ
 
-  // 计算适配后的容器尺寸
+  // Tính kích thước vùng chứa sau khi vừa vặn
   const fitWidth = Math.floor(imgWidth * scaleRatio);
   const fitHeight = Math.floor(imgHeight * scaleRatio);
 
   containerWidth.value = fitWidth;
   containerHeight.value = fitHeight;
 
-  // 重置裁剪框初始尺寸（基于新的容器尺寸）
+  // Đặt lại kích thước ban đầu của khung cắt (dựa trên kích thước vùng chứa mới)
   const padding = Math.min(
     CROPPER_CONSTANTS.MAX_PADDING,
     Math.floor(fitWidth * CROPPER_CONSTANTS.PADDING_RATIO),
@@ -104,28 +104,32 @@ const calculateImageFitSize = () => {
 };
 
 /**
- * 验证并解析比例字符串
- * @returns {number|null} 比例值 (width/height)，解析失败返回null
+ * Xác thực và phân tích chuỗi tỉ lệ
+ * @returns {number|null} Giá trị tỉ lệ (width/height), phân tích thất bại trả về null
  */
 const parseAndValidateAspectRatio = (): null | number => {
-  // 如果未传入比例参数，直接返回null
+  // Nếu không truyền tham số tỉ lệ, trả về null ngay
   if (!props.aspectRatio) {
     return null;
   }
 
-  // 验证比例格式
+  // Xác thực định dạng tỉ lệ
   const ratioRegex = /^[1-9]\d*:[1-9]\d*$/;
   if (!ratioRegex.test(props.aspectRatio)) {
-    console.warn('裁剪比例格式错误，应为 "数字:数字" 格式，如 "16:9"');
+    console.warn(
+      'Định dạng tỉ lệ cắt sai, phải là định dạng "số:số", ví dụ "16:9"',
+    );
     return null;
   }
 
-  // 解析比例
+  // Phân tích tỉ lệ
   const [width, height] = props.aspectRatio.split(':').map(Number);
 
-  // 验证解析结果有效性
+  // Xác thực tính hợp lệ của kết quả phân tích
   if (Number.isNaN(width) || Number.isNaN(height) || !width || !height) {
-    console.warn('裁剪比例解析失败，宽高必须为正整数');
+    console.warn(
+      'Phân tích tỉ lệ cắt thất bại, chiều rộng và chiều cao phải là số nguyên dương',
+    );
     return null;
   }
 
@@ -133,7 +137,7 @@ const parseAndValidateAspectRatio = (): null | number => {
 };
 
 /**
- * 设置裁剪区域尺寸
+ * Đặt kích thước vùng cắt
  * @param {Dimension} dimension - [top, right, bottom, left]
  */
 const setDimension = (dimension: Dimension) => {
@@ -144,39 +148,39 @@ const setDimension = (dimension: Dimension) => {
 };
 
 /**
- * 调整裁剪区域至指定比例
+ * Điều chỉnh vùng cắt theo tỉ lệ đã chỉ định
  */
 const adjustCropperToAspectRatio = () => {
   if (!cropperRef.value) return;
 
-  // 验证并解析比例
+  // Xác thực và phân tích tỉ lệ
   validAspectRatio.value = parseAndValidateAspectRatio();
 
-  // 如果无有效比例，使用初始尺寸，不强制固定比例
+  // Nếu không có tỉ lệ hợp lệ, dùng kích thước ban đầu, không ép cố định tỉ lệ
   if (validAspectRatio.value === null) {
     setDimension(initDimension.value);
     return;
   }
 
-  // 有有效比例，按比例调整裁剪框
+  // Có tỉ lệ hợp lệ, điều chỉnh khung cắt theo tỉ lệ
   const ratio = validAspectRatio.value;
   const containerWidthVal = containerWidth.value;
   const containerHeightVal = containerHeight.value;
 
-  // 根据比例计算裁剪框尺寸
+  // Tính kích thước khung cắt theo tỉ lệ
   let newHeight: number, newWidth: number;
 
-  // 先按宽度优先计算
+  // Ưu tiên tính theo chiều rộng trước
   newWidth = containerWidthVal;
   newHeight = newWidth / ratio;
 
-  // 如果高度超出容器，按高度优先计算
+  // Nếu chiều cao vượt vùng chứa, tính ưu tiên theo chiều cao
   if (newHeight > containerHeightVal) {
     newHeight = containerHeightVal;
     newWidth = newHeight * ratio;
   }
 
-  // 居中显示
+  // Hiển thị ở giữa
   const leftRight = (containerWidthVal - newWidth) / 2;
   const topBottom = (containerHeightVal - newHeight) / 2;
 
@@ -186,10 +190,10 @@ const adjustCropperToAspectRatio = () => {
 };
 
 /**
- * 创建裁剪器
+ * Tạo bộ cắt ảnh
  */
 const createCropper = () => {
-  // 计算图片适配尺寸
+  // Tính kích thước vừa vặn của ảnh
   calculateImageFitSize();
 
   isCropperVisible.value = true;
@@ -197,9 +201,9 @@ const createCropper = () => {
 };
 
 /**
- * 处理鼠标按下事件
- * @param {MouseEvent} e - 鼠标事件
- * @param {DragAction} action - 操作类型
+ * Xử lý sự kiện nhấn chuột
+ * @param {MouseEvent} e - Sự kiện chuột
+ * @param {DragAction} action - Loại thao tác
  */
 const handleMouseDown = (e: MouseEvent, action: DragAction) => {
   dragging.value = true;
@@ -208,7 +212,7 @@ const handleMouseDown = (e: MouseEvent, action: DragAction) => {
   direction.value = [0, 0, 0, 0];
   moving.value = false;
 
-  // 处理移动
+  // Xử lý di chuyển
   if (action === 'move') {
     direction.value[0] = 1;
     direction.value[2] = -1;
@@ -218,7 +222,7 @@ const handleMouseDown = (e: MouseEvent, action: DragAction) => {
     return;
   }
 
-  // 处理拖拽方向
+  // Xử lý hướng kéo thả
   switch (action) {
     case 'bottom': {
       direction.value[2] = -1;
@@ -260,8 +264,8 @@ const handleMouseDown = (e: MouseEvent, action: DragAction) => {
 };
 
 /**
- * 处理鼠标移动事件
- * @param {MouseEvent} e - 鼠标事件
+ * Xử lý sự kiện di chuyển chuột
+ * @param {MouseEvent} e - Sự kiện chuột
  */
 const handleMouseMove = (e: MouseEvent) => {
   if (!dragging.value || !cropperRef.value) return;
@@ -270,13 +274,13 @@ const handleMouseMove = (e: MouseEvent) => {
   const diffX = clientX - startPoint.value[0];
   const diffY = clientY - startPoint.value[1];
 
-  // 处理移动裁剪框
+  // Xử lý di chuyển khung cắt
   if (moving.value) {
     handleMoveCropBox(diffX, diffY);
     return;
   }
 
-  // 无有效比例
+  // Không có tỉ lệ hợp lệ
   if (validAspectRatio.value === null) {
     handleFreeAspectResize(diffX, diffY);
   } else {
@@ -287,33 +291,33 @@ const handleMouseMove = (e: MouseEvent) => {
 const handleMoveCropBox = (diffX: number, diffY: number) => {
   const newDimension = [...startDimension.value] as Dimension;
 
-  // 计算临时偏移后的位置
+  // Tính vị trí sau khi lệch tạm thời
   const tempTop = startDimension.value[0] + diffY;
   const tempLeft = startDimension.value[3] + diffX;
 
-  // 计算裁剪框的固定尺寸
+  // Tính kích thước cố định của khung cắt
   const cropWidth =
     containerWidth.value - startDimension.value[3] - startDimension.value[1];
   const cropHeight =
     containerHeight.value - startDimension.value[0] - startDimension.value[2];
 
-  // 边界限制：确保裁剪框完全在容器内，且尺寸不变
-  // 顶部边界：top >= 0，且 bottom = 容器高度 - top - 裁剪高度 >= 0
+  // Giới hạn biên: đảm bảo khung cắt nằm hoàn toàn trong vùng chứa và kích thước không đổi
+  // Biên trên: top >= 0, và bottom = chiều cao vùng chứa - top - chiều cao cắt >= 0
   newDimension[0] = Math.max(
     0,
     Math.min(tempTop, containerHeight.value - cropHeight),
   );
-  // 底部边界：bottom = 容器高度 - top - 裁剪高度（由top推导，无需额外计算）
+  // Biên dưới: bottom = chiều cao vùng chứa - top - chiều cao cắt (suy ra từ top, không cần tính thêm)
   newDimension[2] = containerHeight.value - newDimension[0] - cropHeight;
-  // 左侧边界：left >= 0，且 right = 容器宽度 - left - 裁剪宽度 >= 0
+  // Biên trái: left >= 0, và right = chiều rộng vùng chứa - left - chiều rộng cắt >= 0
   newDimension[3] = Math.max(
     0,
     Math.min(tempLeft, containerWidth.value - cropWidth),
   );
-  // 右侧边界：right = 容器宽度 - left - 裁剪宽度（由left推导，无需额外计算）
+  // Biên phải: right = chiều rộng vùng chứa - left - chiều rộng cắt (suy ra từ left, không cần tính thêm)
   newDimension[1] = containerWidth.value - newDimension[3] - cropWidth;
 
-  // 强制保证尺寸不变（兜底）
+  // Ép buộc đảm bảo kích thước không đổi (dự phòng)
   const finalWidth = containerWidth.value - newDimension[3] - newDimension[1];
   const finalHeight = containerHeight.value - newDimension[0] - newDimension[2];
 
@@ -325,7 +329,7 @@ const handleMoveCropBox = (diffX: number, diffY: number) => {
     newDimension[2] = containerHeight.value - newDimension[0] - cropHeight;
   }
 
-  // 更新裁剪区域（仅位置变化，尺寸/比例完全不变）
+  // Cập nhật vùng cắt (chỉ vị trí thay đổi, kích thước/tỉ lệ hoàn toàn không đổi)
   setDimension(newDimension);
 };
 
@@ -334,7 +338,7 @@ const handleFreeAspectResize = (diffX: number, diffY: number) => {
   const cropperHeight = containerHeight.value;
   const currentDimensionNew: Dimension = [0, 0, 0, 0];
 
-  // 计算新的尺寸，确保不小于最小值
+  // Tính kích thước mới, đảm bảo không nhỏ hơn giá trị tối thiểu
   currentDimensionNew[0] = Math.min(
     Math.max(startDimension.value[0] + direction.value[0] * diffY, 0),
     cropperHeight - CROPPER_CONSTANTS.MIN_HEIGHT,
@@ -355,7 +359,7 @@ const handleFreeAspectResize = (diffX: number, diffY: number) => {
     cropperWidth - CROPPER_CONSTANTS.MIN_WIDTH,
   );
 
-  // 确保裁剪区域宽度和高度不小于最小值
+  // Đảm bảo chiều rộng và chiều cao vùng cắt không nhỏ hơn giá trị tối thiểu
   const newWidth =
     cropperWidth - currentDimensionNew[3] - currentDimensionNew[1];
   const newHeight =
@@ -388,7 +392,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
   if (validAspectRatio.value === null) return;
   const cropperWidth = containerWidth.value;
   const cropperHeight = containerHeight.value;
-  // 有有效比例 - 固定比例裁剪
+  // Có tỉ lệ hợp lệ - cắt với tỉ lệ cố định
   const ratio = validAspectRatio.value;
   const currentWidth =
     cropperWidth - startDimension.value[3] - startDimension.value[1];
@@ -399,7 +403,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
   let widthChange = 0;
   let heightChange = 0;
 
-  // 计算宽度/高度变化量
+  // Tính lượng thay đổi chiều rộng/chiều cao
   if (direction.value[3] === 1) widthChange = -diffX;
   else if (direction.value[1] === -1) widthChange = diffX;
 
@@ -410,7 +414,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
     (direction.value[3] === 1 || direction.value[1] === -1) &&
     (direction.value[0] === 1 || direction.value[2] === -1);
 
-  // 计算新尺寸
+  // Tính kích thước mới
   if (isCornerDrag) {
     if (Math.abs(widthChange) > Math.abs(heightChange)) {
       newWidth = Math.max(
@@ -441,7 +445,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
     }
   }
 
-  // 限制最大尺寸
+  // Giới hạn kích thước tối đa
   const maxWidth = cropperWidth;
   const maxHeight = cropperHeight;
 
@@ -455,19 +459,19 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
     newWidth = newHeight * ratio;
   }
 
-  // 计算新的位置
+  // Tính vị trí mới
   let newLeft = startDimension.value[3];
   let newTop = startDimension.value[0];
   let newRight = startDimension.value[1];
   let newBottom = startDimension.value[2];
 
-  // 根据拖拽方向调整位置
+  // Điều chỉnh vị trí theo hướng kéo thả
   if (direction.value[3] === 1) {
     newLeft = cropperWidth - newWidth - startDimension.value[1];
   } else if (direction.value[1] === -1) {
     newRight = cropperWidth - newWidth - startDimension.value[3];
   } else if (!isCornerDrag) {
-    // 居中调整
+    // Điều chỉnh về giữa
     const currentHorizontalCenter = startDimension.value[3] + currentWidth / 2;
     newLeft = Math.max(
       0,
@@ -481,7 +485,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
   } else if (direction.value[2] === -1) {
     newBottom = cropperHeight - newHeight - startDimension.value[0];
   } else if (!isCornerDrag) {
-    // 居中调整
+    // Điều chỉnh về giữa
     const currentVerticalCenter = startDimension.value[0] + currentHeight / 2;
     newTop = Math.max(
       0,
@@ -493,7 +497,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
     newBottom = cropperHeight - newHeight - newTop;
   }
 
-  // 边界检查
+  // Kiểm tra biên
   newLeft = Math.max(0, newLeft);
   newTop = Math.max(0, newTop);
   newRight = Math.max(0, newRight);
@@ -504,7 +508,7 @@ const handleFixedAspectResize = (diffX: number, diffY: number) => {
 };
 
 /**
- * 处理鼠标抬起事件
+ * Xử lý sự kiện nhả chuột
  */
 const handleMouseUp = () => {
   dragging.value = false;
@@ -513,19 +517,19 @@ const handleMouseUp = () => {
 };
 
 /**
- * 处理图片加载完成
+ * Xử lý khi ảnh tải xong
  */
 const handleImageLoad = () => {
   createCropper();
 };
 
 /**
- * 裁剪图片
- * @param {'image/jpeg' | 'image/png'} format - 输出图片格式
- * @param {number} quality - 压缩质量（0-1）
- * @param {'blob' | 'base64'} outputType - 输出类型
- * @param {number} targetWidth - 目标宽度（可选，不传则为原始裁剪宽度）
- * @param {number} targetHeight - 目标高度（可选，不传则为原始裁剪高度）
+ * Cắt ảnh
+ * @param {'image/jpeg' | 'image/png'} format - Định dạng ảnh xuất ra
+ * @param {number} quality - Chất lượng nén (0-1)
+ * @param {'blob' | 'base64'} outputType - Loại đầu ra
+ * @param {number} targetWidth - Chiều rộng đích (tùy chọn, không truyền thì là chiều rộng cắt gốc)
+ * @param {number} targetHeight - Chiều cao đích (tùy chọn, không truyền thì là chiều cao cắt gốc)
  */
 const getCropImage = async (
   format: 'image/jpeg' | 'image/png' = 'image/jpeg',
@@ -536,12 +540,12 @@ const getCropImage = async (
 ): Promise<Blob | string | undefined> => {
   if (!props.img || !bgImageRef.value || !containerRef.value) return;
 
-  // 质量参数边界修正：强制限制在 0-1 区间，防止传入非法值报错
+  // Hiệu chỉnh biên tham số chất lượng: ép buộc giới hạn trong khoảng 0-1, tránh lỗi khi truyền giá trị không hợp lệ
   const validQuality = Math.max(0, Math.min(1, quality));
 
-  // 创建临时图片对象获取原始尺寸
+  // Tạo đối tượng ảnh tạm để lấy kích thước gốc
   const tempImg = new Image();
-  // 跨域图片处理：仅对非同源的网络图片设置跨域匿名
+  // Xử lý ảnh khác nguồn: chỉ đặt ẩn danh khác nguồn cho ảnh mạng không cùng nguồn
   if (props.img.startsWith('http://') || props.img.startsWith('https://')) {
     try {
       const url = new URL(props.img);
@@ -549,16 +553,16 @@ const getCropImage = async (
         tempImg.crossOrigin = 'anonymous';
       }
     } catch {
-      // Invalid URL，跳过跨域配置，不中断执行
+      // URL không hợp lệ, bỏ qua cấu hình khác nguồn, không làm gián đoạn thực thi
     }
   }
 
-  // 等待临时图片加载完成
+  // Chờ ảnh tạm tải xong
   await new Promise<void>((resolve, reject) => {
     const timeout = setTimeout(() => {
       tempImg.removeEventListener('load', handleLoad);
       tempImg.removeEventListener('error', handleError);
-      reject(new Error('图片加载超时，超时时间10秒'));
+      reject(new Error('Tải ảnh quá thời gian, thời gian chờ 10 giây'));
     }, 10_000);
     const handleLoad = () => {
       clearTimeout(timeout);
@@ -571,7 +575,7 @@ const getCropImage = async (
       clearTimeout(timeout);
       tempImg.removeEventListener('load', handleLoad);
       tempImg.removeEventListener('error', handleError);
-      reject(new Error(`图片加载失败: ${err.message}`));
+      reject(new Error(`Tải ảnh thất bại: ${err.message}`));
     };
 
     tempImg.addEventListener('load', handleLoad);
@@ -582,7 +586,7 @@ const getCropImage = async (
   const containerRect = containerRef.value.getBoundingClientRect();
   const imgRect = bgImageRef.value.getBoundingClientRect();
 
-  // 1. 计算图片在容器内的渲染参数
+  // 1. Tính tham số hiển thị của ảnh trong vùng chứa
   const containerWidth = containerRect.width;
   const containerHeight = containerRect.height;
   const renderedImgWidth = imgRect.width;
@@ -590,20 +594,20 @@ const getCropImage = async (
   const imgOffsetX = (containerWidth - renderedImgWidth) / 2;
   const imgOffsetY = (containerHeight - renderedImgHeight) / 2;
 
-  // 2. 计算裁剪框在容器内的实际坐标
+  // 2. Tính tọa độ thực tế của khung cắt trong vùng chứa
   const [cropTop, cropRight, cropBottom, cropLeft] = currentDimension.value;
   const cropBoxWidth = containerWidth - cropLeft - cropRight;
   const cropBoxHeight = containerHeight - cropTop - cropBottom;
 
-  // 3. 将裁剪框坐标转换为图片上的坐标（考虑图片偏移）
+  // 3. Chuyển tọa độ khung cắt thành tọa độ trên ảnh (xét độ lệch của ảnh)
   const cropOnImgX = cropLeft - imgOffsetX;
   const cropOnImgY = cropTop - imgOffsetY;
 
-  // 4. 计算渲染图片到原始图片的缩放比例（保留原始像素）
+  // 4. Tính tỉ lệ co giãn từ ảnh hiển thị sang ảnh gốc (giữ nguyên điểm ảnh gốc)
   const scaleX = tempImg.width / renderedImgWidth;
   const scaleY = tempImg.height / renderedImgHeight;
 
-  // 5. 映射到原始图片的裁剪区域（精确到原始像素，防止越界）
+  // 5. Ánh xạ sang vùng cắt của ảnh gốc (chính xác đến điểm ảnh gốc, tránh vượt biên)
   const originalCropX = Math.max(0, Math.floor(cropOnImgX * scaleX));
   const originalCropY = Math.max(0, Math.floor(cropOnImgY * scaleY));
   const originalCropWidth = Math.min(
@@ -615,45 +619,45 @@ const getCropImage = async (
     tempImg.height - originalCropY,
   );
 
-  // 边界校验：裁剪尺寸非法则返回
+  // Kiểm tra biên: nếu kích thước cắt không hợp lệ thì trả về
   if (originalCropWidth <= 0 || originalCropHeight <= 0) return;
 
-  // 6. 处理高清屏适配（解决Retina屏模糊）
+  // 6. Xử lý thích ứng màn hình độ phân giải cao (khắc phục mờ trên màn hình Retina)
   const dpr = window.devicePixelRatio || 1;
 
-  // 最终画布尺寸（优先使用传入的目标尺寸，无则用原始裁剪尺寸）
+  // Kích thước canvas cuối cùng (ưu tiên dùng kích thước đích được truyền vào, nếu không có thì dùng kích thước cắt gốc)
   const finalWidth = targetWidth ? Math.max(1, targetWidth) : originalCropWidth;
   const finalHeight = targetHeight
     ? Math.max(1, targetHeight)
     : originalCropHeight;
 
-  // 创建画布并获取绘制上下文
+  // Tạo canvas và lấy ngữ cảnh vẽ
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  // 画布物理尺寸（乘以设备像素比，保证高清无模糊）
+  // Kích thước vật lý của canvas (nhân với tỉ lệ điểm ảnh thiết bị, đảm bảo độ nét cao không mờ)
   canvas.width = finalWidth * dpr;
   canvas.height = finalHeight * dpr;
 
-  // 画布显示尺寸（视觉尺寸，和最终展示一致）
+  // Kích thước hiển thị của canvas (kích thước trực quan, khớp với hiển thị cuối cùng)
   canvas.style.width = `${finalWidth}px`;
   canvas.style.height = `${finalHeight}px`;
 
-  // 缩放画布上下文，适配高清屏DPR
+  // Co giãn ngữ cảnh canvas, thích ứng DPR màn hình độ phân giải cao
   ctx.scale(dpr, dpr);
 
-  // 7. 绘制裁剪后的图片（使用原始像素绘制，保证清晰度）
+  // 7. Vẽ ảnh đã cắt (vẽ bằng điểm ảnh gốc, đảm bảo độ nét)
   ctx.drawImage(
     tempImg,
-    originalCropX, // 原始图片裁剪起始X（精确像素）
-    originalCropY, // 原始图片裁剪起始Y（精确像素）
-    originalCropWidth, // 原始图片裁剪宽度（精确像素）
-    originalCropHeight, // 原始图片裁剪高度（精确像素）
-    0, // 画布绘制起始X
-    0, // 画布绘制起始Y
-    finalWidth, // 画布绘制宽度（目标尺寸）
-    finalHeight, // 画布绘制高度（目标尺寸）
+    originalCropX, // Điểm bắt đầu cắt X của ảnh gốc (điểm ảnh chính xác)
+    originalCropY, // Điểm bắt đầu cắt Y của ảnh gốc (điểm ảnh chính xác)
+    originalCropWidth, // Chiều rộng cắt của ảnh gốc (điểm ảnh chính xác)
+    originalCropHeight, // Chiều cao cắt của ảnh gốc (điểm ảnh chính xác)
+    0, // Điểm bắt đầu vẽ X của canvas
+    0, // Điểm bắt đầu vẽ Y của canvas
+    finalWidth, // Chiều rộng vẽ của canvas (kích thước đích)
+    finalHeight, // Chiều cao vẽ của canvas (kích thước đích)
   );
 
   try {
@@ -662,7 +666,7 @@ const getCropImage = async (
       : new Promise<Blob>((resolve) => {
           canvas.toBlob(
             (blob) => {
-              // 兜底：如果blob生成失败，返回空Blob（防止null）
+              // Dự phòng: nếu tạo blob thất bại, trả về Blob rỗng (tránh null)
               resolve(blob || new Blob([], { type: format }));
             },
             format,
@@ -670,25 +674,25 @@ const getCropImage = async (
           );
         });
   } catch (error) {
-    console.error('图片导出失败:', error);
+    console.error('Xuất ảnh thất bại:', error);
   }
 };
 
-// 监听比例变化，重新调整裁剪框
+// Theo dõi thay đổi tỉ lệ, điều chỉnh lại khung cắt
 watch(() => props.aspectRatio, adjustCropperToAspectRatio);
 
-// 监听width/height变化，重新计算尺寸
+// Theo dõi thay đổi width/height, tính lại kích thước
 watch([() => props.width, () => props.height], () => {
   calculateImageFitSize();
   adjustCropperToAspectRatio();
 });
 
-// 组件挂载时注册全局事件
+// Khi component được gắn, đăng ký sự kiện toàn cục
 onMounted(() => {
   document.addEventListener('mousemove', handleMouseMove);
   document.addEventListener('mouseup', handleMouseUp);
 
-  // 如果图片已经加载完成，手动触发创建裁剪器
+  // Nếu ảnh đã tải xong, kích hoạt thủ công việc tạo bộ cắt ảnh
   if (
     bgImageRef.value &&
     bgImageRef.value.complete &&
@@ -698,7 +702,7 @@ onMounted(() => {
   }
 });
 
-// 组件卸载时清理
+// Dọn dẹp khi component bị gỡ
 onUnmounted(() => {
   document.removeEventListener('mousemove', handleMouseMove);
   document.removeEventListener('mouseup', handleMouseUp);
@@ -723,7 +727,7 @@ defineExpose({ getCropImage });
         height: `${containerHeight}px`,
       }"
     >
-      <!-- 原图展示 - 自适应尺寸 -->
+      <!-- Hiển thị ảnh gốc - kích thước tự thích ứng -->
       <img
         ref="bgImageRef"
         class="cropper-image"
@@ -734,10 +738,10 @@ defineExpose({ getCropImage });
           maxHeight: '100%',
           objectFit: 'contain',
         }"
-        alt="裁剪原图"
+        alt="Ảnh gốc để cắt"
       />
 
-      <!-- 遮罩层 -->
+      <!-- Lớp phủ -->
       <div
         class="cropper-mask"
         :style="{
@@ -761,7 +765,7 @@ defineExpose({ getCropImage });
         ></div>
       </div>
 
-      <!-- 裁剪框 -->
+      <!-- Khung cắt -->
       <div
         ref="cropperRef"
         class="cropper-box"
@@ -777,23 +781,23 @@ defineExpose({ getCropImage });
             inset: `${currentDimension[0]}px ${currentDimension[1]}px ${currentDimension[2]}px ${currentDimension[3]}px`,
           }"
         >
-          <!-- 裁剪框辅助线-->
+          <!-- Đường hỗ trợ của khung cắt -->
           <span class="cropper-dashed-h"></span>
           <span class="cropper-dashed-v"></span>
 
-          <!-- 裁剪框拖拽区域 -->
+          <!-- Vùng kéo thả của khung cắt -->
           <span
             class="cropper-move-area"
             @mousedown="handleMouseDown($event, 'move')"
           ></span>
 
-          <!-- 边框线 -->
+          <!-- Đường viền -->
           <span class="cropper-line-e"></span>
           <span class="cropper-line-n"></span>
           <span class="cropper-line-w"></span>
           <span class="cropper-line-s"></span>
 
-          <!-- 边角拖拽点 -->
+          <!-- Điểm kéo thả ở góc -->
           <span
             class="cropper-point cropper-point-ne"
             @mousedown="handleMouseDown($event, 'top-right')"
@@ -819,7 +823,7 @@ defineExpose({ getCropImage });
             <span class="cropper-point-inner"></span>
           </span>
 
-          <!-- 边中点拖拽点 -->
+          <!-- Điểm kéo thả ở giữa cạnh -->
           <span
             class="cropper-point cropper-point-e"
             @mousedown="handleMouseDown($event, 'right')"
@@ -856,7 +860,7 @@ defineExpose({ getCropImage });
 
   background-color: transparent;
 
-  /* 马赛克背景 */
+  /* Nền dạng bàn cờ */
   background-image:
     linear-gradient(45deg, #ccc 25%, transparent 25%),
     linear-gradient(-45deg, #ccc 25%, transparent 25%),
@@ -878,7 +882,7 @@ defineExpose({ getCropImage });
   @apply block;
 }
 
-/* 遮罩层 */
+/* Lớp phủ */
 .cropper-mask {
   @apply absolute left-0 top-0 bg-black/50;
 }
@@ -887,7 +891,7 @@ defineExpose({ getCropImage });
   @apply absolute left-0 top-0;
 }
 
-/* 裁剪框 */
+/* Khung cắt */
 .cropper-box {
   @apply absolute left-0 top-0 z-10;
 }
@@ -896,7 +900,7 @@ defineExpose({ getCropImage });
   @apply absolute bottom-0 left-0 right-0 top-0 select-none outline outline-1 outline-blue-500;
 }
 
-/* 裁剪框辅助线 */
+/* Đường hỗ trợ của khung cắt */
 .cropper-dashed-h {
   @apply absolute left-0 top-1/3 block h-1/3 w-full border-b border-t border-dashed border-gray-200/50;
 }
@@ -905,12 +909,12 @@ defineExpose({ getCropImage });
   @apply absolute left-1/3 top-0 block h-full w-1/3 border-l border-r border-dashed border-gray-200/50;
 }
 
-/* 裁剪框拖拽区域 */
+/* Vùng kéo thả của khung cắt */
 .cropper-move-area {
   @apply absolute left-0 top-0 block h-full w-full cursor-move bg-white/10;
 }
 
-/* 边框拖拽线 */
+/* Đường kéo thả viền */
 .cropper-line-e,
 .cropper-line-n,
 .cropper-line-w,
@@ -934,7 +938,7 @@ defineExpose({ getCropImage });
   @apply bottom-[-3px] left-0 h-1 w-full;
 }
 
-/* 拖拽点 */
+/* Điểm kéo thả */
 .cropper-point {
   @apply absolute flex h-2 w-2 items-center justify-center bg-blue-500;
 }
@@ -943,7 +947,7 @@ defineExpose({ getCropImage });
   @apply block h-1.5 w-1.5 bg-white;
 }
 
-/* 边角拖拽点位置和光标 */
+/* Vị trí và con trỏ của điểm kéo thả ở góc */
 .cropper-point-ne {
   @apply right-[-5px] top-[-5px] cursor-ne-resize;
 }
@@ -960,7 +964,7 @@ defineExpose({ getCropImage });
   @apply bottom-[-5px] right-[-5px] cursor-se-resize;
 }
 
-/* 边中点拖拽点位置和光标 */
+/* Vị trí và con trỏ của điểm kéo thả ở giữa cạnh */
 .cropper-point-e {
   @apply right-[-5px] top-1/2 -mt-1 cursor-e-resize;
 }

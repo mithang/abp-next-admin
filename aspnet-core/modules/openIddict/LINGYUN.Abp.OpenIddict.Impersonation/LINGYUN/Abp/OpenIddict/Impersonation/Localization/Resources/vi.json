@@ -1,0 +1,19 @@
+{
+  "culture": "vi",
+  "texts": {
+    "InvalidAccessToken": "Token truy cập không hợp lệ, xác minh token thất bại!",
+    "NestedImpersonationNotAllowed": "Không cho phép mô phỏng lồng nhau, hiện đang ở trạng thái đăng nhập mô phỏng, vui lòng quay lại danh tính người dùng gốc trước!",
+    "InvalidImpersonationRequest": "Yêu cầu mô phỏng không hợp lệ, vui lòng cung cấp tham số mục tiêu mô phỏng chính xác (ID người dùng, ID tenant hoặc ID ủy thác)!",
+    "CannotImpersonateYourself": "Không thể mô phỏng chính mình, vui lòng chọn người dùng khác để mô phỏng!",
+    "InsufficientImpersonationPermission": "Quyền mô phỏng không đủ, bạn không có quyền thực hiện thao tác mô phỏng người dùng!",
+    "TargetUserNotFound": "Người dùng đích không tồn tại: {0}!",
+    "RequirePermissionToImpersonateUser": "Cần ủy quyền để mô phỏng người dùng/tenant!",
+    "TenantAdminUserNameNotSpecified": "Chưa chỉ định tên người dùng quản trị viên của bên thuê, mô phỏng bên thuê cần cung cấp tên người dùng quản trị viên!",
+    "TenantAdminUserNotFound": "Không tìm thấy người dùng quản trị viên tenant: {0}, vui lòng xác nhận tên người dùng quản trị viên có đúng hay không!",
+    "InvalidUserDelegation": "Ủy thác người dùng không hợp lệ, bản ghi ủy thác không tồn tại hoặc đã mất hiệu lực!",
+    "NotAuthorizedForDelegation": "Ủy quyền ủy thác thất bại, người dùng hiện tại không phải là người dùng đích của ủy thác này!",
+    "DelegationSourceUserNotFound": "Người dùng nguồn ủy thác không tồn tại, không thể hoàn thành mô phỏng ủy thác!",
+    "NoImpersonationContext": "Không tìm thấy ngữ cảnh mô phỏng, không thể quay lại danh tính người dùng gốc!",
+    "OriginalUserNotFound": "Người dùng gốc không tồn tại, bản ghi người dùng của người mô phỏng có thể đã bị xóa!"
+  }
+}

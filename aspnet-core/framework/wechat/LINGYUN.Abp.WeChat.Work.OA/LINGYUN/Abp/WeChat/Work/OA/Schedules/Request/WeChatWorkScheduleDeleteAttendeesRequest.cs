@@ -1,9 +1,9 @@
 ﻿namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Request;
 /// <summary>
-/// 删除日程参与者
+/// Xóa người tham gia lịch trình
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/97722"/>
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/97722"/>
 /// </remarks>
 public class WeChatWorkScheduleDeleteAttendeesRequest : WeChatWorkScheduleChangeAttendeesRequest
 {

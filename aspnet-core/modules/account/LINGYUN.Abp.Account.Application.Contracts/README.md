@@ -1,22 +1,22 @@
 # LINGYUN.Abp.Account.Application.Contracts
 
-ABP账户模块的应用服务契约，提供账户管理相关的接口定义。
+Hợp đồng dịch vụ ứng dụng của mô-đun tài khoản ABP, cung cấp định nghĩa giao diện liên quan đến quản lý tài khoản.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 手机号注册账户
-* 微信小程序注册账户
-* 手机号重置密码
-* 手机验证码功能（注册、登录、重置密码）
-* 邮箱验证码登录
-* 用户个人资料管理
-* 用户会话管理
-* 双因素认证
-* 用户声明管理
+* Đăng ký tài khoản bằng số điện thoại
+* Đăng ký tài khoản bằng WeChat Mini Program
+* Đặt lại mật khẩu bằng số điện thoại
+* Chức năng mã xác minh qua điện thoại (đăng ký, đăng nhập, đặt lại mật khẩu)
+* Đăng nhập bằng mã xác minh qua email
+* Quản lý hồ sơ cá nhân người dùng
+* Quản lý phiên người dùng
+* Xác thực hai yếu tố
+* Quản lý khai báo người dùng
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAccountApplicationContractsModule))]
@@ -26,35 +26,35 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 接口服务
+## Dịch vụ giao diện
 
 ### IAccountAppService
 
-账户管理服务接口，提供以下功能：
-* 手机号注册
-* 微信小程序注册
-* 手机号重置密码
-* 发送手机验证码（注册、登录、重置密码）
-* 发送邮箱验证码（登录）
+Giao diện dịch vụ quản lý tài khoản, cung cấp các chức năng sau:
+* Đăng ký bằng số điện thoại
+* Đăng ký bằng WeChat Mini Program
+* Đặt lại mật khẩu bằng số điện thoại
+* Gửi mã xác minh qua điện thoại (đăng ký, đăng nhập, đặt lại mật khẩu)
+* Gửi mã xác minh qua email (đăng nhập)
 
 ### IMyProfileAppService
 
-个人资料管理服务接口，提供以下功能：
-* 获取/更新个人资料
-* 更改密码
-* 更改手机号
-* 更改头像
-* 双因素认证管理
-* 获取/验证认证器
-* 获取恢复代码
+Giao diện dịch vụ quản lý hồ sơ cá nhân, cung cấp các chức năng sau:
+* Lấy/cập nhật hồ sơ cá nhân
+* Đổi mật khẩu
+* Đổi số điện thoại
+* Đổi ảnh đại diện
+* Quản lý xác thực hai yếu tố
+* Lấy/xác minh trình xác thực
+* Lấy mã khôi phục
 
 ### IMyClaimAppService
 
-用户声明管理服务接口，提供以下功能：
-* 获取用户声明
-* 更新用户声明
+Giao diện dịch vụ quản lý khai báo người dùng, cung cấp các chức năng sau:
+* Lấy khai báo người dùng
+* Cập nhật khai báo người dùng
 
-## 本地化
+## Bản địa hóa
 
-模块包含多语言支持，资源文件位于：
+Mô-đun hỗ trợ đa ngôn ngữ, tệp tài nguyên nằm tại:
 * `/LINGYUN/Abp/Account/Localization/Resources`

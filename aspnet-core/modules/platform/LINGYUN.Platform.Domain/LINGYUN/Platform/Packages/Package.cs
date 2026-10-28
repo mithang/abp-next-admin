@@ -13,23 +13,23 @@ namespace LINGYUN.Platform.Packages;
 public class Package : FullAuditedAggregateRoot<Guid>
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public virtual string Name { get; protected set; } = default!;
     /// <summary>
-    /// 版本说明
+    /// Mô tả phiên bản
     /// </summary>
     public virtual string Note { get; protected set; } = default!;
     /// <summary>
-    /// 版本
+    /// Phiên bản
     /// </summary>
     public virtual string Version { get; protected set; } = default!;
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public virtual string? Description { get; set; }
     /// <summary>
-    /// 强制更新
+    /// Buộc cập nhật
     /// </summary>
     public virtual bool ForceUpdate { get; set; }
 

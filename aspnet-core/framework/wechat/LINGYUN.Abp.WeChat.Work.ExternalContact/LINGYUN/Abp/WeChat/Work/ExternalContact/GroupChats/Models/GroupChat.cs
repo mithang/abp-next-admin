@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Models;
 /// <summary>
-/// 客户群
+/// Nhóm khách hàng
 /// </summary>
 public class GroupChat
 {
     /// <summary>
-    /// 客户群ID
+    /// ID nhóm khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("chat_id")]
     [JsonPropertyName("chat_id")]
     public string ChatId { get; set; } = default!;
     /// <summary>
-    /// 客户群跟进状态
+    /// Trạng thái theo dõi nhóm khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("status")]

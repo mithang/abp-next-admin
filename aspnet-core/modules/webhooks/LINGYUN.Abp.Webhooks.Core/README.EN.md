@@ -2,7 +2,7 @@
 
 Core webhook module that provides webhook definition, configuration and basic functionality support.
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)
 
 ## Features
 

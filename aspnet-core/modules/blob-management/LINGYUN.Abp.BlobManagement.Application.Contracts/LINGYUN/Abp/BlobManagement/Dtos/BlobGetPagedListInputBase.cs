@@ -6,15 +6,15 @@ namespace LINGYUN.Abp.BlobManagement.Dtos;
 public abstract class BlobGetPagedListInputBase : PagedAndSortedResultRequestDto
 {
     /// <summary>
-    /// 上级BlobId
+    /// BlobId cấp trên
     /// </summary>
     public Guid? ParentId { get; set; }
     /// <summary>
-    /// 类型
+    /// Loại
     /// </summary>
     public BlobType? Type { get; set; }
     /// <summary>
-    /// 内容类型
+    /// Loại nội dung
     /// </summary>
     public string? ContentType { get; set; }
 }

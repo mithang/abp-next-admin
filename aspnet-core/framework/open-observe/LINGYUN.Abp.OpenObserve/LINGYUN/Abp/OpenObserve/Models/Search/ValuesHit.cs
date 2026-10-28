@@ -3,18 +3,18 @@
 namespace LINGYUN.Abp.OpenObserve.Models.Search;
 
 /// <summary>
-/// 单个字段的取值
+/// Giá trị của một trường đơn
 /// </summary>
 public class ValuesHit
 {
     /// <summary>
-    /// 字段名称
+    /// Tên trường
     /// </summary>
     [JsonPropertyName("field")]
     public string? Field { get; set; }
 
     /// <summary>
-    /// 取值列表
+    /// Danh sách giá trị
     /// </summary>
     [JsonPropertyName("values")]
     public ValuesItem[] Values { get; set; } = [];

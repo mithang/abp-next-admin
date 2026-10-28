@@ -3,25 +3,25 @@ import { expect, it } from 'vitest';
 import { updateCSSVariables } from '../update-css-variables';
 
 it('updateCSSVariables should update CSS variables in :root selector', () => {
-  // 模拟初始的内联样式表内容
+  // Mô phỏng nội dung stylesheet nội tuyến ban đầu
   const initialStyleContent = ':root { --primaryColor: red; }';
   document.head.innerHTML = `<style id="custom-styles">${initialStyleContent}</style>`;
 
-  // 要更新的CSS变量和它们的新值
+  // Các biến CSS cần cập nhật và giá trị mới của chúng
   const updatedVariables = {
     fontSize: '16px',
     primaryColor: 'blue',
     secondaryColor: 'green',
   };
 
-  // 调用函数来更新CSS变量
+  // Gọi hàm để cập nhật biến CSS
   updateCSSVariables(updatedVariables, 'custom-styles');
 
-  // 获取更新后的样式内容
+  // Lấy nội dung style sau khi cập nhật
   const styleElement = document.querySelector('#custom-styles');
   const updatedStyleContent = styleElement ? styleElement.textContent : '';
 
-  // 检查更新后的样式内容是否包含正确的更新值
+  // Kiểm tra nội dung style sau cập nhật có chứa đúng giá trị đã cập nhật hay không
   expect(
     updatedStyleContent?.includes('primaryColor: blue;') &&
       updatedStyleContent?.includes('secondaryColor: green;') &&

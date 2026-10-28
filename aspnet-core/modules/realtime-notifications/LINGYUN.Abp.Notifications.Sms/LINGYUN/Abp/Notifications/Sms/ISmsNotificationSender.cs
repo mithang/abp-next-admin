@@ -3,18 +3,18 @@
 namespace LINGYUN.Abp.Notifications.Sms;
 
 /// <summary>
-/// 短信通知发送接口
+/// Giao diện gửi thông báo SMS
 /// </summary>
 /// <remarks>
-/// 重写实现自定义的短信消息处理
+/// Ghi đè để triển khai xử lý tin nhắn SMS tùy chỉnh
 /// </remarks>
 public interface ISmsNotificationSender
 {
     /// <summary>
-    /// 发送通知
+    /// Gửi thông báo
     /// </summary>
-    /// <param name="notification">通知数据</param>
-    /// <param name="phoneNumbers">手机号列表,多个手机号通过,分隔</param>
+    /// <param name="notification">Dữ liệu thông báo</param>
+    /// <param name="phoneNumbers">Danh sách số điện thoại, nhiều số điện thoại phân tách bằng dấu phẩy (,)</param>
     /// <returns></returns>
     Task SendAsync(NotificationInfo notification, string phoneNumbers);
 }

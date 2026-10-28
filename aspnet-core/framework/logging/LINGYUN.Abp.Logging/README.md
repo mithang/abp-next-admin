@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Logging
 
-日志基础模块
+Mô-đun nhật ký cơ sở
 
-定义 ILoggingManager 接口, 实现日志信息查询  
+Định nghĩa giao diện ILoggingManager, triển khai truy vấn thông tin nhật ký  
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 提供统一的日志查询接口 ILoggingManager
-* 支持多种日志字段查询，包括时间戳、日志级别、消息等
-* 支持异常信息记录和查询
-* 支持丰富的日志字段信息，如机器名称、环境名称、应用名称等
-* 支持分页查询和计数统计
+* Cung cấp giao diện truy vấn nhật ký thống nhất ILoggingManager
+* Hỗ trợ truy vấn nhiều trường nhật ký, bao gồm dấu thời gian, cấp độ nhật ký, thông báo, v.v.
+* Hỗ trợ ghi và truy vấn thông tin ngoại lệ
+* Hỗ trợ thông tin trường nhật ký phong phú, như tên máy, tên môi trường, tên ứng dụng, v.v.
+* Hỗ trợ truy vấn phân trang và thống kê đếm
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLoggingModule))]
@@ -24,22 +24,22 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-在 `appsettings.json` 中配置：
+Cấu hình trong `appsettings.json`:
 
 ```json
 {
   "Logging": {
-    "MachineName": "你的机器名称",
-    "EnvironmentName": "环境名称"
+    "MachineName": "Tên máy của bạn",
+    "EnvironmentName": "Tên môi trường"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 注入 ILoggingManager 接口：
+1. Tiêm giao diện ILoggingManager:
 ```csharp
 public class YourService
 {
@@ -52,9 +52,9 @@ public class YourService
 }
 ```
 
-2. 查询日志：
+2. Truy vấn nhật ký:
 ```csharp
-// 获取日志列表
+// Lấy danh sách nhật ký
 var logs = await _loggingManager.GetListAsync(
     startTime: DateTime.Now.AddDays(-1),
     maxResultCount: 10,
@@ -62,35 +62,35 @@ var logs = await _loggingManager.GetListAsync(
     level: LogLevel.Error
 );
 
-// 获取日志总数
+// Lấy tổng số nhật ký
 var count = await _loggingManager.GetCountAsync(
     startTime: DateTime.Now.AddDays(-1),
     level: LogLevel.Error
 );
 
-// 获取单条日志
+// Lấy một nhật ký
 var log = await _loggingManager.GetAsync(id);
 ```
 
-## 日志字段说明
+## Mô tả các trường nhật ký
 
-* TimeStamp - 日志时间戳
-* Level - 日志级别
-* Message - 日志消息
-* Fields - 日志字段信息
-  * Id - 日志唯一标识
-  * MachineName - 机器名称
-  * Environment - 环境名称
-  * Application - 应用名称
-  * Context - 上下文
-  * ActionId - 操作ID
-  * ActionName - 操作名称
-  * RequestId - 请求ID
-  * RequestPath - 请求路径
-  * ConnectionId - 连接ID
-  * CorrelationId - 关联ID
-  * ClientId - 客户端ID
-  * UserId - 用户ID
-  * ProcessId - 进程ID
-  * ThreadId - 线程ID
-* Exceptions - 异常信息列表
+* TimeStamp - Dấu thời gian nhật ký
+* Level - Cấp độ nhật ký
+* Message - Thông báo nhật ký
+* Fields - Thông tin trường nhật ký
+  * Id - Định danh duy nhất của nhật ký
+  * MachineName - Tên máy
+  * Environment - Tên môi trường
+  * Application - Tên ứng dụng
+  * Context - Ngữ cảnh
+  * ActionId - ID thao tác
+  * ActionName - Tên thao tác
+  * RequestId - ID yêu cầu
+  * RequestPath - Đường dẫn yêu cầu
+  * ConnectionId - ID kết nối
+  * CorrelationId - ID tương quan
+  * ClientId - ID máy khách
+  * UserId - ID người dùng
+  * ProcessId - ID tiến trình
+  * ThreadId - ID luồng
+* Exceptions - Danh sách thông tin ngoại lệ

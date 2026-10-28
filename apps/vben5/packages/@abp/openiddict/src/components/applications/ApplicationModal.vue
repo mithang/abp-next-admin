@@ -286,7 +286,7 @@ function onUriDelete(uri: string) {
       :wrapper-col="{ span: 18 }"
     >
       <Tabs v-model:active-key="activeTab">
-        <!-- 基本信息 -->
+        <!-- Thông tin cơ bản -->
         <TabPane key="basic" :tab="$t('AbpOpenIddict.BasicInfo')">
           <FormItem
             :label="$t('AbpOpenIddict.DisplayName:ApplicationType')"
@@ -364,7 +364,7 @@ function onUriDelete(uri: string) {
             </FormItem>
           </template>
         </TabPane>
-        <!-- 显示名称 -->
+        <!-- Tên hiển thị -->
         <TabPane key="dispalyName" :tab="$t('AbpOpenIddict.DisplayNames')">
           <FormItem
             :label="$t('AbpOpenIddict.DisplayName:DefaultDisplayName')"
@@ -378,7 +378,7 @@ function onUriDelete(uri: string) {
             @delete="onDisplayNameDelete"
           />
         </TabPane>
-        <!-- 端点 -->
+        <!-- Endpoint -->
         <TabPane key="endpoint">
           <template #tab>
             <Dropdown>
@@ -406,7 +406,7 @@ function onUriDelete(uri: string) {
             @delete="onUriDelete"
           />
         </TabPane>
-        <!-- 令牌 -->
+        <!-- Token -->
         <TabPane key="tokens" :tab="$t('AbpOpenIddict.Tokens')">
           <FormItem
             :label="$t('AbpOpenIddict.DisplayName:AccessTokenLifetime')"
@@ -475,7 +475,7 @@ function onUriDelete(uri: string) {
             />
           </FormItem>
         </TabPane>
-        <!-- 范围 -->
+        <!-- Phạm vi -->
         <TabPane key="scope" :tab="$t('AbpOpenIddict.Scopes')">
           <Transfer
             v-model:target-keys="formModel.scopes"
@@ -492,7 +492,7 @@ function onUriDelete(uri: string) {
             show-search
           />
         </TabPane>
-        <!-- 授权 -->
+        <!-- Ủy quyền -->
         <TabPane key="authorize" :tab="$t('AbpOpenIddict.Authorizations')">
           <FormItem
             :label="$t('AbpOpenIddict.Requirements:PKCE')"
@@ -541,7 +541,7 @@ function onUriDelete(uri: string) {
             />
           </FormItem>
         </TabPane>
-        <!-- 属性 -->
+        <!-- Thuộc tính -->
         <TabPane key="props" :tab="$t('AbpOpenIddict.Propertites')">
           <PropertyTable
             :data="formModel.properties"

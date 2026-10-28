@@ -36,8 +36,8 @@ const {
 
 <template>
   <div>
-    <span v-if="isPending">加载...</span>
-    <span v-else-if="isError">出错了: {{ error }}</span>
+    <span v-if="isPending">Đang tải...</span>
+    <span v-else-if="isError">Đã xảy ra lỗi: {{ error }}</span>
     <div v-else-if="data">
       <span v-if="isFetching && !isFetchingNextPage">Fetching...</span>
       <ul v-for="(group, index) in data.pages" :key="index">
@@ -49,9 +49,9 @@ const {
         :disabled="!hasNextPage || isFetchingNextPage"
         @click="() => fetchNextPage()"
       >
-        <span v-if="isFetchingNextPage">加载中...</span>
-        <span v-else-if="hasNextPage">加载更多</span>
-        <span v-else>没有更多了</span>
+        <span v-if="isFetchingNextPage">Đang tải...</span>
+        <span v-else-if="hasNextPage">Tải thêm</span>
+        <span v-else>Không còn nữa</span>
       </Button>
     </div>
   </div>

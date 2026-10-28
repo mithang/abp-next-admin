@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 假勤组件-出差/外出/加班组件值
+/// Giá trị component chấm công - công tác/xin ra ngoài/làm thêm giờ
 /// </summary>
 public class AttendanceControlValue : ControlValue
 {
     /// <summary>
-    /// 时长
+    /// Thời lượng
     /// </summary>
     [NotNull]
     [JsonProperty("attendance")]
@@ -30,21 +30,21 @@ public class AttendanceControlValue : ControlValue
 public class AttendanceValue
 {
     /// <summary>
-    /// 假勤组件时间选择范围
+    /// Phạm vi chọn thời gian của component chấm công
     /// </summary>
     [NotNull]
     [JsonProperty("date_range")]
     [JsonPropertyName("date_range")]
     public DateRangeValue DateRange { get; set; } = default!;
     /// <summary>
-    /// 假勤组件类型：1-请假；3-出差；4-外出；5-加班
+    /// Loại component chấm công: 1-Nghỉ phép; 3-Công tác; 4-Ra ngoài; 5-Làm thêm giờ
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public byte Type { get; set; }
     /// <summary>
-    /// 非必填。时长分片信息
+    /// Không bắt buộc. Thông tin phân đoạn thời lượng
     /// </summary>
     [CanBeNull]
     [JsonProperty("slice_info")]
@@ -55,14 +55,14 @@ public class AttendanceValue
 public class AttendanceSliceInfo
 {
     /// <summary>
-    /// 假勤组件类型：1-请假；3-出差；4-外出；5-加班
+    /// Loại component chấm công: 1-Nghỉ phép; 3-Công tác; 4-Ra ngoài; 5-Làm thêm giờ
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public byte Type { get; set; }
     /// <summary>
-    /// 某一天的分片
+    /// Phân đoạn của một ngày
     /// </summary>
     [NotNull]
     [JsonProperty("day_items")]
@@ -83,14 +83,14 @@ public class AttendanceSliceInfo
 public class AttendanceSliceDayItem
 {
     /// <summary>
-    /// 当天零点时间戳 （当天的东八区的零点时间戳）
+    /// Timestamp lúc 0 giờ của ngày đó (timestamp lúc 0 giờ theo múi giờ UTC+8 của ngày đó)
     /// </summary>
     [NotNull]
     [JsonProperty("daytime")]
     [JsonPropertyName("daytime")]
     public long Daytime { get; set; }
     /// <summary>
-    /// 某一天的时长，秒数，可以为0，（type为halfday时：加班：需为8640整倍数，其他：需为43200的整倍数，type为hour时需为360的整倍数）
+    /// Thời lượng của một ngày, tính bằng giây, có thể bằng 0 (khi type là halfday: làm thêm giờ: phải là bội số nguyên của 8640, các trường hợp khác: phải là bội số nguyên của 43200, khi type là hour phải là bội số nguyên của 360)
     /// </summary>
     [NotNull]
     [JsonProperty("duration")]

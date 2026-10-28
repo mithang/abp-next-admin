@@ -1,0 +1,30 @@
+{
+  "ui": {
+    "fallback": {
+      "comingSoon": "Sắp ra mắt",
+      "forbidden": "Ôi! Truy cập bị từ chối",
+      "forbiddenDesc": "Xin lỗi, bạn không có quyền truy cập trang này.",
+      "http": {
+        "badRequest": "Lỗi yêu cầu. Vui lòng kiểm tra thông tin nhập và thử lại.",
+        "forbidden": "Truy cập bị cấm, bạn không có quyền truy cập tài nguyên này.",
+        "internalServerError": "Lỗi máy chủ nội bộ, vui lòng thử lại sau.",
+        "networkError": "Mạng bất thường, vui lòng kiểm tra kết nối mạng của bạn và thử lại.",
+        "notFound": "Không tìm thấy, tài nguyên được yêu cầu không tồn tại.",
+        "requestTimeout": "Yêu cầu hết thời gian chờ, vui lòng thử lại sau.",
+        "unauthorized": "Xác thực đăng nhập đã hết hạn, vui lòng đăng nhập lại để tiếp tục."
+      },
+      "internalError": "Ôi! Đã xảy ra lỗi",
+      "internalErrorDesc": "Xin lỗi, máy chủ gặp lỗi.",
+      "offline": "Trang ngoại tuyến",
+      "offlineError": "Ôi! Lỗi mạng",
+      "offlineErrorDesc": "Xin lỗi, không thể kết nối internet, vui lòng kiểm tra kết nối mạng của bạn và thử lại.",
+      "pageNotFound": "Ôi! Không tìm thấy trang",
+      "pageNotFoundDesc": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm."
+    },
+    "placeholder": {
+      "input": "Vui lòng nhập",
+      "select": "Vui lòng chọn"
+    },
+    "ui.fallback.http.badRequest": "Kiểm tra đi đâu"
+  }
+}

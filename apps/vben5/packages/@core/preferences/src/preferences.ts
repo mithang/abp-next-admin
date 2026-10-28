@@ -41,45 +41,45 @@ class PreferenceManager {
   }
 
   /**
-   * 清除所有缓存的偏好设置
+   * Xoá mọi cài đặt tuỳ chọn đã lưu trong bộ nhớ đệm
    */
   clearCache = () => {
     Object.values(STORAGE_KEYS).forEach((key) => this.cache.removeItem(key));
   };
 
   /**
-   * 获取初始化偏好设置
+   * Lấy cài đặt tuỳ chọn khởi tạo
    */
   getInitialPreferences = () => {
     return this.initialPreferences;
   };
 
   /**
-   * 获取当前偏好设置（只读）
+   * Lấy cài đặt tuỳ chọn hiện tại (chỉ đọc)
    */
   getPreferences = () => {
     return readonly(this.state);
   };
 
   /**
-   * 初始化偏好设置
-   * @param options - 初始化配置项
-   * @param options.namespace - 命名空间，用于隔离不同应用的配置
-   * @param options.overrides - 要覆盖的偏好设置
+   * Khởi tạo cài đặt tuỳ chọn
+   * @param options - Mục cấu hình khởi tạo
+   * @param options.namespace - Không gian tên, dùng để tách biệt cấu hình của các ứng dụng khác nhau
+   * @param options.overrides - Cài đặt tuỳ chọn cần ghi đè
    */
   initPreferences = async ({ namespace, overrides }: InitialOptions) => {
-    // 防止重复初始化
+    // Ngăn khởi tạo trùng lặp
     if (this.isInitialized) {
       return;
     }
 
-    // 使用命名空间初始化存储管理器
+    // Khởi tạo trình quản lý lưu trữ bằng không gian tên
     this.cache = new StorageManager({ prefix: namespace });
 
-    // 合并初始偏好设置
+    // Gộp cài đặt tuỳ chọn ban đầu
     this.initialPreferences = merge({}, overrides, defaultPreferences);
 
-    // 加载缓存的偏好设置并与初始配置合并
+    // Tải cài đặt tuỳ chọn từ bộ nhớ đệm và gộp với cấu hình ban đầu
     const cachedPreferences = this.loadFromCache() || {};
     const mergedPreference = merge(
       {},
@@ -87,51 +87,51 @@ class PreferenceManager {
       this.initialPreferences,
     );
 
-    // 更新偏好设置
+    // Cập nhật cài đặt tuỳ chọn
     this.updatePreferences(mergedPreference);
 
-    // 设置监听器
+    // Đặt trình lắng nghe
     this.setupWatcher();
 
-    // 初始化平台标识
+    // Khởi tạo định danh nền tảng
     this.initPlatform();
 
     this.isInitialized = true;
   };
 
   /**
-   * 重置偏好设置到初始状态
+   * Đặt lại cài đặt tuỳ chọn về trạng thái ban đầu
    */
   resetPreferences = () => {
-    // 将状态重置为初始偏好设置
+    // Đặt lại trạng thái về cài đặt tuỳ chọn ban đầu
     Object.assign(this.state, this.initialPreferences);
 
-    // 保存偏好设置至缓存
+    // Lưu cài đặt tuỳ chọn vào bộ nhớ đệm
     this.saveToCache(this.state);
 
-    // 直接触发 UI 更新
+    // Kích hoạt trực tiếp việc cập nhật giao diện
     this.handleUpdates(this.state);
   };
 
   /**
-   * 更新偏好设置
-   * @param updates - 要更新的偏好设置
+   * Cập nhật cài đặt tuỳ chọn
+   * @param updates - Cài đặt tuỳ chọn cần cập nhật
    */
   updatePreferences = (updates: DeepPartial<Preferences>) => {
-    // 深度合并更新内容和当前状态
+    // Gộp sâu nội dung cập nhật với trạng thái hiện tại
     const mergedState = merge({}, updates, markRaw(this.state));
     Object.assign(this.state, mergedState);
 
-    // 根据更新的值执行更新
+    // Thực hiện cập nhật theo giá trị đã cập nhật
     this.handleUpdates(updates);
 
-    // 保存到缓存
+    // Lưu vào bộ nhớ đệm
     this.debouncedSave(this.state);
   };
 
   /**
-   * 处理更新
-   * @param updates - 更新的偏好设置
+   * Xử lý cập nhật
+   * @param updates - Cài đặt tuỳ chọn đã cập nhật
    */
   private handleUpdates(updates: DeepPartial<Preferences>) {
     const { theme, app } = updates;
@@ -152,23 +152,23 @@ class PreferenceManager {
   }
 
   /**
-   * 初始化平台标识
+   * Khởi tạo định danh nền tảng
    */
   private initPlatform() {
     document.documentElement.dataset.platform = isMacOs() ? 'macOs' : 'window';
   }
 
   /**
-   * 从缓存加载偏好设置
-   * @returns 缓存的偏好设置，如果不存在则返回 null
+   * Tải cài đặt tuỳ chọn từ bộ nhớ đệm
+   * @returns Cài đặt tuỳ chọn trong bộ nhớ đệm, trả về null nếu không tồn tại
    */
   private loadFromCache(): null | Preferences {
     return this.cache.getItem<Preferences>(STORAGE_KEYS.MAIN);
   }
 
   /**
-   * 保存偏好设置到缓存
-   * @param preference - 要保存的偏好设置
+   * Lưu cài đặt tuỳ chọn vào bộ nhớ đệm
+   * @param preference - Cài đặt tuỳ chọn cần lưu
    */
   private saveToCache(preference: Preferences) {
     this.cache.setItem(STORAGE_KEYS.MAIN, preference);
@@ -177,14 +177,14 @@ class PreferenceManager {
   }
 
   /**
-   * 监听状态和系统偏好设置的变化
+   * Lắng nghe sự thay đổi của trạng thái và cài đặt tuỳ chọn hệ thống
    */
   private setupWatcher() {
     if (this.isInitialized) {
       return;
     }
 
-    // 监听断点，判断是否移动端
+    // Lắng nghe điểm ngắt (breakpoint) để xác định có phải thiết bị di động hay không
     const breakpoints = useBreakpoints(breakpointsTailwind);
     const isMobile = breakpoints.smaller('md');
 
@@ -198,17 +198,17 @@ class PreferenceManager {
       { immediate: true },
     );
 
-    // 监听系统主题偏好设置变化
+    // Lắng nghe sự thay đổi cài đặt chủ đề của hệ thống
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', ({ matches: isDark }) => {
-        // 仅在自动模式下跟随系统主题
+        // Chỉ theo chủ đề hệ thống khi ở chế độ tự động
         if (this.state.theme.mode === 'auto') {
-          // 先应用实际的主题
+          // Áp dụng chủ đề thực tế trước
           this.updatePreferences({
             theme: { mode: isDark ? 'dark' : 'light' },
           });
-          // 再恢复为 auto 模式，保持跟随系统的状态
+          // Sau đó khôi phục về chế độ auto để giữ trạng thái theo hệ thống
           this.updatePreferences({
             theme: { mode: 'auto' },
           });
@@ -217,8 +217,8 @@ class PreferenceManager {
   }
 
   /**
-   * 更新页面颜色模式（灰色、色弱）
-   * @param preference - 偏好设置
+   * Cập nhật chế độ màu của trang (xám, mù màu)
+   * @param preference - Cài đặt tuỳ chọn
    */
   private updateColorMode(preference: Preferences) {
     const { colorGrayMode, colorWeakMode } = preference.app;

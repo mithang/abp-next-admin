@@ -72,15 +72,15 @@ public class TencentCloudBlobProvider : BlobProviderBase, ITransientDependency
         // See: https://cloud.tencent.com/document/product/436/47238
         var preSignatureStruct = new PreSignatureStruct
         {
-            appid = configuration.AppId,//"1250000000"; //腾讯云账号 APPID
-            region = configuration.Region,//"COS_REGION"; //存储桶地域
-            bucket = GetBucketName(args),//"examplebucket-1250000000"; //存储桶
-            key = blobName, //对象键
-            httpMethod = "GET", //HTTP 请求方法
-            isHttps = true, //生成 HTTPS 请求 URL
-            signDurationSecond = configuration.PresignedGetExpirySeconds, //请求签名时间为600s
-            headers = null, //签名中需要校验的 header
-            queryParameters = null //签名中需要校验的 URL 中请求参数
+            appid = configuration.AppId,//"1250000000"; //APPID tài khoản Tencent Cloud
+            region = configuration.Region,//"COS_REGION"; //Vùng của bucket lưu trữ
+            bucket = GetBucketName(args),//"examplebucket-1250000000"; //Bucket lưu trữ
+            key = blobName, //Khóa đối tượng
+            httpMethod = "GET", //Phương thức yêu cầu HTTP
+            isHttps = true, //Tạo URL yêu cầu HTTPS
+            signDurationSecond = configuration.PresignedGetExpirySeconds, //Thời gian hiệu lực chữ ký yêu cầu là 600 giây
+            headers = null, //Header cần kiểm tra trong chữ ký
+            queryParameters = null //Tham số yêu cầu trong URL cần kiểm tra trong chữ ký
         };
         var requestSignURL = ossClient.GenerateSignURL(preSignatureStruct);
         var client = HttpClientFactory.CreateTenantOssClient();
@@ -94,7 +94,7 @@ public class TencentCloudBlobProvider : BlobProviderBase, ITransientDependency
         var blobName = TencentBlobNameCalculator.Calculate(args);
         var configuration = args.Configuration.GetTencentConfiguration();
 
-        // 先检查Bucket
+        // Kiểm tra Bucket trước
         if (configuration.CreateBucketIfNotExists)
         {
             await CreateBucketIfNotExists(ossClient, args, configuration.CreateBucketReferer);
@@ -102,22 +102,22 @@ public class TencentCloudBlobProvider : BlobProviderBase, ITransientDependency
 
         var bucketName = GetBucketName(args);
 
-        // 是否已存在
+        // Đã tồn tại hay chưa
         if (await BlobExistsAsync(ossClient, args, blobName))
         {
-            // 是否覆盖
+            // Có ghi đè hay không
             if (!args.OverrideExisting)
             {
                 throw new BlobAlreadyExistsException($"Saving BLOB '{args.BlobName}' does already exists in the bucketName '{GetBucketName(args)}'! Set {nameof(args.OverrideExisting)} if it should be overwritten.");
             }
             else
             {
-                // 删除原文件
+                // Xóa tệp gốc
                 var deleteRequest = new DeleteObjectRequest(bucketName, blobName);
                 ossClient.DeleteObject(deleteRequest);
             }
         }
-        // 保存
+        // Lưu
         var putRequest = new PutObjectRequest(bucketName, blobName, args.BlobStream);
         ossClient.PutObject(putRequest);
     }

@@ -4,13 +4,13 @@ using System.Text.Json.Serialization.Metadata;
 namespace LINGYUN.Abp.OpenObserve.Serialization.Modifiers;
 
 /// <summary>
-/// 忽略数据模型 null 字段的序列化修饰器
+/// Bộ điều chỉnh tuần tự hóa bỏ qua các trường null của mô hình dữ liệu
 /// </summary>
 /// <remarks>
 public static class OpenObserveIgnoreNullPropertiesModifier
 {
     /// <summary>
-    /// 本库数据模型的命名空间
+    /// Không gian tên của mô hình dữ liệu trong thư viện này
     /// </summary>
     public const string ModelsNamespace = "LINGYUN.Abp.OpenObserve.Models";
 

@@ -3,17 +3,17 @@
 public class AbpWeChatMiniProgramConsts
 {
     /// <summary>
-    /// 微信小程序对应的Provider名称
+    /// Tên Provider tương ứng với Mini Program WeChat
     /// </summary>
     public static string ProviderName { get; set; } = "WeChat.MiniProgram";
 
     /// <summary>
-    /// 微信小程序授权类型
+    /// Loại ủy quyền của Mini Program WeChat
     /// </summary>
     public static string GrantType { get; set; } = "wx-mp";
 
     /// <summary>
-    /// 微信小程序授权方法名称
+    /// Tên phương thức ủy quyền của Mini Program WeChat
     /// </summary>
     public static string AuthenticationMethod { get; set; } = "wma";
     public static string HttpClient { get; set; } = "Abp.WeChat.MiniProgram";

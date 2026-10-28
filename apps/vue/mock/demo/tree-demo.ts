@@ -9,13 +9,13 @@ const demoTreeList = (keyword) => {
     const children: Recordable[] = [];
     for (let j = 0; j < 3; j++) {
       children.push({
-        title: `${keyword ?? ''}选项${index}-${j}`,
+        title: `${keyword ?? ''}Lựa chọn${index}-${j}`,
         value: `${index}-${j}`,
         key: `${index}-${j}`,
       });
     }
     result.list.push({
-      title: `${keyword ?? ''}选项${index}`,
+      title: `${keyword ?? ''}Lựa chọn${index}`,
       value: `${index}`,
       key: `${index}`,
       children,

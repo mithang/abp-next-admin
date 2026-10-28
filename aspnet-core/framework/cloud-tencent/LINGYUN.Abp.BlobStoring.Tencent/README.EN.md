@@ -134,4 +134,4 @@ The module provides the following feature switches:
 * [Tencent Cloud COS Console](https://console.cloud.tencent.com/cos)
 * [ABP BlobStoring System](https://docs.abp.io/en/abp/latest/Blob-Storing)
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

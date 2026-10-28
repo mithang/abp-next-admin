@@ -10,17 +10,17 @@ namespace LINGYUN.Abp.OpenObserve;
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 创建函数
+    /// Tạo hàm
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/functions
-    /// 参考: https://openobserve.ai/docs/reference/api/function/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/function/
     /// </remarks>
-    /// <param name="name">函数名称</param>
-    /// <param name="function">函数体</param>
-    /// <param name="transType">函数语言: 0 = VRL, 1 = JavaScript</param>
-    /// <param name="streams">函数生效的数据流</param>
-    /// <param name="order">执行顺序(文档示例字段, 当前实现未使用)</param>
+    /// <param name="name">Tên hàm</param>
+    /// <param name="function">Thân hàm</param>
+    /// <param name="transType">Ngôn ngữ hàm: 0 = VRL, 1 = JavaScript</param>
+    /// <param name="streams">Luồng dữ liệu mà hàm có hiệu lực</param>
+    /// <param name="order">Thứ tự thực thi (trường ví dụ trong tài liệu, hiện tại chưa sử dụng)</param>
     public async virtual Task<OpenObserveCodeMessageResponse> CreateFunctionAsync(
         string name,
         string function,
@@ -52,11 +52,11 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 更新函数
+    /// Cập nhật hàm
     /// </summary>
     /// <remarks>
     /// PUT /api/{organization}/functions/{name}
-    /// 参考: https://openobserve.ai/docs/reference/api/function/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/function/
     /// </remarks>
     public async virtual Task<OpenObserveCodeMessageResponse> UpdateFunctionAsync(
         string name,
@@ -89,14 +89,14 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 删除函数
+    /// Xóa hàm
     /// </summary>
     /// <remarks>
     /// DELETE /api/{organization}/functions/{name}
-    /// 当流水线依赖该函数时返回 409
-    /// 参考: https://openobserve.ai/docs/reference/api/function/
+    /// Trả về 409 khi pipeline phụ thuộc vào hàm này
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/function/
     /// </remarks>
-    /// <param name="force">实现声明了该参数用于强制删除, 当前版本服务端未使用</param>
+    /// <param name="force">Triển khai khai báo tham số này để xóa bắt buộc, phiên bản máy chủ hiện tại chưa sử dụng</param>
     public async virtual Task<OpenObserveCodeMessageResponse> DeleteFunctionAsync(
         string name,
         bool? force = null,
@@ -111,11 +111,11 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 列出函数
+    /// Liệt kê hàm
     /// </summary>
     /// <remarks>
     /// GET /api/{organization}/functions
-    /// 参考: https://openobserve.ai/docs/reference/api/function/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/function/
     /// </remarks>
     public async virtual Task<FunctionListResponse> GetFunctionsAsync(
         string? organization = null,
@@ -127,15 +127,15 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 测试函数
+    /// Kiểm thử hàm
     /// </summary>
     /// <remarks>
     /// POST /api/{org_id}/functions/test
-    /// 注意: 该接口未出现在 API 文档中, 来自实现源码
+    /// Lưu ý: Giao diện này không xuất hiện trong tài liệu API, lấy từ mã nguồn triển khai
     /// </remarks>
-    /// <param name="function">函数体</param>
-    /// <param name="events">用于测试的样例数据</param>
-    /// <param name="transType">函数语言, 不传时由服务端自动识别</param>
+    /// <param name="function">Thân hàm</param>
+    /// <param name="events">Dữ liệu mẫu dùng để kiểm thử</param>
+    /// <param name="transType">Ngôn ngữ hàm, nếu không truyền thì máy chủ tự động nhận diện</param>
     public async virtual Task<TestFunctionResponse> TestFunctionAsync(
         string function,
         JsonNode[] events,

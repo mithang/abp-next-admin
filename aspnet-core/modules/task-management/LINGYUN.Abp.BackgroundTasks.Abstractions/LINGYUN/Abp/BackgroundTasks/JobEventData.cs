@@ -7,71 +7,71 @@ namespace LINGYUN.Abp.BackgroundTasks;
 public class JobEventData
 {
     /// <summary>
-    /// 任务类别
+    /// Loại tác vụ
     /// </summary>
     public Type Type { get; }
     /// <summary>
-    /// 任务参数
+    /// Tham số tác vụ
     /// </summary>
     public IReadOnlyDictionary<string, object> Args { get; }
     /// <summary>
-    /// 任务组别
+    /// Nhóm tác vụ
     /// </summary>
     public string Group { get; }
     /// <summary>
-    /// 任务名称
+    /// Tên tác vụ
     /// </summary>
     public string Name { get; }
     /// <summary>
-    /// 任务标识
+    /// Mã định danh tác vụ
     /// </summary>
     public string Key { get; }
     /// <summary>
-    /// 任务状态
+    /// Trạng thái tác vụ
     /// </summary>
     public JobStatus Status { get; set; }
     /// <summary>
-    /// 执行者租户
+    /// Tenant thực thi
     /// </summary>
     public Guid? TenantId { get; set; }
     /// <summary>
-    /// 错误明细
+    /// Chi tiết lỗi
     /// </summary>
     public Exception? Exception { get; }
     /// <summary>
-    /// 任务描述
+    /// Mô tả tác vụ
     /// </summary>
     public string? Description { get; set; }
     /// <summary>
-    /// 返回参数
+    /// Tham số trả về
     /// </summary>
     public string? Result { get; set; }
     /// <summary>
-    /// 触发次数
+    /// Số lần kích hoạt
     /// </summary>
     public int Triggered { get; set; }
     /// <summary>
-    /// 最大可执行次数
+    /// Số lần thực thi tối đa
     /// </summary>
     public int RepeatCount { get; set; }
     /// <summary>
-    /// 运行时间
+    /// Thời gian chạy
     /// </summary>
     public DateTime RunTime { get; set; }
     /// <summary>
-    /// 执行时间(ms)
+    /// Thời gian thực thi (ms)
     /// </summary>
     public int? ExecutionDuration { get; set; }
     /// <summary>
-    /// 上次运行时间
+    /// Thời gian chạy lần trước
     /// </summary>
     public DateTime? LastRunTime { get; set; }
     /// <summary>
-    /// 下次运行时间
+    /// Thời gian chạy lần tới
     /// </summary>
     public DateTime? NextRunTime { get; set; }
     /// <summary>
-    /// 作业取消令牌
+    /// Token hủy công việc
     /// </summary>
     public CancellationToken CancellationToken { get; }
     public JobEventData(

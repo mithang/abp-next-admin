@@ -5,89 +5,89 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 审批申请详情
+/// Chi tiết đơn phê duyệt
 /// </summary>
 public class ApprovalDetailInfo
 {
     /// <summary>
-    /// 审批编号
+    /// Số phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("sp_no")]
     [JsonPropertyName("sp_no")]
     public string SpNo { get; set; } = default!;
     /// <summary>
-    /// 审批申请类型名称（审批模板名称）
+    /// Tên loại đơn phê duyệt (tên mẫu phê duyệt)
     /// </summary>
     [NotNull]
     [JsonProperty("sp_name")]
     [JsonPropertyName("sp_name")]
     public string SpName { get; set; } = default!;
     /// <summary>
-    /// 申请单状态
+    /// Trạng thái đơn
     /// </summary>
     [NotNull]
     [JsonProperty("sp_status")]
     [JsonPropertyName("sp_status")]
     public ApprovalSpStatus SpStatus { get; set; }
     /// <summary>
-    /// 审批模板id。可在“获取审批申请详情”、“审批状态变化回调通知”中获得，也可在审批模板的模板编辑页面链接中获得。
+    /// Id mẫu phê duyệt. Có thể lấy trong “Lấy chi tiết đơn phê duyệt”, “Thông báo callback khi trạng thái phê duyệt thay đổi”, cũng có thể lấy trong liên kết trang chỉnh sửa mẫu của mẫu phê duyệt.
     /// </summary>
     [NotNull]
     [JsonProperty("template_id")]
     [JsonPropertyName("template_id")]
     public string TemplateId { get; set; } = default!;
     /// <summary>
-    /// 审批申请提交时间,Unix时间戳
+    /// Thời gian nộp đơn phê duyệt, dấu thời gian Unix
     /// </summary>
     [NotNull]
     [JsonProperty("apply_time")]
     [JsonPropertyName("apply_time")]
     public long ApplyTime { get; set; }
     /// <summary>
-    /// 申请人信息
+    /// Thông tin người nộp đơn
     /// </summary>
     [CanBeNull]
     [JsonProperty("applyer")]
     [JsonPropertyName("applyer")]
     public ApprovalApplyer? Applyer { get; set; }
     /// <summary>
-    /// 批量申请人信息（和applyer字段互斥）
+    /// Thông tin người nộp đơn hàng loạt (loại trừ lẫn nhau với trường applyer)
     /// </summary>
     [CanBeNull]
     [JsonProperty("batch_applyer")]
     [JsonPropertyName("batch_applyer")]
     public List<ApprovalUser>? BatchApplyer { get; set; }
     /// <summary>
-    /// 审批流程信息，可能有多个审批节点
+    /// Thông tin quy trình phê duyệt, có thể có nhiều nút phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("sp_record")]
     [JsonPropertyName("sp_record")]
     public List<ApprovalSpRecord> SpRecord { get; set; } = default!;
     /// <summary>
-    /// 抄送信息，可能有多个抄送节点
+    /// Thông tin gửi bản sao, có thể có nhiều nút gửi bản sao
     /// </summary>
     [CanBeNull]
     [JsonProperty("notifyer")]
     [JsonPropertyName("notifyer")]
     public List<ApprovalUser>? Notifyer { get; set; }
     /// <summary>
-    /// 审批申请数据
+    /// Dữ liệu đơn phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("apply_data")]
     [JsonPropertyName("apply_data")]
     public ApprovalData ApplyData { get; set; } = default!;
     /// <summary>
-    /// 审批申请备注信息，可能有多个备注节点
+    /// Thông tin ghi chú của đơn phê duyệt, có thể có nhiều nút ghi chú
     /// </summary>
     [NotNull]
     [JsonProperty("comments")]
     [JsonPropertyName("comments")]
     public List<ApprovalComment> Comments { get; set; } = default!;
     /// <summary>
-    /// 审批流程列表
+    /// Danh sách quy trình phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("process_list")]

@@ -26,4 +26,4 @@ SaaS domain shared layer module, defining shared content such as constants, enum
 
 ## More
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

@@ -36,7 +36,7 @@ public class SignalRNotificationPublishProvider : NotificationPublishProvider
             try
             {
                 var singalRGroup = _hubContext.Clients.Group(groupName);
-                // 租户通知群发
+                // Gửi thông báo hàng loạt cho tenant
                 Logger.LogDebug($"Found a singalr group, begin senging notifications");
                 await singalRGroup.SendAsync(_options.MethodName, context.Notification, cancellationToken);
 

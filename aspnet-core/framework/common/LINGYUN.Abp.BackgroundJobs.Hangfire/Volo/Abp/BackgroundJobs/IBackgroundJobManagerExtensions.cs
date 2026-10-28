@@ -8,12 +8,12 @@ namespace Volo.Abp.BackgroundJobs;
 public static class IBackgroundJobManagerExtensions
 {
     /// <summary>
-    /// 后台作业进入周期性队列
+    /// Công việc nền vào hàng đợi định kỳ
     /// </summary>
-    /// <typeparam name="TArgs">作业参数类型</typeparam>
-    /// <param name="backgroundJobManager">后台作业管理器</param>
-    /// <param name="cron">Cron表达式</param>
-    /// <param name="args">作业参数</param>
+    /// <typeparam name="TArgs">Kiểu tham số công việc</typeparam>
+    /// <param name="backgroundJobManager">Trình quản lý công việc nền</param>
+    /// <param name="cron">Biểu thức Cron</param>
+    /// <param name="args">Tham số công việc</param>
     /// <returns></returns>
     public static Task EnqueueAsync<TArgs>(
         this IBackgroundJobManager backgroundJobManager,

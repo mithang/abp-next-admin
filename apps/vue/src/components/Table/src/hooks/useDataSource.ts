@@ -241,7 +241,7 @@ export function useDataSource(
       clearSelectOnPageChange,
     } = unref(propsRef);
     let fetchApi = api;
-    // 高级查询条件支持
+    // Hỗ trợ điều kiện truy vấn nâng cao
     const searchInput = cloneDeep(getFieldsValue());
     if (advancedSearchConfig?.useAdvancedSearch) {
       if (Reflect.has(searchInput, 'queryable') 
@@ -294,7 +294,7 @@ export function useDataSource(
       }
 
       let res = await fetchApi(params);
-      // 增加用户自定义的返回数据处理函数
+      // Thêm hàm xử lý dữ liệu trả về do người dùng tùy chỉnh
       if (beforeResponse && isFunction(beforeResponse)) {
         res = beforeResponse(res);
       }
@@ -306,7 +306,7 @@ export function useDataSource(
       let resultItems: Recordable[] = isArrayResult ? res : get(res, listField);
       const resultTotal: number = isArrayResult ? res.length : get(res, totalField);
 
-      // 假如数据变少，导致总页数变少并小于当前选中页码，通过getPaginationRef获取到的页码是不正确的，需获取正确的页码再次执行
+      // Nếu dữ liệu giảm đi, khiến tổng số trang giảm và nhỏ hơn số trang đang chọn, số trang lấy qua getPaginationRef là không chính xác, cần lấy số trang chính xác rồi thực thi lại
       if (Number(resultTotal)) {
         const currentTotalPage = Math.ceil(resultTotal / pageSize);
         if (current > currentTotalPage) {

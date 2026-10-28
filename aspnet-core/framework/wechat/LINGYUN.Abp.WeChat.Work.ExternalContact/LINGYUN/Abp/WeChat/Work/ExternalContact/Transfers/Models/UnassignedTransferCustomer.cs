@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Models;
 /// <summary>
-/// 分配离职成员客户详情
+/// Chi tiết phân bổ khách hàng của thành viên đã nghỉ việc
 /// </summary>
 public class UnassignedTransferCustomer
 {
     /// <summary>
-    /// 客户的外部联系人userid
+    /// Userid liên hệ bên ngoài của khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]
     [JsonPropertyName("external_userid")]
     public string ExternalUserid { get; set; } = default!;
     /// <summary>
-    /// 对此客户进行分配的结果,0表示开始分配流程,待24小时后自动接替,并不代表最终分配成功
+    /// Kết quả phân bổ cho khách hàng này, 0 nghĩa là bắt đầu quy trình phân bổ, sau 24 giờ sẽ tự động tiếp nhận, và không có nghĩa là phân bổ cuối cùng đã thành công
     /// </summary>
     [NotNull]
     [JsonProperty("errcode")]

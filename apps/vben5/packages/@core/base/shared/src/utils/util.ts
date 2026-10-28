@@ -19,16 +19,16 @@ export function bindMethods<T extends object>(instance: T): void {
 }
 
 /**
- * 获取嵌套对象的字段值
- * @param obj - 要查找的对象
- * @param path - 用于查找字段的路径，使用小数点分隔
- * @returns 字段值，或者未找到时返回 undefined
+ * Lấy giá trị trường của đối tượng lồng nhau
+ * @param obj - Đối tượng cần tìm
+ * @param path - Đường dẫn dùng để tìm trường, phân tách bằng dấu chấm
+ * @returns Giá trị trường, hoặc undefined nếu không tìm thấy
  */
 export function getNestedValue<T>(obj: T, path: string): any {
   if (typeof path !== 'string' || path.length === 0) {
     throw new Error('Path must be a non-empty string');
   }
-  // 把路径字符串按 "." 分割成数组
+  // Tách chuỗi đường dẫn thành mảng theo "."
   const keys = path.split('.') as (number | string)[];
 
   let current: any = obj;

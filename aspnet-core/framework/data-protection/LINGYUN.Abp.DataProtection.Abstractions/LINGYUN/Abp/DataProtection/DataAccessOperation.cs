@@ -2,23 +2,23 @@
 
 namespace LINGYUN.Abp.DataProtection;
 /// <summary>
-/// 数据操作
+/// Thao tác dữ liệu
 /// </summary>
 public enum DataAccessOperation
 {
     /// <summary>
-    /// 查询
+    /// Truy vấn
     /// </summary>
-    [Description("查询")]
+    [Description("Truy vấn")]
     Read, 
     /// <summary>
-    /// 更新
+    /// Cập nhật
     /// </summary>
-    [Description("更新")]
+    [Description("Cập nhật")]
     Write, 
     /// <summary>
-    /// 删除
+    /// Xóa
     /// </summary>
-    [Description("删除")]
+    [Description("Xóa")]
     Delete
 }

@@ -9,88 +9,88 @@ namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 public abstract class CreateOrUpdateSchedule
 {
     /// <summary>
-    /// 日程的管理员userid列表，管理员必须在共享成员的列表中
+    /// Danh sách userid quản trị viên của lịch trình; quản trị viên phải nằm trong danh sách thành viên được chia sẻ
     /// </summary>
     /// <remarks>
-    /// 最多指定3人
+    /// Tối đa chỉ định 3 người
     /// </remarks>
     [CanBeNull]
     [JsonProperty("admins")]
     [JsonPropertyName("admins")]
     public string[]? Admins { get; set; }
     /// <summary>
-    /// 日程参与者列表
+    /// Danh sách người tham gia lịch trình
     /// </summary>
     /// <remarks>
-    /// 最多支持1000人
+    /// Hỗ trợ tối đa 1000 người
     /// </remarks>
     [CanBeNull]
     [JsonProperty("attendees")]
     [JsonPropertyName("attendees")]
     public ScheduleAttendee[]? Attendees { get; set; }
     /// <summary>
-    /// 日程标题
+    /// Tiêu đề lịch trình
     /// </summary>
     /// <remarks>
-    /// 0 ~ 128 字符。不填会默认显示为“新建事件”
+    /// 0 ~ 128 ký tự. Không điền sẽ hiển thị mặc định là “Sự kiện mới”
     /// </remarks>
     [CanBeNull]
     [JsonProperty("summary")]
     [JsonPropertyName("summary")]
     public string? Summary { get; set; }
     /// <summary>
-    /// 日程描述
+    /// Mô tả lịch trình
     /// </summary>
     /// <remarks>
-    /// 不多于1000个字符
+    /// Không quá 1000 ký tự
     /// </remarks>
     [CanBeNull]
     [JsonProperty("description")]
     [JsonPropertyName("description")]
     public string? Description { get; set; }
     /// <summary>
-    /// 提醒相关信息
+    /// Thông tin nhắc nhở liên quan
     /// </summary>
     [CanBeNull]
     [JsonProperty("reminders")]
     [JsonPropertyName("reminders")]
     public ScheduleReminder? Reminders { get; set; }
     /// <summary>
-    /// 日程地址
+    /// Địa chỉ lịch trình
     /// </summary>
     /// <remarks>
-    /// 不多于128个字符
+    /// Không quá 128 ký tự
     /// </remarks>
     [CanBeNull]
     [JsonProperty("location")]
     [JsonPropertyName("location")]
     public string? Location { get; set; }
     /// <summary>
-    /// 日程开始时间，Unix时间戳
+    /// Thời gian bắt đầu lịch trình, timestamp Unix
     /// </summary>
     [NotNull]
     [JsonProperty("start_time")]
     [JsonPropertyName("start_time")]
     public long StartTime { get; }
     /// <summary>
-    /// 日程结束时间，Unix时间戳
+    /// Thời gian kết thúc lịch trình, timestamp Unix
     /// </summary>
     [NotNull]
     [JsonProperty("end_time")]
     [JsonPropertyName("end_time")]
     public long EndTime { get; }
     /// <summary>
-    /// 日程所属日历ID
+    /// ID lịch mà lịch trình thuộc về
     /// </summary>
     /// <remarks>
-    /// 不多于64字节
+    /// Không quá 64 byte
     /// </remarks>
     [CanBeNull]
     [JsonProperty("cal_id")]
     [JsonPropertyName("cal_id")]
     public string? CalId { get; set; }
     /// <summary>
-    /// 是否全天日程
+    /// Có phải lịch trình cả ngày hay không
     /// </summary>
     [NotNull]
     [JsonProperty("is_whole_day")]
@@ -105,7 +105,7 @@ public abstract class CreateOrUpdateSchedule
     }
 
     /// <summary>
-    /// 验证输入
+    /// Kiểm tra dữ liệu đầu vào
     /// </summary>
     /// <exception cref="ArgumentException"></exception>
     public void Validate()

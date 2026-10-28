@@ -2,17 +2,17 @@
 outline: deep
 ---
 
-# 登录
+# Đăng nhập
 
-本文介绍如何去改造自己的应用程序登录页以及如何快速的对接登录页面接口。
+Bài viết này giới thiệu cách tùy chỉnh trang đăng nhập của ứng dụng của bạn và cách nhanh chóng tích hợp giao diện trang đăng nhập.
 
-## 登录页面调整
+## Điều chỉnh trang đăng nhập
 
-如果你想调整登录页面的标题、描述和图标以及工具栏，你可以通过配置 `AuthPageLayout` 组件的参数来实现。
+Nếu bạn muốn điều chỉnh tiêu đề, mô tả, biểu tượng và thanh công cụ của trang đăng nhập, bạn có thể thực hiện bằng cách cấu hình tham số của component `AuthPageLayout`.
 
 ![login](/guide/login.png)
 
-只需要在应用下的 `src/layouts/auth.vue` 内，配置`AuthPageLayout`的 `props`参数即可：
+Chỉ cần trong `src/layouts/auth.vue` của ứng dụng, cấu hình tham số `props` của `AuthPageLayout`:
 
 ```vue {2-7}
 <AuthPageLayout
@@ -27,9 +27,9 @@ outline: deep
 </AuthPageLayout>
 ```
 
-## 登录表单调整
+## Điều chỉnh biểu mẫu đăng nhập
 
-如果你想调整登录表单的相关内容，你可以在应用下的 `src/views/_core/authentication/login.vue` 内，配置`AuthenticationLogin` 组件参数即可：
+Nếu bạn muốn điều chỉnh nội dung liên quan đến biểu mẫu đăng nhập, bạn có thể cấu hình tham số của component `AuthenticationLogin` trong `src/views/_core/authentication/login.vue` của ứng dụng:
 
 ```vue
 <AuthenticationLogin
@@ -38,70 +38,70 @@ outline: deep
 />
 ```
 
-::: details AuthenticationLogin 组件参数
+::: details Tham số component AuthenticationLogin
 
 ```ts
 {
   /**
-   * @zh_CN 验证码登录路径
+   * @zh_CN Đường dẫn đăng nhập bằng mã xác minh
    */
   codeLoginPath?: string;
   /**
-   * @zh_CN 忘记密码路径
+   * @zh_CN Đường dẫn quên mật khẩu
    */
   forgetPasswordPath?: string;
 
   /**
-   * @zh_CN 是否处于加载处理状态
+   * @zh_CN Có đang ở trạng thái xử lý tải hay không
    */
   loading?: boolean;
 
   /**
-   * @zh_CN 二维码登录路径
+   * @zh_CN Đường dẫn đăng nhập bằng mã QR
    */
   qrCodeLoginPath?: string;
 
   /**
-   * @zh_CN 注册路径
+   * @zh_CN Đường dẫn đăng ký
    */
   registerPath?: string;
 
   /**
-   * @zh_CN 是否显示验证码登录
+   * @zh_CN Có hiển thị đăng nhập bằng mã xác minh hay không
    */
   showCodeLogin?: boolean;
   /**
-   * @zh_CN 是否显示忘记密码
+   * @zh_CN Có hiển thị quên mật khẩu hay không
    */
   showForgetPassword?: boolean;
 
   /**
-   * @zh_CN 是否显示二维码登录
+   * @zh_CN Có hiển thị đăng nhập bằng mã QR hay không
    */
   showQrcodeLogin?: boolean;
 
   /**
-   * @zh_CN 是否显示注册按钮
+   * @zh_CN Có hiển thị nút đăng ký hay không
    */
   showRegister?: boolean;
 
   /**
-   * @zh_CN 是否显示记住账号
+   * @zh_CN Có hiển thị ghi nhớ tài khoản hay không
    */
   showRememberMe?: boolean;
 
   /**
-   * @zh_CN 是否显示第三方登录
+   * @zh_CN Có hiển thị đăng nhập bên thứ ba hay không
    */
   showThirdPartyLogin?: boolean;
 
   /**
-   * @zh_CN 登录框子标题
+   * @zh_CN Tiêu đề phụ của khung đăng nhập
    */
   subTitle?: string;
 
   /**
-   * @zh_CN 登录框标题
+   * @zh_CN Tiêu đề của khung đăng nhập
    */
   title?: string;
 
@@ -112,22 +112,22 @@ outline: deep
 
 ::: tip Note
 
-如果这些配置不能满足你的需求，你可以自行实现登录表单及相关登录逻辑或者给我们提交 `PR`。
+Nếu các cấu hình này không đáp ứng nhu cầu của bạn, bạn có thể tự triển khai biểu mẫu đăng nhập và logic đăng nhập liên quan hoặc gửi `PR` cho chúng tôi.
 
 :::
 
-## 接口对接流程
+## Quy trình tích hợp giao diện
 
-这里将会快速的介绍如何快速对接自己的后端。
+Tại đây sẽ giới thiệu nhanh cách tích hợp backend của riêng bạn.
 
-### 前置条件
+### Điều kiện tiên quyết
 
-- 首先文档用的后端服务，接口返回的格式统一如下：
+- Trước hết, dịch vụ backend dùng trong tài liệu có định dạng trả về thống nhất như sau:
 
 ```ts
 interface HttpResponse<T = any> {
   /**
-   * 0 表示成功 其他表示失败
+   * 0 biểu thị thành công, các giá trị khác biểu thị thất bại
    * 0 means success, others means fail
    */
   code: number;
@@ -136,9 +136,9 @@ interface HttpResponse<T = any> {
 }
 ```
 
-如果你不符合这个格式，你需要先阅读 [服务端交互](../essentials/server.md) 文档，改造你的`request.ts`配置。
+Nếu bạn không tuân theo định dạng này, bạn cần đọc tài liệu [Tương tác phía máy chủ](../essentials/server.md) trước và sửa cấu hình `request.ts` của bạn.
 
-- 其次你需要在先将本地代理地址改为你的真实后端地址，你可以在应用下的 `vite.config.mts` 内配置：
+- Tiếp theo, bạn cần đổi địa chỉ proxy cục bộ thành địa chỉ backend thực của bạn, bạn có thể cấu hình trong `vite.config.mts` của ứng dụng:
 
 ```ts
 import { defineConfig } from '@vben/vite-config';
@@ -151,7 +151,7 @@ export default defineConfig(async () => {
           '/api': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
-            // 这里改为你的真实接口地址
+            // Tại đây đổi thành địa chỉ giao diện thực của bạn
             target: 'http://localhost:5320/api',
             ws: true,
           },
@@ -162,47 +162,47 @@ export default defineConfig(async () => {
 });
 ```
 
-### 登录接口
+### Giao diện đăng nhập
 
-为了能正常登录，你的后端最少需要提供 `2-3` 个接口：
+Để đăng nhập bình thường, backend của bạn cần cung cấp tối thiểu `2-3` giao diện:
 
-- 登录接口
+- Giao diện đăng nhập
 
-接口地址可在应用下的 `src/api/core/auth` 内修改，以下为默认接口地址：
+Địa chỉ giao diện có thể sửa trong `src/api/core/auth` của ứng dụng, dưới đây là địa chỉ giao diện mặc định:
 
 ```ts
 /**
- * 登录
+ * Đăng nhập
  */
 export async function loginApi(data: AuthApi.LoginParams) {
   return requestClient.post<AuthApi.LoginResult>('/auth/login', data);
 }
 
-/** 只需要保证登录接口返回值有 `accessToken` 字段即可 */
+/** Chỉ cần đảm bảo giá trị trả về của giao diện đăng nhập có trường `accessToken` */
 export interface LoginResult {
   accessToken: string;
 }
 ```
 
-- 获取用户信息接口
+- Giao diện lấy thông tin người dùng
 
-接口地址可在应用下的 `src/api/core/user` 内修改，以下为默认接口地址：
+Địa chỉ giao diện có thể sửa trong `src/api/core/user` của ứng dụng, dưới đây là địa chỉ giao diện mặc định:
 
 ```ts
 export async function getUserInfoApi() {
   return requestClient.get<UserInfo>('/user/info');
 }
 
-/** 只需要保证登录接口返回值有以下字段即可，多的字段可以自行使用 */
+/** Chỉ cần đảm bảo giá trị trả về của giao diện đăng nhập có các trường sau, các trường thừa có thể tự sử dụng */
 export interface UserInfo {
   roles: string[];
   realName: string;
 }
 ```
 
-- 获取权限码 (可选)
+- Lấy mã quyền (tùy chọn)
 
-这个接口用于获取用户的权限码，权限码是用于控制用户的权限的，接口地址可在应用下的 `src/api/core/auth` 内修改，以下为默认接口地址：
+Giao diện này dùng để lấy mã quyền của người dùng, mã quyền dùng để kiểm soát quyền của người dùng, địa chỉ giao diện có thể sửa trong `src/api/core/auth` của ứng dụng, dưới đây là địa chỉ giao diện mặc định:
 
 ```ts
 export async function getAccessCodesApi() {
@@ -210,11 +210,11 @@ export async function getAccessCodesApi() {
 }
 ```
 
-如果你不需要这个权限，你只需要把代码改为返回一个空数组即可。
+Nếu bạn không cần quyền này, bạn chỉ cần đổi mã thành trả về một mảng rỗng.
 
 ```ts {2}
 export async function getAccessCodesApi() {
-  // 这里返回一个空数组即可
+  // Tại đây chỉ cần trả về một mảng rỗng
   return [];
 }
 ```

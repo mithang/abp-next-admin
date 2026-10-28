@@ -4,7 +4,7 @@ import { Store } from '@vben-core/shared/store';
 import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class ModalApi {
-  // 共享数据
+  // Dữ liệu dùng chung
   public sharedData: Record<'payload', any> = {
     payload: {},
   };
@@ -71,7 +71,7 @@ export class ModalApi {
         onUpdate: () => {
           const state = this.store.state;
 
-          // 每次更新状态时，都会调用 onOpenChange 回调函数
+          // Mỗi lần cập nhật trạng thái，đều sẽ gọi onOpenChange hàm callback
           if (state?.isOpen === this.state?.isOpen) {
             this.state = state;
           } else {
@@ -96,12 +96,12 @@ export class ModalApi {
   }
 
   /**
-   * 关闭弹窗
-   * @description 关闭弹窗时会调用 onBeforeClose 钩子函数，如果 onBeforeClose 返回 false，则不关闭弹窗
+   * Đóng popup
+   * @description Khi đóng popup sẽ gọi onBeforeClose hàm hook，Nếu onBeforeClose trả về false，thì không đóng popup
    */
   async close() {
-    // 通过 onBeforeClose 钩子函数来判断是否允许关闭弹窗
-    // 如果 onBeforeClose 返回 false，则不关闭弹窗
+    // Thông qua hàm hook onBeforeClose để xác định có cho phép đóng popup không
+    // Nếu onBeforeClose trả về false，thì không đóng popup
     const allowClose = (await this.api.onBeforeClose?.()) ?? true;
     if (allowClose) {
       this.store.setState((prev) => ({
@@ -116,16 +116,16 @@ export class ModalApi {
   }
 
   /**
-   * 锁定弹窗状态（用于提交过程中的等待状态）
-   * @description 锁定状态将禁用默认的取消按钮，使用spinner覆盖弹窗内容，隐藏关闭按钮，阻止手动关闭弹窗，将默认的提交按钮标记为loading状态
-   * @param isLocked 是否锁定
+   * Khóa trạng thái popup（dùng cho trạng thái chờ trong quá trình gửi）
+   * @description Trạng thái khóa sẽ vô hiệu hóa nút hủy mặc định，Sử dụngspinnerphủ nội dung popup，ẩn nút đóng，chặn đóng popup thủ công，đánh dấu nút gửi mặc định thành trạng thái loading
+   * @param isLocked Có khóa không
    */
   lock(isLocked = true) {
     return this.setState({ submitting: isLocked });
   }
 
   /**
-   * 取消操作
+   * Thao tác hủy
    */
   onCancel() {
     if (this.api.onCancel) {
@@ -136,7 +136,7 @@ export class ModalApi {
   }
 
   /**
-   * 弹窗关闭动画播放完毕后的回调
+   * Callback sau khi animation đóng popup phát xong
    */
   onClosed() {
     if (!this.state.isOpen) {
@@ -145,14 +145,14 @@ export class ModalApi {
   }
 
   /**
-   * 确认操作
+   * Thao tác xác nhận
    */
   onConfirm() {
     this.api.onConfirm?.();
   }
 
   /**
-   * 弹窗打开动画播放完毕后的回调
+   * Callback sau khi animation mở popup phát xong
    */
   onOpened() {
     if (this.state.isOpen) {
@@ -175,8 +175,7 @@ export class ModalApi {
 
   setState(
     stateOrFn:
-      | ((prev: ModalState) => Partial<ModalState>)
-      | Partial<ModalState>,
+      ((prev: ModalState) => Partial<ModalState>) | Partial<ModalState>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState(stateOrFn);
@@ -187,8 +186,8 @@ export class ModalApi {
   }
 
   /**
-   * 解除弹窗的锁定状态
-   * @description 解除由lock方法设置的锁定状态，是lock(false)的别名
+   * Hủy trạng thái khóa của popup
+   * @description Hủy trạng thái khóa do phương thức lock đặt, là bí danh của lock(false)
    */
   unlock() {
     return this.lock(false);

@@ -15,9 +15,9 @@ export function useSubscriptionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 创建订阅
-   * @param input 参数
-   * @returns 订阅Dto
+   * Tạo đăng ký
+   * @param input Tham số
+   * @returns Dto đăng ký
    */
   function createApi(
     input: WebhookSubscriptionCreateDto,
@@ -28,8 +28,8 @@ export function useSubscriptionsApi() {
     });
   }
   /**
-   * 删除订阅
-   * @param id 订阅Id
+   * Xóa đăng ký
+   * @param id Id đăng ký
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/webhooks/subscriptions/${id}`, {
@@ -37,8 +37,8 @@ export function useSubscriptionsApi() {
     });
   }
   /**
-   * 批量删除订阅
-   * @param input 参数
+   * Xóa hàng loạt đăng ký
+   * @param input Tham số
    */
   function bulkDeleteApi(
     input: WebhookSubscriptionDeleteManyInput,
@@ -49,8 +49,8 @@ export function useSubscriptionsApi() {
     });
   }
   /**
-   * 查询所有可用的Webhook分组列表
-   * @returns Webhook分组列表
+   * Truy vấn danh sách tất cả nhóm Webhook khả dụng
+   * @returns Danh sách nhóm Webhook
    */
   function getAllAvailableWebhooksApi(): Promise<
     ListResultDto<WebhookAvailableGroupDto>
@@ -63,9 +63,9 @@ export function useSubscriptionsApi() {
     );
   }
   /**
-   * 查询订阅
-   * @param id 订阅Id
-   * @returns 订阅Dto
+   * Truy vấn đăng ký
+   * @param id Id đăng ký
+   * @returns Dto đăng ký
    */
   function getApi(id: string): Promise<WebhookSubscriptionDto> {
     return request<WebhookSubscriptionDto>(
@@ -76,9 +76,9 @@ export function useSubscriptionsApi() {
     );
   }
   /**
-   * 查询订阅分页列表
-   * @param input 过滤参数
-   * @returns 订阅Dto列表
+   * Truy vấn danh sách phân trang đăng ký
+   * @param input Tham số lọc
+   * @returns Danh sách Dto đăng ký
    */
   function getPagedListApi(
     input: WebhookSubscriptionGetListInput,
@@ -92,10 +92,10 @@ export function useSubscriptionsApi() {
     );
   }
   /**
-   * 更新订阅
-   * @param id 订阅Id
-   * @param input 更新参数
-   * @returns 订阅Dto
+   * Cập nhật đăng ký
+   * @param id Id đăng ký
+   * @param input Tham số cập nhật
+   * @returns Dto đăng ký
    */
   function updateApi(
     id: string,

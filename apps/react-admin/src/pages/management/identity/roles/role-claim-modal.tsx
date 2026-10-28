@@ -18,7 +18,7 @@ interface Props {
 	role: IdentityRoleDto;
 }
 
-//TODO on change 结合测试配置的role的claims和其它calims获取的地方
+//TODO on change kết hợp kiểm thử nơi lấy claims của role đã cấu hình và các claims khác
 const RoleClaimModal: React.FC<Props> = ({ visible, onClose, role }) => {
 	const { t: $t } = useTranslation();
 	const queryClient = useQueryClient();

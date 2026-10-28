@@ -66,17 +66,17 @@ const [Modal, modalApi] = useVbenModal({
 
 function mapFeatures(groups: FeatureGroupDto[]): FeatureGroupDto[] {
   groups.forEach((group) => {
-    // 构建树形结构
+    // Xây dựng cấu trúc cây
     const treeRoots = buildFeatureTree(group.features);
 
-    // 存储树形结构到 group 中供模板使用
+    // Lưu cấu trúc cây vào group để template sử dụng
     (group as any)._treeRoots = treeRoots;
     (group as any)._allFeatures = [...group.features];
 
-    // 初始化可见性
+    // Khởi tạo trạng thái hiển thị
     treeRoots.forEach((root) => updateVisibility(root, true));
 
-    // 处理特性值类型转换
+    // Xử lý chuyển đổi kiểu giá trị tính năng
     processAllFeatures(treeRoots);
   });
   return groups;
@@ -117,12 +117,22 @@ async function onGet() {
   }
 }
 
-function handleFeatureChange(feature: any, groupIndex: number) {
+// Owner-side write: FeatureInput chỉ emit giá trị mới, modal này
+// (chủ sở hữu formModel) mới là nơi ghi giá trị vào formModel.
+function handleFeatureChange(feature: any, groupIndex: number, value: any) {
   const group = formModel.value.groups[groupIndex];
+  if (!group) {
+    return;
+  }
+  const features = (group as any)._allFeatures || group.features;
+  const target = features.find((f: any) => f.name === feature.name);
+  if (target) {
+    target.value = value;
+  }
   const treeRoots = (group as any)._treeRoots;
   if (treeRoots) {
     onFeatureValueChange(feature, treeRoots);
-    // 强制更新视图
+    // Buộc cập nhật giao diện
     formModel.value = { ...formModel.value };
   }
 }

@@ -4,8 +4,8 @@ import { Fallback } from '@vben/common-ui';
 
 <template>
   <Fallback
-    description="用于菜单激活显示不同的图标"
+    description="Dùng để hiển thị biểu tượng khác khi menu được kích hoạt"
     status="coming-soon"
-    title="激活图标示例"
+    title="Ví dụ biểu tượng kích hoạt"
   />
 </template>

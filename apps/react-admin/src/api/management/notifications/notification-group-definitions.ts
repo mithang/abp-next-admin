@@ -10,26 +10,26 @@ import type {
 import requestClient from "../../request";
 
 /**
- * 删除通知分组定义
- * @param name 通知分组名称
+ * Xóa định nghĩa nhóm thông báo
+ * @param name Tên nhóm thông báo
  */
 export function deleteApi(name: string): Promise<void> {
 	return requestClient.delete(`/api/notifications/definitions/groups/${name}`);
 }
 
 /**
- * 查询通知分组定义
- * @param name 通知分组名称
- * @returns 通知分组定义数据传输对象
+ * Truy vấn định nghĩa nhóm thông báo
+ * @param name Tên nhóm thông báo
+ * @returns Đối tượng truyền dữ liệu định nghĩa nhóm thông báo
  */
 export function getApi(name: string): Promise<NotificationGroupDefinitionDto> {
 	return requestClient.get<NotificationGroupDefinitionDto>(`/api/notifications/definitions/groups/${name}`);
 }
 
 /**
- * 查询通知分组定义列表
- * @param input 通知分组过滤条件
- * @returns 通知分组定义数据传输对象列表
+ * Truy vấn danh sách định nghĩa nhóm thông báo
+ * @param input Điều kiện lọc nhóm thông báo
+ * @returns Danh sách đối tượng truyền dữ liệu định nghĩa nhóm thông báo
  */
 export function getListApi(
 	input?: NotificationGroupDefinitionGetListInput,
@@ -40,19 +40,19 @@ export function getListApi(
 }
 
 /**
- * 创建通知分组定义
- * @param input 通知分组定义参数
- * @returns 通知分组定义数据传输对象
+ * Tạo định nghĩa nhóm thông báo
+ * @param input Tham số định nghĩa nhóm thông báo
+ * @returns Đối tượng truyền dữ liệu định nghĩa nhóm thông báo
  */
 export function createApi(input: NotificationGroupDefinitionCreateDto): Promise<NotificationGroupDefinitionDto> {
 	return requestClient.post<NotificationGroupDefinitionDto>("/api/notifications/definitions/groups", input);
 }
 
 /**
- * 更新通知分组定义
- * @param name 通知分组名称
- * @param input 通知分组定义参数
- * @returns 通知分组定义数据传输对象
+ * Cập nhật định nghĩa nhóm thông báo
+ * @param name Tên nhóm thông báo
+ * @param input Tham số định nghĩa nhóm thông báo
+ * @returns Đối tượng truyền dữ liệu định nghĩa nhóm thông báo
  */
 export function updateApi(
 	name: string,

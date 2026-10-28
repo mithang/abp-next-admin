@@ -29,7 +29,7 @@ public class MenuChangeHandler :
     [UnitOfWork]
     public async virtual Task HandleEventAsync(EntityUpdatedEto<MenuEto> eventData)
     {
-        // 菜单变更同步变更收藏菜单
+        // Thay đổi menu đồng bộ thay đổi menu yêu thích
         var menu = await _menuRepository.GetAsync(eventData.Entity.Id);
         var favoriteMenus = await _userFavoriteMenuRepository.GetListByMenuIdAsync(menu.Id);
 
@@ -51,7 +51,7 @@ public class MenuChangeHandler :
     [UnitOfWork]
     public async virtual Task HandleEventAsync(EntityDeletedEto<MenuEto> eventData)
     {
-        // 菜单删除同步删除收藏菜单
+        // Xóa menu đồng bộ xóa menu yêu thích
 
         var favoriteMenus = await _userFavoriteMenuRepository.GetListByMenuIdAsync(eventData.Entity.Id);
 
@@ -61,7 +61,7 @@ public class MenuChangeHandler :
     [UnitOfWork]
     public async virtual Task HandleEventAsync(EntityDeletedEto<UserMenuEto> eventData)
     {
-        // 用户菜单删除同步删除收藏菜单
+        // Xóa menu người dùng đồng bộ xóa menu yêu thích
 
         var favoriteMenus = await _userFavoriteMenuRepository.GetListByMenuIdAsync(
             eventData.Entity.UserId);

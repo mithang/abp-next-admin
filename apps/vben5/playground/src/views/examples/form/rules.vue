@@ -6,79 +6,79 @@ import { Button, Card, message } from 'ant-design-vue';
 import { useVbenForm, z } from '#/adapter/form';
 
 const [Form, formApi] = useVbenForm({
-  // 所有表单项共用，可单独在表单内覆盖
+  // Tất cả các mục form dùng chung, có thể ghi đè riêng trong form
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
   },
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input ở cùng một dòng
   layout: 'horizontal',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần đăng ký trong #/adapter.ts và thêm kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số của component tương ứng
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'field1',
-      // 界面显示的label
-      label: '字段1',
+      // Label hiển thị trên giao diện
+      label: 'Trường 1',
       rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
-      defaultValue: '默认值',
+      defaultValue: 'Giá trị mặc định',
       fieldName: 'field2',
-      label: '默认值(必填)',
+      label: 'Giá trị mặc định (bắt buộc)',
       rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field3',
-      label: '默认值(非必填)',
-      rules: z.string().default('默认值').optional(),
+      label: 'Giá trị mặc định (không bắt buộc)',
+      rules: z.string().default('Giá trị mặc định').optional(),
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field31',
-      label: '自定义信息',
-      rules: z.string().min(1, { message: '最少输入1个字符' }),
+      label: 'Thông tin tùy chỉnh',
+      rules: z.string().min(1, { message: 'Nhập ít nhất 1 ký tự' }),
     },
     {
       component: 'Input',
-      // 对应组件的参数
+      // Tham số của component tương ứng
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'field4',
-      // 界面显示的label
-      label: '邮箱',
-      rules: z.string().email('请输入正确的邮箱'),
+      // Label hiển thị trên giao diện
+      label: 'Email',
+      rules: z.string().email('Vui lòng nhập email đúng'),
     },
     {
       component: 'InputNumber',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'number',
-      label: '数字',
+      label: 'Số',
       rules: 'required',
     },
     {
@@ -88,20 +88,20 @@ const [Form, formApi] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       defaultValue: undefined,
       fieldName: 'options',
-      label: '下拉选',
+      label: 'Chọn thả xuống',
       rules: 'selectRequired',
     },
     {
@@ -109,17 +109,17 @@ const [Form, formApi] = useVbenForm({
       componentProps: {
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
       },
       fieldName: 'radioGroup',
-      label: '单选组',
+      label: 'Nhóm radio',
       rules: 'selectRequired',
     },
     {
@@ -128,17 +128,17 @@ const [Form, formApi] = useVbenForm({
         name: 'cname',
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
       },
       fieldName: 'checkboxGroup',
-      label: '多选组',
+      label: 'Nhóm checkbox',
       rules: 'selectRequired',
     },
     {
@@ -147,63 +147,63 @@ const [Form, formApi] = useVbenForm({
       label: '',
       renderComponentContent: () => {
         return {
-          default: () => ['我已阅读并同意'],
+          default: () => ['Tôi đã đọc và đồng ý'],
         };
       },
       rules: z.boolean().refine((value) => value, {
-        message: '请勾选',
+        message: 'Vui lòng tích chọn',
       }),
     },
     {
       component: 'DatePicker',
       defaultValue: undefined,
       fieldName: 'datePicker',
-      label: '日期选择框',
+      label: 'Hộp chọn ngày',
       rules: 'selectRequired',
     },
     {
       component: 'RangePicker',
       defaultValue: undefined,
       fieldName: 'rangePicker',
-      label: '区间选择框',
+      label: 'Hộp chọn khoảng',
       rules: 'selectRequired',
     },
     {
       component: 'InputPassword',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'password',
-      label: '密码',
+      label: 'Mật khẩu',
       rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'input-blur',
       formFieldProps: {
         validateOnChange: false,
         validateOnModelUpdate: false,
       },
-      help: 'blur时才会触发校验',
-      label: 'blur触发',
+      help: 'Chỉ kích hoạt kiểm tra khi blur',
+      label: 'Kích hoạt khi blur',
       rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'input-async',
-      label: '异步校验',
+      label: 'Kiểm tra không đồng bộ',
       rules: z
         .string()
-        .min(3, '用户名至少需要3个字符')
+        .min(3, 'Tên người dùng cần ít nhất 3 ký tự')
         .refine(
           async (username) => {
-            // 假设这是一个异步函数，模拟检查用户名是否已存在
+            // Giả sử đây là một hàm không đồng bộ, mô phỏng việc kiểm tra tên người dùng đã tồn tại hay chưa
             const checkUsernameExists = async (
               username: string,
             ): Promise<boolean> => {
@@ -214,12 +214,12 @@ const [Form, formApi] = useVbenForm({
             return !exists;
           },
           {
-            message: '用户名已存在',
+            message: 'Tên người dùng đã tồn tại',
           },
         ),
     },
   ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục một dòng, màn hình vừa hiển thị 2 mục một dòng, màn hình nhỏ hiển thị 1 mục một dòng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
@@ -231,12 +231,12 @@ function onSubmit(values: Record<string, any>) {
 </script>
 
 <template>
-  <Page description="表单校验示例" title="表单组件">
-    <Card title="基础组件校验示例">
+  <Page description="Ví dụ kiểm tra form" title="Component form">
+    <Card title="Ví dụ kiểm tra component cơ bản">
       <template #extra>
-        <Button @click="() => formApi.validate()">校验表单</Button>
+        <Button @click="() => formApi.validate()">Kiểm tra form</Button>
         <Button class="mx-2" @click="() => formApi.resetValidate()">
-          清空校验信息
+          Xóa thông tin kiểm tra
         </Button>
       </template>
       <Form />

@@ -1,12 +1,12 @@
-# 赞助
+# Tài trợ
 
-如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
+Nếu bạn thấy dự án này hữu ích, bạn có thể mua tặng tác giả một tách cà phê để ủng hộ!
 
 ![](https://unpkg.com/@vbenjs/static-source@0.1.7/source/sponsor.png)
 
-您的赞助将帮助我们：
+Sự tài trợ của bạn sẽ giúp chúng tôi:
 
-- 维持项目的基础设施，如服务器、域名、社群费用。
-- 支持开发者的贡献和加快新功能的开发。
+- Duy trì hạ tầng của dự án, như máy chủ, tên miền, chi phí cộng đồng.
+- Hỗ trợ đóng góp của nhà phát triển và đẩy nhanh việc phát triển tính năng mới.
 
-感谢所有现有的和未来的赞助者，您的支持对我们来说至关重要，让我们一起推动项目继续前行。
+Cảm ơn tất cả các nhà tài trợ hiện tại và tương lai, sự ủng hộ của bạn vô cùng quan trọng đối với chúng tôi, hãy cùng nhau thúc đẩy dự án tiếp tục phát triển.

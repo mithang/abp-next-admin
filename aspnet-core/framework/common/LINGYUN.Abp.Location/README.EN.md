@@ -146,6 +146,6 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 
 ## Links
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Trung](./README.md)
 * [Baidu Maps Location Service](./LINGYUN.Abp.Location.Baidu/README.EN.md)
 * [Tencent Maps Location Service](./LINGYUN.Abp.Location.Tencent/README.EN.md)

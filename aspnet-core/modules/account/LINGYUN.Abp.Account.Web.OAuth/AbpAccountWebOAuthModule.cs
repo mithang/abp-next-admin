@@ -5,6 +5,11 @@ using AspNet.Security.OAuth.Weixin;
 using AspNet.Security.OAuth.WorkWeixin;
 using LINGYUN.Abp.Account.OAuth;
 using LINGYUN.Abp.Account.OAuth.Localization;
+using LINGYUN.Abp.Account.OAuth.Settings;
+using LINGYUN.Abp.Tencent.QQ.Settings;
+using LINGYUN.Abp.WeChat.Official.Settings;
+using LINGYUN.Abp.WeChat.Work.Settings;
+using Microsoft.Extensions.Configuration;
 using LINGYUN.Abp.Account.Web.OAuth.ExternalProviders.Bilibili;
 using LINGYUN.Abp.Account.Web.OAuth.ExternalProviders.GitHub;
 using LINGYUN.Abp.Account.Web.OAuth.ExternalProviders.QQ;
@@ -57,49 +62,95 @@ public class AbpAccountWebOAuthModule : AbpModule
                 .AddBaseTypes(typeof(AccountOAuthResource));
         });
 
-        context.Services
-            .AddAuthentication()
-            .AddGitHub(options =>
-            {
-                options.ClientId = "ClientId";
-                options.ClientSecret = "ClientSecret";
+        // SEC-06: chỉ đăng ký scheme khi provider đã được cấu hình thật qua setting.
+        // Trước đây cả 5 scheme luôn được đăng ký với ClientId/ClientSecret dummy
+        // ("ClientId"/"ClientSecret"), khiến nút đăng nhập ngoài hiển thị nhưng bấm
+        // vào chỉ nhận lỗi từ provider thật. Giá trị dummy và giá trị rỗng đều coi
+        // là chưa cấu hình. LƯU Ý thay đổi hành vi: quyết định đăng ký đọc từ
+        // ConfigurationSettingValueProvider (appsettings key "Settings:<tên setting>"
+        // hoặc biến môi trường "Settings__<tên setting>") tại thời điểm khởi động;
+        // giá trị chỉ lưu trong DB (Global/Tenant setting) sẽ KHÔNG đăng ký scheme
+        // nữa — muốn bật provider thì cấu hình qua appsettings/biến môi trường rồi
+        // khởi động lại. TUYỆT ĐỐI không đổi default về chuỗi rỗng: vòng security 2
+        // đã chứng minh chuỗi rỗng làm mọi request 500 (options validation toàn cục).
+        var configuration = context.Services.GetConfiguration();
+        var authenticationBuilder = context.Services.AddAuthentication();
 
-                options.Scope.Add("user:email");
-            }).UseSettingProvider<
-                GitHubAuthenticationOptions,
-                GitHubAuthenticationHandler,
-                GitHubAuthHandlerOptionsProvider>()
-            .AddQQ(options =>
-            {
-                options.ClientId = "ClientId";
-                options.ClientSecret = "ClientSecret";
-            }).UseSettingProvider<
-                QQAuthenticationOptions,
-                QQAuthenticationHandler,
-                QQAuthHandlerOptionsProvider>()
-            .AddWeixin(options =>
-            {
-                options.ClientId = "ClientId";
-                options.ClientSecret = "ClientSecret";
-            }).UseSettingProvider<
-                WeixinAuthenticationOptions,
-                WeixinAuthenticationHandler,
-                WeChatAuthHandlerOptionsProvider>()
-            .AddWorkWeixin(options =>
-            {
-                options.ClientId = "ClientId";
-                options.ClientSecret = "ClientSecret";
-            }).UseSettingProvider<
-                WorkWeixinAuthenticationOptions,
-                WorkWeixinAuthenticationHandler,
-                WeComAuthHandlerOptionsProvider>()
-            .AddBilibili(options =>
-            {
-                options.ClientId = "ClientId";
-                options.ClientSecret = "ClientSecret";
-            }).UseSettingProvider<
-                BilibiliAuthenticationOptions,
-                BilibiliAuthenticationHandler,
-                BilibiliAuthHandlerOptionsProvider>();
+        if (IsProviderConfigured(configuration, AccountOAuthSettingNames.GitHub.ClientId, AccountOAuthSettingNames.GitHub.ClientSecret))
+        {
+            authenticationBuilder
+                .AddGitHub(options =>
+                {
+                    options.ClientId = "ClientId";
+                    options.ClientSecret = "ClientSecret";
+
+                    options.Scope.Add("user:email");
+                }).UseSettingProvider<
+                    GitHubAuthenticationOptions,
+                    GitHubAuthenticationHandler,
+                    GitHubAuthHandlerOptionsProvider>();
+        }
+
+        if (IsProviderConfigured(configuration, TencentQQSettingNames.QQConnect.AppId, TencentQQSettingNames.QQConnect.AppKey))
+        {
+            authenticationBuilder
+                .AddQQ(options =>
+                {
+                    options.ClientId = "ClientId";
+                    options.ClientSecret = "ClientSecret";
+                }).UseSettingProvider<
+                    QQAuthenticationOptions,
+                    QQAuthenticationHandler,
+                    QQAuthHandlerOptionsProvider>();
+        }
+
+        if (IsProviderConfigured(configuration, WeChatOfficialSettingNames.AppId, WeChatOfficialSettingNames.AppSecret))
+        {
+            authenticationBuilder
+                .AddWeixin(options =>
+                {
+                    options.ClientId = "ClientId";
+                    options.ClientSecret = "ClientSecret";
+                }).UseSettingProvider<
+                    WeixinAuthenticationOptions,
+                    WeixinAuthenticationHandler,
+                    WeChatAuthHandlerOptionsProvider>();
+        }
+
+        if (IsProviderConfigured(configuration, WeChatWorkSettingNames.Connection.CorpId, WeChatWorkSettingNames.Connection.Secret))
+        {
+            authenticationBuilder
+                .AddWorkWeixin(options =>
+                {
+                    options.ClientId = "ClientId";
+                    options.ClientSecret = "ClientSecret";
+                }).UseSettingProvider<
+                    WorkWeixinAuthenticationOptions,
+                    WorkWeixinAuthenticationHandler,
+                    WeComAuthHandlerOptionsProvider>();
+        }
+
+        if (IsProviderConfigured(configuration, AccountOAuthSettingNames.Bilibili.ClientId, AccountOAuthSettingNames.Bilibili.ClientSecret))
+        {
+            authenticationBuilder
+                .AddBilibili(options =>
+                {
+                    options.ClientId = "ClientId";
+                    options.ClientSecret = "ClientSecret";
+                }).UseSettingProvider<
+                    BilibiliAuthenticationOptions,
+                    BilibiliAuthenticationHandler,
+                    BilibiliAuthHandlerOptionsProvider>();
+        }
+    }
+
+    private static bool IsProviderConfigured(IConfiguration configuration, string clientIdSettingName, string clientSecretSettingName)
+    {
+        // ABP ConfigurationSettingValueProvider đọc setting từ key "Settings:<tên setting>".
+        var clientId = configuration[$"Settings:{clientIdSettingName}"];
+        var clientSecret = configuration[$"Settings:{clientSecretSettingName}"];
+
+        return !string.IsNullOrWhiteSpace(clientId) && clientId != "ClientId"
+            && !string.IsNullOrWhiteSpace(clientSecret) && clientSecret != "ClientSecret";
     }
 }

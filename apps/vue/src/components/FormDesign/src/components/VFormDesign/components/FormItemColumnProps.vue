@@ -1,10 +1,10 @@
 <!--
- * @Description: 表单项属性
+ * @Description: Thuộc tính của mục biểu mẫu
 -->
 <template>
   <div class="properties-content">
     <div class="properties-body" v-if="formConfig.currentItem">
-      <Empty class="hint-box" v-if="!formConfig.currentItem.key" description="未选择控件" />
+      <Empty class="hint-box" v-if="!formConfig.currentItem.key" description="Chưa chọn control" />
       <Form v-else label-align="left" layout="vertical">
         <div v-for="item of baseItemColumnProps" :key="item.name">
           <FormItem :label="item.label" v-if="showProps(item.exclude)">

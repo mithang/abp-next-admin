@@ -47,7 +47,7 @@ public class SingleDbMigrationEventHandler :
 
     public async virtual Task HandleEventAsync(EntityDeletedEto<TenantEto> eventData)
     {
-        // 租户删除时移除轮询作业
+        // Loại bỏ job thăm dò khi xoá tenant
         var pollingJob = BuildPollingJobInfo(eventData.Entity.Id, eventData.Entity.Name);
         await JobScheduler.RemoveAsync(pollingJob);
         await JobStore.RemoveAsync(pollingJob.Id);

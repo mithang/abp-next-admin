@@ -4,27 +4,27 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Official.Messages.Models;
 /// <summary>
-/// 语音消息
+/// Tin nhắn thoại
 /// </summary>
 [EventName("voice")]
 public class VoiceMessage : WeChatOfficialGeneralMessage
 {
     /// <summary>
-    /// 语音格式，如amr，speex等
+    /// Định dạng thoại, ví dụ amr, speex, v.v.
     /// </summary>
     [XmlElement("Format")]
     public string Format { get; set; } = default!;
     /// <summary>
-    /// 语音识别结果，UTF8编码
+    /// Kết quả nhận dạng giọng nói, mã hoá UTF8
     /// </summary>
     /// <remarks>
-    /// 开通语音识别后，用户每次发送语音给公众号时，微信会在推送的语音消息XML数据包中，增加一个Recognition字段（
-    /// 注：由于客户端缓存，开发者开启或者关闭语音识别功能，对新关注者立刻生效，对已关注用户需要24小时生效。开发者可以重新关注此账号进行测试）。
+    /// Sau khi bật nhận dạng giọng nói, mỗi khi người dùng gửi tin nhắn thoại cho tài khoản công khai, WeChat sẽ thêm trường Recognition vào gói dữ liệu XML của tin nhắn thoại được đẩy (
+    /// Lưu ý: do bộ nhớ đệm phía máy khách, việc nhà phát triển bật hoặc tắt tính năng nhận dạng giọng nói có hiệu lực ngay với người theo dõi mới, nhưng với người đã theo dõi cần 24 giờ mới có hiệu lực. Nhà phát triển có thể theo dõi lại tài khoản này để kiểm tra).
     /// </remarks>
     [XmlElement("Recognition")]
     public string Recognition { get; set; } = default!;
     /// <summary>
-    /// 语音消息媒体id，可以调用获取临时素材接口拉取该媒体
+    /// Id media của tin nhắn thoại, có thể gọi giao diện lấy tài nguyên tạm thời để tải media này
     /// </summary>
     [XmlElement("MediaId")]
     public string MediaId { get; set; } = default!;

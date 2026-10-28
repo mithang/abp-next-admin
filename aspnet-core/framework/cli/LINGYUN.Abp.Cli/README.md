@@ -47,4 +47,4 @@ Have a question and need feedback?
 
 - [Github issues](https://github.com/colinin/abp-next-admin/issues)
 
-[简体中文](./README.zh-Hans.md)
+[Tiếng Trung giản thể](./README.zh-Hans.md)

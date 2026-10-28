@@ -6,80 +6,80 @@ import type {
 	PagedAndSortedResultRequestDto,
 } from "#/abp-core";
 
-/** 用户对象接口 */
+/** Giao diện đối tượng người dùng */
 interface IUser {
-	/** 邮件地址 */
+	/** Địa chỉ email */
 	email: string;
-	/** 登录锁定 */
+	/** Khóa đăng nhập */
 	lockoutEnabled: boolean;
-	/** 用户名 */
+	/** Tên người dùng */
 	name: string;
-	/** 联系方式 */
+	/** Thông tin liên hệ */
 	phoneNumber?: string;
-	/** 用户简称 */
+	/** Họ người dùng */
 	surname?: string;
-	/** 双因素验证 */
+	/** Xác thực hai yếu tố */
 	twoFactorEnabled: boolean;
-	/** 用户账户 */
+	/** Tài khoản người dùng */
 	userName: string;
 }
 
-/** 更改密码数据传输对象 */
+/** Đối tượng truyền dữ liệu đổi mật khẩu */
 interface ChangeMyPasswordInput {
-	/** 当前密码 */
+	/** Mật khẩu hiện tại */
 	currentPassword?: string;
-	/** 新密码 */
+	/** Mật khẩu mới */
 	newPassword: string;
 }
 
 interface ChangeUserPasswordInput {
-	/** 新密码 */
+	/** Mật khẩu mới */
 	password: string;
 }
 
-/** 用户组织机构数据传输对象 */
+/** Đối tượng truyền dữ liệu đơn vị tổ chức của người dùng */
 interface IdentityUserOrganizationUnitUpdateDto {
-	/** 组织机构标识列表 */
+	/** Danh sách mã định danh đơn vị tổ chức */
 	organizationUnitIds: string[];
 }
-/** 用户实体数据传输对象 */
+/** Đối tượng truyền dữ liệu thực thể người dùng */
 interface IdentityUserDto extends FullAuditedEntityDto<string>, IUser, IHasConcurrencyStamp, IHasExtraProperties {
 	[key: string]: any;
-	/** 邮箱已验证 */
+	/** Email đã được xác minh */
 	emailConfirmed: boolean;
-	/** 已激活的用户 */
+	/** Người dùng đã kích hoạt */
 	isActive: boolean;
-	/** 锁定截止时间 */
+	/** Thời gian kết thúc khóa */
 	lockoutEnd?: Date;
-	/** 联系方式已验证 */
+	/** Thông tin liên hệ đã được xác minh */
 	phoneNumberConfirmed: boolean;
-	/** 角色列表 */
+	/** Danh sách vai trò */
 	roleNames: string[];
-	/** 租户标识 */
+	/** Mã định danh tenant */
 	tenentId?: string;
 }
-/** 创建或更新用户实体数据传输对象 */
+/** Đối tượng truyền dữ liệu tạo hoặc cập nhật thực thể người dùng */
 interface IdentityUserCreateOrUpdateDto extends ExtensibleObject {
-	/** 邮件地址 */
+	/** Địa chỉ email */
 	email: string;
-	/** 登录锁定 */
+	/** Khóa đăng nhập */
 	lockoutEnabled: boolean;
-	/** 用户名 */
+	/** Tên người dùng */
 	name: string;
-	/** 密码 */
+	/** Mật khẩu */
 	password?: string;
-	/** 联系方式 */
+	/** Thông tin liên hệ */
 	phoneNumber?: string;
-	/** 角色列表 */
+	/** Danh sách vai trò */
 	roleNames?: string[];
-	/** 用户简称 */
+	/** Họ người dùng */
 	surname?: string;
-	/** 用户账户 */
+	/** Tài khoản người dùng */
 	userName: string;
 }
-/** 获取用户分页列表数据传输对象 */
+/** Đối tượng truyền dữ liệu lấy danh sách người dùng phân trang */
 interface GetUserPagedListInput extends PagedAndSortedResultRequestDto {
-	/** 过滤条件 */
+	/** Điều kiện lọc */
 	filter?: string;
 }
 

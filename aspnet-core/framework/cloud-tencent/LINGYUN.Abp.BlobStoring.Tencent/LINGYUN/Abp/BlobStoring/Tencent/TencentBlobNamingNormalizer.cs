@@ -7,49 +7,49 @@ namespace LINGYUN.Abp.BlobStoring.Tencent;
 public class TencentBlobNamingNormalizer : IBlobNamingNormalizer, ITransientDependency
 {
     /// <summary>
-    /// 腾讯云对象命名规范
+    /// Quy tắc đặt tên đối tượng của Tencent Cloud
     /// https://cloud.tencent.com/document/product/436/13324
     /// </summary>
     /// <param name="blobName"></param>
     /// <returns></returns>
     public virtual string NormalizeBlobName(string blobName)
     {
-        // 不允许以正斜线/或者反斜线\开头。
+        // Không được bắt đầu bằng dấu gạch chéo xuôi / hoặc dấu gạch chéo ngược \.
         blobName = Regex.Replace(blobName, "^/", string.Empty);
         blobName = blobName.StartsWith("\\") ? blobName.Substring(1) : blobName;
 
-        // 对象键中不支持 ASCII 控制字符中的
-        // 字符上(↑)，字符下(↓)，字符右(→)，字符左(←)，
-        // 分别对应 CAN(24)，EM(25)，SUB(26)，ESC(27)。
+        // Trong khóa đối tượng không hỗ trợ các ký tự điều khiển ASCII sau
+        // ký tự lên (↑), ký tự xuống (↓), ký tự phải (→), ký tự trái (←),
+        // tương ứng với CAN(24), EM(25), SUB(26), ESC(27).
         blobName = blobName.Replace("↑", "");
         blobName = blobName.Replace("↓", "");
         blobName = blobName.Replace("←", "");
         blobName = blobName.Replace("→", "");
         
-        // TODO: 要求还真多...其他暂时不写了
+        // TODO: Yêu cầu thật nhiều... các phần khác tạm thời chưa viết
 
         return blobName;
     }
 
     /// <summary>
-    /// 腾讯云BucketName命名规范
+    /// Quy tắc đặt tên BucketName của Tencent Cloud
     /// https://cloud.tencent.com/document/product/436/13312
     /// </summary>
     /// <param name="containerName"></param>
     /// <returns></returns>
     public virtual string NormalizeContainerName(string containerName)
     {
-        // 仅支持小写英文字母和数字，即[a-z，0-9]、中划线“-”及其组合。
+        // Chỉ hỗ trợ chữ thường tiếng Anh và chữ số, tức [a-z, 0-9], dấu gạch ngang "-" và tổ hợp của chúng.
         containerName = containerName.ToLower();
         containerName = Regex.Replace(containerName, "[^a-z0-9-]", string.Empty);
 
-        // 不能以短划线（-）开头
+        // Không được bắt đầu bằng dấu gạch ngang (-)
         containerName = Regex.Replace(containerName, "^-", string.Empty);
-        // 不能以短划线（-）结尾
+        // Không được kết thúc bằng dấu gạch ngang (-)
         containerName = Regex.Replace(containerName, "-$", string.Empty);
 
-        // 存储桶名称的最大允许字符受到 地域简称 和 APPID 的字符数影响，组成的完整请求域名字符数总计最多60个字符。
-        // 例如请求域名123456789012345678901-1250000000.cos.ap-beijing.myqcloud.com总和为60个字符。
+        // Số ký tự tối đa cho phép của tên bucket bị ảnh hưởng bởi số ký tự của tên viết tắt vùng và APPID, tổng số ký tự của tên miền yêu cầu đầy đủ tạo thành tối đa 60 ký tự.
+        // Ví dụ tên miền yêu cầu 123456789012345678901-1250000000.cos.ap-beijing.myqcloud.com tổng cộng là 60 ký tự.
         if (containerName.Length > 60)
         {
             containerName = containerName.Substring(0, 60);

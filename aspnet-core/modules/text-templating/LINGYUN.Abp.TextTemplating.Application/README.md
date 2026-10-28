@@ -1,51 +1,51 @@
 # LINGYUN.Abp.TextTemplating.Application
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板应用服务模块，实现文本模板的管理和操作功能。
+Mô-đun dịch vụ ứng dụng mẫu văn bản, thực hiện chức năng quản lý và vận hành mẫu văn bản.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * LINGYUN.Abp.TextTemplating.Application.Contracts
 * Volo.Abp.TextTemplating
 * Volo.Abp.Ddd.Application
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供文本模板定义管理服务
-  * TextTemplateDefinitionAppService - 模板定义管理服务
-  * TextTemplateContentAppService - 模板内容管理服务
-* 实现以下应用服务接口
+* Cung cấp dịch vụ quản lý định nghĩa mẫu văn bản
+  * TextTemplateDefinitionAppService - Dịch vụ quản lý định nghĩa mẫu
+  * TextTemplateContentAppService - Dịch vụ quản lý nội dung mẫu
+* Triển khai các giao diện dịch vụ ứng dụng sau
   * ITextTemplateDefinitionAppService
   * ITextTemplateContentAppService
 
-### 应用服务
+### Dịch vụ ứng dụng
 
 * TextTemplateDefinitionAppService
-  * GetAsync - 获取模板定义
-  * GetListAsync - 获取模板定义列表
-  * CreateAsync - 创建模板定义
-  * UpdateAsync - 更新模板定义
-  * DeleteAsync - 删除模板定义
+  * GetAsync - Lấy định nghĩa mẫu
+  * GetListAsync - Lấy danh sách định nghĩa mẫu
+  * CreateAsync - Tạo định nghĩa mẫu
+  * UpdateAsync - Cập nhật định nghĩa mẫu
+  * DeleteAsync - Xóa định nghĩa mẫu
 * TextTemplateContentAppService
-  * GetAsync - 获取模板内容
-  * UpdateAsync - 更新模板内容
-  * DeleteAsync - 删除模板内容
-  * RestoreAsync - 恢复模板内容
+  * GetAsync - Lấy nội dung mẫu
+  * UpdateAsync - Cập nhật nội dung mẫu
+  * DeleteAsync - Xóa nội dung mẫu
+  * RestoreAsync - Khôi phục nội dung mẫu
 
-### 权限
+### Quyền
 
 * AbpTextTemplating.TextTemplateDefinitions
-  * Create - 创建模板定义
-  * Update - 更新模板定义
-  * Delete - 删除模板定义
+  * Create - Tạo định nghĩa mẫu
+  * Update - Cập nhật định nghĩa mẫu
+  * Delete - Xóa định nghĩa mẫu
 * AbpTextTemplating.TextTemplateContents
-  * Update - 更新模板内容
-  * Delete - 删除模板内容
+  * Update - Cập nhật nội dung mẫu
+  * Delete - Xóa nội dung mẫu
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingApplicationModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingApplicationModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingApplicationModule))]
@@ -54,7 +54,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 注入并使用模板服务
+2. Tiêm và sử dụng dịch vụ mẫu
 
 ```csharp
 public class YourService
@@ -68,7 +68,7 @@ public class YourService
 
     public async Task ManageTemplateAsync()
     {
-        // 创建模板定义
+        // Tạo định nghĩa mẫu
         var template = await _templateDefinitionAppService.CreateAsync(
             new TextTemplateDefinitionCreateDto
             {
@@ -80,4 +80,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

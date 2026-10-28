@@ -5,75 +5,75 @@ sidebar: false
 
 hero:
   name: Vben Admin
-  text: 企业级管理系统框架
-  tagline: 全新升级，开箱即用，简单高效
+  text: Khung hệ thống quản lý cấp doanh nghiệp
+  tagline: Nâng cấp hoàn toàn mới, dùng ngay khi mở hộp, đơn giản và hiệu quả
   image:
     src: https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp
     alt: Vben Admin
   actions:
     - theme: brand
-      text: 快速开始 ->
+      text: Bắt đầu nhanh ->
       link: /guide/introduction/vben
     - theme: alt
-      text: 在线预览
+      text: Xem trước trực tuyến
       link: https://www.vben.pro
     - theme: alt
-      text: 在 GitHub 查看
+      text: Xem trên GitHub
       link: https://github.com/vbenjs/vue-vben-admin
     - theme: alt
-      text: DeepWiki 文档
+      text: Tài liệu DeepWiki
       link: https://deepwiki.com/vbenjs/vue-vben-admin
 
 features:
   - icon: 🚀
-    title: 最新技术栈
-    details: 基于 Vue3、Pinia、Vue Router、TypeScript、等最新技术栈。
+    title: Công nghệ mới nhất
+    details: Dựa trên các công nghệ mới nhất như Vue3, Pinia, Vue Router, TypeScript.
     link: /guide/introduction/quick-start
-    linkText: 快速开始
+    linkText: Bắt đầu nhanh
   - icon: 🦄
-    title: 丰富的配置
-    details: 企业级中后台前端解决方案，提供丰富的组件和模板以及 N 种偏好设置组合方案。
+    title: Cấu hình phong phú
+    details: Giải pháp frontend trung–hậu đài cấp doanh nghiệp, cung cấp nhiều component và mẫu cùng N phương án kết hợp tùy chọn.
     link: /guide/essentials/settings
-    linkText: 配置文档
+    linkText: Tài liệu cấu hình
   - icon: 🎨
-    title: 主题定制
-    details: 通过简单的配置，即可实现各种主题切换，满足个性化需求。
+    title: Tùy chỉnh chủ đề
+    details: Chỉ với cấu hình đơn giản là có thể chuyển đổi nhiều chủ đề khác nhau, đáp ứng nhu cầu cá nhân hóa.
     link: /guide/in-depth/theme
-    linkText: 主题文档
+    linkText: Tài liệu chủ đề
   - icon: 🌐
-    title: 国际化
-    details: 内置国际化方案，支持多语言切换，满足国际化需求。
+    title: Quốc tế hóa
+    details: Tích hợp sẵn giải pháp quốc tế hóa, hỗ trợ chuyển đổi nhiều ngôn ngữ, đáp ứng nhu cầu quốc tế hóa.
     link: /guide/in-depth/locale
-    linkText: 国际化文档
+    linkText: Tài liệu quốc tế hóa
   - icon: 🔐
-    title: 权限管理
-    details: 内置权限管理方案，支持多种权限控制方式，满足各种权限需求。
+    title: Quản lý quyền
+    details: Tích hợp sẵn giải pháp quản lý quyền, hỗ trợ nhiều cách kiểm soát quyền, đáp ứng nhiều nhu cầu về quyền.
     link: /guide/in-depth/access
-    linkText: 权限文档
+    linkText: Tài liệu quyền
   - title: Vite
     icon:
       src: /logos/vite.svg
-    details: 现代化的前端构建工具，快速冷启动，瞬间热更新。
+    details: Công cụ build frontend hiện đại, khởi động lạnh nhanh, cập nhật nóng tức thì.
     link: https://vitejs.dev/
-    linkText: 官方站点
+    linkText: Trang web chính thức
   - title: Shadcn UI
     icon:
       src: /logos/shadcn-ui.svg
-    details: 核心基于 Shadcn UI + Tailwindcss，业务可支持任意的 UI 框架。
+    details: Lõi dựa trên Shadcn UI + Tailwindcss, nghiệp vụ có thể hỗ trợ bất kỳ framework UI nào.
     link: https://www.shadcn-vue.com/
-    linkText: 官方站点
+    linkText: Trang web chính thức
   - title: Turbo Repo
     icon:
       src: /logos/turborepo.svg
-    details: 规范且标准的大仓架构，使用 pnpm + monorepo + turbo 工程管理模式，提供企业级开发规范。
+    details: Kiến trúc monorepo chuẩn mực và quy phạm, sử dụng mô hình quản lý kỹ thuật pnpm + monorepo + turbo, cung cấp quy chuẩn phát triển cấp doanh nghiệp.
     link: https://turbo.build/
-    linkText: 官方站点
+    linkText: Trang web chính thức
   - title: Nitro Mock Server
     icon:
       src: /logos/nitro.svg
-    details: 内置 Nitro Mock 服务，让你的 mock 服务更加强大。
+    details: Tích hợp sẵn dịch vụ Nitro Mock, giúp dịch vụ mock của bạn mạnh mẽ hơn.
     link: https://nitro.unjs.io/
-    linkText: 官方站点
+    linkText: Trang web chính thức
 ---
 
 <!-- <script setup>
@@ -88,8 +88,8 @@ const members = [
   {
     avatar: 'https://avatars.githubusercontent.com/u/28132598?v=4',
     name: 'Vben',
-    title: '创建者',
-    desc: 'Vben Admin以及相关生态的作者，负责项目的整体开发。',
+    title: 'Người sáng lập',
+    desc: 'Tác giả của Vben Admin và hệ sinh thái liên quan, phụ trách phát triển tổng thể của dự án.',
     links: [
       { icon: 'github', link: 'https://github.com/anncwb' },
     ]
@@ -100,7 +100,7 @@ const members = [
 <VPTeamPage>
   <VPTeamPageTitle>
     <template #title>
-      核心成员介绍
+      Giới thiệu thành viên cốt lõi
     </template>
   </VPTeamPageTitle>
   <VPTeamMembers

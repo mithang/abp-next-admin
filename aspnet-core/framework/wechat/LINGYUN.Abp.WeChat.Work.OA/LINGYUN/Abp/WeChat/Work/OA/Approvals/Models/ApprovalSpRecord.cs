@@ -5,26 +5,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 审批流程信息
+/// Thông tin quy trình phê duyệt
 /// </summary>
 public class ApprovalSpRecord
 {
     /// <summary>
-    /// 审批节点状态
+    /// Trạng thái nút phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("sp_status")]
     [JsonPropertyName("sp_status")]
     public ApprovalSpRecordStatus SpStatus { get; set; }
     /// <summary>
-    /// 节点审批方式
+    /// Phương thức phê duyệt của nút
     /// </summary>
     [NotNull]
     [JsonProperty("approverattr")]
     [JsonPropertyName("approverattr")]
     public ApprovalApproverAttr ApproverAttr { get; set; }
     /// <summary>
-    /// 审批节点详情,一个审批节点有多个审批人
+    /// Chi tiết nút phê duyệt, một nút phê duyệt có nhiều người phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("details")]

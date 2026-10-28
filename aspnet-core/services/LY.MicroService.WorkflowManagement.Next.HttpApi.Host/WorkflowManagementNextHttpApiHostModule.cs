@@ -1,4 +1,10 @@
 ﻿using Elsa.EntityFrameworkCore.Extensions;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Volo.Abp.AspNetCore.Mvc;
 using Elsa.EntityFrameworkCore.Modules.Management;
 using Elsa.EntityFrameworkCore.Modules.Runtime;
 using Elsa.Extensions;
@@ -103,8 +109,30 @@ public class WorkflowManagementNextHttpApiHostModule : AbpModule
             options.MaximumReceiveMessageSize = 5 * 1024 * 1000; // 5MB
         });
 
-        // Add Health Checks.
-        context.Services.AddHealthChecks();
+        // DEVOPS iter-0006 (DEV-11): host nay truoc day chi co AddHealthChecks()
+        // tro trui, khong map endpoint nao. Map /healthz + dang ky check co so
+        // du lieu that (quet DbContext tu IServiceCollection, giong cac host khac).
+        // Host nay khong cau hinh Redis nen khong co check redis.
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks("/healthz");
+            });
+        });
+
+        var dbContextTypes = context.Services
+            .Where(s => s.ServiceType.IsClass && !s.ServiceType.IsAbstract
+                && typeof(DbContext).IsAssignableFrom(s.ServiceType))
+            .Select(s => s.ServiceType)
+            .Distinct()
+            .ToList();
+        context.Services.AddSingleton(sp => new HealthChecks.DatabaseHealthCheck(
+            dbContextTypes,
+            sp.GetRequiredService<IServiceScopeFactory>(),
+            sp.GetService<ILogger<HealthChecks.DatabaseHealthCheck>>()));
+        context.Services.AddHealthChecks()
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database");
 
 
         // Configure CORS to allow designer app hosted on a different origin to invoke the APIs.

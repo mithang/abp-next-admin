@@ -15,9 +15,9 @@ import { useRequest } from '@abp/request';
 export function useTenantsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 创建租户
-   * @param {TenantCreateDto} input 参数
-   * @returns 创建的租户
+   * Tạo tenant
+   * @param {TenantCreateDto} input Tham số
+   * @returns Tenant đã tạo
    */
   function createApi(input: TenantCreateDto): Promise<TenantDto> {
     return request<TenantDto>('/api/saas/tenants', {
@@ -27,10 +27,10 @@ export function useTenantsApi() {
   }
 
   /**
-   * 编辑租户
-   * @param {string} id 参数
-   * @param {TenantUpdateDto} input 参数
-   * @returns 编辑的租户
+   * Chỉnh sửa tenant
+   * @param {string} id Tham số
+   * @param {TenantUpdateDto} input Tham số
+   * @returns Tenant đã chỉnh sửa
    */
   function updateApi(id: string, input: TenantUpdateDto): Promise<TenantDto> {
     return request<TenantDto>(`/api/saas/tenants/${id}`, {
@@ -40,9 +40,9 @@ export function useTenantsApi() {
   }
 
   /**
-   * 查询租户
+   * Truy vấn tenant
    * @param {string} id Id
-   * @returns 查询的租户
+   * @returns Tenant truy vấn được
    */
   function getApi(id: string): Promise<TenantDto> {
     return request<TenantDto>(`/api/saas/tenants/${id}`, {
@@ -51,7 +51,7 @@ export function useTenantsApi() {
   }
 
   /**
-   * 删除租户
+   * Xóa tenant
    * @param {string} id Id
    * @returns {void}
    */
@@ -62,8 +62,8 @@ export function useTenantsApi() {
   }
 
   /**
-   * 查询租户分页列表
-   * @param {GetTenantPagedListInput} input 参数
+   * Truy vấn danh sách phân trang tenant
+   * @param {GetTenantPagedListInput} input Tham số
    * @returns {void}
    */
   function getPagedListApi(
@@ -76,10 +76,10 @@ export function useTenantsApi() {
   }
 
   /**
-   * 设置连接字符串
-   * @param {string} id 租户Id
-   * @param {TenantConnectionStringSetInput} input 参数
-   * @returns 连接字符串
+   * Đặt chuỗi kết nối
+   * @param {string} id Id tenant
+   * @param {TenantConnectionStringSetInput} input Tham số
+   * @returns Chuỗi kết nối
    */
   function setConnectionStringApi(
     id: string,
@@ -95,10 +95,10 @@ export function useTenantsApi() {
   }
 
   /**
-   * 查询连接字符串
-   * @param {string} id 租户Id
-   * @param {string} name 连接字符串名称
-   * @returns 连接字符串
+   * Truy vấn chuỗi kết nối
+   * @param {string} id Id tenant
+   * @param {string} name Tên chuỗi kết nối
+   * @returns Chuỗi kết nối
    */
   function getConnectionStringApi(
     id: string,
@@ -113,9 +113,9 @@ export function useTenantsApi() {
   }
 
   /**
-   * 查询所有连接字符串
-   * @param {string} id 租户Id
-   * @returns 连接字符串列表
+   * Truy vấn tất cả chuỗi kết nối
+   * @param {string} id Id tenant
+   * @returns Danh sách chuỗi kết nối
    */
   function getConnectionStringsApi(
     id: string,
@@ -129,9 +129,9 @@ export function useTenantsApi() {
   }
 
   /**
-   * 删除租户
-   * @param {string} id 租户Id
-   * @param {string} name 连接字符串名称
+   * Xóa tenant
+   * @param {string} id Id tenant
+   * @param {string} name Tên chuỗi kết nối
    * @returns {void}
    */
   function deleteConnectionStringApi(id: string, name: string): Promise<void> {
@@ -141,8 +141,8 @@ export function useTenantsApi() {
   }
 
   /**
-   * 检查数据库连接字符串
-   * @param input 参数
+   * Kiểm tra chuỗi kết nối cơ sở dữ liệu
+   * @param input Tham số
    */
   function checkConnectionString(
     input: TenantConnectionStringCheckInput,

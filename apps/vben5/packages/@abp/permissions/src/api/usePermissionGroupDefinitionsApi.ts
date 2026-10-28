@@ -13,8 +13,8 @@ export function usePermissionGroupDefinitionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除权限定义
-   * @param name 权限名称
+   * Xóa định nghĩa quyền
+   * @param name Tên quyền
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/permission-management/definitions/groups/${name}`, {
@@ -23,9 +23,9 @@ export function usePermissionGroupDefinitionsApi() {
   }
 
   /**
-   * 查询权限定义
-   * @param name 权限名称
-   * @returns 权限定义数据传输对象
+   * Truy vấn định nghĩa quyền
+   * @param name Tên quyền
+   * @returns Đối tượng truyền dữ liệu định nghĩa quyền
    */
   function getApi(name: string): Promise<PermissionGroupDefinitionDto> {
     return request<PermissionGroupDefinitionDto>(
@@ -37,9 +37,9 @@ export function usePermissionGroupDefinitionsApi() {
   }
 
   /**
-   * 查询权限定义列表
-   * @param input 权限过滤条件
-   * @returns 权限定义数据传输对象列表
+   * Truy vấn danh sách định nghĩa quyền
+   * @param input Điều kiện lọc quyền
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa quyền
    */
   function getListApi(
     input?: PermissionGroupDefinitionGetListInput,
@@ -54,9 +54,9 @@ export function usePermissionGroupDefinitionsApi() {
   }
 
   /**
-   * 创建权限定义
-   * @param input 权限定义参数
-   * @returns 权限定义数据传输对象
+   * Tạo định nghĩa quyền
+   * @param input Tham số định nghĩa quyền
+   * @returns Đối tượng truyền dữ liệu định nghĩa quyền
    */
   function createApi(
     input: PermissionGroupDefinitionCreateDto,
@@ -71,10 +71,10 @@ export function usePermissionGroupDefinitionsApi() {
   }
 
   /**
-   * 更新权限定义
-   * @param name 权限名称
-   * @param input 权限定义参数
-   * @returns 权限定义数据传输对象
+   * Cập nhật định nghĩa quyền
+   * @param name Tên quyền
+   * @param input Tham số định nghĩa quyền
+   * @returns Đối tượng truyền dữ liệu định nghĩa quyền
    */
   function updateApi(
     name: string,

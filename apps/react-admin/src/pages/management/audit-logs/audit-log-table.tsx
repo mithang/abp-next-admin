@@ -72,7 +72,7 @@ const AuditLogTable: React.FC = () => {
 					<Tag
 						color={getHttpStatusCodeColor(record.httpStatusCode)}
 						style={{ cursor: "pointer" }}
-						onClick={() => onFilter("httpStatusCode", record.httpStatusCode)} // 点击标签触发筛选
+						onClick={() => onFilter("httpStatusCode", record.httpStatusCode)} // Nhấn vào nhãn để kích hoạt bộ lọc
 					>
 						<Tooltip title={$t("abp.manage.identity.filterHttpStatusCode")}>{record.httpStatusCode}</Tooltip>
 					</Tag>
@@ -141,7 +141,7 @@ const AuditLogTable: React.FC = () => {
 			dataIndex: "executionDuration",
 			sorter: true,
 			hideInSearch: true,
-			width: 140, //最长
+			width: 140, // dài nhất
 		},
 		{
 			title: $t("AbpAuditLogging.MinExecutionDuration"),
@@ -211,7 +211,7 @@ const AuditLogTable: React.FC = () => {
 				return (
 					<Checkbox
 						onChange={(e) => {
-							const value = e.target.checked; // 获取 Checkbox 的选中状态
+							const value = e.target.checked; // Lấy trạng thái checked của Checkbox
 							onFilter("hasException", value, false);
 						}}
 					/>
@@ -247,14 +247,14 @@ const AuditLogTable: React.FC = () => {
 	];
 
 	const onFilter = (field: string, value: any, shouldSubmit = true) => {
-		// 使用 formRef 更新查询条件
+		// Dùng formRef để cập nhật điều kiện truy vấn
 		if (formRef.current) {
 			formRef.current.setFieldsValue({
 				[field]: value,
 			});
 		}
 		if (shouldSubmit) {
-			// 触发表格刷新
+			// Kích hoạt làm mới bảng
 			formRef.current?.submit();
 		}
 	};
@@ -273,7 +273,7 @@ const AuditLogTable: React.FC = () => {
 							const { current, pageSize, executionTime, ...filters } = params;
 							const [startTime, endTime] = executionTime || [];
 							const query = await queryClient.fetchQuery({
-								//不用换，这样与antd结合比较好用
+								// Không cần đổi dòng, như vậy kết hợp với antd sẽ dễ dùng hơn
 								queryKey: ["auditLogs", params, sorter],
 								queryFn: () =>
 									getPagedListApi({

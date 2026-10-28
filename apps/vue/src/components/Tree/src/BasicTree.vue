@@ -391,7 +391,7 @@
             <Spin
               wrapperClassName={unref(props.treeWrapperClassName)}
               spinning={unref(props.loading)}
-              tip="加载中..."
+              tip="Đang tải..."
             >
               <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
                 <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />

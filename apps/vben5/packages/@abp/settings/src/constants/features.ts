@@ -1,2 +1,2 @@
-/** 启用系统设置 */
+/** Bật cài đặt hệ thống */
 export const SettingManagementEnable = 'SettingManagement.Enable';

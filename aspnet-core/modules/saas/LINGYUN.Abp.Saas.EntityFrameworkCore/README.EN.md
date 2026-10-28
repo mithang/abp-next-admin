@@ -35,4 +35,4 @@ You can modify the database table prefix and Schema through configuration:
 
 ## More
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

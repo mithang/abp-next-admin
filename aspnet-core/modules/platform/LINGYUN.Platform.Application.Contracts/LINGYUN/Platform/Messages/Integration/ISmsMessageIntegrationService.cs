@@ -8,7 +8,7 @@ namespace LINGYUN.Platform.Messages.Integration;
 public interface ISmsMessageIntegrationService : IApplicationService
 {
     /// <summary>
-    /// 创建短信消息
+    /// Tạo tin nhắn SMS
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

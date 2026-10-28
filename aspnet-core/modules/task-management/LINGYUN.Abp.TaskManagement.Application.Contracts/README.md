@@ -1,72 +1,72 @@
 # LINGYUN.Abp.TaskManagement.Application.Contracts
 
-任务管理模块的应用程序契约，定义应用服务的接口和DTO。
+Hợp đồng ứng dụng của mô-đun quản lý tác vụ, định nghĩa giao diện dịch vụ ứng dụng và DTO.
 
-## 功能
+## Chức năng
 
-### 应用服务接口
-- 后台作业信息服务：
-  - CRUD操作
-  - 作业控制操作
-  - 批量操作
-  - 查询操作
-- 后台作业行为服务：
-  - 行为管理
-  - 行为定义
-  - 参数处理
-- 后台作业日志服务：
-  - 日志检索
-  - 日志过滤
-  - 日志删除
+### Giao diện dịch vụ ứng dụng
+- Dịch vụ thông tin tác vụ nền:
+  - Thao tác CRUD
+  - Thao tác điều khiển tác vụ
+  - Thao tác hàng loạt
+  - Thao tác truy vấn
+- Dịch vụ hành vi tác vụ nền:
+  - Quản lý hành vi
+  - Định nghĩa hành vi
+  - Xử lý tham số
+- Dịch vụ nhật ký tác vụ nền:
+  - Truy xuất nhật ký
+  - Lọc nhật ký
+  - Xóa nhật ký
 
-### 数据传输对象（DTOs）
-- 后台作业信息DTOs：
-  - 作业信息DTO
-  - 作业创建DTO
-  - 作业更新DTO
-  - 作业列表DTO
-  - 作业批量输入DTO
-- 后台作业行为DTOs：
-  - 行为DTO
-  - 行为创建DTO
-  - 行为更新DTO
-  - 行为定义DTO
-  - 行为参数DTO
-- 后台作业日志DTOs：
-  - 日志DTO
-  - 日志列表DTO
-  - 日志过滤DTO
+### Đối tượng truyền dữ liệu (DTOs)
+- DTOs thông tin tác vụ nền:
+  - DTO thông tin tác vụ
+  - DTO tạo tác vụ
+  - DTO cập nhật tác vụ
+  - DTO danh sách tác vụ
+  - DTO đầu vào hàng loạt tác vụ
+- DTOs hành vi tác vụ nền:
+  - DTO hành vi
+  - DTO tạo hành vi
+  - DTO cập nhật hành vi
+  - DTO định nghĩa hành vi
+  - DTO tham số hành vi
+- DTOs nhật ký tác vụ nền:
+  - DTO nhật ký
+  - DTO danh sách nhật ký
+  - DTO lọc nhật ký
 
-### 权限
-- 后台作业：
-  - 创建权限
-  - 更新权限
-  - 删除权限
-  - 触发权限
-  - 暂停权限
-  - 恢复权限
-  - 启动权限
-  - 停止权限
-- 后台作业日志：
-  - 查看权限
-  - 删除权限
+### Quyền
+- Tác vụ nền:
+  - Quyền tạo
+  - Quyền cập nhật
+  - Quyền xóa
+  - Quyền kích hoạt
+  - Quyền tạm dừng
+  - Quyền khôi phục
+  - Quyền khởi động
+  - Quyền dừng
+- Nhật ký tác vụ nền:
+  - Quyền xem
+  - Quyền xóa
 
-### 远程服务配置
-- 服务名称常量
-- 服务端点配置
-- 客户端代理设置
+### Cấu hình dịch vụ từ xa
+- Hằng số tên dịch vụ
+- Cấu hình điểm cuối dịch vụ
+- Cài đặt proxy client
 
-### 验证
-- 输入验证
-- 数据注解
-- 自定义验证规则
+### Xác thực
+- Xác thực đầu vào
+- Chú thích dữ liệu
+- Quy tắc xác thực tùy chỉnh
 
-### 集成功能
-- ABP框架集成
-- 动态查询支持
-- 应用服务层抽象
+### Chức năng tích hợp
+- Tích hợp framework ABP
+- Hỗ trợ truy vấn động
+- Trừu tượng tầng dịch vụ ứng dụng
 
-### 模块配置
-- 模块依赖
-- 服务注册
-- 功能管理
+### Cấu hình mô-đun
+- Phụ thuộc mô-đun
+- Đăng ký dịch vụ
+- Quản lý tính năng

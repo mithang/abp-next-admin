@@ -1,3 +1,3 @@
 # ui-kit
 
-用于管理公共组件、不同UI组件库封装的组件
+Dùng để quản lý các component dùng chung, các component đóng gói từ các thư viện UI khác nhau

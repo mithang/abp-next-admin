@@ -18,7 +18,7 @@ interface RowType {
   releaseDate: string;
 }
 
-// 数据实例
+// Ví dụ dữ liệu
 // const MOCK_TREE_TABLE_DATA = [
 //   {
 //     date: '2020-08-01',
@@ -39,7 +39,7 @@ const sleep = (time = 1000) => {
 };
 
 /**
- * 获取示例表格数据
+ * Lấy dữ liệu bảng ví dụ
  */
 async function getExampleTableApi(params: DemoTableApi.PageFetchParams) {
   return new Promise<{ items: any; total: number }>((resolve) => {
@@ -61,7 +61,7 @@ const gridOptions: VxeGridProps<RowType> = {
     labelField: 'name',
   },
   columns: [
-    { title: '序号', type: 'seq', width: 50 },
+    { title: 'STT', type: 'seq', width: 50 },
     { align: 'left', title: 'Name', type: 'checkbox', width: 100 },
     { field: 'category', title: 'Category' },
     { field: 'color', title: 'Color' },
@@ -70,7 +70,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'releaseDate', formatter: 'formatDateTime', title: 'DateTime' },
   ],
   exportConfig: {},
-  // height: 'auto', // 如果设置为 auto，则必须确保存在父节点且不允许存在相邻元素，否则会出现高度闪动问题
+  // height: 'auto', // Nếu đặt thành auto thì phải đảm bảo tồn tại nút cha và không cho phép tồn tại phần tử kề bên, nếu không sẽ xuất hiện vấn đề nhấp nháy chiều cao
   keepSource: true,
   proxyConfig: {
     ajax: {
@@ -101,10 +101,10 @@ const [Grid, gridApi] = useVbenVxeGrid({
     <Grid>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="() => gridApi.query()">
-          刷新当前页面
+          Làm mới trang hiện tại
         </Button>
         <Button type="primary" @click="() => gridApi.reload()">
-          刷新并返回第一页
+          Làm mới và quay về trang đầu tiên
         </Button>
       </template>
     </Grid>

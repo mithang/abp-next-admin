@@ -9,24 +9,24 @@ public class AbpIPLocationResolveOptions
     public List<IIPLocationResolveContributor> IPLocationResolvers { get; }
 
     /// <summary>
-    /// 从备注(Remarks)中移除的国家名称
+    /// Tên quốc gia cần loại khỏi ghi chú (Remarks)
     /// </summary>
     /// <remarks>
-    /// 名称匹配(忽略大小写与首尾空白, 适用于所有国家的 IP)时, 该国家名称不再出现在备注中,
-    /// 备注改用省份与城市组合: 省市都存在则"省份+城市"(省市同名时仅城市, 如 重庆市), 仅有省份时使用省份。
+    /// Khi tên trùng khớp (bỏ qua chữ hoa/chữ thường và khoảng trắng đầu/cuối, áp dụng cho IP của mọi quốc gia), tên quốc gia đó sẽ không còn xuất hiện trong ghi chú,
+    /// ghi chú chuyển sang dùng tổ hợp tỉnh và thành phố: nếu cả tỉnh và thành phố đều có thì "tỉnh + thành phố" (khi tỉnh và thành phố trùng tên thì chỉ dùng thành phố, ví dụ thành phố Trùng Khánh), nếu chỉ có tỉnh thì dùng tỉnh.
     /// 
-    /// 例如设置为 "中国" 后: 中国 IP 的备注为"省份+城市"(如 浙江省杭州市), 其它国家仍仅显示国家名称。
-    /// 默认空集合(国家名称参与备注组合)。
+    /// Ví dụ sau khi đặt thành "Trung Quốc": ghi chú của IP Trung Quốc là "tỉnh + thành phố" (ví dụ Hàng Châu, tỉnh Chiết Giang), các quốc gia khác vẫn chỉ hiển thị tên quốc gia.
+    /// Mặc định là tập hợp rỗng (tên quốc gia tham gia tổ hợp ghi chú).
     /// </remarks>
     [NotNull]
     public string[] RemoveCountry { get; set; }
 
     /// <summary>
-    /// 从备注(Remarks)中移除的省份名称
+    /// Tên tỉnh cần loại khỏi ghi chú (Remarks)
     /// </summary>
     /// <remarks>
-    /// 名称匹配(忽略大小写与首尾空白, 适用于所有国家的 IP)时, 该省份名称不再出现在备注中, 备注仅使用城市(如 杭州市);
-    /// 未匹配的 IP 不受影响。默认空集合(省份名称参与备注组合)。
+    /// Khi tên trùng khớp (bỏ qua chữ hoa/chữ thường và khoảng trắng đầu/cuối, áp dụng cho IP của mọi quốc gia), tên tỉnh đó sẽ không còn xuất hiện trong ghi chú, ghi chú chỉ dùng thành phố (ví dụ thành phố Hàng Châu);
+    /// Các IP không trùng khớp không bị ảnh hưởng. Mặc định là tập hợp rỗng (tên tỉnh tham gia tổ hợp ghi chú).
     /// </remarks>
     [NotNull]
     public string[] RemoveProvince { get; set; }

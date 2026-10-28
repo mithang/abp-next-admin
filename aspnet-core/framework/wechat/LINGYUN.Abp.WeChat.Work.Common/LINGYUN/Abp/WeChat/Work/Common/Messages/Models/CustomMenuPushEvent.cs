@@ -4,13 +4,13 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 点击菜单拉取消息的事件推送
+/// Đẩy sự kiện khi nhấn menu để lấy thông báo
 /// </summary>
 [EventName("custom_menu")]
 public class CustomMenuPushEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 事件KEY值
+    /// Giá trị KEY của sự kiện
     /// </summary>
     [XmlElement("EventKey")]
     public string EventKey { get; set; } = default!;

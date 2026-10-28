@@ -26,7 +26,7 @@ class StorageManager {
   }
 
   /**
-   * 清除所有带前缀的存储项
+   * Xóa tất cả mục lưu trữ có tiền tố
    */
   clear(): void {
     const keysToRemove: string[] = [];
@@ -40,23 +40,23 @@ class StorageManager {
   }
 
   /**
-   * 清除所有过期的存储项
+   * Xóa tất cả mục lưu trữ đã hết hạn
    */
   clearExpiredItems(): void {
     for (let i = 0; i < this.storage.length; i++) {
       const key = this.storage.key(i);
       if (key && key.startsWith(this.prefix)) {
         const shortKey = key.replace(this.prefix, '');
-        this.getItem(shortKey); // 调用 getItem 方法检查并移除过期项
+        this.getItem(shortKey); // Gọi phương thức getItem để kiểm tra và xóa mục đã hết hạn
       }
     }
   }
 
   /**
-   * 获取存储项
-   * @param key 键
-   * @param defaultValue 当项不存在或已过期时返回的默认值
-   * @returns 值，如果项已过期或解析错误则返回默认值
+   * Lấy mục lưu trữ
+   * @param key Khóa
+   * @param defaultValue Giá trị mặc định trả về khi mục không tồn tại hoặc đã hết hạn
+   * @returns Giá trị, nếu mục đã hết hạn hoặc lỗi phân tích cú pháp thì trả về giá trị mặc định
    */
   getItem<T>(key: string, defaultValue: null | T = null): null | T {
     const fullKey = this.getFullKey(key);
@@ -74,14 +74,14 @@ class StorageManager {
       return item.value;
     } catch (error) {
       console.error(`Error parsing item with key "${fullKey}":`, error);
-      this.storage.removeItem(fullKey); // 如果解析失败，删除该项
+      this.storage.removeItem(fullKey); // Nếu phân tích thất bại, xóa mục đó
       return defaultValue;
     }
   }
 
   /**
-   * 移除存储项
-   * @param key 键
+   * Xóa mục lưu trữ
+   * @param key Khóa
    */
   removeItem(key: string): void {
     const fullKey = this.getFullKey(key);
@@ -89,10 +89,10 @@ class StorageManager {
   }
 
   /**
-   * 设置存储项
-   * @param key 键
-   * @param value 值
-   * @param ttl 存活时间（毫秒）
+   * Đặt mục lưu trữ
+   * @param key Khóa
+   * @param value Giá trị
+   * @param ttl Thời gian sống (mili giây)
    */
   setItem<T>(key: string, value: T, ttl?: number): void {
     const fullKey = this.getFullKey(key);
@@ -106,9 +106,9 @@ class StorageManager {
   }
 
   /**
-   * 获取完整的存储键
-   * @param key 原始键
-   * @returns 带前缀的完整键
+   * Lấy khóa lưu trữ đầy đủ
+   * @param key Khóa gốc
+   * @returns Khóa đầy đủ có tiền tố
    */
   private getFullKey(key: string): string {
     return `${this.prefix}-${key}`;

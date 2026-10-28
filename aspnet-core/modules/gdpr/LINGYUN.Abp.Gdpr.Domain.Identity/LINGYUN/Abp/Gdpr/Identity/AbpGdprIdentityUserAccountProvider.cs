@@ -6,7 +6,7 @@ using Volo.Abp.Identity;
 namespace LINGYUN.Abp.Gdpr.Identity;
 
 /// <summary>
-/// 身份标识模块用户账户提供者
+/// Nhà cung cấp tài khoản người dùng của mô-đun định danh (Identity)
 /// </summary>
 public class AbpGdprIdentityUserAccountProvider : GdprUserAccountProviderBase
 {
@@ -20,8 +20,8 @@ public class AbpGdprIdentityUserAccountProvider : GdprUserAccountProviderBase
 
         var identityUser = await identityUserManager.GetByIdAsync(context.UserId);
 
-        // 默认管理员账号保留
-        // TODO: 保留统一维护的地方?
+        // Giữ lại tài khoản quản trị viên mặc định
+        // TODO: Giữ ở nơi bảo trì thống nhất?
         if (identityUser.UserName != "admin")
         {
             (await identityUserManager.DeleteAsync(identityUser)).CheckErrors();

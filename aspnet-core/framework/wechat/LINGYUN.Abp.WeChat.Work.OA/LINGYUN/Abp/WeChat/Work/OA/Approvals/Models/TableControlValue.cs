@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 明细控件值
+/// Giá trị điều khiển chi tiết
 /// </summary>
 public class TableControlValue : ControlValue
 {
     /// <summary>
-    /// 明细内容，一个明细控件可能包含多个子明细
+    /// Nội dung chi tiết, một điều khiển chi tiết có thể chứa nhiều chi tiết con
     /// </summary>
     [NotNull]
     [JsonProperty("children")]
@@ -30,10 +30,10 @@ public class TableControlValue : ControlValue
 public class TableValue
 {
     /// <summary>
-    /// 子明细列表，在此填写子明细的所有子控件的值，子控件的数据结构同一般控件。
+    /// Danh sách chi tiết con, điền tại đây giá trị của tất cả các điều khiển con của chi tiết con, cấu trúc dữ liệu của điều khiển con giống như điều khiển thông thường.
     /// </summary>
     /// <remarks>
-    /// 注意：不能为空数组，至少需要包含一个子明细，子明细中必须包括模板中设置的全部子控件，如果子明细为空，则需要将所有子控件的值设为空
+    /// Lưu ý: không được là mảng rỗng, ít nhất phải chứa một chi tiết con, chi tiết con phải bao gồm toàn bộ điều khiển con đã thiết lập trong mẫu, nếu chi tiết con rỗng thì cần đặt giá trị của tất cả các điều khiển con thành rỗng
     /// </remarks>
     [NotNull]
     [JsonProperty("list")]

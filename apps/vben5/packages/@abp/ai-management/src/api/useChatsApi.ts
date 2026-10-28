@@ -14,11 +14,11 @@ export function useChatsApi() {
   const { requestSSE } = useSseRequest();
 
   /**
-   * 发送消息
-   * @param input 消息体
-   * @param options 选项
-   * @param options.onMessage 接收SSE消息回调
-   * @param options.onEnd SSE消息完成回调
+   * Gửi tin nhắn
+   * @param input Nội dung tin nhắn
+   * @param options Tùy chọn
+   * @param options.onMessage Callback nhận tin nhắn SSE
+   * @param options.onEnd Callback khi tin nhắn SSE hoàn tất
    */
   function sendMessageApi(
     input: SendTextChatMessageDto,
@@ -53,9 +53,9 @@ export function useChatsApi() {
   }
 
   /**
-   * 获取会话内容分页列表
-   * @param input 查询过滤参数
-   * @returns 会话内容分页列表
+   * Lấy danh sách phân trang nội dung phiên trò chuyện
+   * @param input Tham số lọc truy vấn
+   * @returns Danh sách phân trang nội dung phiên trò chuyện
    */
   function getPagedListApi(
     input: TextChatMessageGetListInput,

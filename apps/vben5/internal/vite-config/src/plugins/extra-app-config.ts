@@ -17,7 +17,7 @@ const GLOBAL_CONFIG_FILE_NAME = '_app.config.js';
 const VBEN_ADMIN_PRO_APP_CONF = '_VBEN_ADMIN_PRO_APP_CONF_';
 
 /**
- * 用于将配置文件抽离出来并注入到项目中
+ * Dùng để tách tệp cấu hình ra và inject vào dự án
  * @returns
  */
 
@@ -73,7 +73,7 @@ async function viteExtraAppConfigPlugin({
 async function getConfigSource() {
   const config = await loadEnv();
   const windowVariable = `window.${VBEN_ADMIN_PRO_APP_CONF}`;
-  // 确保变量不会被修改
+  // Đảm bảo biến không bị sửa đổi
   let source = `${windowVariable}=${JSON.stringify(config)};`;
   source += `
     Object.freeze(${windowVariable});

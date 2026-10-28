@@ -5,7 +5,7 @@ import { flattenMenuRoutes, menuFilter } from "../utils";
 import { usePermissionRoutes } from "./use-permission-routes";
 
 /**
- * 返回拍平后的菜单路由
+ * Trả về route menu sau khi làm phẳng
  */
 export function useFlattenedRoutes() {
 	const flattenRoutes = useCallback(flattenMenuRoutes, []);

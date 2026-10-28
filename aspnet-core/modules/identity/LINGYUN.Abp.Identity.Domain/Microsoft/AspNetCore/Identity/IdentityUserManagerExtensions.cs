@@ -25,7 +25,7 @@ public static class IdentityUserManagerExtensions
             var hasAuthenticatorEnabled = user.GetProperty(userManager.Options.Tokens.AuthenticatorTokenProvider, false);
             var phoneNumberConfirmed = await userManager.IsPhoneNumberConfirmedAsync(user);
             var emailAddressConfirmed = await userManager.IsEmailConfirmedAsync(user);
-            // 如果其中一个安全选项未确认,无法启用双因素验证
+            // Nếu một trong các tùy chọn bảo mật chưa được xác nhận thì không thể bật xác thực hai yếu tố
             if (!hasAuthenticatorEnabled && !phoneNumberConfirmed && !emailAddressConfirmed)
             {
                 var localizer = userManager.ServiceProvider.GetRequiredService<IStringLocalizer<IdentityResource>>();

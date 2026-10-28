@@ -1,0 +1,56 @@
+version: '3.4'
+
+# AllInOne monolith profile (added by devops loop, iteration 2).
+# The AllInOne service bundles AuthServer + all business services in one
+# process and is the deployment actually used for local runs on port 30000,
+# but no compose file defined it before this file (DEV-08).
+#
+# Intended use (shares a network with the middleware stack):
+#   docker compose -f docker-compose.middleware.yml -f docker-compose.allinone.yml up -d
+# Run with a single compose invocation so both files share the
+# abp-next-admin network; the database/redis hostnames below are resolved
+# through the application's own configuration, as with the microservices.
+# The healthcheck follows the same wget convention as docker-compose.yml
+# and therefore shares its unverified-wget caveat (DEV-06).
+#
+# NOT verified by a real `docker compose up` on this machine: Docker is
+# not installed here, so this file is validated by YAML parsing only.
+
+services:
+  allinone:
+    build:
+      context: .
+      dockerfile: aspnet-core/services/LINGYUN.Abp.MicroService.AllInOne/Dockerfile
+    image: labp-allinone:10.7.0
+    hostname: allinone
+    container_name: allinone
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - APPLICATION_DATABASE_PROVIDER=${APPLICATION_DATABASE_PROVIDER:-PostgreSql}
+      - TZ=Asia/Shanghai
+    ports:
+      - "30000:80"
+    restart: unless-stopped
+    # DEV-10 (devops iter-0003, partial): resource limits from a measured
+    # baseline, not a guess. Local AllInOne (Debug build, idle + 50-req smoke
+    # load) measured ~620-650 MB RSS after ~1 h uptime on this 2-CPU dev VM
+    # (healthz p50 6 ms, p95 28 ms). 2g is ~3x that RSS; cpus 1.5 leaves room
+    # for PostgreSQL/Redis on the same host. mem_limit/cpus are used (not
+    # deploy.resources) because these files are run with `docker compose up`,
+    # which ignores deploy.resources outside Swarm mode.
+    mem_limit: 2g
+    cpus: 1.5
+    networks:
+      - abp-next-admin
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider http://localhost/healthz || exit"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  abp-next-admin:
+    driver: bridge

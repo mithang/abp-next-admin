@@ -2,32 +2,32 @@
 
 namespace LINGYUN.Abp.PushPlus.Topic;
 /// <summary>
-/// 群组详情
+/// Chi tiết nhóm
 /// </summary>
 public class PushPlusTopicProfile : PushPlusTopic
 {
     /// <summary>
-    /// 永久二维码图片地址
+    /// Địa chỉ hình ảnh mã QR vĩnh viễn
     /// </summary>
     [JsonProperty("qrCodeImgUrl")]
     public string? QrCodeImgUrl { get; set; }
     /// <summary>
-    /// 联系方式
+    /// Thông tin liên hệ
     /// </summary>
     [JsonProperty("contact")]
     public string? Contact { get; set; }
     /// <summary>
-    /// 群组简介
+    /// Giới thiệu nhóm
     /// </summary>
     [JsonProperty("introduction")]
     public string? Introduction { get; set; }
     /// <summary>
-    /// 加入后回复内容
+    /// Nội dung trả lời sau khi tham gia
     /// </summary>
     [JsonProperty("receiptMessage")]
     public string? ReceiptMessage { get; set; }
     /// <summary>
-    /// 群组订阅人总数
+    /// Tổng số người đăng ký nhóm
     /// </summary>
     [JsonProperty("topicUserCount")]
     public string? TopicUserCount { get; set; }

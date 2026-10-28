@@ -25,40 +25,40 @@ import AnalyticsVisitsSource from '../analytics/analytics-visits-source.vue';
 
 const userStore = useUserStore();
 
-// 这是一个示例数据，实际项目中需要根据实际情况进行调整
-// url 也可以是内部路由，在 navTo 方法中识别处理，进行内部跳转
-// 例如：url: /dashboard/workspace
+// Đây là dữ liệu mẫu, trong dự án thực tế cần điều chỉnh theo tình hình thực tế
+// url cũng có thể là route nội bộ, được nhận diện và xử lý trong phương thức navTo để chuyển hướng nội bộ
+// Ví dụ: url: /dashboard/workspace
 const projectItems: WorkbenchProjectItem[] = [
   {
     color: '',
-    content: '不要等待机会，而要创造机会。',
+    content: 'Đừng chờ đợi cơ hội, mà hãy tự tạo ra cơ hội.',
     date: '2021-04-01',
-    group: '开源组',
+    group: 'Nhóm mã nguồn mở',
     icon: 'carbon:logo-github',
     title: 'Github',
     url: 'https://github.com',
   },
   {
     color: '#3fb27f',
-    content: '现在的你决定将来的你。',
+    content: 'Bạn của hiện tại quyết định bạn của tương lai.',
     date: '2021-04-01',
-    group: '算法组',
+    group: 'Nhóm thuật toán',
     icon: 'ion:logo-vue',
     title: 'Vue',
     url: 'https://vuejs.org',
   },
   {
     color: '#e18525',
-    content: '没有什么才能比努力更重要。',
+    content: 'Không có tài năng nào quan trọng hơn sự nỗ lực.',
     date: '2021-04-01',
-    group: '上班摸鱼',
+    group: 'Nhóm trốn việc',
     icon: 'ion:logo-html5',
     title: 'Html5',
     url: 'https://developer.mozilla.org/zh-CN/docs/Web/HTML',
   },
   {
     color: '#bf0c2c',
-    content: '热情和欲望可以突破一切难关。',
+    content: 'Nhiệt huyết và khát vọng có thể vượt qua mọi khó khăn.',
     date: '2021-04-01',
     group: 'UI',
     icon: 'ion:logo-angular',
@@ -67,60 +67,61 @@ const projectItems: WorkbenchProjectItem[] = [
   },
   {
     color: '#00d8ff',
-    content: '健康的身体是实现目标的基石。',
+    content: 'Cơ thể khỏe mạnh là nền tảng để đạt được mục tiêu.',
     date: '2021-04-01',
-    group: '技术牛',
+    group: 'Nhóm chuyên gia kỹ thuật',
     icon: 'bx:bxl-react',
     title: 'React',
     url: 'https://reactjs.org',
   },
   {
     color: '#EBD94E',
-    content: '路是走出来的，而不是空想出来的。',
+    content:
+      'Con đường là do đi mà thành, chứ không phải do tưởng tượng mà ra.',
     date: '2021-04-01',
-    group: '架构组',
+    group: 'Nhóm kiến trúc',
     icon: 'ion:logo-javascript',
     title: 'Js',
     url: 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript',
   },
 ];
 
-// 同样，这里的 url 也可以使用以 http 开头的外部链接
+// Tương tự, url ở đây cũng có thể dùng liên kết ngoài bắt đầu bằng http
 const quickNavItems: WorkbenchQuickNavItem[] = [
   {
     color: '#1fdaca',
     icon: 'ion:home-outline',
-    title: '首页',
+    title: 'Trang chủ',
     url: '/',
   },
   {
     color: '#bf0c2c',
     icon: 'ion:grid-outline',
-    title: '仪表盘',
+    title: 'Bảng điều khiển',
     url: '/dashboard',
   },
   {
     color: '#e18525',
     icon: 'ion:layers-outline',
-    title: '组件',
+    title: 'Thành phần',
     url: '/demos/features/icons',
   },
   {
     color: '#3fb27f',
     icon: 'ion:settings-outline',
-    title: '系统管理',
-    url: '/demos/features/login-expired', // 这里的 URL 是示例，实际项目中需要根据实际情况进行调整
+    title: 'Quản lý hệ thống',
+    url: '/demos/features/login-expired', // URL này chỉ là ví dụ, trong dự án thực tế cần điều chỉnh theo tình hình thực tế
   },
   {
     color: '#4daf1bc9',
     icon: 'ion:key-outline',
-    title: '权限管理',
+    title: 'Quản lý quyền',
     url: '/demos/access/page-control',
   },
   {
     color: '#00d8ff',
     icon: 'ion:bar-chart-outline',
-    title: '图表',
+    title: 'Biểu đồ',
     url: '/analytics',
   },
 ];
@@ -128,87 +129,87 @@ const quickNavItems: WorkbenchQuickNavItem[] = [
 const todoItems = ref<WorkbenchTodoItem[]>([
   {
     completed: false,
-    content: `审查最近提交到Git仓库的前端代码，确保代码质量和规范。`,
+    content: `Rà soát mã frontend vừa được commit lên kho Git, đảm bảo chất lượng và quy chuẩn mã.`,
     date: '2024-07-30 11:00:00',
-    title: '审查前端代码提交',
+    title: 'Rà soát commit mã frontend',
   },
   {
     completed: true,
-    content: `检查并优化系统性能，降低CPU使用率。`,
+    content: `Kiểm tra và tối ưu hiệu năng hệ thống, giảm mức sử dụng CPU.`,
     date: '2024-07-30 11:00:00',
-    title: '系统性能优化',
+    title: 'Tối ưu hiệu năng hệ thống',
   },
   {
     completed: false,
-    content: `进行系统安全检查，确保没有安全漏洞或未授权的访问。 `,
+    content: `Thực hiện kiểm tra bảo mật hệ thống, đảm bảo không có lỗ hổng bảo mật hay truy cập trái phép. `,
     date: '2024-07-30 11:00:00',
-    title: '安全检查',
+    title: 'Kiểm tra bảo mật',
   },
   {
     completed: false,
-    content: `更新项目中的所有npm依赖包，确保使用最新版本。`,
+    content: `Cập nhật tất cả các gói phụ thuộc npm trong dự án, đảm bảo dùng phiên bản mới nhất.`,
     date: '2024-07-30 11:00:00',
-    title: '更新项目依赖',
+    title: 'Cập nhật dependency dự án',
   },
   {
     completed: false,
-    content: `修复用户报告的页面UI显示问题，确保在不同浏览器中显示一致。 `,
+    content: `Sửa lỗi hiển thị UI trang do người dùng báo cáo, đảm bảo hiển thị nhất quán trên các trình duyệt khác nhau. `,
     date: '2024-07-30 11:00:00',
-    title: '修复UI显示问题',
+    title: 'Sửa lỗi hiển thị UI',
   },
 ]);
 const trendItems: WorkbenchTrendItem[] = [
   {
     avatar: 'svg:avatar-1',
-    content: `在 <a>开源组</a> 创建了项目 <a>Vue</a>`,
-    date: '刚刚',
-    title: '威廉',
+    content: `Đã tạo dự án <a>Vue</a> trong <a>Nhóm mã nguồn mở</a>`,
+    date: 'Vừa xong',
+    title: 'William',
   },
   {
     avatar: 'svg:avatar-2',
-    content: `关注了 <a>威廉</a> `,
-    date: '1个小时前',
-    title: '艾文',
+    content: `Đã theo dõi <a>William</a> `,
+    date: '1 giờ trước',
+    title: 'Evan',
   },
   {
     avatar: 'svg:avatar-3',
-    content: `发布了 <a>个人动态</a> `,
-    date: '1天前',
-    title: '克里斯',
+    content: `Đã đăng <a>bài viết cá nhân</a> `,
+    date: '1 ngày trước',
+    title: 'Chris',
   },
   {
     avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写一个Vite插件</a> `,
-    date: '2天前',
+    content: `Đã đăng bài viết <a>Cách viết một plugin Vite</a> `,
+    date: '2 ngày trước',
     title: 'Vben',
   },
   {
     avatar: 'svg:avatar-1',
-    content: `回复了 <a>杰克</a> 的问题 <a>如何进行项目优化？</a>`,
-    date: '3天前',
-    title: '皮特',
+    content: `Đã trả lời câu hỏi <a>Làm thế nào để tối ưu dự án?</a> của <a>Jack</a>`,
+    date: '3 ngày trước',
+    title: 'Pete',
   },
   {
     avatar: 'svg:avatar-2',
-    content: `关闭了问题 <a>如何运行项目</a> `,
-    date: '1周前',
-    title: '杰克',
+    content: `Đã đóng vấn đề <a>Cách chạy dự án</a> `,
+    date: '1 tuần trước',
+    title: 'Jack',
   },
   {
     avatar: 'svg:avatar-3',
-    content: `发布了 <a>个人动态</a> `,
-    date: '1周前',
-    title: '威廉',
+    content: `Đã đăng <a>bài viết cá nhân</a> `,
+    date: '1 tuần trước',
+    title: 'William',
   },
   {
     avatar: 'svg:avatar-4',
-    content: `推送了代码到 <a>Github</a>`,
+    content: `Đã đẩy mã lên <a>Github</a>`,
     date: '2021-04-01 20:00',
-    title: '威廉',
+    title: 'William',
   },
   {
     avatar: 'svg:avatar-4',
-    content: `发表文章 <a>如何编写使用 Admin Vben</a> `,
+    content: `Đã đăng bài viết <a>Cách viết và sử dụng Admin Vben</a> `,
     date: '2021-03-01 20:00',
     title: 'Vben',
   },
@@ -216,7 +217,7 @@ const trendItems: WorkbenchTrendItem[] = [
 
 const router = useRouter();
 
-// 这是一个示例方法，实际项目中需要根据实际情况进行调整
+// Đây là một phương thức mẫu, trong dự án thực tế cần điều chỉnh theo tình hình thực tế
 // This is a sample method, adjust according to the actual project requirements
 function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
   if (nav.url?.startsWith('http')) {
@@ -239,25 +240,30 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
       :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar"
     >
       <template #title>
-        早安, {{ userStore.userInfo?.realName }}, 开始您一天的工作吧！
+        Chào buổi sáng, {{ userStore.userInfo?.realName }}, bắt đầu một ngày làm
+        việc của bạn nào!
       </template>
-      <template #description> 今日晴，20℃ - 32℃！ </template>
+      <template #description> Hôm nay trời nắng, 20℃ - 32℃! </template>
     </WorkbenchHeader>
 
     <div class="mt-5 flex flex-col lg:flex-row">
       <div class="mr-4 w-full lg:w-3/5">
-        <WorkbenchProject :items="projectItems" title="项目" @click="navTo" />
-        <WorkbenchTrends :items="trendItems" class="mt-5" title="最新动态" />
+        <WorkbenchProject :items="projectItems" title="Dự án" @click="navTo" />
+        <WorkbenchTrends
+          :items="trendItems"
+          class="mt-5"
+          title="Hoạt động mới nhất"
+        />
       </div>
       <div class="w-full lg:w-2/5">
         <WorkbenchQuickNav
           :items="quickNavItems"
           class="mt-5 lg:mt-0"
-          title="快捷导航"
+          title="Điều hướng nhanh"
           @click="navTo"
         />
-        <WorkbenchTodo :items="todoItems" class="mt-5" title="待办事项" />
-        <AnalysisChartCard class="mt-5" title="访问来源">
+        <WorkbenchTodo :items="todoItems" class="mt-5" title="Việc cần làm" />
+        <AnalysisChartCard class="mt-5" title="Nguồn truy cập">
           <AnalyticsVisitsSource />
         </AnalysisChartCard>
       </div>

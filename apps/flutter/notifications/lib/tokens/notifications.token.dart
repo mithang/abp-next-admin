@@ -1,8 +1,8 @@
 class NotificationTokens {
-  /// 通知生产者
+  /// Nhà sản xuất thông báo
   static const String producer = "producer";
-  /// 通知消费者
+  /// Người tiêu thụ thông báo
   static const String consumer = "consumer";
-  /// 通知订阅者（接收通知数据名称, 与Hub方法同名）, 定义便于订阅/取消
+  /// Người đăng ký thông báo (tên nhận dữ liệu thông báo, trùng tên phương thức Hub), định nghĩa để tiện đăng ký/hủy đăng ký
   static const String receiver = "get-notification";
 }

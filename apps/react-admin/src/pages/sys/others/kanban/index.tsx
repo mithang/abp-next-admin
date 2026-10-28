@@ -99,11 +99,11 @@ export default function Kanban() {
 
 	const onDragEnd: OnDragEndResponder = (result) => {
 		const { source, destination, type } = result;
-		// 拖拽到非法非 droppable区域
+		// Kéo thả vào vùng không phải droppable không hợp lệ
 		if (!destination) {
 			return;
 		}
-		// 原地放下
+		// Thả xuống tại chỗ
 		if (destination.droppableId === source.droppableId && destination.index === source.index) {
 			return;
 		}

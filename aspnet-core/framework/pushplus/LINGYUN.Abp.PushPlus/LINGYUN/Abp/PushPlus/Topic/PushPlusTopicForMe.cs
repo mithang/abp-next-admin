@@ -2,17 +2,17 @@
 
 namespace LINGYUN.Abp.PushPlus.Topic;
 /// <summary>
-/// 我加入的群详情
+/// Chi tiết nhóm tôi đã tham gia
 /// </summary>
 public class PushPlusTopicForMe : PushPlusTopic
 {
     /// <summary>
-    /// 联系方式
+    /// Phương thức liên hệ
     /// </summary>
     [JsonProperty("contact")]
     public string? Contact { get; set; }
     /// <summary>
-    /// 群组简介
+    /// Giới thiệu nhóm
     /// </summary>
     [JsonProperty("introduction")]
     public string? Introduction { get; set; }

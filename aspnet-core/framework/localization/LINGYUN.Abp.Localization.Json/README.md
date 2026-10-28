@@ -1,22 +1,22 @@
 # LINGYUN.Abp.Localization.Json
 
-## 模块说明
+## Mô tả mô-đun
 
-本地化组件的Json本地文件系统集成  
+Tích hợp hệ thống tệp cục bộ Json của thành phần bản địa hóa  
 
-此组件基于PhysicalFileProvider  
+Thành phần này dựa trên PhysicalFileProvider  
 
-### 基础模块  
+### Mô-đun cơ sở  
 
-### 高阶模块  
+### Mô-đun nâng cao  
 
-### 权限定义  
+### Định nghĩa quyền  
 
-### 功能定义  
+### Định nghĩa tính năng  
 
-### 配置定义  
+### Định nghĩa cấu hình  
 
-### 如何使用
+### Cách sử dụng
 
 
 ```csharp
@@ -31,16 +31,16 @@
             {
                 options.Resources
                     .Add<YouResource>("en")
-                    // 一般配置在宿主项目中, 写入宿主项目中存储json文件的绝对路径(受PhysicalFileProvider的限制)
-                    // json文件格式与Abp默认json格式保持一致
-                    // 详情见: https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-5.0
+                    // Thông thường cấu hình trong dự án máy chủ, ghi đường dẫn tuyệt đối của tệp json được lưu trữ trong dự án máy chủ (bị giới hạn bởi PhysicalFileProvider)
+                    // Định dạng tệp json giữ nhất quán với định dạng json mặc định của Abp
+                    // Xem chi tiết tại: https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-5.0
                     .AddPhysicalJson(Path.Combine(Directory.GetCurrentDirectory(), "Resources"));
             });
 
-            // 等同于如下方法
+            // Tương đương với phương thức sau
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                // 将本地文件系统映射为虚拟文件系统
+                // Ánh xạ hệ thống tệp cục bộ thành hệ thống tệp ảo
                 options.FileSets.AddPhysical(Path.Combine(Directory.GetCurrentDirectory(), "Resources"));
             });
 
@@ -48,7 +48,7 @@
             {
                 options.Resources
                     .Add<YouResource>("en")
-                    .AddVirtualJson("/Resources"); // json本地化虚拟文件路径
+                    .AddVirtualJson("/Resources"); // Đường dẫn tệp ảo bản địa hóa json
             });
         }
     }
@@ -66,4 +66,4 @@
 
 ```
 
-### 更新日志 
+### Nhật ký cập nhật 

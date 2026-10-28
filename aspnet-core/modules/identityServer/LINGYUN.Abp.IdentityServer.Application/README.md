@@ -1,37 +1,37 @@
 # LINGYUN.Abp.IdentityServer.Application
 
-IdentityServer应用服务模块，提供IdentityServer4资源管理相关功能的应用层实现。
+Module dịch vụ ứng dụng IdentityServer, cung cấp phần triển khai tầng ứng dụng cho các chức năng quản lý tài nguyên IdentityServer4 liên quan.
 
-## 功能特性
+## Tính năng
 
-* 客户端管理服务
-  * 客户端密钥管理
-  * 客户端作用域管理
-  * 客户端授权类型管理
-  * 客户端跨域来源管理
-  * 客户端重定向URI管理
-  * 客户端登出重定向URI管理
-  * 客户端身份提供程序限制管理
-  * 客户端声明管理
-  * 客户端属性管理
+* Dịch vụ quản lý client
+  * Quản lý khóa bí mật client
+  * Quản lý phạm vi client
+  * Quản lý loại cấp quyền client
+  * Quản lý nguồn gốc cross-domain của client
+  * Quản lý URI chuyển hướng client
+  * Quản lý URI chuyển hướng đăng xuất client
+  * Quản lý giới hạn nhà cung cấp danh tính của client
+  * Quản lý claim của client
+  * Quản lý thuộc tính client
 
-* API资源管理服务
-  * API资源属性管理
-  * API资源密钥管理
-  * API资源作用域管理
-  * API资源声明管理
+* Dịch vụ quản lý tài nguyên API
+  * Quản lý thuộc tính tài nguyên API
+  * Quản lý khóa bí mật tài nguyên API
+  * Quản lý phạm vi tài nguyên API
+  * Quản lý claim của tài nguyên API
 
-* API作用域管理服务
-  * API作用域声明管理
-  * API作用域属性管理
+* Dịch vụ quản lý phạm vi API
+  * Quản lý claim của phạm vi API
+  * Quản lý thuộc tính phạm vi API
 
-* 身份资源管理服务
-  * 身份资源声明管理
-  * 身份资源属性管理
+* Dịch vụ quản lý tài nguyên danh tính
+  * Quản lý claim của tài nguyên danh tính
+  * Quản lý thuộc tính tài nguyên danh tính
 
-* 持久授权管理服务
+* Dịch vụ quản lý cấp quyền bền vững
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(
@@ -43,19 +43,19 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Module phụ thuộc
 
-* `AbpIdentityServerApplicationContractsModule` - IdentityServer应用服务契约模块
-* `AbpIdentityServerDomainModule` - IdentityServer领域模块
-* `AbpDddApplicationModule` - ABP DDD应用服务基础模块
-* `AbpAutoMapperModule` - ABP AutoMapper对象映射模块
+* `AbpIdentityServerApplicationContractsModule` - Module hợp đồng dịch vụ ứng dụng IdentityServer
+* `AbpIdentityServerDomainModule` - Module miền IdentityServer
+* `AbpDddApplicationModule` - Module cơ sở dịch vụ ứng dụng ABP DDD
+* `AbpAutoMapperModule` - Module ánh xạ đối tượng ABP AutoMapper
 
-## 配置使用
+## Cấu hình và sử dụng
 
-模块实现了IdentityServer4资源的CRUD操作，主要用于管理IdentityServer4的配置资源。
+Module triển khai các thao tác CRUD trên tài nguyên IdentityServer4, chủ yếu dùng để quản lý tài nguyên cấu hình của IdentityServer4.
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP授权文档](https://docs.abp.io/en/abp/latest/Authorization)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu ủy quyền ABP](https://docs.abp.io/en/abp/latest/Authorization)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

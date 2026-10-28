@@ -1,18 +1,18 @@
 # LINGYUN.Abp.WebhooksManagement.Application
 
-Webhook管理应用服务模块，提供Webhook管理的应用层实现。
+Mô-đun dịch vụ ứng dụng quản lý Webhook, cung cấp triển khai tầng ứng dụng cho quản lý Webhook.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* Webhook订阅管理
-* Webhook组管理
-* Webhook定义管理
-* Webhook日志查询
-* Webhook权限管理
+* Quản lý đăng ký Webhook
+* Quản lý nhóm Webhook
+* Quản lý định nghĩa Webhook
+* Tra cứu nhật ký Webhook
+* Quản lý quyền Webhook
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksManagementApplicationModule))]
@@ -22,7 +22,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 权限定义
+## Định nghĩa quyền
 
 * WebhooksManagement.Webhooks
   * WebhooksManagement.Webhooks.Create
@@ -40,9 +40,9 @@ public class YouProjectModule : AbpModule
 * WebhooksManagement.Logs
   * WebhooksManagement.Logs.Default
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 管理Webhook订阅
+1. Quản lý đăng ký Webhook
 ```csharp
 public class YourService
 {
@@ -55,21 +55,21 @@ public class YourService
 
     public async Task ManageSubscription()
     {
-        // 创建订阅
+        // Tạo đăng ký
         await _webhookSubscriptionAppService.CreateAsync(new WebhookSubscriptionCreateDto
         {
             WebhookUri = "https://your-webhook-endpoint",
             Webhooks = new[] { "YourWebhook" }
         });
 
-        // 查询订阅
+        // Tra cứu đăng ký
         var subscriptions = await _webhookSubscriptionAppService.GetListAsync(
             new WebhookSubscriptionGetListInput());
     }
 }
 ```
 
-2. 查询Webhook日志
+2. Tra cứu nhật ký Webhook
 ```csharp
 public class YourService
 {

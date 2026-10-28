@@ -8,10 +8,10 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace LINGYUN.Abp.WeChat.Official.Message;
 
 /// <summary>
-/// 微信公众号消息处理接口
+/// Giao diện xử lý tin nhắn tài khoản chính thức WeChat
 /// </summary>
 /// <remarks>
-/// 详情见微信公众号文档: <seealso cref="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html"/>
+/// Chi tiết xem tài liệu tài khoản chính thức WeChat: <seealso cref="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html"/>
 /// </remarks>
 [Controller]
 [RemoteService(Name = AbpWeChatOfficialRemoteServiceConsts.RemoteServiceName)]
@@ -26,10 +26,10 @@ public class WeChatMessageController : AbpControllerBase, IWeChatMessageAppServi
         _service = service;
     }
     /// <summary>
-    /// 微信公众号服务器消息验证回调接口<br />
-    /// 验证微信公众号服务器发送的消息有效性
+    /// Giao diện callback xác minh tin nhắn máy chủ tài khoản chính thức WeChat<br />
+    /// Xác minh tính hợp lệ của tin nhắn do máy chủ tài khoản chính thức WeChat gửi
     /// </summary>
-    /// <param name="input">微信公众号服务器传递的验证消息参数</param>
+    /// <param name="input">Tham số tin nhắn xác minh do máy chủ tài khoản chính thức WeChat truyền</param>
     /// <returns></returns>
     [HttpGet]
     public virtual Task<string> Handle([FromQuery] MessageValidationInput input)
@@ -38,10 +38,10 @@ public class WeChatMessageController : AbpControllerBase, IWeChatMessageAppServi
     }
 
     /// <summary>
-    /// 微信公众号服务器业务消息回调接口<br />
-    /// 处理微信公众号服务器发送的业务消息
+    /// Giao diện callback tin nhắn nghiệp vụ máy chủ tài khoản chính thức WeChat<br />
+    /// Xử lý tin nhắn nghiệp vụ do máy chủ tài khoản chính thức WeChat gửi
     /// </summary>
-    /// <param name="input">微信公众号服务器传递的消息参数</param>
+    /// <param name="input">Tham số tin nhắn do máy chủ tài khoản chính thức WeChat truyền</param>
     /// <returns></returns>
     [HttpPost]
     public async virtual Task<string> Handle([FromQuery] MessageHandleInput input)

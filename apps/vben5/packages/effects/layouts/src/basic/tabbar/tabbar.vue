@@ -46,7 +46,7 @@ const menus = computed(() => {
   });
 });
 
-// 刷新后如果不保持tab状态，关闭其他tab
+// Sau khi làm mới, nếu không giữ trạng thái tab thì đóng các tab khác
 if (!preferences.tabbar.persist) {
   tabbarStore.closeOtherTabs(route);
 }

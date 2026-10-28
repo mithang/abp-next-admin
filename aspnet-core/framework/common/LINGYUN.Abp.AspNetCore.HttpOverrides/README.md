@@ -1,22 +1,22 @@
 # LINGYUN.Abp.AspNetCore.HttpOverrides
 
-## 模块说明
+## Mô tả mô-đun
 
-对于Http传输标头的一些重写类模块  
+Mô-đun ghi đè một số tiêu đề truyền tải Http  
 
-目前实现通过解析 **X-Forwarded-For** 标头获取反向代理中的真实客户地址,通常获取标头中的最后一个设置值  
+Hiện tại, triển khai lấy địa chỉ khách hàng thực trong proxy ngược bằng cách phân tích tiêu đề **X-Forwarded-For**, thường lấy giá trị được thiết lập cuối cùng trong tiêu đề  
 
-### 基础模块  
+### Mô-đun cơ sở  
 
-### 高阶模块  
+### Mô-đun nâng cao  
 
-### 权限定义  
+### Định nghĩa quyền  
 
-### 功能定义  
+### Định nghĩa tính năng  
 
-### 配置定义  
+### Định nghĩa cấu hình  
 
-### 如何使用
+### Cách sử dụng
 
 
 ```csharp
@@ -29,4 +29,4 @@
 
 ```
 
-### 更新日志 
+### Nhật ký cập nhật 

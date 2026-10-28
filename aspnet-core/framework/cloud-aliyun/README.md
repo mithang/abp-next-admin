@@ -1,33 +1,33 @@
-# LINGYUN.Abp.Aliyun 模块概述
+# Tổng quan mô-đun LINGYUN.Abp.Aliyun
 
-## 简介
-LINGYUN.Abp.Aliyun 模块集成了阿里云的 SDK，提供了对阿里云服务的全面支持，包括认证、短信服务和对象存储等功能。
+## Giới thiệu
+Mô-đun LINGYUN.Abp.Aliyun tích hợp SDK của Alibaba Cloud, cung cấp hỗ trợ toàn diện cho các dịch vụ Alibaba Cloud, bao gồm xác thực, dịch vụ SMS và lưu trữ đối tượng.
 
-## 包含的项目列表
+## Danh sách các dự án bao gồm
 - **LINGYUN.Abp.Aliyun**
 - **LINGYUN.Abp.Aliyun.Features**
 - **LINGYUN.Abp.Aliyun.SettingManagement**
 
-## 每个项目的主要功能概述
+## Tổng quan chức năng chính của từng dự án
 
 ### LINGYUN.Abp.Aliyun
-- 提供阿里云服务的基础 SDK 集成。
-- 支持阿里云 RAM 认证和 STS Token 访问。
-- 支持短信服务和对象存储。
-- 提供分布式缓存支持。
+- Cung cấp tích hợp SDK cơ sở cho các dịch vụ Alibaba Cloud.
+- Hỗ trợ xác thực RAM của Alibaba Cloud và truy cập bằng STS Token.
+- Hỗ trợ dịch vụ SMS và lưu trữ đối tượng.
+- Cung cấp hỗ trợ bộ nhớ đệm phân tán.
 
 ### LINGYUN.Abp.Aliyun.Features
-- 提供阿里云服务的功能定义和管理。
-- 支持启用/禁用阿里云服务功能。
-- 与 ABP 功能管理系统集成。
+- Cung cấp định nghĩa và quản lý tính năng cho các dịch vụ Alibaba Cloud.
+- Hỗ trợ bật/tắt tính năng của dịch vụ Alibaba Cloud.
+- Tích hợp với hệ thống quản lý tính năng của ABP.
 
 ### LINGYUN.Abp.Aliyun.SettingManagement
-- 提供阿里云服务配置的查询接口。
-- 通过 API 接口获取阿里云配置信息。
-- 与 ABP 设置管理系统集成。
+- Cung cấp giao diện truy vấn cấu hình dịch vụ Alibaba Cloud.
+- Lấy thông tin cấu hình Alibaba Cloud qua giao diện API.
+- Tích hợp với hệ thống quản lý cài đặt của ABP.
 
-## 模块的整体用途和重要性
-该模块为开发者提供了与阿里云服务的无缝集成，简化了云服务的使用和管理，提升了应用程序的灵活性和可扩展性。
+## Mục đích tổng thể và tầm quan trọng của mô-đun
+Mô-đun này mang đến cho nhà phát triển khả năng tích hợp liền mạch với các dịch vụ Alibaba Cloud, đơn giản hóa việc sử dụng và quản lý dịch vụ đám mây, đồng thời nâng cao tính linh hoạt và khả năng mở rộng của ứng dụng.
 
-## 如何使用或集成该模块
-在项目中引用相应的模块，并根据需要配置阿里云的相关参数。确保与 ABP 框架的其他模块配合使用，以实现最佳效果。
+## Cách sử dụng hoặc tích hợp mô-đun này
+Tham chiếu mô-đun tương ứng trong dự án và cấu hình các tham số liên quan của Alibaba Cloud theo nhu cầu. Đảm bảo phối hợp với các mô-đun khác của khung ABP để đạt hiệu quả tốt nhất.

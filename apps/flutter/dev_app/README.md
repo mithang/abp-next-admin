@@ -17,23 +17,23 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Translations
 
-### 预制本地化文档    
+### Tài liệu bản địa hóa có sẵn    
 * [English](./translation.json)   
-* [简体中文](./translation.zh-Hans.json)
+* [Tiếng Trung giản thể](./translation.zh-Hans.json)
 
-### 使用方法
+### Cách sử dụng
 
-- 本地文件    
+- Tệp cục bộ    
 
- **替换 [AbpTranslations](./lib/utils/localization.dart) 中keys为如下格式：**
+ **Thay thế keys trong [AbpTranslations](./lib/utils/localization.dart) bằng định dạng sau:**
 
 	```json
 	{
 		"zh-Hans": {
-			"Center:Feedback": "意见反馈",
-			"Center:Help": "在线帮助",
-			"Center:Info": "关于",
-			...其他本地化内容
+			"Center:Feedback": "Phản hồi ý kiến",
+			"Center:Help": "Trợ giúp trực tuyến",
+			"Center:Info": "Giới thiệu",
+			...Nội dung bản địa hóa khác
 		},
 		"en": {
 			"Center:Feedback": "Feedback",
@@ -44,53 +44,53 @@ samples, guidance on mobile development, and a full API reference.
 	}
 	```
 	
-- 后台服务    
+- Dịch vụ backend    
 
-	**将预制的本地化文档复制到后台服务的本地化目录即可, 具体见abp多语言文档**
+	**Chỉ cần sao chép tài liệu bản địa hóa có sẵn vào thư mục bản địa hóa của dịch vụ backend, xem chi tiết tài liệu đa ngôn ngữ của abp**
 
-## Environment 环境配置
+## Environment Cấu hình môi trường
 
-> **application** 应用程序配置    
->>	*name* 应用程序名称   
+> **application** Cấu hình ứng dụng    
+>>	*name* Tên ứng dụng   
 
-> **auth** 身份认证服务器配置    
->>	*<font color=red size=4>authority</font>* 身份认证服务器地址   
->>	*<font color=red size=4>clientId</font>* 客户端标识   
->>	*clientSecret* 客户端密钥    
+> **auth** Cấu hình máy chủ xác thực danh tính    
+>>	*<font color=red size=4>authority</font>* Địa chỉ máy chủ xác thực danh tính   
+>>	*<font color=red size=4>clientId</font>* Mã định danh client   
+>>	*clientSecret* Khóa bí mật client    
 
-> **tenant** 多租户配置    
->>	*tenantKey* 多租户标识    
+> **tenant** Cấu hình đa tenant    
+>>	*tenantKey* Mã định danh đa tenant    
 
-> **localization** 国际化配置    
->>	*defaultLanguage* 应用程序默认语言
+> **localization** Cấu hình quốc tế hóa    
+>>	*defaultLanguage* Ngôn ngữ mặc định của ứng dụng
 
-> **remoteServices** 远程服务配置     
->>	<font color=red size=4>default</font> 默认连接配置 <font color=red size=4>必须指定</font>  
->>> url 连接地址    
->>> rootNamespace 根命名空间（保留配置）    
+> **remoteServices** Cấu hình dịch vụ từ xa     
+>>	<font color=red size=4>default</font> Cấu hình kết nối mặc định <font color=red size=4>Bắt buộc chỉ định</font>  
+>>> url Địa chỉ kết nối    
+>>> rootNamespace Không gian tên gốc (giữ lại cấu hình)    
 
->>	<font color=red size=4>avatar</font> 头像接口配置（如果用户头像设定为相对路径, 需要指定接口地址前缀）  
->>> url 连接地址    
+>>	<font color=red size=4>avatar</font> Cấu hình giao diện ảnh đại diện (nếu ảnh đại diện người dùng được đặt thành đường dẫn tương đối, cần chỉ định tiền tố địa chỉ giao diện)  
+>>> url Địa chỉ kết nối    
 
-> **remoteEnvironment** 远程环境配置（按照给定的应用策略替换当前环境配置）   
->>	*url* 连接地址（从此连接拉取配置信息）    
->>	*method* 请求方法    
->>	*headers* 请求头    
->>	*strategy* 应用策略，deepmerge（合并）、overwrite（替换）     
+> **remoteEnvironment** Cấu hình môi trường từ xa (thay thế cấu hình môi trường hiện tại theo chính sách áp dụng đã cho)   
+>>	*url* Địa chỉ kết nối (lấy thông tin cấu hình từ kết nối này)    
+>>	*method* Phương thức yêu cầu    
+>>	*headers* Tiêu đề yêu cầu    
+>>	*strategy* Chính sách áp dụng, deepmerge (gộp), overwrite (ghi đè)     
 
-> **notifications** 通知相关设置
->>  *android* android端通知设置(可选)
->>>    - *channelId*: 通道标识(配置了android节点后为必输)    
->>>    - *channelName*: 通道名称(配置了android节点后为必输)    
->>>    - *channelDescription*: 通道说明(可选)    
+> **notifications** Cài đặt liên quan đến thông báo
+>>  *android* Cài đặt thông báo phía Android (tùy chọn)
+>>>    - *channelId*: Mã định danh kênh (bắt buộc sau khi đã cấu hình nút android)    
+>>>    - *channelName*: Tên kênh (bắt buộc sau khi đã cấu hình nút android)    
+>>>    - *channelDescription*: Mô tả kênh (tùy chọn)    
 
->>  *linux* linux端通知设置(可选)
->>>    - *defaultActionName*: 默认点击方法名称(配置了linux节点后为必输)    
+>>  *linux* Cài đặt thông báo phía Linux (tùy chọn)
+>>>    - *defaultActionName*: Tên phương thức nhấp mặc định (bắt buộc sau khi đã cấu hình nút linux)    
 
->>  *darwin* iOS/Mac os端通知设置(可选)
+>>  *darwin* Cài đặt thông báo phía iOS/Mac OS (tùy chọn)
 
 
-# 配置示例
+# Ví dụ cấu hình
 [demo.json](./res/config/demo.json)
 ```json
 {
@@ -125,7 +125,7 @@ samples, guidance on mobile development, and a full API reference.
         "android": {
             "channelId": "abp-flutter",
             "channelName": "abp-flutter",
-            "channelDescription": "适用于Android端的通知通道定义"
+            "channelDescription": "Định nghĩa kênh thông báo dành cho Android"
         },
         "linux": {
             "defaultActionName": "Open notification"

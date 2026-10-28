@@ -3,11 +3,11 @@
     public class AbpAliyunOptions
     {
         /// <summary>
-        /// 访问标识
+        /// Định danh truy cập
         /// </summary>
         public string AccessKeyId { get; set; }
         /// <summary>
-        /// 访问密钥
+        /// Khóa bí mật truy cập
         /// </summary>
         public string AccessKeySecret { get; set; }
     }

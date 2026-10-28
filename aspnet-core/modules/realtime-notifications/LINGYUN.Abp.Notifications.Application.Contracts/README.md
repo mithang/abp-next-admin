@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Notifications.Application.Contracts
 
-通知系统的应用层契约模块，提供了通知系统的应用服务接口定义和数据传输对象。
+Mô-đun hợp đồng tầng ứng dụng của hệ thống thông báo, cung cấp định nghĩa giao diện dịch vụ ứng dụng và đối tượng truyền dữ liệu của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知应用服务接口定义
-* 通知订阅应用服务接口定义
-* 通知数据传输对象（DTO）定义
-* 通知权限定义
+* Định nghĩa giao diện dịch vụ ứng dụng thông báo
+* Định nghĩa giao diện dịch vụ ứng dụng đăng ký thông báo
+* Định nghĩa đối tượng truyền dữ liệu (DTO) thông báo
+* Định nghĩa quyền thông báo
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsApplicationContractsModule))]
@@ -19,61 +19,61 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务接口
+## Giao diện dịch vụ ứng dụng
 
 ### INotificationAppService
 
-* GetAsync - 获取通知详情
-* GetListAsync - 获取通知列表
-* DeleteAsync - 删除通知
-* MarkReadAsync - 标记通知为已读
-* MarkAllReadAsync - 标记所有通知为已读
+* GetAsync - Lấy chi tiết thông báo
+* GetListAsync - Lấy danh sách thông báo
+* DeleteAsync - Xóa thông báo
+* MarkReadAsync - Đánh dấu thông báo là đã đọc
+* MarkAllReadAsync - Đánh dấu tất cả thông báo là đã đọc
 
 ### INotificationSubscriptionAppService
 
-* SubscribeAsync - 订阅通知
-* UnSubscribeAsync - 取消订阅通知
-* GetAssignableSubscribersAsync - 获取可分配的订阅者列表
-* GetSubscribedListAsync - 获取已订阅的通知列表
+* SubscribeAsync - Đăng ký thông báo
+* UnSubscribeAsync - Hủy đăng ký thông báo
+* GetAssignableSubscribersAsync - Lấy danh sách người đăng ký có thể gán
+* GetSubscribedListAsync - Lấy danh sách thông báo đã đăng ký
 
-## 数据传输对象
+## Đối tượng truyền dữ liệu
 
 ### NotificationInfo
 
-* Id - 通知唯一标识
-* NotificationName - 通知名称
-* Data - 通知数据
-* CreationTime - 创建时间
-* Type - 通知类型
-* Severity - 通知严重程度
+* Id - Định danh duy nhất của thông báo
+* NotificationName - Tên thông báo
+* Data - Dữ liệu thông báo
+* CreationTime - Thời gian tạo
+* Type - Loại thông báo
+* Severity - Mức độ nghiêm trọng của thông báo
 
 ### NotificationSubscriptionInfo
 
-* NotificationName - 通知名称
-* DisplayName - 显示名称
-* Description - 描述
-* IsSubscribed - 是否已订阅
+* NotificationName - Tên thông báo
+* DisplayName - Tên hiển thị
+* Description - Mô tả
+* IsSubscribed - Đã đăng ký hay chưa
 
-## 权限定义
+## Định nghĩa quyền
 
-* Notifications - 通知管理
-  * Notifications.Manage - 管理通知
-  * Notifications.Delete - 删除通知
-  * Notifications.Subscribe - 订阅通知
+* Notifications - Quản lý thông báo
+  * Notifications.Manage - Quản lý thông báo
+  * Notifications.Delete - Xóa thông báo
+  * Notifications.Subscribe - Đăng ký thông báo
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 实现通知应用服务
+1. Triển khai dịch vụ ứng dụng thông báo
 ```csharp
 public class NotificationAppService : ApplicationService, INotificationAppService
 {
     public async Task<NotificationInfo> GetAsync(Guid id)
     {
-        // 实现获取通知详情的逻辑
+        // Triển khai logic lấy chi tiết thông báo
     }
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
+* [Tài liệu ABP](https://docs.abp.io)

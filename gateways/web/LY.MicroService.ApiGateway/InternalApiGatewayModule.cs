@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
@@ -41,7 +43,7 @@ public class InternalApiGatewayModule : AbpModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别
+            // Phân biệt theo cổng mở
             options.SnowflakeIdOptions.WorkerId = 19;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -113,6 +115,22 @@ public class InternalApiGatewayModule : AbpModule
         context.Services
             .AddReverseProxy()
             .LoadFromConfig(configuration.GetSection("ReverseProxy"));
+
+        // DEVOPS iter-0006 (DEV-11): gateway truoc day khong co /healthz.
+        // Map /healthz qua AbpEndpointRouter (hoat dong moi moi truong, nhu
+        // cac microservice). Gateway nay khong co dependency DB/Redis nao nen
+        // check "self" chi mang y nghia liveness (tien trinh song + pipeline
+        // phan hoi), khong phai readiness cua dependency.
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks(configuration["App:HealthChecks"] ?? "/healthz");
+            });
+        });
+
+        context.Services.AddHealthChecks()
+            .AddCheck("self", () => HealthCheckResult.Healthy("Gateway dang hoat dong."));
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

@@ -2,58 +2,58 @@
 
 namespace LINGYUN.Abp.DataProtection;
 /// <summary>
-/// 数据过滤操作
+/// Thao tác lọc dữ liệu
 /// </summary>
 public enum DataAccessFilterOperate
 {
     /// <summary>
-    /// 等于
+    /// Bằng
     /// </summary>
-    [Description("等于")]
+    [Description("Bằng")]
     Equal = 1,
     /// <summary>
-    /// 不等于
+    /// Không bằng
     /// </summary>
-    [Description("不等于")]
+    [Description("Không bằng")]
     NotEqual = 2,
     /// <summary>
-    /// 小于
+    /// Nhỏ hơn
     /// </summary>
-    [Description("小于")]
+    [Description("Nhỏ hơn")]
     Less = 3,
     /// <summary>
-    /// 小于或等于
+    /// Nhỏ hơn hoặc bằng
     /// </summary>
-    [Description("小于等于")]
+    [Description("Nhỏ hơnBằng")]
     LessOrEqual = 4,
     /// <summary>
-    /// 大于
+    /// Lớn hơn
     /// </summary>
-    [Description("大于")]
+    [Description("Lớn hơn")]
     Greater = 5,
     /// <summary>
-    /// 大于或等于
+    /// Lớn hơn hoặc bằng
     /// </summary>
-    [Description("大于等于")]
+    [Description("Lớn hơnBằng")]
     GreaterOrEqual = 6,
     /// <summary>
-    /// 左包含
+    /// Bắt đầu bằng
     /// </summary>
-    [Description("左包含")]
+    [Description("Bắt đầu bằng")]
     StartsWith = 7,
     /// <summary>
-    /// 右包含
+    /// Kết thúc bằng
     /// </summary>
-    [Description("右包含")]
+    [Description("Kết thúc bằng")]
     EndsWith = 8,
     /// <summary>
-    /// 包含
+    /// Chứa
     /// </summary>
-    [Description("包含")]
+    [Description("Chứa")]
     Contains = 9,
     /// <summary>
-    /// 不包含
+    /// Không chứa
     /// </summary>
-    [Description("不包含")]
+    [Description("Không chứa")]
     NotContains = 10,
 }

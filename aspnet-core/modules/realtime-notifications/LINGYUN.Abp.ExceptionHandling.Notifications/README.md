@@ -1,18 +1,18 @@
 # LINGYUN.Abp.ExceptionHandling.Notifications
 
-基于abp框架底层的**IExceptionSubscriber**的实时通知类型，用于将异常信息通过实时通知方式发送给用户。
+Loại thông báo thời gian thực dựa trên **IExceptionSubscriber** ở tầng dưới của khung ABP, dùng để gửi thông tin ngoại lệ cho người dùng bằng thông báo thời gian thực.
 
-## 功能特性
+## Tính năng
 
-* 支持异常实时通知
-* 支持多租户
-* 支持通知模板
-* 支持系统级通知
-* 集成了通用通知模块
+* Hỗ trợ thông báo ngoại lệ thời gian thực
+* Hỗ trợ đa tenant
+* Hỗ trợ mẫu thông báo
+* Hỗ trợ thông báo cấp hệ thống
+* Đã tích hợp mô-đun thông báo chung
 
-## 配置使用
+## Cấu hình sử dụng
 
-使用前需要配置**AbpExceptionHandlingOptions**定义需要发送通知的异常。
+Trước khi sử dụng cần cấu hình **AbpExceptionHandlingOptions** để định nghĩa các ngoại lệ cần gửi thông báo.
 
 ```csharp
     [DependsOn(
@@ -22,45 +22,45 @@
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            // 自定义需要处理的异常
+            // Tùy chỉnh các ngoại lệ cần xử lý
             Configure<AbpExceptionHandlingOptions>(options =>
             {
-                //  加入需要处理的异常类型
+                //  Thêm các loại ngoại lệ cần xử lý
                 options.Handlers.Add<AbpException>();
             });
         }
     }
 ```
 
-## 通知内容
+## Nội dung thông báo
 
-异常通知包含以下信息：
-* `header`: 异常通知头部信息
-* `footer`: 异常通知底部信息
-* `loglevel`: 日志级别
-* `stackTrace`: 异常堆栈信息
+Thông báo ngoại lệ chứa các thông tin sau:
+* `header`: Thông tin đầu thông báo ngoại lệ
+* `footer`: Thông tin cuối thông báo ngoại lệ
+* `loglevel`: Mức nhật ký
+* `stackTrace`: Thông tin ngăn xếp ngoại lệ
 
-## 通知名称
+## Tên thông báo
 
-模块使用以下通知名称：
-* `NotificationsCommonNotificationNames.ExceptionHandling`: 异常处理通知名称
+Mô-đun sử dụng các tên thông báo sau:
+* `NotificationsCommonNotificationNames.ExceptionHandling`: Tên thông báo xử lý ngoại lệ
 
-## 通知模板
+## Mẫu thông báo
 
-* 发送者: System
-* 通知级别: Error
-* 支持多租户: 是
+* Người gửi: System
+* Mức thông báo: Error
+* Hỗ trợ đa tenant: Có
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `AbpExceptionHandlingModule`: 基础异常处理模块
-* `AbpNotificationsCommonModule`: 通用通知模块
+* `AbpExceptionHandlingModule`: Mô-đun xử lý ngoại lệ cơ bản
+* `AbpNotificationsCommonModule`: Mô-đun thông báo chung
 
-## 相关链接
+## Liên kết liên quan
 
-* [基础异常处理模块](../../../framework/common/LINGYUN.Abp.ExceptionHandling/README.md)
-* [异常邮件通知模块](../../../framework/common/LINGYUN.Abp.ExceptionHandling.Emailing/README.md)
+* [Mô-đun xử lý ngoại lệ cơ bản](../../../framework/common/LINGYUN.Abp.ExceptionHandling/README.md)
+* [Mô-đun thông báo ngoại lệ qua email](../../../framework/common/LINGYUN.Abp.ExceptionHandling.Emailing/README.md)
 
-## 更多
+## Thêm nữa
 
-有关更多信息和配置示例，请参阅[文档](https://github.com/colinin/abp-next-admin)。
+Để biết thêm thông tin và ví dụ cấu hình, vui lòng tham khảo [tài liệu](https://github.com/colinin/abp-next-admin).

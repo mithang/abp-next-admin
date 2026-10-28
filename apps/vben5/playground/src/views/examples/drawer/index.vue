@@ -15,13 +15,13 @@ import SharedDataDemo from './shared-data-demo.vue';
 
 defineOptions({ name: 'DrawerExample' });
 const [BaseDrawer, baseDrawerApi] = useVbenDrawer({
-  // 连接抽离的组件
+  // Kết nối component đã tách ra
   connectedComponent: BaseDemo,
   // placement: 'left',
 });
 
 const [InContentDrawer, inContentDrawerApi] = useVbenDrawer({
-  // 连接抽离的组件
+  // Kết nối component đã tách ra
   connectedComponent: inContentDemo,
   // placement: 'left',
 });
@@ -53,14 +53,14 @@ function openBlurDrawer() {
 function openInContentDrawer(placement: DrawerPlacement = 'right') {
   const state: Partial<DrawerState> = { class: '', placement };
   if (placement === 'top') {
-    // 页面顶部区域的层级只有200，所以设置一个低于200的值，抽屉从顶部滑出来的时候才比较合适
+    // Vùng trên cùng của trang chỉ có cấp 200, nên đặt một giá trị thấp hơn 200 thì ngăn kéo trượt ra từ phía trên mới phù hợp
     state.zIndex = 199;
   }
   inContentDrawerApi.setState(state).open();
 }
 
 function openMaxContentDrawer() {
-  // 这里只是用来演示方便。实际上自己使用的时候可以直接将这些配置卸载Drawer的属性里
+  // Ở đây chỉ để demo cho tiện. Thực tế khi tự dùng có thể đặt trực tiếp các cấu hình này vào thuộc tính của Drawer
   inContentDrawerApi.setState({ class: 'w-full', placement: 'right' }).open();
 }
 
@@ -73,14 +73,14 @@ function openDynamicDrawer() {
 }
 
 function handleUpdateTitle() {
-  dynamicDrawerApi.setState({ title: '外部动态标题' }).open();
+  dynamicDrawerApi.setState({ title: 'Tiêu đề động bên ngoài' }).open();
 }
 
 function openSharedDrawer() {
   sharedDrawerApi
     .setData({
-      content: '外部传递的数据 content',
-      payload: '外部传递的数据 payload',
+      content: 'Dữ liệu content truyền từ bên ngoài',
+      payload: 'Dữ liệu payload truyền từ bên ngoài',
     })
     .open();
 }
@@ -88,7 +88,7 @@ function openSharedDrawer() {
 function openFormDrawer() {
   formDrawerApi
     .setData({
-      // 表单值
+      // Giá trị form
       values: { field1: 'abc', field2: '123' },
     })
     .open();
@@ -98,8 +98,8 @@ function openFormDrawer() {
 <template>
   <Page
     auto-content-height
-    description="抽屉组件通常用于在当前页面上显示一个覆盖层，用以展示重要信息或提供用户交互界面。"
-    title="抽屉组件示例"
+    description="Ngăn kéo thường dùng để hiển thị một lớp phủ trên trang hiện tại, nhằm trình bày thông tin quan trọng hoặc cung cấp giao diện tương tác cho người dùng."
+    title="Ví dụ component ngăn kéo"
   >
     <template #extra>
       <DocButton path="/components/common-ui/vben-drawer" />
@@ -111,84 +111,87 @@ function openFormDrawer() {
     <SharedDataDrawer />
     <FormDrawer />
 
-    <Card class="mb-4" title="基本使用">
-      <p class="mb-3">一个基础的抽屉示例</p>
+    <Card class="mb-4" title="Cách dùng cơ bản">
+      <p class="mb-3">Một ví dụ ngăn kéo cơ bản</p>
       <Button class="mb-2" type="primary" @click="openBaseDrawer('right')">
-        右侧打开
+        Mở từ bên phải
       </Button>
       <Button
         class="mb-2 ml-2"
         type="primary"
         @click="openBaseDrawer('bottom')"
       >
-        底部打开
+        Mở từ phía dưới
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openBaseDrawer('left')">
-        左侧打开
+        Mở từ bên trái
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openBaseDrawer('top')">
-        顶部打开
+        Mở từ phía trên
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openBlurDrawer">
-        遮罩层模糊效果
+        Hiệu ứng làm mờ lớp phủ
       </Button>
     </Card>
 
-    <Card class="mb-4" title="在内容区域打开">
-      <p class="mb-3">指定抽屉在内容区域打开，不会覆盖顶部和左侧菜单等区域</p>
+    <Card class="mb-4" title="Mở trong vùng nội dung">
+      <p class="mb-3">
+        Chỉ định ngăn kéo mở trong vùng nội dung, không che phủ vùng trên cùng
+        và menu bên trái
+      </p>
       <Button class="mb-2" type="primary" @click="openInContentDrawer('right')">
-        右侧打开
+        Mở từ bên phải
       </Button>
       <Button
         class="mb-2 ml-2"
         type="primary"
         @click="openInContentDrawer('bottom')"
       >
-        底部打开
+        Mở từ phía dưới
       </Button>
       <Button
         class="mb-2 ml-2"
         type="primary"
         @click="openInContentDrawer('left')"
       >
-        左侧打开
+        Mở từ bên trái
       </Button>
       <Button
         class="mb-2 ml-2"
         type="primary"
         @click="openInContentDrawer('top')"
       >
-        顶部打开
+        Mở từ phía trên
       </Button>
       <Button class="mb-2 ml-2" type="primary" @click="openMaxContentDrawer">
-        内容区域全屏打开
+        Mở toàn màn hình trong vùng nội dung
       </Button>
     </Card>
 
-    <Card class="mb-4" title="内容高度自适应滚动">
-      <p class="mb-3">可根据内容自动计算滚动高度</p>
-      <Button type="primary" @click="openAutoHeightDrawer">打开抽屉</Button>
+    <Card class="mb-4" title="Cuộn tự thích ứng theo chiều cao nội dung">
+      <p class="mb-3">Có thể tự tính chiều cao cuộn theo nội dung</p>
+      <Button type="primary" @click="openAutoHeightDrawer">Mở ngăn kéo</Button>
     </Card>
 
-    <Card class="mb-4" title="动态配置示例">
-      <p class="mb-3">通过 setState 动态调整抽屉数据</p>
-      <Button type="primary" @click="openDynamicDrawer">打开抽屉</Button>
+    <Card class="mb-4" title="Ví dụ cấu hình động">
+      <p class="mb-3">Điều chỉnh động dữ liệu ngăn kéo qua setState</p>
+      <Button type="primary" @click="openDynamicDrawer">Mở ngăn kéo</Button>
       <Button class="ml-2" type="primary" @click="handleUpdateTitle">
-        从外部修改标题并打开
+        Sửa tiêu đề từ bên ngoài và mở
       </Button>
     </Card>
 
-    <Card class="mb-4" title="内外数据共享示例">
-      <p class="mb-3">通过共享 sharedData 来进行数据交互</p>
+    <Card class="mb-4" title="Ví dụ chia sẻ dữ liệu trong/ngoài">
+      <p class="mb-3">Trao đổi dữ liệu qua sharedData dùng chung</p>
       <Button type="primary" @click="openSharedDrawer">
-        打开抽屉并传递数据
+        Mở ngăn kéo và truyền dữ liệu
       </Button>
     </Card>
 
-    <Card class="mb-4" title="表单抽屉示例">
-      <p class="mb-3">打开抽屉并设置表单schema以及数据</p>
+    <Card class="mb-4" title="Ví dụ ngăn kéo form">
+      <p class="mb-3">Mở ngăn kéo và đặt schema form cùng dữ liệu</p>
       <Button type="primary" @click="openFormDrawer">
-        打开抽屉并设置表单schema以及数据
+        Mở ngăn kéo và đặt schema form cùng dữ liệu
       </Button>
     </Card>
   </Page>

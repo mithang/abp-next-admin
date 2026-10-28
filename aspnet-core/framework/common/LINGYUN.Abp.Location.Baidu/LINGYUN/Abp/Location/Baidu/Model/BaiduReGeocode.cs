@@ -7,40 +7,40 @@ namespace LINGYUN.Abp.Location.Baidu.Model;
 public class BaiduReGeocode
 {
     /// <summary>
-    /// 经纬度坐标
+    /// Tọa độ kinh độ/vĩ độ
     /// </summary>
     [JsonProperty("location")]
     [JsonPropertyName("location")]
     public BaiduLocation Location { get; set; } = default!;
     /// <summary>
-    /// 结构化地址信息
+    /// Thông tin địa chỉ có cấu trúc
     /// </summary>
     [JsonProperty("formatted_address")]
     [JsonPropertyName("formatted_address")]
     public string? FormattedAddress { get; set; }
     /// <summary>
-    /// 坐标所在商圈信息，如 "人民大学,中关村,苏州街"。
-    /// 最多返回3个。
+    /// Thông tin khu thương mại nơi tọa độ nằm, ví dụ "Đại học Nhân dân, Trung Quan Thôn, phố Tô Châu".
+    /// Trả về tối đa 3 kết quả.
     /// </summary>
     public string? Business { get; set; }
     /// <summary>
-    /// 地址元素列表
+    /// Danh sách thành phần địa chỉ
     /// </summary>
     public AddressComponent? AddressComponent { get; set; }
     /// <summary>
-    /// 周边poi数组
+    /// Mảng POI xung quanh
     /// </summary>
     public List<BaiduPoi> Pois { get; set; }
     /// <summary>
-    /// 周边道路数组
+    /// Mảng đường xung quanh
     /// </summary>
     public List<BaiduRoad> Roads { get; set; }
     /// <summary>
-    /// 周边区域面数组
+    /// Mảng vùng xung quanh
     /// </summary>
     public List<PoiRegion> PoiRegions { get; set; }
     /// <summary>
-    /// 当前位置结合POI的语义化结果描述
+    /// Mô tả kết quả ngữ nghĩa kết hợp vị trí hiện tại với POI
     /// </summary>
     [JsonProperty("sematic_description")]
     [JsonPropertyName("sematic_description")]

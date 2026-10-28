@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Response;
 /// <summary>
-/// 查询会议室响应参数
+/// Tham số phản hồi truy vấn phòng họp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93619#%E6%9F%A5%E8%AF%A2%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/93619#%E6%9F%A5%E8%AF%A2%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
 /// </remarks>
 public class WeChatWorkGetMeetingRoomListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 会议室列表
+    /// Danh sách phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("meetingroom_list")]

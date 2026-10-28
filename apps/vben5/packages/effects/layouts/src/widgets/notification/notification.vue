@@ -17,11 +17,11 @@ import { useToggle } from '@vueuse/core';
 
 interface Props {
   /**
-   * 显示圆点
+   * Hiển thị chấm tròn
    */
   dot?: boolean;
   /**
-   * 消息列表
+   * Danh sách tin nhắn
    */
   notifications?: NotificationItem[];
 }
@@ -62,7 +62,7 @@ function handleClear() {
 }
 
 function handleClick(item: NotificationItem) {
-  // 如果通知项有链接，点击时跳转
+  // Nếu mục thông báo có link, khi click sẽ chuyển hướng
   if (item.link) {
     navigateTo(item.link, item.query, item.state);
   }
@@ -74,10 +74,10 @@ function navigateTo(
   state?: Record<string, any>,
 ) {
   if (link.startsWith('http://') || link.startsWith('https://')) {
-    // 外部链接，在新标签页打开
+    // Link ngoài, mở trong tab mới
     window.open(link, '_blank');
   } else {
-    // 内部路由链接，支持 query 参数和 state
+    // Link route nội bộ, hỗ trợ tham số query và state
     router.push({
       path: link,
       query: query || {},

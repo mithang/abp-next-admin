@@ -1,388 +1,388 @@
 namespace LINGYUN.Abp.MicroService.AllInOne;
 
 [DependsOn(
-    // CAP事件总线模块
+    // Module bus sự kiện CAP
     typeof(AbpCAPEventBusModule),
-    // Serilog扩展模块 应用程序信息
+    // Module mở rộng Serilog thông tin ứng dụng
     typeof(AbpSerilogEnrichersApplicationModule),
-    // Serilog扩展模块 全局唯一Id
+    // Module mở rộng Serilog Id duy nhất toàn cục
     typeof(AbpSerilogEnrichersUniqueIdModule),
-    // Serilog模块
+    // Module Serilog
     typeof(AbpAspNetCoreSerilogModule),
-    // 身份认证模块 扩展UserToken验证
+    // Module xác thực danh tính mở rộng xác thực UserToken
     typeof(AbpIdentityAspNetCoreModule),
-    // 身份认证模块 通知集成
+    // Module xác thực danh tính tích hợp thông báo
     typeof(AbpIdentityNotificationsModule),
-    // 身份认证模块 组织机构集成
+    // Module xác thực danh tính tích hợp tổ chức
     typeof(AbpIdentityOrganizaztionUnitsModule),
-    // 身份认证模块 微信身份标识
+    // Module xác thực danh tính định danh WeChat
     typeof(AbpIdentityWeChatModule),
-    // 身份认证模块 企业微信身份标识
+    // Module xác thực danh tính định danh WeChat doanh nghiệp
     typeof(AbpIdentityWeChatWorkModule),
-    // 身份认证模块 领域服务
+    // Module xác thực danh tính dịch vụ miền
     typeof(AbpIdentityDomainModule),
-    // 身份认证模块 应用服务
+    // Module xác thực danh tính dịch vụ ứng dụng
     typeof(AbpIdentityApplicationModule),
-    // 身份认证模块 控制器
+    // Module xác thực danh tính bộ điều khiển
     typeof(AbpIdentityHttpApiModule),
-    // 身份认证模块 实体框架
+    // Module xác thực danh tính Entity Framework
     typeof(AbpIdentityEntityFrameworkCoreModule),
-    // 身份认证模块 Mvc视图
+    // Module xác thực danh tính giao diện Mvc
     typeof(AbpIdentityWebModule),
 
-    // 账户模块 应用服务
+    // Module tài khoản dịch vụ ứng dụng
     typeof(AbpAccountApplicationModule),
-    // 账户模块 控制器
+    // Module tài khoản bộ điều khiển
     typeof(AbpAccountHttpApiModule),
-    // 账户模块 OpenIddict集成
+    // Module tài khoản tích hợp OpenIddict
     typeof(AbpAccountWebOpenIddictModule),
-    // 账户模块 OAuth集成
+    // Module tài khoản tích hợp OAuth
     typeof(AbpAccountWebOAuthModule),
-    // 使用 LazyCaptcha 验证码组件
+    // Sử dụng LazyCaptcha thành phần mã xác minh
     typeof(AbpAccountWebLazyCaptchaModule),
-    // 使用 腾讯云验证码组件, 需配置好腾讯云相关参数
+    // Sử dụng thành phần mã xác minh Tencent Cloud, cần cấu hình sẵn các tham số liên quan của Tencent Cloud
     typeof(AbpAccountWebTencentCaptchaModule),
-    // 使用 阿里云验证码组件, 需配置好阿里云相关参数
+    // Sử dụng thành phần mã xác minh Alibaba Cloud, cần cấu hình sẵn các tham số liên quan của Alibaba Cloud
     typeof(AbpAccountWebAliyunCaptchaModule),
 
-    // Gdpr 身份认证提供者模块
+    // Gdpr Module nhà cung cấp xác thực danh tính
     typeof(AbpGdprDomainIdentityModule),
-    // Gdpr 应用服务模块
+    // Gdpr Module dịch vụ ứng dụng
     typeof(AbpGdprApplicationModule),
-    // Gdpr 控制器模块
+    // Gdpr Module bộ điều khiển
     typeof(AbpGdprHttpApiModule),
-    // Gdpr 实体框架模块
+    // Gdpr Module Entity Framework
     typeof(AbpGdprEntityFrameworkCoreModule),
-    // Gdpr Mvc页面
+    // Gdpr trang Mvc
     typeof(AbpGdprWebModule),
 
     // MVC Theme
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
 
-    // 缓存模块 Redis集成
+    // Module bộ nhớ đệm tích hợp Redis
     typeof(AbpCachingStackExchangeRedisModule),
-    // 缓存管理模块 Redis集成
+    // Module quản lý bộ nhớ đệm tích hợp Redis
     typeof(AbpCachingManagementStackExchangeRedisModule),
-    // 缓存管理模块 应用服务
+    // Module quản lý bộ nhớ đệm dịch vụ ứng dụng
     typeof(AbpCachingManagementApplicationModule),
-    // 缓存管理模块 控制器
+    // Module quản lý bộ nhớ đệm bộ điều khiển
     typeof(AbpCachingManagementHttpApiModule),
 
-    // 多语言管理模块 领域服务
+    // Module quản lý đa ngôn ngữ dịch vụ miền
     typeof(AbpLocalizationManagementDomainModule),
-    // 多语言管理模块 应用服务
+    // Module quản lý đa ngôn ngữ dịch vụ ứng dụng
     typeof(AbpLocalizationManagementApplicationModule),
-    // 多语言管理模块 控制器
+    // Module quản lý đa ngôn ngữ bộ điều khiển
     typeof(AbpLocalizationManagementHttpApiModule),
-    // 多语言管理模块 实体框架
+    // Module quản lý đa ngôn ngữ Entity Framework
     typeof(AbpLocalizationManagementEntityFrameworkCoreModule),
 
 
-    // 消息模块 领域服务
+    // Module tin nhắn dịch vụ miền
     typeof(AbpMessageServiceDomainModule),
-    // 消息模块 应用服务
+    // Module tin nhắn dịch vụ ứng dụng
     typeof(AbpMessageServiceApplicationModule),
-    // 消息模块 控制器
+    // Module tin nhắn bộ điều khiển
     typeof(AbpMessageServiceHttpApiModule),
-    // 消息模块 实体框架
+    // Module tin nhắn Entity Framework
     typeof(AbpMessageServiceEntityFrameworkCoreModule),
-    // 通知模块 领域服务
+    // Module thông báo dịch vụ miền
     typeof(AbpNotificationsDomainModule),
-    // 通知模块 应用服务
+    // Module thông báo dịch vụ ứng dụng
     typeof(AbpNotificationsApplicationModule),
-    // 通知模块 控制器
+    // Module thông báo bộ điều khiển
     typeof(AbpNotificationsHttpApiModule),
-    // 通知模块 实体框架
+    // Module thông báo Entity Framework
     typeof(AbpNotificationsEntityFrameworkCoreModule),
 
-    // OpenIddict扩展模块 应用服务
+    // Module mở rộng OpenIddict dịch vụ ứng dụng
     typeof(AbpOpenIddictApplicationModule),
-    // OpenIddict扩展模块 控制器
+    // Module mở rộng OpenIddict bộ điều khiển
     typeof(AbpOpenIddictHttpApiModule),
-    // OpenIddict扩展模块 实体框架
+    // Module mở rộng OpenIddict Entity Framework
     typeof(AbpOpenIddictEntityFrameworkCoreModule),
-    // OpenIddict扩展模块 短信认证
+    // Module mở rộng OpenIddict xác thực SMS
     typeof(AbpOpenIddictSmsModule),
-    // OpenIddict扩展模块 平台认证
+    // Module mở rộng OpenIddict xác thực nền tảng
     typeof(AbpOpenIddictPortalModule),
-    // OpenIddict扩展模块 微信认证
+    // Module mở rộng OpenIddict xác thực WeChat
     typeof(AbpOpenIddictWeChatModule),
-    // OpenIddict扩展模块 企业微信认证
+    // Module mở rộng OpenIddict xác thực WeChat doanh nghiệp
     typeof(AbpOpenIddictWeChatWorkModule),
-    // OpenIddict扩展模块 关联账户
+    // Module mở rộng OpenIddict tài khoản liên kết
     typeof(AbpOpenIddictLinkUserModule),
-    // OpenIddict扩展模块 扫码登录
+    // Module mở rộng OpenIddict đăng nhập bằng quét mã
     typeof(AbpOpenIddictQrCodeModule),
 
-    // 对象存储模块 阿里云
+    // Module lưu trữ đối tượng Alibaba Cloud
     typeof(AbpBlobManagementAliyunModule),
-    // 对象存储模块 文件系统
+    // Module lưu trữ đối tượng hệ thống tệp
     typeof(AbpBlobManagementFileSystemModule),
-    // 对象存储模块 Minio
+    // Module lưu trữ đối tượng Minio
     typeof(AbpBlobManagementMinioModule),
-    // 对象存储模块 腾讯云
+    // Module lưu trữ đối tượng Tencent Cloud
     typeof(AbpBlobManagementTencentModule),
-    // 对象存储模块 MimeCheck扩展
+    // Module lưu trữ đối tượng mở rộng MimeCheck
     typeof(AbpBlobManagementMimeCheckModule),
-    // 对象存储模块 应用服务
+    // Module lưu trữ đối tượng dịch vụ ứng dụng
     typeof(AbpBlobManagementDomainModule),
-    // 对象存储模块 控制器
+    // Module lưu trữ đối tượng bộ điều khiển
     typeof(AbpBlobManagementApplicationModule),
-    // 对象存储模块 控制器
+    // Module lưu trữ đối tượng bộ điều khiển
     typeof(AbpBlobManagementHttpApiModule),
-    // 对象存储模块 设置管理
+    // Module lưu trữ đối tượng quản lý cài đặt
     typeof(AbpBlobManagementSettingManagementModule),
-    // 对象存储模块 通用存储代理
+    // Module lưu trữ đối tượng đại lý lưu trữ chung
     typeof(AbpBlobStoringBlobManagementModule),
-    // 图形处理模块
+    // Module xử lý đồ họa
     typeof(AbpImagingImageSharpModule),
 
-    // 平台模块 领域服务
+    // Module nền tảng dịch vụ miền
     typeof(PlatformDomainModule),
-    // 平台模块 应用服务
+    // Module nền tảng dịch vụ ứng dụng
     typeof(PlatformApplicationModule),
-    // 平台模块 控制器
+    // Module nền tảng bộ điều khiển
     typeof(PlatformHttpApiModule),
-    // 平台模块 实体框架
+    // Module nền tảng Entity Framework
     typeof(PlatformEntityFrameworkCoreModule),
-    // 平台模块 VueVbenAdmin设置
+    // Module nền tảng cài đặt VueVbenAdmin
     // typeof(PlatformSettingsVueVbenAdminModule),
-    // 平台模块 VueVbenAdmin主题
+    // Module nền tảng chủ đề VueVbenAdmin
     // typeof(PlatformThemeVueVbenAdminModule),
-    // 平台模块 Vben2路由
+    // Module nền tảng tuyến đường Vben2
     // typeof(AbpUINavigationVueVbenAdminModule),
-    // 平台模块 Vben5路由
+    // Module nền tảng tuyến đường Vben5
     typeof(AbpUINavigationVueVbenAdmin5Module),
 
-    // Saas模块 领域服务
+    // Module Saas dịch vụ miền
     typeof(AbpSaasDomainModule),
-    // Saas模块 应用服务
+    // Module Saas dịch vụ ứng dụng
     typeof(AbpSaasApplicationModule),
-    // Saas模块 控制器
+    // Module Saas bộ điều khiển
     typeof(AbpSaasHttpApiModule),
-    // Saas模块 实体框架
+    // Module Saas Entity Framework
     typeof(AbpSaasEntityFrameworkCoreModule),
-    // Saas模块 数据库连接检查
+    // Module Saas kiểm tra kết nối cơ sở dữ liệu
     typeof(AbpSaasDbCheckerModule),
 
-    // 任务管理模块 领域服务
+    // Module quản lý tác vụ dịch vụ miền
     typeof(TaskManagementDomainModule),
-    // 任务管理模块 应用服务
+    // Module quản lý tác vụ dịch vụ ứng dụng
     typeof(TaskManagementApplicationModule),
-    // 任务管理模块 控制器
+    // Module quản lý tác vụ bộ điều khiển
     typeof(TaskManagementHttpApiModule),
-    // 任务管理模块 实体框架
+    // Module quản lý tác vụ Entity Framework
     typeof(TaskManagementEntityFrameworkCoreModule),
 
-    // 文本模板模块 领域服务
+    // Module mẫu văn bản dịch vụ miền
     typeof(AbpTextTemplatingDomainModule),
-    // 文本模板模块 应用服务
+    // Module mẫu văn bản dịch vụ ứng dụng
     typeof(AbpTextTemplatingApplicationModule),
-    // 文本模板模块 控制器
+    // Module mẫu văn bản bộ điều khiển
     typeof(AbpTextTemplatingHttpApiModule),
-    // 文本模板模块 实体框架
+    // Module mẫu văn bản Entity Framework
     typeof(AbpTextTemplatingEntityFrameworkCoreModule),
 
-    // Webhooks模块 领域服务
+    // Module Webhooks dịch vụ miền
     typeof(AbpWebhooksModule),
-    // Webhooks模块 事件总线
+    // Module Webhooks bus sự kiện
     typeof(AbpWebhooksEventBusModule),
-    // Webhooks模块 身份认证事件
+    // Module Webhooks sự kiện xác thực danh tính
     typeof(AbpWebhooksIdentityModule),
-    // Webhooks模块 Saas事件
+    // Module Webhooks sự kiện Saas
     typeof(AbpWebhooksSaasModule),
-    // Webhooks模块 应用服务
+    // Module Webhooks dịch vụ ứng dụng
     typeof(WebhooksManagementDomainModule),
-    // Webhooks模块 控制器
+    // Module Webhooks bộ điều khiển
     typeof(WebhooksManagementApplicationModule),
-    // Webhooks模块 控制器
+    // Module Webhooks bộ điều khiển
     typeof(WebhooksManagementHttpApiModule),
-    // Webhooks模块 实体框架
+    // Module Webhooks Entity Framework
     typeof(WebhooksManagementEntityFrameworkCoreModule),
 
-    // 功能管理模块 应用服务
+    // Module quản lý tính năng dịch vụ ứng dụng
     typeof(LINGYUN.Abp.FeatureManagement.AbpFeatureManagementApplicationModule),
-    // 功能管理模块 控制器
+    // Module quản lý tính năng bộ điều khiển
     typeof(LINGYUN.Abp.FeatureManagement.HttpApi.AbpFeatureManagementHttpApiModule),
-    // 功能管理模块 实体框架
+    // Module quản lý tính năng Entity Framework
     typeof(AbpFeatureManagementEntityFrameworkCoreModule),
 
-    // 设置管理模块 领域服务
+    // Module quản lý cài đặt dịch vụ miền
     typeof(AbpSettingManagementDomainModule),
-    // 设置管理模块 应用服务
+    // Module quản lý cài đặt dịch vụ ứng dụng
     typeof(AbpSettingManagementApplicationModule),
-    // 设置管理模块 控制器
+    // Module quản lý cài đặt bộ điều khiển
     typeof(AbpSettingManagementHttpApiModule),
-    // 设置管理模块 实体框架
+    // Module quản lý cài đặt Entity Framework
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
-    // 设置管理模块 Mvc视图
+    // Module quản lý cài đặt giao diện Mvc
     typeof(AbpSettingManagementWebModule),
 
-    // 权限管理模块 应用服务
+    // Module quản lý quyền dịch vụ ứng dụng
     typeof(LINGYUN.Abp.PermissionManagement.AbpPermissionManagementApplicationModule),
-    // 权限管理模块 控制器
+    // Module quản lý quyền bộ điều khiển
     typeof(AbpPermissionManagementHttpApiModule),
-    // 权限管理模块 身份认证集成
+    // Module quản lý quyền tích hợp xác thực danh tính
     typeof(AbpPermissionManagementDomainIdentityModule),
-    // 权限管理模块 OpenIddict集成
+    // Module quản lý quyền tích hợp OpenIddict
     typeof(AbpPermissionManagementDomainOpenIddictModule),
     // typeof(AbpPermissionManagementDomainIdentityServerModule),
-    // 权限管理模块 实体框架
+    // Module quản lý quyền Entity Framework
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
-    // 权限管理模块 组织机构集成
-    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // 组织机构权限管理
-    // 权限管理模块 Mvc视图
+    // Module quản lý quyền tích hợp tổ chức
+    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // Quản lý quyền tổ chức
+    // Module quản lý quyền giao diện Mvc
     typeof(AbpPermissionManagementWebModule),
 
-    // 短信模块 阿里云集成
+    // Module SMS tích hợp Alibaba Cloud
     typeof(AbpAliyunSmsModule),
-    // 阿里云模块 设置管理
+    // Module Alibaba Cloud quản lý cài đặt
     typeof(AbpAliyunSettingManagementModule),
 
-    // 认证模块 JWT认证
+    // Module xác thực JWT
     typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
-    // 授权模块 组织机构集成
+    // Module ủy quyền tích hợp tổ chức
     typeof(AbpAuthorizationOrganizationUnitsModule),
 
-    // 后台任务模块
+    // Module tác vụ nền
     typeof(AbpBackgroundTasksModule),
-    // 后台任务模块 行为处理
+    // Module tác vụ nền xử lý hành vi
     typeof(AbpBackgroundTasksActivitiesModule),
-    // 后台任务模块 分布式锁
+    // Module tác vụ nền khóa phân tán
     typeof(AbpBackgroundTasksDistributedLockingModule),
-    // 后台任务模块 事件总线
+    // Module tác vụ nền bus sự kiện
     typeof(AbpBackgroundTasksEventBusModule),
-    // 后台任务模块 默认作业
+    // Module tác vụ nền công việc mặc định
     typeof(AbpBackgroundTasksJobsModule),
-    // 后台任务模块 通知
+    // Module tác vụ nền thông báo
     typeof(AbpBackgroundTasksNotificationsModule),
-    // 后台任务模块 Quartz集成
+    // Module tác vụ nền tích hợp Quartz
     typeof(AbpBackgroundTasksQuartzModule),
-    // 后台任务模块 身份认证模块作业
+    // Module tác vụ nền công việc module xác thực danh tính
     typeof(AbpIdentityJobsModule),
-    // 后台任务模块 平台管理模块作业
+    // Module tác vụ nền công việc module quản lý nền tảng
     typeof(PlatformJobsModule),
 
-    // 数据审计模块 应用服务
+    // Module kiểm tra dữ liệu dịch vụ ứng dụng
     typeof(AbpDataProtectionManagementApplicationModule),
-    // 数据审计模块 控制器
+    // Module kiểm tra dữ liệu bộ điều khiển
     typeof(AbpDataProtectionManagementHttpApiModule),
-    // 数据审计模块 实体框架
+    // Module kiểm tra dữ liệu Entity Framework
     typeof(AbpDataProtectionManagementEntityFrameworkCoreModule),
 
-    // Demo模块 应用服务
+    // Module Demo dịch vụ ứng dụng
     typeof(AbpDemoApplicationModule),
-    // Demo模块 控制器
+    // Module Demo bộ điều khiển
     typeof(AbpDemoHttpApiModule),
-    // Demo模块 实体框架
+    // Module Demo Entity Framework
     typeof(AbpDemoEntityFrameworkCoreModule),
 
-    // Dapr模块 客户端
+    // Module Dapr máy khách
     typeof(AbpDaprClientModule),
-    // 异常处理模块
+    // Module xử lý ngoại lệ
     typeof(AbpExceptionHandlingModule),
-    // 异常处理模块 邮件通知
+    // Module xử lý ngoại lệ thông báo email
     typeof(AbpEmailingExceptionHandlingModule),
 
-    // 功能限制模块
+    // Module giới hạn tính năng
     typeof(AbpFeaturesLimitValidationModule),
-    // 客户端功能限制模块 Redis集成
+    // Module giới hạn tính năng máy khách tích hợp Redis
     typeof(AbpFeaturesValidationRedisClientModule),
-    // 功能管理模块 Mvc视图
+    // Module quản lý tính năng giao diện Mvc
     typeof(AbpFeatureManagementWebModule),
-    // 多语言模块 语言映射
+    // Module đa ngôn ngữ ánh xạ ngôn ngữ
     typeof(AbpLocalizationCultureMapModule),
 
-    // OpenApi模块 授权
+    // Module OpenApi ủy quyền
     typeof(AbpOpenApiAuthorizationModule),
 
-    // 消息模块 实时框架
+    // Module tin nhắn khung thời gian thực
     typeof(AbpIMSignalRModule),
 
-    // 通知模块
+    // Module thông báo
     typeof(AbpNotificationsModule),
-    // 通知模块 默认通知
+    // Module thông báo mặc định
     typeof(AbpNotificationsCommonModule),
-    // 通知模块 实时框架
+    // Module thông báo khung thời gian thực
     typeof(AbpNotificationsSignalRModule),
-    // 通知模块 邮件通知
+    // Module thông báo email
     typeof(AbpNotificationsEmailingModule),
-    // 通知模块 模板解析
+    // Module thông báo phân tích mẫu
     typeof(AbpNotificationsTemplatingModule),
-    // 通知模块 微信小程序
+    // Module thông báo Mini Program WeChat
     typeof(AbpNotificationsWeChatMiniProgramModule),
-    // 通知模块 企业微信
+    // Module thông báo WeChat doanh nghiệp
     typeof(AbpNotificationsWeChatWorkModule),
-    // 通知模块 工作日检查拦截器
+    // Module thông báo bộ chặn kiểm tra ngày làm việc
     typeof(AbpNotificationsCalendarModule),
-    // 多租户模块 版本
+    // Module đa tenant phiên bản
     typeof(AbpMultiTenancyEditionsModule),
 
-    // 腾讯QQ模块
+    // Module Tencent QQ
     typeof(AbpTencentQQModule),
-    // 腾讯云模块 设置管理
+    // Module Tencent Cloud quản lý cài đặt
     typeof(AbpTencentCloudSettingManagementModule),
 
-    // 微信模块 微信小程序
+    // Module WeChat Mini Program
     typeof(AbpWeChatMiniProgramModule),
-    // 微信模块 微信公众号
+    // Module WeChat tài khoản công khai
     typeof(AbpWeChatOfficialModule),
-    // 微信模块 微信公众号 应用服务
+    // Module WeChat tài khoản công khai dịch vụ ứng dụng
     typeof(AbpWeChatOfficialApplicationModule),
-    // 微信模块 微信公众号 控制器
+    // Module WeChat tài khoản công khai bộ điều khiển
     typeof(AbpWeChatOfficialHttpApiModule),
-    // 微信模块 企业微信
+    // Module WeChat doanh nghiệp
     typeof(AbpWeChatWorkModule),
-    // 微信模块 企业微信通讯录
+    // Module WeChat doanh nghiệp danh bạ
     typeof(AbpWeChatWorkContactModule),
-    // 微信模块 企业微信客户联系
+    // Module WeChat doanh nghiệp liên hệ khách hàng
     typeof(AbpWeChatWorkExternalContactModule),
-    // 微信模块 企业微信办公
+    // Module WeChat doanh nghiệp văn phòng
     typeof(AbpWeChatWorkOAModule),
-    // 微信模块 企业微信 应用服务
+    // Module WeChat doanh nghiệp dịch vụ ứng dụng
     typeof(AbpWeChatWorkApplicationModule),
-    // 微信模块 企业微信 控制器
+    // Module WeChat doanh nghiệp bộ điều khiển
     typeof(AbpWeChatWorkHttpApiModule),
-    // 微信模块 微信公众号 事件处理
+    // Module WeChat tài khoản công khai xử lý sự kiện
     typeof(AbpWeChatOfficialHandlersModule),
-    // 微信模块 企业微信 事件处理
+    // Module WeChat doanh nghiệp xử lý sự kiện
     typeof(AbpWeChatWorkHandlersModule),
-    // 微信模块 设置管理
+    // Module WeChat quản lý cài đặt
     typeof(AbpWeChatSettingManagementModule),
 
-    // AI管理模块 Http工具
+    // Module quản lý AI công cụ Http
     typeof(AbpAIToolsHttpModule),
-    // AI管理模块 Mcp工具
+    // Module quản lý AI công cụ Mcp
     typeof(AbpAIToolsMcpModule),
-    // AI管理模块 应用服务
+    // Module quản lý AI dịch vụ ứng dụng
     typeof(AbpAIManagementApplicationModule),
-    // AI管理模块 控制器
+    // Module quản lý AI bộ điều khiển
     typeof(AbpAIManagementHttpApiModule),
 
-    // 数据迁移模块
+    // Module di chuyển dữ liệu
     typeof(AbpDataDbMigratorModule),
-    // IP解析模块 IP2Region集成
+    // Module phân giải IP tích hợp IP2Region
     typeof(AbpIP2RegionModule),
-    // 分布式Id生成器模块
+    // Module trình tạo Id phân tán
     typeof(AbpIdGeneratorModule),
-    // 自定义导航模块
+    // Module điều hướng tùy chỉnh
     typeof(AbpUINavigationModule),
 
-    // Elsa工作流模块
+    // Module quy trình làm việc Elsa
     typeof(AbpElsaModule),
-    // Elsa工作流模块 工作流服务器
+    // Module quy trình làm việc Elsa máy chủ quy trình làm việc
     typeof(AbpElsaServerModule),
-    // Elsa工作流模块 活动
+    // Module quy trình làm việc Elsa hoạt động
     typeof(AbpElsaActivitiesModule),
-    // Elsa工作流模块 实体框架
+    // Module quy trình làm việc Elsa Entity Framework
     typeof(AbpElsaEntityFrameworkCoreModule),
-    // Elsa工作流设计器模块
+    // Module trình thiết kế quy trình làm việc Elsa
     typeof(AbpElsaDesignerModule),
 
-    // 数据导出模块 MiniSoftware集成
+    // Module xuất dữ liệu tích hợp MiniSoftware
     typeof(AbpExporterMiniSoftwareModule),
 
-    // 虚拟文件浏览器 Mvc视图
+    // Trình duyệt tệp ảo giao diện Mvc
     typeof(AbpVirtualFileExplorerWebModule),
     typeof(AbpLoggingSerilogElasticsearchModule),
     typeof(AbpHttpClientWrapperModule),
@@ -400,7 +400,7 @@ namespace LINGYUN.Abp.MicroService.AllInOne;
     typeof(AbpMailKitModule),
     typeof(AbpAutofacModule),
 
-    // 单体应用系统状态接口
+    // Giao diện trạng thái hệ thống ứng dụng đơn khối
     typeof(AbpSystemInfoHttpApiModule),
 
     // MySql
@@ -410,21 +410,21 @@ namespace LINGYUN.Abp.MicroService.AllInOne;
     // PostgreSql
     typeof(SingleMigrationsEntityFrameworkCorePostgreSqlModule),
 
-    // 审计日志模块 应用服务
+    // Module nhật ký kiểm tra dịch vụ ứng dụng
     typeof(AbpAuditingApplicationModule),
-    // 审计日志模块 控制器
+    // Module nhật ký kiểm tra bộ điều khiển
     typeof(AbpAuditingHttpApiModule),
-    // 审计日志模块 IP地址定位
+    // Module nhật ký kiểm tra định vị địa chỉ IP
     typeof(AbpAuditLoggingIPLocationModule),
-    // 审计日志模块 实体框架实现
+    // Module nhật ký kiểm tra triển khai Entity Framework
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
-    // 审计日志模块 Elasticsearch实现
+    // Module nhật ký kiểm tra triển khai Elasticsearch
     // typeof(AbpAuditLoggingElasticsearchModule),
-    // 审计日志模块 OpenObserve实现
+    // Module nhật ký kiểm tra triển khai OpenObserve
     // typeof(AbpAuditLoggingOpenObserveModule),
-    // 系统日志模块 Elasticsearch
+    // Module nhật ký hệ thống Elasticsearch
     typeof(AbpLoggingSerilogElasticsearchModule),
-    // 系统日志模块 OpenObserve
+    // Module nhật ký hệ thống OpenObserve
     typeof(AbpLoggingSerilogOpenObserveModule)
     )]
 public partial class AllInOneModule : AbpModule
@@ -467,7 +467,7 @@ public partial class AllInOneModule : AbpModule
         ConfigureAuditing(configuration);
         ConfigureIdentity(configuration);
         ConfigureDbContext(configuration);
-        ConfigureAuthServer(configuration);
+        ConfigureAuthServer(configuration, hostingEnvironment);
         ConfigureEndpoints(context.Services);
         ConfigureMultiTenancy(configuration);
         ConfigureJsonSerializer(configuration);

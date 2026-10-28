@@ -1,10 +1,10 @@
-/** 设置定义权限 */
+/** Quyền định nghĩa cài đặt */
 export const SettingDefinitionsPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "SettingManagement.Definition.Create",
 	Default: "SettingManagement.Definition",
-	/** 还原或删除 */
+	/** Khôi phục hoặc xóa */
 	DeleteOrRestore: "SettingManagement.Definition.DeleteOrRestore",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "SettingManagement.Definition.Update",
 };

@@ -40,7 +40,7 @@ export function useProfile({ profile }: UseProfile) {
     }
     return profile.isExternal;
   });
-  // tab的list
+  // Danh sách tab
   function getSettingList() {
     return [
       {
@@ -66,7 +66,7 @@ export function useProfile({ profile }: UseProfile) {
     ];
   }
 
-  // 基础设置 form
+  // Form cài đặt cơ bản
   function getBaseSetschemas(): FormSchema[] {
     return [
       {
@@ -123,7 +123,7 @@ export function useProfile({ profile }: UseProfile) {
     ];
   }
 
-  // 安全设置 list
+  // Danh sách cài đặt bảo mật
   async function getSecureSettingList() {
     const currentUserInfo = await getUserInfo();
     const phoneNumber = currentUserInfo['phone_number'] ?? '';
@@ -171,12 +171,12 @@ export function useProfile({ profile }: UseProfile) {
     ];
   }
 
-  // 账号绑定 list
+  // Danh sách liên kết tài khoản
   function getAccountBindList(): ListItem[] {
     return [];
   }
 
-  // 订阅消息通知 list
+  // Danh sách thông báo tin nhắn đã đăng ký
   async function getMsgNotifyList() {
     const groupResult = await getAssignableNotifiers();
     const mySubResult = await getMySubscribes();

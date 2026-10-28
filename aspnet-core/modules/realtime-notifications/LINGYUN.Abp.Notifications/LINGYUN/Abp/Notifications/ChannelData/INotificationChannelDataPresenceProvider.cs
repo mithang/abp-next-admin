@@ -4,25 +4,25 @@ using System.Collections.Generic;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据存在性判定提供者
+/// Nhà cung cấp xét tồn tại dữ liệu kênh
 /// </summary>
 public interface INotificationChannelDataPresenceProvider
 {
     /// <summary>
-    /// 获取载荷声明的存在性判定模式
+    /// Lấy chế độ xét tồn tại do tải trọng khai báo
     /// </summary>
     NotificationChannelDataPresenceMode GetPresenceMode(Type channelDataType);
 
     /// <summary>
-    /// 获取参与匹配的属性键
+    /// Lấy các khóa thuộc tính tham gia khớp
     /// </summary>
     IReadOnlyList<string> GetMatchingKeys(Type channelDataType);
 
     /// <summary>
-    /// 创建存在性判定委托
+    /// Tạo ủy quyền xét tồn tại
     /// </summary>
     /// <exception cref="AbpNotificationChannelDataConfigurationException">
-    /// 声明了按键判定, 却没有任何可参与匹配的属性
+    /// Đã khai báo xét tồn tại theo khóa, nhưng không có thuộc tính nào có thể tham gia khớp
     /// </exception>
     Func<NotificationData, bool> Create(Type channelDataType);
 }

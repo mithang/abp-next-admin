@@ -20,7 +20,7 @@ interface RowType {
 }
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: false,
   fieldMappingTime: [['date', ['start', 'end']]],
   schema: [
@@ -54,7 +54,7 @@ const formOptions: VbenFormProps = {
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
       },
       fieldName: 'color',
       label: 'Color',
@@ -66,11 +66,11 @@ const formOptions: VbenFormProps = {
       label: 'Date',
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 是否在字段值改变时提交表单
+  // Có gửi form khi giá trị trường thay đổi hay không
   submitOnChange: true,
-  // 按下回车时是否提交表单
+  // Có gửi form khi nhấn Enter hay không
   submitOnEnter: false,
 };
 
@@ -80,7 +80,7 @@ const gridOptions: VxeTableGridOptions<RowType> = {
     labelField: 'name',
   },
   columns: [
-    { title: '序号', type: 'seq', width: 50 },
+    { title: 'Số thứ tự', type: 'seq', width: 50 },
     { align: 'left', title: 'Name', type: 'checkbox', width: 100 },
     { field: 'category', title: 'Category' },
     { field: 'color', title: 'Color' },

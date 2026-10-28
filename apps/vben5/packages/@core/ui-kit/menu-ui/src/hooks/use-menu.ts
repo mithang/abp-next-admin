@@ -11,7 +11,7 @@ function useMenu() {
   }
 
   /**
-   * @zh_CN 获取所有父级菜单链路
+   * @zh_CN Lấy tất cả chuỗi menu cha
    */
   const parentPaths = computed(() => {
     let parent = instance.parent;

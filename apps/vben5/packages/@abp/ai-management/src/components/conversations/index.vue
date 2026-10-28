@@ -205,12 +205,12 @@ const conversationsMenuConfig: NonNullable<ConversationsProps['menu']> = (
 });
 const conversations = ref<ConversationDto[]>([]);
 const conversationsCount = ref(0);
-// 定义分组优先级
+// Định nghĩa mức độ ưu tiên nhóm
 const priorityMap: Record<string, number> = {
-  今天: 1,
-  昨天: 2,
-  '7天内': 3,
-  '30天内': 4,
+  'Hôm nay': 1,
+  'Hôm qua': 2,
+  'Trong 7 ngày': 3,
+  'Trong 30 ngày': 4,
 };
 
 const updateConversationFn = useInterval(10_000, {
@@ -250,20 +250,20 @@ const conversationsItems = computed<Conversation[]>(() => {
       key: item.id,
     };
     if (targetDate.format('YYYY-MM-DD') === nowTime.format('YYYY-MM-DD')) {
-      conversation.group = '今天';
+      conversation.group = 'Hôm nay';
     } else if (
       targetDate.format('YYYY-MM-DD') ===
       nowTime.subtract(1, 'day').format('YYYY-MM-DD')
     ) {
-      conversation.group = '昨天';
+      conversation.group = 'Hôm qua';
     } else {
       const diffDays = nowTime
         .startOf('day')
         .diff(targetDate.startOf('day'), 'day');
       if (diffDays <= 7) {
-        conversation.group = '7天内';
+        conversation.group = 'Trong 7 ngày';
       } else if (diffDays <= 30) {
-        conversation.group = '30天内';
+        conversation.group = 'Trong 30 ngày';
       } else {
         conversation.group = targetDate.format('YYYY-MM');
       }
@@ -329,7 +329,7 @@ const searchWorkspaces = useDebounceFn((filter?: string) => {
 
 const [NewConversationForm, conversationFormApi] = useVbenForm({
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục biểu mẫu
     componentProps: {
       class: 'w-full',
     },
@@ -482,7 +482,7 @@ const onConversationClick: ConversationsProps['onActiveChange'] = async (
   }
 };
 
-// 附件变更
+// Thay đổi tệp đính kèm
 // const handleFileChange: AttachmentsProps['onChange'] = (info) =>
 //   (attachedFiles.value = info.fileList);
 
@@ -558,7 +558,7 @@ onMounted(onInit);
         <span :style="styles['logo-span']">{{ preferences.app.name }}</span>
       </div>
 
-      <!-- 🌟 添加会话 -->
+      <!-- 🌟 Thêm phiên trò chuyện -->
       <Button
         v-access:code="[ConversationPermissions.Create]"
         type="link"
@@ -570,7 +570,7 @@ onMounted(onInit);
         {{ $t('AIManagement.Conversations:New') }}
       </Button>
 
-      <!-- 🌟 会话管理 -->
+      <!-- 🌟 Quản lý phiên trò chuyện -->
       <Conversations
         :menu="conversationsMenuConfig"
         :groupable="conversationsGroupable"
@@ -582,7 +582,7 @@ onMounted(onInit);
     </div>
 
     <div :style="styles.chat">
-      <!-- 🌟 消息列表 -->
+      <!-- 🌟 Danh sách tin nhắn -->
       <Bubble.List
         ref="bubbleRef"
         :items="bubbleItems"
@@ -590,7 +590,7 @@ onMounted(onInit);
         :style="styles.messages"
       />
 
-      <!-- 🌟 输入框 -->
+      <!-- 🌟 Hộp nhập liệu -->
       <Sender
         :value="content"
         :style="styles.sender"

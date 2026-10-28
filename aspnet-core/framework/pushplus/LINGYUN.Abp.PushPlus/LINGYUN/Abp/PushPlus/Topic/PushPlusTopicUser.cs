@@ -6,42 +6,42 @@ namespace LINGYUN.Abp.PushPlus.Topic;
 public class PushPlusTopicUser
 {
     /// <summary>
-    /// 用户编号；可用于删除用户
+    /// Mã số người dùng; có thể dùng để xóa người dùng
     /// </summary>
     [JsonProperty("id")]
     public int Id { get; set; }
     /// <summary>
-    /// 昵称
+    /// Biệt danh
     /// </summary>
     [JsonProperty("nickName")]
     public string? NickName { get; set; }
     /// <summary>
-    /// 用户微信openId
+    /// openId WeChat của người dùng
     /// </summary>
     [JsonProperty("openId")]
     public string? OpenId { get; set; }
     /// <summary>
-    /// 头像url地址
+    /// Địa chỉ url ảnh đại diện
     /// </summary>
     [JsonProperty("headImgUrl")]
     public string? HeadImgUrl { get; set; }
     /// <summary>
-    /// 头像url地址
+    /// Địa chỉ url ảnh đại diện
     /// </summary>
     [JsonProperty("userSex")]
     public PushPlusUserSex? UserSex { get; set; }
     /// <summary>
-    /// 是否绑定手机；0-未绑定，1-已绑定
+    /// Đã liên kết điện thoại hay chưa; 0-chưa liên kết, 1-đã liên kết
     /// </summary>
     [JsonProperty("havePhone")]
     public PushPlusUserPhoneBindStatus? HavePhone { get; set; }
     /// <summary>
-    /// 是否关注微信公众号；0-未关注，1-已关注
+    /// Đã theo dõi tài khoản chính thức WeChat hay chưa; 0-chưa theo dõi, 1-đã theo dõi
     /// </summary>
     [JsonProperty("isFollow")]
     public PushPlusUserFollowStatus? IsFollow { get; set; }
     /// <summary>
-    /// 邮箱验证状态；0-未验证，1-待验证，2-已验证
+    /// Trạng thái xác minh email; 0-chưa xác minh, 1-đang chờ xác minh, 2-đã xác minh
     /// </summary>
     [JsonProperty("emailStatus")]
     public PushPlusUserEmailStatus? EmailStatus { get; set; }

@@ -3,15 +3,15 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据的值类型判定
+/// Xác định kiểu giá trị của dữ liệu kênh
 /// </summary>
 /// <remarks>
-/// 用于区分"可直接存入属性包"的简单类型与"需要序列化"的复杂类型。
+/// Dùng để phân biệt kiểu đơn giản "có thể lưu trực tiếp vào gói thuộc tính" với kiểu phức tạp "cần tuần tự hóa".
 /// </remarks>
 public static class NotificationChannelDataValueTypes
 {
     /// <summary>
-    /// 判断是否为可直接存储的简单类型
+    /// Xác định xem có phải kiểu đơn giản có thể lưu trữ trực tiếp hay không
     /// </summary>
     public static bool IsPrimitive(Type type)
     {

@@ -99,15 +99,15 @@ function removeSubMenu(subMenu: MenuItemRegistered) {
 }
 
 /**
- * 点击submenu展开/关闭
+ * Nhấn submenu để mở rộng/thu gọn
  */
 function handleClick() {
   const mode = rootMenu?.props.mode;
   if (
-    // 当前菜单禁用时，不展开
+    // Khi menu hiện tại bị vô hiệu hóa, không mở rộng
     props.disabled ||
     (rootMenu?.props.collapse && mode === 'vertical') ||
-    // 水平模式下不展开
+    // Ở chế độ ngang không mở rộng
     mode === 'horizontal'
   ) {
     return;

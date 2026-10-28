@@ -17,7 +17,7 @@
 		<PackageReference Include="Volo.Abp.AspNetCore" />
 		<PackageReference Include="Volo.Abp.Security" />
 		<PackageReference Include="Duende.IdentityModel" />
-		<!-- 对齐整体Microsoft.IdentityModel.Tokens版本 -->
+		<!-- Căn chỉnh thống nhất phiên bản Microsoft.IdentityModel.Tokens -->
 		<PackageReference Include="Microsoft.IdentityModel.Tokens" />
 		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
 		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />

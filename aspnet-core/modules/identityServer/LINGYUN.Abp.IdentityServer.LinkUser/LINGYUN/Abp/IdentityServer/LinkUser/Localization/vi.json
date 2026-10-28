@@ -1,0 +1,8 @@
+{
+  "culture": "vi",
+  "texts": {
+    "InvalidAccessToken": "Token truy cập không hợp lệ.",
+    "InvalidLinkUserId": "Định danh người dùng liên kết không hợp lệ.",
+    "InvalidLinkTenantId": "Mã định danh bên thuê liên kết không hợp lệ."
+  }
+}

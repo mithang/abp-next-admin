@@ -3,21 +3,21 @@ using LINGYUN.Abp.Notifications;
 namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram;
 
 /// <summary>
-/// 微信小程序渠道数据(载荷)
+/// Dữ liệu kênh Mini Program WeChat (payload)
 /// </summary>
 /// <remarks>
 /// <para>
-/// 小程序订阅消息的载荷是"广播式"的: 除模板标识与跳转参数外,
-/// 模板数据(<c>data</c>)直接来自通知数据的属性包, 因此这里只声明
-/// 需要类型化读取的标量字段。
+/// Payload của thông báo đăng ký Mini Program có dạng "quảng bá": ngoài định danh mẫu và tham số chuyển hướng,
+/// dữ liệu mẫu (<c>data</c>) lấy trực tiếp từ gói thuộc tính của dữ liệu thông báo, vì vậy ở đây chỉ khai báo
+/// các trường vô hướng cần đọc theo kiểu.
 /// </para>
 /// <para>
-/// 键名带本渠道前缀(<see cref="WeChatMiniProgramNotificationDataKeys.Prefix"/>),
-/// 读取大小写不敏感; 存在性由模板标识键推导, 因此把跳转参数声明为
-/// "仅读取、不参与匹配" —— 生产者可能只写模板标识。
+/// Tên khóa mang tiền tố của kênh này (<see cref="WeChatMiniProgramNotificationDataKeys.Prefix"/>),
+/// việc đọc không phân biệt chữ hoa/thường; tính tồn tại được suy ra từ khóa định danh mẫu, vì vậy khai báo tham số chuyển hướng là
+/// "chỉ đọc, không tham gia khớp" —— nhà sản xuất có thể chỉ ghi định danh mẫu.
 /// </para>
 /// <para>
-/// 历史遗留的无前缀键由渠道在解析时回退读取(见
+/// Các khóa cũ không có tiền tố được kênh đọc dự phòng khi phân tích (xem
 /// <c>WeChatMiniProgramNotificationPublishProvider.ResolveChannelData</c>)。
 /// </para>
 /// </remarks>
@@ -25,25 +25,25 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram;
 public class WeChatMiniProgramSubscribeChannelData : NotificationChannelData
 {
     /// <summary>
-    /// 小程序模板标识(载荷标识键)
+    /// Định danh mẫu của Mini Program (khóa định danh payload)
     /// </summary>
     [NotificationChannelProperty(WeChatMiniProgramNotificationDataKeys.TemplateId)]
     public virtual string? TemplateId { get; set; }
 
     /// <summary>
-    /// 点击跳转的小程序页面
+    /// Trang Mini Program chuyển đến khi nhấn
     /// </summary>
     [NotificationChannelProperty(WeChatMiniProgramNotificationDataKeys.RedirectPage, IgnoreWhenMatching = true)]
     public virtual string? RedirectPage { get; set; }
 
     /// <summary>
-    /// 跳转小程序类型
+    /// Loại Mini Program chuyển đến
     /// </summary>
     [NotificationChannelProperty(WeChatMiniProgramNotificationDataKeys.WeAppState, IgnoreWhenMatching = true)]
     public virtual string? WeAppState { get; set; }
 
     /// <summary>
-    /// 小程序语言
+    /// Ngôn ngữ của Mini Program
     /// </summary>
     [NotificationChannelProperty(WeChatMiniProgramNotificationDataKeys.WeAppLanguage, IgnoreWhenMatching = true)]
     public virtual string? WeAppLanguage { get; set; }

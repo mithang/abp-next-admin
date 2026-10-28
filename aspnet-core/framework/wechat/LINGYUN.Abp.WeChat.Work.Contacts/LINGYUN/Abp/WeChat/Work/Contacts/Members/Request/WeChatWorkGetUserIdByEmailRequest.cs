@@ -6,22 +6,22 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Request;
 /// <summary>
-/// 邮箱获取userid请求参数
+/// Tham số yêu cầu lấy userid qua email
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95402" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/95402" />
 /// </remarks>
 public class WeChatWorkGetUserIdByEmailRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 邮箱
+    /// Email
     /// </summary>
     [NotNull]
     [JsonProperty("email")]
     [JsonPropertyName("email")]
     public string Email { get; }
     /// <summary>
-    /// 邮箱类型
+    /// Loại email
     /// </summary>
     [CanBeNull]
     [JsonProperty("email_type")]

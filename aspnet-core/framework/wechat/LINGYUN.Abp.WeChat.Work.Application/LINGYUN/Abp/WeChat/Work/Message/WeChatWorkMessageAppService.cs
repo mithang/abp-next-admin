@@ -87,7 +87,7 @@ public class WeChatWorkMessageAppService : ApplicationService, IWeChatWorkMessag
         if (result.Message == null)
         {
             Logger.LogWarning(input.Data);
-            Logger.LogWarning("解析消息失败, 无法处理企业微信消息.");
+            Logger.LogWarning("Phân tích tin nhắn thất bại, không thể xử lý tin nhắn WeChat doanh nghiệp.");
         }
         else
         {

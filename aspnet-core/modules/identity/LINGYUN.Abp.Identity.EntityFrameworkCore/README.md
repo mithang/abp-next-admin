@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Identity.EntityFrameworkCore
 
-身份认证EntityFrameworkCore模块，提供身份认证相关的数据访问实现。
+Module EntityFrameworkCore xác thực danh tính, cung cấp triển khai truy cập dữ liệu liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展Volo.Abp.Identity.EntityFrameworkCore.AbpIdentityEntityFrameworkCoreModule模块
-* 提供身份认证相关的EF Core仓储实现
-* 支持用户头像URL扩展属性的数据库映射
-* 提供组织单元的EF Core仓储实现
-* 提供会话管理的EF Core仓储实现
+* Mở rộng module Volo.Abp.Identity.EntityFrameworkCore.AbpIdentityEntityFrameworkCoreModule
+* Cung cấp triển khai kho lưu trữ (repository) EF Core liên quan đến xác thực danh tính
+* Hỗ trợ ánh xạ cơ sở dữ liệu cho thuộc tính mở rộng URL ảnh đại diện người dùng
+* Cung cấp triển khai kho lưu trữ EF Core cho đơn vị tổ chức
+* Cung cấp triển khai kho lưu trữ EF Core cho quản lý phiên
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(
@@ -22,16 +22,16 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 仓储实现
+## Triển khai kho lưu trữ
 
-* EfCoreIdentityUserRepository - 用户仓储实现
-* EfCoreIdentityRoleRepository - 角色仓储实现
-* EfCoreIdentitySessionRepository - 会话仓储实现
-* EfCoreOrganizationUnitRepository - 组织单元仓储实现
+* EfCoreIdentityUserRepository - Triển khai kho lưu trữ người dùng
+* EfCoreIdentityRoleRepository - Triển khai kho lưu trữ vai trò
+* EfCoreIdentitySessionRepository - Triển khai kho lưu trữ phiên
+* EfCoreOrganizationUnitRepository - Triển khai kho lưu trữ đơn vị tổ chức
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置DbContext
+1. Cấu hình DbContext
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
@@ -45,7 +45,7 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 使用仓储
+2. Sử dụng kho lưu trữ
 ```csharp
 public class YourService
 {
@@ -72,19 +72,19 @@ public class YourService
 }
 ```
 
-## 数据库迁移
+## Di chuyển cơ sở dữ liệu (Database migration)
 
-1. 添加迁移
+1. Thêm migration
 ```bash
 dotnet ef migrations add Added_Identity_Tables
 ```
 
-2. 更新数据库
+2. Cập nhật cơ sở dữ liệu
 ```bash
 dotnet ef database update
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
-* [EF Core文档](https://docs.microsoft.com/en-us/ef/core/)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu EF Core](https://docs.microsoft.com/en-us/ef/core/)

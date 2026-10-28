@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.Notifications
 
-身份认证通知模块，提供身份认证相关的通知功能。
+Mô-đun thông báo xác thực danh tính, cung cấp chức năng thông báo liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展AbpNotificationsModule模块
-* 提供身份认证相关的通知定义
-* 支持会话过期通知
-* 提供身份会话撤销事件处理
+* Mở rộng mô-đun AbpNotificationsModule
+* Cung cấp định nghĩa thông báo liên quan đến xác thực danh tính
+* Hỗ trợ thông báo hết hạn phiên
+* Cung cấp xử lý sự kiện thu hồi phiên danh tính
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -22,36 +22,36 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 通知定义
+## Định nghĩa thông báo
 
-### 会话通知
+### Thông báo phiên
 
-* `AbpIdentity.Session.Expiration` - 会话过期通知
-  * 当用户会话过期时发送此通知
-  * 通知用户其会话已经过期，需要重新登录
+* `AbpIdentity.Session.Expiration` - Thông báo hết hạn phiên
+  * Gửi thông báo này khi phiên người dùng hết hạn
+  * Thông báo cho người dùng rằng phiên của họ đã hết hạn và cần đăng nhập lại
 
-## 事件处理
+## Xử lý sự kiện
 
 ### IdentitySessionRevokeEventHandler
 
-处理身份会话撤销事件，当会话被撤销时：
-* 发送会话过期通知给相关用户
-* 通知用户需要重新登录
+Xử lý sự kiện thu hồi phiên danh tính, khi phiên bị thu hồi:
+* Gửi thông báo hết hạn phiên cho người dùng liên quan
+* Thông báo cho người dùng cần đăng nhập lại
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 订阅会话过期通知
+1. Đăng ký thông báo hết hạn phiên
 ```csharp
 public class YourNotificationHandler : INotificationHandler<SessionExpirationNotification>
 {
     public async Task HandleNotificationAsync(SessionExpirationNotification notification)
     {
-        // 处理会话过期通知
+        // Xử lý thông báo hết hạn phiên
     }
 }
 ```
 
-2. 发送会话过期通知
+2. Gửi thông báo hết hạn phiên
 ```csharp
 public class YourService
 {
@@ -72,7 +72,7 @@ public class YourService
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
-* [ABP通知系统文档](https://docs.abp.io/en/abp/latest/Notification-System)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu hệ thống thông báo ABP](https://docs.abp.io/en/abp/latest/Notification-System)

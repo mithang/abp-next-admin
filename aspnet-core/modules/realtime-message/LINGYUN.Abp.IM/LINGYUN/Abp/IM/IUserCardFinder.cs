@@ -1,22 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.IM;
 
 /// <summary>
-/// IM用户资料查找接口
+/// Giao diện tra cứu hồ sơ người dùng IM
 /// </summary>
 public interface IUserCardFinder
 {
     /// <summary>
-    /// 查询IM用户数量
+    /// Truy vấn số lượng người dùng IM
     /// </summary>
     /// <param name="tenantId"></param>
-    /// <param name="findUserName">用户名称</param>
-    /// <param name="startAge">起止年龄</param>
-    /// <param name="endAge">起止年龄</param>
-    /// <param name="sex">性别</param>
+    /// <param name="findUserName">Tên người dùng</param>
+    /// <param name="startAge">Tuổi bắt đầu</param>
+    /// <param name="endAge">Tuổi kết thúc</param>
+    /// <param name="sex">Giới tính</param>
     /// <returns></returns>
     Task<int> GetCountAsync(
         Guid? tenantId,
@@ -25,16 +25,16 @@ public interface IUserCardFinder
         int? endAge = null,
         Sex? sex = null);
     /// <summary>
-    /// 查询IM用户列表
+    /// Truy vấn danh sách người dùng IM
     /// </summary>
     /// <param name="tenantId"></param>
-    /// <param name="findUserName">用户名称</param>
-    /// <param name="startAge">起止年龄</param>
-    /// <param name="endAge">起止年龄</param>
-    /// <param name="sex">性别</param>
-    /// <param name="sorting">排序字段</param>
-    /// <param name="skipCount">起始记录位置</param>
-    /// <param name="maxResultCount">最大返回数量</param>
+    /// <param name="findUserName">Tên người dùng</param>
+    /// <param name="startAge">Tuổi bắt đầu</param>
+    /// <param name="endAge">Tuổi kết thúc</param>
+    /// <param name="sex">Giới tính</param>
+    /// <param name="sorting">Trường sắp xếp</param>
+    /// <param name="skipCount">Vị trí bản ghi bắt đầu</param>
+    /// <param name="maxResultCount">Số lượng tối đa trả về</param>
     /// <returns></returns>
     Task<List<UserCard>> GetListAsync(
         Guid? tenantId,
@@ -46,7 +46,7 @@ public interface IUserCardFinder
         int skipCount = 0,
         int maxResultCount = 10);
     /// <summary>
-    /// 获取IM用户信息
+    /// Lấy thông tin người dùng IM
     /// </summary>
     /// <param name="tenantId"></param>
     /// <param name="findUserId"></param>

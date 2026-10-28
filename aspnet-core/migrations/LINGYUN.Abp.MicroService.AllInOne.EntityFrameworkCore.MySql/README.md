@@ -1,59 +1,59 @@
-# MySQL 数据库迁移指南
+# MySQL Hướng dẫn di chuyển cơ sở dữ liệu
 
-本指南将帮助您使用迁移脚本来管理 MySQL 数据库的迁移操作。
+Hướng dẫn này sẽ giúp bạn sử dụng tập lệnh di chuyển để quản lý MySQL các thao tác di chuyển cơ sở dữ liệu.
 
-## 前置条件
+## Điều kiện tiên quyết
 
-1. 确保已安装 .NET Core SDK
-2. 确保已安装 Entity Framework Core 工具
+1. Đảm bảo đã cài đặt .NET Core SDK
+2. Đảm bảo đã cài đặt công cụ Entity Framework Core
    ```powershell
    dotnet tool install --global dotnet-ef
    ```
-3. 确保已正确配置 MySQL 连接字符串
+3. Đảm bảo đã cấu hình đúng MySQL chuỗi kết nối
 
-## 使用说明
+## Hướng dẫn sử dụng
 
-### 1. 创建新的迁移
+### 1. Tạo di chuyển mới
 
-1. 在 `aspnet-core/migrations` 目录下运行迁移脚本：
+1. Chạy tập lệnh di chuyển trong thư mục `aspnet-core/migrations`:
    ```powershell
-   # 使用中文版本
+   # Sử dụng phiên bản tiếng Trung
    .\Migrate.ps1
    
-   # 或使用英文版本
+   # Hoặc sử dụng phiên bản tiếng Anh
    .\MigrateEn.ps1
    ```
 
-2. 在菜单中选择 MySQL 数据库上下文：
+2. Chọn MySQL ngữ cảnh cơ sở dữ liệu trong menu:
    ```
    [1] LINGYUN.Abp.MicroService.AllInOne.EntityFrameworkCore.MySql
    ```
 
-3. 输入迁移名称（可选）：
-   - 直接回车将使用默认名称：`AddNewMigration_yyyyMMdd_HHmmss`
-   - 或输入自定义名称，如：`AddNewFeature`
+3. Nhập tên di chuyển (tùy chọn):
+   - Nhấn Enter trực tiếp sẽ sử dụng tên mặc định:`AddNewMigration_yyyyMMdd_HHmmss`
+   - Hoặc nhập tên tùy chỉnh, ví dụ:`AddNewFeature`
 
-### 2. 生成 SQL 脚本
+### 2. Tạo tập lệnh SQL
 
-在创建迁移后，脚本会询问是否需要生成 SQL 脚本：
+Sau khi tạo di chuyển, tập lệnh sẽ hỏi có cần tạo tập lệnh SQL hay không:
 
-1. 选择是否生成 SQL 脚本 (Y/N)
-2. 如果选择 Y，将提供以下选项：
-   - `[A]` - 生成所有迁移的 SQL 脚本
-   - `[L]` - 仅生成最新迁移的 SQL 脚本
-   - `[0-9]` - 从指定的迁移版本开始生成
+1. Chọn có tạo tập lệnh SQL hay không (Y/N)
+2. Nếu chọn Y, các tùy chọn sau sẽ được cung cấp:
+   - `[A]` - Tạo tập lệnh SQL cho tất cả các di chuyển
+   - `[L]` - Chỉ tạo tập lệnh SQL cho di chuyển mới nhất
+   - `[0-9]` - Tạo bắt đầu từ phiên bản di chuyển đã chỉ định
 
-生成的 SQL 脚本将保存在：
+Tập lệnh SQL đã tạo sẽ được lưu tại:
 ```
 aspnet-core/InitSql/LINGYUN.Abp.MicroService.AllInOne.EntityFrameworkCore.MySql/
 ```
 
-### 3. 应用迁移
+### 3. Áp dụng di chuyển
 
-生成的 SQL 脚本可以通过以下方式应用到数据库：
+Tập lệnh SQL đã tạo có thể được áp dụng vào cơ sở dữ liệu bằng các cách sau:
 
-1. 使用 MySQL 客户端工具直接执行 SQL 脚本
-2. 或使用命令行：
+1. Sử dụng công cụ máy khách MySQL để thực thi trực tiếp tập lệnh SQL
+2. Hoặc sử dụng dòng lệnh:
    ```powershell
    mysql -u your_username -p your_database < your_script.sql
    ```

@@ -6,17 +6,17 @@ namespace LINGYUN.Abp.Calendar;
 public interface IWorkdayCalendarService
 {
     /// <summary>
-    /// 检查指定时间是否在工作日
+    /// Kiểm tra xem thời gian chỉ định có phải là ngày làm việc hay không
     /// </summary>
     Task<bool> IsWorkdayAsync(DateOnly date);
     /// <summary>
-    /// 检查指定时间是否在工作时间
+    /// Kiểm tra xem thời gian chỉ định có nằm trong giờ làm việc hay không
     /// </summary>
     /// <param name="dateTime"></param>
     /// <returns></returns>
     Task<bool> IsInWorkTimeAsync(DateTime dateTime);
     /// <summary>
-    /// 获取下一个工作日
+    /// Lấy ngày làm việc tiếp theo
     /// </summary>
     /// <param name="date"></param>
     /// <returns></returns>

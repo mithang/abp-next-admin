@@ -6,27 +6,27 @@ using Volo.Abp.SimpleStateChecking;
 
 namespace LINGYUN.Abp.AI.Workspaces;
 /// <summary>
-/// 工作区定义
+/// Định nghĩa không gian làm việc
 /// </summary>
 public class WorkspaceDefinition : IHasSimpleStateCheckers<WorkspaceDefinition>
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     [NotNull]
     public string Name { get; }
     /// <summary>
-    /// AI提供者名称
+    /// Tên nhà cung cấp AI
     /// </summary>
     [NotNull]
     public string Provider { get; }
     /// <summary>
-    /// 模型名称
+    /// Tên mô hình
     /// </summary>
     [NotNull]
     public string ModelName { get; }
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     [NotNull]
     public ILocalizableString DisplayName {
@@ -35,30 +35,30 @@ public class WorkspaceDefinition : IHasSimpleStateCheckers<WorkspaceDefinition>
     }
     private ILocalizableString _displayName = default!;
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public ILocalizableString? Description { get; set; }
     /// <summary>
-    /// API 身份验证密钥
+    /// Khóa xác thực API
     /// </summary>
     public string? ApiKey { get; private set; }
     /// <summary>
-    /// 自定义端点 URL
+    /// URL điểm cuối tùy chỉnh
     /// </summary>
     public string? ApiBaseUrl { get; private set; }
     /// <summary>
-    /// 系统提示词
+    /// Lời nhắc hệ thống
     /// </summary>
     public string? SystemPrompt { get; set; }
     /// <summary>
-    /// 附加系统提示词
+    /// Lời nhắc hệ thống bổ sung
     /// </summary>
     public string? Instructions { get; set; }
     /// <summary>
-    /// 聊天回复时所依据的温度值, 为空时由模型提供者决定默认值
+    /// Giá trị temperature dùng làm cơ sở khi trả lời trò chuyện, khi để trống thì nhà cung cấp mô hình quyết định giá trị mặc định
     /// </summary>
     /// <remarks>
-    /// 范围在 0 到 2 之间, 数值越高（比如 0.8）会使输出更加随机，而数值越低（比如 0.2）则会使输出更加集中且更具确定性
+    /// Phạm vi từ 0 đến 2, giá trị càng cao (ví dụ 0,8) càng khiến đầu ra ngẫu nhiên hơn, còn giá trị càng thấp (ví dụ 0,2) càng khiến đầu ra tập trung và xác định hơn
     /// </remarks>
     public float? Temperature {
         get => _temperature;
@@ -75,14 +75,14 @@ public class WorkspaceDefinition : IHasSimpleStateCheckers<WorkspaceDefinition>
     }
     private float? _temperature;
     /// <summary>
-    /// 限制一次请求中模型生成 completion 的最大 token 数
+    /// Giới hạn số token tối đa mà mô hình sinh completion trong một lần yêu cầu
     /// </summary>
     public int? MaxOutputTokens { get; set; }
     /// <summary>
-    /// 介于 -2.0 和 2.0 之间的数字
+    /// Số trong khoảng từ -2,0 đến 2,0
     /// </summary>
     /// <remarks>
-    /// 如果该值为正，那么新 token 会根据其在已有文本中的出现频率受到相应的惩罚，降低模型重复相同内容的可能性
+    /// Nếu giá trị này dương, token mới sẽ chịu hình phạt tương ứng theo tần suất xuất hiện trong văn bản hiện có, làm giảm khả năng mô hình lặp lại cùng nội dung
     /// </remarks>
     public float? FrequencyPenalty {
         get => _frequencyPenalty;
@@ -99,10 +99,10 @@ public class WorkspaceDefinition : IHasSimpleStateCheckers<WorkspaceDefinition>
     }
     private float? _frequencyPenalty;
     /// <summary>
-    /// 介于 -2.0 和 2.0 之间的数字
+    /// Số trong khoảng từ -2,0 đến 2,0
     /// </summary>
     /// <remarks>
-    /// 如果该值为正，那么新 token 会根据其是否已在已有文本中出现受到相应的惩罚，从而增加模型谈论新主题的可能性
+    /// Nếu giá trị này dương, token mới sẽ chịu hình phạt tương ứng theo việc nó đã xuất hiện trong văn bản hiện có hay chưa, từ đó tăng khả năng mô hình bàn về chủ đề mới
     /// </remarks>
     public float? PresencePenalty {
         get => _presencePenalty;
@@ -119,7 +119,7 @@ public class WorkspaceDefinition : IHasSimpleStateCheckers<WorkspaceDefinition>
     }
     private float? _presencePenalty;
     /// <summary>
-    /// 启用/禁用工作区
+    /// Bật/tắt không gian làm việc
     /// </summary>
     public bool IsEnabled { get; set; }
 

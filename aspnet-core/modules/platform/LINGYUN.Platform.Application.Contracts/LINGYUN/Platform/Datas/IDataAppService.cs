@@ -5,7 +5,7 @@ using Volo.Abp.Application.Services;
 
 namespace LINGYUN.Platform.Datas;
 /// <summary>
-/// 数据字典应用服务接口
+/// Interface dịch vụ ứng dụng từ điển dữ liệu
 /// </summary>
 public interface IDataAppService : 
     ICrudAppService<
@@ -16,43 +16,43 @@ public interface IDataAppService :
         DataUpdateDto>
 {
     /// <summary>
-    /// 获取数据字典
+    /// Lấy từ điển dữ liệu
     /// </summary>
-    /// <param name="name">名称</param>
+    /// <param name="name">Tên</param>
     /// <returns></returns>
     Task<DataDto> GetAsync(string name);
     /// <summary>
-    /// 获取所有数据字典
+    /// Lấy tất cả từ điển dữ liệu
     /// </summary>
     /// <returns></returns>
     Task<ListResultDto<DataDto>> GetAllAsync();
     /// <summary>
-    /// 移除数据字典
+    /// Xóa từ điển dữ liệu
     /// </summary>
-    /// <param name="id">字典Id</param>
+    /// <param name="id">Id từ điển</param>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<DataDto> MoveAsync(Guid id, DataMoveDto input);
     /// <summary>
-    /// 新增数据字典项目
+    /// Thêm mới mục từ điển dữ liệu
     /// </summary>
-    /// <param name="id">字典Id</param>
+    /// <param name="id">Id từ điển</param>
     /// <param name="input"></param>
     /// <returns></returns>
     Task CreateItemAsync(Guid id, DataItemCreateDto input);
     /// <summary>
-    /// 更新数据字典项目
+    /// Cập nhật mục từ điển dữ liệu
     /// </summary>
-    /// <param name="id">字典Id</param>
-    /// <param name="name">项目名称</param>
+    /// <param name="id">Id từ điển</param>
+    /// <param name="name">Tên mục</param>
     /// <param name="input"></param>
     /// <returns></returns>
     Task UpdateItemAsync(Guid id, string name, DataItemUpdateDto input);
     /// <summary>
-    /// 删除数据字典项目
+    /// Xóa mục từ điển dữ liệu
     /// </summary>
-    /// <param name="id">字典Id</param>
-    /// <param name="name">项目名称</param>
+    /// <param name="id">Id từ điển</param>
+    /// <param name="name">Tên mục</param>
     /// <returns></returns>
     Task DeleteItemAsync(Guid id, string name);
 }

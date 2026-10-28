@@ -3,27 +3,27 @@ using System;
 
 namespace LINGYUN.Abp.PushPlus.Topic;
 /// <summary>
-/// 群组
+/// Nhóm
 /// </summary>
 public class PushPlusTopic
 {
     /// <summary>
-    /// 群组编号
+    /// Mã số nhóm
     /// </summary>
     [JsonProperty("topicId")]
     public int TopicId { get; set; }
     /// <summary>
-    /// 群组编码
+    /// Mã nhóm
     /// </summary>
     [JsonProperty("topicCode")]
     public string TopicCode { get; set; } = default!;
     /// <summary>
-    /// 群组名称
+    /// Tên nhóm
     /// </summary>
     [JsonProperty("topicName")]
     public string TopicName { get; set; } = default!;
     /// <summary>
-    /// 创建时间
+    /// Thời gian tạo
     /// </summary>
     [JsonProperty("createTime")]
     public DateTime CreateTime { get; set; }

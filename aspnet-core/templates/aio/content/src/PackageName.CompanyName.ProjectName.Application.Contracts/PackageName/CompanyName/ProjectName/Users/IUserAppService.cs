@@ -7,48 +7,48 @@ using Volo.Abp.Application.Services;
 namespace PackageName.CompanyName.ProjectName.Users
 {
     /// <summary>
-    /// 用户应用服务接口
+    /// Giao diện service ứng dụng người dùng
     /// </summary>
     public interface IUserAppService : 
         IApplicationService
     {
         /// <summary>
-        /// 创建用户
+        /// Tạo người dùng
         /// </summary>
         Task<UserDto> CreateAsync(CreateUpdateUserDto input);
 
         /// <summary>
-        /// 更新用户
+        /// Cập nhật người dùng
         /// </summary>
         Task<UserDto> UpdateAsync(Guid id, CreateUpdateUserDto input);
 
         /// <summary>
-        /// 删除用户
+        /// Xóa người dùng
         /// </summary>
         Task DeleteAsync(Guid id);
 
         /// <summary>
-        /// 获取用户
+        /// Lấy người dùng
         /// </summary>
         Task<UserDto> GetAsync(Guid id);
 
         /// <summary>
-        /// 获取用户列表
+        /// Lấy danh sách người dùng
         /// </summary>
         Task<PagedResultDto<UserItemDto>> GetListAsync(UserPagedAndSortedResultRequestDto input);
 
         /// <summary>
-        /// 修改用户密码
+        /// Đổi mật khẩu người dùng
         /// </summary>
         Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword);
 
         /// <summary>
-        /// 重置用户密码（管理员操作）
+        /// Đặt lại mật khẩu người dùng (thao tác của quản trị viên)
         /// </summary>
         Task ResetPasswordAsync(Guid id, string newPassword);
 
         /// <summary>
-        /// 启用或禁用用户
+        /// Bật hoặc tắt người dùng
         /// </summary>
         Task SetUserActiveStatusAsync(Guid id, bool isActive);
     }

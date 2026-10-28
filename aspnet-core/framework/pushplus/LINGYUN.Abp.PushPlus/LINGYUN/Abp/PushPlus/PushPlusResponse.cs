@@ -5,22 +5,22 @@ namespace LINGYUN.Abp.PushPlus;
 public class PushPlusResponse<T>
 {
     /// <summary>
-    /// 状态码
+    /// Mã trạng thái
     /// </summary>
     [JsonProperty("code")]
     public string Code { get; set; } = default!;
     /// <summary>
-    /// 错误消息
+    /// Thông báo lỗi
     /// </summary>
     [JsonProperty("msg")]
     public string Message { get; set; } = default!;
     /// <summary>
-    /// 返回数据
+    /// Dữ liệu trả về
     /// </summary>
     [JsonProperty("data")]
     public T? Data { get; set; }
     /// <summary>
-    /// 是否调用成功
+    /// Có gọi thành công hay không
     /// </summary>
     public bool IsSuccessed => string.Equals("200", Code);
 

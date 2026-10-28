@@ -4,7 +4,7 @@ using LINGYUN.Abp.WeChat.Work.Messages.Models;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 文件消息载荷
+/// Payload tin nhắn tệp
 /// </summary>
 [NotificationChannelData(WeChatWorkNotificationPublishProvider.ProviderName, Priority = 700)]
 public class WeChatWorkFileChannelData : WeChatWorkChannelData

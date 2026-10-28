@@ -10,12 +10,12 @@ using Volo.Abp.DependencyInjection;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)存取器
+/// Bộ truy cập dữ liệu (payload) kênh thông báo
 /// </summary>
 /// <remarks>
-/// 渠道数据"弱类型属性包 ↔ 强类型值"转换的唯一实现,
-/// 由 <see cref="INotificationChannelDataSerializer"/> 与
-/// <see cref="INotificationChannelDataResolver"/> 共用, 并保证与所用 JSON 实现无关。
+/// Triển khai duy nhất cho việc chuyển đổi dữ liệu kênh "gói thuộc tính kiểu yếu ↔ giá trị kiểu mạnh",
+/// được <see cref="INotificationChannelDataSerializer"/> và
+/// <see cref="INotificationChannelDataResolver"/> dùng chung, đồng thời đảm bảo không phụ thuộc vào triển khai JSON đang dùng.
 /// </remarks>
 public class NotificationChannelDataAccessor : INotificationChannelDataAccessor, ISingletonDependency
 {
@@ -62,7 +62,7 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
             return true;
         }
 
-        // 精确匹配未命中时按大小写不敏感匹配, 兼容历史遗留键(如 TemplateId)
+        // Khi khớp chính xác không trúng, khớp không phân biệt chữ hoa/thường để tương thích với các khóa cũ (ví dụ TemplateId)
         foreach (var property in notificationData.ExtraProperties)
         {
             if (string.Equals(property.Key, key, StringComparison.OrdinalIgnoreCase))
@@ -149,7 +149,7 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
             return rawValue;
         }
 
-        // 不同 JSON 实现留下的中间表示(JsonElement / JValue)先还原为 CLR 原始值
+        // Khôi phục biểu diễn trung gian (JsonElement / JValue) do các triển khai JSON khác nhau để lại về giá trị gốc CLR trước
         var unwrapped = UnwrapJsonValue(rawValue);
         if (unwrapped == null)
         {
@@ -180,11 +180,11 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
     }
 
     /// <summary>
-    /// 还原 JSON 中间表示
+    /// Khôi phục biểu diễn trung gian JSON
     /// </summary>
     /// <remarks>
-    /// System.Text.Json 产生 <c>JsonElement</c>, Newtonsoft 产生 <c>JValue</c>;
-    /// 两者都还原为 CLR 原始值, 使转换逻辑与 JSON 实现无关。
+    /// System.Text.Json tạo ra <c>JsonElement</c>, Newtonsoft tạo ra <c>JValue</c>;
+    /// Cả hai đều được khôi phục về giá trị gốc CLR, giúp logic chuyển đổi không phụ thuộc vào triển khai JSON.
     /// </remarks>
     protected virtual object? UnwrapJsonValue(object rawValue)
     {
@@ -234,7 +234,7 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
                 return element.GetDouble();
 
             default:
-                // 数组/对象: 以原始 JSON 文本参与后续反序列化
+                // Mảng/đối tượng: tham gia giải tuần tự hóa tiếp theo bằng văn bản JSON gốc
                 return element.GetRawText();
         }
     }
@@ -273,7 +273,7 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
 
     protected virtual object? ConvertPrimitiveValue(object rawValue, Type underlyingType, string key)
     {
-        // JSON 往返后布尔值可能以数字或字符串形式出现, 而 Convert 只认 "True"/"False"
+        // Sau khi JSON đi-về, giá trị boolean có thể xuất hiện dưới dạng số hoặc chuỗi, trong khi Convert chỉ nhận "True"/"False"
         if (underlyingType == typeof(bool) && TryConvertBoolean(rawValue, out var booleanValue))
         {
             return booleanValue;
@@ -285,7 +285,7 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
         }
         catch (Exception ex) when (ex is FormatException || ex is InvalidCastException || ex is OverflowException)
         {
-            // JSON 往返后字符串可能包裹了引号, 例如 "\"1\"", 再尝试一次去引号转换
+            // Sau khi JSON đi-về, chuỗi có thể bị bọc trong dấu ngoặc kép, ví dụ "\"1\"", thử chuyển đổi lại một lần sau khi bỏ dấu ngoặc kép
             if (rawValue is string text)
             {
                 var trimmed = text.Trim().Trim('"');
@@ -297,7 +297,7 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
                     }
                     catch (Exception inner) when (inner is FormatException || inner is InvalidCastException || inner is OverflowException)
                     {
-                        // 忽略, 统一在下方记录日志
+                        // Bỏ qua, ghi nhật ký thống nhất ở phía dưới
                     }
                 }
             }
@@ -325,8 +325,8 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
         }
         catch (Exception ex)
         {
-            // 载荷非法时只记录日志并返回 null,
-            // 由调用方通过"已声明但解析失败"来明确报错
+            // Khi payload không hợp lệ chỉ ghi nhật ký và trả về null,
+            // Bên gọi sẽ báo lỗi rõ ràng thông qua "đã khai báo nhưng phân tích cú pháp thất bại"
             Logger.LogWarning(ex,
                 "Failed to deserialize the channel data '{Key}' to '{TargetType}', the value will be ignored.",
                 key, underlyingType.FullName);
@@ -335,11 +335,11 @@ public class NotificationChannelDataAccessor : INotificationChannelDataAccessor,
     }
 
     /// <summary>
-    /// 尝试把各种表示形式转换为布尔值
+    /// Thử chuyển đổi các dạng biểu diễn khác nhau thành giá trị boolean
     /// </summary>
     /// <remarks>
-    /// 数值型 <c>0/1</c> 与字符串 <c>"0"/"1"</c> / <c>"true"/"false"</c> 都会被识别,
-    /// <c>Convert.ChangeType</c> 只接受 <c>"True"/"False"</c>, 因此需要单独处理。
+    /// Các dạng số <c>0/1</c> và chuỗi <c>"0"/"1"</c> / <c>"true"/"false"</c> đều được nhận biết,
+    /// <c>Convert.ChangeType</c> chỉ chấp nhận <c>"True"/"False"</c>, vì vậy cần xử lý riêng.
     /// </remarks>
     protected virtual bool TryConvertBoolean(object rawValue, out bool result)
     {

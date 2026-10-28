@@ -13,25 +13,25 @@ WORKDIR /app
 # copy package.json and pnpm-lock.yaml to workspace
 COPY . /app
 
-# 安装依赖
+# Cài đặt các dependency
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build --filter=\!./docs
 
 RUN echo "Builder Success 🎉"
 
-FROM nginx:stable-alpine AS production
+FROM nginx:1.30.6-alpine AS production
 
-# 配置 nginx
+# Cấu hình nginx
 RUN echo "types { application/javascript js mjs; }" > /etc/nginx/conf.d/mjs.conf \
     && rm -rf /etc/nginx/conf.d/default.conf
 
-# 复制构建产物
+# Sao chép sản phẩm build
 COPY --from=builder /app/playground/dist /usr/share/nginx/html
 
-# 复制 nginx 配置
+# Sao chép cấu hình nginx
 COPY --from=builder /app/scripts/deploy/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 8080
 
-# 启动 nginx
+# Khởi động nginx
 CMD ["nginx", "-g", "daemon off;"]

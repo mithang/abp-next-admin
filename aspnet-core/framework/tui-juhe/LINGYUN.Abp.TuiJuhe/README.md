@@ -1,12 +1,12 @@
 # LINGYUN.Abp.TuiJuhe
 
-集成TuiJuhe（仅适用于特定消息与人员通知, 不支持群发）
+Tích hợp TuiJuhe (chỉ áp dụng cho thông báo tin nhắn và nhân sự cụ thể, không hỗ trợ gửi hàng loạt)
 
-实现TuiJuhe相关Api文档,拥有TuiJuhe开放能力  
+Triển khai tài liệu Api liên quan đến TuiJuhe, sở hữu năng lực mở của TuiJuhe  
 
-详情见TuiJuhe文档: https://tui.juhe.cn/docs 
+Chi tiết xem tài liệu TuiJuhe: https://tui.juhe.cn/docs 
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpTuiJuheModule))]
@@ -18,14 +18,14 @@ public class YouProjectModule : AbpModule
 
 ## Features
 
-* TuiJuhe								TuiJuhe特性分组  
-* TuiJuhe.Enable						全局启用TuiJuhe
-* TuiJuhe.Message.Enable				全局启用TuiJuhe消息通道  
-* TuiJuhe.Message						TuiJuhe消息推送	
-* TuiJuhe.Message.Enable				启用TuiJuhe消息推送	
-* TuiJuhe.Message.SendLimit				TuiJuhe消息推送限制次数	
-* TuiJuhe.Message.SendLimitInterval		TuiJuhe消息推送限制周期(时)	
+* TuiJuhe								Nhóm tính năng TuiJuhe  
+* TuiJuhe.Enable						Bật TuiJuhe toàn cục
+* TuiJuhe.Message.Enable				Bật kênh tin nhắn TuiJuhe toàn cục  
+* TuiJuhe.Message						Đẩy tin nhắn TuiJuhe	
+* TuiJuhe.Message.Enable				Bật đẩy tin nhắn TuiJuhe	
+* TuiJuhe.Message.SendLimit				Số lần giới hạn đẩy tin nhắn TuiJuhe	
+* TuiJuhe.Message.SendLimitInterval		Chu kỳ giới hạn đẩy tin nhắn TuiJuhe (giờ)	
 
 ## Settings
 
-* TuiJuhe.Security.Token			用户令牌.  
+* TuiJuhe.Security.Token			Mã thông báo người dùng.  

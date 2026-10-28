@@ -8,31 +8,31 @@ using Volo.Abp.Guids;
 namespace LINGYUN.Abp.Gdpr;
 
 /// <summary>
-/// 表示用户发出的 GDPR 请求
+/// Biểu thị yêu cầu GDPR do người dùng gửi
 /// See: https://abp.io/docs/latest/modules/gdpr#gdprrequest
 /// </summary>
 public class GdprRequest : AggregateRoot<Guid>, IHasCreationTime
 {
-    ///// TODO: Abp Framework GDPR模块不支持多租户
+    ///// TODO: Mô-đun GDPR của Abp Framework không hỗ trợ đa tenant
     ///// <summary>
-    ///// 租户Id
+    ///// Id tenant
     ///// </summary>
     ///// public virtual Guid? TenantId { get; protected set; }
 
     /// <summary>
-    /// 发出请求的用户的 ID
+    /// ID của người dùng đã gửi yêu cầu
     /// </summary>
     public virtual Guid UserId { get; protected set; }
     /// <summary>
-    /// 创建时间
+    /// Thời gian tạo
     /// </summary>
     public virtual DateTime CreationTime { get; protected set; }
     /// <summary>
-    /// 数据准备过程的结束时间
+    /// Thời gian kết thúc quá trình chuẩn bị dữ liệu
     /// </summary>
     public virtual DateTime ReadyTime { get; protected set; }
     /// <summary>
-    /// 收集的用户个人数据
+    /// Dữ liệu cá nhân của người dùng đã thu thập
     /// </summary>
     public virtual ICollection<GdprInfo> Infos { get; protected set; }
     protected GdprRequest()

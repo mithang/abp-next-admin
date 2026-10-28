@@ -92,4 +92,4 @@ public class YourRealTimeEventHandler :
 
 ## Links
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Trung](./README.md)

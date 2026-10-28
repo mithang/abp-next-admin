@@ -4,42 +4,42 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages;
 /// <summary>
-/// 企业微信消息
+/// Tin nhắn WeChat Work
 /// </summary>
 public abstract class WeChatWorkMessage : WeChatWorkRequest
 {
     /// <summary>
-    /// 指定接收消息的成员，成员ID列表（多个接收者用‘|’分隔，最多支持1000个）。
-    /// 特殊情况：指定为"@all"，则向该企业应用的全部成员发送
+    /// Chỉ định thành viên nhận tin nhắn, danh sách ID thành viên (nhiều người nhận ngăn cách bằng ‘|’, tối đa 1000 người).
+    /// Trường hợp đặc biệt: nếu chỉ định "@all" thì gửi tới toàn bộ thành viên của ứng dụng doanh nghiệp này
     /// </summary>
     [JsonProperty("touser")]
     [JsonPropertyName("touser")]
     public virtual string? ToUser { get; set; }
     /// <summary>
-    /// 指定接收消息的部门，部门ID列表，多个接收者用‘|’分隔，最多支持100个。
-    /// 当touser为"@all"时忽略本参数
+    /// Chỉ định phòng ban nhận tin nhắn, danh sách ID phòng ban, nhiều người nhận ngăn cách bằng ‘|’, tối đa 100.
+    /// Khi touser là "@all" thì bỏ qua tham số này
     /// </summary>
     [JsonProperty("toparty")]
     [JsonPropertyName("toparty")]
     public virtual string? ToParty { get; set; }
     /// <summary>
-    /// 指定接收消息的标签，标签ID列表，多个接收者用‘|’分隔，最多支持100个。
-    /// 当touser为"@all"时忽略本参数
+    /// Chỉ định nhãn nhận tin nhắn, danh sách ID nhãn, nhiều người nhận ngăn cách bằng ‘|’, tối đa 100.
+    /// Khi touser là "@all" thì bỏ qua tham số này
     /// </summary>
     [JsonProperty("totag")]
     [JsonPropertyName("totag")]
     public virtual string? ToTag { get; set; }
     /// <summary>
-    /// 消息类型
+    /// Loại tin nhắn
     /// </summary>
     [NotNull]
     [JsonProperty("msgtype")]
     [JsonPropertyName("msgtype")]
     public virtual string MsgType { get; protected set; }
     /// <summary>
-    /// 企业应用的id，整型。
-    /// 企业内部开发，可在应用的设置页面查看；
-    /// 第三方服务商，可通过接口 获取企业授权信息 获取该参数值
+    /// ID của ứng dụng doanh nghiệp, kiểu số nguyên.
+    /// Đối với phát triển nội bộ doanh nghiệp, có thể xem tại trang cài đặt của ứng dụng;
+    /// Đối với nhà cung cấp dịch vụ bên thứ ba, có thể lấy giá trị tham số này qua giao diện lấy thông tin ủy quyền doanh nghiệp
     /// </summary>
     [NotNull]
     [JsonProperty("agentid")]

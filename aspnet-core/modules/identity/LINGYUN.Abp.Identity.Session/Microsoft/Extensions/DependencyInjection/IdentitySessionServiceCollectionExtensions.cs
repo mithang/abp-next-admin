@@ -5,10 +5,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class IdentitySessionServiceCollectionExtensions
 {
     /// <summary>
-    /// 允许任意会话
+    /// Cho phép phiên làm việc bất kỳ
     /// </summary>
     /// <remarks>
-    /// 某些场景下可能缓存配置不同,可不检查会话缓存
+    /// Trong một số trường hợp, cấu hình bộ nhớ đệm có thể khác nhau, có thể không kiểm tra bộ nhớ đệm phiên làm việc
     /// </remarks>
     /// <param name="services"></param>
     /// <returns></returns>

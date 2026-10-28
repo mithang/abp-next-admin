@@ -3,43 +3,43 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Response;
 /// <summary>
-/// 企业微信发送消息响应
+/// Phản hồi gửi tin nhắn của WeChat Doanh nghiệp
 /// </summary>
 public class WeChatWorkMessageResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 不合法的userid，不区分大小写，统一转为小写
+    /// Userid không hợp lệ, không phân biệt chữ hoa chữ thường, thống nhất chuyển thành chữ thường
     /// </summary>
     [JsonProperty("invaliduser")]
     [JsonPropertyName("invaliduser")]
     public string? InvalidUser { get; set; }
     /// <summary>
-    /// 不合法的partyid
+    /// Partyid không hợp lệ
     /// </summary>
     [JsonProperty("invalidparty")]
     [JsonPropertyName("invalidparty")]
     public string? InvalidParty { get; set; }
     /// <summary>
-    /// 不合法的标签id
+    /// Id nhãn không hợp lệ
     /// </summary>
     [JsonProperty("invalidtag")]
     [JsonPropertyName("invalidtag")]
     public string? InvalidTag { get; set; }
     /// <summary>
-    /// 没有基础接口许可(包含已过期)的userid
+    /// Userid không có quyền giao diện cơ bản (bao gồm đã hết hạn)
     /// </summary>
     [JsonProperty("unlicenseduser")]
     [JsonPropertyName("unlicenseduser")]
     public string? UnLicensedUser { get; set; }
     /// <summary>
-    /// 消息id，用于撤回应用消息
+    /// Id tin nhắn, dùng để thu hồi tin nhắn ứng dụng
     /// </summary>
     [JsonProperty("msgid")]
     [JsonPropertyName("msgid")]
     public string? MsgId { get; set; }
     /// <summary>
-    /// 仅消息类型为“按钮交互型”，“投票选择型”和“多项选择型”的模板卡片消息返回，
-    /// 应用可使用response_code调用更新模版卡片消息接口，72小时内有效，且只能使用一次
+    /// Chỉ trả về đối với tin nhắn thẻ mẫu có loại tin nhắn là "kiểu tương tác nút", "kiểu bình chọn" và "kiểu lựa chọn nhiều mục",
+    /// Ứng dụng có thể dùng response_code để gọi giao diện cập nhật tin nhắn thẻ mẫu, có hiệu lực trong 72 giờ và chỉ được sử dụng một lần
     /// </summary>
     [JsonProperty("response_code")]
     [JsonPropertyName("response_code")]

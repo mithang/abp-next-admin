@@ -4,21 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信Webhook模版卡片消息
+/// Tin nhắn thẻ mẫu Webhook của WeChat Work
 /// </summary>
 public class WeChatWorkWebhookTemplateCardMessage : WeChatWorkWebhookMessage
 {
     /// <summary>
-    /// 模版卡片消息体
+    /// Thân tin nhắn thẻ mẫu
     /// </summary>
     [NotNull]
     [JsonProperty("template_card")]
     [JsonPropertyName("template_card")]
     public WebhookTemplateCardMessage TemplateCard { get; set; }
     /// <summary>
-    /// 创建一个企业微信Webhook模版卡片消息
+    /// Tạo một tin nhắn thẻ mẫu Webhook của WeChat Work
     /// </summary>
-    /// <param name="templateCard">模版卡片消息体</param>
+    /// <param name="templateCard">Thân tin nhắn thẻ mẫu</param>
     public WeChatWorkWebhookTemplateCardMessage(WebhookTemplateCardMessage templateCard)
         : base("template_card")
     {

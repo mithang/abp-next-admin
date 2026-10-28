@@ -3,22 +3,22 @@ import { join, normalize } from 'node:path';
 
 const rootDir = process.cwd();
 
-// 控制并发数量，避免创建过多的并发任务
+// Kiểm soát số lượng đồng thời, tránh tạo quá nhiều tác vụ đồng thời
 const CONCURRENCY_LIMIT = 10;
 
-// 需要跳过的目录，避免进入这些目录进行清理
+// Thư mục cần bỏ qua, tránh đi vào các thư mục này để dọn dẹp
 const SKIP_DIRS = new Set(['.DS_Store', '.git', '.idea', '.vscode']);
 
 /**
- * 处理单个文件/目录项
- * @param {string} currentDir - 当前目录路径
- * @param {string} item - 文件/目录名
- * @param {string[]} targets - 要删除的目标列表
- * @param {number} _depth - 当前递归深度
- * @returns {Promise<boolean>} - 是否需要进一步递归处理
+ * Xử lý từng mục file/thư mục
+ * @param {string} currentDir - Đường dẫn thư mục hiện tại
+ * @param {string} item - Tên file/thư mục
+ * @param {string[]} targets - Danh sách mục tiêu cần xóa
+ * @param {number} _depth - Độ sâu đệ quy hiện tại
+ * @returns {Promise<boolean>} - Có cần xử lý đệ quy tiếp hay không
  */
 async function processItem(currentDir, item, targets, _depth) {
-  // 跳过特殊目录
+  // Bỏ qua thư mục đặc biệt
   if (SKIP_DIRS.has(item)) {
     return false;
   }
@@ -27,18 +27,18 @@ async function processItem(currentDir, item, targets, _depth) {
     const itemPath = normalize(join(currentDir, item));
 
     if (targets.includes(item)) {
-      // 匹配到目标目录或文件时直接删除
+      // Khi khớp với thư mục hoặc file mục tiêu thì xóa trực tiếp
       await fs.rm(itemPath, { force: true, recursive: true });
       console.log(`✅ Deleted: ${itemPath}`);
-      return false; // 已删除，无需递归
+      return false; // Đã xóa, không cần đệ quy
     }
 
-    // 使用 readdir 的 withFileTypes 选项，避免额外的 lstat 调用
-    return true; // 可能需要递归，由调用方决定
+    // Dùng tùy chọn withFileTypes của readdir, tránh gọi lstat thêm
+    return true; // Có thể cần đệ quy, do bên gọi quyết định
   } catch (error) {
-    // 更详细的错误信息
+    // Thông tin lỗi chi tiết hơn
     if (error.code === 'ENOENT') {
-      // 文件不存在，可能已被删除，这是正常情况
+      // File không tồn tại, có thể đã bị xóa, đây là trường hợp bình thường
       return false;
     } else if (error.code === 'EPERM' || error.code === 'EACCES') {
       console.error(`❌ Permission denied: ${item} in ${currentDir}`);
@@ -52,13 +52,13 @@ async function processItem(currentDir, item, targets, _depth) {
 }
 
 /**
- * 递归查找并删除目标目录（并发优化版本）
- * @param {string} currentDir - 当前遍历的目录路径
- * @param {string[]} targets - 要删除的目标列表
- * @param {number} depth - 当前递归深度，避免过深递归
+ * Tìm và xóa đệ quy thư mục mục tiêu（phiên bản tối ưu đồng thời）
+ * @param {string} currentDir - Đường dẫn thư mục đang duyệt hiện tại
+ * @param {string[]} targets - Danh sách mục tiêu cần xóa
+ * @param {number} depth - Độ sâu đệ quy hiện tại, tránh đệ quy quá sâu
  */
 async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
-  // 限制递归深度，避免无限递归
+  // Giới hạn độ sâu đệ quy, tránh đệ quy vô hạn
   if (depth > 10) {
     console.warn(`Max recursion depth reached at: ${currentDir}`);
     return;
@@ -66,15 +66,15 @@ async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
 
   let dirents;
   try {
-    // 使用 withFileTypes 选项，一次性获取文件类型信息，避免后续 lstat 调用
+    // Dùng tùy chọn withFileTypes, lấy thông tin kiểu file một lần, tránh gọi lstat sau đó
     dirents = await fs.readdir(currentDir, { withFileTypes: true });
   } catch (error) {
-    // 如果无法读取目录，可能已被删除或权限不足
+    // Nếu không đọc được thư mục, có thể đã bị xóa hoặc không đủ quyền
     console.warn(`Cannot read directory ${currentDir}: ${error.message}`);
     return;
   }
 
-  // 分批处理，控制并发数量
+  // Xử lý theo lô, kiểm soát số lượng đồng thời
   for (let i = 0; i < dirents.length; i += CONCURRENCY_LIMIT) {
     const batch = dirents.slice(i, i + CONCURRENCY_LIMIT);
 
@@ -82,7 +82,7 @@ async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
       const item = dirent.name;
       const shouldRecurse = await processItem(currentDir, item, targets, depth);
 
-      // 如果是目录且没有被删除，则递归处理
+      // Nếu là thư mục và chưa bị xóa thì xử lý đệ quy
       if (shouldRecurse && dirent.isDirectory()) {
         const itemPath = normalize(join(currentDir, item));
         return cleanTargetsRecursively(itemPath, targets, depth + 1);
@@ -91,10 +91,10 @@ async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
       return null;
     });
 
-    // 并发执行当前批次的任务
+    // Thực thi đồng thời các tác vụ của lô hiện tại
     const results = await Promise.allSettled(tasks);
 
-    // 检查是否有失败的任务（可选：用于调试）
+    // Kiểm tra có tác vụ nào thất bại hay không（tùy chọn: dùng để gỡ lỗi）
     const failedTasks = results.filter(
       (result) => result.status === 'rejected',
     );
@@ -107,7 +107,7 @@ async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
 }
 
 (async function startCleanup() {
-  // 要删除的目录及文件名称
+  // Tên thư mục và file cần xóa
   const targets = ['node_modules', 'dist', '.turbo', 'dist.zip'];
   const deleteLockFile = process.argv.includes('--del-lock');
   const cleanupTargets = [...targets];
@@ -123,7 +123,7 @@ async function cleanTargetsRecursively(currentDir, targets, depth = 0) {
   const startTime = Date.now();
 
   try {
-    // 先统计要删除的目标数量
+    // Thống kê trước số lượng mục tiêu cần xóa
     console.log('📊 Scanning for cleanup targets...');
 
     await cleanTargetsRecursively(rootDir, cleanupTargets);

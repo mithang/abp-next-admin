@@ -35,7 +35,7 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
             //Logger.LogWarning($"The task: {job.Group} - {job.Name}: {job.Type} is not registered and cannot create an instance of the performer type.");
             //return null;
 
-            // 运行时搜寻本地作业
+            // Tìm kiếm tác vụ cục bộ trong thời gian chạy
             jobType = typeof(QuartzJobSearchJobAdapter);
         }
         else if (!typeof(IJob).IsAssignableFrom(jobType))
@@ -49,27 +49,27 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
             return null;
         }
 
-        // 改为 JobId作为名称
+        // Đổi thành dùng JobId làm tên
         var jobBuilder = JobBuilder.Create(jobType)
                 .WithIdentity(KeyBuilder.CreateJobKey(job))
                 .WithDescription(job.Description);
-        // 多节点任务需要
+        // Cần cho tác vụ đa nút
         jobBuilder.UsingJobData(nameof(JobInfo.NodeName), job.NodeName);
-        // 查询任务需要
+        // Cần cho việc truy vấn tác vụ
         jobBuilder.UsingJobData(nameof(JobInfo.Id), job.Id);
-        // 有些场景需要
+        // Cần trong một số kịch bản
         jobBuilder.UsingJobData(nameof(JobInfo.Name), job.Name);
         jobBuilder.UsingJobData(nameof(JobInfo.Type), job.Type);
         jobBuilder.UsingJobData(nameof(JobInfo.Group), job.Group);
-        // 计算增量需要
+        // Cần để tính phần tăng thêm
         jobBuilder.UsingJobData(nameof(JobInfo.TriggerCount), job.TriggerCount);
-        // 独占任务需要
+        // Cần cho tác vụ độc quyền
         jobBuilder.UsingJobData(nameof(JobInfo.LockTimeOut), job.LockTimeOut);
-        // 传递的作业参数
+        // Các tham số tác vụ được truyền vào
         jobBuilder.UsingJobData(new JobDataMap(job.Args));
         if (job.TenantId.HasValue)
         {
-            // 用于多租户场景
+            // Dùng cho kịch bản đa thuê bao
             jobBuilder.UsingJobData(nameof(JobInfo.TenantId), job.TenantId.ToString());
         }
 
@@ -115,7 +115,7 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
                     return null;
                 }
 
-                // Quartz 需要减一位
+                // Quartz cần trừ đi một
                 maxCount -= 1;
                 if (maxCount < -1)
                 {
@@ -129,8 +129,8 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
                     .ForJob(KeyBuilder.CreateJobKey(job))
                     .WithPriority((int)job.Priority);
                     
-                // 首次启动时间由 BeginTime 决定，不再使用 Interval 作为"延迟启动"。
-                // Interval 仅在 Persistent 周期任务中表示"重复间隔"。
+                // Thời gian khởi động lần đầu do BeginTime quyết định, không còn dùng Interval làm "khởi động trễ".
+                // Interval chỉ trong tác vụ chu kỳ Persistent mới biểu thị "khoảng lặp lại".
                 if (job.BeginTime > Clock.Now)
                 {
                     triggerBuilder.StartAt(job.BeginTime);
@@ -140,10 +140,10 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
                     triggerBuilder.StartNow();
                 }
                 
-                // Quartz约定. 重复间隔不能为0
+                // Quy ước của Quartz. Khoảng lặp lại không được bằng 0
                 // fix throw Quartz.SchedulerException: Repeat Interval cannot be zero.
                 var scheduleBuilder = SimpleScheduleBuilder.Create();
-                // TODO: 不能用Quartz自带的重试机制
+                // TODO: Không được dùng cơ chế thử lại có sẵn của Quartz
                 // scheduleBuilder.WithRepeatCount(maxCount);
                 if (job.JobType == JobType.Persistent)
                 {

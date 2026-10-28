@@ -1,34 +1,34 @@
 <!--
- * @Description: 导入JSON模板
+ * @Description: Nhập mẫu JSON
 -->
 <template>
   <Modal
-    title="JSON数据"
+    title="Dữ liệu JSON"
     :visible="state.visible"
     @ok="handleImportJson"
     @cancel="handleCancel"
-    cancelText="关闭"
+    cancelText="Đóng"
     :destroyOnClose="true"
     wrapClassName="v-code-modal"
     style="top: 20px"
     :width="850"
   >
-    <p class="hint-box">导入格式如下:</p>
+    <p class="hint-box">Định dạng nhập như sau:</p>
     <div class="v-json-box">
       <CodeEditor v-model:value="state.json" ref="myEditor" :mode="MODE.JSON" />
     </div>
 
     <template #footer>
-      <Button @click="handleCancel">取消</Button>
+      <Button @click="handleCancel">Hủy</Button>
       <Upload
         class="upload-button"
         :beforeUpload="beforeUpload"
         :showUploadList="false"
         accept="application/json"
       >
-        <Button type="primary">导入json文件</Button>
+        <Button type="primary">Nhập file json</Button>
       </Upload>
-      <Button type="primary" @click="handleImportJson">确定</Button>
+      <Button type="primary" @click="handleImportJson">Xác nhận</Button>
     </template>
   </Modal>
 </template>
@@ -50,7 +50,7 @@
 "schemas": [
 {
   "component": "input",
-  "label": "输入框",
+  "label": "Hộp nhập",
   "field": "input_2",
   "span": 24,
   "props": {
@@ -78,7 +78,7 @@
     state.visible = true;
   };
   const handleImportJson = () => {
-    // 导入JSON
+    // Nhập JSON
     try {
       const editorJsonData = JSON.parse(state.json) as IFormConfig;
       editorJsonData.schemas &&
@@ -91,13 +91,13 @@
         currentItem: { component: '' },
       });
       handleCancel();
-      createMessage.success('导入成功');
+      createMessage.success('Nhập thành công');
     } catch {
-      createMessage.error('导入失败，数据格式不对');
+      createMessage.error('Nhập thất bại, định dạng dữ liệu không đúng');
     }
   };
   const beforeUpload = (e: File) => {
-    // 通过json文件导入
+    // Nhập qua file json
     const reader = new FileReader();
     reader.readAsText(e);
     reader.onload = function () {

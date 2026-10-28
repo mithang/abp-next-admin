@@ -3,11 +3,11 @@
 public enum PushPlusMessageType
 {
     /// <summary>
-    /// 一对一消息
+    /// Thông điệp một-một
     /// </summary>
     Once,
     /// <summary>
-    /// 一对多消息
+    /// Thông điệp một-nhiều
     /// </summary>
     Multiple
 }

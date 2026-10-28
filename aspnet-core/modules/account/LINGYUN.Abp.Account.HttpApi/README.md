@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Account.HttpApi
 
-ABP账户模块的HTTP API层，提供RESTful API接口实现。
+Lớp HTTP API của mô-đun tài khoản ABP, cung cấp triển khai giao diện API RESTful.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 提供账户管理的HTTP API接口
-* 支持本地化和多语言
-* 集成ABP MVC框架
-* 自动API控制器注册
+* Cung cấp giao diện HTTP API quản lý tài khoản
+* Hỗ trợ bản địa hóa và đa ngôn ngữ
+* Tích hợp framework ABP MVC
+* Tự động đăng ký API controller
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -23,37 +23,37 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API控制器
+## API controller
 
 ### AccountController
 
-提供以下HTTP API端点：
-* POST /api/account/register - 手机号注册
-* POST /api/account/register-by-wechat - 微信小程序注册
-* POST /api/account/reset-password - 重置密码
-* POST /api/account/send-phone-register-code - 发送手机注册验证码
-* POST /api/account/send-phone-signin-code - 发送手机登录验证码
-* POST /api/account/send-email-signin-code - 发送邮箱登录验证码
-* POST /api/account/send-phone-reset-password-code - 发送手机重置密码验证码
+Cung cấp các endpoint HTTP API sau:
+* POST /api/account/register - Đăng ký bằng số điện thoại
+* POST /api/account/register-by-wechat - Đăng ký bằng mini-program WeChat
+* POST /api/account/reset-password - Đặt lại mật khẩu
+* POST /api/account/send-phone-register-code - Gửi mã xác minh đăng ký qua điện thoại
+* POST /api/account/send-phone-signin-code - Gửi mã xác minh đăng nhập qua điện thoại
+* POST /api/account/send-email-signin-code - Gửi mã xác minh đăng nhập qua email
+* POST /api/account/send-phone-reset-password-code - Gửi mã xác minh đặt lại mật khẩu qua điện thoại
 
 ### MyProfileController
 
-提供以下HTTP API端点：
-* GET /api/account/my-profile - 获取个人资料
-* PUT /api/account/my-profile - 更新个人资料
-* POST /api/account/my-profile/change-password - 修改密码
-* POST /api/account/my-profile/change-phone-number - 修改手机号
-* POST /api/account/my-profile/send-phone-number-change-code - 发送手机号变更验证码
-* POST /api/account/my-profile/change-avatar - 更新头像
+Cung cấp các endpoint HTTP API sau:
+* GET /api/account/my-profile - Lấy hồ sơ cá nhân
+* PUT /api/account/my-profile - Cập nhật hồ sơ cá nhân
+* POST /api/account/my-profile/change-password - Đổi mật khẩu
+* POST /api/account/my-profile/change-phone-number - Đổi số điện thoại
+* POST /api/account/my-profile/send-phone-number-change-code - Gửi mã xác minh đổi số điện thoại
+* POST /api/account/my-profile/change-avatar - Cập nhật ảnh đại diện
 
 ### MyClaimController
 
-提供以下HTTP API端点：
-* GET /api/account/my-claim - 获取用户声明
-* PUT /api/account/my-claim - 更新用户声明
+Cung cấp các endpoint HTTP API sau:
+* GET /api/account/my-claim - Lấy claim của người dùng
+* PUT /api/account/my-claim - Cập nhật claim của người dùng
 
-## 本地化配置
+## Cấu hình bản địa hóa
 
-模块预配置了本地化选项：
-* 支持AccountResource资源本地化
-* 自动注册MVC应用程序部件
+Mô-đun đã cấu hình trước tùy chọn bản địa hóa:
+* Hỗ trợ bản địa hóa tài nguyên AccountResource
+* Tự động đăng ký application part MVC

@@ -26,7 +26,7 @@ public class Program
                 .UseAutofac()
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    // AgileConfig 分布式配置平台, 顺序排在最后可覆盖所有本地配置文件
+                    // AgileConfig là nền tảng cấu hình phân tán, xếp cuối cùng nên có thể ghi đè mọi file cấu hình cục bộ
                     if (context.Configuration.GetValue("AgileConfig:IsEnabled", false))
                     {
                         config.AddAgileConfig(new AgileConfig.Client.ConfigClient(context.Configuration));
@@ -41,12 +41,12 @@ public class Program
                 TaskServiceModule.ApplicationName = Environment.GetEnvironmentVariable("APPLICATION_NAME")
                     ?? TaskServiceModule.ApplicationName;
                 options.ApplicationName = TaskServiceModule.ApplicationName;
-                // 从环境变量取用户机密配置, 适用于容器测试
+                // Lấy cấu hình bí mật người dùng từ biến môi trường, phù hợp để kiểm thử trong container
                 options.Configuration.UserSecretsId = Environment.GetEnvironmentVariable("APPLICATION_USER_SECRETS_ID");
-                // 如果容器没有指定用户机密, 从项目读取
+                // Nếu container không chỉ định bí mật người dùng thì đọc từ dự án
                 options.Configuration.UserSecretsAssembly = typeof(TaskServiceModule).Assembly;
-                // 搜索 Modules 目录下所有文件作为插件
-                // 取消显示引用所有其他项目的模块，改为通过插件的形式引用
+                // Tìm mọi file trong thư mục Modules để dùng làm plugin
+                // Không tham chiếu trực tiếp mọi mô-đun của các dự án khác nữa, chuyển sang tham chiếu qua plugin
                 var pluginFolder = Path.Combine(
                         Directory.GetCurrentDirectory(), "Modules");
                 DirectoryHelper.CreateIfNotExists(pluginFolder);

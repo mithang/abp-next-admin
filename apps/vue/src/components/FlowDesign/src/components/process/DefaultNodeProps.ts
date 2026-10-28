@@ -1,4 +1,4 @@
-//审批节点默认属性
+// Thuộc tính mặc định của nút phê duyệt
 export const APPROVAL_PROPS = {
   assignedType: "ASSIGN_USER",
   mode: "AND",
@@ -34,57 +34,57 @@ export const APPROVAL_PROPS = {
   },
   role:[],
   refuse: {
-    type: 'TO_END', //驳回规则 TO_END  TO_NODE  TO_BEFORE
-    target: '' //驳回到指定ID的节点
+    type: 'TO_END', // Quy tắc từ chối TO_END  TO_NODE  TO_BEFORE
+    target: '' // Từ chối về nút có ID chỉ định
   },
   formUser: ''
 }
 
-//根节点默认属性
+// Thuộc tính mặc định của nút gốc
 export const ROOT_PROPS = {
   assignedUser: [],
   formPerms:[]
 }
 
-//条件节点默认属性
+// Thuộc tính mặc định của nút điều kiện
 export const CONDITION_PROPS = {
-  groupsType:"OR", //条件组逻辑关系 OR、AND
+  groupsType:"OR", // Quan hệ logic giữa các nhóm điều kiện OR, AND
   groups:[
     {
-      groupType:"AND", //条件组内条件关系 OR、AND
-      cids:[], //条件ID集合
-      conditions:[] //组内子条件
+      groupType:"AND", // Quan hệ điều kiện trong nhóm điều kiện OR, AND
+      cids:[], // Tập hợp ID điều kiện
+      conditions:[] // Điều kiện con trong nhóm
     }
   ],
-  expression: "" //自定义表达式，灵活构建逻辑关系
+  expression: "" // Biểu thức tùy chỉnh, xây dựng quan hệ logic một cách linh hoạt
 }
 
-//抄送节点默认属性
+// Thuộc tính mặc định của nút gửi sao
 export const CC_PROPS = {
   shouldAdd: false,
   assignedUser: [],
   formPerms:[]
 }
 
-//触发器节点默认属性
+// Thuộc tính mặc định của nút kích hoạt
 export const TRIGGER_PROPS = {
   type: 'WEBHOOK',
   http:{
-    method: 'GET', //请求方法 支持GET/POST
-    url: '', //URL地址，可以直接带参数
+    method: 'GET', // Phương thức yêu cầu, hỗ trợ GET/POST
+    url: '', // Địa chỉ URL, có thể mang trực tiếp tham số
     headers: [ //http header
       {
         name: '',
         isField: true,
-        value: '' //支持表达式 ${xxx} xxx为表单字段名称
+        value: '' // Hỗ trợ biểu thức ${xxx}, xxx là tên trường form
       }
     ],
-    contentType: 'FORM', //请求参数类型
-    params:[ //请求参数
+    contentType: 'FORM', // Kiểu tham số yêu cầu
+    params:[ // Tham số yêu cầu
       {
         name: '',
-        isField: true, //是表单字段还是自定义
-        value: '' //支持表达式 ${xxx} xxx为表单字段名称
+        isField: true, // Là trường form hay tùy chỉnh
+        value: '' // Hỗ trợ biểu thức ${xxx}, xxx là tên trường form
       }
     ],
     retry: 1,
@@ -99,15 +99,15 @@ export const TRIGGER_PROPS = {
   }
 }
 
-//延时节点默认属性
+// Thuộc tính mặc định của nút trì hoãn
 export const DELAY_PROPS = {
-  type: "FIXED", //延时类型 FIXED:到达当前节点后延时固定时长 、AUTO:延时到 dateTime设置的时间
-  time: 0, //延时时间
-  unit: "M", //时间单位 D天 H小时 M分钟
-  dateTime: "" //如果当天没有超过设置的此时间点，就延时到这个指定的时间，到了就直接跳过不延时
+  type: "FIXED", // Kiểu trì hoãn FIXED: trì hoãn một khoảng thời gian cố định sau khi tới nút hiện tại, AUTO: trì hoãn tới thời gian đã đặt trong dateTime
+  time: 0, // Thời gian trì hoãn
+  unit: "M", // Đơn vị thời gian D ngày H giờ M phút
+  dateTime: "" // Nếu trong ngày chưa vượt qua thời điểm đã đặt này thì trì hoãn tới thời điểm chỉ định đó, đã tới thì bỏ qua luôn không trì hoãn
 }
 
-//HTTP EndPoint默认属性
+// Thuộc tính mặc định của HTTP EndPoint
 export const HTTPENDPOINT_PROPS = {
   path: '',
   methods: [],

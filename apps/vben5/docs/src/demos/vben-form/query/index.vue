@@ -4,48 +4,48 @@ import { message } from 'ant-design-vue';
 import { useVbenForm } from '#/adapter/form';
 
 const [QueryForm] = useVbenForm({
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: false,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Dùng chung cho mọi mục form, có thể ghi đè riêng trong form
   commonConfig: {
-    // 所有表单项
+    // Mọi mục form
     componentProps: {
       class: 'w-full',
     },
   },
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input ở cùng một dòng
   layout: 'horizontal',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần đăng ký trong #/adapter.ts và thêm kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số của component tương ứng
       componentProps: {
-        placeholder: '请输入用户名',
+        placeholder: 'Vui lòng nhập tên người dùng',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'username',
-      // 界面显示的label
-      label: '字符串',
+      // Label hiển thị trên giao diện
+      label: 'Chuỗi',
     },
     {
       component: 'InputPassword',
       componentProps: {
-        placeholder: '请输入密码',
+        placeholder: 'Vui lòng nhập mật khẩu',
       },
       fieldName: 'password',
-      label: '密码',
+      label: 'Mật khẩu',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'number',
-      label: '数字(带后缀)',
+      label: 'Số (có hậu tố)',
       suffix: () => '¥',
     },
     {
@@ -55,30 +55,30 @@ const [QueryForm] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       fieldName: 'options',
-      label: '下拉选',
+      label: 'Chọn thả xuống',
     },
     {
       component: 'DatePicker',
       fieldName: 'datePicker',
-      label: '日期选择框',
+      label: 'Hộp chọn ngày',
     },
   ],
-  // 是否可展开
+  // Có thể mở rộng hay không
   showCollapseButton: true,
   submitButtonOptions: {
-    content: '查询',
+    content: 'Tìm kiếm',
   },
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });

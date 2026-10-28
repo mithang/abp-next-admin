@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Features.Client
 
-针对客户端的功能验证
+Xác thực tính năng dành cho phía client
 
-## 功能特性
+## Tính năng
 
-* 提供客户端功能值提供者(ClientFeatureValueProvider)
-* 支持基于客户端ID的功能验证
-* 与ABP框架的功能管理系统无缝集成
+* Cung cấp trình cung cấp giá trị tính năng phía client (ClientFeatureValueProvider)
+* Hỗ trợ xác thực tính năng dựa trên ID client
+* Tích hợp liền mạch với hệ thống quản lý tính năng của ABP framework
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 添加模块依赖
+1. Thêm phụ thuộc module
 
 ```csharp
 [DependsOn(typeof(AbpFeaturesClientModule))]
@@ -20,7 +20,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用示例
+2. Ví dụ sử dụng
 
 ```csharp
 public class YourService
@@ -34,18 +34,18 @@ public class YourService
 
     public async Task DoSomethingAsync()
     {
-        // 检查客户端是否启用某个功能
+        // Kiểm tra xem client có bật tính năng nào đó hay không
         if (await _featureChecker.IsEnabledAsync("YourFeature"))
         {
-            // 业务逻辑
+            // Logic nghiệp vụ
         }
     }
 }
 ```
 
-## 更多
+## Thêm thông tin
 
-* 本模块主要用于客户端功能验证，通常与LINGYUN.Abp.FeatureManagement.Client模块配合使用
-* 客户端功能值提供者的名称为"C"
+* Module này chủ yếu dùng để xác thực tính năng phía client, thường được sử dụng kết hợp với module LINGYUN.Abp.FeatureManagement.Client
+* Tên của trình cung cấp giá trị tính năng phía client là "C"
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Việt](./README.md) | [English](./README.EN.md)

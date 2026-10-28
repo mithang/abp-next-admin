@@ -4,7 +4,7 @@ using LINGYUN.Abp.WeChat.Work.Messages.Models;
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 图片消息载荷
+/// Payload tin nhắn hình ảnh
 /// </summary>
 [NotificationChannelData(WeChatWorkWebhookNotificationProvider.ProviderName, Priority = 400)]
 public class WeChatWorkWebhookImageChannelData : WeChatWorkWebhookChannelData
@@ -12,7 +12,7 @@ public class WeChatWorkWebhookImageChannelData : WeChatWorkWebhookChannelData
     public override WeChatWorkWebhookMessageKind Kind => WeChatWorkWebhookMessageKind.Image;
 
     /// <summary>
-    /// 图片内容(base64 编码, 不超过 2MB)
+    /// Nội dung hình ảnh (mã hóa base64, không vượt quá 2MB)
     /// </summary>
     [NotificationChannelProperty(WeChatWorkWebhookNotificationDataKeys.Image)]
     public virtual WebhookImageMessage? Image { get; set; }

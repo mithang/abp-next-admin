@@ -19,7 +19,7 @@ public class OssClientFactory : AliyunClientFactory<Client, AliyunBlobProviderCo
     }
 
     /// <summary>
-    /// 普通方式构建Oss客户端
+    /// Tạo client OSS theo cách thông thường
     /// </summary>
     /// <param name="regionId"></param>
     /// <param name="accessKeyId"></param>
@@ -44,7 +44,7 @@ public class OssClientFactory : AliyunClientFactory<Client, AliyunBlobProviderCo
     }
 
     /// <summary>
-    /// 普通方式构建Oss客户端
+    /// Tạo client OSS theo cách thông thường
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="regionId"></param>
@@ -73,7 +73,7 @@ public class OssClientFactory : AliyunClientFactory<Client, AliyunBlobProviderCo
     }
 
     /// <summary>
-    /// 通过用户安全令牌构建Oss客户端
+    /// Tạo client OSS bằng token bảo mật của người dùng
     /// </summary>
     /// <param name="regionId"></param>
     /// <param name="accessKeyId"></param>
@@ -98,7 +98,7 @@ public class OssClientFactory : AliyunClientFactory<Client, AliyunBlobProviderCo
             });
     }
     /// <summary>
-    /// 通过用户安全令牌构建Oss客户端
+    /// Tạo client OSS bằng token bảo mật của người dùng
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="regionId"></param>

@@ -15,7 +15,7 @@ public class AbpAccountHttpApiModule : AbpModule
         PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
         {
             options.AddAssemblyResource(typeof(AccountResource), typeof(AbpAccountApplicationContractsModule).Assembly);
-            // 原生的在Web项目指定,不没有引用Web项目的情况下需要它
+            // Vốn được chỉ định trong dự án Web, cần thiết khi không tham chiếu dự án Web
             options.AddAssemblyResource(typeof(AccountResource), typeof(Volo.Abp.Account.AbpAccountApplicationContractsModule).Assembly);
         });
 

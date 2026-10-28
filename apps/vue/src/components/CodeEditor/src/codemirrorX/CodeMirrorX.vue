@@ -47,7 +47,7 @@
       type: String as PropType<MODE>,
       default: MODE.JSON,
       validator(value: any) {
-        // 这个值必须匹配下列字符串中的一个
+        // Giá trị này phải khớp với một trong các chuỗi sau
         return Object.values(MODE).includes(value);
       },
     },
@@ -112,20 +112,20 @@
       value: '',
       autoRefresh: true,
       mode: props.mode,
-      indentWithTabs: false, // 在缩进时，是否需要把 n*tab宽度个空格替换成n个tab字符，默认为false
-      smartIndent: true, // 自动缩进，设置是否根据上下文自动缩进（和上一行相同的缩进量）。默认为true
-      lineNumbers: true, // 是否在编辑器左侧显示行号
-      matchBrackets: true, // 括号匹配
+      indentWithTabs: false, // Khi thụt lề, có cần thay n*độ rộng tab khoảng trắng thành n ký tự tab hay không, mặc định là false
+      smartIndent: true, // Tự động thụt lề, đặt xem có tự động thụt lề theo ngữ cảnh hay không (cùng mức thụt lề với dòng trước). Mặc định là true
+      lineNumbers: true, // Có hiển thị số dòng ở bên trái trình soạn thảo hay không
+      matchBrackets: true, // Khớp dấu ngoặc
       readOnly: props.readonly,
-      // 启用代码折叠相关功能:开始
+      // Bật tính năng liên quan tới gấp mã: bắt đầu
       foldGutter: true,
       lineWrapping: true,
-      // 启用代码折叠相关功能:结束
-      styleActiveLine: true, // 光标行高亮
+      // Bật tính năng liên quan tới gấp mã: kết thúc
+      styleActiveLine: true, // Làm nổi bật dòng con trỏ
     });
-    // 监听编辑器的change事件
+    // Lắng nghe sự kiện change của trình soạn thảo
     editor.on('change', () => {
-      // 触发v-model的双向绑定
+      // Kích hoạt liên kết hai chiều của v-model
       emits('update:modelValue', editor!.getValue());
     });
     useWindowSizeFn(editor.refresh);

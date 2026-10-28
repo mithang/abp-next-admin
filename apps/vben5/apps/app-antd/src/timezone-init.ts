@@ -4,7 +4,7 @@ import { useAbpStore } from '@abp/core';
 import { useTimeZoneSettingsApi } from '@abp/settings';
 
 /**
- * 初始化时区处理，通过API保存时区设置
+ * Khởi tạo xử lý múi giờ, lưu cài đặt múi giờ qua API
  */
 export function initTimezone() {
   const abpStore = useAbpStore();

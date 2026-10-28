@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.Account.Security;
 /// <summary>
-/// 短信安全码发送接口
+/// Giao diện gửi mã bảo mật SMS
 /// </summary>
 public interface IAccountSmsSecurityCodeSender
 {
     /// <summary>
-    /// 发送短信验证码
+    /// Gửi mã xác minh SMS
     /// </summary>
-    /// <param name="phone">手机号</param>
-    /// <param name="code">短信验证码</param>
-    /// <param name="templateCode">短信验证模板</param>
+    /// <param name="phone">Số điện thoại di động</param>
+    /// <param name="code">Mã xác minh SMS</param>
+    /// <param name="templateCode">Mẫu xác minh SMS</param>
     /// <param name="cancellation"></param>
     /// <returns></returns>
     Task SendAsync(

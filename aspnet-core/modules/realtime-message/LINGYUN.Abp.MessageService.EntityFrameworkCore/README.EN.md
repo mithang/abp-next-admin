@@ -55,4 +55,4 @@ public class YourDbContext : AbpDbContext<YourDbContext>, IMessageServiceDbConte
 
 ## More
 
-[中文文档](README.md)
+[Tiếng Việt](README.md)

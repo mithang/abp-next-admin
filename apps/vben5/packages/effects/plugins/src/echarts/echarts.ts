@@ -1,12 +1,12 @@
 import type {
-  // 系列类型的定义后缀都为 SeriesOption
+  // Hậu tố định nghĩa của các kiểu series đều là SeriesOption
   BarSeriesOption,
   LineSeriesOption,
 } from 'echarts/charts';
 import type {
   DatasetComponentOption,
   GridComponentOption,
-  // 组件类型的定义后缀都为 ComponentOption
+  // Hậu tố định nghĩa của các kiểu component đều là ComponentOption
   TitleComponentOption,
   TooltipComponentOption,
 } from 'echarts/components';
@@ -14,21 +14,21 @@ import type { ComposeOption } from 'echarts/core';
 
 import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts';
 import {
-  // 数据集组件
+  // Component tập dữ liệu
   DatasetComponent,
   GridComponent,
   LegendComponent,
   TitleComponent,
   ToolboxComponent,
   TooltipComponent,
-  // 内置数据转换器组件 (filter, sort)
+  // Component chuyển đổi dữ liệu tích hợp sẵn (filter, sort)
   TransformComponent,
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
-// 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
+// Dùng ComposeOption để kết hợp thành một kiểu Option chỉ có các component và biểu đồ bắt buộc
 export type ECOption = ComposeOption<
   | BarSeriesOption
   | DatasetComponentOption
@@ -38,7 +38,7 @@ export type ECOption = ComposeOption<
   | TooltipComponentOption
 >;
 
-// 注册必须的组件
+// Đăng ký các component bắt buộc
 echarts.use([
   TitleComponent,
   PieChart,

@@ -5,12 +5,12 @@ namespace Microsoft.AspNetCore.Builder
     public static class IdentityServerApplicationBuilderExtensions
     {
         /// <summary>
-        /// 启用中间件可以处理微信服务器消息
-        /// 用于验证消息是否来自于微信服务器
+        /// Bật middleware để có thể xử lý tin nhắn từ máy chủ WeChat
+        /// Dùng để xác minh tin nhắn có đến từ máy chủ WeChat hay không
         /// </summary>
         /// <param name="builder"></param>
         /// <remarks>
-        /// 也可以用Controller的形式来实现
+        /// Cũng có thể triển khai dưới dạng Controller
         /// </remarks>
         /// <returns></returns>
         public static IApplicationBuilder UseWeChatSignature(this IApplicationBuilder builder)

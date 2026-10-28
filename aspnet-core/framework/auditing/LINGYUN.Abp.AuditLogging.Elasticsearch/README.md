@@ -1,13 +1,13 @@
 # LINGYUN.Abp.AuditLogging.Elasticsearch
 
-简体中文 | [English](./README.EN.md)
+Tiếng Trung giản thể | [English](./README.EN.md)
 
-审计模块 Elasticsearch 实现
+Triển khai Elasticsearch cho mô-đun kiểm toán
 
-ElasticsearchAuditLogManager    实现了 IAuditLogManager, 审计日志由ES管理  
-ElasticsearchSecurityLogManager 实现了 ISecurityLogManager, 安全日志由ES管理  
+ElasticsearchAuditLogManager triển khai IAuditLogManager, nhật ký kiểm toán do ES quản lý  
+ElasticsearchSecurityLogManager triển khai ISecurityLogManager, nhật ký bảo mật do ES quản lý  
 
-## 模块引用
+## Tham chiếu mô-đun
 
 
 ```csharp
@@ -18,13 +18,13 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-*	AbpAuditLoggingElasticsearchOptions.IndexPrefix      索引前缀, 默认 auditlogging
+*	AbpAuditLoggingElasticsearchOptions.IndexPrefix      Tiền tố chỉ mục, mặc định là auditlogging
 
-## 注意事项
+## Lưu ý
 
-与租户模块集成, 跨租户时将会切换索引
+Tích hợp với mô-đun tenant, khi chuyển đổi tenant sẽ đổi chỉ mục
 
 ## appsettings.json
 

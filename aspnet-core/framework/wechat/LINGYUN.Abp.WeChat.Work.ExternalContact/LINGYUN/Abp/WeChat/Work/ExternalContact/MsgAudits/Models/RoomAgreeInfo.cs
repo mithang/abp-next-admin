@@ -7,26 +7,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits.Models;
 /// <summary>
-/// 群聊同意情况
+/// Tình hình đồng ý trò chuyện nhóm
 /// </summary>
 public class RoomAgreeInfo
 {
     /// <summary>
-    /// 外部成员的exteranalopenid
+    /// exteranalopenid của thành viên bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("exteranalopenid")]
     [JsonPropertyName("exteranalopenid")]
     public string ExteranalOpenId { get; set; } = default!;
     /// <summary>
-    /// 同意:"Agree"，不同意:"Disagree"
+    /// Đồng ý:"Agree", không đồng ý:"Disagree"
     /// </summary>
     [NotNull]
     [JsonProperty("agree_status")]
     [JsonPropertyName("agree_status")]
     public string AgreeStatus { get; set; } = default!;
     /// <summary>
-    /// 同意状态改变的具体时间，utc时间
+    /// Thời gian cụ thể trạng thái đồng ý thay đổi, thời gian UTC
     /// </summary>
     [CanBeNull]
     [JsonProperty("status_change_time")]

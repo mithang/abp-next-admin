@@ -31,28 +31,28 @@ public interface IIdentityUserAppService : IApplicationService
     #endregion
 
     /// <summary>
-    /// 变更用户双因素验证选项
+    /// Thay đổi tùy chọn xác thực hai yếu tố của người dùng
     /// </summary>
     /// <param name="id"></param>
     /// <param name="input"></param>
     /// <returns></returns>
     Task ChangeTwoFactorEnabledAsync(Guid id, TwoFactorEnabledDto input);
     /// <summary>
-    /// 变更用户密码
+    /// Thay đổi mật khẩu người dùng
     /// </summary>
     /// <param name="id"></param>
     /// <param name="input"></param>
     /// <returns></returns>
     Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input);
     /// <summary>
-    /// 锁定
+    /// Khóa
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="seconds">锁定时长</param>
+    /// <param name="seconds">Thời lượng khóa</param>
     /// <returns></returns>
     Task LockAsync(Guid id, int seconds);
     /// <summary>
-    /// 解除锁定
+    /// Mở khóa
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

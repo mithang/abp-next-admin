@@ -1,0 +1,14 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Settings:TenantCloud.Captcha": "Mã xác minh",
+    "DisplayName:CaptchaAppId": "ID ứng dụng mã xác minh",
+    "Description:CaptchaAppId": "ID ứng dụng mã xác minh. Đăng nhập Bảng điều khiển mã xác minh, trong cột của danh sách xác minh, bạn có thể xem CaptchaAppId.",
+    "DisplayName:CaptchaSecretKey": "Khóa ứng dụng mã xác minh",
+    "Description:CaptchaSecretKey": "Khóa bí mật ứng dụng mã xác minh. Đăng nhập bảng điều khiển mã xác minh, trong cột của danh sách xác thực, bạn có thể xem AppSecretKey.",
+    "DisplayName:CaptchaAppIdEncryptedType": "Phương thức mã hóa ID ứng dụng mã xác minh",
+    "Description:CaptchaAppIdEncryptedType": "Nếu chỉ định phương thức mã hóa, CaptchaAppid xác thực bằng cách truyền ký tự mã hóa qua phía frontend, có thể ngăn ngừa hiệu quả nguy cơ bị đánh cắp tài nguyên do rò rỉ CaptchaAppid.",
+    "DisplayName:CaptchaAppIdEncryptedExpireTime": "Thời gian hết hạn",
+    "Description:CaptchaAppIdEncryptedExpireTime": "Thời hạn hiệu lực của bản mã, đơn vị: giây, tối đa 86400 giây, tức 24 giờ."
+  }
+}

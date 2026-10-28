@@ -6,19 +6,19 @@ namespace LINGYUN.Abp.Features.LimitValidation;
 public class RequiresLimitFeatureContext
 {
     /// <summary>
-    /// 功能限制策略
+    /// Chính sách giới hạn tính năng
     /// </summary>
     public LimitPolicy Policy { get; }
     /// <summary>
-    /// 限制时长
+    /// Thời lượng giới hạn
     /// </summary>
     public int Interval { get; }
     /// <summary>
-    /// 功能限制次数
+    /// Số lần giới hạn tính năng
     /// </summary>
     public int Limit { get; }
     /// <summary>
-    /// 功能限制次数名称
+    /// Tên số lần giới hạn tính năng
     /// </summary>
     public string LimitFeature { get; }
 
@@ -38,7 +38,7 @@ public class RequiresLimitFeatureContext
     }
 
     /// <summary>
-    /// 获取生效时间跨度,单位:s
+    /// Lấy khoảng thời gian hiệu lực, đơn vị: s
     /// </summary>
     /// <returns></returns>
     public long GetEffectTicks(DateTime now)

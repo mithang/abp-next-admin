@@ -1,18 +1,18 @@
 # @vben/icons
 
-用于多个 `app` 公用的图标文件，继承了 `@vben-core/icons` 的所有能力。业务上有通用图标可以放在这里。
+Dùng chung cho nhiều `app` các file biểu tượng, kế thừa mọi khả năng của `@vben-core/icons`. Nếu nghiệp vụ có biểu tượng dùng chung thì có thể đặt ở đây.
 
-## 用法
+## Cách dùng
 
-### 添加依赖
+### Thêm dependency
 
 ```bash
-# 进入目标应用目录，例如 apps/xxxx-app
+# Vào thư mục ứng dụng đích, ví dụ apps/xxxx-app
 # cd apps/xxxx-app
 pnpm add @vben/icons
 ```
 
-### 使用
+### Sử dụng
 
 ```ts
 import { X } from '@vben/icons';

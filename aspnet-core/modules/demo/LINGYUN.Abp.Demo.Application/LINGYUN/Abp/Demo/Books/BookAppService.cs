@@ -43,7 +43,7 @@ public class BookAppService : DemoApplicationServiceBase, IBookAppService //impl
     }
 
     [Authorize(DemoPermissions.Books.Create)]
-    [DisableDataProtected]// 任何人都可创建
+    [DisableDataProtected]// Bất kỳ ai cũng có thể tạo
     public async virtual Task<BookDto> CreateAsync(CreateBookDto input)
     {
         var author = await _authorRepository.GetAsync(input.AuthorId);
@@ -64,7 +64,7 @@ public class BookAppService : DemoApplicationServiceBase, IBookAppService //impl
     }
 
     [Authorize(DemoPermissions.Books.Edit)]
-    [DataProtected(DataAccessOperation.Write)]// 仅启用数据更新过滤器
+    [DataProtected(DataAccessOperation.Write)]// Chỉ bật bộ lọc cập nhật dữ liệu
     public async virtual Task<BookDto> UpdateAsync(Guid id, UpdateBookDto input)
     {
         var book = await _bookRepository.GetAsync(id);
@@ -161,7 +161,7 @@ public class BookAppService : DemoApplicationServiceBase, IBookAppService //impl
 
 
     [Authorize(DemoPermissions.Books.Delete)]
-    [DataProtected(DataAccessOperation.Delete)]// 仅启用数据删除过滤器
+    [DataProtected(DataAccessOperation.Delete)]// Chỉ bật bộ lọc xoá dữ liệu
     public async virtual Task DeleteAsync(Guid id)
     {
         var book = await _bookRepository.GetAsync(id);
@@ -170,7 +170,7 @@ public class BookAppService : DemoApplicationServiceBase, IBookAppService //impl
     }
 
     [Authorize(DemoPermissions.Books.Import)]
-    [DisableDataProtected]// 任何人都可创建
+    [DisableDataProtected]// Bất kỳ ai cũng có thể tạo
     public async virtual Task ImportAsync(BookImportInput input)
     {
         var stream = input.Content.GetStream();

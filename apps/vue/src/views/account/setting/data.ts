@@ -11,7 +11,7 @@ export interface ListItem {
   color?: string;
 }
 
-// tab的list
+// Danh sách tab
 export function getSettingList() {
   const { L } = useLocalization('AbpAccount');
   return [
@@ -43,7 +43,7 @@ export function getSettingList() {
   ];
 }
 
-// 基础设置 form
+// Form cài đặt cơ bản
 export function getBaseSetschemas(): FormSchema[] {
   const { settingProvider } = useSettings();
   const { L } = useLocalization('AbpAccount');
@@ -99,7 +99,7 @@ export function getBaseSetschemas(): FormSchema[] {
   ];
 }
 
-// 安全设置 list
+// Danh sách cài đặt bảo mật
 export function getSecureSettingList(): ListItem[] {
   const { L } = useLocalization('AbpAccount');
   return [
@@ -112,7 +112,7 @@ export function getSecureSettingList(): ListItem[] {
     {
       key: '2',
       title: L('DisplayName:PhoneNumber'),
-      description: '已绑定手机：：138****8293',
+      description: 'Đã liên kết số điện thoại: 138****8293',
       extra: L('Edit'),
     },
   ];
@@ -120,79 +120,79 @@ export function getSecureSettingList(): ListItem[] {
 export const secureSettingList: ListItem[] = [
   {
     key: '1',
-    title: '账户密码',
-    description: '当前密码强度：：强',
-    extra: '修改',
+    title: 'Mật khẩu tài khoản',
+    description: 'Độ mạnh mật khẩu hiện tại: Mạnh',
+    extra: 'Sửa',
   },
   {
     key: '2',
-    title: '密保手机',
-    description: '已绑定手机：：138****8293',
-    extra: '修改',
+    title: 'Số điện thoại bảo mật',
+    description: 'Đã liên kết số điện thoại: 138****8293',
+    extra: 'Sửa',
   },
   {
     key: '3',
-    title: '密保问题',
-    description: '未设置密保问题，密保问题可有效保护账户安全',
-    extra: '修改',
+    title: 'Câu hỏi bảo mật',
+    description: 'Chưa đặt câu hỏi bảo mật, câu hỏi bảo mật có thể bảo vệ tài khoản hiệu quả',
+    extra: 'Sửa',
   },
   {
     key: '4',
-    title: '备用邮箱',
-    description: '已绑定邮箱：：ant***sign.com',
-    extra: '修改',
+    title: 'Email dự phòng',
+    description: 'Đã liên kết email: ant***sign.com',
+    extra: 'Sửa',
   },
   {
     key: '5',
-    title: 'MFA 设备',
-    description: '未绑定 MFA 设备，绑定后，可以进行二次确认',
-    extra: '修改',
+    title: 'Thiết bị MFA',
+    description: 'Chưa liên kết thiết bị MFA, sau khi liên kết có thể xác nhận lần hai',
+    extra: 'Sửa',
   },
 ];
 
-// 账号绑定 list
+// Danh sách liên kết tài khoản
 export const accountBindList: ListItem[] = [
   {
     key: '1',
-    title: '绑定淘宝',
-    description: '当前未绑定淘宝账号',
-    extra: '绑定',
+    title: 'Liên kết Taobao',
+    description: 'Hiện chưa liên kết tài khoản Taobao',
+    extra: 'Liên kết',
     avatar: 'ri:taobao-fill',
     color: '#ff4000',
   },
   {
     key: '2',
-    title: '绑定支付宝',
-    description: '当前未绑定支付宝账号',
-    extra: '绑定',
+    title: 'Liên kết Alipay',
+    description: 'Hiện chưa liên kết tài khoản Alipay',
+    extra: 'Liên kết',
     avatar: 'fa-brands:alipay',
     color: '#2eabff',
   },
   {
     key: '3',
-    title: '绑定钉钉',
-    description: '当前未绑定钉钉账号',
-    extra: '绑定',
+    title: 'Liên kết DingTalk',
+    description: 'Hiện chưa liên kết tài khoản DingTalk',
+    extra: 'Liên kết',
     avatar: 'ri:dingding-fill',
     color: '#2eabff',
   },
 ];
 
-// 新消息通知 list
+// Danh sách thông báo tin nhắn mới
 export const msgNotifyList: ListItem[] = [
   {
     key: '1',
-    title: '账户密码',
-    description: '其他用户的消息将以站内信的形式通知',
+    title: 'Mật khẩu tài khoản',
+    description: 'Tin nhắn của người dùng khác sẽ được thông báo dưới dạng thư nội bộ',
   },
   {
     key: '2',
-    title: '系统消息',
-    description: '系统消息将以站内信的形式通知',
+    title: 'Tin nhắn hệ thống',
+    description: 'Tin nhắn hệ thống sẽ được thông báo dưới dạng thư nội bộ',
   },
   {
     key: '3',
-    title: '待办任务',
-    description: '待办任务将以站内信的形式通知',
+    title: 'Việc cần làm',
+    description: 'Việc cần làm sẽ được thông báo dưới dạng thư nội bộ',
   },
 ];

@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.Domain
 
-身份认证领域模块，提供身份认证相关的核心功能实现。
+Mô-đun lĩnh vực xác thực danh tính, cung cấp triển khai chức năng cốt lõi liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展Volo.Abp.Identity.AbpIdentityDomainModule模块
-* 提供身份会话管理功能
-* 提供身份会话清理功能
-* 支持分布式事件
+* Mở rộng mô-đun Volo.Abp.Identity.AbpIdentityDomainModule
+* Cung cấp chức năng quản lý phiên danh tính
+* Cung cấp chức năng dọn dẹp phiên danh tính
+* Hỗ trợ sự kiện phân tán
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -21,7 +21,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ### IdentitySessionCleanupOptions
 
@@ -30,9 +30,9 @@ public class YouProjectModule : AbpModule
   "Identity": {
     "Session": {
       "Cleanup": {
-        "IsEnabled": false,           // 是否启用会话清理，默认：false
-        "CleanupPeriod": 3600000,    // 会话清理间隔（毫秒），默认：1小时
-        "InactiveTimeSpan": "30.00:00:00" // 不活跃会话保持时长，默认：30天
+        "IsEnabled": false,           // Có bật dọn dẹp phiên hay không, mặc định: false
+        "CleanupPeriod": 3600000,    // Khoảng thời gian dọn dẹp phiên (mili giây), mặc định: 1 giờ
+        "InactiveTimeSpan": "30.00:00:00" // Thời gian giữ phiên không hoạt động, mặc định: 30 ngày
       }
     }
   }
@@ -46,36 +46,36 @@ public class YouProjectModule : AbpModule
   "Identity": {
     "Session": {
       "SignIn": {
-        "AuthenticationSchemes": ["Identity.Application"], // 用于处理的身份认证方案
-        "SignInSessionEnabled": false,     // 是否启用SignInManager登录会话，默认：false
-        "SignOutSessionEnabled": false     // 是否启用SignInManager登出会话，默认：false
+        "AuthenticationSchemes": ["Identity.Application"], // Phương án xác thực danh tính dùng để xử lý
+        "SignInSessionEnabled": false,     // Có bật phiên đăng nhập SignInManager hay không, mặc định: false
+        "SignOutSessionEnabled": false     // Có bật phiên đăng xuất SignInManager hay không, mặc định: false
       }
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置身份会话管理
+1. Cấu hình quản lý phiên danh tính
 ```csharp
 Configure<IdentitySessionSignInOptions>(options =>
 {
-    options.SignInSessionEnabled = true;    // 启用登录会话
-    options.SignOutSessionEnabled = true;   // 启用登出会话
+    options.SignInSessionEnabled = true;    // Bật phiên đăng nhập
+    options.SignOutSessionEnabled = true;   // Bật phiên đăng xuất
 });
 ```
 
-2. 配置会话清理
+2. Cấu hình dọn dẹp phiên
 ```csharp
 Configure<IdentitySessionCleanupOptions>(options =>
 {
-    options.IsCleanupEnabled = true;    // 启用会话清理
-    options.CleanupPeriod = 3600000;    // 设置清理间隔为1小时
-    options.InactiveTimeSpan = TimeSpan.FromDays(7);  // 设置不活跃会话保持时间为7天
+    options.IsCleanupEnabled = true;    // Bật dọn dẹp phiên
+    options.CleanupPeriod = 3600000;    // Đặt khoảng thời gian dọn dẹp là 1 giờ
+    options.InactiveTimeSpan = TimeSpan.FromDays(7);  // Đặt thời gian giữ phiên không hoạt động là 7 ngày
 });
 ```
 
-## 更多信息
+## Thêm thông tin
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)

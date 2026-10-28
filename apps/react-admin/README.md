@@ -19,7 +19,7 @@
     <a href="https://trendshift.io/repositories/6387" target="_blank"><img src="https://trendshift.io/api/badge/repositories/6387" alt="d3george%2Fslash-admin | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
-**English** | [中文](./README.zh-CN.md)
+**English** | [Tiếng Trung](./README.zh-CN.md)
 
 ##  Sponsor
 <div style="display: flex; gap: 50px"> 

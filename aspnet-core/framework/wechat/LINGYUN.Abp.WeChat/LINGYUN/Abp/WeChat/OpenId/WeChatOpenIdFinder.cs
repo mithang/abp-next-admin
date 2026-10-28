@@ -53,8 +53,8 @@ public class WeChatOpenIdFinder : IWeChatOpenIdFinder
 
     public async virtual Task<WeChatOpenId?> FindAsync(string code, string appId, string appSecret)
     {
-        // TODO: 如果需要获取SessionKey的话呢，需要再以openid作为标识来缓存一下吗
-        // 或者前端保存code,通过传递code来获取
+        // TODO: Nếu cần lấy SessionKey, có cần dùng openid làm định danh để lưu vào bộ nhớ đệm nữa không
+        // Hoặc phía frontend lưu code, lấy bằng cách truyền code
         return (await GetCacheItemAsync(code, appId, appSecret)).WeChatOpenId;
     }
 
@@ -86,7 +86,7 @@ public class WeChatOpenIdFinder : IWeChatOpenIdFinder
 
         var response = await client.RequestWeChatOpenIdAsync(request);
         var responseContent = await response.Content.ReadAsStringAsync();
-        // 改为直接引用 Newtownsoft.Json
+        // Đổi thành tham chiếu trực tiếp Newtownsoft.Json
         var weChatOpenIdResponse = JsonConvert.DeserializeObject<WeChatOpenIdResponse>(responseContent)!;
         var weChatOpenId = weChatOpenIdResponse.ToWeChatOpenId();
         cacheItem = new WeChatOpenIdCacheItem(code, weChatOpenId);
@@ -95,7 +95,7 @@ public class WeChatOpenIdFinder : IWeChatOpenIdFinder
 
         var cacheOptions = new DistributedCacheEntryOptions
         {
-            // 微信官方文档表示 session_key的有效期是3天
+            // Tài liệu chính thức của WeChat cho biết thời hạn hiệu lực của session_key là 3 ngày
             // https://developers.weixin.qq.com/community/develop/doc/000c2424654c40bd9c960e71e5b009
             AbsoluteExpiration = DateTimeOffset.Now.AddDays(3).AddSeconds(-120)
             // SlidingExpiration = TimeSpan.FromDays(3),

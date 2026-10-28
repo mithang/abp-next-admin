@@ -9,28 +9,32 @@ import { generateMenus } from '../generate-menus';
 // Nested route setup to test child inclusion and hideChildrenInMenu functionality
 
 describe('generateMenus', () => {
-  // 模拟路由数据
+  // Mô phỏng dữ liệu route
   const mockRoutes = [
     {
-      meta: { icon: 'home-icon', title: '首页' },
+      meta: { icon: 'home-icon', title: 'Trang chủ' },
       name: 'home',
       path: '/home',
     },
     {
-      meta: { hideChildrenInMenu: true, icon: 'about-icon', title: '关于' },
+      meta: {
+        hideChildrenInMenu: true,
+        icon: 'about-icon',
+        title: 'Giới thiệu',
+      },
       name: 'about',
       path: '/about',
       children: [
         {
           path: 'team',
           name: 'team',
-          meta: { icon: 'team-icon', title: '团队' },
+          meta: { icon: 'team-icon', title: 'Nhóm' },
         },
       ],
     },
   ] as RouteRecordRaw[];
 
-  // 模拟 Vue 路由器实例
+  // Mô phỏng instance Vue router
   const mockRouter = {
     getRoutes: vi.fn(() => [
       { name: 'home', path: '/home' },
@@ -46,7 +50,7 @@ describe('generateMenus', () => {
         badgeType: undefined,
         badgeVariants: undefined,
         icon: 'home-icon',
-        name: '首页',
+        name: 'Trang chủ',
         order: undefined,
         parent: undefined,
         parents: undefined,
@@ -59,7 +63,7 @@ describe('generateMenus', () => {
         badgeType: undefined,
         badgeVariants: undefined,
         icon: 'about-icon',
-        name: '关于',
+        name: 'Giới thiệu',
         order: undefined,
         parent: undefined,
         parents: undefined,

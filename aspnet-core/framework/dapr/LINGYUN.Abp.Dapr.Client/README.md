@@ -1,39 +1,39 @@
-[Actors](../README.md) | Dapr.Client 文档
+[Actors](../README.md) | Tài liệu Dapr.Client
 
 # LINGYUN.Abp.Dapr.Client
 
-实现了Dapr文档中的服务间调用，项目设计与Volo.Abp.Http.Client一致，通过配置文件即可无缝替代Volo.Abp.Http.Client。
+Triển khai gọi giữa các dịch vụ trong tài liệu Dapr, thiết kế dự án nhất quán với Volo.Abp.Http.Client, chỉ cần qua tệp cấu hình là có thể thay thế Volo.Abp.Http.Client một cách liền mạch.
 
-配置参考 [AbpRemoteServiceOptions](https://docs.abp.io/zh-Hans/abp/latest/API/Dynamic-CSharp-API-Clients#abpremoteserviceoptions)
+Tham khảo cấu hình [AbpRemoteServiceOptions](https://docs.abp.io/zh-Hans/abp/latest/API/Dynamic-CSharp-API-Clients#abpremoteserviceoptions)
 
-## 功能特性
+## Tính năng
 
-* 与ABP远程服务系统集成
-* 支持动态代理生成
-* 支持服务发现和负载均衡
-* 支持自定义请求和响应处理
-* 支持错误处理和格式化
-* 支持多服务端点配置
-* 支持请求/响应拦截器
-* 支持自定义DaprClient行为
+* Tích hợp với hệ thống dịch vụ từ xa ABP
+* Hỗ trợ tạo proxy động
+* Hỗ trợ phát hiện dịch vụ và cân bằng tải
+* Hỗ trợ xử lý yêu cầu và phản hồi tùy chỉnh
+* Hỗ trợ xử lý lỗi và định dạng
+* Hỗ trợ cấu hình nhiều endpoint dịch vụ
+* Hỗ trợ bộ chặn yêu cầu/phản hồi
+* Hỗ trợ hành vi DaprClient tùy chỉnh
 
-## 配置选项
+## Tùy chọn cấu hình
 
 ```json
 {
     "RemoteServices": {
         "Default": {
-            "AppId": "default-app",  // Dapr应用ID
-            "BaseUrl": "http://localhost:3500",  // Dapr HTTP端点
-            "HealthCheckUrl": "/health",  // 健康检查端点
-            "RequestTimeout": 30000,  // 请求超时时间（毫秒）
-            "RetryCount": 3,  // 重试次数
-            "RetryWaitTime": 1000  // 重试等待时间（毫秒）
+            "AppId": "default-app",  // ID ứng dụng Dapr
+            "BaseUrl": "http://localhost:3500",  // Endpoint HTTP Dapr
+            "HealthCheckUrl": "/health",  // Endpoint kiểm tra sức khỏe
+            "RequestTimeout": 30000,  // Thời gian chờ yêu cầu (mili giây)
+            "RetryCount": 3,  // Số lần thử lại
+            "RetryWaitTime": 1000  // Thời gian chờ thử lại (mili giây)
         },
         "System": {
             "AppId": "system-app",
             "BaseUrl": "http://localhost:50000",
-            "Headers": {  // 自定义请求头
+            "Headers": {  // Header yêu cầu tùy chỉnh
                 "Tenant": "Default",
                 "Culture": "zh-Hans"
             }
@@ -42,9 +42,9 @@
 }
 ```
 
-## 配置使用
+## Sử dụng cấu hình
 
-模块按需引用：
+Tham chiếu mô-đun theo nhu cầu:
 
 ```csharp
 [DependsOn(typeof(AbpDaprClientModule))]
@@ -52,28 +52,28 @@ public class YouProjectModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 注册代理，类似于 Volo.Abp.Http.Client 模块
+        // Đăng ký proxy, tương tự mô-đun Volo.Abp.Http.Client
         context.Services.AddDaprClientProxies(
-            typeof(YouProjectInterfaceModule).Assembly, // 搜索模块下的远程服务定义
+            typeof(YouProjectInterfaceModule).Assembly, // Tìm kiếm định nghĩa dịch vụ từ xa trong mô-đun
             RemoteServiceName
         );
 
-        // 配置代理选项
+        // Cấu hình tùy chọn proxy
         Configure<AbpDaprClientProxyOptions>(options =>
         {
-            // 配置请求拦截器
+            // Cấu hình bộ chặn yêu cầu
             options.ProxyRequestActions.Add((appId, request) =>
             {
                 request.Headers.Add("Custom-Header", "Value");
             });
 
-            // 配置响应处理
+            // Cấu hình xử lý phản hồi
             options.OnResponse(async (response, serviceProvider) =>
             {
                 return await response.Content.ReadAsStringAsync();
             });
 
-            // 配置错误处理
+            // Cấu hình xử lý lỗi
             options.OnError(async (response, serviceProvider) =>
             {
                 var error = await response.Content.ReadAsStringAsync();
@@ -88,12 +88,12 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 实现示例
+## Ví dụ triển khai
 
-### 1. 接口定义
+### 1. Định nghĩa giao diện
 
 ```csharp
-// IApplicationService 实现了 IRemoteService
+// IApplicationService triển khai IRemoteService
 public interface ISystemAppService : IApplicationService
 {
     Task<string> GetAsync();
@@ -107,7 +107,7 @@ public class SystemInterfaceModule : AbpModule
 }
 ```
 
-### 2. 服务端实现
+### 2. Triển khai phía máy chủ
 
 ```csharp
 [DependsOn(
@@ -164,7 +164,7 @@ public class SystemAppService : ApplicationService, ISystemAppService
 }
 ```
 
-### 3. 客户端使用
+### 3. Sử dụng phía máy khách
 
 ```csharp
 [DependsOn(typeof(AbpDaprClientModule))]
@@ -174,13 +174,13 @@ public class SystemClientModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 注册代理
+        // Đăng ký proxy
         context.Services.AddDaprClientProxies(
             typeof(SystemInterfaceModule).Assembly,
             RemoteServiceName
         );
 
-        // 配置重试策略
+        // Cấu hình chính sách thử lại
         context.Services.AddDaprClientBuilder(builder =>
         {
             builder.ConfigureHttpClient((sp, client) =>
@@ -208,7 +208,7 @@ public class SystemService
         }
         catch (AbpRemoteCallException ex)
         {
-            // 处理远程调用异常
+            // Xử lý ngoại lệ gọi từ xa
             _logger.LogError(ex, "Failed to get systems");
             throw;
         }
@@ -216,9 +216,9 @@ public class SystemService
 }
 ```
 
-## 高级用法
+## Cách dùng nâng cao
 
-### 1. 自定义请求处理
+### 1. Xử lý yêu cầu tùy chỉnh
 
 ```csharp
 public class CustomRequestHandler
@@ -230,7 +230,7 @@ public class CustomRequestHandler
     }
 }
 
-// 在模块中注册
+// Đăng ký trong mô-đun
 Configure<AbpDaprClientProxyOptions>(options =>
 {
     options.ProxyRequestActions.Add((appId, request) =>
@@ -240,7 +240,7 @@ Configure<AbpDaprClientProxyOptions>(options =>
 });
 ```
 
-### 2. 自定义响应处理
+### 2. Xử lý phản hồi tùy chỉnh
 
 ```csharp
 public class CustomResponseHandler
@@ -248,12 +248,12 @@ public class CustomResponseHandler
     public async Task<string> HandleAsync(HttpResponseMessage response)
     {
         var content = await response.Content.ReadAsStringAsync();
-        // 自定义响应处理逻辑
+        // Logic xử lý phản hồi tùy chỉnh
         return content;
     }
 }
 
-// 在模块中注册
+// Đăng ký trong mô-đun
 Configure<AbpDaprClientProxyOptions>(options =>
 {
     options.OnResponse(async (response, sp) =>
@@ -263,15 +263,15 @@ Configure<AbpDaprClientProxyOptions>(options =>
 });
 ```
 
-## 注意事项
+## Lưu ý
 
-* 远程服务接口必须继承`IRemoteService`
-* 配置更改需要重新创建代理实例才能生效
-* 建议配置适当的超时和重试策略
-* 错误处理应该考虑网络异常和服务不可用的情况
-* 在生产环境中应该启用服务发现
-* 建议使用健康检查确保服务可用性
-* 请求头配置应考虑安全性和身份验证需求
-* 日志记录对于问题诊断很重要
+* Giao diện dịch vụ từ xa phải kế thừa `IRemoteService`
+* Thay đổi cấu hình cần tạo lại thực thể proxy mới có hiệu lực
+* Nên cấu hình chính sách thời gian chờ và thử lại phù hợp
+* Xử lý lỗi nên xét đến ngoại lệ mạng và trường hợp dịch vụ không khả dụng
+* Trong môi trường production nên bật phát hiện dịch vụ
+* Nên dùng kiểm tra sức khỏe để đảm bảo dịch vụ khả dụng
+* Cấu hình header yêu cầu nên xét đến nhu cầu bảo mật và xác thực
+* Ghi nhật ký rất quan trọng cho việc chẩn đoán sự cố
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

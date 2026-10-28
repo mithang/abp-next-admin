@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Dynamic.Queryable.HttpApi
 
-动态查询HTTP API模块，提供基于ABP框架的动态查询HTTP API实现。
+Mô-đun HTTP API truy vấn động, cung cấp triển khai HTTP API truy vấn động dựa trên framework ABP.
 
-## 功能特性
+## Tính năng
 
-* 提供动态查询控制器基类 `DynamicQueryableControllerBase<TEntity, TEntityDto>`
-* 自动生成REST API端点
-* 支持动态查询参数的HTTP传输
+* Cung cấp lớp cơ sở controller truy vấn động `DynamicQueryableControllerBase<TEntity, TEntityDto>`
+* Tự động tạo endpoint REST API
+* Hỗ trợ truyền tham số truy vấn động qua HTTP
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 安装 `LINGYUN.Abp.Dynamic.Queryable.HttpApi` NuGet包
+1. Cài đặt gói NuGet `LINGYUN.Abp.Dynamic.Queryable.HttpApi`
 
-2. 添加 `[DependsOn(typeof(AbpDynamicQueryableHttpApiModule))]` 到你的模块类
+2. Thêm `[DependsOn(typeof(AbpDynamicQueryableHttpApiModule))]` vào lớp mô-đun của bạn
 
-### 实现动态查询控制器
+### Triển khai controller truy vấn động
 
 ```csharp
 [Route("api/my-entity")]
@@ -27,12 +27,12 @@ public class MyEntityController : DynamicQueryableControllerBase<MyEntity, MyEnt
 }
 ```
 
-### API端点
+### Endpoint API
 
-* GET `/api/my-entity/available-fields` - 获取可用字段列表
-* POST `/api/my-entity/search` - 根据动态条件查询数据
+* GET `/api/my-entity/available-fields` - Lấy danh sách trường khả dụng
+* POST `/api/my-entity/search` - Truy vấn dữ liệu theo điều kiện động
 
-### 查询示例
+### Ví dụ truy vấn
 
 ```json
 POST /api/my-entity/search
@@ -51,7 +51,7 @@ POST /api/my-entity/search
 }
 ```
 
-## 相关链接
+## Liên kết liên quan
 
 * [LINGYUN.Linq.Dynamic.Queryable](../LINGYUN.Linq.Dynamic.Queryable/README.md)
 * [LINGYUN.Abp.Dynamic.Queryable.Application](../LINGYUN.Abp.Dynamic.Queryable.Application/README.md)

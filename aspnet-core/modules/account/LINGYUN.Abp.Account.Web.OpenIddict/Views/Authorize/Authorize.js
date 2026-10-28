@@ -1,8 +1,8 @@
 $(function () {
-    // 初始化选择的 Scope
+    // Kh峄焛 t岷 Scope 膽茫 ch峄峮
     updateSelectedScopes();
 
-    // 监听 Scope 选择变化
+    // L岷痭g nghe thay 膽峄昳 l峄盿 ch峄峮 Scope
     $('.scope-checkbox').change(function () {
         updateSelectedScopes();
     });
@@ -10,12 +10,12 @@ $(function () {
     function updateSelectedScopes() {
         var selected = [];
 
-        // 获取必需的 Scope
+        // L岷 Scope b岷痶 bu峄檆
         $('input[name="selectedScopeValues"]').each(function () {
             selected.push($(this).val());
         });
 
-        // 获取用户选择的 Scope
+        // L岷 Scope ng瓢峄漣 d霉ng 膽茫 ch峄峮
         $('.scope-checkbox:checked').each(function () {
             var value = $(this).data('scope-value');
             if (!selected.includes(value)) {
@@ -23,7 +23,7 @@ $(function () {
             }
         });
 
-        // 更新隐藏字段
+        // C岷璸 nh岷璽 tr瓢峄漬g 岷﹏
         $('#selected_scopes').val(selected.join(' '));
     }
 });

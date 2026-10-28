@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.OpenObserve;
 
 /// <summary>
-/// 报表接口
+/// Giao diện báo cáo
 /// </summary>
 /// <remarks>
-/// 报表接口使用 /api/v2 前缀
-/// 参考: https://openobserve.ai/docs/reference/api/report/
+/// Giao diện báo cáo dùng tiền tố /api/v2
+/// Tham khảo: https://openobserve.ai/docs/reference/api/report/
 /// </remarks>
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 列出报表
+    /// Liệt kê báo cáo
     /// </summary>
     /// <remarks>
     /// GET /api/v2/{org_id}/reports
-    /// 响应为裸数组, 无分页包装
+    /// Phản hồi là mảng trần, không có đóng gói phân trang
     /// </remarks>
-    /// <param name="folder">按文件夹过滤, 省略时返回多个文件夹的报表</param>
-    /// <param name="dashboardId">仅返回指向该仪表盘的报表</param>
-    /// <param name="cache">为 true 时仅返回无投递目标(仅缓存)的报表</param>
+    /// <param name="folder">Lọc theo thư mục, khi bỏ qua sẽ trả về báo cáo của nhiều thư mục</param>
+    /// <param name="dashboardId">Chỉ trả về báo cáo trỏ tới bảng điều khiển này</param>
+    /// <param name="cache">Khi là true chỉ trả về báo cáo không có đích gửi (chỉ bộ nhớ đệm)</param>
     public async virtual Task<ReportInfo[]> GetReportsAsync(
         string? organization = null,
         string? folder = null,
@@ -46,17 +46,17 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 创建报表
+    /// Tạo báo cáo
     /// </summary>
     /// <remarks>
     /// POST /api/v2/{org_id}/reports
     /// </remarks>
-    /// <param name="name">报表名称(组织内唯一)</param>
-    /// <param name="frequency">调度频率</param>
-    /// <param name="dashboards">关联的仪表盘(必填)</param>
-    /// <param name="destinations">投递目标(必填)</param>
-    /// <param name="startTime">生成起始时间, 转换为微秒提交</param>
-    /// <param name="folder">目标文件夹, Enterprise 版必填</param>
+    /// <param name="name">Tên báo cáo (duy nhất trong tổ chức)</param>
+    /// <param name="frequency">Tần suất lập lịch</param>
+    /// <param name="dashboards">Bảng điều khiển liên kết (bắt buộc)</param>
+    /// <param name="destinations">Đích gửi (bắt buộc)</param>
+    /// <param name="startTime">Thời gian bắt đầu tạo, được chuyển đổi sang micro giây để gửi</param>
+    /// <param name="folder">Thư mục đích, bắt buộc ở bản Enterprise</param>
     public async virtual Task<OpenObserveCodeMessageResponse> CreateReportAsync(
         string name,
         ReportFrequency frequency,
@@ -85,7 +85,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 获取报表
+    /// Lấy báo cáo
     /// </summary>
     /// <remarks>
     /// GET /api/v2/{org_id}/reports/{report_id}
@@ -104,13 +104,13 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 更新报表
+    /// Cập nhật báo cáo
     /// </summary>
     /// <remarks>
     /// PUT /api/v2/{org_id}/reports/{report_id}
-    /// 需要提供完整的报表内容
+    /// Cần cung cấp đầy đủ nội dung báo cáo
     /// </remarks>
-    /// <param name="folder">传入时同时移动报表到该文件夹</param>
+    /// <param name="folder">Khi truyền vào đồng thời di chuyển báo cáo tới thư mục đó</param>
     public async virtual Task<OpenObserveCodeMessageResponse> UpdateReportAsync(
         string reportId,
         string name,
@@ -140,7 +140,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 删除报表
+    /// Xóa báo cáo
     /// </summary>
     /// <remarks>
     /// DELETE /api/v2/{org_id}/reports/{report_id}
@@ -159,11 +159,11 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 批量删除报表
+    /// Xóa hàng loạt báo cáo
     /// </summary>
     /// <remarks>
     /// DELETE /api/v2/{org_id}/reports/bulk
-    /// 删除是幂等的, 不存在的标识也会被报告为成功
+    /// Việc xóa có tính lũy đẳng, các định danh không tồn tại cũng sẽ được báo cáo là thành công
     /// </remarks>
     public async virtual Task<BulkDeleteReportsResponse> BulkDeleteReportsAsync(
         IEnumerable<string> ids,
@@ -180,7 +180,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 移动报表
+    /// Di chuyển báo cáo
     /// </summary>
     /// <remarks>
     /// PATCH /api/v2/{org_id}/reports/move
@@ -205,7 +205,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 启用/禁用报表
+    /// Bật/tắt báo cáo
     /// </summary>
     /// <remarks>
     /// PATCH /api/v2/{org_id}/reports/{report_id}/enable?value=true
@@ -231,7 +231,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 手动触发表报
+    /// Kích hoạt báo cáo thủ công
     /// </summary>
     /// <remarks>
     /// PUT /api/v2/{org_id}/reports/{report_id}/trigger
@@ -254,7 +254,7 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 组装报表请求
+    /// Lắp ráp yêu cầu báo cáo
     /// </summary>
     protected virtual SaveReportRequest CreateReportRequest(
         string name,

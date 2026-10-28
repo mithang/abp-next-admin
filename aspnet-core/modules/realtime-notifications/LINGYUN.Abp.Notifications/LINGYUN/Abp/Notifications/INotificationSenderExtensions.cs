@@ -7,15 +7,15 @@ namespace LINGYUN.Abp.Notifications;
 public static class INotificationSenderExtensions
 {
     /// <summary>
-    /// 发送通知
+    /// Gửi thông báo
     /// </summary>
-    /// <param name="sender">发送接口</param>
-    /// <param name="name">名称</param>
-    /// <param name="data">数据</param>
-    /// <param name="user">用户,为空标识发给所有订阅用户</param>
-    /// <param name="tenantId">租户</param>
-    /// <param name="severity">严重级别</param>
-    /// <returns>通知标识</returns>
+    /// <param name="sender">Giao diện gửi</param>
+    /// <param name="name">Tên</param>
+    /// <param name="data">Dữ liệu</param>
+    /// <param name="user">Người dùng, để trống nghĩa là gửi cho tất cả người dùng đã đăng ký</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="severity">Mức độ nghiêm trọng</param>
+    /// <returns>Định danh thông báo</returns>
     public async static Task<string> SendNofiterAsync(
         [NotNull] this INotificationSender sender,
         [NotNull] string name,
@@ -36,15 +36,15 @@ public static class INotificationSenderExtensions
     }
 
     /// <summary>
-    /// 发送模板通知
+    /// Gửi thông báo mẫu
     /// </summary>
-    /// <param name="sender">发送接口</param>
-    /// <param name="name">名称</param>
-    /// <param name="template">模板对象</param>
-    /// <param name="user">用户,为空发给所有订阅用户</param>
-    /// <param name="tenantId">租户</param>
-    /// <param name="severity">严重级别</param>
-    /// <returns>通知标识</returns>
+    /// <param name="sender">Giao diện gửi</param>
+    /// <param name="name">Tên</param>
+    /// <param name="template">Đối tượng mẫu</param>
+    /// <param name="user">Người dùng, để trống nghĩa là gửi cho tất cả người dùng đã đăng ký</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="severity">Mức độ nghiêm trọng</param>
+    /// <returns>Định danh thông báo</returns>
     public async static Task<string> SendNofiterAsync(
         [NotNull] this INotificationSender sender,
         [NotNull] string name,

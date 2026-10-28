@@ -2,11 +2,11 @@
 public enum FlowType
 {
     /// <summary>
-    /// 关注应用
+    /// Theo dõi ứng dụng
     /// </summary>
     App = 0,
     /// <summary>
-    /// 关注topic
+    /// Theo dõi topic
     /// </summary>
     Topic = 1,
 }

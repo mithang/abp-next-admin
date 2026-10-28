@@ -73,7 +73,7 @@ public class RestServiceScriptGenerator : IFlutterHttpScriptGenerator, ITransien
                     apiScriptBuilder.Append(", ");
                 }
 
-                // 需要格式化url
+                // Cần định dạng url
                 var formatUrlPath = paramter.Name;
                 if (url.Contains(formatUrlPath))
                 {

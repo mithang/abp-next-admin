@@ -1,30 +1,30 @@
-# 基础概念
+# Khái niệm cơ bản
 
-新版本中，整体工程进行了重构，现在我们将会介绍一些基础概念，以便于你更好的理解整个文档。请务必仔细阅读这一部分。
+Trong phiên bản mới, toàn bộ dự án đã được tái cấu trúc. Bây giờ chúng tôi sẽ giới thiệu một số khái niệm cơ bản để bạn hiểu rõ hơn toàn bộ tài liệu. Hãy đọc kỹ phần này.
 
-## 大仓
+## Monorepo
 
-大仓指的是整个项目的仓库，包含了所有的代码、包、应用、规范、文档、配置等，也就是一整个 `Monorepo` 目录的所有内容。
+Monorepo là toàn bộ kho của dự án, bao gồm tất cả mã nguồn, gói, ứng dụng, quy chuẩn, tài liệu, cấu hình, v.v., tức là toàn bộ nội dung của một thư mục `Monorepo`.
 
-## 应用
+## Ứng dụng
 
-应用指的是一个完整的项目，一个项目可以包含多个应用，这些项目可以复用大仓内的代码、包、规范等。应用都被放置在 `apps` 目录下。每个应用都是独立的，可以单独运行、构建、测试、部署，可以引入不同的组件库等等。
+Ứng dụng là một dự án hoàn chỉnh; một dự án có thể chứa nhiều ứng dụng, và các dự án này có thể tái sử dụng mã nguồn, gói, quy chuẩn, v.v. trong monorepo. Các ứng dụng đều được đặt trong thư mục `apps`. Mỗi ứng dụng đều độc lập, có thể chạy, build, kiểm thử và triển khai riêng, có thể dùng các thư viện component khác nhau, v.v.
 
 ::: tip
 
-应用不限于前端应用，也可以是后端应用、移动端应用等，例如 `apps/backend-mock`就是一个后端服务。
+Ứng dụng không chỉ giới hạn ở ứng dụng frontend, mà còn có thể là ứng dụng backend, ứng dụng di động, v.v., ví dụ `apps/backend-mock` là một dịch vụ backend.
 
 :::
 
-## 包
+## Gói
 
-包指的是一个独立的模块，可以是一个组件、一个工具、一个库等。包可以被多个应用引用，也可以被其他包引用。包都被放置在 `packages` 目录下。
+Gói là một mô-đun độc lập, có thể là một component, một công cụ, một thư viện, v.v. Gói có thể được nhiều ứng dụng tham chiếu, cũng có thể được các gói khác tham chiếu. Các gói đều được đặt trong thư mục `packages`.
 
-对于这些包，你可以把它看作是一个独立的 `npm` 包，使用方式与 `npm` 包一样。
+Với các gói này, bạn có thể xem chúng như một gói `npm` độc lập, cách sử dụng giống hệt gói `npm`.
 
-### 包引入
+### Nhập gói
 
-在 `package.json` 中引入包：
+Nhập gói trong `package.json`:
 
 ```json {3}
 {
@@ -34,17 +34,17 @@
 }
 ```
 
-### 包使用
+### Sử dụng gói
 
-在代码中引入包：
+Nhập gói trong mã nguồn:
 
 ```ts
 import { isString } from '@vben/utils';
 ```
 
-## 别名
+## Bí danh
 
-在项目中，你可以看到一些 `#` 开头的路径，例如： `#/api`、`#/views`, 这些路径都是别名，用于快速定位到某个目录。它不是通过 `vite` 的 `alias` 实现的，而是通过 `Node.js` 本身的 [subpath imports](https://nodejs.org/api/packages.html#subpath-imports) 原理。只需要在 `package.json` 中配置 `imports` 字段即可。
+Trong dự án, bạn có thể thấy một số đường dẫn bắt đầu bằng `#`, ví dụ: `#/api`, `#/views`. Các đường dẫn này đều là bí danh, dùng để định vị nhanh tới một thư mục. Chúng không được triển khai qua `alias` của `vite`, mà dựa trên cơ chế [subpath imports](https://nodejs.org/api/packages.html#subpath-imports) của chính `Node.js`. Chỉ cần cấu hình trường `imports` trong `package.json` là được.
 
 ```json {3}
 {
@@ -54,7 +54,7 @@ import { isString } from '@vben/utils';
 }
 ```
 
-为了 IDE 能够识别这些别名，我们还需要在`tsconfig.json`内配置：
+Để IDE có thể nhận diện các bí danh này, chúng ta còn cần cấu hình trong `tsconfig.json`:
 
 ```json {5}
 {
@@ -67,4 +67,4 @@ import { isString } from '@vben/utils';
 }
 ```
 
-这样，你就可以在代码中使用别名了。
+Như vậy, bạn có thể sử dụng bí danh trong mã nguồn.

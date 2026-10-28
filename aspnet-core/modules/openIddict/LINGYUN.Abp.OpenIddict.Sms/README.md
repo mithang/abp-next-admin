@@ -3,57 +3,57 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.Sms%2FLINGYUN.Abp.OpenIddict.Sms.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.Sms.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.Sms)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.Sms` 是 OpenIddict 的短信验证扩展模块，提供了基于手机号码和短信验证码的认证功能。
+`LINGYUN.Abp.OpenIddict.Sms` là mô-đun mở rộng xác thực bằng SMS của OpenIddict, cung cấp chức năng xác thực dựa trên số điện thoại và mã xác minh SMS.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 短信验证码认证
-  * 支持手机号码登录
-  * 支持短信验证码验证
-  * 支持多租户认证
+* Xác thực bằng mã SMS
+  * Hỗ trợ đăng nhập bằng số điện thoại
+  * Hỗ trợ xác minh mã SMS
+  * Hỗ trợ xác thực đa tenant
 
-* 用户管理集成
-  * 支持手机号码查找用户
-  * 支持账户锁定策略
-  * 支持失败尝试计数
+* Tích hợp quản lý người dùng
+  * Hỗ trợ tìm người dùng theo số điện thoại
+  * Hỗ trợ chính sách khóa tài khoản
+  * Hỗ trợ đếm số lần thử thất bại
 
-* 安全日志
-  * 记录登录尝试
-  * 记录验证码验证失败
-  * 记录账户锁定
+* Nhật ký bảo mật
+  * Ghi lại các lần thử đăng nhập
+  * Ghi lại các lần xác minh mã thất bại
+  * Ghi lại việc khóa tài khoản
 
-* 多语言支持
-  * 集成 ABP 本地化框架
-  * 支持自定义错误消息
+* Hỗ trợ đa ngôn ngữ
+  * Tích hợp khung bản địa hóa ABP
+  * Hỗ trợ thông báo lỗi tùy chỉnh
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.Sms
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictSmsModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictSmsModule))]` vào lớp mô-đun của bạn.
 
-2. 配置 OpenIddict 服务器:
+2. Cấu hình máy chủ OpenIddict:
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
     PreConfigure<OpenIddictServerBuilder>(builder =>
     {
-        // 允许短信验证码认证流程
+        // Cho phép luồng xác thực bằng mã SMS
         builder.AllowSmsFlow();
     });
 }
 ```
 
-3. 使用示例:
+3. Ví dụ sử dụng:
 
 ```http
 POST /connect/token
@@ -65,33 +65,33 @@ phone_verify=123456&
 scope=openid profile
 ```
 
-## 参数说明
+## Mô tả tham số
 
-* phone_number (必填)
-  * 手机号码
-  * 必须是有效的手机号码格式
+* phone_number (bắt buộc)
+  * Số điện thoại
+  * Phải đúng định dạng số điện thoại hợp lệ
 
-* phone_verify (必填)
-  * 短信验证码
-  * 必须是有效的验证码
+* phone_verify (bắt buộc)
+  * Mã xác minh SMS
+  * Phải là mã xác minh hợp lệ
 
-* scope (可选)
-  * 请求的权限范围
-  * 默认包含 openid profile
+* scope (tùy chọn)
+  * Phạm vi quyền được yêu cầu
+  * Mặc định bao gồm openid profile
 
-## 错误码说明
+## Mô tả mã lỗi
 
 * invalid_grant
-  * GrantTypeInvalid - 不被允许的授权类型
-  * PhoneVerifyInvalid - 手机验证码无效或已过期
-  * PhoneOrTokenCodeNotFound - 手机号码或验证码未输入
-  * PhoneNumberNotRegister - 登录的手机号码未注册
+  * GrantTypeInvalid - Loại ủy quyền không được phép
+  * PhoneVerifyInvalid - Mã xác minh điện thoại không hợp lệ hoặc đã hết hạn
+  * PhoneOrTokenCodeNotFound - Chưa nhập Số điện thoại hoặc mã xác minh
+  * PhoneNumberNotRegister - Số điện thoại đăng nhập chưa được đăng ký
 
-## 注意事项
+## Lưu ý
 
-* 手机号码必须已经注册
-* 验证码有效期有限
-* 验证失败会增加失败计数
-* 多次验证失败可能导致账户锁定
-* 所有认证操作都会记录安全日志
-* 建议在生产环境中使用 HTTPS
+* Số điện thoại phải đã được đăng ký
+* Mã xác minh có thời hạn hiệu lực giới hạn
+* Xác minh thất bại sẽ làm tăng Số đếm thất bại
+* Nhiều lần xác minh thất bại có thể dẫn đến khóa tài khoản
+* Mọi thao tác xác thực đều được ghi nhật ký bảo mật
+* Nên sử dụng HTTPS trong môi trường production

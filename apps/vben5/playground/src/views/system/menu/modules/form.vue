@@ -105,7 +105,7 @@ const schema: VbenFormSchema[] = [
   {
     component: 'Input',
     componentProps() {
-      // 不需要处理多语言时就无需这么做
+      // Khi không cần xử lý đa ngôn ngữ thì không cần làm như vậy
       return {
         ...(titleSuffix.value && { addonAfter: titleSuffix.value }),
         onChange({ target: { value } }: ChangeEvent) {

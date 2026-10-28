@@ -2,7 +2,7 @@
 
 Monolithic Application Database Migration Module, providing comprehensive application database migration functionality.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

@@ -29,7 +29,7 @@ namespace LINGYUN.Abp.ExceptionHandling.Emailing
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            // 加解密
+            // Mã hóa/giải mã
             Configure<AbpStringEncryptionOptions>(options =>
             {
                 options.DefaultPassPhrase = "s46c5q55nxpeS8Ra";
@@ -37,20 +37,20 @@ namespace LINGYUN.Abp.ExceptionHandling.Emailing
                 options.DefaultSalt = Encoding.ASCII.GetBytes("sf&5)s3#");
             });
 
-            // 自定义需要处理的异常
+            // Tùy chỉnh các ngoại lệ cần xử lý
             Configure<AbpExceptionHandlingOptions>(options =>
             {
-                //  加入需要处理的异常类型
+                //  Thêm loại ngoại lệ cần xử lý
                 options.Handlers.Add<AbpException>();
             });
-            // 自定义需要发送邮件通知的异常类型
+            // Tùy chỉnh các loại ngoại lệ cần gửi thông báo email
             Configure<AbpEmailExceptionHandlingOptions>(options =>
             {
-                // 是否发送堆栈信息
+                // Có gửi thông tin stack trace hay không
                 options.SendStackTrace = true;
-                // 未指定异常接收者的默认接收邮件
+                // Email nhận mặc định khi chưa chỉ định người nhận ngoại lệ
                 options.DefaultReceiveEmail = "colin.in@foxmail.com";
-                //  指定某种异常发送到哪个邮件
+                //  Chỉ định một loại ngoại lệ gửi tới email nào
                 options.HandReceivedException<AbpException>("colin.in@foxmail.com");
                 options.HandReceivedException<TestSendEmailException>("colin.in@foxmail.com");
             });

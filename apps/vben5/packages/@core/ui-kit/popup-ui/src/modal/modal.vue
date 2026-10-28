@@ -160,10 +160,10 @@ watch(
 // );
 
 /**
- * 在开启keepAlive情况下 直接通过浏览器按钮/手势等返回 不会关闭弹窗
+ * Khi bật keepAlive, quay lại trực tiếp bằng nút trình duyệt/cử chỉ sẽ không đóng cửa sổ bật lên
  */
 onDeactivated(() => {
-  // 如果弹窗没有被挂载到内容区域，则关闭弹窗
+  // Nếu cửa sổ bật lên chưa được gắn vào vùng nội dung thì đóng cửa sổ bật lên
   if (!appendToMain.value) {
     props.modalApi?.close();
   }

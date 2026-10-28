@@ -22,7 +22,7 @@ public class AbpActivityFactory : IActivityFactory
 
         composite?.Setup();
 
-        // TODO: 反序列化未创建默认值?
+        // TODO: Giải tuần tự hóa chưa tạo giá trị mặc định?
         if (activityDescriptor != null)
         {
             ReadSyntheticInputs(activityDescriptor, activity, activityElement, context.SerializerOptions);

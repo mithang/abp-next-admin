@@ -1,20 +1,20 @@
-/** 分组权限 */
+/** Quyền nhóm */
 export const GroupDefinitionsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'FeatureManagement.GroupDefinitions.Create',
   Default: 'FeatureManagement.GroupDefinitions',
-  /** 删除 */
+  /** Xóa */
   Delete: 'FeatureManagement.GroupDefinitions.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'FeatureManagement.GroupDefinitions.Update',
 };
-/** 功能定义权限 */
+/** Quyền định nghĩa tính năng */
 export const FeatureDefinitionsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'FeatureManagement.Definitions.Create',
   Default: 'FeatureManagement.Definitions',
-  /** 删除 */
+  /** Xóa */
   Delete: 'FeatureManagement.Definitions.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'FeatureManagement.Definitions.Update',
 };

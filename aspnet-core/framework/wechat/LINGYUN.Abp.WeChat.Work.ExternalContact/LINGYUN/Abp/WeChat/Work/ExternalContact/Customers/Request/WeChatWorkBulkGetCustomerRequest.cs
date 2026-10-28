@@ -7,29 +7,29 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Request;
 /// <summary>
-/// 创建新的规则组请求参数
+/// Tham số yêu cầu tạo nhóm quy tắc mới
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94883#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A7%84%E5%88%99%E7%BB%84" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/94883#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A7%84%E5%88%99%E7%BB%84" />
 /// </remarks>
 public class WeChatWorkBulkGetCustomerRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 企业成员的userid列表，字符串类型，最多支持100个
+    /// Danh sách userid của thành viên doanh nghiệp, kiểu chuỗi, hỗ trợ tối đa 100 mục
     /// </summary>
     [NotNull]
     [JsonProperty("userid_list")]
     [JsonPropertyName("userid_list")]
     public List<string> UserIds { get; }
     /// <summary>
-    /// 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
+    /// Con trỏ dùng cho truy vấn phân trang, kiểu chuỗi, do lần gọi trước trả về, lần gọi đầu tiên có thể không điền
     /// </summary>
     [CanBeNull]
     [JsonProperty("cursor")]
     [JsonPropertyName("cursor")]
     public string? Cursor { get; }
     /// <summary>
-    /// 返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值
+    /// Số bản ghi tối đa trả về, kiểu số nguyên, giá trị lớn nhất là 100, giá trị mặc định là 50, khi vượt quá giá trị lớn nhất sẽ lấy giá trị lớn nhất
     /// </summary>
     [CanBeNull]
     [JsonProperty("limit")]

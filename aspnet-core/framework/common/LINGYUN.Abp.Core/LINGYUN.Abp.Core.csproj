@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace>LINGYUN.Abp</RootNamespace>
-		<Description>Abp扩展基础库</Description>
+		<Description>Thư viện cơ sở mở rộng Abp</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

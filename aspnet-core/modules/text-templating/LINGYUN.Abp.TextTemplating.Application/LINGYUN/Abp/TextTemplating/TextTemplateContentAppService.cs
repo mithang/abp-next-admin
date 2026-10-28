@@ -39,7 +39,7 @@ public class TextTemplateContentAppService : AbpTextTemplatingAppServiceBase, IT
         catch
         {
             // Ignore 
-            // 场景: 模板未在当前宿主服务中注册时, VirtualPath将抛出异常, 应忽略此异常
+            // Kịch bản: khi mẫu chưa được đăng ký trong dịch vụ máy chủ hiện tại, VirtualPath sẽ ném ra ngoại lệ, nên bỏ qua ngoại lệ này
             // See: https://github.com/abpframework/abp/blob/dev/framework/src/Volo.Abp.TextTemplating.Core/Volo/Abp/TextTemplating/VirtualFiles/LocalizedTemplateContentReaderFactory.cs#L66
         }
 

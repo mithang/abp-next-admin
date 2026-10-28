@@ -1,10 +1,10 @@
 # LINGYUN.Abp.BackgroundTasks.Notifications
 
-后台作业执行后通知事件    
+Sự kiện thông báo sau khi tác vụ nền thực thi
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用  
+Module được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksNotificationsModule))]
@@ -14,11 +14,11 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## Action参数
+## Tham số Action
 
-** 通知内容格式化参数,在作业后将发送实时通知  
+** Tham số định dạng nội dung thông báo, sau khi tác vụ hoàn thành sẽ gửi thông báo thời gian thực
 
-* push-provider		可选, 用户指定消息推送提供程序;  
-* use-template		可选, 用于格式化通知内容的模板名称  
-* content			可选, 通知内容（未指定模板名称则为必须参数）  
-* culture			可选, 使用模板时的模板区域性  
+* push-provider		tùy chọn, nhà cung cấp đẩy thông báo do người dùng chỉ định;
+* use-template		tùy chọn, tên mẫu dùng để định dạng nội dung thông báo
+* content			tùy chọn, nội dung thông báo (bắt buộc nếu chưa chỉ định tên mẫu)
+* culture			tùy chọn, vùng văn hóa của mẫu khi sử dụng mẫu

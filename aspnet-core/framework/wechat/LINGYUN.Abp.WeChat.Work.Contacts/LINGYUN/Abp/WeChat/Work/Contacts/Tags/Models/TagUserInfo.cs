@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Tags.Models;
 /// <summary>
-/// 标签中包含的成员
+/// Thành viên có trong nhãn
 /// </summary>
 public class TagUserInfo
 {
     /// <summary>
-    /// 成员账号
+    /// Tài khoản thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 成员名称
+    /// Tên thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("name")]

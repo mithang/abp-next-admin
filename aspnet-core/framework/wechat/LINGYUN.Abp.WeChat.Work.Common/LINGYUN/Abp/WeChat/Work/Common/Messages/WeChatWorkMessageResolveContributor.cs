@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages;
 /// <summary>
-/// 企业微信消息处理器
+/// Bộ xử lý tin nhắn WeChat doanh nghiệp
 /// </summary>
 public class WeChatWorkMessageResolveContributor : WeChatWorkMessageResolveContributorBase
 {

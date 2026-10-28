@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 interface Props {
   /**
-   * 高度
+   * Chiều cao
    */
   height: number;
 }

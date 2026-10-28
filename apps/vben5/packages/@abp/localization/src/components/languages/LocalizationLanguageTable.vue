@@ -32,7 +32,7 @@ const { deleteApi, getPagedListApi } = useLanguagesApi();
 const { getLocalizationApi } = useLocalizationsApi();
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: false,
   schema: [
     {
@@ -42,9 +42,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển biểu mẫu có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi biểu mẫu khi nhấn Enter hay không
   submitOnEnter: true,
 };
 
@@ -148,7 +148,7 @@ function onDelete(row: LanguageDto) {
 }
 
 async function onChange(data: LanguageDto) {
-  // 资源变化刷新本地多语言缓存
+  // Khi tài nguyên thay đổi thì làm mới bộ nhớ đệm đa ngôn ngữ cục bộ
   const cultureName =
     abpStore.application!.localization.currentCulture.cultureName;
   if (data.cultureName === cultureName) {

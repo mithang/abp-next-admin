@@ -5,40 +5,40 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 审批节点详情
+/// Chi tiết nút phê duyệt
 /// </summary>
 public class ApprovalSpRecordDetail
 {
     /// <summary>
-    /// 分支审批人
+    /// Người phê duyệt nhánh
     /// </summary>
     [NotNull]
     [JsonProperty("approver")]
     [JsonPropertyName("approver")]
     public ApprovalUser Approver { get; set; } = default!;
     /// <summary>
-    /// 审批意见
+    /// Ý kiến phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("speech")]
     [JsonPropertyName("speech")]
     public string Speech { get; set; } = default!;
     /// <summary>
-    /// 分支审批人审批状态
+    /// Trạng thái phê duyệt của người phê duyệt nhánh
     /// </summary>
     [NotNull]
     [JsonProperty("sp_status")]
     [JsonPropertyName("sp_status")]
     public ApprovalSpRecordStatus SpStatus { get; set; }
     /// <summary>
-    /// 节点分支审批人审批操作时间戳，0表示未操作
+    /// Dấu thời gian thao tác phê duyệt của người phê duyệt nhánh tại nút, 0 nghĩa là chưa thao tác
     /// </summary>
     [NotNull]
     [JsonProperty("sptime")]
     [JsonPropertyName("sptime")]
     public long SpTime { get; set; }
     /// <summary>
-    /// 节点分支审批人审批意见附件，微盘文件无法获取
+    /// Tệp đính kèm ý kiến phê duyệt của người phê duyệt nhánh tại nút, tệp trên WeDrive không thể lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("media_id")]

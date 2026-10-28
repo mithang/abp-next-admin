@@ -63,29 +63,29 @@ export const basicProps = {
       return FETCH_SETTING;
     },
   },
-  // 立即请求接口
+  // Gọi API ngay
   immediate: { type: Boolean, default: true },
   emptyDataIsShowTable: { type: Boolean, default: true },
-  // 额外的请求参数
+  // Tham số request bổ sung
   searchInfo: {
     type: Object as PropType<Recordable>,
     default: null,
   },
-  // 默认的排序参数
+  // Tham số sắp xếp mặc định
   defSort: {
     type: Object as PropType<Recordable>,
     default: null,
   },
-  // 使用搜索表单
+  // Dùng form tìm kiếm
   useSearchForm: propTypes.bool,
-  // 表单配置
+  // Cấu hình form
   formConfig: {
     type: Object as PropType<Partial<FormProps>>,
     default: null,
   },
-  // 展示选择提示
+  // Hiển thị gợi ý lựa chọn
   useSelectedAlert: propTypes.bool,
-  // 使用高级搜索
+  // Dùng tìm kiếm nâng cao
   advancedSearchConfig: {
     type: Object as PropType<Partial<AdvanceSearchProps>>,
     default: null,

@@ -1,54 +1,54 @@
 # LINGYUN.Abp.TextTemplating.Application.Contracts
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板应用服务契约模块，提供文本模板管理相关的接口定义和DTO。
+Mô-đun hợp đồng dịch vụ ứng dụng mẫu văn bản, cung cấp định nghĩa giao diện và DTO liên quan đến quản lý mẫu văn bản.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * Volo.Abp.TextTemplating
 * Volo.Abp.Ddd.Application.Contracts
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供文本模板管理的应用服务接口
-  * ITextTemplateDefinitionAppService - 模板定义管理服务接口
-  * ITextTemplateContentAppService - 模板内容管理服务接口
-* 提供文本模板相关的DTO定义
-  * TextTemplateDefinitionDto - 模板定义DTO
-  * TextTemplateContentDto - 模板内容DTO
-  * TextTemplateDefinitionCreateDto - 创建模板定义DTO
-  * TextTemplateDefinitionUpdateDto - 更新模板定义DTO
-  * TextTemplateContentUpdateDto - 更新模板内容DTO
-* 提供文本模板管理相关的权限定义
+* Cung cấp giao diện dịch vụ ứng dụng quản lý mẫu văn bản
+  * ITextTemplateDefinitionAppService - Giao diện dịch vụ quản lý định nghĩa mẫu
+  * ITextTemplateContentAppService - Giao diện dịch vụ quản lý nội dung mẫu
+* Cung cấp định nghĩa DTO liên quan đến mẫu văn bản
+  * TextTemplateDefinitionDto - DTO định nghĩa mẫu
+  * TextTemplateContentDto - DTO nội dung mẫu
+  * TextTemplateDefinitionCreateDto - DTO tạo định nghĩa mẫu
+  * TextTemplateDefinitionUpdateDto - DTO cập nhật định nghĩa mẫu
+  * TextTemplateContentUpdateDto - DTO cập nhật nội dung mẫu
+* Cung cấp định nghĩa quyền liên quan đến quản lý mẫu văn bản
 
-### 权限定义
+### Định nghĩa quyền
 
 * AbpTextTemplating.TextTemplateDefinitions
-  * Create - 创建模板定义
-  * Update - 更新模板定义
-  * Delete - 删除模板定义
+  * Create - Tạo định nghĩa mẫu
+  * Update - Cập nhật định nghĩa mẫu
+  * Delete - Xóa định nghĩa mẫu
 * AbpTextTemplating.TextTemplateContents
-  * Update - 更新模板内容
-  * Delete - 删除模板内容
+  * Update - Cập nhật nội dung mẫu
+  * Delete - Xóa nội dung mẫu
 
-### 应用服务接口
+### Giao diện dịch vụ ứng dụng
 
 * ITextTemplateDefinitionAppService
-  * GetAsync - 获取模板定义
-  * GetListAsync - 获取模板定义列表
-  * CreateAsync - 创建模板定义
-  * UpdateAsync - 更新模板定义
-  * DeleteAsync - 删除模板定义
+  * GetAsync - Lấy định nghĩa mẫu
+  * GetListAsync - Lấy danh sách định nghĩa mẫu
+  * CreateAsync - Tạo định nghĩa mẫu
+  * UpdateAsync - Cập nhật định nghĩa mẫu
+  * DeleteAsync - Xóa định nghĩa mẫu
 * ITextTemplateContentAppService
-  * GetAsync - 获取模板内容
-  * UpdateAsync - 更新模板内容
-  * DeleteAsync - 删除模板内容
-  * RestoreAsync - 恢复模板内容
+  * GetAsync - Lấy nội dung mẫu
+  * UpdateAsync - Cập nhật nội dung mẫu
+  * DeleteAsync - Xóa nội dung mẫu
+  * RestoreAsync - Khôi phục nội dung mẫu
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingApplicationContractsModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingApplicationContractsModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingApplicationContractsModule))]
@@ -57,7 +57,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 注入并使用模板服务接口
+2. Tiêm và sử dụng giao diện dịch vụ mẫu
 
 ```csharp
 public class YourService
@@ -71,11 +71,11 @@ public class YourService
 
     public async Task ManageTemplateAsync()
     {
-        // 获取模板定义列表
+        // Lấy danh sách định nghĩa mẫu
         var templates = await _templateDefinitionAppService.GetListAsync(
             new TextTemplateDefinitionGetListInput());
     }
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

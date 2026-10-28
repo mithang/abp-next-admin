@@ -1,0 +1,13 @@
+{
+  "culture": "vi",
+  "texts": {
+    "SmsMessageRetrySendJob": "Tác vụ gửi lại SMS",
+    "EmailMessageRetrySendJob": "Tác vụ gửi lại email",
+    "DisplayName:RecentSnedFailedHours": "Thời gian gửi thất bại gần nhất",
+    "Description:RecentSnedFailedHours": "Thời gian gửi thất bại gần nhất, đơn vị: giờ, mặc định: 2.",
+    "DisplayName:PropertyMaxOfFailedAttempts": "Giới hạn số lần thất bại",
+    "Description:PropertyMaxOfFailedAttempts": "Giới hạn số lần thất bại, mặc định: 3.",
+    "DisplayName:PropertyPollingBatchCount": "Số lượng lô thăm dò",
+    "Description:PropertyPollingBatchCount": "Số lượng lô luân phiên, mặc định: 100."
+  }
+}

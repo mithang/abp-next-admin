@@ -106,7 +106,7 @@ public class FileSystemBlobProvider : IBlobProvider
         bool isAttachmentContent = true,
         CancellationToken cancellationToken = default)
     {
-        // 本地文件系统无需生成下载链接
+        // Hệ thống tệp cục bộ không cần tạo liên kết tải xuống
         return Task.FromResult<string?>(null);
     }
 
@@ -157,11 +157,11 @@ public class FileSystemBlobProvider : IBlobProvider
     }
 
     /// <summary>
-    /// 路径比较方式
+    /// Cách so sánh đường dẫn
     /// </summary>
     /// <remarks>
-    /// Windows 与 macOS(APFS/HFS+ 默认)大小写不敏感, Linux 等类 Unix 文件系统大小写敏感:
-    /// 在大小写敏感的文件系统上使用忽略大小写比较, 会放过大小写变体的兄弟目录
+    /// Windows và macOS (mặc định APFS/HFS+) không phân biệt chữ hoa chữ thường, còn Linux và các hệ thống tệp kiểu Unix phân biệt chữ hoa chữ thường:
+    /// Việc dùng phép so sánh không phân biệt chữ hoa chữ thường trên hệ thống tệp phân biệt chữ hoa chữ thường sẽ bỏ qua các thư mục anh em chỉ khác nhau ở chữ hoa/thường
     /// </remarks>
     protected static StringComparison PathComparison =>
         OperatingSystem.IsWindows() || OperatingSystem.IsMacOS()
@@ -169,12 +169,12 @@ public class FileSystemBlobProvider : IBlobProvider
             : StringComparison.Ordinal;
 
     /// <summary>
-    /// 名称中不允许出现的字符
+    /// Các ký tự không được phép xuất hiện trong tên
     /// </summary>
     /// <remarks>
-    /// 显式使用各平台非法字符的并集(而非 <see cref="Path.GetInvalidFileNameChars"/>):
-    /// 类 Unix 文件名允许 ':' 等字符, 但同一份数据可能被 Windows 宿主、SMB 共享、
-    /// 或其它 blob provider 复用, 因此统一按可移植规则拒绝
+    /// Sử dụng tường minh hợp của các ký tự không hợp lệ trên từng nền tảng (thay vì <see cref="Path.GetInvalidFileNameChars"/>):
+    /// Tên tệp kiểu Unix cho phép các ký tự như ':', nhưng cùng một dữ liệu có thể được máy chủ Windows, chia sẻ SMB,
+    /// hoặc các blob provider khác tái sử dụng, vì vậy thống nhất từ chối theo quy tắc có thể di chuyển
     /// </remarks>
     protected static readonly char[] InvalidNameCharacters =
     [
@@ -186,7 +186,7 @@ public class FileSystemBlobProvider : IBlobProvider
         var blobConfiguration = GetBlobConfiguration();
         var basePath = Path.GetFullPath(blobConfiguration.BasePath);
 
-        // 当前租户的存储根目录: 主机为 host, 租户为 tenants/{tenantId}
+        // Thư mục gốc lưu trữ của tenant hiện tại: máy chủ là host, tenant là tenants/{tenantId}
         string tenantPath;
         if (CurrentTenant.Id == null)
         {
@@ -209,15 +209,15 @@ public class FileSystemBlobProvider : IBlobProvider
         }
         if (!blobName.IsNullOrWhiteSpace())
         {
-            // 模块存储的全名可能以 / 开头(如 /abp-container/folder/file.txt)
+            // Tên đầy đủ của bộ nhớ mô-đun có thể bắt đầu bằng / (ví dụ /abp-container/folder/file.txt)
             var name = blobName.RemovePreFix("/");
             CheckBlobName(name);
 
             blobPath = Path.Combine(blobPath, name);
         }
 
-        // 关键: 解析 .. / 绝对路径 / 分隔符变体之后, 结果必须仍在当前租户目录之内
-        // (Path.GetFullPath 会消除 .., 因此绝对路径注入同样会被拦截)
+        // Quan trọng: sau khi phân tích .. / đường dẫn tuyệt đối / biến thể dấu phân tách, kết quả vẫn phải nằm trong thư mục tenant hiện tại
+        // (Path.GetFullPath sẽ loại bỏ .., vì vậy việc chèn đường dẫn tuyệt đối cũng sẽ bị chặn)
         var fullPath = Path.GetFullPath(blobPath);
         var tenantRoot = tenantPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
             + Path.DirectorySeparatorChar;
@@ -233,11 +233,11 @@ public class FileSystemBlobProvider : IBlobProvider
     }
 
     /// <summary>
-    /// 校验容器名称
+    /// Kiểm tra tên container
     /// </summary>
     /// <remarks>
-    /// 容器名必须是单一目录名: 含分隔符的名称不会逃出租户目录(containment 拦截不到),
-    /// 但会解析成同一租户内的其它容器目录(容器别名), 从而绕过容器隔离。
+    /// Tên container phải là một tên thư mục duy nhất: tên chứa dấu phân tách sẽ không thoát khỏi thư mục tenant (phép kiểm tra containment không chặn được),
+    /// nhưng sẽ được phân tích thành thư mục container khác trong cùng tenant (bí danh container), từ đó vượt qua sự cô lập container.
     /// </remarks>
     protected virtual void CheckContainerName(string containerName)
     {
@@ -250,11 +250,11 @@ public class FileSystemBlobProvider : IBlobProvider
     }
 
     /// <summary>
-    /// 校验文件/目录名称(路径)
+    /// Kiểm tra tên tệp/thư mục (đường dẫn)
     /// </summary>
     /// <remarks>
-    /// 规则与实体一致; 这只是纵深防御, 真正的安全边界是 <see cref="CalculateBlobName"/> 的 containment 校验
-    /// (名称校验覆盖不到符号链接/联接点)。
+    /// Quy tắc nhất quán với thực thể; đây chỉ là phòng thủ theo chiều sâu, ranh giới an toàn thực sự là phép kiểm tra containment của <see cref="CalculateBlobName"/>
+    /// (Phép kiểm tra tên không bao phủ được liên kết tượng trưng/điểm nối).
     /// </remarks>
     protected virtual void CheckBlobName(string blobName)
     {

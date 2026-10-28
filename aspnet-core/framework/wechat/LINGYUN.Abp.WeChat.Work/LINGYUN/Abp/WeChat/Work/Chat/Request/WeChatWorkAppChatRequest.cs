@@ -4,7 +4,7 @@ namespace LINGYUN.Abp.WeChat.Work.Chat.Request;
 public abstract class WeChatWorkAppChatRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 应用标识
+    /// Định danh ứng dụng
     /// </summary>
     [NotNull]
     [Newtonsoft.Json.JsonIgnore]

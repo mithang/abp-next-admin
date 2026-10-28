@@ -70,7 +70,14 @@ export async function vue(): Promise<Linter.Config[]> {
         ],
         'vue/component-name-in-template-casing': ['error', 'PascalCase'],
         'vue/component-options-name-casing': ['error', 'PascalCase'],
-        'vue/custom-event-name-casing': ['error', 'camelCase'],
+        // Quy ước dự án: mọi event `update:*` (v-model) giữ kebab-case
+        // (vd `update:sidebar-width` ở vben-layout, listener ở basic/layout
+        // dùng đúng tên này); miễn trừ chúng khỏi rule camelCase.
+        'vue/custom-event-name-casing': [
+          'error',
+          'camelCase',
+          { ignores: ['/^update:/'] },
+        ],
         'vue/define-macros-order': [
           'error',
           {

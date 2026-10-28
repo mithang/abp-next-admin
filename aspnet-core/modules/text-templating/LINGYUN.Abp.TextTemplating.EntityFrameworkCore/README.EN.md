@@ -71,4 +71,4 @@ public class YourDbContext : AbpDbContext<YourDbContext>, ITextTemplatingDbConte
 }
 ```
 
-[查看中文](README.md)
+[Tiếng Việt](README.md)

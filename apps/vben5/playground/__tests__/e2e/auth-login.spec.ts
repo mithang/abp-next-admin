@@ -8,12 +8,12 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Auth Login Page Tests', () => {
   test('check title and page elements', async ({ page }) => {
-    // 获取页面标题并断言标题包含 'Vben Admin'
+    // Lấy tiêu đề trang và assert tiêu đề chứa 'Vben Admin'
     const title = await page.title();
     expect(title).toContain('Vben Admin');
   });
 
-  // 测试用例: 成功登录
+  // Trường hợp kiểm thử: Đăng nhập thành công
   test('should successfully login with valid credentials', async ({ page }) => {
     await authLogin(page);
   });

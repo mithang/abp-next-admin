@@ -1,26 +1,26 @@
 # LINGYUN.Abp.IP2Region
 
-## 介绍
+## Giới thiệu
 
-`LINGYUN.Abp.IP2Region` 是一个基于IP2Region的ABP框架模块，提供IP地址查询功能。本模块集成了IP2Region.Net库，提供了便捷的IP地址查询服务。
+`LINGYUN.Abp.IP2Region` là một mô-đun khung ABP dựa trên IP2Region, cung cấp chức năng tra cứu địa chỉ IP. Mô-đun này tích hợp thư viện IP2Region.Net, cung cấp dịch vụ tra cứu địa chỉ IP thuận tiện.
 
-## 功能
+## Tính năng
 
-* 提供IP地址查询服务
-* 同时支持 IPv4 与 IPv6 离线库，按地址族自动选择数据文件
-* 支持多种缓存策略
-* 内置 IPv4 与 IPv6 数据库文件
-* 支持ABP虚拟文件系统
+* Cung cấp dịch vụ tra cứu địa chỉ IP
+* Đồng thời hỗ trợ cơ sở dữ liệu ngoại tuyến IPv4 và IPv6, tự động chọn tệp dữ liệu theo họ địa chỉ
+* Hỗ trợ nhiều chính sách bộ nhớ đệm
+* Tích hợp sẵn tệp cơ sở dữ liệu IPv4 và IPv6
+* Hỗ trợ hệ thống tệp ảo ABP
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.IP2Region
 ```
 
-## 使用
+## Cách dùng
 
-1. 添加 `[DependsOn(typeof(AbpIP2RegionModule))]` 到你的模块类上。
+1. Thêm `[DependsOn(typeof(AbpIP2RegionModule))]` vào lớp mô-đun của bạn.
 
 ```csharp
 [DependsOn(typeof(AbpIP2RegionModule))]
@@ -30,7 +30,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 注入并使用IP查询服务：
+2. Tiêm và sử dụng dịch vụ tra cứu IP:
 
 ```csharp
 public class YourService
@@ -44,50 +44,50 @@ public class YourService
 
     public string? SearchIpInfo(string ip)
     {
-        // 自动按地址族选择 IPv4 / IPv6 离线库
+        // Tự động chọn cơ sở dữ liệu ngoại tuyến IPv4 / IPv6 theo họ địa chỉ
         return _searcher.Search(ip);
     }
 }
 ```
 
-## IPv4 / IPv6 支持
+## Hỗ trợ IPv4 / IPv6
 
-模块内置两个离线库文件(通过 ABP 虚拟文件系统加载)：
+Mô-đun tích hợp sẵn hai tệp cơ sở dữ liệu ngoại tuyến (tải qua hệ thống tệp ảo ABP):
 
-| 离线库 | 路径 |
+| Cơ sở dữ liệu ngoại tuyến | Đường dẫn |
 |---|---|
 | IPv4 | `/LINGYUN/Abp/IP2Region/Resources/ip2region_v4.xdb` |
 | IPv6 | `/LINGYUN/Abp/IP2Region/Resources/ip2region_v6.xdb` |
 
-`ISearcher` 注册的是 `AbpSearcher`，同时加载两个离线库并**按地址族自动路由**：
+`ISearcher` đăng ký là `AbpSearcher`, đồng thời tải hai cơ sở dữ liệu ngoại tuyến và **tự động định tuyến theo họ địa chỉ**:
 
-* IPv4 地址查询 IPv4 离线库，IPv6 地址查询 IPv6 离线库；
-* IPv4 映射的 IPv6 地址(如 `::ffff:1.2.3.4`)会归一到 IPv4 查询；
-* IPv6 离线库资源不存在时(例如打包时排除)，IPv6 查询返回 `null`，不会使用 IPv4 离线库解析出错误结果。
+* Địa chỉ IPv4 tra cứu cơ sở dữ liệu ngoại tuyến IPv4, địa chỉ IPv6 tra cứu cơ sở dữ liệu ngoại tuyến IPv6;
+* Địa chỉ IPv6 ánh xạ IPv4 (ví dụ `::ffff:1.2.3.4`) sẽ được chuẩn hóa về tra cứu IPv4;
+* Khi tài nguyên cơ sở dữ liệu ngoại tuyến IPv6 không tồn tại (ví dụ bị loại trừ khi đóng gói), tra cứu IPv6 trả về `null`, không dùng cơ sở dữ liệu ngoại tuyến IPv4 để phân tích ra kết quả sai.
 
-也可以直接使用 `AbpSearcher`：
+Cũng có thể trực tiếp sử dụng `AbpSearcher`:
 
 ```csharp
-// 单文件模式：只加载一个离线库，由调用方保证查询地址与离线库版本一致
+// Chế độ một tệp: chỉ tải một cơ sở dữ liệu ngoại tuyến, bên gọi đảm bảo địa chỉ tra cứu khớp với phiên bản cơ sở dữ liệu ngoại tuyến
 using var v6Searcher = new AbpSearcher(CachePolicy.File, ipv6XdbStream);
 
-// 双文件模式：同时加载 IPv4 与 IPv6 离线库，按地址族自动路由
+// Chế độ hai tệp: đồng thời tải cơ sở dữ liệu ngoại tuyến IPv4 và IPv6, tự động định tuyến theo họ địa chỉ
 using var searcher = new AbpSearcher(CachePolicy.File, ipv4XdbStream, ipv6XdbStream);
 
-var region = searcher.Search("2400:3200::1"); // 中国|浙江省|杭州市|阿里|CN
+var region = searcher.Search("2400:3200::1"); // Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN
 ```
 
-> IPv6 离线库(约 35MB)随包提供，可通过 `-p:IncludeIPv6Database=false` 在打包时排除以减小体积。
+> Cơ sở dữ liệu ngoại tuyến IPv6 (khoảng 35MB) được cung cấp kèm gói, có thể loại trừ khi đóng gói bằng `-p:IncludeIPv6Database=false` để giảm dung lượng.
 
-## 选项
+## Tùy chọn
 
 ```csharp
 Configure<AbpIP2RegionOptions>(options =>
 {
-    // 离线库文件：物理文件优先，其次为虚拟文件系统路径(内置资源)
+    // Tệp cơ sở dữ liệu ngoại tuyến: tệp vật lý được ưu tiên, sau đó là đường dẫn hệ thống tệp ảo (tài nguyên tích hợp sẵn)
     options.IPv4DatabaseFile = "/data/ip2region_v4.xdb";
     options.IPv6DatabaseFile = "/data/ip2region_v6.xdb";
-    // 默认值：CachePolicy.Content(并发安全)
+    // Giá trị mặc định: CachePolicy.Content (an toàn khi dùng đồng thời)
     options.CachePolicy = CachePolicy.Content;
 });
 ```
@@ -102,72 +102,72 @@ Configure<AbpIP2RegionOptions>(options =>
 }
 ```
 
-> IPv4 / IPv6 离线库默认使用内置资源；配置为物理文件路径时**优先加载物理文件**，便于替换/更新离线库
-> (离线库可从 [ip2region](https://github.com/lionsoul2014/ip2region) 下载或使用 maker 生成)；
-> IPv6 离线库可选，文件不存在时 IPv6 查询返回 `null`。
+> Cơ sở dữ liệu ngoại tuyến IPv4 / IPv6 mặc định dùng tài nguyên tích hợp sẵn; khi cấu hình đường dẫn tệp vật lý thì **ưu tiên tải tệp vật lý**, thuận tiện thay thế/cập nhật cơ sở dữ liệu ngoại tuyến
+> (cơ sở dữ liệu ngoại tuyến có thể tải từ [ip2region](https://github.com/lionsoul2014/ip2region) hoặc dùng maker để tạo);
+> Cơ sở dữ liệu ngoại tuyến IPv6 là tùy chọn, khi tệp không tồn tại, tra cứu IPv6 trả về `null`.
 
-### 缓存策略
+### Chính sách bộ nhớ đệm
 
-| 缓存策略 | 说明 | 并发安全 |
+| Chính sách bộ nhớ đệm | Mô tả | An toàn khi dùng đồng thời |
 |---|---|---|
-| `Content`(默认) | 离线库全部加载到内存，单例查询器可并发使用 | 是 |
-| `VectorIndex` | 只缓存向量索引(512KB)，其余读取数据流 | 否 |
-| `File` | 完全基于文件流查询，内存占用最小 | 否 |
+| `Content`(mặc định) | Toàn bộ cơ sở dữ liệu ngoại tuyến được tải vào bộ nhớ, trình tra cứu đơn thể có thể dùng đồng thời | Có |
+| `VectorIndex` | Chỉ bộ nhớ đệm chỉ mục vector (512KB), phần còn lại đọc luồng dữ liệu | Không |
+| `File` | Tra cứu hoàn toàn dựa trên luồng tệp, mức sử dụng bộ nhớ nhỏ nhất | Không |
 
-> `ISearcher` 注册为单例，而 `VectorIndex`/`File` 是"共享数据流 + Seek"的实现，多线程并发查询会互相打断数据流定位，
-> 仅在能够保证串行查询时使用；内存占用参考：IPv4 库约 10MB、IPv6 库约 35MB。
+> `ISearcher` được đăng ký dạng đơn thể, còn `VectorIndex`/`File` là cách triển khai "luồng dữ liệu dùng chung + Seek", tra cứu đồng thời đa luồng sẽ làm gián đoạn vị trí luồng dữ liệu lẫn nhau,
+> chỉ dùng khi có thể đảm bảo tra cứu tuần tự; tham khảo mức sử dụng bộ nhớ: cơ sở dữ liệu IPv4 khoảng 10MB, IPv6 khoảng 35MB.
 
-## 备注(Remarks)规则
+## Quy tắc Ghi chú (Remarks)
 
-备注(Remarks)规则由 `LINGYUN.Abp.IP.Location` 统一处理(其它位置解析模块，例如 MaxMind，共用同一份配置)：
+Quy tắc Ghi chú (Remarks) do `LINGYUN.Abp.IP.Location` xử lý thống nhất (các mô-đun phân tích vị trí khác, ví dụ MaxMind, dùng chung cùng một cấu hình):
 
 ```csharp
 Configure<AbpIPLocationResolveOptions>(options =>
 {
-    // 匹配到的国家名称从备注中移除(仅中国IP不显示国家)
-    options.RemoveCountry = new[] { "中国" };
-    // 匹配到的省份名称从备注中移除
-    // options.RemoveProvince = new[] { "香港特别行政区" };
+    // Tên quốc gia khớp được sẽ bị loại khỏi ghi chú (chỉ IP Trung Quốc không hiển thị quốc gia)
+    options.RemoveCountry = new[] { "Trung Quốc" };
+    // Tên tỉnh khớp được sẽ bị loại khỏi ghi chú
+    // options.RemoveProvince = new[] { "Đặc khu hành chính Hồng Kông" };
 });
 ```
 
-也可以直接使用配置节(`LINGYUN.Abp.IP.Location` 模块绑定 `IPLocation` 节)：
+Cũng có thể trực tiếp dùng mục cấu hình (mô-đun `LINGYUN.Abp.IP.Location` liên kết mục `IPLocation`):
 
 ```json
 {
   "IPLocation": {
-    "RemoveCountry": [ "中国" ]
+    "RemoveCountry": [ "Trung Quốc" ]
   }
 }
 ```
 
 ```yaml
 # docker-compose environment
-- IPLocation__RemoveCountry__0=中国
+- IPLocation__RemoveCountry__0=Trung Quốc
 ```
 
-* 国家名称匹配到 `RemoveCountry` 时，备注使用省份与城市(如 `浙江省杭州市`；省市同名时仅显示市，如 `重庆市`；仅有省份时为 `香港特别行政区`)；
-* 省份名称匹配到 `RemoveProvince` 时，备注仅使用城市(如 `杭州市`)；
-* 都未匹配时，备注仅显示国家名称(如 `中国`、`Japan`)；匹配到的名称被移除后没有可显示的层级时备注为空；
-* 名称匹配忽略大小写与首尾空白，适用于所有国家的 IP 地址解析。
+* Khi tên quốc gia khớp với `RemoveCountry`, ghi chú dùng tỉnh và thành phố (ví dụ `Chiết Giang Hàng Châu`; khi tỉnh và thành phố trùng tên thì chỉ hiển thị thành phố, ví dụ `Trùng Khánh`; khi chỉ có tỉnh thì là `Đặc khu hành chính Hồng Kông`);
+* Khi tên tỉnh khớp với `RemoveProvince`, ghi chú chỉ dùng thành phố (ví dụ `Hàng Châu`);
+* Khi đều không khớp, ghi chú chỉ hiển thị tên quốc gia (ví dụ `Trung Quốc`, `Japan`); khi tên khớp bị loại mà không còn cấp nào để hiển thị thì ghi chú rỗng;
+* Việc khớp tên bỏ qua chữ hoa/thường và khoảng trắng đầu/cuối, áp dụng cho việc phân tích địa chỉ IP của mọi quốc gia.
 
-## 特殊地址处理
+## Xử lý địa chỉ đặc biệt
 
-* **非法地址、本地回环与未指定地址**(如 `not-an-ip`、`127.0.0.1`、`::1`、`0.0.0.0`、`::`)由 `IIPLocationResolver`
-  统一处理，直接返回空的解析结果(`Location` 为 `null`)，不会进入位置解析模块；
-* **内网、链路本地、组播、保留地址等**在 ip2region 离线库中返回的是英文 `Reserved`，
-  模块返回一个 `Country`/`Province`/`City`/`Remarks` **均为空**的 `IPLocation`：
+* **Địa chỉ không hợp lệ, loopback nội bộ và địa chỉ chưa chỉ định** (ví dụ `not-an-ip`, `127.0.0.1`, `::1`, `0.0.0.0`, `::`) do `IIPLocationResolver`
+  xử lý thống nhất, trực tiếp trả về kết quả phân tích rỗng (`Location` là `null`), không đi vào mô-đun phân tích vị trí;
+* **Địa chỉ mạng nội bộ, link-local, multicast, địa chỉ dự trữ, v.v.** trong cơ sở dữ liệu ngoại tuyến ip2region trả về tiếng Anh `Reserved`,
+  mô-đun trả về một `IPLocation` có `Country`/`Province`/`City`/`Remarks` **đều rỗng**:
 
-| 地址分类 | 示例 |
+| Phân loại địa chỉ | Ví dụ |
 |---|---|
-| 内网 | `10.0.0.1`、`172.16.0.1`、`192.168.1.1`、`fd00::1` |
-| 链路本地 | `169.254.1.1`、`fe80::1` |
-| 运营商级 NAT | `100.64.0.1` |
-| 文档示例 / 基准测试 | `192.0.2.1`、`2001:db8::1`、`198.18.0.1` |
-| 组播 / 广播 | `224.0.0.1`、`ff02::1`、`255.255.255.255` |
-| 保留(离线库标记 `Reserved` 的其它地址段) | `64:ff9b::1` |
+| Mạng nội bộ | `10.0.0.1`、`172.16.0.1`、`192.168.1.1`、`fd00::1` |
+| Link-local | `169.254.1.1`、`fe80::1` |
+| NAT cấp nhà mạng | `100.64.0.1` |
+| Ví dụ trong tài liệu / kiểm thử benchmark | `192.0.2.1`、`2001:db8::1`、`198.18.0.1` |
+| Multicast / Broadcast | `224.0.0.1`、`ff02::1`、`255.255.255.255` |
+| Dự trữ (các đoạn địa chỉ khác được cơ sở dữ liệu ngoại tuyến đánh dấu `Reserved`) | `64:ff9b::1` |
 
-## IP2Region.Net 库说明
+## Mô tả thư viện IP2Region.Net
 
 ### Installation
 
@@ -227,6 +227,6 @@ Please make sure to update tests as appropriate.
 ## License
 [Apache License 2.0](https://github.com/lionsoul2014/ip2region/blob/master/LICENSE.md)
 
-## 链接
+## Liên kết
 
 * [English document](./README.EN.md)

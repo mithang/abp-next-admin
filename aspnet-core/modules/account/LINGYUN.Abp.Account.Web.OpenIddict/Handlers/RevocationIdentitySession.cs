@@ -9,7 +9,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace LINGYUN.Abp.Account.Web.OpenIddict.Handlers;
 /// <summary>
-/// 令牌撤销终止用户会话
+/// Thu hồi mã thông báo sẽ kết thúc phiên người dùng
 /// </summary>
 public class RevocationIdentitySession : IOpenIddictServerHandler<OpenIddictServerEvents.HandleRevocationRequestContext>
 {

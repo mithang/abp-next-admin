@@ -31,11 +31,11 @@ export function getSearchFormSchemas(): Partial<FormProps> {
   };
 }
 /**
- * 构建布局表单
- * @param data 布局定义
- * @param uiItems ui框架,来源于数据字典
- * @param consts 布局约束,来源于数据字典
- * @returns 返回表单定义
+ * Xây dựng biểu mẫu bố cục
+ * @param data Định nghĩa bố cục
+ * @param uiItems Khung UI, lấy từ từ điển dữ liệu
+ * @param consts Ràng buộc bố cục, lấy từ từ điển dữ liệu
+ * @returns Trả về định nghĩa biểu mẫu
  */
 export function getModalFormSchemas(layout: Layout): FormSchema[] {
   return [

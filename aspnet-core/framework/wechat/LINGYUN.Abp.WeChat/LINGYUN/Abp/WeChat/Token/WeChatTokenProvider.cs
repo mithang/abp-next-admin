@@ -67,7 +67,7 @@ public class WeChatTokenProvider : IWeChatTokenProvider, ISingletonDependency
 
         var response = await client.RequestWeChatCodeTokenAsync(request, cancellationToken);
         var responseContent = await response.Content.ReadAsStringAsync();
-        // 改为直接引用 Newtownsoft.Json
+        // Đổi sang tham chiếu trực tiếp Newtownsoft.Json
         var weChatTokenResponse = JsonConvert.DeserializeObject<WeChatTokenResponse>(responseContent)!;
         var weChatToken = weChatTokenResponse.ToWeChatToken();
         cacheItem = new WeChatTokenCacheItem(appId, weChatToken);
@@ -76,7 +76,7 @@ public class WeChatTokenProvider : IWeChatTokenProvider, ISingletonDependency
 
         var cacheOptions = new DistributedCacheEntryOptions
         {
-            // 设置绝对过期时间为Token有效期剩余的二分钟
+            // Đặt thời gian hết hạn tuyệt đối bằng thời hạn hiệu lực còn lại của Token trừ đi hai phút
             AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(weChatToken.ExpiresIn - 120)
         };
 

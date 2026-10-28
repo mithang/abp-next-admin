@@ -1,8 +1,8 @@
-# 移除代码
+# Xóa code
 
-## 移除百度统计代码
+## Xóa code thống kê Baidu
 
-在对应应用的 `index.html` 文件中，找到如下代码，删除即可：
+Trong tệp `index.html` của ứng dụng tương ứng, tìm đoạn code sau và xóa đi:
 
 ```html
 <!-- apps/web-antd -->

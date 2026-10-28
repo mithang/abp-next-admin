@@ -3,7 +3,7 @@
 public class AbpIdentityServerConsts
 {
     /// <summary>
-    /// 远程服务名称
+    /// Tên dịch vụ từ xa
     /// </summary>
     public const string RemoteServiceName = "IdentityServer";
 }

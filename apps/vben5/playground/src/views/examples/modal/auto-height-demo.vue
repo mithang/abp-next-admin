@@ -34,7 +34,7 @@ function handleUpdate(len?: number) {
 </script>
 
 <template>
-  <Modal title="自动计算高度">
+  <Modal title="Tự động tính chiều cao">
     <div
       v-for="item in list"
       :key="item"
@@ -43,7 +43,9 @@ function handleUpdate(len?: number) {
       {{ item }}
     </div>
     <template #prepend-footer>
-      <Button type="link" @click="handleUpdate()">点击更新数据</Button>
+      <Button type="link" @click="handleUpdate()">
+        Nhấn để cập nhật dữ liệu
+      </Button>
     </template>
   </Modal>
 </template>

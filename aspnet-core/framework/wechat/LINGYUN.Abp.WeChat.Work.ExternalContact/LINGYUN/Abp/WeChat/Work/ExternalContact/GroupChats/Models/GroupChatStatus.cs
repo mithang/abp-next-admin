@@ -2,29 +2,29 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Models;
 /// <summary>
-/// 客户群跟进状态
+/// Trạng thái theo dõi nhóm khách hàng
 /// </summary>
-[Description("客户群跟进状态")]
+[Description("Trạng thái theo dõi nhóm khách hàng")]
 public enum GroupChatStatus
 {
     /// <summary>
-    /// 跟进人正常
+    /// Người theo dõi bình thường
     /// </summary>
-    [Description("跟进人正常")]
+    [Description("Người theo dõi bình thường")]
     Normal = 0,
     /// <summary>
-    /// 跟进人离职
+    /// Người theo dõi đã nghỉ việc
     /// </summary>
-    [Description("跟进人离职")]
+    [Description("Người theo dõi đã nghỉ việc")]
     Leaves = 1,
     /// <summary>
-    /// 离职继承中
+    /// Đang kế thừa sau khi nghỉ việc
     /// </summary>
-    [Description("离职继承中")]
+    [Description("Đang kế thừa sau khi nghỉ việc")]
     Resiging = 2,
     /// <summary>
-    /// 离职继承完成
+    ///Đã hoàn tất kế thừa sau khi nghỉ việc
     /// </summary>
-    [Description(" 离职继承完成")]
+    [Description("Đã hoàn tất kế thừa sau khi nghỉ việc")]
     ResignCompleted = 3,
 }

@@ -25,8 +25,7 @@ type Breakpoints = '2xl:' | '3xl:' | '' | 'lg:' | 'md:' | 'sm:' | 'xl:';
 type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
 export type WrapperClassType =
-  | `${Breakpoints}grid-cols-${GridCols}`
-  | (Record<never, never> & string);
+  `${Breakpoints}grid-cols-${GridCols}` | (Record<never, never> & string);
 
 export type FormItemClassType =
   | `${Breakpoints}cols-end-${'auto' | GridCols}`
@@ -45,11 +44,11 @@ export type FormFieldOptions = Partial<
 >;
 
 export interface FormShape {
-  /** 默认值 */
+  /** Giá trị mặc định */
   default?: any;
-  /** 字段名 */
+  /** Tên trường */
   fieldName: string;
-  /** 是否必填 */
+  /** Có bắt buộc hay không */
   required?: boolean;
   rules?: ZodTypeAny;
 }
@@ -91,40 +90,40 @@ type FormItemDependenciesConditionWithProps = (
 
 export interface FormItemDependencies {
   /**
-   * 组件参数
-   * @returns 组件参数
+   * Tham số của component
+   * @returns Tham số của component
    */
   componentProps?: FormItemDependenciesConditionWithProps;
   /**
-   * 是否禁用
-   * @returns 是否禁用
+   * Có bị vô hiệu hoá hay không
+   * @returns Có bị vô hiệu hoá hay không
    */
   disabled?: boolean | FormItemDependenciesCondition;
   /**
-   * 是否渲染（删除dom）
-   * @returns 是否渲染
+   * Có render hay không (xoá DOM)
+   * @returns Có render hay không
    */
   if?: boolean | FormItemDependenciesCondition;
   /**
-   * 是否必填
-   * @returns 是否必填
+   * Có bắt buộc hay không
+   * @returns Có bắt buộc hay không
    */
   required?: FormItemDependenciesCondition;
   /**
-   * 字段规则
+   * Quy tắc của trường
    */
   rules?: FormItemDependenciesConditionWithRules;
   /**
-   * 是否隐藏(Css)
-   * @returns 是否隐藏
+   * Có ẩn hay không (CSS)
+   * @returns Có ẩn hay không
    */
   show?: boolean | FormItemDependenciesCondition;
   /**
-   * 任意触发都会执行
+   * Bất kỳ trigger nào cũng sẽ thực thi
    */
   trigger?: FormItemDependenciesCondition<void>;
   /**
-   * 触发字段
+   * Trường kích hoạt
    */
   triggerFields: string[];
 }
@@ -138,72 +137,72 @@ type ComponentProps =
 
 export interface FormCommonConfig {
   /**
-   * 在Label后显示一个冒号
+   * Hiển thị dấu hai chấm sau Label
    */
   colon?: boolean;
   /**
-   * 所有表单项的props
+   * Props của tất cả các mục form
    */
   componentProps?: ComponentProps;
   /**
-   * 所有表单项的控件样式
+   * Kiểu của control cho tất cả các mục form
    */
   controlClass?: string;
   /**
-   * 所有表单项的禁用状态
+   * Trạng thái vô hiệu hoá của tất cả các mục form
    * @default false
    */
   disabled?: boolean;
   /**
-   * 是否禁用所有表单项的change事件监听
+   * Có vô hiệu hoá việc lắng nghe sự kiện change của tất cả các mục form hay không
    * @default true
    */
   disabledOnChangeListener?: boolean;
   /**
-   * 是否禁用所有表单项的input事件监听
+   * Có vô hiệu hoá việc lắng nghe sự kiện input của tất cả các mục form hay không
    * @default true
    */
   disabledOnInputListener?: boolean;
   /**
-   * 所有表单项的空状态值,默认都是undefined，naive-ui的空状态值是null
+   * Giá trị trạng thái rỗng của tất cả các mục form, mặc định đều là undefined, giá trị trạng thái rỗng của naive-ui là null
    */
   emptyStateValue?: null | undefined;
   /**
-   * 所有表单项的控件样式
+   * Kiểu của control cho tất cả các mục form
    * @default {}
    */
   formFieldProps?: FormFieldOptions;
   /**
-   * 所有表单项的栅格布局，支持函数形式
+   * Bố cục lưới của tất cả các mục form, hỗ trợ dạng hàm
    * @default ""
    */
   formItemClass?: (() => string) | string;
   /**
-   * 隐藏所有表单项label
+   * Ẩn label của tất cả các mục form
    * @default false
    */
   hideLabel?: boolean;
   /**
-   * 是否隐藏必填标记
+   * Có ẩn dấu bắt buộc hay không
    * @default false
    */
   hideRequiredMark?: boolean;
   /**
-   * 所有表单项的label样式
+   * Kiểu label của tất cả các mục form
    * @default ""
    */
   labelClass?: string;
   /**
-   * 所有表单项的label宽度
+   * Độ rộng label của tất cả các mục form
    */
   labelWidth?: number;
   /**
-   * 所有表单项的model属性名
+   * Tên thuộc tính model của tất cả các mục form
    * @default "modelValue"
    */
   modelPropName?: string;
   /**
-   * 所有表单项的wrapper样式
+   * Kiểu wrapper của tất cả các mục form
    */
   wrapperClass?: string;
 }
@@ -225,45 +224,42 @@ export type FieldMappingTime = [
   string,
   [string, string],
   (
-    | ((value: any, fieldName: string) => any)
-    | [string, string]
-    | null
-    | string
+    ((value: any, fieldName: string) => any) | [string, string] | null | string
   )?,
 ][];
 
 export type ArrayToStringFields = Array<
-  | [string[], string?] // 嵌套数组格式，可选分隔符
-  | string // 单个字段，使用默认分隔符
-  | string[] // 简单数组格式，最后一个元素可以是分隔符
+  | [string[], string?] // Định dạng mảng lồng nhau, ký tự phân tách tuỳ chọn
+  | string // Một trường duy nhất, dùng ký tự phân tách mặc định
+  | string[] // Định dạng mảng đơn giản, phần tử cuối cùng có thể là ký tự phân tách
 >;
 
 export interface FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
 > extends FormCommonConfig {
-  /** 组件 */
+  /** Component */
   component: Component | T;
-  /** 组件参数 */
+  /** Tham số của component */
   componentProps?: ComponentProps;
-  /** 默认值 */
+  /** Giá trị mặc định */
   defaultValue?: any;
-  /** 依赖 */
+  /** Phụ thuộc */
   dependencies?: FormItemDependencies;
-  /** 描述 */
+  /** Mô tả */
   description?: CustomRenderType;
-  /** 字段名 */
+  /** Tên trường */
   fieldName: string;
-  /** 帮助信息 */
+  /** Thông tin trợ giúp */
   help?: CustomRenderType;
-  /** 是否隐藏表单项 */
+  /** Có ẩn mục form hay không */
   hide?: boolean;
-  /** 表单项 */
+  /** Mục form */
   label?: CustomRenderType;
-  // 自定义组件内部渲染
+  // Render nội bộ của component tuỳ chỉnh
   renderComponentContent?: RenderComponentContentType;
-  /** 字段规则 */
+  /** Quy tắc của trường */
   rules?: FormSchemaRuleType;
-  /** 后缀 */
+  /** Hậu tố */
   suffix?: CustomRenderType;
 }
 
@@ -275,67 +271,67 @@ export interface FormRenderProps<
   T extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**
-   * 表单字段数组映射字符串配置 默认使用","
+   * Cấu hình ánh xạ mảng trường form thành chuỗi, mặc định dùng ","
    */
   arrayToStringFields?: ArrayToStringFields;
   /**
-   * 是否折叠，在showCollapseButton=true下生效
-   * true:折叠 false:展开
+   * Có thu gọn hay không, có hiệu lực khi showCollapseButton=true
+   * true: thu gọn, false: mở rộng
    */
   collapsed?: boolean;
   /**
-   * 折叠时保持行数
+   * Giữ số dòng khi thu gọn
    * @default 1
    */
   collapsedRows?: number;
   /**
-   * 是否触发resize事件
+   * Có kích hoạt sự kiện resize hay không
    * @default false
    */
   collapseTriggerResize?: boolean;
   /**
-   * 表单项通用后备配置，当子项目没配置时使用这里的配置，子项目配置优先级高于此配置
+   * Cấu hình dự phòng chung cho các mục form, khi mục con chưa cấu hình thì dùng cấu hình này, cấu hình của mục con có độ ưu tiên cao hơn cấu hình này
    */
   commonConfig?: FormCommonConfig;
   /**
-   * 紧凑模式（移除表单每一项底部为校验信息预留的空间）
+   * Chế độ gọn (loại bỏ khoảng trống ở cuối mỗi mục form dành cho thông tin kiểm tra)
    */
   compact?: boolean;
   /**
-   * 组件v-model事件绑定
+   * Liên kết sự kiện v-model của component
    */
   componentBindEventMap?: Partial<Record<BaseFormComponentType, string>>;
   /**
-   * 组件集合
+   * Tập hợp component
    */
   componentMap: Record<BaseFormComponentType, Component>;
   /**
-   * 表单字段映射到时间格式
+   * Ánh xạ trường form sang định dạng thời gian
    */
   fieldMappingTime?: FieldMappingTime;
   /**
-   * 表单实例
+   * Thể hiện của form
    */
   form?: FormContext<GenericObject>;
   /**
-   * 表单项布局
+   * Bố cục của mục form
    */
   layout?: FormLayout;
   /**
-   * 表单定义
+   * Định nghĩa form
    */
   schema?: FormSchema<T>[];
 
   /**
-   * 是否显示展开/折叠
+   * Có hiển thị nút mở rộng/thu gọn hay không
    */
   showCollapseButton?: boolean;
   /**
-   * 格式化日期
+   * Định dạng ngày tháng
    */
 
   /**
-   * 表单栅格布局
+   * Bố cục lưới của form
    * @default "grid-cols-1"
    */
   wrapperClass?: WrapperClassType;
@@ -354,80 +350,80 @@ export interface VbenFormProps<
   'componentBindEventMap' | 'componentMap' | 'form'
 > {
   /**
-   * 操作按钮是否反转（提交按钮前置）
+   * Nút thao tác có đảo ngược hay không (nút gửi đặt trước)
    */
   actionButtonsReverse?: boolean;
   /**
-   * 操作按钮组的样式
-   * newLine: 在新行显示。rowEnd: 在行内显示，靠右对齐（默认）。inline: 使用grid默认样式
+   * Kiểu của nhóm nút thao tác
+   * newLine: hiển thị trên dòng mới. rowEnd: hiển thị trong dòng, căn phải (mặc định). inline: dùng kiểu mặc định của grid
    */
   actionLayout?: 'inline' | 'newLine' | 'rowEnd';
   /**
-   * 操作按钮组显示位置，默认靠右显示
+   * Vị trí hiển thị của nhóm nút thao tác, mặc định hiển thị căn phải
    */
   actionPosition?: 'center' | 'left' | 'right';
   /**
-   * 表单操作区域class
+   * Class của khu vực thao tác form
    */
   actionWrapperClass?: ClassType;
   /**
-   * 表单字段数组映射字符串配置 默认使用","
+   * Cấu hình ánh xạ mảng trường form thành chuỗi, mặc định dùng ","
    */
   arrayToStringFields?: ArrayToStringFields;
 
   /**
-   * 表单字段映射
+   * Ánh xạ trường form
    */
   fieldMappingTime?: FieldMappingTime;
   /**
-   * 表单收起展开状态变化回调
+   * Callback khi trạng thái thu gọn/mở rộng của form thay đổi
    */
   handleCollapsedChange?: (collapsed: boolean) => void;
   /**
-   * 表单重置回调
+   * Callback đặt lại form
    */
   handleReset?: HandleResetFn;
   /**
-   * 表单提交回调
+   * Callback gửi form
    */
   handleSubmit?: HandleSubmitFn;
   /**
-   * 表单值变化回调
+   * Callback khi giá trị form thay đổi
    */
   handleValuesChange?: (
     values: Record<string, any>,
     fieldsChanged: string[],
   ) => void;
   /**
-   * 重置按钮参数
+   * Tham số của nút đặt lại
    */
   resetButtonOptions?: ActionButtonOptions;
 
   /**
-   * 验证失败时是否自动滚动到第一个错误字段
+   * Khi kiểm tra thất bại có tự động cuộn tới trường lỗi đầu tiên hay không
    * @default false
    */
   scrollToFirstError?: boolean;
 
   /**
-   * 是否显示默认操作按钮
+   * Có hiển thị nút thao tác mặc định hay không
    * @default true
    */
   showDefaultActions?: boolean;
 
   /**
-   * 提交按钮参数
+   * Tham số của nút gửi
    */
   submitButtonOptions?: ActionButtonOptions;
 
   /**
-   * 是否在字段值改变时提交表单
+   * Có gửi form khi giá trị trường thay đổi hay không
    * @default false
    */
   submitOnChange?: boolean;
 
   /**
-   * 是否在回车时提交表单
+   * Có gửi form khi nhấn Enter hay không
    * @default false
    */
   submitOnEnter?: boolean;

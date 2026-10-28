@@ -1,30 +1,30 @@
 # LINGYUN.Abp.TextTemplating.Razor
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板 Razor 引擎模块，提供基于 Razor 语法的模板渲染实现。
+Mô-đun engine Razor cho mẫu văn bản, cung cấp triển khai kết xuất mẫu dựa trên cú pháp Razor.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * Volo.Abp.TextTemplating.Razor
 * LINGYUN.Abp.TextTemplating.Domain
 
-### 功能定义
+### Định nghĩa tính năng
 
-* 提供 Razor 模板渲染引擎
-  * RazorTemplateRenderingEngine - Razor 模板渲染引擎实现
-* 支持以下功能
-  * 使用 Razor 语法编写模板
-  * 支持模型绑定和强类型视图
-  * 支持布局模板
-  * 支持部分视图
-  * 支持 HTML 编码和解码
-  * 支持条件语句和循环
-  * 支持 C# 表达式
+* Cung cấp engine kết xuất mẫu Razor
+  * RazorTemplateRenderingEngine - Triển khai engine kết xuất mẫu Razor
+* Hỗ trợ các tính năng sau
+  * Viết mẫu bằng cú pháp Razor
+  * Hỗ trợ model binding và view kiểu mạnh
+  * Hỗ trợ mẫu bố cục
+  * Hỗ trợ partial view
+  * Hỗ trợ mã hóa và giải mã HTML
+  * Hỗ trợ câu lệnh điều kiện và vòng lặp
+  * Hỗ trợ biểu thức C#
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingRazorModule` 依赖
+1. Thêm dependency `AbpTextTemplatingRazorModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingRazorModule))]
@@ -33,17 +33,17 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 创建和使用 Razor 模板
+2. Tạo và sử dụng mẫu Razor
 
 ```csharp
-// 创建模板定义
+// Tạo định nghĩa mẫu
 var template = new TextTemplateDefinition(
     Guid.NewGuid(),
     "Welcome",
     "Welcome Email Template",
     renderEngine: "Razor");
 
-// 模板内容示例
+// Ví dụ nội dung mẫu
 @model WelcomeEmailModel
 
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ var template = new TextTemplateDefinition(
 </body>
 </html>
 
-// 使用模板
+// Sử dụng mẫu
 public class YourService
 {
     private readonly ITemplateRenderer _templateRenderer;
@@ -84,4 +84,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

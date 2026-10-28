@@ -19,7 +19,7 @@ const clickLogo = () => {};
     :page-title="$t('authentication.pageTitle')"
     :click-logo="clickLogo"
   >
-    <!-- 自定义工具栏 -->
+    <!-- Thanh công cụ tùy chỉnh -->
     <!-- <template #toolbar></template> -->
   </AuthPageLayout>
 </template>

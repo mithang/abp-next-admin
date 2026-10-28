@@ -23,36 +23,36 @@ public class WeChatWorkAppChatUpdateRequest : WeChatWorkAppChatRequest
     }
 
     /// <summary>
-    /// 新的群聊名。若不需更新，请忽略此参数。最多50个utf8字符，超过将截断
+    /// Tên nhóm trò chuyện mới. Nếu không cần cập nhật, hãy bỏ qua tham số này. Tối đa 50 ký tự utf8, vượt quá sẽ bị cắt ngắn
     /// </summary>
     [CanBeNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public virtual string? Name { get; set; }
     /// <summary>
-    /// 新群主的id。
-    /// 若不需更新，请忽略此参数。课程群聊群主必须在设置的群主列表内
+    /// id của chủ nhóm mới.
+    /// Nếu không cần cập nhật, hãy bỏ qua tham số này. Chủ nhóm trò chuyện của khóa học phải nằm trong danh sách chủ nhóm đã thiết lập
     /// </summary>
     [CanBeNull]
     [JsonProperty("owner")]
     [JsonPropertyName("owner")]
     public virtual string? Owner { get; set; }
     /// <summary>
-    /// 添加成员的id列表
+    /// Danh sách id của thành viên được thêm vào
     /// </summary>
     [CanBeNull]
     [JsonProperty("add_user_list")]
     [JsonPropertyName("add_user_list")]
     public virtual List<string>? AddUsers { get; set; }
     /// <summary>
-    /// 踢出成员的id列表
+    /// Danh sách id của thành viên bị xóa khỏi nhóm
     /// </summary>
     [CanBeNull]
     [JsonProperty("del_user_list")]
     [JsonPropertyName("del_user_list")]
     public virtual List<string>? DelUsers { get; set; }
     /// <summary>
-    /// 群聊id
+    /// id nhóm trò chuyện
     /// </summary>
     [NotNull]
     [JsonProperty("chatid")]

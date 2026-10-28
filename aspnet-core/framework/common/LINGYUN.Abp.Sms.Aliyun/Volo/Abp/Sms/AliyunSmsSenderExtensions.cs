@@ -7,12 +7,12 @@ namespace Volo.Abp.Sms;
 public static class AliyunSmsSenderExtensions
 {
     /// <summary>
-    /// 扩展短信接口
+    /// Giao diện SMS mở rộng
     /// </summary>
     /// <param name="smsSender"></param>
-    /// <param name="templateCode">短信模板号</param>
-    /// <param name="phoneNumber">发送手机号</param>
-    /// <param name="templateParams">短信模板参数</param>
+    /// <param name="templateCode">Mã mẫu SMS</param>
+    /// <param name="phoneNumber">Số điện thoại di động nhận tin</param>
+    /// <param name="templateParams">Tham số mẫu SMS</param>
     /// <returns></returns>
     public static async Task SendAsync(this ISmsSender smsSender, string templateCode, string phoneNumber, IDictionary<string, object>? templateParams = null)
     {
@@ -26,13 +26,13 @@ public static class AliyunSmsSenderExtensions
     }
 
     /// <summary>
-    /// 扩展短信接口
+    /// Giao diện SMS mở rộng
     /// </summary>
     /// <param name="smsSender"></param>
-    /// <param name="signName">短信签名</param>
-    /// <param name="templateCode">短信模板号</param>
-    /// <param name="phoneNumber">发送手机号</param>
-    /// <param name="templateParams">短信模板参数</param>
+    /// <param name="signName">Chữ ký SMS</param>
+    /// <param name="templateCode">Mã mẫu SMS</param>
+    /// <param name="phoneNumber">Số điện thoại di động nhận tin</param>
+    /// <param name="templateParams">Tham số mẫu SMS</param>
     /// <returns></returns>
     public static async Task SendAsync(this ISmsSender smsSender, string signName, string templateCode, string phoneNumber, IDictionary<string, object>? templateParams = null)
     {

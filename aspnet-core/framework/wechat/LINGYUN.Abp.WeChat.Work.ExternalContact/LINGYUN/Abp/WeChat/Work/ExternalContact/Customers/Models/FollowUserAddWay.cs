@@ -2,124 +2,124 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 客户来源
+/// Nguồn khách hàng
 /// </summary>
-[Description("客户来源")]
+[Description("Nguồn khách hàng")]
 public enum FollowUserAddWay
 {
     /// <summary>
-    /// 未知来源
+    /// Nguồn không xác định
     /// </summary>
-    [Description("未知来源")]
+    [Description("Nguồn không xác định")]
     None = 0,
     /// <summary>
-    /// 扫描二维码
+    /// Quét mã QR
     /// </summary>
-    [Description("扫描二维码")]
+    [Description("Quét mã QR")]
     ScanQrCode = 1,
     /// <summary>
-    /// 搜索手机号
+    /// Tìm kiếm theo số điện thoại
     /// </summary>
-    [Description("搜索手机号")]
+    [Description("Tìm kiếm theo số điện thoại")]
     SearchPhoneNumber = 2,
     /// <summary>
-    /// 名片分享
+    /// Chia sẻ danh thiếp
     /// </summary>
-    [Description("名片分享")]
+    [Description("Chia sẻ danh thiếp")]
     SharedCard = 3,
     /// <summary>
-    /// 群聊
+    /// Trò chuyện nhóm
     /// </summary>
-    [Description("群聊")]
+    [Description("Trò chuyện nhóm")]
     GroupChat = 4,
     /// <summary>
-    /// 手机通讯录
+    /// Danh bạ điện thoại
     /// </summary>
-    [Description("手机通讯录")]
+    [Description("Danh bạ điện thoại")]
     PhoneBook = 5,
     /// <summary>
-    /// 微信联系人
+    /// Liên hệ WeChat
     /// </summary>
-    [Description("微信联系人")]
+    [Description("Liên hệ WeChat")]
     WeChatContact = 6,
     /// <summary>
-    /// 安装第三方应用时自动添加的客服人员
+    /// Nhân viên chăm sóc khách hàng được thêm tự động khi cài đặt ứng dụng bên thứ ba
     /// </summary>
-    [Description("安装第三方应用时自动添加的客服人员")]
+    [Description("Nhân viên chăm sóc khách hàng được thêm tự động khi cài đặt ứng dụng bên thứ ba")]
     InstallThirdPartyApp = 8,
     /// <summary>
-    /// 搜索邮箱
+    /// Tìm kiếm theo email
     /// </summary>
-    [Description("搜索邮箱")]
+    [Description("Tìm kiếm theo email")]
     SearchEmail = 9,
     /// <summary>
-    /// 视频号添加
+    /// Thêm qua Video Channel
     /// </summary>
-    [Description("视频号添加")]
+    [Description("Thêm qua Video Channel")]
     WechatChannel = 10,
     /// <summary>
-    /// 通过日程参与人添加
+    /// Thêm qua người tham gia lịch trình
     /// </summary>
-    [Description("通过日程参与人添加")]
+    [Description("Thêm qua người tham gia lịch trình")]
     SchedulePart = 11,
     /// <summary>
-    /// 通过会议参与人添加
+    /// Thêm qua người tham gia cuộc họp
     /// </summary>
-    [Description("通过会议参与人添加")]
+    [Description("Thêm qua người tham gia cuộc họp")]
     MeetPart = 12,
     /// <summary>
-    /// 添加微信好友对应的企业微信
+    /// WeChat doanh nghiệp tương ứng khi thêm bạn WeChat
     /// </summary>
-    [Description("添加微信好友对应的企业微信")]
+    [Description("WeChat doanh nghiệp tương ứng khi thêm bạn WeChat")]
     WeChatFriend = 13,
     /// <summary>
-    /// 通过智慧硬件专属客服添加
+    /// Thêm qua nhân viên chăm sóc khách hàng chuyên trách của thiết bị thông minh
     /// </summary>
-    [Description("通过智慧硬件专属客服添加")]
+    [Description("Thêm qua nhân viên chăm sóc khách hàng chuyên trách của thiết bị thông minh")]
     SmartHardware = 14,
     /// <summary>
-    /// 通过上门服务客服添加
+    /// Thêm qua nhân viên chăm sóc khách hàng dịch vụ tận nơi
     /// </summary>
-    [Description("通过上门服务客服添加")]
+    [Description("Thêm qua nhân viên chăm sóc khách hàng dịch vụ tận nơi")]
     DoorService = 15,
     /// <summary>
-    /// 通过获客链接添加
+    /// Thêm qua liên kết thu hút khách hàng
     /// </summary>
-    [Description("通过获客链接添加")]
+    [Description("Thêm qua liên kết thu hút khách hàng")]
     CustomerAcqLink = 16,
     /// <summary>
-    /// 通过定制开发添加
+    /// Thêm qua phát triển tùy chỉnh
     /// </summary>
-    [Description("通过定制开发添加")]
+    [Description("Thêm qua phát triển tùy chỉnh")]
     CustomDevelopment = 17,
     /// <summary>
-    /// 通过需求回复添加
+    /// Thêm qua phản hồi nhu cầu
     /// </summary>
-    [Description("通过需求回复添加")]
+    [Description("Thêm qua phản hồi nhu cầu")]
     DemandResponse = 18,
     /// <summary>
-    /// 通过第三方售前客服添加
+    /// Thêm qua nhân viên chăm sóc khách hàng trước bán hàng của bên thứ ba
     /// </summary>
-    [Description("通过第三方售前客服添加")]
+    [Description("Thêm qua nhân viên chăm sóc khách hàng trước bán hàng của bên thứ ba")]
     ThirdPartyPreSales = 21,
     /// <summary>
-    /// 通过可能的商务伙伴添加
+    /// Thêm qua đối tác kinh doanh tiềm năng
     /// </summary>
-    [Description("通过可能的商务伙伴添加")]
+    [Description("Thêm qua đối tác kinh doanh tiềm năng")]
     PotentialBusPart = 22,
     /// <summary>
-    /// 通过接受微信账号收到的好友申请添加
+    /// Thêm bằng cách chấp nhận lời mời kết bạn nhận được qua tài khoản WeChat
     /// </summary>
-    [Description("通过接受微信账号收到的好友申请添加")]
+    [Description("Thêm bằng cách chấp nhận lời mời kết bạn nhận được qua tài khoản WeChat")]
     WeChatFriendRequest = 24,
     /// <summary>
-    /// 内部成员共享
+    /// Chia sẻ bởi thành viên nội bộ
     /// </summary>
-    [Description("内部成员共享")]
+    [Description("Chia sẻ bởi thành viên nội bộ")]
     SharedByInternalMembers = 201,
     /// <summary>
-    /// 管理员/负责人分配
+    /// Phân công bởi quản trị viên/người phụ trách
     /// </summary>
-    [Description("管理员/负责人分配")]
+    [Description("Phân công bởi quản trị viên/người phụ trách")]
     AllocationByAdmin = 202
 }

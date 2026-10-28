@@ -121,12 +121,12 @@ const computedSchema = computed(
       const keepIndex = keepFormItemIndex.value;
 
       const hidden =
-        // 折叠状态 & 显示折叠按钮 & 当前索引大于保留索引
+        // Trạng thái thu gọn & hiển thị nút thu gọn & chỉ số hiện tại lớn hơn chỉ số giữ lại
         props.showCollapseButton && !!formCollapsed.value && keepIndex
           ? keepIndex <= index
           : false;
 
-      // 处理函数形式的formItemClass
+      // Xử lý formItemClass dạng hàm
       let resolvedSchemaFormItemClass = schema.formItemClass;
       if (isFunction(schema.formItemClass)) {
         try {

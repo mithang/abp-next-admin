@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Function;
 
 /// <summary>
-/// 测试函数响应
+/// Phản hồi kiểm thử hàm
 /// </summary>
 public class TestFunctionResponse
 {

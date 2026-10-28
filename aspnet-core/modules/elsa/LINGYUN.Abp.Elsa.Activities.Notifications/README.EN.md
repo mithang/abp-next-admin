@@ -44,4 +44,4 @@ public class YouProjectModule : AbpModule
 
 * **NotificationId**: ID of the sent notification
 
-[中文文档](./README.md)
+[Tiếng Việt](./README.md)

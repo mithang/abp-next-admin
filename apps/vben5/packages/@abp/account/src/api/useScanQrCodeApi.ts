@@ -9,8 +9,8 @@ export function useScanQrCodeApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 生成登录二维码
-   * @returns 二维码信息
+   * Tạo mã QR đăng nhập
+   * @returns Thông tin mã QR
    */
   function generateApi(): Promise<GenerateQrCodeResult> {
     return request<GenerateQrCodeResult>('/api/account/qrcode/generate', {
@@ -19,9 +19,9 @@ export function useScanQrCodeApi() {
   }
 
   /**
-   * 检查二维码状态
-   * @param key 二维码Key
-   * @returns 二维码信息
+   * Kiểm tra trạng thái mã QR
+   * @param key Key mã QR
+   * @returns Thông tin mã QR
    */
   function checkCodeApi(key: string): Promise<QrCodeUserInfoResult> {
     return request<QrCodeUserInfoResult>(`/api/account/qrcode/${key}/check`, {

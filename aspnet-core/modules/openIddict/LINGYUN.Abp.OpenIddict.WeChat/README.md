@@ -3,66 +3,66 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.WeChat%2FLINGYUN.Abp.OpenIddict.WeChat.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.WeChat.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.WeChat)
 
-## 介绍
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.WeChat` 是一个基于 OpenIddict 的微信认证扩展模块，支持微信公众平台和微信小程序的认证流程。
+`LINGYUN.Abp.OpenIddict.WeChat` là một mô-đun mở rộng xác thực WeChat dựa trên OpenIddict, hỗ trợ quy trình xác thực của nền tảng công khai WeChat và chương trình mini WeChat.
 
 [English](./README.EN.md)
 
-## 功能
+## Tính năng
 
-* 微信公众平台认证
-  * 支持公众号授权登录
-  * 支持自动注册新用户
-  * 支持跨租户认证
-  * 支持安全日志记录
+* Xác thực nền tảng công khai WeChat
+  * Hỗ trợ đăng nhập bằng ủy quyền tài khoản công khai
+  * Hỗ trợ tự động đăng ký người dùng mới
+  * Hỗ trợ xác thực đa tenant
+  * Hỗ trợ ghi nhật ký bảo mật
 
-* 微信小程序认证
-  * 支持小程序授权登录
-  * 支持自动注册新用户
-  * 支持跨租户认证
-  * 支持安全日志记录
+* Xác thực chương trình mini WeChat
+  * Hỗ trợ đăng nhập bằng ủy quyền chương trình mini
+  * Hỗ trợ tự động đăng ký người dùng mới
+  * Hỗ trợ xác thực đa tenant
+  * Hỗ trợ ghi nhật ký bảo mật
 
-* 用户管理集成
-  * 支持微信账号绑定
-  * 支持账号锁定策略
-  * 支持失败尝试计数
+* Tích hợp quản lý người dùng
+  * Hỗ trợ liên kết tài khoản WeChat
+  * Hỗ trợ chính sách khóa tài khoản
+  * Hỗ trợ đếm số lần thử thất bại
 
-* 安全日志
-  * 记录登录尝试
-  * 记录认证失败
-  * 记录账号锁定
+* Nhật ký bảo mật
+  * Ghi lại lần thử đăng nhập
+  * Ghi lại lần xác thực thất bại
+  * Ghi lại việc khóa tài khoản
 
-* 本地化支持
-  * 集成 ABP 本地化框架
-  * 支持自定义错误消息
+* Hỗ trợ bản địa hóa
+  * Tích hợp framework bản địa hóa ABP
+  * Hỗ trợ thông báo lỗi tùy chỉnh
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.WeChat
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictWeChatModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictWeChatModule))]` vào lớp mô-đun của bạn.
 
-2. 配置 OpenIddict 服务器：
+2. Cấu hình máy chủ OpenIddict:
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
     PreConfigure<OpenIddictServerBuilder>(builder =>
     {
-        // 允许微信认证流程
+        // Cho phép quy trình xác thực WeChat
         builder.AllowWeChatFlow();
     });
 }
 ```
 
-3. 使用示例：
+3. Ví dụ sử dụng:
 
-微信公众平台认证：
+Xác thực nền tảng công khai WeChat:
 ```http
 POST /connect/token
 Content-Type: application/x-www-form-urlencoded
@@ -72,7 +72,7 @@ code=021iZ1Ga1TpLOB0dXJIa1Zr6RR1iZ1G7&
 scope=openid profile wechat
 ```
 
-微信小程序认证：
+Xác thực chương trình mini WeChat:
 ```http
 POST /connect/token
 Content-Type: application/x-www-form-urlencoded
@@ -82,29 +82,29 @@ code=021iZ1Ga1TpLOB0dXJIa1Zr6RR1iZ1G7&
 scope=openid profile wechat
 ```
 
-## 参数
+## Tham số
 
-* code (必填)
-  * 微信授权码
-  * 必须是有效的微信授权码
+* code (bắt buộc)
+  * Mã ủy quyền WeChat
+  * Phải là mã ủy quyền WeChat hợp lệ
 
-* scope (可选)
-  * 请求的权限范围
-  * 默认包含 openid profile wechat
+* scope (tùy chọn)
+  * Phạm vi quyền được yêu cầu
+  * Mặc định bao gồm openid profile wechat
 
-## 错误码
+## Mã lỗi
 
 * invalid_grant
-  * GrantTypeInvalid - 不被允许的授权类型
-  * WeChatTokenInvalid - 微信认证失败
-  * WeChatCodeNotFound - 微信授权码为空或不存在
-  * WeChatNotRegister - 用户微信账号未绑定
+  * GrantTypeInvalid - Loại ủy quyền không được phép
+  * WeChatTokenInvalid - Xác thực WeChat thất bại
+  * WeChatCodeNotFound - Mã ủy quyền WeChat trống hoặc không tồn tại
+  * WeChatNotRegister - Tài khoản WeChat của người dùng chưa được liên kết
 
-## 注意事项
+## Lưu ý
 
-* 必须启用相应的功能（公众平台或小程序授权）
-* 必须配置正确的微信应用 ID 和密钥
-* 授权码有效期有限
-* 多次认证失败可能导致账号锁定
-* 所有认证操作都会记录在安全日志中
-* 生产环境建议使用 HTTPS
+* Phải bật tính năng tương ứng (ủy quyền nền tảng công khai hoặc chương trình mini)
+* Phải cấu hình đúng ID ứng dụng và khóa bí mật WeChat
+* Mã ủy quyền có thời hạn hiệu lực giới hạn
+* Nhiều lần xác thực thất bại có thể dẫn đến khóa tài khoản
+* Mọi thao tác xác thực đều được ghi vào nhật ký bảo mật
+* Môi trường production nên sử dụng HTTPS

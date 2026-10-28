@@ -8,19 +8,19 @@ namespace LINGYUN.Abp.Webhooks;
 public class AbpWebhooksOptions
 {
     /// <summary>
-    /// 默认超时时间
+    /// Thời gian chờ mặc định
     /// </summary>
     public TimeSpan TimeoutDuration { get; set; }
     /// <summary>
-    /// 默认最大发送次数
+    /// Số lần gửi tối đa mặc định
     /// </summary>
     public int MaxSendAttemptCount { get; set; }
     /// <summary>
-    /// 是否达到最大连续失败次数时自动取消订阅
+    /// Có tự động hủy đăng ký khi đạt số lần thất bại liên tiếp tối đa hay không
     /// </summary>
     public bool IsAutomaticSubscriptionDeactivationEnabled { get; set; }
     /// <summary>
-    /// 取消订阅前最大连续失败次数
+    /// Số lần thất bại liên tiếp tối đa trước khi hủy đăng ký
     /// </summary>
     public int MaxConsecutiveFailCountBeforeDeactivateSubscription { get; set; }
 
@@ -30,11 +30,11 @@ public class AbpWebhooksOptions
 
     public HashSet<string> DeletedWebhookGroups { get; }
     /// <summary>
-    /// 默认请求头
+    /// Tiêu đề yêu cầu mặc định
     /// </summary>
     public IDictionary<string, string> DefaultHttpHeaders { get; }
     /// <summary>
-    /// 默认发送方标识
+    /// Định danh bên gửi mặc định
     /// </summary>
     public string DefaultAgentIdentifier { get; set; }
     public AbpWebhooksOptions()
@@ -50,11 +50,11 @@ public class AbpWebhooksOptions
 
         DefaultHttpHeaders = new Dictionary<string, string>
         {
-            // 取消响应内容包装
+            // Hủy đóng gói nội dung phản hồi
             { "_AbpDontWrapResult", "true" },
-            // TODO: 可能跨域影响
+            // TODO: Có thể ảnh hưởng liên miền (cross-origin)
             // { "X-Requested-With", "XMLHttpRequest" },
-            // 标识来源
+            // Đánh dấu nguồn gốc
             { "X-Requested-From", "abp-webhooks" },
         };
 

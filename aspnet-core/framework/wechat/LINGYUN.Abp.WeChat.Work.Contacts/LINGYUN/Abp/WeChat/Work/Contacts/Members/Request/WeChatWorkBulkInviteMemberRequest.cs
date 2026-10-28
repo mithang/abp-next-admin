@@ -6,29 +6,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Request;
 /// <summary>
-/// 邀请成员请求参数
+/// Tham số yêu cầu mời thành viên
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90975" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90975" />
 /// </remarks>
 public class WeChatWorkBulkInviteMemberRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 成员ID列表, 最多支持1000个。
+    /// Danh sách ID thành viên, hỗ trợ tối đa 1000 mục.
     /// </summary>
     [NotNull]
     [JsonProperty("user")]
     [JsonPropertyName("user")]
     public List<string> User { get; }
     /// <summary>
-    /// 部门ID列表，最多支持100个。
+    /// Danh sách ID phòng ban, hỗ trợ tối đa 100 mục.
     /// </summary>
     [NotNull]
     [JsonProperty("party")]
     [JsonPropertyName("party")]
     public List<int> Party { get; }
     /// <summary>
-    /// 标签ID列表，最多支持100个。
+    /// Danh sách ID nhãn, hỗ trợ tối đa 100 mục.
     /// </summary>
     [NotNull]
     [JsonProperty("tag")]

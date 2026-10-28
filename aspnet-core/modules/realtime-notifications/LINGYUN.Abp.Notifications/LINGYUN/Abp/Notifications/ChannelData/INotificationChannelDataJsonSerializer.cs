@@ -3,20 +3,20 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)的 JSON 序列化抽象
+/// Abstraction tuần tự hóa JSON cho dữ liệu kênh thông báo (payload)
 /// </summary>
 public interface INotificationChannelDataJsonSerializer
 {
     /// <summary>
-    /// 序列化
+    /// Tuần tự hóa
     /// </summary>
     string Serialize(object value, Type valueType);
 
     /// <summary>
-    /// 反序列化
+    /// Giải tuần tự hóa
     /// </summary>
-    /// <param name="json">JSON 字符串</param>
-    /// <param name="targetType">目标类型</param>
-    /// <returns>实例, 类型不支持时返回 null</returns>
+    /// <param name="json">Chuỗi JSON</param>
+    /// <param name="targetType">Kiểu đích</param>
+    /// <returns>Thể hiện, trả về null khi kiểu không được hỗ trợ</returns>
     object? Deserialize(string json, Type targetType);
 }

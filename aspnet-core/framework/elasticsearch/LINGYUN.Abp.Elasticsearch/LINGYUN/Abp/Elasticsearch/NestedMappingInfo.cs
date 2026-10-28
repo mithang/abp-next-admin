@@ -3,27 +3,27 @@
 namespace LINGYUN.Abp.Elasticsearch;
 
 /// <summary>
-/// Nested 字段的映射信息
+/// Thông tin ánh xạ của trường Nested
 /// </summary>
 public class NestedMappingInfo
 {
     /// <summary>
-    /// Nested 字段的完整路径
+    /// Đường dẫn đầy đủ của trường Nested
     /// </summary>
     public string Path { get; set; } = string.Empty;
 
     /// <summary>
-    /// Nested 字段名称（最后一段）
+    /// Tên trường Nested (đoạn cuối cùng)
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Nested 内部的属性映射
+    /// Ánh xạ thuộc tính bên trong Nested
     /// </summary>
     public Dictionary<string, FieldMappingInfo> Properties { get; set; } = new();
 
     /// <summary>
-    /// 是否包含指定子字段
+    /// Có chứa trường con được chỉ định hay không
     /// </summary>
     public bool ContainsProperty(string propertyName)
     {
@@ -31,7 +31,7 @@ public class NestedMappingInfo
     }
 
     /// <summary>
-    /// 获取子字段信息
+    /// Lấy thông tin trường con
     /// </summary>
     public FieldMappingInfo? GetProperty(string propertyName)
     {
@@ -39,7 +39,7 @@ public class NestedMappingInfo
     }
 
     /// <summary>
-    /// 获取 nested 内部字段的完整路径
+    /// Lấy đường dẫn đầy đủ của trường bên trong nested
     /// </summary>
     public string GetFullPath(string propertyName)
     {
@@ -47,11 +47,11 @@ public class NestedMappingInfo
     }
 
     /// <summary>
-    /// 获取 nested 内部字段的映射信息（递归）
+    /// Lấy thông tin ánh xạ của trường bên trong nested (đệ quy)
     /// </summary>
     public FieldMappingInfo? GetNestedField(string fullPath)
     {
-        // 去掉当前 nested 路径前缀
+        // Loại bỏ tiền tố đường dẫn nested hiện tại
         if (!fullPath.StartsWith(Path + "."))
         {
             return null;
@@ -77,7 +77,7 @@ public class NestedMappingInfo
                 return null;
             }
 
-            // 如果还有下一级，且当前字段是 object 或 nested 类型
+            // Nếu còn cấp tiếp theo và trường hiện tại là kiểu object hoặc nested
             if (i < parts.Length - 1)
             {
                 currentProperties = current.Properties;

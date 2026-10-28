@@ -11,41 +11,41 @@ namespace LINGYUN.Abp.Notifications;
 public class NotificationEto<T> : RealTimeEto<T>, IMultiTenant
 {
     /// <summary>
-    /// 通知标识
-    /// 自动计算
+    /// Mã định danh thông báo
+    /// Tự động tính toán
     /// </summary>
     public long Id { get; set; }
     /// <summary>
-    /// 租户
+    /// Tenant
     /// </summary>
     public Guid? TenantId { get; set; }
     /// <summary>
-    /// 通知名称
+    /// Tên thông báo
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 创建时间
+    /// Thời gian tạo
     /// </summary>
     public DateTime CreationTime { get; set; }
     /// <summary>
-    /// 紧急级别
+    /// Mức độ khẩn cấp
     /// </summary>
     public NotificationSeverity Severity { get; set; }
     /// <summary>
-    /// 指定的接收用户信息集合
+    /// Tập hợp thông tin người dùng nhận được chỉ định
     /// </summary>
     /// <remarks>
-    /// 注:<br/>
-    /// 如果指定了用户列表,应该在事件订阅程序中通过此集合过滤订阅用户<br/>
-    /// 如果未指定用户列表,应该在事件订阅程序中过滤所有订阅此通知的用户
+    /// Lưu ý:<br/>
+    /// Nếu đã chỉ định danh sách người dùng, trong chương trình đăng ký sự kiện nên lọc người dùng đã đăng ký thông qua tập hợp này<br/>
+    /// Nếu chưa chỉ định danh sách người dùng, trong chương trình đăng ký sự kiện nên lọc tất cả người dùng đã đăng ký thông báo này
     /// </remarks>
     public List<UserIdentifier> Users { get; set; } = new List<UserIdentifier>();
     /// <summary>
-    /// 用户指定通知提供程序列表
+    /// Danh sách nhà cung cấp thông báo do người dùng chỉ định
     /// </summary>
     /// <remarks>
-    /// 注:<br/>
-    /// 如果指定了通知提供程序,将只使用特定的提供程序发布通知
+    /// Lưu ý:<br/>
+    /// Nếu đã chỉ định nhà cung cấp thông báo, sẽ chỉ sử dụng nhà cung cấp cụ thể đó để phát hành thông báo
     /// </remarks>
     public List<string> UseProviders { get; set; } = new List<string>();
     public NotificationEto() : base()

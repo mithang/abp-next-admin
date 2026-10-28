@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Rules
 
-## 模块说明
+## Mô tả module
 
-规则引擎基础模块
+Module cơ sở của công cụ quy tắc (rule engine)
 
-### 基础模块  
+### Module cơ sở  
 
-### 高阶模块  
+### Module nâng cao  
 
-### 权限定义  
+### Định nghĩa quyền  
 
-### 功能定义  
+### Định nghĩa chức năng  
 
-### 配置定义  
+### Định nghĩa cấu hình  
 
-### 如何使用
+### Cách sử dụng
 
 
 ```csharp
@@ -37,18 +37,18 @@
         public async Task DoAsync()
         {
             var input = new YouInput();
-            // 规则校验
+            // Kiểm tra quy tắc
             await _ruleProvider.ExecuteAsync(input);
 
             var inputParams = new object[1]
             {
                 new InputParam()
             };
-            // 带参数规则校验
+            // Kiểm tra quy tắc có tham số
             await _ruleProvider.ExecuteAsync(input, inputParams);
         }
     }
 
 ```
 
-### 更新日志 
+### Nhật ký cập nhật 

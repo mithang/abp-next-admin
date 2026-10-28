@@ -112,7 +112,7 @@ const [Form, formApi] = useTableForm({
     await formApi.resetForm();
     const formValues = await formApi.getValues();
     formApi.setLatestSubmissionValues(formValues);
-    // 如果值发生了变化，submitOnChange会触发刷新。所以只在submitOnChange为false或者值没有发生变化时，手动刷新
+    // Nếu giá trị đã thay đổi, submitOnChange sẽ kích hoạt làm mới. Vì vậy chỉ làm mới thủ công khi submitOnChange là false hoặc giá trị không thay đổi
     if (isEqual(prevValues, formValues) || !formOptions.value?.submitOnChange) {
       props.api.reload(formValues);
     }
@@ -153,7 +153,7 @@ const toolbarOptions = computed(() => {
       ? $t('common.hideSearchPanel')
       : $t('common.showSearchPanel'),
   };
-  // 将搜索按钮合并到用户配置的toolbarConfig.tools中
+  // Gộp nút tìm kiếm vào toolbarConfig.tools do người dùng cấu hình
   const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
     tools: (gridOptions.value?.toolbarConfig?.tools ??
       []) as VxeToolbarPropTypes.ToolConfig[],
@@ -169,8 +169,8 @@ const toolbarOptions = computed(() => {
     return { toolbarConfig };
   }
 
-  // 强制使用固定的toolbar配置，不允许用户自定义
-  // 减少配置的复杂度，以及后续维护的成本
+  // Bắt buộc dùng cấu hình toolbar cố định, không cho phép người dùng tùy chỉnh
+  // Giảm độ phức tạp của cấu hình, cũng như chi phí bảo trì sau này
   toolbarConfig.slots = {
     ...(slotActions || showTableTitle.value
       ? { buttons: TOOLBAR_ACTIONS }
@@ -195,7 +195,7 @@ const options = computed(() => {
   if (mergedOptions.proxyConfig) {
     const { ajax } = mergedOptions.proxyConfig;
     mergedOptions.proxyConfig.enabled = !!ajax;
-    // 不自动加载数据, 由组件控制
+    // Không tự động tải dữ liệu, do component điều khiển
     mergedOptions.proxyConfig.autoLoad = false;
   }
 
@@ -280,11 +280,11 @@ const delegatedFormSlots = computed(() => {
 });
 
 const showDefaultEmpty = computed(() => {
-  // 检查是否有原生的 VXE Table 空状态配置
+  // Kiểm tra có cấu hình trạng thái trống gốc của VXE Table không
   const hasEmptyText = options.value.emptyText !== undefined;
   const hasEmptyRender = options.value.emptyRender !== undefined;
 
-  // 如果有原生配置，就不显示默认的空状态
+  // Nếu có cấu hình gốc, sẽ không hiển thị trạng thái trống mặc định
   return !hasEmptyText && !hasEmptyRender;
 });
 
@@ -296,7 +296,7 @@ async function init() {
     toRaw(gridOptions.value),
     toRaw(globalGridConfig),
   );
-  // 内部主动加载数据，防止form的默认值影响
+  // Chủ động tải dữ liệu nội bộ, để tránh giá trị mặc định của form ảnh hưởng
   const autoLoad = defaultGridOptions.proxyConfig?.autoLoad;
   const enableProxyConfig = options.value.proxyConfig?.enabled;
   if (enableProxyConfig && autoLoad) {
@@ -307,10 +307,10 @@ async function init() {
     // props.api.reload(formApi.form?.values ?? {});
   }
 
-  // form 由 vben-form代替，所以不适配formConfig，这里给出警告
+  // form được thay bằng vben-form, nên không tương thích formConfig, tại đây đưa ra cảnh báo
   const formConfig = gridOptions.value?.formConfig;
-  // 处理某个页面加载多个Table时，第2个之后的Table初始化报出警告
-  // 因为第一次初始化之后会把defaultGridOptions和gridOptions合并后缓存进State
+  // Xử lý cảnh báo khởi tạo của các Table từ thứ 2 trở đi khi một trang tải nhiều Table
+  // Vì sau lần khởi tạo đầu tiên sẽ gộp defaultGridOptions và gridOptions rồi lưu vào State trong bộ nhớ đệm
   if (formConfig && formConfig.enabled) {
     console.warn(
       '[Vben Vxe Table]: The formConfig in the grid is not supported, please use the `formOptions` props',
@@ -318,13 +318,13 @@ async function init() {
   }
   // @ts-ignore
   props.api?.setState?.({ gridOptions: defaultGridOptions });
-  // form 由 vben-form 代替，所以需要保证query相关事件可以拿到参数
+  // form được thay bằng vben-form, nên cần đảm bảo các sự kiện liên quan đến query có thể lấy được tham số
   extendProxyOptions(props.api, defaultGridOptions, () =>
     formApi.getLatestSubmissionValues(),
   );
 }
 
-// formOptions支持响应式
+// formOptions hỗ trợ reactive
 watch(
   formOptions,
   () => {
@@ -376,7 +376,7 @@ onUnmounted(() => {
       v-bind="options"
       v-on="events"
     >
-      <!-- 左侧操作区域或者title -->
+      <!-- Khu vực thao tác bên trái hoặc title -->
       <template v-if="showToolbar" #toolbar-actions="slotProps">
         <slot v-if="showTableTitle" name="table-title">
           <div
@@ -391,7 +391,7 @@ onUnmounted(() => {
         <slot name="toolbar-actions" v-bind="slotProps"> </slot>
       </template>
 
-      <!-- 继承默认的slot -->
+      <!-- Kế thừa slot mặc định -->
       <template
         v-for="slotName in delegatedSlots"
         :key="slotName"
@@ -412,7 +412,7 @@ onUnmounted(() => {
         />
       </template>
 
-      <!-- form表单 -->
+      <!-- Biểu mẫu form -->
       <template #form>
         <div
           v-if="formOptions"
@@ -471,7 +471,7 @@ onUnmounted(() => {
           <VbenLoading :spinning="true" />
         </slot>
       </template>
-      <!-- 统一控状态 -->
+      <!-- Điều khiển trạng thái thống nhất -->
       <template v-if="showDefaultEmpty" #empty>
         <slot name="empty">
           <EmptyIcon class="mx-auto" />

@@ -3,7 +3,7 @@
 public class AbpAspNetCoreSessionOptions
 {
     /// <summary>
-    /// 是否解析IP地理信息
+    /// Có phân tích thông tin địa lý IP hay không
     /// </summary>
     public bool IsParseIpLocation { get; set; }
 

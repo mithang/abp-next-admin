@@ -2,11 +2,11 @@
 public enum MessageContentType
 {
     /// <summary>
-    /// 文字
+    /// Văn bản
     /// </summary>
     Text = 1,
     /// <summary>
-    /// html(只发送body标签内部的数据即可，不包括body标签
+    /// html(chỉ gửi dữ liệu bên trong thẻ body là đủ, không bao gồm thẻ body
     /// </summary>
     Html = 2,
     /// <summary>

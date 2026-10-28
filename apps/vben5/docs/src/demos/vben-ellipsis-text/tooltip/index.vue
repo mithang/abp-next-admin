@@ -3,11 +3,11 @@ import { EllipsisText } from '@vben/common-ui';
 </script>
 <template>
   <EllipsisText :max-width="240">
-    住在我心里孤独的 孤独的海怪 痛苦之王 开始厌倦 深海的光 停滞的海浪
+    Sống trong tim tôi, quái vật biển cô độc, vua của nỗi đau, bắt đầu chán ngán, ánh sáng nơi biển sâu, con sóng ngừng trôi
     <template #tooltip>
       <div style="text-align: center">
-        《秦皇岛》<br />住在我心里孤独的<br />孤独的海怪 痛苦之王<br />开始厌倦
-        深海的光 停滞的海浪
+        《Tần Hoàng Đảo》<br />Sống trong tim tôi, cô độc<br />quái vật biển cô độc, vua của nỗi đau<br />bắt đầu chán ngán
+        ánh sáng nơi biển sâu, con sóng ngừng trôi
       </div>
     </template>
   </EllipsisText>

@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Models;
 /// <summary>
-/// 成员扩展属性
+/// Thuộc tính mở rộng của thành viên
 /// </summary>
 public abstract class MemberAttribute
 {
     /// <summary>
-    /// 属性名称： 在新增或者更新操作时，需要先确保在管理端有创建该属性，否则会忽略
+    /// Tên thuộc tính: khi thêm mới hoặc cập nhật, cần đảm bảo thuộc tính đã được tạo ở phía quản trị trước, nếu không sẽ bị bỏ qua
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 属性类型
+    /// Loại thuộc tính
     /// </summary>
     [NotNull]
     [JsonProperty("type")]

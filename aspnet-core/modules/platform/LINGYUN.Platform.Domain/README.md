@@ -1,36 +1,36 @@
 # LINGYUN.Platform.Domain
 
-平台管理模块的领域层，实现了平台管理所需的核心业务逻辑和领域模型。
+Lớp miền (domain layer) của mô-đun quản lý nền tảng, triển khai logic nghiệp vụ cốt lõi và mô hình miền cần thiết cho quản lý nền tảng.
 
-## 功能特性
+## Tính năng
 
-* 菜单管理
-  * 支持多级菜单结构
-  * 用户菜单定制
-  * 角色菜单权限
-  * 菜单标准化转换
+* Quản lý menu
+  * Hỗ trợ cấu trúc menu nhiều cấp
+  * Tùy chỉnh menu người dùng
+  * Quyền menu theo vai trò
+  * Chuyển đổi chuẩn hóa menu
 
-* 布局管理
-  * 布局视图实体
-  * 布局数据关联
-  * 多框架支持
+* Quản lý layout
+  * Thực thể view layout
+  * Liên kết dữ liệu layout
+  * Hỗ trợ nhiều framework
 
-* 数据字典
-  * 数据字典管理
-  * 数据字典项管理
-  * 数据字典种子数据
+* Từ điển dữ liệu
+  * Quản lý từ điển dữ liệu
+  * Quản lý mục từ điển dữ liệu
+  * Dữ liệu seed từ điển dữ liệu
 
-* 包管理
-  * 包版本控制
-  * 包文件管理
-  * Blob存储集成
-  * 包过滤规范
+* Quản lý gói
+  * Kiểm soát phiên bản gói
+  * Quản lý tệp gói
+  * Tích hợp lưu trữ Blob
+  * Quy tắc lọc gói
 
-* 企业门户
-  * 企业信息管理
-  * 企业数据存储
+* Cổng doanh nghiệp
+  * Quản lý thông tin doanh nghiệp
+  * Lưu trữ dữ liệu doanh nghiệp
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(PlatformDomainModule))]
@@ -40,30 +40,30 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 领域服务
+## Dịch vụ miền
 
-* `DataDictionaryDataSeeder`: 数据字典种子数据服务
-* `PackageBlobManager`: 包文件管理服务
-* `DefaultStandardMenuConverter`: 标准菜单转换服务
+* `DataDictionaryDataSeeder`: Dịch vụ dữ liệu seed từ điển dữ liệu
+* `PackageBlobManager`: Dịch vụ quản lý tệp gói
+* `DefaultStandardMenuConverter`: Dịch vụ chuyển đổi menu chuẩn
 
-## 仓储接口
+## Giao diện kho lưu trữ
 
-* `IMenuRepository`: 菜单仓储接口
-* `IUserMenuRepository`: 用户菜单仓储接口
-* `IRoleMenuRepository`: 角色菜单仓储接口
-* `ILayoutRepository`: 布局仓储接口
-* `IEnterpriseRepository`: 企业仓储接口
+* `IMenuRepository`: Giao diện kho lưu trữ menu
+* `IUserMenuRepository`: Giao diện kho lưu trữ menu người dùng
+* `IRoleMenuRepository`: Giao diện kho lưu trữ menu vai trò
+* `ILayoutRepository`: Giao diện kho lưu trữ layout
+* `IEnterpriseRepository`: Giao diện kho lưu trữ doanh nghiệp
 
-## 实体
+## Thực thể
 
-* `Menu`: 菜单实体
-* `UserMenu`: 用户菜单实体
-* `RoleMenu`: 角色菜单实体
-* `Layout`: 布局实体
-* `Package`: 包实体
-* `Data`: 数据字典实体
-* `DataItem`: 数据字典项实体
+* `Menu`: Thực thể menu
+* `UserMenu`: Thực thể menu người dùng
+* `RoleMenu`: Thực thể menu vai trò
+* `Layout`: Thực thể layout
+* `Package`: Thực thể gói
+* `Data`: Thực thể từ điển dữ liệu
+* `DataItem`: Thực thể mục từ điển dữ liệu
 
-## 更多
+## Thêm nữa
 
-更多信息请参考 [Platform](../README.md)
+Để biết thêm thông tin, vui lòng tham khảo [Platform](../README.md)

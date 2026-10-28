@@ -1,22 +1,22 @@
 # LINGYUN.Abp.PushPlus.SettingManagement
 
-PushPlus 设置管理模块，提供 PushPlus 配置的管理界面和API接口。
+Mô-đun quản lý cài đặt PushPlus, cung cấp giao diện quản lý và API cho cấu hình PushPlus.
 
-## 功能特性
+## Tính năng
 
-* 提供 PushPlus 配置管理接口
-* 支持全局配置管理
-* 支持租户配置管理
-* 支持多语言
-* 集成 ABP 设置管理模块
+* Cung cấp giao diện quản lý cấu hình PushPlus
+* Hỗ trợ quản lý cấu hình toàn cục
+* Hỗ trợ quản lý cấu hình tenant
+* Hỗ trợ đa ngôn ngữ
+* Tích hợp mô-đun quản lý cài đặt ABP
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.PushPlus.SettingManagement
 ```
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpPushPlusSettingManagementModule))]
@@ -26,55 +26,55 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API接口
+## API
 
-### 获取全局配置
+### Lấy cấu hình toàn cục
 
 ```http
 GET /api/setting-management/push-plus/by-global
 ```
 
-响应示例：
+Ví dụ phản hồi:
 ```json
 {
   "name": "PushPlus",
-  "displayName": "PushPlus配置",
+  "displayName": "Cấu hình PushPlus",
   "settings": [
     {
       "name": "PushPlus.Security.Token",
       "value": "your-token",
       "displayName": "Token",
-      "description": "PushPlus平台获取的Token"
+      "description": "Token lấy từ nền tảng PushPlus"
     },
     {
       "name": "PushPlus.Security.SecretKey",
       "value": "your-secret",
-      "displayName": "密钥",
-      "description": "PushPlus平台获取的密钥"
+      "displayName": "Khóa bí mật",
+      "description": "Khóa bí mật lấy từ nền tảng PushPlus"
     }
   ]
 }
 ```
 
-### 获取租户配置
+### Lấy cấu hình tenant
 
 ```http
 GET /api/setting-management/push-plus/by-current-tenant
 ```
 
-响应格式同全局配置。
+Định dạng phản hồi giống cấu hình toàn cục.
 
-## 权限
+## Quyền
 
-* Abp.PushPlus.ManageSetting - 管理PushPlus配置的权限
+* Abp.PushPlus.ManageSetting - Quyền quản lý cấu hình PushPlus
 
-## 本地化
+## Bản địa hóa
 
-模块支持以下语言：
-* 中文简体
-* 英文
+Mô-đun hỗ trợ các ngôn ngữ sau:
+* Tiếng Trung giản thể
+* Tiếng Anh
 
-## 更多信息
+## Thông tin thêm
 
 * [LINGYUN.Abp.PushPlus](../LINGYUN.Abp.PushPlus/README.md)
-* [ABP设置管理](https://docs.abp.io/en/abp/latest/Settings)
+* [Quản lý cài đặt ABP](https://docs.abp.io/en/abp/latest/Settings)

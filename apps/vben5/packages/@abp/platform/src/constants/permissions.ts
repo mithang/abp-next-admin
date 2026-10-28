@@ -1,59 +1,59 @@
-/** 邮件消息权限 */
+/** Quyền tin nhắn email */
 export const EmailMessagesPermissions = {
   Default: 'Platform.EmailMessage',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Platform.EmailMessage.Delete',
-  /** 发送消息 */
+  /** Gửi tin nhắn */
   SendMessage: 'Platform.EmailMessage.SendMessage',
 };
-/** 短信消息权限 */
+/** Quyền tin nhắn SMS */
 export const SmsMessagesPermissions = {
   Default: 'Platform.SmsMessage',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Platform.SmsMessage.Delete',
-  /** 发送消息 */
+  /** Gửi tin nhắn */
   SendMessage: 'Platform.SmsMessage.SendMessage',
 };
-/** 数据字典权限 */
+/** Quyền từ điển dữ liệu */
 export const DataDictionaryPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'Platform.DataDictionary.Create',
-  /** 默认 */
+  /** Mặc định */
   Default: 'Platform.DataDictionary',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Platform.DataDictionary.Delete',
-  /** 管理项目 */
+  /** Quản lý mục */
   ManageItems: 'Platform.DataDictionary.ManageItems',
-  /** 移动 */
+  /** Di chuyển */
   Move: 'Platform.DataDictionary.Move',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'Platform.DataDictionary.Update',
 };
-/** 布局权限 */
+/** Quyền bố cục */
 export const LayoutPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'Platform.Layout.Create',
-  /** 默认 */
+  /** Mặc định */
   Default: 'Platform.Layout',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Platform.Layout.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'Platform.Layout.Update',
 };
-/** 菜单权限 */
+/** Quyền menu */
 export const MenuPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'Platform.Menu.Create',
-  /** 默认 */
+  /** Mặc định */
   Default: 'Platform.Menu',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Platform.Menu.Delete',
-  /** 管理角色菜单 */
+  /** Quản lý menu vai trò */
   ManageRoles: 'Platform.Menu.ManageRoles',
-  /** 管理用户收藏菜单 */
+  /** Quản lý menu yêu thích của người dùng */
   ManageUserFavorites: 'Platform.Menu.ManageUserFavorites',
-  /** 管理用户菜单 */
+  /** Quản lý menu người dùng */
   ManageUsers: 'Platform.Menu.ManageUsers',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'Platform.Menu.Update',
 };

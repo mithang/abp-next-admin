@@ -1,46 +1,46 @@
 # LINGYUN.Abp.TextTemplating.EntityFrameworkCore
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板 EntityFrameworkCore 模块，提供文本模板的数据访问实现。
+Mô-đun EntityFrameworkCore mẫu văn bản, cung cấp triển khai truy cập dữ liệu cho mẫu văn bản.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * LINGYUN.Abp.TextTemplating.Domain
 * Volo.Abp.EntityFrameworkCore
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 实现文本模板的仓储接口
-  * EfCoreTextTemplateDefinitionRepository - 模板定义仓储实现
-  * EfCoreTextTemplateContentRepository - 模板内容仓储实现
-* 提供数据库上下文和配置
-  * ITextTemplatingDbContext - 文本模板数据库上下文接口
-  * TextTemplatingDbContext - 文本模板数据库上下文
-  * TextTemplatingDbContextModelCreatingExtensions - 数据库模型配置扩展
+* Triển khai giao diện kho lưu trữ mẫu văn bản
+  * EfCoreTextTemplateDefinitionRepository - Triển khai kho lưu trữ định nghĩa mẫu
+  * EfCoreTextTemplateContentRepository - Triển khai kho lưu trữ nội dung mẫu
+* Cung cấp ngữ cảnh cơ sở dữ liệu và cấu hình
+  * ITextTemplatingDbContext - Giao diện ngữ cảnh cơ sở dữ liệu mẫu văn bản
+  * TextTemplatingDbContext - Ngữ cảnh cơ sở dữ liệu mẫu văn bản
+  * TextTemplatingDbContextModelCreatingExtensions - Mở rộng cấu hình mô hình cơ sở dữ liệu
 
-### 数据库表
+### Bảng cơ sở dữ liệu
 
-* AbpTextTemplateDefinitions - 模板定义表
-  * Id - 主键
-  * Name - 模板名称
-  * DisplayName - 显示名称
-  * IsLayout - 是否为布局模板
-  * Layout - 布局名称
-  * IsInlineLocalized - 是否内联本地化
-  * DefaultCultureName - 默认文化名称
-  * LocalizationResourceName - 本地化资源名称
-  * RenderEngine - 渲染引擎
-  * IsStatic - 是否为静态模板
-* AbpTextTemplateContents - 模板内容表
-  * Id - 主键
-  * Name - 模板名称
-  * CultureName - 文化名称
-  * Content - 模板内容
+* AbpTextTemplateDefinitions - Bảng định nghĩa mẫu
+  * Id - Khóa chính
+  * Name - Tên mẫu
+  * DisplayName - Tên hiển thị
+  * IsLayout - Có phải mẫu bố cục hay không
+  * Layout - Tên bố cục
+  * IsInlineLocalized - Có bản địa hóa nội tuyến hay không
+  * DefaultCultureName - Tên văn hóa mặc định
+  * LocalizationResourceName - Tên tài nguyên bản địa hóa
+  * RenderEngine - Công cụ kết xuất
+  * IsStatic - Có phải mẫu tĩnh hay không
+* AbpTextTemplateContents - Bảng nội dung mẫu
+  * Id - Khóa chính
+  * Name - Tên mẫu
+  * CultureName - Tên văn hóa
+  * Content - Nội dung mẫu
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingEntityFrameworkCoreModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingEntityFrameworkCoreModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingEntityFrameworkCoreModule))]
@@ -49,7 +49,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 配置数据库上下文
+2. Cấu hình ngữ cảnh cơ sở dữ liệu
 
 ```csharp
 public class YourDbContext : AbpDbContext<YourDbContext>, ITextTemplatingDbContext
@@ -71,4 +71,4 @@ public class YourDbContext : AbpDbContext<YourDbContext>, ITextTemplatingDbConte
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

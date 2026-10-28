@@ -12,7 +12,7 @@ export class StateHandler {
     this.clearPromises();
   }
 
-  // 触发状态为 false 时，reject
+  // Khi trạng thái kích hoạt là false thì reject
   setConditionFalse() {
     this.condition = false;
     if (this.rejectCondition) {
@@ -21,7 +21,7 @@ export class StateHandler {
     }
   }
 
-  // 触发状态为 true 时，resolve
+  // Khi trạng thái kích hoạt là true thì resolve
   setConditionTrue() {
     this.condition = true;
     if (this.resolveCondition) {
@@ -30,11 +30,11 @@ export class StateHandler {
     }
   }
 
-  // 返回一个 Promise，等待 condition 变为 true
+  // Trả về một Promise, chờ condition chuyển thành true
   waitForCondition(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.condition) {
-        resolve(); // 如果 condition 已经为 true，立即 resolve
+        resolve(); // Nếu condition đã là true thì resolve ngay
       } else {
         this.resolveCondition = resolve;
         this.rejectCondition = reject;
@@ -42,7 +42,7 @@ export class StateHandler {
     });
   }
 
-  // 清理 resolve/reject 函数
+  // Dọn hàm resolve/reject
   private clearPromises() {
     this.resolveCondition = null;
     this.rejectCondition = null;

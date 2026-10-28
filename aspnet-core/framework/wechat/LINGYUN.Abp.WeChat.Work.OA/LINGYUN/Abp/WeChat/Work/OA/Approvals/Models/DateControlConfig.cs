@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 日期/日期+时间控件配置
+/// Cấu hình điều khiển ngày/ngày + giờ
 /// </summary>
 public class DateControlConfig : ControlConfig
 {
     /// <summary>
-    /// 日期/日期+时间内容
+    /// Nội dung ngày/ngày + giờ
     /// </summary>
     [NotNull]
     [JsonProperty("date")]
@@ -29,7 +29,7 @@ public class DateControlConfig : ControlConfig
 public class DateConfig
 {
     /// <summary>
-    /// 时间展示类型：day-日期；hour-日期+时间 ，和对应模板控件属性一致
+    /// Loại hiển thị thời gian: day - ngày; hour - ngày + giờ, nhất quán với thuộc tính điều khiển mẫu tương ứng
     /// </summary>
     [NotNull]
     [JsonProperty("type")]

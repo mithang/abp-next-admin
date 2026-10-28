@@ -1,8 +1,8 @@
-/** 名称/值键值对 */
+/** Cặp khóa-giá trị tên/giá trị */
 interface NameValue<T> {
-  /** 名称 */
+  /** Tên */
   name: string;
-  /** 值 */
+  /** Giá trị */
   value: T;
 }
 interface AuthConfig {
@@ -16,201 +16,200 @@ interface Environment {
   dev: boolean;
   prod: boolean;
 }
-/** 本地化文本数据对象 */
+/** Đối tượng dữ liệu văn bản đã bản địa hóa */
 interface LocalizableStringInfo {
-  /** 文本名称 */
+  /** Tên văn bản */
   name: string;
-  /** 资源名称 */
+  /** Tên tài nguyên */
   resourceName: string;
 }
-/** 键值对字典对象 */
+/** Đối tượng từ điển cặp khóa-giá trị */
 type Dictionary<TKey extends number | string | symbol = any, KValue = any> = {
   [key in TKey]: KValue;
 };
-/** 扩展属性字典 */
+/** Từ điển thuộc tính mở rộng */
 interface ExtraPropertyDictionary {
   [key: string]: any;
 }
-/** 并发接口 */
+/** Giao diện đồng thời */
 interface IHasConcurrencyStamp {
-  /** 并发令牌，更新数据时需携带 */
+  /** Mã thông báo đồng thời, cần mang theo khi cập nhật dữ liệu */
   concurrencyStamp?: string;
 }
-/** 扩展属性接口 */
+/** Giao diện thuộc tính mở rộng */
 interface IHasExtraProperties {
-  /** 扩展属性 */
+  /** Thuộc tính mở rộng */
   extraProperties: ExtraPropertyDictionary;
 }
-/** 选择项 */
+/** Mục lựa chọn */
 interface ISelectionStringValueItem {
   [key: string]: any;
-  /** 选择项显示文本多语言对象 */
+  /** Đối tượng đa ngôn ngữ cho văn bản hiển thị của mục lựa chọn */
   displayText: LocalizableStringInfo;
-  /** 选择项值 */
+  /** Giá trị mục lựa chọn */
   value: string;
 }
-/** 选择项数据源 */
+/** Nguồn dữ liệu mục lựa chọn */
 interface ISelectionStringValueItemSource {
-  /** 选择项列表 */
+  /** Danh sách mục lựa chọn */
   items: ISelectionStringValueItem[];
 }
-/** 验证器 */
+/** Trình xác thực */
 interface Validator {
-  /** 名称 */
+  /** Tên */
   name: string;
-  /** 属性 */
+  /** Thuộc tính */
   properties: { [key: string]: string };
 }
-/** 值类型 */
+/** Kiểu giá trị */
 interface ValueType {
-  /** 名称 */
+  /** Tên */
   name: string;
-  /** 属性 */
+  /** Thuộc tính */
   properties: { [key: string]: string };
-  /** 验证器 */
+  /** Trình xác thực */
   validator: Validator;
 }
-/** 选择项值类型 */
+/** Kiểu giá trị mục lựa chọn */
 interface SelectionStringValueType extends ValueType {
-  /** 选择项数据源 */
+  /** Nguồn dữ liệu mục lựa chọn */
   itemSource: ISelectionStringValueItemSource;
 }
-/** 多语言描述 */
+/** Mô tả đa ngôn ngữ */
 interface LanguageInfo {
   /**
-   * 文化名称
-   * @summary 简体中文：zh-Hans
+   * Tên văn hóa
+   * @summary Tiếng Trung giản thể：zh-Hans
    * @summary English：en-Us
    */
   cultureName: string;
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
   /**
-   * 两个字符描述名称
-   * @summary 简体中文：zh
+   * Tên mô tả hai ký tự
+   * @summary Tiếng Trung giản thể：zh
    * @summary English：en
    */
   twoLetterISOLanguageName: string;
-  /** 用于UI的文化名称（仅后端） */
+  /** Tên văn hóa dùng cho UI (chỉ phía backend) */
   uiCultureName: string;
 }
-/** 时间日期格式化描述 */
+/** Mô tả định dạng ngày giờ */
 interface DateTimeFormat {
-  /** 日历算法类型 */
+  /** Loại thuật toán lịch */
   calendarAlgorithmType: string;
-  /** 日期分隔符 */
+  /** Ký tự phân tách ngày */
   dateSeparator: string;
-  /** 长时间日期格式 */
+  /** Định dạng ngày giờ dài */
   dateTimeFormatLong: string;
-  /** 完整时间日期格式 */
+  /** Mẫu ngày giờ đầy đủ */
   fullDateTimePattern: string;
-  /** 长时间格式 */
+  /** Mẫu thời gian dài */
   longTimePattern: string;
-  /** 短日期格式 */
+  /** Mẫu ngày ngắn */
   shortDatePattern: string;
-  /** 短时间格式 */
+  /** Mẫu thời gian ngắn */
   shortTimePattern: string;
 }
-/** 当前语言描述 */
+/** Mô tả ngôn ngữ hiện tại */
 interface CurrentCulture {
-  /** 文化名称 */
+  /** Tên văn hóa */
   cultureName: string;
-  /** 时间日期格式化配置 */
+  /** Cấu hình định dạng ngày giờ */
   dateTimeFormat: DateTimeFormat;
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
-  /** 英文名称 */
+  /** Tên tiếng Anh */
   englishName: string;
-  /** 是否从右到左书写习惯 */
+  /** Có phải thói quen viết từ phải sang trái hay không */
   isRightToLeft: boolean;
-  /** 名称 */
+  /** Tên */
   name: string;
-  /** 本地名称 */
+  /** Tên bản địa */
   nativeName: string;
-  /** 三个字符描述名称 */
+  /** Tên mô tả ba ký tự */
   threeLetterIsoLanguageName: string;
-  /** 两个字符描述名称 */
+  /** Tên mô tả hai ký tự */
   twoLetterIsoLanguageName: string;
 }
-/** Windows时区 */
+/** Múi giờ Windows */
 interface WindowsTimeZone {
-  /** 时区标识 */
+  /** Mã định danh múi giờ */
   timeZoneId: string;
 }
-/** IANA时区 */
+/** Múi giờ IANA */
 interface IanaTimeZone {
-  /** 时区名称 */
+  /** Tên múi giờ */
   timeZoneName: string;
 }
-/** 时区描述 */
+/** Mô tả múi giờ */
 interface TimeZone {
-  /** IANA时区配置 */
+  /** Cấu hình múi giờ IANA */
   iana: IanaTimeZone;
-  /** Windows时区配置 */
+  /** Cấu hình múi giờ Windows */
   windows: WindowsTimeZone;
 }
-/** 时钟描述 */
+/** Mô tả đồng hồ */
 interface Clock {
-  /** 时钟类型
-   * @summary UTC 格林威治时间
-   * @summary Local 本地时间
+  /** Loại đồng hồ
+   * @summary UTC giờ Greenwich
+   * @summary Local giờ địa phương
    */
   kind: string;
 }
-/** 多语言描述 */
+/** Mô tả đa ngôn ngữ */
 interface MultiTenancyInfo {
-  /** 是否启用多租户 */
+  /** Có bật đa tenant hay không */
   isEnabled: boolean;
 }
-/** 当前租户 */
+/** Tenant hiện tại */
 interface CurrentTenant {
-  /** 租户标识 */
+  /** Mã định danh tenant */
   id?: string;
-  /** 租户是否可用 */
+  /** Tenant có khả dụng hay không */
   isAvailable: boolean;
-  /** 租户名称 */
+  /** Tên tenant */
   name?: string;
 }
-/** 当前用户 */
+/** Người dùng hiện tại */
 interface CurrentUser {
-  /** 邮件地址 */
+  /** Địa chỉ email */
   email: string;
-  /** 邮件是否已确认 */
+  /** Email đã được xác nhận hay chưa */
   emailVerified: boolean;
-  /** 用户标识 */
+  /** Mã định danh người dùng */
   id?: string;
-  /** 模拟租户标识 */
+  /** Mã định danh tenant mô phỏng */
   impersonatorTenantId?: string;
-  /** 模拟租户名称 */
+  /** Tên tenant mô phỏng */
   impersonatorTenantName?: string;
-  /** 模拟用户标识 */
+  /** Mã định danh người dùng mô phỏng */
   impersonatorUserId?: string;
-  /** 模拟用户名称 */
+  /** Tên người dùng mô phỏng */
   impersonatorUserName?: string;
-  /** 是否已认证 */
+  /** Đã được xác thực hay chưa */
   isAuthenticated: boolean;
-  /** 名称 */
+  /** Tên */
   name?: string;
-  /** 手机号 */
+  /** Số điện thoại */
   phoneNumber?: string;
-  /** 手机号是否已确认 */
+  /** Số điện thoại đã được xác nhận hay chưa */
   phoneNumberVerified: boolean;
-  /** 角色列表 */
+  /** Danh sách vai trò */
   roles: string[];
-  /** 会话标识 */
+  /** Mã định danh phiên */
   sessionId?: string;
-  /** 姓氏 */
+  /** Họ */
   surName?: string;
-  /** 租户标识 */
+  /** Mã định danh tenant */
   tenantId?: string;
-  /** 用户名 */
+  /** Tên người dùng */
   userName: string;
 }
 
 interface IHasSimpleStateCheckers<
   TState extends IHasSimpleStateCheckers<TState>,
 > {
-  // eslint-disable-next-line no-use-before-define
   stateCheckers: ISimpleStateChecker<TState>[];
 }
 
@@ -218,7 +217,10 @@ type SimpleStateRecord<
   TState extends IHasSimpleStateCheckers<TState>,
   TValue,
 > = {
-  [P in TState]: TValue;
+  // Remap qua PropertyKey: ràng buộc của TState không chứng minh được nó là
+  // key nên `[P in TState]` lỗi TS2322; với TState là union chuỗi (trường hợp
+  // dùng thực tế) thì `P & PropertyKey` giữ nguyên từng key.
+  [P in TState as (number | string | symbol) & P]: TValue;
 };
 
 type SimpleStateCheckerResult<TState extends IHasSimpleStateCheckers<TState>> =

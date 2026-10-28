@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.SignalR
 
-通知系统的SignalR模块，提供了基于SignalR的实时通知功能。
+Module SignalR của hệ thống thông báo, cung cấp chức năng thông báo thời gian thực dựa trên SignalR.
 
-## 功能特性
+## Tính năng
 
-* 实时通知推送
-* 通知Hub实现
-* 客户端连接管理
-* 支持分组通知
-* 支持用户在线状态管理
+* Đẩy thông báo thời gian thực
+* Triển khai Hub thông báo
+* Quản lý kết nối máy khách
+* Hỗ trợ thông báo theo nhóm
+* Hỗ trợ quản lý trạng thái trực tuyến của người dùng
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsSignalRModule))]
@@ -20,7 +20,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Các mục cấu hình
 
 ```json
 {
@@ -31,26 +31,26 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## Hub定义
+## Định nghĩa Hub
 
 ### NotificationHub
 
-* SubscribeToNotifications - 订阅通知
-* UnsubscribeFromNotifications - 取消订阅通知
-* GetNotifications - 获取通知列表
-* MarkNotificationAsRead - 标记通知为已读
-* MarkAllNotificationsAsRead - 标记所有通知为已读
+* SubscribeToNotifications - Đăng ký nhận thông báo
+* UnsubscribeFromNotifications - Hủy đăng ký nhận thông báo
+* GetNotifications - Lấy danh sách thông báo
+* MarkNotificationAsRead - Đánh dấu thông báo là đã đọc
+* MarkAllNotificationsAsRead - Đánh dấu mọi thông báo là đã đọc
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 服务端配置
+1. Cấu hình phía máy chủ
 ```csharp
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSignalR()
-                .AddMessagePackProtocol(); // 可选，使用MessagePack协议
+                .AddMessagePackProtocol(); // Tùy chọn, dùng giao thức MessagePack
     }
 
     public void Configure(IApplicationBuilder app)
@@ -63,26 +63,26 @@ public class Startup
 }
 ```
 
-2. 客户端使用
+2. Sử dụng phía máy khách
 ```javascript
-// 连接到通知Hub
+// Kết nối tới Hub thông báo
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("/signalr-hubs/notifications")
     .build();
 
-// 监听通知
+// Lắng nghe thông báo
 connection.on("ReceiveNotification", (notification) => {
-    console.log("收到新通知:", notification);
+    console.log("Đã nhận thông báo mới:", notification);
 });
 
-// 启动连接
+// Khởi động kết nối
 await connection.start();
 
-// 订阅通知
+// Đăng ký nhận thông báo
 await connection.invoke("SubscribeToNotifications");
 ```
 
-## 更多信息
+## Thêm thông tin
 
-* [ABP文档](https://docs.abp.io)
-* [SignalR文档](https://docs.microsoft.com/aspnet/core/signalr)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu SignalR](https://docs.microsoft.com/aspnet/core/signalr)

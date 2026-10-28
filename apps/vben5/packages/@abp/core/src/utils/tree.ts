@@ -22,19 +22,19 @@ export function listToTree<T = any>(
   const roots: any[] = [];
   const { id, pid, children } = conf;
 
-  // 将每个元素放入map中，方便通过id查找
+  // Đưa từng phần tử vào map để dễ dàng tra cứu theo id
   list.forEach((item) => {
     map[item[id]] = { ...item, [children]: [] };
   });
 
-  // 构建树形结构
+  // Xây dựng cấu trúc cây
   list.forEach((item) => {
     const parentId = item[pid];
     if (parentId === null || parentId === undefined) {
-      // 根节点
+      // Nút gốc
       roots.push(map[item[id]]);
     } else {
-      // 非根节点，将其添加到父节点的children数组中
+      // Nút không phải nút gốc, thêm vào mảng children của nút cha
       if (map[parentId]) {
         map[parentId][children].push(map[item[id]]);
       }

@@ -84,10 +84,10 @@ export function aoaToSheetXlsx<T = any>({
 }
 
 /**
- * json导出多Sheet的Xlsx
- * @param sheetList 多sheet配置
- * @param filename 文件名(包含后缀)
- * @param write2excelOpts 文件配置
+ * Xuất Xlsx nhiều Sheet từ json
+ * @param sheetList Cấu hình nhiều sheet
+ * @param filename Tên file (kèm hậu tố)
+ * @param write2excelOpts Cấu hình file
  */
 export function jsonToMultipleSheetXlsx<T = any>({
   sheetList,
@@ -117,10 +117,10 @@ export function jsonToMultipleSheetXlsx<T = any>({
 }
 
 /**
- * aoa导出多Sheet的Xlsx
- * @param sheetList 多sheet配置
- * @param filename 文件名(包含后缀)
- * @param write2excelOpts 文件配置
+ * Xuất Xlsx nhiều Sheet từ aoa
+ * @param sheetList Cấu hình nhiều sheet
+ * @param filename Tên file (kèm hậu tố)
+ * @param write2excelOpts Cấu hình file
  */
 export function aoaToMultipleSheetXlsx<T = any>({
   sheetList,

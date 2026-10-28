@@ -5,34 +5,34 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Ingestion;
 
 /// <summary>
-/// _bulk 响应
+/// Phản hồi _bulk
 /// </summary>
 /// <remarks>
-/// Elasticsearch _bulk 兼容结构
+/// Cấu trúc tương thích _bulk của Elasticsearch
 /// {"took":0,"errors":false,"items":[{"index":{"_index":"stream1","_id":"..","status":200,"result":"created"}}]}
 /// </remarks>
 public class JsonBulkResponse
 {
     /// <summary>
-    /// 耗时
+    /// Thời gian tốn
     /// </summary>
     /// <remarks>
-    /// OpenObserve 固定返回 0, 不填充实际耗时
+    /// OpenObserve luôn trả về 0, không điền thời gian tốn thực tế
     /// </remarks>
     [JsonPropertyName("took")]
     public long Took { get; set; }
 
     /// <summary>
-    /// 是否存在失败项
+    /// Có mục thất bại hay không
     /// </summary>
     [JsonPropertyName("errors")]
     public bool Errors { get; set; }
 
     /// <summary>
-    /// 每条记录的处理结果
+    /// Kết quả xử lý của từng bản ghi
     /// </summary>
     /// <remarks>
-    /// 每个元素的键为提交时使用的动作(index/create/update)
+    /// Khóa của mỗi phần tử là hành động (index/create/update) đã dùng khi gửi
     /// </remarks>
     [JsonPropertyName("items")]
     public Dictionary<string, JsonBulkItem>[] Items { get; set; } = [];

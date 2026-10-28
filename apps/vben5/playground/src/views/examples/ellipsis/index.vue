@@ -7,37 +7,39 @@ import { Card } from 'ant-design-vue';
 
 import DocButton from '../doc-button.vue';
 
-const longText = `Vben Admin 是一个基于 Vue3.0、Vite、 TypeScript 的后台解决方案，目标是为开发中大型项目提供开箱即用的解决方案。包括二次封装组件、utils、hooks、动态菜单、权限校验、多主题配置、按钮级别权限控制等功能。项目会使用前端较新的技术栈，可以作为项目的启动模版，以帮助你快速搭建企业级中后台产品原型。也可以作为一个示例，用于学习 vue3、vite、ts 等主流技术。该项目会持续跟进最新技术，并将其应用在项目中。Vben Admin 是一个基于 Vue3.0、Vite、 TypeScript 的后台解决方案，目标是为开发中大型项目提供开箱即用的解决方案。包括二次封装组件、utils、hooks、动态菜单、权限校验、多主题配置、按钮级别权限控制等功能。项目会使用前端较新的技术栈，可以作为项目的启动模版，以帮助你快速搭建企业级中后台产品原型。也可以作为一个示例，用于学习 vue3、vite、ts 等主流技术。该项目会持续跟进最新技术，并将其应用在项目中。Vben Admin 是一个基于 Vue3.0、Vite、 TypeScript 的后台解决方案，目标是为开发中大型项目提供开箱即用的解决方案。包括二次封装组件、utils、hooks、动态菜单、权限校验、多主题配置、按钮级别权限控制等功能。项目会使用前端较新的技术栈，可以作为项目的启动模版，以帮助你快速搭建企业级中后台产品原型。也可以作为一个示例，用于学习 vue3、vite、ts 等主流技术。该项目会持续跟进最新技术，并将其应用在项目中。Vben Admin 是一个基于 Vue3.0、Vite、 TypeScript 的后台解决方案，目标是为开发中大型项目提供开箱即用的解决方案。包括二次封装组件、utils、hooks、动态菜单、权限校验、多主题配置、按钮级别权限控制等功能。项目会使用前端较新的技术栈，可以作为项目的启动模版，以帮助你快速搭建企业级中后台产品原型。也可以作为一个示例，用于学习 vue3、vite、ts 等主流技术。该项目会持续跟进最新技术，并将其应用在项目中。`;
+const longText = `Vben Admin là một giải pháp quản trị dựa trên Vue 3.0, Vite và TypeScript, hướng tới việc cung cấp giải pháp dùng ngay cho việc phát triển các dự án vừa và lớn. Bao gồm các component đóng gói lại, utils, hooks, menu động, kiểm tra quyền, cấu hình đa chủ đề, kiểm soát quyền ở cấp nút bấm và nhiều tính năng khác. Dự án sử dụng các công nghệ frontend mới nhất, có thể dùng làm mẫu khởi động dự án để giúp bạn nhanh chóng xây dựng nguyên mẫu sản phẩm quản trị doanh nghiệp. Đồng thời cũng có thể dùng làm ví dụ để học các công nghệ chính như Vue 3, Vite và TypeScript. Dự án sẽ liên tục theo dõi các công nghệ mới nhất và áp dụng chúng vào dự án.`;
 
 const text = ref(longText);
 </script>
 
 <template>
   <Page
-    description="用于多行文本省略，支持点击展开和自定义内容。"
-    title="文本省略组件示例"
+    description="Dùng để rút gọn văn bản nhiều dòng, hỗ trợ nhấn để mở rộng và nội dung tùy chỉnh."
+    title="Ví dụ component rút gọn văn bản"
   >
     <template #extra>
       <DocButton class="mb-2" path="/components/common-ui/vben-ellipsis-text" />
     </template>
-    <Card class="mb-4" title="基本使用">
+    <Card class="mb-4" title="Cách dùng cơ bản">
       <EllipsisText :max-width="500">{{ text }}</EllipsisText>
     </Card>
 
-    <Card class="mb-4" title="多行省略">
+    <Card class="mb-4" title="Rút gọn nhiều dòng">
       <EllipsisText :line="2">{{ text }}</EllipsisText>
     </Card>
 
-    <Card class="mb-4" title="点击展开">
+    <Card class="mb-4" title="Nhấn để mở rộng">
       <EllipsisText :line="3" expand>{{ text }}</EllipsisText>
     </Card>
-    <Card class="mb-4" title="自定义内容">
+    <Card class="mb-4" title="Nội dung tùy chỉnh">
       <EllipsisText :max-width="240">
-        住在我心里孤独的 孤独的海怪 痛苦之王 开始厌倦 深海的光 停滞的海浪
+        Sống trong lòng tôi cô độc, con quái biển cô độc, vua của nỗi đau, bắt
+        đầu chán chường, ánh sáng đáy biển, những con sóng lặng
         <template #tooltip>
           <div style="text-align: center">
-            《秦皇岛》<br />住在我心里孤独的<br />孤独的海怪 痛苦之王<br />开始厌倦
-            深海的光 停滞的海浪
+            《Tần Hoàng Đảo》<br />Sống trong lòng tôi cô độc<br />Con quái biển
+            cô độc, vua của nỗi đau<br />Bắt đầu chán chường Ánh sáng đáy biển,
+            những con sóng lặng
           </div>
         </template>
       </EllipsisText>

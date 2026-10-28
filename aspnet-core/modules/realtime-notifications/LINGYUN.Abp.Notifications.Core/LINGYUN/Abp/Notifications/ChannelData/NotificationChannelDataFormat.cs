@@ -1,20 +1,20 @@
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)属性的存储格式
+/// Định dạng lưu trữ thuộc tính dữ liệu (payload) của kênh thông báo
 /// </summary>
 public enum NotificationChannelDataFormat
 {
     /// <summary>
-    /// 自动识别(默认)
+    /// Tự động nhận dạng (mặc định)
     /// </summary>
     /// <remarks>
-    /// 简单类型直接转换, 复杂类型序列化为 JSON 字符串,
-    /// 读取时同样兼容"对象实例"与"JSON 字符串"两种形态。
+    /// Kiểu đơn giản được chuyển đổi trực tiếp, kiểu phức tạp được tuần tự hóa thành chuỗi JSON,
+    /// Khi đọc cũng tương thích với cả hai dạng "thể hiện đối tượng" và "chuỗi JSON".
     /// </remarks>
     Auto = 0,
     /// <summary>
-    /// 始终以 JSON 字符串存储
+    /// Luôn lưu trữ dưới dạng chuỗi JSON
     /// </summary>
     Json = 1
 }

@@ -1,27 +1,27 @@
 # LINGYUN.Abp.MessageService.Application.Contracts
 
-消息服务应用层契约模块。
+Module hợp đồng tầng ứng dụng của dịch vụ tin nhắn.
 
-## 功能特性
+## Tính năng
 
-* 定义消息服务的应用层接口
-* 定义消息服务的 DTO
-* 提供多语言资源
-* 支持虚拟文件系统
+* Định nghĩa các giao diện tầng ứng dụng của dịch vụ tin nhắn
+* Định nghĩa các DTO của dịch vụ tin nhắn
+* Cung cấp tài nguyên đa ngôn ngữ
+* Hỗ trợ hệ thống file ảo
 
-## 依赖模块
+## Module phụ thuộc
 
 * [LINGYUN.Abp.MessageService.Domain.Shared](../LINGYUN.Abp.MessageService.Domain.Shared/README.md)
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.MessageService.Application.Contracts 到你的项目中：
+1. Trước tiên, cần cài đặt LINGYUN.Abp.MessageService.Application.Contracts vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.MessageService.Application.Contracts
 ```
 
-2. 添加 `AbpMessageServiceApplicationContractsModule` 到你的模块的依赖列表：
+2. Thêm `AbpMessageServiceApplicationContractsModule` vào danh sách phụ thuộc của module của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpMessageServiceApplicationContractsModule))]
@@ -30,6 +30,6 @@ public class YourModule : AbpModule
 }
 ```
 
-## 更多
+## Xem thêm
 
 [English document](README.EN.md)

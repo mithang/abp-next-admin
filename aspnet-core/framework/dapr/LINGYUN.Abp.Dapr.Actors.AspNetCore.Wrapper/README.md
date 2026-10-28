@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Dapr.Actors.AspNetCore.Wrapper
 
-Dapr Actors ASP.NET Core响应包装模块，用于处理Actor方法调用的响应包装和解包。
+Mô-đun đóng gói phản hồi (response wrapper) cho Dapr Actors ASP.NET Core, dùng để xử lý việc đóng gói và giải nén phản hồi khi gọi phương thức Actor.
 
-## 功能特性
+## Tính năng
 
-* Actor响应结果自动包装/解包
-* 与ABP包装系统集成
-* 支持Actor方法调用的错误处理
-* 支持成功/错误代码配置
-* 与Dapr.Actors.AspNetCore集成
-* 支持自定义响应包装格式
-* 灵活的包装控制选项
+* Tự động đóng gói/giải nén kết quả phản hồi của Actor
+* Tích hợp với hệ thống đóng gói của ABP
+* Hỗ trợ xử lý lỗi khi gọi phương thức Actor
+* Hỗ trợ cấu hình mã thành công/lỗi
+* Tích hợp với Dapr.Actors.AspNetCore
+* Hỗ trợ định dạng đóng gói phản hồi tùy chỉnh
+* Tùy chọn kiểm soát đóng gói linh hoạt
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用：
+Mô-đun được tham chiếu theo nhu cầu:
 
 ```csharp
 [DependsOn(
@@ -26,25 +26,25 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
-模块使用来自`LINGYUN.Abp.Wrapper`包的`AbpWrapperOptions`进行配置：
+Mô-đun sử dụng `AbpWrapperOptions` từ gói `LINGYUN.Abp.Wrapper` để cấu hình:
 
 ```json
 {
     "Wrapper": {
-        "IsEnabled": true,  // 启用/禁用响应包装
-        "CodeWithSuccess": "0",  // 包装响应中的成功代码
-        "HttpStatusCode": 200,  // 包装响应的默认HTTP状态码
-        "WrapOnError": true,  // 是否包装错误响应
-        "WrapOnSuccess": true  // 是否包装成功响应
+        "IsEnabled": true,  // Bật/tắt đóng gói phản hồi
+        "CodeWithSuccess": "0",  // Mã thành công trong phản hồi đã đóng gói
+        "HttpStatusCode": 200,  // Mã trạng thái HTTP mặc định của phản hồi đã đóng gói
+        "WrapOnError": true,  // Có đóng gói phản hồi lỗi hay không
+        "WrapOnSuccess": true  // Có đóng gói phản hồi thành công hay không
     }
 }
 ```
 
-## 实现示例
+## Ví dụ triển khai
 
-1. Actor接口定义
+1. Định nghĩa giao diện Actor
 
 ```csharp
 public interface ICounterActor : IActor
@@ -54,7 +54,7 @@ public interface ICounterActor : IActor
 }
 ```
 
-2. Actor实现
+2. Triển khai Actor
 
 ```csharp
 public class CounterActor : Actor, ICounterActor
@@ -79,61 +79,61 @@ public class CounterActor : Actor, ICounterActor
 }
 ```
 
-## 响应格式
+## Định dạng phản hồi
 
-当启用包装时，Actor方法的响应将采用以下格式：
+Khi bật đóng gói, phản hồi của phương thức Actor sẽ có định dạng sau:
 
 ```json
 {
-    "code": "0",  // 响应代码，默认"0"表示成功
-    "message": "Success",  // 响应消息
-    "details": null,  // 附加详情（可选）
-    "result": {  // 实际响应数据
-        // ... Actor方法的返回值
+    "code": "0",  // Mã phản hồi, mặc định "0" nghĩa là thành công
+    "message": "Success",  // Thông điệp phản hồi
+    "details": null,  // Chi tiết bổ sung (tùy chọn)
+    "result": {  // Dữ liệu phản hồi thực tế
+        // ... Giá trị trả về của phương thức Actor
     }
 }
 ```
 
-## 错误处理
+## Xử lý lỗi
 
-模块自动处理Actor方法调用的错误：
-* 对于包装的响应：
-  * 解包响应并检查代码
-  * 如果代码与`CodeWithSuccess`不匹配，抛出`AbpRemoteCallException`
-  * 在异常中包含错误消息、详情和代码
-  * 支持自定义错误代码映射
-* 对于Actor运行时错误：
-  * 自动包装为标准错误响应
-  * 保留原始异常信息
-  * 包含Actor相关的上下文信息
+Mô-đun tự động xử lý lỗi khi gọi phương thức Actor:
+* Đối với phản hồi đã đóng gói:
+  * Giải nén phản hồi và kiểm tra mã
+  * Nếu mã không khớp với `CodeWithSuccess`, ném ra `AbpRemoteCallException`
+  * Bao gồm thông điệp lỗi, chi tiết và mã trong ngoại lệ
+  * Hỗ trợ ánh xạ mã lỗi tùy chỉnh
+* Đối với lỗi thời gian chạy của Actor:
+  * Tự động đóng gói thành phản hồi lỗi chuẩn
+  * Giữ nguyên thông tin ngoại lệ gốc
+  * Bao gồm thông tin ngữ cảnh liên quan đến Actor
 
-### 错误响应示例
+### Ví dụ phản hồi lỗi
 
 ```json
 {
     "code": "ERROR_001",
-    "message": "Actor方法调用失败",
-    "details": "Actor 'counter' 的状态访问失败",
+    "message": "Gọi phương thức Actor thất bại",
+    "details": "Truy cập trạng thái của Actor 'counter' thất bại",
     "result": null
 }
 ```
 
-## 高级用法
+## Cách dùng nâng cao
 
-### 1. 控制响应包装
+### 1. Kiểm soát đóng gói phản hồi
 
-可以通过HTTP头控制单个Actor调用的响应包装：
+Có thể kiểm soát việc đóng gói phản hồi của từng lần gọi Actor thông qua HTTP header:
 
 ```csharp
-// 在请求头中添加
+// Thêm vào header của yêu cầu
 var headers = new Dictionary<string, string>
 {
-    { "X-Abp-Wrap-Result", "true" },  // 强制启用包装
-    // 或
-    { "X-Abp-Dont-Wrap-Result", "true" }  // 强制禁用包装
+    { "X-Abp-Wrap-Result", "true" },  // Buộc bật đóng gói
+    // hoặc
+    { "X-Abp-Dont-Wrap-Result", "true" }  // Buộc tắt đóng gói
 };
 
-// 在Actor方法中使用
+// Sử dụng trong phương thức Actor
 public async Task<int> GetCountAsync()
 {
     var context = ActorContext.GetContext();
@@ -144,7 +144,7 @@ public async Task<int> GetCountAsync()
 }
 ```
 
-### 2. 自定义错误处理
+### 2. Xử lý lỗi tùy chỉnh
 
 ```csharp
 public class CustomActorErrorHandler : IAbpWrapperErrorHandler
@@ -153,7 +153,7 @@ public class CustomActorErrorHandler : IAbpWrapperErrorHandler
     {
         if (context.Exception is ActorMethodInvocationException actorException)
         {
-            // 自定义Actor错误处理逻辑
+            // Logic xử lý lỗi Actor tùy chỉnh
             context.Response = new WrapperResponse
             {
                 Code = "ACTOR_ERROR",
@@ -166,16 +166,16 @@ public class CustomActorErrorHandler : IAbpWrapperErrorHandler
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-* 响应包装可以通过以下方式控制：
-  * 配置文件中的全局设置
-  * HTTP头控制单个请求
-  * Actor方法中的动态控制
-* Actor方法的错误响应会保持原始错误结构
-* 模块与ABP的远程服务错误处理系统集成
-* 建议在微服务架构中统一使用响应包装
-* 包装格式可以通过继承`IAbpWrapperResponseBuilder`自定义
-* Actor状态操作的错误会被正确包装和处理
+* Việc đóng gói phản hồi có thể được kiểm soát bằng các cách sau:
+  * Cài đặt toàn cục trong file cấu hình
+  * Header HTTP kiểm soát từng yêu cầu
+  * Kiểm soát động trong phương thức Actor
+* Phản hồi lỗi của phương thức Actor sẽ giữ nguyên cấu trúc lỗi gốc
+* Mô-đun tích hợp với hệ thống xử lý lỗi dịch vụ từ xa của ABP
+* Nên sử dụng thống nhất đóng gói phản hồi trong kiến trúc microservice
+* Định dạng đóng gói có thể tùy chỉnh bằng cách kế thừa `IAbpWrapperResponseBuilder`
+* Lỗi thao tác trạng thái Actor sẽ được đóng gói và xử lý đúng cách
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

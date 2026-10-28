@@ -6,31 +6,31 @@ namespace LINGYUN.Abp.BlobManagement.Dtos;
 public class BlobDto : ExtensibleAuditedEntityDto<Guid>
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 全名
+    /// Tên đầy đủ
     /// </summary>
     public string FullName { get; set; } = default!;
     /// <summary>
-    /// 类型
+    /// Loại
     /// </summary>
     public BlobType Type { get; set; }
     /// <summary>
-    /// 内容类型
+    /// Loại nội dung
     /// </summary>
     public string? ContentType { get; set; }
     /// <summary>
-    /// 文件大小
+    /// Kích thước tệp
     /// </summary>
     public long Size { get; set; }
     /// <summary>
-    /// 过期时间
+    /// Thời gian hết hạn
     /// </summary>
     public DateTime? ExpirationTime { get; set; }
     /// <summary>
-    /// 下载次数
+    /// Số lượt tải xuống
     /// </summary>
     public long DownloadCount { get; set; }
 }

@@ -1,20 +1,20 @@
 # Changeset
 
-项目内置了 [changeset](https://github.com/changesets/changesets) 作为版本管理工具。Changeset 是一个版本管理工具，它可以帮助我们更好的管理版本，生成 changelog，以及自动发布。
+Dự án đã tích hợp sẵn [changeset](https://github.com/changesets/changesets) làm công cụ quản lý phiên bản. Changeset là một công cụ quản lý phiên bản, nó có thể giúp chúng ta quản lý phiên bản tốt hơn, tạo changelog, cũng như tự động phát hành.
 
-详细使用方式可查看官方文档，这里不再阐述。如果你不需要它，可以直接忽略。
+Cách sử dụng chi tiết có thể xem trong tài liệu chính thức, ở đây không trình bày thêm. Nếu bạn không cần nó, có thể bỏ qua trực tiếp.
 
-## 命令行
+## Dòng lệnh
 
-changeset 命令在项目中已经内置：
+Lệnh changeset đã được tích hợp sẵn trong dự án:
 
-### 交互式填写变更集
+### Điền changeset theo kiểu tương tác
 
 ```bash
 pnpm run changeset
 ```
 
-### 统一提升版本号
+### Nâng số phiên bản thống nhất
 
 ```bash
 pnpm run version

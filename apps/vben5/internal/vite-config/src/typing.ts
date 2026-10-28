@@ -9,8 +9,8 @@ import type { PluginOptions } from 'vite-plugin-dts';
 import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
 
 /**
- * ImportMap 配置接口
- * @description 用于配置模块导入映射，支持自定义导入路径和范围
+ * Giao diện cấu hình ImportMap
+ * @description Dùng để cấu hình ánh xạ nhập mô-đun, hỗ trợ tùy chỉnh đường dẫn nhập và phạm vi
  * @example
  * ```typescript
  * {
@@ -26,22 +26,22 @@ import type { Options as PwaPluginOptions } from 'vite-plugin-pwa';
  * ```
  */
 interface IImportMap {
-  /** 模块导入映射 */
+  /** Ánh xạ nhập mô-đun */
   imports?: Record<string, string>;
-  /** 作用域特定的导入映射 */
+  /** Ánh xạ nhập riêng theo phạm vi */
   scopes?: {
     [scope: string]: Record<string, string>;
   };
 }
 
 /**
- * 打印插件配置选项
- * @description 用于配置控制台打印信息
+ * Tùy chọn cấu hình plugin in ấn
+ * @description Dùng để cấu hình thông tin in ra console
  */
 interface PrintPluginOptions {
   /**
-   * 打印的数据映射
-   * @description 键值对形式的数据，将在控制台打印
+   * Ánh xạ dữ liệu in ra
+   * @description Dữ liệu dạng cặp khóa-giá trị, sẽ được in ra console
    * @example
    * ```typescript
    * {
@@ -54,60 +54,60 @@ interface PrintPluginOptions {
 }
 
 /**
- * Nitro Mock 插件配置选项
- * @description 用于配置 Nitro Mock 服务器的行为
+ * Tùy chọn cấu hình plugin Nitro Mock
+ * @description Dùng để cấu hình hành vi của máy chủ Nitro Mock
  */
 interface NitroMockPluginOptions {
   /**
-   * Mock 服务器包名
+   * Tên gói máy chủ Mock
    * @default '@vbenjs/nitro-mock'
    */
   mockServerPackage?: string;
 
   /**
-   * Mock 服务端口
+   * Cổng dịch vụ Mock
    * @default 3000
    */
   port?: number;
 
   /**
-   * 是否打印 Mock 日志
+   * Có in nhật ký Mock hay không
    * @default false
    */
   verbose?: boolean;
 }
 
 /**
- * 归档插件配置选项
- * @description 用于配置构建产物的压缩归档
+ * Tùy chọn cấu hình plugin lưu trữ
+ * @description Dùng để cấu hình nén lưu trữ cho sản phẩm build
  */
 interface ArchiverPluginOptions {
   /**
-   * 输出文件名
+   * Tên file đầu ra
    * @default 'dist'
    */
   name?: string;
   /**
-   * 输出目录
+   * Thư mục đầu ra
    * @default '.'
    */
   outputDir?: string;
 }
 
 /**
- * ImportMap 插件配置
- * @description 用于配置模块的 CDN 导入
+ * Cấu hình plugin ImportMap
+ * @description Dùng để cấu hình nhập CDN cho mô-đun
  */
 interface ImportmapPluginOptions {
   /**
-   * CDN 供应商
+   * Nhà cung cấp CDN
    * @default 'jspm.io'
-   * @description 支持 esm.sh 和 jspm.io 两种 CDN 供应商
+   * @description Hỗ trợ hai nhà cung cấp CDN esm.sh và jspm.io
    */
   defaultProvider?: 'esm.sh' | 'jspm.io';
   /**
-   * ImportMap 配置数组
-   * @description 配置需要从 CDN 导入的包
+   * Mảng cấu hình ImportMap
+   * @description Cấu hình các gói cần nhập từ CDN
    * @example
    * ```typescript
    * [
@@ -118,217 +118,217 @@ interface ImportmapPluginOptions {
    */
   importmap?: Array<{ name: string; range?: string }>;
   /**
-   * 手动配置 ImportMap
-   * @description 自定义 ImportMap 配置
+   * Cấu hình ImportMap thủ công
+   * @description Cấu hình ImportMap tùy chỉnh
    */
   inputMap?: IImportMap;
 }
 
 /**
- * 条件插件配置
- * @description 用于根据条件动态加载插件
+ * Cấu hình plugin có điều kiện
+ * @description Dùng để tải plugin động theo điều kiện
  */
 interface ConditionPlugin {
   /**
-   * 判断条件
-   * @description 当条件为 true 时加载插件
+   * Điều kiện phán đoán
+   * @description Tải plugin khi điều kiện là true
    */
   condition?: boolean;
   /**
-   * 插件对象
-   * @description 返回插件数组或 Promise
+   * Đối tượng plugin
+   * @description Trả về mảng plugin hoặc Promise
    */
   plugins: () => PluginOption[] | PromiseLike<PluginOption[]>;
 }
 
 /**
- * 通用插件配置选项
- * @description 所有插件共用的基础配置
+ * Tùy chọn cấu hình plugin chung
+ * @description Cấu hình cơ sở dùng chung cho mọi plugin
  */
 interface CommonPluginOptions {
   /**
-   * 是否开启开发工具
+   * Có bật công cụ phát triển hay không
    * @default false
    */
   devtools?: boolean;
   /**
-   * 环境变量
-   * @description 自定义环境变量
+   * Biến môi trường
+   * @description Biến môi trường tùy chỉnh
    */
   env?: Record<string, any>;
   /**
-   * 是否注入元数据
+   * Có chèn siêu dữ liệu hay không
    * @default true
    */
   injectMetadata?: boolean;
   /**
-   * 是否为构建模式
+   * Có phải chế độ build hay không
    * @default false
    */
   isBuild?: boolean;
   /**
-   * 构建模式
+   * Chế độ build
    * @default 'development'
    */
   mode?: string;
   /**
-   * 是否开启依赖分析
+   * Có bật phân tích phụ thuộc hay không
    * @default false
-   * @description 使用 rollup-plugin-visualizer 分析依赖
+   * @description Sử dụng rollup-plugin-visualizer để phân tích phụ thuộc
    */
   visualizer?: boolean | PluginVisualizerOptions;
 }
 
 /**
- * 应用插件配置选项
- * @description 用于配置应用构建时的插件选项
+ * Tùy chọn cấu hình plugin ứng dụng
+ * @description Dùng để cấu hình tùy chọn plugin khi build ứng dụng
  */
 interface ApplicationPluginOptions extends CommonPluginOptions {
   /**
-   * 是否开启压缩归档
+   * Có bật nén lưu trữ hay không
    * @default false
-   * @description 开启后会在打包目录生成 zip 文件
+   * @description Sau khi bật, file zip sẽ được tạo trong thư mục đóng gói
    */
   archiver?: boolean;
   /**
-   * 压缩归档插件配置
-   * @description 配置压缩归档的行为
+   * Cấu hình plugin nén lưu trữ
+   * @description Cấu hình hành vi nén lưu trữ
    */
   archiverPluginOptions?: ArchiverPluginOptions;
   /**
-   * 是否开启压缩
+   * Có bật nén hay không
    * @default false
-   * @description 支持 gzip 和 brotli 压缩
+   * @description Hỗ trợ nén gzip và brotli
    */
   compress?: boolean;
   /**
-   * 压缩类型
+   * Loại nén
    * @default ['gzip']
-   * @description 可选的压缩类型
+   * @description Các loại nén có thể chọn
    */
   compressTypes?: ('brotli' | 'gzip')[];
   /**
-   * 是否抽离配置文件
+   * Có tách file cấu hình ra riêng hay không
    * @default false
-   * @description 在构建时抽离配置文件
+   * @description Tách file cấu hình ra riêng khi build
    */
   extraAppConfig?: boolean;
   /**
-   * 是否开启 HTML 插件
+   * Có bật plugin HTML hay không
    * @default true
    */
   html?: boolean;
   /**
-   * 是否开启国际化
+   * Có bật quốc tế hóa hay không
    * @default false
    */
   i18n?: boolean;
   /**
-   * 是否开启 ImportMap CDN
+   * Có bật ImportMap CDN hay không
    * @default false
    */
   importmap?: boolean;
   /**
-   * ImportMap 插件配置
+   * Cấu hình plugin ImportMap
    */
   importmapOptions?: ImportmapPluginOptions;
   /**
-   * 是否注入应用加载动画
+   * Có chèn hoạt ảnh tải ứng dụng hay không
    * @default true
    */
   injectAppLoading?: boolean;
   /**
-   * 是否注入全局 SCSS
+   * Có chèn SCSS toàn cục hay không
    * @default true
    */
   injectGlobalScss?: boolean;
   /**
-   * 是否注入版权信息
+   * Có chèn thông tin bản quyền hay không
    * @default true
    */
   license?: boolean;
   /**
-   * 是否开启 Nitro Mock
+   * Có bật Nitro Mock hay không
    * @default false
    */
   nitroMock?: boolean;
   /**
-   * Nitro Mock 插件配置
+   * Cấu hình plugin Nitro Mock
    */
   nitroMockOptions?: NitroMockPluginOptions;
   /**
-   * 是否开启控制台打印
+   * Có bật in ra console hay không
    * @default false
    */
   print?: boolean;
   /**
-   * 打印插件配置
+   * Cấu hình plugin in ấn
    */
   printInfoMap?: PrintPluginOptions['infoMap'];
   /**
-   * 是否开启 PWA
+   * Có bật PWA hay không
    * @default false
    */
   pwa?: boolean;
   /**
-   * PWA 插件配置
+   * Cấu hình plugin PWA
    */
   pwaOptions?: Partial<PwaPluginOptions>;
   /**
-   * 是否开启 VXE Table 懒加载
+   * Có bật tải lười VXE Table hay không
    * @default false
    */
   vxeTableLazyImport?: boolean;
 }
 
 /**
- * 库插件配置选项
- * @description 用于配置库构建时的插件选项
+ * Tùy chọn cấu hình plugin thư viện
+ * @description Dùng để cấu hình tùy chọn plugin khi build thư viện
  */
 interface LibraryPluginOptions extends CommonPluginOptions {
   /**
-   * 是否开启 DTS 输出
+   * Có bật xuất DTS hay không
    * @default true
-   * @description 生成 TypeScript 类型声明文件
+   * @description Tạo file khai báo kiểu TypeScript
    */
   dts?: boolean | PluginOptions;
 }
 
 /**
- * 应用配置选项类型
+ * Kiểu tùy chọn cấu hình ứng dụng
  */
 type ApplicationOptions = ApplicationPluginOptions;
 
 /**
- * 库配置选项类型
+ * Kiểu tùy chọn cấu hình thư viện
  */
 type LibraryOptions = LibraryPluginOptions;
 
 /**
- * 应用配置定义函数类型
- * @description 用于定义应用构建配置
+ * Kiểu hàm định nghĩa cấu hình ứng dụng
+ * @description Dùng để định nghĩa cấu hình build ứng dụng
  */
 type DefineApplicationOptions = (config?: ConfigEnv) => Promise<{
-  /** 应用插件配置 */
+  /** Cấu hình plugin ứng dụng */
   application?: ApplicationOptions;
-  /** Vite 配置 */
+  /** Vite cấu hình */
   vite?: UserConfig;
 }>;
 
 /**
- * 库配置定义函数类型
- * @description 用于定义库构建配置
+ * Kiểu hàm định nghĩa cấu hình thư viện
+ * @description Dùng để định nghĩa cấu hình build thư viện
  */
 type DefineLibraryOptions = (config?: ConfigEnv) => Promise<{
-  /** 库插件配置 */
+  /** Cấu hình plugin thư viện */
   library?: LibraryOptions;
-  /** Vite 配置 */
+  /** Vite cấu hình */
   vite?: UserConfig;
 }>;
 
 /**
- * 配置定义类型
- * @description 应用或库的配置定义
+ * Kiểu định nghĩa cấu hình
+ * @description Định nghĩa cấu hình ứng dụng hoặc thư viện
  */
 type DefineConfig = DefineApplicationOptions | DefineLibraryOptions;
 

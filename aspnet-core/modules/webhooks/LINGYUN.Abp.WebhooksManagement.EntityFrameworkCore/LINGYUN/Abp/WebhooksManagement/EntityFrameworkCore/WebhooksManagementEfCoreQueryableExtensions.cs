@@ -5,7 +5,7 @@ namespace LINGYUN.Abp.WebhooksManagement.EntityFrameworkCore;
 
 public static class WebhooksManagementEfCoreQueryableExtensions
 {
-    // 在此聚合仓储服务的扩展方法
+    // Phương thức mở rộng của dịch vụ kho tổng hợp này
     public static IQueryable<WebhookSendRecord> IncludeDetails(this IQueryable<WebhookSendRecord> queryable, bool include = true)
     {
         if (!include)

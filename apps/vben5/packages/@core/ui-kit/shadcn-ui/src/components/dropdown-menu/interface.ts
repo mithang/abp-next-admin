@@ -3,24 +3,24 @@ import type { Component } from 'vue';
 interface VbenDropdownMenuItem {
   disabled?: boolean;
   /**
-   * @zh_CN 点击事件处理
+   * @zh_CN Xử lý sự kiện click
    * @param data
    */
   handler?: (data: any) => void;
   /**
-   * @zh_CN 图标
+   * @zh_CN Biểu tượng
    */
   icon?: Component;
   /**
-   * @zh_CN 标题
+   * @zh_CN Tiêu đề
    */
   label: string;
   /**
-   * @zh_CN 是否是分割线
+   * @zh_CN Có phải đường phân cách hay không
    */
   separator?: boolean;
   /**
-   * @zh_CN 唯一标识
+   * @zh_CN Định danh duy nhất
    */
   value: string;
 }

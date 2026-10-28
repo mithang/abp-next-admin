@@ -16,7 +16,7 @@
             style="width: 95%"
             size="small"
             allow-clear
-            placeholder="搜索人员，支持拼音、姓名"
+            placeholder="Tìm kiếm nhân sự, hỗ trợ pinyin, họ tên"
           />
           <div v-show="!showUsers">
             <Ellipsis
@@ -35,19 +35,19 @@
                 v-model="state.checkAll"
                 @change="handleCheckAllChange"
                 :disabled="!multiple"
-                >全选</Checkbox
+                >Chọn tất cả</Checkbox
               >
               <span v-show="state.deptStack.length > 0" class="top-dept" @click="beforeNode"
-                >上一级</span
+                >Cấp trên</span
               >
             </div>
           </div>
         </div>
         <div class="role-header" v-else>
-          <div>系统角色</div>
+          <div>Vai trò hệ thống</div>
         </div>
         <div class="org-items" :style="type === 'role' ? 'height: 350px' : ''">
-          <Empty :image-size="100" description="似乎没有数据" v-show="orgs.length === 0" />
+          <Empty :image-size="100" description="Dường như không có dữ liệu" v-show="orgs.length === 0" />
           <div
             v-for="(org, index) in orgs"
             :key="index"
@@ -63,9 +63,9 @@
                 @click.stop="nextNode(org)"
                 :class="`next-dept${org.selected ? '-disable' : ''}`"
               >
-                <!-- <i class="iconfont icon-map-site"></i>下级 -->
+                <!-- <i class="iconfont icon-map-site"></i>Cấp dưới -->
                 <ApartmentOutlined />
-                下级
+                Cấp dưới
               </span>
             </div>
             <div v-else-if="org.type === 'user'" style="display: flex; align-items: center">
@@ -83,13 +83,13 @@
       </div>
       <div class="selected">
         <div class="count">
-          <span>已选 {{ state.select.length }} 项</span>
-          <span @click="clearSelected">清空</span>
+          <span>Đã chọn {{ state.select.length }} mục</span>
+          <span @click="clearSelected">Xóa hết</span>
         </div>
         <div class="org-items" style="height: 350px">
           <Empty
             :image-size="100"
-            description="请点击左侧列表选择数据"
+            description="Vui lòng nhấp vào danh sách bên trái để chọn dữ liệu"
             v-show="state.select.length === 0"
           />
           <div v-for="(org, index) in state.select" :key="index" :class="orgItemClass(org)">
@@ -152,15 +152,15 @@
       default: false,
     },
     title: {
-      default: '请选择',
+      default: 'Vui lòng chọn',
       type: String,
     },
     type: {
-      default: 'dept', //org选择部门/人员  user-选人  dept-选部门 role-选角色
+      default: 'dept', //org chọn phòng ban/nhân sự  user-chọn người  dept-chọn phòng ban role-chọn vai trò
       type: String,
     },
     multiple: {
-      //是否多选
+      //Có chọn nhiều không
       default: false,
       type: Boolean,
     },
@@ -298,7 +298,7 @@
       })
       .catch(() => {
         state.loading = false;
-        createMessage.error('接口异常');
+        createMessage.error('Ngoại lệ giao diện');
       });
   }
 
@@ -427,8 +427,8 @@
 
   function clearSelected() {
     createConfirm({
-      title: '提示',
-      content: '您确定要清空已选中的项?',
+      title: 'Nhắc nhở',
+      content: 'Bạn có chắc muốn xóa hết các mục đã chọn không?',
       iconType: 'warning',
       onOk: () => {
         recover();

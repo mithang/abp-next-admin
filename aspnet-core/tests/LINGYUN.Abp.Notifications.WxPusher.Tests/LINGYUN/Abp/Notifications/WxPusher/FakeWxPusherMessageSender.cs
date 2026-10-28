@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.Notifications.WxPusher;
 
 /// <summary>
-/// 捕获式 <see cref="IWxPusherMessageSender"/> 假实现
+/// Triển khai giả dạng thu thập <see cref="IWxPusherMessageSender"/>
 /// </summary>
 public class FakeWxPusherMessageSender : IWxPusherMessageSender
 {

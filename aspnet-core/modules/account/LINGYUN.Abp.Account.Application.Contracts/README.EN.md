@@ -2,7 +2,7 @@
 
 Application service contracts for the ABP account module, providing interface definitions for account management.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

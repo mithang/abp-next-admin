@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Logging.Serilog.Elasticsearch
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 Elasticsearch implementation of the ILoggingProvider interface, retrieving log information from Elasticsearch.
 

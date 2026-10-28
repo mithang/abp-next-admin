@@ -40,15 +40,31 @@ const emits = defineEmits<{
 }>();
 const FormItem = Form.Item;
 
+/**
+ * Form model của modal tenant: TenantDto cộng các trường chỉ dùng lúc tạo
+ * (adminEmailAddress/adminPassword/useSharedDatabase/defaultConnectionString/
+ * connectionStrings) và trường chỉ dùng ở UI (provider, chọn lúc kiểm tra
+ * connection string). Các trường thêm vào đều optional để bản ghi tenant đã
+ * có (TenantDto thuần từ getApi) vẫn gán được trực tiếp vào model này.
+ */
+interface TenantFormModel extends TenantDto {
+  adminEmailAddress?: string;
+  adminPassword?: string;
+  connectionStrings?: TenantConnectionStringDto[];
+  defaultConnectionString?: string;
+  provider?: string;
+  useSharedDatabase?: boolean;
+}
+
 const defaultModel = {
   connectionStrings: [],
   isActive: true,
   useSharedDatabase: true,
-} as unknown as TenantDto;
+} as unknown as TenantFormModel;
 
 const { fieldDoNotValidEmailAddress, fieldRequired } = useValidation();
 const form = useTemplateRef<FormExpose>('form');
-const tenant = ref({ ...defaultModel });
+const tenant = ref<TenantFormModel>({ ...defaultModel });
 const editions = ref<EditionDto[]>([]);
 const activeTabKey = ref('basic');
 
@@ -88,7 +104,7 @@ const getFormRules = computed(() => {
     }),
   };
 });
-/** 启用时间不可晚于禁用时间 */
+/** Thời gian bật không được muộn hơn thời gian tắt */
 const getDisabledEnableTime = (current: dayjs.Dayjs) => {
   if (!tenant.value.disableTime) {
     return false;
@@ -98,7 +114,7 @@ const getDisabledEnableTime = (current: dayjs.Dayjs) => {
     current > dayjs(tenant.value.disableTime).add(-1, 'day').endOf('day')
   );
 };
-/** 禁用时间不可早于启用时间 */
+/** Thời gian tắt không được sớm hơn thời gian bật */
 const getDisabledDisableTime = (current: dayjs.Dayjs) => {
   if (!tenant.value.enableTime) {
     return false;
@@ -150,8 +166,8 @@ async function onSubmit() {
     modalApi.setState({ submitting: true });
     if (!tenant.value.id && !tenant.value.useSharedDatabase) {
       await checkConnectionString({
-        connectionString: tenant.value.defaultConnectionString,
-        provider: tenant.value.provider,
+        connectionString: tenant.value.defaultConnectionString ?? '',
+        provider: tenant.value.provider ?? '',
       });
     }
     const api = tenant.value.id
@@ -315,7 +331,7 @@ onMounted(onSearchEditions);
         </FormItem>
         <ConnectionStringTable
           :data-base-options="dataBaseOptions"
-          :connection-strings="tenant.connectionStrings"
+          :connection-strings="tenant.connectionStrings ?? []"
           :submit="onConnectionChange"
           :delete="onConnectionDelete"
         />

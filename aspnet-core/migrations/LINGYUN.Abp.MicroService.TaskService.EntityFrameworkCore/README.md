@@ -1,19 +1,19 @@
 # LINGYUN.Abp.MicroService.TaskService.EntityFrameworkCore
 
-任务管理数据迁移模块，提供任务管理系统相关的数据库迁移功能。
+Mô-đun di chuyển dữ liệu quản lý tác vụ, cung cấp chức năng di chuyển cơ sở dữ liệu liên quan đến hệ thống quản lý tác vụ.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成SaaS多租户数据迁移
-* 集成任务管理数据迁移
-* 集成设置管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 支持MySQL数据库
+* Tích hợp di chuyển dữ liệu đa thuê bao SaaS
+* Tích hợp di chuyển dữ liệu quản lý tác vụ
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -27,22 +27,22 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "TaskManagementDbMigrator": "你的数据库连接字符串"
+    "TaskManagementDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置TaskManagementDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Cấu hình chuỗi kết nối TaskManagementDbMigrator trong appsettings.json
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(TaskManagementMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -51,18 +51,18 @@
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* AbpTasks - 任务基本信息表
-* AbpTaskCategories - 任务分类表
-* AbpTaskStatuses - 任务状态表
-* AbpTaskAssignments - 任务分配表
-* Saas相关表 - 租户、版本等多租户相关数据
-* AbpSettings - 系统设置数据
-* AbpPermissionGrants - 权限授权数据
-* AbpFeatures - 功能特性数据
+* AbpTasks - Bảng thông tin cơ bản của tác vụ
+* AbpTaskCategories - Bảng phân loại tác vụ
+* AbpTaskStatuses - Bảng trạng thái tác vụ
+* AbpTaskAssignments - Bảng phân công tác vụ
+* Các bảng liên quan đến Saas - Dữ liệu đa thuê bao như thuê bao, phiên bản
+* AbpSettings - Dữ liệu cài đặt hệ thống
+* AbpPermissionGrants - Dữ liệu cấp quyền
+* AbpFeatures - Dữ liệu tính năng
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [ABP任务管理模块](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/modules/task-management)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Mô-đun quản lý tác vụ ABP](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/modules/task-management)

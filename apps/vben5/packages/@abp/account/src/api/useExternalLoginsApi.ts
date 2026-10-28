@@ -10,8 +10,8 @@ export function useExternalLoginsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 绑定企业微信
-   * @param input 绑定参数
+   * Liên kết WeChat doanh nghiệp
+   * @param input Tham số liên kết
    * @returns { Promise<void> }
    */
   async function bindWorkWeixinApi(
@@ -24,8 +24,8 @@ export function useExternalLoginsApi() {
   }
 
   /**
-   * 获取外部登录提供者列表
-   * @returns 外部登录提供者列表
+   * Lấy danh sách nhà cung cấp đăng nhập bên ngoài
+   * @returns Danh sách nhà cung cấp đăng nhập bên ngoài
    */
   async function getExternalLoginsApi(): Promise<ExternalLoginResultDto> {
     return await request<ExternalLoginResultDto>(
@@ -37,7 +37,7 @@ export function useExternalLoginsApi() {
   }
 
   /**
-   * 移除外部登录提供者
+   * Xóa nhà cung cấp đăng nhập bên ngoài
    * @returns { Promise<void> }
    */
   async function removeExternalLoginApi(

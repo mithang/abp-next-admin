@@ -25,10 +25,10 @@ function showIconConfirm() {
 function showfooterConfirm() {
   const checked = ref(false);
   confirm({
-    cancelText: '不要虾扯蛋',
-    confirmText: '是的，我们都是NPC',
+    cancelText: 'Đừng nói linh tinh',
+    confirmText: 'Đúng vậy, chúng ta đều là NPC',
     content:
-      '刚才发生的事情，为什么我似乎早就经历过一般？\n我甚至能在事情发生过程中潜意识里预知到接下来会发生什么。\n\n听起来挺玄乎的，你有过这种感觉吗？',
+      'Chuyện vừa xảy ra, sao tôi cứ cảm giác như mình đã từng trải qua rồi?\nThậm chí trong quá trình diễn ra, tiềm thức tôi còn dự đoán được chuyện gì sẽ xảy ra tiếp theo.\n\nNghe có vẻ huyền bí, bạn đã từng có cảm giác này chưa?',
     footer: () =>
       h(
         Checkbox,
@@ -37,15 +37,15 @@ function showfooterConfirm() {
           class: 'flex-1',
           'onUpdate:checked': (v) => (checked.value = v),
         },
-        '不再提示',
+        'Không nhắc lại nữa',
       ),
     icon: 'question',
-    title: '未解之谜',
+    title: 'Bí ẩn chưa có lời giải',
   }).then(() => {
     if (checked.value) {
-      message.success('我不会再拿这个问题烦你了');
+      message.success('Tôi sẽ không làm phiền bạn bằng câu hỏi này nữa');
     } else {
-      message.info('下次还要继续问你哟');
+      message.info('Lần sau tôi vẫn sẽ tiếp tục hỏi bạn đấy');
     }
   });
 }
@@ -54,7 +54,7 @@ function showAsyncConfirm() {
   confirm({
     beforeClose({ isConfirm }) {
       if (isConfirm) {
-        // 这里可以执行一些异步操作。如果最终返回了false，将阻止关闭弹窗
+        // Ở đây có thể thực hiện một số thao tác bất đồng bộ. Nếu cuối cùng trả về false, sẽ ngăn đóng hộp thoại
         return new Promise((resolve) => setTimeout(resolve, 2000));
       }
     },

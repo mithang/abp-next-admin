@@ -3,7 +3,7 @@
 namespace LINGYUN.Abp.IM.Messages;
 
 /// <summary>
-/// 消息拦截器
+/// Bộ chặn tin nhắn
 /// </summary>
 public interface IMessageBlocker
 {

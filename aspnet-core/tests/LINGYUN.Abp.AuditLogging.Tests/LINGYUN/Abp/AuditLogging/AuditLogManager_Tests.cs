@@ -49,18 +49,18 @@ public abstract class AuditLogManager_Tests<TStartupModule> : AbpIntegratedTest<
         var count = 10;
         await MockcAsync(count);
 
-        // 延迟等待写入完成
+        // Chờ một lúc để việc ghi hoàn tất
         await Task.Delay(5000);
 
-        // 异常应该只有3个
+        // Số bản ghi có ngoại lệ phải là 3
         (await _manager.GetCountAsync(
             hasException: true)).ShouldBe(3);
 
-        // 正常可以查询7个
+        // Số bản ghi bình thường truy vấn được là 7
         (await _manager.GetCountAsync(
             hasException: false)).ShouldBe(7);
 
-        // POST方法能查到5个
+        // Phương thức POST truy vấn được 5 bản ghi
         (await _manager.GetCountAsync(
             httpMethod: "POST")).ShouldBe(5);
 
@@ -74,7 +74,7 @@ public abstract class AuditLogManager_Tests<TStartupModule> : AbpIntegratedTest<
             startTime: DateTime.Now.AddDays(-3).AddHours(1),
             endTime: DateTime.Now)).ShouldBe(8);
 
-        // 索引5只存在一个
+        // Chỉ có một bản ghi mang chỉ số 5
         (await _manager.GetCountAsync(
             userName: "_user_5",
             clientId: "_client_5")).ShouldBe(1);
@@ -98,22 +98,22 @@ public abstract class AuditLogManager_Tests<TStartupModule> : AbpIntegratedTest<
         var count = 10;
         await MockcAsync(count);
 
-        // 延迟等待写入完成
+        // Chờ một lúc để việc ghi hoàn tất
         await Task.Delay(5000);
 
-        // 请求参数中包含 AAAAA 应该只有3个
+        // Số bản ghi có tham số yêu cầu chứa AAAAA phải là 3
         (await _manager.GetCountAsync(
             new ExpressionSpecification<AuditLog>(x => x.Actions.Any(a => a.Parameters.Contains("AAAAA"))))).ShouldBe(3);
 
-        // 异常应该只有3个
+        // Số bản ghi có ngoại lệ phải là 3
         (await _manager.GetCountAsync(
             new ExpressionSpecification<AuditLog>(x => x.Exceptions != null))).ShouldBe(3);
 
-        // 正常可以查询7个
+        // Số bản ghi bình thường truy vấn được là 7
         (await _manager.GetCountAsync(
             new ExpressionSpecification<AuditLog>(x => x.Exceptions == null))).ShouldBe(7);
 
-        // POST方法能查到5个
+        // Phương thức POST truy vấn được 5 bản ghi
         (await _manager.GetCountAsync(
             new ExpressionSpecification<AuditLog>(x => x.HttpMethod == "POST"))).ShouldBe(5);
 
@@ -127,7 +127,7 @@ public abstract class AuditLogManager_Tests<TStartupModule> : AbpIntegratedTest<
             new ExpressionSpecification<AuditLog>(x => x.ExecutionTime >= DateTime.Now.AddDays(-3).AddHours(1) &&
             x.ExecutionTime <= DateTime.Now))).ShouldBe(8);
 
-        // 索引5只存在一个
+        // Chỉ có một bản ghi mang chỉ số 5
         (await _manager.GetCountAsync(
             new ExpressionSpecification<AuditLog>(x => x.UserName == "_user_5" && x.ClientId == "_client_5"))).ShouldBe(1);
 
@@ -197,10 +197,10 @@ public abstract class AuditLogManager_Tests<TStartupModule> : AbpIntegratedTest<
     }
 
     /// <summary>
-    /// 删除单条审计日志
+    /// Xóa một bản ghi nhật ký kiểm toán
     /// </summary>
     /// <remarks>
-    /// 存储实现不支持删除时可覆写(例如断言抛出的业务异常)
+    /// Có thể ghi đè khi triển khai lưu trữ không hỗ trợ xóa (ví dụ ngoại lệ nghiệp vụ do assertion ném ra)
     /// </remarks>
     protected virtual Task DeleteAsync(Guid id)
     {
@@ -208,7 +208,7 @@ public abstract class AuditLogManager_Tests<TStartupModule> : AbpIntegratedTest<
     }
 
     /// <summary>
-    /// 批量删除审计日志
+    /// Xóa hàng loạt nhật ký kiểm toán
     /// </summary>
     protected virtual Task DeleteManyAsync(List<Guid> ids)
     {

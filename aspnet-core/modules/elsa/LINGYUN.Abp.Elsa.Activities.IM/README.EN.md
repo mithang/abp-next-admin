@@ -42,4 +42,4 @@ public class YouProjectModule : AbpModule
 
 * **MessageId**: ID of the sent message
 
-[中文文档](./README.md)
+[Tiếng Việt](./README.md)

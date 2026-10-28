@@ -8,31 +8,31 @@ namespace LINGYUN.Abp.BackgroundTasks.Activities;
 public class JobActionDefinition
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; }
     /// <summary>
-    /// 类型
+    /// Loại
     /// </summary>
     public JobActionType Type { get; }
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public ILocalizableString DisplayName { get; }
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public ILocalizableString? Description { get; }
     /// <summary>
-    /// 参数列表
+    /// Danh sách tham số
     /// </summary>
     public IList<JobActionParamter> Paramters { get; }
     /// <summary>
-    /// 通知提供者
+    /// Nhà cung cấp thông báo
     /// </summary>
     public ITypeList<IJobExecutedProvider> Providers { get; }
     /// <summary>
-    /// 额外属性
+    /// Thuộc tính bổ sung
     /// </summary>
     public Dictionary<string, object> Properties { get; }
     public JobActionDefinition(

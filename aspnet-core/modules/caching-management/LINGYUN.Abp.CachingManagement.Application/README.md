@@ -1,34 +1,34 @@
 # LINGYUN.Abp.CachingManagement.Application
 
-缓存管理应用服务模块的实现。
+Triển khai của mô-đun dịch vụ ứng dụng quản lý bộ nhớ đệm.
 
-## 功能
+## Chức năng
 
-* 实现了 `ICacheAppService` 接口，提供缓存管理的基本功能：
-  * 获取缓存键列表
-  * 获取缓存值
-  * 设置缓存值
-  * 刷新缓存
-  * 删除缓存
+* Đã triển khai giao diện `ICacheAppService`, cung cấp các chức năng cơ bản của quản lý bộ nhớ đệm:
+  * Lấy danh sách khóa bộ nhớ đệm
+  * Lấy giá trị bộ nhớ đệm
+  * Thiết lập giá trị bộ nhớ đệm
+  * Làm mới bộ nhớ đệm
+  * Xóa bộ nhớ đệm
 
-## 权限
+## Quyền
 
-* AbpCachingManagement.Cache：缓存管理
-  * AbpCachingManagement.Cache.Refresh：刷新缓存
-  * AbpCachingManagement.Cache.Delete：删除缓存
-  * AbpCachingManagement.Cache.ManageValue：管理缓存值
+* AbpCachingManagement.Cache：Quản lý bộ nhớ đệm
+  * AbpCachingManagement.Cache.Refresh：Làm mới bộ nhớ đệm
+  * AbpCachingManagement.Cache.Delete：Xóa bộ nhớ đệm
+  * AbpCachingManagement.Cache.ManageValue：Quản lý giá trị bộ nhớ đệm
 
-## 安装
+## Cài đặt
 
 ```bash
 abp add-module LINGYUN.Abp.CachingManagement
 ```
 
-## 配置使用
+## Cấu hình sử dụng
 
-1. 首先需要安装相应的缓存实现模块，例如：[LINGYUN.Abp.CachingManagement.StackExchangeRedis](../LINGYUN.Abp.CachingManagement.StackExchangeRedis/README.md)
+1. Trước tiên cần cài đặt mô-đun triển khai bộ nhớ đệm tương ứng, ví dụ: [LINGYUN.Abp.CachingManagement.StackExchangeRedis](../LINGYUN.Abp.CachingManagement.StackExchangeRedis/README.md)
 
-2. 在模块的 `ConfigureServices` 方法中添加以下代码：
+2. Thêm đoạn mã sau vào phương thức `ConfigureServices` của mô-đun:
 
 ```csharp
 Configure<AbpAutoMapperOptions>(options =>
@@ -37,10 +37,10 @@ Configure<AbpAutoMapperOptions>(options =>
 });
 ```
 
-## 更多
+## Xem thêm
 
-有关更多信息，请参阅以下资源：
+Để biết thêm thông tin, vui lòng tham khảo các tài nguyên sau:
 
-* [应用服务契约](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
+* [Hợp đồng dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
 * [HTTP API](../LINGYUN.Abp.CachingManagement.HttpApi/README.md)
-* [领域层](../LINGYUN.Abp.CachingManagement.Domain/README.md)
+* [Tầng miền](../LINGYUN.Abp.CachingManagement.Domain/README.md)

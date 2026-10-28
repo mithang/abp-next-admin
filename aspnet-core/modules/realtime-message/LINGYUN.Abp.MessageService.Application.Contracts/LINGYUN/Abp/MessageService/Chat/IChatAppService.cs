@@ -8,28 +8,28 @@ namespace LINGYUN.Abp.MessageService.Chat;
 public interface IChatAppService : IApplicationService
 {
     /// <summary>
-    /// 发送消息
+    /// Gửi tin nhắn
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<ChatMessageSendResultDto> SendMessageAsync(ChatMessage input);
     /// <summary>
-    /// 获取群组消息
+    /// Lấy tin nhắn nhóm
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<PagedResultDto<ChatMessage>> GetMyGroupMessageAsync(GroupMessageGetByPagedDto input);
     /// <summary>
-    /// 获取我的消息
+    /// Lấy tin nhắn của tôi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<PagedResultDto<ChatMessage>> GetMyChatMessageAsync(UserMessageGetByPagedDto input);
     /// <summary>
-    /// 获取我最近的消息
+    /// Lấy tin nhắn gần đây của tôi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<ListResultDto<LastChatMessage>> GetMyLastChatMessageAsync(GetUserLastMessageDto input);
-    //TOTO: 还应该有获取我的未读消息 获取我的未读群组消息
+    //TOTO: Còn nên có chức năng lấy tin nhắn chưa đọc của tôi và tin nhắn nhóm chưa đọc của tôi
 }

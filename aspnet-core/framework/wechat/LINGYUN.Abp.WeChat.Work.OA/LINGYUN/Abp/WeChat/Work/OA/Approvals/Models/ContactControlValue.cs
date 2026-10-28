@@ -1,6 +1,6 @@
 ﻿namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 成员/部门控件值
+/// Giá trị control thành viên/phòng ban
 /// </summary>
 public abstract class ContactControlValue : ControlValue
 {

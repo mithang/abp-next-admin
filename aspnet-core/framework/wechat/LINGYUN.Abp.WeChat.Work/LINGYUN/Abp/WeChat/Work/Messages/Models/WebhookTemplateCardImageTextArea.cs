@@ -5,54 +5,54 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 左图右文样式
+/// Kiểu trái ảnh phải chữ
 /// </summary>
 public class WebhookTemplateCardImageTextArea
 {
     /// <summary>
-    /// 左图右文样式区域点击事件，0或不填代表没有点击事件，1 代表跳转url，2 代表跳转小程序
+    /// Sự kiện nhấn vào vùng kiểu trái ảnh phải chữ; 0 hoặc để trống nghĩa là không có sự kiện nhấn, 1 nghĩa là chuyển đến url, 2 nghĩa là chuyển đến mini program
     /// </summary>
     [CanBeNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public int? Type { get; set; }
     /// <summary>
-    /// 左图右文样式的图片url
+    /// URL hình ảnh của kiểu trái ảnh phải chữ
     /// </summary>
     [NotNull]
     [JsonProperty("image_url")]
     [JsonPropertyName("image_url")]
     public string ImageUrl { get; set; }
     /// <summary>
-    /// 点击跳转的url，type是1时必填
+    /// URL chuyển đến khi nhấn, bắt buộc khi type là 1
     /// </summary>
     [NotNull]
     [JsonProperty("url")]
     [JsonPropertyName("url")]
     public string? Url { get; set; }
     /// <summary>
-    /// 点击跳转的小程序的appid，type是2时必填
+    /// AppId của mini program chuyển đến khi nhấn, bắt buộc khi type là 2
     /// </summary>
     [CanBeNull]
     [JsonProperty("appid")]
     [JsonPropertyName("appid")]
     public string? AppId { get; set; }
     /// <summary>
-    /// 点击跳转的小程序的pagepath，type是2时选填
+    /// PagePath của mini program chuyển đến khi nhấn, tùy chọn khi type là 2
     /// </summary>
     [CanBeNull]
     [JsonProperty("pagepath")]
     [JsonPropertyName("pagepath")]
     public string? PagePath { get; set; }
     /// <summary>
-    /// 左图右文样式的标题
+    /// Tiêu đề của kiểu trái ảnh phải chữ
     /// </summary>
     [CanBeNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string? Title { get; set; }
     /// <summary>
-    /// 左图右文样式的描述
+    /// Mô tả của kiểu trái ảnh phải chữ
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]
@@ -77,12 +77,12 @@ public class WebhookTemplateCardImageTextArea
         Description = description;
     }
     /// <summary>
-    /// 创建一个跳转链接左图右文样式
+    /// Tạo một kiểu trái ảnh phải chữ chuyển đến liên kết
     /// </summary>
-    /// <param name="imageUrl">左图右文样式的图片url</param>
-    /// <param name="url">点击跳转的url</param>
-    /// <param name="title">左图右文样式的标题</param>
-    /// <param name="description">左图右文样式的描述</param>
+    /// <param name="imageUrl">URL hình ảnh của kiểu trái ảnh phải chữ</param>
+    /// <param name="url">URL chuyển đến khi nhấn</param>
+    /// <param name="title">Tiêu đề của kiểu trái ảnh phải chữ</param>
+    /// <param name="description">Mô tả của kiểu trái ảnh phải chữ</param>
     /// <returns></returns>
     public static WebhookTemplateCardImageTextArea Link(
         string imageUrl,
@@ -96,13 +96,13 @@ public class WebhookTemplateCardImageTextArea
         return new WebhookTemplateCardImageTextArea(imageUrl, 1, url: url, title: title, description: description);
     }
     /// <summary>
-    /// 创建一个跳转小程序左图右文样式
+    /// Tạo một kiểu trái ảnh phải chữ chuyển đến mini program
     /// </summary>
-    /// <param name="imageUrl">左图右文样式的图片url</param>
-    /// <param name="appId">小程序AppId</param>
-    /// <param name="pagePath">小程序PagePath</param>
-    /// <param name="title">左图右文样式的标题</param>
-    /// <param name="description">左图右文样式的描述</param>
+    /// <param name="imageUrl">URL hình ảnh của kiểu trái ảnh phải chữ</param>
+    /// <param name="appId">AppId của mini program</param>
+    /// <param name="pagePath">PagePath của mini program</param>
+    /// <param name="title">Tiêu đề của kiểu trái ảnh phải chữ</param>
+    /// <param name="description">Mô tả của kiểu trái ảnh phải chữ</param>
     /// <returns></returns>
     public static WebhookTemplateCardImageTextArea MiniProgram(
         string imageUrl, 

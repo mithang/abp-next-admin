@@ -104,7 +104,7 @@ public class SqlServerQuartzSqlInstaller : IQuartzSqlInstaller
 
     public async virtual Task<string> CreateDataBaseIfNotExists(string dataBase, SqlConnectionStringBuilder connectionStringBuilder)
     {
-        // 切换主数据库查询数据库是否存在
+        // Chuyển sang cơ sở dữ liệu chính để truy vấn xem cơ sở dữ liệu có tồn tại hay không
         connectionStringBuilder.InitialCatalog = "master";
         using var sqlConnection = new SqlConnection(connectionStringBuilder.ConnectionString);
         if (sqlConnection.State == ConnectionState.Closed)

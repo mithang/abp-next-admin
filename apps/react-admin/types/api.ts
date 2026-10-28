@@ -1,6 +1,6 @@
 export interface Result<T = any> {
 	code: string;
-	/** 错误详情 */
+	/** Chi tiết lỗi */
 	details?: string;
 	message: string;
 	result: T;

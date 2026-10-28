@@ -4,7 +4,7 @@ using LINGYUN.Abp.WeChat.Official.Services;
 
 namespace PackageName.CompanyName.ProjectName.AIO.Host.WeChat.Official.Messages;
 /// <summary>
-/// 用户关注回复消息
+/// Tin nhắn trả lời khi người dùng theo dõi
 /// </summary>
 public class UserSubscribeEventContributor : IEventHandleContributor<UserSubscribeEvent>
 {
@@ -16,6 +16,6 @@ public class UserSubscribeEventContributor : IEventHandleContributor<UserSubscri
             new LINGYUN.Abp.WeChat.Official.Services.Models.TextMessageModel(
                 context.Message.FromUserName,
                 new LINGYUN.Abp.WeChat.Official.Services.Models.TextMessage(
-                    "感谢您的关注, 点击菜单了解更多.")));
+                    "Cảm ơn bạn đã theo dõi, nhấn vào menu để tìm hiểu thêm.")));
     }
 }

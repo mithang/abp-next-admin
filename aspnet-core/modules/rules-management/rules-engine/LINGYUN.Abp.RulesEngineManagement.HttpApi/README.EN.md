@@ -33,4 +33,4 @@ The HTTP API layer of the rules engine management module, providing RESTful API 
 * Volo.Abp.AspNetCore.Mvc
 * LINGYUN.Abp.RulesEngineManagement.Application.Contracts
 
-[查看中文文档](README.md)
+[Tiếng Việt](README.md)

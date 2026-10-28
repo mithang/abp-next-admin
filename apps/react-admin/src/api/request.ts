@@ -14,16 +14,16 @@ const requestClient = new RequestClient({
 });
 
 /**
- * 重新认证逻辑
+ * Logic xác thực lại
  */
 async function doReAuthenticate() {
 	console.warn("Access token or refresh token is invalid or expired. ");
-	//直接登出
+	//Đăng xuất trực tiếp
 	userStore.getState().actions.clearUserInfoAndToken();
 }
 
 /**
- * 刷新token逻辑
+ * Logic làm mới token
  */
 async function doRefreshToken() {
 	console.debug("try -> Refresh token");
@@ -40,28 +40,28 @@ async function doRefreshToken() {
 		const { tokenType, accessToken, refreshToken: newRefreshToken } = res;
 
 		if (accessToken) {
-			// 更新 userStore，保存新 token
+			// Cập nhật userStore, lưu token mới
 			useUserStore.getState().actions.setUserToken({
 				accessToken: `${tokenType} ${accessToken}`,
 				refreshToken: newRefreshToken,
 			});
 			console.debug("Token refreshed successfully.");
-			return `${tokenType} ${accessToken}`; // 返回新 token 供拦截器使用
+			return `${tokenType} ${accessToken}`; // Trả về token mới để interceptor sử dụng
 		}
 
 		console.error("Failed to refresh token: No access token returned.");
 		return "";
 	} catch (error) {
 		console.error("Error refreshing token:", error);
-		return ""; // 返回空字符串，触发重登录逻辑
+		return ""; // Trả về chuỗi rỗng, kích hoạt logic đăng nhập lại
 	}
 }
 
 function formatToken(token: null | string) {
-	return token ? token : null; //有个tokenType的获取值
+	return token ? token : null; //Có giá trị lấy từ tokenType
 }
 
-// 请求头处理
+// Xử lý header của request
 requestClient.addRequestInterceptor({
 	fulfilled: async (config) => {
 		const { userToken } = useUserStore.getState();
@@ -81,7 +81,7 @@ requestClient.addRequestInterceptor({
 	},
 });
 
-// response数据解构
+// Destructuring dữ liệu response
 requestClient.addResponseInterceptor<any>({
 	fulfilled: (response) => {
 		const { data, status } = response;
@@ -99,7 +99,7 @@ requestClient.addResponseInterceptor<any>({
 	},
 });
 
-// token过期的处理
+// Xử lý khi token hết hạn
 requestClient.addResponseInterceptor(
 	authenticateResponseInterceptor({
 		client: requestClient,
@@ -110,11 +110,11 @@ requestClient.addResponseInterceptor(
 	}),
 );
 
-// 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
+// Xử lý lỗi chung, nếu không vào logic xử lý lỗi ở trên thì sẽ vào đây
 requestClient.addResponseInterceptor(
 	errorMessageResponseInterceptor((msg: string, error) => {
-		// 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-		// 当前mock接口返回的错误字段是 error 或者 message
+		// Tại đây có thể tùy chỉnh theo nghiệp vụ, bạn có thể lấy thông tin trong error để xử lý tùy chỉnh, hiển thị thông báo khác nhau theo từng code thay vì trực tiếp dùng message.error để hiển thị msg
+		// Trường lỗi mà interface mock hiện tại trả về là error hoặc message
 		const responseData = error?.response?.data ?? {};
 		if (responseData?.error_description) {
 			const { formatError } = handleOAuthError();
@@ -124,7 +124,7 @@ requestClient.addResponseInterceptor(
 			return;
 		}
 		const errorMessage = responseData?.error ?? responseData?.message ?? "";
-		// 如果没有错误信息，则会根据状态码进行提示
+		// Nếu không có thông tin lỗi thì sẽ hiển thị thông báo theo mã trạng thái
 		toast.error(errorMessage || msg, {
 			position: "top-center",
 		});

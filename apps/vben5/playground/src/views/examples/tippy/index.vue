@@ -12,7 +12,7 @@ import { useVbenForm } from '#/adapter/form';
 const tippyProps = reactive<TippyProps>({
   animation: 'shift-away',
   arrow: true,
-  content: '这是一个提示',
+  content: 'Đây là một gợi ý',
   delay: [200, 200],
   duration: 200,
   followCursor: false,
@@ -55,131 +55,131 @@ const [Form] = useVbenForm({
         buttonStyle: 'solid',
         class: 'w-full',
         options: [
-          { label: '自动', value: 'auto' },
-          { label: '暗色', value: 'dark' },
-          { label: '亮色', value: 'light' },
+          { label: 'Tự động', value: 'auto' },
+          { label: 'Tối', value: 'dark' },
+          { label: 'Sáng', value: 'light' },
         ],
         optionType: 'button',
       },
       defaultValue: tippyProps.theme,
       fieldName: 'theme',
-      label: '主题',
+      label: 'Chủ đề',
     },
     {
       component: 'Select',
       componentProps: {
         class: 'w-full',
         options: [
-          { label: '向上滑入', value: 'shift-away' },
-          { label: '向下滑入', value: 'shift-toward' },
-          { label: '缩放', value: 'scale' },
-          { label: '透视', value: 'perspective' },
-          { label: '淡入', value: 'fade' },
+          { label: 'Trượt lên', value: 'shift-away' },
+          { label: 'Trượt xuống', value: 'shift-toward' },
+          { label: 'Thu phóng', value: 'scale' },
+          { label: 'Phối cảnh', value: 'perspective' },
+          { label: 'Mờ dần', value: 'fade' },
         ],
       },
       defaultValue: tippyProps.animation,
       fieldName: 'animation',
-      label: '动画类型',
+      label: 'Loại hiệu ứng',
     },
     {
       component: 'RadioGroup',
       componentProps: {
         buttonStyle: 'solid',
         options: [
-          { label: '是', value: true },
-          { label: '否', value: false },
+          { label: 'Có', value: true },
+          { label: 'Không', value: false },
         ],
         optionType: 'button',
       },
       defaultValue: tippyProps.inertia,
       fieldName: 'inertia',
-      label: '动画惯性',
+      label: 'Quán tính hiệu ứng',
     },
     {
       component: 'Select',
       componentProps: {
         class: 'w-full',
         options: [
-          { label: '顶部', value: 'top' },
-          { label: '顶左', value: 'top-start' },
-          { label: '顶右', value: 'top-end' },
-          { label: '底部', value: 'bottom' },
-          { label: '底左', value: 'bottom-start' },
-          { label: '底右', value: 'bottom-end' },
-          { label: '左侧', value: 'left' },
-          { label: '左上', value: 'left-start' },
-          { label: '左下', value: 'left-end' },
-          { label: '右侧', value: 'right' },
-          { label: '右上', value: 'right-start' },
-          { label: '右下', value: 'right-end' },
+          { label: 'Trên', value: 'top' },
+          { label: 'Trên-trái', value: 'top-start' },
+          { label: 'Trên-phải', value: 'top-end' },
+          { label: 'Dưới', value: 'bottom' },
+          { label: 'Dưới-trái', value: 'bottom-start' },
+          { label: 'Dưới-phải', value: 'bottom-end' },
+          { label: 'Trái', value: 'left' },
+          { label: 'Trái-trên', value: 'left-start' },
+          { label: 'Trái-dưới', value: 'left-end' },
+          { label: 'Phải', value: 'right' },
+          { label: 'Phải-trên', value: 'right-start' },
+          { label: 'Phải-dưới', value: 'right-end' },
         ],
       },
       defaultValue: tippyProps.placement,
       fieldName: 'placement',
-      label: '位置',
+      label: 'Vị trí',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        addonAfter: '毫秒',
+        addonAfter: 'mili giây',
       },
       defaultValue: tippyProps.duration,
       fieldName: 'duration',
-      label: '动画时长',
+      label: 'Thời lượng hiệu ứng',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        addonAfter: '毫秒',
+        addonAfter: 'mili giây',
       },
       defaultValue: 100,
       fieldName: 'delay1',
-      label: '显示延时',
+      label: 'Độ trễ hiển thị',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        addonAfter: '毫秒',
+        addonAfter: 'mili giây',
       },
       defaultValue: 100,
       fieldName: 'delay2',
-      label: '隐藏延时',
+      label: 'Độ trễ ẩn',
     },
     {
       component: 'Input',
       defaultValue: tippyProps.content,
       fieldName: 'content',
-      label: '内容',
+      label: 'Nội dung',
     },
     {
       component: 'RadioGroup',
       componentProps: {
         buttonStyle: 'solid',
         options: [
-          { label: '是', value: true },
-          { label: '否', value: false },
+          { label: 'Có', value: true },
+          { label: 'Không', value: false },
         ],
         optionType: 'button',
       },
       defaultValue: tippyProps.arrow,
       fieldName: 'arrow',
-      label: '指示箭头',
+      label: 'Mũi tên chỉ hướng',
     },
     {
       component: 'Select',
       componentProps: {
         class: 'w-full',
         options: [
-          { label: '不跟随', value: 'false' },
-          { label: '完全跟随', value: 'true' },
-          { label: '仅横向', value: 'horizontal' },
-          { label: '仅纵向', value: 'vertical' },
-          { label: '仅初始', value: 'initial' },
+          { label: 'Không theo', value: 'false' },
+          { label: 'Theo hoàn toàn', value: 'true' },
+          { label: 'Chỉ ngang', value: 'horizontal' },
+          { label: 'Chỉ dọc', value: 'vertical' },
+          { label: 'Chỉ ban đầu', value: 'initial' },
         ],
       },
       defaultValue: tippyProps.followCursor?.toString(),
       fieldName: 'followCursor',
-      label: '跟随指针',
+      label: 'Theo con trỏ',
     },
     {
       component: 'Select',
@@ -187,24 +187,24 @@ const [Form] = useVbenForm({
         class: 'w-full',
         mode: 'multiple',
         options: [
-          { label: '鼠标移入', value: 'mouseenter' },
-          { label: '被点击', value: 'click' },
-          { label: '获得焦点', value: 'focusin' },
-          { label: '无触发，仅手动', value: 'manual' },
+          { label: 'Di chuột vào', value: 'mouseenter' },
+          { label: 'Được nhấp', value: 'click' },
+          { label: 'Được focus', value: 'focusin' },
+          { label: 'Không kích hoạt, chỉ thủ công', value: 'manual' },
         ],
       },
       defaultValue: tippyProps.trigger?.split(' '),
       fieldName: 'trigger',
-      label: '触发方式',
+      label: 'Cách kích hoạt',
     },
     {
       component: 'Select',
       componentProps: {
         class: 'w-full',
         options: [
-          { label: '否', value: 'false' },
-          { label: '是', value: 'true' },
-          { label: '仅内部', value: 'toggle' },
+          { label: 'Không', value: 'false' },
+          { label: 'Có', value: 'true' },
+          { label: 'Chỉ nội bộ', value: 'toggle' },
         ],
       },
       defaultValue: tippyProps.hideOnClick?.toString(),
@@ -217,8 +217,8 @@ const [Form] = useVbenForm({
         triggerFields: ['trigger'],
       },
       fieldName: 'hideOnClick',
-      help: '只有在触发方式为`click`时才有效',
-      label: '点击后隐藏',
+      help: 'Chỉ có hiệu lực khi cách kích hoạt là `click`',
+      label: 'Ẩn sau khi nhấp',
     },
     {
       component: 'Input',
@@ -228,7 +228,7 @@ const [Form] = useVbenForm({
       },
       defaultValue: tippyProps.maxWidth,
       fieldName: 'maxWidth',
-      label: '最大宽度',
+      label: 'Chiều rộng tối đa',
     },
   ],
   showDefaultActions: false,
@@ -244,47 +244,54 @@ function goDoc() {
     <template #description>
       <div class="flex items-center">
         <p>
-          Tippy
-          是一个轻量级的提示工具库，它可以用来创建各种交互式提示，如工具提示、引导提示等。
+          Tippy là một thư viện gợi ý nhẹ, có thể dùng để tạo nhiều loại gợi ý
+          tương tác như tooltip, gợi ý hướng dẫn, v.v.
         </p>
-        <Button type="link" size="small" @click="goDoc">查看文档</Button>
+        <Button type="link" size="small" @click="goDoc">Xem tài liệu</Button>
       </div>
     </template>
-    <Card title="指令形式使用">
+    <Card title="Dùng dạng directive">
       <p class="mb-4">
-        指令形式使用比较简洁，直接在需要展示tooltip的组件上用v-tippy传递配置，适用于固定内容的工具提示。
+        Dùng dạng directive khá gọn, truyền cấu hình trực tiếp bằng v-tippy trên
+        component cần hiển thị tooltip, phù hợp với tooltip có nội dung cố định.
       </p>
       <Flex warp="warp" gap="20" align="center">
-        <Button v-tippy="'这是一个提示，使用了默认的配置'">默认配置</Button>
+        <Button v-tippy="'Đây là một gợi ý, dùng cấu hình mặc định'">
+          Cấu hình mặc định
+        </Button>
 
         <Button
-          v-tippy="{ theme: 'light', content: '这是一个提示，总是light主题' }"
+          v-tippy="{
+            theme: 'light',
+            content: 'Đây là một gợi ý, luôn dùng chủ đề light',
+          }"
         >
-          指定主题
+          Chỉ định chủ đề
         </Button>
         <Button
           v-tippy="{
             theme: 'light',
-            content: '这个提示将在点燃组件100毫秒后激活',
+            content:
+              'Gợi ý này sẽ kích hoạt 100 mili giây sau khi nhấn vào component',
             delay: 100,
           }"
         >
-          指定延时
+          Chỉ định độ trễ
         </Button>
         <Button
           v-tippy="{
-            content: '本提示的动画为`scale`',
+            content: 'Hiệu ứng của gợi ý này là `scale`',
             animation: 'scale',
           }"
         >
-          指定动画
+          Chỉ định hiệu ứng
         </Button>
       </Flex>
     </Card>
-    <Card title="组件形式使用" class="mt-4">
+    <Card title="Dùng dạng component" class="mt-4">
       <div class="flex w-full justify-center">
         <Tippy v-bind="tippyProps">
-          <Button>鼠标移到这个组件上来体验效果</Button>
+          <Button>Di chuột lên component này để trải nghiệm hiệu ứng</Button>
         </Tippy>
       </div>
 
@@ -293,9 +300,9 @@ function goDoc() {
         <p
           class="cursor-default text-secondary-foreground hover:text-secondary-foreground"
         >
-          更多配置请
-          <Button type="link" size="small" @click="goDoc">查看文档</Button>
-          ，这里只列出了一些常用的配置
+          Để có thêm cấu hình, vui lòng
+          <Button type="link" size="small" @click="goDoc">Xem tài liệu</Button>
+          , ở đây chỉ liệt kê một số cấu hình thường dùng
         </p>
       </template>
     </Card>

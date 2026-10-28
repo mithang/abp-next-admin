@@ -4,8 +4,8 @@ import { Fallback } from '@vben/common-ui';
 
 <template>
   <Fallback
-    description="当前页面用户不可见，会被重定向到403页面"
+    description="Trang hiện tại người dùng không thấy, sẽ bị chuyển hướng tới trang 403"
     status="coming-soon"
-    title="页面访问测试"
+    title="Kiểm thử truy cập trang"
   />
 </template>

@@ -70,7 +70,7 @@ public partial class ProjectNameHttpApiHostModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别
+            // Phân biệt theo cổng đang mở
             options.SnowflakeIdOptions.WorkerId = 5;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -118,7 +118,7 @@ public partial class ProjectNameHttpApiHostModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -127,7 +127,7 @@ public partial class ProjectNameHttpApiHostModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hóa khi serialize tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -148,10 +148,10 @@ public partial class ProjectNameHttpApiHostModule
     }
     private void ConfigureExceptionHandling()
     {
-        // 自定义需要处理的异常
+        // Tùy chỉnh các ngoại lệ cần xử lý
         Configure<AbpExceptionHandlingOptions>(options =>
         {
-            //  加入需要处理的异常类型
+            //  Thêm các loại ngoại lệ cần xử lý
             options.Handlers.Add<Volo.Abp.Data.AbpDbConcurrencyException>();
             options.Handlers.Add<AbpInitializationException>();
             options.Handlers.Add<OutOfMemoryException>();
@@ -159,13 +159,13 @@ public partial class ProjectNameHttpApiHostModule
             options.Handlers.Add<Microsoft.EntityFrameworkCore.DbUpdateException>();
             options.Handlers.Add<System.Data.DBConcurrencyException>();
         });
-        // 自定义需要发送邮件通知的异常类型
+        // Tùy chỉnh các loại ngoại lệ cần gửi thông báo email
         Configure<AbpEmailExceptionHandlingOptions>(options =>
         {
-            // 是否发送堆栈信息
+            // Có gửi thông tin stack trace hay không
             options.SendStackTrace = true;
-            // 未指定异常接收者的默认接收邮件
-            // 指定自己的邮件地址
+            // Email nhận mặc định khi chưa chỉ định người nhận ngoại lệ
+            // Chỉ định địa chỉ email của riêng bạn
         });
     }
 
@@ -187,7 +187,7 @@ public partial class ProjectNameHttpApiHostModule
         Configure<AbpAuditingOptions>(options =>
         {
             options.ApplicationName = ApplicationName;
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi entity hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() || bool.Parse(allEntitiesSelectorIsEnabled))
             {
@@ -241,11 +241,11 @@ public partial class ProjectNameHttpApiHostModule
     {
         Configure<AbpExporterMiniExcelOptions>(options =>
         {
-            // MiniExcel导入导出配置
+            // Cấu hình import/export MiniExcel
         });
         Configure<AbpExporterMiniWordOptions>(options =>
         {
-            // MiniWord导入导出配置
+            // Cấu hình import/export MiniWord
         });
     }
 
@@ -307,7 +307,7 @@ public partial class ProjectNameHttpApiHostModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa tenant
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -363,11 +363,11 @@ public partial class ProjectNameHttpApiHostModule
                 options.DescribeAllParametersInCamelCase();
                 options.TagActionsBy(api =>
                 {
-                    // 控制器分组显示
-                    var groupName = api.GroupName ?? "未分组";
+                    // Hiển thị theo nhóm controller
+                    var groupName = api.GroupName ?? "Chưa phân nhóm";
                     var controllerName = api.ActionDescriptor.RouteValues["controller"];
 
-                    // 使用控制器名称和摘要信息创建分组
+                    // Tạo nhóm bằng tên controller và thông tin tóm tắt
                     return new[] { $"{groupName}/{controllerName}" };
                 });
 
@@ -398,11 +398,11 @@ public partial class ProjectNameHttpApiHostModule
 
     private void ConfigureLocalization(IConfiguration configuration)
     {
-        // 支持本地化语言类型
+        // Hỗ trợ các loại ngôn ngữ bản địa hóa
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
         });
 
         Configure<AbpLocalizationCultureMapOptions>(options =>
@@ -442,9 +442,9 @@ public partial class ProjectNameHttpApiHostModule
 
         if (isDevelopment)
         {
-            // 开发环境可以取消注释禁用权限检查
+            // Môi trường phát triển có thể bỏ comment để tắt kiểm tra quyền
             // services.AddAlwaysAllowAuthorization();
-            // 开发环境可以取消注释禁用会话检查
+            // Môi trường phát triển có thể bỏ comment để tắt kiểm tra phiên
             // services.AddAlwaysAllowSession();
         }
 
@@ -507,7 +507,7 @@ public partial class ProjectNameHttpApiHostModule
     {
         Configure<AbpWrapperOptions>(options =>
         {
-            // 取消注释包装结果
+            // Bỏ comment để đóng gói kết quả
             options.IsEnabled = true;
         });
     }
@@ -516,7 +516,7 @@ public partial class ProjectNameHttpApiHostModule
     {
         PreConfigure<AbpHttpClientBuilderOptions>(options =>
         {
-            // http服务间调用发送不需要包装结果的请求头
+            // Gọi giữa các dịch vụ http gửi header không cần đóng gói kết quả
             options.ProxyClientActions.Add(
                 (_, _, client) =>
                 {
@@ -526,7 +526,7 @@ public partial class ProjectNameHttpApiHostModule
 
         PreConfigure<AbpDaprClientProxyOptions>(options =>
         {
-            // dapr服务间调用发送不需要包装结果的请求头
+            // Gọi giữa các dịch vụ dapr gửi header không cần đóng gói kết quả
             options.ProxyRequestActions.Add(
                 (appId, httpRequestMessage) =>
                 {

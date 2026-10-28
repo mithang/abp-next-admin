@@ -186,7 +186,7 @@ public class AuthorizeController : Volo.Abp.OpenIddict.Controllers.AuthorizeCont
                     principal.Identities.FirstOrDefault()?.AddClaim(claim);
                 }
 
-                // 需透传会话Id,避免创建多个会话
+                // Cần truyền xuyên suốt Id phiên, tránh tạo nhiều phiên
                 var claimsIdentity = principal.Identities.FirstOrDefault();
                 var sessionId = result.Principal.FindSessionId();
                 if (!sessionId.IsNullOrWhiteSpace())
@@ -304,7 +304,7 @@ public class AuthorizeController : Volo.Abp.OpenIddict.Controllers.AuthorizeCont
                 principal.Identities.FirstOrDefault()?.AddClaim(claim);
             }
             
-            // 需透传会话Id,避免创建多个会话
+            // Cần truyền xuyên suốt Id phiên, tránh tạo nhiều phiên
             var claimsIdentity = principal.Identities.FirstOrDefault();
             var sessionId = result.Principal.FindSessionId();
             if (!sessionId.IsNullOrWhiteSpace())

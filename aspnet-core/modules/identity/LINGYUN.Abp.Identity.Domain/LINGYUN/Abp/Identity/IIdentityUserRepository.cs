@@ -9,7 +9,7 @@ namespace LINGYUN.Abp.Identity;
 public interface IIdentityUserRepository : Volo.Abp.Identity.IIdentityUserRepository
 {
     /// <summary>
-    /// 手机号是否已被使用
+    /// Số điện thoại đã được sử dụng hay chưa
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="cancellationToken"></param>
@@ -18,7 +18,7 @@ public interface IIdentityUserRepository : Volo.Abp.Identity.IIdentityUserReposi
         string phoneNumber,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 手机号是否已确认(绑定)
+    /// Số điện thoại đã được xác nhận (liên kết) hay chưa
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="cancellationToken"></param>
@@ -27,7 +27,7 @@ public interface IIdentityUserRepository : Volo.Abp.Identity.IIdentityUserReposi
         string phoneNumber,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 邮件地址是否已确认(绑定)
+    /// Địa chỉ email đã được xác nhận (liên kết) hay chưa
     /// </summary>
     /// <param name="normalizedEmail"></param>
     /// <param name="cancellationToken"></param>
@@ -36,10 +36,10 @@ public interface IIdentityUserRepository : Volo.Abp.Identity.IIdentityUserReposi
        string normalizedEmail,
        CancellationToken cancellationToken = default);
     /// <summary>
-    /// 通过手机号查询用户
+    /// Tra cứu người dùng theo số điện thoại
     /// </summary>
-    /// <param name="phoneNumber">手机号码</param>
-    /// <param name="isConfirmed">是否已确认过</param>
+    /// <param name="phoneNumber">Số điện thoại</param>
+    /// <param name="isConfirmed">Đã xác nhận hay chưa</param>
     /// <param name="includeDetails"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -49,7 +49,7 @@ public interface IIdentityUserRepository : Volo.Abp.Identity.IIdentityUserReposi
         bool includeDetails = false,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 通过用户主键列表获取用户
+    /// Lấy người dùng theo danh sách khóa chính của người dùng
     /// </summary>
     /// <param name="userIds"></param>
     /// <param name="includeDetails"></param>
@@ -61,7 +61,7 @@ public interface IIdentityUserRepository : Volo.Abp.Identity.IIdentityUserReposi
         CancellationToken cancellationToken = default
     );
     /// <summary>
-    /// 获取用户所有的组织机构列表
+    /// Lấy danh sách tất cả các đơn vị tổ chức của người dùng
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="filter"></param>

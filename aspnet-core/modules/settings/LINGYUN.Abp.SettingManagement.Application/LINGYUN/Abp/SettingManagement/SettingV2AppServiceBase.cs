@@ -136,7 +136,7 @@ public abstract class SettingV2AppServiceBase : ApplicationService
                         var options = setting.GetOptions();
                         foreach (var option in options)
                         {
-                            // 本地化选项列表
+                            // Danh sách tùy chọn bản địa hóa
                             var optionNameChars = option.Name.Split(';');
                             if (optionNameChars.Length == 2 &&
                                 optionNameChars[0].StartsWith("N:") &&

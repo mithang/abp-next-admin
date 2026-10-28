@@ -7,7 +7,7 @@
     @selected="$emit('selected')"
     @delNode="$emit('delNode')"
     @insertNode="(type) => $emit('insertNode', type)"
-    placeholder="请设置抄送人"
+    placeholder="Vui lòng đặt người nhận bản sao"
     header-bgc="#3296fa"
   >
     <template #headerIcon>
@@ -38,7 +38,7 @@
   });
   const content = computed(() => {
     if (props.config.props.shouldAdd) {
-      return '由发起人指定';
+      return 'Do người khởi tạo chỉ định';
     } else if (props.config.props.assignedUser.length > 0) {
       let texts: string[] = [];
       props.config.props.assignedUser.forEach((org) => texts.push(org.name));
@@ -51,17 +51,17 @@
     showError: false,
     errorInfo: '',
   });
-  //校验数据配置的合法性
+  //Kiểm tra tính hợp lệ của cấu hình dữ liệu
   function validate(err: string[]) {
     state.showError = false;
     if (props.config.props.shouldAdd) {
       state.showError = false;
     } else if (props.config.props.assignedUser.length === 0) {
       state.showError = true;
-      state.errorInfo = '请选择需要抄送的人员';
+      state.errorInfo = 'Vui lòng chọn người cần nhận bản sao';
     }
     if (state.showError) {
-      err.push(`抄送节点 ${props.config.name} 未设置抄送人`);
+      err.push(`Nút nhận bản sao ${props.config.name} chưa đặt người nhận bản sao`);
     }
     return !state.showError;
   }

@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Data.DbMigrator
 
-数据迁移模块,用于配合需要提供数据初始化的场景（例如新租户创建时）  
+Mô-đun di chuyển dữ liệu, dùng để phối hợp với các kịch bản cần cung cấp khởi tạo dữ liệu (ví dụ khi tạo tenant mới)  
 
-## 配置使用
+## Cấu hình và sử dụng
 
 
 ```csharp
@@ -38,17 +38,17 @@ public class FakeMigretor
 
 	public async Task MigrateAsync()
 	{
-		// 将执行 EF 迁移脚本, 需要提供用作数据迁移的 DbContext
+		// Sẽ thực thi script migration EF, cần cung cấp DbContext dùng để di chuyển dữ liệu
 		await _migrator.MigrateAsync<FakeDbContext>(
-			// connectionString:	当前租户连接字符串,用于构建连接
-			// builder:				用于初始化上下文的构造器
+			// connectionString:	Chuỗi kết nối của tenant hiện tại, dùng để xây dựng kết nối
+			// builder:				Trình xây dựng (builder) dùng để khởi tạo context
 			(connectionString, builder) =>
 			{
 
-				// 在委托中由用户决定数据库参数
+				// Trong delegate, người dùng quyết định tham số cơ sở dữ liệu
 				builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
-				// 返回实例化的DbContext
+				// Trả về DbContext đã được khởi tạo
 				return new FakeDbContext(builder.Options);
             });
 	}

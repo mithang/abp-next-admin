@@ -1,4 +1,4 @@
-// axios配置  可自行根据项目进行更改，只需更改该文件即可，其他文件可以不动
+// Cấu hình axios, có thể tự thay đổi theo dự án, chỉ cần thay đổi file này, các file khác không cần động tới
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios';
@@ -23,23 +23,23 @@ const urlPrefix = globSetting.urlPrefix;
 const { createMessage, createErrorModal } = useMessage();
 
 /**
- * @description: 数据处理，方便区分多种处理方式
+ * @description: Xử lý dữ liệu, thuận tiện phân biệt nhiều cách xử lý
  */
 const transform: AxiosTransform = {
   /**
-   * @description: 处理请求数据。如果数据不是预期格式，可直接抛出错误
+   * @description: Xử lý dữ liệu yêu cầu. Nếu dữ liệu không đúng định dạng mong đợi, có thể ném lỗi trực tiếp
    */
   transformRequestHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
     const { isReturnNativeResponse } = options;
-    // 是否返回原生响应头 比如：需要获取响应头时使用该属性
+    // Có trả về response header gốc hay không, ví dụ: dùng thuộc tính này khi cần lấy response header
     if (isReturnNativeResponse) {
       return res;
     }
 
     const { data } = res;
 
-    // 对包装结果处理
+    // Xử lý kết quả đã đóng gói
     if (res.headers['_abpwrapresult'] === 'true') {
       if (!data) {
         // return '[HTTP] Request has no return value';
@@ -66,7 +66,7 @@ const transform: AxiosTransform = {
     return data;
   },
 
-  // 请求之前处理config
+  // Xử lý config trước khi gửi yêu cầu
   beforeRequestHook: (config, options) => {
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
 
@@ -82,10 +82,10 @@ const transform: AxiosTransform = {
     formatDate && data && !isString(data) && formatRequestDate(data);
     if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
-        // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
+        // Thêm tham số timestamp cho yêu cầu GET để tránh lấy dữ liệu từ bộ nhớ đệm.
         config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
       } else {
-        // 兼容restful风格
+        // Tương thích với phong cách RESTful
         config.url = config.url + params + `${joinTimestamp(joinTime, true)}`;
         config.params = undefined;
       }
@@ -103,8 +103,8 @@ const transform: AxiosTransform = {
           config.headers &&
           config.headers['Content-Type'] !== ContentTypeEnum.FORM_DATA
         ) {
-          // 防止form-data类型数据被清除
-          // 非GET请求如果没有提供data，则将params视为data
+          // Ngăn dữ liệu dạng form-data bị xóa
+          // Với yêu cầu không phải GET, nếu không cung cấp data thì coi params như data
           config.data = params;
           config.params = undefined;
         }
@@ -115,7 +115,7 @@ const transform: AxiosTransform = {
           );
         }
       } else {
-        // 兼容restful风格
+        // Tương thích với phong cách RESTful
         config.url = config.url + params;
         config.params = undefined;
       }
@@ -124,11 +124,11 @@ const transform: AxiosTransform = {
   },
 
   /**
-   * @description: 请求拦截器处理
+   * @description: Xử lý interceptor yêu cầu
    */
   requestInterceptors: (config, options) => {
     config.headers = config.headers ?? {};
-    // 请求之前处理config
+    // Xử lý config trước khi gửi yêu cầu
     const token = getToken();
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
@@ -147,14 +147,14 @@ const transform: AxiosTransform = {
   },
 
   /**
-   * @description: 响应拦截器处理
+   * @description: Xử lý interceptor phản hồi
    */
   responseInterceptors: (res: AxiosResponse<any>) => {
     return res;
   },
 
   /**
-   * @description: 响应错误处理
+   * @description: Xử lý lỗi phản hồi
    */
   responseInterceptorsCatch: (_, error: any) => {
     // const { t } = useI18n();
@@ -186,47 +186,47 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authenticationScheme: 'Bearer',
         authenticationScheme: 'Bearer',
         timeout: 30 * 1000,
-        // 基础接口地址
+        // Địa chỉ API cơ sở
         // baseURL: globSetting.apiUrl,
 
         headers: {
           'Content-Type': ContentTypeEnum.JSON,
-          // 取消后端cookie重定向
+          // Hủy chuyển hướng cookie từ backend
           'X-Request-From': 'vben',
         },
-        // 如果是form-data格式
+        // Nếu là định dạng form-data
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
-        // 数据处理方式
+        // Cách xử lý dữ liệu
         transform,
         xsrfCookieName: 'XSRF-TOKEN',
         // ASP.NET Core
         xsrfHeaderName: 'RequestVerificationToken',
-        // 配置项，下面的选项都可以在独立的接口请求中覆盖
+        // Các mục cấu hình, các tùy chọn dưới đây đều có thể bị ghi đè trong từng yêu cầu API riêng lẻ
         requestOptions: {
-          // 默认将prefix 添加到url
+          // Mặc định thêm prefix vào URL
           joinPrefix: true,
-          // 是否返回原生响应头 比如：需要获取响应头时使用该属性
+          // Có trả về response header gốc hay không, ví dụ: dùng thuộc tính này khi cần lấy response header
           isReturnNativeResponse: false,
-          // 需要对返回数据进行处理
+          // Cần xử lý dữ liệu trả về
           isTransformRequestResult: false,
           isTransformResponse: true,
-          // post请求的时候添加参数到url
+          // Khi gửi yêu cầu POST, thêm tham số vào URL
           joinParamsToUrl: false,
-          // 格式化提交参数时间
+          // Định dạng thời gian của tham số gửi đi
           formatDate: true,
-          // 消息提示类型
+          // Loại thông báo
           errorMessageMode: 'message',
-          // 接口地址
+          // Địa chỉ API
           apiUrl: globSetting.apiUrl,
-          // 接口拼接地址
+          // Địa chỉ API ghép nối
           urlPrefix: urlPrefix,
-          //  是否加入时间戳
+          //  Có thêm timestamp hay không
           joinTime: true,
-          // 忽略重复请求
+          // Bỏ qua yêu cầu trùng lặp
           ignoreCancelToken: true,
-          // 是否携带token
+          // Có mang theo token hay không
           withToken: true,
-          // 是否携带 Accept-Language 标头
+          // Có mang theo tiêu đề Accept-Language hay không
           withAcceptLanguage: true,
           retryRequest: {
             isOpenRetry: true,

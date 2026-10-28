@@ -253,4 +253,4 @@ context.Services.AddTransient<ILockOwnerFinder, CustomLockOwnerFinder>();
 * Configure health checks for lock components
 * Add logging for important operations
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

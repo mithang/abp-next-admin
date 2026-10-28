@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Logging.Serilog.OpenObserve
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 An OpenObserve implementation of `ILoggingProvider` that retrieves log entries stored in OpenObserve.
 

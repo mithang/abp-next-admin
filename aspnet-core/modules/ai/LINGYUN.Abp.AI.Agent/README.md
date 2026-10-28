@@ -1,11 +1,11 @@
 # LINGYUN.Abp.AI.Agent
 
-[Abp AI Module](https://abp.io/docs/latest/framework/infrastructure/artificial-intelligence) 扩展. 
+[Abp AI Module](https://abp.io/docs/latest/framework/infrastructure/artificial-intelligence) Mở rộng. 
 
-## 功能特性
+## Tính năng
 
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpAIAgentModule))]
@@ -15,14 +15,14 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Module phụ thuộc
 
 * [AbpAIModule](https://abp.io/docs/latest/framework/infrastructure/artificial-intelligence)  
 * [AbpLocalizationModule](https://abp.io/docs/latest/framework/fundamentals/localization)  
 
-## 基本用法
+## Cách dùng cơ bản
 
-> 兼容 `IKernelAccessor` 与 `IChatClientAccessor` 的语法.  
+> Tương thích với cú pháp của `IKernelAccessor` và `IChatClientAccessor`.  
 
 ```csharp
 using LINGYUN.Abp.AI;
@@ -43,7 +43,7 @@ var chatClientAgentFactory = application.ServiceProvider.GetRequiredService<ICha
 
 var agent = await chatClientAgentFactory.CreateAsync<YouWorkspace>();
 
-var agentResponse = agent.RunStreamingAsync("解释一下线性代数");
+var agentResponse = agent.RunStreamingAsync("Giải thích về đại số tuyến tính");
 
 await foreach (var item in agentResponse)
 {
@@ -59,7 +59,7 @@ Console.WriteLine("AI Console completed!");
 Console.ReadKey();
 ```
 
-> 支持动态工作区语法.  
+> Hỗ trợ cú pháp workspace động.  
 
 ```csharp
 using LINGYUN.Abp.AI;
@@ -80,7 +80,7 @@ var chatClientAgentFactory = application.ServiceProvider.GetRequiredService<ICha
 
 var agent = await chatClientAgentFactory.CreateAsync("YouWorkspace");
 
-var agentResponse = agent.RunStreamingAsync("解释一下线性代数");
+var agentResponse = agent.RunStreamingAsync("Giải thích về đại số tuyến tính");
 
 await foreach (var item in agentResponse)
 {

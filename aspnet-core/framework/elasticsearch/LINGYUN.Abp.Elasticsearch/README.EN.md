@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Elasticsearch
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 Abp Elasticsearch integration module, providing a global singleton IElasticClient interface for access.
 

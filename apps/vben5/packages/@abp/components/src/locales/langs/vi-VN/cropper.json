@@ -1,0 +1,14 @@
+{
+  "confirmText": "Xác nhận và tải lên",
+  "title": "Tải lên ảnh đại diện",
+  "selectImage": "Chọn hình ảnh",
+  "btn_rotate_left": "Xoay ngược chiều kim đồng hồ",
+  "btn_rotate_right": "Xoay theo chiều kim đồng hồ",
+  "btn_scale_x": "Lật ngang",
+  "btn_scale_y": "Lật dọc",
+  "btn_zoom_in": "Phóng to",
+  "btn_zoom_out": "Thu nhỏ",
+  "btn_reset": "Đặt lại",
+  "preview": "Xem trước",
+  "uploadSuccess": "Tải lên thành công!"
+}

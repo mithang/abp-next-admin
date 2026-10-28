@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits.Response;
 /// <summary>
-/// 获取单聊会话同意情况响应参数
+/// Tham số phản hồi lấy tình trạng đồng ý phiên trò chuyện riêng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/91782" />
 /// </remarks>
 public class WeChatWorkCheckSingleAgreeResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 同意情况
+    /// Tình trạng đồng ý
     /// </summary>
     [NotNull]
     [JsonProperty("agreeinfo")]

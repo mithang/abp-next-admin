@@ -41,7 +41,17 @@ import {
   Switch,
 } from 'ant-design-vue';
 
-const defaultModel: RoleEntityRuleDto = {
+/**
+ * Form model của drawer: gộp 2 khái niệm backend — RoleEntityRuleDto (quy tắc theo
+ * entity) và strategy cấp subject (lấy qua useSubjectStrategysApi, không nằm trong
+ * RoleEntityRuleDto). `strategy` là bắt buộc vì template luôn bind Select vào nó
+ * và onSubmit luôn rẽ nhánh theo nó.
+ */
+interface RoleRuleFormModel extends RoleEntityRuleDto {
+  strategy: DataAccessStrategy;
+}
+
+const defaultModel: RoleRuleFormModel = {
   accessedProperties: [],
   creationTime: new Date(),
   entityTypeFullName: '',
@@ -60,98 +70,98 @@ const defaultModel: RoleEntityRuleDto = {
 };
 
 const form = useTemplateRef<FormInstance>('form');
-const formModel = ref<RoleEntityRuleDto>({ ...defaultModel });
+const formModel = ref<RoleRuleFormModel>({ ...defaultModel });
 const entityTypes = ref<EntityTypeInfoDto[]>([]);
 const entityTypeProps = ref<EntityPropertyInfoDto[]>([]);
 const strategyOptions = reactive([
   {
-    label: '可以访问所有数据',
+    label: 'Có thể truy cập mọi dữ liệu',
     value: DataAccessStrategy.All,
   },
   {
-    label: '自定义规则',
+    label: 'Quy tắc tuỳ chỉnh',
     value: DataAccessStrategy.Custom,
   },
   {
-    label: '仅当前用户',
+    label: 'Chỉ người dùng hiện tại',
     value: DataAccessStrategy.CurrentUser,
   },
   {
-    label: '仅当前用户角色',
+    label: 'Chỉ vai trò của người dùng hiện tại',
     value: DataAccessStrategy.CurrentRoles,
   },
   {
-    label: '仅当前用户组织机构',
+    label: 'Chỉ tổ chức của người dùng hiện tại',
     value: DataAccessStrategy.CurrentOrganizationUnits,
   },
   {
-    label: '仅当前用户组织机构及下级机构',
+    label: 'Chỉ tổ chức của người dùng hiện tại và các tổ chức cấp dưới',
     value: DataAccessStrategy.CurrentAndSubOrganizationUnits,
   },
 ]);
 const operationOptions = reactive([
   {
-    label: '查询',
+    label: 'Truy vấn',
     value: DataAccessOperation.Read,
   },
   {
-    label: '编辑',
+    label: 'Chỉnh sửa',
     value: DataAccessOperation.Write,
   },
   {
-    label: '删除',
+    label: 'Xoá',
     value: DataAccessOperation.Delete,
   },
 ]);
 const logicOptions = reactive([
   {
-    label: '且',
+    label: 'Và',
     value: DataAccessFilterLogic.And,
   },
   {
-    label: '或',
+    label: 'Hoặc',
     value: DataAccessFilterLogic.Or,
   },
 ]);
 const dataAccessFilterOptions = reactive([
   {
-    label: '等于',
+    label: 'Bằng',
     value: DataAccessFilterOperate.Equal,
   },
   {
-    label: '大于',
+    label: 'Lớn hơn',
     value: DataAccessFilterOperate.Greater,
   },
   {
-    label: '大于等于',
+    label: 'Lớn hơn hoặc bằng',
     value: DataAccessFilterOperate.GreaterOrEqual,
   },
   {
-    label: '小于',
+    label: 'Nhỏ hơn',
     value: DataAccessFilterOperate.Less,
   },
   {
-    label: '小于等于',
+    label: 'Nhỏ hơn hoặc bằng',
     value: DataAccessFilterOperate.LessOrEqual,
   },
   {
-    label: '不等于',
+    label: 'Không bằng',
     value: DataAccessFilterOperate.NotEqual,
   },
   {
-    label: '左包含',
+    label: 'Bắt đầu bằng',
     value: DataAccessFilterOperate.StartsWith,
   },
   {
-    label: '右包含',
+    label: 'Kết thúc bằng',
     value: DataAccessFilterOperate.EndsWith,
   },
   {
-    label: '不包含',
+    label: 'Không chứa',
     value: DataAccessFilterOperate.NotContains,
   },
   {
-    label: '不等于',
+    label: 'Không bằng',
     value: DataAccessFilterOperate.NotEqual,
   },
 ]);
@@ -245,7 +255,7 @@ async function onSubmit() {
   }
 }
 
-async function submitStrategys(input: RoleEntityRuleDto) {
+async function submitStrategys(input: RoleRuleFormModel) {
   const roleInfo = drawerApi.getData<IdentityRoleDto>();
   await setStrategysApi({
     isEnabled: input.isEnabled,
@@ -255,7 +265,7 @@ async function submitStrategys(input: RoleEntityRuleDto) {
   });
 }
 
-async function submitCustomRule(input: RoleEntityRuleDto) {
+async function submitCustomRule(input: RoleRuleFormModel) {
   const roleInfo = drawerApi.getData<IdentityRoleDto>();
   const api = input.id
     ? updateApi(input.id, {
@@ -331,7 +341,7 @@ async function onEntityTypeChange(entityTypeId: string) {
   await onGetEntityType();
 }
 
-// 属性选择改变触发对比值输入类型变化
+// Việc thay đổi lựa chọn thuộc tính sẽ kích hoạt thay đổi kiểu nhập của giá trị so sánh
 function onPropertyTypeChange(
   rule: DataAccessFilterRule,
   option: EntityPropertyInfoDto,
@@ -343,16 +353,18 @@ function onPropertyTypeChange(
 </script>
 
 <template>
-  <Drawer title="数据权限">
+  <Drawer title="Quyền dữ liệu">
     <Form
       :model="formModel"
       :label-col="{ span: 6 }"
       :wrapper-col="{ span: 24 }"
     >
-      <FormItem name="isEnabled" label="是否启用">
-        <Checkbox v-model:checked="formModel.isEnabled">是否启用</Checkbox>
+      <FormItem name="isEnabled" label="Có bật hay không">
+        <Checkbox v-model:checked="formModel.isEnabled">
+          Có bật hay không
+        </Checkbox>
       </FormItem>
-      <FormItem name="isEnabled" label="数据权限策略">
+      <FormItem name="isEnabled" label="Chính sách quyền dữ liệu">
         <Select
           class="w-full"
           :options="strategyOptions"
@@ -361,7 +373,7 @@ function onPropertyTypeChange(
         />
       </FormItem>
       <template v-if="formModel.strategy === DataAccessStrategy.Custom">
-        <FormItem required name="entityTypeId" label="实体类型">
+        <FormItem required name="entityTypeId" label="Loại thực thể">
           <Select
             class="w-full"
             :options="entityTypes"
@@ -370,7 +382,7 @@ function onPropertyTypeChange(
             @change="(value) => onEntityTypeChange(value!.toString())"
           />
         </FormItem>
-        <FormItem required name="operation" label="操作">
+        <FormItem required name="operation" label="Thao tác">
           <Select
             class="w-full"
             :options="operationOptions"
@@ -378,7 +390,7 @@ function onPropertyTypeChange(
             @change="onGetEntityType"
           />
         </FormItem>
-        <FormItem name="accessedProperties" label="可访问字段">
+        <FormItem name="accessedProperties" label="Các trường có thể truy cập">
           <Select
             class="w-full"
             mode="multiple"
@@ -388,16 +400,16 @@ function onPropertyTypeChange(
           />
         </FormItem>
         <FormItemRest>
-          <!-- 分组 -->
+          <!-- Nhóm -->
           <div class="flex w-full flex-col">
             <div class="w-full items-center divide-dashed border-2">
-              <div class="m-2 text-sm">数据访问规则</div>
+              <div class="m-2 text-sm">Quy tắc truy cập dữ liệu</div>
               <template
                 v-for="(group, gi) in formModel.filterGroup.groups"
                 :key="gi"
               >
                 <div class="flex flex-row items-center justify-items-center">
-                  <!-- 条件 -->
+                  <!-- Điều kiện -->
                   <div class="m-2 flex w-full flex-row">
                     <div class="w-full border-2 border-dashed">
                       <template v-for="(rule, ri) in group.rules" :key="ri">
@@ -450,8 +462,8 @@ function onPropertyTypeChange(
                           </div>
                           <div class="basis-1/5">
                             <Popconfirm
-                              title="你确定吗?"
-                              description="将删除此过滤条件"
+                              title="Bạn có chắc chắn không?"
+                              description="Sẽ xoá điều kiện lọc này"
                               @confirm="onDeleteRule(group, ri)"
                             >
                               <Button
@@ -479,15 +491,15 @@ function onPropertyTypeChange(
                           :icon="h(PlusOutlined)"
                           @click="onNewRule(group)"
                         >
-                          增加条件
+                          Thêm điều kiện
                         </Button>
                         <Popconfirm
-                          title="你确定吗?"
-                          description="将删除此条件分组"
+                          title="Bạn có chắc chắn không?"
+                          description="Sẽ xoá nhóm điều kiện này"
                           @confirm="onDeleteGroup(gi)"
                         >
                           <Button type="link" :icon="h(DeleteOutlined)" danger>
-                            删除分组
+                            Xoá nhóm
                           </Button>
                         </Popconfirm>
                       </div>
@@ -513,7 +525,7 @@ function onPropertyTypeChange(
                     :icon="h(PlusOutlined)"
                     @click="onNewGroup(formModel.filterGroup.logic)"
                   >
-                    增加分组
+                    Thêm nhóm
                   </Button>
                 </div>
               </div>

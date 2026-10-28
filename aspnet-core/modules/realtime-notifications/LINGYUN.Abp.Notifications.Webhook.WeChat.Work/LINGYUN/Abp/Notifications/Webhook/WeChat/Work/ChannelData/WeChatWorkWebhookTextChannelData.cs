@@ -3,7 +3,7 @@ using LINGYUN.Abp.Notifications;
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 文本消息载荷
+/// Payload tin nhắn văn bản
 /// </summary>
 [NotificationChannelData(WeChatWorkWebhookNotificationProvider.ProviderName, Priority = 100)]
 public class WeChatWorkWebhookTextChannelData : WeChatWorkWebhookChannelData
@@ -11,7 +11,7 @@ public class WeChatWorkWebhookTextChannelData : WeChatWorkWebhookChannelData
     public override WeChatWorkWebhookMessageKind Kind => WeChatWorkWebhookMessageKind.Text;
 
     /// <summary>
-    /// 文本内容
+    /// Nội dung văn bản
     /// </summary>
     [NotificationChannelProperty(WeChatWorkWebhookNotificationDataKeys.Text)]
     public virtual string? Content { get; set; }

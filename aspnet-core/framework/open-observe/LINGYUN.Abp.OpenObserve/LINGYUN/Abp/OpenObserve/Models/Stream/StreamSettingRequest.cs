@@ -5,102 +5,102 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 创建数据流设置请求
+/// Yêu cầu tạo cài đặt luồng dữ liệu
 /// </summary>
 /// <remarks>
-/// POST /api/{org_id}/streams/{stream_name}/settings, 所有字段可选
+/// POST /api/{org_id}/streams/{stream_name}/settings, tất cả các trường đều tùy chọn
 /// </remarks>
 public class StreamSettingRequest
 {
     /// <summary>
-    /// 分区字段
+    /// Trường phân vùng
     /// </summary>
     [JsonPropertyName("partition_keys")]
     public string[]? PartitionKeys { get; set; }
 
     /// <summary>
-    /// 二级索引字段
+    /// Trường chỉ mục cấp hai
     /// </summary>
     [JsonPropertyName("index_fields")]
     public string[]? IndexFields { get; set; }
 
     /// <summary>
-    /// 全文检索字段
+    /// Trường tìm kiếm toàn văn
     /// </summary>
     [JsonPropertyName("full_text_search_keys")]
     public string[]? FullTextSearchKeys { get; set; }
 
     /// <summary>
-    /// 布隆过滤器字段
+    /// Trường bộ lọc Bloom
     /// </summary>
     [JsonPropertyName("bloom_filter_fields")]
     public string[]? BloomFilterFields { get; set; }
 
     /// <summary>
-    /// 数据保留天数
+    /// Số ngày lưu giữ dữ liệu
     /// </summary>
     /// <remarks>
-    /// 最小 3 天, compliance 流最小 30 天
+    /// Tối thiểu 3 ngày, luồng compliance tối thiểu 30 ngày
     /// </remarks>
     [JsonPropertyName("data_retention")]
     public int? DataRetention { get; set; }
 
     /// <summary>
-    /// 扁平化层级
+    /// Cấp độ làm phẳng
     /// </summary>
     [JsonPropertyName("flatten_level")]
     public int? FlattenLevel { get; set; }
 
     /// <summary>
-    /// 保留的自定义 schema 字段
+    /// Các trường schema tùy chỉnh được giữ lại
     /// </summary>
     [JsonPropertyName("defined_schema_fields")]
     public string[]? DefinedSchemaFields { get; set; }
 
     /// <summary>
-    /// 单次查询最大时间范围(小时)
+    /// Phạm vi thời gian tối đa cho một lần truy vấn (giờ)
     /// </summary>
     [JsonPropertyName("max_query_range")]
     public int? MaxQueryRange { get; set; }
 
     /// <summary>
-    /// 是否存储原始数据
+    /// Có lưu trữ dữ liệu gốc hay không
     /// </summary>
     [JsonPropertyName("store_original_data")]
     public bool? StoreOriginalData { get; set; }
 
     /// <summary>
-    /// 是否使用均分时间范围分区
+    /// Có sử dụng phân vùng theo phạm vi thời gian chia đều hay không
     /// </summary>
     [JsonPropertyName("approx_partition")]
     public bool? ApproxPartition { get; set; }
 
     /// <summary>
-    /// 延长保留期的时间范围
+    /// Phạm vi thời gian kéo dài thời hạn lưu giữ
     /// </summary>
     /// <remarks>
-    /// 文档未说明元素的具体结构
+    /// Tài liệu chưa mô tả cấu trúc cụ thể của phần tử
     /// </remarks>
     [JsonPropertyName("extended_retention_days")]
     public object[]? ExtendedRetentionDays { get; set; }
 
     /// <summary>
-    /// 是否对原始日志体建立全文索引
+    /// Có lập chỉ mục toàn văn cho thân log gốc hay không
     /// </summary>
     [JsonPropertyName("index_original_data")]
     public bool? IndexOriginalData { get; set; }
 
     /// <summary>
-    /// 是否为所有字段建立精确匹配索引
+    /// Có lập chỉ mục khớp chính xác cho tất cả các trường hay không
     /// </summary>
     [JsonPropertyName("index_all_values")]
     public bool? IndexAllValues { get; set; }
 
     /// <summary>
-    /// 存储类型
+    /// Loại lưu trữ
     /// </summary>
     /// <remarks>
-    /// normal(默认) / compliance
+    /// normal (mặc định) / compliance
     /// </remarks>
     [JsonPropertyName("storage_type")]
     public string? StorageType { get; set; }

@@ -2,7 +2,7 @@
 cls
 chcp 65001
 
-echo. 清理所有服务日志
+echo. Dọn dẹp tất cả nhật ký dịch vụ
 
 del .\aspire\LINGYUN.Abp.MicroService.AdminService\Logs /Q
 del .\aspire\LINGYUN.Abp.MicroService.AIService\Logs /Q

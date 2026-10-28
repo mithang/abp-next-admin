@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Departments.Response;
 /// <summary>
-/// 创建部门响应参数
+/// Tham số phản hồi tạo phòng ban
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90205" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/90205" />
 /// </remarks>
 public class WeChatWorkCreateDepartmentResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 创建的部门id
+    /// id phòng ban đã tạo
     /// </summary>
     [NotNull]
     [JsonProperty("id")]

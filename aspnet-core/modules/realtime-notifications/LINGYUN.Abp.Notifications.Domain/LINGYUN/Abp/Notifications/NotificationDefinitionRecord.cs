@@ -10,52 +10,52 @@ namespace LINGYUN.Abp.Notifications;
 public class NotificationDefinitionRecord : BasicAggregateRoot<Guid>, IHasExtraProperties
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public virtual string Name { get; set; } = default!;
     /// <summary>
-    /// 分组名称
+    /// Tên nhóm
     /// </summary>
     public virtual string GroupName { get; set; } = default!;
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     /// <remarks>
-    /// 如果为空,回退到Name
+    /// Nếu để trống, sẽ dùng Name thay thế
     /// </remarks>
     public virtual string? DisplayName { get; set; }
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     /// <remarks>
-    /// 如果为空,回退到Name
+    /// Nếu để trống, sẽ dùng Name thay thế
     /// </remarks>
     public virtual string? Description { get; set; }
     /// <summary>
-    /// 通知模板
+    /// Mẫu thông báo
     /// </summary>
     public virtual string? Template { get; set; }
     /// <summary>
-    /// 存活类型
+    /// Vòng đời thông báo
     /// </summary>
     public virtual NotificationLifetime NotificationLifetime { get; set; }
     /// <summary>
-    /// 通知类型
+    /// Loại thông báo
     /// </summary>
     public virtual NotificationType NotificationType { get; set; }
     /// <summary>
-    /// 通知内容类型
+    /// Loại nội dung thông báo
     /// </summary>
     public virtual NotificationContentType ContentType { get; set; }
     /// <summary>
-    /// 通知提供者
+    /// Nhà cung cấp thông báo
     /// </summary>
     /// <remarks>
-    /// 多个之间用;分隔
+    /// Nhiều giá trị phân tách bằng ;
     /// </remarks>
     public virtual string? Providers { get; set; }
     /// <summary>
-    /// 允许客户端订阅
+    /// Cho phép client đăng ký
     /// </summary>
     public virtual bool AllowSubscriptionToClients { get; set; }
     public ExtraPropertyDictionary ExtraProperties { get; protected set; }

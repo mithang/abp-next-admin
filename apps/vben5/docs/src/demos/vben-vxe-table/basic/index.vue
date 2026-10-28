@@ -18,7 +18,7 @@ interface RowType {
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
-    { title: '序号', type: 'seq', width: 50 },
+    { title: 'Số thứ tự', type: 'seq', width: 50 },
     { field: 'name', title: 'Name' },
     { field: 'age', sortable: true, title: 'Age' },
     { field: 'nickname', title: 'Nickname' },
@@ -66,18 +66,18 @@ function changeLoading() {
 </script>
 
 <template>
-  <!-- 此处的`vp-raw` 是为了适配文档的展示效果，实际使用时不需要 -->
+  <!-- `vp-raw` ở đây là để phù hợp với hiệu ứng hiển thị của tài liệu, khi sử dụng thực tế không cần -->
   <div class="vp-raw w-full">
     <Grid>
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="changeBorder">
-          {{ showBorder ? '隐藏' : '显示' }}边框
+          {{ showBorder ? 'Ẩn' : 'Hiện' }} viền
         </Button>
         <Button class="mr-2" type="primary" @click="changeLoading">
-          显示loading
+          Hiển thị loading
         </Button>
         <Button class="mr-2" type="primary" @click="changeStripe">
-          {{ showStripe ? '隐藏' : '显示' }}斑马纹
+          {{ showStripe ? 'Ẩn' : 'Hiện' }} vân ngựa vằn
         </Button>
       </template>
     </Grid>

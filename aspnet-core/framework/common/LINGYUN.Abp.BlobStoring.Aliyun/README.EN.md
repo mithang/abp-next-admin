@@ -82,4 +82,4 @@ public class YouProjectModule : AbpModule
 
 * [LINGYUN.Abp.Aliyun](../../cloud-aliyun/LINGYUN.Abp.Aliyun/README.md) - Provides Aliyun basic integration
 
-[点击查看中文文档](README.md)
+[Nhấn để xem tài liệu tiếng Trung](README.md)

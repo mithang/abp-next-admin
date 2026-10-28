@@ -1,5 +1,5 @@
 <!--
- * @Description: 中间表单布局面板
+ * @Description: Bảng bố cục form ở giữa
  * https://github.com/SortableJS/vue.draggable.next/issues/138
 -->
 <template>
@@ -7,7 +7,7 @@
     <Empty
       class="empty-text"
       v-show="formConfig.schemas.length === 0"
-      description="从左侧选择控件添加"
+      description="Thêm bằng cách chọn control từ bên trái"
     />
     <Form v-bind="formConfig">
       <div class="draggable-box">
@@ -55,7 +55,7 @@
     setup(_, { emit }) {
       const { formConfig } = useFormDesignState() as Recordable;
       /**
-       * 拖拽完成事件
+       * Sự kiện hoàn tất kéo thả
        * @param newIndex
        */
       const addItem = ({ newIndex }: any) => {
@@ -65,14 +65,14 @@
         emit('handleSetSelectItem', schemas[newIndex]);
       };
       /**
-       * 拖拽开始事件
-       * @param e {Object} 事件对象
+       * Sự kiện bắt đầu kéo thả
+       * @param e {Object} Đối tượng sự kiện
        */
       const handleDragStart = (e: any) => {
         emit('handleSetSelectItem', formConfig.value.schemas[e.oldIndex]);
       };
-      // 获取祖先组件传递的currentItem
-      // 计算布局元素，水平模式下为ACol，非水平模式下为div
+      // Lấy currentItem do component tổ tiên truyền xuống
+      // Tính toán phần tử bố cục, ở chế độ ngang là ACol, ở chế độ không ngang là div
       const layoutTag = computed(() => {
         return formConfig.value.layout === 'horizontal' ? 'Col' : 'div';
       });
@@ -91,7 +91,7 @@
   @import url(../styles/drag.less);
 
   .v-form-container {
-    // 内联布局样式
+    // Kiểu bố cục nội tuyến
     .ant-form-inline {
       .list-main {
         display: flex;
@@ -136,7 +136,7 @@
       .list-main {
         overflow: auto;
         height: 100%;
-        // 列表动画
+        // Hiệu ứng chuyển động danh sách
         .list-enter-active {
           transition: all 0.5s;
         }

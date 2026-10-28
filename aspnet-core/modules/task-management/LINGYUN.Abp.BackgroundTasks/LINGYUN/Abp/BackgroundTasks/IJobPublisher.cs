@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.BackgroundTasks;
 /// <summary>
-/// 作业发布接口
+/// Giao diện phát hành tác vụ
 /// </summary>
 /// <remarks>
-/// 使用场景: 发布作业到作业调度器(发布作业到当前运行节点)
+/// Kịch bản sử dụng: phát hành tác vụ tới bộ lập lịch tác vụ (phát hành tác vụ tới nút đang chạy hiện tại)
 /// </remarks>
 public interface IJobPublisher
 {

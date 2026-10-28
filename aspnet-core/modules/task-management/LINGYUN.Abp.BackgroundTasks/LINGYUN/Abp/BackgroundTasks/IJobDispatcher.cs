@@ -5,26 +5,26 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.BackgroundTasks;
 /// <summary>
-/// 作业调度接口
+/// Giao diện điều phối tác vụ
 /// </summary>
 /// <remarks>
-/// 使用场景: 调度作业到作业调度器(调度到指定运行节点作业)
+/// Kịch bản sử dụng: Điều phối tác vụ tới bộ điều phối tác vụ (điều phối tới tác vụ của nút chạy được chỉ định)
 /// </remarks>
 public interface IJobDispatcher
 {
     /// <summary>
-    /// 调度单个作业
+    /// Điều phối một tác vụ
     /// </summary>
-    /// <param name="job">作业明细</param>
+    /// <param name="job">Chi tiết tác vụ</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<bool> DispatchAsync(JobInfo job, CancellationToken cancellationToken = default);
     /// <summary>
-    /// 调度多个作业
+    /// Điều phối nhiều tác vụ
     /// </summary>
-    /// <param name="jobs">作业列表</param>
-    /// <param name="nodeName">运行节点</param>
-    /// <param name="tenantId">租户标识</param>
+    /// <param name="jobs">Danh sách tác vụ</param>
+    /// <param name="nodeName">Nút chạy</param>
+    /// <param name="tenantId">Định danh thuê bao</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<bool> DispatchAsync(
@@ -33,24 +33,24 @@ public interface IJobDispatcher
         Guid? tenantId = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 通知清理过期作业
+    /// Thông báo dọn dẹp các tác vụ đã hết hạn
     /// </summary>
     /// <remarks>
-    /// 通知各节点清理当前节点中过期作业
+    /// Thông báo cho các nút dọn dẹp các tác vụ đã hết hạn trong nút hiện tại
     /// </remarks>
-    /// <param name="tenantId">租户标识</param>
+    /// <param name="tenantId">Định danh thuê bao</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task CleanExpiredJobAsync(
         Guid? tenantId = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 检查运行中的作业
+    /// Kiểm tra các tác vụ đang chạy
     /// </summary>
     /// <remarks>
-    /// 通知各节点检查当前节点中运行中作业
+    /// Thông báo cho các nút kiểm tra các tác vụ đang chạy trong nút hiện tại
     /// </remarks>
-    /// <param name="tenantId">租户标识</param>
+    /// <param name="tenantId">Định danh thuê bao</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task CheckRuningJobAsync(

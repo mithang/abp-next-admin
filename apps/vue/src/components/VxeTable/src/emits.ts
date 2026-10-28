@@ -12,6 +12,6 @@ export const basicEmits = [
   'toolbar-tool-click',
   'zoom',
 
-  //... 如有缺少在此处追加
+  //... Nếu còn thiếu thì bổ sung tại đây
   // xxx
 ];

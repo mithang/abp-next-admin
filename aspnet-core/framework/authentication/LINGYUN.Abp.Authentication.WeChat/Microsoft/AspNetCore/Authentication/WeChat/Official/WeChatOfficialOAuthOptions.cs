@@ -11,7 +11,7 @@ public class WeChatOfficialOAuthOptions : OAuthOptions
 {
     public WeChatOfficialOAuthOptions()
     {
-        // 用于防止初始化错误,会在OAuthHandler.InitializeHandlerAsync中进行重写
+        // Dùng để tránh lỗi khởi tạo, sẽ được ghi đè trong OAuthHandler.InitializeHandlerAsync
         ClientId = "WeChatOfficial";
         ClientSecret = "WeChatOfficial";
 
@@ -25,13 +25,13 @@ public class WeChatOfficialOAuthOptions : OAuthOptions
         Scope.Add(AbpAuthenticationWeChatConsts.LoginScope);
         Scope.Add(AbpAuthenticationWeChatConsts.UserInfoScope);
 
-        // 这个原始的属性一定要写进去,框架与UserLogin.ProviderKey进行关联判断是否绑定微信
+        // Thuộc tính gốc này bắt buộc phải ghi vào, framework dùng nó để liên kết với UserLogin.ProviderKey và xác định có liên kết WeChat hay không
         ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "openid");
         ClaimActions.MapJsonKey(ClaimTypes.Name, "nickname");
 
-        // 把自定义的身份标识写进令牌
+        // Ghi định danh tùy chỉnh vào token
         ClaimActions.MapJsonKey(AbpWeChatClaimTypes.OpenId, "openid");
-        ClaimActions.MapJsonKey(AbpWeChatClaimTypes.UnionId, "unionid");// 公众号如果与小程序关联,这个可以用上
+        ClaimActions.MapJsonKey(AbpWeChatClaimTypes.UnionId, "unionid");// Nếu tài khoản chính thức liên kết với chương trình mini thì cái này dùng được
         ClaimActions.MapJsonKey(AbpWeChatClaimTypes.NickName, "nickname");
         ClaimActions.MapJsonKey(AbpWeChatClaimTypes.Sex, "sex", ClaimValueTypes.Integer);
         ClaimActions.MapJsonKey(AbpWeChatClaimTypes.Country, "country");

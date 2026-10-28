@@ -1,27 +1,27 @@
 # LINGYUN.Abp.Location.Baidu
 
-## 介绍
+## Giới thiệu
 
-`LINGYUN.Abp.Location.Baidu` 是基于百度地图API的位置服务实现模块，提供了地理编码、反向地理编码、IP定位等功能。
+`LINGYUN.Abp.Location.Baidu` là mô-đun triển khai dịch vụ vị trí dựa trên API Baidu Maps, cung cấp các chức năng mã hóa địa lý, mã hóa địa lý ngược, định vị IP, v.v.
 
-## 功能特性
+## Tính năng
 
-* 地理编码：将详细的结构化地址转换为对应的经纬度坐标
-* 反向地理编码：将经纬度坐标转换为对应的结构化地址
-* IP定位：根据IP地址获取位置信息
-* POI（兴趣点）信息：获取周边的商铺、餐厅等兴趣点信息
-* 道路信息：获取附近的道路信息
-* 行政区划信息：获取详细的行政区划层级信息
+* Mã hóa địa lý: chuyển đổi địa chỉ có cấu trúc chi tiết thành tọa độ kinh độ/vĩ độ tương ứng
+* Mã hóa địa lý ngược: chuyển đổi tọa độ kinh độ/vĩ độ thành địa chỉ có cấu trúc tương ứng
+* Định vị IP: lấy thông tin vị trí theo địa chỉ IP
+* Thông tin POI (điểm quan tâm): lấy thông tin điểm quan tâm xung quanh như cửa hàng, nhà hàng
+* Thông tin đường: lấy thông tin các tuyến đường gần đó
+* Thông tin phân chia hành chính: lấy thông tin chi tiết về cấp phân chia hành chính
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Location.Baidu
 ```
 
-## 配置
+## Cấu hình
 
-1. 添加模块依赖：
+1. Thêm phụ thuộc mô-đun:
 
 ```csharp
 [DependsOn(typeof(AbpBaiduLocationModule))]
@@ -31,22 +31,22 @@ public class YourModule : AbpModule
     {
         Configure<BaiduLocationOptions>(options =>
         {
-            // 设置百度地图API密钥
+            // Đặt khóa API Baidu Maps
             options.AccessKey = "your-baidu-map-ak";
-            // 可选：设置安全密钥（sn校验）
+            // Tùy chọn: đặt khóa bảo mật (kiểm tra sn)
             options.SecurityKey = "your-baidu-map-sk";
-            // 可选：设置坐标系类型（默认为bd09ll）
+            // Tùy chọn: đặt loại hệ tọa độ (mặc định là bd09ll)
             options.CoordType = "bd09ll";
-            // 可选：设置输出格式（默认为json）
+            // Tùy chọn: đặt định dạng đầu ra (mặc định là json)
             options.Output = "json";
         });
     }
 }
 ```
 
-## 使用方法
+## Cách sử dụng
 
-1. 注入并使用位置解析服务：
+1. Tiêm và sử dụng dịch vụ phân giải vị trí:
 
 ```csharp
 public class YourLocationService
@@ -58,21 +58,21 @@ public class YourLocationService
         _locationProvider = locationProvider;
     }
 
-    // 地理编码：地址转坐标
+    // Mã hóa địa lý: địa chỉ thành tọa độ
     public async Task<GecodeLocation> GeocodeAsync(string address)
     {
-        // city参数可选，用于指定地址所在城市
-        return await _locationProvider.GeocodeAsync(address, "北京市");
+        // Tham số city là tùy chọn, dùng để chỉ định thành phố nơi địa chỉ thuộc về
+        return await _locationProvider.GeocodeAsync(address, "Bắc Kinh");
     }
 
-    // 反向地理编码：坐标转地址
+    // Mã hóa địa lý ngược: tọa độ thành địa chỉ
     public async Task<ReGeocodeLocation> ReGeocodeAsync(double lat, double lng)
     {
-        // radius参数可选，指定搜索半径（米）
+        // Tham số radius là tùy chọn, chỉ định bán kính tìm kiếm (mét)
         return await _locationProvider.ReGeocodeAsync(lat, lng, 1000);
     }
 
-    // IP地理位置解析
+    // Phân giải vị trí địa lý IP
     public async Task<IPGecodeLocation> IPGeocodeAsync(string ipAddress)
     {
         return await _locationProvider.IPGeocodeAsync(ipAddress);
@@ -80,58 +80,58 @@ public class YourLocationService
 }
 ```
 
-## 返回数据说明
+## Mô tả dữ liệu trả về
 
-### 地理编码返回数据
+### Dữ liệu trả về của mã hóa địa lý
 
 ```json
 {
     "location": {
-        "lat": 39.915119,    // 纬度值
-        "lng": 116.403963    // 经度值
+        "lat": 39.915119,    // Giá trị vĩ độ
+        "lng": 116.403963    // Giá trị kinh độ
     },
-    "precise": 1,            // 位置的附加信息，是否精确查找（1为精确，0为不精确）
-    "confidence": 80,        // 可信度
-    "comprehension": 100,    // 地址理解程度
-    "level": "门址"          // 地址类型
+    "precise": 1,            // Thông tin bổ sung của vị trí, có phải tìm kiếm chính xác hay không (1 là chính xác, 0 là không chính xác)
+    "confidence": 80,        // Độ tin cậy
+    "comprehension": 100,    // Mức độ hiểu địa chỉ
+    "level": "Địa chỉ số nhà"          // Loại địa chỉ
 }
 ```
 
-### 反向地理编码返回数据
+### Dữ liệu trả về của mã hóa địa lý ngược
 
 ```json
 {
     "location": {
-        "lat": 39.915119,    // 纬度值
-        "lng": 116.403963    // 经度值
+        "lat": 39.915119,    // Giá trị vĩ độ
+        "lng": 116.403963    // Giá trị kinh độ
     },
-    "formatted_address": "北京市东城区东长安街",  // 结构化地址信息
-    "business": "天安门",                      // 商圈信息
+    "formatted_address": "Phố Đông Trường An, quận Đông Thành, Bắc Kinh",  // Thông tin địa chỉ có cấu trúc
+    "business": "Thiên An Môn",                      // Thông tin khu thương mại
     "addressComponent": {
-        "country": "中国",                     // 国家
-        "province": "北京市",                  // 省份
-        "city": "北京市",                      // 城市
-        "district": "东城区",                  // 区县
-        "street": "东长安街",                  // 街道
-        "street_number": "1号"                // 门牌号
+        "country": "Trung Quốc",                     // Quốc gia
+        "province": "Bắc Kinh",                  // Tỉnh
+        "city": "Bắc Kinh",                      // Thành phố
+        "district": "Quận Đông Thành",                  // Quận/huyện
+        "street": "Phố Đông Trường An",                  // Đường phố
+        "street_number": "Số 1"                // Số nhà
     },
-    "pois": [                                // 周边POI信息
+    "pois": [                                // Thông tin POI xung quanh
         {
-            "name": "天安门",                  // POI名称
-            "type": "旅游景点",                // POI类型
-            "distance": "100"                 // 距离（米）
+            "name": "Thiên An Môn",                  // Tên POI
+            "type": "Điểm du lịch",                // Loại POI
+            "distance": "100"                 // Khoảng cách (mét)
         }
     ],
-    "roads": [                               // 周边道路信息
+    "roads": [                               // Thông tin đường xung quanh
         {
-            "name": "东长安街",                // 道路名称
-            "distance": "50"                  // 距离（米）
+            "name": "Phố Đông Trường An",                // Tên đường
+            "distance": "50"                  // Khoảng cách (mét)
         }
     ]
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
 * [English Documentation](./README.EN.md)
-* [百度地图开放平台](https://lbsyun.baidu.com/)
+* [Nền tảng mở Baidu Maps](https://lbsyun.baidu.com/)

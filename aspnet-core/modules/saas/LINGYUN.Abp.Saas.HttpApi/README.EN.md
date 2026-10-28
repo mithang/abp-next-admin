@@ -27,4 +27,4 @@ All API interfaces support Swagger documentation. After starting the application
 
 ## More
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

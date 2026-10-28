@@ -17,7 +17,7 @@ namespace LINGYUN.Abp.MicroService.MessageService.Handlers.Distributed
             _localEventBus = localEventBus;
         }
         /// <summary>
-        /// 接收添加用户事件,发布本地事件
+        /// Nhận sự kiện thêm người dùng,phát hành sự kiện nội bộ
         /// </summary>
         /// <param name="eventData"></param>
         /// <returns></returns>

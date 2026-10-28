@@ -54,19 +54,19 @@
                         // TODO: Date format
                         var lastLoginTime = account.LastLoginTime.HasValue ? account.LastLoginTime.Value.ToString(SelectAccountModel.DefaultDateFormat) : "";
                         var isCurrent = account.IsCurrentAccount;
-                        // TODO: 实现用户头像
+                        // TODO: Triển khai ảnh đại diện người dùng
                         var avatar = !string.IsNullOrWhiteSpace(account.UserName) ? account.UserName[0].ToString().ToUpper() : "U";
 
                         <label class="list-group-item list-group-item-action border-0 cursor-pointer @(isCurrent ? "active" : "") account-item"
                                for="account-@i">
                             <div class="d-flex align-items-center">
-                                <!-- 头像 -->
+                                <!-- Ảnh đại diện -->
                                 <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
                                      style="width: 40px; height: 40px; font-size: 16px; font-weight: 500;">
                                     @avatar
                                 </div>
 
-                                <!-- 账户信息 -->
+                                <!-- Thông tin tài khoản -->
                                 <div class="flex-grow-1 me-3">
                                     <div class="d-flex align-items-center">
                                         <span class="fw-semibold">@accountName</span>
@@ -86,7 +86,7 @@
                                     }
                                 </div>
 
-                                <!-- 选择账户 -->
+                                <!-- Chọn tài khoản -->
                                 <input type="radio"
                                        asp-for="Input.SelectedAccountId"
                                        value="@accountId"
@@ -99,7 +99,7 @@
                     }
                 </div>
 
-                <!-- 操作按钮 -->
+                <!-- Nút thao tác -->
                 <div class="d-grid gap-2 mt-2">
                     <button type="submit" class="btn btn-primary" id="continueButton">
                         @L["Continue"].Value
@@ -116,7 +116,7 @@
             </div>
         }
 
-        <!-- 其他选项 -->
+        <!-- Tùy chọn khác -->
         <div class="d-grid gap-2 mt-2">
             <a href="@Url.Page("/Account/Login", new { ReturnUrl = Model.RedirectUri, prompt = "login" })"
                class="btn btn-outline-primary">

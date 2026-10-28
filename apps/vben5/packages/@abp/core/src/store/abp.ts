@@ -19,7 +19,7 @@ export const useAbpStore = defineStore(
     const xsrfToken = ref<string>();
     const application = ref<ApplicationConfigurationDto>();
     const localization = ref<ApplicationLocalizationDto>();
-    /** 获取 i18n 格式本地化文本 */
+    /** Lấy văn bản bản địa hoá theo định dạng i18n */
     function getI18nLocales() {
       const abpLocales: Record<string, any> = {};
       if (!localization.value) {
@@ -88,7 +88,7 @@ export const useAbpStore = defineStore(
   },
 );
 
-// 解决热更新问题
+// Giải quyết vấn đề hot update
 const hot = import.meta.hot;
 if (hot) {
   hot.accept(acceptHMRUpdate(useAbpStore, hot));

@@ -2,7 +2,7 @@
 
 Email template definition module for the ABP account module, providing account-related email template functionality.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

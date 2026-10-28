@@ -9,13 +9,13 @@ let pinia: Pinia;
 
 export interface InitStoreOptions {
   /**
-   * @zh_CN 应用名,由于 @vben/stores 是公用的，后续可能有多个app，为了防止多个app缓存冲突，可在这里配置应用名,应用名将被用于持久化的前缀
+   * @zh_CN Tên ứng dụng, vì @vben/stores dùng chung nên sau này có thể có nhiều app, để tránh xung đột cache giữa nhiều app, có thể cấu hình tên ứng dụng tại đây, tên ứng dụng sẽ được dùng làm tiền tố lưu trữ bền vững
    */
   namespace: string;
 }
 
 /**
- * @zh_CN 初始化pinia
+ * @zh_CN Khởi tạo pinia
  */
 export async function initStores(app: App, options: InitStoreOptions) {
   const { createPersistedState } = await import('pinia-plugin-persistedstate');

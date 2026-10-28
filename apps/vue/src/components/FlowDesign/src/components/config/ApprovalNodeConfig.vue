@@ -1,7 +1,7 @@
 <template>
   <div>
     <Form layout="vertical">
-      <FormItem label="⚙ 选择审批对象" name="text" class="user-type">
+      <FormItem label="⚙ Chọn đối tượng phê duyệt" name="text" class="user-type">
         <RadioGroup v-model:value="nodeProps.assignedType">
           <Radio v-for="t in state.approvalTypes" :value="t.type" :key="t.type">{{ t.name }}</Radio>
         </RadioGroup>
@@ -10,14 +10,14 @@
             <template #icon>
               <PlusOutlined />
             </template>
-            选择人员
+            Chọn nhân sự
           </Button>
           <OrgItems v-model:value="nodeProps.assignedUser" />
         </div>
         <div v-else-if="nodeProps.assignedType === 'SELF_SELECT'">
           <RadioGroup size="small" v-model:value="nodeProps.selfSelect.multiple">
-            <RadioButton :value="false">自选一个人</RadioButton>
-            <RadioButton :value="true">自选多个人</RadioButton>
+            <RadioButton :value="false">Tự chọn một người</RadioButton>
+            <RadioButton :value="true">Tự chọn nhiều người</RadioButton>
           </RadioGroup>
         </div>
         <div v-else-if="nodeProps.assignedType === 'ROLE'">
@@ -25,34 +25,34 @@
             <template #icon>
               <PlusOutlined />
             </template>
-            选择系统角色
+            Chọn vai trò hệ thống
           </Button>
           <OrgItems v-model:value="nodeProps.role" />
         </div>
         <div v-else-if="nodeProps.assignedType === 'FORM_USER'">
-          <FormItem label="选择表单联系人项" name="text" class="approve-end">
+          <FormItem label="Chọn mục liên hệ trong biểu mẫu" name="text" class="approve-end">
             <Select
               style="width: 80%"
               size="small"
               v-model:value="nodeProps.formUser"
-              placeholder="请选择包含联系人的表单项"
+              placeholder="Vui lòng chọn mục biểu mẫu chứa liên hệ"
             >
               <SelectOption v-for="op in forms" :value="op.id">{{ op.title }}</SelectOption>
             </Select>
           </FormItem>
         </div>
         <div v-else>
-          <span class="item-desc">发起人自己作为审批人进行审批</span>
+          <span class="item-desc">Người khởi tạo tự làm người phê duyệt</span>
         </div>
       </FormItem>
 
       <Divider></Divider>
-      <FormItem label="👤 审批人为空时" name="text" class="line-mode">
+      <FormItem label="👤 Khi người phê duyệt trống" name="text" class="line-mode">
         <RadioGroup v-model:value="nodeProps.nobody.handler">
-          <Radio value="TO_PASS">自动通过</Radio>
-          <Radio value="TO_REFUSE">自动驳回</Radio>
-          <Radio value="TO_ADMIN">转交审批管理员</Radio>
-          <Radio value="TO_USER">转交到指定人员</Radio>
+          <Radio value="TO_PASS">Tự động thông qua</Radio>
+          <Radio value="TO_REFUSE">Tự động bác bỏ</Radio>
+          <Radio value="TO_ADMIN">Chuyển giao cho quản trị viên phê duyệt</Radio>
+          <Radio value="TO_USER">Chuyển giao cho nhân sự được chỉ định</Radio>
         </RadioGroup>
 
         <div style="margin-top: 10px" v-if="nodeProps.nobody.handler === 'TO_USER'">
@@ -60,7 +60,7 @@
             <template #icon>
               <PlusOutlined />
             </template>
-            选择人员</Button
+            Chọn nhân sự</Button
           >
           <OrgItems v-model:value="nodeProps.assignedUser" />
         </div>
@@ -68,36 +68,36 @@
 
       <div v-if="showMode">
         <Divider />
-        <FormItem label="👩‍👦‍👦 多人审批时审批方式" name="text" class="approve-mode">
+        <FormItem label="👩‍👦‍👦 Phương thức phê duyệt khi nhiều người phê duyệt" name="text" class="approve-mode">
           <RadioGroup v-model:value="nodeProps.mode">
-            <Radio value="NEXT">会签 （按选择顺序审批，每个人必须同意）</Radio>
-            <Radio value="AND">会签（可同时审批，每个人必须同意）</Radio>
-            <Radio value="OR">或签（有一人同意即可）</Radio>
+            <Radio value="NEXT">Hội ký (phê duyệt theo thứ tự đã chọn, mọi người đều phải đồng ý)</Radio>
+            <Radio value="AND">Hội ký (có thể phê duyệt đồng thời, mọi người đều phải đồng ý)</Radio>
+            <Radio value="OR">Hoặc ký (chỉ cần một người đồng ý)</Radio>
           </RadioGroup>
         </FormItem>
       </div>
 
-      <Divider>高级设置</Divider>
-      <FormItem label="✍ 审批同意时是否需要签字" name="text">
+      <Divider>Cài đặt nâng cao</Divider>
+      <FormItem label="✍ Khi phê duyệt đồng ý có cần ký tên không" name="text">
         <Switch
-          checked-children="需要"
-          un-checked-children="不用"
+          checked-children="Cần"
+          un-checked-children="Không cần"
           v-model:checked="nodeProps.sign"
         ></Switch>
         <Tooltip
           class="item"
           effect="dark"
-          content="如果全局设置了需要签字，则此处不生效"
+          content="Nếu cài đặt toàn cục đã yêu cầu ký tên thì cài đặt này không có hiệu lực"
           placement="top"
         >
           <QuestionOutlined style="margin-left: 10px; font-size: medium; color: #b0b0b1" />
         </Tooltip>
       </FormItem>
-      <FormItem label="⏱ 审批期限（为 0 则不生效）" name="timeLimit">
+      <FormItem label="⏱ Thời hạn phê duyệt (bằng 0 thì không có hiệu lực)" name="timeLimit">
         <InputGroup style="width: 180px" compact>
           <Input
             style="width: 100px"
-            placeholder="时长"
+            placeholder="Thời lượng"
             size="small"
             type="number"
             v-model:value="nodeProps.timeLimit.timeout.value"
@@ -106,33 +106,33 @@
             style="width: 75px"
             v-model:value="nodeProps.timeLimit.timeout.unit"
             size="small"
-            placeholder="请选择"
+            placeholder="Vui lòng chọn"
           >
-            <SelectOption value="D">天</SelectOption>
-            <SelectOption value="H">小时</SelectOption>
-            <SelectOption value="M">分钟</SelectOption>
+            <SelectOption value="D">Ngày</SelectOption>
+            <SelectOption value="H">Giờ</SelectOption>
+            <SelectOption value="M">Phút</SelectOption>
           </Select>
         </InputGroup>
       </FormItem>
       <FormItem
-        label="审批期限超时后执行"
+        label="Thực hiện sau khi quá thời hạn phê duyệt"
         name="level"
         v-if="nodeProps.timeLimit.timeout.value > 0"
       >
         <RadioGroup v-model:value="nodeProps.timeLimit.handler.type">
-          <Radio value="PASS">自动通过</Radio>
-          <Radio value="REFUSE">自动驳回</Radio>
-          <Radio value="NOTIFY">发送提醒</Radio>
+          <Radio value="PASS">Tự động thông qua</Radio>
+          <Radio value="REFUSE">Tự động bác bỏ</Radio>
+          <Radio value="NOTIFY">Gửi nhắc nhở</Radio>
         </RadioGroup>
         <div v-if="nodeProps.timeLimit.handler.type === 'NOTIFY'">
-          <div style="color: #409eef; font-size: small">默认提醒当前审批人</div>
+          <div style="color: #409eef; font-size: small">Mặc định nhắc nhở người phê duyệt hiện tại</div>
           <Switch
-            checked-children="一次"
-            un-checked-children="循环"
+            checked-children="Một lần"
+            un-checked-children="Lặp lại"
             v-model:checked="nodeProps.timeLimit.handler.notify.once"
           ></Switch>
           <span style="margin-left: 20px" v-if="!nodeProps.timeLimit.handler.notify.once">
-            每隔
+            Cứ mỗi
             <InputNumber
               :min="0"
               :max="10000"
@@ -140,21 +140,21 @@
               size="small"
               v-model:value="nodeProps.timeLimit.handler.notify.hour"
             />
-            小时提醒一次
+            giờ nhắc nhở một lần
           </span>
         </div>
       </FormItem>
-      <FormItem label="🙅‍ 如果审批被驳回 👇">
+      <FormItem label="🙅‍ Nếu phê duyệt bị bác bỏ 👇">
         <RadioGroup v-model:value="nodeProps.refuse.type">
-          <Radio value="TO_END">直接结束流程</Radio>
-          <Radio value="TO_BEFORE">驳回到上级审批节点</Radio>
-          <Radio value="TO_NODE">驳回到指定节点</Radio>
+          <Radio value="TO_END">Kết thúc trực tiếp quy trình</Radio>
+          <Radio value="TO_BEFORE">Bác bỏ về nút phê duyệt cấp trên</Radio>
+          <Radio value="TO_NODE">Bác bỏ về nút được chỉ định</Radio>
         </RadioGroup>
         <div v-if="nodeProps.refuse.type === 'TO_NODE'">
-          <span>指定节点:</span>
+          <span>Nút được chỉ định:</span>
           <Select
             style="margin-left: 10px; width: 150px"
-            placeholder="选择跳转步骤"
+            placeholder="Chọn bước chuyển đến"
             size="small"
             v-model:value="nodeProps.refuse.target"
           >
@@ -232,9 +232,9 @@
   const pickerTitle = computed(() => {
     switch (state.orgPickerType) {
       case 'user':
-        return '请选择人员';
+        return 'Vui lòng chọn nhân sự';
       case 'role':
-        return '请选择系统角色';
+        return 'Vui lòng chọn vai trò hệ thống';
       default:
         return undefined;
     }
@@ -272,11 +272,11 @@
     orgPickerSelected: [] as any[],
     orgPickerType: 'user',
     approvalTypes: [
-      { name: '指定人员', type: 'ASSIGN_USER' },
-      { name: '发起人自选', type: 'SELF_SELECT' },
-      { name: '角色', type: 'ROLE' },
-      { name: '发起人自己', type: 'SELF' },
-      { name: '表单内联系人', type: 'FORM_USER' },
+      { name: 'Nhân sự được chỉ định', type: 'ASSIGN_USER' },
+      { name: 'Người khởi tạo tự chọn', type: 'SELF_SELECT' },
+      { name: 'Vai trò', type: 'ROLE' },
+      { name: 'Bản thân người khởi tạo', type: 'SELF' },
+      { name: 'Liên hệ trong biểu mẫu', type: 'FORM_USER' },
     ],
   });
 

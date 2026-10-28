@@ -13,13 +13,13 @@ export interface UserInfo {
 	role?: Role;
 	status?: BasicStatus;
 	permissions?: Permission[];
-	//TODO 清理无用的信息
+	//TODO Dọn dẹp các thông tin không dùng đến
 	/**
-	 * 用户描述
+	 * Mô tả người dùng
 	 */
 	desc: string;
 	/**
-	 * 首页地址
+	 * Địa chỉ trang chủ
 	 */
 	homePath: string;
 
@@ -28,23 +28,23 @@ export interface UserInfo {
 	 */
 	token: string;
 	/**
-	 * 头像
+	 * Ảnh đại diện
 	 */
 	avatar: string;
 	/**
-	 * 用户昵称
+	 * Biệt danh người dùng
 	 */
 	realName: string;
 	/**
-	 * 用户角色
+	 * Vai trò người dùng
 	 */
 	roles?: string[];
 	/**
-	 * 用户id
+	 * Id người dùng
 	 */
 	userId: string;
 	/**
-	 * 用户名
+	 * Tên đăng nhập
 	 */
 	username: string;
 }

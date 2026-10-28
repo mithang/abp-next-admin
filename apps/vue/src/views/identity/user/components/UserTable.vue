@@ -81,7 +81,7 @@
               {
                 auth: 'AbpIdentity.Users.Update',
                 label: L('SetPassword'),
-                ifShow: !record.isExternal, // 外部扩展用户不允许修改密码
+                ifShow: !record.isExternal, // Người dùng mở rộng bên ngoài không được phép đổi mật khẩu
                 onClick: showPasswordModal.bind(null, record.id),
               },
               {

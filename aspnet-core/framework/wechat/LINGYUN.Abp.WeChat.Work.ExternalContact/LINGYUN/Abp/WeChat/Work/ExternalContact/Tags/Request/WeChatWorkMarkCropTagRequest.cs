@@ -7,36 +7,36 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Tags.Request;
 /// <summary>
-/// 编辑客户企业标签请求参数
+/// Tham số yêu cầu chỉnh sửa nhãn doanh nghiệp của khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92118" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/92118" />
 /// </remarks>
 public class WeChatWorkMarkCropTagRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 添加外部联系人的userid
+    /// userid của liên hệ bên ngoài cần thêm
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; }
     /// <summary>
-    /// 外部联系人userid
+    /// userid của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]
     [JsonPropertyName("external_userid")]
     public string ExternalUserId { get; }
     /// <summary>
-    /// 要标记的标签列表
+    /// Danh sách nhãn cần gắn
     /// </summary>
     [NotNull]
     [JsonProperty("add_tag")]
     [JsonPropertyName("add_tag")]
     public List<string> CreateTag { get; }
     /// <summary>
-    /// 要移除的标签列表
+    /// Danh sách nhãn cần gỡ
     /// </summary>
     [NotNull]
     [JsonProperty("remove_tag")]

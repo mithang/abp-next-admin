@@ -2,13 +2,13 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Features;
 /// <summary>
-/// 企业微信客户联系模块功能
+/// Tính năng mô-đun liên hệ khách hàng WeChat Work
 /// </summary>
 public static class WeChatWorkExternalContactFeatureNames
 {
     public const string GroupName = WeChatWorkFeatureNames.GroupName + ".ExternalContact";
     /// <summary>
-    /// 启用企业微信客户联系
+    /// Bật liên hệ khách hàng WeChat Work
     /// </summary>
     public const string Enable = GroupName + ".Enable";
 }

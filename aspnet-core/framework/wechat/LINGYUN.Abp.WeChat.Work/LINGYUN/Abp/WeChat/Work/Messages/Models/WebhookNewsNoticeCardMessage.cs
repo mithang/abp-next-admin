@@ -7,43 +7,43 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// Webhook 图文展示模版卡片消息体
+/// Thân tin nhắn thẻ mẫu hiển thị hình ảnh và văn bản của Webhook
 /// </summary>
 public class WebhookNewsNoticeCardMessage : WebhookTemplateCardMessage
 {
     /// <summary>
-    /// 图片样式
+    /// Kiểu hình ảnh
     /// </summary>
     [NotNull]
     [JsonProperty("aspect_ratio")]
     [JsonPropertyName("aspect_ratio")]
     public WebhookTemplateCardImage CardImage { get; set; }
     /// <summary>
-    /// 左图右文样式
+    /// Kiểu hình ảnh bên trái, văn bản bên phải
     /// </summary>
     [CanBeNull]
     [JsonProperty("image_text_area")]
     [JsonPropertyName("image_text_area")]
     public WebhookTemplateCardImageTextArea? ImageTextArea { get; set; }
     /// <summary>
-    /// 卡片二级垂直内容，该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过4
+    /// Nội dung dọc cấp hai của thẻ, trường này có thể là mảng rỗng, nhưng nếu có dữ liệu thì cần xác nhận trường tương ứng có bắt buộc hay không, độ dài danh sách không vượt quá 4
     /// </summary>
     [CanBeNull]
     [JsonProperty("vertical_content_list")]
     [JsonPropertyName("vertical_content_list")]
     public List<WebhookTemplateCardVerticalContent>? VerticalContents { get; set; }
     /// <summary>
-    /// 创建一个Webhook 图文展示模版卡片消息体
+    /// Tạo một thân tin nhắn thẻ mẫu hiển thị hình ảnh và văn bản của Webhook
     /// </summary>
-    /// <param name="cardImage">图片样式</param>
-    /// <param name="action">整体卡片的点击跳转事件</param>
-    /// <param name="mainTitle">模版卡片的主要内容</param>
-    /// <param name="imageTextArea">左图右文样式</param>
-    /// <param name="source">卡片来源样式信息</param>
-    /// <param name="quoteArea">引用文献样式</param>
-    /// <param name="horizontalContents">二级标题+文本列表,列表长度不超过6</param>
-    /// <param name="verticalContents">卡片二级垂直内容,列表长度不超过4</param>
-    /// <param name="jumps">跳转指引样式的列表,列表长度不超过3</param>
+    /// <param name="cardImage">Kiểu hình ảnh</param>
+    /// <param name="action">Sự kiện chuyển hướng khi nhấn vào toàn bộ thẻ</param>
+    /// <param name="mainTitle">Nội dung chính của thẻ mẫu</param>
+    /// <param name="imageTextArea">Kiểu hình ảnh bên trái, văn bản bên phải</param>
+    /// <param name="source">Thông tin kiểu nguồn của thẻ</param>
+    /// <param name="quoteArea">Kiểu trích dẫn tài liệu</param>
+    /// <param name="horizontalContents">Danh sách tiêu đề cấp hai + văn bản, độ dài danh sách không vượt quá 6</param>
+    /// <param name="verticalContents">Nội dung dọc cấp hai của thẻ, độ dài danh sách không vượt quá 4</param>
+    /// <param name="jumps">Danh sách kiểu hướng dẫn chuyển hướng, độ dài danh sách không vượt quá 3</param>
     /// <exception cref="ArgumentException"></exception>
     public WebhookNewsNoticeCardMessage(
         WebhookTemplateCardImage cardImage,

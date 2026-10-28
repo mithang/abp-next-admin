@@ -1,53 +1,53 @@
 # LINGYUN.Platform
 
-平台管理模块，提供了一套完整的平台管理功能，包括菜单管理、布局管理、数据字典、包管理等功能。
+Mô-đun quản lý nền tảng, cung cấp một bộ đầy đủ các chức năng quản lý nền tảng, bao gồm quản lý menu, quản lý bố cục, từ điển dữ liệu, quản lý gói, v.v.
 
-## 功能特性
+## Tính năng
 
-* 菜单管理
-  * 多级菜单结构
-  * 用户菜单定制
-  * 角色菜单权限
-  * 菜单收藏功能
-  * 动态菜单预置
+* Quản lý menu
+  * Cấu trúc menu đa cấp
+  * Tùy chỉnh menu người dùng
+  * Quyền menu theo vai trò
+  * Chức năng menu yêu thích
+  * Menu động tạo sẵn
 
-* 布局管理
-  * 布局视图实体
-  * 布局数据关联
-  * 多框架支持
+* Quản lý bố cục
+  * Thực thể chế độ xem bố cục
+  * Liên kết dữ liệu bố cục
+  * Hỗ trợ đa khung
 
-* 数据字典
-  * 数据字典管理
-  * 数据字典项管理
-  * 数据字典种子数据
+* Từ điển dữ liệu
+  * Quản lý từ điển dữ liệu
+  * Quản lý mục từ điển dữ liệu
+  * Dữ liệu seed từ điển dữ liệu
 
-* 包管理
-  * 包版本控制
-  * 包文件管理
-  * Blob存储集成
-  * 包过滤规范
+* Quản lý gói
+  * Kiểm soát phiên bản gói
+  * Quản lý tệp gói
+  * Tích hợp lưu trữ Blob
+  * Quy tắc lọc gói
 
-* VueVbenAdmin集成
-  * 主题设置
-  * 布局设置
-  * 菜单设置
-  * 标题栏设置
-  * 多标签页设置
+* Tích hợp VueVbenAdmin
+  * Cài đặt giao diện
+  * Cài đặt bố cục
+  * Cài đặt menu
+  * Cài đặt thanh tiêu đề
+  * Cài đặt nhiều tab
 
-## 项目结构
+## Cấu trúc dự án
 
-* `LINGYUN.Platform.Domain.Shared`: 共享领域层
-* `LINGYUN.Platform.Domain`: 领域层
-* `LINGYUN.Platform.EntityFrameworkCore`: 数据访问层
-* `LINGYUN.Platform.Application.Contracts`: 应用服务契约层
-* `LINGYUN.Platform.Application`: 应用服务实现层
-* `LINGYUN.Platform.HttpApi`: HTTP API层
-* `LINGYUN.Platform.HttpApi.Client`: HTTP API代理层
-* `LINGYUN.Platform.Settings.VueVbenAdmin`: VueVbenAdmin前端框架设置模块
+* `LINGYUN.Platform.Domain.Shared`: Tầng miền dùng chung
+* `LINGYUN.Platform.Domain`: Tầng miền
+* `LINGYUN.Platform.EntityFrameworkCore`: Tầng truy cập dữ liệu
+* `LINGYUN.Platform.Application.Contracts`: Tầng hợp đồng dịch vụ ứng dụng
+* `LINGYUN.Platform.Application`: Tầng triển khai dịch vụ ứng dụng
+* `LINGYUN.Platform.HttpApi`: Tầng HTTP API
+* `LINGYUN.Platform.HttpApi.Client`: Tầng proxy HTTP API
+* `LINGYUN.Platform.Settings.VueVbenAdmin`: Mô-đun cài đặt khung frontend VueVbenAdmin
 
-## 快速开始
+## Bắt đầu nhanh
 
-1. 引用模块
+1. Tham chiếu mô-đun
 ```csharp
 [DependsOn(
     typeof(PlatformDomainModule),
@@ -61,7 +61,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 配置数据库
+2. Cấu hình cơ sở dữ liệu
 ```json
 {
   "ConnectionStrings": {
@@ -70,28 +70,28 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-3. 更新数据库
+3. Cập nhật cơ sở dữ liệu
 ```bash
 dotnet ef database update
 ```
 
-## 注意事项
+## Lưu ý
 
-1. 动态菜单管理
-   * 模块默认已初始化与vue-admin相关的菜单
-   * 可以通过 `IDataSeedContributor` 接口预置菜单数据
-   * 布局(path)和菜单(component)不需要添加 @/ 前缀
+1. Quản lý menu động
+   * Mô-đun mặc định đã khởi tạo sẵn các menu liên quan đến vue-admin
+   * Có thể tạo sẵn dữ liệu menu qua giao diện `IDataSeedContributor`
+   * Bố cục (path) và menu (component) không cần thêm tiền tố @/
 
-2. 数据库迁移
-   * 请在运行平台服务之前执行数据库迁移
-   * 使用 `dotnet ef database update` 命令更新数据库结构
+2. Di trú cơ sở dữ liệu
+   * Hãy thực hiện di trú cơ sở dữ liệu trước khi chạy dịch vụ nền tảng
+   * Sử dụng lệnh `dotnet ef database update` để cập nhật cấu trúc cơ sở dữ liệu
 
-## 更多信息
+## Thông tin thêm
 
-* [共享领域层](./LINGYUN.Platform.Domain.Shared/README.md)
-* [领域层](./LINGYUN.Platform.Domain/README.md)
-* [数据访问层](./LINGYUN.Platform.EntityFrameworkCore/README.md)
-* [应用服务契约层](./LINGYUN.Platform.Application.Contracts/README.md)
-* [应用服务实现层](./LINGYUN.Platform.Application/README.md)
-* [HTTP API层](./LINGYUN.Platform.HttpApi/README.md)
-* [VueVbenAdmin设置模块](./LINGYUN.Platform.Settings.VueVbenAdmin/README.md)
+* [Tầng miền dùng chung](./LINGYUN.Platform.Domain.Shared/README.md)
+* [Tầng miền](./LINGYUN.Platform.Domain/README.md)
+* [Tầng truy cập dữ liệu](./LINGYUN.Platform.EntityFrameworkCore/README.md)
+* [Tầng hợp đồng dịch vụ ứng dụng](./LINGYUN.Platform.Application.Contracts/README.md)
+* [Tầng triển khai dịch vụ ứng dụng](./LINGYUN.Platform.Application/README.md)
+* [Tầng HTTP API](./LINGYUN.Platform.HttpApi/README.md)
+* [Mô-đun cài đặt VueVbenAdmin](./LINGYUN.Platform.Settings.VueVbenAdmin/README.md)

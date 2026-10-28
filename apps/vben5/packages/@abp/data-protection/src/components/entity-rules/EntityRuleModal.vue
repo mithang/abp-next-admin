@@ -27,15 +27,15 @@ const [Form, formApi] = useVbenForm({
       componentProps: {
         options: [
           {
-            label: '查询',
+            label: 'Tra cứu',
             value: DataAccessOperation.Read,
           },
           {
-            label: '编辑',
+            label: 'Chỉnh sửa',
             value: DataAccessOperation.Write,
           },
           {
-            label: '删除',
+            label: 'Xóa',
             value: DataAccessOperation.Delete,
           },
         ],
@@ -58,9 +58,7 @@ async function onInit(filter?: string) {
   entityTypes.value = items;
 }
 
-async function onSubmit(values: Record<string, any>) {
-  console.log(values);
-}
+async function onSubmit(_values: Record<string, any>) {}
 
 onMounted(onInit);
 </script>

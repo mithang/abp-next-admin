@@ -2,27 +2,27 @@
 outline: deep
 ---
 
-# Vben Form 表单
+# Vben Form
 
-框架提供的表单组件，可适配 `Element Plus`、`Ant Design Vue`、`Naive UI` 等框架。
+Component biểu mẫu do framework cung cấp, có thể tương thích với các framework như `Element Plus`, `Ant Design Vue`, `Naive UI`.
 
-> 如果文档内没有参数说明，可以尝试在在线示例内寻找
+> Nếu trong tài liệu không có mô tả tham số, hãy thử tìm trong ví dụ trực tuyến
 
-::: info 写在前面
+::: info Lời nói đầu
 
-如果你觉得现有组件的封装不够理想，或者不完全符合你的需求，大可以直接使用原生组件，亦或亲手封装一个适合的组件。框架提供的组件并非束缚，使用与否，完全取决于你的需求与自由。
+Nếu bạn thấy việc đóng gói component hiện có chưa đủ tốt, hoặc chưa hoàn toàn phù hợp với nhu cầu của bạn, bạn hoàn toàn có thể trực tiếp sử dụng component gốc, hoặc tự tay đóng gói một component phù hợp. Các component do framework cung cấp không phải là ràng buộc, dùng hay không hoàn toàn tùy thuộc vào nhu cầu và sự tự do của bạn.
 
 :::
 
-## 适配器
+## Bộ điều hợp
 
-表单底层使用 [vee-validate](https://vee-validate.logaretm.com/v4/) 进行表单验证，所以你可以使用 `vee-validate` 的所有功能。对于不同的 UI 框架，我们提供了适配器，以便更好的适配不同的 UI 框架。
+Tầng dưới của biểu mẫu sử dụng [vee-validate](https://vee-validate.logaretm.com/v4/) để kiểm tra biểu mẫu, vì vậy bạn có thể sử dụng mọi tính năng của `vee-validate`. Đối với các framework UI khác nhau, chúng tôi cung cấp bộ điều hợp để tương thích tốt hơn với từng framework UI.
 
-### 适配器说明
+### Mô tả bộ điều hợp
 
-每个应用都有不同的 UI 框架，所以在应用的 `src/adapter/form` 和 `src/adapter/component` 内部，你可以根据自己的需求，进行组件适配。下面是 `Ant Design Vue` 的适配器示例代码，可根据注释查看说明：
+Mỗi ứng dụng có framework UI khác nhau, vì vậy bên trong `src/adapter/form` và `src/adapter/component` của ứng dụng, bạn có thể điều hợp component theo nhu cầu của mình. Dưới đây là mã ví dụ bộ điều hợp của `Ant Design Vue`, có thể xem mô tả theo chú thích:
 
-::: details ant design vue 表单适配器
+::: details Bộ điều hợp biểu mẫu Ant Design Vue
 
 ```ts
 import type {
@@ -37,9 +37,9 @@ import { $t } from '@vben/locales';
 
 setupVbenForm<ComponentType>({
   config: {
-    // ant design vue组件库默认都是 v-model:value
+    // Thư viện component Ant Design Vue mặc định đều dùng v-model:value
     baseModelPropName: 'value',
-    // 一些组件是 v-model:checked 或者 v-model:fileList
+    // Một số component dùng v-model:checked hoặc v-model:fileList
     modelPropNameMap: {
       Checkbox: 'checked',
       Radio: 'checked',
@@ -48,14 +48,14 @@ setupVbenForm<ComponentType>({
     },
   },
   defineRules: {
-    // 输入项目必填国际化适配
+    // Điều hợp i18n cho trường nhập bắt buộc
     required: (value, _params, ctx) => {
       if (value === undefined || value === null || value.length === 0) {
         return $t('ui.formRules.required', [ctx.label]);
       }
       return true;
     },
-    // 选择项目必填国际化适配
+    // Điều hợp i18n cho trường chọn bắt buộc
     selectRequired: (value, _params, ctx) => {
       if (value === undefined || value === null) {
         return $t('ui.formRules.selectRequired', [ctx.label]);
@@ -74,12 +74,12 @@ export type { VbenFormProps };
 
 :::
 
-::: details ant design vue 组件适配器
+::: details Bộ điều hợp component Ant Design Vue
 
 ```ts
 /**
- * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
- * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
+ * Component cơ sở dùng chung cho các component thông dụng, trước đây đặt trong adapter/form nên bị giới hạn phạm vi sử dụng, ở đây tách ra để các nơi khác tiện sử dụng
+ * Có thể dùng cho vben-form, vben-modal, vben-drawer và các component khác,
  */
 
 import type { BaseFormComponentType } from '@vben/common-ui';
@@ -147,7 +147,7 @@ const withDefaultPlaceholder = <T extends Component>(
   };
 };
 
-// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
+// Ở đây cần tự điều hợp theo thư viện component nghiệp vụ, các component cần dùng đều phải khai báo kiểu tại đây
 export type ComponentType =
   | 'AutoComplete'
   | 'Checkbox'
@@ -176,7 +176,7 @@ export type ComponentType =
 
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
-    // 如果你的组件体积比较大，可以使用异步加载
+    // Nếu component của bạn có kích thước lớn, có thể dùng tải không đồng bộ
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
@@ -184,7 +184,7 @@ async function initComponentAdapter() {
     Checkbox,
     CheckboxGroup,
     DatePicker,
-    // 自定义默认按钮
+    // Nút mặc định tùy chỉnh
     DefaultButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
@@ -194,7 +194,7 @@ async function initComponentAdapter() {
     InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
     InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
     Mentions: withDefaultPlaceholder(Mentions, 'input'),
-    // 自定义主要按钮
+    // Nút chính tùy chỉnh
     PrimaryButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
@@ -211,12 +211,12 @@ async function initComponentAdapter() {
     Upload,
   };
 
-  // 将组件注册到全局共享状态中
+  // Đăng ký component vào trạng thái chia sẻ toàn cục
   globalShareState.setComponents(components);
 
-  // 定义全局共享状态中的消息提示
+  // Định nghĩa thông báo trong trạng thái chia sẻ toàn cục
   globalShareState.defineMessage({
-    // 复制成功消息提示
+    // Thông báo sao chép thành công
     copyPreferencesSuccess: (title, content) => {
       notification.success({
         description: content,
@@ -232,63 +232,63 @@ export { initComponentAdapter };
 
 :::
 
-## 基础用法
+## Cách dùng cơ bản
 
 ::: tip README
 
-下方示例代码中的，存在一些国际化、主题色未适配问题，这些问题只在文档内会出现，实际使用并不会有这些问题，可忽略，不必纠结。
+Trong mã ví dụ bên dưới, có một số vấn đề chưa điều hợp i18n và màu chủ đề, những vấn đề này chỉ xuất hiện trong tài liệu, khi sử dụng thực tế sẽ không có những vấn đề này, có thể bỏ qua, không cần băn khoăn.
 
 :::
 
-使用 `useVbenForm` 创建最基础的表单。
+Sử dụng `useVbenForm` để tạo biểu mẫu cơ bản nhất.
 
 <DemoPreview dir="demos/vben-form/basic" />
 
-## 查询表单
+## Biểu mẫu truy vấn
 
-查询表单是一种特殊的表单，用于查询数据。查询表单不会触发表单验证，只会触发查询事件。
+Biểu mẫu truy vấn là một loại biểu mẫu đặc biệt, dùng để truy vấn dữ liệu. Biểu mẫu truy vấn sẽ không kích hoạt kiểm tra biểu mẫu, chỉ kích hoạt sự kiện truy vấn.
 
 <DemoPreview dir="demos/vben-form/query" />
 
-## 表单校验
+## Kiểm tra biểu mẫu
 
-表单校验是一个非常重要的功能，可以通过 `rules` 属性进行校验。
+Kiểm tra biểu mẫu là một tính năng rất quan trọng, có thể thực hiện kiểm tra thông qua thuộc tính `rules`.
 
 <DemoPreview dir="demos/vben-form/rules" />
 
-## 表单联动
+## Liên động biểu mẫu
 
-表单联动是一个非常常见的功能，可以通过 `dependencies` 属性进行联动。
+Liên động biểu mẫu là một tính năng rất phổ biến, có thể thực hiện liên động thông qua thuộc tính `dependencies`.
 
-_注意_ 需要指定 `dependencies` 的 `triggerFields` 属性，设置由谁的改动来触发，以便表单组件能够正确的联动。
+_Lưu ý_ Cần chỉ định thuộc tính `triggerFields` của `dependencies`, đặt xem thay đổi của ai sẽ kích hoạt, để component biểu mẫu có thể liên động chính xác.
 
 <DemoPreview dir="demos/vben-form/dynamic" />
 
-## 自定义组件
+## Component tùy chỉnh
 
-如果你的业务组件库没有提供某个组件，你可以自行封装一个组件，然后加到表单内部。
+Nếu thư viện component nghiệp vụ của bạn không cung cấp một component nào đó, bạn có thể tự đóng gói một component rồi thêm vào bên trong biểu mẫu.
 
 <DemoPreview dir="demos/vben-form/custom" />
 
-## 操作
+## Thao tác
 
-一些常见的表单操作。
+Một số thao tác biểu mẫu thường gặp.
 
 <DemoPreview dir="demos/vben-form/api" />
 
 ## API
 
-`useVbenForm` 返回一个数组，第一个元素是表单组件，第二个元素是表单的方法。
+`useVbenForm` trả về một mảng, phần tử đầu tiên là component biểu mẫu, phần tử thứ hai là các phương thức của biểu mẫu.
 
 ```vue
 <script setup lang="ts">
 import { useVbenForm } from '#/adapter/form';
 
-// Form 为弹窗组件
-// formApi 为弹窗的方法
+// Form là component popup
+// formApi là các phương thức của popup
 const [Form, formApi] = useVbenForm({
-  // 属性
-  // 事件
+  // Thuộc tính
+  // Sự kiện
 });
 </script>
 
@@ -299,91 +299,91 @@ const [Form, formApi] = useVbenForm({
 
 ### FormApi
 
-useVbenForm 返回的第二个参数，是一个对象，包含了一些表单的方法。
+Tham số thứ hai mà useVbenForm trả về là một đối tượng, chứa một số phương thức của biểu mẫu.
 
-| 方法名 | 描述 | 类型 | 版本号 |
+| Tên phương thức | Mô tả | Kiểu | Phiên bản |
 | --- | --- | --- | --- |
-| submitForm | 提交表单 | `(e:Event)=>Promise<Record<string,any>>` | - |
-| validateAndSubmitForm | 提交并校验表单 | `(e:Event)=>Promise<Record<string,any>>` | - |
-| resetForm | 重置表单 | `()=>Promise<void>` | - |
-| setValues | 设置表单值, 默认会过滤不在schema中定义的field, 可通过filterFields形参关闭过滤 | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
-| getValues | 获取表单值 | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` | - |
-| validate | 表单校验 | `()=>Promise<void>` | - |
-| validateField | 校验指定字段 | `(fieldName: string)=>Promise<ValidationResult<unknown>>` | - |
-| isFieldValid | 检查某个字段是否已通过校验 | `(fieldName: string)=>Promise<boolean>` | - |
-| resetValidate | 重置表单校验 | `()=>Promise<void>` | - |
-| updateSchema | 更新formSchema | `(schema:FormSchema[])=>void` | - |
-| setFieldValue | 设置字段值 | `(field: string, value: any, shouldValidate?: boolean)=>Promise<void>` | - |
-| setState | 设置组件状态（props） | `(stateOrFn:\| ((prev: VbenFormProps) => Partial<VbenFormProps>)\| Partial<VbenFormProps>)=>Promise<void>` | - |
-| getState | 获取组件状态（props） | `()=>Promise<VbenFormProps>` | - |
-| form | 表单对象实例，可以操作表单，见 [useForm](https://vee-validate.logaretm.com/v4/api/use-form/) | - | - |
-| getFieldComponentRef | 获取指定字段的组件实例 | `<T=unknown>(fieldName: string)=>T` | >5.5.3 |
-| getFocusedField | 获取当前已获得焦点的字段 | `()=>string\|undefined` | >5.5.3 |
+| submitForm | Gửi biểu mẫu | `(e:Event)=>Promise<Record<string,any>>` | - |
+| validateAndSubmitForm | Gửi và kiểm tra biểu mẫu | `(e:Event)=>Promise<Record<string,any>>` | - |
+| resetForm | Đặt lại biểu mẫu | `()=>Promise<void>` | - |
+| setValues | Đặt giá trị biểu mẫu, mặc định sẽ lọc các field không được định nghĩa trong schema, có thể tắt lọc bằng tham số filterFields | `(fields: Record<string, any>, filterFields?: boolean, shouldValidate?: boolean) => Promise<void>` | - |
+| getValues | Lấy giá trị biểu mẫu | `(fields:Record<string, any>,shouldValidate: boolean = false)=>Promise<void>` | - |
+| validate | Kiểm tra biểu mẫu | `()=>Promise<void>` | - |
+| validateField | Kiểm tra trường chỉ định | `(fieldName: string)=>Promise<ValidationResult<unknown>>` | - |
+| isFieldValid | Kiểm tra một trường đã vượt qua kiểm tra hay chưa | `(fieldName: string)=>Promise<boolean>` | - |
+| resetValidate | Đặt lại kiểm tra biểu mẫu | `()=>Promise<void>` | - |
+| updateSchema | Cập nhật formSchema | `(schema:FormSchema[])=>void` | - |
+| setFieldValue | Đặt giá trị trường | `(field: string, value: any, shouldValidate?: boolean)=>Promise<void>` | - |
+| setState | Đặt trạng thái component (props) | `(stateOrFn:\| ((prev: VbenFormProps) => Partial<VbenFormProps>)\| Partial<VbenFormProps>)=>Promise<void>` | - |
+| getState | Lấy trạng thái component (props) | `()=>Promise<VbenFormProps>` | - |
+| form | Đối tượng thể hiện của biểu mẫu, có thể thao tác biểu mẫu, xem [useForm](https://vee-validate.logaretm.com/v4/api/use-form/) | - | - |
+| getFieldComponentRef | Lấy thể hiện component của trường chỉ định | `<T=unknown>(fieldName: string)=>T` | >5.5.3 |
+| getFocusedField | Lấy trường hiện đang được focus | `()=>string\|undefined` | >5.5.3 |
 
 ## Props
 
-所有属性都可以传入 `useVbenForm` 的第一个参数中。
+Tất cả các thuộc tính đều có thể truyền vào tham số đầu tiên của `useVbenForm`.
 
-| 属性名 | 描述 | 类型 | 默认值 |
+| Tên thuộc tính | Mô tả | Kiểu | Giá trị mặc định |
 | --- | --- | --- | --- |
-| layout | 表单项布局 | `'horizontal' \| 'vertical'\| 'inline'` | `horizontal` |
-| showCollapseButton | 是否显示折叠按钮 | `boolean` | `false` |
-| wrapperClass | 表单的布局，基于tailwindcss | `any` | - |
-| actionWrapperClass | 表单操作区域class | `any` | - |
-| actionLayout | 表单操作按钮位置 | `'newLine' \| 'rowEnd' \| 'inline'` | `rowEnd` |
-| actionPosition | 表单操作按钮对齐方式 | `'left' \| 'center' \| 'right'` | `right` |
-| handleReset | 表单重置回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
-| handleSubmit | 表单提交回调 | `(values: Record<string, any>,) => Promise<void> \| void` | - |
-| handleValuesChange | 表单值变化回调 | `(values: Record<string, any>, fieldsChanged: string[]) => void` | - |
-| handleCollapsedChange | 表单收起展开状态变化回调 | `(collapsed: boolean) => void` | - |
-| actionButtonsReverse | 调换操作按钮位置 | `boolean` | `false` |
-| resetButtonOptions | 重置按钮组件参数 | `ActionButtonOptions` | - |
-| submitButtonOptions | 提交按钮组件参数 | `ActionButtonOptions` | - |
-| showDefaultActions | 是否显示默认操作按钮 | `boolean` | `true` |
-| collapsed | 是否折叠，在`showCollapseButton`为`true`时生效 | `boolean` | `false` |
-| collapseTriggerResize | 折叠时，触发`resize`事件 | `boolean` | `false` |
-| collapsedRows | 折叠时保持的行数 | `number` | `1` |
-| fieldMappingTime | 用于将表单内的数组值映射成 2 个字段 | `[string, [string, string],Nullable<string>\|[string,string]\|((any,string)=>any)?][]` | - |
-| commonConfig | 表单项的通用配置，每个配置都会传递到每个表单项，表单项可覆盖 | `FormCommonConfig` | - |
-| schema | 表单项的每一项配置 | `FormSchema[]` | - |
-| submitOnEnter | 按下回车健时提交表单 | `boolean` | false |
-| submitOnChange | 字段值改变时提交表单(内部防抖，这个属性一般用于表格的搜索表单) | `boolean` | false |
-| compact | 是否紧凑模式(忽略为校验信息所预留的空间) | `boolean` | false |
-| scrollToFirstError | 表单验证失败时是否自动滚动到第一个错误字段 | `boolean` | false |
+| layout | Bố cục mục biểu mẫu | `'horizontal' \| 'vertical'\| 'inline'` | `horizontal` |
+| showCollapseButton | Có hiển thị nút thu gọn hay không | `boolean` | `false` |
+| wrapperClass | Bố cục của biểu mẫu, dựa trên tailwindcss | `any` | - |
+| actionWrapperClass | class của khu vực thao tác biểu mẫu | `any` | - |
+| actionLayout | Vị trí nút thao tác biểu mẫu | `'newLine' \| 'rowEnd' \| 'inline'` | `rowEnd` |
+| actionPosition | Cách căn lề nút thao tác biểu mẫu | `'left' \| 'center' \| 'right'` | `right` |
+| handleReset | Callback đặt lại biểu mẫu | `(values: Record<string, any>,) => Promise<void> \| void` | - |
+| handleSubmit | Callback gửi biểu mẫu | `(values: Record<string, any>,) => Promise<void> \| void` | - |
+| handleValuesChange | Callback khi giá trị biểu mẫu thay đổi | `(values: Record<string, any>, fieldsChanged: string[]) => void` | - |
+| handleCollapsedChange | Callback khi trạng thái thu gọn/mở rộng của biểu mẫu thay đổi | `(collapsed: boolean) => void` | - |
+| actionButtonsReverse | Đảo vị trí nút thao tác | `boolean` | `false` |
+| resetButtonOptions | Tham số component nút đặt lại | `ActionButtonOptions` | - |
+| submitButtonOptions | Tham số component nút gửi | `ActionButtonOptions` | - |
+| showDefaultActions | Có hiển thị nút thao tác mặc định hay không | `boolean` | `true` |
+| collapsed | Có thu gọn hay không, có hiệu lực khi `showCollapseButton` là `true` | `boolean` | `false` |
+| collapseTriggerResize | Khi thu gọn, kích hoạt sự kiện `resize` | `boolean` | `false` |
+| collapsedRows | Số dòng giữ lại khi thu gọn | `number` | `1` |
+| fieldMappingTime | Dùng để ánh xạ giá trị mảng trong biểu mẫu thành 2 trường | `[string, [string, string],Nullable<string>\|[string,string]\|((any,string)=>any)?][]` | - |
+| commonConfig | Cấu hình chung của các mục biểu mẫu, mỗi cấu hình sẽ được truyền tới từng mục biểu mẫu, mục biểu mẫu có thể ghi đè | `FormCommonConfig` | - |
+| schema | Cấu hình của từng mục biểu mẫu | `FormSchema[]` | - |
+| submitOnEnter | Gửi biểu mẫu khi nhấn phím Enter | `boolean` | false |
+| submitOnChange | Gửi biểu mẫu khi giá trị trường thay đổi (chống rung nội bộ, thuộc tính này thường dùng cho biểu mẫu tìm kiếm của bảng) | `boolean` | false |
+| compact | Có phải chế độ thu gọn hay không (bỏ qua không gian dành sẵn cho thông tin kiểm tra) | `boolean` | false |
+| scrollToFirstError | Khi kiểm tra biểu mẫu thất bại có tự động cuộn đến trường lỗi đầu tiên hay không | `boolean` | false |
 
 ::: tip handleValuesChange
 
-`handleValuesChange` 回调函数的第一个参数`values`装载了表单改变后的当前值对象，第二个参数`fieldsChanged`是一个数组，包含了所有被改变的字段名。注意：第二个参数仅在v5.5.4(不含)以上版本可用，并且传递的是已在schema中定义的字段名。如果你使用了字段映射并且需要检查是哪些字段发生了变化的话，请注意该参数并不会包含映射后的字段名。
+Tham số đầu tiên `values` của hàm callback `handleValuesChange` chứa đối tượng giá trị hiện tại sau khi biểu mẫu thay đổi, tham số thứ hai `fieldsChanged` là một mảng, chứa tên của tất cả các trường đã thay đổi. Lưu ý: tham số thứ hai chỉ khả dụng ở phiên bản trên v5.5.4 (không bao gồm v5.5.4), và truyền vào là tên trường đã được định nghĩa trong schema. Nếu bạn đã dùng ánh xạ trường và cần kiểm tra những trường nào đã thay đổi, xin lưu ý tham số này sẽ không chứa tên trường sau khi ánh xạ.
 
 :::
 
 ::: tip fieldMappingTime
 
-此属性用于将表单内的数组值映射成 2 个字段，它应当传入一个数组，数组的每一项是一个映射规则，规则的第一个成员是一个字符串，表示需要映射的字段名，第二个成员是一个数组，表示映射后的字段名，第三个成员是一个可选的格式掩码，用于格式化日期时间字段；也可以提供一个格式化函数（参数分别为当前值和当前字段名，返回格式化后的值）。如果明确地将格式掩码设为null，则原值映射而不进行格式化（适用于非日期时间字段）。例如：`[['timeRange', ['startTime', 'endTime'], 'YYYY-MM-DD']]`，`timeRange`应当是一个至少具有2个成员的数组类型的值。Form会将`timeRange`的值前两个值分别按照格式掩码`YYYY-MM-DD`格式化后映射到`startTime`和`endTime`字段上。每一项的第三个参数是一个可选的格式掩码，
+Thuộc tính này dùng để ánh xạ giá trị mảng trong biểu mẫu thành 2 trường, nó cần nhận vào một mảng, mỗi phần tử của mảng là một quy tắc ánh xạ, thành viên đầu tiên của quy tắc là một chuỗi, biểu thị tên trường cần ánh xạ, thành viên thứ hai là một mảng, biểu thị tên trường sau khi ánh xạ, thành viên thứ ba là một mặt nạ định dạng tùy chọn, dùng để định dạng trường ngày giờ; cũng có thể cung cấp một hàm định dạng (tham số lần lượt là giá trị hiện tại và tên trường hiện tại, trả về giá trị sau khi định dạng). Nếu đặt rõ mặt nạ định dạng là null, thì giá trị gốc sẽ được ánh xạ mà không định dạng (áp dụng cho trường không phải ngày giờ). Ví dụ: `[['timeRange', ['startTime', 'endTime'], 'YYYY-MM-DD']]`, `timeRange` phải là một giá trị kiểu mảng có ít nhất 2 thành viên. Form sẽ lấy 2 giá trị đầu của `timeRange` định dạng theo mặt nạ `YYYY-MM-DD` rồi ánh xạ lần lượt sang các trường `startTime` và `endTime`. Tham số thứ ba của mỗi phần tử là một mặt nạ định dạng tùy chọn,
 
 :::
 
-### TS 类型说明
+### Mô tả kiểu TS
 
 ::: details ActionButtonOptions
 
 ```ts
 export interface ActionButtonOptions {
-  /** 样式 */
+  /** Kiểu dáng */
   class?: ClassType;
-  /** 是否禁用 */
+  /** Có vô hiệu hoá hay không */
   disabled?: boolean;
-  /** 是否加载中 */
+  /** Có đang tải hay không */
   loading?: boolean;
-  /** 按钮大小 */
+  /** Kích thước nút */
   size?: ButtonVariantSize;
-  /** 按钮类型 */
+  /** Loại nút */
   variant?: ButtonVariants;
-  /** 是否显示 */
+  /** Có hiển thị hay không */
   show?: boolean;
-  /** 按钮文本 */
+  /** Văn bản nút */
   content?: string;
-  /** 任意属性 */
+  /** Thuộc tính tùy ý */
   [key: string]: any;
 }
 ```
@@ -395,58 +395,58 @@ export interface ActionButtonOptions {
 ```ts
 export interface FormCommonConfig {
   /**
-   * 所有表单项的props
+   * Props của tất cả các mục biểu mẫu
    */
   componentProps?: ComponentProps;
   /**
-   * 所有表单项的控件样式
+   * Kiểu dáng điều khiển của tất cả các mục biểu mẫu
    */
   controlClass?: string;
   /**
-   * 在表单项的Label后显示一个冒号
+   * Hiển thị dấu hai chấm sau Label của mục biểu mẫu
    */
   colon?: boolean;
   /**
-   * 所有表单项的禁用状态
+   * Trạng thái vô hiệu hoá của tất cả các mục biểu mẫu
    * @default false
    */
   disabled?: boolean;
   /**
-   * 所有表单项的控件样式
+   * Kiểu dáng điều khiển của tất cả các mục biểu mẫu
    * @default {}
    */
   formFieldProps?: Partial<typeof Field>;
   /**
-   * 所有表单项的栅格布局
+   * Bố cục lưới của tất cả các mục biểu mẫu
    * @default ""
    */
   formItemClass?: (() => string) | string;
   /**
-   * 隐藏所有表单项label
+   * Ẩn label của tất cả các mục biểu mẫu
    * @default false
    */
   hideLabel?: boolean;
   /**
-   * 是否隐藏必填标记
+   * Có ẩn dấu bắt buộc hay không
    * @default false
    */
   hideRequiredMark?: boolean;
   /**
-   * 所有表单项的label样式
+   * Kiểu dáng label của tất cả các mục biểu mẫu
    * @default ""
    */
   labelClass?: string;
   /**
-   * 所有表单项的label宽度
+   * Chiều rộng label của tất cả các mục biểu mẫu
    */
   labelWidth?: number;
   /**
-   * 所有表单项的model属性名。使用自定义组件时可通过此配置指定组件的model属性名。已经在modelPropNameMap中注册的组件不受此配置影响
+   * Tên thuộc tính model của tất cả các mục biểu mẫu. Khi dùng component tùy chỉnh có thể chỉ định tên thuộc tính model của component qua cấu hình này. Các component đã đăng ký trong modelPropNameMap không bị ảnh hưởng bởi cấu hình này
    * @default "modelValue"
    */
   modelPropName?: string;
   /**
-   * 所有表单项的wrapper样式
+   * Kiểu dáng wrapper của tất cả các mục biểu mẫu
    */
   wrapperClass?: string;
 }
@@ -460,75 +460,75 @@ export interface FormCommonConfig {
 export interface FormSchema<
   T extends BaseFormComponentType = BaseFormComponentType,
 > extends FormCommonConfig {
-  /** 组件 */
+  /** Component */
   component: Component | T;
-  /** 组件参数 */
+  /** Tham số component */
   componentProps?: ComponentProps;
-  /** 默认值 */
+  /** Giá trị mặc định */
   defaultValue?: any;
-  /** 依赖 */
+  /** Phụ thuộc */
   dependencies?: FormItemDependencies;
-  /** 描述 */
+  /** Mô tả */
   description?: string;
-  /** 字段名，也作为自定义插槽的名称 */
+  /** Tên trường, cũng là tên của slot tùy chỉnh */
   fieldName: string;
-  /** 帮助信息 */
+  /** Thông tin trợ giúp */
   help?: CustomRenderType;
-  /** 是否隐藏表单项 */
+  /** Có ẩn mục biểu mẫu hay không */
   hide?: boolean;
-  /** 表单的标签（如果是一个string，会用于默认必选规则的消息提示） */
+  /** Nhãn của biểu mẫu (nếu là một string, sẽ dùng cho thông báo của quy tắc bắt buộc mặc định) */
   label?: CustomRenderType;
-  /** 自定义组件内部渲染  */
+  /** Kết xuất nội bộ của component tùy chỉnh  */
   renderComponentContent?: RenderComponentContentType;
-  /** 字段规则 */
+  /** Quy tắc trường */
   rules?: FormSchemaRuleType;
-  /** 后缀 */
+  /** Hậu tố */
   suffix?: CustomRenderType;
 }
 ```
 
 :::
 
-### 表单联动
+### Liên động biểu mẫu
 
-表单联动需要通过 schema 内的 `dependencies` 属性进行联动，允许您添加字段之间的依赖项，以根据其他字段的值控制字段。
+Liên động biểu mẫu cần thực hiện liên động thông qua thuộc tính `dependencies` trong schema, cho phép bạn thêm các mục phụ thuộc giữa các trường để điều khiển trường dựa trên giá trị của các trường khác.
 
 ```ts
 dependencies: {
-  // 触发字段。只有这些字段值变动时，联动才会触发
+  // Trường kích hoạt. Chỉ khi giá trị của các trường này thay đổi thì liên động mới kích hoạt
   triggerFields: ['name'],
-  // 动态判断当前字段是否需要显示，不显示则直接销毁
+  // Đánh giá động xem trường hiện tại có cần hiển thị hay không, nếu không hiển thị thì hủy trực tiếp
   if(values,formApi){},
-  // 动态判断当前字段是否需要显示，不显示用css隐藏
+  // Đánh giá động xem trường hiện tại có cần hiển thị hay không, nếu không hiển thị thì ẩn bằng css
   show(values,formApi){},
-  // 动态判断当前字段是否需要禁用
+  // Đánh giá động xem trường hiện tại có cần vô hiệu hoá hay không
   disabled(values,formApi){},
-  // 字段变更时，都会触发该函数
+  // Mỗi khi trường thay đổi, hàm này đều được kích hoạt
   trigger(values,formApi){},
-  // 动态rules
+  // rules động
   rules(values,formApi){},
-  // 动态必填
+  // Bắt buộc động
   required(values,formApi){},
-  // 动态组件参数
+  // Tham số component động
   componentProps(values,formApi){},
 }
 ```
 
-### 表单校验
+### Kiểm tra biểu mẫu
 
-表单校验需要通过 schema 内的 `rules` 属性进行配置。
+Kiểm tra biểu mẫu cần cấu hình thông qua thuộc tính `rules` trong schema.
 
-rules的值可以是字符串（预定义的校验规则名称），也可以是一个zod的schema。
+Giá trị của rules có thể là chuỗi (tên quy tắc kiểm tra được định nghĩa sẵn), cũng có thể là một schema của zod.
 
-#### 预定义的校验规则
+#### Quy tắc kiểm tra được định nghĩa sẵn
 
 ```ts
-// 表示字段必填，默认会根据适配器的required进行国际化
+// Biểu thị trường bắt buộc, mặc định sẽ thực hiện i18n theo required của bộ điều hợp
 {
   rules: 'required';
 }
 
-// 表示字段必填，默认会根据适配器的required进行国际化，用于下拉选择之类
+// Biểu thị trường bắt buộc, mặc định sẽ thực hiện i18n theo required của bộ điều hợp, dùng cho các loại như lựa chọn từ danh sách thả xuống
 {
   rules: 'selectRequired';
 }
@@ -536,22 +536,22 @@ rules的值可以是字符串（预定义的校验规则名称），也可以是
 
 #### zod
 
-rules也支持 zod 的 schema，可以进行更复杂的校验，zod 的使用请查看 [zod文档](https://zod.dev/)。
+rules cũng hỗ trợ schema của zod, có thể thực hiện kiểm tra phức tạp hơn, cách dùng zod xem [tài liệu zod](https://zod.dev/).
 
 ```ts
 import { z } from '#/adapter/form';
 
-// 基础类型
+// Kiểu cơ bản
 {
-  rules: z.string().min(1, { message: '请输入字符串' });
+  rules: z.string().min(1, { message: 'Vui lòng nhập chuỗi' });
 }
 
-// 可选(可以是undefined)，并且携带默认值。注意zod的optional不包括空字符串''
+// Tùy chọn (có thể là undefined), và mang giá trị mặc định. Lưu ý optional của zod không bao gồm chuỗi rỗng ''
 {
-  rules: z.string().default('默认值').optional();
+  rules: z.string().default('Giá trị mặc định').optional();
 }
 
-// 可以是空字符串、undefined或者一个邮箱地址(两种不同的用法)
+// Có thể là chuỗi rỗng, undefined hoặc một địa chỉ email (hai cách dùng khác nhau)
 {
   rules: z.union([z.string().email().optional(), z.literal('')]);
 }
@@ -560,29 +560,29 @@ import { z } from '#/adapter/form';
   rules: z.string().email().or(z.literal('')).optional();
 }
 
-// 复杂校验
+// Kiểm tra phức tạp
 {
   z.string()
-    .min(1, { message: '请输入' })
+    .min(1, { message: 'Vui lòng nhập' })
     .refine((value) => value === '123', {
-      message: '值必须为123',
+      message: 'Giá trị phải là 123',
     });
 }
 ```
 
 ## Slots
 
-可以使用以下插槽在表单中插入自定义的内容
+Có thể sử dụng các slot sau để chèn nội dung tùy chỉnh vào biểu mẫu
 
-| 插槽名        | 描述               |
+| Tên slot        | Mô tả               |
 | ------------- | ------------------ |
-| reset-before  | 重置按钮之前的位置 |
-| submit-before | 提交按钮之前的位置 |
-| expand-before | 展开按钮之前的位置 |
-| expand-after  | 展开按钮之后的位置 |
+| reset-before  | Vị trí trước nút đặt lại |
+| submit-before | Vị trí trước nút gửi |
+| expand-before | Vị trí trước nút mở rộng |
+| expand-after  | Vị trí sau nút mở rộng |
 
-::: tip 字段插槽
+::: tip Slot trường
 
-除了以上内置插槽之外，`schema`属性中每个字段的`fieldName`都可以作为插槽名称，这些字段插槽的优先级高于`component`定义的组件。也就是说，当提供了与`fieldName`同名的插槽时，这些插槽的内容将会作为这些字段的组件，此时`component`的值将会被忽略。
+Ngoài các slot tích hợp sẵn ở trên, mỗi trường trong thuộc tính `schema` với `fieldName` đều có thể dùng làm tên slot, các slot trường này có độ ưu tiên cao hơn component được định nghĩa bởi `component`. Nói cách khác, khi cung cấp slot có cùng tên với `fieldName`, nội dung của các slot này sẽ trở thành component của các trường đó, lúc này giá trị của `component` sẽ bị bỏ qua.
 
 :::

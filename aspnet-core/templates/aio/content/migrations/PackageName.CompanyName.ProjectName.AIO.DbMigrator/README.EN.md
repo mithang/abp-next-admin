@@ -2,7 +2,7 @@
 
 Single application database migration tool for automatically executing database migrations and initializing data.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

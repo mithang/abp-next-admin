@@ -1,6 +1,6 @@
 # LINGYUN.Abp.BlobStoring.Nexus
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 A BLOB storage provider based on Sonatype Nexus.
 

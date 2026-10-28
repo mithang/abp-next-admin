@@ -1,52 +1,52 @@
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信消息载体类型
+/// Loại nội dung tin nhắn WeChat Work
 /// </summary>
 /// <remarks>
-/// 显式声明渠道数据的形态, 替代旧实现中"按字段逐个探测"的隐式优先级,
-/// 生产者也因此可以明确表达自己的意图。
+/// Khai báo tường minh hình thái dữ liệu của kênh, thay cho mức độ ưu tiên ngầm định trong cách triển khai cũ là "dò từng trường một",
+/// Nhờ đó phía sản xuất (producer) cũng có thể thể hiện rõ ràng ý định của mình.
 /// </remarks>
 public enum WeChatWorkMessageKind
 {
     /// <summary>
-    /// 未指定, 由渠道按内容类型推导
+    /// Chưa chỉ định, kênh sẽ suy ra theo loại nội dung
     /// </summary>
     None = 0,
     /// <summary>
-    /// 小程序通知消息
+    /// Tin nhắn thông báo mini-program
     /// </summary>
     MiniProgramNotice = 1,
     /// <summary>
-    /// 图文消息(mpnews)
+    /// Tin nhắn hình ảnh - văn bản (mpnews)
     /// </summary>
     MpNews = 2,
     /// <summary>
-    /// 模板卡片消息
+    /// Tin nhắn thẻ mẫu
     /// </summary>
     TemplateCard = 3,
     /// <summary>
-    /// 文本卡片消息
+    /// Tin nhắn thẻ văn bản
     /// </summary>
     TextCard = 4,
     /// <summary>
-    /// 视频消息
+    /// Tin nhắn video
     /// </summary>
     Video = 5,
     /// <summary>
-    /// 语音消息
+    /// Tin nhắn thoại
     /// </summary>
     Voice = 6,
     /// <summary>
-    /// 文件消息
+    /// Tin nhắn tệp
     /// </summary>
     File = 7,
     /// <summary>
-    /// 文本消息
+    /// Tin nhắn văn bản
     /// </summary>
     Text = 8,
     /// <summary>
-    /// markdown消息
+    /// Tin nhắn markdown
     /// </summary>
     Markdown = 9
 }

@@ -11,7 +11,7 @@ using IdentityOptions = Microsoft.AspNetCore.Identity.IdentityOptions;
 namespace PackageName.CompanyName.ProjectName.AIO.Host.Pages.Account
 {
     /// <summary>
-    /// 重写登录模型,实现双因素登录
+    /// Ghi đè model đăng nhập, triển khai đăng nhập hai yếu tố
     /// </summary>
     [Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(LoginModel), typeof(OpenIddictSupportedLoginModel))]
@@ -51,7 +51,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.Pages.Account
 
         protected override Task<IActionResult> TwoFactorLoginResultAsync()
         {
-            // 重定向双因素认证页面
+            // Chuyển hướng tới trang xác thực hai yếu tố
             return Task.FromResult<IActionResult>(RedirectToPage("SendCode", new
             {
                 returnUrl = ReturnUrl,

@@ -1,14 +1,14 @@
 <!--
- * @Description: 使用vbenForm的功能进行渲染
+ * @Description: Render bằng chức năng của vbenForm
 -->
 <template>
   <Modal
-    title="预览(不支持布局)"
+    title="Xem trước (không hỗ trợ bố cục)"
     :visible="state.visible"
     @ok="handleGetData"
     @cancel="handleCancel"
-    okText="获取数据"
-    cancelText="关闭"
+    okText="Lấy dữ liệu"
+    cancelText="Đóng"
     style="top: 20px"
     :destroyOnClose="true"
     :width="900"
@@ -41,20 +41,20 @@
     } as Recordable;
   });
   /**
-   * 显示Json数据弹框
+   * Hiển thị hộp thoại dữ liệu Json
    * @param jsonData
    */
   const showModal = (jsonData: IFormConfig) => {
     state.formConfig = jsonData;
     state.visible = true;
   };
-  //表单
+  //Form
   const [registerForm, { validate }] = useForm();
   const handleCancel = () => {
     state.visible = false;
   };
   /**
-   * 获取表单数据
+   * Lấy dữ liệu form
    * @return {Promise<void>}
    */
   const handleGetData = async () => {

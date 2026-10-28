@@ -53,4 +53,4 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 
 ## More Information
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Việt](./README.md)

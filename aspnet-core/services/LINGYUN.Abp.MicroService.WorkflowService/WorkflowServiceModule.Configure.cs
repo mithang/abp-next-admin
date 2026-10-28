@@ -20,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -83,7 +84,7 @@ public partial class WorkflowServiceModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别
+            // Phân biệt bằng cổng mở
             options.SnowflakeIdOptions.WorkerId = 29;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -117,7 +118,7 @@ public partial class WorkflowServiceModule
     {
         PreConfigure<AbpQuartzOptions>(options =>
         {
-            // 如果使用持久化存储, 则配置quartz持久层
+            // Nếu dùng lưu trữ bền vững thì cấu hình tầng bền vững của Quartz
             if (configuration.GetSection("Quartz:UsePersistentStore").Get<bool>())
             {
                 var settings = configuration.GetSection("Quartz:Properties").Get<Dictionary<string, string>>();
@@ -191,7 +192,7 @@ public partial class WorkflowServiceModule
 
     private void ConfigureEndpoints(IServiceCollection services)
     {
-        // 不需要
+        // Không cần
         //Configure<AbpEndpointRouterOptions>(options =>
         //{
         //    options.EndpointConfigureActions.Add(
@@ -239,7 +240,7 @@ public partial class WorkflowServiceModule
 
     private void ConfigureDbContext()
     {
-        // 配置Ef
+        // Cấu hình EF
         Configure<AbpDbContextOptions>(options =>
         {
             options.UseMySQL(mysql =>
@@ -252,7 +253,7 @@ public partial class WorkflowServiceModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -261,7 +262,7 @@ public partial class WorkflowServiceModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hóa serialize tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -270,10 +271,10 @@ public partial class WorkflowServiceModule
 
     private void ConfigureExceptionHandling()
     {
-        // 自定义需要处理的异常
+        // Tùy chỉnh các exception cần xử lý
         Configure<AbpExceptionHandlingOptions>(options =>
         {
-            //  加入需要处理的异常类型
+            //  Thêm các loại exception cần xử lý
             options.Handlers.Add<Volo.Abp.Data.AbpDbConcurrencyException>();
             options.Handlers.Add<AbpInitializationException>();
             options.Handlers.Add<OutOfMemoryException>();
@@ -281,13 +282,13 @@ public partial class WorkflowServiceModule
             options.Handlers.Add<Microsoft.EntityFrameworkCore.DbUpdateException>();
             options.Handlers.Add<System.Data.DBConcurrencyException>();
         });
-        // 自定义需要发送邮件通知的异常类型
+        // Tùy chỉnh các loại exception cần gửi email thông báo
         Configure<AbpEmailExceptionHandlingOptions>(options =>
         {
-            // 是否发送堆栈信息
+            // Có gửi thông tin stack trace hay không
             options.SendStackTrace = true;
-            // 未指定异常接收者的默认接收邮件
-            // 指定自己的邮件地址
+            // Email nhận mặc định khi chưa chỉ định người nhận exception
+            // Chỉ định địa chỉ email của mình
         });
     }
 
@@ -296,7 +297,7 @@ public partial class WorkflowServiceModule
         Configure<AbpAuditingOptions>(options =>
         {
             options.ApplicationName = ApplicationName;
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -344,7 +345,24 @@ public partial class WorkflowServiceModule
             });
         });
 
-        services.AddHealthChecks();
+        // DEVOPS iter-0006 (DEV-11): /healthz truoc day tro trui (AddHealthChecks()
+        // khong check nao) nen luon 200 ke ca khi DB/Redis chet. Dang ky check
+        // dependency that tai day; xem HealthChecks/WorkflowServiceHealthChecks.cs. Quet DbContext tu
+        // IServiceCollection: ABP chay ConfigureServices cua module phu thuoc truoc
+        // module host, nen luc ConfigureMvc chay thi cac DbContext da duoc dang ky.
+        var dbContextTypes = services
+            .Where(s => s.ServiceType.IsClass && !s.ServiceType.IsAbstract
+                && typeof(DbContext).IsAssignableFrom(s.ServiceType))
+            .Select(s => s.ServiceType)
+            .Distinct()
+            .ToList();
+        services.AddSingleton(sp => new HealthChecks.DatabaseHealthCheck(
+            dbContextTypes,
+            sp.GetRequiredService<IServiceScopeFactory>(),
+            sp.GetService<ILogger<HealthChecks.DatabaseHealthCheck>>()));
+        services.AddHealthChecks()
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database")
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 
     private void ConfigureVirtualFileSystem()
@@ -357,7 +375,7 @@ public partial class WorkflowServiceModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa tenant
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -420,7 +438,7 @@ public partial class WorkflowServiceModule
                         var controllerNamespace = methodInfo.DeclaringType?.Namespace;
                         if (controllerNamespace?.StartsWith("Elsa") == true)
                         {
-                            // TODO: Elsa 2.x 使用 Swashbuckle 6.x版本不兼容, 忽略Swagger文档
+                            // TODO: Elsa 2.x dùng Swashbuckle 6.x không tương thích, bỏ qua tài liệu Swagger
                             return false;
                         }
                     }
@@ -445,11 +463,11 @@ public partial class WorkflowServiceModule
 
     private void ConfigureLocalization()
     {
-        // 支持本地化语言类型
+        // Hỗ trợ các loại ngôn ngữ bản địa hóa
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
         });
 
         Configure<AbpLocalizationCultureMapOptions>(options =>

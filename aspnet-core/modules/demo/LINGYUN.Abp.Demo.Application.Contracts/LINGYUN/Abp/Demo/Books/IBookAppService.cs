@@ -23,7 +23,7 @@ public interface IBookAppService :
 
     Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
     /// <summary>
-    /// 获取实体可访问规则
+    /// Lấy quy tắc truy cập thực thể
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

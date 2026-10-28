@@ -6,16 +6,16 @@ using System.Xml;
 using System.Collections;
 //using System.Web;
 using System.Security.Cryptography;
-//-40001 ： 签名验证错误
-//-40002 :  xml解析失败
-//-40003 :  sha加密生成签名失败
-//-40004 :  AESKey 非法
-//-40005 :  corpid 校验错误
-//-40006 :  AES 加密失败
-//-40007 ： AES 解密失败
-//-40008 ： 解密后得到的buffer非法
-//-40009 :  base64加密异常
-//-40010 :  base64解密异常
+//-40001 ： Lỗi xác minh chữ ký
+//-40002 :  Phân tích xml thất bại
+//-40003 :  Mã hóa sha tạo chữ ký thất bại
+//-40004 :  AESKey không hợp lệ
+//-40005 :  Lỗi kiểm tra corpid
+//-40006 :  Mã hóa AES thất bại
+//-40007 ： Giải mã AES thất bại
+//-40008 ： Buffer thu được sau khi giải mã không hợp lệ
+//-40009 :  Ngoại lệ mã hóa base64
+//-40010 :  Ngoại lệ giải mã base64
 namespace LINGYUN.Abp.WeChat.Common.Utils;
 #nullable disable
 public class WXBizMsgCrypt
@@ -38,10 +38,10 @@ public class WXBizMsgCrypt
         WXBizMsgCrypt_DecodeBase64_Error = -40010
     };
 
-    //构造函数
-    // @param sToken: 企业微信后台，开发者设置的Token
-    // @param sEncodingAESKey: 企业微信后台，开发者设置的EncodingAESKey
-    // @param sReceiveId: 不同场景含义不同，详见文档说明
+    //Hàm khởi tạo
+    // @param sToken: Trang quản trị WeChat Doanh nghiệp, Token do nhà phát triển cài đặt
+    // @param sEncodingAESKey: Trang quản trị WeChat Doanh nghiệp, EncodingAESKey do nhà phát triển cài đặt
+    // @param sReceiveId: Ý nghĩa khác nhau trong các ngữ cảnh khác nhau, xem hướng dẫn tài liệu để biết chi tiết
     public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sReceiveId)
     {
         m_sToken = sToken;
@@ -49,13 +49,13 @@ public class WXBizMsgCrypt
         m_sEncodingAESKey = sEncodingAESKey;
     }
 
-    //验证URL
-    // @param sMsgSignature: 签名串，对应URL参数的msg_signature
-    // @param sTimeStamp: 时间戳，对应URL参数的timestamp
-    // @param sNonce: 随机串，对应URL参数的nonce
-    // @param sEchoStr: 随机串，对应URL参数的echostr
-    // @param sReplyEchoStr: 解密之后的echostr，当return返回0时有效
-    // @return：成功0，失败返回对应的错误码
+    //Xác minh URL
+    // @param sMsgSignature: Chuỗi chữ ký, tương ứng với tham số URL msg_signature
+    // @param sTimeStamp: Dấu thời gian, tương ứng với tham số URL timestamp
+    // @param sNonce: Chuỗi ngẫu nhiên, tương ứng với tham số URL nonce
+    // @param sEchoStr: Chuỗi ngẫu nhiên, tương ứng với tham số URL echostr
+    // @param sReplyEchoStr: echostr sau khi giải mã, có hiệu lực khi return trả về 0
+    // @return：Thành công trả về 0, thất bại trả về mã lỗi tương ứng
     public int VerifyURL(string sMsgSignature, string sTimeStamp, string sNonce, string sEchoStr, ref string sReplyEchoStr)
     {
         var ret = 0;
@@ -87,13 +87,13 @@ public class WXBizMsgCrypt
         return 0;
     }
 
-    // 检验消息的真实性，并且获取解密后的明文
-    // @param sMsgSignature: 签名串，对应URL参数的msg_signature
-    // @param sTimeStamp: 时间戳，对应URL参数的timestamp
-    // @param sNonce: 随机串，对应URL参数的nonce
-    // @param sPostData: 密文，对应POST请求的数据
-    // @param sMsg: 解密后的原文，当return返回0时有效
-    // @return: 成功0，失败返回对应的错误码
+    // Kiểm tra tính xác thực của tin nhắn, và lấy văn bản thuần sau khi giải mã
+    // @param sMsgSignature: Chuỗi chữ ký, tương ứng với tham số URL msg_signature
+    // @param sTimeStamp: Dấu thời gian, tương ứng với tham số URL timestamp
+    // @param sNonce: Chuỗi ngẫu nhiên, tương ứng với tham số URL nonce
+    // @param sPostData: Bản mã, tương ứng với dữ liệu của yêu cầu POST
+    // @param sMsg: Văn bản gốc sau khi giải mã, có hiệu lực khi return trả về 0
+    // @return: Thành công trả về 0, thất bại trả về mã lỗi tương ứng
     public int DecryptMsg(string sMsgSignature, string sTimeStamp, string sNonce, string sPostData, ref string sMsg)
     {
         if (m_sEncodingAESKey.Length != 43)
@@ -139,13 +139,13 @@ public class WXBizMsgCrypt
         return 0;
     }
 
-    //将企业号回复用户的消息加密打包
-    // @param sReplyMsg: 企业号待回复用户的消息，xml格式的字符串
-    // @param sTimeStamp: 时间戳，可以自己生成，也可以用URL参数的timestamp
-    // @param sNonce: 随机串，可以自己生成，也可以用URL参数的nonce
-    // @param sEncryptMsg: 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce, encrypt的xml格式的字符串,
-    //						当return返回0时有效
-    // return：成功0，失败返回对应的错误码
+    //Mã hóa và đóng gói tin nhắn mà tài khoản doanh nghiệp trả lời người dùng
+    // @param sReplyMsg: Tin nhắn mà tài khoản doanh nghiệp chờ trả lời người dùng, chuỗi định dạng xml
+    // @param sTimeStamp: Dấu thời gian, có thể tự tạo, cũng có thể dùng timestamp của tham số URL
+    // @param sNonce: Chuỗi ngẫu nhiên, có thể tự tạo, cũng có thể dùng nonce của tham số URL
+    // @param sEncryptMsg: Bản mã có thể trả lời trực tiếp cho người dùng sau khi mã hóa, bao gồm chuỗi định dạng xml của msg_signature, timestamp, nonce, encrypt,
+    //						có hiệu lực khi return trả về 0
+    // return：Thành công trả về 0, thất bại trả về mã lỗi tương ứng
     public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
     {
         if (m_sEncodingAESKey.Length != 43)

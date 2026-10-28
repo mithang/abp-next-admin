@@ -6,16 +6,16 @@ namespace LINGYUN.Abp.EntityChange;
 public class RestoreEntityInput
 {
     /// <summary>
-    /// 实体标识
+    /// Định danh thực thể
     /// </summary>
     [Required]
     public string EntityId { get; set; } = default!;
     /// <summary>
-    /// 还原到某个版本标识
+    /// Khôi phục về một định danh phiên bản
     /// </summary>
     /// <remarks>
-    /// 注: 当传递此值时, 将还原到指定版本的NewValue
-    /// 否则，还原为最近一次版本的OriginalValue
+    /// Lưu ý: khi truyền giá trị này, sẽ khôi phục về NewValue của phiên bản đã chỉ định
+    /// Ngược lại, khôi phục về OriginalValue của phiên bản gần nhất
     /// </remarks>
     public Guid? EntityChangeId { get; set; }
 }

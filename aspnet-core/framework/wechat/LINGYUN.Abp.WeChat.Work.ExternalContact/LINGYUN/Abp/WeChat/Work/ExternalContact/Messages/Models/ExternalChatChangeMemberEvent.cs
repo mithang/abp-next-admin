@@ -3,27 +3,27 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 客户群成员变更事件推送
+/// Đẩy sự kiện thay đổi thành viên nhóm khách hàng
 /// </summary>
 public abstract class ExternalChatChangeMemberEvent : ExternalChatUpdateEvent
 {
     /// <summary>
-    /// 成员变更数量
+    /// Số lượng thành viên thay đổi
     /// </summary>
     [XmlElement("MemChangeCnt")]
     public int MemChangeCnt { get; set; }
     /// <summary>
-    /// 变更的成员列表
+    /// Danh sách thành viên thay đổi
     /// </summary>
     [XmlElement("MemChangeList")]
     public List<ExternalChatChangeMember> MemChangeList { get; set; } = new List<ExternalChatChangeMember>();
     /// <summary>
-    /// 变更前的群成员版本号
+    /// Số phiên bản thành viên nhóm trước khi thay đổi
     /// </summary>
     [XmlElement("LastMemVer")]
     public string LastMemVer { get; set; } = default!;
     /// <summary>
-    /// 变更后的群成员版本号
+    /// Số phiên bản thành viên nhóm sau khi thay đổi
     /// </summary>
     [XmlElement("CurMemVer")]
     public string CurMemVer { get; set; } = default!;
@@ -32,7 +32,7 @@ public abstract class ExternalChatChangeMemberEvent : ExternalChatUpdateEvent
 public class ExternalChatChangeMember
 {
     /// <summary>
-    /// 成员Id
+    /// Id thành viên
     /// </summary>
     [XmlElement("Item")]
     public string UserId { get; set; } = default!;

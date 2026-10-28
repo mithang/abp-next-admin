@@ -9,7 +9,7 @@ using Volo.Abp.Identity;
 namespace PackageName.CompanyName.ProjectName.Users
 {
     /// <summary>
-    /// 用户管理服务，用于处理用户的CRUD操作
+    /// Dịch vụ quản lý người dùng, dùng để xử lý các thao tác CRUD của người dùng
     /// </summary>
     public class UserManager : DomainService, IUserManager
     {
@@ -28,14 +28,14 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         /// <summary>
-        /// 创建新用户
+        /// Tạo người dùng mới
         /// </summary>
-        /// <param name="nickName">用户昵称</param>
-        /// <param name="password">用户密码</param>
-        /// <param name="contactInfo">联系方式</param>
-        /// <param name="position">职位</param>
-        /// <param name="isActive">是否启用</param>
-        /// <returns>创建的用户实体</returns>
+        /// <param name="nickName">Biệt danh người dùng</param>
+        /// <param name="password">Mật khẩu người dùng</param>
+        /// <param name="contactInfo">Thông tin liên hệ</param>
+        /// <param name="position">Chức vụ</param>
+        /// <param name="isActive">Có bật hay không</param>
+        /// <returns>Thực thể người dùng đã tạo</returns>
         public async Task<User> CreateAsync(
             string nickName,
             string password,
@@ -43,57 +43,57 @@ namespace PackageName.CompanyName.ProjectName.Users
             string position = null,
             bool isActive = true)
         {
-            // 参数验证
+            // Kiểm tra tham số
             if (string.IsNullOrWhiteSpace(nickName))
             {
-                throw new UserFriendlyException("用户名不能为空");
+                throw new UserFriendlyException("Tên người dùng không được để trống");
             }
 
-            // 密码校验
+            // Kiểm tra mật khẩu
             if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
             {
-                throw new UserFriendlyException("密码不能为空且长度不能少于6位");
+                throw new UserFriendlyException("Mật khẩu không được để trống và độ dài không được dưới 6 ký tự");
             }
 
-            // 检查用户昵称是否已存在
+            // Kiểm tra biệt danh người dùng đã tồn tại hay chưa
             var existingUser = await _userRepository.FindAsync(u => u.NickName == nickName);
             if (existingUser != null)
             {
-                throw new UserFriendlyException($"昵称为 '{nickName}' 的用户已存在");
+                throw new UserFriendlyException($"Người dùng có biệt danh '{nickName}' đã tồn tại");
             }
 
-            // 创建Identity用户
+            // Tạo người dùng Identity
             var identityUser = new IdentityUser(GuidGenerator.Create(), nickName, $"{nickName}@inspection.com");
             var identityResult = await _identityUserManager.CreateAsync(identityUser, password);
             if (!identityResult.Succeeded)
             {
-                throw new UserFriendlyException("创建用户失败: " +
+                throw new UserFriendlyException("Tạo người dùng thất bại: " +
                                                 string.Join(", ", identityResult.Errors.Select(x => x.Description)));
             }
 
-            // 设置用户状态
+            // Đặt trạng thái người dùng
             if (!isActive)
             {
                 var lockoutResult = await _identityUserManager.SetLockoutEndDateAsync(identityUser, DateTimeOffset.MaxValue);
                 if (!lockoutResult.Succeeded)
                 {
-                    throw new UserFriendlyException("设置用户状态失败: " +
+                    throw new UserFriendlyException("Đặt trạng thái người dùng thất bại: " +
                         string.Join(", ", lockoutResult.Errors.Select(e => e.Description)));
                 }
             }
             else
             {
-                // 确保用户处于活动状态
+                // Đảm bảo người dùng đang ở trạng thái hoạt động
                 await _identityUserManager.SetLockoutEnabledAsync(identityUser, false);
                 var lockoutResult = await _identityUserManager.SetLockoutEndDateAsync(identityUser, null);
                 if (!lockoutResult.Succeeded)
                 {
-                    throw new UserFriendlyException("设置用户状态失败: " +
+                    throw new UserFriendlyException("Đặt trạng thái người dùng thất bại: " +
                         string.Join(", ", lockoutResult.Errors.Select(e => e.Description)));
                 }
             }
 
-            // 创建业务用户
+            // Tạo người dùng nghiệp vụ
             var user = new User(
                 GuidGenerator.Create(),
                 nickName,
@@ -102,24 +102,24 @@ namespace PackageName.CompanyName.ProjectName.Users
                 position
             );
 
-            // 保存用户
+            // Lưu người dùng
             await _userRepository.InsertAsync(user, true);
 
-            _logger.LogInformation($"创建了新用户：{nickName}，ID：{user.Id}");
+            _logger.LogInformation($"Đã tạo người dùng mới: {nickName}, ID: {user.Id}");
 
             return user;
         }
 
         /// <summary>
-        /// 更新用户信息
+        /// Cập nhật thông tin người dùng
         /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <param name="nickName">用户昵称</param>
-        /// <param name="password">用户密码（可选，如不修改则传入null）</param>
-        /// <param name="contactInfo">联系方式</param>
-        /// <param name="position">职位</param>
-        /// <param name="isActive">是否启用</param>
-        /// <returns>更新后的用户实体</returns>
+        /// <param name="id">ID người dùng</param>
+        /// <param name="nickName">Biệt danh người dùng</param>
+        /// <param name="password">Mật khẩu người dùng (tùy chọn, nếu không sửa thì truyền null)</param>
+        /// <param name="contactInfo">Thông tin liên hệ</param>
+        /// <param name="position">Chức vụ</param>
+        /// <param name="isActive">Có bật hay không</param>
+        /// <returns>Thực thể người dùng sau khi cập nhật</returns>
         public async Task<User> UpdateAsync(
             Guid id,
             string nickName,
@@ -128,7 +128,7 @@ namespace PackageName.CompanyName.ProjectName.Users
             string position = null,
             bool isActive = true)
         {
-            // 最大重试次数
+            // Số lần thử lại tối đa
             const int maxRetries = 3;
             int retryCount = 0;
 
@@ -136,103 +136,103 @@ namespace PackageName.CompanyName.ProjectName.Users
             {
                 try
                 {
-                    // 每次尝试时重新获取最新的用户数据
+                    // Mỗi lần thử lại lấy lại dữ liệu người dùng mới nhất
                     var user = await _userRepository.GetAsync(id, false);
                     if (user == null)
                     {
-                        throw new UserFriendlyException("用户不存在");
+                        throw new UserFriendlyException("Người dùng không tồn tại");
                     }
                     
-                    // 检查用户昵称是否已被其他用户使用
+                    // Kiểm tra biệt danh người dùng đã bị người dùng khác sử dụng hay chưa
                     var existingUser = await _userRepository.FindAsync(u => u.NickName == nickName && u.Id != id);
                     if (existingUser != null)
                     {
-                        throw new UserFriendlyException($"昵称为 '{nickName}' 的用户已存在");
+                        throw new UserFriendlyException($"Người dùng có biệt danh '{nickName}' đã tồn tại");
                     }
 
-                    // 更新Identity用户
+                    // Cập nhật người dùng Identity
                     var identityUser = await _identityUserManager.FindByIdAsync(user.IdentityUserId.ToString());
                     if (identityUser == null)
                     {
-                        throw new UserFriendlyException("Identity用户不存在");
+                        throw new UserFriendlyException("Người dùng Identity không tồn tại");
                     }
 
-                    // 更新用户名
+                    // Cập nhật tên người dùng
                     var usernameResult = await _identityUserManager.SetUserNameAsync(identityUser, nickName);
                     if (!usernameResult.Succeeded)
                     {
-                        throw new UserFriendlyException("更新用户名失败: " +
+                        throw new UserFriendlyException("Cập nhật tên người dùng thất bại: " +
                             string.Join(", ", usernameResult.Errors.Select(e => e.Description)));
                     }
 
-                    // 更新电子邮件
+                    // Cập nhật email
                     var emailResult = await _identityUserManager.SetEmailAsync(identityUser, $"{nickName}@inspection.com");
                     if (!emailResult.Succeeded)
                     {
-                        throw new UserFriendlyException("更新电子邮件失败: " +
+                        throw new UserFriendlyException("Cập nhật email thất bại: " +
                             string.Join(", ", emailResult.Errors.Select(e => e.Description)));
                     }
 
-                    // 如果提供了新密码，则更新密码
+                    // Nếu đã cung cấp mật khẩu mới thì cập nhật mật khẩu
                     if (!string.IsNullOrEmpty(password))
                     {
-                        // 移除当前密码
+                        // Xóa mật khẩu hiện tại
                         await _identityUserManager.RemovePasswordAsync(identityUser);
-                        // 设置新密码
+                        // Đặt mật khẩu mới
                         var passwordResult = await _identityUserManager.AddPasswordAsync(identityUser, password);
                         if (!passwordResult.Succeeded)
                         {
-                            throw new UserFriendlyException("更新密码失败: " +
+                            throw new UserFriendlyException("Cập nhật mật khẩu thất bại: " +
                                 string.Join(", ", passwordResult.Errors.Select(e => e.Description)));
                         }
                     }
 
-                    // 设置用户状态
+                    // Đặt trạng thái người dùng
                     await SetUserActiveStatusAsync(id, isActive);
 
-                    // 更新用户信息
+                    // Cập nhật thông tin người dùng
                     user.NickName = nickName;
                     user.ContactInfo = contactInfo;
                     user.Position = position;
 
-                    // 保存更新
+                    // Lưu cập nhật
                     await _userRepository.UpdateAsync(user, true);
 
-                    _logger.LogInformation($"更新了用户信息：{nickName}，ID：{user.Id}");
+                    _logger.LogInformation($"Đã cập nhật thông tin người dùng: {nickName}, ID: {user.Id}");
 
                     return user;
                 }
                 catch (Volo.Abp.Data.AbpDbConcurrencyException ex)
                 {
-                    // 增加重试计数
+                    // Tăng bộ đếm thử lại
                     retryCount++;
 
-                    // 如果达到最大重试次数，则抛出用户友好的异常
+                    // Nếu đạt số lần thử lại tối đa thì ném ngoại lệ thân thiện với người dùng
                     if (retryCount >= maxRetries)
                     {
                         throw new UserFriendlyException(
-                            "更新用户信息失败：数据已被其他用户修改。请刷新页面后重试。",
+                            "Cập nhật thông tin người dùng thất bại: dữ liệu đã bị người dùng khác sửa đổi. Vui lòng làm mới trang rồi thử lại.",
                             "409", ex.Message,
                             ex);
                     }
 
-                    // 短暂延迟后重试
-                    await Task.Delay(100 * retryCount); // 逐步增加延迟时间
+                    // Chờ một lúc rồi thử lại
+                    await Task.Delay(100 * retryCount); // Tăng dần thời gian chờ
 
-                    // 记录重试信息
-                    _logger.LogWarning($"检测到用户[{id}]更新时发生并发冲突，正在进行第{retryCount}次重试...");
+                    // Ghi lại thông tin thử lại
+                    _logger.LogWarning($"Phát hiện xung đột đồng thời khi người dùng [{id}] cập nhật, đang thực hiện lần thử lại thứ {retryCount}...");
                 }
             }
         }
 
         /// <summary>
-        /// 删除用户
+        /// Xóa người dùng
         /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <returns>操作任务</returns>
+        /// <param name="id">ID người dùng</param>
+        /// <returns>Tác vụ thao tác</returns>
         public async Task DeleteAsync(Guid id)
         {
-            // 最大重试次数
+            // Số lần thử lại tối đa
             const int maxRetries = 3;
             int retryCount = 0;
 
@@ -240,210 +240,210 @@ namespace PackageName.CompanyName.ProjectName.Users
             {
                 try
                 {
-                    // 每次尝试时重新获取最新的用户数据
+                    // Mỗi lần thử lại lấy lại dữ liệu người dùng mới nhất
                     var user = await _userRepository.GetAsync(id);
                     if (user == null)
                     {
-                        _logger.LogWarning($"尝试删除不存在的用户，ID：{id}");
-                        return; // 如果用户不存在，就不再继续处理
+                        _logger.LogWarning($"Đang thử xóa người dùng không tồn tại, ID: {id}");
+                        return; // Nếu người dùng không tồn tại thì không tiếp tục xử lý nữa
                     }
 
-                    // 删除Identity用户
+                    // Xóa người dùng Identity
                     var identityUser = await _identityUserManager.FindByIdAsync(user.IdentityUserId.ToString());
                     if (identityUser != null)
                     {
                         var result = await _identityUserManager.DeleteAsync(identityUser);
                         if (!result.Succeeded)
                         {
-                            throw new UserFriendlyException("删除Identity用户失败: " +
+                            throw new UserFriendlyException("Xóa người dùng Identity thất bại: " +
                                 string.Join(", ", result.Errors.Select(e => e.Description)));
                         }
                     }
 
-                    // 删除用户
+                    // Xóa người dùng
                     await _userRepository.DeleteAsync(user);
 
-                    _logger.LogInformation($"删除了用户，ID：{id}");
+                    _logger.LogInformation($"Đã xóa người dùng, ID: {id}");
                     return;
                 }
                 catch (Volo.Abp.Data.AbpDbConcurrencyException ex)
                 {
-                    // 增加重试计数
+                    // Tăng bộ đếm thử lại
                     retryCount++;
 
-                    // 如果达到最大重试次数，则抛出用户友好的异常
+                    // Nếu đạt số lần thử lại tối đa thì ném ngoại lệ thân thiện với người dùng
                     if (retryCount >= maxRetries)
                     {
                         throw new UserFriendlyException(
-                            "删除用户失败：数据已被其他用户修改。请刷新页面后重试。",
+                            "Xóa người dùng thất bại: dữ liệu đã bị người dùng khác sửa đổi. Vui lòng làm mới trang rồi thử lại.",
                             "409", ex.Message,
                             ex);
                     }
 
-                    // 短暂延迟后重试
-                    await Task.Delay(100 * retryCount); // 逐步增加延迟时间
+                    // Chờ một lúc rồi thử lại
+                    await Task.Delay(100 * retryCount); // Tăng dần thời gian chờ
 
-                    // 记录重试信息
-                    _logger.LogWarning($"检测到用户[{id}]删除时发生并发冲突，正在进行第{retryCount}次重试...");
+                    // Ghi lại thông tin thử lại
+                    _logger.LogWarning($"Phát hiện xung đột đồng thời khi người dùng [{id}] xóa, đang thực hiện lần thử lại thứ {retryCount}...");
                 }
             }
         }
 
         /// <summary>
-        /// 修改用户密码
+        /// Đổi mật khẩu người dùng
         /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <param name="currentPassword">当前密码</param>
-        /// <param name="newPassword">新密码</param>
-        /// <returns>操作结果</returns>
+        /// <param name="id">ID người dùng</param>
+        /// <param name="currentPassword">Mật khẩu hiện tại</param>
+        /// <param name="newPassword">Mật khẩu mới</param>
+        /// <returns>Kết quả thao tác</returns>
         public async Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword)
         {
             if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 6)
             {
-                throw new UserFriendlyException("新密码不能为空且长度不能少于6位");
+                throw new UserFriendlyException("Mật khẩu mới không được để trống và độ dài không được dưới 6 ký tự");
             }
 
-            // 获取用户
+            // Lấy người dùng
             var user = await _userRepository.GetAsync(id);
             if (user == null)
             {
-                throw new UserFriendlyException("用户不存在");
+                throw new UserFriendlyException("Người dùng không tồn tại");
             }
 
-            // 获取Identity用户
+            // Lấy người dùng Identity
             var identityUser = await _identityUserManager.FindByIdAsync(user.IdentityUserId.ToString());
             if (identityUser == null)
             {
-                throw new UserFriendlyException("Identity用户不存在");
+                throw new UserFriendlyException("Người dùng Identity không tồn tại");
             }
 
-            // 修改密码
+            // Đổi mật khẩu
             var result = await _identityUserManager.ChangePasswordAsync(identityUser, currentPassword, newPassword);
             if (!result.Succeeded)
             {
-                throw new UserFriendlyException("修改密码失败: " +
+                throw new UserFriendlyException("Đổi mật khẩu thất bại: " +
                     string.Join(", ", result.Errors.Select(e => e.Description)));
             }
 
-            _logger.LogInformation($"用户[{user.NickName}]成功修改了密码");
+            _logger.LogInformation($"Người dùng [{user.NickName}] đã đổi mật khẩu thành công");
         }
 
         /// <summary>
-        /// 重置用户密码（管理员操作）
+        /// Đặt lại mật khẩu người dùng (thao tác của quản trị viên)
         /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <param name="newPassword">新密码</param>
-        /// <returns>操作结果</returns>
+        /// <param name="id">ID người dùng</param>
+        /// <param name="newPassword">Mật khẩu mới</param>
+        /// <returns>Kết quả thao tác</returns>
         public async Task ResetPasswordAsync(Guid id, string newPassword)
         {
             if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 6)
             {
-                throw new UserFriendlyException("新密码不能为空且长度不能少于6位");
+                throw new UserFriendlyException("Mật khẩu mới không được để trống và độ dài không được dưới 6 ký tự");
             }
 
-            // 获取用户
+            // Lấy người dùng
             var user = await _userRepository.GetAsync(id);
             if (user == null)
             {
-                throw new UserFriendlyException("用户不存在");
+                throw new UserFriendlyException("Người dùng không tồn tại");
             }
 
-            // 获取Identity用户
+            // Lấy người dùng Identity
             var identityUser = await _identityUserManager.FindByIdAsync(user.IdentityUserId.ToString());
             if (identityUser == null)
             {
-                throw new UserFriendlyException("Identity用户不存在");
+                throw new UserFriendlyException("Người dùng Identity không tồn tại");
             }
 
-            // 生成重置令牌
+            // Tạo mã thông báo đặt lại
             var token = await _identityUserManager.GeneratePasswordResetTokenAsync(identityUser);
 
-            // 重置密码
+            // Đặt lại mật khẩu
             var result = await _identityUserManager.ResetPasswordAsync(identityUser, token, newPassword);
             if (!result.Succeeded)
             {
-                throw new UserFriendlyException("重置密码失败: " +
+                throw new UserFriendlyException("Đặt lại mật khẩu thất bại: " +
                     string.Join(", ", result.Errors.Select(e => e.Description)));
             }
 
-            _logger.LogInformation($"管理员重置了用户[{user.NickName}]的密码");
+            _logger.LogInformation($"Quản trị viên đã đặt lại mật khẩu của người dùng [{user.NickName}]");
         }
 
         /// <summary>
-        /// 获取用户信息
+        /// Lấy thông tin người dùng
         /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <returns>用户实体</returns>
+        /// <param name="id">ID người dùng</param>
+        /// <returns>Thực thể người dùng</returns>
         public async Task<User> GetAsync(Guid id)
         {
             return await _userRepository.GetAsync(id);
         }
 
         /// <summary>
-        /// 根据Identity用户ID获取用户
+        /// Lấy người dùng theo ID người dùng Identity
         /// </summary>
-        /// <param name="identityUserId">Identity用户ID</param>
-        /// <returns>用户实体，如果不存在则返回null</returns>
+        /// <param name="identityUserId">ID người dùng Identity</param>
+        /// <returns>Thực thể người dùng, nếu không tồn tại thì trả về null</returns>
         public async Task<User> FindByIdentityUserIdAsync(Guid identityUserId)
         {
             return await _userRepository.FindAsync(u => u.IdentityUserId == identityUserId);
         }
 
         /// <summary>
-        /// 根据用户昵称查找用户
+        /// Tìm người dùng theo biệt danh người dùng
         /// </summary>
-        /// <param name="nickName">用户昵称</param>
-        /// <returns>用户实体，如果不存在则返回null</returns>
+        /// <param name="nickName">Biệt danh người dùng</param>
+        /// <returns>Thực thể người dùng, nếu không tồn tại thì trả về null</returns>
         public async Task<User> FindByNickNameAsync(string nickName)
         {
             return await _userRepository.FindAsync(u => u.NickName == nickName);
         }
 
         /// <summary>
-        /// 禁用或启用用户
+        /// Vô hiệu hóa hoặc bật người dùng
         /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <param name="isActive">是否启用</param>
-        /// <returns>操作任务</returns>
+        /// <param name="id">ID người dùng</param>
+        /// <param name="isActive">Có bật hay không</param>
+        /// <returns>Tác vụ thao tác</returns>
         public async Task SetUserActiveStatusAsync(Guid id, bool isActive)
         {
-            // 获取用户
+            // Lấy người dùng
             var user = await _userRepository.GetAsync(id);
             if (user == null)
             {
-                throw new UserFriendlyException("用户不存在");
+                throw new UserFriendlyException("Người dùng không tồn tại");
             }
 
-            // 获取Identity用户
+            // Lấy người dùng Identity
             var identityUser = await _identityUserManager.FindByIdAsync(user.IdentityUserId.ToString());
             if (identityUser == null)
             {
-                throw new UserFriendlyException("Identity用户不存在");
+                throw new UserFriendlyException("Người dùng Identity không tồn tại");
             }
 
-            // 设置用户状态
+            // Đặt trạng thái người dùng
             if (isActive)
             {
-                // 启用用户
+                // Bật người dùng
                 var result = await _identityUserManager.SetLockoutEndDateAsync(identityUser, null);
                 if (!result.Succeeded)
                 {
-                    throw new UserFriendlyException($"启用用户失败: " +
+                    throw new UserFriendlyException($"Bật người dùng thất bại: " +
                         string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
             }
             else
             {
-                // 禁用用户（设置永久锁定）
+                // Vô hiệu hóa người dùng (đặt khóa vĩnh viễn)
                 var result = await _identityUserManager.SetLockoutEndDateAsync(identityUser, DateTimeOffset.MaxValue);
                 if (!result.Succeeded)
                 {
-                    throw new UserFriendlyException($"禁用用户失败: " +
+                    throw new UserFriendlyException($"Vô hiệu hóa người dùng thất bại: " +
                         string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
             }
 
-            _logger.LogInformation($"已{(isActive ? "启用" : "禁用")}用户[{user.NickName}]");
+            _logger.LogInformation($"Đã {(isActive ? "bật" : "vô hiệu hóa")} người dùng [{user.NickName}]");
         }
     }
 }

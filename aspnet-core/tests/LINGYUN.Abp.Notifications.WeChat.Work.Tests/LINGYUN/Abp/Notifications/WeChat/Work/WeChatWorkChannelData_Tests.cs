@@ -6,24 +6,24 @@ using Xunit;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信应用消息渠道数据测试
+/// Kiểm thử dữ liệu kênh tin nhắn ứng dụng WeChat Doanh nghiệp
 /// </summary>
 /// <remarks>
-/// 统一写法: 先 new 消息对象 → 通过 <c>IJsonSerializer</c> 序列化写入通知数据 →
-/// 再用渠道侧解析器验证还原结果。
+/// Cách viết thống nhất: trước tiên new đối tượng tin nhắn → qua <c>IJsonSerializer</c> tuần tự hóa ghi vào dữ liệu thông báo →
+/// rồi dùng bộ phân tích phía kênh để xác thực kết quả khôi phục.
 /// </remarks>
 public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
 {
-    // ---------- 文本卡片 ----------
+    // ---------- Thẻ văn bản ----------
 
     [Fact]
     public void Should_Resolve_TextCard_Message()
     {
         var message = new TextCardMessage(
-            title: "审批通过",
-            description: "您的请假申请已通过",
+            title: "Đã phê duyệt",
+            description: "Đơn xin nghỉ phép của bạn đã được phê duyệt",
             url: "https://example.com/leave/123",
-            buttonText: "去查看");
+            buttonText: "Đi xem");
 
         var payload = ChannelDataResolver.Resolve<WeChatWorkTextCardChannelData>(
             WriteChannelData(new WeChatWorkTextCardChannelData { TextCard = message }));
@@ -31,7 +31,7 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         payload.ShouldNotBeNull();
         payload!.TextCard.ShouldNotBeNull();
 
-        // 渠道侧还原出的消息必须与生产者 new 出来的对象逐字段一致
+        // Tin nhắn được khôi phục phía kênh phải khớp từng trường với đối tượng mà bên sản xuất đã new ra
         payload.TextCard!.Title.ShouldBe(message.Title);
         payload.TextCard.Description.ShouldBe(message.Description);
         payload.TextCard.Url.ShouldBe(message.Url);
@@ -41,29 +41,29 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
     [Fact]
     public void Should_Serialize_TextCard_By_Json_Contract()
     {
-        var json = Serialize(new TextCardMessage("标题", "描述", "https://example.com"));
+        var json = Serialize(new TextCardMessage("Tiêu đề", "Mô tả", "https://example.com"));
 
-        // 序列化契约: 字段名必须是企业微信要求的 snake_case
+        // Hợp đồng tuần tự hóa: tên trường phải là snake_case mà WeChat Doanh nghiệp yêu cầu
         json.ShouldContain("\"title\"");
         json.ShouldContain("\"description\"");
         json.ShouldContain("\"url\"");
     }
 
-    // ---------- 小程序通知 ----------
+    // ---------- Thông báo Mini Program ----------
 
     [Fact]
     public void Should_Resolve_MiniProgram_Message()
     {
         var message = new MiniProgramMessage(
             appId: "wx1234567890",
-            title: "订单已发货",
+            title: "Đơn hàng đã gửi",
             page: "pages/order/detail?id=123",
-            description: "点击查看物流详情")
+            description: "Nhấn để xem chi tiết vận chuyển")
         {
             EmphasisFirstItem = true,
             ContentItems = new List<MiniProgramContent>
             {
-                new MiniProgramContent("订单号", "SO20251001001")
+                new MiniProgramContent("Số đơn hàng", "SO20251001001")
             }
         };
 
@@ -73,16 +73,16 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         payload.ShouldNotBeNull();
         payload!.MiniProgram.ShouldNotBeNull();
         payload.MiniProgram!.AppId.ShouldBe("wx1234567890");
-        payload.MiniProgram.Title.ShouldBe("订单已发货");
+        payload.MiniProgram.Title.ShouldBe("Đơn hàng đã gửi");
         payload.MiniProgram.Page.ShouldBe("pages/order/detail?id=123");
         payload.MiniProgram.EmphasisFirstItem.ShouldBe(true);
         payload.MiniProgram.ContentItems.ShouldNotBeNull();
         payload.MiniProgram.ContentItems!.Count.ShouldBe(1);
-        payload.MiniProgram.ContentItems[0].Key.ShouldBe("订单号");
+        payload.MiniProgram.ContentItems[0].Key.ShouldBe("Số đơn hàng");
         payload.MiniProgram.ContentItems[0].Value.ShouldBe("SO20251001001");
     }
 
-    // ---------- 图文消息 ----------
+    // ---------- Tin nhắn hình ảnh-văn bản ----------
 
     [Fact]
     public void Should_Resolve_MpNew_Message()
@@ -90,12 +90,12 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         var message = new MpNewMessagePayload(new List<MpNewMessage>
         {
             new MpNewMessage(
-                title: "月度报告",
+                title: "Báo cáo tháng",
                 thumbMediaId: "MEDIA_ID",
-                content: "<p>报告正文</p>",
-                author: "运营部",
+                content: "<p>Nội dung chính của báo cáo</p>",
+                author: "Bộ phận Vận hành",
                 contentSourceUrl: "https://example.com/report",
-                description: "2025年10月经营月报")
+                description: "Báo cáo kinh doanh tháng 10 năm 2025")
         });
 
         var payload = ChannelDataResolver.Resolve<WeChatWorkMpNewChannelData>(
@@ -106,20 +106,20 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         payload.MpNewMessage!.Articles.Count.ShouldBe(1);
 
         var article = payload.MpNewMessage.Articles[0];
-        article.Title.ShouldBe("月度报告");
+        article.Title.ShouldBe("Báo cáo tháng");
         article.ThumbMediaId.ShouldBe("MEDIA_ID");
-        article.Content.ShouldBe("<p>报告正文</p>");
-        article.Author.ShouldBe("运营部");
+        article.Content.ShouldBe("<p>Nội dung chính của báo cáo</p>");
+        article.Author.ShouldBe("Bộ phận Vận hành");
         article.ContentSourceUrl.ShouldBe("https://example.com/report");
-        article.Description.ShouldBe("2025年10月经营月报");
+        article.Description.ShouldBe("Báo cáo kinh doanh tháng 10 năm 2025");
     }
 
-    // ---------- 视频 / 语音 / 文件 ----------
+    // ---------- Video / Âm thanh / Tệp ----------
 
     [Fact]
     public void Should_Resolve_Video_Message()
     {
-        var message = new VideoMessage("MEDIA_ID", "培训视频", "新人入职培训");
+        var message = new VideoMessage("MEDIA_ID", "Video đào tạo", "Đào tạo nhân viên mới vào làm");
 
         var payload = ChannelDataResolver.Resolve<WeChatWorkVideoChannelData>(
             WriteChannelData(new WeChatWorkVideoChannelData { Video = message }));
@@ -127,8 +127,8 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         payload.ShouldNotBeNull();
         payload!.Video.ShouldNotBeNull();
         payload.Video!.MediaId.ShouldBe("MEDIA_ID");
-        payload.Video.Title.ShouldBe("培训视频");
-        payload.Video.Description.ShouldBe("新人入职培训");
+        payload.Video.Title.ShouldBe("Video đào tạo");
+        payload.Video.Description.ShouldBe("Đào tạo nhân viên mới vào làm");
     }
 
     [Fact]
@@ -157,7 +157,7 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         payload.File!.MediaId.ShouldBe("FILE_MEDIA_ID");
     }
 
-    // ---------- 模板卡片(抽象类型多态) ----------
+    // ---------- Thẻ mẫu (đa hình kiểu trừu tượng) ----------
 
     [Fact]
     public void Should_Resolve_TemplateCard_Message()
@@ -165,8 +165,8 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         var message = new TextTemplateCard(
             new TemplateCardCardAction("https://example.com/approval/123"))
         {
-            MainTitle = new TemplateCardMainTitle("请假通过通知", "您的请假申请已通过"),
-            SubTitle = "请及时处理后续交接事项"
+            MainTitle = new TemplateCardMainTitle("Thông báo phê duyệt nghỉ phép", "Đơn xin nghỉ phép của bạn đã được phê duyệt"),
+            SubTitle = "Vui lòng xử lý kịp thời các việc bàn giao tiếp theo"
         };
 
         var payload = ChannelDataResolver.Resolve<WeChatWorkTemplateCardChannelData>(
@@ -175,33 +175,33 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         payload.ShouldNotBeNull();
         payload!.TemplateCard.ShouldNotBeNull();
 
-        // 抽象基类必须能还原为具体卡片类型
+        // Lớp cơ sở trừu tượng phải có thể khôi phục thành kiểu thẻ cụ thể
         payload.TemplateCard.ShouldBeOfType<TextTemplateCard>();
 
         var card = (TextTemplateCard)payload.TemplateCard!;
-        card.MainTitle!.Title.ShouldBe("请假通过通知");
-        card.SubTitle.ShouldBe("请及时处理后续交接事项");
+        card.MainTitle!.Title.ShouldBe("Thông báo phê duyệt nghỉ phép");
+        card.SubTitle.ShouldBe("Vui lòng xử lý kịp thời các việc bàn giao tiếp theo");
         card.CardAction.Url.ShouldBe("https://example.com/approval/123");
     }
 
-    // ---------- 投递选项与载荷共存 ----------
+    // ---------- Tùy chọn phân phối và payload cùng tồn tại ----------
 
     [Fact]
     public void Should_Resolve_Payload_Along_With_Delivery_Options()
     {
         var data = WriteChannelData(new WeChatWorkTextCardChannelData
         {
-            TextCard = new TextCardMessage("标题", "描述", "https://example.com")
+            TextCard = new TextCardMessage("Tiêu đề", "Mô tả", "https://example.com")
         });
 
         data.TrySetData(WeChatWorkNotificationDataKeys.Safe, true);
         data.TrySetData(WeChatWorkNotificationDataKeys.ToParty, "1|2");
         data.TrySetData(WeChatWorkNotificationDataKeys.DuplicateCheckInterval, 600);
 
-        // 载荷
+        // Payload
         ChannelDataResolver.Resolve<WeChatWorkTextCardChannelData>(data).ShouldNotBeNull();
 
-        // 标量选项
+        // Tùy chọn vô hướng
         ChannelDataResolver.GetValue(data, WeChatWorkNotificationDataKeys.Safe, false).ShouldBeTrue();
         ChannelDataResolver.GetValue(data, WeChatWorkNotificationDataKeys.DuplicateCheckInterval, 1800)
             .ShouldBe(600);
@@ -211,7 +211,7 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
     [Fact]
     public void Should_Require_Only_Its_Own_Key_To_Be_Declared()
     {
-        // 只写一个载荷键, 不得误命中其它载荷类型
+        // Chỉ ghi một khóa payload, không được khớp nhầm sang kiểu payload khác
         var data = WriteChannelData(new WeChatWorkVideoChannelData
         {
             Video = new VideoMessage("MEDIA_ID")
@@ -223,19 +223,19 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
         ChannelDataResolver.IsDeclared(data, typeof(WeChatWorkTemplateCardChannelData)).ShouldBeFalse();
     }
 
-    // ---------- 多个载荷共存: 按 Priority 排序 ----------
+    // ---------- Nhiều payload cùng tồn tại: sắp xếp theo Priority ----------
 
     [Fact]
     public void Should_Resolve_All_Payloads_In_Priority_Order()
     {
         var data = WriteChannelData(new WeChatWorkTextCardChannelData
         {
-            TextCard = new TextCardMessage("标题", "描述", "https://example.com")
+            TextCard = new TextCardMessage("Tiêu đề", "Mô tả", "https://example.com")
         });
-        // 合并另一个载荷(不同键, 互不冲突)
+        // Hợp nhất thêm một payload khác (khóa khác nhau, không xung đột lẫn nhau)
         MergeChannelData(data, new WeChatWorkMiniProgramNoticeChannelData
         {
-            MiniProgram = new MiniProgramMessage("appid", "标题")
+            MiniProgram = new MiniProgramMessage("appid", "Tiêu đề")
         });
 
         var payloads = ChannelDataResolver.Resolve(
@@ -243,7 +243,7 @@ public class WeChatWorkChannelData_Tests : AbpNotificationsWeChatWorkTestsBase
             data);
 
         payloads.Count.ShouldBe(2);
-        // Priority: 小程序通知 100 < 文本卡片 400
+        // Priority: thông báo Mini Program 100 < thẻ văn bản 400
         payloads[0].ShouldBeOfType<WeChatWorkMiniProgramNoticeChannelData>();
         payloads[1].ShouldBeOfType<WeChatWorkTextCardChannelData>();
     }

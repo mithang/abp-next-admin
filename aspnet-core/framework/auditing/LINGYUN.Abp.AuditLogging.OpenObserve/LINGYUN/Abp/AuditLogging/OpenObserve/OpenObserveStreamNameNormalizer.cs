@@ -5,21 +5,21 @@ using Volo.Abp.MultiTenancy;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// OpenObserve 数据流名称规范器
+/// Bộ chuẩn hóa tên luồng dữ liệu OpenObserve
 /// </summary>
 /// <remarks>
-/// 租户数据流形如 <c>audit_log_{tenantId:N}</c>, 宿主(未指定租户)使用基础名称 <c>audit_log</c>。
-/// 写入时显式传入日志自身的租户(审计日志写入发生在后台队列, 当前租户可能已不是产生日志的租户),
-/// 查询时使用当前租户
+/// Luồng dữ liệu của tenant có dạng <c>audit_log_{tenantId:N}</c>, host (không chỉ định tenant) dùng tên cơ sở <c>audit_log</c>.
+/// Khi ghi, truyền tường minh tenant của chính nhật ký (việc ghi nhật ký kiểm toán diễn ra trong hàng đợi nền, tenant hiện tại có thể không còn là tenant đã tạo ra nhật ký),
+/// Khi truy vấn dùng tenant hiện tại
 /// </remarks>
 public class OpenObserveStreamNameNormalizer : IOpenObserveStreamNameNormalizer, ISingletonDependency
 {
     /// <summary>
-    /// 租户分隔符
+    /// Ký tự phân tách tenant
     /// </summary>
     /// <remarks>
-    /// OpenObserve 会把数据流名称中的 <c>-</c> 规范化为 <c>_</c>(实测),
-    /// 因此这里直接使用 <c>_</c>, 避免写入与查询的名称不一致
+    /// OpenObserve sẽ chuẩn hóa <c>-</c> trong tên luồng dữ liệu thành <c>_</c> (theo thực nghiệm),
+    /// Vì vậy ở đây dùng trực tiếp <c>_</c>, tránh tên khi ghi và khi truy vấn không khớp nhau
     /// </remarks>
     public const char TenantSeparator = '_';
 

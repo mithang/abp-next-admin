@@ -36,19 +36,19 @@ public class JobExecutedEvent : JobEventBase<JobExecutedEvent>, ITransientDepend
         job.Result = context.EventData.Result ?? "OK";
         job.Status = JobStatus.Running;
 
-        // 任务异常后可重试
+        // Sau khi job gặp ngoại lệ thì có thể thử lại
         if (context.EventData.Exception != null)
         {
             job.TryCount += 1;
             job.IsAbandoned = false;
             job.Result = GetExceptionMessage(context.EventData.Exception);
 
-            // 周期性任务不用改变重试策略
+            // Job định kỳ không cần thay đổi chính sách thử lại
             if (job.JobType != JobType.Period)
             {
-                // 将任务标记为运行中, 会被轮询重新进入队列
+                // Đánh dấu job là đang chạy, job sẽ được vòng lặp thăm dò đưa trở lại hàng đợi
                 job.Status = JobStatus.FailedRetry;
-                // 多次异常后需要重新计算优先级
+                // Sau nhiều lần gặp ngoại lệ cần tính lại mức ưu tiên
                 if (job.TryCount <= (job.MaxTryCount / 2) &&
                     job.TryCount > (job.MaxTryCount / 3))
                 {
@@ -59,7 +59,7 @@ public class JobExecutedEvent : JobEventBase<JobExecutedEvent>, ITransientDepend
                     job.Priority = JobPriority.Low;
                 }
 
-                // 等待时间调整
+                // Điều chỉnh thời gian chờ
                 if (job.Interval <= 0)
                 {
                     job.Interval = 50;
@@ -69,7 +69,7 @@ public class JobExecutedEvent : JobEventBase<JobExecutedEvent>, ITransientDepend
                 job.Interval = Convert.ToInt32(retryInterval);
             }
 
-            // 当未设置最大重试次数时不会标记停止
+            // Khi chưa đặt số lần thử lại tối đa thì sẽ không đánh dấu dừng
             if (job.MaxTryCount > 0 && job.TryCount >= job.MaxTryCount)
             {
                 job.Status = JobStatus.Stopped;
@@ -79,34 +79,34 @@ public class JobExecutedEvent : JobEventBase<JobExecutedEvent>, ITransientDepend
             }
             else
             {
-                // 周期性作业已经在队列中, 需要忽略
+                // Job định kỳ đã có trong hàng đợi, cần bỏ qua
                 if (job.JobType != JobType.Period)
                 {
-                    // 失败的作业需要由当前节点来调度
+                    // Job thất bại cần được node hiện tại lập lịch
                     await ScheduleJobAsync(context, job, context.EventData.CancellationToken);
                 }
             }
         }
         else
         {
-            // 成功一次重置重试次数
+            // Thành công một lần thì đặt lại số lần thử lại
             job.TryCount = 0;
             var jobCompleted = false;
 
-            // 尝试达到上限则标记已完成
+            // Số lần thử đạt giới hạn thì đánh dấu đã hoàn thành
             if (job.Status == JobStatus.FailedRetry &&
                 job.TryCount >= job.MaxTryCount)
             {
                 jobCompleted = true;
             }
 
-            // 所有任务达到上限则标记已完成
+            // Tất cả các job đạt giới hạn thì đánh dấu đã hoàn thành
             if (job.MaxCount > 0 && job.TriggerCount >= job.MaxCount)
             {
                 jobCompleted = true;
             }
 
-            // 一次性任务执行一次后标记为已完成
+            // Job dùng một lần sau khi thực thi một lần thì đánh dấu đã hoàn thành
             if (job.JobType == JobType.Once)
             {
                 jobCompleted = true;

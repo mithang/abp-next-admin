@@ -1,17 +1,17 @@
 # LINGYUN.Abp.ExceptionHandling
 
-基于abp框架底层的**IExceptionSubscriber**实现二次扩展,用于自定义异常通知方式
+Dựa trên **IExceptionSubscriber** ở tầng thấp của framework ABP để mở rộng lần hai, dùng để tùy chỉnh phương thức thông báo ngoại lệ
 
-## 功能特性
+## Tính năng
 
-* 提供统一的异常处理和通知机制
-* 支持自定义异常处理程序
-* 支持异常通知筛选
-* 支持与其他通知模块集成（如邮件、实时通知等）
+* Cung cấp cơ chế xử lý và thông báo ngoại lệ thống nhất
+* Hỗ trợ trình xử lý ngoại lệ tùy chỉnh
+* Hỗ trợ lọc thông báo ngoại lệ
+* Hỗ trợ tích hợp với các mô-đun thông báo khác (như email, thông báo thời gian thực, v.v.)
 
-## 配置使用
+## Cấu hình và sử dụng
 
-使用前只需配置**AbpExceptionHandlingOptions**定义需要发送通知的异常即可。
+Trước khi sử dụng chỉ cần cấu hình **AbpExceptionHandlingOptions** để định nghĩa các ngoại lệ cần gửi thông báo.
 
 ```csharp
     [DependsOn(
@@ -21,26 +21,26 @@
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            // 自定义需要处理的异常
+            // Tùy chỉnh các ngoại lệ cần xử lý
             Configure<AbpExceptionHandlingOptions>(options =>
             {
-                //  加入需要处理的异常类型
+                // Thêm loại ngoại lệ cần xử lý
                 options.Handlers.Add<AbpException>();
             });
         }
     }
 ```
 
-## 配置项说明
+## Mô tả các mục cấu hình
 
-* `Handlers`: 异常处理程序列表，用于定义需要处理的异常类型
-* `HasNotifierError`: 检查异常是否需要发送通知
+* `Handlers`: Danh sách trình xử lý ngoại lệ, dùng để định nghĩa các loại ngoại lệ cần xử lý
+* `HasNotifierError`: Kiểm tra xem ngoại lệ có cần gửi thông báo hay không
 
-## 扩展模块
+## Mô-đun mở rộng
 
-* [LINGYUN.Abp.ExceptionHandling.Emailing](../LINGYUN.Abp.ExceptionHandling.Emailing/README.md): 异常邮件通知模块
-* [LINGYUN.Abp.ExceptionHandling.Notifications](../../../modules/realtime-notifications/LINGYUN.Abp.ExceptionHandling.Notifications/README.md): 异常实时通知模块
+* [LINGYUN.Abp.ExceptionHandling.Emailing](../LINGYUN.Abp.ExceptionHandling.Emailing/README.md): Mô-đun thông báo ngoại lệ qua email
+* [LINGYUN.Abp.ExceptionHandling.Notifications](../../../modules/realtime-notifications/LINGYUN.Abp.ExceptionHandling.Notifications/README.md): Mô-đun thông báo ngoại lệ thời gian thực
 
-## 更多
+## Thêm
 
-有关更多信息和配置示例，请参阅[文档](https://github.com/colinin/abp-next-admin)。
+Để biết thêm thông tin và ví dụ cấu hình, vui lòng tham khảo [tài liệu](https://github.com/colinin/abp-next-admin)。

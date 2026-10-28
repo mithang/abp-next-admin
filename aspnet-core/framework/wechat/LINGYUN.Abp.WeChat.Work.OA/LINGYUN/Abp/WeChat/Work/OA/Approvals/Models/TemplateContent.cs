@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 模版控件定义
+/// Định nghĩa điều khiển mẫu
 /// </summary>
 public class TemplateContent
 {
     /// <summary>
-    /// 控件数组，模版中可以设置多个控件类型，排列顺序和管理端展示的相同
+    /// Mảng điều khiển, trong mẫu có thể đặt nhiều loại điều khiển, thứ tự sắp xếp giống với hiển thị ở phía quản trị
     /// </summary>
     [NotNull]
     [JsonProperty("controls")]

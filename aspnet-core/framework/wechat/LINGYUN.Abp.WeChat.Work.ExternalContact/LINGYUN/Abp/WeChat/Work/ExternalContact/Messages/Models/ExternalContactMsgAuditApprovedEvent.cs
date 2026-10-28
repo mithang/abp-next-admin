@@ -5,13 +5,13 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 客户同意进行聊天内容存档事件推送
+/// Đẩy sự kiện khách hàng đồng ý lưu trữ nội dung trò chuyện
 /// </summary>
 [EventName("external_contact_msg_audit_approved")]
 public class ExternalContactMsgAuditApprovedEvent : ExternalContactChangeEvent
 {
     /// <summary>
-    /// 欢迎语code，可用于发送欢迎语
+    /// Mã lời chào, có thể dùng để gửi lời chào
     /// </summary>
     [XmlElement("WelcomeCode")]
     public string WelcomeCode { get; set; } = default!;

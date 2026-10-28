@@ -42,7 +42,7 @@ export default function NavVertical(props: Props) {
 	const selectedKeys = useMemo(() => [pathname], [pathname]);
 
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
-	// 首次加载时设置 openKeys
+	// Đặt openKeys khi tải lần đầu
 	useEffect(() => {
 		if (!collapsed) {
 			const keys = matches
@@ -71,7 +71,7 @@ export default function NavVertical(props: Props) {
 	};
 
 	const handleOpenChange: MenuProps["onOpenChange"] = (keys) => {
-		// 关闭时也触发一次，刚好设置为 []
+		// Khi đóng cũng kích hoạt một lần, vừa hay đặt thành []
 		setOpenKeys(keys);
 	};
 

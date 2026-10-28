@@ -1,12 +1,12 @@
 # LINGYUN.Abp.PushPlus
 
-集成PushPlus  
+Tích hợp PushPlus  
 
-实现PushPlus相关Api文档,拥有PushPlus开放能力  
+Triển khai tài liệu API liên quan đến PushPlus, sở hữu khả năng mở của PushPlus  
 
-详情见PushPlus文档: https://www.pushplus.plus/doc/guide/openApi.html#%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8E  
+Xem chi tiết trong tài liệu PushPlus: https://www.pushplus.plus/doc/guide/openApi.html#%E6%96%87%E6%A1%A3%E8%AF%B4%E6%98%8E  
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpPushPlusModule))]
@@ -18,49 +18,49 @@ public class YouProjectModule : AbpModule
 
 ## Features
 
-* PushPlus										PushPlus特性分组  
-* PushPlus.Message.Enable						全局启用PushPlus消息通道  
-* PushPlus.Channel.WeChat						微信公众号消息通道	
-* PushPlus.Channel.WeChat.Enable				启用微信公众号消息通道	
-* PushPlus.Channel.WeChat.SendLimit				微信公众号消息通道限制次数	
-* PushPlus.Channel.WeChat.SendLimitInterval		微信公众号消息通道限制周期(天)	
-* PushPlus.Channel.WeWork						企业微信消息通道	
-* PushPlus.Channel.WeWork.Enable				启用企业微信消息通道	
-* PushPlus.Channel.WeWork.SendLimit				企业微信消息通道限制次数	
-* PushPlus.Channel.WeWork.SendLimitInterval		企业微信消息通道限制周期(天)	
-* PushPlus.Channel.Webhook						Webhook消息通道	
-* PushPlus.Channel.Webhook.Enable				启用Webhook消息通道	
-* PushPlus.Channel.Webhook.SendLimit			Webhook消息通道限制次数	
-* PushPlus.Channel.Webhook.SendLimitInterval	Webhook消息通道限制周期(天)	
-* PushPlus.Channel.Email						Email消息通道	
-* PushPlus.Channel.Email.Enable					启用Email消息通道	
-* PushPlus.Channel.Email.SendLimit				Email消息通道限制次数	
-* PushPlus.Channel.Email.SendLimitInterval		Email消息通道限制周期(天)	
-* PushPlus.Channel.Sms							短信消息通道	
-* PushPlus.Channel.Sms.Enable					启用短信消息通道	
-* PushPlus.Channel.Sms.SendLimit				短信消息通道限制次数	
-* PushPlus.Channel.Sms.SendLimitInterval		短信消息通道限制周期(天)	
+* PushPlus										Nhóm tính năng PushPlus  
+* PushPlus.Message.Enable						Bật toàn cục kênh tin nhắn PushPlus  
+* PushPlus.Channel.WeChat						Kênh tin nhắn tài khoản công khai WeChat	
+* PushPlus.Channel.WeChat.Enable				Bật kênh tin nhắn tài khoản công khai WeChat	
+* PushPlus.Channel.WeChat.SendLimit				Giới hạn số lần kênh tin nhắn tài khoản công khai WeChat	
+* PushPlus.Channel.WeChat.SendLimitInterval		Chu kỳ giới hạn kênh tin nhắn tài khoản công khai WeChat (ngày)	
+* PushPlus.Channel.WeWork						Kênh tin nhắn WeChat doanh nghiệp	
+* PushPlus.Channel.WeWork.Enable				Bật kênh tin nhắn WeChat doanh nghiệp	
+* PushPlus.Channel.WeWork.SendLimit				Giới hạn số lần kênh tin nhắn WeChat doanh nghiệp	
+* PushPlus.Channel.WeWork.SendLimitInterval		Chu kỳ giới hạn kênh tin nhắn WeChat doanh nghiệp (ngày)	
+* PushPlus.Channel.Webhook						Kênh tin nhắn Webhook	
+* PushPlus.Channel.Webhook.Enable				Bật kênh tin nhắn Webhook	
+* PushPlus.Channel.Webhook.SendLimit			Giới hạn số lần kênh tin nhắn Webhook	
+* PushPlus.Channel.Webhook.SendLimitInterval	Chu kỳ giới hạn kênh tin nhắn Webhook (ngày)	
+* PushPlus.Channel.Email						Kênh tin nhắn Email	
+* PushPlus.Channel.Email.Enable					Bật kênh tin nhắn Email	
+* PushPlus.Channel.Email.SendLimit				Giới hạn số lần kênh tin nhắn Email	
+* PushPlus.Channel.Email.SendLimitInterval		Chu kỳ giới hạn kênh tin nhắn Email (ngày)	
+* PushPlus.Channel.Sms							Kênh tin nhắn SMS	
+* PushPlus.Channel.Sms.Enable					Bật kênh tin nhắn SMS	
+* PushPlus.Channel.Sms.SendLimit				Giới hạn số lần kênh tin nhắn SMS	
+* PushPlus.Channel.Sms.SendLimitInterval		Chu kỳ giới hạn kênh tin nhắn SMS (ngày)	
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "PushPlus": {
     "Security": {
-      "Token": "你的PushPlus Token",      // PushPlus平台获取的Token
-      "SecretKey": "你的PushPlus密钥"     // PushPlus平台获取的密钥
+      "Token": "Token PushPlus của bạn",      // Token lấy từ nền tảng PushPlus
+      "SecretKey": "Khóa bí mật PushPlus của bạn"     // Khóa bí mật lấy từ nền tảng PushPlus
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置 PushPlus 凭证
-   * 在PushPlus平台获取Token和密钥
-   * 在配置文件中设置Token和密钥
+1. Cấu hình thông tin xác thực PushPlus
+   * Lấy Token và khóa bí mật trên nền tảng PushPlus
+   * Thiết lập Token và khóa bí mật trong tệp cấu hình
 
-2. 发送消息
+2. Gửi tin nhắn
    ```csharp
    public class YourService
    {
@@ -73,50 +73,50 @@ public class YouProjectModule : AbpModule
 
        public async Task SendMessageAsync()
        {
-           // 发送微信消息
+           // Gửi tin nhắn WeChat
            await _messageSender.SendWeChatAsync(
-               title: "消息标题",
-               content: "消息内容",
-               topic: "可选的主题",
+               title: "Tiêu đề tin nhắn",
+               content: "Nội dung tin nhắn",
+               topic: "Chủ đề tùy chọn",
                template: PushPlusMessageTemplate.Html
            );
 
-           // 发送企业微信消息
+           // Gửi tin nhắn WeChat doanh nghiệp
            await _messageSender.SendWeWorkAsync(
-               title: "消息标题",
-               content: "消息内容"
+               title: "Tiêu đề tin nhắn",
+               content: "Nội dung tin nhắn"
            );
 
-           // 发送邮件
+           // Gửi email
            await _messageSender.SendEmailAsync(
-               title: "邮件标题",
-               content: "邮件内容"
+               title: "Tiêu đề email",
+               content: "Nội dung email"
            );
 
-           // 发送短信
+           // Gửi SMS
            await _messageSender.SendSmsAsync(
-               title: "短信标题",
-               content: "短信内容"
+               title: "Tiêu đề SMS",
+               content: "Nội dung SMS"
            );
 
-           // 发送Webhook消息
+           // Gửi tin nhắn Webhook
            await _messageSender.SendWebhookAsync(
-               title: "消息标题",
-               content: "消息内容",
-               webhook: "webhook地址"
+               title: "Tiêu đề tin nhắn",
+               content: "Nội dung tin nhắn",
+               webhook: "Địa chỉ webhook"
            );
        }
    }
    ```
 
-## 消息模板
+## Mẫu tin nhắn
 
-* Html - HTML格式（默认）
-* Text - 纯文本格式
-* Json - JSON格式
-* Markdown - Markdown格式
+* Html - Định dạng HTML (mặc định)
+* Text - Định dạng văn bản thuần túy
+* Json - Định dạng JSON
+* Markdown - Định dạng Markdown
 
-## 更多信息
+## Thông tin thêm
 
-* [PushPlus官方文档](https://www.pushplus.plus/doc/guide/openApi.html)
-* [ABP框架](https://abp.io/)
+* [Tài liệu chính thức PushPlus](https://www.pushplus.plus/doc/guide/openApi.html)
+* [Framework ABP](https://abp.io/)

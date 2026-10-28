@@ -1,24 +1,24 @@
-/** 作业管理权限 */
+/** Quyền quản lý công việc */
 export const BackgroundJobsPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "TaskManagement.BackgroundJobs.Create",
 	Default: "TaskManagement.BackgroundJobs",
-	/** 删除 */
+	/** Xóa */
 	Delete: "TaskManagement.BackgroundJobs.Delete",
-	/** 管理触发器 */
+	/** Quản lý trình kích hoạt */
 	ManageActions: "TaskManagement.BackgroundJobs.ManageActions",
-	/** 管理系统作业 */
+	/** Quản lý công việc hệ thống */
 	ManageSystemJobs: "TaskManagement.BackgroundJobs.ManageSystemJobs",
-	/** 暂停 */
+	/** Tạm dừng */
 	Pause: "TaskManagement.BackgroundJobs.Pause",
-	/** 恢复 */
+	/** Khôi phục */
 	Resume: "TaskManagement.BackgroundJobs.Resume",
-	/** 启动 */
+	/** Khởi động */
 	Start: "TaskManagement.BackgroundJobs.Start",
-	/** 停止 */
+	/** Dừng */
 	Stop: "TaskManagement.BackgroundJobs.Stop",
-	/** 触发 */
+	/** Kích hoạt */
 	Trigger: "TaskManagement.BackgroundJobs.Trigger",
-	/** 修改 */
+	/** Sửa đổi */
 	Update: "TaskManagement.BackgroundJobs.Update",
 };

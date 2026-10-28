@@ -30,8 +30,8 @@ export function setDefaultDrawerProps(props: Partial<DrawerProps>) {
 export function useVbenDrawer<
   TParentDrawerProps extends DrawerProps = DrawerProps,
 >(options: DrawerApiOptions = {}) {
-  // Drawer一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
-  // 外部的Drawer通过provide/inject传递api
+  // Drawer thường được tách riêng, vì vậy nếu có truyền connectedComponent thì tức là gọi từ bên ngoài, để kết nối với component nội bộ
+  // Drawer bên ngoài truyền api qua provide/inject
 
   const { connectedComponent } = options;
   if (connectedComponent) {
@@ -41,8 +41,8 @@ export function useVbenDrawer<
       (props: TParentDrawerProps, { attrs, slots }) => {
         provide(USER_DRAWER_INJECT_KEY, {
           extendApi(api: ExtendedDrawerApi) {
-            // 不能直接给 reactive 赋值，会丢失响应
-            // 不能用 Object.assign,会丢失 api 的原型函数
+            // Không thể gán trực tiếp cho reactive, sẽ mất tính phản ứng
+            // Không thể dùng Object.assign, sẽ mất hàm prototype của api
             Object.setPrototypeOf(extendedApi, api);
           },
           options,
@@ -104,8 +104,23 @@ export function useVbenDrawer<
 
   const Drawer = defineComponent(
     (props: DrawerProps, { attrs, slots }) => {
+      // Như use-vxe-grid: tách `class` khỏi attrs (ClassValue rộng hơn
+      // ClassType); giữ props.class khi parent không truyền class, ngược lại
+      // chuẩn hóa false/null về undefined (tương đương khi render).
+      const { class: attrsClass, ...restAttrs } = attrs;
+      const mergedClass =
+        attrsClass === undefined ? props.class : attrsClass || undefined;
       return () =>
-        h(VbenDrawer, { ...props, ...attrs, drawerApi: extendedApi }, slots);
+        h(
+          VbenDrawer,
+          {
+            ...props,
+            ...restAttrs,
+            class: mergedClass,
+            drawerApi: extendedApi,
+          },
+          slots,
+        );
     },
     // eslint-disable-next-line vue/one-component-per-file
     {
@@ -133,7 +148,7 @@ async function checkProps(api: ExtendedDrawerApi, attrs: Record<string, any>) {
 
   for (const attr of Object.keys(attrs)) {
     if (stateKeys.has(attr) && !['class'].includes(attr)) {
-      // connectedComponent存在时，不要传入Drawer的props，会造成复杂度提升，如果你需要修改Drawer的props，请使用 useVbenDrawer 或者api
+      // Khi connectedComponent tồn tại, đừng truyền props của Drawer, sẽ làm tăng độ phức tạp; nếu bạn cần sửa props của Drawer, hãy dùng useVbenDrawer hoặc api
       console.warn(
         `[Vben Drawer]: When 'connectedComponent' exists, do not set props or slots '${attr}', which will increase complexity. If you need to modify the props of Drawer, please use useVbenDrawer or api.`,
       );

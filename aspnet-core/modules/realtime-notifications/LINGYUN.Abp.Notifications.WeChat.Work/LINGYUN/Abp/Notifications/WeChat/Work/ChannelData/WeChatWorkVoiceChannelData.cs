@@ -4,7 +4,7 @@ using LINGYUN.Abp.WeChat.Work.Messages.Models;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 语音消息载荷
+/// Payload tin nhắn thoại
 /// </summary>
 [NotificationChannelData(WeChatWorkNotificationPublishProvider.ProviderName, Priority = 600)]
 public class WeChatWorkVoiceChannelData : WeChatWorkChannelData

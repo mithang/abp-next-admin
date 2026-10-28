@@ -7,7 +7,7 @@ const demoList = (keyword, count = 20) => {
   };
   for (let index = 0; index < count; index++) {
     result.list.push({
-      name: `${keyword ?? ''}选项${index}`,
+      name: `${keyword ?? ''}Tùy chọn ${index}`,
       id: `${index}`,
     });
   }

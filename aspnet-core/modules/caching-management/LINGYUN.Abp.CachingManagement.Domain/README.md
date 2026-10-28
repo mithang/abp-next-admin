@@ -1,44 +1,44 @@
 # LINGYUN.Abp.CachingManagement.Domain
 
-缓存管理模块的领域层实现。
+Triển khai tầng miền của mô-đun quản lý bộ nhớ đệm.
 
-## 核心接口
+## Giao diện cốt lõi
 
 ### ICacheManager
 
-缓存管理器接口，定义了缓存管理的核心功能：
+Giao diện trình quản lý bộ nhớ đệm, định nghĩa các chức năng cốt lõi của quản lý bộ nhớ đệm:
 
-* `GetKeysAsync`: 获取缓存键列表
-* `GetValueAsync`: 获取缓存值
-* `SetAsync`: 设置缓存值
-* `RefreshAsync`: 刷新缓存
-* `RemoveAsync`: 删除缓存
+* `GetKeysAsync`: Lấy danh sách khóa bộ nhớ đệm
+* `GetValueAsync`: Lấy giá trị bộ nhớ đệm
+* `SetAsync`: Thiết lập giá trị bộ nhớ đệm
+* `RefreshAsync`: Làm mới bộ nhớ đệm
+* `RemoveAsync`: Xóa bộ nhớ đệm
 
-## 领域服务
+## Dịch vụ miền
 
 ### CacheManager
 
-缓存管理器的抽象基类，提供了基础的缓存管理实现。具体的缓存提供程序（如Redis）需要继承此类并实现相应的方法。
+Lớp cơ sở trừu tượng của trình quản lý bộ nhớ đệm, cung cấp triển khai quản lý bộ nhớ đệm cơ bản. Các nhà cung cấp bộ nhớ đệm cụ thể (như Redis) cần kế thừa lớp này và triển khai các phương thức tương ứng.
 
-## 安装
+## Cài đặt
 
 ```bash
 abp add-module LINGYUN.Abp.CachingManagement
 ```
 
-## 扩展开发
+## Phát triển mở rộng
 
-如果需要支持新的缓存提供程序，需要：
+Nếu cần hỗ trợ nhà cung cấp bộ nhớ đệm mới, cần:
 
-1. 创建新的项目，继承 `CacheManager` 类
-2. 实现所有抽象方法
-3. 注册为 `ICacheManager` 的实现（使用 `[Dependency(ReplaceServices = true)]`）
+1. Tạo dự án mới, kế thừa lớp `CacheManager`
+2. Triển khai tất cả các phương thức trừu tượng
+3. Đăng ký làm triển khai của `ICacheManager` (sử dụng `[Dependency(ReplaceServices = true)]`)
 
-## 更多
+## Xem thêm
 
-有关更多信息，请参阅以下资源：
+Để biết thêm thông tin, vui lòng tham khảo các tài nguyên sau:
 
-* [应用服务实现](../LINGYUN.Abp.CachingManagement.Application/README.md)
-* [应用服务契约](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
+* [Triển khai dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application/README.md)
+* [Hợp đồng dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
 * [HTTP API](../LINGYUN.Abp.CachingManagement.HttpApi/README.md)
-* [Redis实现](../LINGYUN.Abp.CachingManagement.StackExchangeRedis/README.md)
+* [Triển khai Redis](../LINGYUN.Abp.CachingManagement.StackExchangeRedis/README.md)

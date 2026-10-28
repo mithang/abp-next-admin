@@ -4,7 +4,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 客户群创建事件推送
+/// Đẩy sự kiện tạo nhóm khách hàng
 /// </summary>
 [EventName("external_chat_create")]
 public class ExternalChatCreateEvent : ExternalChatChangeEvent

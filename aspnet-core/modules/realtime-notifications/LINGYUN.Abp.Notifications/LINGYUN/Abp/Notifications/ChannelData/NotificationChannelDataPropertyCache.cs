@@ -9,28 +9,28 @@ using System.Threading;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据属性元数据缓存
+/// Bộ nhớ đệm siêu dữ liệu thuộc tính dữ liệu kênh
 /// </summary>
 /// <remarks>
 /// <para>
-/// 纯反射元数据缓存(无 JSON、无日志、无配置依赖), 因此保持静态以避免
-/// 在序列化器、解析器、存在性提供者之间重复注入。
+/// Bộ nhớ đệm siêu dữ liệu thuần phản xạ (không JSON, không nhật ký, không phụ thuộc cấu hình), vì vậy được giữ tĩnh để tránh
+/// việc tiêm lặp lại giữa bộ tuần tự hóa, bộ phân tích và nhà cung cấp kiểm tra sự tồn tại.
 /// </para>
 /// </remarks>
 public static class NotificationChannelDataPropertyCache
 {
     /// <summary>
-    /// 属性元数据缓存
+    /// Bộ nhớ đệm siêu dữ liệu thuộc tính
     /// </summary>
     /// <remarks>
-    /// 值用 <see cref="Lazy{T}"/> 包装: <c>GetOrAdd</c> 的工厂在并发下可能被调用多次,
-    /// 但只有一个实例会被写入并被后续读取, 其余实例被丢弃, 因此构建仍只发生一次。
+    /// Giá trị được bọc bằng <see cref="Lazy{T}"/>: factory của <c>GetOrAdd</c> có thể được gọi nhiều lần khi chạy đồng thời,
+    /// nhưng chỉ một thể hiện được ghi vào và được các lần đọc sau đó sử dụng, các thể hiện còn lại bị loại bỏ, vì vậy việc xây dựng vẫn chỉ xảy ra một lần.
     /// </remarks>
     private static readonly ConcurrentDictionary<Type, Lazy<NotificationChannelDataProperty[]>> PropertiesCache
         = new();
 
     /// <summary>
-    /// 获取载荷类型的属性元数据
+    /// Lấy siêu dữ liệu thuộc tính của kiểu tải trọng
     /// </summary>
     public static NotificationChannelDataProperty[] GetProperties(Type channelDataType)
     {
@@ -44,7 +44,7 @@ public static class NotificationChannelDataPropertyCache
     }
 
     /// <summary>
-    /// 构建属性元数据
+    /// Xây dựng siêu dữ liệu thuộc tính
     /// </summary>
     private static NotificationChannelDataProperty[] CreateProperties(Type channelDataType)
     {

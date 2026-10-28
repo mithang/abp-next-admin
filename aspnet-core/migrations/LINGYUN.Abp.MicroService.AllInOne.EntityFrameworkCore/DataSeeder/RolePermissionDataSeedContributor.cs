@@ -36,14 +36,18 @@ public class RolePermissionDataSeedContributor : IDataSeedContributor, ITransien
         {
             Logger.LogInformation("Seeding the Users role permissions...");
 
-            // 所有用户都应该具有查询用户权限, 用于IM场景
+            // Tất cả người dùng đều nên có quyền tra cứu người dùng, dùng cho kịch bản IM.
+            // LƯU Ý (SEC-12, vòng security 6): KHÔNG seed IdentityPermissions.Users.Default
+            // ở đây nữa. Quyền đó cho phép liệt kê toàn bộ user và đọc record của bất kỳ
+            // user nào (kể cả admin, kèm email); kịch bản IM chỉ cần UserLookup. Seed
+            // Users.Default tại đây từng khiến mọi lần thu hồi quyền qua API đều bị cấp
+            // lại ở lần khởi động backend tiếp theo, nên thu hồi qua API không bao giờ bền.
             await PermissionDataSeeder.SeedAsync(
                 RolePermissionValueProvider.ProviderName,
                 "Users",
                 new string[]
                 {
                     IdentityPermissions.UserLookup.Default,
-                    IdentityPermissions.Users.Default,
                     "Platform.Feedback.Create"
                 },
                 tenantId: context.TenantId);

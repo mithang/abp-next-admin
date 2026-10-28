@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Response;
 /// <summary>
-/// 分配在职成员的客户群响应结果
+/// Kết quả phản hồi phân bổ nhóm khách hàng cho thành viên đang làm việc
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95703" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/95703" />
 /// </remarks>
 public class WeChatWorkGroupChatOnjobTransferResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 没能成功继承的群
+    /// Nhóm không thể kế thừa thành công
     /// </summary>
     [NotNull]
     [JsonProperty("failed_chat_list")]

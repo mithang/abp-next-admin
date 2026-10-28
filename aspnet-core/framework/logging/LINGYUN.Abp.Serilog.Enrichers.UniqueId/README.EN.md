@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Serilog.Enrichers.UniqueId
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 A Serilog enricher that adds unique identifiers to log properties using the Snowflake algorithm.
 

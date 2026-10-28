@@ -1,28 +1,28 @@
-/** 版本权限 */
+/** Quyền phiên bản */
 export const EditionsPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpSaas.Editions.Create",
-	/** 默认 */
+	/** Mặc định */
 	Default: "AbpSaas.Editions",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpSaas.Editions.Delete",
-	/** 管理功能 */
+	/** Quản lý tính năng */
 	ManageFeatures: "AbpSaas.Editions.ManageFeatures",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpSaas.Editions.Update",
 };
-/** 租户权限 */
+/** Quyền tenant */
 export const TenantsPermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpSaas.Tenants.Create",
-	/** 默认 */
+	/** Mặc định */
 	Default: "AbpSaas.Tenants",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpSaas.Tenants.Delete",
-	/** 管理连接字符串 */
+	/** Quản lý chuỗi kết nối */
 	ManageConnectionStrings: "AbpSaas.Tenants.ManageConnectionStrings",
-	/** 管理功能 */
+	/** Quản lý tính năng */
 	ManageFeatures: "AbpSaas.Tenants.ManageFeatures",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpSaas.Tenants.Update",
 };

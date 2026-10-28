@@ -33,7 +33,7 @@ public class AbpDaprClientWrapperModule : AbpModule
             {
                 var stringContent = await response.Content.ReadAsStringAsync();
 
-                // 包装后的响应结果需要处理
+                // Kết quả phản hồi sau khi đóng gói cần được xử lý
                 if (response.Headers.Contains(AbpHttpWrapConsts.AbpWrapResult))
                 {
                     var jsonSerializer = serviceProvider.LazyGetRequiredService<IJsonSerializer>();

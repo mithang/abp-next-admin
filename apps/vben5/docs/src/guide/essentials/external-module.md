@@ -1,13 +1,13 @@
-# 外部模块
+# Mô-đun bên ngoài
 
-除了项目默认引入的外部模块，有时我们还需要引入其他外部模块。我们以 [ant-design-vue](https://antdv.com/components/overview) 为例：
+Ngoài các mô-đun bên ngoài được đưa vào mặc định của dự án, đôi khi chúng ta còn cần đưa vào các mô-đun bên ngoài khác. Lấy [ant-design-vue](https://antdv.com/components/overview) làm ví dụ:
 
-## 安装依赖
+## Cài đặt dependency
 
-::: tip 安装依赖到指定包
+::: tip Cài đặt dependency vào package chỉ định
 
-- 由于项目采用了 [pnpm](https://pnpm.io/) 作为包管理工具，所以我们需要使用 `pnpm` 命令来安装依赖。
-- 通过采用了 Monorepo 模块来管理项目，所以我们需要在指定包下安装依赖。安装依赖前请确保已经进入到指定包目录下。
+- Vì dự án dùng [pnpm](https://pnpm.io/) làm công cụ quản lý package, nên chúng ta cần dùng lệnh `pnpm` để cài đặt dependency.
+- Thông qua việc dùng mô-đun Monorepo để quản lý dự án, nên chúng ta cần cài đặt dependency trong package chỉ định. Trước khi cài đặt dependency, hãy đảm bảo đã vào thư mục của package chỉ định.
 
 :::
 
@@ -16,9 +16,9 @@
 pnpm add ant-design-vue
 ```
 
-## 使用
+## Sử dụng
 
-### 全局引入
+### Đưa vào toàn cục
 
 ```ts
 import { createApp } from 'vue';
@@ -31,7 +31,7 @@ const app = createApp(App);
 app.use(Antd).mount('#app');
 ```
 
-#### 使用
+#### Sử dụng
 
 ```vue
 <template>
@@ -39,7 +39,7 @@ app.use(Antd).mount('#app');
 </template>
 ```
 
-### 局部引入
+### Đưa vào cục bộ
 
 ```vue
 <script setup lang="ts">
@@ -51,8 +51,8 @@ import { Button } from 'ant-design-vue';
 </template>
 ```
 
-::: warning 注意
+::: warning Lưu ý
 
-- 如果组件有依赖样式，则需要再引入样式文件
+- Nếu component có dependency về kiểu dáng, cần đưa thêm file kiểu dáng vào
 
 :::

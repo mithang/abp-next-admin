@@ -1,6 +1,6 @@
 # LINGYUN.Abp.OpenObserve
 
-English | [简体中文](./README.md)
+English | [Tiếng Trung giản thể](./README.md)
 
 HTTP API client for OpenObserve, covering all endpoints of the official API reference
 

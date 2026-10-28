@@ -1,12 +1,12 @@
 namespace LINGYUN.Abp.OpenObserve.Models.Ingestion;
 
 /// <summary>
-/// OpenObserve 数据摄取异常
+/// Ngoại lệ nhập dữ liệu OpenObserve
 /// </summary>
 public class OpenObserveIngestionException : OpenObserveException
 {
     /// <summary>
-    /// 数据流名称
+    /// Tên luồng dữ liệu
     /// </summary>
     public string Stream { get; }
 

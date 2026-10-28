@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 选择控件配置
+/// Cấu hình control lựa chọn
 /// </summary>
 public class SelectorControlConfig : ControlConfig
 {
     /// <summary>
-    /// 选择控件内容，即申请人在此控件选择的选项内容
+    /// Nội dung của control lựa chọn, tức nội dung tùy chọn mà người nộp đơn đã chọn trong control này
     /// </summary>
     [NotNull]
     [JsonProperty("selector")]
@@ -30,28 +30,28 @@ public class SelectorControlConfig : ControlConfig
 public class SelectorConfig
 {
     /// <summary>
-    /// 选择方式：single-单选；multi-多选
+    /// Cách chọn: single - chọn một; multi - chọn nhiều
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 多选选项，多选属性的选择控件允许输入多个
+    /// Tùy chọn chọn nhiều; control lựa chọn có thuộc tính chọn nhiều cho phép nhập nhiều giá trị
     /// </summary>
     [CanBeNull]
     [JsonProperty("options")]
     [JsonPropertyName("options")]
     public List<SelectorOption>? Options {  get; set; }
     /// <summary>
-    /// 关联控件
+    /// Control liên kết
     /// </summary>
     [CanBeNull]
     [JsonProperty("op_relations")]
     [JsonPropertyName("op_relations")]
     public List<SelectorOptionRelation>? OptionRelations { get; set; }
     /// <summary>
-    /// 关联外部选项
+    /// Tùy chọn bên ngoài liên kết
     /// </summary>
     [CanBeNull]
     [JsonProperty("external_option")]
@@ -94,14 +94,14 @@ public class SelectorConfig
 public class SelectorOption
 {
     /// <summary>
-    /// 选项key
+    /// Key của tùy chọn
     /// </summary>
     [NotNull]
     [JsonProperty("key")]
     [JsonPropertyName("key")]
     public string Key { get; set; } = default!;
     /// <summary>
-    /// 选项说明
+    /// Mô tả tùy chọn
     /// </summary>
     [NotNull]
     [JsonProperty("value")]
@@ -122,14 +122,14 @@ public class SelectorOption
 public class SelectorOptionValue
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     [NotNull]
     [JsonProperty("text")]
     [JsonPropertyName("text")]
     public string Text { get; set; } = default!;
     /// <summary>
-    /// 显示语言
+    /// Ngôn ngữ hiển thị
     /// </summary>
     [NotNull]
     [JsonProperty("lang")]
@@ -150,14 +150,14 @@ public class SelectorOptionValue
 public class SelectorOptionRelation
 {
     /// <summary>
-    /// 选项key
+    /// Key của tùy chọn
     /// </summary>
     [NotNull]
     [JsonProperty("key")]
     [JsonPropertyName("key")]
     public string Key { get; set; } = default!;
     /// <summary>
-    /// 关联控件列表
+    /// Danh sách control liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("relation_list")]
@@ -178,17 +178,17 @@ public class SelectorOptionRelation
 public class SelectorRelation
 {
     /// <summary>
-    /// 控件Id
+    /// Id của control
     /// </summary>
     [NotNull]
     [JsonProperty("related_control_id")]
     [JsonPropertyName("related_control_id")]
     public string ControlId { get; set; } = default!;
     /// <summary>
-    /// 操作方法
+    /// Phương thức thao tác
     /// </summary>
     /// <remarks>
-    /// 1 - 显示对应控件
+    /// 1 - Hiển thị control tương ứng
     /// </remarks>
     [NotNull]
     [JsonProperty("action")]
@@ -209,14 +209,14 @@ public class SelectorRelation
 public class SelectorOptionExternal
 {
     /// <summary>
-    /// 关联外部选项
+    /// Tùy chọn bên ngoài liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("use_external_option")]
     [JsonPropertyName("use_external_option")]
     public bool UseExternalOption { get; set; }
     /// <summary>
-    /// 外部选项页面地址
+    /// Địa chỉ trang tùy chọn bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_url")]

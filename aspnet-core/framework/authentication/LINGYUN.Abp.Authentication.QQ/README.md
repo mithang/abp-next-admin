@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Authentication.QQ
 
-QQ互联认证模块，集成QQ登录功能到ABP应用程序。
+Module xác thực QQ Connect, tích hợp chức năng đăng nhập QQ vào ứng dụng ABP.
 
-## 功能特性
+## Tính năng
 
-* QQ OAuth2.0认证
-* 支持移动端和PC端登录
-* 获取QQ用户基本信息（昵称、性别、头像等）
-* 支持与ABP身份系统集成
+* Xác thực QQ OAuth2.0
+* Hỗ trợ đăng nhập trên thiết bị di động và PC
+* Lấy thông tin cơ bản của người dùng QQ (biệt danh, giới tính, ảnh đại diện, v.v.)
+* Hỗ trợ tích hợp với hệ thống danh tính ABP
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpAuthenticationQQModule))]
@@ -19,46 +19,46 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "Authentication": {
     "QQ": {
-      "AppId": "你的QQ互联AppId",
-      "AppKey": "你的QQ互联AppKey",
-      "IsMobile": false, // 是否启用移动端登录页面
-      "ClaimsIssuer": "connect.qq.com", // 可选，默认为 connect.qq.com
-      "CallbackPath": "/signin-qq", // 可选，默认为 /signin-qq
-      "Scope": ["get_user_info"] // 可选，默认为 get_user_info
+      "AppId": "AppId QQ Connect của bạn",
+      "AppKey": "AppKey QQ Connect của bạn",
+      "IsMobile": false, // Có bật trang đăng nhập trên thiết bị di động hay không
+      "ClaimsIssuer": "connect.qq.com", // Tùy chọn, mặc định là connect.qq.com
+      "CallbackPath": "/signin-qq", // Tùy chọn, mặc định là /signin-qq
+      "Scope": ["get_user_info"] // Tùy chọn, mặc định là get_user_info
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置QQ互联参数
-   * 在QQ互联平台申请应用，获取AppId和AppKey
-   * 在appsettings.json中配置AppId和AppKey
+1. Cấu hình tham số QQ Connect
+   * Đăng ký ứng dụng trên nền tảng QQ Connect, lấy AppId và AppKey
+   * Cấu hình AppId và AppKey trong appsettings.json
 
-2. 添加QQ登录
+2. Thêm đăng nhập QQ
    ```csharp
    public override void ConfigureServices(ServiceConfigurationContext context)
    {
        context.Services.AddAuthentication()
-           .AddQQConnect(); // 添加QQ登录支持
+           .AddQQConnect(); // Thêm hỗ trợ đăng nhập QQ
    }
    ```
 
-## 获取的用户信息
+## Thông tin người dùng lấy được
 
-* OpenId - QQ用户唯一标识
-* NickName - 用户昵称
-* Gender - 用户性别
-* AvatarUrl - 用户头像URL
+* OpenId - Định danh duy nhất của người dùng QQ
+* NickName - Biệt danh người dùng
+* Gender - Giới tính người dùng
+* AvatarUrl - URL ảnh đại diện người dùng
 
-## 更多信息
+## Thông tin thêm
 
-* [QQ互联文档](https://wiki.connect.qq.com/)
-* [ABP认证文档](https://docs.abp.io/en/abp/latest/Authentication)
+* [Tài liệu QQ Connect](https://wiki.connect.qq.com/)
+* [Tài liệu xác thực ABP](https://docs.abp.io/en/abp/latest/Authentication)

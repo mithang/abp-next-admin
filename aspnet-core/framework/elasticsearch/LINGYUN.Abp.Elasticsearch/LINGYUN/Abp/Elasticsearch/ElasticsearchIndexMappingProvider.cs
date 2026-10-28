@@ -136,17 +136,17 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
             var propertyName = kvp.Key.ToString();
             var property = kvp.Value;
 
-            // ES 完整路径
+            // Đường dẫn đầy đủ trong ES
             var esFullPath = string.IsNullOrEmpty(esParentPath)
                 ? propertyName
                 : $"{esParentPath}.{propertyName}";
 
-            // CLR 完整路径
+            // Đường dẫn đầy đủ trong CLR
             var clrFullPath = string.IsNullOrEmpty(clrParentPath)
                 ? propertyName
                 : $"{clrParentPath}.{propertyName}";
 
-            // 解析 CLR 类型
+            // Phân giải kiểu CLR
             var clrType = ResolveClrType(parentClrType, propertyName);
 
 
@@ -161,18 +161,18 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
 
             switch (property)
             {
-                // Keyword 类型
+                // Kiểu Keyword
                 case KeywordProperty keyword:
                     fieldInfo.IsKeyword = true;
                     mappingInfo.KeywordFields.Add(esFullPath);
                     break;
 
-                // Text 类型 - 包含多字段支持
+                // Kiểu Text - hỗ trợ đa trường
                 case TextProperty text:
                     fieldInfo.IsText = true;
                     mappingInfo.TextFields.Add(esFullPath);
 
-                    // 处理 Text 的 Fields（多字段）
+                    // Xử lý các Fields của Text (đa trường)
                     if (text.Fields != null && text.Fields.Count() > 0)
                     {
                         fieldInfo.Properties = new Dictionary<string, FieldMappingInfo>();
@@ -194,7 +194,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                                 IsMultiField = true
                             };
 
-                            // 处理子字段的类型
+                            // Xử lý kiểu của trường con
                             if (subFieldProperty is KeywordProperty)
                             {
                                 subFieldInfo.IsKeyword = true;
@@ -213,21 +213,21 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     }
                     break;
 
-                // 日期类型
+                // Kiểu ngày tháng
                 case DateProperty date:
                     fieldInfo.IsDate = true;
                     fieldInfo.Format = date.Format;
                     mappingInfo.DateFields.Add(esFullPath);
                     break;
 
-                // 日期纳秒类型
+                // Kiểu ngày tháng nano giây
                 case DateNanosProperty dateNanos:
                     fieldInfo.IsDate = true;
                     fieldInfo.Format = dateNanos.Format;
                     mappingInfo.DateFields.Add(esFullPath);
                     break;
 
-                // 数值类型
+                // Kiểu số
                 case ByteNumberProperty:
                 case DoubleNumberProperty:
                 case FloatNumberProperty:
@@ -241,13 +241,13 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     mappingInfo.NumericFields.Add(esFullPath);
                     break;
 
-                // 布尔类型
+                // Kiểu Boolean
                 case BooleanProperty:
                     fieldInfo.IsBoolean = true;
                     mappingInfo.BooleanFields.Add(esFullPath);
                     break;
 
-                // Nested 类型
+                // Kiểu Nested
                 case NestedProperty nested:
                     fieldInfo.IsNested = true;
                     fieldInfo.IsObject = true;
@@ -260,12 +260,12 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                         Properties = new Dictionary<string, FieldMappingInfo>()
                     };
 
-                    // 获取 nested 集合的元素类型
+                    // Lấy kiểu phần tử của tập hợp nested
                     var elementType = GetElementType(clrType);
 
                     if (nested.Properties != null)
                     {
-                        // 先递归解析内部字段
+                        // Đệ quy phân giải các trường bên trong trước
                         ParseProperties(
                             nested.Properties,
                             mappingInfo,
@@ -273,7 +273,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                             elementType ?? clrType,
                             clrFullPath);
 
-                        // 收集 nested 内部的字段信息
+                        // Thu thập thông tin trường bên trong nested
                         foreach (var innerKvp in nested.Properties)
                         {
                             var innerName = innerKvp.Key.ToString();
@@ -305,7 +305,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     mappingInfo.NestedFields[esFullPath] = nestedInfo;
                     break;
 
-                // Object 类型
+                // Kiểu Object
                 case ObjectProperty obj:
                     fieldInfo.IsObject = true;
                     fieldInfo.Properties = new Dictionary<string, FieldMappingInfo>();
@@ -321,7 +321,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     }
                     break;
 
-                // 范围类型
+                // Kiểu khoảng (range)
                 case DateRangeProperty:
                 case DoubleRangeProperty:
                 case FloatRangeProperty:
@@ -331,7 +331,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     fieldInfo.IsRange = true;
                     break;
 
-                // 其他类型
+                // Các kiểu khác
                 case FlattenedProperty:
                     fieldInfo.Type = "flattened";
                     break;
@@ -357,7 +357,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     fieldInfo.Type = "match_only_text";
                     mappingInfo.TextFields.Add(esFullPath);
 
-                    // MatchOnlyText 也可能有 Fields
+                    // MatchOnlyText cũng có thể có Fields
                     if (matchOnlyText.Fields != null && matchOnlyText.Fields.Count() > 0)
                     {
                         fieldInfo.Properties = new Dictionary<string, FieldMappingInfo>();
@@ -426,10 +426,10 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
                     break;
             }
 
-            // 添加到映射集合
+            // Thêm vào tập hợp ánh xạ
             mappingInfo.Fields[esFullPath] = fieldInfo;
 
-            // 只有在有 CLR 类型信息时才添加到 CLR 字段集合
+            // Chỉ thêm vào tập hợp trường CLR khi có thông tin kiểu CLR
             if (clrType != null || parentClrType != null)
             {
                 mappingInfo.ClrFields[clrFullPath] = fieldInfo;
@@ -458,13 +458,13 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
             return null;
         }
 
-        // 处理数组
+        // Xử lý mảng
         if (type.IsArray)
         {
             return type.GetElementType();
         }
 
-        // 处理 IEnumerable<T>
+        // Xử lý IEnumerable<T>
         if (type.IsGenericType)
         {
             var genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -477,7 +477,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
             }
         }
 
-        // 处理实现了 IEnumerable<T> 的接口
+        // Xử lý các giao diện triển khai IEnumerable<T>
         var enumerableInterface = type.GetInterfaces()
             .FirstOrDefault(i => i.IsGenericType &&
                                 i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
@@ -501,7 +501,7 @@ public class ElasticsearchIndexMappingProvider : IIndexMappingProvider, ITransie
             return propertyName;
         }
 
-        // 检查 JsonPropertyName 特性
+        // Kiểm tra đặc tính JsonPropertyName
         var jsonPropertyNameAttribute = propertyInfo.GetCustomAttribute<JsonPropertyNameAttribute>();
         if (jsonPropertyNameAttribute != null && !string.IsNullOrEmpty(jsonPropertyNameAttribute.Name))
         {

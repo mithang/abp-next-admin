@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.WeChat.Work.Chat.Response;
 public class WeChatWorkAppChatInfoResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 群聊信息
+    /// Thông tin nhóm trò chuyện
     /// </summary>
     [JsonProperty("chat_info")]
     [JsonPropertyName("chat_info")]

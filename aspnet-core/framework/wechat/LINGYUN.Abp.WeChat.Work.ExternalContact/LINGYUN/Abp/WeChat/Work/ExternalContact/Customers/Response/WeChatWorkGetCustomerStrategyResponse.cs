@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Response;
 /// <summary>
-/// 获取规则组详情响应参数
+/// Tham số phản hồi lấy chi tiết nhóm quy tắc
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94883" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/94883" />
 /// </remarks>
 public class WeChatWorkGetCustomerStrategyResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 规则组详情
+    /// Chi tiết nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("strategy")]

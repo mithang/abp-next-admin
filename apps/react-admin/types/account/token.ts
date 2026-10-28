@@ -1,83 +1,83 @@
-/** 授权请求数据模型 */
+/** Mô hình dữ liệu yêu cầu ủy quyền */
 interface TokenRequest {
-	/** 客户端id */
+	/** Id client */
 	clientId: string;
-	/** 客户端密钥 */
+	/** Khóa bí mật client */
 	clientSecret: string;
 }
-/** 用户密码授权请求数据模型 */
+/** Mô hình dữ liệu yêu cầu ủy quyền bằng mật khẩu người dùng */
 interface PasswordTokenRequest extends TokenRequest {
-	/** 用户密码 */
+	/** Mật khẩu người dùng */
 	password: string;
-	/** 授权范围 */
+	/** Phạm vi ủy quyền */
 	scope?: string;
-	/** 用户名 */
+	/** Tên người dùng */
 	userName: string;
 }
-/** 手机号授权请求数据模型 */
+/** Mô hình dữ liệu yêu cầu ủy quyền bằng số điện thoại */
 interface PhoneNumberTokenRequest {
 	[key: string]: any;
-	/** 验证码 */
+	/** Mã xác minh */
 	code: string;
-	/** 手机号 */
+	/** Số điện thoại */
 	phoneNumber: string;
 }
-/** 扫码登录授权请求数据模型 */
+/** Mô hình dữ liệu yêu cầu ủy quyền đăng nhập bằng quét mã */
 interface QrCodeTokenRequest {
 	[key: string]: any;
-	/** 二维码Key */
+	/** Key mã QR */
 	key: string;
-	/** 租户Id */
+	/** Id tenant */
 	tenantId?: string;
 }
-/** 用户密码授权请求数据模型 */
+/** Mô hình dữ liệu yêu cầu ủy quyền bằng mật khẩu người dùng */
 interface PasswordTokenRequestModel {
 	[key: string]: any;
-	/** 用户密码 */
+	/** Mật khẩu người dùng */
 	password: string;
-	/** 用户名 */
+	/** Tên người dùng */
 	username: string;
 }
-/** 令牌撤销请求数据类型 */
+/** Kiểu dữ liệu yêu cầu thu hồi token */
 interface RevokeTokenRequest {
-	/** 令牌 */
+	/** Token */
 	token: string;
-	/** 令牌类型 */
+	/** Loại token */
 	tokenType?: "access_token" | "refresh_token";
 }
-/** 令牌返回数据模型 */
+/** Mô hình dữ liệu trả về token */
 interface TokenResult {
-	/** 访问令牌 */
+	/** Token truy cập */
 	accessToken: string;
-	/** 过期时间 */
+	/** Thời gian hết hạn */
 	expiresIn: number;
-	/** 刷新令牌 */
+	/** Token làm mới */
 	refreshToken: string;
-	/** 令牌类型 */
+	/** Loại token */
 	tokenType: string;
 }
 interface OAuthTokenRefreshModel {
-	/** 刷新令牌 */
+	/** Token làm mới */
 	refreshToken: string;
 }
-/** oauth标准令牌返回结构 */
+/** Cấu trúc trả về token chuẩn oauth */
 interface OAuthTokenResult {
-	/** 访问令牌 */
+	/** Token truy cập */
 	access_token: string;
-	/** 过期时间 */
+	/** Thời gian hết hạn */
 	expires_in: number;
-	/** 刷新令牌 */
+	/** Token làm mới */
 	refresh_token: string;
-	/** 令牌类型 */
+	/** Loại token */
 	token_type: string;
 }
 
 interface OAuthError {
-	/** 错误类型 */
+	/** Loại lỗi */
 	error: string;
-	/** 错误描述 */
+	/** Mô tả lỗi */
 	error_description: string;
-	/** 错误描述链接 */
+	/** Liên kết mô tả lỗi */
 	error_uri?: string;
 }
 
@@ -91,9 +91,9 @@ interface ShouldChangePasswordError extends OAuthError {
 	userId: string;
 }
 
-/** 用户刷新令牌请求数据模型 */
+/** Mô hình dữ liệu yêu cầu làm mới token người dùng */
 interface RefreshTokenRequestModel {
-	/** 用户密码 */
+	/** Mật khẩu người dùng */
 	refreshToken: string;
 }
 

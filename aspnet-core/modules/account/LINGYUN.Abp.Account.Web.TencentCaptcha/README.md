@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Account.Web.TencentCaptcha
 
-腾讯云天御验证码组件集成模块,可使用腾讯云验证码能力  
+Mô-đun tích hợp thành phần mã xác minh Tencent Cloud TianYu, có thể sử dụng khả năng mã xác minh của Tencent Cloud  
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAccountWebTencentCaptchaModule))]
@@ -12,18 +12,18 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-` 请在启动项目或系统设置中配置腾讯云相关参数,否则造成登录页验证码组件无法加载  
+` Vui lòng cấu hình các tham số liên quan của Tencent Cloud khi khởi động dự án hoặc trong cài đặt hệ thống, nếu không thành phần mã xác minh trên trang đăng nhập sẽ không tải được  
 
-*	Abp.TencentCloud.SecretId      腾讯云账号SecretId, 需加密
-*	Abp.TencentCloud.SecretKey            腾讯云账号SecretKey, 需加密
-*	Abp.TencentCloud.Captcha.CaptchaAppId     验证码业务ID, 需加密
-*	Abp.TencentCloud.Captcha.AppSecretKey     原始密钥（25位）, 需加密
-*	Abp.TencentCloud.Captcha.CaptchaAppIdEncryptedType    加密方式，大小写不敏感："cbc"、 "gcm"，不指定时前端验证器组件不加密
-*	Abp.TencentCloud.Captcha.CaptchaAppIdEncryptedExpireTime   过期时间（秒），最大值 86400 秒，即 24 小时
+*	Abp.TencentCloud.SecretId      SecretId tài khoản Tencent Cloud, cần mã hóa
+*	Abp.TencentCloud.SecretKey            SecretKey tài khoản Tencent Cloud, cần mã hóa
+*	Abp.TencentCloud.Captcha.CaptchaAppId     ID nghiệp vụ mã xác minh, cần mã hóa
+*	Abp.TencentCloud.Captcha.AppSecretKey     Khóa bí mật gốc (25 ký tự), cần mã hóa
+*	Abp.TencentCloud.Captcha.CaptchaAppIdEncryptedType    Phương thức mã hóa, không phân biệt chữ hoa/thường: "cbc", "gcm", khi không chỉ định thì thành phần trình xác minh phía frontend không mã hóa
+*	Abp.TencentCloud.Captcha.CaptchaAppIdEncryptedExpireTime   Thời gian hết hạn (giây), tối đa 86400 giây, tức 24 giờ
 
-示例配置：
+Ví dụ cấu hình:
 
 ```json
 {

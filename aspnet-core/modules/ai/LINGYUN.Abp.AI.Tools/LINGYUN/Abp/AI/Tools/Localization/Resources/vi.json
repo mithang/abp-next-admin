@@ -1,0 +1,14 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Tools": "Danh sách công cụ",
+    "Tools:GetNowTime": "Lấy thời gian hiện tại",
+    "Tools:GetUserInfo": "Lấy thông tin người dùng hiện tại",
+    "Tools:GetSetting": "Lấy giá trị cài đặt",
+    "Tools:GetSettings": "Lấy tất cả cài đặt",
+    "FunctionAITool:FunctionType": "Loại hàm tùy chỉnh",
+    "FunctionAITool:FunctionTypeDesc": "Sử dụng tên đầy đủ của hàm, nên dùng Type.AssemblyQualifiedName để lấy.",
+    "FunctionAITool:FunctionName": "Tên hàm tùy chỉnh",
+    "FunctionAITool:FunctionNameDesc": "Tên hàm được gọi, nếu không chỉ định, mặc định gọi hàm Invoke (đồng bộ) hoặc InvokeAsync (không đồng bộ)."
+  }
+}

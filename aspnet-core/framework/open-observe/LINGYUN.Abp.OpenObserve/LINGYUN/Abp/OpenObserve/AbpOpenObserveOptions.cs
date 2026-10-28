@@ -8,40 +8,40 @@ namespace LINGYUN.Abp.OpenObserve;
 public class AbpOpenObserveOptions
 {
     /// <summary>
-    /// 服务地址
+    /// Địa chỉ dịch vụ
     /// </summary>
     /// <remarks>
-    /// 默认: http://localhost:5080
+    /// Mặc định: http://localhost:5080
     /// </remarks>
     public string Endpoint { get; set; }
     /// <summary>
-    /// 默认组织名称
+    /// Tên tổ chức mặc định
     /// </summary>
     /// <remarks>
-    /// 默认: default, 调用接口时未显式指定组织时使用
+    /// Mặc định: default, được dùng khi gọi giao diện mà không chỉ định rõ tổ chức
     /// </remarks>
     public string Organization { get; set; }
     /// <summary>
-    /// 用户名
+    /// Tên người dùng
     /// </summary>
     public string? UserName { get; set; }
     /// <summary>
-    /// 密码
+    /// Mật khẩu
     /// </summary>
     public string? Password { get; set; }
     /// <summary>
-    /// 完整的授权头信息
+    /// Thông tin đầy đủ của header ủy quyền
     /// </summary>
     /// <remarks>
-    /// 如: "Basic YWRtaW5AYWJwLmlvOnd3MVo1TCU2"
-    /// 配置后优先于 UserName/Password
+    /// Ví dụ: "Basic YWRtaW5AYWJwLmlvOnd3MVo1TCU2"
+    /// Sau khi cấu hình sẽ được ưu tiên hơn UserName/Password
     /// </remarks>
     public string? AccessToken { get; set; }
     /// <summary>
-    /// 请求超时时间(秒)
+    /// Thời gian chờ yêu cầu (giây)
     /// </summary>
     /// <remarks>
-    /// 默认: 600
+    /// Mặc định: 600
     /// </remarks>
     public int TimeoutSeconds { get; set; }
 
@@ -53,9 +53,9 @@ public class AbpOpenObserveOptions
     }
 
     /// <summary>
-    /// 创建授权头
+    /// Tạo header ủy quyền
     /// </summary>
-    /// <returns>未配置凭据时返回 null</returns>
+    /// <returns>Trả về null khi chưa cấu hình thông tin xác thực</returns>
     public virtual AuthenticationHeaderValue? CreateAuthorizationHeader()
     {
         if (!AccessToken.IsNullOrWhiteSpace() &&

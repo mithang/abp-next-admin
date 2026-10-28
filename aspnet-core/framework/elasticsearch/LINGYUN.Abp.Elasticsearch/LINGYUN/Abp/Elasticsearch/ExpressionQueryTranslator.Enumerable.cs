@@ -8,7 +8,7 @@ namespace LINGYUN.Abp.Elasticsearch;
 public partial class ExpressionQueryTranslator
 {
     /// <summary>
-    /// 翻译 Enumerable 方法
+    /// Dịch phương thức Enumerable
     /// </summary>
     private Query TranslateEnumerableMethod(MethodCallExpression node, string? prefix, IndexMappingInfo? mappingInfo)
     {
@@ -29,7 +29,7 @@ public partial class ExpressionQueryTranslator
     }
 
     /// <summary>
-    /// 翻译 Enumerable.Any
+    /// Dịch Enumerable.Any
     /// </summary>
     private Query TranslateEnumerableAny(MethodCallExpression node, string? prefix, IndexMappingInfo? mappingInfo)
     {
@@ -38,7 +38,7 @@ public partial class ExpressionQueryTranslator
         Query inner;
         if (node.Arguments.Count == 1)
         {
-            // .Any() 检查集合是否存在
+            // .Any() kiểm tra tập hợp có tồn tại hay không
             inner = new ExistsQuery { Field = collectionField.Path };
         }
         else
@@ -56,7 +56,7 @@ public partial class ExpressionQueryTranslator
     }
 
     /// <summary>
-    /// 翻译 Enumerable.Contains
+    /// Dịch Enumerable.Contains
     /// </summary>
     private Query TranslateEnumerableContains(MethodCallExpression node, string? prefix, IndexMappingInfo? mappingInfo)
     {
@@ -83,7 +83,7 @@ public partial class ExpressionQueryTranslator
     }
 
     /// <summary>
-    /// 翻译 Enumerable.All
+    /// Dịch Enumerable.All
     /// </summary>
     private Query TranslateEnumerableAll(MethodCallExpression node, string? prefix, IndexMappingInfo? mappingInfo)
     {

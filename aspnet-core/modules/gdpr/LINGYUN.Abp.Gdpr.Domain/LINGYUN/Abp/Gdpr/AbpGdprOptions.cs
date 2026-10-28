@@ -3,30 +3,30 @@ using System.Collections.Generic;
 
 namespace LINGYUN.Abp.Gdpr;
 /// <summary>
-/// AbpGdpr选项
+/// Tùy chọn AbpGdpr
 /// See: https://abp.io/docs/latest/modules/gdpr#abpgdproptions
 /// </summary>
 public class AbpGdprOptions
 {
     /// <summary>
-    /// 用于指示允许的请求时间间隔.<br />
-    /// 如果要增加或减少个人数据请求间隔,可以配置此属性.<br />
-    /// 默认情况下, 用户可以每天请求一次其个人数据<br />
-    /// 默认值: 1 天
+    /// Dùng để chỉ định khoảng thời gian cho phép giữa các yêu cầu.<br />
+    /// Nếu muốn tăng hoặc giảm khoảng thời gian giữa các yêu cầu dữ liệu cá nhân, có thể cấu hình thuộc tính này.<br />
+    /// Theo mặc định, người dùng có thể yêu cầu dữ liệu cá nhân của mình một lần mỗi ngày<br />
+    /// Giá trị mặc định: 1 ngày
     /// </summary>
     public TimeSpan RequestTimeInterval { get; set; }
     /// <summary>
-    /// 由于 GDPR 模块旨在支持分布式方案, 因此收集和准备个人数据应该需要一段时间.
-    /// 如果要根据应用程序的大小增加或减少数据准备时间, 可以配置此属性.<br />
-    /// 默认值: 60 分钟
+    /// Vì mô-đun GDPR được thiết kế để hỗ trợ giải pháp phân tán, nên việc thu thập và chuẩn bị dữ liệu cá nhân sẽ cần một khoảng thời gian nhất định.
+    /// Nếu muốn tăng hoặc giảm thời gian chuẩn bị dữ liệu tùy theo quy mô của ứng dụng, có thể cấu hình thuộc tính này.<br />
+    /// Giá trị mặc định: 60 phút
     /// </summary>
     public TimeSpan MinutesForDataPreparation { get; set; }
     /// <summary>
-    /// 用户数据提供者列表
+    /// Danh sách nhà cung cấp dữ liệu người dùng
     /// </summary>
     public IList<IGdprUserDataProvider> GdprUserDataProviders { get; }
     /// <summary>
-    /// 用户账户提供者列表
+    /// Danh sách nhà cung cấp tài khoản người dùng
     /// </summary>
     public IList<IGdprUserAccountProvider> GdprUserAccountProviders { get; }
     public AbpGdprOptions()

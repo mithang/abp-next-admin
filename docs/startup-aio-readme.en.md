@@ -1,6 +1,6 @@
 # Monolithic Service Startup Guide
 
-English | [简体中文](startup-aio-readme.md)
+English | [Tiếng Việt](startup-aio-readme.md)
 
 ## Table of Contents
 

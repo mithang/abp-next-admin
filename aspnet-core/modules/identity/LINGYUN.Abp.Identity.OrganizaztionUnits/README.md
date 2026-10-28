@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.OrganizaztionUnits
 
-身份认证组织单元模块，提供身份认证系统与组织单元的集成功能。
+Mô-đun đơn vị tổ chức xác thực danh tính, cung cấp chức năng tích hợp hệ thống xác thực danh tính với đơn vị tổ chức。
 
-## 功能特性
+## Tính năng
 
-* 扩展AbpIdentityDomainModule模块
-* 集成AbpAuthorizationOrganizationUnitsModule模块
-* 支持组织单元声明动态添加
-* 提供组织单元相关的身份认证功能
+* Mở rộng mô-đun AbpIdentityDomainModule
+* Tích hợp mô-đun AbpAuthorizationOrganizationUnitsModule
+* Hỗ trợ thêm động khai báo đơn vị tổ chức
+* Cung cấp chức năng xác thực danh tính liên quan đến đơn vị tổ chức
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -21,7 +21,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ### AbpClaimsPrincipalFactoryOptions
 
@@ -31,7 +31,7 @@ public class YouProjectModule : AbpModule
     "Security": {
       "Claims": {
         "DynamicClaims": {
-          "OrganizationUnit": true  // 启用组织单元动态声明
+          "OrganizationUnit": true  // Bật khai báo động đơn vị tổ chức
         }
       }
     }
@@ -39,15 +39,15 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 声明类型
+## Loại khai báo
 
-* `AbpOrganizationUnitClaimTypes.OrganizationUnit` - 组织单元声明类型
-  * 用于标识用户所属的组织单元
-  * 在用户身份验证时自动添加到声明中
+* `AbpOrganizationUnitClaimTypes.OrganizationUnit` - Loại khai báo đơn vị tổ chức
+  * Dùng để xác định đơn vị tổ chức mà người dùng thuộc về
+  * Tự động thêm vào khai báo khi xác thực người dùng
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置组织单元声明
+1. Cấu hình khai báo đơn vị tổ chức
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
@@ -58,7 +58,7 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 获取用户的组织单元声明
+2. Lấy khai báo đơn vị tổ chức của người dùng
 ```csharp
 public class YourService
 {
@@ -78,7 +78,7 @@ public class YourService
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
-* [ABP组织单元文档](https://docs.abp.io/en/abp/latest/Organization-Units)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu đơn vị tổ chức ABP](https://docs.abp.io/en/abp/latest/Organization-Units)

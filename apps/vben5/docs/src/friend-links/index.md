@@ -1,26 +1,26 @@
-# 友情链接
+# Liên kết hữu nghị
 
-如果您的网站是与 Vben Admin 相关的，也属于开源项目，欢迎联系我们，我们会将与您的网站加入交换友情链接。
+Nếu website của bạn liên quan đến Vben Admin và cũng là dự án mã nguồn mở, hãy liên hệ với chúng tôi, chúng tôi sẽ thêm website của bạn vào trao đổi liên kết hữu nghị.
 
-## 交换方式
+## Cách thức trao đổi
 
-### 添加作者，并注明来意
+### Thêm tác giả và ghi rõ mục đích liên hệ
 
-- 通过邮箱联系作者： [ann.vben@gmail.com](mailto:ann.vben@gmail.com)
-- 通过微信联系作者：
+- Liên hệ tác giả qua email: [ann.vben@gmail.com](mailto:ann.vben@gmail.com)
+- Liên hệ tác giả qua WeChat:
 
  <img src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/wechat.jpg" style="width: 300px;"/>
 
-### 提供资料
+### Cung cấp thông tin
 
-提供您的网站名称、链接、描述、LOGO（可选）等信息，我们会在第一时间添加您的网站。
+Cung cấp tên website, liên kết, mô tả, LOGO (tùy chọn) và các thông tin khác của bạn, chúng tôi sẽ thêm website của bạn trong thời gian sớm nhất.
 
-### 友情链接
+### Liên kết hữu nghị
 
-- 在您的网站上添加我们的友情链接，链接如下：
-  - 名称：Vben Admin
-  - 链接：https://www.vben.pro
-  - 描述：Vben Admin 企业级开箱即用的中后台前端解决方案
+- Thêm liên kết hữu nghị của chúng tôi trên website của bạn, liên kết như sau:
+  - Tên: Vben Admin
+  - Liên kết:https://www.vben.pro
+  - Mô tả: Vben Admin là giải pháp frontend quản trị doanh nghiệp dùng ngay cho hệ thống quản trị nội bộ
   - Logo：https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp
 
-我们将定期的检查友情链接，如果发现您的网站已经删除了我们的友情链接以及链接地址是否正确。
+Chúng tôi sẽ kiểm tra định kỳ các liên kết hữu nghị, nếu phát hiện website của bạn đã xóa liên kết hữu nghị của chúng tôi cũng như kiểm tra địa chỉ liên kết có chính xác không.

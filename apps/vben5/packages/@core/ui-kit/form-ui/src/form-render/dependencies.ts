@@ -13,15 +13,15 @@ import { useFormValues } from 'vee-validate';
 import { injectRenderFormProps } from './context';
 
 /**
- * 解析Nested Objects对应的字段值
- * @param values 表单值
- * @param fieldName 字段名
+ * Phân tích giá trị trường tương ứng với Nested Objects
+ * @param values Giá trị biểu mẫu
+ * @param fieldName Tên trường
  */
 function resolveValueByFieldName(
   values: Record<string, any>,
   fieldName: string,
 ) {
-  // vee-validate：[] 表示禁用嵌套
+  // vee-validate：[] biểu thị vô hiệu hóa lồng nhau
   if (fieldName.startsWith('[') && fieldName.endsWith(']')) {
     const rawKey = fieldName.slice(1, -1);
     return values[rawKey];
@@ -52,7 +52,7 @@ export default function useDependencies(
   const dynamicRules = ref<FormSchemaRuleType>();
 
   const triggerFieldValues = computed(() => {
-    // 该字段可能会被多个字段触发
+    // Trường này có thể bị nhiều trường khác kích hoạt
     const triggerFields = getDependencies()?.triggerFields ?? [];
     return triggerFields.map((dep) => {
       return resolveValueByFieldName(values.value, dep);
@@ -85,19 +85,19 @@ export default function useDependencies(
         trigger,
       } = dependencies;
 
-      // 1. 优先判断if，如果if为false，则不渲染dom，后续判断也不再执行
+      // 1. Ưu tiên xét if, nếu if là false thì không render dom, các xét đoán tiếp theo cũng không thực hiện nữa
       const formValues = values.value;
 
       if (isFunction(whenIf)) {
         isIf.value = !!(await whenIf(formValues, formApi));
-        // 不渲染
+        // Không render
         if (!isIf.value) return;
       } else if (isBoolean(whenIf)) {
         isIf.value = whenIf;
         if (!isIf.value) return;
       }
 
-      // 2. 判断show，如果show为false，则隐藏
+      // 2. Xét show, nếu show là false thì ẩn đi
       if (isFunction(show)) {
         isShow.value = !!(await show(formValues, formApi));
       } else if (isBoolean(show)) {

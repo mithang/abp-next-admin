@@ -61,7 +61,7 @@ namespace LINGYUN.Abp.ProjectManagement.Projects
 
                 var template = await TemplateRepository.GetAsync(projectTemplate.TemplateId);
 
-                // 组成参数列表
+                // Tạo danh sách tham số
                 var projectBuildArgs = projectTemplate.Options
                     .Select(x => new { x.Key, x.Value });
                 if (projectTemplate.ExtraProperties.Any())
@@ -70,24 +70,24 @@ namespace LINGYUN.Abp.ProjectManagement.Projects
                         projectTemplate.ExtraProperties
                             .Select(x => new { x.Key, Value = x.Value?.ToString() }));
                 }
-                // 检查必须参数
+                // Kiểm tra các tham số bắt buộc
                 var ignoredArgs = template.GetMustOptions().Where(x => !projectBuildArgs.Any(y => x.Key.Equals(y.Key)));
                 if (ignoredArgs.Any())
                 {
-                    project.BuildFailed(Clock, new Exception($"构建项目失败,缺失必要的参数: {ignoredArgs.Select(x => x.Key).JoinAsString(";")}"));
+                    project.BuildFailed(Clock, new Exception($"Tạo dự án thất bại, thiếu các tham số bắt buộc: {ignoredArgs.Select(x => x.Key).JoinAsString(";")}"));
                 }
                 else
                 {
-                    // 取项目ID作为存储路径
+                    // Lấy ID dự án làm đường dẫn lưu trữ
                     var path = Path.Combine(
                         Directory.GetCurrentDirectory(),
                         project.Id.ToString());
                     var argsList = new List<string>
                     {
-                        "new", // new命令
-                        "--skip-cli-version-check", // 不检查cli版本
+                        "new", // lệnh new
+                        "--skip-cli-version-check", // không kiểm tra phiên bản cli
                         project.Name,
-                        "-o", // 输出目录
+                        "-o", // thư mục đầu ra
                         path
                     };
 

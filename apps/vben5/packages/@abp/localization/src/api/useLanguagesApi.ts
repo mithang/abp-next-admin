@@ -13,9 +13,9 @@ export function useLanguagesApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询语言分页列表
-   * @param input 参数
-   * @returns 语言列表
+   * Truy vấn danh sách phân trang ngôn ngữ
+   * @param input Tham số
+   * @returns Danh sách ngôn ngữ
    */
   function getPagedListApi(
     input?: LanguageGetPagedListInput,
@@ -27,9 +27,9 @@ export function useLanguagesApi() {
   }
 
   /**
-   * 查询语言
-   * @param name 语言名称
-   * @returns 查询的语言
+   * Truy vấnngôn ngữ
+   * @param name Tên ngôn ngữ
+   * @returns Ngôn ngữ được truy vấn
    */
   function getApi(name: string): Promise<LanguageDto> {
     return request<LanguageDto>(`/api/localization/languages/${name}`, {
@@ -38,8 +38,8 @@ export function useLanguagesApi() {
   }
 
   /**
-   * 删除语言
-   * @param name 语言名称
+   * Xóa ngôn ngữ
+   * @param name Tên ngôn ngữ
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/localization/languages/${name}`, {
@@ -48,9 +48,9 @@ export function useLanguagesApi() {
   }
 
   /**
-   * 创建语言
-   * @param input 参数
-   * @returns 创建的语言
+   * Tạo ngôn ngữ
+   * @param input Tham số
+   * @returns Ngôn ngữ đã tạo
    */
   function createApi(input: LanguageCreateDto): Promise<LanguageDto> {
     return request<LanguageDto>(`/api/localization/languages`, {
@@ -60,10 +60,10 @@ export function useLanguagesApi() {
   }
 
   /**
-   * 编辑语言
-   * @param name 语言名称
-   * @param input 参数
-   * @returns 编辑的语言
+   * Chỉnh sửa ngôn ngữ
+   * @param name Tên ngôn ngữ
+   * @param input Tham số
+   * @returns Ngôn ngữ đã chỉnh sửa
    */
   function updateApi(
     name: string,

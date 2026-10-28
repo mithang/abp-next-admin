@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
-#东8区
+#Múi giờ UTC+8
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
 

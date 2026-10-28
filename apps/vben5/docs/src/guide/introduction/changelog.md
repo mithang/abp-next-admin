@@ -1,3 +1,3 @@
-# 更新日志
+# Nhật ký cập nhật
 
 TODO

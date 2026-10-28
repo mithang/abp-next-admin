@@ -30,32 +30,32 @@ public class SendEmailJob : IJobRunnable
 
     public const string PropertyFrom = "from";
     /// <summary>
-    /// 接收者
+    /// Người nhận
     /// </summary>
     public const string PropertyTo = "to";
     /// <summary>
-    /// 必须，邮件主体
+    /// Bắt buộc, tiêu đề email
     /// </summary>
     public const string PropertySubject = "subject";
     /// <summary>
-    /// 消息内容, 文本消息时必须
+    /// Nội dung thông điệp, bắt buộc khi là thông điệp văn bản
     /// </summary>
     public const string PropertyBody = "body";
 
     /// <summary>
-    /// 发送模板消息
+    /// Gửi thông điệp mẫu
     /// </summary>
     public const string PropertyTemplate = "template";
     /// <summary>
-    /// 可选, 模板消息中的模型参数
+    /// Tùy chọn, tham số mô hình trong thông điệp mẫu
     /// </summary>
     public const string PropertyModel = "model";
     /// <summary>
-    /// 可选, 模板消息中的上下文参数
+    /// Tùy chọn, tham số ngữ cảnh trong thông điệp mẫu
     /// </summary>
     public const string PropertyContext = "context";
     /// <summary>
-    /// 可选, 模板消息中的区域性
+    /// Tùy chọn, culture trong thông điệp mẫu
     /// </summary>
     public const string PropertyCulture = "culture";
 

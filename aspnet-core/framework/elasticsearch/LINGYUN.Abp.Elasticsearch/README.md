@@ -1,10 +1,10 @@
 # LINGYUN.Abp.Elasticsearch
 
-简体中文 | [English](./README.EN.md)
+Tiếng Việt | [English](./README.EN.md)
 
-Abp Elasticsearch集成,提供全局唯一IElasticClient访问接口
+Tích hợp Abp Elasticsearch, cung cấp giao diện truy cập IElasticClient duy nhất toàn cục
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpElasticsearchModule))]
@@ -14,22 +14,22 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 接口定义
+## Định nghĩa giao diện
 
-*   [IIndexMappingProvider](./LINGYUN/Abp/Elasticsearch/IIndexMappingProvider.cs)  获取索引映射属性  
-*   [IExpressionQueryTranslator](./LINGYUN/Abp/Elasticsearch/IExpressionQueryTranslator.cs)  表达式树翻译为ES查询类  
-*   [IExpressionQueryService](./LINGYUN/Abp/Elasticsearch/IExpressionQueryService.cs)  表达式树数据查询  
-*   [IElasticsearchClientFactory](./LINGYUN/Abp/Elasticsearch/IElasticsearchClientFactory.cs)  ES客户端管理  
+*   [IIndexMappingProvider](./LINGYUN/Abp/Elasticsearch/IIndexMappingProvider.cs)  Lấy thuộc tính ánh xạ chỉ mục  
+*   [IExpressionQueryTranslator](./LINGYUN/Abp/Elasticsearch/IExpressionQueryTranslator.cs)  Cây biểu thức dịch sang lớp truy vấn ES  
+*   [IExpressionQueryService](./LINGYUN/Abp/Elasticsearch/IExpressionQueryService.cs)  Truy vấn dữ liệu cây biểu thức  
+*   [IElasticsearchClientFactory](./LINGYUN/Abp/Elasticsearch/IElasticsearchClientFactory.cs)  Quản lý máy khách ES  
 
-## 配置项
+## Mục cấu hình
 
-*	AbpElasticsearchOptions.FieldCamelCase      字段是否采用 camelCase 格式, 默认false
-*	AbpElasticsearchOptions.NodeUris            ES端点,多个端点以,或;分隔
-*	AbpElasticsearchOptions.TypeName            文档名称,默认_doc
-*	AbpElasticsearchOptions.ConnectionLimit     最大连接数,详情见 NEST 文档
-*	AbpElasticsearchOptions.UserName            连接用户,详情见 NEST 文档
-*	AbpElasticsearchOptions.Password            用户密码,详情见 NEST 文档
-*	AbpElasticsearchOptions.ConnectionTimeout   连接超时时间,详情见 NEST 文档
+*	AbpElasticsearchOptions.FieldCamelCase      Trường có sử dụng định dạng camelCase hay không, mặc định là false
+*	AbpElasticsearchOptions.NodeUris            Điểm cuối ES, nhiều điểm cuối phân tách bằng , hoặc ;
+*	AbpElasticsearchOptions.TypeName            Tên tài liệu, mặc định là _doc
+*	AbpElasticsearchOptions.ConnectionLimit     Số kết nối tối đa, xem chi tiết trong tài liệu NEST
+*	AbpElasticsearchOptions.UserName            Người dùng kết nối, xem chi tiết trong tài liệu NEST
+*	AbpElasticsearchOptions.Password            Mật khẩu người dùng, xem chi tiết trong tài liệu NEST
+*	AbpElasticsearchOptions.ConnectionTimeout   Thời gian chờ kết nối, xem chi tiết trong tài liệu NEST
 
 ## appsettings.json
 

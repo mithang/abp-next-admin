@@ -26,11 +26,11 @@ const getDefaultPwaOptions = (name: string): Partial<PwaPluginOptions> => ({
 });
 
 /**
- * importmap CDN 暂时不开启，因为有些包不支持，且网络不稳定
+ * Importmap CDN tạm thời chưa bật, vì một số package không hỗ trợ và mạng không ổn định
  */
 const defaultImportmapOptions: ImportmapPluginOptions = {
-  // 通过 Importmap CDN 方式引入,
-  // 目前只有esm.sh源兼容性好一点，jspm.io对于 esm 入口要求高
+  // Nhập vào theo cách Importmap CDN,
+  // Hiện tại chỉ có nguồn esm.sh tương thích tốt hơn một chút, jspm.io yêu cầu cao đối với entry esm
   defaultProvider: 'esm.sh',
   importmap: [
     { name: 'vue' },

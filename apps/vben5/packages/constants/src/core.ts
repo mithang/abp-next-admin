@@ -1,11 +1,11 @@
 /**
- * @zh_CN 登录页面 url 地址
+ * @zh_CN URL trang đăng nhập
  */
 export const LOGIN_PATH = '/auth/login';
 
 export interface LanguageOption {
   label: string;
-  value: 'en-US' | 'zh-CN';
+  value: 'en-US' | 'vi-VN' | 'zh-CN';
 }
 
 /**
@@ -13,11 +13,15 @@ export interface LanguageOption {
  */
 export const SUPPORT_LANGUAGES: LanguageOption[] = [
   {
-    label: '简体中文',
+    label: 'Tiếng Trung giản thể',
     value: 'zh-CN',
   },
   {
     label: 'English',
     value: 'en-US',
+  },
+  {
+    label: 'Tiếng Việt',
+    value: 'vi-VN',
   },
 ];

@@ -1,0 +1,8 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Notification:WeChatWork": "WeChat Doanh nghiệp",
+    "Notification:WeChatWorkTest": "Kiểm tra tin nhắn WeChat Doanh nghiệp",
+    "Notification:WeChatWorkTestDesc": "Dùng để kiểm thử gửi tin nhắn WeChat Doanh nghiệp"
+  }
+}

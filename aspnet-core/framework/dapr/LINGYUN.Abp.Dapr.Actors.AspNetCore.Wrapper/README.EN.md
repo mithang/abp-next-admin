@@ -178,4 +178,4 @@ public class CustomActorErrorHandler : IAbpWrapperErrorHandler
 * Wrapper format can be customized by implementing `IAbpWrapperResponseBuilder`
 * Actor state operation errors are properly wrapped and handled
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

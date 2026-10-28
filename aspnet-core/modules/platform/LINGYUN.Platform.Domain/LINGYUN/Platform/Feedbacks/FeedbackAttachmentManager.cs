@@ -23,10 +23,10 @@ public class FeedbackAttachmentManager : DomainService
     }
 
     /// <summary>
-    /// 将文件流写入临时存储
+    /// Ghi luồng file vào bộ nhớ tạm thời
     /// </summary>
-    /// <param name="stream">文件流</param>
-    /// <returns>返回临时存储的文件标识</returns>
+    /// <param name="stream">Luồng file</param>
+    /// <returns>Trả về định danh file trong bộ nhớ tạm thời</returns>
     public async Task<FeedbackAttachmentTempFile> SaveToTempAsync(Stream stream)
     {
         var blobSize = stream.Length;
@@ -55,11 +55,11 @@ public class FeedbackAttachmentManager : DomainService
         };
     }
     /// <summary>
-    /// 从临时存储附件拷贝到blob存储
+    /// Sao chép tệp đính kèm từ bộ nhớ tạm thời sang bộ nhớ blob
     /// </summary>
-    /// <param name="feedback">用户反馈实体</param>
-    /// <param name="file">附件临时存储文件</param>
-    /// <returns>已保存的附件</returns>
+    /// <param name="feedback">Thực thể phản hồi của người dùng</param>
+    /// <param name="file">File lưu trữ tạm thời của tệp đính kèm</param>
+    /// <returns>Tệp đính kèm đã lưu</returns>
     public async Task<FeedbackAttachmentFile> CopyFromTempAsync(Feedback feedback, string filePtah, string fileId)
     {
         var fileName = $"{filePtah}/{fileId}.png";
@@ -90,10 +90,10 @@ public class FeedbackAttachmentManager : DomainService
         return attachmentFile;
     }
     /// <summary>
-    /// 下载附件
+    /// Tải xuống tệp đính kèm
     /// </summary>
-    /// <param name="attachment">附件实体</param>
-    /// <returns>附件文件流</returns>
+    /// <param name="attachment">Thực thể tệp đính kèm</param>
+    /// <returns>Luồng file tệp đính kèm</returns>
     public async Task<Stream> DownloadAsync(FeedbackAttachment attachment)
     {
         var blobFile = $"{attachment.FeedbackId}/{attachment.Name}";
@@ -101,10 +101,10 @@ public class FeedbackAttachmentManager : DomainService
         return await _blobContainer.GetAsync(blobFile);
     }
     /// <summary>
-    /// 删除附件
+    /// Xóa tệp đính kèm
     /// </summary>
-    /// <param name="attachment">附件实体</param>
-    /// <returns>附件文件流</returns>
+    /// <param name="attachment">Thực thể tệp đính kèm</param>
+    /// <returns>Luồng file tệp đính kèm</returns>
     public async Task DeleteAsync(FeedbackAttachment attachment)
     {
         var blobFile = $"{attachment.FeedbackId}/{attachment.Name}";

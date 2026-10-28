@@ -5,40 +5,40 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 审批申请备注信息
+/// Thông tin ghi chú của đơn xin phê duyệt
 /// </summary>
 public class ApprovalComment
 {
     /// <summary>
-    /// 备注人信息
+    /// Thông tin người ghi chú
     /// </summary>
     [CanBeNull]
     [JsonProperty("commentUserInfo")]
     [JsonPropertyName("commentUserInfo")]
     public ApprovalUser? CommentUserInfo { get; set; }
     /// <summary>
-    /// 审批申请提交时间,Unix时间戳
+    /// Thời gian nộp đơn xin phê duyệt, dấu thời gian Unix
     /// </summary>
     [NotNull]
     [JsonProperty("commenttime")]
     [JsonPropertyName("commenttime")]
     public long CommentTime { get; set; }
     /// <summary>
-    /// 备注文本内容
+    /// Nội dung văn bản ghi chú
     /// </summary>
     [NotNull]
     [JsonProperty("commentcontent")]
     [JsonPropertyName("commentcontent")]
     public string CommentContent { get; set; } = default!;
     /// <summary>
-    /// 备注id
+    /// Id ghi chú
     /// </summary>
     [NotNull]
     [JsonProperty("commentid")]
     [JsonPropertyName("commentid")]
     public string CommentId { get; set; } = default!;
     /// <summary>
-    /// 备注附件id，可能有多个，微盘文件无法获取
+    /// Id tệp đính kèm của ghi chú, có thể có nhiều; tệp trên WeDrive không lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("media_id")]

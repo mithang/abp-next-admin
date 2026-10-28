@@ -25,37 +25,37 @@ export function useRowSelection(
       selectedRowKeys: unref(selectedRowKeysRef),
       onChange: (selectedRowKeys: Key[], selectedRows: any[], isClickCustomRow?: boolean) => {
         if (isClickCustomRow) {
-          // 点击行触发
+          // Kích hoạt khi nhấn vào hàng
 
-          // 维持外部定义的 onChange 回调
+          // Duy trì callback onChange do bên ngoài định nghĩa
           rowSelection.onChange?.(selectedRowKeys, selectedRows);
         } else {
-          // 点击 checkbox/radiobox 触发
+          // Kích hoạt khi nhấn checkbox/radiobox
 
-          // 取出【当前页】所有 keyValues
+          // Lấy tất cả keyValues của 【trang hiện tại】
           const currentPageKeys = tableData.value.map((o) => parseRowKeyValue(unref(getRowKey), o));
 
-          // 从【所有分页】已选的 keyValues，且属于【当前页】的部分
+          // Từ keyValues đã chọn của 【tất cả các trang】 và thuộc phần của 【trang hiện tại】
           for (const selectedKey of selectedRowKeysRef.value.filter((k) =>
             currentPageKeys.includes(k),
           )) {
-            // 判断是否已经不存在于【当前页】
+            // Xác định xem đã không còn tồn tại trong 【trang hiện tại】 chưa
             if (selectedRowKeys.findIndex((k) => k === selectedKey) < 0) {
-              // 不存在 = 取消勾选
+              // Không tồn tại = bỏ chọn
               const removeIndex = selectedRowKeysRef.value.findIndex((k) => k === selectedKey);
               if (removeIndex > -1) {
-                // 取消勾选
+                // Bỏ chọn
                 selectedRowKeysRef.value.splice(removeIndex, 1);
                 selectedRowRef.value.splice(removeIndex, 1);
               }
             }
           }
 
-          // 存在于【当前页】，但不存在于【所有分页】，则认为是新增的
+          // Tồn tại trong 【trang hiện tại】 nhưng không tồn tại trong 【tất cả các trang】 thì được coi là mới thêm
           for (const selectedKey of selectedRowKeys) {
             const existIndex = selectedRowKeysRef.value.findIndex((k) => k === selectedKey);
             if (existIndex < 0) {
-              // 新增勾选
+              // Chọn mới thêm
               selectedRowKeysRef.value.push(selectedKey);
               const record = selectedRows.find(
                 (o) => parseRowKeyValue(unref(getRowKey), o) === selectedKey,
@@ -66,10 +66,10 @@ export function useRowSelection(
             }
           }
 
-          // 赋值调整过的值
+          // Gán giá trị đã điều chỉnh
           setSelectedRowKeys(selectedRowKeysRef.value);
 
-          // 维持外部定义的onChange回调
+          // Duy trì callback onChange do bên ngoài định nghĩa
           rowSelection.onChange?.(selectedRowKeysRef.value, selectedRowRef.value);
         }
       },
@@ -129,8 +129,8 @@ export function useRowSelection(
       if (found) {
         trueSelectedRows.push(found);
       } else {
-        // 跨页的时候，非本页数据无法得到，暂如此处理
-        // tableData or selectedRowRef 总有数据
+        // Khi chuyển trang, dữ liệu không thuộc trang này không lấy được, tạm xử lý như vậy
+        // tableData hoặc selectedRowRef luôn có dữ liệu
         if (rows[0]) {
           trueSelectedRows.push({ [parseRowKey(unref(getRowKey), rows[0])]: keyValue });
         }

@@ -81,7 +81,7 @@ const expandNodeKeys = ref<string[]>([]);
 const checkedNodeKeys = ref<string[]>([]);
 const autoExpandParent = ref<boolean>(false);
 const permissionGroups = ref<PermissionGroupVo[]>([]);
-/** 根据搜索条件过滤后的权限树 */
+/** Cây quyền đã lọc theo điều kiện tìm kiếm */
 const filteredPermissionGroups = ref<PermissionGroupVo[]>([]);
 const permissionProviders = ref<NameValue<string>[]>([]);
 
@@ -95,11 +95,11 @@ const { getListApi: getPermissionGroupDefinitionsApi } =
 const { getGrantedByProviderApi, updateApi } = usePermissionsApi();
 
 /**
- * 递归过滤权限树
- * 数据结构的子节点字段是 permissions（不是 children）
- * - 当前节点自身匹配关键字 → 保留
- * - 当前节点不匹配，但子孙中有匹配 → 保留当前节点，并保留匹配的子孙
- * - 当前节点和所有子孙都不匹配 → 丢弃
+ * Lọc đệ quy cây quyền
+ * Trường nút con của cấu trúc dữ liệu là permissions (không phải children)
+ * - Nút hiện tại tự khớp từ khóa → giữ lại
+ * - Nút hiện tại không khớp, nhưng có nút con cháu khớp → giữ nút hiện tại và giữ các nút con cháu khớp
+ * - Nút hiện tại và tất cả nút con cháu đều không khớp → loại bỏ
  */
 function filterPermissionTree(
   permissions: PermissionVo[],
@@ -117,14 +117,14 @@ function filterPermissionTree(
     const selfMatched =
       displayName.includes(lowerKeyword) || name.includes(lowerKeyword);
 
-    // 递归过滤子节点（字段是 permissions）
+    // Lọc đệ quy nút con (trường là permissions)
     const children = (permission as any).permissions ?? [];
     const filteredChildren = filterPermissionTree(children, keyword);
 
     if (selfMatched || filteredChildren.length > 0) {
       result.push({
         ...permission,
-        // 保留原字段名 permissions
+        // Giữ nguyên tên trường permissions
         permissions: filteredChildren,
       } as any);
     }
@@ -134,8 +134,8 @@ function filterPermissionTree(
 }
 
 /**
- * 收集过滤后树中所有非叶子节点的 key，用于全部展开
- * 字段名同样是 permissions
+ * Thu thập key của tất cả nút không phải lá trong cây đã lọc, dùng để mở rộng toàn bộ
+ * Tên trường cũng là permissions
  */
 function collectExpandKeys(
   permissions: PermissionVo[],
@@ -154,7 +154,7 @@ function collectExpandKeys(
 watch(searchPermission, (value) => {
   const keyword = value?.trim() ?? '';
 
-  // 清空搜索 → 恢复完整树，并收起所有展开节点
+  // Xóa tìm kiếm → khôi phục cây đầy đủ và thu gọn tất cả nút đang mở
   if (!keyword) {
     filteredPermissionGroups.value = permissionGroups.value;
     expandNodeKeys.value = [];
@@ -166,7 +166,7 @@ watch(searchPermission, (value) => {
   const filtered: PermissionGroupVo[] = [];
 
   for (const group of permissionGroups.value) {
-    // 组名本身也参与匹配
+    // Bản thân tên nhóm cũng tham gia khớp
     const groupMatched = (group.displayName ?? '')
       .toLowerCase()
       .includes(lowerKeyword);
@@ -176,7 +176,7 @@ watch(searchPermission, (value) => {
       keyword,
     );
 
-    // 组名匹配 或 组内有匹配权限 → 保留该组
+    // Tên nhóm khớp hoặc trong nhóm có quyền khớp → giữ nhóm đó
     if (groupMatched || filteredPermissions.length > 0) {
       filtered.push({
         ...group,
@@ -187,10 +187,10 @@ watch(searchPermission, (value) => {
 
   filteredPermissionGroups.value = filtered;
 
-  // 收集所有非叶子节点 key，实现搜索后全部展开
+  // Thu thập key của tất cả nút không phải lá, để mở rộng toàn bộ sau tìm kiếm
   const expandKeys: string[] = [];
   for (const group of filtered) {
-    // 如果组下面还有权限，组本身也要展开
+    // Nếu dưới nhóm còn quyền, bản thân nhóm cũng phải mở rộng
     if (group.permissions?.length) {
       expandKeys.push(group.key);
       collectExpandKeys(group.permissions, expandKeys);
@@ -365,7 +365,7 @@ async function onInit() {
     };
   });
 
-  // 初始化过滤树（无搜索条件时等同于完整树）
+  // Khởi tạo cây đã lọc (khi không có điều kiện tìm kiếm thì tương đương cây đầy đủ)
   filteredPermissionGroups.value = permissionGroups.value;
 }
 
@@ -394,7 +394,7 @@ async function onDeleteGrand(grantedInfo: PermissionProvider) {
             <InputSearch
               v-model:value="searchPermission"
               enter-button
-              placeholder="搜索权限"
+              placeholder="Tìm kiếm quyền"
             />
           </template>
           <div class="h-full overflow-y-auto">

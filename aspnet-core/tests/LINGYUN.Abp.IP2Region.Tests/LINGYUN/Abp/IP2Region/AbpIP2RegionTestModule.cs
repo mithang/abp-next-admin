@@ -13,8 +13,8 @@ public class AbpIP2RegionTestModule : AbpModule
     {
         Configure<AbpIPLocationResolveOptions>(options =>
         {
-            // ÖĞ¹úIP²»ÏÔÊ¾¹ú¼Ò(´Ó±¸×¢ÖĞÒÆ³ı)
-            options.RemoveCountry = new[] { "ÖĞ¹ú" };
+            // IP Trung Quá»‘c khÃ´ng hiá»ƒn thá»‹ quá»‘c gia (loáº¡i khá»i ghi chÃº)
+            options.RemoveCountry = new[] { "Trung Quá»‘c" };
         });
     }
 }

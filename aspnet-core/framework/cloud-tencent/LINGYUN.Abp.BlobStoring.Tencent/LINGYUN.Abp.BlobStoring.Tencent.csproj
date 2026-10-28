@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>腾讯云Oss对象存储Abp集成</Description>
+		<Description>Tích hợp ABP cho lưu trữ đối tượng OSS của Tencent Cloud</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

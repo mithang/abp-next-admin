@@ -3,37 +3,37 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)序列化器
+/// Bộ tuần tự hóa dữ liệu kênh thông báo (payload)
 /// </summary>
 /// <remarks>
-/// 生产者侧的统一入口, 负责把强类型载荷写入 <see cref="NotificationData"/>。
+/// Điểm vào thống nhất phía producer, chịu trách nhiệm ghi payload kiểu mạnh vào <see cref="NotificationData"/>。
 /// </remarks>
 public interface INotificationChannelDataSerializer
 {
     /// <summary>
-    /// 写入渠道数据(载荷)
+    /// Ghi dữ liệu kênh (payload)
     /// </summary>
-    /// <typeparam name="TChannelData">载荷类型</typeparam>
-    /// <param name="notificationData">通知数据</param>
-    /// <param name="channelData">载荷实例</param>
+    /// <typeparam name="TChannelData">Loại payload</typeparam>
+    /// <param name="notificationData">Dữ liệu thông báo</param>
+    /// <param name="channelData">Thể hiện payload</param>
     NotificationData Write<TChannelData>(NotificationData notificationData, TChannelData channelData)
         where TChannelData : class;
 
     /// <summary>
-    /// 写入渠道数据(载荷)
+    /// Ghi dữ liệu kênh (payload)
     /// </summary>
-    /// <param name="notificationData">通知数据</param>
-    /// <param name="channelData">载荷实例</param>
+    /// <param name="notificationData">Dữ liệu thông báo</param>
+    /// <param name="channelData">Thể hiện payload</param>
     NotificationData Write(NotificationData notificationData, NotificationChannelData channelData);
 
     /// <summary>
-    /// 按载荷类型清除渠道数据
+    /// Xóa dữ liệu kênh theo loại payload
     /// </summary>
     NotificationData Clear<TChannelData>(NotificationData notificationData)
         where TChannelData : class;
 
     /// <summary>
-    /// 判断通知数据中是否存在指定载荷
+    /// Kiểm tra xem dữ liệu thông báo có chứa payload chỉ định hay không
     /// </summary>
     bool Has<TPayload>(NotificationData notificationData)
         where TPayload : class;

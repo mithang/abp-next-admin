@@ -3,100 +3,100 @@
 namespace LINGYUN.Abp.Location.Amap
 {
     /// <summary>
-    /// 高德地图的返回参数格式真的奇葩
-    /// 弃用了
+    /// Định dạng tham số trả về của bản đồ Amap thật kỳ quặc
+    /// Đã ngừng sử dụng
     /// </summary>
     public class AmapGeocode
     {
         /// <summary>
-        /// 结构化地址信息
-        /// 省份＋城市＋区县＋城镇＋乡村＋街道＋门牌号码
+        /// Thông tin địa chỉ có cấu trúc
+        /// Tỉnh + thành phố + quận/huyện + thị trấn + thôn/xóm + đường phố + số nhà
         /// </summary>
         [JsonProperty("formatted_address")]
         public string Address { get; set; }
 
         /// <summary>
-        /// 国家
-        /// 国内地址默认返回中国
+        /// Quốc gia
+        /// Địa chỉ trong nước mặc định trả về Trung Quốc
         /// </summary>
         [JsonProperty("country")]
         public string Country { get; set; }
 
         /// <summary>
-        /// 地址所在的省份名
-        /// 例如：北京市。此处需要注意的是，中国的四大直辖市也算作省级单位。
+        /// Tên tỉnh nơi địa chỉ tọa lạc
+        /// Ví dụ: Bắc Kinh. Cần lưu ý, bốn thành phố trực thuộc trung ương của Trung Quốc cũng được tính là đơn vị cấp tỉnh.
         /// </summary>
         [JsonProperty("province")]
         public string Province { get; set; }
 
         /// <summary>
-        /// 地址所在的城市名
-        /// 例如：北京市
+        /// Tên thành phố nơi địa chỉ tọa lạc
+        /// Ví dụ: Bắc Kinh
         /// </summary>
         [JsonProperty("city")]
         public string City { get; set; }
 
         /// <summary>
-        /// 城市编码
-        /// 例如：010
+        /// Mã thành phố
+        /// Ví dụ: 010
         /// </summary>
         [JsonProperty("citycode")]
         public string CityCode { get; set; }
 
         /// <summary>
-        /// 地址所在的区
-        /// 例如：朝阳区
+        /// Quận nơi địa chỉ tọa lạc
+        /// Ví dụ: Triều Dương
         /// </summary>
         [JsonProperty("district")]
         public string District { get; set; }
 
         /// <summary>
-        /// 坐标点所在乡镇/街道（此街道为社区街道，不是道路信息）
-        /// 例如：燕园街道
+        /// Phường/thị trấn nơi điểm tọa độ tọa lạc (đường phố này là đường phố cộng đồng, không phải thông tin đường giao thông)
+        /// Ví dụ: Phường Yến Viên
         /// </summary>
         public string[] TownShip { get; set; } = new string[0];
 
         /// <summary>
-        /// 社区信息列表
+        /// Danh sách thông tin cộng đồng
         /// </summary>
         public NeighBorHood NeighBorHood { get; set; } = new NeighBorHood();
 
         /// <summary>
-        /// 楼信息列表
+        /// Danh sách thông tin tòa nhà
         /// </summary>
         public Building Building { get; set; } = new Building();
 
         /// <summary>
-        /// 街道
-        /// 例如：阜通东大街
+        /// Đường phố
+        /// Ví dụ: Đường Phú Thông Đông
         /// </summary>
         [JsonProperty("street")]
         public string[] Street { get; set; } = new string[0];
 
         /// <summary>
-        /// 门牌
-        /// 例如：6号
+        /// Số nhà
+        /// Ví dụ: số 6
         /// </summary>
         [JsonProperty("number")]
         public string[] Number { get; set; } = new string[0];
 
         /// <summary>
-        /// 区域编码
-        /// 例如：110101
+        /// Mã khu vực
+        /// Ví dụ: 110101
         /// </summary>
         [JsonProperty("adcode")]
         public string Adcode { get; set; }
 
         /// <summary>
-        /// 坐标点
-        /// 经度，纬度
+        /// Điểm tọa độ
+        /// Kinh độ, vĩ độ
         /// </summary>
         [JsonProperty("location")]
         public string Location { get; set; }
 
         /// <summary>
-        /// 匹配级别
-        /// 例如：朝阳区
+        /// Mức độ khớp
+        /// Ví dụ: Triều Dương
         /// </summary>
         [JsonProperty("level")]
         public string Level { get; set; }

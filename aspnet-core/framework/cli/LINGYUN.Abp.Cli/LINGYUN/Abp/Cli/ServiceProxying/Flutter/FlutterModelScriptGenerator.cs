@@ -24,15 +24,15 @@ public class FlutterModelScriptGenerator : IFlutterModelScriptGenerator, ITransi
         ControllerApiDescriptionModel actionModel)
     {
         var modelScriptBuilder = new StringBuilder();
-        // dto基类
+        // Lớp cơ sở của dto
         modelScriptBuilder.AppendLine("import 'package:core/models/abp.dto.dart';");
-        // json库
+        // Thư viện json
         // flutter pub add json_annotation
         // flutter pub add build_runner --dev
         // flutter pub add json_serializable --dev
         // flutter pub run build_runner build --delete-conflicting-outputs
         modelScriptBuilder.AppendLine("import 'package:json_annotation/json_annotation.dart';");
-        // json库实现, 
+        // Triển khai thư viện json, 
         modelScriptBuilder.AppendLine("part 'models.g.dart';");
         // modelScriptBuilder.AppendLine($"part '{actionModel.ControllerName.ToSnakeCase()}.g.dart';");
         modelScriptBuilder.AppendLine();
@@ -60,13 +60,13 @@ public class FlutterModelScriptGenerator : IFlutterModelScriptGenerator, ITransi
                         modelTypes.AddIfNotContains(modelTypeName);
                     }
 
-                    // 字段类型
+                    // Kiểu trường
                     foreach (var propertity in modelType.Properties)
                     {
                         modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, propertity));
                     }
 
-                    // 类型基类
+                    // Lớp cơ sở của kiểu
                     modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, modelType));
                 }
             }
@@ -88,19 +88,19 @@ public class FlutterModelScriptGenerator : IFlutterModelScriptGenerator, ITransi
                         modelTypes.AddIfNotContains(modelTypeName);
                     }
 
-                    // 字段类型
+                    // Kiểu trường
                     foreach (var propertity in modelType.Properties)
                     {
                         modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, propertity));
                     }
 
-                    // 类型基类
+                    // Lớp cơ sở của kiểu
                     modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, modelType));
                 }
             }
 
 
-            // 返回类型
+            // Kiểu trả về
             var returnType = action.Value.ReturnValue.TypeSimple;
             var abpBaseType = TypeScriptModelGenerator.AbpBaseTypes.FirstOrDefault(basType => returnType.StartsWith(basType));
             if (!abpBaseType.IsNullOrWhiteSpace())
@@ -134,7 +134,7 @@ public class FlutterModelScriptGenerator : IFlutterModelScriptGenerator, ITransi
             modelBaseTypes.AddIfNotContains(returnType);
         }
 
-        // 基类导出
+        // Xuất lớp cơ sở
         foreach (var baseType in modelBaseTypes)
         {
             if (appModel.Types.TryGetValue(baseType, out var modelType))

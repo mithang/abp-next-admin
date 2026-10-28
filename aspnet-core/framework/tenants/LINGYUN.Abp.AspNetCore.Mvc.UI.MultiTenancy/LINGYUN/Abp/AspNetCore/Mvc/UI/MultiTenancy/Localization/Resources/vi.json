@@ -1,0 +1,7 @@
+{
+  "culture": "vi",
+  "texts": {
+    "SelectTenantHint": "Vui lòng chọn một trong các bên thuê",
+    "InputTenantName": "Nhập thủ công"
+  }
+}

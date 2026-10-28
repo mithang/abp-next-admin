@@ -64,7 +64,7 @@ const AuthorizationTable = () => {
 				<Select
 					showSearch
 					allowClear
-					filterOption={false} // 禁用本地过滤
+					filterOption={false} // Tắt lọc cục bộ
 					options={applications.map((app) => ({
 						label: app.clientId,
 						value: app.id,

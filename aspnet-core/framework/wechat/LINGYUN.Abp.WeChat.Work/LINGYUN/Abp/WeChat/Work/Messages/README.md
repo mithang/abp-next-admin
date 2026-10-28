@@ -1,15 +1,15 @@
-# 企业微信消息通知
+# Thông báo tin nhắn WeChat doanh nghiệp
 
-## 功能特性
+## Tính năng
 
-* [发送应用消息](https://developer.work.weixin.qq.com/document/path/90236)
-* [发送群聊消息](https://developer.work.weixin.qq.com/document/path/90248)
-* [发送Webhook消息](https://developer.work.weixin.qq.com/document/path/99110)
+* [Gửi tin nhắn ứng dụng](https://developer.work.weixin.qq.com/document/path/90236)
+* [Gửi tin nhắn nhóm](https://developer.work.weixin.qq.com/document/path/90248)
+* [Gửi tin nhắn Webhook](https://developer.work.weixin.qq.com/document/path/99110)
 
 
-## 使用方法
+## Cách sử dụng
 
-- 发送Webhook消息
+- Gửi tin nhắn Webhook
 ```csharp
 public class Demo
 {
@@ -27,25 +27,25 @@ public class Demo
             new WeChatWorkWebhookTemplateCardMessage(
                 new WebhookTextNoticeCardMessage(
                     WebhookTemplateCardAction.Link("https://developer.work.weixin.qq.com/document/path/99110"),
-                    new WebhookTemplateCardMainTitle("请假通过通知", "您的请假申请已通过,请前往查看!"),
-                    source: WebhookTemplateCardSource.Black("https://wwcdn.weixin.qq.com/node/wework/images/wecom-logo.a61830413b.svg", "企业微信"),
+                    new WebhookTemplateCardMainTitle("Thông báo phê duyệt nghỉ phép", "Đơn xin nghỉ phép của bạn đã được phê duyệt, vui lòng vào xem!"),
+                    source: WebhookTemplateCardSource.Black("https://wwcdn.weixin.qq.com/node/wework/images/wecom-logo.a61830413b.svg", "WeChat doanh nghiệp"),
                     horizontalContents: new List<WebhookTemplateCardHorizontalContent>
                     {
-                        WebhookTemplateCardHorizontalContent.Default("审批单号", "QJ20251000000136"),
-                        WebhookTemplateCardHorizontalContent.Default("请假日期", "2025/10/01-2025/10/10"),
-                        WebhookTemplateCardHorizontalContent.Default("通过时间", "2025-10-01 15:30:00"),
-                        WebhookTemplateCardHorizontalContent.Default("审批备注", "做好考勤及交接事项"),
+                        WebhookTemplateCardHorizontalContent.Default("Số đơn phê duyệt", "QJ20251000000136"),
+                        WebhookTemplateCardHorizontalContent.Default("Ngày nghỉ phép", "2025/10/01-2025/10/10"),
+                        WebhookTemplateCardHorizontalContent.Default("Thời gian phê duyệt", "2025-10-01 15:30:00"),
+                        WebhookTemplateCardHorizontalContent.Default("Ghi chú phê duyệt", "Thực hiện tốt việc chấm công và bàn giao công việc"),
                     },
                     jumps: new List<WebhookTemplateCardJump>
                     {
-                        WebhookTemplateCardJump.Link("去OA查看", "https://developer.work.weixin.qq.com/document/path/99110")
+                        WebhookTemplateCardJump.Link("Vào OA xem", "https://developer.work.weixin.qq.com/document/path/99110")
                     })));
 	}
 }
 ```
 
 
-## 更多文档
+## Tài liệu thêm
 
-* [企业微信文档](https://developer.work.weixin.qq.com/document/path/90664)
+* [Tài liệu WeChat doanh nghiệp](https://developer.work.weixin.qq.com/document/path/90664)
 

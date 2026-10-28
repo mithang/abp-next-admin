@@ -25,38 +25,38 @@ using Volo.Abp.Users;
 namespace LINGYUN.Abp.EventBus.CAP;
 
 /// <summary>
-/// CAP分布式事件总线
+/// Bus sự kiện phân tán CAP
 /// </summary>
 [Dependency(ServiceLifetime.Singleton, ReplaceServices = true)]
 [ExposeServices(typeof(IDistributedEventBus), typeof(CAPDistributedEventBus))]
 public class CAPDistributedEventBus : DistributedEventBusBase, IDistributedEventBus
 {
     /// <summary>
-    /// CAP消息发布接口
+    /// Interface phát hành tin nhắn CAP
     /// </summary>
     protected ICapPublisher CapPublisher { get; }
     /// <summary>
-    /// 自定义事件注册接口
+    /// Interface đăng ký sự kiện tùy chỉnh
     /// </summary>
     protected ICustomDistributedEventSubscriber CustomDistributedEventSubscriber { get; }
     /// <summary>
-    /// 本地事件处理器工厂对象集合
+    /// Tập hợp đối tượng factory bộ xử lý sự kiện cục bộ
     /// </summary>
     protected ConcurrentDictionary<Type, List<IEventHandlerFactory>> HandlerFactories { get; }
     /// <summary>
-    /// 本地动态事件处理器工厂对象集合
+    /// Tập hợp đối tượng factory bộ xử lý sự kiện động cục bộ
     /// </summary>
     protected ConcurrentDictionary<string, List<IEventHandlerFactory>> DynamicHandlerFactories { get; }
     /// <summary>
-    /// 本地事件集合
+    /// Tập hợp sự kiện cục bộ
     /// </summary>
     protected ConcurrentDictionary<string, Type> EventTypes { get; }
     /// <summary>
-    /// 当前用户
+    /// Người dùng hiện tại
     /// </summary>
     protected ICurrentUser CurrentUser { get; }
     /// <summary>
-    /// 当前客户端
+    /// Máy khách hiện tại
     /// </summary>
     protected ICurrentClient CurrentClient { get; }
     /// <summary>
@@ -64,7 +64,7 @@ public class CAPDistributedEventBus : DistributedEventBusBase, IDistributedEvent
     /// </summary>
     protected IJsonSerializer JsonSerializer { get; }
     /// <summary>
-    /// 取消令牌
+    /// Token hủy
     /// </summary>
     protected ICancellationTokenProvider CancellationTokenProvider { get; }
     /// <summary>
@@ -122,7 +122,7 @@ public class CAPDistributedEventBus : DistributedEventBusBase, IDistributedEvent
         EventTypes = new ConcurrentDictionary<string, Type>();
     }
     /// <summary>
-    /// 订阅事件
+    /// Đăng ký sự kiện
     /// </summary>
     /// <param name="eventType"></param>
     /// <param name="factory"></param>
@@ -132,41 +132,41 @@ public class CAPDistributedEventBus : DistributedEventBusBase, IDistributedEvent
         return NullDisposable.Instance;
     }
     /// <summary>
-    /// 退订事件
+    /// Hủy đăng ký sự kiện
     /// </summary>
-    /// <typeparam name="TEvent">事件类型</typeparam>
+    /// <typeparam name="TEvent">Loại sự kiện</typeparam>
     /// <param name="action"></param>
     public override void Unsubscribe<TEvent>(Func<TEvent, Task> action)
     {
     }
     /// <summary>
-    /// 退订事件
+    /// Hủy đăng ký sự kiện
     /// </summary>
-    /// <param name="eventType">事件类型</param>
-    /// <param name="handler">事件处理器</param>
+    /// <param name="eventType">Loại sự kiện</param>
+    /// <param name="handler">Bộ xử lý sự kiện</param>
     public override void Unsubscribe(Type eventType, IEventHandler handler)
     {
     }
     /// <summary>
-    /// 退订事件
+    /// Hủy đăng ký sự kiện
     /// </summary>
-    /// <param name="eventType">事件类型</param>
-    /// <param name="factory">事件处理器工厂</param>
+    /// <param name="eventType">Loại sự kiện</param>
+    /// <param name="factory">Factory bộ xử lý sự kiện</param>
     public override void Unsubscribe(Type eventType, IEventHandlerFactory factory)
     {
     }
     /// <summary>
-    /// 退订所有事件
+    /// Hủy đăng ký tất cả sự kiện
     /// </summary>
-    /// <param name="eventType">事件类型</param>
+    /// <param name="eventType">Loại sự kiện</param>
     public override void UnsubscribeAll(Type eventType)
     {
     }
     /// <summary>
-    /// 发布事件
+    /// Phát hành sự kiện
     /// </summary>
-    /// <param name="eventType">事件类型</param>
-    /// <param name="eventData">事件数据对象</param>
+    /// <param name="eventType">Loại sự kiện</param>
+    /// <param name="eventData">Đối tượng dữ liệu sự kiện</param>
     /// <returns></returns>
     protected override async Task PublishToEventBusAsync(Type eventType, object eventData)
     {
@@ -174,7 +174,7 @@ public class CAPDistributedEventBus : DistributedEventBusBase, IDistributedEvent
     }
 
     /// <summary>
-    /// 获取事件处理器工厂列表
+    /// Lấy danh sách factory bộ xử lý sự kiện
     /// </summary>
     /// <param name="eventType"></param>
     /// <returns></returns>

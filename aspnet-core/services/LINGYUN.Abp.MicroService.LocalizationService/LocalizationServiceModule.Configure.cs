@@ -11,11 +11,13 @@ using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -68,7 +70,7 @@ public partial class LocalizationServiceModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别，应在0-31之间
+            // Phân biệt theo cổng mở, phải nằm trong khoảng 0-31
             options.SnowflakeIdOptions.WorkerId = 30;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -107,7 +109,7 @@ public partial class LocalizationServiceModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -116,7 +118,7 @@ public partial class LocalizationServiceModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hóa khi serialize tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -125,10 +127,10 @@ public partial class LocalizationServiceModule
 
     private void ConfigureExceptionHandling()
     {
-        // 自定义需要处理的异常
+        // Tùy chỉnh các ngoại lệ cần xử lý
         Configure<AbpExceptionHandlingOptions>(options =>
         {
-            //  加入需要处理的异常类型
+            //  Thêm loại ngoại lệ cần xử lý
             options.Handlers.Add<Volo.Abp.Data.AbpDbConcurrencyException>();
             options.Handlers.Add<AbpInitializationException>();
             options.Handlers.Add<ObjectDisposedException>();
@@ -138,10 +140,10 @@ public partial class LocalizationServiceModule
             options.Handlers.Add<Microsoft.EntityFrameworkCore.DbUpdateException>();
             options.Handlers.Add<System.Data.DBConcurrencyException>();
         });
-        // 自定义需要发送邮件通知的异常类型
+        // Tùy chỉnh các loại ngoại lệ cần gửi thông báo email
         Configure<AbpEmailExceptionHandlingOptions>(options =>
         {
-            // 是否发送堆栈信息
+            // Có gửi thông tin ngăn xếp hay không
             options.SendStackTrace = true;
         });
     }
@@ -151,7 +153,7 @@ public partial class LocalizationServiceModule
         Configure<AbpAuditingOptions>(options =>
         {
             options.ApplicationName = ApplicationName;
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -211,7 +213,24 @@ public partial class LocalizationServiceModule
             });
         });
 
-        services.AddHealthChecks();
+        // DEVOPS iter-0006 (DEV-11): /healthz truoc day tro trui (AddHealthChecks()
+        // khong check nao) nen luon 200 ke ca khi DB/Redis chet. Dang ky check
+        // dependency that tai day; xem HealthChecks/LocalizationServiceHealthChecks.cs. Quet DbContext tu
+        // IServiceCollection: ABP chay ConfigureServices cua module phu thuoc truoc
+        // module host, nen luc ConfigureMvc chay thi cac DbContext da duoc dang ky.
+        var dbContextTypes = services
+            .Where(s => s.ServiceType.IsClass && !s.ServiceType.IsAbstract
+                && typeof(DbContext).IsAssignableFrom(s.ServiceType))
+            .Select(s => s.ServiceType)
+            .Distinct()
+            .ToList();
+        services.AddSingleton(sp => new HealthChecks.DatabaseHealthCheck(
+            dbContextTypes,
+            sp.GetRequiredService<IServiceScopeFactory>(),
+            sp.GetService<ILogger<HealthChecks.DatabaseHealthCheck>>()));
+        services.AddHealthChecks()
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database")
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 
     private void ConfigureVirtualFileSystem()
@@ -224,7 +243,7 @@ public partial class LocalizationServiceModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa tenant
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = false;
@@ -285,11 +304,11 @@ public partial class LocalizationServiceModule
 
     private void ConfigureLocalization()
     {
-        // 默认支持的本地化语言类型
+        // Các loại ngôn ngữ bản địa hóa được hỗ trợ mặc định
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
         });
 
         Configure<AbpLocalizationCultureMapOptions>(options =>
@@ -393,7 +412,7 @@ public partial class LocalizationServiceModule
         //            httprequestmessage.Headers.TryAddWithoutValidation(AbpHttpWrapConsts.AbpDontWrapResult, "true");
         //        });
         //});
-        // 服务间调用不包装
+        // Cuộc gọi giữa các dịch vụ không bọc kết quả
         PreConfigure<AbpHttpClientBuilderOptions>(options =>
         {
             options.ProxyClientActions.Add(

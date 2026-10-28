@@ -24,7 +24,7 @@ export class UrlBuilder {
     methodArguments: any,
     apiVersion: ApiVersionInfo
   ) {
-    // fix: 需要前缀，可能引起api调用错误
+    // fix: Cần tiền tố, có thể gây lỗi gọi api
     let urlBuilder = action.url.startsWith('/') ? action.url : `/${action.url}`;
     urlBuilder = this.replacePathVariables(
       urlBuilder,
@@ -152,7 +152,7 @@ export class HttpActionParameterHelper {
 
     let value = methodArguments[methodArgKeys[keyIndex]];
     if (!value) {
-      // fix bug: 请求参数为空时返回空字符串而不是null
+      // fix bug: Khi tham số request rỗng thì trả về chuỗi rỗng thay vì null
       return '';
     }
 
@@ -164,7 +164,7 @@ export class HttpActionParameterHelper {
     const inputKeyIndex = inputKeys.findIndex(
       (key) => key.toLowerCase() === apiParameter.name.toLowerCase()
     );
-    // fix bug: 请求参数为空时返回空字符串而不是null
+    // fix bug: Khi tham số request rỗng thì trả về chuỗi rỗng thay vì null
     value = inputKeyIndex < 0 ? '' : value[inputKeys[inputKeyIndex]] ?? '';
 
     return String(value);

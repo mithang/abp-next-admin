@@ -86,13 +86,13 @@ public class TypeScriptModelGenerator : ITypeScriptModelGenerator, ITransientDep
                         modelTypes.AddIfNotContains(modelTypeName);
                     }
 
-                    // 字段类型
+                    // Loại trường
                     foreach (var propertity in modelType.Properties)
                     {
                         modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, propertity));
                     }
 
-                    // 类型基类
+                    // Lớp cơ sở của loại
                     modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, modelType));
                 }
             }
@@ -114,19 +114,19 @@ public class TypeScriptModelGenerator : ITypeScriptModelGenerator, ITransientDep
                         modelTypes.AddIfNotContains(modelTypeName);
                     }
 
-                    // 字段类型
+                    // Loại trường
                     foreach (var propertity in modelType.Properties)
                     {
                         modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, propertity));
                     }
 
-                    // 类型基类
+                    // Lớp cơ sở của loại
                     modelBaseTypes.AddIfNotContains(FindBaseTypes(appModel, modelType));
                 }
             }
 
 
-            // 返回类型
+            // Loại trả về
             var returnType = action.Value.ReturnValue.TypeSimple;
             var abpBaseType = AbpBaseTypes.FirstOrDefault(basType => returnType.StartsWith(basType));
             if (!abpBaseType.IsNullOrWhiteSpace())
@@ -160,7 +160,7 @@ public class TypeScriptModelGenerator : ITypeScriptModelGenerator, ITransientDep
             modelBaseTypes.AddIfNotContains(returnType);
         }
 
-        // 基类导出
+        // Xuất lớp cơ sở
         foreach (var baseType in modelBaseTypes)
         {
             if (appModel.Types.TryGetValue(baseType, out var modelType))

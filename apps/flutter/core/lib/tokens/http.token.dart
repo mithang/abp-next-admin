@@ -1,6 +1,6 @@
 class HttpTokens {
-  /// 忽略错误提示信息
+  /// Bỏ qua thông báo lỗi
   static const String ignoreError = "ignore_error";
-  /// 请求不携带token
+  /// Yêu cầu không mang theo token
   static const String ignoreToken = "ignore_token";
 }

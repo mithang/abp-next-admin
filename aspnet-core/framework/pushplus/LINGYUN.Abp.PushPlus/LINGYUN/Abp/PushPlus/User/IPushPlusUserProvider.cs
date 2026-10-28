@@ -3,24 +3,24 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.PushPlus.User;
 /// <summary>
-/// 用户接口
+/// Giao diện người dùng
 /// </summary>
 public interface IPushPlusUserProvider
 {
     /// <summary>
-    /// 获取token
+    /// Lấy token
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<string> GetMyTokenAsync(CancellationToken cancellationToken = default);
     /// <summary>
-    /// 个人资料详情
+    /// Chi tiết hồ sơ cá nhân
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<PushPlusUserProfile> GetMyProfileAsync(CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取解封剩余时间
+    /// Lấy thời gian còn lại trước khi gỡ chặn
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

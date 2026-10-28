@@ -6,9 +6,9 @@ namespace LINGYUN.Abp.Tencent.Captcha.Security;
 
 public class GcmCaptchaAppIdEncryptor : ICaptchaAppIdEncryptor
 {
-    private const int GcmTagLengthBits = 128; // 16 字节 = 128 bit
+    private const int GcmTagLengthBits = 128; // 16 byte = 128 bit
     private const int GcmTagLengthBytes = GcmTagLengthBits / 8; // 16
-    private const int IvLengthBytes = 12;     // GCM 推荐 12 字节 IV
+    private const int IvLengthBytes = 12;     // GCM khuyến nghị IV 12 byte
 
     public string Encrypt(string plaintext, byte[] key, byte[] iv, byte[]? aad = null)
     {
@@ -23,12 +23,12 @@ public class GcmCaptchaAppIdEncryptor : ICaptchaAppIdEncryptor
 
         var plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
 
-        // 输出缓冲区：密文 + tag
+        // Bộ đệm đầu ra: bản mã + tag
         var ciphertextWithTag = new byte[plaintextBytes.Length + GcmTagLengthBytes];
         var tag = ciphertextWithTag.AsSpan(plaintextBytes.Length, GcmTagLengthBytes);
         var ciphertext = ciphertextWithTag.AsSpan(0, plaintextBytes.Length);
 
-        // .NET 10 中 AesGcm 构造函数需要显式指定 tag 长度
+        // Trong .NET 10, hàm khởi tạo AesGcm cần chỉ định rõ độ dài tag
         using var aesGcm = new AesGcm(key, GcmTagLengthBytes);
 
         aesGcm.Encrypt(
@@ -38,7 +38,7 @@ public class GcmCaptchaAppIdEncryptor : ICaptchaAppIdEncryptor
             tag: tag,
             associatedData: aad);
 
-        // 拼接 IV + 密文 + tag
+        // Nối IV + bản mã + tag
         var ivAndCiphertext = new byte[iv.Length + ciphertextWithTag.Length];
         Buffer.BlockCopy(iv, 0, ivAndCiphertext, 0, iv.Length);
         Buffer.BlockCopy(ciphertextWithTag, 0, ivAndCiphertext, iv.Length, ciphertextWithTag.Length);

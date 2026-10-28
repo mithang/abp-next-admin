@@ -1,0 +1,12 @@
+{
+  "culture": "vi",
+  "texts": {
+    "MiniProgramAuthorizationDisabledMessage": "Ứng dụng chưa mở ủy quyền Mini Program",
+    "OfficialAuthorizationDisabledMessage": "Ứng dụng chưa mở ủy quyền nền tảng công cộng",
+    "SelfRegistrationDisabledMessage": "Ứng dụng chưa mở đăng ký, vui lòng liên hệ quản trị viên để thêm người dùng mới.",
+    "InvalidGrant:GrantTypeInvalid": "Loại cấp quyền không được phép!",
+    "InvalidGrant:WeChatTokenInvalid": "Xác thực WeChat thất bại!",
+    "InvalidGrant:WeChatCodeNotFound": "Code lấy được khi đăng nhập WeChat trống hoặc không tồn tại!",
+    "InvalidGrant:WeChatNotRegister": "Tài khoản WeChat của người dùng chưa được liên kết!"
+  }
+}

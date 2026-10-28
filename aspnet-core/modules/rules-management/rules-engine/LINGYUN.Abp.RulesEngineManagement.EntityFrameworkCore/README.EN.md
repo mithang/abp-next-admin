@@ -56,4 +56,4 @@ The EntityFrameworkCore implementation of the rules engine management module, pr
 * Volo.Abp.EntityFrameworkCore
 * LINGYUN.Abp.RulesEngineManagement.Domain
 
-[查看中文文档](README.md)
+[Tiếng Việt](README.md)

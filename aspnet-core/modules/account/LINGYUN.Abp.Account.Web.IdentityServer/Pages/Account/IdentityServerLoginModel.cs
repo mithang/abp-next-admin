@@ -25,7 +25,7 @@ using IdentityOptions = Microsoft.AspNetCore.Identity.IdentityOptions;
 namespace LINGYUN.Abp.Account.Web.IdentityServer.Pages.Account
 {
     /// <summary>
-    /// 重写登录模型,实现双因素登录
+    /// Ghi đè mô hình đăng nhập, triển khai đăng nhập hai yếu tố
     /// </summary>
     [Dependency(ReplaceServices = true)]
     [ExposeServices(

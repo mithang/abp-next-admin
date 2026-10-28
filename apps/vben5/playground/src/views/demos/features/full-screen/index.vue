@@ -15,7 +15,7 @@ const { isFullscreen: isDomFullscreen, toggle: toggleDom } =
 </script>
 
 <template>
-  <Page title="全屏示例">
+  <Page title="Ví dụ toàn màn hình">
     <Card title="Window Full Screen">
       <div class="flex flex-wrap items-center gap-4">
         <Button :disabled="isFullscreen" type="primary" @click="enter">

@@ -7,43 +7,43 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Request;
 /// <summary>
-/// 批量获取客户详情请求参数
+/// Tham số yêu cầu lấy hàng loạt chi tiết khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92994" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/92994" />
 /// </remarks>
 public class WeChatWorkCreateCustomerStrategyRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 父规则组id
+    /// id nhóm quy tắc cha
     /// </summary>
     [CanBeNull]
     [JsonProperty("parent_id")]
     [JsonPropertyName("parent_id")]
     public int? ParentId { get; set; }
     /// <summary>
-    /// 规则组名称
+    /// Tên nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("strategy_name")]
     [JsonPropertyName("strategy_name")]
     public string StrategyName { get; }
     /// <summary>
-    /// 规则组管理员userid列表
+    /// Danh sách userid quản trị viên nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("admin_list")]
     [JsonPropertyName("admin_list")]
     public string[] AdminList { get; }
     /// <summary>
-    /// 规则组权限
+    /// Quyền của nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("privilege")]
     [JsonPropertyName("privilege")]
     public CustomerStrategyPrivilege Privilege { get; }
     /// <summary>
-    /// 规则组管理范围
+    /// Phạm vi quản lý của nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("range")]

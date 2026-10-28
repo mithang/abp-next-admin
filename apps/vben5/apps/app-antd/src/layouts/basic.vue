@@ -116,7 +116,7 @@ async function handleLinkUser(token: string) {
   if (currentTenant.id) {
     extraQueryParams.LinkTenantId = currentTenant.id;
   }
-  // 跳转登录页,交由后端处理
+  // Chuyển đến trang đăng nhập, để backend xử lý
   await authStore.oidcLogin({
     prompt: 'login',
     extraQueryParams,

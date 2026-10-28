@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 数字控件值
+/// Giá trị điều khiển số
 /// </summary>
 public class NumberControlValue : ControlValue
 {
     /// <summary>
-    /// 数字内容，在此填写数字控件的输入值
+    /// Nội dung số, điền giá trị nhập của điều khiển số tại đây
     /// </summary>
     [NotNull]
     [JsonProperty("new_number")]

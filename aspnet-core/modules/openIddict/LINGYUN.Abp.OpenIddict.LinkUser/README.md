@@ -3,52 +3,52 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.LinkUser%2FLINGYUN.Abp.OpenIddict.LinkUser.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.LinkUser.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.LinkUser)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.LinkUser` 是 OpenIddict 的用户链接扩展模块，提供了用户之间的链接认证功能。
+`LINGYUN.Abp.OpenIddict.LinkUser` là mô-đun mở rộng liên kết người dùng của OpenIddict, cung cấp chức năng xác thực liên kết giữa các người dùng.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 用户链接认证
-  * 支持用户之间的链接认证
-  * 支持跨租户用户链接
-  * 支持访问令牌交换
+* Xác thực liên kết người dùng
+  * Hỗ trợ xác thực liên kết giữa các người dùng
+  * Hỗ trợ liên kết người dùng xuyên tenant
+  * Hỗ trợ trao đổi access token
 
-* 扩展授权类型
-  * 添加 link_user 授权类型
-  * 支持自定义授权流程
-  * 安全日志记录
+* Loại ủy quyền mở rộng
+  * Thêm loại ủy quyền link_user
+  * Hỗ trợ quy trình ủy quyền tùy chỉnh
+  * Ghi nhật ký bảo mật
 
-* 多语言支持
-  * 集成 ABP 本地化框架
-  * 支持自定义错误消息
+* Hỗ trợ đa ngôn ngữ
+  * Tích hợp khung bản địa hóa ABP
+  * Hỗ trợ thông báo lỗi tùy chỉnh
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.LinkUser
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictLinkUserModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictLinkUserModule))]` vào lớp mô-đun của bạn.
 
-2. 配置 OpenIddict 服务器:
+2. Cấu hình máy chủ OpenIddict:
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
     PreConfigure<OpenIddictServerBuilder>(builder =>
     {
-        // 允许 link_user 授权类型
+        // Cho phép loại ủy quyền link_user
         builder.AllowLinkUserFlow();
     });
 }
 ```
 
-3. 使用示例:
+3. Ví dụ sử dụng:
 
 ```http
 POST /connect/token
@@ -61,28 +61,28 @@ LinkTenantId=target-tenant-id&
 scope=openid profile
 ```
 
-## 参数说明
+## Giải thích tham số
 
-* access_token (必填)
-  * 当前用户的访问令牌
-  * 用于验证当前用户身份
+* access_token (bắt buộc)
+  * Access token của người dùng hiện tại
+  * Dùng để xác minh danh tính người dùng hiện tại
 
-* LinkUserId (必填)
-  * 目标链接用户的ID
-  * 必须是有效的GUID格式
+* LinkUserId (bắt buộc)
+  * ID của người dùng liên kết đích
+  * Phải có định dạng GUID hợp lệ
 
-* LinkTenantId (可选)
-  * 目标链接用户所属的租户ID
-  * 如果指定，必须是有效的GUID格式
+* LinkTenantId (tùy chọn)
+  * ID tenant của người dùng liên kết đích
+  * Nếu chỉ định, phải có định dạng GUID hợp lệ
 
-* scope (可选)
-  * 请求的权限范围
-  * 默认包含 openid profile
+* scope (tùy chọn)
+  * Phạm vi quyền được yêu cầu
+  * Mặc định bao gồm openid profile
 
-## 注意事项
+## Lưu ý
 
-* 必须提供有效的访问令牌
-* 目标用户必须与当前用户存在链接关系
-* 跨租户链接时需要指定正确的租户ID
-* 所有操作都会记录安全日志
-* 建议在生产环境中使用 HTTPS
+* Phải cung cấp access token hợp lệ
+* Người dùng đích phải có quan hệ liên kết với người dùng hiện tại
+* Khi liên kết xuyên tenant cần chỉ định đúng ID tenant
+* Mọi thao tác đều được ghi nhật ký bảo mật
+* Khuyến nghị sử dụng HTTPS trong môi trường production

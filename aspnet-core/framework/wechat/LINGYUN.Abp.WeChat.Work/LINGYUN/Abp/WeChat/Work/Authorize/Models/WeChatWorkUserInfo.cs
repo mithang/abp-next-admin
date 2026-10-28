@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Authorize.Models;
 /// <summary>
-/// 企业微信用户信息
+/// Thông tin người dùng WeChat Work
 /// </summary>
 public class WeChatWorkUserInfo
 {
     /// <summary>
-    /// 成员UserID
+    /// UserID thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 成员票据，最大为512字节，有效期为1800s
+    /// Phiếu thành viên, tối đa 512 byte, thời hạn hiệu lực là 1800s
     /// </summary>
     [NotNull]
     [JsonProperty("user_ticket")]

@@ -1,24 +1,24 @@
 # LINGYUN.Abp.MicroService.AllInOne.DbMigrator
 
-单体应用数据库迁移工具，用于自动执行数据库迁移和初始化数据。
+Công cụ di chuyển cơ sở dữ liệu cho ứng dụng đơn khối, dùng để tự động thực thi di chuyển cơ sở dữ liệu và khởi tạo dữ liệu.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 自动执行数据库迁移
-* 支持多环境配置
-* 集成Serilog日志记录
-* 支持数据迁移环境配置
-* 自动检查和应用数据库迁移
-* 控制台应用程序，方便集成到CI/CD流程
+* Tự động thực thi di chuyển cơ sở dữ liệu
+* Hỗ trợ cấu hình nhiều môi trường
+* Tích hợp ghi log Serilog
+* Hỗ trợ cấu hình môi trường di chuyển dữ liệu
+* Tự động kiểm tra và áp dụng di chuyển cơ sở dữ liệu
+* Ứng dụng console, thuận tiện tích hợp vào quy trình CI/CD
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "Default": "你的数据库连接字符串"
+    "Default": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   },
   "Serilog": {
     "MinimumLevel": {
@@ -32,44 +32,44 @@
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接
-   * 在appsettings.json中配置数据库连接字符串
-   * 可以通过appsettings.{Environment}.json配置不同环境的连接字符串
+1. Cấu hình kết nối cơ sở dữ liệu
+   * Cấu hình chuỗi kết nối cơ sở dữ liệu trong appsettings.json
+   * Có thể cấu hình chuỗi kết nối cho từng môi trường khác nhau qua appsettings.{Environment}.json
 
-2. 运行迁移工具
+2. Chạy công cụ di chuyển
    ```bash
    dotnet run
    ```
 
-3. 查看迁移日志
-   * 控制台输出
-   * Logs/migrations.txt文件
+3. Xem log di chuyển
+   * Đầu ra console
+   * Tệp Logs/migrations.txt
 
-## 环境变量
+## Biến môi trường
 
-* `ASPNETCORE_ENVIRONMENT`: 设置运行环境（Development、Staging、Production等）
-* `DOTNET_ENVIRONMENT`: 同上，用于兼容性
+* `ASPNETCORE_ENVIRONMENT`: Đặt môi trường chạy (Development, Staging, Production, v.v.)
+* `DOTNET_ENVIRONMENT`: Tương tự, dùng để tương thích
 
-## 注意事项
+## Lưu ý
 
-* 确保数据库连接字符串中包含足够的权限
-* 建议在执行迁移前备份数据库
-* 查看migrations.txt日志文件以了解迁移详情
-* 如果迁移失败，检查日志中的错误信息
+* Đảm bảo chuỗi kết nối cơ sở dữ liệu có đủ quyền
+* Nên sao lưu cơ sở dữ liệu trước khi thực thi di chuyển
+* Xem tệp log migrations.txt để biết chi tiết di chuyển
+* Nếu di chuyển thất bại, kiểm tra thông tin lỗi trong log
 
-## 开发调试
+## Gỡ lỗi khi phát triển
 
-1. 设置环境变量
+1. Đặt biến môi trường
    ```bash
    export ASPNETCORE_ENVIRONMENT=Development
    ```
 
-2. 使用Visual Studio或Visual Studio Code进行调试
-   * 可以设置断点
-   * 查看详细的迁移过程
+2. Dùng Visual Studio hoặc Visual Studio Code để gỡ lỗi
+   * Có thể đặt điểm ngắt
+   * Xem quá trình di chuyển chi tiết
 
-3. 自定义迁移逻辑
-   * 修改SingleDbMigrationService类
-   * 添加新的数据种子
+3. Tùy chỉnh logic di chuyển
+   * Sửa lớp SingleDbMigrationService
+   * Thêm dữ liệu seed mới

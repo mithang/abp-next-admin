@@ -6,12 +6,12 @@ using Volo.Abp;
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 企业微信 Webhook 消息构造选项
+/// Tùy chọn xây dựng thông điệp Webhook WeChat Work
 /// </summary>
 /// <remarks>
 /// <para>
-/// 渠道数据的形态到消息载体的转换集中注册在这里, 新增一种消息类型只需要
-/// <c>options.Map(kind, factory)</c>, 不需要修改贡献者的发布逻辑。
+/// Việc chuyển đổi từ hình thái dữ liệu kênh sang vật mang thông điệp được đăng ký tập trung tại đây, để thêm một loại thông điệp mới chỉ cần
+/// <c>options.Map(kind, factory)</c>, không cần sửa logic phát hành của contributor.
 /// </para>
 /// </remarks>
 public class AbpNotificationsWebhookWeChatWorkMessageOptions
@@ -20,12 +20,12 @@ public class AbpNotificationsWebhookWeChatWorkMessageOptions
         = new Dictionary<WeChatWorkWebhookMessageKind, Func<WeChatWorkWebhookMessageFactoryContext, WeChatWorkWebhookMessageFactoryResult>>();
 
     /// <summary>
-    /// 已注册的消息类型
+    /// Các loại thông điệp đã đăng ký
     /// </summary>
     public IReadOnlyCollection<WeChatWorkWebhookMessageKind> MessageKinds => _factories.Keys;
 
     /// <summary>
-    /// 注册消息构造工厂
+    /// Đăng ký factory xây dựng thông điệp
     /// </summary>
     public AbpNotificationsWebhookWeChatWorkMessageOptions Map(
         WeChatWorkWebhookMessageKind kind,
@@ -39,7 +39,7 @@ public class AbpNotificationsWebhookWeChatWorkMessageOptions
     }
 
     /// <summary>
-    /// 构造消息载体
+    /// Xây dựng vật mang thông điệp
     /// </summary>
     public WeChatWorkWebhookMessageFactoryResult Create(WeChatWorkWebhookMessageFactoryContext context)
     {
@@ -64,7 +64,7 @@ public class AbpNotificationsWebhookWeChatWorkMessageOptions
     }
 
     /// <summary>
-    /// 获取已注册的工厂
+    /// Lấy factory đã đăng ký
     /// </summary>
     public bool TryGetFactory(
         WeChatWorkWebhookMessageKind kind,

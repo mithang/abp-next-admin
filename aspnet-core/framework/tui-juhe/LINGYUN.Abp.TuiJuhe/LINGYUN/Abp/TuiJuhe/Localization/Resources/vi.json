@@ -1,0 +1,20 @@
+{
+  "culture": "vi",
+  "texts": {
+    "DisplayName:TuiJuhe": "Đẩy đám mây tổng hợp",
+    "Description:TuiJuhe": "Aggregate Cloud Push (TuiJuhe)",
+    "Settings:Security.Token": "Token người dùng",
+    "Settings:Security.TokenDesc": "Token người dùng, xem và lấy tại trang trung tâm cá nhân (https://tui.juhe.cn/setup).",
+    "Features:TuiJuhe": "Dịch vụ đẩy đám mây tổng hợp",
+    "Features:TuiJuheEnable": "Bật Aggregate Cloud Push",
+    "Features:TuiJuheEnableDesc": "Bật để ứng dụng có khả năng đẩy qua Juhe Yuntui.",
+    "Features:Message": "Đẩy tin nhắn Aggregate Cloud Push",
+    "Features:MessageEnable": "Bật đẩy tin nhắn Juhe Yuntui",
+    "Features:MessageEnableDesc": "Bật để ứng dụng có khả năng đẩy tới tin nhắn thời gian thực thông qua Aggregate Cloud Push.",
+    "Features:Message.SendLimit": "Lượng đẩy Juhe Yuntui",
+    "Features:Message.SendLimitDesc": "Cài đặt để giới hạn lượng đẩy Juhe Yuntui.",
+    "Features:Message.SendLimitInterval": "Chu kỳ giới hạn tin nhắn Juhe Yuntui",
+    "Features:Message.SendLimitIntervalDesc": "Thiết lập chu kỳ giới hạn tin nhắn đẩy đám mây tổng hợp (thang thời gian: giờ). Tần suất gửi tin nhắn (giới hạn yêu cầu): không quá 50 lần trong một giờ.",
+    "Security": "Tùy chọn bảo mật"
+  }
+}

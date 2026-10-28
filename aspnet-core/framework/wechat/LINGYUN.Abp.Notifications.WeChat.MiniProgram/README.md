@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Notifications.WeChat.MiniProgram
 
-微信小程序消息通知模块，提供通过微信小程序向用户发送订阅消息的功能。
+Mô-đun thông báo tin nhắn WeChat Mini Program, cung cấp chức năng gửi tin nhắn đăng ký cho người dùng qua WeChat Mini Program.
 
-## 功能特性
+## Tính năng
 
-* 支持微信小程序订阅消息发送
-* 支持消息模板管理
-* 支持动态消息数据配置
-* 集成ABP通知系统
+* Hỗ trợ gửi tin nhắn đăng ký của WeChat Mini Program
+* Hỗ trợ quản lý mẫu tin nhắn
+* Hỗ trợ cấu hình dữ liệu tin nhắn động
+* Tích hợp hệ thống thông báo ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsWeChatMiniProgramModule))]
@@ -19,23 +19,23 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "MiniProgram": {
       "Notifications": {
-        "DefaultTemplateId": "",           // 默认模板ID
-        "DefaultPage": "pages/index/index", // 默认跳转页面
-        "DefaultState": "formal",          // 默认跳转小程序类型，developer为开发版；trial为体验版；formal为正式版
-        "DefaultLang": "zh_CN"             // 默认语言
+        "DefaultTemplateId": "",           // ID mẫu mặc định
+        "DefaultPage": "pages/index/index", // Trang chuyển hướng mặc định
+        "DefaultState": "formal",          // Loại Mini Program chuyển hướng mặc định, developer là bản phát triển; trial là bản dùng thử; formal là bản chính thức
+        "DefaultLang": "zh_CN"             // Ngôn ngữ mặc định
       }
     }
   }
 }
 ```
 
-## 更多文档
+## Tài liệu khác
 
-* [微信小程序消息通知文档](README.EN.md)
+* [Tài liệu thông báo tin nhắn WeChat Mini Program](README.EN.md)

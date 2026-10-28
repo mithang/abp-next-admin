@@ -1,9 +1,9 @@
-# LINGYUN.Abp.Tencent 模块概述
+# Tổng quan mô-đun LINGYUN.Abp.Tencent
 
-## 简介
-LINGYUN.Abp.Tencent 模块集成了腾讯云的各项服务，提供了对腾讯云服务的全面支持，包括对象存储、短信服务、QQ 互联和语音合成等功能。
+## Giới thiệu
+Mô-đun LINGYUN.Abp.Tencent tích hợp các dịch vụ của Tencent Cloud, cung cấp hỗ trợ toàn diện cho các dịch vụ Tencent Cloud, bao gồm lưu trữ đối tượng, dịch vụ SMS, QQ Connect và tổng hợp giọng nói.
 
-## 包含的项目列表
+## Danh sách các dự án bao gồm
 - **LINGYUN.Abp.Tencent**
 - **LINGYUN.Abp.BlobStoring.Tencent**
 - **LINGYUN.Abp.Sms.Tencent**
@@ -11,32 +11,32 @@ LINGYUN.Abp.Tencent 模块集成了腾讯云的各项服务，提供了对腾讯
 - **LINGYUN.Abp.Tencent.SettingManagement**
 - **LINGYUN.Abp.Tencent.TTS**
 
-## 每个项目的主要功能概述
+## Tổng quan chức năng chính của từng dự án
 
 ### LINGYUN.Abp.Tencent
-- 提供腾讯云 SDK 客户端工厂，支持动态创建腾讯云各项服务的客户端。
-- 支持多租户配置和多语言本地化。
-- 提供统一的腾讯云服务配置管理。
+- Cung cấp factory client SDK của Tencent Cloud, hỗ trợ tạo động client cho từng dịch vụ Tencent Cloud.
+- Hỗ trợ cấu hình đa tenant và bản địa hóa đa ngôn ngữ.
+- Cung cấp quản lý cấu hình thống nhất cho các dịch vụ Tencent Cloud.
 
 ### LINGYUN.Abp.BlobStoring.Tencent
-- 支持腾讯云对象存储服务，自动创建存储桶。
-- 支持多区域配置和文件大小限制。
+- Hỗ trợ dịch vụ lưu trữ đối tượng của Tencent Cloud, tự động tạo bucket lưu trữ.
+- Hỗ trợ cấu hình đa vùng và giới hạn kích thước tệp.
 
 ### LINGYUN.Abp.Sms.Tencent
-- 支持腾讯云短信服务的发送功能，支持多手机号批量发送。
-- 内置错误处理和日志记录。
+- Hỗ trợ chức năng gửi của dịch vụ SMS Tencent Cloud, hỗ trợ gửi hàng loạt cho nhiều số điện thoại.
+- Tích hợp sẵn xử lý lỗi và ghi nhật ký.
 
 ### LINGYUN.Abp.Tencent.QQ
-- 支持 QQ 互联快速登录，支持多租户配置。
+- Hỗ trợ đăng nhập nhanh bằng QQ Connect, hỗ trợ cấu hình đa tenant.
 
 ### LINGYUN.Abp.Tencent.SettingManagement
-- 提供腾讯云服务的配置管理界面，支持全局和租户级别的配置管理。
+- Cung cấp giao diện quản lý cấu hình cho các dịch vụ Tencent Cloud, hỗ trợ quản lý cấu hình ở cấp toàn cục và cấp tenant.
 
 ### LINGYUN.Abp.Tencent.TTS
-- 支持腾讯云语音合成服务，提供 TTS 客户端工厂。
+- Hỗ trợ dịch vụ tổng hợp giọng nói của Tencent Cloud, cung cấp factory client TTS.
 
-## 模块的整体用途和重要性
-该模块为开发者提供了与腾讯云服务的无缝集成，简化了云服务的使用和管理，提升了应用程序的灵活性和可扩展性。
+## Mục đích tổng thể và tầm quan trọng của mô-đun
+Mô-đun này mang đến cho nhà phát triển khả năng tích hợp liền mạch với các dịch vụ Tencent Cloud, đơn giản hóa việc sử dụng và quản lý dịch vụ đám mây, đồng thời nâng cao tính linh hoạt và khả năng mở rộng của ứng dụng.
 
-## 如何使用或集成该模块
-在项目中引用相应的模块，并根据需要配置腾讯云的相关参数。确保与 ABP 框架的其他模块配合使用，以实现最佳效果。
+## Cách sử dụng hoặc tích hợp mô-đun này
+Tham chiếu mô-đun tương ứng trong dự án và cấu hình các tham số liên quan của Tencent Cloud theo nhu cầu. Đảm bảo phối hợp với các mô-đun khác của khung ABP để đạt hiệu quả tốt nhất.

@@ -4,85 +4,85 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日程详情
+/// Chi tiết lịch trình
 /// </summary>
 public class ScheduleInfo
 {
     /// <summary>
-    /// 日程ID
+    /// ID lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("schedule_id")]
     [JsonPropertyName("schedule_id")]
     public string ScheduleId { get; set; } = default!;
     /// <summary>
-    /// 管理员userid列表
+    /// Danh sách userid của quản trị viên
     /// </summary>
     [NotNull]
     [JsonProperty("admins")]
     [JsonPropertyName("admins")]
     public string[] Admins { get; set; } = default!;
     /// <summary>
-    /// 日程参与者列表
+    /// Danh sách người tham gia lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("attendees")]
     [JsonPropertyName("attendees")]
     public ScheduleAttendeeInfo[] Attendees { get; set; } = default!;
     /// <summary>
-    /// 日程标题
+    /// Tiêu đề lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("summary")]
     [JsonPropertyName("summary")]
     public string Summary { get; set; } = default!;
     /// <summary>
-    /// 日程描述
+    /// Mô tả lịch trình
     /// </summary>
     [CanBeNull]
     [JsonProperty("description")]
     [JsonPropertyName("description")]
     public string? Description { get; set; }
     /// <summary>
-    /// 提醒相关信息
+    /// Thông tin liên quan đến nhắc nhở
     /// </summary>
     [CanBeNull]
     [JsonProperty("reminders")]
     [JsonPropertyName("reminders")]
     public ScheduleReminder? Reminders { get; set; }
     /// <summary>
-    /// 日程地址
+    /// Địa chỉ lịch trình
     /// </summary>
     /// <remarks>
-    /// 不多于128个字符
+    /// Không quá 128 ký tự
     /// </remarks>
     [CanBeNull]
     [JsonProperty("location")]
     [JsonPropertyName("location")]
     public string? Location { get; set; }
     /// <summary>
-    /// 日程状态
+    /// Trạng thái lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("status")]
     [JsonPropertyName("status")]
     public ScheduleStatus Status { get; set; }
     /// <summary>
-    /// 日程开始时间，Unix时间戳
+    /// Thời gian bắt đầu lịch trình, timestamp Unix
     /// </summary>
     [NotNull]
     [JsonProperty("start_time")]
     [JsonPropertyName("start_time")]
     public long StartTime { get; set; }
     /// <summary>
-    /// 日程结束时间，Unix时间戳
+    /// Thời gian kết thúc lịch trình, timestamp Unix
     /// </summary>
     [NotNull]
     [JsonProperty("end_time")]
     [JsonPropertyName("end_time")]
     public long EndTime { get; set; }
     /// <summary>
-    /// 是否全天日程
+    /// Có phải lịch trình cả ngày hay không
     /// </summary>
     [NotNull]
     [JsonProperty("is_whole_day")]
@@ -91,10 +91,10 @@ public class ScheduleInfo
     [System.Text.Json.Serialization.JsonConverter(typeof(IntToBoolConverter))]
     public bool IsWholeDay { get; set; }
     /// <summary>
-    /// 日程所属日历ID
+    /// ID lịch chứa lịch trình
     /// </summary>
     /// <remarks>
-    /// 不多于64字节
+    /// Không quá 64 byte
     /// </remarks>
     [CanBeNull]
     [JsonProperty("cal_id")]

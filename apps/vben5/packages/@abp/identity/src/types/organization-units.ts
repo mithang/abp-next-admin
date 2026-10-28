@@ -5,53 +5,52 @@ import type {
 
 import type { GetUserPagedListInput } from './users';
 
-/** 组织机构 */
+/** Tổ chức */
 interface OrganizationUnitDto extends AuditedEntityDto<string> {
-  /** 编号 */
+  /** Mã số */
   code: string;
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
-  /** 父节点标识 */
+  /** Id nút cha */
   parentId?: string;
 }
 
-/** 组织机构分页查询对象 */
-interface GetOrganizationUnitPagedListInput
-  extends PagedAndSortedResultRequestDto {
-  /** 过滤字符 */
+/** Đối tượng truy vấn phân trang tổ chức */
+interface GetOrganizationUnitPagedListInput extends PagedAndSortedResultRequestDto {
+  /** Ký tự lọc */
   filter?: string;
 }
 
-/** 组织机构创建对象 */
+/** Đối tượng tạo tổ chức */
 interface OrganizationUnitCreateDto {
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
-  /** 父节点标识 */
+  /** Id nút cha */
   parentId?: string;
 }
 
-/** 组织机构变更对象 */
+/** Đối tượng thay đổi tổ chức */
 interface OrganizationUnitUpdateDto {
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
 }
 
-/** 组织机构增加部门对象 */
+/** Đối tượng thêm phòng ban cho tổ chức */
 interface OrganizationUnitAddRoleInput {
-  /** 角色标识列表 */
+  /** Danh sách id vai trò */
   roleIds: string[];
 }
 
-/** 组织机构增加用户对象 */
+/** Đối tượng thêm người dùng cho tổ chức */
 interface OrganizationUnitAddUserInput {
-  /** 用户标识列表 */
+  /** Danh sách id người dùng */
   userIds: string[];
 }
 
 interface OrganizationUnitGetChildrenDto {
-  /** 上级组织机构id */
+  /** Id tổ chức cấp trên */
   id: string;
-  /** 递归查询子级 */
+  /** Truy vấn đệ quy cấp con */
   recursive?: boolean;
 }
 

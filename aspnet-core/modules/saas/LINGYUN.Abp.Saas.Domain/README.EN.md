@@ -24,4 +24,4 @@ SaaS domain layer module, defining core domain models, repository interfaces and
 
 ## More
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

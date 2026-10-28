@@ -27,7 +27,7 @@ public class AbpDemoDomainModule : AbpModule
                 .AddBaseTypes(typeof(DataProtectionResource));
         });
 
-        // 分布式事件
+        // Sự kiện phân tán
         //Configure<AbpDistributedEntityEventOptions>(options =>
         //{
         //    options.AutoEventSelectors.Add<Text>();
@@ -36,7 +36,7 @@ public class AbpDemoDomainModule : AbpModule
 
         Configure<AbpDataProtectionOptions>(options =>
         {
-            // 外键属性不可设定规则
+            // Thuộc tính khóa ngoại không thể thiết lập quy tắc
             options.EntityIgnoreProperties.Add(typeof(Book), new []{ nameof(Book.AuthorId) } );
         });
     }

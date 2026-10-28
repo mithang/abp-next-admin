@@ -6,8 +6,10 @@ const props = defineProps<{
   class?: string;
 }>();
 
-// 控制箭头展开/收起状态
-const collapsed = defineModel({ default: false });
+// Kiểm soát trạng thái mở rộng/thu gọn của mũi tên
+// Khai boolean tường minh: default literal `false` sẽ bị suy ra kiểu `false`
+// khiến `collapsed = !collapsed` lỗi TS2322.
+const collapsed = defineModel<boolean>({ default: false });
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const collapsed = defineModel({ default: false });
   >
     <slot :is-expanded="collapsed">
       {{ collapsed }}
-      <!-- <span>{{ isExpanded ? '收起' : '展开' }}</span> -->
+      <!-- <span>{{ isExpanded ? 'Thu gọn' : 'Mở rộng' }}</span> -->
     </slot>
     <div
       :class="{ 'rotate-180': !collapsed }"

@@ -4,75 +4,75 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Models;
 /// <summary>
-/// 会议室详情
+/// Chi tiết phòng họp
 /// </summary>
 public class MeetingRoomInfo
 {
     /// <summary>
-    /// 会议室id
+    /// ID phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("meetingroom_id")]
     [JsonPropertyName("meetingroom_id")]
     public int MeetingRoomId { get; set; }
     /// <summary>
-    /// 会议室名称
+    /// Tên phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 会议室容纳人数
+    /// Sức chứa của phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("capacity")]
     [JsonPropertyName("capacity")]
     public int Capacity { get; set; }
     /// <summary>
-    /// 会议室所在城市
+    /// Thành phố nơi đặt phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("city")]
     [JsonPropertyName("city")]
     public string? City { get; set; }
     /// <summary>
-    /// 会议室所在楼宇
+    /// Tòa nhà nơi đặt phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("building")]
     [JsonPropertyName("building")]
     public string? Building { get; set; }
     /// <summary>
-    /// 会议室所在楼层
+    /// Tầng nơi đặt phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("floor")]
     [JsonPropertyName("floor")]
     public string? Floor { get; set; }
     /// <summary>
-    /// 会议室支持的设备列表
+    /// Danh sách thiết bị mà phòng họp hỗ trợ
     /// </summary>
     [NotNull]
     [JsonProperty("equipment")]
     [JsonPropertyName("equipment")]
     public int[] Equipment { get; set; } = default!;
     /// <summary>
-    /// 会议室坐标
+    /// Tọa độ phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("coordinate")]
     [JsonPropertyName("coordinate")]
     public MeetingRoomCoordinate? Coordinate { get; set; }
     /// <summary>
-    /// 会议室使用范围
+    /// Phạm vi sử dụng phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("range")]
     [JsonPropertyName("range")]
     public MeetingRoomRange? Range { get; set; }
     /// <summary>
-    /// 是否需要审批 0-无需审批 1-需要审批
+    /// Có cần phê duyệt hay không 0 - không cần phê duyệt 1 - cần phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("need_approval")]

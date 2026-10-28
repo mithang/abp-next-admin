@@ -5,11 +5,11 @@ namespace LINGYUN.Abp.Notifications;
 public class NotificationDataMappingDictionaryItem
 {
     /// <summary>
-    /// 通知名称
+    /// Tên thông báo
     /// </summary>
     public string Name { get; }
     /// <summary>
-    /// 转换方法
+    /// Phương thức chuyển đổi
     /// </summary>
     public Func<NotificationData, NotificationData> MappingFunc { get; private set; }
 

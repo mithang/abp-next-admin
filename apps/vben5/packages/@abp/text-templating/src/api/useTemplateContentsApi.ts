@@ -10,9 +10,9 @@ import { useRequest } from '@abp/request';
 export function useTemplateContentsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取模板内容
-   * @param input 参数
-   * @returns 模板内容数据传输对象
+   * Lấy nội dung mẫu
+   * @param input Tham số
+   * @returns Đối tượng truyền dữ liệu nội dung mẫu
    */
   function getApi(
     input: TextTemplateContentGetInput,
@@ -24,10 +24,10 @@ export function useTemplateContentsApi() {
     });
   }
   /**
-   * 重置模板内容为默认值
-   * @param name 模板名称
-   * @param input 参数
-   * @returns 模板定义数据传输对象列表
+   * Đặt lại nội dung mẫu về giá trị mặc định
+   * @param name Tên mẫu
+   * @param input Tham số
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa mẫu
    */
   function restoreToDefaultApi(
     name: string,
@@ -42,10 +42,10 @@ export function useTemplateContentsApi() {
     );
   }
   /**
-   * 更新模板内容
-   * @param name 模板名称
-   * @param input 参数
-   * @returns 模板内容数据传输对象
+   * Cập nhật nội dung mẫu
+   * @param name Tên mẫu
+   * @param input Tham số
+   * @returns Đối tượng truyền dữ liệu nội dung mẫu
    */
   function updateApi(
     name: string,

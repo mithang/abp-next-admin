@@ -10,8 +10,8 @@ export function useFeaturesApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除功能
-   * @param {FeatureProvider} provider 参数
+   * Xóa tính năng
+   * @param {FeatureProvider} provider Tham số
    * @returns {Promise<void>}
    */
   function deleteApi(provider: FeatureProvider): Promise<void> {
@@ -22,9 +22,9 @@ export function useFeaturesApi() {
   }
 
   /**
-   * 查询功能
-   * @param {FeatureProvider} provider 参数
-   * @returns {Promise<GetFeatureListResultDto>} 功能实体数据传输对象
+   * Truy vấn tính năng
+   * @param {FeatureProvider} provider Tham số
+   * @returns {Promise<GetFeatureListResultDto>} Đối tượng truyền dữ liệu thực thể tính năng
    */
   function getApi(provider: FeatureProvider): Promise<GetFeatureListResultDto> {
     return request<GetFeatureListResultDto>(
@@ -37,9 +37,9 @@ export function useFeaturesApi() {
   }
 
   /**
-   * 更新功能
+   * Cập nhật tính năng
    * @param {FeatureProvider} provider
-   * @param {UpdateFeaturesDto} input 参数
+   * @param {UpdateFeaturesDto} input Tham số
    * @returns {Promise<void>}
    */
   function updateApi(

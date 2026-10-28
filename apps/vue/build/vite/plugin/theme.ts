@@ -20,7 +20,7 @@ export function configThemePlugin(isBuild: boolean): PluginOption[] {
     mixLighten,
     tinycolor,
   });
-  // 抽取出viteThemePlugin插件，下方会根据不同环境设置enforce
+  // Tách plugin viteThemePlugin ra, bên dưới sẽ đặt enforce theo từng môi trường
   const vite_theme_plugin = viteThemePlugin({
     resolveSelector: (s) => {
       s = s.trim();
@@ -37,7 +37,7 @@ export function configThemePlugin(isBuild: boolean): PluginOption[] {
           return s;
         default:
           if (s.indexOf('.ant-btn') >= -1) {
-            // 按钮被重新定制过，需要过滤掉class防止覆盖
+            // Nút đã được tùy chỉnh lại, cần lọc class để tránh bị ghi đè
             return s;
           }
       }
@@ -46,9 +46,9 @@ export function configThemePlugin(isBuild: boolean): PluginOption[] {
     colorVariables: [...getThemeColors(), ...colors],
   });
   vite_theme_plugin.forEach(function (item) {
-    //对vite:theme插件特殊配置
+    // Cấu hình đặc biệt cho plugin vite:theme
     if ('vite:theme' === item.name) {
-      // 打包时去除enforce: "post"，vite 2.6.x适配，否则生成app-theme-style为空，因为async transform(code, id) {的code没有正确获取
+      // Khi build, loại bỏ enforce: "post" để tương thích vite 2.6.x, nếu không app-theme-style sinh ra sẽ rỗng vì code của async transform(code, id) { không được lấy đúng
       if (isBuild) {
         delete item.enforce;
       }

@@ -1,17 +1,17 @@
 # LINGYUN.Abp.AspNetCore.Mvc.Client
 
-参照 Volo.Abp.AspNetCore.Mvc.Client 进行重写  
+Viết lại dựa trên Volo.Abp.AspNetCore.Mvc.Client  
 
-实现可配置的用户配置缓存时间  
-实现订阅配置刷新事件清除用户配置缓存  
-实现基于用户缓存的权限、特性、配置、本地化、语言接口  
-引用 LINGYUN.Abp.MultiTenancy.RemoteService 可实现多租户接口  
-完全脱离具体数据库接口  
+Hỗ trợ cấu hình thời gian lưu bộ nhớ đệm của cấu hình người dùng  
+Hỗ trợ đăng ký sự kiện làm mới cấu hình để xóa bộ nhớ đệm cấu hình người dùng  
+Hỗ trợ các API quyền, tính năng, cấu hình, bản địa hóa và ngôn ngữ dựa trên bộ nhớ đệm người dùng  
+Tham chiếu LINGYUN.Abp.MultiTenancy.RemoteService để hỗ trợ API đa thuê bao  
+Hoàn toàn tách khỏi API cơ sở dữ liệu cụ thể  
 
-#### 注意
+#### Lưu ý
 
 
-## 配置使用
+## Cấu hình sử dụng
 
 
 ``` json

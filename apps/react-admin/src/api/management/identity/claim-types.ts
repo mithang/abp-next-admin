@@ -9,44 +9,44 @@ import type {
 import requestClient from "../../request";
 
 /**
- * 新增用户声明
- * @param input 参数
- * @returns 用户声明实体数据传输对象
+ * Thêm khai báo người dùng
+ * @param input Tham số
+ * @returns Đối tượng truyền dữ liệu thực thể khai báo người dùng
  */
 export function createApi(input: IdentityClaimTypeCreateDto): Promise<IdentityClaimTypeDto> {
 	return requestClient.post<IdentityClaimTypeDto>("/api/identity/claim-types", input);
 }
 
 /**
- * 删除用户声明
- * @param id 用户声明id
+ * Xóa khai báo người dùng
+ * @param id Id khai báo người dùng
  */
 export function deleteApi(id: string): Promise<void> {
 	return requestClient.delete(`/api/identity/claim-types/${id}`);
 }
 
 /**
- * 查询用户声明
- * @param id 用户声明id
- * @returns 用户声明实体数据传输对象
+ * Truy vấn khai báo người dùng
+ * @param id Id khai báo người dùng
+ * @returns Đối tượng truyền dữ liệu thực thể khai báo người dùng
  */
 export function getApi(id: string): Promise<IdentityClaimTypeDto> {
 	return requestClient.get<IdentityClaimTypeDto>(`/api/identity/claim-types/${id}`);
 }
 
 /**
- * 更新用户声明
- * @param id 用户声明id
- * @returns 用户声明实体数据传输对象
+ * Cập nhật khai báo người dùng
+ * @param id Id khai báo người dùng
+ * @returns Đối tượng truyền dữ liệu thực thể khai báo người dùng
  */
 export function updateApi(id: string, input: IdentityClaimTypeUpdateDto): Promise<IdentityClaimTypeDto> {
 	return requestClient.put<IdentityClaimTypeDto>(`/api/identity/claim-types/${id}`, input);
 }
 
 /**
- * 查询用户声明分页列表
- * @param input 过滤参数
- * @returns 用户声明实体数据传输对象分页列表
+ * Truy vấn danh sách phân trang khai báo người dùng
+ * @param input Tham số lọc
+ * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể khai báo người dùng
  */
 export function getPagedListApi(
 	input?: GetIdentityClaimTypePagedListInput,
@@ -57,7 +57,7 @@ export function getPagedListApi(
 }
 
 /**
- * 获取可用的声明类型列表
+ * Lấy danh sách loại khai báo khả dụng
  */
 export function getAssignableClaimsApi(): Promise<ListResultDto<IdentityClaimTypeDto>> {
 	return requestClient.get<ListResultDto<IdentityClaimTypeDto>>("/api/identity/claim-types/actived-list");

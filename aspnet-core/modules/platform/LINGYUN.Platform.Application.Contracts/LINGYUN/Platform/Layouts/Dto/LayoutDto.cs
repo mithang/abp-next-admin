@@ -6,11 +6,11 @@ namespace LINGYUN.Platform.Layouts;
 public class LayoutDto : RouteDto
 {
     /// <summary>
-    /// 框架
+    /// Khung làm việc
     /// </summary>
     public string Framework { get; set; } = default!;
     /// <summary>
-    /// 约定的Meta采用哪种数据字典,主要是约束路由必须字段的一致性
+    /// Meta theo quy ước dùng loại từ điển dữ liệu nào, chủ yếu để ràng buộc tính nhất quán của các trường bắt buộc trong định tuyến
     /// </summary>
     public Guid DataId { get; set; }
 }

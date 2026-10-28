@@ -3,24 +3,24 @@
 public class AppDescriptor
 {
     /// <summary>
-    /// 应用名称
+    /// Tên ứng dụng
     /// </summary>
     public string AppName { get; set; } = default!;
     /// <summary>
-    /// 应用标识
+    /// Mã định danh ứng dụng
     /// </summary>
     public string AppKey { get; set; } = default!;
     /// <summary>
-    /// 应用密钥
+    /// Khóa bí mật ứng dụng
     /// </summary>
     public string AppSecret { get; set; } = default!;
     /// <summary>
-    /// 应用token
+    /// Token ứng dụng
     /// </summary>
     public string? AppToken { get; set; }
     /// <summary>
-    /// 签名有效时间
-    /// 单位: s
+    /// Thời gian hiệu lực của chữ ký
+    /// Đơn vị: s
     /// </summary>
     public int? SignLifetime { get; set; }
 

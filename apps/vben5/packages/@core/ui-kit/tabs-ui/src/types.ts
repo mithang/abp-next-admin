@@ -15,51 +15,51 @@ export interface TabsProps {
    */
   contentClass?: string;
   /**
-   * @zh_CN 右键菜单
+   * @zh_CN Menu chuột phải
    */
   contextMenus?: (data: any) => IContextMenuItem[];
   /**
-   * @zh_CN 是否可以拖拽
+   * @zh_CN Có thể kéo thả hay không
    */
   draggable?: boolean;
   /**
-   * @zh_CN 间隙
+   * @zh_CN Khoảng cách
    * @default 7
-   * 仅限 tabs-chrome
+   * Chỉ dành cho tabs-chrome
    */
   gap?: number;
   /**
-   * @zh_CN tab 最大宽度
-   * 仅限 tabs-chrome
+   * @zh_CN Chiều rộng tối đa của tab
+   * Chỉ dành cho tabs-chrome
    */
   maxWidth?: number;
   /**
-   * @zh_CN 点击中键时关闭Tab
+   * @zh_CN Đóng Tab khi nhấn nút giữa chuột
    */
   middleClickToClose?: boolean;
 
   /**
-   * @zh_CN tab最小宽度
-   * 仅限 tabs-chrome
+   * @zh_CN Chiều rộng tối thiểu của tab
+   * Chỉ dành cho tabs-chrome
    */
   minWidth?: number;
 
   /**
-   * @zh_CN 是否显示图标
+   * @zh_CN Có hiển thị biểu tượng hay không
    */
   showIcon?: boolean;
   /**
-   * @zh_CN 标签页风格
+   * @zh_CN Kiểu tab
    */
   styleType?: TabsStyleType;
 
   /**
-   * @zh_CN 选项卡数据
+   * @zh_CN Dữ liệu tab
    */
   tabs?: TabDefinition[];
 
   /**
-   * @zh_CN 是否响应滚轮事件
+   * @zh_CN Có phản hồi sự kiện con lăn chuột hay không
    */
   wheelable?: boolean;
 }

@@ -6,36 +6,36 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Function;
 
 /// <summary>
-/// 函数与数据流的关联
+/// Liên kết giữa hàm và luồng dữ liệu
 /// </summary>
 public class FunctionStreamInfo
 {
     /// <summary>
-    /// 数据流名称
+    /// Tên luồng dữ liệu
     /// </summary>
     [JsonPropertyName("stream")]
     public string? Stream { get; set; }
 
     /// <summary>
-    /// 执行顺序, 越小越先执行
+    /// Thứ tự thực thi, giá trị càng nhỏ càng chạy trước
     /// </summary>
     [JsonPropertyName("order")]
     public int? Order { get; set; }
 
     /// <summary>
-    /// 数据流类型
+    /// Loại luồng dữ liệu
     /// </summary>
     [JsonPropertyName("streamType")]
     public string? StreamType { get; set; }
 
     /// <summary>
-    /// 是否移除
+    /// Có xóa hay không
     /// </summary>
     [JsonPropertyName("isRemoved")]
     public bool? IsRemoved { get; set; }
 
     /// <summary>
-    /// 是否在扁平化之前执行
+    /// Có thực thi trước khi làm phẳng hay không
     /// </summary>
     [JsonPropertyName("applyBeforeFlattening")]
     public bool? ApplyBeforeFlattening { get; set; }

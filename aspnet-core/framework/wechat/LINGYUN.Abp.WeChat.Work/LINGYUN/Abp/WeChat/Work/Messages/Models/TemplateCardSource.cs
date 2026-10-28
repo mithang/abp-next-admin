@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 来源文字颜色
+/// Màu chữ nguồn
 /// </summary>
 public enum DescriptionColor
 {
@@ -14,7 +14,7 @@ public enum DescriptionColor
     Green = 3,
 }
 /// <summary>
-/// 卡片来源样式信息
+/// Thông tin kiểu nguồn của thẻ
 /// </summary>
 public class TemplateCardSource
 {
@@ -31,21 +31,21 @@ public class TemplateCardSource
     }
 
     /// <summary>
-    /// 来源图片的url，来源图片的尺寸建议为72*72
+    /// Url hình ảnh nguồn, kích thước hình ảnh nguồn khuyến nghị là 72*72
     /// </summary>
     [CanBeNull]
     [JsonProperty("icon_url")]
     [JsonPropertyName("icon_url")]
     public string IconUrl { get; set; }
     /// <summary>
-    /// 来源图片的描述，建议不超过20个字，（支持id转译）
+    /// Mô tả hình ảnh nguồn, khuyến nghị không quá 20 ký tự (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]
     [JsonPropertyName("desc")]
     public string Description { get; set; }
     /// <summary>
-    /// 来源文字的颜色，目前支持：0(默认) 灰色，1 黑色，2 红色，3 绿色
+    /// Màu chữ nguồn, hiện hỗ trợ: 0 (mặc định) xám, 1 đen, 2 đỏ, 3 xanh lá
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc_color")]

@@ -18,7 +18,7 @@ export function useTableForm(
     if (advancedSearchConfig?.useAdvancedSearch && formConfig?.schemas) {
       const advIndex = formConfig.schemas.findIndex(s => s.field === 'queryable');
       if (advIndex < 0) {
-        // 加入高级条件的隐藏字段
+        // Thêm trường ẩn của điều kiện nâng cao
         formConfig.schemas.push({
           label: 'queryable',
           field: 'queryable',

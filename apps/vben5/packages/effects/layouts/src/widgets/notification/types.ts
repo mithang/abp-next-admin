@@ -6,8 +6,8 @@ interface NotificationItem {
   message: string;
   title: string;
   /**
-   * 跳转链接，可以是路由路径或完整 URL
-   * @example '/dashboard' 或 'https://example.com'
+   * Link chuyển hướng, có thể là đường dẫn route hoặc URL đầy đủ
+   * @example '/dashboard' hoặc 'https://example.com'
    */
   link?: string;
   query?: Record<string, any>;

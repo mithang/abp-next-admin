@@ -16,37 +16,37 @@ export interface BasicPageParams {
     isAvailable!: boolean;
   }
   
-  /** 授权接口 */
+  /** Giao diện ủy quyền */
   export interface IPermission {
-    /** 权限名称 */
+    /** Tên quyền */
     name: string;
-    /** 是否授权 */
+    /** Có được ủy quyền hay không */
     isGranted: boolean;
   }
   
-  /** 作用于接口 */
+  /** Áp dụng cho giao diện */
   export interface IScope {
-    /** 作用域 */
+    /** Phạm vi */
     scope: string;
   }
   
-  /** 密钥 */
+  /** Khóa bí mật */
   export interface ISecret {
-    /** 密钥类型 */
+    /** Loại khóa bí mật */
     type: string;
-    /** 密钥值 */
+    /** Giá trị khóa bí mật */
     value: string;
-    /** 密钥说明 */
+    /** Mô tả khóa bí mật */
     description: string | undefined;
-    /** 过期日期 */
+    /** Ngày hết hạn */
     expiration: Date | undefined;
   }
   
-  /** 令牌 */
+  /** Token */
   export interface IClaim {
-    /** 类型 */
+    /** Loại */
     type: string;
-    /** 数值 */
+    /** Giá trị */
     value: string;
   }
   

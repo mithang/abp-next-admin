@@ -1,0 +1,9 @@
+{
+  "culture": "vi",
+  "texts": {
+    "DisplayName:Abp.Identity.SignIn.EnablePhoneNumberConfirmation": "Bật xác nhận số điện thoại",
+    "Description:Abp.Identity.SignIn.EnablePhoneNumberConfirmation": "Người dùng có thể xác nhận số điện thoại hay không.",
+    "Identity.OrganizationUnit.MaxUserMembershipCount": "Số tổ chức tối đa",
+    "Description:Abp.Identity.OrganizationUnit.MaxUserMembershipCount": "Số lượng tổ chức tối đa mà một người dùng được phép tham gia."
+  }
+}

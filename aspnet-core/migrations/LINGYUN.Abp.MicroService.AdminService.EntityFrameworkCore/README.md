@@ -1,20 +1,20 @@
 # LINGYUN.Abp.MicroService.AdminService.EntityFrameworkCore
 
-后台管理数据迁移模块，提供后台管理系统相关的数据库迁移功能。
+Mô-đun di chuyển dữ liệu quản trị hệ thống, cung cấp chức năng di chuyển cơ sở dữ liệu liên quan đến hệ thống quản trị.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成SaaS多租户数据迁移
-* 集成设置管理数据迁移
-* 集成数据保护管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 集成文本模板数据迁移
-* 支持MySQL数据库
+* Tích hợp di chuyển dữ liệu đa thuê bao SaaS
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý bảo vệ dữ liệu
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Tích hợp di chuyển dữ liệu mẫu văn bản
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -28,22 +28,22 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "BackendAdminDbMigrator": "你的数据库连接字符串"
+    "BackendAdminDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置BackendAdminDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Cấu hình chuỗi kết nối BackendAdminDbMigrator trong appsettings.json
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(BackendAdminMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -52,16 +52,16 @@
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* Saas相关表 - 租户、版本等多租户相关数据
-* AbpSettings - 系统设置数据
-* AbpDataProtection - 数据保护相关数据
-* AbpPermissionGrants - 权限授权数据
-* AbpFeatures - 功能特性数据
-* AbpTextTemplates - 文本模板数据
+* Bảng liên quan đến Saas - dữ liệu đa thuê bao như thuê bao, phiên bản
+* AbpSettings - dữ liệu cài đặt hệ thống
+* AbpDataProtection - dữ liệu liên quan đến bảo vệ dữ liệu
+* AbpPermissionGrants - dữ liệu cấp quyền
+* AbpFeatures - dữ liệu tính năng
+* AbpTextTemplates - dữ liệu mẫu văn bản
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [ASP.NET Core数据保护](https://docs.microsoft.com/zh-cn/aspnet/core/security/data-protection/introduction)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Bảo vệ dữ liệu ASP.NET Core](https://docs.microsoft.com/zh-cn/aspnet/core/security/data-protection/introduction)

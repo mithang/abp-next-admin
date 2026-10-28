@@ -2,29 +2,29 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Models;
 /// <summary>
-/// 接替状态
+/// Trạng thái bàn giao
 /// </summary>
-[Description("接替状态")]
+[Description("Trạng thái bàn giao")]
 public enum TransferStatus
 {
     /// <summary>
-    /// 接替完毕
+    /// Đã bàn giao xong
     /// </summary>
-    [Description("接替完毕")]
+    [Description("Đã bàn giao xong")]
     Completed = 1,
     /// <summary>
-    /// 等待接替
+    /// Đang chờ bàn giao
     /// </summary>
-    [Description("等待接替")]
+    [Description("Đang chờ bàn giao")]
     Pending = 2,
     /// <summary>
-    /// 客户拒绝
+    /// Khách hàng từ chối
     /// </summary>
-    [Description("客户拒绝")]
+    [Description("Khách hàng từ chối")]
     CustomerReject = 3,
     /// <summary>
-    /// 接替成员客户达到上限
+    /// Khách hàng của thành viên nhận bàn giao đã đạt giới hạn
     /// </summary>
-    [Description("接替成员客户达到上限")]
+    [Description("Khách hàng của thành viên nhận bàn giao đã đạt giới hạn")]
     ReachesLimit = 4
 }

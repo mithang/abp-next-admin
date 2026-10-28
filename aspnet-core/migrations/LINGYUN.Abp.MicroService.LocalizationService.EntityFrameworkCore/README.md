@@ -1,19 +1,19 @@
 # LINGYUN.Abp.MicroService.LocalizationService.EntityFrameworkCore
 
-本地化管理数据迁移模块，提供本地化管理系统相关的数据库迁移功能。
+Mô-đun di chuyển dữ liệu quản lý bản địa hóa, cung cấp chức năng di chuyển cơ sở dữ liệu liên quan đến hệ thống quản lý bản địa hóa.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成SaaS多租户数据迁移
-* 集成本地化管理数据迁移
-* 集成设置管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 支持MySQL数据库
+* Tích hợp di chuyển dữ liệu đa tenant SaaS
+* Tích hợp di chuyển dữ liệu quản lý bản địa hóa
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -26,22 +26,22 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "LocalizationManagementDbMigrator": "你的数据库连接字符串"
+    "LocalizationManagementDbMigrator": "chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置LocalizationManagementDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Trong appsettings.json, cấu hình chuỗi kết nối LocalizationManagementDbMigrator
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(LocalizationManagementMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -50,15 +50,15 @@
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* AbpLocalization - 本地化资源和文本数据
-* Saas相关表 - 租户、版本等多租户相关数据
-* AbpSettings - 系统设置数据
-* AbpPermissionGrants - 权限授权数据
-* AbpFeatures - 功能特性数据
+* AbpLocalization - Tài nguyên bản địa hóa và dữ liệu văn bản
+* Các bảng liên quan đến Saas - Dữ liệu đa tenant như tenant, phiên bản
+* AbpSettings - Dữ liệu cài đặt hệ thống
+* AbpPermissionGrants - Dữ liệu cấp quyền
+* AbpFeatures - Dữ liệu tính năng
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [ABP本地化文档](https://docs.abp.io/zh-Hans/abp/latest/Localization)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu bản địa hóa ABP](https://docs.abp.io/zh-Hans/abp/latest/Localization)

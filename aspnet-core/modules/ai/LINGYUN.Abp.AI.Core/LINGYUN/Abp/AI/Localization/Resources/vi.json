@@ -1,0 +1,9 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Abp.AI:110001": "Không gian làm việc không khả dụng: {Workspace}!",
+    "Abp.AI:110002": "ApiKey bị thiếu hoặc không hợp lệ!",
+    "Abp.AI:110101": "Cuộc trò chuyện đã hết hạn, vui lòng tạo lại phiên!",
+    "NewConversation": "Cuộc trò chuyện mới"
+  }
+}

@@ -4,64 +4,64 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Models;
 /// <summary>
-/// 群成员
+/// Thành viên nhóm
 /// </summary>
 public class GroupChatMember
 {
     /// <summary>
-    /// 群成员id
+    /// Thành viên nhómid
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 成员类型
+    /// Loại thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public GroupChatMemberType Type { get; set; }
     /// <summary>
-    /// 外部联系人在微信开放平台的唯一身份标识（微信unionid），通过此字段企业可将外部联系人与公众号/小程序用户关联起来。<br />
-    /// 仅当群成员类型是微信用户（包括企业成员未添加好友），且企业绑定了微信开发者ID有此字段
+    /// Định danh duy nhất của liên hệ bên ngoài trên nền tảng mở WeChat (unionid WeChat), qua trường này doanh nghiệp có thể liên kết liên hệ bên ngoài với người dùng tài khoản công khai / chương trình mini.<br />
+    /// Chỉ có trường này khi loại thành viên nhóm là người dùng WeChat (bao gồm thành viên doanh nghiệp chưa kết bạn), và doanh nghiệp đã liên kết ID nhà phát triển WeChat
     /// </summary>
     [CanBeNull]
     [JsonProperty("unionid")]
     [JsonPropertyName("unionid")]
     public string? UnionId { get; set; }
     /// <summary>
-    /// 入群时间
+    /// Thời gian vào nhóm
     /// </summary>
     [NotNull]
     [JsonProperty("join_time")]
     [JsonPropertyName("join_time")]
     public long JoinTime { get; set; }
     /// <summary>
-    /// 入群方式
+    /// Cách vào nhóm
     /// </summary>
     [NotNull]
     [JsonProperty("join_scene")]
     [JsonPropertyName("join_scene")]
     public GroupChatMemberJoinScene JoinScene { get; set; }
     /// <summary>
-    /// 邀请者。目前仅当是由本企业内部成员邀请入群时会返回该值
+    /// Người mời. Hiện tại chỉ trả về giá trị này khi được thành viên nội bộ của doanh nghiệp mời vào nhóm
     /// </summary>
     [CanBeNull]
     [JsonProperty("invitor")]
     [JsonPropertyName("invitor")]
     public GroupChatInvitor? Invitor { get; set; }
     /// <summary>
-    /// 在群里的昵称
+    /// Biệt danh trong nhóm
     /// </summary>
     [CanBeNull]
     [JsonProperty("group_nickname")]
     [JsonPropertyName("group_nickname")]
     public string? GroupNickname { get; set; }
     /// <summary>
-    /// 名字。仅当 need_name = 1 时返回<br />
-    /// 如果是微信用户，则返回其在微信中设置的名字<br />
-    /// 如果是企业微信联系人，则返回其设置对外展示的别名或实名
+    /// Tên. Chỉ trả về khi need_name = 1<br />
+    /// Nếu là người dùng WeChat, sẽ trả về tên mà người đó đặt trong WeChat<br />
+    /// Nếu là liên hệ WeChat doanh nghiệp, sẽ trả về bí danh hoặc tên thật mà người đó đặt để hiển thị ra bên ngoài
     /// </summary>
     [CanBeNull]
     [JsonProperty("name")]

@@ -11,7 +11,7 @@ namespace LINGYUN.Abp.Dapr.Client;
 public class AbpDaprClientModule : AbpModule
 {
     /// <summary>
-    /// 与AbpHttpClient集成,创建一个命名HttpClient
+    /// Tích hợp với AbpHttpClient, tạo một HttpClient có tên
     /// </summary>
     internal const string DaprHttpClient = "_AbpDaprProxyClient";
 

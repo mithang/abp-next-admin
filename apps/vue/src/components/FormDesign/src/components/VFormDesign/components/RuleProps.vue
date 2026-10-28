@@ -1,5 +1,5 @@
 <!--
- * @Description: 正则校验选项组件
+ * @Description: Thành phần tùy chọn kiểm tra regex
 -->
 <template>
   <div class="rule-props-content">
@@ -14,21 +14,21 @@
           class="rule-props-item-close"
           @click="removeRule(index)"
         />
-        <FormItem label="正则" :labelCol="{ span: 6 }" :wrapperCol="{ span: 16 }">
+        <FormItem label="Regex" :labelCol="{ span: 6 }" :wrapperCol="{ span: 16 }">
           <AutoComplete
             v-model:value="item.pattern"
-            placeholder="请输入正则表达式"
+            placeholder="Vui lòng nhập biểu thức chính quy"
             :dataSource="patternDataSource"
           />
         </FormItem>
-        <FormItem label="文案" :labelCol="{ span: 6 }" :wrapperCol="{ span: 16 }">
-          <Input v-model:value="item.message" placeholder="请输入提示文案" />
+        <FormItem label="Nội dung" :labelCol="{ span: 6 }" :wrapperCol="{ span: 16 }">
+          <Input v-model:value="item.message" placeholder="Vui lòng nhập nội dung nhắc nhở" />
         </FormItem>
       </div>
     </Form>
     <a @click="addRules">
       <Icon icon="ant-design:file-add-outlined" />
-      添加正则
+      Thêm regex
     </a>
   </div>
 </template>
@@ -49,11 +49,11 @@
       Icon,
     },
     setup() {
-      // 获取祖先组件的状态
+      // Lấy trạng thái của component tổ tiên
       const { formConfig } = useFormDesignState();
-      // 抽离 currentItem
+      // Tách currentItem
       /**
-       * 添加正则校验，判断当前组件的rules是不是数组，如果不是数组，使用set方法重置成数组，然后添加正则校验
+       * Thêm kiểm tra regex, kiểm tra xem rules của component hiện tại có phải là mảng không, nếu không phải mảng thì dùng phương thức set để đặt lại thành mảng, sau đó thêm kiểm tra regex
        */
       const addRules = () => {
         if (!isArray(formConfig.value.currentItem!.rules))
@@ -61,8 +61,8 @@
         formConfig.value.currentItem!.rules?.push({ pattern: '', message: '' });
       };
       /**
-       * 删除正则校验，当正则规则为0时，删除rules属性
-       * @param index {number} 需要删除的规则下标
+       * Xóa kiểm tra regex, khi số quy tắc regex bằng 0 thì xóa thuộc tính rules
+       * @param index {number} Chỉ số của quy tắc cần xóa
        */
       const removeRule = (index: number) => {
         remove(formConfig.value.currentItem!.rules as Array<any>, index);
@@ -72,28 +72,28 @@
       const patternDataSource = ref([
         {
           value: '/^(?:(?:\\+|00)86)?1[3-9]\\d{9}$/',
-          text: '手机号码',
+          text: 'Số điện thoại di động',
         },
         {
           value: '/^((ht|f)tps?:\\/\\/)?[\\w-]+(\\.[\\w-]+)+:\\d{1,5}\\/?$/',
-          text: '网址带端口号',
+          text: 'URL có cổng',
         },
         {
           value:
             '/^(((ht|f)tps?):\\/\\/)?[\\w-]+(\\.[\\w-]+)+([\\w.,@?^=%&:/~+#-\\(\\)]*[\\w@?^=%&/~+#-\\(\\)])?$/',
-          text: '网址带参数',
+          text: 'URL có tham số',
         },
         {
           value: '/^[0-9A-HJ-NPQRTUWXY]{2}\\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/',
-          text: '统一社会信用代码',
+          text: 'Mã tín dụng xã hội thống nhất',
         },
         {
           value: '/^(s[hz]|S[HZ])(000[\\d]{3}|002[\\d]{3}|300[\\d]{3}|600[\\d]{3}|60[\\d]{4})$/',
-          text: '股票代码',
+          text: 'Mã cổ phiếu',
         },
         {
           value: '/^([a-f\\d]{32}|[A-F\\d]{32})$/',
-          text: 'md5格式（32位）',
+          text: 'Định dạng md5 (32 ký tự)',
         },
         {
           value: '/^[a-f\\d]{4}(?:[a-f\\d]{4}-){4}[a-f\\d]{12}$/i',
@@ -101,144 +101,144 @@
         },
         {
           value: '/^\\d+(?:\\.\\d+){2}$/',
-          text: '版本号（x.y.z）格式',
+          text: 'Định dạng số phiên bản (x.y.z)',
         },
         {
           value:
             '/^https?:\\/\\/(.+\\/)+.+(\\.(swf|avi|flv|mpg|rm|mov|wav|asf|3gp|mkv|rmvb|mp4))$/i',
-          text: '视频链接地址',
+          text: 'Địa chỉ liên kết video',
         },
         {
           value: '/^https?:\\/\\/(.+\\/)+.+(\\.(gif|png|jpg|jpeg|webp|svg|psd|bmp|tif))$/i',
-          text: '图片链接地址',
+          text: 'Địa chỉ liên kết hình ảnh',
         },
         {
           value: '/^-?\\d+(,\\d{3})*(\\.\\d{1,2})?$/',
-          text: '数字/货币金额（支持负数、千分位分隔符）',
+          text: 'Số/tiền tệ (hỗ trợ số âm, dấu phân tách hàng nghìn)',
         },
         {
           value:
             '/(?:^[1-9]([0-9]+)?(?:\\.[0-9]{1,2})?$)|(?:^(?:0)$)|(?:^[0-9]\\.[0-9](?:[0-9])?$)/',
-          text: '数字/货币金额',
+          text: 'Số/tiền tệ',
         },
         {
           value: '/^[1-9]\\d{9,29}$/',
-          text: '银行卡号',
+          text: 'Số thẻ ngân hàng',
         },
         {
           value: '/^(?:[\u4e00-\u9fa5·]{2,16})$/',
-          text: '中文姓名',
+          text: 'Tên tiếng Trung',
         },
         {
           value: '/(^[a-zA-Z][a-zA-Z\\s]{0,20}[a-zA-Z]$)/',
-          text: '英文姓名',
+          text: 'Tên tiếng Anh',
         },
         {
           value:
-            '/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z](?:((\\d{5}[A-HJK])|([A-HJK][A-HJ-NP-Z0-9][0-9]{4}))|[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳])$/',
-          text: '车牌号(新能源)',
+            '/^[\u4eac\u6d25\u6caa\u6e1d\u5180\u8c6b\u4e91\u8fbd\u9ed1\u6e58\u7696\u9c81\u65b0\u82cf\u6d59\u8d63\u9102\u6842\u7518\u664b\u8499\u9655\u5409\u95fd\u8d35\u7ca4\u9752\u85cf\u5ddd\u5b81\u743c\u4f7f\u9886][A-HJ-NP-Z](?:((\\d{5}[A-HJK])|([A-HJK][A-HJ-NP-Z0-9][0-9]{4}))|[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9\u6302\u5b66\u8b66\u6e2f\u6fb3])$/',
+          text: 'Biển số xe (năng lượng mới)',
         },
         {
           value:
-            '/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]$/',
-          text: '车牌号(非新能源)',
+            '/^[\u4eac\u6d25\u6caa\u6e1d\u5180\u8c6b\u4e91\u8fbd\u9ed1\u6e58\u7696\u9c81\u65b0\u82cf\u6d59\u8d63\u9102\u6842\u7518\u664b\u8499\u9655\u5409\u95fd\u8d35\u7ca4\u9752\u85cf\u5ddd\u5b81\u743c\u4f7f\u9886][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9\u6302\u5b66\u8b66\u6e2f\u6fb3]$/',
+          text: 'Biển số xe (không phải năng lượng mới)',
         },
         {
           value:
-            '/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/',
-          text: '车牌号(新能源+非新能源)',
+            '/^[\u4eac\u6d25\u6caa\u6e1d\u5180\u8c6b\u4e91\u8fbd\u9ed1\u6e58\u7696\u9c81\u65b0\u82cf\u6d59\u8d63\u9102\u6842\u7518\u664b\u8499\u9655\u5409\u95fd\u8d35\u7ca4\u9752\u85cf\u5ddd\u5b81\u743c\u4f7f\u9886][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9\u6302\u5b66\u8b66\u6e2f\u6fb3]$/',
+          text: 'Biển số xe (năng lượng mới + không phải năng lượng mới)',
         },
         {
           value:
             '/^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/',
-          text: 'email(邮箱)',
+          text: 'email (hộp thư)',
         },
         {
           value: '/^(?:(?:\\d{3}-)?\\d{8}|^(?:\\d{4}-)?\\d{7,8})(?:-\\d+)?$/',
-          text: '座机',
+          text: 'Điện thoại cố định',
         },
         {
           value:
             '/^[1-9]\\d{5}(?:18|19|20)\\d{2}(?:0[1-9]|10|11|12)(?:0[1-9]|[1-2]\\d|30|31)\\d{3}[\\dXx]$/',
-          text: '身份证号',
+          text: 'Số chứng minh nhân dân',
         },
         {
           value:
             '/(^[EeKkGgDdSsPpHh]\\d{8}$)|(^(([Ee][a-fA-F])|([DdSsPp][Ee])|([Kk][Jj])|([Mm][Aa])|(1[45]))\\d{7}$)/',
-          text: '护照',
+          text: 'Hộ chiếu',
         },
         {
           value:
             '/^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/',
-          text: '中文汉字',
+          text: 'Ký tự tiếng Trung',
         },
         {
           value: '/^\\d+\\.\\d+$/',
-          text: '小数',
+          text: 'Số thập phân',
         },
         {
           value: '/^\\d{1,}$/',
-          text: '数字',
+          text: 'Số',
         },
         {
           value: '/^[1-9][0-9]{4,10}$/',
-          text: 'qq号',
+          text: 'Số QQ',
         },
         {
           value: '/^[A-Za-z0-9]+$/',
-          text: '数字字母组合',
+          text: 'Kết hợp chữ số và chữ cái',
         },
         {
           value: '/^[a-zA-Z]+$/',
-          text: '英文字母',
+          text: 'Chữ cái tiếng Anh',
         },
         {
           value: '/^[a-z]+$/',
-          text: '小写英文字母',
+          text: 'Chữ cái tiếng Anh viết thường',
         },
         {
           value: '/^[A-Z]+$/',
-          text: '大写英文字母',
+          text: 'Chữ cái tiếng Anh viết hoa',
         },
         {
           value: '/^[a-zA-Z0-9_-]{4,16}$/',
-          text: '用户名校验，4到16位（字母，数字，下划线，减号）',
+          text: 'Kiểm tra tên người dùng, 4 đến 16 ký tự (chữ cái, chữ số, dấu gạch dưới, dấu gạch ngang)',
         },
         {
           value: '/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/',
-          text: '16进制颜色',
+          text: 'Màu hệ thập lục phân',
         },
         {
           value: '/^[a-zA-Z][-_a-zA-Z0-9]{5,19}$/',
-          text: '微信号',
+          text: 'ID WeChat',
         },
         {
           value: '/^(0[1-7]|1[0-356]|2[0-7]|3[0-6]|4[0-7]|5[1-7]|6[1-7]|7[0-5]|8[013-6])\\d{4}$/',
-          text: '邮政编码(中国)',
+          text: 'Mã bưu chính (Trung Quốc)',
         },
         {
           value: '/^[^A-Za-z]*$/',
-          text: '不能包含字母',
+          text: 'Không được chứa chữ cái',
         },
         {
           value: '/^\\+?[1-9]\\d*$/',
-          text: '正整数，不包含0',
+          text: 'Số nguyên dương, không bao gồm 0',
         },
         {
           value: '/^-[1-9]\\d*$/',
-          text: '负整数，不包含0',
+          text: 'Số nguyên âm, không bao gồm 0',
         },
         {
           value: '/^-?[0-9]\\d*$/',
-          text: '整数',
+          text: 'Số nguyên',
         },
         {
           value: '/^(-?\\d+)(\\.\\d+)?$/',
-          text: '浮点数',
+          text: 'Số thực',
         },
         {
           value: '/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$/',
-          text: 'email(支持中文邮箱)',
+          text: 'email (hỗ trợ hộp thư tiếng Trung)',
         },
       ]);
       return { addRules, removeRule, formConfig, patternDataSource };

@@ -1,3 +1,3 @@
 # locale
 
-每个app使用的国际化可能不同，这里用于扩展国际化的功能，例如扩展 dayjs、antd组件库的多语言切换，以及app本身的国际化文件。
+Mỗi app có thể dùng i18n khác nhau; thư mục này dùng để mở rộng chức năng i18n, ví dụ mở rộng chuyển đổi đa ngôn ngữ của dayjs, thư viện component antd, cũng như file i18n của chính app.

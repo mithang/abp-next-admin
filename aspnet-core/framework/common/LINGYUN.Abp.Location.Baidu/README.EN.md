@@ -93,7 +93,7 @@ public class YourLocationService
     "precise": 1,            // Additional location info, precise match or not (1 for precise, 0 for not precise)
     "confidence": 80,        // Confidence level
     "comprehension": 100,    // Address understanding level
-    "level": "门址"          // Address type
+    "level": "địa chỉ số nhà"          // Address type
 }
 ```
 
@@ -133,5 +133,5 @@ public class YourLocationService
 
 ## More Information
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Trung](./README.md)
 * [Baidu Maps Open Platform](https://lbsyun.baidu.com/)

@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 部门控件值
+/// Giá trị điều khiển phòng ban
 /// </summary>
 public class DepartmentControlValue : ContactControlValue
 {
     /// <summary>
-    /// 所选部门内容，即申请人在此控件选择的部门，多选模式下可能有多个
+    /// Nội dung phòng ban đã chọn, tức phòng ban mà người nộp đơn chọn trong điều khiển này, ở chế độ chọn nhiều có thể có nhiều phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("departments")]
@@ -40,14 +40,14 @@ public class DepartmentControlValue : ContactControlValue
 public class DepartmentValue
 {
     /// <summary>
-    /// 所选部门id
+    /// id phòng ban đã chọn
     /// </summary>
     [NotNull]
     [JsonProperty("openapi_id")]
     [JsonPropertyName("openapi_id")]
     public string DepartmentId { get; set; } = default!;
     /// <summary>
-    /// 所选部门名
+    /// Tên phòng ban đã chọn
     /// </summary>
     [NotNull]
     [JsonProperty("name")]

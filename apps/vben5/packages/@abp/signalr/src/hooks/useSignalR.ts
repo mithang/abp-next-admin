@@ -7,15 +7,15 @@ import { useEventBus } from '@abp/core';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 interface SignalROptions {
-  /** 断线自动重连 */
+  /** Tự động kết nối lại khi mất kết nối */
   automaticReconnect?: boolean;
-  /** 初始化自动建立连接 */
+  /** Tự động thiết lập kết nối khi khởi tạo */
   autoStart?: boolean;
-  /** 下次重试间隔（ms） */
+  /** Khoảng thời gian thử lại lần sau (ms) */
   nextRetryDelayInMilliseconds?: number;
-  /** 服务端url */
+  /** URL phía máy chủ */
   serverUrl: string;
-  /** 是否携带访问令牌 */
+  /** Có mang theo mã truy cập hay không */
   useAccessToken?: boolean;
 }
 
@@ -24,7 +24,7 @@ export function useSignalR() {
 
   let connection: HubConnection | null = null;
 
-  /** 初始化SignalR */
+  /** Khởi tạo SignalR */
   async function init({
     automaticReconnect = true,
     autoStart = false,
@@ -57,7 +57,7 @@ export function useSignalR() {
     }
   }
 
-  /** 启动连接 */
+  /** Khởi động kết nối */
   async function start(): Promise<void> {
     _throwIfNotInit();
     publish('signalR:beforeStart');
@@ -69,7 +69,7 @@ export function useSignalR() {
     }
   }
 
-  /** 关闭连接 */
+  /** Đóng kết nối */
   async function stop(): Promise<void> {
     _throwIfNotInit();
     publish('signalR:beforeStop');
@@ -81,53 +81,53 @@ export function useSignalR() {
     }
   }
 
-  /** 连接前事件 */
+  /** Sự kiện trước khi kết nối */
   function beforeStart<T = any>(callback: (event?: T) => void) {
     subscribe('signalR:beforeStart', callback);
   }
 
-  /** 连接后事件 */
+  /** Sự kiện sau khi kết nối */
   function onStart<T = any>(callback: (event?: T) => void) {
     subscribe('signalR:onStart', callback);
   }
 
-  /** 关闭连接前事件 */
+  /** Sự kiện trước khi đóng kết nối */
   function beforeStop<T = any>(callback: (event?: T) => void) {
     subscribe('signalR:beforeStop', callback);
   }
 
-  /** 关闭连接后事件 */
+  /** Sự kiện sau khi đóng kết nối */
   function onStop<T = any>(callback: (event?: T) => void) {
     subscribe('signalR:onStop', callback);
   }
 
-  /** 连接错误事件 */
+  /** Sự kiện lỗi kết nối */
   function onError(callback: (error?: Error) => void) {
     subscribe('signalR:onError', callback);
   }
 
-  /** 订阅服务端消息 */
+  /** Đăng ký nhận thông báo từ máy chủ */
   function on(methodName: string, newMethod: (...args: any[]) => void): void {
     connection?.on(methodName, newMethod);
   }
 
-  /** 注销服务端消息 */
+  /** Hủy đăng ký nhận thông báo từ máy chủ */
   function off(methodName: string, method: (...args: any[]) => void): void {
     connection?.off(methodName, method);
   }
 
-  /** 连接关闭事件 */
+  /** Sự kiện đóng kết nối */
   function onClose(callback: (error?: Error) => void): void {
     connection?.onclose(callback);
   }
 
-  /** 发送消息 */
+  /** Gửi thông báo */
   function send(methodName: string, ...args: any[]): Promise<void> {
     _throwIfNotInit();
     return connection!.send(methodName, ...args);
   }
 
-  /** 调用函数 */
+  /** Gọi hàm */
   function invoke<T = any>(methodName: string, ...args: any[]): Promise<T> {
     _throwIfNotInit();
     return connection!.invoke(methodName, ...args);

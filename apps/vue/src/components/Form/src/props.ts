@@ -11,7 +11,7 @@ export const basicProps = {
     type: Object as PropType<Recordable>,
     default: () => ({}),
   },
-  // 标签宽度  固定宽度
+  // Chiều rộng nhãn cố định
   labelWidth: {
     type: [Number, String] as PropType<number | string>,
     default: 0,
@@ -21,7 +21,7 @@ export const basicProps = {
     default: () => [],
   },
   compact: propTypes.bool,
-  // 表单配置规则
+  // Quy tắc cấu hình form
   schemas: {
     type: Array as PropType<FormSchema[]>,
     default: () => [],
@@ -37,20 +37,20 @@ export const basicProps = {
     type: Object as PropType<Partial<ColEx>>,
   },
   autoSetPlaceHolder: propTypes.bool.def(true),
-  // 在INPUT组件上单击回车时，是否自动提交
+  // Nhấn Enter trên component INPUT có tự động submit không
   autoSubmitOnEnter: propTypes.bool.def(false),
   submitOnReset: propTypes.bool,
   submitOnChange: propTypes.bool,
   size: propTypes.oneOf(['default', 'small', 'large']).def('default'),
-  // 禁用表单
+  // Vô hiệu hóa form
   disabled: propTypes.bool,
   emptySpan: {
     type: [Number, Object] as PropType<number | Recordable>,
     default: 0,
   },
-  // 是否显示收起展开按钮
+  // Hiển thị nút thu gọn/mở rộng
   showAdvancedButton: propTypes.bool,
-  // 转化时间
+  // Chuyển đổi thời gian
   transformDateFunc: {
     type: Function as PropType<Fn>,
     default: (date: any) => {
@@ -58,32 +58,32 @@ export const basicProps = {
     },
   },
   rulesMessageJoinLabel: propTypes.bool.def(true),
-  // 超过3行自动折叠
+  // Quá 3 dòng tự động gấp lại
   autoAdvancedLine: propTypes.number.def(3),
-  // 不受折叠影响的行数
+  // Số dòng không bị gấp ảnh hưởng
   alwaysShowLines: propTypes.number.def(1),
 
-  // 是否显示操作按钮
+  // Hiển thị nút thao tác
   showActionButtonGroup: propTypes.bool.def(true),
-  // 操作列Col配置
+  // Cấu hình Col cột thao tác
   actionColOptions: Object as PropType<Partial<ColEx>>,
-  // 显示重置按钮
+  // Hiển thị nút đặt lại
   showResetButton: propTypes.bool.def(true),
-  // 是否聚焦第一个输入框，只在第一个表单项为input的时候作用
+  // Có focus ô nhập đầu tiên không, chỉ có tác dụng khi form item đầu tiên là input
   autoFocusFirstItem: propTypes.bool,
-  // 重置按钮配置
+  // Cấu hình nút đặt lại
   resetButtonOptions: Object as PropType<Partial<ButtonProps>>,
 
-  // 显示确认按钮
+  // Hiển thị nút xác nhận
   showSubmitButton: propTypes.bool.def(true),
-  // 确认按钮配置
+  // Cấu hình nút xác nhận
   submitButtonOptions: Object as PropType<Partial<ButtonProps>>,
 
-  // 自定义重置函数
+  // Hàm đặt lại tùy chỉnh
   resetFunc: Function as PropType<() => Promise<void>>,
   submitFunc: Function as PropType<() => Promise<void>>,
 
-  // 以下为默认props
+  // Các props mặc định sau đây
   hideRequiredMark: propTypes.bool,
 
   labelCol: Object as PropType<Partial<ColEx>>,
@@ -108,7 +108,7 @@ export const tabProps = {
     type: Object as PropType<Recordable>,
     default: {},
   },
-  // 标签宽度  固定宽度
+  // Chiều rộng nhãn cố định
   labelWidth: {
     type: [Number, String] as PropType<number | string>,
     default: 0,
@@ -118,7 +118,7 @@ export const tabProps = {
     default: () => [],
   },
   compact: propTypes.bool,
-  // 表单配置规则
+  // Quy tắc cấu hình form
   schemas: {
     type: Array as PropType<TabFormSchema[]>,
     default: () => [],
@@ -134,19 +134,19 @@ export const tabProps = {
     type: Object as PropType<Partial<ColEx>>,
   },
   autoSetPlaceHolder: propTypes.bool.def(true),
-  // 在INPUT组件上单击回车时，是否自动提交
+  // Nhấn Enter trên component INPUT có tự động submit không
   autoSubmitOnEnter: propTypes.bool.def(false),
   submitOnReset: propTypes.bool,
   size: propTypes.oneOf(['default', 'small', 'large']).def('default'),
-  // 禁用表单
+  // Vô hiệu hóa form
   disabled: propTypes.bool,
   emptySpan: {
     type: [Number, Object] as PropType<number>,
     default: 0,
   },
-  // 是否显示收起展开按钮
+  // Hiển thị nút thu gọn/mở rộng
   showAdvancedButton: propTypes.bool,
-  // 转化时间
+  // Chuyển đổi thời gian
   transformDateFunc: {
     type: Function as PropType<Fn>,
     default: (date: any) => {
@@ -154,30 +154,30 @@ export const tabProps = {
     },
   },
   rulesMessageJoinLabel: propTypes.bool.def(true),
-  // 超过3行自动折叠
+  // Quá 3 dòng tự động gấp lại
   autoAdvancedLine: propTypes.number.def(3),
 
-  // 是否显示操作按钮
+  // Hiển thị nút thao tác
   showActionButtonGroup: propTypes.bool.def(true),
-  // 操作列Col配置
+  // Cấu hình Col cột thao tác
   actionColOptions: Object as PropType<Partial<ColEx>>,
-  // 显示重置按钮
+  // Hiển thị nút đặt lại
   showResetButton: propTypes.bool.def(true),
-  // 是否聚焦第一个输入框，只在第一个表单项为input的时候作用
+  // Có focus ô nhập đầu tiên không, chỉ có tác dụng khi form item đầu tiên là input
   autoFocusFirstItem: propTypes.bool,
-  // 重置按钮配置
+  // Cấu hình nút đặt lại
   resetButtonOptions: Object as PropType<Partial<ButtonProps>>,
 
-  // 显示确认按钮
+  // Hiển thị nút xác nhận
   showSubmitButton: propTypes.bool.def(true),
-  // 确认按钮配置
+  // Cấu hình nút xác nhận
   submitButtonOptions: Object as PropType<Partial<ButtonProps>>,
 
-  // 自定义重置函数
+  // Hàm đặt lại tùy chỉnh
   resetFunc: Function as PropType<() => Promise<void>>,
   submitFunc: Function as PropType<() => Promise<void>>,
 
-  // 以下为默认props
+  // Các props mặc định sau đây
   hideRequiredMark: propTypes.bool,
 
   labelCol: Object as PropType<Partial<ColEx>>,

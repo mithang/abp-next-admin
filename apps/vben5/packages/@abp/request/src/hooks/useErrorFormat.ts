@@ -4,7 +4,7 @@ import type { AxiosResponse } from 'axios';
 export function useErrorFormat(response: AxiosResponse) {
   const _defaultErrorHeaderKey: string = '_abperrorformat';
   const { data, headers } = response;
-  /** 是否请求错误 */
+  /** Có phải lỗi yêu cầu hay không */
   function hasError(): boolean {
     if (
       typeof headers.has === 'function' &&
@@ -14,13 +14,13 @@ export function useErrorFormat(response: AxiosResponse) {
     }
     return false;
   }
-  /** 如果请求错误,抛出异常 */
+  /** Nếu yêu cầu bị lỗi, ném ngoại lệ */
   function throwIfError(): void {
     if (!hasError()) return;
     throw Object.assign({}, response, { message: getErrorMessage(), response });
   }
 
-  /** 获取错误消息 */
+  /** Lấy thông báo lỗi */
   function getErrorMessage(): string | undefined {
     if (!hasError()) return undefined;
     const errorJson = data.error as RemoteServiceErrorInfo;

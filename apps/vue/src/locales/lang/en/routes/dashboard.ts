@@ -15,7 +15,7 @@ export default {
       }
     },
     menus: {
-      favoriteMenu: '常用',
+      favoriteMenu: 'Thường dùng',
       more: 'More',
       addMenu: 'Add new menu',
       manager: 'Manage menu',

@@ -1,8 +1,8 @@
 /**
- * 格式化字符串
- * @param formatted 需要处理的字符串
- * @param args 参数列表，可以是数组，也可以是对象
- * @returns 返回格式化的字符串
+ * Định dạng chuỗi
+ * @param formatted Chuỗi cần xử lý
+ * @param args Danh sách tham số, có thể là mảng hoặc đối tượng
+ * @returns Trả về chuỗi đã định dạng
  * @example format('Hello, {0}!', ['World'])
  * @example format('Hello, {name}!', {name: 'World'})
  */
@@ -21,9 +21,9 @@ export function format(formatted: string, args: object | any[]) {
   return formatted;
 }
 /**
- * 字符串转驼峰格式
- * @param str 字符串
- * @returns 字符串的驼峰表示法
+ * Chuyển chuỗi sang định dạng camelCase
+ * @param str Chuỗi
+ * @returns Dạng camelCase của chuỗi
  * @example toCamelCase('hello-world')  =>  helloWorld
  * @example toCamelCase('my_variable_name')  =>  myVariableName
  */
@@ -34,7 +34,7 @@ export function toCamelCase(str: string) {
 }
 /**
  *
- * @param str 字符串是否为空或空格
+ * @param str Chuỗi có rỗng hoặc chỉ chứa khoảng trắng hay không
  * @returns
  */
 export function isNullOrWhiteSpace(str?: string) {

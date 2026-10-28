@@ -76,11 +76,11 @@ class MainModule extends Module {
     lazyInject<TranslationService>((ioc) {
       var environmentService = get<EnvironmentService>();
       var environment = environmentService.getEnvironment();
-      // 使用资源文件中的本地化文档
+      // Sử dụng tài liệu bản địa hóa trong file tài nguyên
       if (environment.localization.useLocalResources == true) {
         return TranslationResService(ioc);
       }
-      // 使用本地化服务提供的本地化支持
+      // Sử dụng hỗ trợ bản địa hóa do dịch vụ bản địa hóa cung cấp
       return ioc.get<LocalizationService>();
     }, fenix: true);
   }

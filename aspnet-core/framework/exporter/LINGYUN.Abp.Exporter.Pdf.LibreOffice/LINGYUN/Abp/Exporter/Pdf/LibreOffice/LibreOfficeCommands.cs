@@ -21,7 +21,7 @@ public class LibreOfficeCommands
             return Path.Combine(WindowsCliDir, WindowsCli);
         }
 
-        // 详细的操作系统版本: https://zh-cn.libreoffice.org/get-help/system-requirements/
+        // Phiên bản hệ điều hành chi tiết: https://zh-cn.libreoffice.org/get-help/system-requirements/
         if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
         {
             return Path.Combine(UnixCliDir, UnixCli);
@@ -35,7 +35,7 @@ public class LibreOfficeCommands
         return LibreOfficeCommands.IsLibreOfficeAvailable(GetCli());
     }
     /// <summary>
-    /// LibreOffice是否可用
+    /// LibreOffice có khả dụng hay không
     /// </summary>
     /// <param name="commandFile"></param>
     /// <returns></returns>
@@ -69,7 +69,7 @@ public class LibreOfficeCommands
         }
     }
     /// <summary>
-    /// Excel转换为Pdf
+    /// Chuyển đổi Excel sang Pdf
     /// </summary>
     /// <param name="excelFile"></param>
     /// <param name="outputPath"></param>

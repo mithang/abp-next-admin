@@ -37,7 +37,7 @@ type EchartsThemeType = 'dark' | 'light' | null;
 function useEcharts(chartRef: Ref<EchartsUIType>) {
   let chartInstance: echarts.ECharts | null = null;
   let cacheOptions: EChartsOption = {};
-  // echart是否处于激活状态
+  // echart có đang trong trạng thái kích hoạt hay không
   const isActiveRef = ref(false);
 
   const { isDark } = usePreferences();
@@ -127,18 +127,18 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
 
   const updateData = (
     option: EChartsOption,
-    notMerge = false, // false = 合并（保留动画），true = 完全替换
-    lazyUpdate = false, // true 时不立即重绘，适合短时间内多次调用
+    notMerge = false, // false = gộp (giữ animation), true = thay thế hoàn toàn
+    lazyUpdate = false, // true thì không vẽ lại ngay, phù hợp khi gọi nhiều lần trong thời gian ngắn
   ): Promise<echarts.ECharts | null> => {
     return new Promise((resolve) => {
       nextTick(() => {
         if (!chartInstance) {
-          // 还没初始化 → 当作首次渲染
+          // Chưa khởi tạo → coi như render lần đầu
           renderEcharts(option).then(resolve);
           return;
         }
 
-        // 合并你原有的全局配置（比如 backgroundColor）
+        // Gộp cấu hình toàn cục vốn có của bạn (ví dụ backgroundColor)
         const finalOption = {
           ...option,
           ...getOptions.value,
@@ -147,7 +147,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
         chartInstance.setOption(finalOption, {
           notMerge,
           lazyUpdate,
-          // silent: true,     // 如果追求极致性能可开启（关闭所有事件）
+          // silent: true,     // Nếu theo đuổi hiệu năng cực hạn có thể bật (tắt tất cả sự kiện)
         });
 
         resolve(chartInstance);
@@ -184,7 +184,7 @@ function useEcharts(chartRef: Ref<EchartsUIType>) {
   });
 
   tryOnUnmounted(() => {
-    // 销毁实例，释放资源
+    // Hủy instance, giải phóng tài nguyên
     chartInstance?.dispose();
   });
   return {

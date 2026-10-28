@@ -1,33 +1,33 @@
-# LINGYUN.Abp.Authentication 认证模块
+# LINGYUN.Abp.Authentication - Mô-đun xác thực
 
-本模块提供第三方社交登录认证功能，目前支持 QQ 和微信公众号登录，并与 ABP 身份系统深度集成。
+Mô-đun này cung cấp chức năng xác thực đăng nhập mạng xã hội của bên thứ ba, hiện hỗ trợ đăng nhập QQ và tài khoản công khai WeChat, đồng thời tích hợp sâu với hệ thống danh tính ABP.
 
-## 模块概述
+## Tổng quan mô-đun
 
-认证模块包含两个主要子模块：
+Mô-đun xác thực gồm hai mô-đun con chính:
 
-1. **QQ 互联认证模块**
+1. **Mô-đun xác thực QQ Connect**
 
-   - 支持 QQ OAuth2.0 认证
-   - 适用于移动端和 PC 端登录
-   - 获取用户基本信息（昵称、性别、头像等）
+   - Hỗ trợ xác thực QQ OAuth2.0
+   - Phù hợp đăng nhập trên thiết bị di động và PC
+   - Lấy thông tin cơ bản của người dùng (biệt danh, giới tính, ảnh đại diện, v.v.)
 
-2. **微信公众号认证模块**
-   - 支持微信公众号 OAuth2.0 认证
-   - 获取用户详细信息（昵称、性别、地区、头像等）
-   - 支持 UnionId 机制，打通公众号与小程序账号体系
+2. **Mô-đun xác thực tài khoản công khai WeChat**
+   - Hỗ trợ xác thực tài khoản công khai WeChat OAuth2.0
+   - Lấy thông tin chi tiết của người dùng (biệt danh, giới tính, khu vực, ảnh đại diện, v.v.)
+   - Hỗ trợ cơ chế UnionId, liên thông hệ thống tài khoản giữa tài khoản công khai và chương trình mini
 
-## 功能特性
+## Tính năng
 
-- 第三方社交账号登录
-- 获取用户基本信息
-- 与 ABP 身份系统无缝集成
-- 灵活的配置选项
-- 支持多种登录场景（移动端、PC 端）
+- Đăng nhập bằng tài khoản mạng xã hội của bên thứ ba
+- Lấy thông tin cơ bản của người dùng
+- Tích hợp liền mạch với hệ thống danh tính ABP
+- Tùy chọn cấu hình linh hoạt
+- Hỗ trợ nhiều kịch bản đăng nhập (thiết bị di động, PC)
 
-## 快速开始
+## Bắt đầu nhanh
 
-### 模块引用
+### Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -36,64 +36,64 @@
 )]
 public class YourProjectModule : AbpModule
 {
-    // 其他配置
+    // Các cấu hình khác
 }
 ```
 
-### 配置示例
+### Ví dụ cấu hình
 
-在 `appsettings.json` 中配置第三方登录参数：
+Cấu hình tham số đăng nhập của bên thứ ba trong `appsettings.json`:
 
 ```json
 {
   "Authentication": {
     "QQ": {
-      "AppId": "你的QQ互联AppId",
-      "AppKey": "你的QQ互联AppKey"
+      "AppId": "AppId QQ Connect của bạn",
+      "AppKey": "AppKey QQ Connect của bạn"
     },
     "WeChat": {
-      "AppId": "你的微信公众号AppId",
-      "AppSecret": "你的微信公众号AppSecret"
+      "AppId": "AppId tài khoản công khai WeChat của bạn",
+      "AppSecret": "AppSecret tài khoản công khai WeChat của bạn"
     }
   }
 }
 ```
 
-### 添加登录支持
+### Thêm hỗ trợ đăng nhập
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
     context.Services.AddAuthentication()
-        .AddQQConnect()   // 添加QQ登录
-        .AddWeChat();     // 添加微信登录
+        .AddQQConnect()   // Thêm đăng nhập QQ
+        .AddWeChat();     // Thêm đăng nhập WeChat
 }
 ```
 
-## 支持的用户信息
+## Thông tin người dùng được hỗ trợ
 
-### QQ 登录获取信息
+### Thông tin lấy được khi đăng nhập QQ
 
-- OpenId - QQ 用户唯一标识
-- NickName - 用户昵称
-- Gender - 用户性别
-- AvatarUrl - 用户头像 URL
+- OpenId - Định danh duy nhất của người dùng QQ
+- NickName - Biệt danh của người dùng
+- Gender - Giới tính của người dùng
+- AvatarUrl - URL ảnh đại diện của người dùng
 
-### 微信登录获取信息
+### Thông tin lấy được khi đăng nhập WeChat
 
-- OpenId - 微信用户唯一标识
-- UnionId - 微信开放平台唯一标识
-- NickName - 用户昵称
-- Sex - 用户性别
-- Country, Province, City - 地理信息
-- AvatarUrl - 用户头像 URL
+- OpenId - Định danh duy nhất của người dùng WeChat
+- UnionId - Định danh duy nhất trên nền tảng mở WeChat
+- NickName - Biệt danh của người dùng
+- Sex - Giới tính của người dùng
+- Country, Province, City - Thông tin địa lý
+- AvatarUrl - URL ảnh đại diện của người dùng
 
-## 参考文档
+## Tài liệu tham khảo
 
-- [QQ 互联文档](https://wiki.connect.qq.com/)
-- [微信公众平台开发文档](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html)
-- [ABP 认证文档](https://docs.abp.io/en/abp/latest/Authentication)
+- [Tài liệu QQ Connect](https://wiki.connect.qq.com/)
+- [Tài liệu phát triển nền tảng tài khoản công khai WeChat](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html)
+- [Tài liệu xác thực ABP](https://docs.abp.io/en/abp/latest/Authentication)
 
-## 许可证
+## Giấy phép
 
-遵循项目的开源许可证
+Tuân theo giấy phép mã nguồn mở của dự án

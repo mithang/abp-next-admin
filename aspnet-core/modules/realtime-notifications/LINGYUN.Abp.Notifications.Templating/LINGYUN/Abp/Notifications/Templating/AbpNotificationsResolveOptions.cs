@@ -5,7 +5,7 @@ namespace LINGYUN.Abp.Notifications.Templating;
 public class AbpNotificationsResolveOptions
 {
     /// <summary>
-    /// 模板解析提供者列表
+    /// Danh sách provider phân giải mẫu
     /// </summary>
     [NotNull]
     public List<INotificationTemplateResolveContributor> TemplateResolvers { get; }

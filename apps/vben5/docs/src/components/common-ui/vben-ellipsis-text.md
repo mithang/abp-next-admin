@@ -2,33 +2,33 @@
 outline: deep
 ---
 
-# Vben EllipsisText 省略文本
+# Vben EllipsisText Văn bản rút gọn
 
-框架提供的文本展示组件，可配置超长省略、tooltip提示、展开收起等功能。
+Component hiển thị văn bản do framework cung cấp, có thể cấu hình rút gọn khi quá dài, gợi ý tooltip, mở rộng/thu gọn và nhiều chức năng khác.
 
-> 如果文档内没有参数说明，可以尝试在在线示例内寻找
+> Nếu trong tài liệu không có mô tả tham số, có thể thử tìm trong ví dụ trực tuyến
 
-## 基础用法
+## Cách dùng cơ bản
 
-通过默认插槽设置文本内容，`maxWidth`属性设置最大宽度。
+Đặt nội dung văn bản qua slot mặc định, thuộc tính `maxWidth` đặt chiều rộng tối đa.
 
 <DemoPreview dir="demos/vben-ellipsis-text/line" />
 
-## 可折叠的文本块
+## Khối văn bản có thể thu gọn
 
-通过`line`设置折叠后的行数，`expand`属性设置是否支持展开收起。
+Đặt số dòng sau khi thu gọn qua `line`, thuộc tính `expand` đặt có hỗ trợ mở rộng/thu gọn hay không.
 
 <DemoPreview dir="demos/vben-ellipsis-text/expand" />
 
-## 自定义提示浮层
+## Tùy chỉnh lớp nổi gợi ý
 
-通过名为`tooltip`的插槽定制提示信息。
+Tùy chỉnh thông tin gợi ý qua slot tên `tooltip`.
 
 <DemoPreview dir="demos/vben-ellipsis-text/tooltip" />
 
-## 自动显示 tooltip
+## Tự động hiển thị tooltip
 
-通过`tooltip-when-ellipsis`设置，仅在文本长度超出导致省略号出现时才触发 tooltip。
+Đặt qua `tooltip-when-ellipsis`, chỉ kích hoạt tooltip khi độ dài văn bản vượt quá gây xuất hiện dấu ba chấm.
 
 <DemoPreview dir="demos/vben-ellipsis-text/auto-display" />
 
@@ -36,29 +36,29 @@ outline: deep
 
 ### Props
 
-| 属性名 | 描述 | 类型 | 默认值 |
+| Tên thuộc tính | Mô tả | Kiểu | Giá trị mặc định |
 | --- | --- | --- | --- |
-| expand | 支持点击展开或收起 | `boolean` | `false` |
-| line | 文本最大行数 | `number` | `1` |
-| maxWidth | 文本区域最大宽度 | `number \| string` | `'100%'` |
-| placement | 提示浮层的位置 | `'bottom'\|'left'\|'right'\|'top'` | `'top'` |
-| tooltip | 启用文本提示 | `boolean` | `true` |
-| tooltipWhenEllipsis | 内容超出，自动启用文本提示 | `boolean` | `false` |
-| ellipsisThreshold | 设置 tooltipWhenEllipsis 后才生效，文本截断检测的像素差异阈值，越大则判断越严格，如果碰见异常情况可以自己设置阈值 | `number` | `3` |
-| tooltipBackgroundColor | 提示文本的背景颜色 | `string` | - |
-| tooltipColor | 提示文本的颜色 | `string` | - |
-| tooltipFontSize | 提示文本的大小 | `string` | - |
-| tooltipMaxWidth | 提示浮层的最大宽度。如不设置则保持与文本宽度一致 | `number` | - |
-| tooltipOverlayStyle | 提示框内容区域样式 | `CSSProperties` | `{ textAlign: 'justify' }` |
+| expand | Hỗ trợ nhấp để mở rộng hoặc thu gọn | `boolean` | `false` |
+| line | Số dòng tối đa của văn bản | `number` | `1` |
+| maxWidth | Chiều rộng tối đa của vùng văn bản | `number \| string` | `'100%'` |
+| placement | Vị trí của lớp nổi gợi ý | `'bottom'\|'left'\|'right'\|'top'` | `'top'` |
+| tooltip | Bật gợi ý văn bản | `boolean` | `true` |
+| tooltipWhenEllipsis | Nội dung vượt quá, tự động bật gợi ý văn bản | `boolean` | `false` |
+| ellipsisThreshold | Chỉ có hiệu lực sau khi đặt tooltipWhenEllipsis, ngưỡng chênh lệch pixel phát hiện cắt ngắn văn bản, càng lớn thì phán đoán càng chặt chẽ, nếu gặp trường hợp bất thường có thể tự đặt ngưỡng | `number` | `3` |
+| tooltipBackgroundColor | Màu nền của văn bản gợi ý | `string` | - |
+| tooltipColor | Màu của văn bản gợi ý | `string` | - |
+| tooltipFontSize | Cỡ của văn bản gợi ý | `string` | - |
+| tooltipMaxWidth | Chiều rộng tối đa của lớp nổi gợi ý. Nếu không đặt thì giữ bằng chiều rộng văn bản | `number` | - |
+| tooltipOverlayStyle | Kiểu vùng nội dung của hộp gợi ý | `CSSProperties` | `{ textAlign: 'justify' }` |
 
 ### Events
 
-| 事件名       | 描述         | 类型                       |
+| Tên sự kiện       | Mô tả         | Kiểu                       |
 | ------------ | ------------ | -------------------------- |
-| expandChange | 展开状态改变 | `(isExpand:boolean)=>void` |
+| expandChange | Trạng thái mở rộng thay đổi | `(isExpand:boolean)=>void` |
 
 ### Slots
 
-| 插槽名  | 描述                             |
+| Tên slot  | Mô tả                             |
 | ------- | -------------------------------- |
-| tooltip | 启用文本提示时，用来定制提示内容 |
+| tooltip | Khi bật gợi ý văn bản, dùng để tùy chỉnh nội dung gợi ý |

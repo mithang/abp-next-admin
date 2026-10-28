@@ -10,14 +10,14 @@ const queryKey = ['demo', 'api', 'options'];
 const count = 4;
 
 const { dataUpdatedAt, promise: fetchDataFn } = useQuery({
-  // 在组件渲染期间预取数据
+  // Tìm nạp trước dữ liệu trong lúc component đang render
   experimental_prefetchInRender: true,
-  // 获取接口数据的函数
+  // Hàm lấy dữ liệu từ API
   queryFn: getMenuList,
   queryKey,
-  // 每次组件挂载时都重新获取数据。如果不需要每次都重新获取就不要设置为always
+  // Mỗi lần component mount đều lấy lại dữ liệu. Nếu không cần lấy lại mỗi lần thì đừng đặt thành always
   refetchOnMount: 'always',
-  // 缓存时间
+  // Thời gian lưu bộ nhớ đệm
   staleTime: 1000 * 60 * 5,
 });
 
@@ -53,8 +53,12 @@ const [Form] = useVbenForm({
 <template>
   <div>
     <div class="mb-2 flex gap-2">
-      <div>以下{{ count }}个组件共用一个数据源。</div>
-      <div>缓存更新时间：{{ new Date(dataUpdatedAt).toLocaleString() }}</div>
+      <div>{{ count }} component dưới đây dùng chung một nguồn dữ liệu.</div>
+      <div>
+        Thời gian cập nhật bộ nhớ đệm:{{
+          new Date(dataUpdatedAt).toLocaleString()
+        }}
+      </div>
     </div>
     <Form />
   </div>

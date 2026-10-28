@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Models;
 /// <summary>
-/// 用户-部门关系
+/// Quan hệ người dùng - phòng ban
 /// </summary>
 public class DepartmentUser
 {
     /// <summary>
-    /// 用户userid，当用户在多个部门下时会有多条记录
+    /// Userid của người dùng, khi người dùng thuộc nhiều phòng ban sẽ có nhiều bản ghi
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 用户所属部门
+    /// Phòng ban của người dùng
     /// </summary>
     [NotNull]
     [JsonProperty("department")]

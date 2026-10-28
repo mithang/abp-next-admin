@@ -338,7 +338,7 @@ public class LoginModel : AccountPageModel
 
     protected virtual Task<IActionResult> TwoFactorLoginResultAsync()
     {
-        // ÷ÿ∂®œÚÀ´“ÚÀÿ»œ÷§“≥√Ê
+        // Chuy·ªÉn h∆∞·ªõng t·ªõi trang x√°c th·ª±c hai y·∫øu t·ªë
         return Task.FromResult<IActionResult>(RedirectToPage("SendCode", new
         {
             returnUrl = ReturnUrl,
@@ -447,7 +447,7 @@ public class LoginModel : AccountPageModel
         var notAllowedUser = await GetIdentityUserAsync(Input.UserNameOrEmailAddress);
         if (notAllowedUser != null && await UserManager.CheckPasswordAsync(notAllowedUser, Input.Password))
         {
-            // ”√ªß±ÿ–Î–ﬁ∏ƒ√‹¬Î
+            // Ng∆∞·ªùi d√πng b·∫Øt bu·ªôc ph·∫£i ƒë·ªïi m·∫≠t kh·∫©u
             if (notAllowedUser.ShouldChangePasswordOnNextLogin || await UserManager.ShouldPeriodicallyChangePasswordAsync(notAllowedUser))
             {
                 await StoreChangePasswordUserAsync(notAllowedUser);
@@ -557,7 +557,7 @@ public class LoginModel : AccountPageModel
     {
         var redirectUrl = await base.GetRedirectUrlAsync(returnUrl!, returnUrlHash);
 
-        //  π”√’˝‘Ú±Ì¥Ô Ω“∆≥˝ LinkUser ≤Œ ˝
+        // D√πng bi·ªÉu th·ª©c ch√≠nh quy ƒë·ªÉ lo·∫°i b·ªè tham s·ªë LinkUser
         redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkToken=[^&]*", "");
         redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkUserId=[^&]*", "");
         redirectUrl = Regex.Replace(redirectUrl, @"[&?]LinkTenantId=[^&]*", "");
@@ -594,7 +594,7 @@ public class LoginModel : AccountPageModel
                 return false;
             }
         }
-        // TODO: ÃÊªªøÚº‹∂‘”⁄ø’∏Ò∑˚∫≈µƒ±‡¬Î¥ÌŒÛ
+        // TODO: Thay th·∫ø l·ªói m√£ h√≥a k√Ω t·ª± kho·∫£ng tr·∫Øng c·ªßa framework
         LinkToken = LinkToken.Replace(" ", "+");
         return await IdentityLinkUserAppService.VerifyLinkTokenAsync(new VerifyLinkTokenInput()
         {

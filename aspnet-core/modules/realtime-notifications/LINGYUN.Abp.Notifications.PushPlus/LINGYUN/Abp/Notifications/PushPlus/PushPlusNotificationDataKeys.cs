@@ -1,18 +1,18 @@
 namespace LINGYUN.Abp.Notifications.PushPlus;
 
 /// <summary>
-/// PushPlus 通知数据键
+/// Khóa dữ liệu thông báo PushPlus
 /// </summary>
 public static class PushPlusNotificationDataKeys
 {
     public const string Prefix = "push-plus:";
 
     /// <summary>
-    /// webhook 地址
+    /// Địa chỉ webhook
     /// </summary>
     public const string Webhook = Prefix + "webhook";
     /// <summary>
-    /// 回调地址
+    /// Địa chỉ callback
     /// </summary>
     public const string CallbackUrl = Prefix + "callback";
 }

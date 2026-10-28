@@ -24,7 +24,7 @@ public class OpenObserveClient_Ingestion_Tests : AbpOpenObserveTestBase
         HttpMessageHandler.LastRequest.Method.ShouldBe(HttpMethod.Post);
         HttpMessageHandler.LastRequest.PathAndQuery.ShouldBe("/api/default/my-stream/_json");
         HttpMessageHandler.LastRequest.Body!.ShouldBe("[{\"message\":\"one\"},{\"message\":\"two\"}]");
-        HttpMessageHandler.LastRequest.Body!.StartsWith("[[").ShouldBeFalse("请求体不应被额外包裹一层数组");
+        HttpMessageHandler.LastRequest.Body!.StartsWith("[[").ShouldBeFalse("Thân yêu cầu không nên bị bọc thêm một lớp mảng");
         result.Status[0].Successful.ShouldBe(2);
     }
 

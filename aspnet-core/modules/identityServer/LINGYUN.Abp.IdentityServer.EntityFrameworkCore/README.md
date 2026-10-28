@@ -1,25 +1,25 @@
 # LINGYUN.Abp.IdentityServer.EntityFrameworkCore
 
-IdentityServer EntityFrameworkCore模块，提供IdentityServer4的Entity Framework Core实现。
+Mô-đun IdentityServer EntityFrameworkCore, cung cấp triển khai Entity Framework Core của IdentityServer4.
 
-## 功能特性
+## Tính năng
 
-* 仓储实现
-  * API资源仓储 - `EfCoreApiResourceRepository`
-    * 获取API资源名称列表
-    * 继承自ABP框架的API资源仓储基类
+* Triển khai kho lưu trữ
+  * Kho lưu trữ tài nguyên API - `EfCoreApiResourceRepository`
+    * Lấy danh sách tên tài nguyên API
+    * Kế thừa từ lớp cơ sở kho lưu trữ tài nguyên API của khung ABP
 
-  * 身份资源仓储 - `EfCoreIdentityResourceRepository`
-    * 继承自ABP框架的身份资源仓储基类
+  * Kho lưu trữ tài nguyên danh tính - `EfCoreIdentityResourceRepository`
+    * Kế thừa từ lớp cơ sở kho lưu trữ tài nguyên danh tính của khung ABP
 
-  * 持久授权仓储 - `EfCorePersistentGrantRepository`
-    * 继承自ABP框架的持久授权仓储基类
+  * Kho lưu trữ cấp quyền bền vững - `EfCorePersistentGrantRepository`
+    * Kế thừa từ lớp cơ sở kho lưu trữ cấp quyền bền vững của khung ABP
 
-* 数据库上下文
-  * 使用ABP框架的`IIdentityServerDbContext`
-  * 支持多租户数据隔离
+* Ngữ cảnh cơ sở dữ liệu
+  * Sử dụng `IIdentityServerDbContext` của khung ABP
+  * Hỗ trợ tách biệt dữ liệu đa thuê bao
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -31,14 +31,14 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `LINGYUN.Abp.IdentityServer.AbpIdentityServerDomainModule` - IdentityServer领域模块
-* `Volo.Abp.IdentityServer.EntityFrameworkCore.AbpIdentityServerEntityFrameworkCoreModule` - ABP IdentityServer EntityFrameworkCore模块
+* `LINGYUN.Abp.IdentityServer.AbpIdentityServerDomainModule` - Mô-đun miền IdentityServer
+* `Volo.Abp.IdentityServer.EntityFrameworkCore.AbpIdentityServerEntityFrameworkCoreModule` - Mô-đun ABP IdentityServer EntityFrameworkCore
 
-## 配置使用
+## Cấu hình sử dụng
 
-### 配置数据库上下文
+### Cấu hình ngữ cảnh cơ sở dữ liệu
 
 ```csharp
 public class YourDbContext : AbpDbContext<YourDbContext>, IIdentityServerDbContext
@@ -64,8 +64,8 @@ public class YourDbContext : AbpDbContext<YourDbContext>, IIdentityServerDbConte
 }
 ```
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP EntityFrameworkCore文档](https://docs.abp.io/en/abp/latest/Entity-Framework-Core)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu ABP EntityFrameworkCore](https://docs.abp.io/en/abp/latest/Entity-Framework-Core)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

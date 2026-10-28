@@ -1,46 +1,46 @@
 # LINGYUN.Abp.SettingManagement.Application.Contracts
 
-## 模块说明
+## Mô tả mô-đun
 
-设置管理应用服务契约模块，提供设置管理相关的接口定义和DTO。
+Mô-đun hợp đồng dịch vụ ứng dụng quản lý cài đặt, cung cấp định nghĩa giao diện và DTO liên quan đến quản lý cài đặt.
 
-### 基础模块  
+### Mô-đun cơ sở  
 
 * Volo.Abp.SettingManagement.Application.Contracts
 * Volo.Abp.Ddd.Application.Contracts
 
-### 功能定义  
+### Định nghĩa chức năng  
 
-* 提供设置管理的应用服务接口定义
-  * ISettingAppService - 通用设置管理服务
-  * IUserSettingAppService - 用户设置管理服务
-  * IReadonlySettingAppService - 只读设置服务
-* 提供设置相关的DTO定义
-  * SettingGroupDto - 设置组DTO
-  * SettingDto - 设置DTO
-  * SettingDetailsDto - 设置详情DTO
-  * UpdateSettingDto - 更新设置DTO
-* 提供设置管理相关的权限定义
+* Cung cấp định nghĩa giao diện dịch vụ ứng dụng quản lý cài đặt
+  * ISettingAppService - Dịch vụ quản lý cài đặt chung
+  * IUserSettingAppService - Dịch vụ quản lý cài đặt người dùng
+  * IReadonlySettingAppService - Dịch vụ cài đặt chỉ đọc
+* Cung cấp định nghĩa DTO liên quan đến cài đặt
+  * SettingGroupDto - DTO nhóm cài đặt
+  * SettingDto - DTO cài đặt
+  * SettingDetailsDto - DTO chi tiết cài đặt
+  * UpdateSettingDto - DTO cập nhật cài đặt
+* Cung cấp định nghĩa quyền liên quan đến quản lý cài đặt
 
-### 权限定义
+### Định nghĩa quyền
 
-* SettingManagement.ManageHostFeatures - 管理主机功能
-* SettingManagement.ManageFeatures - 管理功能
-* SettingManagement.Settings - 设置管理
-* SettingManagement.Settings.Update - 更新设置
-* SettingManagement.Settings.ManageGroup - 管理设置组
+* SettingManagement.ManageHostFeatures - Quản lý tính năng máy chủ
+* SettingManagement.ManageFeatures - Quản lý tính năng
+* SettingManagement.Settings - Quản lý cài đặt
+* SettingManagement.Settings.Update - Cập nhật cài đặt
+* SettingManagement.Settings.ManageGroup - Quản lý nhóm cài đặt
 
-### 配置定义  
+### Định nghĩa cấu hình  
 
 * SettingManagementMergeOptions
-  * EnableCustomize - 是否启用自定义设置
-  * EnableHost - 是否启用主机设置
-  * EnableTenant - 是否启用租户设置
-  * EnableUser - 是否启用用户设置
+  * EnableCustomize - Có bật cài đặt tùy chỉnh hay không
+  * EnableHost - Có bật cài đặt máy chủ hay không
+  * EnableTenant - Có bật cài đặt tenant hay không
+  * EnableUser - Có bật cài đặt người dùng hay không
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpSettingManagementApplicationContractsModule` 依赖
+1. Thêm phụ thuộc `AbpSettingManagementApplicationContractsModule`
 
 ```csharp
 [DependsOn(typeof(AbpSettingManagementApplicationContractsModule))]
@@ -49,7 +49,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 注入并使用设置服务
+2. Tiêm và sử dụng dịch vụ cài đặt
 
 ```csharp
 public class YourService
@@ -63,10 +63,10 @@ public class YourService
 
     public async Task ManageSettingsAsync()
     {
-        // 获取设置组
+        // Lấy nhóm cài đặt
         var groups = await _settingAppService.GetAllGroupsAsync();
         
-        // 更新设置
+        // Cập nhật cài đặt
         await _settingAppService.UpdateAsync("GroupName", new UpdateSettingsDto
         {
             Settings = new List<UpdateSettingDto>
@@ -82,4 +82,4 @@ public class YourService
 }
 ```
 
-[返回目录](../../../README.md)
+[Quay lại thư mục](../../../README.md)

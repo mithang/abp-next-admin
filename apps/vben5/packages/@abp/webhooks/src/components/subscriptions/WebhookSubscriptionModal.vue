@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ExtraPropertyDictionary } from '@abp/core';
 import type { TenantDto } from '@abp/saas';
 import type { PropertyInfo } from '@abp/ui';
 import type { FormInstance } from 'ant-design-vue';
@@ -46,7 +47,23 @@ const SelectGroup = Select.OptGroup;
 const SelectOption = Select.Option;
 const TabPane = Tabs.TabPane;
 
-const defaultModel: WebhookSubscriptionDto = {
+/**
+ * Form model của modal: DTO đăng ký webhook cộng thêm 3 trường chỉ dùng ở UI.
+ * - `isStatic`: khái niệm của webhook definition, subscription backend không trả về;
+ *   modal mượn mẫu của definition modal để vô hiệu hoá trường — giá trị luôn falsy
+ *   ở runtime (defaultModel false, DTO từ API không có trường này).
+ * - `displayName`, `extraProperties`: có trong defaultModel nhưng template không
+ *   render — giữ lại để không đổi payload gửi lên server (TS chỉ báo trường thừa
+ *   đầu tiên của object literal nên extraProperties chỉ lộ ra sau khi displayName
+ *   đã được khai báo).
+ */
+interface WebhookSubscriptionFormModel extends WebhookSubscriptionDto {
+  displayName?: string;
+  extraProperties?: ExtraPropertyDictionary;
+  isStatic?: boolean;
+}
+
+const defaultModel: WebhookSubscriptionFormModel = {
   creationTime: new Date(),
   displayName: '',
   extraProperties: {},
@@ -61,7 +78,7 @@ type TabActiveKey = 'basic' | 'headers';
 const isEditModel = ref(false);
 const activeTabKey = ref<TabActiveKey>('basic');
 const form = useTemplateRef<FormInstance>('form');
-const formModel = ref<WebhookSubscriptionDto>({ ...defaultModel });
+const formModel = ref<WebhookSubscriptionFormModel>({ ...defaultModel });
 const webhookGroups = ref<WebhookAvailableGroupDto[]>([]);
 const tenants = ref<TenantDto[]>([]);
 
@@ -121,8 +138,10 @@ async function onGet(id: string) {
   isEditModel.value = true;
   const dto = await getApi(id);
   formModel.value = dto;
+  // Đọc từ formModel thay vì dto: DTO backend không có isStatic nên luôn falsy
+  // (giống !dto.isStatic trước đây khi dto.isStatic là undefined).
   modalApi.setState({
-    showConfirmButton: !dto.isStatic,
+    showConfirmButton: !formModel.value.isStatic,
     title: $t('WebhooksManagement.Subscriptions:Edit'),
   });
 }

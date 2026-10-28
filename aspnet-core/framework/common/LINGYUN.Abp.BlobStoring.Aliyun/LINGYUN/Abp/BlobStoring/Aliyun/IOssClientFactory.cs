@@ -6,12 +6,12 @@ namespace LINGYUN.Abp.BlobStoring.Aliyun;
 public interface IOssClientFactory
 {
     /// <summary>
-    /// 构建Oss客户端
+    /// Xây dựng Oss client
     /// </summary>
     /// <returns></returns>
     Task<Client> CreateAsync();
     /// <summary>
-    /// 构建Oss客户端
+    /// Xây dựng Oss client
     /// </summary>
     /// <param name="configuration"></param>
     /// <returns></returns>

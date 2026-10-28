@@ -3,42 +3,42 @@ namespace LINGYUN.Abp.OpenObserve.Models;
 public static class OpenObserveConstants
 {
     /// <summary>
-    /// 搜索接口默认超时时间(秒)
+    /// Thời gian chờ mặc định của giao diện tìm kiếm (giây)
     /// </summary>
     public const int ZO_QUERY_TIMEOUT = 30;
     /// <summary>
-    /// 默认端点
+    /// Điểm cuối mặc định
     /// </summary>
     public const string DefaultEndpoint = "http://localhost:5080";
     /// <summary>
-    /// 默认请求超时时间
+    /// Thời gian chờ yêu cầu mặc định
     /// </summary>
     public const int DefaultTimeoutSeconds = 30;
     /// <summary>
-    /// 默认组织名称
+    /// Tên tổ chức mặc định
     /// </summary>
     public const string DefaultOrganization = "default";
     /// <summary>
-    /// 元数据组织名称
+    /// Tên tổ chức siêu dữ liệu
     /// </summary>
     /// <remarks>
-    /// 集群信息等接口仅对 _meta 组织开放
+    /// Các giao diện như thông tin cụm chỉ mở cho tổ chức _meta
     /// </remarks>
     public const string MetaOrganization = "_meta";
     /// <summary>
-    /// JSON 内容类型
+    /// Kiểu nội dung JSON
     /// </summary>
     public const string JsonContentType = "application/json";
     /// <summary>
-    /// NDJSON 内容类型
+    /// Kiểu nội dung NDJSON
     /// </summary>
     /// <remarks>
-    /// 用于 _bulk 与 _multi 接口(每行一个 JSON 对象)
+    /// Dùng cho giao diện _bulk và _multi (mỗi dòng một đối tượng JSON)
     /// </remarks>
     public const string NdJsonContentType = "application/x-ndjson";
 
     /// <summary>
-    /// 数据流类型
+    /// Loại luồng dữ liệu
     /// </summary>
     public static class StreamTypes
     {
@@ -48,10 +48,10 @@ public static class OpenObserveConstants
     }
 
     /// <summary>
-    /// _bulk 支持的动作
+    /// Các hành động được _bulk hỗ trợ
     /// </summary>
     /// <remarks>
-    /// delete 不被支持
+    /// delete không được hỗ trợ
     /// </remarks>
     public static class BulkActions
     {
@@ -61,7 +61,7 @@ public static class OpenObserveConstants
     }
 
     /// <summary>
-    /// 默认文件夹
+    /// Thư mục mặc định
     /// </summary>
     public const string DefaultFolder = "default";
 }

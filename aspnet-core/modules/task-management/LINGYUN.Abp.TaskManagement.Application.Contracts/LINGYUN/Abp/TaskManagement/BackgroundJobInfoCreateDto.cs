@@ -8,19 +8,19 @@ namespace LINGYUN.Abp.TaskManagement;
 public class BackgroundJobInfoCreateDto : BackgroundJobInfoCreateOrUpdateDto
 {
     /// <summary>
-    /// 任务名称
+    /// Tên công việc
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(BackgroundJobInfoConsts), nameof(BackgroundJobInfoConsts.MaxNameLength))] 
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 任务分组
+    /// Nhóm công việc
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(BackgroundJobInfoConsts), nameof(BackgroundJobInfoConsts.MaxGroupLength))] 
     public string Group { get; set; } = default!;
     /// <summary>
-    /// 任务类型
+    /// Kiểu công việc
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(BackgroundJobInfoConsts), nameof(BackgroundJobInfoConsts.MaxTypeLength))] 
@@ -29,16 +29,16 @@ public class BackgroundJobInfoCreateDto : BackgroundJobInfoCreateOrUpdateDto
     [DynamicStringLength(typeof(BackgroundJobInfoConsts), nameof(BackgroundJobInfoConsts.MaxNodeNameLength))]
     public string? NodeName { get; set; }
     /// <summary>
-    /// 开始时间
+    /// Thời gian bắt đầu
     /// </summary>
     [Required]
     public DateTime BeginTime { get; set; }
     /// <summary>
-    /// 结束时间
+    /// Thời gian kết thúc
     /// </summary>
     public DateTime? EndTime { get; set; }
     /// <summary>
-    /// 作业来源
+    /// Nguồn công việc
     /// </summary>
     public JobSource Source { get; set; } = JobSource.User;
 }

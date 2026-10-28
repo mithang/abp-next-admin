@@ -8,7 +8,7 @@ namespace LINGYUN.Platform.Messages.Integration;
 public interface IEmailMessageIntegrationService : IApplicationService
 {
     /// <summary>
-    /// 创建邮件消息
+    /// Tạo thư điện tử
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

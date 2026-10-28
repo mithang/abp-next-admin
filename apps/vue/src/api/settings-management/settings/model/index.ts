@@ -1,16 +1,16 @@
 export class SettingBase {
-  /** 名称 */
+  /** Tên */
   name!: string;
-  /** 当前设置值 */
+  /** Giá trị cài đặt hiện tại */
   value!: any;
 }
 
-/** 配置变更对象 */
+/** Đối tượng thay đổi cấu hình */
 export class SettingUpdate extends SettingBase {}
 
-/** 配置变更集合对象 */
+/** Tập hợp đối tượng thay đổi cấu hình */
 export class SettingsUpdate {
-  /** 配置集合 */
+  /** Tập hợp cấu hình */
   settings: SettingUpdate[];
 
   constructor() {

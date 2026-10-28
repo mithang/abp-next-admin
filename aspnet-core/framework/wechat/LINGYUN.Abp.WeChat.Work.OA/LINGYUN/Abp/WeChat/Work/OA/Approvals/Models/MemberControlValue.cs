@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 成员控件值
+/// Giá trị điều khiển thành viên
 /// </summary>
 public class MemberControlValue : ContactControlValue
 {
     /// <summary>
-    /// 所选成员内容，即申请人在此控件选择的成员，多选模式下可以有多个
+    /// Nội dung thành viên đã chọn, tức thành viên mà người nộp đơn chọn trong điều khiển này, ở chế độ chọn nhiều có thể có nhiều thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("members")]
@@ -40,14 +40,14 @@ public class MemberControlValue : ContactControlValue
 public class MemberValue
 {
     /// <summary>
-    /// 所选成员的userid
+    /// userid của thành viên đã chọn
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 成员名
+    /// Tên thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("name")]

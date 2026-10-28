@@ -12,17 +12,17 @@ public class AbpDaprClientProxyOptions
 {
     public Dictionary<Type, DynamicDaprClientProxyConfig> DaprClientProxies { get; set; }
     /// <summary>
-    /// 增加一个可配置的请求消息
-    /// 参数一:    appId
-    /// 参数二:    HttpRequestMessage
+    /// Thêm một thông điệp yêu cầu có thể cấu hình
+    /// Tham số một:    appId
+    /// Tham số hai:    HttpRequestMessage
     /// </summary>
     public List<Action<string, HttpRequestMessage>> ProxyRequestActions { get; }
     /// <summary>
-    /// 对响应进行处理,返回响应内容
+    /// Xử lý phản hồi, trả về nội dung phản hồi
     /// </summary>
     public Func<HttpResponseMessage, IAbpLazyServiceProvider, Task<string?>>? ProxyResponseContent { get; private set; }
     /// <summary>
-    /// 格式化错误
+    /// Định dạng lỗi
     /// </summary>
     public Func<HttpResponseMessage, IAbpLazyServiceProvider, Task<RemoteServiceErrorInfo?>>? ProxyErrorFormat { get; private set; }
     public AbpDaprClientProxyOptions()
@@ -36,7 +36,7 @@ public class AbpDaprClientProxyOptions
         });
     }
     /// <summary>
-    /// 处理服务间调用响应数据
+    /// Xử lý dữ liệu phản hồi của lệnh gọi giữa các dịch vụ
     /// </summary>
     /// <param name="func"></param>
     public void OnResponse(Func<HttpResponseMessage, IAbpLazyServiceProvider, Task<string?>> func)
@@ -44,7 +44,7 @@ public class AbpDaprClientProxyOptions
         ProxyResponseContent = func;
     }
     /// <summary>
-    /// 处理服务间调用错误消息
+    /// Xử lý thông điệp lỗi của lệnh gọi giữa các dịch vụ
     /// </summary>
     /// <param name="func"></param>
     public void OnError(Func<HttpResponseMessage, IAbpLazyServiceProvider, Task<RemoteServiceErrorInfo?>> func)

@@ -1,35 +1,35 @@
 # 10.4.0 - 10.6.0
 
-## 模块变更
+## Thay đổi module
 
-1. [功能管理模块]   功能分组/定义列表从仓储接口直接查询,避免受缓存影响.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)   
-2. [功能管理模块]   重构FeatureDefinitionManager,实现合并内置功能与动态功能定义.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)  
-3. [权限管理模块]   权限分组/定义列表从仓储接口直接查询,避免受缓存影响.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
-4. [权限管理模块]   重构PermissionDefinitionManager,实现合并内置权限与动态权限定义.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)  
-5. [权限管理模块]   修复MySql资源权限唯一索引重复.[PR #1526](https://github.com/colinin/abp-next-admin/pull/1526)  
-6. [通知管理模块]   通知分组/定义列表从仓储接口直接查询,避免受缓存影响.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
-7. [通知管理模块]   重构NotificationDefinitionManager,增加合并、忽略、覆盖三种策略.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)    
-8. [通知管理模块]   修复微信小程序通知内容序列化无效.[PR #1530](https://github.com/colinin/abp-next-admin/pull/1530)    
-9. [设置管理模块]   设置定义列表从仓储接口直接查询,避免受缓存影响.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
-10. [设置管理模块]   重构SettingDefinitionManager,实现合并内置设置与动态设置定义.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)  
-11. [Webhook管理模块]   Webhook分组/定义列表从仓储接口直接查询,避免受缓存影响.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
-12. [Webhook管理模块]   重构WebhookDefinitionManager,增加合并、忽略、覆盖三种策略.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)    
-13. [AI管理模块]   重构WorkspaceDefinitionManager,增加合并、忽略、覆盖三种策略.[PR #1516](https://github.com/colinin/abp-next-admin/pull/1516)   
-14. [AI管理模块]   重构AIToolDefinitionManager,增加合并、忽略、覆盖三种策略.[PR #1516](https://github.com/colinin/abp-next-admin/pull/1516)   
-15. [OpenIddict模块]   重写MySql仓储Token批量清理删除接口,修复运行时错误.[PR #1512](https://github.com/colinin/abp-next-admin/pull/1512)  
-16. [本地化管理模块]   资源/语言/本地化文本列表从仓储接口直接查询,避免受缓存影响.[PR #1517](https://github.com/colinin/abp-next-admin/pull/1517)  
-17. [OpenIddict模块]   增加模拟用户登录实现.[PR #1525](https://github.com/colinin/abp-next-admin/pull/1525)    
-18. [OpenIddict模块]   增加模拟租户用户登录实现.[PR #1525](https://github.com/colinin/abp-next-admin/pull/1525)    
-19. [反向代理模块]   用户配置文件重写反向代理服务器/地址白名单配置.[PR #1532](https://github.com/colinin/abp-next-admin/pull/1532)    
-20. [身份认证模块]   用户密码变更后使用户会话失效(自行修改密码时当前会话不受影响).[PR #1543](https://github.com/colinin/abp-next-admin/pull/1543)    
-21. [多租户UI模块]   优化租户选择弹窗组件,已定义平台租户关系时获取平台企业列表作为选择租户.[PR #1538](https://github.com/colinin/abp-next-admin/pull/1538)    
-22. [Elasticsearch模块]   增加表达式树翻译ES查询功能.[PR #1552](https://github.com/colinin/abp-next-admin/pull/1552)    
-23. [系统日志模块]   重构系统日志列表查询为通过ES表达式树查询.[PR #1558](https://github.com/colinin/abp-next-admin/pull/1558)    
-24. [审计日志模块]   重构审计日志列表查询为通过ES表达式树查询.[PR #1558](https://github.com/colinin/abp-next-admin/pull/1558)    
+1. [Module quản lý chức năng]   Danh sách nhóm/định nghĩa chức năng được truy vấn trực tiếp từ giao diện kho lưu trữ, tránh bị ảnh hưởng bởi bộ nhớ đệm.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)   
+2. [Module quản lý chức năng]   Tái cấu trúc FeatureDefinitionManager, thực hiện hợp nhất định nghĩa chức năng tích hợp sẵn với định nghĩa chức năng động.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)  
+3. [Module quản lý quyền hạn]   Danh sách nhóm/định nghĩa quyền hạn được truy vấn trực tiếp từ giao diện kho lưu trữ, tránh bị ảnh hưởng bởi bộ nhớ đệm.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
+4. [Module quản lý quyền hạn]   Tái cấu trúc PermissionDefinitionManager, thực hiện hợp nhất định nghĩa quyền hạn tích hợp sẵn với định nghĩa quyền hạn động.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)  
+5. [Module quản lý quyền hạn]   Sửa lỗi trùng lặp chỉ mục duy nhất của quyền hạn tài nguyên MySql.[PR #1526](https://github.com/colinin/abp-next-admin/pull/1526)  
+6. [Module quản lý thông báo]   Danh sách nhóm/định nghĩa thông báo được truy vấn trực tiếp từ giao diện kho lưu trữ, tránh bị ảnh hưởng bởi bộ nhớ đệm.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
+7. [Module quản lý thông báo]   Tái cấu trúc NotificationDefinitionManager, thêm ba chiến lược hợp nhất, bỏ qua, ghi đè.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)    
+8. [Module quản lý thông báo]   Sửa lỗi tuần tự hóa nội dung thông báo mini program WeChat không có hiệu lực.[PR #1530](https://github.com/colinin/abp-next-admin/pull/1530)    
+9. [Module quản lý cài đặt]   Danh sách định nghĩa cài đặt được truy vấn trực tiếp từ giao diện kho lưu trữ, tránh bị ảnh hưởng bởi bộ nhớ đệm.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
+10. [Module quản lý cài đặt]   Tái cấu trúc SettingDefinitionManager, thực hiện hợp nhất định nghĩa cài đặt tích hợp sẵn với định nghĩa cài đặt động.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)  
+11. [Module quản lý Webhook]   Danh sách nhóm/định nghĩa Webhook được truy vấn trực tiếp từ giao diện kho lưu trữ, tránh bị ảnh hưởng bởi bộ nhớ đệm.[PR #1511](https://github.com/colinin/abp-next-admin/pull/1511)  
+12. [Module quản lý Webhook]   Tái cấu trúc WebhookDefinitionManager, thêm ba chiến lược hợp nhất, bỏ qua, ghi đè.[PR #1559](https://github.com/colinin/abp-next-admin/pull/1559)    
+13. [Module quản lý AI]   Tái cấu trúc WorkspaceDefinitionManager, thêm ba chiến lược hợp nhất, bỏ qua, ghi đè.[PR #1516](https://github.com/colinin/abp-next-admin/pull/1516)   
+14. [Module quản lý AI]   Tái cấu trúc AIToolDefinitionManager, thêm ba chiến lược hợp nhất, bỏ qua, ghi đè.[PR #1516](https://github.com/colinin/abp-next-admin/pull/1516)   
+15. [Module OpenIddict]   Viết lại giao diện xóa dọn hàng loạt Token của kho lưu trữ MySql, sửa lỗi thời gian chạy.[PR #1512](https://github.com/colinin/abp-next-admin/pull/1512)  
+16. [Module quản lý bản địa hóa]   Danh sách tài nguyên/ngôn ngữ/văn bản bản địa hóa được truy vấn trực tiếp từ giao diện kho lưu trữ, tránh bị ảnh hưởng bởi bộ nhớ đệm.[PR #1517](https://github.com/colinin/abp-next-admin/pull/1517)  
+17. [Module OpenIddict]   Thêm triển khai đăng nhập mô phỏng người dùng.[PR #1525](https://github.com/colinin/abp-next-admin/pull/1525)    
+18. [Module OpenIddict]   Thêm triển khai đăng nhập mô phỏng người dùng tenant.[PR #1525](https://github.com/colinin/abp-next-admin/pull/1525)    
+19. [Module proxy ngược]   Hồ sơ người dùng ghi đè cấu hình máy chủ proxy ngược/danh sách trắng địa chỉ.[PR #1532](https://github.com/colinin/abp-next-admin/pull/1532)    
+20. [Module xác thực danh tính]   Sau khi người dùng đổi mật khẩu sẽ làm phiên làm việc hết hiệu lực (khi tự đổi mật khẩu thì phiên hiện tại không bị ảnh hưởng).[PR #1543](https://github.com/colinin/abp-next-admin/pull/1543)    
+21. [Module UI đa tenant]   Tối ưu thành phần cửa sổ bật lên chọn tenant, khi đã định nghĩa quan hệ tenant nền tảng thì lấy danh sách doanh nghiệp nền tảng làm tenant để chọn.[PR #1538](https://github.com/colinin/abp-next-admin/pull/1538)    
+22. [Module Elasticsearch]   Thêm chức năng dịch truy vấn ES bằng cây biểu thức.[PR #1552](https://github.com/colinin/abp-next-admin/pull/1552)    
+23. [Module nhật ký hệ thống]   Tái cấu trúc truy vấn danh sách nhật ký hệ thống thành truy vấn qua cây biểu thức ES.[PR #1558](https://github.com/colinin/abp-next-admin/pull/1558)    
+24. [Module nhật ký kiểm toán]   Tái cấu trúc truy vấn danh sách nhật ký kiểm toán thành truy vấn qua cây biểu thức ES.[PR #1558](https://github.com/colinin/abp-next-admin/pull/1558)    
 
-## 依赖项变更  
+## Thay đổi dependency  
 
-| 库名称                                       | 原版本    | 现版本 |
+| Tên thư viện                                       | Phiên bản cũ    | Phiên bản mới |
 | -------------------------------------------- | --------- | ------ |
 | AlibabaCloud.SDK.Dingtalk					   |    	   | 2.2.50 |
 | BouncyCastle.Cryptography					   | 2.6.2     | 2.7.0  |
@@ -72,7 +72,7 @@
 
 
 
-## 数据库迁移
+## Di chuyển cơ sở dữ liệu
 
 | Project Name             | Database Provider | Scripts                                        | EF Core Version |
 | ------------------------ | ----------------- | ---------------------------------------------- | --------------- |
@@ -80,7 +80,7 @@
 | services/BackendAdmin      | MySQL             | 20260626032421_Fix-MySql-Index-Key-Too-Lang-For-Resource-Permission-Grant		| 10.0.7          |
 
 
-## 数据库连接字符串
+## Chuỗi kết nối cơ sở dữ liệu
 
 | Module Name                   | ConnectionString Name        | Example(MySQL)                                               |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |

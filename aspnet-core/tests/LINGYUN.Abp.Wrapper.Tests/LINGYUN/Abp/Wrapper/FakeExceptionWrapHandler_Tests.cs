@@ -27,8 +27,8 @@ namespace LINGYUN.Abp.Wrapper.Tests
             handler.Wrap(exceptionWrapContext);
 
             exceptionWrapContext.ErrorInfo.Code.ShouldBe("1001");
-            exceptionWrapContext.ErrorInfo.Message.ShouldBe("◊‘∂®“Â“Ï≥£¥¶¿Ìœ˚œ¢");
-            exceptionWrapContext.ErrorInfo.Details.ShouldBe("◊‘∂®“Â“Ï≥£¥¶¿Ìœ˚œ¢√˜œ∏");
+            exceptionWrapContext.ErrorInfo.Message.ShouldBe("Th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá t√πy ch·ªânh");
+            exceptionWrapContext.ErrorInfo.Details.ShouldBe("Chi ti·∫øt th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá t√πy ch·ªânh");
         }
 
         [Fact]
@@ -36,8 +36,8 @@ namespace LINGYUN.Abp.Wrapper.Tests
         {
             var exception = new AbpException();
             var errorInfo = new RemoteServiceErrorInfo(
-                "ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢",
-                "ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢√˜œ∏",
+                "Th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh",
+                "Chi ti·∫øt th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh",
                 "1000");
             var exceptionWrapContext = new ExceptionWrapContext(
                 exception,
@@ -48,8 +48,8 @@ namespace LINGYUN.Abp.Wrapper.Tests
             handler.Wrap(exceptionWrapContext);
 
             exceptionWrapContext.ErrorInfo.Code.ShouldBe("1000");
-            exceptionWrapContext.ErrorInfo.Message.ShouldBe("ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢");
-            exceptionWrapContext.ErrorInfo.Details.ShouldBe("ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢√˜œ∏");
+            exceptionWrapContext.ErrorInfo.Message.ShouldBe("Th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh");
+            exceptionWrapContext.ErrorInfo.Details.ShouldBe("Chi ti·∫øt th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh");
         }
 
         [Fact]
@@ -57,8 +57,8 @@ namespace LINGYUN.Abp.Wrapper.Tests
         {
             var exception = new AbpException();
             var errorInfo = new RemoteServiceErrorInfo(
-                "ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢",
-                "ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢√˜œ∏");
+                "Th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh",
+                "Chi ti·∫øt th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh");
             var exceptionWrapContext = new ExceptionWrapContext(
                 exception,
                 errorInfo,
@@ -68,8 +68,8 @@ namespace LINGYUN.Abp.Wrapper.Tests
             handler.Wrap(exceptionWrapContext);
 
             exceptionWrapContext.ErrorInfo.Code.ShouldBe("500");
-            exceptionWrapContext.ErrorInfo.Message.ShouldBe("ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢");
-            exceptionWrapContext.ErrorInfo.Details.ShouldBe("ƒ¨»œ“Ï≥£¥¶¿Ìœ˚œ¢√˜œ∏");
+            exceptionWrapContext.ErrorInfo.Message.ShouldBe("Th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh");
+            exceptionWrapContext.ErrorInfo.Details.ShouldBe("Chi ti·∫øt th√¥ng b√°o x·ª≠ l√Ω ngo·∫°i l·ªá m·∫∑c ƒë·ªãnh");
         }
     }
 }

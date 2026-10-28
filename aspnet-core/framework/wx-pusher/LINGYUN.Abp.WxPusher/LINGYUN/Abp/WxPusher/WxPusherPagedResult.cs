@@ -8,22 +8,22 @@ namespace LINGYUN.Abp.WxPusher;
 public class WxPusherPagedResult<T>
 {
     /// <summary>
-    /// 总数
+    /// Tổng số
     /// </summary>
     [JsonProperty("total")]
     public int Total { get; set; }
     /// <summary>
-    /// 当前页码
+    /// Số trang hiện tại
     /// </summary>
     [JsonProperty("page")]
     public int Page { get; set; }
     /// <summary>
-    /// 页码大小
+    /// Kích thước trang
     /// </summary>
     [JsonProperty("pageSize")]
     public int PageSize { get; set; }
     /// <summary>
-    /// 记录列表
+    /// Danh sách bản ghi
     /// </summary>
     [JsonProperty("records")]
     public List<T> Records { get; set; } = new List<T>();

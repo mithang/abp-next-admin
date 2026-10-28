@@ -2,19 +2,19 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 节点类型
+/// Loại nút
 /// </summary>
-[Description("节点类型")]
+[Description("Loại nút")]
 public enum CustomerStrategyRangeType
 {
     /// <summary>
-    /// 成员
+    /// Thành viên
     /// </summary>
-    [Description("成员")]
+    [Description("Thành viên")]
     Member = 1,
     /// <summary>
-    /// 部门
+    /// Phòng ban
     /// </summary>
-    [Description("部门")]
+    [Description("Phòng ban")]
     Part = 2
 }

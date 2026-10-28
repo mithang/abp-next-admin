@@ -1,10 +1,10 @@
 # LINGYUN.Abp.Sms.Aliyun
 
-abp框架短信发送接口**ISmsSender**的阿里云实现
+Bản triển khai Alibaba Cloud cho giao diện gửi SMS **ISmsSender** của framework ABP
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpAliyunSmsModule))]
@@ -13,16 +13,16 @@ public class YouProjectModule : AbpModule
   // other
 }
 ```
-## 配置项说明
+## Mô tả các mục cấu hình
 
-*	AliyunSettingNames.Sms.Domain						可选,阿里云sms服务域名,默认 dysmsapi.aliyuncs.com  
-*	AliyunSettingNames.Sms.ActionName					必须,调用方法名称,默认 SendSms
-*	AliyunSettingNames.Sms.Version						必须,R默认版本号,默认 2017-05-25
-*	AliyunSettingNames.Sms.DefaultSignName				可选,默认签名,当用户调用未传递签名时,默认使用的短信签名  
-*	AliyunSettingNames.Sms.DefaultTemplateCode			可选,默认短信模板号,,当用户调用未传递短信模板时,默认使用的短信模板
-*	AliyunSettingNames.Sms.DefaultPhoneNumber			可选,默认发送号码,当用户调用未传递接收者号码时,默认使用的接收人号码  
-*	AliyunSettingNames.Sms.VisableErrorToClient			可选,展示错误给客户端,当调用短信接口出现错误时,是否返回错误明细给客户端,默认 false  
+*	AliyunSettingNames.Sms.Domain						Tùy chọn, tên miền dịch vụ SMS của Alibaba Cloud, mặc định dysmsapi.aliyuncs.com  
+*	AliyunSettingNames.Sms.ActionName					Bắt buộc, tên phương thức gọi, mặc định SendSms
+*	AliyunSettingNames.Sms.Version						Bắt buộc, số phiên bản mặc định, mặc định 2017-05-25
+*	AliyunSettingNames.Sms.DefaultSignName				Tùy chọn, chữ ký mặc định, chữ ký SMS mặc định được dùng khi người dùng gọi mà không truyền chữ ký  
+*	AliyunSettingNames.Sms.DefaultTemplateCode			Tùy chọn, mã mẫu SMS mặc định, mẫu SMS mặc định được dùng khi người dùng gọi mà không truyền mẫu SMS
+*	AliyunSettingNames.Sms.DefaultPhoneNumber			Tùy chọn, số gửi mặc định, số người nhận mặc định được dùng khi người dùng gọi mà không truyền số người nhận  
+*	AliyunSettingNames.Sms.VisableErrorToClient			Tùy chọn, hiển thị lỗi cho client, khi gọi giao diện SMS xảy ra lỗi thì có trả chi tiết lỗi về cho client hay không, mặc định false  
 
-## 其他
+## Khác
 
-网络因素在高并发下可能会出现预期外的异常,考虑使用二级缓存
+Do yếu tố mạng, trong điều kiện đồng thời cao có thể xuất hiện ngoại lệ ngoài dự kiến, cân nhắc sử dụng bộ nhớ đệm cấp hai

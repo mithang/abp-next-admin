@@ -6,23 +6,23 @@ namespace LINGYUN.Abp.DataProtectionManagement;
 public class EntityPropertyInfoDto : EntityDto<Guid>
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public string DisplayName { get; set; } = default!;
     /// <summary>
-    /// 类型全名
+    /// Tên đầy đủ của loại
     /// </summary>
     public string TypeFullName { get; set; } = default!;
     /// <summary>
-    /// Js类型
+    /// Loại Js
     /// </summary>
     public string JavaScriptType { get; set; } = default!;
     /// <summary>
-    /// 枚举列表
+    /// Danh sách enum
     /// </summary>
     public virtual List<EntityEnumInfoDto> Enums { get; set; } = new List<EntityEnumInfoDto>();
 }

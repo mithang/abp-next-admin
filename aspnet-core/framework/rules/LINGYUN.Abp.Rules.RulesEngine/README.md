@@ -1,30 +1,30 @@
 # LINGYUN.Abp.Rules.RulesEngine
 
-## 模块说明
+## Mô tả mô-đun
 
-集成微软规则引擎的实现  
+Triển khai tích hợp công cụ quy tắc của Microsoft  
 
-默认实现一个本地文件系统规则提供者,根据用户配置的 **AbpRulesEnginePthsicalFileResolveOptions.PhysicalPath** 路径检索规则文件  
+Mặc định triển khai một nhà cung cấp quy tắc hệ thống tệp cục bộ, truy xuất tệp quy tắc theo đường dẫn **AbpRulesEnginePthsicalFileResolveOptions.PhysicalPath** do người dùng cấu hình  
 
-文件名如下:
+Tên tệp như sau:
 
-PhysicalPath/CurrentTenant.Id[如果存在]/验证规则实体类型名称[typeof(Input).Name].json  
+PhysicalPath/CurrentTenant.Id[nếu tồn tại]/tên loại thực thể quy tắc xác thực[typeof(Input).Name].json  
 
-自定义的规则提供者需要实现 **IWorkflowRulesResolveContributor** 接口,可能不需要实现初始化与释放资源,因此提供了一个抽象的 **WorkflowRulesResolveContributorBase**  
+Nhà cung cấp quy tắc tùy chỉnh cần triển khai giao diện **IWorkflowRulesResolveContributor**, có thể không cần triển khai khởi tạo và giải phóng tài nguyên, vì vậy cung cấp một lớp trừu tượng **WorkflowRulesResolveContributorBase**  
 
-并添加到 **AbpRulesEngineResolveOptions.WorkflowRulesResolvers** 中  
+Và thêm vào **AbpRulesEngineResolveOptions.WorkflowRulesResolvers**  
 
-### 基础模块  
+### Mô-đun cơ sở  
 
-### 高阶模块  
+### Mô-đun nâng cao  
 
-### 权限定义  
+### Định nghĩa quyền  
 
-### 功能定义  
+### Định nghĩa tính năng  
 
-### 配置定义  
+### Định nghĩa cấu hình  
 
-### 如何使用
+### Cách sử dụng
 
 
 ```csharp
@@ -37,13 +37,13 @@ PhysicalPath/CurrentTenant.Id[如果存在]/验证规则实体类型名称[typeo
         {
             Configure<AbpRulesEngineResolveOptions>(options =>
             {
-                // 添加自行实现的规则解析提供者
+                // Thêm nhà cung cấp phân tích quy tắc tự triển khai
                 options.WorkflowRulesResolvers.Add(new FakeWorkflowRulesResolveContributor());
             });
 
             Configure<AbpRulesEnginePhysicalFileResolveOptions>(options =>
             {
-                // 指定真实存在的本地文件路径, 否则将不会检索本地规则文件
+                // Chỉ định đường dẫn tệp cục bộ thực sự tồn tại, nếu không sẽ không truy xuất tệp quy tắc cục bộ
                 options.PhysicalPath = Path.Combine(Directory.GetCurrentDirectory(), "Rules");
             });
         }
@@ -51,4 +51,4 @@ PhysicalPath/CurrentTenant.Id[如果存在]/验证规则实体类型名称[typeo
 
 ```
 
-### 更新日志 
+### Nhật ký cập nhật 

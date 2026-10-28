@@ -48,10 +48,10 @@ public class TencentCloudSmsSender : ISmsSender, ITransientDependency
 
         Check.NotNullOrWhiteSpace(appId, TencentCloudSettingNames.Sms.AppId);
 
-        // 短信模板相关参数
+        // các tham số liên quan đến mẫu SMS
         List<string> templateParams = ["TemplateCode", "SignName"];
 
-        // 统一使用 TemplateCode作为模板参数, 解决不一样的sms提供商参数差异
+        // Thống nhất dùng TemplateCode làm tham số mẫu để giải quyết sự khác biệt về tham số giữa các nhà cung cấp SMS khác nhau
         if (!smsMessage.Properties.TryGetValue("TemplateCode", out var templateId))
         {
             templateId = await SettingProvider.GetOrNullAsync(TencentCloudSettingNames.Sms.DefaultTemplateId);
@@ -72,7 +72,7 @@ public class TencentCloudSmsSender : ISmsSender, ITransientDependency
 
         if (smsMessage.Properties.Any())
         {
-            // 去掉短信模板相关参数,只保留要用的变量
+            // Loại bỏ các tham số liên quan đến mẫu SMS, chỉ giữ lại các biến cần dùng
             request.TemplateParamSet = smsMessage.Properties.Where(x => !templateParams.Contains(x.Key)).Select(x => x.Value.ToString()).ToArray();
         }
 
@@ -82,10 +82,10 @@ public class TencentCloudSmsSender : ISmsSender, ITransientDependency
 
         var warningMessage = response.SendStatusSet
                 .Where(x => !"ok".Equals(x.Code, StringComparison.InvariantCultureIgnoreCase))
-                // 记录流水号, 手机号, 错误代码, 错误信息
+                // Ghi lại số serial, số điện thoại, mã lỗi và thông báo lỗi
                 .Select(x => $"SerialNo: {x.SerialNo}, PhoneNumber: {x.PhoneNumber}, Status: {x.Code}, Error: {x.Message}");
-        // 所有短信发送失败, 抛出错误
-        // 只要一条发送成功，即视为成功
+        // Nếu tất cả SMS đều gửi thất bại thì ném lỗi
+        // Chỉ cần một SMS gửi thành công là được coi là thành công
         if (!response.SendStatusSet.Any(x => "ok".Equals(x.Code, StringComparison.InvariantCultureIgnoreCase)))
         {
             var errorMessage = warningMessage.JoinAsString(Environment.NewLine);

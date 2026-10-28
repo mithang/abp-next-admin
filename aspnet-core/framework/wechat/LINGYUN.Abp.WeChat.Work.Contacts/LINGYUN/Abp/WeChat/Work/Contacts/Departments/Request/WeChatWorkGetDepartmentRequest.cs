@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Departments.Request;
 /// <summary>
-/// 获取单个部门详情请求参数
+/// Tham số yêu cầu lấy chi tiết một phòng ban
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90207" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90207" />
 /// </remarks>
 public class WeChatWorkGetDepartmentRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 部门id
+    /// Id phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("id")]

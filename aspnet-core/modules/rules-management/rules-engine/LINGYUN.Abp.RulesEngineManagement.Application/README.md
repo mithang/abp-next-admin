@@ -1,46 +1,46 @@
 # LINGYUN.Abp.RulesEngineManagement.Application
 
-## 1. 介绍
+## 1. Giới thiệu
 
-规则引擎管理模块的应用服务实现层，实现了规则引擎管理的业务逻辑。
+Tầng triển khai dịch vụ ứng dụng của mô-đun quản lý công cụ quy tắc, triển khai logic nghiệp vụ quản lý công cụ quy tắc.
 
-## 2. 功能
+## 2. Tính năng
 
-* 实现了规则记录的应用服务
-* 实现了工作流记录的应用服务
-* 提供了规则引擎管理的自动映射配置
+* Đã triển khai dịch vụ ứng dụng của bản ghi quy tắc
+* Đã triển khai dịch vụ ứng dụng của bản ghi quy trình làm việc
+* Cung cấp cấu hình ánh xạ tự động cho quản lý công cụ quy tắc
 
-## 3. 应用服务实现
+## 3. Triển khai dịch vụ ứng dụng
 
-### 3.1 规则记录应用服务
+### 3.1 Dịch vụ ứng dụng bản ghi quy tắc
 
 * RuleRecordAppService
-  * 实现了IRuleRecordAppService接口
-  * 提供规则记录的CRUD操作
-  * 实现了规则记录的查询功能
-  * 支持分页查询
-  * 实现了权限验证
+  * Đã triển khai giao diện IRuleRecordAppService
+  * Cung cấp thao tác CRUD cho bản ghi quy tắc
+  * Đã triển khai chức năng truy vấn bản ghi quy tắc
+  * Hỗ trợ truy vấn phân trang
+  * Đã triển khai xác thực quyền
 
-### 3.2 工作流记录应用服务
+### 3.2 Dịch vụ ứng dụng bản ghi quy trình làm việc
 
 * WorkflowRecordAppService
-  * 实现了IWorkflowRecordAppService接口
-  * 提供工作流记录的CRUD操作
-  * 实现了工作流记录的查询功能
-  * 支持分页查询
-  * 实现了权限验证
+  * Đã triển khai giao diện IWorkflowRecordAppService
+  * Cung cấp thao tác CRUD cho bản ghi quy trình làm việc
+  * Đã triển khai chức năng truy vấn bản ghi quy trình làm việc
+  * Hỗ trợ truy vấn phân trang
+  * Đã triển khai xác thực quyền
 
-## 4. 对象映射
+## 4. Ánh xạ đối tượng
 
 * RulesEngineManagementApplicationAutoMapperProfile
-  * 配置了DTO与实体间的自动映射
-  * 包含了所有规则引擎管理相关的映射配置
+  * Đã cấu hình ánh xạ tự động giữa DTO và thực thể
+  * Bao gồm mọi cấu hình ánh xạ liên quan đến quản lý công cụ quy tắc
 
-## 5. 依赖
+## 5. Phụ thuộc
 
 * Volo.Abp.AutoMapper
 * Volo.Abp.Ddd.Application
 * LINGYUN.Abp.RulesEngineManagement.Application.Contracts
 * LINGYUN.Abp.RulesEngineManagement.Domain
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

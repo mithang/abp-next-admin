@@ -5,15 +5,15 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Request;
 /// <summary>
-/// 删除会议室请求参数
+/// Tham số yêu cầu xóa phòng họp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93619#%E5%88%A0%E9%99%A4%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/93619#%E5%88%A0%E9%99%A4%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
 /// </remarks>
 public class WeChatWorkDeleteMeetingRoomRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 会议室id
+    /// Id phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("meetingroom_id")]

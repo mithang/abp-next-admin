@@ -14,7 +14,7 @@ import { useAuthStore } from '#/store';
 
 export function initRequestClient() {
   /**
-   * 重新认证逻辑
+   * Logic xác thực lại
    */
   async function doReAuthenticate() {
     console.warn('Access token or refresh token is invalid or expired. ');
@@ -32,7 +32,7 @@ export function initRequestClient() {
   }
 
   /**
-   * 刷新token逻辑
+   * Logic làm mới token
    */
   async function doRefreshToken() {
     const authStore = useAuthStore();
@@ -48,7 +48,7 @@ export function initRequestClient() {
   function formatToken(token: null | string) {
     return token ? `Bearer ${token}` : null;
   }
-  // 请求头处理
+  // Xử lý tiêu đề yêu cầu
   requestClient.addRequestInterceptor({
     fulfilled: async (config) => {
       const abpStore = useAbpStore();
@@ -75,7 +75,7 @@ export function initRequestClient() {
     },
   });
 
-  // response数据解构
+  // Giải cấu trúc dữ liệu response
   requestClient.addResponseInterceptor<any>({
     fulfilled: (response) => {
       const { data, status } = response;
@@ -93,7 +93,7 @@ export function initRequestClient() {
     },
   });
 
-  // token过期的处理
+  // Xử lý khi token hết hạn
   requestClient.addResponseInterceptor(
     authenticateResponseInterceptor({
       client: requestClient,
@@ -104,11 +104,11 @@ export function initRequestClient() {
     }),
   );
 
-  // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
+  // Xử lý lỗi chung, nếu không rơi vào logic xử lý lỗi phía trên thì sẽ vào đây
   requestClient.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
-      // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-      // 当前mock接口返回的错误字段是 error 或者 message
+      // Tại đây có thể tùy chỉnh theo nghiệp vụ, bạn có thể lấy thông tin trong error để xử lý tùy chỉnh, đưa ra gợi ý khác nhau theo từng code thay vì dùng trực tiếp message.error để hiển thị msg
+      // Trường lỗi mà API mock hiện tại trả về là error hoặc message
       const responseData = error?.response?.data ?? {};
       if (responseData?.error_description) {
         const { formatError } = useOAuthError();
@@ -116,7 +116,7 @@ export function initRequestClient() {
         return;
       }
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
-      // 如果没有错误信息，则会根据状态码进行提示
+      // Nếu không có thông tin lỗi, sẽ hiển thị gợi ý theo mã trạng thái
       message.error(errorMessage || msg);
     }),
   );

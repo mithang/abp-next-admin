@@ -8,7 +8,7 @@ namespace LINGYUN.Abp.Account;
 public class ChangePhoneNumberInput
 {
     /// <summary>
-    /// 新手机号
+    /// Số điện thoại mới
     /// </summary>
     [Required]
     [Phone]
@@ -16,7 +16,7 @@ public class ChangePhoneNumberInput
     [Display(Name = "PhoneNumber")]
     public string NewPhoneNumber { get; set; } = default!;
     /// <summary>
-    /// 安全验证码
+    /// Mã xác minh bảo mật
     /// </summary>
     [Required]
     [DisableAuditing]

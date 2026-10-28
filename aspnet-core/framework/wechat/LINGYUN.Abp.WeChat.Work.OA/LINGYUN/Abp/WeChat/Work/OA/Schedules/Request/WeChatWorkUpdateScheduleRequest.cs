@@ -7,45 +7,45 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Request;
 /// <summary>
-/// 更新日程请求参数
+/// Tham số yêu cầu cập nhật lịch trình
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/97720"/>
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/97720"/>
 /// </remarks>
 public class WeChatWorkUpdateScheduleRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 日程信息
+    /// Thông tin lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("schedule")]
     [JsonPropertyName("schedule")]
     public UpdateSchedule Schedule { get; }
     /// <summary>
-    /// 是否不更新参与人
+    /// Có bỏ qua việc cập nhật người tham gia hay không
     /// </summary>
     [CanBeNull]
     [JsonProperty("skip_attendees")]
     [JsonPropertyName("skip_attendees")]
     public uint? SkipAttendees { get; }
     /// <summary>
-    /// 操作模式。
+    /// Chế độ thao tác.
     /// </summary>
     /// <remarks>
-    /// 是重复日程时有效。
+    /// Có hiệu lực khi là lịch trình lặp lại.
     /// </remarks>
     [CanBeNull]
     [JsonProperty("op_mode")]
     [JsonPropertyName("op_mode")]
     public ScheduleUpdateMode? OpMode { get; private set; }
     /// <summary>
-    /// 操作起始时间。
+    /// Thời gian bắt đầu thao tác.
     /// </summary>
     /// <remarks>
-    /// 仅当操作模式是 OnlyModifyThisSchedule 或 ModifyAllFutureSchedules 时有效。
-    /// 该时间必须是重复日程的某一次开始时间。
-    /// 例如：
-    /// 假如日程开始时间start_time为1661990950（2022-09-01 08:09:10），且重复类型是每周，那么op_start_time可以是：1661990950（2022-09-01 08:09:10）、1662595750（2022-09-08 08:09:10）、1663200550（2022-09-15 08:09:10）......
+    /// Chỉ có hiệu lực khi chế độ thao tác là OnlyModifyThisSchedule hoặc ModifyAllFutureSchedules.
+    /// Thời gian này phải là một thời gian bắt đầu nào đó của lịch trình lặp lại.
+    /// Ví dụ:
+    /// Giả sử thời gian bắt đầu lịch trình start_time là 1661990950 (2022-09-01 08:09:10), và loại lặp lại là hàng tuần, thì op_start_time có thể là: 1661990950 (2022-09-01 08:09:10), 1662595750 (2022-09-08 08:09:10), 1663200550 (2022-09-15 08:09:10)...
     /// </remarks>
     [CanBeNull]
     [JsonProperty("op_start_time")]
@@ -57,7 +57,7 @@ public class WeChatWorkUpdateScheduleRequest : WeChatWorkRequest
         SkipAttendees = skipAttendees ? 1u : 0u;
     }
     /// <summary>
-    /// 修改此日程起始时间
+    /// Sửa thời gian bắt đầu của lịch trình này
     /// </summary>
     /// <param name="startTime"></param>
     public void ModifyThisSchedule(DateTime startTime)
@@ -66,7 +66,7 @@ public class WeChatWorkUpdateScheduleRequest : WeChatWorkRequest
         OpStartTime = startTime.GetUnixTimeSeconds();
     }
     /// <summary>
-    /// 修改所有日程起始时间
+    /// Sửa thời gian bắt đầu của tất cả lịch trình
     /// </summary>
     /// <param name="startTime"></param>
     public void ModifyAllFutureSchedules(DateTime startTime)

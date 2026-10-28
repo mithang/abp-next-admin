@@ -44,7 +44,7 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
 
     public async virtual Task SetCurrentUserAsync(UpdateSettingsDto input)
     {
-        // 增加特性检查
+        // Thêm kiểm tra tính năng
         await CheckFeatureAsync();
 
         foreach (var setting in input.Settings)
@@ -54,7 +54,7 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
 
         CurrentUnitOfWork!.OnCompleted(async () =>
         {
-            // 发送刷新用户缓存事件
+            // Gửi sự kiện làm mới bộ nhớ đệm người dùng
             await EventBus.PublishAsync(new CurrentApplicationConfigurationCacheResetEventData());
         });
 
@@ -70,10 +70,10 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
     {
         var settingGroups = new SettingGroupResult();
 
-        #region 系统设置
+        #region Cài đặt hệ thống
 
         var sysSettingGroup = new SettingGroupDto(L["DisplayName:System"], L["Description:System"]);
-        // 语言
+        // Ngôn ngữ
         var languageSetting = sysSettingGroup.AddSetting(L["DisplayName:System.Language"], L["Description:System.Language"]);
         languageSetting.AddDetail(
             await SettingDefinitionManager.GetAsync(LocalizationSettingNames.DefaultLanguage),
@@ -82,7 +82,7 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
             ValueType.Option,
             providerName)
             ?.AddOptions(LocalizationOptions.Languages.Select(l => new OptionDto(l.DisplayName, l.CultureName)));
-        // 时区
+        // Múi giờ
         var timezones = TimeZoneHelper.GetTimezones(TimezoneProvider.GetWindowsTimezones());
         var timingSetting = sysSettingGroup.AddSetting(L["DisplayName:System.Timing"], L["Description:System.Timing"]);
         timingSetting.AddDetail(
@@ -97,13 +97,13 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
 
         #endregion
 
-        #region 身份标识设置
+        #region Cài đặt định danh
 
-        // 身份标识设置
+        // Cài đặt định danh
         var identitySetting = new SettingGroupDto(L["DisplayName:Identity"], L["Description:Identity"]);
 
 
-        #region 登录
+        #region Đăng nhập
 
         var signinSetting = identitySetting.AddSetting(L["DisplayName:Identity.SignIn"], L["Description:Identity.SignIn"]);
         signinSetting.AddDetail(
@@ -127,7 +127,7 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
 
         #endregion
 
-        #region 密码
+        #region Mật khẩu
 
         var passwordSetting = identitySetting.AddSetting(L["DisplayName:Identity.Password"], L["Description:Identity.Password"]);
         passwordSetting.AddDetail(
@@ -185,9 +185,9 @@ public class UserSettingAppService : SettingManagementAppServiceBase, IUserSetti
 
         #endregion
 
-        #region 邮件设置
+        #region Cài đặt email
 
-        // 控制用户行为, 禁止返回邮件配置
+        // Kiểm soát hành vi người dùng, cấm trả về cấu hình email
 
         //var emailSettingGroup = new SettingGroupDto(L["DisplayName:Emailing"], L["Description:Emailing"]);
         //var defaultMailSetting = emailSettingGroup.AddSetting(L["DisplayName:Emailing.Default"], L["Description:Emailing.Default"]);

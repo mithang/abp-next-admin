@@ -62,11 +62,11 @@ const blobData = ref<string>();
 const blobText = ref<string>();
 const blobType = ref<FileType>();
 const errorMessage = ref<string>('');
-const excelComponentKey = ref(0); // 只对 Excel 组件使用 key
+const excelComponentKey = ref(0); // Chỉ dùng key cho component Excel
 
 const { downloadApi } = useBlobsApi();
 
-// 文件类型配置
+// Cấu hình loại file
 const allowFiles: Record<FileType, string[]> = {
   pdf: ['.pdf'],
   word: ['.doc', '.docx'],
@@ -86,10 +86,10 @@ const allowFiles: Record<FileType, string[]> = {
   ],
 };
 
-// 文件大小限制（默认50MB）
+// Giới hạn kích thước file (mặc định 50MB)
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
-// 判断文件类型
+// Xác định loại file
 function getFileType(): FileType | undefined {
   const fileName = blob.value!.name.toLocaleLowerCase();
   for (const [type, extensions] of Object.entries(allowFiles)) {
@@ -100,12 +100,12 @@ function getFileType(): FileType | undefined {
   return undefined;
 }
 
-// 检查文件是否允许预览
+// Kiểm tra file có được phép xem trước hay không
 function isAllowPreview(): boolean {
   return !!getFileType();
 }
 
-// 检查文件大小
+// Kiểm tra kích thước file
 function isFileSizeValid(content: Blob): boolean {
   if (content.size > MAX_FILE_SIZE) {
     errorMessage.value = $t('BlobManagement.Blobs:FileTooLarge', {
@@ -120,7 +120,7 @@ function onError(error?: string) {
   message.error(`${$t('BlobManagement.Blobs:PreviewError')}: ${error}`);
 }
 
-// 清理资源
+// Dọn dẹp tài nguyên
 function cleanup() {
   if (blobData.value) {
     URL.revokeObjectURL(blobData.value);
@@ -156,10 +156,10 @@ async function onInit() {
     errorMessage.value = '';
     modalApi.lock();
 
-    // 重置状态
+    // Đặt lại trạng thái
     cleanup();
 
-    // 获取数据
+    // Lấy dữ liệu
     blob.value = modalApi.getData<BlobDto>();
     if (!blob.value) {
       errorMessage.value = $t('BlobManagement.Blobs:NoData');
@@ -168,24 +168,24 @@ async function onInit() {
 
     modalTitle.value = `${$t('BlobManagement.Blobs:Preview')} - ${blob.value.name}`;
 
-    // 检查是否支持预览
+    // Kiểm tra có hỗ trợ xem trước hay không
     if (!isAllowPreview()) {
       errorMessage.value = $t('BlobManagement.BlobCanNotPreviewMessage');
       return;
     }
 
-    // 获取文件内容
+    // Lấy nội dung file
     const content = await downloadApi(blob.value.id);
 
-    // 检查文件大小
+    // Kiểm tra kích thước file
     if (!isFileSizeValid(content)) {
       return;
     }
 
-    // 创建对象URL
+    // Tạo object URL
     blobData.value = URL.createObjectURL(content);
 
-    // 设置文件类型并处理内容
+    // Đặt loại file và xử lý nội dung
     blobType.value = getFileType();
 
     await processFileContent(content);
@@ -201,12 +201,12 @@ async function onInit() {
 }
 
 async function processFileContent(content: Blob) {
-  // 处理文本文件
+  // Xử lý file văn bản
   if (blobType.value === 'text') {
     try {
       blobText.value = await content.text();
-      // 限制文本显示长度（避免大文件导致页面卡顿）
-      const maxLength = 100_000; // 10万字符
+      // Giới hạn độ dài văn bản hiển thị (tránh file lớn làm trang bị giật)
+      const maxLength = 100_000; // 100 nghìn ký tự
       if (blobText.value.length > maxLength) {
         blobText.value = `${blobText.value.slice(0, Math.max(0, maxLength))}\n\n... ${$t(
           'BlobManagement.Blobs:TextTruncated',
@@ -220,7 +220,7 @@ async function processFileContent(content: Blob) {
   }
 }
 
-// 下载原始文件
+// Tải file gốc
 function handleDownload() {
   if (!blob.value) return;
   downloadFileFromUrl({
@@ -229,7 +229,7 @@ function handleDownload() {
   });
 }
 
-// 监听blobData变化，确保资源清理
+// Lắng nghe thay đổi của blobData để đảm bảo dọn dẹp tài nguyên
 watch(blobData, (newVal, oldVal) => {
   if (oldVal && oldVal !== newVal) {
     URL.revokeObjectURL(oldVal);
@@ -240,12 +240,12 @@ watch(blobData, (newVal, oldVal) => {
 <template>
   <Modal :title="modalTitle">
     <div class="preview-container">
-      <!-- 加载状态 -->
+      <!-- Trạng thái đang tải -->
       <div v-if="isLoading" class="flex h-96 items-center justify-center">
         <Spin :tip="$t('AbpUi.LoadingWithThreeDot')" />
       </div>
 
-      <!-- 错误提示 -->
+      <!-- Thông báo lỗi -->
       <div v-else-if="errorMessage" class="error-message">
         <Empty :description="errorMessage">
           <template #image>
@@ -254,9 +254,9 @@ watch(blobData, (newVal, oldVal) => {
         </Empty>
       </div>
 
-      <!-- 预览内容 -->
+      <!-- Nội dung xem trước -->
       <template v-else>
-        <!-- 不支持预览 -->
+        <!-- Không hỗ trợ xem trước -->
         <Empty
           v-if="!isPreview"
           :description="$t('BlobManagement.BlobCanNotPreviewMessage')"
@@ -266,12 +266,12 @@ watch(blobData, (newVal, oldVal) => {
           </template>
         </Empty>
 
-        <!-- Word预览 -->
+        <!-- Xem trước Word -->
         <div v-else-if="blobType === 'word'" class="office-preview-wrapper">
           <VueOfficeDocx :src="blobData" @error="onError" />
         </div>
 
-        <!-- Excel预览 - 单独处理，添加key强制重新渲染 -->
+        <!-- Xem trước Excel - xử lý riêng, thêm key để buộc render lại -->
         <div v-else-if="blobType === 'excel'" class="excel-preview-wrapper">
           <VueOfficeExcel
             :key="excelComponentKey"
@@ -280,19 +280,19 @@ watch(blobData, (newVal, oldVal) => {
           />
         </div>
 
-        <!-- PDF预览 - 不做任何处理，保持原样 -->
+        <!-- Xem trước PDF - không xử lý gì, giữ nguyên -->
         <VueOfficePdf
           v-else-if="blobType === 'pdf'"
           :src="blobData"
           @error="onError"
         />
 
-        <!-- PPT预览 -->
+        <!-- Xem trước PPT -->
         <div v-else-if="blobType === 'ppt'" class="office-preview-wrapper">
           <VueOfficePptx :src="blobData" @error="onError" />
         </div>
 
-        <!-- 图片预览 -->
+        <!-- Xem trước ảnh -->
         <div v-else-if="blobType === 'image'" class="image-preview">
           <Image
             :src="blobData"
@@ -301,7 +301,7 @@ watch(blobData, (newVal, oldVal) => {
           />
         </div>
 
-        <!-- 文本预览 -->
+        <!-- Xem trước văn bản -->
         <div v-else-if="blobType === 'text'" class="text-preview">
           <div
             class="whitespace-pre-wrap rounded bg-gray-50 p-4 font-mono text-sm dark:bg-gray-800"
@@ -311,7 +311,7 @@ watch(blobData, (newVal, oldVal) => {
         </div>
       </template>
 
-      <!-- 下载按钮 -->
+      <!-- Nút tải xuống -->
       <div v-if="blob" class="download-button">
         <Button type="primary" @click="handleDownload">
           {{ $t('BlobManagement.Blobs:Download') }}
@@ -339,7 +339,7 @@ watch(blobData, (newVal, oldVal) => {
     }
   }
 
-  // Excel 单独包装器样式
+  // Kiểu wrapper riêng cho Excel
   .excel-preview-wrapper {
     width: 100%;
     min-height: 500px;

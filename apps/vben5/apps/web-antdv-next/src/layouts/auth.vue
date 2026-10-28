@@ -19,7 +19,7 @@ const logoDark = computed(() => preferences.logo.sourceDark);
     :page-description="$t('authentication.pageDesc')"
     :page-title="$t('authentication.pageTitle')"
   >
-    <!-- 自定义工具栏 -->
+    <!-- Thanh công cụ tùy chỉnh -->
     <!-- <template #toolbar></template> -->
   </AuthPageLayout>
 </template>

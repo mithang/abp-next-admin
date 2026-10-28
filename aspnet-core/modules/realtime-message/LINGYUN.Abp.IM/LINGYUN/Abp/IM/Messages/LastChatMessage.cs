@@ -5,7 +5,7 @@ using Volo.Abp.Data;
 namespace LINGYUN.Abp.IM.Messages;
 
 /// <summary>
-/// 上一次通讯消息
+/// Tin nhắn trò chuyện gần nhất
 /// </summary>
 public class LastChatMessage : IHasExtraProperties
 {
@@ -13,50 +13,50 @@ public class LastChatMessage : IHasExtraProperties
 
     public string? Object { get; set; }
     /// <summary>
-    /// 租户
+    /// Tenant
     /// </summary>
     public Guid? TenantId { get; set; }
     /// <summary>
-    /// 群组标识
+    /// Mã định danh nhóm
     /// </summary>
     public string GroupId { get; set; } = default!;
     /// <summary>
-    /// 消息标识
+    /// Mã định danh tin nhắn
     /// </summary>
     /// <remarks>
-    /// 调用者无需关注此字段,将由服务自动生成
+    /// Người gọi không cần quan tâm đến trường này, trường này sẽ được dịch vụ tự động tạo
     /// </remarks>
     public string MessageId { get; set; } = default!;
     /// <summary>
-    /// 发送者标识
+    /// Mã định danh người gửi
     /// </summary>
     public Guid FormUserId { get; set; }
     /// <summary>
-    /// 发送者名称
+    /// Tên người gửi
     /// </summary>
     public string FormUserName { get; set; } = default!;
     /// <summary>
-    /// 接收用户标识
+    /// Mã định danh người dùng nhận
     /// </summary>
     /// <remarks>
-    /// 设计为可空是为了兼容群聊消息
+    /// Được thiết kế cho phép null để tương thích với tin nhắn nhóm
     /// /remarks>
     public string ToUserId { get; set; } = default!;
     /// <summary>
-    /// 消息内容
+    /// Nội dung tin nhắn
     /// </summary>
     [DisableAuditing]
     public string Content { get; set; } = default!;
     /// <summary>
-    /// 发送时间
+    /// Thời gian gửi
     /// </summary>
     public DateTime SendTime { get; set; }
     /// <summary>
-    /// 是否匿名发送(存储在扩展字段)
+    /// Có gửi ẩn danh hay không (lưu trong trường mở rộng)
     /// </summary>
     public bool IsAnonymous => this.GetProperty(nameof(IsAnonymous), false);
     /// <summary>
-    /// 消息类型
+    /// Loại tin nhắn
     /// </summary>
     public MessageType MessageType { get; set; }
 

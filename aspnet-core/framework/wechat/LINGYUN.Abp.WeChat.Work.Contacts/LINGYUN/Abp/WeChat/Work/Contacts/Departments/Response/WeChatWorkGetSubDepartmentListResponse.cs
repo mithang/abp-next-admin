@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Departments.Response;
 /// <summary>
-/// 获取子部门ID列表响应参数
+/// Tham số phản hồi lấy danh sách ID phòng ban con
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95350" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/95350" />
 /// </remarks>
 public class WeChatWorkGetSubDepartmentListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 部门列表数据。
+    /// Dữ liệu danh sách phòng ban.
     /// </summary>
     [NotNull]
     [JsonProperty("department_id")]

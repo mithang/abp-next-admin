@@ -78,7 +78,7 @@ async function onInitSubscription(subscriptionId: string) {
 }
 
 async function onInitTenant(tenantId?: string) {
-  // TODO: 公开saas模块常量?
+  // TODO: Công khai hằng số module saas?
   if (isNullOrWhiteSpace(tenantId) || !hasAccessByCodes(['AbpSaas.Tenants'])) {
     return undefined;
   }

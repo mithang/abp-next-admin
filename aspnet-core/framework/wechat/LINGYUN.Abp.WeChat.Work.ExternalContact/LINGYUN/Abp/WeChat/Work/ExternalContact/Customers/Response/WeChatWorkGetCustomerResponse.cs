@@ -6,29 +6,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Response;
 /// <summary>
-/// 获取客户详情响应参数
+/// Tham số phản hồi lấy chi tiết khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92114" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/92114" />
 /// </remarks>
 public class WeChatWorkGetCustomerResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 外部联系人信息
+    /// Thông tin liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_contact")]
     [JsonPropertyName("external_contact")]
     public ExternalContactInfo ExternalContact { get; set; } = default!;
     /// <summary>
-    /// 添加了此外部联系人的企业成员
+    /// Thành viên doanh nghiệp đã thêm liên hệ bên ngoài này
     /// </summary>
     [NotNull]
     [JsonProperty("follow_user")]
     [JsonPropertyName("follow_user")]
     public List<FollowUser> FollowUser { get; set; } = default!;
     /// <summary>
-    /// 分页的cursor，当跟进人多于500人时返回
+    /// Cursor phân trang, được trả về khi số người theo dõi nhiều hơn 500 người
     /// </summary>
     [CanBeNull]
     [JsonProperty("next_cursor")]

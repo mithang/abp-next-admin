@@ -10,7 +10,7 @@ using Volo.Abp.Users;
 namespace LINGYUN.Abp.Gdpr.Identity;
 
 /// <summary>
-/// 身份标识模块用户数据提供者
+/// Nhà cung cấp dữ liệu người dùng của module định danh
 /// </summary>
 public class AbpGdprIdentityUserDataProvider: GdprUserDataProviderBase
 {
@@ -27,15 +27,15 @@ public class AbpGdprIdentityUserDataProvider: GdprUserDataProviderBase
         identityUser.Name = "";
         identityUser.Surname = "";
 
-        // TODO: 应设置为空字符串, 但是abp框架不允许Email为空
+        // TODO: Nên đặt thành chuỗi rỗng, nhưng framework ABP không cho phép Email rỗng
         (await identityUserManager.SetEmailAsync(identityUser, $"{identityUser.UserName}@abp.io")).CheckErrors();
         (await identityUserManager.SetPhoneNumberAsync(identityUser, "")).CheckErrors();
 
-        // 清理身份标识
+        // Dọn dẹp định danh
         var userClaims = await identityUserManager.GetClaimsAsync(identityUser);
         (await identityUserManager.RemoveClaimsAsync(identityUser, userClaims)).CheckErrors();
 
-        // TODO: 是否需要清理第三方关联账户?
+        // TODO: Có cần dọn dẹp tài khoản liên kết bên thứ ba không?
         //var userLogins = await identityUserManager.GetLoginsAsync(identityUser);
         //foreach (var userLogin in userLogins)
         //{

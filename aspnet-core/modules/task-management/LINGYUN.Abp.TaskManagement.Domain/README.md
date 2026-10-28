@@ -1,75 +1,75 @@
 # LINGYUN.Abp.TaskManagement.Domain
 
-任务管理领域模块，实现核心业务逻辑和领域模型。
+Mô-đun miền quản lý tác vụ, triển khai logic nghiệp vụ cốt lõi và mô hình miền.
 
-## 功能
+## Tính năng
 
-### 后台作业管理
-- 作业生命周期管理（创建、更新、删除）
-- 作业状态控制（启动、停止、暂停、恢复、触发）
-- 支持不同类型的作业：
-  - 一次性作业
-  - 周期性作业（使用cron表达式）
-  - 持续性作业（使用时间间隔）
+### Quản lý công việc nền
+- Quản lý vòng đời công việc (tạo, cập nhật, xóa)
+- Điều khiển trạng thái công việc (khởi động, dừng, tạm dừng, khôi phục, kích hoạt)
+- Hỗ trợ các loại công việc khác nhau:
+  - Công việc một lần
+  - Công việc định kỳ (dùng biểu thức cron)
+  - Công việc liên tục (dùng khoảng thời gian)
 
-### 作业存储
-- 存储作业信息和执行状态
-- 跟踪作业执行历史
-- 清理过期作业
-- 支持多租户
+### Lưu trữ công việc
+- Lưu trữ thông tin công việc và trạng thái thực thi
+- Theo dõi lịch sử thực thi công việc
+- Dọn dẹp công việc đã hết hạn
+- Hỗ trợ đa tenant
 
-### 作业同步
-- 在分布式系统中同步作业状态
-- 处理作业创建、更新和删除事件
-- 维护作业队列一致性
+### Đồng bộ công việc
+- Đồng bộ trạng thái công việc trong hệ thống phân tán
+- Xử lý sự kiện tạo, cập nhật và xóa công việc
+- Duy trì tính nhất quán của hàng đợi công việc
 
-### 作业行为
-- 管理作业相关行为
-- 存储行为参数
-- 启用/禁用行为
+### Hành vi công việc
+- Quản lý các hành vi liên quan đến công việc
+- Lưu trữ tham số hành vi
+- Bật/tắt hành vi
 
-### 作业过滤和规范
-- 通过多个条件过滤作业：
-  - 类型
-  - 分组
-  - 名称
-  - 状态
-  - 优先级
-  - 来源
-  - 创建时间
-  - 上次运行时间
-- 支持复杂作业查询
+### Lọc và đặc tả công việc
+- Lọc công việc theo nhiều điều kiện:
+  - Loại
+  - Nhóm
+  - Tên
+  - Trạng thái
+  - Mức ưu tiên
+  - Nguồn
+  - Thời gian tạo
+  - Thời gian chạy lần cuối
+- Hỗ trợ truy vấn công việc phức tạp
 
-### 作业日志
-- 记录作业执行详情
-- 跟踪执行结果和异常
-- 支持多租户日志记录
+### Nhật ký công việc
+- Ghi lại chi tiết thực thi công việc
+- Theo dõi kết quả thực thi và ngoại lệ
+- Hỗ trợ ghi nhật ký đa tenant
 
-### 领域事件
-- 作业状态变更事件
-- 作业执行事件
-- 分布式事件处理
+### Sự kiện miền
+- Sự kiện thay đổi trạng thái công việc
+- Sự kiện thực thi công việc
+- Xử lý sự kiện phân tán
 
-### 作业优先级管理
-- 支持多个优先级别：
-  - 低
-  - 低于正常
-  - 正常
-  - 高于正常
-  - 高
+### Quản lý mức ưu tiên công việc
+- Hỗ trợ nhiều mức ưu tiên:
+  - Thấp
+  - Dưới mức bình thường
+  - Bình thường
+  - Trên mức bình thường
+  - Cao
 
-### 作业来源管理
-- 支持不同的作业来源：
-  - 用户作业
-  - 系统作业
+### Quản lý nguồn công việc
+- Hỗ trợ các nguồn công việc khác nhau:
+  - Công việc của người dùng
+  - Công việc hệ thống
 
-### 多租户支持
-- 租户特定的作业管理
-- 跨租户作业操作
-- 作业执行中的租户隔离
+### Hỗ trợ đa tenant
+- Quản lý công việc riêng theo tenant
+- Thao tác công việc xuyên tenant
+- Cô lập tenant trong quá trình thực thi công việc
 
-### 领域服务
-- 后台作业管理器
-- 作业存储服务
-- 作业行为服务
-- 作业日志服务
+### Dịch vụ miền
+- Trình quản lý công việc nền
+- Dịch vụ lưu trữ công việc
+- Dịch vụ hành vi công việc
+- Dịch vụ nhật ký công việc

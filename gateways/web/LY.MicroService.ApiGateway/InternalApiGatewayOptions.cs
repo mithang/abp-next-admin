@@ -17,41 +17,41 @@ namespace LY.MicroService.ApiGateway
     public class Aggregator
     {
         /// <summary>
-        /// 设置聚合路由
+        /// Route tổng hợp cài đặt
         /// </summary>
         /// <remarks>
-        /// 聚合路由:
+        /// Route tổng hợp:
         /// /api/setting-management/settings
         /// </remarks>
         /// <example>
-        /// 宿主端路由: 
+        /// Route phía host: 
         /// Get: /api/setting-management/settings/by-global
         /// Set: /api/setting-management/settings/change-global
         /// </example>
         /// <example>
-        /// 租户端路由: 
+        /// Route phía tenant: 
         /// Get: /api/setting-management/settings/by-current-tenant
         /// Set: /api/setting-management/settings/change-current-tenant
         /// </example>
         /// <example>
-        /// 用户端路由: 
+        /// Route phía người dùng: 
         /// Get: /api/setting-management/settings/by-current-user
         /// Set: /api/setting-management/settings/change-current-user
         /// </example>
         public AggregatorUrl SettingUrl { get; set; }
         /// <summary>
-        /// 应用配置聚合路由
+        /// Route tổng hợp cấu hình ứng dụng
         /// </summary>
         /// <remarks>
-        /// 聚合路由:
+        /// Route tổng hợp:
         /// /api/abp/application-configuration
         /// </remarks>
         public AggregatorUrl ConfigurationUrl { get; set; }
         /// <summary>
-        /// Api接口定义配置聚合路由
+        /// Route tổng hợp cấu hình định nghĩa giao diện Api
         /// </summary>
         /// <remarks>
-        /// 聚合路由:
+        /// Route tổng hợp:
         /// /api/abp/api-definition
         /// </remarks>
         public AggregatorUrl ApiDefinitionUrl { get; set; }
@@ -69,15 +69,15 @@ namespace LY.MicroService.ApiGateway
 
         public HttpHandlerOptions HttpHandler { get; set; }
         /// <summary>
-        /// 查询聚合路由列表
+        /// Danh sách route tổng hợp để truy vấn
         /// </summary>
         public List<RequestUrl> GetUrls { get; set; }
         /// <summary>
-        /// 变更路由
+        /// Route thay đổi
         /// </summary>
         public RequestUrl SetUrl { get; set; }
         /// <summary>
-        /// 默认超时时间
+        /// Thời gian chờ mặc định
         /// </summary>
         /// <remarks>
         /// default: 30s

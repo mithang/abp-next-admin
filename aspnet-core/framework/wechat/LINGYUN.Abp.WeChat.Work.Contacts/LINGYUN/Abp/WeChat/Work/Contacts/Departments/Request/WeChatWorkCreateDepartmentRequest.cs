@@ -6,43 +6,43 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Departments.Request;
 /// <summary>
-/// 创建部门请求参数
+/// Tham số yêu cầu tạo phòng ban
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90205" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90205" />
 /// </remarks>
 public class WeChatWorkCreateDepartmentRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 部门名称。同一个层级的部门名称不能重复。长度限制为1~64个UTF-8字符
+    /// Tên bộ phận. Tên các bộ phận cùng cấp không được trùng nhau. Giới hạn độ dài 1~64 ký tự UTF-8
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; }
     /// <summary>
-    /// 英文名称。同一个层级的部门名称不能重复。需要在管理后台开启多语言支持才能生效。长度限制为1~64个字符
+    /// Tên tiếng Anh. Tên các bộ phận cùng cấp không được trùng nhau. Cần bật hỗ trợ đa ngôn ngữ trong bảng quản trị mới có hiệu lực. Giới hạn độ dài 1~64 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("name_en")]
     [JsonPropertyName("name_en")]
     public string? NameEn { get; set; }
     /// <summary>
-    /// 父部门id，32位整型
+    /// id bộ phận cha, số nguyên 32 bit
     /// </summary>
     [NotNull]
     [JsonProperty("parentid")]
     [JsonPropertyName("parentid")]
     public int ParentId { get; }
     /// <summary>
-    /// 在父部门中的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
+    /// Giá trị thứ tự trong bộ phận cha. Giá trị order càng lớn càng xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [CanBeNull]
     [JsonProperty("order")]
     [JsonPropertyName("order")]
     public int? Order { get; set; }
     /// <summary>
-    /// 部门id，32位整型，指定时必须大于1。若不填该参数，将自动生成id
+    /// id bộ phận, số nguyên 32 bit, khi chỉ định phải lớn hơn 1. Nếu không điền tham số này, id sẽ tự động được tạo
     /// </summary>
     [CanBeNull]
     [JsonProperty("id")]

@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 公式控件值
+/// Giá trị điều khiển công thức
 /// </summary>
 public class FormulaControlValue : ControlValue
 {
     /// <summary>
-    /// 公式
+    /// Công thức
     /// </summary>
     [NotNull]
     [JsonProperty("formula")]
@@ -29,7 +29,7 @@ public class FormulaControlValue : ControlValue
 public class FormulaValue
 {
     /// <summary>
-    /// 公式的值，提交表单时无需填写，后台自动计算
+    /// Giá trị của công thức, khi gửi biểu mẫu không cần điền, hệ thống tự động tính toán
     /// </summary>
     [NotNull]
     [JsonProperty("value")]

@@ -69,7 +69,7 @@ namespace LINGYUN.Abp.AspNetCore.Mvc.Results
                 var result = await GetResponseAsObjectAsync<WrapResult<TestResultObject>>("/api/wrap-result-test/exception");
                 result.ShouldNotBeNull();
                 result.Code.ShouldBe("1001");
-                result.Message.ShouldBe("测试包装后的异常消息.");
+                result.Message.ShouldBe("Thông báo ngoại lệ sau khi đóng gói kiểm thử.");
             }
 
             using (CultureHelper.Use("en"))
@@ -89,7 +89,7 @@ namespace LINGYUN.Abp.AspNetCore.Mvc.Results
                 var result = await GetResponseAsObjectAsync<RemoteServiceErrorResponse>("/api/wrap-result-test/not-wrap-exception", System.Net.HttpStatusCode.InternalServerError);
                 result.ShouldNotBeNull();
                 result.Error.ShouldNotBeNull();
-                result.Error.Message.ShouldBe("对不起,在处理你的请求期间,产生了一个服务器内部错误!");
+                result.Error.Message.ShouldBe("Xin lỗi, trong quá trình xử lý yêu cầu của bạn đã xảy ra lỗi nội bộ máy chủ!");
             }
         }
 

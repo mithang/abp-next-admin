@@ -33,17 +33,17 @@ createGlobalTheme(":root.dark", themeVars, {
 function addColorChannels<T extends Record<string, any>>(obj: T): AddChannelToLeaf<T> {
 	const result: Record<string, any> = {};
 
-	// 检查是否是最深层对象（所有子属性都是 null 或 string）
+	// Kiểm tra xem có phải đối tượng sâu nhất không (mọi thuộc tính con đều là null hoặc string)
 	const isLeafObject = Object.values(obj).every((v) => v === null || typeof v === "string");
 
 	if (isLeafObject) {
-		// 在最深层对象添加 Channel
+		// Thêm Channel vào đối tượng sâu nhất
 		for (const [key, value] of Object.entries(obj)) {
 			result[key] = value;
 			result[`${key}Channel`] = value === null ? "" : value.startsWith("#") ? hexToRgbChannel(value) : value;
 		}
 	} else {
-		// 递归处理非最深层对象
+		// Xử lý đệ quy đối tượng không phải sâu nhất
 		for (const [key, value] of Object.entries(obj)) {
 			if (typeof value === "object" && value !== null) {
 				result[key] = addColorChannels(value);

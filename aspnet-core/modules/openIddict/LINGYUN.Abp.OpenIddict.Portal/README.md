@@ -3,60 +3,60 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.Portal%2FLINGYUN.Abp.OpenIddict.Portal.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.Portal.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.Portal)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.Portal` 是 OpenIddict 的门户认证扩展模块，提供了企业门户的认证功能，包括多租户选择、双因素认证、密码策略等特性。
+`LINGYUN.Abp.OpenIddict.Portal` là mô-đun mở rộng xác thực cổng thông tin của OpenIddict, cung cấp chức năng xác thực cho cổng doanh nghiệp, bao gồm lựa chọn đa tenant, xác thực hai yếu tố, chính sách mật khẩu, v.v.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 企业门户认证
-  * 支持企业列表选择
-  * 支持多租户认证
-  * 支持企业 Logo 显示
+* Xác thực cổng doanh nghiệp
+  * Hỗ trợ lựa chọn danh sách doanh nghiệp
+  * Hỗ trợ xác thực đa tenant
+  * Hỗ trợ hiển thị Logo doanh nghiệp
 
-* 密码认证增强
-  * 支持邮箱登录
-  * 支持外部登录提供程序
-  * 支持密码策略验证
-  * 支持强制修改密码
-  * 支持定期修改密码
+* Tăng cường xác thực bằng mật khẩu
+  * Hỗ trợ đăng nhập bằng email
+  * Hỗ trợ nhà cung cấp đăng nhập bên ngoài
+  * Hỗ trợ kiểm tra chính sách mật khẩu
+  * Hỗ trợ bắt buộc đổi mật khẩu
+  * Hỗ trợ đổi mật khẩu định kỳ
 
-* 双因素认证
-  * 支持多种验证提供程序
-  * 支持验证码验证
-  * 支持认证器验证
+* Xác thực hai yếu tố
+  * Hỗ trợ nhiều nhà cung cấp xác minh
+  * Hỗ trợ xác minh bằng mã xác thực
+  * Hỗ trợ xác minh bằng ứng dụng xác thực
 
-* 安全日志
-  * 记录登录尝试
-  * 记录登录失败
-  * 记录密码修改
+* Nhật ký bảo mật
+  * Ghi lại lần thử đăng nhập
+  * Ghi lại lần đăng nhập thất bại
+  * Ghi lại lần đổi mật khẩu
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.Portal
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictPortalModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictPortalModule))]` vào lớp mô-đun của bạn.
 
-2. 配置 OpenIddict 服务器:
+2. Cấu hình máy chủ OpenIddict:
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
     PreConfigure<OpenIddictServerBuilder>(builder =>
     {
-        // 允许门户认证流程
+        // Cho phép luồng xác thực cổng thông tin
         builder.AllowPortalFlow();
     });
 }
 ```
 
-3. 使用示例:
+3. Ví dụ sử dụng:
 
 ```http
 POST /connect/token
@@ -69,56 +69,56 @@ enterpriseId=your-enterprise-id&
 scope=openid profile
 ```
 
-## 认证流程
+## Quy trình xác thực
 
-1. 企业选择
-   * 用户提供企业ID (enterpriseId)
-   * 如未提供或无效，返回可选企业列表
+1. Lựa chọn doanh nghiệp
+   * Người dùng cung cấp ID doanh nghiệp (enterpriseId)
+   * Nếu không cung cấp hoặc không hợp lệ, trả về danh sách doanh nghiệp có thể chọn
 
-2. 密码验证
-   * 支持用户名或邮箱登录
-   * 验证密码策略
-   * 检查账户状态
+2. Xác minh mật khẩu
+   * Hỗ trợ đăng nhập bằng tên người dùng hoặc email
+   * Kiểm tra chính sách mật khẩu
+   * Kiểm tra trạng thái tài khoản
 
-3. 双因素认证 (如启用)
-   * 验证双因素认证码
-   * 支持多种验证提供程序
+3. Xác thực hai yếu tố (nếu được bật)
+   * Xác minh mã xác thực hai yếu tố
+   * Hỗ trợ nhiều nhà cung cấp xác minh
 
-4. 密码修改 (如需要)
-   * 首次登录强制修改密码
-   * 定期修改密码要求
+4. Đổi mật khẩu (nếu cần)
+   * Bắt buộc đổi mật khẩu khi đăng nhập lần đầu
+   * Yêu cầu đổi mật khẩu định kỳ
 
-## 参数说明
+## Mô tả tham số
 
-* username (必填)
-  * 用户名或邮箱地址
+* username (bắt buộc)
+  * Tên người dùng hoặc địa chỉ email
 
-* password (必填)
-  * 用户密码
+* password (bắt buộc)
+  * Mật khẩu người dùng
 
-* enterpriseId (必填)
-  * 企业ID，必须是有效的GUID格式
+* enterpriseId (bắt buộc)
+  * ID doanh nghiệp, phải có định dạng GUID hợp lệ
 
-* TwoFactorProvider (可选)
-  * 双因素认证提供程序名称
-  * 仅在启用双因素认证时需要
+* TwoFactorProvider (tùy chọn)
+  * Tên nhà cung cấp xác thực hai yếu tố
+  * Chỉ cần khi đã bật xác thực hai yếu tố
 
-* TwoFactorCode (可选)
-  * 双因素认证码
-  * 仅在启用双因素认证时需要
+* TwoFactorCode (tùy chọn)
+  * Mã xác thực hai yếu tố
+  * Chỉ cần khi đã bật xác thực hai yếu tố
 
-* ChangePasswordToken (可选)
-  * 修改密码令牌
-  * 仅在需要修改密码时需要
+* ChangePasswordToken (tùy chọn)
+  * Mã thông báo đổi mật khẩu
+  * Chỉ cần khi cần đổi mật khẩu
 
-* NewPassword (可选)
-  * 新密码
-  * 仅在需要修改密码时需要
+* NewPassword (tùy chọn)
+  * Mật khẩu mới
+  * Chỉ cần khi cần đổi mật khẩu
 
-## 注意事项
+## Lưu ý
 
-* 企业ID必须是有效的GUID格式
-* 密码必须符合系统配置的密码策略
-* 双因素认证码有效期有限
-* 所有认证操作都会记录安全日志
-* 建议在生产环境中使用 HTTPS
+* ID doanh nghiệp phải có định dạng GUID hợp lệ
+* Mật khẩu phải tuân thủ chính sách mật khẩu đã cấu hình trong hệ thống
+* Mã xác thực hai yếu tố có thời hạn hiệu lực giới hạn
+* Mọi thao tác xác thực đều được ghi vào nhật ký bảo mật
+* Nên sử dụng HTTPS trong môi trường production

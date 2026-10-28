@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker";
 import type { DateSelectArg, EventClickArg, EventInput } from "@fullcalendar/core";
 //  fullcalendar plugins
-import dayGridPlugin from "@fullcalendar/daygrid"; // 提供 dayGridMonth, dayGridWeek, dayGridDay, dayGrid 视图
-import interactionPlugin from "@fullcalendar/interaction"; // 如果需要 click select drag 这些action 则需要该依赖
-import listPlugin from "@fullcalendar/list"; // 提供 listWeek view
+import dayGridPlugin from "@fullcalendar/daygrid"; // Cung cấp các view dayGridMonth, dayGridWeek, dayGridDay, dayGrid
+import interactionPlugin from "@fullcalendar/interaction"; // Nếu cần các action click select drag thì cần dependency này
+import listPlugin from "@fullcalendar/list"; // Cung cấp view listWeek
 import FullCalendar from "@fullcalendar/react";
-import timeGridPlugin from "@fullcalendar/timegrid"; // 提供 timeGridWeek, timeGridDay, timeGrid 视图
+import timeGridPlugin from "@fullcalendar/timegrid"; // Cung cấp các view timeGridWeek, timeGridDay, timeGrid
 import dayjs from "dayjs";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
@@ -143,7 +143,7 @@ export default function Calendar() {
 		if (start) newEvent.start = start.toDate();
 		if (end) newEvent.end = end.toDate();
 
-		// 刷新日历显示
+		// Làm mới hiển thị lịch
 		oldEvent?.remove();
 		calendarApi.addEvent(newEvent);
 	};
@@ -165,7 +165,7 @@ export default function Calendar() {
 		if (start) newEvent.start = start.toDate();
 		if (end) newEvent.end = end.toDate();
 
-		// 刷新日历显示
+		// Làm mới hiển thị lịch
 		calendarApi.addEvent(newEvent);
 	};
 	// delete event

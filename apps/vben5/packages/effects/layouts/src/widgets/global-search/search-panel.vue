@@ -37,40 +37,40 @@ const searchResults = ref<MenuRecordRaw[]>([]);
 
 const handleSearch = useThrottleFn(search, 200);
 
-// 搜索函数，用于根据搜索关键词查找匹配的菜单项
+// Hàm tìm kiếm, dùng để tìm các mục menu khớp với từ khóa tìm kiếm
 function search(searchKey: string) {
-  // 去除搜索关键词的前后空格
+  // Loại bỏ khoảng trắng ở đầu và cuối từ khóa tìm kiếm
   searchKey = searchKey.trim();
 
-  // 如果搜索关键词为空，清空搜索结果并返回
+  // Nếu từ khóa tìm kiếm rỗng, xóa kết quả tìm kiếm và trả về
   if (!searchKey) {
     searchResults.value = [];
     return;
   }
 
-  // 使用搜索关键词创建正则表达式
+  // Tạo biểu thức chính quy từ từ khóa tìm kiếm
   const reg = createSearchReg(searchKey);
 
-  // 初始化结果数组
+  // Khởi tạo mảng kết quả
   const results: MenuRecordRaw[] = [];
 
-  // 遍历搜索项
+  // Duyệt qua các mục tìm kiếm
   traverseTreeValues(searchItems.value, (item) => {
-    // 如果菜单项的名称匹配正则表达式，将其添加到结果数组中
+    // Nếu tên của mục menu khớp với biểu thức chính quy, thêm nó vào mảng kết quả
     if (reg.test(item.name?.toLowerCase())) {
       results.push(item);
     }
   });
 
-  // 更新搜索结果
+  // Cập nhật kết quả tìm kiếm
   searchResults.value = results;
 
-  // 如果有搜索结果，设置索引为 0
+  // Nếu có kết quả tìm kiếm, đặt chỉ số thành 0
   if (results.length > 0) {
     activeIndex.value = 0;
   }
 
-  // 赋值索引为 0
+  // Gán chỉ số thành 0
   activeIndex.value = 0;
 }
 
@@ -155,7 +155,7 @@ function removeItem(index: number) {
   scrollIntoView();
 }
 
-// 存储所有需要转义的特殊字符
+// Lưu trữ tất cả các ký tự đặc biệt cần escape
 const code = new Set([
   '$',
   '(',
@@ -173,20 +173,20 @@ const code = new Set([
   '}',
 ]);
 
-// 转换函数，用于转义特殊字符
+// Hàm chuyển đổi, dùng để escape các ký tự đặc biệt
 function transform(c: string) {
-  // 如果字符在特殊字符列表中，返回转义后的字符
-  // 如果不在，返回字符本身
+  // Nếu ký tự nằm trong danh sách ký tự đặc biệt, trả về ký tự đã được escape
+  // Nếu không, trả về chính ký tự đó
   return code.has(c) ? `\\${c}` : c;
 }
 
-// 创建搜索正则表达式
+// Tạo biểu thức chính quy tìm kiếm
 function createSearchReg(key: string) {
-  // 将输入的字符串拆分为单个字符
-  // 对每个字符进行转义
-  // 然后用'.*'连接所有字符，创建正则表达式
+  // Tách chuỗi nhập vào thành từng ký tự riêng lẻ
+  // Escape từng ký tự
+  // Sau đó nối tất cả các ký tự bằng '.*' để tạo biểu thức chính quy
   const keys = [...key].map((item) => transform(item)).join('.*');
-  // 返回创建的正则表达式
+  // Trả về biểu thức chính quy đã tạo
   return new RegExp(`.*${keys}.*`);
 }
 
@@ -224,7 +224,7 @@ onMounted(() => {
 <template>
   <VbenScrollbar>
     <div class="!flex h-full justify-center px-2 sm:max-h-[450px]">
-      <!-- 无搜索结果 -->
+      <!-- Không có kết quả tìm kiếm -->
       <div
         v-if="keyword && searchResults.length === 0"
         class="text-muted-foreground text-center"
@@ -237,7 +237,7 @@ onMounted(() => {
           </span>
         </p>
       </div>
-      <!-- 历史搜索记录 & 没有搜索结果 -->
+      <!-- Lịch sử tìm kiếm & không có kết quả tìm kiếm -->
       <div
         v-if="!keyword && searchResults.length === 0"
         class="text-muted-foreground text-center"

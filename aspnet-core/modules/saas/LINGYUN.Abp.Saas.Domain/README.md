@@ -1,27 +1,27 @@
 # LINGYUN.Abp.Saas.Domain
 
-SaaS领域层模块，定义了租户和版本的核心领域模型、仓储接口和领域服务。
+Mô-đun tầng miền SaaS, định nghĩa các mô hình miền cốt lõi, giao diện kho lưu trữ và dịch vụ miền cho tenant và phiên bản.
 
-## 核心功能
+## Chức năng cốt lõi
 
-* 租户实体(Tenant)：包含租户基本信息、状态、过期时间等
-* 版本实体(Edition)：包含版本基本信息
-* 租户连接字符串(TenantConnectionString)：管理租户数据库连接
-* 租户管理器(TenantManager)：处理租户相关的业务逻辑
-* 版本管理器(EditionManager)：处理版本相关的业务逻辑
-* 数据种子(EditionDataSeeder)：提供默认版本数据初始化
+* Thực thể tenant (Tenant): bao gồm thông tin cơ bản, trạng thái, thời gian hết hạn của tenant, v.v.
+* Thực thể phiên bản (Edition): bao gồm thông tin cơ bản của phiên bản
+* Chuỗi kết nối tenant (TenantConnectionString): quản lý kết nối cơ sở dữ liệu của tenant
+* Trình quản lý tenant (TenantManager): xử lý logic nghiệp vụ liên quan đến tenant
+* Trình quản lý phiên bản (EditionManager): xử lý logic nghiệp vụ liên quan đến phiên bản
+* Dữ liệu mẫu (EditionDataSeeder): cung cấp khởi tạo dữ liệu phiên bản mặc định
 
-## 领域事件
+## Sự kiện miền
 
-* 租户创建、更新、删除事件
-* 版本创建、更新、删除事件
-* 租户连接字符串变更事件
+* Sự kiện tạo, cập nhật, xóa tenant
+* Sự kiện tạo, cập nhật, xóa phiên bản
+* Sự kiện thay đổi chuỗi kết nối tenant
 
-## 缓存管理
+## Quản lý bộ nhớ đệm
 
-* 租户缓存：缓存租户信息，提高查询性能
-* 版本缓存：缓存版本信息，提高查询性能
+* Bộ nhớ đệm tenant: lưu đệm thông tin tenant, cải thiện hiệu năng truy vấn
+* Bộ nhớ đệm phiên bản: lưu đệm thông tin phiên bản, cải thiện hiệu năng truy vấn
 
-## 更多
+## Thêm
 
 [English](README.EN.md)

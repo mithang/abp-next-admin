@@ -1,25 +1,25 @@
 # LINGYUN.Abp.Settings
 
-## 模块说明
+## Mô tả mô-đun
 
-ABP 设置管理扩展模块，提供了额外的设置管理功能。
+Mô-đun mở rộng quản lý cài đặt ABP, cung cấp thêm các chức năng quản lý cài đặt.
 
-### 基础模块  
+### Mô-đun cơ sở  
 
 * Volo.Abp.Settings
 
-### 功能定义  
+### Định nghĩa chức năng
 
-* 扩展了 ISettingProvider 接口，提供了更多便利的设置获取方法
-  * GetOrDefaultAsync - 获取设置值，如果为空则返回默认值
+* Mở rộng giao diện ISettingProvider, cung cấp thêm nhiều phương thức lấy cài đặt tiện lợi
+  * GetOrDefaultAsync - Lấy giá trị cài đặt, nếu rỗng thì trả về giá trị mặc định
 
-### 配置定义  
+### Định nghĩa cấu hình
 
-无特殊配置项
+Không có mục cấu hình đặc biệt
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpSettingsModule))]
@@ -28,7 +28,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用扩展方法
+2. Sử dụng phương thức mở rộng
 
 ```csharp
 public class YourService
@@ -46,10 +46,10 @@ public class YourService
 
     public async Task<string> GetSettingValueAsync(string name)
     {
-        // 获取设置值，如果为空则返回默认值
+        // Lấy giá trị cài đặt, nếu rỗng thì trả về giá trị mặc định
         return await _settingProvider.GetOrDefaultAsync(name, _serviceProvider);
     }
 }
 ```
 
-[返回目录](../../../README.md)
+[Quay lại mục lục](../../../README.md)

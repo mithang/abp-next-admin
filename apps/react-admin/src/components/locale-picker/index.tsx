@@ -13,8 +13,8 @@ type Locale = keyof typeof LocalEnum;
  * Locale Picker
  */
 export default function LocalePicker() {
-	const locale = useLocale(); // 当前语言标识
-	const setLocale = useSetLocale(); // 切换语言的方法
+	const locale = useLocale(); // Định danh ngôn ngữ hiện tại
+	const setLocale = useSetLocale(); // Phương thức chuyển đổi ngôn ngữ
 	const { i18n } = useTranslation();
 	const localeList: MenuProps["items"] = Object.values(LANGUAGE_MAP).map((item) => {
 		return {

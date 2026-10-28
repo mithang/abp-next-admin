@@ -8,10 +8,10 @@ using Volo.Abp.Auditing;
 namespace LINGYUN.Abp.WeChat.Work.Authorize;
 
 /// <summary>
-/// 企业微信网页授权
+/// Ủy quyền web WeChat Doanh nghiệp
 /// </summary>
 /// <remarks>
-/// 详情见企业微信文档: <see cref="https://developer.work.weixin.qq.com/document/path/91335"/>
+/// Xem chi tiết trong tài liệu WeChat Doanh nghiệp: <see cref="https://developer.work.weixin.qq.com/document/path/91335"/>
 /// </remarks>
 [Controller]
 [DisableAuditing]
@@ -30,14 +30,14 @@ public class WeChatWorkAuthorizeController : AbpControllerBase, IWeChatWorkAutho
     }
 
     /// <summary>
-    /// 构造网页授权链接
+    /// Tạo liên kết ủy quyền web
     /// </summary>
     /// <remarks>
-    /// 详情见企业微信文档: <see cref="https://developer.work.weixin.qq.com/document/path/91022"/>
+    /// Xem chi tiết trong tài liệu WeChat Doanh nghiệp: <see cref="https://developer.work.weixin.qq.com/document/path/91022"/>
     /// </remarks>
-    /// <param name="urlName">授权回调Url名称</param>
-    /// <param name="responseType">oauth响应类型</param>
-    /// <param name="scope">oauth授权范围</param>
+    /// <param name="urlName">Tên Url gọi lại ủy quyền</param>
+    /// <param name="responseType">Loại phản hồi oauth</param>
+    /// <param name="scope">Phạm vi ủy quyền oauth</param>
     /// <returns></returns>
     [HttpGet]
     [Authorize]
@@ -51,14 +51,14 @@ public class WeChatWorkAuthorizeController : AbpControllerBase, IWeChatWorkAutho
     }
 
     /// <summary>
-    /// 构造网页授权链接
+    /// Tạo liên kết ủy quyền web
     /// </summary>
     /// <remarks>
-    /// 详情见企业微信文档: <see cref="https://developer.work.weixin.qq.com/document/path/91022"/>
+    /// Xem chi tiết trong tài liệu WeChat Doanh nghiệp: <see cref="https://developer.work.weixin.qq.com/document/path/91022"/>
     /// </remarks>
-    /// <param name="urlName">授权回调Url名称</param>
-    /// <param name="responseType">oauth响应类型</param>
-    /// <param name="scope">oauth授权范围</param>
+    /// <param name="urlName">Tên Url gọi lại ủy quyền</param>
+    /// <param name="responseType">Loại phản hồi oauth</param>
+    /// <param name="scope">Phạm vi ủy quyền oauth</param>
     /// <returns></returns>
     [HttpGet]
     [Authorize]
@@ -74,13 +74,13 @@ public class WeChatWorkAuthorizeController : AbpControllerBase, IWeChatWorkAutho
     }
 
     /// <summary>
-    /// 构造企业微信登录链接
+    /// Tạo liên kết đăng nhập WeChat Doanh nghiệp
     /// </summary>
     /// <remarks>
-    /// 详情见企业微信文档: <see cref="https://developer.work.weixin.qq.com/document/path/98152#api%E6%8E%A5%E5%8F%A3"/>
+    /// Xem chi tiết trong tài liệu WeChat Doanh nghiệp: <see cref="https://developer.work.weixin.qq.com/document/path/98152#api%E6%8E%A5%E5%8F%A3"/>
     /// </remarks>
-    /// <param name="urlName">授权回调Url名称</param>
-    /// <param name="loginType">登录类型, ServiceApp：服务商登录；CorpApp：企业自建/代开发应用登录</param>
+    /// <param name="urlName">Tên Url gọi lại ủy quyền</param>
+    /// <param name="loginType">Loại đăng nhập, ServiceApp: đăng nhập nhà cung cấp dịch vụ; CorpApp: đăng nhập ứng dụng tự xây dựng/đại diện phát triển của doanh nghiệp</param>
     /// <returns></returns>
     [HttpGet]
     [Authorize]
@@ -93,13 +93,13 @@ public class WeChatWorkAuthorizeController : AbpControllerBase, IWeChatWorkAutho
     }
 
     /// <summary>
-    /// 构造企业微信登录链接
+    /// Tạo liên kết đăng nhập WeChat Doanh nghiệp
     /// </summary>
     /// <remarks>
-    /// 详情见企业微信文档: <see cref="https://developer.work.weixin.qq.com/document/path/98152#api%E6%8E%A5%E5%8F%A3"/>
+    /// Xem chi tiết trong tài liệu WeChat Doanh nghiệp: <see cref="https://developer.work.weixin.qq.com/document/path/98152#api%E6%8E%A5%E5%8F%A3"/>
     /// </remarks>
-    /// <param name="urlName">授权回调Url名称</param>
-    /// <param name="loginType">登录类型, ServiceApp：服务商登录；CorpApp：企业自建/代开发应用登录</param>
+    /// <param name="urlName">Tên Url gọi lại ủy quyền</param>
+    /// <param name="loginType">Loại đăng nhập, ServiceApp: đăng nhập nhà cung cấp dịch vụ; CorpApp: đăng nhập ứng dụng tự xây dựng/đại diện phát triển của doanh nghiệp</param>
     /// <returns></returns>
     [HttpGet]
     [Authorize]

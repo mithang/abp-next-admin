@@ -1,36 +1,36 @@
 # LINGYUN.Abp.DataProtectionManagement.Application.Contracts
 
-数据权限管理应用服务契约模块，提供数据权限管理的应用服务接口和DTO。
+Mô-đun hợp đồng dịch vụ ứng dụng quản lý quyền dữ liệu, cung cấp giao diện dịch vụ ứng dụng và DTO cho quản lý quyền dữ liệu.
 
-## 功能
+## Tính năng
 
-* 数据权限管理应用服务接口
-* 数据权限DTO定义
-* 数据权限查询定义
+* Giao diện dịch vụ ứng dụng quản lý quyền dữ liệu
+* Định nghĩa DTO quyền dữ liệu
+* Định nghĩa truy vấn quyền dữ liệu
 
-## 应用服务接口
+## Giao diện dịch vụ ứng dụng
 
-* `IDataProtectionAppService` - 数据权限应用服务接口
-  * `GetAsync` - 获取数据权限
-  * `GetListAsync` - 获取数据权限列表
-  * `CreateAsync` - 创建数据权限
-  * `UpdateAsync` - 更新数据权限
-  * `DeleteAsync` - 删除数据权限
+* `IDataProtectionAppService` - Giao diện dịch vụ ứng dụng quản lý quyền dữ liệu
+  * `GetAsync` - Lấy quyền dữ liệu
+  * `GetListAsync` - Lấy danh sách quyền dữ liệu
+  * `CreateAsync` - Tạo quyền dữ liệu
+  * `UpdateAsync` - Cập nhật quyền dữ liệu
+  * `DeleteAsync` - Xóa quyền dữ liệu
 
-## DTO定义
+## Định nghĩa DTO
 
-* `DataProtectionDto` - 数据权限DTO
-  * `Id` - 主键
-  * `Name` - 名称
-  * `DisplayName` - 显示名称
-  * `Description` - 描述
-  * `AllowProperties` - 允许的属性列表
-  * `FilterGroup` - 过滤规则组
+* `DataProtectionDto` - DTO quyền dữ liệu
+  * `Id` - Khóa chính
+  * `Name` - Tên
+  * `DisplayName` - Tên hiển thị
+  * `Description` - Mô tả
+  * `AllowProperties` - Danh sách thuộc tính được phép
+  * `FilterGroup` - Nhóm quy tắc lọc
 
-* `DataProtectionCreateDto` - 创建数据权限DTO
-* `DataProtectionUpdateDto` - 更新数据权限DTO
-* `DataProtectionGetListInput` - 获取数据权限列表输入DTO
+* `DataProtectionCreateDto` - DTO tạo quyền dữ liệu
+* `DataProtectionUpdateDto` - DTO cập nhật quyền dữ liệu
+* `DataProtectionGetListInput` - DTO đầu vào lấy danh sách quyền dữ liệu
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

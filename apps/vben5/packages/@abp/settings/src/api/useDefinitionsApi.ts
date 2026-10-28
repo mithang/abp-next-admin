@@ -12,8 +12,8 @@ import { useRequest } from '@abp/request';
 export function useDefinitionsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 删除设置定义
-   * @param name 设置名称
+   * Xóa định nghĩa cài đặt
+   * @param name Tên cài đặt
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/setting-management/settings/definitions/${name}`, {
@@ -22,9 +22,9 @@ export function useDefinitionsApi() {
   }
 
   /**
-   * 查询设置定义
-   * @param name 设置名称
-   * @returns 设置定义数据传输对象
+   * Truy vấn định nghĩa cài đặt
+   * @param name Tên cài đặt
+   * @returns Đối tượng truyền dữ liệu định nghĩa cài đặt
    */
   function getApi(name: string): Promise<SettingDefinitionDto> {
     return request<SettingDefinitionDto>(
@@ -36,9 +36,9 @@ export function useDefinitionsApi() {
   }
 
   /**
-   * 查询设置定义列表
-   * @param input 设置过滤条件
-   * @returns 设置定义数据传输对象列表
+   * Truy vấn danh sách định nghĩa cài đặt
+   * @param input Điều kiện lọc cài đặt
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa cài đặt
    */
   function getListApi(
     input?: SettingDefinitionGetListInput,
@@ -53,9 +53,9 @@ export function useDefinitionsApi() {
   }
 
   /**
-   * 创建设置定义
-   * @param input 设置定义参数
-   * @returns 设置定义数据传输对象
+   * Tạo định nghĩa cài đặt
+   * @param input Tham số định nghĩa cài đặt
+   * @returns Đối tượng truyền dữ liệu định nghĩa cài đặt
    */
   function createApi(
     input: SettingDefinitionCreateDto,
@@ -70,10 +70,10 @@ export function useDefinitionsApi() {
   }
 
   /**
-   * 更新设置定义
-   * @param name 设置名称
-   * @param input 设置定义参数
-   * @returns 设置定义数据传输对象
+   * Cập nhật định nghĩa cài đặt
+   * @param name Tên cài đặt
+   * @param input Tham số định nghĩa cài đặt
+   * @returns Đối tượng truyền dữ liệu định nghĩa cài đặt
    */
   function updateApi(
     name: string,
@@ -89,8 +89,8 @@ export function useDefinitionsApi() {
   }
 
   /**
-   * 获取可用设置提供者列表
-   * @returns {Promise<ListResultDto<NameValue<string>>>} 设置提供者列表
+   * Lấy danh sách nhà cung cấp cài đặt khả dụng
+   * @returns {Promise<ListResultDto<NameValue<string>>>} Danh sách nhà cung cấp cài đặt
    */
   function getAssignableProvidersApi(): Promise<
     ListResultDto<NameValue<string>>

@@ -9,7 +9,7 @@ public class ClientFeaturePermissionDefinitionProvider : PermissionDefinitionPro
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        // TODO: 硬编码权限名称还是引用 Volo.Abp.FeatureManagement.Application.Contracts?
+        // TODO: Hard-code tên quyền hay tham chiếu Volo.Abp.FeatureManagement.Application.Contracts?
 
         var identityServerGroup = context.GetGroupOrNull(ClientFeaturePermissionNames.GroupName);
         Check.NotNull(identityServerGroup, $"Permissions:{ClientFeaturePermissionNames.GroupName}");

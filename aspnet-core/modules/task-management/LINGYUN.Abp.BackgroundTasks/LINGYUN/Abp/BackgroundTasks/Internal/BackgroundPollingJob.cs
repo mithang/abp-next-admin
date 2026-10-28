@@ -31,16 +31,16 @@ public class BackgroundPollingJob : IJobRunnable
             }
 
             /* changes: 2023-04-06
-             * 作业轮询接口会轮询所有节点作业
-             * 之前的设计为通过 IJobPublisher 发布到作业调度器
-             * 而作业在运行中不是当前节点作业会被忽略, 造成作业实际上永远不会被执行
+             * Giao diện thăm dò tác vụ sẽ thăm dò tác vụ của mọi node
+             * Thiết kế trước đây là phát hành tới bộ lập lịch tác vụ thông qua IJobPublisher
+             * Còn tác vụ đang chạy mà không phải tác vụ của node hiện tại sẽ bị bỏ qua, khiến tác vụ thực tế không bao giờ được thực thi
              * 
-             * 改进方法为新建一个接口 IJobDispatcher, 轮询到的非当前节点作业通过它来调度
-             * 而实现者为分布式事件作业调度器, 只有目标节点才会接收作业并启动
+             * Cách cải tiến là tạo mới một giao diện IJobDispatcher, các tác vụ không thuộc node hiện tại được thăm dò sẽ được lập lịch qua nó
+             * Còn bên triển khai là bộ lập lịch tác vụ sự kiện phân tán, chỉ node đích mới nhận tác vụ và khởi động
              * 
              */
 
-            // 当前节点作业发布
+            // Phát hành tác vụ của node hiện tại
             var scheduleJobs = waitingJobs.Where(job => string.Equals(job.NodeName, options.NodeName) || job.NodeName.IsNullOrWhiteSpace());
             var jobPublisher = context.ServiceProvider.GetRequiredService<IJobPublisher>();
             foreach (var job in scheduleJobs)
@@ -48,7 +48,7 @@ public class BackgroundPollingJob : IJobRunnable
                 await jobPublisher.PublishAsync(job, context.CancellationToken);
             }
 
-            // 非当前节点作业调度
+            // Lập lịch tác vụ không thuộc node hiện tại
             var dispatchJobs = waitingJobs.Where(job => !job.NodeName.IsNullOrWhiteSpace() && !string.Equals(job.NodeName, options.NodeName));
             if (dispatchJobs.Any())
             {

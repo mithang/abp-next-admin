@@ -37,4 +37,4 @@ public class YouProjectModule : AbpModule
 * **Message**: SMS content
 * **Properties**: Additional properties (advanced option)
 
-[中文文档](./README.md)
+[Tiếng Việt](./README.md)

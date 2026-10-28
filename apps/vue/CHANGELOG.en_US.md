@@ -430,7 +430,7 @@
 
 ### 🎫 Chores
 
-- 移除 ls-lint
+- Loại bỏ ls-lint
 
 ## 2.1.0 (2021-03-15)
 
@@ -780,7 +780,7 @@ When mock is not used, move `mock.js` out of the package file
 
 ## 2.0.0-rc.12 (2020-11-30)
 
-## (破坏性更新) Breaking changes
+## (Thay đổi phá vỡ tương thích) Breaking changes
 
 - The ClickOutSide component import method is changed from `import ClickOutSide from'/@/components/ClickOutSide/index.vue'` to `import {ClickOutSide} from'/@/components/ClickOutSide'`
 - Button component import method changed from `import Button from'/@/components/Button/index.vue'` to `import {Button} from'/@/components/Button'`

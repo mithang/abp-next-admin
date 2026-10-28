@@ -15,7 +15,7 @@ spec:
       labels:
         name: project-name-api
     spec:
-      # 内部docker镜像仓库
+      # Kho image docker nội bộ
       # imagePullSecrets:
       # - name: internal-docker-repo
       containers:
@@ -24,7 +24,7 @@ spec:
         env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production
-            # 时区问题自行修改
+            # Tự sửa nếu có vấn đề về múi giờ
             # - name: TZ
             #   value: "Asia/Shanghai"
         ports:
@@ -35,7 +35,7 @@ spec:
               path: /healthz
               port: 8080
         volumeMounts:
-            # appsettings挂载
+            # Gắn appsettings
             # - mountPath: /app/appsettings.Production.json
             #   name: volume-cmkw2z
             #   subPath: appsettings.Production.json
@@ -46,13 +46,13 @@ spec:
               name: volume-xk3mds
               subPath: ./modules
       volumes:
-        # 其他存储挂载自行处理
+        # Tự xử lý việc gắn các bộ nhớ khác
         - hostPath:
             path: /var/opt/project-name
             type: DirectoryOrCreate
-          # 注意变更名称
+          # Lưu ý đổi tên
           name: volume-xk3mds
-        # appsettings挂载
+        # Gắn appsettings
         # - configMap:
         #     defaultMode: 420
         #     name: project-name-api

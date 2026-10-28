@@ -1,32 +1,32 @@
 # LINGYUN.Abp.Notifications.Sms
 
-通知发布提供程序的短信实现
+Triển khai SMS của nhà cung cấp phát hành thông báo
 
-大部分重写的模块都和官方模块名称保持一致,通过命名空间区分,主要是只改写了一小部分或者增加额外的功能
-如果大部分模块代码都重写,或者完全就是扩展模块,才会定义自己的名字
+Hầu hết các mô-đun được viết lại đều giữ tên trùng với mô-đun chính thức, phân biệt bằng không gian tên, chủ yếu chỉ viết lại một phần nhỏ hoặc bổ sung chức năng bổ sung
+Chỉ khi phần lớn mã mô-đun được viết lại, hoặc hoàn toàn là mô-đun mở rộng, mới định nghĩa tên riêng
 
-#### 注意
+#### Lưu ý
 
-自定义的发送方法可以通过实现 ##ISmsNotificationSender## 接口或重写 ##SmsNotificationSender## 即可
+Phương thức gửi tùy chỉnh có thể thực hiện bằng cách triển khai giao diện ##ISmsNotificationSender## hoặc ghi đè ##SmsNotificationSender##
 
-## 功能特性
+## Tính năng
 
-* 短信通知发送
-* 短信模板支持
-* 支持多个短信服务商
-* 支持短信变量替换
-* 支持批量发送
+* Gửi thông báo SMS
+* Hỗ trợ mẫu SMS
+* Hỗ trợ nhiều nhà cung cấp dịch vụ SMS
+* Hỗ trợ thay thế biến SMS
+* Hỗ trợ gửi hàng loạt
 
-## 配置使用
+## Cấu hình sử dụng
 
-* 此配置项将在下一个短信相关大版本移除
+* Mục cấu hình này sẽ bị loại bỏ trong phiên bản lớn liên quan đến SMS tiếp theo
 
 ```json
 
 {
   "Notifications": {
     "Sms": {
-      "TemplateParamsPrefix": "短信模板变量前缀"
+      "TemplateParamsPrefix": "Tiền tố biến mẫu SMS"
     }
   }
 }
@@ -40,9 +40,9 @@ public class YouProjectModule : AbpModule
   // other
 }
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 实现短信发送接口
+1. Triển khai giao diện gửi SMS
 ```csharp
 public class YourSmsNotificationSender : SmsNotificationSender
 {
@@ -58,15 +58,15 @@ public class YourSmsNotificationSender : SmsNotificationSender
 }
 ```
 
-2. 注册短信发送服务
+2. Đăng ký dịch vụ gửi SMS
 ```csharp
 Configure<AbpNotificationsSmsOptions>(options =>
 {
-    options.TemplateParamsPrefix = "sms_"; // 短信模板变量前缀
+    options.TemplateParamsPrefix = "sms_"; // Tiền tố biến mẫu SMS
 });
 ```
 
-3. 发送短信通知
+3. Gửi thông báo SMS
 ```csharp
 public class YourService
 {
@@ -83,7 +83,7 @@ public class YourService
             "YourNotification",
             new NotificationData
             {
-                // 短信模板参数
+                // Tham số mẫu SMS
                 ["sms_code"] = "123456",
                 ["sms_time"] = "5"
             },
@@ -93,7 +93,7 @@ public class YourService
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [短信服务文档](https://docs.abp.io/en/abp/latest/SMS-Sending)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu dịch vụ SMS](https://docs.abp.io/en/abp/latest/SMS-Sending)

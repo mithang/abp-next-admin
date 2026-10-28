@@ -6,38 +6,38 @@ namespace LINGYUN.Abp.PushPlus.Message;
 public class PushPlusMessage
 {
     /// <summary>
-    /// 消息发送渠道；
-    /// wechat-微信公众号,
-    /// mail-邮件,
-    /// cp-企业微信应用,
-    /// webhook-第三方webhook
+    /// Kênh gửi tin nhắn;
+    /// wechat-Tài khoản công khai WeChat,
+    /// mail-Thư điện tử,
+    /// cp-Ứng dụng WeChat doanh nghiệp,
+    /// webhook-Webhook của bên thứ ba
     /// </summary>
     [JsonProperty("channel")]
     public string Channel { get; set; } = default!;
     /// <summary>
-    /// 消息类型;
-    /// 1-一对一消息,
-    /// 2-一对多消息
+    /// Loại tin nhắn;
+    /// 1-Tin nhắn một đối một,
+    /// 2-Tin nhắn một đối nhiều
     /// </summary>
     [JsonProperty("messageType")]
     public PushPlusMessageType MessageType { get; set; }
     /// <summary>
-    /// 消息短链码;可用于查询消息发送结果
+    /// Mã liên kết rút gọn của tin nhắn; có thể dùng để tra cứu kết quả gửi tin nhắn
     /// </summary>
     [JsonProperty("shortCode")]
     public string ShortCode { get; set; } = default!;
     /// <summary>
-    /// 消息标题
+    /// Tiêu đề tin nhắn
     /// </summary>
     [JsonProperty("title")]
     public string Title { get; set; } = default!;
     /// <summary>
-    /// 群组名称，一对多消息才有值
+    /// Tên nhóm, chỉ có giá trị với tin nhắn một đối nhiều
     /// </summary>
     [JsonProperty("topicName")]
     public string? TopicName { get; set; }
     /// <summary>
-    /// 更新日期
+    /// Ngày cập nhật
     /// </summary>
     [JsonProperty("updateTime")]
     public DateTime UpdateTime { get; set; }

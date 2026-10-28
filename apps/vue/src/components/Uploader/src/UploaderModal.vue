@@ -1,7 +1,7 @@
 <template>
   <Card>
     <template #title>
-      <Button id="addFile">添加文件</Button>
+      <Button id="addFile">Thêm tệp</Button>
     </template>
   </Card>
 </template>

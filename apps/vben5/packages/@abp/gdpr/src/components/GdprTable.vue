@@ -15,6 +15,14 @@ import dayJs from 'dayjs';
 
 import { useGdprRequestsApi } from '../api/useGdprRequestsApi';
 
+// Hàng hiển thị của bảng: DTO backend cộng trường tính toán cục bộ
+// `isReadly` (đã sẵn sàng tải xuống hay chưa) do proxy query tự map thêm;
+// backend GdprRequestDto không có trường này nên template đọc row.isReadly
+// bị TS2339 nếu giữ nguyên kiểu DTO thuần.
+interface GdprRequestRow extends GdprRequestDto {
+  isReadly: boolean;
+}
+
 defineOptions({
   name: 'GdprTable',
 });
@@ -29,7 +37,7 @@ const {
 } = useGdprRequestsApi();
 
 const abpStore = useAbpStore();
-const gridOptions: VxeGridProps<GdprRequestDto> = {
+const gridOptions: VxeGridProps<GdprRequestRow> = {
   columns: [
     {
       align: 'left',
@@ -91,7 +99,7 @@ const gridOptions: VxeGridProps<GdprRequestDto> = {
   },
 };
 
-const gridEvents: VxeGridListeners<GdprRequestDto> = {
+const gridEvents: VxeGridListeners<GdprRequestRow> = {
   cellClick: () => {},
   sortChange: () => {
     gridApi.query();
@@ -132,7 +140,7 @@ const onDeleteData = () => {
           centered: true,
           content: $t('AbpGdpr.PersonalDataDeleteRequestReceived'),
           onOk: () => {
-            // 刷新页面重载用户信息
+            // Làm mới trang để tải lại thông tin người dùng
             window.location.reload();
           },
           title: $t('AbpGdpr.RequestedSuccessfully'),
@@ -146,7 +154,7 @@ const onDeleteData = () => {
   });
 };
 
-const onDownload = async (row: GdprRequestDto) => {
+const onDownload = async (row: GdprRequestRow) => {
   const blob = await downloadPersonalDataApi(row.id);
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -160,7 +168,7 @@ const onDownload = async (row: GdprRequestDto) => {
   link.remove();
 };
 
-const onDelete = (row: GdprRequestDto) => {
+const onDelete = (row: GdprRequestRow) => {
   Modal.confirm({
     centered: true,
     content: $t('AbpUi.ItemWillBeDeletedMessage'),

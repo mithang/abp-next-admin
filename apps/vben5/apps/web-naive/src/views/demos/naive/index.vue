@@ -26,17 +26,20 @@ function loading() {
 
 function notify(type: NotificationType) {
   notification[type]({
-    content: '说点啥呢',
+    content: 'Nói gì đây nhỉ',
     duration: 2500,
     keepAliveOnHover: true,
-    meta: '想不出来',
+    meta: 'Không nghĩ ra được',
   });
 }
 </script>
 
 <template>
-  <Page description="支持多语言，主题功能集成切换等" title="naive组件使用演示">
-    <NCard class="mb-5" title="按钮">
+  <Page
+    description="Hỗ trợ đa ngôn ngữ, tích hợp chuyển đổi tính năng chủ đề, v.v."
+    title="Demo sử dụng component naive"
+  >
+    <NCard class="mb-5" title="Nút bấm">
       <NSpace>
         <NButton>Default</NButton>
         <NButton type="tertiary"> Tertiary </NButton>
@@ -50,19 +53,21 @@ function notify(type: NotificationType) {
 
     <NCard class="mb-5" title="Message">
       <NSpace>
-        <NButton type="error" @click="error"> 错误 </NButton>
-        <NButton type="warning" @click="warning"> 警告 </NButton>
-        <NButton type="success" @click="success"> 成功 </NButton>
-        <NButton type="primary" @click="loading"> 加载中 </NButton>
+        <NButton type="error" @click="error"> Lỗi </NButton>
+        <NButton type="warning" @click="warning"> Cảnh báo </NButton>
+        <NButton type="success" @click="success"> Thành công </NButton>
+        <NButton type="primary" @click="loading"> Đang tải </NButton>
       </NSpace>
     </NCard>
 
     <NCard class="mb-5" title="Notification">
       <NSpace>
-        <NButton type="error" @click="notify('error')"> 错误 </NButton>
-        <NButton type="warning" @click="notify('warning')"> 警告 </NButton>
-        <NButton type="success" @click="notify('success')"> 成功 </NButton>
-        <NButton type="primary" @click="notify('info')"> 加载中 </NButton>
+        <NButton type="error" @click="notify('error')"> Lỗi </NButton>
+        <NButton type="warning" @click="notify('warning')"> Cảnh báo </NButton>
+        <NButton type="success" @click="notify('success')">
+          Thành công
+        </NButton>
+        <NButton type="primary" @click="notify('info')"> Đang tải </NButton>
       </NSpace>
     </NCard>
   </Page>

@@ -2,40 +2,40 @@ import type { Component } from 'vue';
 
 interface IContextMenuItem {
   /**
-   * @zh_CN 是否禁用
+   * @zh_CN Có bị vô hiệu hóa hay không
    */
   disabled?: boolean;
   /**
-   * @zh_CN 点击事件处理
+   * @zh_CN Xử lý sự kiện click
    * @param data
    */
   handler?: (data: any) => void;
   /**
-   * @zh_CN 是否隐藏
+   * @zh_CN Có bị ẩn hay không
    */
   hidden?: boolean;
   /**
-   * @zh_CN 图标
+   * @zh_CN Biểu tượng
    */
   icon?: Component;
   /**
-   * @zh_CN 是否显示图标
+   * @zh_CN Có hiển thị biểu tượng hay không
    */
   inset?: boolean;
   /**
-   * @zh_CN 唯一标识
+   * @zh_CN Định danh duy nhất
    */
   key: string;
   /**
-   * @zh_CN 是否是分割线
+   * @zh_CN Có phải là đường phân tách hay không
    */
   separator?: boolean;
   /**
-   * @zh_CN 快捷键
+   * @zh_CN Phím tắt
    */
   shortcut?: string;
   /**
-   * @zh_CN 标题
+   * @zh_CN Tiêu đề
    */
   text: string;
 }

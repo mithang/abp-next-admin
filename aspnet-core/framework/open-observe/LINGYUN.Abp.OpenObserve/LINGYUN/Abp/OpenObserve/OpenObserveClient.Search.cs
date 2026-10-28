@@ -11,20 +11,20 @@ namespace LINGYUN.Abp.OpenObserve;
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 搜索
+    /// Tìm kiếm
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/_search
-    /// 参考: https://openobserve.ai/docs/reference/api/search/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/search/
     /// </remarks>
-    /// <typeparam name="THint">命中数据结构</typeparam>
-    /// <param name="organization">未指定时使用 AbpOpenObserveOptions.Organization</param>
-    /// <param name="query">查询条件, 时间范围为微秒, 必填</param>
-    /// <param name="searchType">搜索来源(ui/dashboards/reports/alerts 等)</param>
-    /// <param name="timeout">超时时间(秒), 默认 30</param>
-    /// <param name="agentOptions">agent/MCP 客户端选项</param>
-    /// <param name="useCache">是否使用结果缓存, 省略时由服务端决定(默认 true)</param>
-    /// <param name="clearCache">是否清理结果缓存, 为 true 时强制不使用缓存</param>
+    /// <typeparam name="THint">Cấu trúc dữ liệu trúng khớp</typeparam>
+    /// <param name="organization">Khi không chỉ định sẽ dùng AbpOpenObserveOptions.Organization</param>
+    /// <param name="query">Điều kiện truy vấn, khoảng thời gian tính bằng micro giây, bắt buộc</param>
+    /// <param name="searchType">Nguồn tìm kiếm (ui/dashboards/reports/alerts, v.v.)</param>
+    /// <param name="timeout">Thời gian chờ (giây), mặc định là 30</param>
+    /// <param name="agentOptions">Tùy chọn client agent/MCP</param>
+    /// <param name="useCache">Có sử dụng bộ nhớ đệm kết quả hay không, khi bỏ qua sẽ do phía máy chủ quyết định (mặc định là true)</param>
+    /// <param name="clearCache">Có xóa bộ nhớ đệm kết quả hay không, khi là true sẽ bắt buộc không dùng bộ nhớ đệm</param>
     public async virtual Task<SearchResponse<THint>> SearchAsync<THint>(
         string? organization,
         SearchQuery query,
@@ -51,10 +51,10 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 搜索
+    /// Tìm kiếm
     /// </summary>
     /// <remarks>
-    /// POST /api/{organization}/_search, 使用 AbpOpenObserveOptions.Organization
+    /// POST /api/{organization}/_search, sử dụng AbpOpenObserveOptions.Organization
     /// </remarks>
     public async virtual Task<SearchResponse<THint>> SearchAsync<THint>(
         SearchQuery query,

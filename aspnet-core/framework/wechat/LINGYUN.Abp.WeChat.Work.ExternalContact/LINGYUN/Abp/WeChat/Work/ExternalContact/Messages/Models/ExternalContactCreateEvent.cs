@@ -5,18 +5,18 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 添加企业客户事件推送
+/// Đẩy sự kiện thêm khách hàng doanh nghiệp
 /// </summary>
 [EventName("external_contact_create")]
 public class ExternalContactCreateEvent : ExternalContactChangeEvent
 {
     /// <summary>
-    /// 添加此用户的「联系我」方式配置的state参数，或在获客链接中指定的customer_channel参数，可用于识别添加此用户的渠道
+    /// Tham số state được cấu hình trong phương thức 'Liên hệ tôi' khi thêm người dùng này, hoặc tham số customer_channel được chỉ định trong liên kết thu hút khách hàng, có thể dùng để nhận biết kênh thêm người dùng này
     /// </summary>
     [XmlElement("State")]
     public string State { get; set; } = default!;
     /// <summary>
-    /// 欢迎语code，可用于发送欢迎语
+    /// Mã lời chào mừng, có thể dùng để gửi lời chào mừng
     /// </summary>
     [XmlElement("WelcomeCode")]
     public string WelcomeCode { get; set; } = default!;

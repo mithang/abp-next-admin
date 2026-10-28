@@ -2,7 +2,7 @@
 
 The HTTP API layer of the ABP account module, providing RESTful API implementations.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

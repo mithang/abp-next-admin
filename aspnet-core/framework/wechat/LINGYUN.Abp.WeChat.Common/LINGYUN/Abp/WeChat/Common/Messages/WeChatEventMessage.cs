@@ -2,12 +2,12 @@
 
 namespace LINGYUN.Abp.WeChat.Common.Messages;
 /// <summary>
-/// 微信事件消息
+/// Thông báo sự kiện WeChat
 /// </summary>
 public abstract class WeChatEventMessage : WeChatMessage
 {
     /// <summary>
-    /// 事件类型
+    /// Loại sự kiện
     /// </summary>
     [XmlElement("Event")]
     public string Event { get; set; } = default!;

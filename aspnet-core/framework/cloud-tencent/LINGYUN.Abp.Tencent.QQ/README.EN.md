@@ -78,4 +78,4 @@ public class YourService
 * [QQ Connect Open Platform](https://connect.qq.com/)
 * [QQ Connect Development Documentation](https://wiki.connect.qq.com/)
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

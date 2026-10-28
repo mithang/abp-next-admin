@@ -21,7 +21,7 @@ public abstract class MessageResolverBase : ITransientDependency
         _cryptoService = cryptoService;
     }
     /// <summary>
-    /// 解析微信服务器推送消息/事件
+    /// Phân giải tin nhắn/sự kiện do máy chủ WeChat đẩy tới
     /// </summary>
     /// <param name="messageData"></param>
     /// <returns></returns>
@@ -29,7 +29,7 @@ public abstract class MessageResolverBase : ITransientDependency
     {
         using (var serviceScope = _serviceProvider.CreateScope())
         {
-            /* 明文数据格式
+            /* Định dạng dữ liệu dạng văn bản thuần
              * <xml>
              *  <ToUserName><![CDATA[toUser]]></ToUserName>
                 <FromUserName><![CDATA[fromUserName]]></FromUserName>
@@ -43,7 +43,7 @@ public abstract class MessageResolverBase : ITransientDependency
             var xmlDocument = XDocument.Parse(messageData.Data);
             if (!xmlDocument.Elements("Encrypt").Any())
             {
-                /* 加密数据格式
+                /* Định dạng dữ liệu đã mã hóa
                  * <xml>
                  *  <ToUserName><![CDATA[toUser]]></ToUserName>
                     <Encrypt><![CDATA[msg_encrypt]]></Encrypt>
@@ -57,7 +57,7 @@ public abstract class MessageResolverBase : ITransientDependency
                     messageData.Signature,
                     messageData.TimeStamp.ToString(),
                     messageData.Nonce);
-                // 经过解密函数得到如上真实数据
+                // Sau khi qua hàm giải mã sẽ thu được dữ liệu thực như trên
                 var decryptMessage = _cryptoService.Decrypt(cryptoDecryptData);
                 xmlDocument = XDocument.Parse(decryptMessage);
 
@@ -72,7 +72,7 @@ public abstract class MessageResolverBase : ITransientDependency
         }
     }
     /// <summary>
-    /// 实现具体的解析微信服务器推送消息/事件方法
+    /// Triển khai phương thức cụ thể để phân giải tin nhắn/sự kiện do máy chủ WeChat đẩy tới
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>

@@ -1,0 +1,14 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Features:WeChat": "Phát triển WeChat",
+    "Permission:WeChat": "Phát triển WeChat",
+    "DisplayName:WeChat": "Nền tảng mở WeChat",
+    "Description:WeChat": "Nền tảng mở WeChat",
+    "UserLogin": "Đăng nhập người dùng",
+    "DisplayName:WeChat.EnabledQuickLogin": "Bật đăng nhập nhanh",
+    "Description:WeChat.EnabledQuickLogin": "Người dùng khi chưa đăng ký có thể đăng nhập trực tiếp bằng code lấy được qua wx.login",
+    "Settings:WeChat": "Phát triển WeChat",
+    "Settings:WeChat.UserLogin": "Đăng nhập người dùng"
+  }
+}

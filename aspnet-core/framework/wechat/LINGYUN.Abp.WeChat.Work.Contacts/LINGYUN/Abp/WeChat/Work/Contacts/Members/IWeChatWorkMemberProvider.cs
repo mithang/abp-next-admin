@@ -6,191 +6,191 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members;
 /// <summary>
-/// 企业微信成员管理接口
+/// Giao diện quản lý thành viên WeChat doanh nghiệp
 /// </summary>
 public interface IWeChatWorkMemberProvider
 {
     /// <summary>
-    /// 读取成员
+    /// Đọc thành viên
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90196" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90196" />
     /// </remarks>
-    /// <param name="userId">成员UserID。对应管理端的账号，企业内必须唯一。不区分大小写，长度为1~64个字节</param>
+    /// <param name="userId">UserID của thành viên. Tương ứng với tài khoản phía quản trị, phải duy nhất trong doanh nghiệp. Không phân biệt chữ hoa/thường, độ dài 1~64 byte</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetMemberResponse> GetMemberAsync(
         string userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 创建成员
+    /// Tạo thành viên
     /// </summary>
     /// <remarks>
-    /// 此接口使用通讯录应用Token<br />
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90195" />
+    /// Giao diện này sử dụng Token ứng dụng danh bạ<br />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90195" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkCreateMemberResponse> CreateMemberAsync(
         WeChatWorkCreateMemberRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 更新成员
+    /// Cập nhật thành viên
     /// </summary>
     /// <remarks>
-    /// 此接口使用通讯录应用Token<br />
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90197" />
+    /// Giao diện này sử dụng Token ứng dụng danh bạ<br />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90197" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkResponse> UpdateMemberAsync(
         WeChatWorkUpdateMemberRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 删除成员
+    /// Xóa thành viên
     /// </summary>
     /// <remarks>
-    /// 此接口使用通讯录应用Token<br />
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90198" />
+    /// Giao diện này sử dụng Token ứng dụng danh bạ<br />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90198" />
     /// </remarks>
-    /// <param name="userId">成员UserID。对应管理端的账号</param>
+    /// <param name="userId">UserID của thành viên. Tương ứng với tài khoản phía quản trị</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkResponse> DeleteMemberAsync(
         string userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 批量删除成员
+    /// Xóa hàng loạt thành viên
     /// </summary>
     /// <remarks>
-    /// 此接口使用通讯录应用Token<br />
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90199" />
+    /// Giao diện này sử dụng Token ứng dụng danh bạ<br />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90199" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkResponse> BulkDeleteMemberAsync(
         WeChatWorkBulkDeleteMemberRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取部门成员
+    /// Lấy thành viên của phòng ban
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90200" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90200" />
     /// </remarks>
-    /// <param name="departmentId">获取的部门id</param>
+    /// <param name="departmentId">id phòng ban cần lấy</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetSimpleMemberListResponse> GetSimpleMemberListAsync(
         int departmentId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取部门成员详情
+    /// Lấy chi tiết thành viên của phòng ban
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90201" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90201" />
     /// </remarks>
-    /// <param name="departmentId">获取的部门id</param>
+    /// <param name="departmentId">id phòng ban cần lấy</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetMemberListResponse> GetMemberListAsync(
         int departmentId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// userid转openid
+    /// Chuyển userid thành openid
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90202" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90202" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkConvertToOpenIdResponse> ConvertToOpenIdAsync(
         WeChatWorkConvertToOpenIdRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// openid转userid
+    /// Chuyển openid thành userid
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90202" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90202" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkConvertToUserIdResponse> ConvertToUserIdAsync(
         WeChatWorkConvertToUserIdRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 登录二次验证
+    /// Xác minh lần hai khi đăng nhập
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90203" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90203" />
     /// </remarks>
-    /// <param name="userId">成员UserID。对应管理端的账号</param>
+    /// <param name="userId">UserID của thành viên. Tương ứng với tài khoản phía quản trị</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkResponse> AuthSuccessAsync(
         string userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 邀请成员
+    /// Mời thành viên
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90975" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90975" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkBulkInviteMemberResponse> BulkInviteMemberAsync(
         WeChatWorkBulkInviteMemberRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取加入企业二维码
+    /// Lấy mã QR tham gia doanh nghiệp
     /// </summary>
     /// <remarks>
-    /// 此接口使用通讯录应用Token<br />
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91714" />
+    /// Giao diện này sử dụng Token ứng dụng danh bạ<br />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/91714" />
     /// </remarks>
-    /// <param name="sizeType">二维码尺寸类型</param>
+    /// <param name="sizeType">Loại kích thước mã QR</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetJoinQrCodeResponse> GetJoinQrCodeAsync(
         QrCodeSizeType sizeType,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 手机号获取userid
+    /// Lấy userid bằng số điện thoại di động
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95402" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/95402" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetUserIdResponse> GetUserIdByMobileAsync(
         WeChatWorkGetUserIdByMobileRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 邮箱获取userid
+    /// Lấy userid bằng email
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95895" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/95895" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetUserIdResponse> GetUserIdByEmailAsync(
         WeChatWorkGetUserIdByEmailRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取成员ID列表
+    /// Lấy danh sách ID thành viên
     /// </summary>
     /// <remarks>
-    /// 此接口使用通讯录应用Token<br />
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/96067" />
+    /// Giao diện này sử dụng Token ứng dụng danh bạ<br />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/96067" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetUserIdListResponse> GetUserIdListAsync(

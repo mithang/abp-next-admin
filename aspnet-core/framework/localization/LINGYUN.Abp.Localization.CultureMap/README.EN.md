@@ -89,5 +89,5 @@ options.CulturesMaps.Add(new CultureMapInfo
 
 ## More Information
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Trung](./README.md)
 * [ABP Localization Documentation](https://docs.abp.io/en/abp/latest/Localization)

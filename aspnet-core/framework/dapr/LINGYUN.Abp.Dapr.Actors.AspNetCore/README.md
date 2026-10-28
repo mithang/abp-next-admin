@@ -1,19 +1,19 @@
 # LINGYUN.Abp.Dapr.Actors.AspNetCore
 
-Dapr.Asp.NetCore的Abp框架集成,扫描程序集内部实现的Actor服务列表,批量注册为Dapr.Actors  
+Tích hợp khung ABP cho Dapr.Asp.NetCore, quét danh sách dịch vụ Actor được triển khai bên trong assembly và đăng ký hàng loạt thành Dapr.Actors
 
-## 功能特性
+## Tính năng
 
-* 自动Actor服务注册
-* 与ABP依赖注入系统集成
-* 通过`RemoteServiceAttribute`支持自定义Actor类型名称
-* 通过`ActorRuntimeOptions`配置Actor运行时
-* 自动Actor端点映射
-* Actor接口验证
+* Đăng ký dịch vụ Actor tự động
+* Tích hợp với hệ thống dependency injection của ABP
+* Hỗ trợ tên loại Actor tùy chỉnh thông qua `RemoteServiceAttribute`
+* Cấu hình runtime Actor thông qua `ActorRuntimeOptions`
+* Ánh xạ endpoint Actor tự động
+* Xác thực giao diện Actor
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpDaprActorsAspNetCoreModule))]
@@ -21,7 +21,7 @@ public class YouProjectModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        // 配置Actor运行时选项
+        // Cấu hình tùy chọn runtime Actor
         PreConfigure<ActorRuntimeOptions>(options =>
         {
             options.ActorIdleTimeout = TimeSpan.FromMinutes(60);
@@ -34,12 +34,12 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 实现示例
+## Ví dụ triển khai
 
-1. 定义Actor接口
+1. Định nghĩa giao diện Actor
 
 ```csharp
-[RemoteService("counter")] // 可选：自定义Actor类型名称
+[RemoteService("counter")] // Tùy chọn: tên loại Actor tùy chỉnh
 public interface ICounterActor : IActor
 {
     Task<int> GetCountAsync();
@@ -47,7 +47,7 @@ public interface ICounterActor : IActor
 }
 ```
 
-2. 实现Actor
+2. Triển khai Actor
 
 ```csharp
 public class CounterActor : Actor, ICounterActor
@@ -72,31 +72,31 @@ public class CounterActor : Actor, ICounterActor
 }
 ```
 
-模块将自动：
-1. 检测`CounterActor`实现
-2. 将其注册到Dapr.Actors
-3. 配置Actor运行时
-4. 映射Actor端点
+Mô-đun sẽ tự động:
+1. Phát hiện triển khai `CounterActor`
+2. Đăng ký nó vào Dapr.Actors
+3. Cấu hình runtime Actor
+4. Ánh xạ endpoint Actor
 
-## Actor运行时配置
+## Cấu hình runtime Actor
 
-模块通过`ActorRuntimeOptions`支持所有标准的Dapr Actor运行时配置：
+Mô-đun hỗ trợ mọi cấu hình runtime Actor Dapr tiêu chuẩn thông qua `ActorRuntimeOptions`:
 
 ```csharp
 PreConfigure<ActorRuntimeOptions>(options =>
 {
-    // Actor超时设置
+    // Cài đặt thời gian chờ Actor
     options.ActorIdleTimeout = TimeSpan.FromMinutes(60);
     options.ActorScanInterval = TimeSpan.FromSeconds(30);
     
-    // 清理设置
+    // Cài đặt dọn dẹp
     options.DrainOngoingCallTimeout = TimeSpan.FromSeconds(30);
     options.DrainRebalancedActors = true;
     
-    // 提醒器设置
+    // Cài đặt nhắc nhở
     options.RemindersStoragePartitions = 7;
     
-    // 自定义序列化设置
+    // Cài đặt tuần tự hoá tùy chỉnh
     options.JsonSerializerOptions = new JsonSerializerOptions
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -104,17 +104,17 @@ PreConfigure<ActorRuntimeOptions>(options =>
 });
 ```
 
-## 重要说明
+## Lưu ý quan trọng
 
-* Actor实现必须在依赖注入容器中注册
-* Actor接口必须继承自`IActor`
-* Actor类型名称可以使用`RemoteServiceAttribute`自定义
-* 模块使用ABP的端点路由系统自动映射Actor端点
-* Actor运行时选项应在`PreConfigureServices`阶段配置
+* Triển khai Actor phải được đăng ký trong container dependency injection
+* Giao diện Actor phải kế thừa từ `IActor`
+* Tên loại Actor có thể tùy chỉnh bằng `RemoteServiceAttribute`
+* Mô-đun sử dụng hệ thống định tuyến endpoint của ABP để tự động ánh xạ endpoint Actor
+* Tùy chọn runtime Actor nên được cấu hình trong giai đoạn `PreConfigureServices`
 
-## 端点映射
+## Ánh xạ endpoint
 
-模块自动映射以下Actor端点：
+Mô-đun tự động ánh xạ các endpoint Actor sau:
 * `/dapr/actors/{actorType}/{actorId}/method/{methodName}`
 * `/dapr/actors/{actorType}/{actorId}/state`
 * `/dapr/actors/{actorType}/{actorId}/reminders/{reminderName}`

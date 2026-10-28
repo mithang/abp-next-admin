@@ -1,42 +1,42 @@
-/** 应用权限 */
+/** Quyền ứng dụng */
 export const ApplicationsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'AbpOpenIddict.Applications.Create',
   Default: 'AbpOpenIddict.Applications',
-  /** 删除 */
+  /** Xóa */
   Delete: 'AbpOpenIddict.Applications.Delete',
-  /** 管理功能 */
+  /** Quản lý tính năng */
   ManageFeatures: 'AbpOpenIddict.Applications.ManageFeatures',
-  /** 管理权限 */
+  /** Quản lý quyền */
   ManagePermissions: 'AbpOpenIddict.Applications.ManagePermissions',
-  /** 管理密钥 */
+  /** Quản lý khóa */
   ManageSecret: 'AbpOpenIddict.Applications.ManageSecret',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'AbpOpenIddict.Applications.Update',
 };
-/** 授权权限 */
+/** Quyền ủy quyền */
 export const AuthorizationsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'AbpOpenIddict.Authorizations.Create',
   Default: 'AbpOpenIddict.Authorizations',
-  /** 删除 */
+  /** Xóa */
   Delete: 'AbpOpenIddict.Authorizations.Delete',
 };
-/** 范围权限 */
+/** Quyền phạm vi */
 export const ScopesPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'AbpOpenIddict.Scopes.Create',
   Default: 'AbpOpenIddict.Scopes',
-  /** 删除 */
+  /** Xóa */
   Delete: 'AbpOpenIddict.Scopes.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'AbpOpenIddict.Scopes.Update',
 };
-/** 授权令牌权限 */
+/** Quyền token ủy quyền */
 export const TokensPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'AbpOpenIddict.Tokens.Create',
   Default: 'AbpOpenIddict.Tokens',
-  /** 删除 */
+  /** Xóa */
   Delete: 'AbpOpenIddict.Tokens.Delete',
 };

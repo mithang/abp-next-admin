@@ -27,19 +27,19 @@ public abstract class ExporterAppService<TEntity, TEntityExportDto, TEntityListG
         return new RemoteStreamContent(stream, fileName);
     }
     /// <summary>
-    /// 实现方法用以返回导出文件名
+    /// Phương thức triển khai dùng để trả về tên tệp xuất
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     protected abstract string GetExportFileName(TEntityListGetInput input);
     /// <summary>
-    /// 实现方法用以查询需要导出的实体列表
+    /// Phương thức triển khai dùng để truy vấn danh sách thực thể cần xuất
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     protected abstract Task<List<TEntity>> GetListAsync(TEntityListGetInput input);
     /// <summary>
-    /// 实现方法用以实体数据传输对象映射
+    /// Phương thức triển khai dùng để ánh xạ đối tượng truyền dữ liệu thực thể
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>

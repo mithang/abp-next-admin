@@ -58,83 +58,83 @@ public class OpenIddictDataSeeder : OpenIddictDataSeedContributorBase, ITransien
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.OpenId,
             "OpenId Connect",
-            "身份认证",
+            "Xác thực danh tính",
             "OpenId Connect",
-            "OpenId Connect协议进行身份验证",
-            "允许应用程序使用您的身份信息进行登录",
+            "Xác thực bằng giao thức OpenId Connect",
+            "Cho phép ứng dụng sử dụng thông tin danh tính của bạn để đăng nhập",
             "Allow the application to authenticate you using OpenID Connect");
 
         // Profile
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.Profile,
-            "个人资料",
-            "个人资料",
+            "Hồ sơ cá nhân",
+            "Hồ sơ cá nhân",
             "Profile",
-            "访问您的基本个人资料信息",
-            "允许应用程序访问您的姓名、头像等基本信息",
+            "Truy cập thông tin hồ sơ cá nhân cơ bản của bạn",
+            "Cho phép ứng dụng truy cập các thông tin cơ bản của bạn như tên, ảnh đại diện",
             "Allow the application to access your basic profile information like name and picture");
 
         // Email
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.Email,
-            "电子邮件",
-            "电子邮件",
             "Email",
-            "访问您的电子邮件地址",
-            "允许应用程序访问您的电子邮件地址",
+            "Email",
+            "Email",
+            "Truy cập địa chỉ email của bạn",
+            "Cho phép ứng dụng truy cập địa chỉ email của bạn",
             "Allow the application to access your email address");
 
         // Phone
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.Phone,
-            "电话号码",
-            "电话号码",
+            "Số điện thoại",
+            "Số điện thoại",
             "Phone",
-            "访问您的电话号码",
-            "允许应用程序访问您的电话号码",
+            "Truy cập số điện thoại của bạn",
+            "Cho phép ứng dụng truy cập số điện thoại của bạn",
             "Allow the application to access your phone number");
 
         // Address
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.Address,
-            "地址信息",
-            "地址信息",
+            "Thông tin địa chỉ",
+            "Thông tin địa chỉ",
             "Address",
-            "访问您的地址信息",
-            "允许应用程序访问您的地址信息",
+            "Truy cập thông tin địa chỉ của bạn",
+            "Cho phép ứng dụng truy cập thông tin địa chỉ của bạn",
             "Allow the application to access your address information");
 
         // Roles
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.Roles,
-            "角色信息",
-            "角色信息",
+            "Thông tin vai trò",
+            "Thông tin vai trò",
             "Roles",
-            "访问您的角色信息",
-            "允许应用程序访问您的角色和权限信息",
+            "Truy cập thông tin vai trò của bạn",
+            "Cho phép ứng dụng truy cập thông tin vai trò và quyền của bạn",
             "Allow the application to access your roles and permissions");
 
         // OfflineAccess
         await CreateServiceScopeAsync(
             OpenIddictConstants.Scopes.OfflineAccess,
-            "离线访问",
-            "离线访问",
+            "Truy cập ngoại tuyến",
+            "Truy cập ngoại tuyến",
             "Offline access",
-            "在您未登录时访问您的信息",
-            "允许应用程序在您未登录时访问您的信息",
+            "Truy cập thông tin của bạn khi bạn chưa đăng nhập",
+            "Cho phép ứng dụng truy cập thông tin của bạn khi bạn chưa đăng nhập",
             "Allow the application to access your information while you are offline");
     }
 
     private async Task CreateApiScopesAsync(string scope)
     {
-        // 前端汇总授权范围
+        // Phạm vi ủy quyền tổng hợp của frontend
         await CreateServiceScopeAsync(
             scope,
-            "微服务访问授权",
-            "微服务访问授权",
+            "Ủy quyền truy cập microservice",
+            "Ủy quyền truy cập microservice",
             "MicroService applications access",
-            "适用于微服务体系的接口授权",
-            "允许应用程序使用各微服务模块的接口",
+            "Ủy quyền giao diện áp dụng cho hệ thống microservice",
+            "Cho phép ứng dụng sử dụng giao diện của từng mô-đun microservice",
             "Allow the application to use the interfaces of each microservice module",
             [
                 "api-gateway",
@@ -154,120 +154,120 @@ public class OpenIddictDataSeeder : OpenIddictDataSeedContributorBase, ITransien
         await CreateServiceScopeAsync(
             "api-gateway",
             "Api Gateway",
-            "应用程序接口网关",
+            "Cổng giao diện ứng dụng",
             "Api Gateway",
-            "适用于应用程序接口网关Swagger授权",
-            "适用于应用程序接口网关Swagger授权",
+            "Ủy quyền Swagger áp dụng cho cổng giao diện ứng dụng",
+            "Ủy quyền Swagger áp dụng cho cổng giao diện ứng dụng",
             "Applicable to application Programming interface gateway Swagger authorization",
             ["api-gateway"]);
         // Admin Service
         await CreateServiceScopeAsync(
             "admin-service",
             "Admin Service",
-            "后台管理服务",
+            "Dịch vụ quản trị hệ thống",
             "Admin Service",
-            "适用于后台管理服务Swagger授权",
-            "适用于后台管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản trị hệ thống",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản trị hệ thống",
             "Applicable to the back-end management service Swagger authorization",
             ["admin-service"]);
         // Auth Server
         await CreateServiceScopeAsync(
             "auth-server",
             "Auth Server",
-            "身份认证服务器",
+            "Máy chủ xác thực danh tính",
             "Auth Server",
-            "适用于身份认证服务器Swagger授权",
-            "适用于身份认证服务器Swagger授权",
+            "Ủy quyền Swagger áp dụng cho máy chủ xác thực danh tính",
+            "Ủy quyền Swagger áp dụng cho máy chủ xác thực danh tính",
             "Applicable to the auth server Swagger authorization",
             ["auth-server"]);
         // Identity Service
         await CreateServiceScopeAsync(
             "identity-service",
             "Identity Service",
-            "身份认证服务",
+            "Dịch vụ xác thực danh tính",
             "Identity Service",
-            "适用于身份认证服务Swagger授权",
-            "适用于身份认证服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ xác thực danh tính",
+            "Ủy quyền Swagger áp dụng cho dịch vụ xác thực danh tính",
             "Applicable to the identity service Swagger authorization",
             ["identity-service"]);
         // Localization Service
         await CreateServiceScopeAsync(
             "localization-service",
             "Localization Service",
-            "本地化管理服务",
+            "Dịch vụ quản lý bản địa hóa",
             "Localization Service",
-            "适用于本地化管理服务Swagger授权",
-            "适用于本地化管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý bản địa hóa",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý bản địa hóa",
             "Applicable to the Localization service Swagger authorization",
             ["localization-service"]);
         // Message Service
         await CreateServiceScopeAsync(
             "message-service",
             "Message Service",
-            "消息管理服务",
+            "Dịch vụ quản lý tin nhắn",
             "Message Service",
-            "适用于消息管理服务Swagger授权",
-            "适用于消息管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý tin nhắn",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý tin nhắn",
             "Applicable to the Message service Swagger authorization",
             ["message-service"]);
         // Platform Service
         await CreateServiceScopeAsync(
             "platform-service",
             "Platform Service",
-            "平台管理服务",
+            "Dịch vụ quản lý nền tảng",
             "Platform Service",
-            "适用于平台管理服务Swagger授权",
-            "适用于平台管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý nền tảng",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý nền tảng",
             "Applicable to the Platform service Swagger authorization",
             ["platform-service"]);
         // Task Service
         await CreateServiceScopeAsync(
             "task-service",
             "Task Service",
-            "任务管理服务",
+            "Dịch vụ quản lý tác vụ",
             "Task Service",
-            "适用于任务管理服务Swagger授权",
-            "适用于任务管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý tác vụ",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý tác vụ",
             "Applicable to the Task service Swagger authorization",
             ["task-service"]);
         // Webhook Service
         await CreateServiceScopeAsync(
             "webhook-service",
             "Webhook Service",
-            "Webhook管理服务",
+            "Dịch vụ quản lý Webhook",
             "Webhook Service",
-            "适用于Webhook管理服务Swagger授权",
-            "适用于Webhook管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý Webhook",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý Webhook",
             "Applicable to the Webhook service Swagger authorization",
             ["webhook-service"]);
         // Wechat Service
         await CreateServiceScopeAsync(
             "wechat-service",
             "Wechat Service",
-            "微信管理服务",
+            "Dịch vụ quản lý WeChat",
             "Wechat Service",
-            "适用于微信管理服务Swagger授权",
-            "适用于微信管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý WeChat",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý WeChat",
             "Applicable to the Wechat service Swagger authorization",
             ["wechat-service"]);
         // Workflow Service
         await CreateServiceScopeAsync(
             "workflow-service",
             "Workflow Service",
-            "工作流管理服务",
+            "Dịch vụ quản lý quy trình làm việc",
             "Workflow Service",
-            "适用于工作流管理服务Swagger授权",
-            "适用于工作流管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý quy trình làm việc",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý quy trình làm việc",
             "Applicable to the Workflow service Swagger authorization",
             ["workflow-service"]);
         // AI Service
         await CreateServiceScopeAsync(
             "ai-service",
             "Artificial Intelligence Service",
-            "AI管理服务",
+            "Dịch vụ quản lý AI",
             "Artificial Intelligence Service",
-            "适用于AI管理服务Swagger授权",
-            "适用于AI管理服务Swagger授权",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý AI",
+            "Ủy quyền Swagger áp dụng cho dịch vụ quản lý AI",
             "Applicable to the Artificial Intelligence service Swagger authorization",
             ["ai-service"]);
     }
@@ -303,7 +303,7 @@ public class OpenIddictDataSeeder : OpenIddictDataSeedContributorBase, ITransien
                 [OpenIddictConstants.GrantTypes.AuthorizationCode,
                 OpenIddictConstants.GrantTypes.Password,
                 OpenIddictConstants.GrantTypes.RefreshToken,
-                // TODO: 引用项目?
+                // TODO: Tham chiếu dự án?
                 "link_user",
                 "impersonation"],
                 [OpenIddictConstants.Scopes.OpenId,

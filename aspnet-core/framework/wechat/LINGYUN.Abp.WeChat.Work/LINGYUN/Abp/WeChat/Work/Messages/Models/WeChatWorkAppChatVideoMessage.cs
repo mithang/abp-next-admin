@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信群聊语言消息
+/// Tin nhắn video trong nhóm trò chuyện WeChat Work
 /// </summary>
 public class WeChatWorkAppChatVideoMessage : WeChatWorkAppChatMessage
 {
@@ -16,17 +16,17 @@ public class WeChatWorkAppChatVideoMessage : WeChatWorkAppChatMessage
         Video = video;
     }
     /// <summary>
-    /// 视频媒体文件
+    /// Tệp phương tiện video
     /// </summary>
     [NotNull]
     [JsonProperty("video")]
     [JsonPropertyName("video")]
     public VideoMessage Video { get; set; }
     /// <summary>
-    /// 表示是否是保密消息，
-    /// 0表示可对外分享，
-    /// 1表示不能分享且内容显示水印，
-    /// 默认为0
+    /// Cho biết có phải là tin nhắn bảo mật hay không,
+    /// 0 nghĩa là có thể chia sẻ ra ngoài,
+    /// 1 nghĩa là không thể chia sẻ và nội dung hiển thị watermark,
+    /// mặc định là 0
     /// </summary>
     [JsonProperty("safe")]
     [JsonPropertyName("safe")]

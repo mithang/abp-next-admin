@@ -10,9 +10,9 @@ import type {
 import requestClient from "../../request";
 
 /**
- * 查询语言列表
- * @param input 参数
- * @returns 语言列表
+ * Truy vấn danh sách ngôn ngữ
+ * @param input Tham số
+ * @returns Danh sách ngôn ngữ
  */
 export function getListApi(input?: LanguageGetListInput): Promise<ListResultDto<LanguageDto>> {
 	return requestClient.get<ListResultDto<LanguageDto>>("/api/abp/localization/languages", {
@@ -21,36 +21,36 @@ export function getListApi(input?: LanguageGetListInput): Promise<ListResultDto<
 }
 
 /**
- * 查询语言
- * @param name 语言名称
- * @returns 查询的语言
+ * Truy vấnngôn ngữ
+ * @param name Tên ngôn ngữ
+ * @returns Ngôn ngữ được truy vấn
  */
 export function getApi(name: string): Promise<LanguageDto> {
 	return requestClient.get<LanguageDto>(`/api/localization/languages/${name}`);
 }
 
 /**
- * 删除语言
- * @param name 语言名称
+ * Xóa ngôn ngữ
+ * @param name Tên ngôn ngữ
  */
 export function deleteApi(name: string): Promise<void> {
 	return requestClient.delete(`/api/localization/languages/${name}`);
 }
 
 /**
- * 创建语言
- * @param input 参数
- * @returns 创建的语言
+ * Tạo ngôn ngữ
+ * @param input Tham số
+ * @returns Ngôn ngữ đã tạo
  */
 export function createApi(input: LanguageCreateDto): Promise<LanguageDto> {
 	return requestClient.post<LanguageDto>("/api/localization/languagesr", input);
 }
 
 /**
- * 编辑语言
- * @param name 语言名称
- * @param input 参数
- * @returns 编辑的语言
+ * Chỉnh sửa ngôn ngữ
+ * @param name Tên ngôn ngữ
+ * @param input Tham số
+ * @returns Ngôn ngữ đã chỉnh sửa
  */
 export function updateApi(name: string, input: LanguageUpdateDto): Promise<LanguageDto> {
 	return requestClient.put<LanguageDto>(`/api/localization/languages/${name}`, input);

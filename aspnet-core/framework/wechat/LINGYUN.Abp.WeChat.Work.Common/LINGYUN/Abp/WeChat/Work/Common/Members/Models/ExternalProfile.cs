@@ -5,29 +5,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Members.Models;
 /// <summary>
-/// 成员对外信息
+/// Thông tin đối ngoại của thành viên
 /// </summary>
 [System.Text.Json.Serialization.JsonConverter(typeof(ExternalProfileSystemTextJsonConverter))]
 [Newtonsoft.Json.JsonConverter(typeof(ExternalProfileNewtonsoftJsonConverter))]
 public class ExternalProfile
 {
     /// <summary>
-    /// 企业对外简称，需从已认证的企业简称中选填。可在“我的企业”页中查看企业简称认证状态。
+    /// Tên viết tắt đối ngoại của doanh nghiệp, cần chọn điền từ các tên viết tắt doanh nghiệp đã được chứng thực. Có thể xem trạng thái chứng thực tên viết tắt doanh nghiệp tại trang "Doanh nghiệp của tôi".
     /// </summary>
     [NotNull]
     [JsonProperty("external_corp_name")]
     [JsonPropertyName("external_corp_name")]
     public string ExternalCorpName {  get; set; } = default!;
     /// <summary>
-    /// 视频号属性。须从企业绑定到企业微信的视频号中选择，可在“我的企业”页中查看绑定的视频号。
-    /// 第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
+    /// Thuộc tính kênh video. Phải chọn từ các kênh video mà doanh nghiệp đã liên kết với WeChat doanh nghiệp, có thể xem các kênh video đã liên kết tại trang "Doanh nghiệp của tôi".
+    /// Chỉ ứng dụng danh bạ của bên thứ ba mới có thể lấy được; đối với thành viên không do bên thứ ba tạo, ứng dụng danh bạ của bên thứ ba cũng không thể lấy được
     /// </summary>
     [NotNull]
     [JsonProperty("wechat_channels")]
     [JsonPropertyName("wechat_channels")]
     public List<WechatChannel> WechatChannels { get; set; } = default!;
     /// <summary>
-    /// 属性列表
+    /// Danh sách thuộc tính
     /// </summary>
     [NotNull]
     [JsonProperty("external_attr")]

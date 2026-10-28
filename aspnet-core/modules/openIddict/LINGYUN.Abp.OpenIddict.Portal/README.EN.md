@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.Portal` is a portal authentication extension module for OpenIddict, providing enterprise portal authentication functionality, including multi-tenant selection, two-factor authentication, password policies, and more.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

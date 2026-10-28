@@ -3,31 +3,31 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.Account.Security;
 /// <summary>
-/// 邮件安全码发送接口
+/// Giao diện gửi mã bảo mật qua email
 /// </summary>
 public interface IAccountEmailSecurityCodeSender
 {
     /// <summary>
-    /// 发送邮件登录验证码
+    /// Gửi mã xác minh đăng nhập qua email
     /// </summary>
-    /// <param name="code">验证码</param>
-    /// <param name="userName">用户名</param>
-    /// <param name="emailAddress">邮件地址</param>
+    /// <param name="code">Mã xác minh</param>
+    /// <param name="userName">Tên người dùng</param>
+    /// <param name="emailAddress">Địa chỉ email</param>
     /// <returns></returns>
     Task SendLoginCodeAsync(
         string code,
         string userName,
         string emailAddress);
     /// <summary>
-    /// 发送邮件确认链接
+    /// Gửi liên kết xác nhận qua email
     /// </summary>
-    /// <param name="userId">用户Id</param>
-    /// <param name="userEmail">用户邮件</param>
-    /// <param name="confirmToken">确认Token</param>
-    /// <param name="appName">应用名称</param>
-    /// <param name="returnUrl">回调路径</param>
-    /// <param name="returnUrlHash">回调路径Hash</param>
-    /// <param name="userTenantId">用户租户Id</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="userEmail">Email người dùng</param>
+    /// <param name="confirmToken">Token xác nhận</param>
+    /// <param name="appName">Tên ứng dụng</param>
+    /// <param name="returnUrl">Đường dẫn callback</param>
+    /// <param name="returnUrlHash">Hash đường dẫn callback</param>
+    /// <param name="userTenantId">Id tenant của người dùng</param>
     /// <returns></returns>
     Task SendConfirmLinkAsync(
         Guid userId,

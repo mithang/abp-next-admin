@@ -5,16 +5,16 @@ using System;
 namespace LINGYUN.Platform.Layouts;
 
 /// <summary>
-/// 布局视图实体
+/// Thực thể khung nhìn bố cục
 /// </summary>
 public class Layout : Route
 {
     /// <summary>
-    /// 框架
+    /// Khung
     /// </summary>
     public virtual string Framework { get; protected set; } = default!;
     /// <summary>
-    /// 约定的Meta采用哪种数据字典,主要是约束路由必须字段的一致性
+    /// Meta đã thỏa thuận dùng loại từ điển dữ liệu nào, chủ yếu để ràng buộc tính nhất quán của các trường bắt buộc của route
     /// </summary>
     public virtual Guid DataId { get; protected set; }
 

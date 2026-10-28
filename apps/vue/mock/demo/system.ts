@@ -24,7 +24,7 @@ const roleList = (() => {
     result.push({
       id: index + 1,
       orderNo: `${index + 1}`,
-      roleName: ['超级管理员', '管理员', '文章管理员', '普通用户'][index],
+      roleName: ['Siêu quản trị viên', 'Quản trị viên', 'Quản trị viên bài viết', 'Người dùng thường'][index],
       roleValue: '@first',
       createTime: '@datetime',
       remark: '@cword(10,20)',
@@ -40,7 +40,7 @@ const deptList = (() => {
   for (let index = 0; index < 3; index++) {
     result.push({
       id: `${index}`,
-      deptName: ['华东分部', '华南分部', '西北分部'][index],
+      deptName: ['Chi nhánh Hoa Đông', 'Chi nhánh Hoa Nam', 'Chi nhánh Tây Bắc'][index],
       orderNo: index + 1,
       createTime: '@datetime',
       remark: '@cword(10,20)',
@@ -50,7 +50,7 @@ const deptList = (() => {
         for (let j = 0; j < 4; j++) {
           children.push({
             id: `${index}-${j}`,
-            deptName: ['研发部', '市场部', '商务部', '财务部'][j],
+            deptName: ['Phòng Nghiên cứu & Phát triển', 'Phòng Marketing', 'Phòng Kinh doanh', 'Phòng Tài chính'][j],
             orderNo: j + 1,
             createTime: '@datetime',
             remark: '@cword(10,20)',
@@ -74,7 +74,7 @@ const menuList = (() => {
       icon: ['ion:layers-outline', 'ion:git-compare-outline', 'ion:tv-outline'][index],
       component: 'LAYOUT',
       type: '0',
-      menuName: ['Dashboard', '权限管理', '功能'][index],
+      menuName: ['Dashboard', 'Quản lý quyền', 'Chức năng'][index],
       permission: '',
       orderNo: index + 1,
       createTime: '@datetime',
@@ -85,7 +85,7 @@ const menuList = (() => {
           children.push({
             id: `${index}-${j}`,
             type: '1',
-            menuName: ['菜单1', '菜单2', '菜单3', '菜单4'][j],
+            menuName: ['Menu1', 'Menu2', 'Menu3', 'Menu4'][j],
             icon: 'ion:document',
             permission: ['menu1:view', 'menu2:add', 'menu3:update', 'menu4:del'][index],
             component: [
@@ -104,7 +104,7 @@ const menuList = (() => {
                 children.push({
                   id: `${index}-${j}-${k}`,
                   type: '2',
-                  menuName: '按钮' + (j + 1) + '-' + (k + 1),
+                  menuName: 'Nút' + (j + 1) + '-' + (k + 1),
                   icon: '',
                   permission:
                     ['menu1:view', 'menu2:add', 'menu3:update', 'menu4:del'][index] +
@@ -193,7 +193,7 @@ export default [
     response: ({ body }) => {
       const { account } = body || {};
       if (account && account.indexOf('admin') !== -1) {
-        return resultError('该字段不能包含admin');
+        return resultError('Trường này không được chứa admin');
       } else {
         return resultSuccess(`${account} can use`);
       }

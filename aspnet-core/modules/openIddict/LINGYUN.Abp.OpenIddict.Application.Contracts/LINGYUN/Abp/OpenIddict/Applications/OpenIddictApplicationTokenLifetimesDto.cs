@@ -4,7 +4,7 @@ namespace LINGYUN.Abp.OpenIddict.Applications;
 public class OpenIddictApplicationTokenLifetimesDto
 {
     /// <summary>
-    /// 访问令牌生命周期(s)
+    /// Vòng đời token truy cập (s)
     /// </summary>
     [DynamicRange(
         typeof(OpenIddictApplicationTokenLifetimeConsts),
@@ -13,7 +13,7 @@ public class OpenIddictApplicationTokenLifetimesDto
         nameof(OpenIddictApplicationTokenLifetimeConsts.MaxAccessTokenValue))]
     public long? AccessToken { get; set; }
     /// <summary>
-    /// 授权码生命周期(s)
+    /// Vòng đời mã ủy quyền (s)
     /// </summary>
     [DynamicRange(
         typeof(OpenIddictApplicationTokenLifetimeConsts),
@@ -22,7 +22,7 @@ public class OpenIddictApplicationTokenLifetimesDto
         nameof(OpenIddictApplicationTokenLifetimeConsts.MaxAuthorizationCodeValue))]
     public long? AuthorizationCode { get; set; }
     /// <summary>
-    /// 设备代码生命周期(s)
+    /// Vòng đời mã thiết bị (s)
     /// </summary>
     [DynamicRange(
         typeof(OpenIddictApplicationTokenLifetimeConsts),
@@ -31,7 +31,7 @@ public class OpenIddictApplicationTokenLifetimesDto
         nameof(OpenIddictApplicationTokenLifetimeConsts.MaxDeviceCodeValue))]
     public long? DeviceCode { get; set; }
     /// <summary>
-    /// 身份令牌生命周期(s)
+    /// Vòng đời token danh tính (s)
     /// </summary>
     [DynamicRange(
         typeof(OpenIddictApplicationTokenLifetimeConsts),
@@ -40,7 +40,7 @@ public class OpenIddictApplicationTokenLifetimesDto
         nameof(OpenIddictApplicationTokenLifetimeConsts.MaxIdentityTokenValue))]
     public long? IdentityToken { get; set; }
     /// <summary>
-    /// 刷新令牌生命周期(s)
+    /// Vòng đời token làm mới (s)
     /// </summary>
     [DynamicRange(
         typeof(OpenIddictApplicationTokenLifetimeConsts),
@@ -49,7 +49,7 @@ public class OpenIddictApplicationTokenLifetimesDto
         nameof(OpenIddictApplicationTokenLifetimeConsts.MaxRefreshTokenValue))]
     public long? RefreshToken { get; set; }
     /// <summary>
-    /// 用户代码生命周期(s)
+    /// Vòng đời mã người dùng (s)
     /// </summary>
     [DynamicRange(
         typeof(OpenIddictApplicationTokenLifetimeConsts),

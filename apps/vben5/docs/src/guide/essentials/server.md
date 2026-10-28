@@ -1,37 +1,37 @@
-# 服务端交互与数据Mock
+# Tương tác với phía máy chủ và dữ liệu Mock
 
-::: tip 说明
+::: tip Giải thích
 
-本文档介绍如何在开发环境下使用 Mock 数据和与服务端进行交互，涉及到的技术有：
+Tài liệu này giới thiệu cách sử dụng dữ liệu Mock trong môi trường phát triển và tương tác với phía máy chủ, các công nghệ liên quan gồm:
 
-- [Nitro](https://nitro.unjs.io/) 轻量级后端服务器，可部署在任何地方，项目用作于 Mock 服务器。
-- [axios](https://axios-http.com/docs/intro) 用于发送 HTTP 请求与服务端进行交互。
-
-:::
-
-## 开发环境交互
-
-如果前端应用和后端接口服务器没有运行在同一个主机上，你需要在开发环境下将接口请求代理到接口服务器。如果是同一个主机，可以直接请求具体的接口地址。
-
-### 本地开发跨域配置
-
-::: tip 提示
-
-本地开发跨域配置项目已经配置好了，如有其他需求，可以自行增加或者调整配置。
+- [Nitro](https://nitro.unjs.io/) máy chủ backend nhẹ, có thể triển khai ở bất cứ đâu, dự án dùng làm máy chủ Mock.
+- [axios](https://axios-http.com/docs/intro) dùng để gửi yêu cầu HTTP và tương tác với phía máy chủ.
 
 :::
 
-#### 配置本地开发接口地址
+## Tương tác trong môi trường phát triển
 
-在项目根目录下的 `.env.development` 文件中配置接口地址，这里配置为 `/api`：
+Nếu ứng dụng frontend và máy chủ giao diện backend không chạy trên cùng một máy chủ, bạn cần proxy yêu cầu giao diện tới máy chủ giao diện trong môi trường phát triển. Nếu cùng một máy chủ, có thể trực tiếp yêu cầu địa chỉ giao diện cụ thể.
+
+### Cấu hình CORS cho phát triển cục bộ
+
+::: tip Gợi ý
+
+Cấu hình CORS cho phát triển cục bộ đã được dự án cấu hình sẵn, nếu có nhu cầu khác, bạn có thể tự thêm hoặc điều chỉnh cấu hình.
+
+:::
+
+#### Cấu hình địa chỉ giao diện phát triển cục bộ
+
+Trong tệp `.env.development` ở thư mục gốc của dự án, cấu hình địa chỉ giao diện, ở đây cấu hình là `/api`:
 
 ```bash
 VITE_GLOB_API_URL=/api
 ```
 
-#### 配置开发服务器代理
+#### Cấu hình proxy cho máy chủ phát triển
 
-开发环境时候，如果需要处理跨域，接口地址在对应的应用目录下的 `vite.config.mts` 文件中配置：
+Khi ở môi trường phát triển, nếu cần xử lý CORS, địa chỉ giao diện được cấu hình trong tệp `vite.config.mts` ở thư mục ứng dụng tương ứng:
 
 ```ts{8-16}
 // apps/web-antd/vite.config.mts
@@ -45,7 +45,7 @@ export default defineConfig(async () => {
           '/api': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
-            // mock代理目标地址
+            // địa chỉ đích của proxy mock
             target: 'http://localhost:5320/api',
             ws: true,
           },
@@ -56,9 +56,9 @@ export default defineConfig(async () => {
 });
 ```
 
-#### 接口请求
+#### Yêu cầu giao diện
 
-根据上面的配置，我们可以在前端项目中使用 `/api` 作为接口请求的前缀，例如：
+Theo cấu hình trên, chúng ta có thể sử dụng `/api` làm tiền tố yêu cầu giao diện trong dự án frontend, ví dụ:
 
 ```ts
 import axios from 'axios';
@@ -68,56 +68,56 @@ axios.get('/api/user').then((res) => {
 });
 ```
 
-此时，请求会被代理到 `http://localhost:5320/api/user`。
+Lúc này, yêu cầu sẽ được proxy tới `http://localhost:5320/api/user`.
 
-::: warning 注意
+::: warning Chú ý
 
-从浏览器控制台的 Network 看，请求是 `http://localhost:5555/api/user`, 这是因为 proxy 配置不会改变本地请求的 url。
+Nhìn từ Network trong bảng điều khiển của trình duyệt, yêu cầu là `http://localhost:5555/api/user`, vì cấu hình proxy sẽ không thay đổi url của yêu cầu cục bộ.
 
 :::
 
-### 没有跨域时的配置
+### Cấu hình khi không có CORS
 
-如果没有跨域问题，可以直接忽略 [配置开发服务器代理](./server.md#配置开发服务器代理) 配置，直接将接口地址设置在 `VITE_GLOB_API_URL`
+Nếu không có vấn đề CORS, có thể trực tiếp bỏ qua cấu hình [Cấu hình proxy máy chủ phát triển](./server.md#cau-hinh-proxy-may-chu-phat-trien), trực tiếp đặt địa chỉ giao diện tại `VITE_GLOB_API_URL`
 
-在项目根目录下的 `.env.development` 文件中配置接口地址：
+Trong tệp `.env.development` ở thư mục gốc của dự án, cấu hình địa chỉ giao diện:
 
 ```bash
 VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 ```
 
-## 生产环境交互
+## Tương tác trong môi trường production
 
-### 接口地址配置
+### Cấu hình địa chỉ giao diện
 
-在项目根目录下的 `.env.production` 文件中配置接口地址：
+Trong tệp `.env.production` ở thư mục gốc của dự án, cấu hình địa chỉ giao diện:
 
 ```bash
 VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 ```
 
-::: tip 打包如何动态修改接口地址
+::: tip Cách sửa địa chỉ giao diện động khi đóng gói
 
-`.env` 文件内的 `VITE_GLOB_*` 开头的变量会在打包的时候注入 `_app.config.js` 文件内。在 `dist/_app.config.js` 修改相应的接口地址后刷新页面即可，不需要在根据不同环境打包多次，一次打包可以用于多个不同接口环境的部署。
+Các biến bắt đầu bằng `VITE_GLOB_*` trong tệp `.env` sẽ được inject vào tệp `_app.config.js` khi đóng gói. Sau khi sửa địa chỉ giao diện tương ứng trong `dist/_app.config.js` và làm mới trang là được, không cần đóng gói nhiều lần theo từng môi trường khác nhau, một lần đóng gói có thể dùng để triển khai cho nhiều môi trường giao diện khác nhau.
 
 :::
 
-### 跨域处理
+### Xử lý CORS
 
-生产环境如果出现跨域问题，可以使用 `nginx` 代理接口地址 或者后台开启 `cors` 进行处理即可（可参考mock服务）。
+Nếu môi trường production xuất hiện vấn đề CORS, có thể sử dụng proxy `nginx` cho địa chỉ giao diện hoặc backend bật `cors` để xử lý (có thể tham khảo dịch vụ mock).
 
-## 接口请求配置
+## Cấu hình yêu cầu giao diện
 
-项目中默认自带了基于 `axios` 封装的基础的请求配置，核心由 `@vben/request` 包提供。项目没有过多的封装，只是简单的封装了一些常用的配置，如有其他需求，可以自行增加或者调整配置。针对不同的app，可能是用到了不同的组件库以及`store`,所以在应用目录下的`src/api/request.ts`文件夹下，有对应的请求配置文件,如`web-antd`项目下的`src/api/request.ts`文件,可以根据自己的需求进行配置。
+Dự án mặc định đã có cấu hình yêu cầu cơ bản được đóng gói dựa trên `axios`, phần lõi do gói `@vben/request` cung cấp. Dự án không đóng gói quá nhiều, chỉ đơn giản đóng gói một số cấu hình thường dùng, nếu có nhu cầu khác, bạn có thể tự thêm hoặc điều chỉnh cấu hình. Đối với các app khác nhau, có thể dùng các thư viện component khác nhau và `store`, vì vậy trong thư mục `src/api/request.ts` ở thư mục ứng dụng có tệp cấu hình yêu cầu tương ứng, như tệp `src/api/request.ts` của dự án `web-antd`, có thể cấu hình theo nhu cầu của mình.
 
-### 扩展的配置
+### Cấu hình mở rộng
 
-除了基础的Axios配置外，扩展了部分配置。
+Ngoài cấu hình Axios cơ bản, còn mở rộng thêm một phần cấu hình.
 
 ```ts
 type ExtendOptions<T = any> = {
   /**
-   * 参数序列化方式。预置了几种针对数组的序列化类型
+   * Cách tuần tự hóa tham số. Đã cài đặt sẵn một số kiểu tuần tự hóa cho mảng
    * - brackets: ids[]=1&ids[]=2&ids[]=3
    * - comma: ids=1,2,3
    * - indices: ids[0]=1&ids[1]=2&ids[2]=3
@@ -131,18 +131,18 @@ type ExtendOptions<T = any> = {
     | 'repeat'
     | AxiosRequestConfig<T>['paramsSerializer'];
   /**
-   * 响应数据的返回方式。
-   * - raw: 原始的AxiosResponse，包括headers、status等，不做是否成功请求的检查。
-   * - body: 返回响应数据的BODY部分（只会根据status检查请求是否成功，忽略对code的判断，这种情况下应由调用方检查请求是否成功）。
-   * - data: 解构响应的BODY数据，只返回其中的data节点数据（会检查status和code是否为成功状态）。
+   * Cách trả về dữ liệu phản hồi.
+   * - raw: AxiosResponse gốc, bao gồm headers, status, v.v., không kiểm tra xem yêu cầu có thành công hay không.
+   * - body: Trả về phần BODY của dữ liệu phản hồi (chỉ kiểm tra yêu cầu có thành công hay không dựa trên status, bỏ qua việc đánh giá code, trong trường hợp này bên gọi nên kiểm tra yêu cầu có thành công hay không).
+   * - data: Giải cấu trúc dữ liệu BODY của phản hồi, chỉ trả về dữ liệu của nút data trong đó (sẽ kiểm tra status và code có phải trạng thái thành công hay không).
    */
   responseReturn?: 'body' | 'data' | 'raw';
 };
 ```
 
-### 请求示例
+### Ví dụ yêu cầu
 
-#### GET 请求
+#### Yêu cầu GET
 
 ```ts
 import { requestClient } from '#/api/request';
@@ -152,7 +152,7 @@ export async function getUserInfoApi() {
 }
 ```
 
-#### POST/PUT 请求
+#### Yêu cầu POST/PUT
 
 ```ts
 import { requestClient } from '#/api/request';
@@ -169,13 +169,13 @@ export async function saveUserApi(user: UserInfo) {
   const url = user.id ? `/user/${user.id}` : '/user/';
   return requestClient.request<UserInfo>(url, {
     data: user,
-    // 或者 PUT
+    // hoặc PUT
     method: user.id ? 'PUT' : 'POST',
   });
 }
 ```
 
-#### DELETE 请求
+#### Yêu cầu DELETE
 
 ```ts
 import { requestClient } from '#/api/request';
@@ -185,13 +185,13 @@ export async function deleteUserApi(userId: number) {
 }
 ```
 
-### 请求配置
+### Cấu hình yêu cầu
 
-应用内的`src/api/request.ts`可以根据自己应用的情况的需求进行配置：
+Tệp `src/api/request.ts` trong ứng dụng có thể cấu hình theo nhu cầu tình hình của ứng dụng của mình:
 
 ```ts
 /**
- * 该文件可自行根据业务逻辑进行调整
+ * Tệp này có thể tự điều chỉnh theo logic nghiệp vụ
  */
 import type { HttpResponse } from '@vben/request';
 
@@ -218,7 +218,7 @@ function createRequestClient(baseURL: string) {
   });
 
   /**
-   * 重新认证逻辑
+   * Logic xác thực lại
    */
   async function doReAuthenticate() {
     console.warn('Access token or refresh token is invalid or expired. ');
@@ -236,7 +236,7 @@ function createRequestClient(baseURL: string) {
   }
 
   /**
-   * 刷新token逻辑
+   * Logic làm mới token
    */
   async function doRefreshToken() {
     const accessStore = useAccessStore();
@@ -250,7 +250,7 @@ function createRequestClient(baseURL: string) {
     return token ? `Bearer ${token}` : null;
   }
 
-  // 请求头处理
+  // Xử lý header yêu cầu
   client.addRequestInterceptor({
     fulfilled: async (config) => {
       const accessStore = useAccessStore();
@@ -261,19 +261,19 @@ function createRequestClient(baseURL: string) {
     },
   });
 
-  // 处理返回的响应数据格式。会根据responseReturn指定的类型返回对应的数据
+  // Xử lý định dạng dữ liệu phản hồi trả về. Sẽ trả về dữ liệu tương ứng theo kiểu do responseReturn chỉ định
   client.addResponseInterceptor(
     defaultResponseInterceptor({
-      // 指定接口返回的数据中的 code 字段名
+      // Chỉ định tên trường code trong dữ liệu do giao diện trả về
       codeField: 'code',
-      // 指定接口返回的数据中装载了主要数据的字段名
+      // Chỉ định tên trường chứa dữ liệu chính trong dữ liệu do giao diện trả về
       dataField: 'data',
-      // 请求成功的 code 值，如果接口返回的 code 等于 successCode 则会认为是成功的请求
+      // Giá trị code khi yêu cầu thành công, nếu code do giao diện trả về bằng successCode thì sẽ được coi là yêu cầu thành công
       successCode: 0,
     }),
   );
 
-  // token过期的处理
+  // Xử lý khi token hết hạn
   client.addResponseInterceptor(
     authenticateResponseInterceptor({
       client,
@@ -284,14 +284,14 @@ function createRequestClient(baseURL: string) {
     }),
   );
 
-  // 通用的错误处理,如果没有进入上面的错误处理逻辑，就会进入这里
+  // Xử lý lỗi chung, nếu không vào logic xử lý lỗi ở trên thì sẽ vào đây
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
-      // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-      // 当前mock接口返回的错误字段是 error 或者 message
+      // Ở đây có thể tùy chỉnh theo nghiệp vụ, bạn có thể lấy thông tin trong error để tùy chỉnh xử lý, đưa ra gợi ý khác nhau theo code khác nhau, thay vì trực tiếp dùng message.error để gợi ý msg
+      // Trường lỗi do giao diện mock hiện tại trả về là error hoặc message
       const responseData = error?.response?.data ?? {};
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
-      // 如果没有错误信息，则会根据状态码进行提示
+      // Nếu không có thông tin lỗi, sẽ gợi ý theo mã trạng thái
       message.error(errorMessage || msg);
     }),
   );
@@ -304,9 +304,9 @@ export const requestClient = createRequestClient(apiURL);
 export const baseRequestClient = new RequestClient({ baseURL: apiURL });
 ```
 
-### 多个接口地址
+### Nhiều địa chỉ giao diện
 
-只需要创建多个 `requestClient` 即可，如：
+Chỉ cần tạo nhiều `requestClient` là được, ví dụ:
 
 ```ts
 const { apiURL, otherApiURL } = useAppConfig(
@@ -319,13 +319,13 @@ export const requestClient = createRequestClient(apiURL);
 export const otherRequestClient = createRequestClient(otherApiURL);
 ```
 
-## 刷新Token
+## Làm mới Token
 
-项目中默认提供了刷新 Token 的逻辑，只需要按照下面的配置即可开启：
+Dự án mặc định đã cung cấp logic làm mới Token, chỉ cần cấu hình theo bên dưới là có thể bật:
 
-- 确保当前启用了刷新 Token 的配置
+- Đảm bảo hiện tại đã bật cấu hình làm mới Token
 
-调整对应应用目录下的`preferences.ts`，确保`enableRefreshToken='true'`。
+Điều chỉnh `preferences.ts` ở thư mục ứng dụng tương ứng, đảm bảo `enableRefreshToken='true'`.
 
 ```ts
 import { defineOverridesPreferences } from '@vben/preferences';
@@ -338,20 +338,20 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-在 `src/api/request.ts` 中配置 `doRefreshToken` 方法即可:
+Trong `src/api/request.ts`, cấu hình phương thức `doRefreshToken` là được:
 
 ```ts
-// 这里调整为你的token格式
+// Ở đây điều chỉnh thành định dạng token của bạn
 function formatToken(token: null | string) {
   return token ? `Bearer ${token}` : null;
 }
 
 /**
- * 刷新token逻辑
+ * Logic làm mới token
  */
 async function doRefreshToken() {
   const accessStore = useAccessStore();
-  // 这里调整为你的刷新token接口
+  // Ở đây điều chỉnh thành giao diện làm mới token của bạn
   const resp = await refreshTokenApi();
   const newToken = resp.data;
   accessStore.setAccessToken(newToken);
@@ -359,27 +359,27 @@ async function doRefreshToken() {
 }
 ```
 
-## 数据 Mock
+## Dữ liệu Mock
 
-::: tip 生产环境 Mock
+::: tip Mock trong môi trường production
 
-新版本不再支持生产环境 mock，请使用真实接口。
+Phiên bản mới không còn hỗ trợ mock trong môi trường production, hãy sử dụng giao diện thật.
 
 :::
 
-Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发进程所阻塞。
+Dữ liệu Mock là một khâu không thể thiếu trong quá trình phát triển frontend, là liên kết then chốt để tách biệt phát triển frontend và backend. Thông qua việc thỏa thuận trước với máy chủ về giao diện, mô phỏng dữ liệu yêu cầu thậm chí cả logic, có thể giúp frontend phát triển độc lập, không bị tiến trình phát triển của máy chủ chặn lại.
 
-项目使用 [Nitro](https://nitro.unjs.io/) 来进行本地 mock 数据处理。其原理是本地额外启动一个后端服务，是一个真实的后端服务，可以处理请求，返回数据。
+Dự án sử dụng [Nitro](https://nitro.unjs.io/) để xử lý dữ liệu mock cục bộ. Nguyên lý của nó là khởi động thêm một dịch vụ backend ở cục bộ, là một dịch vụ backend thật, có thể xử lý yêu cầu, trả về dữ liệu.
 
-### Nitro 使用
+### Sử dụng Nitro
 
-Mock 服务代码位于`apps/backend-mock`目录下，无需手动启动，已经集成在项目中，只需要在项目根目录下运行`pnpm dev`即可，运行成功之后，控制台会打印 `http://localhost:5320/api`, 访问该地址即可查看 mock 服务。
+Mã dịch vụ Mock nằm trong thư mục `apps/backend-mock`, không cần khởi động thủ công, đã được tích hợp trong dự án, chỉ cần chạy `pnpm dev` ở thư mục gốc của dự án là được, sau khi chạy thành công, bảng điều khiển sẽ in `http://localhost:5320/api`, truy cập địa chỉ này là có thể xem dịch vụ mock.
 
-[Nitro](https://nitro.unjs.io/) 语法简单，可以根据自己的需求进行配置及开发，具体配置可以查看 [Nitro 文档](https://nitro.unjs.io/)。
+[Nitro](https://nitro.unjs.io/) cú pháp đơn giản, có thể cấu hình và phát triển theo nhu cầu của mình, cấu hình cụ thể có thể xem [tài liệu Nitro](https://nitro.unjs.io/).
 
-## 关闭 Mock 服务
+## Tắt dịch vụ Mock
 
-mock的本质是一个真实的后端服务，如果不需要 mock 服务，可以在项目根目录下的 `.env.development` 文件中配置 `VITE_NITRO_MOCK=false` 即可关闭 mock 服务。
+Bản chất của mock là một dịch vụ backend thật, nếu không cần dịch vụ mock, có thể cấu hình `VITE_NITRO_MOCK=false` trong tệp `.env.development` ở thư mục gốc của dự án là có thể tắt dịch vụ mock.
 
 ```bash
 # .env.development

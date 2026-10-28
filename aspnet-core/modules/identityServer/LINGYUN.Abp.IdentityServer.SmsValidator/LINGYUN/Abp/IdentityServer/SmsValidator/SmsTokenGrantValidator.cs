@@ -94,7 +94,7 @@ public class SmsTokenGrantValidator : IExtensionGrantValidator
         if (!validResult)
         {
             Logger.LogWarning("Authentication failed for token: {0}, reason: invalid token", phoneToken);
-            // 防尝试破解密码
+            // Ngăn chặn việc thử bẻ khóa mật khẩu
             var identityResult = await UserManager.AccessFailedAsync(currentUser);
             if (identityResult.Succeeded)
             {

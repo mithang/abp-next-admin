@@ -30,7 +30,7 @@ public class ProjectNameDomainModule : AbpModule
     {
         OneTimeRunner.Run(() =>
         {
-            // 扩展实体配置
+            // Mở rộng cấu hình entity
             //ModuleExtensionConfigurationHelper.ApplyEntityConfigurationToEntity(
             //    ProjectNameModuleExtensionConsts.ModuleName,
             //    ProjectNameModuleExtensionConsts.EntityNames.Entity,

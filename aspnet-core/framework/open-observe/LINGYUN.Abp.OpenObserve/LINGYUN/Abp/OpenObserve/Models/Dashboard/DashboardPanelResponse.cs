@@ -4,27 +4,27 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Dashboard;
 
 /// <summary>
-/// 仪表盘面板操作响应
+/// Phản hồi thao tác trên bảng điều khiển (dashboard)
 /// </summary>
 public class DashboardPanelResponse
 {
     /// <summary>
-    /// 面板定义(含服务端生成的 id 与 layout)
+    /// Định nghĩa bảng (bao gồm id và layout do máy chủ tạo)
     /// </summary>
     [JsonPropertyName("panel")]
     public JsonNode? Panel { get; set; }
 
     /// <summary>
-    /// 新的仪表盘哈希
+    /// Mã băm (hash) mới của bảng điều khiển
     /// </summary>
     /// <remarks>
-    /// 用于链式操作的下一次请求
+    /// Yêu cầu tiếp theo dùng cho thao tác liên hoàn
     /// </remarks>
     [JsonPropertyName("hash")]
     public string? Hash { get; set; }
 
     /// <summary>
-    /// 页签标识
+    /// Định danh tab
     /// </summary>
     [JsonPropertyName("tabId")]
     public string? TabId { get; set; }

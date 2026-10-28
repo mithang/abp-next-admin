@@ -26,9 +26,9 @@ public class MessageServiceDbMigratorHostedService : IHostedService
         using var application = await AbpApplicationFactory
             .CreateAsync<MessageServiceDbMigratorModule>(options =>
         {
-            // 从环境变量取用户机密配置, 适用于容器测试
+            // Lấy cấu hình bí mật người dùng từ biến môi trường, dùng cho kiểm thử container
             options.Configuration.UserSecretsId = Environment.GetEnvironmentVariable("APPLICATION_USER_SECRETS_ID");
-            // 如果容器没有指定用户机密, 从项目读取
+            // Nếu container không chỉ định bí mật người dùng, đọc từ project
             options.Configuration.UserSecretsAssembly = typeof(MessageServiceDbMigratorHostedService).Assembly;
             options.Services.ReplaceConfiguration(_configuration);
             options.UseAutofac();

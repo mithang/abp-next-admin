@@ -1,17 +1,17 @@
 # LINGYUN.Abp.DataProtection.EntityFrameworkCore
 
-数据权限EF实现模块
+Module triển khai EF cho quyền dữ liệu
 
-## 接口描述  
+## Mô tả interface  
 
-* DisableDataProtectedAttribute: 通过拦截器自动实现DataFilter.Disable<IDataProtected>(),数据过滤器在当前范围将被禁用  
+* DisableDataProtectedAttribute: Tự động triển khai DataFilter.Disable<IDataProtected>() thông qua interceptor, bộ lọc dữ liệu trong phạm vi hiện tại sẽ bị vô hiệu hóa  
 
-## 注意事项
+## Lưu ý
 
-* 使用仓储接口尽量避免直接使用 *await GetDbSetAsync()*, 而是使用 *await GetQueryableAsync()*, 因为 **DbSet** 设计模式原因,暂无法对其进行处理  
-* 您的仓库接口应继承自 **EfCoreDataProtectionRepository**, 您的 *DbContext* 应继承自 **AbpDataProtectionDbContext**  
+* Khi dùng interface repository, cố gắng tránh dùng trực tiếp *await GetDbSetAsync()*, mà hãy dùng *await GetQueryableAsync()*, vì lý do mẫu thiết kế **DbSet** nên tạm thời chưa thể xử lý nó  
+* Interface repository của bạn nên kế thừa **EfCoreDataProtectionRepository**, *DbContext* của bạn nên kế thừa **AbpDataProtectionDbContext**  
 
-## 配置使用
+## Cấu hình và sử dụng
 
 ```csharp
 
@@ -24,13 +24,13 @@ public class YouProjectModule : AbpModule
     {
         Configure<DataProtectionManagementOptions>(options =>
         {
-            // 受保护的实体列表持久化
+            // Lưu trữ bền vững danh sách thực thể được bảo vệ
             options.AddEntities(typeof(YouResource), new Type[]
             {
                 typeof(YouProtectionObject),
             });
 
-            // 如下格式
+            // Định dạng như sau
             // options.AddEntities(typeof(IdentityResource), new Type[]
             // {
             //     typeof(IdentityUser),
@@ -75,14 +75,14 @@ public class EfCoreYouProtectionObjectRepository :
         DataFilter = dataFilter;
     }
 
-    // 获取受保护的数据列表
+    // Lấy danh sách dữ liệu được bảo vệ
     public async virtual Task<List<YouProtectionObject>> GetProtectedListAsync()
     {
         return await (await GetQueryableAsync())
             .ToListAsync();
     }
 
-    // 标注 DisableDataProtected 获取全部数据列表, 通过拦截器自动处理 DataFilter.Disable<IDataProtected>()
+    // Gắn chú thích DisableDataProtected để lấy toàn bộ danh sách dữ liệu, tự động xử lý DataFilter.Disable<IDataProtected>() qua interceptor
     [DisableDataProtected]
     public async virtual Task<List<YouProtectionObject>> GetUnProtectedListAsync()
     {
@@ -90,7 +90,7 @@ public class EfCoreYouProtectionObjectRepository :
             .ToListAsync();
     }
 
-    // 禁用 IDataProtected 过滤器获取全部数据列表(可在任意地方使用)
+    // Vô hiệu hóa bộ lọc IDataProtected để lấy toàn bộ danh sách dữ liệu (có thể dùng ở bất cứ đâu)
     public async virtual Task<List<YouProtectionObject>> GetUnProtectedByFilterListAsync()
     {
         using (DataFilter.Disable<IDataProtected>())

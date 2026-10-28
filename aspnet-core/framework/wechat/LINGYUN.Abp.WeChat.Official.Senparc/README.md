@@ -1,16 +1,16 @@
 # LINGYUN.Abp.WeChat.Official.Senparc
 
-微信公众号Senparc SDK集成模块，提供与Senparc.Weixin SDK的集成支持。
+Mô-đun tích hợp Senparc SDK cho tài khoản công khai WeChat, cung cấp hỗ trợ tích hợp với Senparc.Weixin SDK.
 
-## 功能特性
+## Tính năng
 
-* Senparc.Weixin SDK集成
-* 兼容Senparc消息处理机制
-* 兼容Senparc事件处理机制
-* 支持Senparc配置体系
-* 支持Senparc缓存策略
+* Tích hợp Senparc.Weixin SDK
+* Tương thích cơ chế xử lý tin nhắn Senparc
+* Tương thích cơ chế xử lý sự kiện Senparc
+* Hỗ trợ hệ thống cấu hình Senparc
+* Hỗ trợ chính sách bộ nhớ đệm Senparc
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatOfficialSenparcModule))]
@@ -20,17 +20,17 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "Official": {
       "Senparc": {
-        "IsEnabled": true,           // 是否启用Senparc集成
+        "IsEnabled": true,           // Có bật tích hợp Senparc hay không
         "Cache": {
-          "Type": "Local",          // 缓存类型：Local/Redis/Memcached
-          "Configuration": ""        // 缓存配置字符串
+          "Type": "Local",          // Loại bộ nhớ đệm: Local/Redis/Memcached
+          "Configuration": ""        // Chuỗi cấu hình bộ nhớ đệm
         }
       }
     }
@@ -38,17 +38,17 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## Senparc兼容性
+## Khả năng tương thích Senparc
 
-本模块与Senparc.Weixin SDK保持兼容，可以：
+Mô-đun này duy trì tương thích với Senparc.Weixin SDK, có thể:
 
-* 使用Senparc的消息处理器
-* 使用Senparc的事件处理器
-* 使用Senparc的API调用方式
-* 使用Senparc的缓存机制
-* 使用Senparc的扩展功能
+* Sử dụng bộ xử lý tin nhắn Senparc
+* Sử dụng bộ xử lý sự kiện Senparc
+* Sử dụng phương thức gọi API Senparc
+* Sử dụng cơ chế bộ nhớ đệm Senparc
+* Sử dụng chức năng mở rộng Senparc
 
-## 更多文档
+## Tài liệu khác
 
-* [微信公众号Senparc集成模块文档](README.EN.md)
-* [Senparc.Weixin SDK文档](https://github.com/JeffreySu/WeiXinMPSDK)
+* [Tài liệu mô-đun tích hợp Senparc cho tài khoản công khai WeChat](README.EN.md)
+* [Tài liệu Senparc.Weixin SDK](https://github.com/JeffreySu/WeiXinMPSDK)

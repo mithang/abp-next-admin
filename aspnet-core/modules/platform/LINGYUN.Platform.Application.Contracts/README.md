@@ -1,27 +1,27 @@
 # LINGYUN.Platform.Application.Contracts
 
-平台管理模块的应用服务契约层，定义了应用服务接口、DTO对象和权限定义。
+Lớp hợp đồng dịch vụ ứng dụng của mô-đun quản lý nền tảng, định nghĩa giao diện dịch vụ ứng dụng, đối tượng DTO và định nghĩa quyền.
 
-## 功能特性
+## Tính năng
 
-* 菜单管理接口
-  * 菜单CRUD操作
-  * 用户菜单管理
-  * 角色菜单管理
-  * 菜单收藏功能
+* Giao diện quản lý menu
+  * Thao tác CRUD menu
+  * Quản lý menu người dùng
+  * Quản lý menu vai trò
+  * Chức năng menu yêu thích
 
-* 包管理接口
-  * 包CRUD操作
-  * 包版本管理
-  * 包文件上传下载
+* Giao diện quản lý gói
+  * Thao tác CRUD gói
+  * Quản lý phiên bản gói
+  * Tải lên/tải xuống tệp gói
 
-* 权限定义
-  * 平台管理权限组
-  * 数据字典权限
-  * 菜单管理权限
-  * 包管理权限
+* Định nghĩa quyền
+  * Nhóm quyền quản lý nền tảng
+  * Quyền từ điển dữ liệu
+  * Quyền quản lý menu
+  * Quyền quản lý gói
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(PlatformApplicationContractsModule))]
@@ -31,55 +31,55 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务接口
+## Giao diện dịch vụ ứng dụng
 
-* `IMenuAppService`: 菜单管理服务接口
-* `IUserFavoriteMenuAppService`: 用户收藏菜单服务接口
-* `IPackageAppService`: 包管理服务接口
+* `IMenuAppService`: Giao diện dịch vụ quản lý menu
+* `IUserFavoriteMenuAppService`: Giao diện dịch vụ menu yêu thích của người dùng
+* `IPackageAppService`: Giao diện dịch vụ quản lý gói
 
-## 数据传输对象
+## Đối tượng truyền dữ liệu
 
-* 菜单相关DTO
-  * `MenuDto`: 菜单DTO
-  * `MenuCreateDto`: 创建菜单DTO
-  * `MenuUpdateDto`: 更新菜单DTO
-  * `MenuItemDto`: 菜单项DTO
-  * `UserFavoriteMenuDto`: 用户收藏菜单DTO
+* DTO liên quan đến menu
+  * `MenuDto`: DTO menu
+  * `MenuCreateDto`: DTO tạo menu
+  * `MenuUpdateDto`: DTO cập nhật menu
+  * `MenuItemDto`: DTO mục menu
+  * `UserFavoriteMenuDto`: DTO menu yêu thích của người dùng
 
-* 包管理相关DTO
-  * `PackageDto`: 包DTO
-  * `PackageCreateDto`: 创建包DTO
-  * `PackageUpdateDto`: 更新包DTO
-  * `PackageBlobDto`: 包文件DTO
+* DTO liên quan đến quản lý gói
+  * `PackageDto`: DTO gói
+  * `PackageCreateDto`: DTO tạo gói
+  * `PackageUpdateDto`: DTO cập nhật gói
+  * `PackageBlobDto`: DTO tệp gói
 
-## 权限定义
+## Định nghĩa quyền
 
 ```json
 {
   "Platform": {
-    "Default": "平台管理",
+    "Default": "Quản lý nền tảng",
     "DataDictionary": {
-      "Default": "数据字典管理",
-      "Create": "创建",
-      "Update": "更新",
-      "Delete": "删除"
+      "Default": "Quản lý từ điển dữ liệu",
+      "Create": "Tạo",
+      "Update": "Cập nhật",
+      "Delete": "Xóa"
     },
     "Menu": {
-      "Default": "菜单管理",
-      "Create": "创建",
-      "Update": "更新",
-      "Delete": "删除"
+      "Default": "Quản lý menu",
+      "Create": "Tạo",
+      "Update": "Cập nhật",
+      "Delete": "Xóa"
     },
     "Package": {
-      "Default": "包管理",
-      "Create": "创建",
-      "Update": "更新",
-      "Delete": "删除"
+      "Default": "Quản lý gói",
+      "Create": "Tạo",
+      "Update": "Cập nhật",
+      "Delete": "Xóa"
     }
   }
 }
 ```
 
-## 更多
+## Thêm nữa
 
-更多信息请参考 [Platform](../README.md)
+Xem thêm thông tin tại [Platform](../README.md)

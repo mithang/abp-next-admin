@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Aliyun.SettingManagement
 
-阿里云配置管理模块，引用此模块可管理阿里云相关的配置，可通过网关聚合对外公布的API接口。
+Mô-đun quản lý cấu hình Alibaba Cloud, tham chiếu mô-đun này để quản lý các cấu hình liên quan đến Alibaba Cloud, có thể công bố API ra bên ngoài thông qua gateway tổng hợp.
 
-## 功能特性
+## Tính năng
 
-* 提供阿里云服务配置的查询接口
-* 支持通过API接口获取阿里云配置信息
-* 与ABP设置管理系统集成
+* Cung cấp API truy vấn cấu hình dịch vụ Alibaba Cloud
+* Hỗ trợ lấy thông tin cấu hình Alibaba Cloud qua API
+* Tích hợp với hệ thống quản lý thiết lập ABP
 
-## API接口
+## API
 
-* **GET api/setting-management/aliyun** - 获取阿里云配置信息
+* **GET api/setting-management/aliyun** - Lấy thông tin cấu hình Alibaba Cloud
 
-## 模块引用
+## Tham chiếu mô-đun
 
-模块按需引用，建议在配置管理承载服务引用此模块。
+Tham chiếu mô-đun theo nhu cầu, nên tham chiếu mô-đun này trong dịch vụ chủ trì quản lý cấu hình.
 
 ```csharp
 [DependsOn(typeof(AbpAliyunSettingManagementModule))]
@@ -24,10 +24,10 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 注意
+## Lưu ý
 
-* 因后台管理模块负责管理所有配置，此模块仅提供查询接口
-* 需要与LINGYUN.Abp.Aliyun模块配合使用
-* 建议在配置管理承载服务中引用此模块
+* Vì mô-đun quản trị nền tảng chịu trách nhiệm quản lý mọi cấu hình, mô-đun này chỉ cung cấp API truy vấn
+* Cần sử dụng phối hợp với mô-đun LINGYUN.Abp.Aliyun
+* Nên tham chiếu mô-đun này trong dịch vụ chủ trì quản lý cấu hình
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

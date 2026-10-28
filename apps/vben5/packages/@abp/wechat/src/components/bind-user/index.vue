@@ -13,8 +13,8 @@ import { WeixinWorkAuthEnable } from '../../constants/features';
 
 const emits = defineEmits<{
   /**
-   * 用户扫码登录成功回调事件
-   * @params code 企业微信授权码
+   * Sự kiện callback khi người dùng quét mã đăng nhập thành công
+   * @params code Mã uỷ quyền WeChat doanh nghiệp
    */
   (event: 'onLogin', code: string): void;
 }>();

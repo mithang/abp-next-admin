@@ -5,55 +5,55 @@ import type { SettingGroup, SettingsUpdateInput } from "#/management/settings";
 import requestClient from "@/api/request";
 
 /**
- * 获取全局设置
- * @returns 设置数据传输对象列表
+ * Lấy cài đặt toàn cục
+ * @returns Danh sách đối tượng truyền dữ liệu cài đặt
  */
 export function getGlobalSettingsApi(): Promise<ListResultDto<SettingGroup>> {
 	return requestClient.get<ListResultDto<SettingGroup>>("/api/setting-management/settings/by-global");
 }
 
 /**
- * 设置全局设置
- * @returns 设置数据传输对象列表
+ * Đặt cài đặt toàn cục
+ * @returns Danh sách đối tượng truyền dữ liệu cài đặt
  */
 export function setGlobalSettingsApi(input: SettingsUpdateInput): Promise<void> {
 	return requestClient.put("/api/setting-management/settings/change-global", input);
 }
 
 /**
- * 获取租户设置
- * @returns 设置数据传输对象列表
+ * Lấy cài đặt tenant
+ * @returns Danh sách đối tượng truyền dữ liệu cài đặt
  */
 export function getTenantSettingsApi(): Promise<ListResultDto<SettingGroup>> {
 	return requestClient.get<ListResultDto<SettingGroup>>("api/setting-management/settings/by-current-tenant");
 }
 
 /**
- * 设置租户设置
- * @returns 设置数据传输对象列表
+ * Đặt cài đặt tenant
+ * @returns Danh sách đối tượng truyền dữ liệu cài đặt
  */
 export function setTenantSettingsApi(input: SettingsUpdateInput): Promise<void> {
 	return requestClient.put("/api/setting-management/settings/change-current-tenant", input);
 }
 /**
- * 获取用户设置
- * @returns 设置数据传输对象列表
+ * Lấy cài đặt người dùng
+ * @returns Danh sách đối tượng truyền dữ liệu cài đặt
  */
 export function getUserSettingsApi(): Promise<ListResultDto<SettingGroup>> {
 	return requestClient.get<ListResultDto<SettingGroup>>("/api/setting-management/settings/by-current-user");
 }
 
 /**
- * 设置用户设置
- * @returns 设置数据传输对象列表
+ * Đặt cài đặt người dùng
+ * @returns Danh sách đối tượng truyền dữ liệu cài đặt
  */
 export function setUserSettingsApi(input: SettingsUpdateInput): Promise<void> {
 	return requestClient.put("/api/setting-management/settings/change-current-user", input);
 }
 
 /**
- * 发送测试邮件
- * @param emailAddress 邮件接收方地址
+ * Gửi email kiểm tra
+ * @param emailAddress Địa chỉ người nhận email
  */
 export const sendTestEmailApi = (emailAddress: string) => {
 	return requestClient.post("/api/setting-management/settings/send-test-email", {

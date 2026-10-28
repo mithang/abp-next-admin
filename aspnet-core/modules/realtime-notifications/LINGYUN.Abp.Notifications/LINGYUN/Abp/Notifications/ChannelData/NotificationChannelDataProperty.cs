@@ -3,41 +3,41 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据属性元数据
+/// Metadata thuộc tính dữ liệu kênh
 /// </summary>
 /// <remarks>
-/// 由 <see cref="NotificationChannelPropertyAttribute"/> 推导而来,
-/// 描述"写入/读取哪个键、类型是什么、是否参与存在性判定"。
+/// Được suy ra từ <see cref="NotificationChannelPropertyAttribute"/>,
+/// mô tả "ghi/đọc khóa nào, kiểu là gì, có tham gia vào việc xác định sự tồn tại hay không".
 /// </remarks>
 public sealed class NotificationChannelDataProperty
 {
     /// <summary>
-    /// 数据键名
+    /// Tên khóa dữ liệu
     /// </summary>
     public string Key { get; }
 
     /// <summary>
-    /// 属性声明类型
+    /// Kiểu khai báo của thuộc tính
     /// </summary>
     public Type PropertyType { get; }
 
     /// <summary>
-    /// 存储格式
+    /// Định dạng lưu trữ
     /// </summary>
     public NotificationChannelDataFormat Format { get; }
 
     /// <summary>
-    /// 是否在存在性判定时忽略本属性
+    /// Có bỏ qua thuộc tính này khi xác định sự tồn tại hay không
     /// </summary>
     public bool IgnoreWhenMatching { get; }
 
     /// <summary>
-    /// 读取委托
+    /// Delegate đọc
     /// </summary>
     public Func<object, object?> GetValue { get; }
 
     /// <summary>
-    /// 写入委托
+    /// Delegate ghi
     /// </summary>
     public Action<object, object?> SetValue { get; }
 

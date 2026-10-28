@@ -1,30 +1,30 @@
-/** 资源管理权限 */
+/** Quyền quản lý tài nguyên */
 export const ResourcesPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'LocalizationManagement.Resource.Create',
   Default: 'LocalizationManagement.Resource',
-  /** 删除 */
+  /** Xóa */
   Delete: 'LocalizationManagement.Resource.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'LocalizationManagement.Resource.Update',
 };
-/** 语言管理权限 */
+/** Quyền quản lý ngôn ngữ */
 export const LanguagesPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'LocalizationManagement.Language.Create',
   Default: 'LocalizationManagement.Language',
-  /** 删除 */
+  /** Xóa */
   Delete: 'LocalizationManagement.Language.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'LocalizationManagement.Language.Update',
 };
-/** 文本管理权限 */
+/** Quyền quản lý văn bản */
 export const TextsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'LocalizationManagement.Text.Create',
   Default: 'LocalizationManagement.Text',
-  /** 删除 */
+  /** Xóa */
   Delete: 'LocalizationManagement.Text.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'LocalizationManagement.Text.Update',
 };

@@ -68,7 +68,7 @@ const FieldComponent = computed(() => {
     ? componentMap.value[component]
     : component;
   if (!finalComponent) {
-    // 组件未注册
+    // Component chưa được đăng ký
     console.warn(`Component ${component} is not registered`);
   }
   return finalComponent;
@@ -118,7 +118,7 @@ const shouldRequired = computed(() => {
 
   let isOptional = currentRules?.value?.isOptional?.();
 
-  // 如果有设置默认值，则不是必填，需要特殊处理
+  // Nếu đã đặt giá trị mặc định thì không bắt buộc, cần xử lý đặc biệt
   const typeName = currentRules?.value?._def?.typeName;
   if (typeName === 'ZodDefault') {
     const innerType = currentRules?.value?._def.innerType;
@@ -212,7 +212,7 @@ function fieldBindEvent(slotProps: Record<string, any>) {
     (isString(component) ? componentBindEventMap.value?.[component] : null);
 
   let value = modelValue;
-  // antd design 的一些组件会传递一个 event 对象
+  // Một số component của antd design sẽ truyền một đối tượng event
   if (modelValue && isObject(modelValue) && bindEventField) {
     value = isEventObjectLike(modelValue)
       ? modelValue?.target?.[bindEventField]
@@ -265,7 +265,7 @@ function autofocus() {
   if (
     fieldComponentRef.value &&
     isFunction(fieldComponentRef.value.focus) &&
-    // 检查当前是否有元素被聚焦
+    // Kiểm tra hiện tại có phần tử nào đang được focus hay không
     document.activeElement !== fieldComponentRef.value
   ) {
     fieldComponentRef.value?.focus?.();
@@ -377,7 +377,7 @@ onUnmounted(() => {
               </VbenTooltip>
             </slot>
           </FormControl>
-          <!-- 自定义后缀 -->
+          <!-- Hậu tố tùy chỉnh -->
           <div v-if="suffix" class="ml-1">
             <VbenRenderContent :content="suffix" />
           </div>

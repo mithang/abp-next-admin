@@ -18,7 +18,7 @@ const emits = defineEmits<{
 const { cancel, getAssignableClaimsApi } = useClaimTypesApi();
 const [Form, formApi] = useVbenForm({
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
@@ -58,14 +58,14 @@ const [Modal, modalApi] = useVbenModal({
           ...claimDto,
           newClaimValue: claimDto.claimValue,
         });
-        // 新增可选, 修改不可选
+        // Khi thêm mới thì có thể chọn, khi sửa thì không thể chọn
         formApi.updateSchema([
           {
             disabled: !!claimDto.id,
             fieldName: 'claimType',
           },
         ]);
-        // 新增时初始化可选声明
+        // Khi thêm mới, khởi tạo khai báo có thể chọn
         !claimDto.id && (await initAssignableClaims());
       } finally {
         modalApi.setState({ loading: false });
@@ -74,7 +74,7 @@ const [Modal, modalApi] = useVbenModal({
   },
   title: $t('AbpIdentity.ManageClaim'),
 });
-/** 初始化可用声明类型 */
+/** Khởi tạo loại khai báo khả dụng */
 async function initAssignableClaims() {
   const { items } = await getAssignableClaimsApi();
   formApi.updateSchema([
@@ -90,7 +90,7 @@ async function initAssignableClaims() {
     },
   ]);
 }
-/** 提交声明类型变更 */
+/** Gửi thay đổi loại khai báo */
 async function onSubmit(values: Record<string, any>) {
   try {
     modalApi.setState({ submitting: true });

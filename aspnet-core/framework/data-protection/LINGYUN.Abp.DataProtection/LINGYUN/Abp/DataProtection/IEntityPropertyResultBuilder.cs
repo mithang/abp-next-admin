@@ -4,22 +4,22 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.DataProtection;
 /// <summary>
-/// 实体属性返回值构造器
+/// Bộ xây dựng giá trị trả về của thuộc tính thực thể
 /// </summary>
 public interface IEntityPropertyResultBuilder
 {
     /// <summary>
-    /// 获取实体的属性返回值过滤表达式
+    /// Lấy biểu thức lọc giá trị trả về của thuộc tính thực thể
     /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    /// <param name="operation">数据操作方式</param>
+    /// <typeparam name="TEntity">Kiểu thực thể</typeparam>
+    /// <param name="operation">Phương thức thao tác dữ liệu</param>
     /// <returns></returns>
     Task<Expression<Func<TEntity, TEntity>>> Build<TEntity>(DataAccessOperation operation);
     /// <summary>
-    /// 获取实体的属性返回值过滤表达式
+    /// Lấy biểu thức lọc giá trị trả về của thuộc tính thực thể
     /// </summary>
-    /// <param name="entityType">实体类型</param>
-    /// <param name="operation">数据操作方式</param>
+    /// <param name="entityType">Kiểu thực thể</param>
+    /// <param name="operation">Phương thức thao tác dữ liệu</param>
     /// <returns></returns>
     Task<LambdaExpression> Build(Type entityType, DataAccessOperation operation);
 }

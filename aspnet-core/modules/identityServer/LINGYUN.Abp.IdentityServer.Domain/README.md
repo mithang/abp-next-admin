@@ -1,21 +1,21 @@
 # LINGYUN.Abp.IdentityServer.Domain
 
-IdentityServer领域模块，扩展IdentityServer4的领域层功能。
+Mô-đun miền IdentityServer, mở rộng chức năng tầng miền của IdentityServer4.
 
-## 功能特性
+## Tính năng
 
-* 事件服务扩展
-  * 自定义事件服务实现 - `AbpEventService`
-  * 可配置的事件处理程序 - `IAbpIdentityServerEventServiceHandler`
-  * 默认事件处理程序 - `AbpIdentityServerEventServiceHandler`
-    * 支持失败事件记录
-    * 支持信息事件记录
-    * 支持成功事件记录
-    * 支持错误事件记录
-  * 事件处理程序注册机制
-    * 通过`AbpIdentityServerEventOptions`配置事件处理程序
+* Mở rộng dịch vụ sự kiện
+  * Triển khai dịch vụ sự kiện tùy chỉnh - `AbpEventService`
+  * Trình xử lý sự kiện có thể cấu hình - `IAbpIdentityServerEventServiceHandler`
+  * Trình xử lý sự kiện mặc định - `AbpIdentityServerEventServiceHandler`
+    * Hỗ trợ ghi sự kiện thất bại
+    * Hỗ trợ ghi sự kiện thông tin
+    * Hỗ trợ ghi sự kiện thành công
+    * Hỗ trợ ghi sự kiện lỗi
+  * Cơ chế đăng ký trình xử lý sự kiện
+    * Cấu hình trình xử lý sự kiện qua `AbpIdentityServerEventOptions`
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -27,43 +27,43 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `Volo.Abp.IdentityServer.AbpIdentityServerDomainModule` - ABP IdentityServer领域模块
+* `Volo.Abp.IdentityServer.AbpIdentityServerDomainModule` - Mô-đun miền ABP IdentityServer
 
-## 配置使用
+## Cấu hình và sử dụng
 
-### 事件处理程序配置
+### Cấu hình trình xử lý sự kiện
 
 ```csharp
 Configure<AbpIdentityServerEventOptions>(options =>
 {
-    // 添加自定义事件处理程序
+    // Thêm trình xử lý sự kiện tùy chỉnh
     options.EventServiceHandlers.Add<YourEventServiceHandler>();
 });
 ```
 
-### 事件处理程序实现
+### Triển khai trình xử lý sự kiện
 
 ```csharp
 public class YourEventServiceHandler : IAbpIdentityServerEventServiceHandler
 {
     public virtual bool CanRaiseEventType(EventTypes evtType)
     {
-        // 实现事件类型判断逻辑
+        // Triển khai logic phán đoán loại sự kiện
         return true;
     }
 
     public virtual Task RaiseAsync(Event evt)
     {
-        // 实现事件处理逻辑
+        // Triển khai logic xử lý sự kiện
         return Task.CompletedTask;
     }
 }
 ```
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP IdentityServer文档](https://docs.abp.io/en/abp/latest/Modules/IdentityServer)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu ABP IdentityServer](https://docs.abp.io/en/abp/latest/Modules/IdentityServer)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

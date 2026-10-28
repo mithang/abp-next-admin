@@ -7,11 +7,11 @@ export const StyledCalendar = styled.div<{ $themeMode: ThemeMode }>`
   width: 100%;
   height: 100%;
   overflow: auto;
-  -ms-overflow-style: none; /* 适用于Internet Explorer, Edge */
-  scrollbar-width: none; /* 适用于Firefox */
+  -ms-overflow-style: none; /* Dành cho Internet Explorer, Edge */
+  scrollbar-width: none; /* Dành cho Firefox */
   overflow-y: scroll;
   &::-webkit-scrollbar {
-    display: none; /* 适用于Chrome、Safari和Opera */
+    display: none; /* Dành cho Chrome, Safari và Opera */
   }
   .fc {
     width: 100%;

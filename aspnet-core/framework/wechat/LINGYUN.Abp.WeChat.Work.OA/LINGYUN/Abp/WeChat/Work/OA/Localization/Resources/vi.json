@@ -1,0 +1,9 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Features:OA": "Văn phòng",
+    "Features:OADesc": "Tích hợp ứng dụng văn phòng WeChat Doanh nghiệp.",
+    "Features:OAEnable": "Bật văn phòng",
+    "Features:OAEnableDesc": "Bật để ứng dụng có khả năng sử dụng giao diện văn phòng WeChat Doanh nghiệp."
+  }
+}

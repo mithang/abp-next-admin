@@ -5,20 +5,20 @@ using Volo.Abp.MultiTenancy;
 namespace LINGYUN.Abp.MessageService.Groups;
 
 /// <summary>
-/// 用户黑名单
+/// Danh sách đen người dùng
 /// </summary>
 public class GroupChatBlack : CreationAuditedEntity<long>, IMultiTenant
 {
     /// <summary>
-    /// 租户
+    /// Tenant
     /// </summary>
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 群组标识
+    /// Mã định danh nhóm
     /// </summary>
     public virtual long GroupId { get; protected set; }
     /// <summary>
-    /// 拉黑的用户
+    /// Người dùng bị chặn
     /// </summary>
     public virtual Guid ShieldUserId { get; protected set; }
     protected GroupChatBlack() { }

@@ -1,17 +1,17 @@
 # LINGYUN.Abp.WeChat.SettingManagement
 
-微信设置管理模块，提供微信相关配置的管理功能。
+Mô-đun quản lý cài đặt WeChat, cung cấp chức năng quản lý các cấu hình liên quan đến WeChat.
 
-## 功能特性
+## Tính năng
 
-* 微信配置管理
-* 公众号配置管理
-* 小程序配置管理
-* 企业微信配置管理
-* 配置界面集成
-* 多租户支持
+* Quản lý cấu hình WeChat
+* Quản lý cấu hình tài khoản công khai
+* Quản lý cấu hình mini program
+* Quản lý cấu hình WeChat doanh nghiệp
+* Tích hợp giao diện cấu hình
+* Hỗ trợ đa tenant
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatSettingManagementModule))]
@@ -21,41 +21,41 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## Settings配置
+## Cấu hình Settings
 
-### 公众号配置
+### Cấu hình tài khoản công khai
 
-* `WeChat.Official.AppId`: 公众号AppId
-* `WeChat.Official.AppSecret`: 公众号AppSecret
-* `WeChat.Official.Token`: 公众号消息Token
-* `WeChat.Official.EncodingAESKey`: 公众号消息加密密钥
-* `WeChat.Official.IsSandBox`: 是否为沙箱环境
-* `WeChat.Official.Url`: 公众号服务器URL
+* `WeChat.Official.AppId`: AppId tài khoản công khai
+* `WeChat.Official.AppSecret`: AppSecret tài khoản công khai
+* `WeChat.Official.Token`: Token tin nhắn tài khoản công khai
+* `WeChat.Official.EncodingAESKey`: Khóa mã hóa tin nhắn tài khoản công khai
+* `WeChat.Official.IsSandBox`: Có phải môi trường sandbox hay không
+* `WeChat.Official.Url`: URL máy chủ tài khoản công khai
 
-### 小程序配置
+### Cấu hình mini program
 
-* `WeChat.MiniProgram.AppId`: 小程序AppId
-* `WeChat.MiniProgram.AppSecret`: 小程序AppSecret
-* `WeChat.MiniProgram.Token`: 小程序消息Token
-* `WeChat.MiniProgram.EncodingAESKey`: 小程序消息加密密钥
-* `WeChat.MiniProgram.IsDebug`: 是否开启调试模式
-* `WeChat.MiniProgram.DefaultEnvironment`: 默认环境
+* `WeChat.MiniProgram.AppId`: AppId mini program
+* `WeChat.MiniProgram.AppSecret`: AppSecret mini program
+* `WeChat.MiniProgram.Token`: Token tin nhắn mini program
+* `WeChat.MiniProgram.EncodingAESKey`: Khóa mã hóa tin nhắn mini program
+* `WeChat.MiniProgram.IsDebug`: Có bật chế độ gỡ lỗi hay không
+* `WeChat.MiniProgram.DefaultEnvironment`: Môi trường mặc định
 
-### 企业微信配置
+### Cấu hình WeChat doanh nghiệp
 
-* `WeChat.Work.CorpId`: 企业ID
-* `WeChat.Work.AgentId`: 应用ID
-* `WeChat.Work.Secret`: 应用密钥
-* `WeChat.Work.Token`: 消息Token
-* `WeChat.Work.EncodingAESKey`: 消息加密密钥
+* `WeChat.Work.CorpId`: ID doanh nghiệp
+* `WeChat.Work.AgentId`: ID ứng dụng
+* `WeChat.Work.Secret`: Khóa bí mật ứng dụng
+* `WeChat.Work.Token`: Token tin nhắn
+* `WeChat.Work.EncodingAESKey`: Khóa mã hóa tin nhắn
 
-## 权限
+## Quyền
 
-* `WeChat.Setting`: 微信设置管理
-* `WeChat.Setting.Official`: 公众号设置管理
-* `WeChat.Setting.MiniProgram`: 小程序设置管理
-* `WeChat.Setting.Work`: 企业微信设置管理
+* `WeChat.Setting`: Quản lý cài đặt WeChat
+* `WeChat.Setting.Official`: Quản lý cài đặt tài khoản công khai
+* `WeChat.Setting.MiniProgram`: Quản lý cài đặt mini program
+* `WeChat.Setting.Work`: Quản lý cài đặt WeChat doanh nghiệp
 
-## 更多文档
+## Tài liệu thêm
 
-* [微信设置管理模块文档](README.EN.md)
+* [Tài liệu mô-đun quản lý cài đặt WeChat](README.EN.md)

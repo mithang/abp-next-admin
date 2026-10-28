@@ -4,29 +4,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 关键数据样式
+/// Kiểu dữ liệu quan trọng
 /// </summary>
 public class WebhookTemplateCardEmphasisContent
 {
     /// <summary>
-    /// 关键数据样式的数据内容，建议不超过10个字
+    /// Nội dung dữ liệu của kiểu dữ liệu quan trọng, nên không vượt quá 10 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string? Title { get; set; }
     /// <summary>
-    /// 关键数据样式的数据描述内容，建议不超过15个字
+    /// Nội dung mô tả dữ liệu của kiểu dữ liệu quan trọng, nên không vượt quá 15 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]
     [JsonPropertyName("desc")]
     public string? Description { get; set; }
     /// <summary>
-    /// 创建一个关键数据样式
+    /// Tạo một kiểu dữ liệu quan trọng
     /// </summary>
-    /// <param name="title">关键数据样式的数据内容</param>
-    /// <param name="description">关键数据样式的数据描述内容</param>
+    /// <param name="title">Nội dung dữ liệu của kiểu dữ liệu quan trọng</param>
+    /// <param name="description">Nội dung mô tả dữ liệu của kiểu dữ liệu quan trọng</param>
     public WebhookTemplateCardEmphasisContent(string title, string? description = null)
     {
         Title = title;

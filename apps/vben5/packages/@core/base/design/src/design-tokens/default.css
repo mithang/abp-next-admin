@@ -1,5 +1,5 @@
 :root {
-  /** 弹出层的基础层级 **/
+  /** Tầng cơ sở của lớp popup **/
   --popup-z-index: 2000;
   --font-family:
     -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
@@ -9,7 +9,7 @@
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
 
-  /* 主体区域背景色 */
+  /* Màu nền vùng chính */
   --background-deep: 216 20.11% 95.47%;
   --foreground: 210 6% 21%;
 
@@ -29,7 +29,7 @@
   --muted: 240 4.8% 95.9%;
   --muted-foreground: 240 3.8% 46.1%;
 
-  /* 主题颜色 */
+  /* Màu chủ đề */
 
   --primary: 212 100% 45%;
   --primary-foreground: 0 0% 98%;
@@ -87,11 +87,11 @@
 
   /* ============= custom ============= */
 
-  /* 遮罩颜色 */
+  /* Màu lớp phủ */
   --overlay: 0 0% 0% / 45%;
   --overlay-content: 0 0% 95% / 45%;
 
-  /* 基本文字大小 */
+  /* Cỡ chữ cơ bản */
   --font-size-base: 16px;
   --menu-font-size: calc(var(--font-size-base) * 0.875);
 

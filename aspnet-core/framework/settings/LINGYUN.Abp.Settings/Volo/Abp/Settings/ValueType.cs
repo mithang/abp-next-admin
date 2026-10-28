@@ -3,35 +3,35 @@
 public enum ValueType
 {
     /// <summary>
-    /// 不加入设置管理(配合前端请勿传递设置值)
+    /// Không đưa vào quản lý cài đặt (phối hợp với frontend, vui lòng không truyền giá trị cài đặt)
     /// </summary>
     NoSet = -1,
     /// <summary>
-    /// 字符
+    /// Ký tự
     /// </summary>
     String = 0,
     /// <summary>
-    /// 数字
+    /// Số
     /// </summary>
     Number = 1,
     /// <summary>
-    /// 布尔
+    /// Boolean
     /// </summary>
     Boolean = 2,
     /// <summary>
-    /// 日期
+    /// Ngày
     /// </summary>
     Date = 3,
     /// <summary>
-    /// 数组
+    /// Mảng
     /// </summary>
     Array = 4,
     /// <summary>
-    /// 选项
+    /// Tùy chọn
     /// </summary>
     Option = 5,
     /// <summary>
-    /// 对象
+    /// Đối tượng
     /// </summary>
     Object = 10
 }

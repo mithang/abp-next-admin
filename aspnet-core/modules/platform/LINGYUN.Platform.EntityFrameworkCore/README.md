@@ -1,16 +1,16 @@
 # LINGYUN.Platform.EntityFrameworkCore
 
-平台管理模块的EntityFrameworkCore实现，提供了数据访问和持久化功能。
+Triển khai EntityFrameworkCore của module quản lý nền tảng, cung cấp chức năng truy cập và lưu trữ dữ liệu.
 
-## 功能特性
+## Tính năng
 
-* 实现平台管理所有仓储接口
-* 支持多数据库提供程序
-* 实体关系映射配置
-* 数据库上下文定义
-* 支持查询优化和性能调优
+* Triển khai mọi giao diện kho lưu trữ của quản lý nền tảng
+* Hỗ trợ nhiều nhà cung cấp cơ sở dữ liệu
+* Cấu hình ánh xạ quan hệ thực thể
+* Định nghĩa ngữ cảnh cơ sở dữ liệu
+* Hỗ trợ tối ưu truy vấn và tinh chỉnh hiệu năng
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(PlatformEntityFrameworkCoreModule))]
@@ -20,29 +20,29 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 仓储实现
+## Triển khai kho lưu trữ
 
-* `EfCoreUserMenuRepository`: 用户菜单仓储实现
-  * 支持获取用户启动菜单
-  * 支持用户菜单列表查询
-  * 支持用户菜单权限验证
+* `EfCoreUserMenuRepository`: Triển khai kho lưu trữ menu người dùng
+  * Hỗ trợ lấy menu khởi động của người dùng
+  * Hỗ trợ truy vấn danh sách menu người dùng
+  * Hỗ trợ xác thực quyền menu người dùng
 
-* `EfCorePackageRepository`: 包管理仓储实现
-  * 支持包版本查询
-  * 支持包规格过滤
-  * 支持包详情加载
+* `EfCorePackageRepository`: Triển khai kho lưu trữ quản lý gói
+  * Hỗ trợ truy vấn phiên bản gói
+  * Hỗ trợ lọc theo đặc tả gói
+  * Hỗ trợ tải chi tiết gói
 
-* `EfCoreEnterpriseRepository`: 企业仓储实现
-  * 支持租户关联查询
-  * 支持企业列表分页
+* `EfCoreEnterpriseRepository`: Triển khai kho lưu trữ doanh nghiệp
+  * Hỗ trợ truy vấn liên kết tenant
+  * Hỗ trợ phân trang danh sách doanh nghiệp
 
-## 数据库上下文
+## Ngữ cảnh cơ sở dữ liệu
 
-* `IPlatformDbContext`: 平台管理数据库上下文接口
-  * 定义所有实体的DbSet
-  * 支持多租户数据隔离
+* `IPlatformDbContext`: Giao diện ngữ cảnh cơ sở dữ liệu quản lý nền tảng
+  * Định nghĩa DbSet của mọi thực thể
+  * Hỗ trợ cô lập dữ liệu đa tenant
 
-## 配置项
+## Các mục cấu hình
 
 ```json
 {
@@ -52,6 +52,6 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
-更多信息请参考 [Platform](../README.md)
+Xem thêm thông tin tại [Platform](../README.md)

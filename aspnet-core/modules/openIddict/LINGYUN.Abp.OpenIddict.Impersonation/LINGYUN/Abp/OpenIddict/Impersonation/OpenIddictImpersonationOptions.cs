@@ -3,15 +3,15 @@
 public class OpenIddictImpersonationOptions
 {
     /// <summary>
-    /// 模拟用户时检查权限
+    /// Kiểm tra quyền khi giả mạo người dùng
     /// </summary>
     public string? ImpersonationPermission {  get; set; }
     /// <summary>
-    /// 模拟租户时检查权限
+    /// Kiểm tra quyền khi giả mạo tenant
     /// </summary>
     public string? ImpersonationTenantPermission { get; set; }
     /// <summary>
-    /// 宿主端模拟租户时默认管理员用户名
+    /// Tên người dùng quản trị viên mặc định khi phía host giả mạo tenant
     /// </summary>
     public string DefaultTenantAdminUserName {  get; set; }
     public OpenIddictImpersonationOptions()

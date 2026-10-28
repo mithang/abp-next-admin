@@ -1,23 +1,23 @@
 # LINGYUN.Abp.Identity.WxPusher
 
-IWxPusherUserStore 接口的Identity模块实现, 通过用户Claims来获取关注的topic列表  
+Triển khai module Identity của giao diện IWxPusherUserStore, lấy danh sách topic đang theo dõi thông qua Claims của người dùng  
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成WxPusher用户存储接口
-* 通过用户Claims管理WxPusher的UID和Topic
-* 支持批量获取用户绑定的UID
-* 支持批量获取用户订阅的Topic
+* Tích hợp giao diện lưu trữ người dùng WxPusher
+* Quản lý UID và Topic của WxPusher thông qua Claims của người dùng
+* Hỗ trợ lấy hàng loạt UID đã liên kết của người dùng
+* Hỗ trợ lấy hàng loạt Topic người dùng đã đăng ký
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Identity.WxPusher
 ```
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpIdentityWxPusherModule))]
@@ -27,14 +27,14 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 使用方式
+## Cách sử dụng
 
-该模块实现了 `IWxPusherUserStore` 接口，通过用户Claims存储WxPusher相关信息：
+Module này triển khai giao diện `IWxPusherUserStore`, lưu trữ thông tin liên quan đến WxPusher thông qua Claims của người dùng:
 
-* `AbpWxPusherClaimTypes.Uid`: 存储用户绑定的WxPusher UID
-* `AbpWxPusherClaimTypes.Topic`: 存储用户订阅的Topic ID
+* `AbpWxPusherClaimTypes.Uid`: Lưu trữ UID WxPusher đã liên kết của người dùng
+* `AbpWxPusherClaimTypes.Topic`: Lưu trữ ID Topic người dùng đã đăng ký
 
-### 获取用户绑定的UID
+### Lấy UID đã liên kết của người dùng
 
 ```csharp
 public class YourService
@@ -49,12 +49,12 @@ public class YourService
     public async Task DoSomethingAsync(IEnumerable<Guid> userIds)
     {
         var uids = await _wxPusherUserStore.GetBindUidsAsync(userIds);
-        // 使用获取到的uids进行消息推送等操作
+        // Dùng các uids đã lấy được để đẩy thông báo và các thao tác khác
     }
 }
 ```
 
-### 获取用户订阅的Topic
+### Lấy Topic người dùng đã đăng ký
 
 ```csharp
 public class YourService
@@ -69,11 +69,11 @@ public class YourService
     public async Task DoSomethingAsync(IEnumerable<Guid> userIds)
     {
         var topics = await _wxPusherUserStore.GetSubscribeTopicsAsync(userIds);
-        // 使用获取到的topics进行消息推送等操作
+        // Dùng các topics đã lấy được để đẩy thông báo và các thao tác khác
     }
 }
 ```
 
-## 源码位置
+## Vị trí mã nguồn
 
 [LINGYUN.Abp.Identity.WxPusher](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/framework/wx-pusher/LINGYUN.Abp.Identity.WxPusher)

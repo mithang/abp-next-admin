@@ -16,7 +16,7 @@ public class AbpLocalizationManagementHttpApiModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        // Dto验证本地化
+        // Bản địa hóa xác thực Dto
         PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
         {
             options.AddAssemblyResource(

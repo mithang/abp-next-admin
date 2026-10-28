@@ -13,9 +13,9 @@ export function useResourcesApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询资源分页列表
-   * @param input 参数
-   * @returns 资源列表
+   * Truy vấn danh sách phân trang tài nguyên
+   * @param input Tham số
+   * @returns Danh sách tài nguyên
    */
   function getPagedListApi(
     input?: ResourceGetPagedListInput,
@@ -27,9 +27,9 @@ export function useResourcesApi() {
   }
 
   /**
-   * 查询资源
-   * @param name 资源名称
-   * @returns 查询的资源
+   * Truy vấntài nguyên
+   * @param name Tên tài nguyên
+   * @returns Tài nguyên được truy vấn
    */
   function getApi(name: string): Promise<ResourceDto> {
     return request<ResourceDto>(`/api/localization/resources/${name}`, {
@@ -38,8 +38,8 @@ export function useResourcesApi() {
   }
 
   /**
-   * 删除资源
-   * @param name 资源名称
+   * Xóa tài nguyên
+   * @param name Tên tài nguyên
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/localization/resources/${name}`, {
@@ -48,9 +48,9 @@ export function useResourcesApi() {
   }
 
   /**
-   * 创建资源
-   * @param input 参数
-   * @returns 创建的资源
+   * Tạo tài nguyên
+   * @param input Tham số
+   * @returns Tài nguyên đã tạo
    */
   function createApi(input: ResourceCreateDto): Promise<ResourceDto> {
     return request<ResourceDto>(`/api/localization/resources`, {
@@ -60,10 +60,10 @@ export function useResourcesApi() {
   }
 
   /**
-   * 编辑资源
-   * @param name 资源名称
-   * @param input 参数
-   * @returns 编辑的资源
+   * Chỉnh sửa tài nguyên
+   * @param name Tên tài nguyên
+   * @param input Tham số
+   * @returns Tài nguyên đã chỉnh sửa
    */
   function updateApi(
     name: string,

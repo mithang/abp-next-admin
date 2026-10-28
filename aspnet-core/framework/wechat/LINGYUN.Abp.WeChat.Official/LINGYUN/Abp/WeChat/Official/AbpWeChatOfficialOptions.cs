@@ -3,30 +3,30 @@
 public class AbpWeChatOfficialOptions
 {
     /// <summary>
-    /// 是否沙盒测试
+    /// Có phải kiểm thử sandbox hay không
     /// </summary>
     /// <remarks>
-    /// Tips: 当使用测试号时，消息为明文传输，调试时需要启用
+    /// Tips: Khi dùng tài khoản kiểm thử, tin nhắn được truyền dưới dạng văn bản thuần, cần bật khi gỡ lỗi
     /// </remarks>
     public bool IsSandBox { get; set; }
     /// <summary>
-    /// 公众号服务器消息Url
+    /// Url tin nhắn máy chủ của tài khoản chính thức
     /// </summary>
     public string Url { get; set; } = default!;
     /// <summary>
-    /// 公众号AppId
+    /// AppId tài khoản chính thức
     /// </summary>
     public string AppId { get; set; } = default!;
     /// <summary>
-    /// 公众号AppSecret
+    /// AppSecret tài khoản chính thức
     /// </summary>
     public string AppSecret { get; set; } = default!;
     /// <summary>
-    /// 公众号消息解密Token
+    /// Token giải mã tin nhắn của tài khoản chính thức
     /// </summary>
     public string Token { get; set; } = default!;
     /// <summary>
-    /// 公众号消息解密AESKey
+    /// AESKey giải mã tin nhắn của tài khoản chính thức
     /// </summary>
     public string EncodingAESKey { get; set; } = default!;
 }

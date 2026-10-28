@@ -50,7 +50,7 @@ public class NotificationPublishJob : AsyncBackgroundJob<NotificationPublishJobA
                     if (await publishProvider.CanPublishAsync(notification))
                     {
                         var context = new NotificationPublishContext(notification, args.UserIdentifiers);
-                        // 发布
+                        // Phát hành
                         await publishProvider.PublishAsync(context);
 
                         sendInfo.Sent(context.Exception);

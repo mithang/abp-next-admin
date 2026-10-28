@@ -1,16 +1,16 @@
-# 国际化
+# Quốc tế hóa
 
-项目已经集成了 [Vue i18n](https://kazupon.github.io/vue-i18n/)，并且已经配置好了中文和英文的语言包。
+Dự án đã tích hợp [Vue i18n](https://kazupon.github.io/vue-i18n/), và đã cấu hình sẵn gói ngôn ngữ tiếng Trung và tiếng Anh.
 
-## IDE 插件
+## Plugin IDE
 
-如果你使用的 vscode 开发工具，则推荐安装 [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) 这个插件。它可以帮助你更方便的管理国际化的文案，安装了该插件后，你的代码内可以实时看到对应的语言内容：
+Nếu bạn dùng công cụ phát triển vscode, nên cài đặt plugin [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally). Plugin này giúp bạn quản lý văn bản quốc tế hóa thuận tiện hơn, sau khi cài đặt plugin này, trong code của bạn có thể thấy trực tiếp nội dung ngôn ngữ tương ứng:
 
 ![](/public/guide/locale.png)
 
-## 配置默认语言
+## Cấu hình ngôn ngữ mặc định
 
-只需要覆盖默认的偏好设置即可，在对应的应用内，找到 `src/preferences.ts` 文件，修改 `locale` 的值即可：
+Chỉ cần ghi đè cài đặt ưu tiên mặc định là được, trong ứng dụng tương ứng, tìm file `src/preferences.ts`, sửa giá trị của `locale` là được:
 
 ```ts {3}
 export const overridesPreferences = defineOverridesPreferences({
@@ -20,12 +20,12 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 动态切换语言
+## Chuyển đổi ngôn ngữ động
 
-切换语言有两部分组成:
+Việc chuyển đổi ngôn ngữ gồm hai phần:
 
-- 更新偏好设置
-- 加载对应的语言包
+- Cập nhật cài đặt ưu tiên
+- Tải gói ngôn ngữ tương ứng
 
 ```ts
 import type { SupportedLanguagesType } from '@vben/locales';
@@ -33,30 +33,30 @@ import { loadLocaleMessages } from '@vben/locales';
 import { updatePreferences } from '@vben/preferences';
 
 async function updateLocale(value: string) {
-  // 1. 更新偏好设置
+  // 1. Cập nhật cài đặt ưu tiên
   const locale = value as SupportedLanguagesType;
   updatePreferences({
     app: {
       locale,
     },
   });
-  // 2. 加载对应的语言包
+  // 2. Tải gói ngôn ngữ tương ứng
   await loadLocaleMessages(locale);
 }
 
 updateLocale('en-US');
 ```
 
-## 新增翻译文本
+## Thêm văn bản dịch
 
-::: warning 注意
+::: warning Lưu ý
 
-- 请不要将业务翻译文本放到 `@vben/locales` 内，这样可以更好的管理业务和通用的翻译文本。
-- 有多个语言包的情况下，新增翻译文本时，需要在所有语言包内新增对应的文本。
+- Xin đừng đặt văn bản dịch nghiệp vụ vào trong `@vben/locales`, như vậy có thể quản lý văn bản dịch nghiệp vụ và văn bản dịch chung tốt hơn.
+- Trong trường hợp có nhiều gói ngôn ngữ, khi thêm văn bản dịch cần thêm văn bản tương ứng trong tất cả các gói ngôn ngữ.
 
 :::
 
-新增翻译文本，只需要在对应的应用内，找到 `src/locales/langs/`，新增对应的文本即可，例:
+Để thêm văn bản dịch, chỉ cần trong ứng dụng tương ứng, tìm `src/locales/langs/`, thêm văn bản tương ứng là được, ví dụ:
 
 **src/locales/langs/zh-CN/\*.json**
 
@@ -64,7 +64,7 @@ updateLocale('en-US');
 ```json
 {
   "about": {
-    "desc": "Vben Admin 是一个现代的管理模版。"
+    "desc": "Vben Admin là một mẫu quản trị hiện đại."
   }
 }
 ````
@@ -80,11 +80,11 @@ updateLocale('en-US');
 }
 ````
 
-## 使用翻译文本
+## Sử dụng văn bản dịch
 
-通过 `@vben/locales`，你可以很方便的使用翻译文本：
+Thông qua `@vben/locales`, bạn có thể sử dụng văn bản dịch rất thuận tiện:
 
-### 在代码中使用
+### Sử dụng trong code
 
 ```vue
 <script setup lang="ts">
@@ -101,13 +101,13 @@ const items = computed(() => [{ title: $t('about.desc') }]);
 </template>
 ```
 
-## 新增语言包
+## Thêm gói ngôn ngữ
 
-如果你需要新增语言包，需要按照以下步骤进行：
+Nếu bạn cần thêm gói ngôn ngữ, cần thực hiện theo các bước sau:
 
-- 在 `packages/locales/langs` 目录下新增对应的语言包文件，例：`zh-TW.json`，并翻译对应的文本。
-- 在对应的应用内，找到 `src/locales/langs` 文件，新增对应的语言包 `zh-TW.json`
-- 在 `packages/constants/src/core.ts`内，新增对应的语言：
+- Trong thư mục `packages/locales/langs`, thêm file gói ngôn ngữ tương ứng, ví dụ: `zh-TW.json`, và dịch văn bản tương ứng.
+- Trong ứng dụng tương ứng, tìm file `src/locales/langs`, thêm gói ngôn ngữ tương ứng `zh-TW.json`
+- Trong `packages/constants/src/core.ts`, thêm ngôn ngữ tương ứng:
 
   ```ts
   export interface LanguageOption {
@@ -117,7 +117,7 @@ const items = computed(() => [{ title: $t('about.desc') }]);
   }
   export const SUPPORT_LANGUAGES: LanguageOption[] = [
     {
-      label: '简体中文',
+      label: 'Tiếng Trung giản thể',
       value: 'zh-CN',
     },
     {
@@ -125,24 +125,24 @@ const items = computed(() => [{ title: $t('about.desc') }]);
       value: 'en-US',
     },
     {
-      label: '繁体中文', // [!code ++]
+      label: 'Tiếng Trung phồn thể', // [!code ++]
       value: 'zh-TW', // [!code ++]
     },
   ];
   ```
 
-- 在 `packages/locales/typing.ts`内，新增 Typescript 类型：
+- Trong `packages/locales/typing.ts`, thêm kiểu Typescript:
 
   ```ts
   export type SupportedLanguagesType = 'en-US' | 'zh-CN'; // [!code --]
   export type SupportedLanguagesType = 'en-US' | 'zh-CN' | 'zh-TW'; // [!code ++]
   ```
 
-到这里，你就可以在项目内使用新增的语言包了。
+Đến đây, bạn đã có thể sử dụng gói ngôn ngữ mới thêm trong dự án.
 
-## 界面切换语言功能
+## Tính năng chuyển đổi ngôn ngữ trên giao diện
 
-如果你想关闭界面上的语言切换显示按钮，在对应的应用内，找到 `src/preferences.ts` 文件，修改 `locale` 的值即可：
+Nếu bạn muốn tắt nút hiển thị chuyển đổi ngôn ngữ trên giao diện, trong ứng dụng tương ứng, tìm file `src/preferences.ts`, sửa giá trị của `locale` là được:
 
 ```ts {3}
 export const overridesPreferences = defineOverridesPreferences({
@@ -152,20 +152,20 @@ export const overridesPreferences = defineOverridesPreferences({
 });
 ```
 
-## 远程加载语言包
+## Tải gói ngôn ngữ từ xa
 
-::: tip 提示
+::: tip Mẹo
 
-通过项目自带的`request`工具进行接口请求时，默认请求头里会带上 [Accept-Language](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Accept-Language) ，服务端可根据请求头进行动态数据国际化处理。
+Khi dùng công cụ `request` đi kèm dự án để gọi API, header mặc định sẽ mang theo [Accept-Language](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Accept-Language) , phía server có thể xử lý quốc tế hóa dữ liệu động dựa theo header.
 
 :::
 
-每个应用都有一个独立的语言包，它可以覆盖通用的语言配置，你可以通过远程加载的方式来获取对应的语言包，只需要在对应的应用内，找到 `src/locales/index.ts` 文件，修改 `loadMessages` 方法即可：
+Mỗi ứng dụng đều có một gói ngôn ngữ độc lập, nó có thể ghi đè cấu hình ngôn ngữ chung, bạn có thể lấy gói ngôn ngữ bằng cách tải từ xa, chỉ cần trong ứng dụng tương ứng, tìm file `src/locales/index.ts`, sửa phương thức `loadMessages` là được:
 
 ```ts {3-4}
 async function loadMessages(lang: SupportedLanguagesType) {
   const [appLocaleMessages] = await Promise.all([
-    // 这里修改为远程接口加载数据即可
+    // Ở đây sửa thành tải dữ liệu từ API từ xa là được
     localesMap[lang](),
     loadThirdPartyMessage(lang),
   ]);
@@ -173,13 +173,13 @@ async function loadMessages(lang: SupportedLanguagesType) {
 }
 ```
 
-## 第三方语言包
+## Gói ngôn ngữ bên thứ ba
 
-不同应用内使用的第三方组件库或者插件国际化方式可能不一致，所以需要差别处理。 如果你需要引入第三方的语言包，你可以在对应的应用内，找到 `src/locales/index.ts` 文件，修改 `loadThirdPartyMessage` 方法即可：
+Cách quốc tế hóa của các thư viện component hoặc plugin bên thứ ba dùng trong các ứng dụng khác nhau có thể không nhất quán, vì vậy cần xử lý khác nhau. Nếu bạn cần đưa vào gói ngôn ngữ bên thứ ba, bạn có thể trong ứng dụng tương ứng, tìm file `src/locales/index.ts`, sửa phương thức `loadThirdPartyMessage` là được:
 
 ```ts
 /**
- * 加载dayjs的语言包
+ * Tải gói ngôn ngữ dayjs
  * @param lang
  */
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
@@ -193,7 +193,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
       locale = await import('dayjs/locale/en');
       break;
     }
-    // 默认使用英语
+    // Mặc định dùng tiếng Anh
     default: {
       locale = await import('dayjs/locale/en');
     }
@@ -206,13 +206,13 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
 }
 ```
 
-## 移除国际化
+## Gỡ bỏ quốc tế hóa
 
-首先，不是很建议移除国际化，因为国际化是一个很好的开发习惯，但是如果你真的需要移除国际化，你可以直接使用中文文案，然后保留项目自带的语言包即可，整体开发体验不会影响。移除国际化的步骤如下：
+Trước hết, không khuyến khích lắm việc gỡ bỏ quốc tế hóa, vì quốc tế hóa là một thói quen phát triển tốt, nhưng nếu bạn thực sự cần gỡ bỏ quốc tế hóa, bạn có thể trực tiếp dùng văn bản tiếng Việt, rồi giữ lại gói ngôn ngữ đi kèm dự án là được, trải nghiệm phát triển tổng thể sẽ không bị ảnh hưởng. Các bước gỡ bỏ quốc tế hóa như sau:
 
-- 隐藏界面上的语言切换按钮，见：[界面切换语言功能](#界面切换语言功能)
-- 修改默认语言，见：[配置默认语言](#配置默认语言)
-- 关闭 `vue-i18n`的警告提示，在`src/locales/index.ts`文件内，修改`missingWarn`为`false`即可：
+- Ẩn nút chuyển đổi ngôn ngữ trên giao diện, xem: [Tính năng chuyển đổi ngôn ngữ trên giao diện](#tính-năng-chuyển-đổi-ngôn-ngữ-trên-giao-diện)
+- Sửa ngôn ngữ mặc định, xem: [Cấu hình ngôn ngữ mặc định](#cấu-hình-ngôn-ngữ-mặc-định)
+- Tắt cảnh báo của `vue-i18n`, trong file `src/locales/index.ts`, sửa `missingWarn` thành `false` là được:
 
   ```ts
   async function setupI18n(app: App, options: LocaleSetupOptions = {}) {

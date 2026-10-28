@@ -21,18 +21,18 @@ public class TenantCreateDto : TenantCreateOrUpdateBase
     public string AdminPassword { get; set; } = default!;
 
     /// <summary>
-    /// 使用共享数据库
+    /// Sử dụng cơ sở dữ liệu dùng chung
     /// </summary>
     public bool UseSharedDatabase { get; set; } = true;
 
     /// <summary>
-    /// 默认数据库连接字符串
+    /// Chuỗi kết nối cơ sở dữ liệu mặc định
     /// </summary>
     [DynamicStringLength(typeof(TenantConnectionStringConsts), nameof(TenantConnectionStringConsts.MaxValueLength))]
     public string? DefaultConnectionString { get; set; }
 
     /// <summary>
-    /// 其他数据库连接
+    /// Các kết nối cơ sở dữ liệu khác
     /// </summary>
     public List<TenantConnectionStringSetInput> ConnectionStrings { get; set; } = new List<TenantConnectionStringSetInput>();
 

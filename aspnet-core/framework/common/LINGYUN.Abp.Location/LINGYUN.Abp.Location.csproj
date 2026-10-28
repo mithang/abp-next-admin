@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>位置服务</Description>
+		<Description>Dịch vụ định vị</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -2,16 +2,16 @@
 
 namespace LINGYUN.Abp.Exporter;
 /// <summary>
-/// 数据导入服务接口
+/// Giao diện dịch vụ nhập dữ liệu
 /// </summary>
 /// <typeparam name="TEntityImportDto"></typeparam>
 public interface IImporterAppService<TEntityImportDto>
     where TEntityImportDto: class, new()
 {
     /// <summary>
-    /// 导入数据（默认从Excel）
+    /// Nhập dữ liệu (mặc định từ Excel)
     /// </summary>
-    /// <param name="input">导入的数据文件流</param>
+    /// <param name="input">Luồng tệp dữ liệu được nhập</param>
     /// <returns></returns>
     Task ImportAsync(TEntityImportDto input);
 }

@@ -9,7 +9,7 @@ function usePreferences() {
   const preferences = preferencesManager.getPreferences();
   const initialPreferences = preferencesManager.getInitialPreferences();
   /**
-   * @zh_CN 计算偏好设置的变化
+   * @zh_CN Tính toán sự thay đổi của tùy chọn
    */
   const diffPreference = computed(() => {
     return diff(initialPreferences, preferences);
@@ -20,9 +20,9 @@ function usePreferences() {
   const shortcutKeysPreferences = computed(() => preferences.shortcutKeys);
 
   /**
-   * @zh_CN 判断是否为暗黑模式
-   * @param  preferences - 当前偏好设置对象，它的主题值将被用来判断是否为暗黑模式。
-   * @returns 如果主题为暗黑模式，返回 true，否则返回 false。
+   * @zh_CN Xác định có phải chế độ tối hay không
+   * @param  preferences - Đối tượng tùy chọn hiện tại, giá trị theme của nó sẽ được dùng để xác định có phải chế độ tối hay không.
+   * @returns Nếu theme là chế độ tối, trả về true, ngược lại trả về false.
    */
   const isDark = computed(() => {
     return isDarkTheme(preferences.theme.mode);
@@ -41,70 +41,70 @@ function usePreferences() {
   });
 
   /**
-   * @zh_CN 布局方式
+   * @zh_CN Kiểu bố cục
    */
   const layout = computed(() =>
     isMobile.value ? 'sidebar-nav' : appPreferences.value.layout,
   );
 
   /**
-   * @zh_CN 是否显示顶栏
+   * @zh_CN Có hiển thị thanh trên cùng hay không
    */
   const isShowHeaderNav = computed(() => {
     return preferences.header.enable;
   });
 
   /**
-   * @zh_CN 是否全屏显示content，不需要侧边、底部、顶部、tab区域
+   * @zh_CN Có hiển thị content toàn màn hình hay không, không cần vùng thanh bên, thanh dưới, thanh trên, tab
    */
   const isFullContent = computed(
     () => appPreferences.value.layout === 'full-content',
   );
 
   /**
-   * @zh_CN 是否侧边导航模式
+   * @zh_CN Có phải chế độ điều hướng thanh bên hay không
    */
   const isSideNav = computed(
     () => appPreferences.value.layout === 'sidebar-nav',
   );
 
   /**
-   * @zh_CN 是否侧边混合模式
+   * @zh_CN Có phải chế độ hỗn hợp thanh bên hay không
    */
   const isSideMixedNav = computed(
     () => appPreferences.value.layout === 'sidebar-mixed-nav',
   );
 
   /**
-   * @zh_CN 是否为头部导航模式
+   * @zh_CN Có phải chế độ điều hướng phần đầu hay không
    */
   const isHeaderNav = computed(
     () => appPreferences.value.layout === 'header-nav',
   );
 
   /**
-   * @zh_CN 是否为头部混合导航模式
+   * @zh_CN Có phải chế độ hỗn hợp phần đầu hay không
    */
   const isHeaderMixedNav = computed(
     () => appPreferences.value.layout === 'header-mixed-nav',
   );
 
   /**
-   * @zh_CN 是否为顶部通栏+侧边导航模式
+   * @zh_CN Có phải chế độ thanh trên toàn chiều rộng + điều hướng thanh bên hay không
    */
   const isHeaderSidebarNav = computed(
     () => appPreferences.value.layout === 'header-sidebar-nav',
   );
 
   /**
-   * @zh_CN 是否为混合导航模式
+   * @zh_CN Có phải chế độ điều hướng hỗn hợp hay không
    */
   const isMixedNav = computed(
     () => appPreferences.value.layout === 'mixed-nav',
   );
 
   /**
-   * @zh_CN 是否包含侧边导航模式
+   * @zh_CN Có chứa chế độ điều hướng thanh bên hay không
    */
   const isSideMode = computed(() => {
     return (
@@ -121,37 +121,37 @@ function usePreferences() {
   });
 
   /**
-   * @zh_CN 是否开启keep-alive
-   * 在tabs可见以及开启keep-alive的情况下才开启
+   * @zh_CN Có bật keep-alive hay không
+   * Chỉ bật khi tabs hiển thị và keep-alive đã bật
    */
   const keepAlive = computed(
     () => preferences.tabbar.enable && preferences.tabbar.keepAlive,
   );
 
   /**
-   * @zh_CN 登录注册页面布局是否为左侧
+   * @zh_CN Bố cục trang đăng nhập/đăng ký có phải phía trái hay không
    */
   const authPanelLeft = computed(() => {
     return appPreferences.value.authPageLayout === 'panel-left';
   });
 
   /**
-   * @zh_CN 登录注册页面布局是否为右侧
+   * @zh_CN Bố cục trang đăng nhập/đăng ký có phải phía phải hay không
    */
   const authPanelRight = computed(() => {
     return appPreferences.value.authPageLayout === 'panel-right';
   });
 
   /**
-   * @zh_CN 登录注册页面布局是否为中间
+   * @zh_CN Bố cục trang đăng nhập/đăng ký có phải ở giữa hay không
    */
   const authPanelCenter = computed(() => {
     return appPreferences.value.authPageLayout === 'panel-center';
   });
 
   /**
-   * @zh_CN 内容是否已经最大化
-   * 排除 full-content模式
+   * @zh_CN Nội dung đã được tối đa hóa hay chưa
+   * Loại trừ chế độ full-content
    */
   const contentIsMaximize = computed(() => {
     const headerIsHidden = preferences.header.hidden;
@@ -160,7 +160,7 @@ function usePreferences() {
   });
 
   /**
-   * @zh_CN 是否启用全局搜索快捷键
+   * @zh_CN Có bật phím tắt tìm kiếm toàn cục hay không
    */
   const globalSearchShortcutKey = computed(() => {
     const { enable, globalSearch } = shortcutKeysPreferences.value;
@@ -168,7 +168,7 @@ function usePreferences() {
   });
 
   /**
-   * @zh_CN 是否启用全局注销快捷键
+   * @zh_CN Có bật phím tắt đăng xuất toàn cục hay không
    */
   const globalLogoutShortcutKey = computed(() => {
     const { enable, globalLogout } = shortcutKeysPreferences.value;
@@ -181,12 +181,12 @@ function usePreferences() {
   });
 
   /**
-   * @zh_CN 偏好设置按钮位置
+   * @zh_CN Vị trí nút tùy chọn
    */
   const preferencesButtonPosition = computed(() => {
     const { enablePreferences, preferencesButtonPosition } = preferences.app;
 
-    // 如果没有启用偏好设置按钮
+    // Nếu chưa bật nút tùy chọn
     if (!enablePreferences) {
       return {
         fixed: false,
@@ -202,7 +202,7 @@ function usePreferences() {
 
     const isHeaderPosition = preferencesButtonPosition === 'header';
 
-    // 如果设置了固定位置
+    // Nếu đã đặt vị trí cố định
     if (preferencesButtonPosition !== 'auto') {
       return {
         fixed: preferencesButtonPosition === 'fixed',
@@ -210,7 +210,7 @@ function usePreferences() {
       };
     }
 
-    // 如果是全屏模式或者没有固定在顶部，
+    // Nếu là chế độ toàn màn hình hoặc không cố định ở trên cùng,
     const fixed =
       contentIsMaximize ||
       isFullContent.value ||

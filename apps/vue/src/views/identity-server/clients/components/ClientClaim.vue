@@ -67,7 +67,7 @@
       label: L('Claims:Value'),
       colProps: { span: 24 },
       required: true,
-      // TODO: 选择的type ValueType变化时需要调整输入控件类型
+      // TODO: Khi ValueType của type đã chọn thay đổi thì cần điều chỉnh loại điều khiển nhập liệu
     },
   ];
   const columns: BasicColumn[] = [

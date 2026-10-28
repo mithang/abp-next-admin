@@ -56,7 +56,7 @@ public class TenantCacheItemInvalidator :
             TenantCacheItem.CalculateCacheKey(tenantId, null),
             TenantCacheItem.CalculateCacheKey(tenantId, tenantName),
 
-            // 同时移除租户版本缓存
+            // Đồng thời xóa bộ nhớ đệm phiên bản tenant
             EditionCacheItem.CalculateCacheKey(tenantId)
         };
         await TenantCache.RemoveManyAsync(removeTenantKeys, considerUow: true);

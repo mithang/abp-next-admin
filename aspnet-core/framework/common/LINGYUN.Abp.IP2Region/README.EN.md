@@ -74,7 +74,7 @@ using var v6Searcher = new AbpSearcher(CachePolicy.File, ipv6XdbStream);
 // dual databases: routing by address family
 using var searcher = new AbpSearcher(CachePolicy.File, ipv4XdbStream, ipv6XdbStream);
 
-var region = searcher.Search("2400:3200::1"); // 中国|浙江省|杭州市|阿里|CN
+var region = searcher.Search("2400:3200::1"); // Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN
 ```
 
 > The IPv6 database (~35MB) ships with the package; pass `-p:IncludeIPv6Database=false` to exclude it while packing.
@@ -127,9 +127,9 @@ The remarks rules are handled by `LINGYUN.Abp.IP.Location` (shared with other lo
 Configure<AbpIPLocationResolveOptions>(options =>
 {
     // country names removed from the remarks (hide the country for Chinese IPs)
-    options.RemoveCountry = new[] { "中国" };
+    options.RemoveCountry = new[] { "Trung Quốc" };
     // province names removed from the remarks
-    // options.RemoveProvince = new[] { "香港特别行政区" };
+    // options.RemoveProvince = new[] { "Đặc khu hành chính Hồng Kông" };
 });
 ```
 
@@ -138,20 +138,20 @@ The options can also come from configuration (the `LINGYUN.Abp.IP.Location` modu
 ```json
 {
   "IPLocation": {
-    "RemoveCountry": [ "中国" ]
+    "RemoveCountry": [ "Trung Quốc" ]
   }
 }
 ```
 
 ```yaml
 # docker-compose environment
-- IPLocation__RemoveCountry__0=中国
+- IPLocation__RemoveCountry__0=Trung Quốc
 ```
 
-* when the country name matches `RemoveCountry`, the remarks use province and city (e.g. `浙江省杭州市`; city only when
-  province equals city, e.g. `重庆市`; province only, e.g. `香港特别行政区`);
-* when the province name matches `RemoveProvince`, the remarks use the city only (e.g. `杭州市`);
-* when nothing matches, the remarks contain the country name only (e.g. `中国`, `Japan`); when everything is removed,
+* when the country name matches `RemoveCountry`, the remarks use province and city (e.g. `Chiết Giang Hàng Châu`; city only when
+  province equals city, e.g. `Trùng Khánh`; province only, e.g. `Đặc khu hành chính Hồng Kông`);
+* when the province name matches `RemoveProvince`, the remarks use the city only (e.g. `Hàng Châu`);
+* when nothing matches, the remarks contain the country name only (e.g. `Trung Quốc`, `Japan`); when everything is removed,
   the remarks are empty;
 * name matching ignores case and surrounding whitespace, and applies to the IPs of every country.
 
@@ -226,4 +226,4 @@ Please make sure to update tests as appropriate.
 
 ## Links
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Trung](./README.md)

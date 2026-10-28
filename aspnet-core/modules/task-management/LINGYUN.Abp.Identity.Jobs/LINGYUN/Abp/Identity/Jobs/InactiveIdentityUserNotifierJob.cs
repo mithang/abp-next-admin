@@ -17,10 +17,10 @@ using Volo.Abp.Timing;
 namespace LINGYUN.Abp.Identity.Jobs;
 
 /// <summary>
-/// 不活跃用户通知作业
+/// Tác vụ thông báo người dùng không hoạt động
 /// </summary>
 /// <remarks>
-/// 通知长期未登录用户保持账号活跃
+/// Thông báo cho người dùng lâu ngày không đăng nhập để giữ tài khoản hoạt động
 /// </remarks>
 public class InactiveIdentityUserNotifierJob : IJobRunnable
 {
@@ -39,7 +39,7 @@ public class InactiveIdentityUserNotifierJob : IJobRunnable
 
     #endregion
     /// <summary>
-    /// 不活跃用户通知时间, 单位: 天
+    /// Thời gian thông báo người dùng không hoạt động, đơn vị: ngày
     /// </summary>
     public const string PropertyInactivityPeriodDays = "InactivityPeriodDays";
 
@@ -59,9 +59,9 @@ public class InactiveIdentityUserNotifierJob : IJobRunnable
 
         logger.LogInformation("Lock is acquired for {distributedLockKey}.", distributedLockKey);
 
-        // 不活跃用户通知时间
+        // Thời gian thông báo người dùng không hoạt động
         var inactiveNotifierDays = context.GetOrDefaultJobData(PropertyInactivityPeriodDays, 180);
-        // 排除系统管理员用户
+        // Loại trừ người dùng quản trị viên hệ thống
         var exceptUserIds = new List<Guid>();
 
         var clock = context.GetRequiredService<IClock>();
@@ -71,14 +71,14 @@ public class InactiveIdentityUserNotifierJob : IJobRunnable
         var identityUserRepo = context.GetRequiredService<IIdentityUserRepository>();
         var identityUserInactiveRepo = context.GetRequiredService<IIdentityUserInactiveRepository>();
 
-        // 管理员角色用户不清理
+        // Không dọn dẹp người dùng thuộc vai trò quản trị viên
         var adminRoleUsers = await identityUserRepo.GetListByNormalizedRoleNameAsync(
             identityRoleManager.NormalizeKey(AbpRoleConsts.AdminRoleName));
         if (adminRoleUsers.Count > 0)
         {
             exceptUserIds.AddIfNotContains(adminRoleUsers.Select(x => x.Id));
         }
-        // 管理员用户不清理
+        // Không dọn dẹp người dùng quản trị viên
         var adminUsers = await identityUserRepo.GetUsersByNormalizedUserNameAsync(
             identityUserManager.NormalizeName("admin"));
         if (adminUsers.Count > 0)
@@ -130,7 +130,7 @@ public class InactiveIdentityUserNotifierJob : IJobRunnable
     }
 
     /// <summary>
-    /// 发送不活跃用户提醒通知
+    /// Gửi thông báo nhắc nhở người dùng không hoạt động
     /// </summary>
     /// <param name="context"></param>
     /// <param name="inactiveUsers"></param>

@@ -5,15 +5,15 @@ namespace LINGYUN.Abp.Identity;
 public class GetUserSessionsInput : PagedAndSortedResultRequestDto
 {
     /// <summary>
-    /// 用户id
+    /// id người dùng
     /// </summary>
     public Guid? UserId { get; set; }
     /// <summary>
-    /// 设备
+    /// Thiết bị
     /// </summary>
     public string? Device { get; set; }
     /// <summary>
-    /// 客户端id
+    /// id máy khách
     /// </summary>
     public string? ClientId { get; set; }
 }

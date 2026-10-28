@@ -3,33 +3,33 @@ using System;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 标记通知渠道数据(载荷)的属性参与类型化读写
+/// Đánh dấu thuộc tính của dữ liệu kênh thông báo (payload) tham gia đọc/ghi có kiểu
 /// </summary>
 /// <remarks>
 /// <para>
-/// 参与读写的属性名称默认取属性名, 也可以通过 <see cref="Name"/> 显式指定,
-/// 以便兼容历史遗留的通知数据键(例如 <c>TemplateId</c> 这类未加前缀的键)。
+/// Tên thuộc tính tham gia đọc/ghi mặc định lấy theo tên thuộc tính, cũng có thể chỉ định tường minh qua <see cref="Name"/>,
+/// để tương thích với các khóa dữ liệu thông báo cũ (ví dụ các khóa chưa có tiền tố như <c>TemplateId</c>).
 /// </para>
 /// <para>
-/// 读写过程会做弱类型转换, 因此数据无论经历过多少次
-/// JSON 序列化/反序列化(持久化、失败重试、跨进程投递)都不会丢失。
+/// Quá trình đọc/ghi sẽ thực hiện chuyển đổi kiểu yếu, vì vậy dù dữ liệu trải qua bao nhiêu lần
+/// tuần tự hóa/giải tuần tự hóa JSON (lưu trữ bền vững, thử lại khi thất bại, phân phối liên tiến trình) cũng không bị mất.
 /// </para>
 /// </remarks>
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 public sealed class NotificationChannelPropertyAttribute : Attribute
 {
     /// <summary>
-    /// 通知数据中的键名, 为空时取属性名
+    /// Tên khóa trong dữ liệu thông báo, khi trống sẽ lấy tên thuộc tính
     /// </summary>
     public string? Name { get; }
 
     /// <summary>
-    /// 匹配载荷时是否忽略本属性
+    /// Khi khớp payload có bỏ qua thuộc tính này hay không
     /// </summary>
     /// <remarks>
-    /// 适用于"投递选项"这类不决定载荷形态的属性,
-    /// 例如企业微信的接收人(to_user/toparty/totag)。
-    /// 投递选项单独存在时不代表某个消息载荷存在。
+    /// Áp dụng cho các thuộc tính dạng "tùy chọn phân phối" không quyết định hình thái payload,
+    /// ví dụ người nhận của WeChat Work (to_user/toparty/totag).
+    /// Khi tùy chọn phân phối tồn tại độc lập thì không có nghĩa là một payload tin nhắn nào đó tồn tại.
     /// </remarks>
     public bool IgnoreWhenMatching { get; set; }
 

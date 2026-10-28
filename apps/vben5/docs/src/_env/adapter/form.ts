@@ -14,7 +14,7 @@ initComponentAdapter();
 setupVbenForm<ComponentType>({
   config: {
     baseModelPropName: 'value',
-    // naive-ui组件的空值为null,不能是undefined，否则重置表单时不生效
+    // Giá trị rỗng của component naive-ui là null, không được là undefined, nếu không khi đặt lại biểu mẫu sẽ không có hiệu lực
     emptyStateValue: null,
     modelPropNameMap: {
       Checkbox: 'checked',

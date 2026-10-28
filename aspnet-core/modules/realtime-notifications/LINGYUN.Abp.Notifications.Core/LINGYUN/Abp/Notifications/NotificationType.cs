@@ -1,24 +1,24 @@
 ﻿namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知类型
+/// Loại thông báo
 /// </summary>
 public enum NotificationType
 {
     /// <summary>
-    /// 应用（仅对当前租户）
+    /// Ứng dụng (chỉ đối với tenant hiện tại)
     /// </summary>
     Application = 0,
     /// <summary>
-    /// 系统通知（全局发布）
+    /// Thông báo hệ thống (phát hành toàn cục)
     /// </summary>
     System = 10,
     /// <summary>
-    /// 用户（对应用户,受租户控制）
+    /// Người dùng (người dùng tương ứng, chịu sự kiểm soát của tenant)
     /// </summary>
     User = 20,
     /// <summary>
-    /// 服务端回调,用户不应进行处理
+    /// Callback phía máy chủ, người dùng không nên xử lý
     /// </summary>
     ServiceCallback = 30,
 }

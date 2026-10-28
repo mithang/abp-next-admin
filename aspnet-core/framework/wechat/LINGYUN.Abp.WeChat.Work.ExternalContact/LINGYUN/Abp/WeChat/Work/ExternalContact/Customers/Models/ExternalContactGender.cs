@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 外部联系人性别
+/// Giới tính liên hệ bên ngoài
 /// </summary>
-[Description("外部联系人性别")]
+[Description("Giới tính liên hệ bên ngoài")]
 public enum ExternalContactGender
 {
     /// <summary>
-    /// 未知
+    /// Không xác định
     /// </summary>
-    [Description("未知")]
+    [Description("Không xác định")]
     None = 0,
     /// <summary>
-    /// 男性
+    /// Nam
     /// </summary>
-    [Description("男性")]
+    [Description("Nam")]
     Male = 1,
     /// <summary>
-    /// 女性
+    /// Nữ
     /// </summary>
-    [Description("女性")]
+    [Description("Nữ")]
     FeMale = 2,
 }

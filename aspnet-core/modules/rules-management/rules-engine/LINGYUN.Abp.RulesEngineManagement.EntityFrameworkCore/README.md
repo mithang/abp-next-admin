@@ -1,59 +1,59 @@
 # LINGYUN.Abp.RulesEngineManagement.EntityFrameworkCore
 
-## 1. 介绍
+## 1. Giới thiệu
 
-规则引擎管理模块的EntityFrameworkCore实现，提供了基于EF Core的数据访问层实现。
+Triển khai EntityFrameworkCore của mô-đun quản lý rules engine, cung cấp lớp truy cập dữ liệu dựa trên EF Core.
 
-## 2. 功能
+## 2. Tính năng
 
-* 实现了规则引擎管理模块的DbContext
-* 提供了实体的数据库映射配置
-* 实现了仓储接口
+* Đã triển khai DbContext của mô-đun quản lý rules engine
+* Cung cấp cấu hình ánh xạ cơ sở dữ liệu cho các thực thể
+* Đã triển khai giao diện kho lưu trữ
 
-## 3. 数据库实现
+## 3. Triển khai cơ sở dữ liệu
 
 ### 3.1 DbContext
 
 * RulesEngineManagementDbContext
-  * 实现了IRulesEngineManagementDbContext接口
-  * 包含了所有实体的DbSet定义
-  * 支持多租户
+  * Đã triển khai giao diện IRulesEngineManagementDbContext
+  * Bao gồm định nghĩa DbSet của tất cả các thực thể
+  * Hỗ trợ đa tenant
 
-### 3.2 仓储实现
+### 3.2 Triển khai kho lưu trữ
 
 * EfCoreRuleRecordRepository
-  * 实现了IRuleRecordRepository接口
-  * 提供规则记录的CRUD操作
-  * 支持按名称查询规则
-  
+  * Đã triển khai giao diện IRuleRecordRepository
+  * Cung cấp thao tác CRUD cho bản ghi quy tắc
+  * Hỗ trợ truy vấn quy tắc theo tên
+
 * EfCoreWorkflowRecordRepository
-  * 实现了IWorkflowRecordRepository接口
-  * 提供工作流记录的CRUD操作
-  * 支持按名称和类型查询工作流
+  * Đã triển khai giao diện IWorkflowRecordRepository
+  * Cung cấp thao tác CRUD cho bản ghi quy trình làm việc
+  * Hỗ trợ truy vấn quy trình làm việc theo tên và loại
 
-### 3.3 实体映射
+### 3.3 Ánh xạ thực thể
 
-* 工作流记录映射
-  * 配置了主键、索引
-  * 配置了字段长度限制
-  * 配置了关联关系
-  
-* 规则记录映射
-  * 配置了主键、索引
-  * 配置了字段长度限制
-  * 配置了关联关系
-  
-* 参数记录映射
-  * 配置了主键
-  * 配置了字段长度限制
-  
-* 动作记录映射
-  * 配置了主键
-  * 配置了字段长度限制
+* Ánh xạ bản ghi quy trình làm việc
+  * Đã cấu hình khóa chính, chỉ mục
+  * Đã cấu hình giới hạn độ dài trường
+  * Đã cấu hình quan hệ liên kết
 
-## 4. 依赖
+* Ánh xạ bản ghi quy tắc
+  * Đã cấu hình khóa chính, chỉ mục
+  * Đã cấu hình giới hạn độ dài trường
+  * Đã cấu hình quan hệ liên kết
+
+* Ánh xạ bản ghi tham số
+  * Đã cấu hình khóa chính
+  * Đã cấu hình giới hạn độ dài trường
+
+* Ánh xạ bản ghi hành động
+  * Đã cấu hình khóa chính
+  * Đã cấu hình giới hạn độ dài trường
+
+## 4. Phụ thuộc
 
 * Volo.Abp.EntityFrameworkCore
 * LINGYUN.Abp.RulesEngineManagement.Domain
 
-[点击查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

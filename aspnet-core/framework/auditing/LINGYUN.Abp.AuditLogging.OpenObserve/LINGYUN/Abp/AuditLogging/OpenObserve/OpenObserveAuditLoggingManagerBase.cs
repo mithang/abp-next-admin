@@ -13,19 +13,19 @@ using Volo.Abp.Timing;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 审计日志 OpenObserve 管理器基类
+/// Lớp cơ sở của trình quản lý nhật ký kiểm tra OpenObserve
 /// </summary>
 /// <remarks>
-/// OpenObserve 的几个约束在此统一处理:
-/// * 查询必须指定时间范围, 且范围作用于写入时间(_timestamp), 因此统一使用宽窗口,
-///   业务时间过滤由 SQL 条件完成(列名小写, 时间为 ISO 8601 字符串);
-/// * 不支持按记录删除, 删除接口直接抛出 <see cref="NotSupportedException"/>;
-/// * 列名一律小写(OpenObserve 会小写化字段名)。
+/// Một số ràng buộc của OpenObserve được xử lý thống nhất tại đây:
+/// * Truy vấn phải chỉ định khoảng thời gian, và khoảng này áp dụng cho thời gian ghi (_timestamp), do đó thống nhất dùng cửa sổ rộng,
+///   việc lọc theo thời gian nghiệp vụ được thực hiện bằng điều kiện SQL (tên cột viết thường, thời gian là chuỗi ISO 8601);
+/// * Không hỗ trợ xóa theo bản ghi, giao diện xóa trực tiếp ném <see cref="NotSupportedException"/>;
+/// * Tên cột luôn viết thường (OpenObserve sẽ viết thường hóa tên trường).
 /// </remarks>
 public abstract class OpenObserveAuditLoggingManagerBase
 {
     /// <summary>
-    /// 单次查询最多返回的记录数
+    /// Số bản ghi tối đa trả về trong một lần truy vấn
     /// </summary>
     public const int MaxSearchResultCount = 5000;
 
@@ -53,7 +53,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 获取审计日志数据流名称(按租户)
+    /// Lấy tên luồng dữ liệu nhật ký kiểm tra (theo tenant)
     /// </summary>
     protected virtual string GetAuditLogStream(Guid? tenantId = null)
     {
@@ -61,7 +61,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 获取安全日志数据流名称(按租户)
+    /// Lấy tên luồng dữ liệu nhật ký bảo mật (theo tenant)
     /// </summary>
     protected virtual string GetSecurityLogStream(Guid? tenantId = null)
     {
@@ -69,7 +69,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 获取实体变更数据流名称(按租户)
+    /// Lấy tên luồng dữ liệu thay đổi thực thể (theo tenant)
     /// </summary>
     protected virtual string GetEntityChangeStream(Guid? tenantId = null)
     {
@@ -77,7 +77,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 获取操作数据流名称(按租户)
+    /// Lấy tên luồng dữ liệu thao tác (theo tenant)
     /// </summary>
     protected virtual string GetActionStream(Guid? tenantId = null)
     {
@@ -85,10 +85,10 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 查询窗口开始时间
+    /// Thời gian bắt đầu của cửa sổ truy vấn
     /// </summary>
     /// <remarks>
-    /// 作用域是记录的写入时间(_timestamp), 业务时间请使用 SQL 条件过滤
+    /// Phạm vi là thời gian ghi của bản ghi (_timestamp), thời gian nghiệp vụ vui lòng lọc bằng điều kiện SQL
     /// </remarks>
     protected virtual DateTime GetQueryStartTime()
     {
@@ -96,7 +96,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 查询窗口结束时间
+    /// Thời gian kết thúc của cửa sổ truy vấn
     /// </summary>
     protected virtual DateTime GetQueryEndTime()
     {
@@ -104,11 +104,11 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 执行 SQL 查询
+    /// Thực thi truy vấn SQL
     /// </summary>
     /// <remarks>
-    /// OpenObserve 在数据流不存在时返回错误(尚未写入过数据), 此处按空结果处理;
-    /// 其它错误(凭据、语法、服务异常)继续向上抛出
+    /// Khi luồng dữ liệu chưa tồn tại, OpenObserve trả về lỗi (chưa từng ghi dữ liệu), tại đây xử lý như kết quả rỗng;
+    /// các lỗi khác (thông tin xác thực, cú pháp, ngoại lệ dịch vụ) tiếp tục được ném lên trên
     /// </remarks>
     protected async virtual Task<SearchResponse<THit>> SearchAsync<THit>(
         string sql,
@@ -141,11 +141,11 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 是否为"数据流不存在"错误
+    /// Có phải lỗi "luồng dữ liệu không tồn tại" hay không
     /// </summary>
     /// <remarks>
-    /// OpenObserve 未写入过数据时数据流尚未创建, 返回 code 20002 与
-    /// <c>Search stream not found: {stream}</c> 消息
+    /// Khi OpenObserve chưa từng ghi dữ liệu thì luồng dữ liệu chưa được tạo, trả về mã 20002 và
+    /// thông báo <c>Search stream not found: {stream}</c>
     /// </remarks>
     protected virtual bool IsStreamNotFound(OpenObserveException exception)
     {
@@ -153,7 +153,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 执行 SQL 查询并返回全部命中
+    /// Thực thi truy vấn SQL và trả về toàn bộ kết quả khớp
     /// </summary>
     protected async virtual Task<List<THit>> SearchAllAsync<THit>(
         string sql,
@@ -166,7 +166,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 统计符合条件的记录数
+    /// Đếm số bản ghi thỏa mãn điều kiện
     /// </summary>
     protected async virtual Task<long> GetTotalAsync(
         string stream,
@@ -181,7 +181,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 构建条件
+    /// Xây dựng điều kiện
     /// </summary>
     protected virtual string BuildCondition(IEnumerable<Condition> conditions)
     {
@@ -189,10 +189,10 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 构建时间范围条件
+    /// Xây dựng điều kiện khoảng thời gian
     /// </summary>
     /// <remarks>
-    /// 时间列以 ISO 8601 字符串存储, 按相同格式比较
+    /// Cột thời gian được lưu dưới dạng chuỗi ISO 8601, so sánh theo cùng định dạng
     /// </remarks>
     protected virtual string BuildTimeCondition(string field, DateTime? startTime, DateTime? endTime)
     {
@@ -211,7 +211,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 组合条件
+    /// Kết hợp các điều kiện
     /// </summary>
     protected virtual string Combine(params string[] conditions)
     {
@@ -223,7 +223,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 归一化排序字段(表达式成员名 -> 数据流列名)
+    /// Chuẩn hóa trường sắp xếp (tên thành viên biểu thức -> tên cột luồng dữ liệu)
     /// </summary>
     protected virtual string NormalizeSorting(string? sorting, string defaultSorting)
     {
@@ -239,7 +239,7 @@ public abstract class OpenObserveAuditLoggingManagerBase
     }
 
     /// <summary>
-    /// 转义字符串
+    /// Thoát chuỗi
     /// </summary>
     protected virtual string Escape(string? value)
     {

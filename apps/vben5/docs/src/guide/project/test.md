@@ -1,10 +1,10 @@
-# 单元测试
+# Kiểm thử đơn vị
 
-项目内置了 [Vitest](https://vitest.dev/) 作为单元测试工具。Vitest 是一个基于 Vite 的测试运行器，它提供了一套简单的 API 来编写测试用例。
+Dự án tích hợp sẵn [Vitest](https://vitest.dev/) làm công cụ kiểm thử đơn vị. Vitest là một test runner dựa trên Vite, cung cấp một bộ API đơn giản để viết các trường hợp kiểm thử.
 
-## 编写测试用例
+## Viết trường hợp kiểm thử
 
-在项目中，我们约定将测试文件名以 `.test.ts` 结尾，或者存放到`__tests__`目录内。例如，创建一个 `utils.ts` 文件，然后同级目录`utils.test.ts` 文件，
+Trong dự án, chúng ta quy ước tên file kiểm thử kết thúc bằng `.test.ts` hoặc đặt trong thư mục `__tests__`. Ví dụ, tạo file `utils.ts`, rồi file `utils.test.ts` cùng cấp,
 
 ```ts
 // utils.test.ts
@@ -16,18 +16,18 @@ test('adds 1 + 2 to equal 3', () => {
 });
 ```
 
-## 运行测试
+## Chạy kiểm thử
 
-在大仓根目录下运行以下命令即可：
+Chỉ cần chạy các lệnh sau tại thư mục gốc của monorepo:
 
 ```bash
 pnpm test:unit
 ```
 
-## 现有单元测试
+## Các kiểm thử đơn vị hiện có
 
-项目中已经有一些单元测试用例，可以搜索以`.test.ts`结尾的文件查看，在你更改到相关代码时，可以运行单元测试来保证代码的正确性，建议在开发过程中，保持单元测试的覆盖率，且同时在 CI/CD 流程中运行单元测试，保证测试通过在进行项目部署。
+Dự án đã có một số trường hợp kiểm thử đơn vị, bạn có thể tìm các file kết thúc bằng `.test.ts` để xem. Khi bạn thay đổi mã liên quan, hãy chạy kiểm thử đơn vị để đảm bảo tính đúng đắn của mã. Khuyến nghị trong quá trình phát triển hãy duy trì độ bao phủ kiểm thử, đồng thời chạy kiểm thử đơn vị trong quy trình CI/CD, đảm bảo kiểm thử đạt rồi mới triển khai dự án.
 
-现有单元测试情况：
+Tình hình kiểm thử đơn vị hiện có:
 
 ![](/guide/test.png)

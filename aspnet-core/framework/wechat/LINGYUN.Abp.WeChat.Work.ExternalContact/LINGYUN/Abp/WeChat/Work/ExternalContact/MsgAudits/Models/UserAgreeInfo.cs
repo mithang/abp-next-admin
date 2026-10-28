@@ -4,33 +4,33 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits.Models;
 /// <summary>
-/// 单聊同意情况
+/// Tình trạng đồng ý trò chuyện riêng
 /// </summary>
 public class UserAgreeInfo
 {
     /// <summary>
-    /// 内部成员的userid
+    /// Userid của thành viên nội bộ
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 外部成员的exteranalopenid
+    /// Exteranalopenid của thành viên bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("exteranalopenid")]
     [JsonPropertyName("exteranalopenid")]
     public string ExteranalOpenId { get; set; } = default!;
     /// <summary>
-    /// 同意:"Agree"，不同意:"Disagree"
+    /// Đồng ý: "Agree", không đồng ý: "Disagree"
     /// </summary>
     [NotNull]
     [JsonProperty("agree_status")]
     [JsonPropertyName("agree_status")]
     public string AgreeStatus { get; set; } = default!;
     /// <summary>
-    /// 同意状态改变的具体时间，utc时间
+    /// Thời gian cụ thể trạng thái đồng ý thay đổi, giờ UTC
     /// </summary>
     [CanBeNull]
     [JsonProperty("status_change_time")]

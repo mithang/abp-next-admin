@@ -2,12 +2,12 @@
 
 namespace LINGYUN.Abp.Account.Dto;
 /// <summary>
-/// 关联用户Dto
+/// Dto người dùng liên kết
 /// </summary>
 public class LinkUserInput : LinkUserBaseDto
 {
     /// <summary>
-    /// 关联用户Token
+    /// Token người dùng liên kết
     /// </summary>
     [Required]
     public string Token { get; set; } = default!;

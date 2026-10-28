@@ -1,27 +1,27 @@
 # LINGYUN.Abp.Location
 
-## 介绍
+## Giới thiệu
 
-`LINGYUN.Abp.Location` 是一个位置服务基础模块，提供了地理位置相关的功能，包括地理编码（正向/反向）、距离计算等功能。
+`LINGYUN.Abp.Location` là mô-đun cơ sở dịch vụ vị trí, cung cấp các chức năng liên quan đến vị trí địa lý, bao gồm mã hoá địa lý (thuận/nghịch), tính khoảng cách, v.v.
 
-## 功能特性
+## Tính năng
 
-* 地理编码（Geocoding）和反向地理编码（Reverse Geocoding）
-* IP地理位置解析
-* 位置距离计算（基于Google算法，误差<0.2米）
-* 位置偏移量计算
-* 支持POI（兴趣点）和道路信息
-* 可扩展的位置解析提供程序
+* Mã hoá địa lý (Geocoding) và mã hoá địa lý nghịch (Reverse Geocoding)
+* Phân giải vị trí địa lý theo IP
+* Tính khoảng cách vị trí (dựa trên thuật toán Google, sai số < 0,2 mét)
+* Tính độ lệch vị trí
+* Hỗ trợ POI (điểm quan tâm) và thông tin đường
+* Nhà cung cấp phân giải vị trí có thể mở rộng
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Location
 ```
 
-## 使用方法
+## Cách sử dụng
 
-1. 添加模块依赖：
+1. Thêm phụ thuộc mô-đun:
 
 ```csharp
 [DependsOn(typeof(AbpLocationModule))]
@@ -31,7 +31,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 注入并使用位置解析服务：
+2. Inject và sử dụng dịch vụ phân giải vị trí:
 
 ```csharp
 public class YourLocationService
@@ -43,19 +43,19 @@ public class YourLocationService
         _locationProvider = locationProvider;
     }
 
-    // 地理编码：地址转坐标
+    // Mã hoá địa lý: chuyển địa chỉ thành tọa độ
     public async Task<GecodeLocation> GeocodeAsync(string address)
     {
         return await _locationProvider.GeocodeAsync(address);
     }
 
-    // 反向地理编码：坐标转地址
+    // Mã hoá địa lý nghịch: chuyển tọa độ thành địa chỉ
     public async Task<ReGeocodeLocation> ReGeocodeAsync(double lat, double lng)
     {
         return await _locationProvider.ReGeocodeAsync(lat, lng);
     }
 
-    // IP地理位置解析
+    // Phân giải vị trí địa lý theo IP
     public async Task<IPGecodeLocation> IPGeocodeAsync(string ipAddress)
     {
         return await _locationProvider.IPGeocodeAsync(ipAddress);
@@ -63,49 +63,49 @@ public class YourLocationService
 }
 ```
 
-## 位置计算
+## Tính toán vị trí
 
-模块提供了强大的位置计算功能：
+Mô-đun cung cấp chức năng tính toán vị trí mạnh mẽ:
 
 ```csharp
-// 创建位置对象
-var location1 = new Location { Latitude = 39.9042, Longitude = 116.4074 }; // 北京
-var location2 = new Location { Latitude = 31.2304, Longitude = 121.4737 }; // 上海
+// Tạo đối tượng vị trí
+var location1 = new Location { Latitude = 39.9042, Longitude = 116.4074 }; // Bắc Kinh
+var location2 = new Location { Latitude = 31.2304, Longitude = 121.4737 }; // Thượng Hải
 
-// 计算两点之间的距离（米）
+// Tính khoảng cách giữa hai điểm (mét)
 double distance = location1.CalcDistance(location2);
 
-// 计算位置的偏移
-var offset = location1.CalcOffset(1000, 45); // 向东北方向偏移1000米
+// Tính độ lệch của vị trí
+var offset = location1.CalcOffset(1000, 45); // Lệch 1000 mét về hướng đông bắc
 ```
 
-## 自定义位置解析提供程序
+## Nhà cung cấp phân giải vị trí tùy chỉnh
 
-要实现自定义的位置解析提供程序，需要：
+Để triển khai nhà cung cấp phân giải vị trí tùy chỉnh, cần:
 
-1. 实现 `ILocationResolveProvider` 接口：
+1. Triển khai giao diện `ILocationResolveProvider`:
 
 ```csharp
 public class CustomLocationProvider : ILocationResolveProvider
 {
     public async Task<IPGecodeLocation> IPGeocodeAsync(string ipAddress)
     {
-        // 实现IP地理位置解析
+        // Triển khai phân giải vị trí địa lý theo IP
     }
 
     public async Task<GecodeLocation> GeocodeAsync(string address, string city = null)
     {
-        // 实现地理编码
+        // Triển khai mã hoá địa lý
     }
 
     public async Task<ReGeocodeLocation> ReGeocodeAsync(double lat, double lng, int radius = 50)
     {
-        // 实现反向地理编码
+        // Triển khai mã hoá địa lý nghịch
     }
 }
 ```
 
-2. 在模块中注册你的实现：
+2. Đăng ký triển khai của bạn trong mô-đun:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -114,8 +114,8 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
 * [English Documentation](./README.EN.md)
-* [百度地图定位服务](./LINGYUN.Abp.Location.Baidu/README.md)
-* [腾讯地图定位服务](./LINGYUN.Abp.Location.Tencent/README.md)
+* [Dịch vụ định vị bản đồ Baidu](./LINGYUN.Abp.Location.Baidu/README.md)
+* [Dịch vụ định vị bản đồ Tencent](./LINGYUN.Abp.Location.Tencent/README.md)

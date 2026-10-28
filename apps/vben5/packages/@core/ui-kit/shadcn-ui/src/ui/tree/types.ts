@@ -4,40 +4,40 @@ import type { FlattenedItem } from 'reka-ui';
 import type { Recordable } from '@vben-core/typings';
 
 export interface TreeProps {
-  /** 单选时允许取消已有选项 */
+  /** Khi chọn đơn cho phép hủy lựa chọn đã có */
   allowClear?: boolean;
-  /** 非关联选择时，自动选中上级节点 */
+  /** Khi chọn không liên kết, tự động chọn nút cấp trên */
   autoCheckParent?: boolean;
-  /** 显示边框 */
+  /** Hiển thị viền */
   bordered?: boolean;
-  /** 取消父子关联选择 */
+  /** Hủy chọn liên kết cha-con */
   checkStrictly?: boolean;
-  /** 子级字段名 */
+  /** Tên trường cấp con */
   childrenField?: string;
-  /** 默认展开的键 */
+  /** Các key được mở rộng mặc định */
   defaultExpandedKeys?: Array<number | string>;
-  /** 默认展开的级别（优先级高于defaultExpandedKeys） */
+  /** Cấp độ mở rộng mặc định (ưu tiên cao hơn defaultExpandedKeys) */
   defaultExpandedLevel?: number;
-  /** 默认值 */
+  /** Giá trị mặc định */
   defaultValue?: Arrayable<number | string>;
-  /** 禁用 */
+  /** Vô hiệu hóa */
   disabled?: boolean;
-  /** 禁用字段名 */
+  /** Tên trường vô hiệu hóa */
   disabledField?: string;
-  /** 自定义节点类名 */
+  /** Tên class nút tùy chỉnh */
   getNodeClass?: (item: FlattenedItem<Recordable<any>>) => string;
   iconField?: string;
-  /** label字段 */
+  /** Trường label */
   labelField?: string;
-  /** 是否多选 */
+  /** Có chọn nhiều không */
   multiple?: boolean;
-  /** 显示由iconField指定的图标 */
+  /** Hiển thị biểu tượng do iconField chỉ định */
   showIcon?: boolean;
-  /** 启用展开收缩动画 */
+  /** Bật animation mở rộng/thu gọn */
   transition?: boolean;
-  /** 树数据 */
+  /** Dữ liệu cây */
   treeData: Recordable<any>[];
-  /** 值字段 */
+  /** Trường giá trị */
   valueField?: string;
 }
 

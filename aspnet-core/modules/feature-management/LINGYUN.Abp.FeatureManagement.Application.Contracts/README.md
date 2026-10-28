@@ -1,24 +1,24 @@
 # LINGYUN.Abp.FeatureManagement.Application.Contracts
 
-功能管理应用服务契约模块，定义了功能管理所需的接口、DTO和权限。
+Mô-đun hợp đồng dịch vụ ứng dụng quản lý tính năng, định nghĩa các giao diện, DTO và quyền cần thiết cho quản lý tính năng.
 
-## 功能特性
+## Tính năng
 
-* 功能定义管理接口
+* Giao diện quản lý định nghĩa tính năng
   * IFeatureDefinitionAppService
-  * 支持功能定义的CRUD操作
-* 功能组定义管理接口
+  * Hỗ trợ các thao tác CRUD trên định nghĩa tính năng
+* Giao diện quản lý định nghĩa nhóm tính năng
   * IFeatureGroupDefinitionAppService
-  * 支持功能组定义的CRUD操作
-* 完整的DTO定义
+  * Hỗ trợ các thao tác CRUD trên định nghĩa nhóm tính năng
+* Định nghĩa DTO đầy đủ
   * FeatureDefinitionDto
   * FeatureGroupDefinitionDto
-  * 创建、更新和查询DTO
-* 权限定义
-  * 功能定义管理权限
-  * 功能组定义管理权限
+  * DTO tạo, cập nhật và truy vấn
+* Định nghĩa quyền
+  * Quyền quản lý định nghĩa tính năng
+  * Quyền quản lý định nghĩa nhóm tính năng
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -29,7 +29,7 @@ public class AbpFeatureManagementApplicationContractsModule : AbpModule
 }
 ```
 
-## 权限常量
+## Hằng số quyền
 
 ```csharp
 public static class FeatureManagementPermissionNames
@@ -54,16 +54,16 @@ public static class FeatureManagementPermissionNames
 }
 ```
 
-## 错误代码
+## Mã lỗi
 
-* Error:100001 - 功能定义已存在
-* Error:100002 - 功能组定义已存在
-* Error:100003 - 无法删除静态功能定义
-* Error:100004 - 无法删除静态功能组定义
+* Error:100001 - Định nghĩa tính năng đã tồn tại
+* Error:100002 - Định nghĩa nhóm tính năng đã tồn tại
+* Error:100003 - Không thể xóa định nghĩa tính năng tĩnh
+* Error:100004 - Không thể xóa định nghĩa nhóm tính năng tĩnh
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP功能管理文档](https://docs.abp.io/en/abp/latest/Features)
-* [ABP应用服务文档](https://docs.abp.io/en/abp/latest/Application-Services)
+* [Tài liệu quản lý tính năng ABP](https://docs.abp.io/en/abp/latest/Features)
+* [Tài liệu dịch vụ ứng dụng ABP](https://docs.abp.io/en/abp/latest/Application-Services)
 
 [English](README.EN.md)

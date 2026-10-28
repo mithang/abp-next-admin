@@ -70,4 +70,4 @@ public class YouProjectModule : AbpModule
 * [GitHub Repository](https://github.com/colinin/abp-next-admin)
 * [Sample Application](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/services/LINGYUN.Abp.MicroService.AllInOne)
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

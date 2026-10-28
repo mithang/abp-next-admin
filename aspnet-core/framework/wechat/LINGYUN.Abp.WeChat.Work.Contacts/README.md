@@ -1,11 +1,11 @@
 # LINGYUN.Abp.WeChat.Work.Contacts
 
-企业微信通讯录模块，提供企业微信应用开发的通讯录功能实现。  
+Module danh bạ WeChat doanh nghiệp, cung cấp triển khai chức năng danh bạ cho việc phát triển ứng dụng WeChat doanh nghiệp.  
 
-## 功能特性
+## Tính năng
 
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpWeChatWorkContactModule))]
@@ -15,23 +15,23 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Cấu hình
 
 
-## 消息处理
+## Xử lý tin nhắn
 
 
-## 事件处理
+## Xử lý sự kiện
 
-* [新增成员事件](https://developer.work.weixin.qq.com/document/path/90970#%E6%96%B0%E5%A2%9E%E6%88%90%E5%91%98%E4%BA%8B%E4%BB%B6)
-* [更新成员事件](https://developer.work.weixin.qq.com/document/path/90970#%E6%9B%B4%E6%96%B0%E6%88%90%E5%91%98%E4%BA%8B%E4%BB%B6)
-* [删除成员事件](https://developer.work.weixin.qq.com/document/path/90970#%E5%88%A0%E9%99%A4%E6%88%90%E5%91%98%E4%BA%8B%E4%BB%B6)
-* [新增部门事件](https://developer.work.weixin.qq.com/document/path/90971#%E6%96%B0%E5%A2%9E%E9%83%A8%E9%97%A8%E4%BA%8B%E4%BB%B6)
-* [更新部门事件](https://developer.work.weixin.qq.com/document/path/90971#%E6%9B%B4%E6%96%B0%E9%83%A8%E9%97%A8%E4%BA%8B%E4%BB%B6)
-* [删除部门事件](https://developer.work.weixin.qq.com/document/path/90971#%E5%88%A0%E9%99%A4%E9%83%A8%E9%97%A8%E4%BA%8B%E4%BB%B6)
-* [标签成员变更事件](https://developer.work.weixin.qq.com/document/path/90972)
-* [异步任务完成通知](https://developer.work.weixin.qq.com/document/path/90973)
+* [Sự kiện thêm thành viên](https://developer.work.weixin.qq.com/document/path/90970#%E6%96%B0%E5%A2%9E%E6%88%90%E5%91%98%E4%BA%8B%E4%BB%B6)
+* [Sự kiện cập nhật thành viên](https://developer.work.weixin.qq.com/document/path/90970#%E6%9B%B4%E6%96%B0%E6%88%90%E5%91%98%E4%BA%8B%E4%BB%B6)
+* [Sự kiện xóa thành viên](https://developer.work.weixin.qq.com/document/path/90970#%E5%88%A0%E9%99%A4%E6%88%90%E5%91%98%E4%BA%8B%E4%BB%B6)
+* [Sự kiện thêm phòng ban](https://developer.work.weixin.qq.com/document/path/90971#%E6%96%B0%E5%A2%9E%E9%83%A8%E9%97%A8%E4%BA%8B%E4%BB%B6)
+* [Sự kiện cập nhật phòng ban](https://developer.work.weixin.qq.com/document/path/90971#%E6%9B%B4%E6%96%B0%E9%83%A8%E9%97%A8%E4%BA%8B%E4%BB%B6)
+* [Sự kiện xóa phòng ban](https://developer.work.weixin.qq.com/document/path/90971#%E5%88%A0%E9%99%A4%E9%83%A8%E9%97%A8%E4%BA%8B%E4%BB%B6)
+* [Sự kiện thay đổi thành viên nhãn](https://developer.work.weixin.qq.com/document/path/90972)
+* [Thông báo hoàn thành tác vụ không đồng bộ](https://developer.work.weixin.qq.com/document/path/90973)
 
-## 更多文档
+## Tài liệu khác
 
-* [企业微信通讯录文档](https://developer.work.weixin.qq.com/document/path/90193)
+* [Tài liệu danh bạ WeChat doanh nghiệp](https://developer.work.weixin.qq.com/document/path/90193)

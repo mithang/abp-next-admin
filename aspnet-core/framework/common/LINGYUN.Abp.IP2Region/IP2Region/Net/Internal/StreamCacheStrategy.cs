@@ -54,7 +54,7 @@ internal class StreamCacheStrategy(Stream _xdbStream) : ICacheStrategy
     }
 
     /// <summary>
-    /// 释放文件句柄
+    /// Giải phóng handle của tệp
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

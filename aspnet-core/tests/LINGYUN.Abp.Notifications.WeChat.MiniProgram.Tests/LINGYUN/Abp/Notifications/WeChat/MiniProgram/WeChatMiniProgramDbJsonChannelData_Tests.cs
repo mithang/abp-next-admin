@@ -9,17 +9,17 @@ using Xunit;
 namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram;
 
 /// <summary>
-/// 从数据库 JSON 字符串解析渠道数据测试
+/// Kiểm thử phân tích dữ liệu kênh từ chuỗi JSON trong cơ sở dữ liệu
 /// </summary>
 /// <remarks>
 /// <para>
-/// 前面的测试是"内存中写入 → 读取"的同进程路径, 验证不到持久化往返。
-/// 本组测试补上**真实链路**: 直接给出数据库里存的 JSON 字符串,
-/// 还原为 <see cref="NotificationData"/> 后, 再走渠道侧解析与真实发布,
-/// 回答"从数据库取到数据后能否正常解析为渠道消息格式"。
+/// Các kiểm thử trước đó đi theo đường dẫn cùng tiến trình "ghi trong bộ nhớ → đọc", không kiểm chứng được vòng khứ hồi bền vững.
+/// Nhóm kiểm thử này bổ sung **liên kết thật**: đưa trực tiếp chuỗi JSON đã lưu trong cơ sở dữ liệu,
+/// khôi phục thành <see cref="NotificationData"/> rồi đi tiếp qua bước phân tích phía kênh và phát hành thật,
+/// trả lời câu hỏi "lấy dữ liệu từ cơ sở dữ liệu rồi có phân tích bình thường thành định dạng tin nhắn kênh được không".
 /// </para>
 /// <para>
-/// 小程序渠道数据都是标量, 因此库中值为原始类型(而非 JSON 字符串)。
+/// Dữ liệu kênh của chương trình mini đều là giá trị vô hướng, vì vậy giá trị trong kho là kiểu nguyên thủy (không phải chuỗi JSON).
 /// </para>
 /// </remarks>
 public class WeChatMiniProgramDbJsonChannelData_Tests
@@ -30,13 +30,13 @@ public class WeChatMiniProgramDbJsonChannelData_Tests
     private FakeSubscribeMessager Messager
         => (FakeSubscribeMessager)GetRequiredService<ISubscribeMessager>();
 
-    // ---------- 1. 带前缀键 ----------
+    // ---------- 1. Khóa có tiền tố ----------
 
     [Fact]
     public void Should_Restore_Channel_Data_From_Db_Json()
     {
         var data = RestoreFromDbJson(
-            "{\"title\":\"订单状态\",\"message\":\"您的订单已发货\"," +
+            "{\"title\":\"Trạng thái đơn hàng\",\"message\":\"Đơn hàng của bạn đã được gửi đi\"," +
             "\"wx-mp:template_id\":\"TPL_DB\"," +
             "\"wx-mp:redirect_page\":\"pages/order/detail\"," +
             "\"wx-mp:weapp_state\":\"developer\"," +
@@ -51,7 +51,7 @@ public class WeChatMiniProgramDbJsonChannelData_Tests
         payload.WeAppLanguage.ShouldBe("en_US");
     }
 
-    // ---------- 2. 从数据库 JSON 一路发到渠道(端到端) ----------
+    // ---------- 2. Từ JSON trong cơ sở dữ liệu đi thẳng tới kênh (đầu-cuối) ----------
 
     [Fact]
     public async Task Should_Send_With_Data_Restored_From_Db_Json()
@@ -65,7 +65,7 @@ public class WeChatMiniProgramDbJsonChannelData_Tests
 
         await PublishAsync(data, NewUser());
 
-        // 从库中还原的数据必须能真正发出去
+        // Dữ liệu khôi phục từ kho bắt buộc phải gửi đi được thật
         Messager.SentTemplates.Count.ShouldBe(1);
 
         var sent = Messager.SentTemplates[0];
@@ -74,17 +74,17 @@ public class WeChatMiniProgramDbJsonChannelData_Tests
         sent.State.ShouldBe("formal");
     }
 
-    // ---------- 3. 历史遗留无前缀键 ----------
+    // ---------- 3. Khóa cũ không có tiền tố ----------
 
     /// <remarks>
     /// <para>
-    /// 历史键不在渠道数据解析器的匹配范围内, 而是由渠道 Provider 在解析时回退读取,
-    /// 因此这里必须走真实发布路径验证。
+    /// Khóa cũ nằm ngoài phạm vi khớp của bộ phân tích dữ liệu kênh, mà do kênh Provider đọc dự phòng khi phân tích,
+    /// vì vậy ở đây bắt buộc phải đi qua đường dẫn phát hành thật để kiểm chứng.
     /// </para>
     /// <para>
-    /// 键名以 <b>JSON 字面量</b>书写(而非引用已弃用的
+    /// Tên khóa được viết dưới dạng <b>chuỗi JSON</b> (chứ không tham chiếu thành viên đã lỗi thời
     /// <c>WeChatMiniProgramNotificationDataKeys.Legacy</c>):
-    /// 既避免引用弃用成员, 也更贴近"数据库里存的就是这些字符串"的事实。
+    /// vừa tránh tham chiếu thành viên lỗi thời, vừa sát với thực tế "trong cơ sở dữ liệu lưu chính là những chuỗi này".
     /// </para>
     /// </remarks>
     [Fact]
@@ -92,7 +92,7 @@ public class WeChatMiniProgramDbJsonChannelData_Tests
     {
         Messager.Clear();
 
-        // 早期版本写入的无前缀键, 已安装的生产者可能仍在写
+        // Khóa không tiền tố do phiên bản cũ ghi, producer đã cài đặt có thể vẫn đang ghi
         var data = RestoreFromDbJson(
             "{\"TemplateId\":\"TPL_LEGACY\",\"RedirectPage\":\"pages/legacy\"}");
 
@@ -111,34 +111,34 @@ public class WeChatMiniProgramDbJsonChannelData_Tests
         var data = RestoreFromDbJson(
             "{\"TemplateId\":\"TPL_LEGACY\",\"wx-mp:template_id\":\"TPL_NEW\"}");
 
-        // 渠道数据解析器只认带前缀的键
+        // Bộ phân tích dữ liệu kênh chỉ nhận khóa có tiền tố
         ChannelDataResolver.Resolve<WeChatMiniProgramSubscribeChannelData>(data)!
             .TemplateId.ShouldBe("TPL_NEW");
 
-        // 真实发布时带前缀的键必须优先
+        // Khi phát hành thật, khóa có tiền tố bắt buộc phải được ưu tiên
         await PublishAsync(data, NewUser());
 
         Messager.SentTemplates[0].TemplateId.ShouldBe("TPL_NEW");
     }
 
-    // ---------- 4. 无渠道数据时不误解析 ----------
+    // ---------- 4. Khi không có dữ liệu kênh thì không phân tích nhầm ----------
 
     [Fact]
     public void Should_Resolve_Nothing_When_Db_Json_Has_No_Channel_Data()
     {
         var data = RestoreFromDbJson(
-            "{\"title\":\"订单状态\",\"message\":\"您的订单已发货\"}");
+            "{\"title\":\"Trạng thái đơn hàng\",\"message\":\"Đơn hàng của bạn đã được gửi đi\"}");
 
         ChannelDataResolver.Resolve(Provider, data).ShouldBeEmpty();
     }
 
-    // ---------- 辅助 ----------
+    // ---------- Phụ trợ ----------
 
     /// <summary>
-    /// 模拟"从数据库取出 JSON 字符串"后还原通知数据
+    /// Mô phỏng việc khôi phục dữ liệu thông báo sau khi "lấy chuỗi JSON từ cơ sở dữ liệu"
     /// </summary>
     /// <remarks>
-    /// 与 EF 的属性包值转换器一致: 属性包整体是一个扁平 JSON 对象。
+    /// Nhất quán với bộ chuyển đổi giá trị gói thuộc tính của EF: toàn bộ gói thuộc tính là một đối tượng JSON phẳng.
     /// </remarks>
     private NotificationData RestoreFromDbJson(string dbJson)
     {

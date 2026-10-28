@@ -7,7 +7,7 @@ namespace LINGYUN.Abp.Elasticsearch;
 public partial class ExpressionQueryTranslator
 {
     /// <summary>
-    /// 翻译 Enum.HasFlag
+    /// Dịch Enum.HasFlag
     /// </summary>
     private Query TranslateEnumHasFlag(MethodCallExpression node, string? prefix, IndexMappingInfo? mappingInfo)
     {

@@ -14,7 +14,7 @@ const OpenIddictScopes = lazy(() => import("@/pages/openiddict/scopes/scope-tabl
 const OpenIddictTokens = lazy(() => import("@/pages/openiddict/tokens/token-table"));
 const openiddict: AppRouteObject[] = [
 	{
-		order: 2.2, //暂时挨着management，后续再调整
+		order: 2.2, //Tạm thời đặt kề management, sau này sẽ điều chỉnh lại
 		path: "openiddict",
 		element: (
 			<Suspense fallback={<CircleLoading />}>

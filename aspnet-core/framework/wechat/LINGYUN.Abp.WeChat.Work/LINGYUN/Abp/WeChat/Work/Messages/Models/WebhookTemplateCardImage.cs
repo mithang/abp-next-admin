@@ -4,29 +4,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 图片样式
+/// Kiểu ảnh
 /// </summary>
 public class WebhookTemplateCardImage
 {
     /// <summary>
-    /// 图片的url
+    /// url của ảnh
     /// </summary>
     [NotNull]
     [JsonProperty("url")]
     [JsonPropertyName("url")]
     public string Url { get; set; }
     /// <summary>
-    /// 图片的宽高比，宽高比要小于2.25，大于1.3，不填该参数默认1.3
+    /// Tỷ lệ khung hình của ảnh, tỷ lệ khung hình phải nhỏ hơn 2.25 và lớn hơn 1.3; nếu không điền tham số này thì mặc định là 1.3
     /// </summary>
     [CanBeNull]
     [JsonProperty("aspect_ratio")]
     [JsonPropertyName("aspect_ratio")]
     public float? AspectRatio { get; set; }
     /// <summary>
-    /// 创建一个图片样式
+    /// Tạo một kiểu ảnh
     /// </summary>
-    /// <param name="url">图片的url</param>
-    /// <param name="aspectRatio">图片的宽高比,不填该参数默认1.3</param>
+    /// <param name="url">url của ảnh</param>
+    /// <param name="aspectRatio">Tỷ lệ khung hình của ảnh, nếu không điền tham số này thì mặc định là 1.3</param>
     public WebhookTemplateCardImage(string url, float? aspectRatio = 1.3f)
     {
         Url = url;

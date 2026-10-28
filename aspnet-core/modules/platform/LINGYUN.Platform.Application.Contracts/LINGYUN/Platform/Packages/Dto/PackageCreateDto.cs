@@ -5,13 +5,13 @@ namespace LINGYUN.Platform.Packages;
 public class PackageCreateDto : PackageCreateOrUpdateDto
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     [Required]
     [DynamicMaxLength(typeof(PackageConsts), nameof(PackageConsts.MaxNameLength))]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 版本
+    /// Phiên bản
     /// </summary>
     [Required]
     [DynamicMaxLength(typeof(PackageConsts), nameof(PackageConsts.MaxVersionLength))] 

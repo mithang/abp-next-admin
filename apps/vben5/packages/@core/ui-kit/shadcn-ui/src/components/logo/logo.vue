@@ -5,35 +5,35 @@ import { VbenAvatar } from '../avatar';
 
 interface Props {
   /**
-   * @zh_CN 是否收起文本
+   * @zh_CN Có thu gọn văn bản không
    */
   collapsed?: boolean;
   /**
-   * @zh_CN Logo 图片适应方式
+   * @zh_CN Cách hình ảnh Logo vừa khung
    */
   fit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /**
-   * @zh_CN Logo 跳转地址
+   * @zh_CN Địa chỉ chuyển hướng của Logo
    */
   href?: string;
   /**
-   * @zh_CN Logo 图片大小
+   * @zh_CN Kích thước hình ảnh Logo
    */
   logoSize?: number;
   /**
-   * @zh_CN Logo 图标
+   * @zh_CN Biểu tượng Logo
    */
   src?: string;
   /**
-   * @zh_CN 暗色主题 Logo 图标 (可选，若不设置则使用 src)
+   * @zh_CN Biểu tượng Logo của chủ đề tối (tùy chọn, nếu không đặt thì dùng src)
    */
   srcDark?: string;
   /**
-   * @zh_CN Logo 文本
+   * @zh_CN Văn bản Logo
    */
   text: string;
   /**
-   * @zh_CN Logo 主题
+   * @zh_CN Chủ đề Logo
    */
   theme?: string;
 }
@@ -53,14 +53,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /**
- * @zh_CN 根据主题选择合适的 logo 图标
+ * @zh_CN Chọn biểu tượng logo phù hợp theo chủ đề
  */
 const logoSrc = computed(() => {
-  // 如果是暗色主题且提供了 srcDark，则使用暗色主题的 logo
+  // Nếu là chủ đề tối và đã cung cấp srcDark thì dùng logo của chủ đề tối
   if (props.theme === 'dark' && props.srcDark) {
     return props.srcDark;
   }
-  // 否则使用默认的 src
+  // Ngược lại dùng src mặc định
   return props.src;
 });
 </script>

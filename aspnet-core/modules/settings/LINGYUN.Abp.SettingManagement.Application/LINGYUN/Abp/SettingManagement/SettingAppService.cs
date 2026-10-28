@@ -61,7 +61,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
             throw new UserFriendlyException(L["TenantCannotChangeGlobalSetting"]);
         }
 
-        // 增加特性检查
+        // Thêm kiểm tra tính năng
         await CheckFeatureAsync();
 
         foreach (var setting in input.Settings)
@@ -71,7 +71,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         CurrentUnitOfWork!.OnCompleted(async () =>
         {
-            // 发送刷新用户缓存事件
+            // Gửi sự kiện làm mới bộ nhớ đệm người dùng
             await EventBus.PublishAsync(new CurrentApplicationConfigurationCacheResetEventData());
         });
 
@@ -81,7 +81,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
     [Authorize(AbpSettingManagementPermissions.Settings.Manager)]
     public async virtual Task SetCurrentTenantAsync(UpdateSettingsDto input)
     {
-        // 增加特性检查
+        // Thêm kiểm tra tính năng
         await CheckFeatureAsync();
 
         if (CurrentTenant.IsAvailable)
@@ -93,7 +93,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
             CurrentUnitOfWork!.OnCompleted(async () =>
             {
-                // 发送刷新用户缓存事件
+                // Gửi sự kiện làm mới bộ nhớ đệm người dùng
                 await EventBus.PublishAsync(new CurrentApplicationConfigurationCacheResetEventData());
             });
 
@@ -120,22 +120,22 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
          * 2020-11-19
          * colin@foxmail.com
          * 
-         * 之所以重构为这种看似硬编码的设计,是因为硬编码的都是常用的自带的配置
+         * Lý do tái cấu trúc thành thiết kế trông có vẻ hard-code này là vì những thứ được hard-code đều là các cấu hình đi kèm thường dùng
          * 
-         * 自定义的应用模块可以实现返回相同Dto的配置服务,然后通过路由的聚合功能,
-         * 轻松加入到前端的设置管理(因为vue前端已设计为动态表单页面)
+         * Các mô-đun ứng dụng tùy chỉnh có thể triển khai dịch vụ cấu hình trả về cùng Dto, rồi thông qua chức năng tổng hợp của định tuyến,
+         * dễ dàng đưa vào quản lý cài đặt ở frontend (vì frontend vue đã được thiết kế thành trang biểu mẫu động)
          * 
-         * 最初的设计才是不合理的,前端不能硬编码设置管理界面,这应该是后端的事情
+         * Thiết kế ban đầu mới là không hợp lý, frontend không được hard-code giao diện quản lý cài đặt, đó phải là việc của backend
          */ 
 
-        // 2021-12-11 重新约定返回格式, 当用户明确只需要对应提供者设置才返回，否则为空数组
+        // 2021-12-11 Thỏa thuận lại định dạng trả về, chỉ trả về khi người dùng rõ ràng chỉ cần cài đặt của nhà cung cấp tương ứng, nếu không sẽ là mảng rỗng
 
         var settingGroups = new SettingGroupResult();
 
-        #region 系统设置
+        #region Cài đặt hệ thống
 
         var sysSettingGroup = new SettingGroupDto(L["DisplayName:System"], L["Description:System"]);
-        // 语言
+        // Ngôn ngữ
         var languageSetting = sysSettingGroup.AddSetting(L["DisplayName:System.Language"], L["Description:System.Language"]);
         languageSetting.AddDetail(
             await SettingDefinitionManager.GetAsync(LocalizationSettingNames.DefaultLanguage),
@@ -144,7 +144,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
             ValueType.Option,
             providerName)
             ?.AddOptions(LocalizationOptions.Languages.Select(l => new OptionDto(l.DisplayName, l.CultureName)));
-        // 时区
+        // Múi giờ
         var timezones = TimeZoneHelper.GetTimezones(TimezoneProvider.GetIanaTimezones());
         timezones.Insert(0, new NameValue
         {
@@ -164,13 +164,13 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 安全设置
+        #region Cài đặt bảo mật
 
         var securitySettingGroup = new SettingGroupDto(L["DisplayName:Security"], L["Description:Security"]);
 
-        // 用户账户
+        // Tài khoản người dùng
         var accountSetting = securitySettingGroup.AddSetting(L["DisplayName:Security.Account"], L["Description:Security.Account"]);
-        // 启用本地登录
+        // Bật đăng nhập cục bộ
         accountSetting.AddDetail(
             await SettingDefinitionManager.GetAsync(AccountSettingNames.EnableLocalLogin),
             StringLocalizerFactory,
@@ -188,12 +188,12 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 身份标识设置
+        #region Cài đặt danh tính
 
-        // 身份标识设置
+        // Cài đặt danh tính
         var identitySetting = new SettingGroupDto(L["DisplayName:Identity"], L["Description:Identity"]);
 
-        #region 用户锁定
+        #region Khóa người dùng
 
         var lockoutSetting = identitySetting.AddSetting(L["DisplayName:Identity.Lockout"], L["Description:Identity.Lockout"]);
         lockoutSetting.AddDetail(
@@ -217,7 +217,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 用户
+        #region Người dùng
 
         var userSetting = identitySetting.AddSetting(L["DisplayName:Identity.User"], L["Description:Identity.User"]);
         userSetting.AddDetail(
@@ -265,7 +265,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 登录
+        #region Đăng nhập
 
         var signinSetting = identitySetting.AddSetting(L["DisplayName:Identity.SignIn"], L["Description:Identity.SignIn"]);
         signinSetting.AddDetail(
@@ -295,7 +295,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 会话
+        #region Phiên
 
         var sessionSetting = identitySetting.AddSetting(L["DisplayName:Identity.Session"], L["Description:Identity.Session"]);
         sessionSetting.AddDetail(
@@ -317,7 +317,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 密码
+        #region Mật khẩu
 
         var passwordSetting = identitySetting.AddSetting(L["DisplayName:Identity.Password"], L["Description:Identity.Password"]);
         passwordSetting.AddDetail(
@@ -383,7 +383,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 双因素
+        #region Xác thực hai yếu tố
 
         // Removed See: https://github.com/abpframework/abp/pull/7719
         //var twoFactorSetting = identitySetting.AddSetting(L["DisplayName:Identity.TwoFactor"], L["Description:Identity.TwoFactor"]);
@@ -403,7 +403,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 组织机构
+        #region Tổ chức
 
         var ouSetting = identitySetting.AddSetting(L["DisplayName:Identity.OrganizationUnit"], L["Description:Identity.OrganizationUnit"]);
         ouSetting.AddDetail(
@@ -415,7 +415,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 链接
+        #region Liên kết
 
         var linkSetting = identitySetting.AddSetting(L["DisplayName:Identity.Link"], L["Description:Identity.Link"]);
         linkSetting.AddDetail(
@@ -431,7 +431,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 邮件设置
+        #region Cài đặt email
 
         if (!CurrentTenant.IsAvailable || 
             await FeatureChecker.IsEnabledAsync(true, [SettingManagementFeatures.Enable, SettingManagementFeatures.AllowChangingEmailSettings]))
@@ -454,7 +454,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
                 providerName)
                 ?.RequiredPermission("SettingManagement.Emailing");
 
-            // 防止邮件设置泄露
+            // Ngăn rò rỉ cài đặt email
             if (await AuthorizationService.IsGrantedAsync(AbpSettingManagementPermissions.Settings.Manager))
             {
                 var smtpSetting = emailSettingGroup.AddSetting(L["DisplayName:Emailing.Smtp"], L["Description:Emailing.Smtp"]);
@@ -506,7 +506,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
                     ValueType.String,
                     providerName)
                     ?.RequiredPermission("SettingManagement.Emailing");
-                // 一个占位符,用于展现发送测试邮件
+                // Một placeholder, dùng để hiển thị việc gửi email kiểm tra
                 smtpSetting.AddDetail(
                     new SettingDefinition(
                         name: "SendTestEmail",
@@ -526,7 +526,7 @@ public class SettingAppService : ApplicationService, ISettingAppService, ISettin
 
         #endregion
 
-        #region 外部登录
+        #region Đăng nhập bên ngoài
 
         var oauthSettingDto = new SettingGroupDto(L["Settings:ExternalOAuthLogin"], L["Settings:ExternalOAuthLogin"]);
 

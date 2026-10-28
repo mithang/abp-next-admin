@@ -2,7 +2,7 @@
 
 Real-time Message Database Migration Module, providing database migration functionality for real-time messaging and notification systems.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

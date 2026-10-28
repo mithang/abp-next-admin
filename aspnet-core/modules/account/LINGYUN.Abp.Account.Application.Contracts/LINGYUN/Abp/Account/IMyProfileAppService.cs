@@ -9,78 +9,78 @@ namespace LINGYUN.Abp.Account;
 public interface IMyProfileAppService : IApplicationService
 {
     /// <summary>
-    /// 获取验证器信息
+    /// Lấy thông tin trình xác thực
     /// </summary>
     /// <returns></returns>
     Task<AuthenticatorDto> GetAuthenticatorAsync();
     /// <summary>
-    /// 验证验证器代码
+    /// Xác minh mã trình xác thực
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<AuthenticatorRecoveryCodeDto> VerifyAuthenticatorCodeAsync(VerifyAuthenticatorCodeInput input);
     /// <summary>
-    /// 获取会话列表
+    /// Lấy danh sách phiên
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<PagedResultDto<IdentitySessionDto>> GetSessionsAsync(GetMySessionsInput input);
     /// <summary>
-    /// 撤销会话
+    /// Thu hồi phiên
     /// </summary>
-    /// <param name="sessionId">会话id</param>
+    /// <param name="sessionId">id phiên</param>
     /// <returns></returns>
     Task RevokeSessionAsync(string sessionId);
     /// <summary>
-    /// 重置验证器
+    /// Đặt lại trình xác thực
     /// </summary>
     /// <returns></returns>
     Task ResetAuthenticatorAsync();
     /// <summary>
-    /// 获取二次认证状态
+    /// Lấy trạng thái xác thực hai yếu tố
     /// </summary>
     /// <returns></returns>
     Task<TwoFactorEnabledDto> GetTwoFactorEnabledAsync();
     /// <summary>
-    /// 改变二次认证
+    /// Thay đổi xác thực hai yếu tố
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task ChangeTwoFactorEnabledAsync(TwoFactorEnabledDto input);
     /// <summary>
-    /// 发送改变手机号验证码
+    /// Gửi mã xác minh đổi số điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendChangePhoneNumberCodeAsync(SendChangePhoneNumberCodeInput input);
     /// <summary>
-    /// 改变手机绑定
+    /// Thay đổi liên kết số điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     /// <remarks>
-    /// 需二次认证,主要是为了无法用到重定向页面修改相关信息的地方（点名微信小程序）
+    /// Cần xác thực hai yếu tố, chủ yếu vì có những nơi không thể dùng trang chuyển hướng để sửa thông tin liên quan (điển hình là mini program WeChat)
     /// </remarks>
     Task ChangePhoneNumberAsync(ChangePhoneNumberInput input);
     /// <summary>
-    /// 发送确认邮件链接
+    /// Gửi liên kết xác nhận email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendEmailConfirmLinkAsync(SendEmailConfirmCodeDto input);
     /// <summary>
-    /// 确认邮件地址
+    /// Xác nhận địa chỉ email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task ConfirmEmailAsync(ConfirmEmailInput input);
     /// <summary>
-    /// 变更用户头像
+    /// Thay đổi ảnh đại diện người dùng
     /// </summary>
     /// <returns></returns>
     Task ChangePictureAsync(ChangePictureInput input);
     /// <summary>
-    /// 获取用户头像
+    /// Lấy ảnh đại diện người dùng
     /// </summary>
     /// <returns></returns>
     Task<IRemoteStreamContent> GetPictureAsync();

@@ -8,7 +8,7 @@ using Volo.Abp.Sms;
 namespace LINGYUN.Abp.Notifications.Sms;
 
 /// <summary>
-/// 短信通知的默认实现者
+/// Trình triển khai mặc định của thông báo SMS
 /// </summary>
 public class SmsNotificationSender : ISmsNotificationSender, ITransientDependency
 {
@@ -23,7 +23,7 @@ public class SmsNotificationSender : ISmsNotificationSender, ITransientDependenc
     }
 
     /// <summary>
-    /// 发送通知
+    /// Gửi thông báo
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="phoneNumbers"></param>
@@ -38,7 +38,7 @@ public class SmsNotificationSender : ISmsNotificationSender, ITransientDependenc
         }
         var message = new SmsMessage(phoneNumbers, "SmsNotification");
 
-        // TODO: 后期增强功能,增加短信模板、通知模板功能
+        // TODO: Tăng cường chức năng về sau, bổ sung mẫu SMS, chức năng mẫu thông báo
         message.Properties.Add("TemplateCode", templateCode);
         message.Properties.Add("SignName", notification.Data.TryGetData("SignName")!);
         foreach (var prop in notification.Data.ExtraProperties)

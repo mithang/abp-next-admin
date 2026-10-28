@@ -9,7 +9,7 @@ namespace LINGYUN.Abp.MessageService.Groups;
 public interface IGroupRepository : IBasicRepository<ChatGroup, long>
 {
     /// <summary>
-    /// 用户是否已被拉黑
+    /// Người dùng có bị chặn hay không
     /// </summary>
     /// <param name="id"></param>
     /// <param name="formUserId"></param>
@@ -28,21 +28,23 @@ public interface IGroupRepository : IBasicRepository<ChatGroup, long>
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// 获取群组数
+    /// Lấy số lượng nhóm
     /// </summary>
     /// <param name="filter"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<int> GetCountAsync(
         string? filter = null,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群组列表
+    /// Lấy danh sách nhóm
     /// </summary>
     /// <param name="filter"></param>
     /// <param name="sorting"></param>
     /// <param name="skipCount"></param>
     /// <param name="maxResultCount"></param>
+    /// <param name="allowAnonymousOnly">SEC-04: chỉ lấy group cho phép trò chuyện ẩn danh (dành cho request ẩn danh)</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<List<ChatGroup>> GetListAsync(
@@ -50,5 +52,6 @@ public interface IGroupRepository : IBasicRepository<ChatGroup, long>
         string? sorting = nameof(ChatGroup.Name),
         int skipCount = 0,
         int maxResultCount = 10,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default);
 }

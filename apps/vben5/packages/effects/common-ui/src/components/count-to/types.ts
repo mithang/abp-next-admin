@@ -11,43 +11,43 @@ export const TransitionPresetsKeys = Object.keys(
 ) as TransitionPresets[];
 
 export interface CountToProps {
-  /** 初始值 */
+  /** Giá trị ban đầu */
   startVal?: number;
-  /** 当前值 */
+  /** Giá trị hiện tại */
   endVal: number;
-  /** 是否禁用动画 */
+  /** Có vô hiệu hóa animation không */
   disabled?: boolean;
-  /** 延迟动画开始的时间 */
+  /** Thời gian trì hoãn bắt đầu animation */
   delay?: number;
-  /** 持续时间  */
+  /** Thời lượng  */
   duration?: number;
-  /** 小数位数  */
+  /** Số chữ số thập phân  */
   decimals?: number;
-  /** 小数点  */
+  /** Dấu thập phân  */
   decimal?: string;
-  /** 分隔符  */
+  /** Ký tự phân tách  */
   separator?: string;
-  /** 前缀  */
+  /** Tiền tố  */
   prefix?: string;
-  /** 后缀  */
+  /** Hậu tố  */
   suffix?: string;
-  /** 过渡效果  */
+  /** Hiệu ứng chuyển đổi  */
   transition?: CubicBezierPoints | EasingFunction | TransitionPresets;
-  /** 整数部分的类名 */
+  /** Tên class của phần nguyên */
   mainClass?: string;
-  /** 小数部分的类名 */
+  /** Tên class của phần thập phân */
   decimalClass?: string;
-  /** 前缀部分的类名 */
+  /** Tên class của phần tiền tố */
   prefixClass?: string;
-  /** 后缀部分的类名 */
+  /** Tên class của phần hậu tố */
   suffixClass?: string;
 
-  /** 整数部分的样式 */
+  /** Kiểu của phần nguyên */
   mainStyle?: StyleValue;
-  /** 小数部分的样式 */
+  /** Kiểu của phần thập phân */
   decimalStyle?: StyleValue;
-  /** 前缀部分的样式 */
+  /** Kiểu của phần tiền tố */
   prefixStyle?: StyleValue;
-  /** 后缀部分的样式 */
+  /** Kiểu của phần hậu tố */
   suffixStyle?: StyleValue;
 }

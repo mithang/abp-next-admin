@@ -4,21 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 模板控件
+/// Điều khiển mẫu
 /// </summary>
 [Newtonsoft.Json.JsonConverter(typeof(ControlNewtonsoftJsonConverter))]
 [System.Text.Json.Serialization.JsonConverter(typeof(ControlSystemTextJsonConverter))]
 public class Control
 {
     /// <summary>
-    /// 控件属性
+    /// Thuộc tính điều khiển
     /// </summary>
     [NotNull]
     [JsonProperty("property")]
     [JsonPropertyName("property")]
     public ControlInfo Property { get; set; } = default!;
     /// <summary>
-    /// 控件配置
+    /// Cấu hình điều khiển
     /// </summary>
     [CanBeNull]
     [JsonProperty("config")]

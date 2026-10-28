@@ -12,7 +12,7 @@
   import { Button } from 'ant-design-vue';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useFlowStoreWithOut } from '/@/store/modules/flow';
-  //导入所有节点组件
+  //Import tất cả các component nút
   import HttpEndPoint from '../nodes/HttpEndPointNode.vue';
   import Approval from '../nodes/ApprovalNode.vue';
   import Cc from '../nodes/CcNode.vue';
@@ -61,25 +61,25 @@
       function getDomTree(node) {
         toMapping(node);
         if (isPrimaryNode(node)) {
-          //普通业务节点
+          //Nút nghiệp vụ thông thường
           let childDoms = getDomTree(node.children);
           decodeAppendDom(node, childDoms);
           return [h('div', { class: { 'primary-node': true } }, { default: () => childDoms })];
         } else if (isBranchNode(node)) {
           let index = 0;
-          //遍历分支节点，包含并行及条件节点
+          //Duyệt các nút nhánh, bao gồm nút song song và nút điều kiện
           let branchItems = node.branchs.map((branchNode) => {
-            //处理每个分支内子节点
+            //Xử lý nút con trong mỗi nhánh
             toMapping(branchNode);
             let childDoms = getDomTree(branchNode.children);
             decodeAppendDom(branchNode, childDoms, { level: index + 1, size: node.branchs.length });
-            //插入4条横线，遮挡掉条件节点左右半边线条
+            //Chèn 4 đường ngang, che đi nửa đường kẻ trái/phải của nút điều kiện
             insertCoverLine(index, childDoms, node.branchs);
-            //遍历子分支尾部分支
+            //Duyệt nhánh ở phần cuối của nhánh con
             index++;
             return h('div', { class: { 'branch-node-item': true } }, { default: () => childDoms });
           });
-          //插入添加分支/条件的按钮
+          //Chèn nút thêm nhánh/điều kiện
           branchItems.unshift(
             h(
               'div',
@@ -93,7 +93,7 @@
                       size: 'small',
                       shape: 'round',
                       onClick: () => addBranchNode(node),
-                      innerHTML: `添加${isConditionNode(node) ? '条件' : '分支'}`,
+                      innerHTML: `Thêm ${isConditionNode(node) ? 'điều kiện' : 'nhánh'}`,
                     },
                     { default: () => [] },
                   ),
@@ -104,21 +104,21 @@
           let bchDom = [
             h('div', { class: { 'branch-node': true } }, { default: () => branchItems }),
           ];
-          //继续遍历分支后的节点
+          //Tiếp tục duyệt các nút sau nhánh
           let afterChildDoms = getDomTree(node.children);
           return [h('div', {}, { default: () => [bchDom, afterChildDoms] })];
         } else if (isEmptyNode(node)) {
-          //空节点，存在于分支尾部
+          //Nút rỗng, tồn tại ở cuối nhánh
           let childDoms = getDomTree(node.children);
           decodeAppendDom(node, childDoms);
           return [h('div', { class: { 'empty-node': true } }, { default: () => childDoms })];
         } else {
-          //遍历到了末端，无子节点
+          //Đã duyệt tới cuối, không còn nút con
           return [];
         }
       }
 
-      //解码渲染的时候插入dom到同级
+      //Khi giải mã và render thì chèn dom vào cùng cấp
       function decodeAppendDom(node, dom, props = {} as any) {
         props.config = node;
         const component = resolveComponent(node.type.toLowerCase());
@@ -127,7 +127,7 @@
             ...props,
             ref: node.id,
             key: node.id,
-            //定义事件，插入节点，删除节点，选中节点，复制/移动
+            //Định nghĩa sự kiện, chèn nút, xóa nút, chọn nút, sao chép/di chuyển
             onInsertNode: (type) => insertNode(type, node),
             onDelNode: () => delNode(node),
             onSelected: () => selectNode(node),
@@ -138,7 +138,7 @@
         );
       }
 
-      //id映射到map，用来向上遍历
+      //Ánh xạ id vào map, dùng để duyệt ngược lên trên
       function toMapping(node) {
         if (node && node.id) {
           //console.log("node=> " + node.id + " name:" + node.name + " type:" + node.type)
@@ -148,11 +148,11 @@
 
       function insertCoverLine(index, doms, branchs) {
         if (index === 0) {
-          //最左侧分支
+          //Nhánh ở phía trái nhất
           doms.unshift(h('div', { class: { 'line-top-left': true } }, { default: () => [] }));
           doms.unshift(h('div', { class: { 'line-bot-left': true } }, { default: () => [] }));
         } else if (index === branchs.length - 1) {
-          //最右侧分支
+          //Nhánh ở phía phải nhất
           doms.unshift(h('div', { class: { 'line-top-right': true } }, { default: () => [] }));
           doms.unshift(h('div', { class: { 'line-bot-right': true } }, { default: () => [] }));
         }
@@ -164,7 +164,7 @@
         branchNode.name = branchNode.name + '-copy';
         forEachNode(parentNode, branchNode, (parent, node) => {
           let id = getRandomId();
-          console.log(node, '新id =>' + id, '老nodeId:' + node.id);
+          console.log(node, 'id mới =>' + id, 'nodeId cũ:' + node.id);
           node.id = id;
           node.parentId = parent.id;
         });
@@ -181,7 +181,7 @@
         instance?.proxy?.$forceUpdate();
       }
 
-      //判断是否为主要业务节点
+      //Kiểm tra có phải nút nghiệp vụ chính hay không
       function isPrimaryNode(node) {
         return node && PrimaryNodes.includes(node.type);
       }
@@ -194,12 +194,12 @@
         return node && node.type === 'EMPTY';
       }
 
-      //是分支节点
+      //Là nút nhánh
       function isConditionNode(node) {
         return node.type === 'CONDITIONS';
       }
 
-      //是分支节点
+      //Là nút nhánh
       function isBranchSubNode(node) {
         return node && (node.type === 'CONDITION' || node.type === 'CONCURRENT');
       }
@@ -214,21 +214,21 @@
         )}`;
       }
 
-      //选中一个节点
+      //Chọn một nút
       function selectNode(node) {
         console.log('selectNode', node);
         flowStore.selectNode(node);
         emit('selectedNode', node);
       }
 
-      //处理节点插入逻辑
+      //Xử lý logic chèn nút
       function insertNode(type, parentNode) {
         console.log('insertNode', type, parentNode);
         const rootEl = unref(rootRef);
         rootEl?.click();
-        //缓存一下后面的节点
+        //Lưu tạm các nút phía sau
         let afterNode = parentNode.children;
-        //插入新节点
+        //Chèn nút mới
         parentNode.children = {
           id: getRandomId(),
           parentId: parentNode.id,
@@ -260,7 +260,7 @@
           default:
             break;
         }
-        //拼接后续节点
+        //Nối các nút tiếp theo
         if (isBranchNode({ type: type })) {
           if (afterNode && afterNode.id) {
             afterNode.parentId = parentNode.children.children.id;
@@ -276,27 +276,27 @@
       }
 
       function insertApprovalNode(parentNode) {
-        parentNode.children.name = '审批人';
+        parentNode.children.name = 'Người phê duyệt';
         parentNode.children.props = cloneDeep(DefaultProps.APPROVAL_PROPS);
       }
 
       function insertCcNode(parentNode) {
-        parentNode.children.name = '抄送人';
+        parentNode.children.name = 'Người nhận bản sao';
         parentNode.children.props = cloneDeep(DefaultProps.CC_PROPS);
       }
 
       function insertDelayNode(parentNode) {
-        parentNode.children.name = '延时处理';
+        parentNode.children.name = 'Xử lý trì hoãn';
         parentNode.children.props = cloneDeep(DefaultProps.DELAY_PROPS);
       }
 
       function insertTriggerNode(parentNode) {
-        parentNode.children.name = '触发器';
+        parentNode.children.name = 'Trình kích hoạt';
         parentNode.children.props = cloneDeep(DefaultProps.TRIGGER_PROPS);
       }
 
       function insertConditionsNode(parentNode) {
-        parentNode.children.name = '条件分支';
+        parentNode.children.name = 'Nhánh điều kiện';
         parentNode.children.children = {
           id: getRandomId(),
           parentId: parentNode.children.id,
@@ -308,7 +308,7 @@
             parentId: parentNode.children.id,
             type: 'CONDITION',
             props: cloneDeep(DefaultProps.CONDITION_PROPS),
-            name: '条件1',
+            name: 'Điều kiện 1',
             children: {},
           },
           {
@@ -316,14 +316,14 @@
             parentId: parentNode.children.id,
             type: 'CONDITION',
             props: cloneDeep(DefaultProps.CONDITION_PROPS),
-            name: '条件2',
+            name: 'Điều kiện 2',
             children: {},
           },
         ];
       }
 
       function insertConcurrentsNode(parentNode) {
-        parentNode.children.name = '并行分支';
+        parentNode.children.name = 'Nhánh song song';
         parentNode.children.children = {
           id: getRandomId(),
           parentId: parentNode.children.id,
@@ -332,7 +332,7 @@
         parentNode.children.branchs = [
           {
             id: getRandomId(),
-            name: '分支1',
+            name: 'Nhánh 1',
             parentId: parentNode.children.id,
             type: 'CONCURRENT',
             props: {},
@@ -340,7 +340,7 @@
           },
           {
             id: getRandomId(),
-            name: '分支2',
+            name: 'Nhánh 2',
             parentId: parentNode.children.id,
             type: 'CONCURRENT',
             props: {},
@@ -366,44 +366,44 @@
           node.branchs.push({
             id: getRandomId(),
             parentId: node.id,
-            name: (isConditionNode(node) ? '条件' : '分支') + (node.branchs.length + 1),
+            name: (isConditionNode(node) ? 'điều kiện' : 'nhánh') + (node.branchs.length + 1),
             props: isConditionNode(node) ? cloneDeep(DefaultProps.CONDITION_PROPS) : {},
             type: isConditionNode(node) ? 'CONDITION' : 'CONCURRENT',
             children: {},
           });
         } else {
-          createMessage.warning('最多只能添加 8 项😥');
+          createMessage.warning('Chỉ có thể thêm tối đa 8 mục😥');
         }
       }
 
-      //删除当前节点
+      //Xóa nút hiện tại
       function delNode(node) {
-        console.log('删除节点', node);
-        //获取该节点的父节点
+        console.log('Xóa nút', node);
+        //Lấy nút cha của nút này
         let parentNode = nodeMap.value.get(node.parentId);
         if (parentNode) {
-          //判断该节点的父节点是不是分支节点
+          //Kiểm tra nút cha của nút này có phải nút nhánh hay không
           if (isBranchNode(parentNode)) {
-            //移除该分支
+            //Loại bỏ nhánh này
             parentNode.branchs.splice(parentNode.branchs.indexOf(node), 1);
-            //处理只剩1个分支的情况
+            //Xử lý trường hợp chỉ còn 1 nhánh
             if (parentNode.branchs.length < 2) {
-              //获取条件组的父节点
+              //Lấy nút cha của nhóm điều kiện
               let ppNode = nodeMap.value.get(parentNode.parentId);
-              //判断唯一分支是否存在业务节点
+              //Kiểm tra nhánh duy nhất có tồn tại nút nghiệp vụ hay không
               if (parentNode.branchs[0].children && parentNode.branchs[0].children.id) {
-                //将剩下的唯一分支头部合并到主干
+                //Hợp nhất phần đầu của nhánh duy nhất còn lại vào trục chính
                 ppNode.children = parentNode.branchs[0].children;
                 ppNode.children.parentId = ppNode.id;
-                //搜索唯一分支末端最后一个节点
+                //Tìm nút cuối cùng ở cuối nhánh duy nhất
                 let endNode = getBranchEndNode(parentNode.branchs[0]);
-                //后续节点进行拼接, 这里要取EMPTY后的节点
+                //Nối các nút tiếp theo, ở đây phải lấy nút sau EMPTY
                 endNode.children = parentNode.children.children;
                 if (endNode.children && endNode.children.id) {
                   endNode.children.parentId = endNode.id;
                 }
               } else {
-                //直接合并分支后面的节点，这里要取EMPTY后的节点
+                //Hợp nhất trực tiếp các nút sau nhánh, ở đây phải lấy nút sau EMPTY
                 ppNode.children = parentNode.children.children;
                 if (ppNode.children && ppNode.children.id) {
                   ppNode.children.parentId = ppNode.id;
@@ -411,7 +411,7 @@
               }
             }
           } else {
-            //不是的话就直接删除
+            //Nếu không thì xóa trực tiếp
             if (node.children && node.children.id) {
               node.children.parentId = parentNode.id;
             }
@@ -419,7 +419,7 @@
           }
           instance?.proxy?.$forceUpdate();
         } else {
-          createMessage.warning('出现错误，找不到上级节点😥');
+          createMessage.warning('Đã xảy ra lỗi, không tìm thấy nút cấp trên😥');
         }
       }
 
@@ -437,13 +437,13 @@
         }
       }
 
-      //更新指定节点的dom
+      //Cập nhật dom của nút được chỉ định
       function nodeDomUpdate(node) {
         const nodeRef = instance?.refs[node.id] as unknown as any;
         nodeRef?.$forceUpdate();
       }
 
-      //给定一个起始节点，遍历内部所有节点
+      //Cho một nút bắt đầu, duyệt tất cả các nút bên trong
       function forEachNode(parent, node, callback) {
         if (isBranchNode(node)) {
           callback(parent, node);
@@ -458,17 +458,17 @@
         }
       }
 
-      //校验所有节点设置
+      //Kiểm tra cài đặt của tất cả các nút
       function validate(err, node) {
         if (isPrimaryNode(node)) {
           validateNode(err, node);
           validate(err, node.children);
         } else if (isBranchNode(node)) {
-          //校验每个分支
+          //Kiểm tra từng nhánh
           node.branchs.map((branchNode) => {
-            //校验条件节点
+            //Kiểm tra nút điều kiện
             validateNode(err, branchNode);
-            //校验条件节点后面的节点
+            //Kiểm tra các nút sau nút điều kiện
             validate(err, branchNode.children);
           });
           validate(err, node.children);
@@ -484,13 +484,13 @@
       return () => {
         nodeMap.value.clear();
         let processTrees = getDomTree(dom.value);
-        //插入末端节点
+        //Chèn nút cuối
         processTrees.push(
           h(
             'div',
             { style: { 'text-align': 'center' } },
             {
-              default: () => [h('div', { class: { 'process-end': true }, innerHTML: '流程结束' })],
+              default: () => [h('div', { class: { 'process-end': true }, innerHTML: 'Kết thúc quy trình' })],
             },
           ),
         );

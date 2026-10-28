@@ -35,8 +35,8 @@ export interface RequirePermissionsStateChecker<
 }
 
 export class RequirePermissionsSimpleStateChecker<
-    TState extends IHasSimpleStateCheckers<TState>,
-  >
+  TState extends IHasSimpleStateCheckers<TState>,
+>
   implements ISimpleStateChecker<TState>, RequirePermissionsStateChecker<TState>
 {
   _permissionChecker: IPermissionChecker;
@@ -67,8 +67,7 @@ export class RequirePermissionsSimpleStateChecker<
 
 export class RequirePermissionsSimpleBatchStateChecker<
   TState extends IHasSimpleStateCheckers<TState>,
-> implements ISimpleBatchStateChecker<TState>
-{
+> implements ISimpleBatchStateChecker<TState> {
   _permissionChecker: IPermissionChecker;
   models: RequirePermissionsSimpleBatchStateCheckerModel<TState>[];
   name: string = 'P';
@@ -84,10 +83,14 @@ export class RequirePermissionsSimpleBatchStateChecker<
     context.states.forEach((state) => {
       const model = this.models.find((x) => x.state === state);
       if (model) {
-        result[model.state] = this._permissionChecker.isGranted(
-          model.permissions,
-          model.requiresAll,
-        );
+        // Key của SimpleStateCheckerResult đã remap qua PropertyKey nên index
+        // trực tiếp bằng TState lỗi TS2536; state ở runtime luôn là tên state
+        // (chuỗi) nên cast về keyof là an toàn.
+        result[model.state as keyof SimpleStateCheckerResult<TState>] =
+          this._permissionChecker.isGranted(
+            model.permissions,
+            model.requiresAll,
+          );
       }
     });
     return result;

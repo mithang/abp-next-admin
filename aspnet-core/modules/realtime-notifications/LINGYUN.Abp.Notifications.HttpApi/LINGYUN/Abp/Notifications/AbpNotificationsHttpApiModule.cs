@@ -22,7 +22,7 @@ public class AbpNotificationsHttpApiModule : AbpModule
         {
             options.AddAssemblyResource(
                 typeof(NotificationsResource),
-                typeof(AbpNotificationsApplicationContractsModule).Assembly);  // Dto所在程序集
+                typeof(AbpNotificationsApplicationContractsModule).Assembly);  // Assembly chứa Dto
         });
     }
 }

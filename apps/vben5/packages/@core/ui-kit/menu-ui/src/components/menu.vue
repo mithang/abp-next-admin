@@ -74,7 +74,7 @@ const isMenuPopup = computed<MenuProvider['isMenuPopup']>(() => {
 });
 
 const getSlot = computed(() => {
-  // 更新插槽内容
+  // Cập nhật nội dung slot
   const defaultSlots: VNodeArrayChildren = slots.default?.() ?? [];
 
   const originalSlot = flattedChildren(defaultSlots) as VNodeArrayChildren;
@@ -117,7 +117,7 @@ watchEffect(() => {
   }
 });
 
-// 注入上下文
+// Inject ngữ cảnh
 createMenuContext(
   reactive({
     activePath,
@@ -217,16 +217,16 @@ const { scrollToActiveItem } = useMenuScroll(activePath, {
   delay: 320,
 });
 
-// 监听 activePath 变化，自动滚动到激活项
+// Lắng nghe thay đổi activePath, tự động cuộn tới mục đang kích hoạt
 watch(activePath, () => {
   scrollToActiveItem();
 });
 
-// 默认展开菜单
+// Menu mở rộng mặc định
 function initMenu() {
   const parentPaths = getActivePaths();
 
-  // 展开该菜单项的路径上所有子菜单
+  // Mở rộng tất cả các menu con trên đường dẫn của mục menu này
   // expand all subMenus of the menu item
   parentPaths.forEach((path) => {
     const subMenu = subMenus.value[path];
@@ -276,7 +276,7 @@ function close(path: string) {
 }
 
 /**
- * 关闭、折叠菜单
+ * Đóng, thu gọn menu
  */
 function closeMenu(path: string, parentPaths: string[]) {
   if (props.accordion) {
@@ -289,13 +289,13 @@ function closeMenu(path: string, parentPaths: string[]) {
 }
 
 /**
- * 点击展开菜单
+ * Nhấn để mở rộng menu
  */
 function openMenu(path: string, parentPaths: string[]) {
   if (openedMenus.value.includes(path)) {
     return;
   }
-  // 手风琴模式菜单
+  // Menu chế độ accordion
   if (props.accordion) {
     const activeParentPaths = getActivePaths();
     if (activeParentPaths.includes(path)) {
@@ -557,7 +557,7 @@ $namespace: vben;
   list-style: none;
   background: hsl(var(--menu-background-color));
 
-  // 垂直菜单
+  // Menu dọc
   &.is-vertical {
     &:not(.#{$namespace}-menu.is-collapse) {
       & .#{$namespace}-menu-item,
@@ -655,7 +655,7 @@ $namespace: vben;
     //   }
     // }
   }
-  // 折叠菜单
+  // Menu thu gọn
 
   &.is-collapse {
     .#{$namespace}-menu__icon {

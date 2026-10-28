@@ -7,13 +7,13 @@ namespace LINGYUN.Abp.BlobManagement.Dtos;
 public abstract class BlobFolderCreateBaseDto
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(BlobConsts), nameof(BlobConsts.MaxNameLength))]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 所属BlobId
+    /// BlobId thư mục cha
     /// </summary>
     public Guid? ParentId { get; set; }
 }

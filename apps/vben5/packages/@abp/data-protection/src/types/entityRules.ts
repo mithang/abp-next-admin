@@ -1,41 +1,41 @@
 import type { AuditedEntityDto } from '@abp/core';
 
 enum DataAccessOperation {
-  /** 删除 */
+  /** Xóa */
   Delete = 2,
-  /** 查询 */
+  /** Truy vấn */
   Read = 0,
-  /** 更新 */
+  /** Cập nhật */
   Write = 1,
 }
 
 enum DataAccessFilterOperate {
-  /** 包含 */
+  /** Bao gồm */
   Contains = 9,
-  /** 右包含 */
+  /** Bao gồm bên phải */
   EndsWith = 8,
-  /** 等于 */
+  /** Bằng */
   Equal = 1,
-  /** 大于 */
+  /** Lớn hơn */
   Greater = 5,
-  /** 大于或等于 */
+  /** Lớn hơn hoặc bằng */
   GreaterOrEqual = 6,
-  /** 小于 */
+  /** Nhỏ hơn */
   Less = 3,
-  /** 小于或等于 */
+  /** Nhỏ hơn hoặc bằng */
   LessOrEqual = 4,
-  /** 不包含 */
+  /** Không bao gồm */
   NotContains = 10,
-  /** 不等于 */
+  /** Không bằng */
   NotEqual = 2,
-  /** 左包含 */
+  /** Bao gồm bên trái */
   StartsWith = 7,
 }
 
 enum DataAccessFilterLogic {
-  /** 且 */
+  /** Và */
   And = 0,
-  /** 或 */
+  /** Hoặc */
   Or = 1,
 }
 

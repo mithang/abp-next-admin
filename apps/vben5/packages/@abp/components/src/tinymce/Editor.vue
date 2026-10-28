@@ -151,13 +151,13 @@ const initOptions = computed((): RawEditorSettings => {
     language: langName.value,
     language_url: `${publicPath}resource/tinymce/langs/${langName.value}.js`,
     link_title: false,
-    menubar, // 菜单栏配置
+    menubar, // Cấu hình thanh menu
     object_resizing: false,
     plugins,
     selector: `#${unref(tinymceId)}`,
     skin: skinName.value,
     skin_url: `${publicPath}resource/tinymce/skins/ui/${skinName.value}`,
-    toolbar, // 工具栏
+    toolbar, // Thanh công cụ
     ...options,
     setup: (editor: Editor) => {
       editorRef.value = editor;

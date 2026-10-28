@@ -7,17 +7,17 @@ interface Props extends MotionProps {
 }
 
 /**
- * Motion 通用容器
+ * Motion container dùng chung
  *
- * variants: [变体可以用于使用单个动画道具为组件的整个子树设置动画](https://www.framer.com/motion/animation/#variants)
+ * variants: [Biến thể có thể dùng một prop animation duy nhất để tạo animation cho toàn bộ cây con của component](https://www.framer.com/motion/animation/#variants)
  *
- * Variants 是一组预定义的对象
+ * Variants là một tập hợp các đối tượng được định nghĩa trước
  * const variants = {
  *   visible: { opacity: 1 },
  *   hidden: { opacity: 0 },
  * }
  *
- * 需要指定 inital 和 animate 属性名
+ * Cần chỉ định tên thuộc tính inital và animate
  * <motion.div
  *  initial="hidden"
  *  animate="visible"
@@ -27,7 +27,7 @@ interface Props extends MotionProps {
 export default function MotionContainer({ children, className }: Props) {
 	return (
 		<m.div
-			// 这里指定 initial、animate和exit的属性名后，子组件就不需要再重复指定
+			// Sau khi chỉ định tên thuộc tính initial, animate và exit ở đây, các component con không cần chỉ định lại nữa
 			initial="initial"
 			animate="animate"
 			exit="exit"

@@ -48,10 +48,10 @@ async function onGet() {
   formModel.value = profile;
 }
 function onAvatarChange(_param: UploadChangeParam) {
-  console.warn('等待oss模块集成完成...');
+  console.warn('Đang chờ tích hợp module oss hoàn tất...');
 }
 function onBeforeUpload(_file: FileType) {
-  console.warn('等待oss模块集成完成...');
+  console.warn('Đang chờ tích hợp module oss hoàn tất...');
   return false;
 }
 async function onSubmit() {

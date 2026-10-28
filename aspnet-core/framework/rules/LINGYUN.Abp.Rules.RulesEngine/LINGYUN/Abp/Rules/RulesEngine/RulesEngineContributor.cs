@@ -44,10 +44,10 @@ public class RulesEngineContributor : RuleContributorBase, ISingletonDependency
 
     protected async virtual Task ExecuteRulesAsync<T>(T input, Workflow[] workflows, object[]? @params = null) where T : notnull
     {
-        // TODO: 性能缺陷 规则文件每一次调用都会重复编译
+        // TODO: Khuyết điểm về hiệu năng: tệp quy tắc sẽ được biên dịch lại mỗi lần gọi
         _ruleEngine.AddOrUpdateWorkflow(workflows);
 
-        // 传入参与验证的实体参数
+        // Truyền tham số thực thể tham gia xác thực
         var inputs = new List<object>()
         {
             input
@@ -56,13 +56,13 @@ public class RulesEngineContributor : RuleContributorBase, ISingletonDependency
         {
             inputs.AddRange(@params);
         }
-        // 其他参数以此类推
+        // Các tham số khác cũng tương tự
 
         foreach (var workflow in workflows)
         {
-            // 执行当前的规则
+            // Thực thi quy tắc hiện tại
             var ruleResult = await _ruleEngine.ExecuteAllRulesAsync(workflow.WorkflowName, inputs.ToArray());
-            // 用户自定义扩展方法,规则校验错误抛出异常
+            // Phương thức mở rộng do người dùng tự định nghĩa, lỗi kiểm tra quy tắc sẽ ném ra ngoại lệ
             ruleResult.ThrowOfFaildExecute();
         }
     }

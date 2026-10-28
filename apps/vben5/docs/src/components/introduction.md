@@ -1,15 +1,15 @@
-# 介绍
+# Giới thiệu
 
 ::: info README
 
-该文档介绍的是框架组件的使用方法、属性、事件等。如果你觉得现有组件的封装不够理想，或者不完全符合你的需求，大可以直接使用原生组件，亦或亲手封装一个适合的组件。框架提供的组件并非束缚，使用与否，完全取决于你的需求与自由。
+Tài liệu này giới thiệu cách sử dụng, thuộc tính, sự kiện... của các component trong framework. Nếu bạn thấy cách đóng gói component hiện có chưa đủ tốt, hoặc chưa hoàn toàn phù hợp với nhu cầu của mình, bạn có thể trực tiếp dùng component gốc, hoặc tự đóng gói một component phù hợp. Các component mà framework cung cấp không phải là ràng buộc; dùng hay không hoàn toàn tùy thuộc vào nhu cầu và sự tự do của bạn.
 
 :::
 
-## 布局组件
+## Component bố cục
 
-布局组件一般在页面内容区域用作顶层容器组件，提供一些统一的布局样式和基本功能。
+Component bố cục thường được dùng làm component chứa cấp cao nhất trong vùng nội dung trang, cung cấp một số kiểu bố cục thống nhất và chức năng cơ bản.
 
-## 通用组件
+## Component dùng chung
 
-通用组件是一些常用的组件，比如弹窗、抽屉、表单等。大部分基于 `Tailwind CSS` 实现，可适用于不同 UI 组件库的应用。
+Component dùng chung là những component thường dùng, ví dụ như popup, ngăn kéo, biểu mẫu... Phần lớn được triển khai dựa trên `Tailwind CSS`, có thể áp dụng cho các ứng dụng dùng thư viện UI component khác nhau.

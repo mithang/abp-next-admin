@@ -6,46 +6,46 @@ import { Input, message } from 'ant-design-vue';
 import { useVbenForm } from '#/adapter/form';
 
 const [Form] = useVbenForm({
-  // 所有表单项共用，可单独在表单内覆盖
+  // Dùng chung cho mọi trường biểu mẫu, có thể ghi đè riêng trong biểu mẫu
   commonConfig: {
-    // 所有表单项
+    // Mọi trường biểu mẫu
     componentProps: {
       class: 'w-full',
     },
     labelClass: 'w-2/6',
   },
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input ở cùng một dòng
   layout: 'horizontal',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần được đăng ký trong #/adapter.ts và kèm theo kiểu
       component: 'Input',
       fieldName: 'field',
-      label: '自定义后缀',
-      suffix: () => h('span', { class: 'text-red-600' }, '元'),
+      label: 'Hậu tố tùy chỉnh',
+      suffix: () => h('span', { class: 'text-red-600' }, 'đ'),
     },
     {
       component: 'Input',
       fieldName: 'field1',
-      label: '自定义组件slot',
+      label: 'Component tùy chỉnh (slot)',
       renderComponentContent: () => ({
         prefix: () => 'prefix',
         suffix: () => 'suffix',
       }),
     },
     {
-      component: h(Input, { placeholder: '请输入' }),
+      component: h(Input, { placeholder: 'Vui lòng nhập' }),
       fieldName: 'field2',
-      label: '自定义组件',
+      label: 'Component tùy chỉnh',
       rules: 'required',
     },
     {
       component: 'Input',
       fieldName: 'field3',
-      label: '自定义组件(slot)',
+      label: 'Component tùy chỉnh (slot)',
       rules: 'required',
     },
   ],
@@ -62,7 +62,7 @@ function onSubmit(values: Record<string, any>) {
 <template>
   <Form>
     <template #field3="slotProps">
-      <Input placeholder="请输入" v-bind="slotProps" />
+      <Input placeholder="Vui lòng nhập" v-bind="slotProps" />
     </template>
   </Form>
 </template>

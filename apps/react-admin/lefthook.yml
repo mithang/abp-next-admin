@@ -22,5 +22,5 @@ commit-msg:
   commands:
     commitlint:
       run: npx commitlint --edit {1}
-      # 允许空提交信息
+      # Cho phép thông điệp commit rỗng
       skip: merge|rebase

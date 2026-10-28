@@ -8,45 +8,45 @@ type AccessToken = null | string;
 
 interface AccessState {
   /**
-   * 权限码
+   * Mã quyền
    */
   accessCodes: string[];
   /**
-   * 可访问的菜单列表
+   * Danh sách menu có thể truy cập
    */
   accessMenus: MenuRecordRaw[];
   /**
-   * 可访问的路由列表
+   * Danh sách route có thể truy cập
    */
   accessRoutes: RouteRecordRaw[];
   /**
-   * 登录 accessToken
+   * AccessToken đăng nhập
    */
   accessToken: AccessToken;
   /**
-   * 是否已经检查过权限
+   * Đã kiểm tra quyền hay chưa
    */
   isAccessChecked: boolean;
   /**
-   * 是否锁屏状态
+   * Có đang ở trạng thái khóa màn hình không
    */
   isLockScreen: boolean;
   /**
-   * 锁屏密码
+   * Mật khẩu khóa màn hình
    */
   lockScreenPassword?: string;
   /**
-   * 登录是否过期
+   * Đăng nhập có hết hạn không
    */
   loginExpired: boolean;
   /**
-   * 登录 accessToken
+   * AccessToken đăng nhập
    */
   refreshToken: AccessToken;
 }
 
 /**
- * @zh_CN 访问权限相关
+ * @zh_CN Liên quan đến quyền truy cập
  */
 export const useAccessStore = defineStore('core-access', {
   actions: {
@@ -100,7 +100,7 @@ export const useAccessStore = defineStore('core-access', {
     },
   },
   persist: {
-    // 持久化
+    // Lưu bền vững
     pick: [
       'accessToken',
       'refreshToken',
@@ -122,7 +122,7 @@ export const useAccessStore = defineStore('core-access', {
   }),
 });
 
-// 解决热更新问题
+// Khắc phục vấn đề cập nhật nóng
 const hot = import.meta.hot;
 if (hot) {
   hot.accept(acceptHMRUpdate(useAccessStore, hot));

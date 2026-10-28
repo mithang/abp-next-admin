@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>阿里云Oss对象存储Abp集成</Description>
+		<Description>Tích hợp lưu trữ đối tượng OSS của Alibaba Cloud cho Abp</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

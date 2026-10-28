@@ -1,11 +1,11 @@
 <template>
   <Node
-    title="发起人"
+    title="Người khởi tạo"
     :is-root="true"
     :content="content"
     @selected="$emit('selected')"
     @insertNode="(type) => $emit('insertNode', type)"
-    placeholder="所有人"
+    placeholder="Mọi người"
     header-bgc="#576a95"
     header-icon="el-icon-user-solid"
   >
@@ -42,7 +42,7 @@
       props.config.props.assignedUser.forEach((org) => texts.push(org.name));
       return String(texts).replaceAll(',', '、');
     } else {
-      return '所有人';
+      return 'Mọi người';
     }
   });
 </script>

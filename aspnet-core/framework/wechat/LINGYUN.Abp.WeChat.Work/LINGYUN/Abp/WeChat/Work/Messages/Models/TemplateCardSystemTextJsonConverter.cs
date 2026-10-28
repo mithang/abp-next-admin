@@ -8,22 +8,22 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 
 /// <summary>
-/// 模板卡片消息 System.Text.Json 序列化
+/// Tuần tự hóa System.Text.Json cho thông báo thẻ mẫu
 /// </summary>
 /// <remarks>
 /// <para>
-/// <see cref="TemplateCard"/> 是抽象类型, 默认序列化器无法实例化它,
-/// 导致模板卡片一旦被序列化(例如作为通知数据持久化、或进入失败重试队列)
-/// 就再也无法还原。
+/// <see cref="TemplateCard"/> là kiểu trừu tượng, bộ tuần tự hóa mặc định không thể khởi tạo nó,
+/// khiến thẻ mẫu một khi đã được tuần tự hóa (ví dụ khi dữ liệu thông báo được lưu trữ bền vững, hoặc đi vào hàng đợi thử lại khi thất bại)
+/// thì không thể khôi phục lại được nữa.
 /// </para>
 /// <para>
-/// 这里按 <c>card_type</c> 判别符还原具体卡片类型。判别符在构造函数中传递给基类
-/// (例如 <c>base("template_card", taskId)</c>), 通过读取构造函数 IL 中的字符串常量获得,
-/// 因此新增卡片类型无需修改本转换器。
+/// Tại đây khôi phục kiểu thẻ cụ thể theo ký hiệu phân biệt <c>card_type</c>. Ký hiệu phân biệt được truyền cho lớp cơ sở trong hàm tạo
+/// (ví dụ <c>base("template_card", taskId)</c>), thu được bằng cách đọc hằng chuỗi trong IL của hàm tạo,
+/// do đó khi thêm kiểu thẻ mới không cần sửa đổi bộ chuyển đổi này.
 /// </para>
 /// <para>
-/// 项目使用的 JSON 集成是 <c>Volo.Abp.Json.SystemTextJson</c>,
-/// 因此由渠道模块在启动时自动注册到全局选项。
+/// Tích hợp JSON mà dự án sử dụng là <c>Volo.Abp.Json.SystemTextJson</c>,
+/// do đó được mô-đun kênh tự động đăng ký vào tùy chọn toàn cục khi khởi động.
 /// </para>
 /// </remarks>
 public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
@@ -65,7 +65,7 @@ public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
             throw new JsonException($"Unable to resolve a template card type for card_type: '{cardType}'.");
         }
 
-        // 指定具体类型反序列化, 从而避开本转换器(否则会递归)
+        // Giải tuần tự hóa theo kiểu cụ thể đã chỉ định, nhờ đó tránh bộ chuyển đổi này (nếu không sẽ đệ quy)
         return (TemplateCard?)JsonSerializer.Deserialize(jsonElement.GetRawText(), concreteType, options);
     }
 
@@ -74,12 +74,12 @@ public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
         TemplateCard value,
         JsonSerializerOptions options)
     {
-        // 按运行时类型写出, 避免只输出基类成员
+        // Ghi ra theo kiểu thời gian chạy, tránh chỉ xuất các thành viên của lớp cơ sở
         JsonSerializer.Serialize(writer, value, value.GetType(), options);
     }
 
     /// <summary>
-    /// 按 <c>card_type</c> 获取具体的卡片类型
+    /// Lấy kiểu thẻ cụ thể theo <c>card_type</c>
     /// </summary>
     public static Type? GetCardType(string cardType)
     {
@@ -108,13 +108,13 @@ public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
             return mappedType;
         }
 
-        // 缺少判别符时: 目标是具体类型则直接使用
+        // Khi thiếu ký hiệu phân biệt: nếu đích là kiểu cụ thể thì dùng trực tiếp
         if (!targetType.IsAbstract)
         {
             return targetType;
         }
 
-        // 抽象目标且判别符缺失: 回退到文本模板卡片
+        // Đích trừu tượng và thiếu ký hiệu phân biệt: dự phòng về thẻ mẫu văn bản
         return CardTypes.TryGetValue(nameof(TextTemplateCard), out var fallbackType) ? fallbackType : null;
     }
 
@@ -150,11 +150,11 @@ public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
     }
 
     /// <summary>
-    /// 获取卡片类型的判别符
+    /// Lấy ký hiệu phân biệt của kiểu thẻ
     /// </summary>
     /// <remarks>
-    /// 判别符由构造函数传递给基类, 因此读取构造函数 IL 中的字符串常量。
-    /// 同时以类型名作为兜底键。
+    /// Ký hiệu phân biệt được hàm tạo truyền cho lớp cơ sở, do đó đọc hằng chuỗi trong IL của hàm tạo.
+    /// Đồng thời dùng tên kiểu làm khóa dự phòng.
     /// </remarks>
     private static IEnumerable<string> GetDiscriminators(Type cardType)
     {
@@ -178,7 +178,7 @@ public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
             }
             catch
             {
-                // 读取 IL 失败不影响兜底判别符
+                // Đọc IL thất bại không ảnh hưởng đến ký hiệu phân biệt dự phòng
             }
         }
 
@@ -209,7 +209,7 @@ public class TemplateCardSystemTextJsonConverter : JsonConverter<TemplateCard>
             }
             catch
             {
-                // 不是字符串元数据标记, 继续扫描
+                // Không phải thẻ siêu dữ liệu chuỗi, tiếp tục quét
             }
         }
 

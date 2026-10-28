@@ -17,44 +17,44 @@ import type {
 import requestClient from "../../request";
 
 /**
- * 新增角色
- * @param input 参数
- * @returns 角色实体数据传输对象
+ * Thêm mới vai trò
+ * @param input Tham số
+ * @returns Đối tượng truyền dữ liệu thực thể vai trò
  */
 export function createApi(input: IdentityRoleCreateDto): Promise<IdentityRoleDto> {
 	return requestClient.post<IdentityRoleDto>("/api/identity/roles", input);
 }
 
 /**
- * 删除角色
- * @param id 角色id
+ * Xóa vai trò
+ * @param id Id vai trò
  */
 export function deleteApi(id: string): Promise<void> {
 	return requestClient.delete(`/api/identity/roles/${id}`);
 }
 
 /**
- * 查询角色
- * @param id 角色id
- * @returns 角色实体数据传输对象
+ * Truy vấn vai trò
+ * @param id Id vai trò
+ * @returns Đối tượng truyền dữ liệu thực thể vai trò
  */
 export function getApi(id: string): Promise<IdentityRoleDto> {
 	return requestClient.get<IdentityRoleDto>(`/api/identity/roles/${id}`);
 }
 
 /**
- * 更新角色
- * @param id 角色id
- * @returns 角色实体数据传输对象
+ * Cập nhật vai trò
+ * @param id Id vai trò
+ * @returns Đối tượng truyền dữ liệu thực thể vai trò
  */
 export function updateApi(id: string, input: IdentityRoleUpdateDto): Promise<IdentityRoleDto> {
 	return requestClient.put<IdentityRoleDto>(`/api/identity/roles/${id}`, input);
 }
 
 /**
- * 查询角色分页列表
- * @param input 过滤参数
- * @returns 角色实体数据传输对象分页列表
+ * Truy vấn danh sách phân trang vai trò
+ * @param input Tham số lọc
+ * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể vai trò
  */
 export function getPagedListApi(input?: GetRolePagedListInput): Promise<PagedResultDto<IdentityRoleDto>> {
 	return requestClient.get<PagedResultDto<IdentityRoleDto>>("/api/identity/roles", {
@@ -63,26 +63,26 @@ export function getPagedListApi(input?: GetRolePagedListInput): Promise<PagedRes
 }
 
 /**
- * 从组织机构中移除角色
- * @param id 角色id
- * @param ouId 组织机构id
+ * Xóa vai trò khỏi tổ chức
+ * @param id Id vai trò
+ * @param ouId Id tổ chức
  */
 export function removeOrganizationUnitApi(id: string, ouId: string): Promise<void> {
 	return requestClient.delete(`/api/identity/roles/${id}/organization-units/${ouId}`);
 }
 
 /**
- * 获取角色声明列表
- * @param id 角色id
+ * Lấy danh sách claim của vai trò
+ * @param id Id vai trò
  */
 export function getClaimsApi(id: string): Promise<ListResultDto<IdentityClaimDto>> {
 	return requestClient.get<ListResultDto<IdentityClaimDto>>(`/api/identity/roles/${id}/claims`);
 }
 
 /**
- * 删除角色声明
- * @param id 角色id
- * @param input 角色声明dto
+ * Xóa claim của vai trò
+ * @param id Id vai trò
+ * @param input DTO claim của vai trò
  */
 export function deleteClaimApi(id: string, input: IdentityClaimDeleteDto): Promise<void> {
 	return requestClient.delete(`/api/identity/roles/${id}/claims`, {
@@ -91,18 +91,18 @@ export function deleteClaimApi(id: string, input: IdentityClaimDeleteDto): Promi
 }
 
 /**
- * 创建角色声明
- * @param id 角色id
- * @param input 角色声明dto
+ * Tạo claim của vai trò
+ * @param id Id vai trò
+ * @param input DTO claim của vai trò
  */
 export function createClaimApi(id: string, input: IdentityClaimCreateDto): Promise<void> {
 	return requestClient.post(`/api/identity/roles/${id}/claims`, input);
 }
 
 /**
- * 更新角色声明
- * @param id 角色id
- * @param input 用户角色dto
+ * Cập nhật claim của vai trò
+ * @param id Id vai trò
+ * @param input DTO vai trò của người dùng
  */
 export function updateClaimApi(id: string, input: IdentityClaimUpdateDto): Promise<void> {
 	return requestClient.put(`/api/identity/roles/${id}/claims`, input);

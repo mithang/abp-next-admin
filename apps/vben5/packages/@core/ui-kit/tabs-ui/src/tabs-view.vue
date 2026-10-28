@@ -50,7 +50,7 @@ useTabsDrag(props, emit);
 
 <template>
   <div class="flex h-full flex-1 overflow-hidden">
-    <!-- 左侧滚动按钮 -->
+    <!-- Nút cuộn bên trái -->
     <span
       v-show="showScrollButton"
       :class="{
@@ -91,7 +91,7 @@ useTabsDrag(props, emit);
       </VbenScrollbar>
     </div>
 
-    <!-- 右侧滚动按钮 -->
+    <!-- Nút cuộn bên phải -->
     <span
       v-show="showScrollButton"
       :class="{

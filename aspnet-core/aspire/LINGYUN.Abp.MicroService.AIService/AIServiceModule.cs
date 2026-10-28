@@ -49,7 +49,7 @@ namespace LINGYUN.Abp.MicroService.AIService;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpPermissionManagementDomainOpenIddictModule),
 
-    // 重写模板引擎支持外部本地化
+    // Ghi đè template engine để hỗ trợ bản địa hóa bên ngoài
     typeof(AbpTextTemplatingScribanModule),
 
     typeof(AbpAIOllamaModule),

@@ -4,7 +4,7 @@ using LINGYUN.Abp.WeChat.Work.Messages;
 
 namespace LINGYUN.Abp.MicroService.AllInOne.WeChat.Work.Messages;
 /// <summary>
-/// 文本消息客服回复
+/// Trả lời chăm sóc khách hàng bằng tin nhắn văn bản
 /// </summary>
 public class TextMessageReplyContributor : IMessageHandleContributor<TextMessage>
 {

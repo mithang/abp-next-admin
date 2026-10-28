@@ -2,173 +2,173 @@
 outline: deep
 ---
 
-# Vben Modal 模态框
+# Vben Modal Hộp thoại modal
 
-框架提供的模态框组件，支持`拖拽`、`全屏`、`自动高度`、`loading`等功能。
+Component hộp thoại modal do framework cung cấp, hỗ trợ `kéo thả`, `toàn màn hình`, `chiều cao tự động`, `loading` và các tính năng khác.
 
-> 如果文档内没有参数说明，可以尝试在在线示例内寻找
+> Nếu trong tài liệu không có mô tả tham số, bạn có thể thử tìm trong ví dụ trực tuyến
 
-::: info 写在前面
+::: info Lưu ý trước
 
-如果你觉得现有组件的封装不够理想，或者不完全符合你的需求，大可以直接使用原生组件，亦或亲手封装一个适合的组件。框架提供的组件并非束缚，使用与否，完全取决于你的需求与自由。
+Nếu bạn cảm thấy cách đóng gói component hiện tại chưa lý tưởng, hoặc chưa hoàn toàn phù hợp với nhu cầu của bạn, bạn có thể trực tiếp dùng component gốc, hoặc tự đóng gói một component phù hợp. Các component do framework cung cấp không phải là ràng buộc, dùng hay không hoàn toàn tùy thuộc vào nhu cầu và sự tự do của bạn.
 
 :::
 
 ::: tip README
 
-下方示例代码中的，存在一些国际化、主题色未适配问题，这些问题只在文档内会出现，实际使用并不会有这些问题，可忽略，不必纠结。
+Trong mã ví dụ bên dưới, có một số vấn đề về quốc tế hóa, màu chủ đề chưa được điều chỉnh, những vấn đề này chỉ xuất hiện trong tài liệu, khi sử dụng thực tế sẽ không có những vấn đề này, có thể bỏ qua, không cần băn khoăn.
 
 :::
 
-## 基础用法
+## Cách dùng cơ bản
 
-使用 `useVbenModal` 创建最基础的模态框。
+Dùng `useVbenModal` để tạo hộp thoại modal cơ bản nhất.
 
 <DemoPreview dir="demos/vben-modal/basic" />
 
-## 组件抽离
+## Tách component
 
-Modal 内的内容一般业务中，会比较复杂，所以我们可以将 modal 内的内容抽离出来，也方便复用。通过 `connectedComponent` 参数，可以将内外组件进行连接，而不用其他任何操作。
+Nội dung trong Modal thường trong nghiệp vụ sẽ khá phức tạp, vì vậy chúng ta có thể tách nội dung trong modal ra ngoài, cũng tiện tái sử dụng. Thông qua tham số `connectedComponent`, có thể kết nối component trong và ngoài, mà không cần bất kỳ thao tác nào khác.
 
 <DemoPreview dir="demos/vben-modal/extra" />
 
-## 开启拖拽
+## Bật kéo thả
 
-通过 `draggable` 参数，可开启拖拽功能。
+Thông qua tham số `draggable`, có thể bật tính năng kéo thả.
 
 <DemoPreview dir="demos/vben-modal/draggable" />
 
-## 自动计算高度
+## Tự động tính chiều cao
 
-弹窗会自动计算内容高度，超过一定高度会出现滚动条，同时结合 `loading` 效果以及使用 `prepend-footer` 插槽。
+Hộp thoại sẽ tự động tính chiều cao nội dung, vượt quá một chiều cao nhất định sẽ xuất hiện thanh cuộn, đồng thời kết hợp hiệu ứng `loading` và sử dụng khe `prepend-footer`.
 
 <DemoPreview dir="demos/vben-modal/auto-height" />
 
-## 使用 Api
+## Dùng Api
 
-通过 `modalApi` 可以调用 modal 的方法以及使用 `setState` 更新 modal 的状态。
+Thông qua `modalApi` có thể gọi các phương thức của modal và dùng `setState` để cập nhật trạng thái của modal.
 
 <DemoPreview dir="demos/vben-modal/dynamic" />
 
-## 数据共享
+## Chia sẻ dữ liệu
 
-如果你使用了 `connectedComponent` 参数，那么内外组件会共享数据，比如一些表单回填等操作。可以用 `modalApi` 来获取数据和设置数据，配合 `onOpenChange`，可以满足大部分的需求。
+Nếu bạn dùng tham số `connectedComponent`, thì component trong và ngoài sẽ chia sẻ dữ liệu, ví dụ một số thao tác điền lại form. Có thể dùng `modalApi` để lấy dữ liệu và đặt dữ liệu, kết hợp với `onOpenChange`, có thể đáp ứng hầu hết nhu cầu.
 
 <DemoPreview dir="demos/vben-modal/shared-data" />
 
-## 动画类型
+## Loại hiệu ứng
 
-通过 `animationType` 属性可以控制弹窗的动画效果：
+Thông qua thuộc tính `animationType` có thể điều khiển hiệu ứng hoạt hình của hộp thoại:
 
-- `slide`（默认）：从顶部向下滑动进入/退出
-- `scale`：缩放淡入/淡出效果
+- `slide` (mặc định): trượt vào/thoát từ phía trên xuống
+- `scale`: hiệu ứng phóng to/mờ dần vào/ra
 
 <DemoPreview dir="demos/vben-modal/animation-type" />
 
-::: info 注意
+::: info Chú ý
 
-- `VbenModal` 组件对与参数的处理优先级是 `slot` > `props` > `state`(通过api更新的状态以及useVbenModal参数)。如果你已经传入了 `slot` 或者 `props`，那么 `setState` 将不会生效，这种情况下你可以通过 `slot` 或者 `props` 来更新状态。
-- 如果你使用到了 `connectedComponent` 参数，那么会存在 2 个`useVbenModal`, 此时，如果同时设置了相同的参数，那么以内部为准（也就是没有设置 connectedComponent 的代码）。比如 同时设置了 `onConfirm`，那么以内部的 `onConfirm` 为准。`onOpenChange`事件除外，内外都会触发。另外，如果设置了`destroyOnClose`，内部Modal及其子组件会在被关闭后<b>完全销毁</b>。
-- 如果弹窗的默认行为不符合你的预期，可以在`src\bootstrap.ts`中修改`setDefaultModalProps`的参数来设置默认的属性，如默认隐藏全屏按钮，修改默认ZIndex等。
+- Thứ tự ưu tiên xử lý tham số của component `VbenModal` là `slot` > `props` > `state` (trạng thái cập nhật qua api và tham số useVbenModal). Nếu bạn đã truyền `slot` hoặc `props`, thì `setState` sẽ không có hiệu lực, trong trường hợp này bạn có thể cập nhật trạng thái qua `slot` hoặc `props`.
+- Nếu bạn dùng tham số `connectedComponent`, thì sẽ có 2 `useVbenModal`, lúc này, nếu đồng thời đặt cùng một tham số, thì lấy bên trong làm chuẩn (tức là mã không đặt connectedComponent). Ví dụ đồng thời đặt `onConfirm`, thì lấy `onConfirm` bên trong làm chuẩn. Sự kiện `onOpenChange` là ngoại lệ, cả trong và ngoài đều kích hoạt. Ngoài ra, nếu đặt `destroyOnClose`, Modal bên trong và các component con của nó sẽ bị <b>hủy hoàn toàn</b> sau khi bị đóng.
+- Nếu hành vi mặc định của hộp thoại không phù hợp với kỳ vọng của bạn, có thể sửa tham số của `setDefaultModalProps` trong `src\bootstrap.ts` để đặt các thuộc tính mặc định, ví dụ mặc định ẩn nút toàn màn hình, sửa ZIndex mặc định, v.v.
 
 :::
 
 ## API
 
 ```ts
-// Modal 为弹窗组件
-// modalApi 为弹窗的方法
+// Modal là component hộp thoại
+// modalApi là các phương thức của hộp thoại
 const [Modal, modalApi] = useVbenModal({
-  // 属性
-  // 事件
+  // Thuộc tính
+  // Sự kiện
 });
 ```
 
 ### Props
 
-所有属性都可以传入 `useVbenModal` 的第一个参数中。
+Tất cả thuộc tính đều có thể truyền vào tham số đầu tiên của `useVbenModal`.
 
-| 属性名 | 描述 | 类型 | 默认值 |
+| Tên thuộc tính | Mô tả | Kiểu | Giá trị mặc định |
 | --- | --- | --- | --- |
-| appendToMain | 是否挂载到内容区域（默认挂载到body） | `boolean` | `false` |
-| connectedComponent | 连接另一个Modal组件 | `Component` | - |
-| destroyOnClose | 关闭时销毁 | `boolean` | `false` |
-| title | 标题 | `string\|slot` | - |
-| titleTooltip | 标题提示信息 | `string\|slot` | - |
-| description | 描述信息 | `string\|slot` | - |
-| isOpen | 弹窗打开状态 | `boolean` | `false` |
-| loading | 弹窗加载状态 | `boolean` | `false` |
-| fullscreen | 全屏显示 | `boolean` | `false` |
-| fullscreenButton | 显示全屏按钮 | `boolean` | `true` |
-| draggable | 可拖拽 | `boolean` | `false` |
-| closable | 显示关闭按钮 | `boolean` | `true` |
-| centered | 居中显示 | `boolean` | `false` |
-| modal | 显示遮罩 | `boolean` | `true` |
-| header | 显示header | `boolean` | `true` |
-| footer | 显示footer | `boolean\|slot` | `true` |
-| confirmDisabled | 禁用确认按钮 | `boolean` | `false` |
-| confirmLoading | 确认按钮loading状态 | `boolean` | `false` |
-| closeOnClickModal | 点击遮罩关闭弹窗 | `boolean` | `true` |
-| closeOnPressEscape | esc 关闭弹窗 | `boolean` | `true` |
-| confirmText | 确认按钮文本 | `string\|slot` | `确认` |
-| cancelText | 取消按钮文本 | `string\|slot` | `取消` |
-| showCancelButton | 显示取消按钮 | `boolean` | `true` |
-| showConfirmButton | 显示确认按钮 | `boolean` | `true` |
-| class | modal的class，宽度通过这个配置 | `string` | - |
-| contentClass | modal内容区域的class | `string` | - |
-| footerClass | modal底部区域的class | `string` | - |
-| headerClass | modal顶部区域的class | `string` | - |
-| bordered | 是否显示border | `boolean` | `false` |
-| zIndex | 弹窗的ZIndex层级 | `number` | `1000` |
-| overlayBlur | 遮罩模糊度 | `number` | - |
-| animationType | 动画类型 | `'slide' \| 'scale'` | `'slide'` |
-| submitting | 标记为提交中，锁定弹窗当前状态 | `boolean` | `false` |
+| appendToMain | Có gắn vào vùng nội dung hay không (mặc định gắn vào body) | `boolean` | `false` |
+| connectedComponent | Kết nối một component Modal khác | `Component` | - |
+| destroyOnClose | Hủy khi đóng | `boolean` | `false` |
+| title | Tiêu đề | `string\|slot` | - |
+| titleTooltip | Thông tin gợi ý tiêu đề | `string\|slot` | - |
+| description | Thông tin mô tả | `string\|slot` | - |
+| isOpen | Trạng thái mở hộp thoại | `boolean` | `false` |
+| loading | Trạng thái tải của hộp thoại | `boolean` | `false` |
+| fullscreen | Hiển thị toàn màn hình | `boolean` | `false` |
+| fullscreenButton | Hiển thị nút toàn màn hình | `boolean` | `true` |
+| draggable | Có thể kéo thả | `boolean` | `false` |
+| closable | Hiển thị nút đóng | `boolean` | `true` |
+| centered | Hiển thị ở giữa | `boolean` | `false` |
+| modal | Hiển thị lớp phủ | `boolean` | `true` |
+| header | Hiển thị header | `boolean` | `true` |
+| footer | Hiển thị footer | `boolean\|slot` | `true` |
+| confirmDisabled | Vô hiệu hóa nút xác nhận | `boolean` | `false` |
+| confirmLoading | Trạng thái loading của nút xác nhận | `boolean` | `false` |
+| closeOnClickModal | Nhấn vào lớp phủ để đóng hộp thoại | `boolean` | `true` |
+| closeOnPressEscape | Nhấn esc để đóng hộp thoại | `boolean` | `true` |
+| confirmText | Văn bản nút xác nhận | `string\|slot` | `Xác nhận` |
+| cancelText | Văn bản nút hủy | `string\|slot` | `Hủy` |
+| showCancelButton | Hiển thị nút hủy | `boolean` | `true` |
+| showConfirmButton | Hiển thị nút xác nhận | `boolean` | `true` |
+| class | class của modal, chiều rộng cấu hình qua đây | `string` | - |
+| contentClass | class của vùng nội dung modal | `string` | - |
+| footerClass | class của vùng dưới modal | `string` | - |
+| headerClass | class của vùng trên modal | `string` | - |
+| bordered | Có hiển thị border hay không | `boolean` | `false` |
+| zIndex | Mức ZIndex của hộp thoại | `number` | `1000` |
+| overlayBlur | Độ mờ của lớp phủ | `number` | - |
+| animationType | Loại hiệu ứng | `'slide' \| 'scale'` | `'slide'` |
+| submitting | Đánh dấu đang gửi, khóa trạng thái hiện tại của hộp thoại | `boolean` | `false` |
 
 ::: info appendToMain
 
-`appendToMain`可以指定将弹窗挂载到内容区域，打开这种弹窗时，内容区域以外的部分（标签栏、导航菜单等等）不会被遮挡。默认情况下，弹窗会挂载到body上。但是：挂载到内容区域时，作为页面根容器的`Page`组件，需要设置`auto-content-height`属性，以便弹窗能够正确计算高度。
+`appendToMain` có thể chỉ định gắn hộp thoại vào vùng nội dung, khi mở loại hộp thoại này, phần ngoài vùng nội dung (thanh tab, menu điều hướng, v.v.) sẽ không bị che. Mặc định, hộp thoại sẽ gắn vào body. Tuy nhiên: khi gắn vào vùng nội dung, component `Page` đóng vai trò là vùng chứa gốc của trang, cần đặt thuộc tính `auto-content-height`, để hộp thoại có thể tính chiều cao chính xác.
 
 :::
 
 ### Event
 
-以下事件，只有在 `useVbenModal({onCancel:()=>{}})` 中传入才会生效。
+Các sự kiện sau chỉ có hiệu lực khi được truyền vào trong `useVbenModal({onCancel:()=>{}})` .
 
-| 事件名 | 描述 | 类型 | 版本号 |
+| Tên sự kiện | Mô tả | Kiểu | Phiên bản |
 | --- | --- | --- | --- |
-| onBeforeClose | 关闭前触发，返回 `false`或者被`reject`则禁止关闭 | `()=>Promise<boolean>\|boolean` | >5.5.2支持Promise |
-| onCancel | 点击取消按钮触发 | `()=>void` |  |
-| onClosed | 关闭动画播放完毕时触发 | `()=>void` | >5.4.3 |
-| onConfirm | 点击确认按钮触发 | `()=>void` |  |
-| onOpenChange | 关闭或者打开弹窗时触发 | `(isOpen:boolean)=>void` |  |
-| onOpened | 打开动画播放完毕时触发 | `()=>void` | >5.4.3 |
+| onBeforeClose | Kích hoạt trước khi đóng, trả về `false` hoặc bị `reject` thì cấm đóng | `()=>Promise<boolean>\|boolean` | >5.5.2 hỗ trợ Promise |
+| onCancel | Kích hoạt khi nhấn nút hủy | `()=>void` |  |
+| onClosed | Kích hoạt khi hiệu ứng đóng phát xong | `()=>void` | >5.4.3 |
+| onConfirm | Kích hoạt khi nhấn nút xác nhận | `()=>void` |  |
+| onOpenChange | Kích hoạt khi đóng hoặc mở hộp thoại | `(isOpen:boolean)=>void` |  |
+| onOpened | Kích hoạt khi hiệu ứng mở phát xong | `()=>void` | >5.4.3 |
 
 ### Slots
 
-除了上面的属性类型包含`slot`，还可以通过插槽来自定义弹窗的内容。
+Ngoài các kiểu thuộc tính chứa `slot` ở trên, còn có thể tùy chỉnh nội dung hộp thoại qua khe.
 
-| 插槽名         | 描述                                               |
+| Tên khe         | Mô tả                                               |
 | -------------- | -------------------------------------------------- |
-| default        | 默认插槽 - 弹窗内容                                |
-| prepend-footer | 取消按钮左侧                                       |
-| center-footer  | 取消按钮和确认按钮中间（不使用 footer 插槽时有效） |
-| append-footer  | 确认按钮右侧                                       |
+| default        | Khe mặc định - nội dung hộp thoại                                |
+| prepend-footer | Bên trái nút hủy                                       |
+| center-footer  | Giữa nút hủy và nút xác nhận (chỉ có hiệu lực khi không dùng khe footer) |
+| append-footer  | Bên phải nút xác nhận                                       |
 
 ### modalApi
 
-| 方法 | 描述 | 类型 | 版本 |
+| Phương thức | Mô tả | Kiểu | Phiên bản |
 | --- | --- | --- | --- |
-| setState | 动态设置弹窗状态属性 | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modalApi` | - |
-| open | 打开弹窗 | `()=>void` | - |
-| close | 关闭弹窗 | `()=>void` | - |
-| setData | 设置共享数据 | `<T>(data:T)=>modalApi` | - |
-| getData | 获取共享数据 | `<T>()=>T` | - |
-| useStore | 获取可响应式状态 | - | - |
-| lock | 将弹窗标记为提交中，锁定当前状态 | `(isLock:boolean)=>modalApi` | >5.5.2 |
-| unlock | lock方法的反操作，解除弹窗的锁定状态，也是lock(false)的别名 | `()=>modalApi` | >5.5.3 |
+| setState | Đặt động các thuộc tính trạng thái hộp thoại | `(((prev: ModalState) => Partial<ModalState>)\| Partial<ModalState>)=>modalApi` | - |
+| open | Mở hộp thoại | `()=>void` | - |
+| close | Đóng hộp thoại | `()=>void` | - |
+| setData | Đặt dữ liệu chia sẻ | `<T>(data:T)=>modalApi` | - |
+| getData | Lấy dữ liệu chia sẻ | `<T>()=>T` | - |
+| useStore | Lấy trạng thái có thể phản ứng | - | - |
+| lock | Đánh dấu hộp thoại đang gửi, khóa trạng thái hiện tại | `(isLock:boolean)=>modalApi` | >5.5.2 |
+| unlock | Thao tác ngược của phương thức lock, hủy trạng thái khóa của hộp thoại, cũng là bí danh của lock(false) | `()=>modalApi` | >5.5.3 |
 
 ::: info lock
 
-`lock`方法用于锁定当前弹窗的状态，一般用于提交数据的过程中防止用户重复提交或者弹窗被意外关闭、表单数据被改变等等。当处于锁定状态时，弹窗的确认按钮会变为loading状态，同时禁用取消按钮和关闭按钮、禁止ESC或者点击遮罩等方式关闭弹窗、开启弹窗的spinner动画以遮挡弹窗内容。调用`close`方法关闭处于锁定状态的弹窗时，会自动解锁。要主动解除这种状态，可以调用`unlock`方法或者再次调用lock方法并传入false参数。
+Phương thức `lock` dùng để khóa trạng thái hiện tại của hộp thoại, thường dùng trong quá trình gửi dữ liệu để ngăn người dùng gửi trùng lặp hoặc hộp thoại bị đóng ngoài ý muốn, dữ liệu form bị thay đổi, v.v. Khi ở trạng thái khóa, nút xác nhận của hộp thoại sẽ chuyển thành trạng thái loading, đồng thời vô hiệu hóa nút hủy và nút đóng, cấm đóng hộp thoại bằng ESC hoặc nhấn vào lớp phủ, bật hiệu ứng spinner của hộp thoại để che nội dung hộp thoại. Khi gọi phương thức `close` để đóng hộp thoại đang ở trạng thái khóa, sẽ tự động mở khóa. Để chủ động hủy trạng thái này, có thể gọi phương thức `unlock` hoặc gọi lại phương thức lock và truyền tham số false.
 
 :::

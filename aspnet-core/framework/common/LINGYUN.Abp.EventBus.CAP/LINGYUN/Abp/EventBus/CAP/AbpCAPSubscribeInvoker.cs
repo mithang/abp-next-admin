@@ -20,7 +20,7 @@ using Volo.Abp.Tracing;
 namespace LINGYUN.Abp.EventBus.CAP;
 
 /// <summary>
-/// 重写 ISubscribeInvoker 实现 Abp 租户集成
+/// Ghi đè ISubscribeInvoker để triển khai tích hợp tenant Abp
 /// </summary>
 public class AbpCAPSubscribeInvoker : ISubscribeInvoker
 {
@@ -54,7 +54,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
         _executors = new ConcurrentDictionary<string, ObjectMethodExecutor>();
     }
     /// <summary>
-    /// 调用订阅者方法
+    /// Gọi phương thức của subscriber
     /// </summary>
     /// <param name="context"></param>
     /// <param name="cancellationToken"></param>
@@ -83,7 +83,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
         var message = context.DeliverMessage;
         var parameterDescriptors = context.ConsumerDescriptor.Parameters;
         var executeParameters = new object?[parameterDescriptors.Count];
-        // 租户数据可能在消息标头中
+        // Dữ liệu tenant có thể nằm trong tiêu đề của message
         var tenantId = message.GetTenantIdOrNull();
         var correlationId = message.GetCorrelationIdOrNull();
         for (var i = 0; i < parameterDescriptors.Count; i++)
@@ -100,7 +100,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
                     if (_serializer.IsJsonType(message.Value))  // use ISerializer when reading from storage, skip other objects if not Json
                     {
                         var eventData = _serializer.Deserialize(message.Value, parameterDescriptor.ParameterType);
-                        // 租户数据也可能存在事件数据中
+                        // Dữ liệu tenant cũng có thể nằm trong dữ liệu sự kiện
                         if (tenantId == null && eventData is IMultiTenant tenant)
                         {
                             tenantId = tenant.TenantId;
@@ -113,7 +113,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
                         if (converter.CanConvertFrom(message.Value.GetType()))
                         {
                             var eventData = converter.ConvertFrom(message.Value);
-                            // 租户数据也可能存在事件数据中
+                            // Dữ liệu tenant cũng có thể nằm trong dữ liệu sự kiện
                             if (tenantId == null && eventData is IMultiTenant tenant)
                             {
                                 tenantId = tenant.TenantId;
@@ -124,7 +124,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
                         {
                             if (parameterDescriptor.ParameterType.IsInstanceOfType(message.Value))
                             {
-                                // 租户数据也可能存在事件数据中
+                                // Dữ liệu tenant cũng có thể nằm trong dữ liệu sự kiện
                                 if (tenantId == null && message.Value is IMultiTenant tenant)
                                 {
                                     tenantId = tenant.TenantId;
@@ -134,7 +134,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
                             else
                             {
                                 var eventData = Convert.ChangeType(message.Value, parameterDescriptor.ParameterType);
-                                // 租户数据也可能存在事件数据中
+                                // Dữ liệu tenant cũng có thể nằm trong dữ liệu sự kiện
                                 if (tenantId == null && eventData is IMultiTenant tenant)
                                 {
                                     tenantId = tenant.TenantId;
@@ -147,10 +147,10 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
             }
         }
 
-        // 分布式链路
+        // Truy vết phân tán
         using (_correlationIdProvider.Change(correlationId))
         {
-            // 改变租户
+            // Thay đổi tenant
             using (_currentTenant.Change(tenantId))
             {
                 var filter = provider.GetService<ISubscribeFilter>();
@@ -235,7 +235,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
         throw new ArgumentException(parameterDescriptor.Name);
     }
     /// <summary>
-    /// 获取事件处理类实例
+    /// Lấy thể hiện của lớp xử lý sự kiện
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="context"></param>
@@ -259,7 +259,7 @@ public class AbpCAPSubscribeInvoker : ISubscribeInvoker
         return obj;
     }
     /// <summary>
-    /// 通过给定的类型实例与参数调用订阅者方法
+    /// Gọi phương thức subscriber bằng thể hiện kiểu và tham số đã cho
     /// </summary>
     /// <param name="executor"></param>
     /// <param name="class"></param>

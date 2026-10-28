@@ -10,9 +10,9 @@ export function useSubjectStrategysApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取主体数据权限策略
-   * @param input 参数
-   * @returns 数据权限策略配置
+   * Lấy chính sách quyền dữ liệu của chủ thể
+   * @param input Tham số
+   * @returns Cấu hình chính sách quyền dữ liệu
    */
   function getApi(
     input: SubjectStrategyGetInput,
@@ -27,9 +27,9 @@ export function useSubjectStrategysApi() {
   }
 
   /**
-   * 设置主体数据权限策略
-   * @param input 参数
-   * @returns 数据权限策略配置
+   * Thiết lập chính sách quyền dữ liệu của chủ thể
+   * @param input Tham số
+   * @returns Cấu hình chính sách quyền dữ liệu
    */
   function setApi(input: SubjectStrategySetInput): Promise<SubjectStrategyDto> {
     return request<SubjectStrategyDto>(

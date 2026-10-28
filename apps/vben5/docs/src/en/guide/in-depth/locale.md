@@ -64,7 +64,7 @@ To add new translation texts, simply find `src/locales/langs/` in the correspond
 ```json
 {
   "about": {
-    "desc": "Vben Admin 是一个现代的管理模版。"
+    "desc": "Vben Admin là một mẫu quản trị hiện đại."
   }
 }
 ````
@@ -117,7 +117,7 @@ If you need to add a new language pack, follow these steps:
   }
   export const SUPPORT_LANGUAGES: LanguageOption[] = [
     {
-      label: '简体中文',
+      label: 'Tiếng Trung giản thể',
       value: 'zh-CN',
     },
     {
@@ -125,7 +125,7 @@ If you need to add a new language pack, follow these steps:
       value: 'en-US',
     },
     {
-      label: '繁体中文', // [!code ++]
+      label: 'Tiếng Trung phồn thể', // [!code ++]
       value: 'zh-TW', // [!code ++]
     },
   ];

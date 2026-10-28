@@ -1,16 +1,16 @@
 interface ComponentKey {
-  /** 组件名称 */
+  /** Tên component */
   name: string;
-  /** 组件显示名称 */
+  /** Tên hiển thị của component */
   displayName: string;
 }
 
 interface ComponentInfo {
-  /** 组件名称 */
+  /** Tên component */
   name: string;
-  /** 组件名称集合 */
+  /** Tập hợp tên component */
   keys: ComponentKey[];
-  /** 组件状态集合 */
+  /** Tập hợp trạng thái component */
   details: Record<string, any>;
 }
 

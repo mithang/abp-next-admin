@@ -3,17 +3,17 @@
 public class AbpWeChatOfficialConsts
 {
     /// <summary>
-    /// 微信公众号对应的Provider名称
+    /// Tên Provider tương ứng với tài khoản công khai WeChat
     /// </summary>
     public static string ProviderName { get; set; } = "WeChat.Official";
 
     /// <summary>
-    /// 微信公众平台授权类型
+    /// Loại ủy quyền của nền tảng công khai WeChat
     /// </summary>
     public static string GrantType { get; set; } = "wx-op";
 
     /// <summary>
-    /// 微信公众平台授权方法名称
+    /// Tên phương thức ủy quyền của nền tảng công khai WeChat
     /// </summary>
     public static string AuthenticationMethod { get; set; } = "woa";
 

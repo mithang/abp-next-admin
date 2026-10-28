@@ -8,15 +8,15 @@ const { closeCurrentTab } = useTabs();
 
 <template>
   <Fallback
-    description="当前路由在菜单中不可见"
+    description="Route hiện tại không hiển thị trong menu"
     status="coming-soon"
-    title="被隐藏的子菜单"
+    title="Menu con bị ẩn"
     show-back
   >
     <template #action>
       <VbenButton size="lg" @click="closeCurrentTab()">
         <X class="mr-2 size-4" />
-        关闭当前标签页
+        Đóng tab hiện tại
       </VbenButton>
     </template>
   </Fallback>

@@ -32,7 +32,7 @@ public class OpenObserveTimestampHelper_Tests
     {
         var now = new DateTime(2026, 10, 12, 12, 0, 0, DateTimeKind.Utc);
 
-        // 超出 ZO_INGEST_ALLOWED_UPTO 窗口的数据会被 OpenObserve 丢弃, 因此不覆盖 _timestamp
+        // Dữ liệu vượt ngoài cửa sổ ZO_INGEST_ALLOWED_UPTO sẽ bị OpenObserve loại bỏ, vì vậy không ghi đè _timestamp
         OpenObserveTimestampHelper.TryGetTimestamp(now.AddDays(-3), now, 5)
             .ShouldBeNull();
     }

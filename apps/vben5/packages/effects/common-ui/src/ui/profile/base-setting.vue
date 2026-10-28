@@ -25,7 +25,7 @@ const emit = defineEmits<{
 const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
-      // 所有表单项
+      // Tất cả các mục biểu mẫu
       componentProps: {
         class: 'w-full',
       },

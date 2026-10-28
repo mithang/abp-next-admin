@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 图文消息（mp）载体
+/// Đối tượng chứa tin nhắn đồ họa-văn bản (mp)
 /// </summary>
 public class MpNewMessagePayload
 {
     /// <summary>
-    /// 图文消息（mp）列表
+    /// Danh sách tin nhắn đồ họa-văn bản (mp)
     /// </summary>
     [NotNull]
     [JsonProperty("articles")]
@@ -25,7 +25,7 @@ public class MpNewMessagePayload
     }
 }
 /// <summary>
-/// 图文消息（mp）
+/// Tin nhắn đồ họa-văn bản (mp)
 /// </summary>
 public class MpNewMessage
 {
@@ -48,42 +48,42 @@ public class MpNewMessage
     }
 
     /// <summary>
-    /// 标题，不超过128个字节，超过会自动截断（支持id转译）
+    /// Tiêu đề, không vượt quá 128 byte, vượt quá sẽ tự động cắt ngắn (hỗ trợ chuyển đổi id)
     /// </summary>
     [NotNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string Title { get; set; } = default!;
     /// <summary>
-    /// 图文消息缩略图的media_id, 可以通过素材管理接口获得。此处thumb_media_id即上传接口返回的media_id
+    /// media_id của ảnh thu nhỏ của tin nhắn đồ họa-văn bản, có thể lấy qua API quản lý tài nguyên. Tại đây thumb_media_id chính là media_id mà API tải lên trả về
     /// </summary>
     [NotNull]
     [JsonProperty("thumb_media_id")]
     [JsonPropertyName("thumb_media_id")]
     public string ThumbMediaId { get; set; } = default!;
     /// <summary>
-    /// 图文消息的作者，不超过64个字节
+    /// Tác giả của tin nhắn đồ họa-văn bản, không vượt quá 64 byte
     /// </summary>
     [CanBeNull]
     [JsonProperty("author")]
     [JsonPropertyName("author")]
     public string? Author { get; set; }
     /// <summary>
-    /// 图文消息点击“阅读原文”之后的页面链接
+    /// Liên kết trang sau khi nhấp vào “Đọc toàn văn” của tin nhắn đồ họa-văn bản
     /// </summary>
     [CanBeNull]
     [JsonProperty("content_source_url")]
     [JsonPropertyName("content_source_url")]
     public string? ContentSourceUrl { get; set; }
     /// <summary>
-    /// 图文消息的内容，支持html标签，不超过666 K个字节（支持id转译）
+    /// Nội dung của tin nhắn đồ họa-văn bản, hỗ trợ thẻ html, không vượt quá 666 K byte (hỗ trợ chuyển đổi id)
     /// </summary>
     [NotNull]
     [JsonProperty("content")]
     [JsonPropertyName("content")]
     public string Content { get; set; } = default!;
     /// <summary>
-    /// 图文消息的描述，不超过512个字节，超过会自动截断（支持id转译）
+    /// Mô tả của tin nhắn đồ họa-văn bản, không vượt quá 512 byte, vượt quá sẽ tự động cắt ngắn (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("digest")]

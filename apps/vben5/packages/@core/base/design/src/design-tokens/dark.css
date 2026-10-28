@@ -4,7 +4,7 @@
   /* Default background color of <body />...etc */
   --background: 222.34deg 10.43% 12.27%;
 
-  /* 主体区域背景色 */
+  /* Màu nền của khu vực chính */
   --background-deep: 220deg 13.06% 9%;
   --foreground: 0 0% 95%;
 
@@ -18,7 +18,7 @@
 
   /* --popover: 222.82deg 8.43% 12.27%; */
 
-  /* 弹出层的背景色与主题区域背景色太过接近  */
+  /* Màu nền của lớp popup quá gần với màu nền của khu vực chủ đề  */
   --popover: 0 0% 14.2%;
   --popover-foreground: 210 40% 98%;
 
@@ -31,7 +31,7 @@
   --muted: 240 3.7% 15.9%;
   --muted-foreground: 240 5% 64.9%;
 
-  /* 主题颜色 */
+  /* Màu chủ đề */
 
   /* --primary: 245 82% 67%; */
   --primary-foreground: 0 0% 98%;
@@ -56,7 +56,7 @@
   --warning: 42 84% 61%;
   --warning-foreground: 0 0% 98%;
 
-  /* 颜色次要 */
+  /* Màu phụ */
   --secondary: 240 5% 17%;
   --secondary-foreground: 0 0% 98%;
 
@@ -83,16 +83,16 @@
   /* Used for focus ring */
   --ring: 222.2 84% 4.9%;
 
-  /* 基本圆角大小 */
+  /* Kích thước bo góc cơ bản */
   --radius: 0.5rem;
 
   /* ============= Custom ============= */
 
-  /* 遮罩颜色 */
+  /* Màu lớp phủ */
   --overlay: 0deg 0% 0% / 40%;
   --overlay-content: 0deg 0% 0% / 40%;
 
-  /* 基本文字大小 */
+  /* Cỡ chữ cơ bản */
   --font-size-base: 16px;
 
   /* =============component & UI============= */

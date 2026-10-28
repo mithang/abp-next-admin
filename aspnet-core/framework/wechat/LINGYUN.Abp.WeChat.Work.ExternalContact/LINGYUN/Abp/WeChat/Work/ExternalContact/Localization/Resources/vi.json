@@ -1,0 +1,12 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Features:ExternalContact": "Liên hệ khách hàng",
+    "Features:ExternalContactDesc": "Tích hợp ứng dụng liên hệ khách hàng WeChat Doanh nghiệp.",
+    "Features:ExternalContactEnable": "Bật liên hệ khách hàng",
+    "Features:ExternalContactEnableDesc": "Bật để ứng dụng có khả năng sử dụng giao diện liên hệ khách hàng WeChat Doanh nghiệp.",
+    "DisplayName:WeChatWorkExternalContact.Secret": "Khóa truy cập liên hệ khách hàng",
+    "Description:WeChatWorkExternalContact.Secret": "Khóa truy cập ứng dụng liên hệ khách hàng, một số giao diện liên hệ khách hàng cần secret của ứng dụng liên hệ khách hàng.",
+    "Settings:WeChatWork.WeChatWorkExternalContact": "Liên hệ khách hàng"
+  }
+}

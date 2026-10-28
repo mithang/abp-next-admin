@@ -5,12 +5,12 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 更新日历
+/// Cập nhật lịch
 /// </summary>
 public class UpdateCalendar : CreateOrUpdateCalendar
 {
     /// <summary>
-    /// 日历ID
+    /// ID lịch
     /// </summary>
     [NotNull]
     [JsonProperty("cal_id")]

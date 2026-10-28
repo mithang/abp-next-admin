@@ -6,52 +6,52 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Function;
 
 /// <summary>
-/// 函数信息
+/// Thông tin hàm
 /// </summary>
 /// <remarks>
-/// 文档字段表使用下划线命名(stream_name/num_args/trans_type), 实现返回 camelCase(numArgs/transType/streams)
-/// 未声明的字段通过扩展属性保留
+/// Bảng trường tài liệu dùng đặt tên gạch dưới (stream_name/num_args/trans_type), phía triển khai trả về camelCase (numArgs/transType/streams)
+/// Các trường chưa khai báo được giữ lại qua thuộc tính mở rộng
 /// </remarks>
 public class FunctionInfo
 {
     /// <summary>
-    /// 函数名称
+    /// Tên hàm
     /// </summary>
     [JsonPropertyName("name")]
     public string? Name { get; set; }
 
     /// <summary>
-    /// 函数体
+    /// Thân hàm
     /// </summary>
     [JsonPropertyName("function")]
     public string? Function { get; set; }
 
     /// <summary>
-    /// 函数参数
+    /// Tham số hàm
     /// </summary>
     [JsonPropertyName("params")]
     public string? Params { get; set; }
 
     /// <summary>
-    /// 参数个数
+    /// Số lượng tham số
     /// </summary>
     [JsonPropertyName("numArgs")]
     public int? NumArgs { get; set; }
 
     /// <summary>
-    /// 函数语言
+    /// Ngôn ngữ hàm
     /// </summary>
     [JsonPropertyName("transType")]
     public FunctionTransType? TransType { get; set; }
 
     /// <summary>
-    /// 函数生效的数据流
+    /// Luồng dữ liệu mà hàm có hiệu lực
     /// </summary>
     [JsonPropertyName("streams")]
     public FunctionStreamInfo[]? Streams { get; set; }
 
     /// <summary>
-    /// 未在模型中声明的字段
+    /// Trường chưa được khai báo trong mô hình
     /// </summary>
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? ExtraProperties { get; set; }

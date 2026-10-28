@@ -5,18 +5,18 @@ using Volo.Abp;
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 企业微信 Webhook 消息工厂
+/// Factory tin nhắn Webhook WeChat doanh nghiệp
 /// </summary>
 public static class WeChatWorkWebhookMessageFactory
 {
     /// <summary>
-    /// 注册内置消息工厂
+    /// Đăng ký các factory tin nhắn tích hợp sẵn
     /// </summary>
     /// <remarks>
-    /// 每种载荷对应一种 <c>msgtype</c>, 一一映射, 不做隐式降级:
-    /// 生产者选择了模板卡片, 就一定发模板卡片, 而不是静默发成文本。
-    /// 唯一的例外是 markdown 与 markdown_v2 的取舍, 由渠道选项
-    /// <see cref="AbpNotificationsWebhookWeChatWorkOptions.UseMarkdownV2"/> 决定。
+    /// Mỗi loại payload tương ứng với một <c>msgtype</c>, ánh xạ một-một, không tự động hạ cấp ngầm:
+    /// Nếu producer đã chọn thẻ mẫu thì nhất định sẽ gửi thẻ mẫu, chứ không âm thầm gửi thành văn bản.
+    /// Ngoại lệ duy nhất là lựa chọn giữa markdown và markdown_v2, do tùy chọn của kênh
+    /// <see cref="AbpNotificationsWebhookWeChatWorkOptions.UseMarkdownV2"/> quyết định.
     /// </remarks>
     public static AbpNotificationsWebhookWeChatWorkMessageOptions MapDefaultMessageFactories(
         this AbpNotificationsWebhookWeChatWorkMessageOptions options)

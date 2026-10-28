@@ -4,6 +4,14 @@ services:
   auth-server:
     hostname: auth-server
     container_name: auth-server
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -24,6 +32,14 @@ services:
   identity-service:
     hostname: identity-service
     container_name: identity-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -44,6 +60,14 @@ services:
   admin-service:
     hostname: admin-service
     container_name: admin-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -64,6 +88,14 @@ services:
   localization-service:
     hostname: localization-service
     container_name: localization-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -84,6 +116,14 @@ services:
   platform-service:
     hostname: platform-service
     container_name: platform-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -104,6 +144,14 @@ services:
   message-service:
     hostname: message-service
     container_name: message-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -124,6 +172,14 @@ services:
   task-service:
     hostname: tasks-service
     container_name: tasks-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -144,6 +200,14 @@ services:
   webhook-service:
     hostname: webhooks-service
     container_name: webhooks-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -164,6 +228,14 @@ services:
   workflow-service:
     hostname: workflow-service
     container_name: workflow-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -184,6 +256,14 @@ services:
   wechat-service:
     hostname: wechat-service
     container_name: wechat-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -204,6 +284,14 @@ services:
   ai-service:
     hostname: ai-service
     container_name: ai-service
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): single-service subset of
+    # the AllInOne monolith (idle ~620-650 MB RSS, Debug, measured
+    # iter-0003). 1g caps a runaway service with headroom over one
+    # service's expected idle; cpus is a ceiling, not a reservation.
+    # Needs verification by a real `docker compose up` + load (Docker BLOCKED).
+    mem_limit: 1g
+    cpus: 1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -224,6 +312,13 @@ services:
   internal-apigateway:
     hostname: apigateway
     container_name: apigateway
+    restart: unless-stopped
+    # DEV-10 (devops iter-0007, provisional): YARP gateway only, no
+    # DB/CAP workload of its own, so a smaller cap than the services;
+    # cpus is a ceiling, not a reservation. Needs verification by a
+    # real `docker compose up` (Docker BLOCKED).
+    mem_limit: 512m
+    cpus: 0.5
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80

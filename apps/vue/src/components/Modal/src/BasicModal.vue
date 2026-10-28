@@ -175,10 +175,10 @@
         },
       );
 
-      // 取消事件
+      // Sự kiện hủy
       async function handleCancel(e: Event) {
         e?.stopPropagation();
-        // 过滤自定义关闭按钮的空白区域
+        // Lọc vùng trống của nút đóng tùy chỉnh
         if ((e.target as HTMLElement)?.classList?.contains(prefixCls + '-close--custom')) return;
         if (props.closeFunc && isFunction(props.closeFunc)) {
           const isClose: boolean = await props.closeFunc();
@@ -191,7 +191,7 @@
       }
 
       /**
-       * @description: 设置modal参数
+       * @description: Đặt tham số modal
        */
       function setModalProps(props: Partial<ModalProps>): void {
         // Keep the last setModalProps

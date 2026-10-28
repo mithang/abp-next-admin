@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 位置控件配置
+/// Cấu hình điều khiển vị trí
 /// </summary>
 public class LocationControlConfig : ControlConfig
 {
     /// <summary>
-    /// 位置控件
+    /// Điều khiển vị trí
     /// </summary>
     [NotNull]
     [JsonProperty("location")]
@@ -29,7 +29,7 @@ public class LocationControlConfig : ControlConfig
 public class LocationConfig
 {
     /// <summary>
-    /// 距离，目前支持100、200、300
+    /// Khoảng cách, hiện hỗ trợ 100, 200, 300
     /// </summary>
     [NotNull]
     [JsonProperty("distance")]

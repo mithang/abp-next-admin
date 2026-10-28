@@ -9,7 +9,7 @@ import { getDeptList } from '#/api/system/dept';
 import { $t } from '#/locales';
 
 /**
- * 获取编辑表单的字段配置。如果没有使用多语言，可以直接export一个数组常量
+ * Lấy cấu hình trường của form chỉnh sửa. Nếu không dùng đa ngôn ngữ, có thể export trực tiếp một hằng số mảng
  */
 export function useSchema(): VbenFormSchema[] {
   return [
@@ -70,9 +70,9 @@ export function useSchema(): VbenFormSchema[] {
 }
 
 /**
- * 获取表格列配置
- * @description 使用函数的形式返回列数据而不是直接export一个Array常量，是为了响应语言切换时重新翻译表头
- * @param onActionClick 表格操作按钮点击事件
+ * Lấy cấu hình cột bảng
+ * @description Trả về dữ liệu cột dưới dạng hàm thay vì export trực tiếp một hằng số Array, là để khi chuyển ngôn ngữ sẽ dịch lại tiêu đề bảng
+ * @param onActionClick Sự kiện nhấn nút thao tác trên bảng
  */
 export function useColumns(
   onActionClick?: OnActionClickFn<SystemDeptApi.SystemDept>,
@@ -113,11 +113,11 @@ export function useColumns(
         options: [
           {
             code: 'append',
-            text: '新增下级',
+            text: 'Thêm cấp dưới',
           },
-          'edit', // 默认的编辑按钮
+          'edit', // Nút chỉnh sửa mặc định
           {
-            code: 'delete', // 默认的删除按钮
+            code: 'delete', // Nút xóa mặc định
             disabled: (row: SystemDeptApi.SystemDept) => {
               return !!(row.children && row.children.length > 0);
             },

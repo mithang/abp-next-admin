@@ -22,4 +22,4 @@ Configure<AbpIMOptions>(options =>
 
 ## More
 
-[中文文档](README.md)
+[Tiếng Việt](README.md)

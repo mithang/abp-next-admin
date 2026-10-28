@@ -1,0 +1,26 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Permission:CachingManagement": "Quản lý bộ nhớ đệm",
+    "Permission:Caches": "Quản lý bộ nhớ đệm",
+    "Permission:Refresh": "Làm mới",
+    "Permission:Delete": "Xóa",
+    "Permission:ManageValue": "Giá trị quản lý",
+    "Caches": "Danh sách bộ nhớ đệm",
+    "CacheInfo": "Chi tiết bộ nhớ đệm",
+    "DisplayName:Marker": "Đánh dấu",
+    "DisplayName:NextMarker": "Dấu tiếp theo",
+    "DisplayName:Type": "Loại",
+    "DisplayName:Size": "Kích thước",
+    "DisplayName:Ttl": "Thời gian tồn tại",
+    "DisplayName:Values": "Giá trị bộ nhớ đệm",
+    "DisplayName:Key": "Khóa bộ nhớ đệm",
+    "DisplayName:Keys": "Danh sách khóa",
+    "DisplayName:AbsoluteExpiration": "Thời gian hết hạn tuyệt đối",
+    "DisplayName:SlidingExpiration": "Thời gian hết hạn trượt",
+    "DisplayName:Prefix": "Tiền tố",
+    "Abp.CachingManagement:01001": "Bộ nhớ đệm loại {Type} tạm thời không hỗ trợ xem giá trị khóa.",
+    "MultipleCacheWillBeDeletedMessage": "Bộ nhớ đệm đã chọn sẽ bị xóa, việc xóa bộ nhớ đệm có thể ảnh hưởng đến hệ thống, vui lòng thao tác cẩn thận!",
+    "EditCacheValueAlertMessage": "Việc sửa đổi trực tiếp bộ nhớ đệm có thể ảnh hưởng đến hoạt động của hệ thống, vui lòng thao tác thận trọng!"
+  }
+}

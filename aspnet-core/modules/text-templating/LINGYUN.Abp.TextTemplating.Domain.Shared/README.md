@@ -1,43 +1,43 @@
 # LINGYUN.Abp.TextTemplating.Domain.Shared
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板领域共享模块，提供文本模板相关的常量、枚举、异常等共享定义。
+Mô-đun miền dùng chung mẫu văn bản, cung cấp các định nghĩa dùng chung liên quan đến mẫu văn bản như hằng số, liệt kê, ngoại lệ.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * Volo.Abp.TextTemplating
 * Volo.Abp.Validation
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供文本模板相关的常量定义
-  * TextTemplateDefinitionConsts - 模板定义相关常量
-  * TextTemplateContentConsts - 模板内容相关常量
-* 提供文本模板相关的错误代码定义
-  * AbpTextTemplatingErrorCodes - 错误代码常量
-* 提供本地化资源定义
-  * AbpTextTemplatingResource - 本地化资源
+* Cung cấp định nghĩa hằng số liên quan đến mẫu văn bản
+  * TextTemplateDefinitionConsts - Hằng số liên quan đến định nghĩa mẫu
+  * TextTemplateContentConsts - Hằng số liên quan đến nội dung mẫu
+* Cung cấp định nghĩa mã lỗi liên quan đến mẫu văn bản
+  * AbpTextTemplatingErrorCodes - Hằng số mã lỗi
+* Cung cấp định nghĩa tài nguyên bản địa hóa
+  * AbpTextTemplatingResource - Tài nguyên bản địa hóa
 
-### 常量定义
+### Định nghĩa hằng số
 
 * TextTemplateDefinitionConsts
-  * MaxNameLength - 模板名称最大长度 (64)
-  * MaxDisplayNameLength - 显示名称最大长度 (128)
-  * MaxLayoutLength - 布局名称最大长度 (256)
-  * MaxDefaultCultureNameLength - 默认文化名称最大长度 (10)
-  * MaxLocalizationResourceNameLength - 本地化资源名称最大长度 (128)
-  * MaxRenderEngineLength - 渲染引擎名称最大长度 (64)
+  * MaxNameLength - Độ dài tối đa của tên mẫu (64)
+  * MaxDisplayNameLength - Độ dài tối đa của tên hiển thị (128)
+  * MaxLayoutLength - Độ dài tối đa của tên bố cục (256)
+  * MaxDefaultCultureNameLength - Độ dài tối đa của tên văn hóa mặc định (10)
+  * MaxLocalizationResourceNameLength - Độ dài tối đa của tên tài nguyên bản địa hóa (128)
+  * MaxRenderEngineLength - Độ dài tối đa của tên công cụ kết xuất (64)
 
-### 错误代码
+### Mã lỗi
 
 * AbpTextTemplatingErrorCodes
-  * TextTemplateDefinition:NameAlreadyExists - 模板名称已存在
-  * TextTemplateDefinition:NotFound - 模板定义不存在
+  * TextTemplateDefinition:NameAlreadyExists - Tên mẫu đã tồn tại
+  * TextTemplateDefinition:NotFound - Định nghĩa mẫu không tồn tại
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingDomainSharedModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingDomainSharedModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingDomainSharedModule))]
@@ -46,7 +46,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用常量和错误代码
+2. Sử dụng hằng số và mã lỗi
 
 ```csharp
 public class YourService
@@ -61,4 +61,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem tiếng Anh](README.EN.md)

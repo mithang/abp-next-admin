@@ -9,30 +9,30 @@ using Volo.Abp.MultiTenancy;
 namespace LINGYUN.Platform.Routes;
 
 /// <summary>
-/// 不管是布局还是视图或者页面，都作为路由的实现，因此抽象一个路由实体<br/> 
-/// 注意:这是基于 Vue Router 的路由规则设计的实体,详情:https://router.vuejs.org/zh/api/#routes
+/// Dù là bố cục, khung nhìn hay trang, đều được xem là hiện thực của tuyến đường, vì vậy trừu tượng hóa một thực thể tuyến đường<br/> 
+/// Lưu ý: đây là thực thể được thiết kế dựa trên quy tắc tuyến đường của Vue Router, chi tiết xem:https://router.vuejs.org/zh/api/#routes
 /// </summary>
 public abstract class Route : FullAuditedAggregateRoot<Guid>, IMultiTenant
 {
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 路径
+    /// Đường dẫn
     /// </summary>
     public virtual string? Path { get; set; }
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public virtual string Name { get; set; } = default!;
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public virtual string DisplayName { get; set; } = default!;
     /// <summary>
-    /// 说明
+    /// Mô tả
     /// </summary>
     public virtual string? Description { get; set; }
     /// <summary>
-    /// 重定向路径
+    /// Đường dẫn chuyển hướng
     /// </summary>
     public virtual string? Redirect { get; set; }
 

@@ -1,18 +1,18 @@
 /**
- * 更新 CSS 变量的函数
- * @param variables 要更新的 CSS 变量与其新值的映射
+ * Hàm cập nhật biến CSS
+ * @param variables Ánh xạ giữa các biến CSS cần cập nhật và giá trị mới của chúng
  */
 function updateCSSVariables(
   variables: { [key: string]: string },
   id = '__vben-styles__',
 ): void {
-  // 获取或创建内联样式表元素
+  // Lấy hoặc tạo phần tử stylesheet nội tuyến
   const styleElement =
     document.querySelector(`#${id}`) || document.createElement('style');
 
   styleElement.id = id;
 
-  // 构建要更新的 CSS 变量的样式文本
+  // Xây dựng văn bản kiểu cho các biến CSS cần cập nhật
   let cssText = ':root {';
   for (const key in variables) {
     if (Object.prototype.hasOwnProperty.call(variables, key)) {
@@ -21,10 +21,10 @@ function updateCSSVariables(
   }
   cssText += '}';
 
-  // 将样式文本赋值给内联样式表
+  // Gán văn bản kiểu cho stylesheet nội tuyến
   styleElement.textContent = cssText;
 
-  // 将内联样式表添加到文档头部
+  // Thêm stylesheet nội tuyến vào phần đầu của tài liệu
   if (!document.querySelector(`#${id}`)) {
     setTimeout(() => {
       document.head.append(styleElement);

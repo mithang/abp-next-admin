@@ -1,0 +1,14 @@
+{
+  "title": "Demo",
+  "naive": "Naive UI",
+  "table": "Table",
+  "form": "Biểu mẫu",
+  "vben": {
+    "title": "Dự án",
+    "about": "Giới thiệu",
+    "document": "Tài liệu",
+    "antdv": "Phiên bản Ant Design Vue",
+    "naive-ui": "Phiên bản Naive UI",
+    "element-plus": "Phiên bản Element Plus"
+  }
+}

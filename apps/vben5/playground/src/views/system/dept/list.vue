@@ -23,7 +23,7 @@ const [FormModal, formModalApi] = useVbenModal({
 });
 
 /**
- * 编辑部门
+ * Chỉnh sửa phòng ban
  * @param row
  */
 function onEdit(row: SystemDeptApi.SystemDept) {
@@ -31,7 +31,7 @@ function onEdit(row: SystemDeptApi.SystemDept) {
 }
 
 /**
- * 添加下级部门
+ * Thêm phòng ban cấp dưới
  * @param row
  */
 function onAppend(row: SystemDeptApi.SystemDept) {
@@ -39,14 +39,14 @@ function onAppend(row: SystemDeptApi.SystemDept) {
 }
 
 /**
- * 创建新部门
+ * Tạo phòng ban mới
  */
 function onCreate() {
   formModalApi.setData(null).open();
 }
 
 /**
- * 删除部门
+ * Xóa phòng ban
  * @param row
  */
 function onDelete(row: SystemDeptApi.SystemDept) {
@@ -69,7 +69,7 @@ function onDelete(row: SystemDeptApi.SystemDept) {
 }
 
 /**
- * 表格操作按钮的回调函数
+ * Hàm callback của nút thao tác trên bảng
  */
 function onActionClick({
   code,
@@ -122,7 +122,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
 });
 
 /**
- * 刷新表格
+ * Làm mới bảng
  */
 function refreshGrid() {
   gridApi.query();
@@ -131,7 +131,7 @@ function refreshGrid() {
 <template>
   <Page auto-content-height>
     <FormModal @success="refreshGrid" />
-    <Grid table-title="部门列表">
+    <Grid table-title="Danh sách phòng ban">
       <template #toolbar-tools>
         <Button type="primary" @click="onCreate">
           <Plus class="size-5" />

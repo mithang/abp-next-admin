@@ -1,19 +1,19 @@
-## 先决条件
+## Điều kiện tiên quyết
 
-请参考 [Aspire Docs](https://aspire.dev/get-started/prerequisites/) 检查运行所需环境.  
+Vui lòng tham khảo [Aspire Docs](https://aspire.dev/get-started/prerequisites/) để kiểm tra môi trường cần thiết để chạy.  
 
-## 安装CLI
+## Cài đặt CLI
 
-请参考 [Aspire Docs](https://aspire.dev/get-started/install-cli/) 安装Aspire CLI.  
+Vui lòng tham khảo [Aspire Docs](https://aspire.dev/get-started/install-cli/) để cài đặt Aspire CLI.  
 
-## 启动Aspire
+## Khởi động Aspire
 
 ```shell
 aspire run
 ```
 
-## 注意事项
+## Lưu ý
 
-- 仅用于学习 [Aspire](https://aspire.dev/docs/) 请勿用于生产环境!  
-- 项目默认启用 [Elasticsearch](https://aspire.dev/integrations/databases/elasticsearch/) 作为审计日志及系统运行日志存储, 请视本机情况酌情修改启动参数,避免OOM!  
-- 多个项目在启动时初始化Quartz, 就算做了健康检查, 某些情况下还是会造成数据库锁争用, 在仪表盘中重启对应服务即可.  
+- Chỉ dùng để học [Aspire](https://aspire.dev/docs/), không dùng cho môi trường production!  
+- Dự án mặc định bật [Elasticsearch](https://aspire.dev/integrations/databases/elasticsearch/) làm nơi lưu trữ nhật ký kiểm toán và nhật ký vận hành hệ thống, vui lòng tùy tình hình máy local mà điều chỉnh tham số khởi động cho phù hợp, tránh OOM!  
+- Nhiều dự án khởi tạo Quartz khi khởi động, dù đã kiểm tra sức khỏe, trong một số trường hợp vẫn gây tranh chấp khóa cơ sở dữ liệu, chỉ cần khởi động lại service tương ứng trong bảng điều khiển là được.  

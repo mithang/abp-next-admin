@@ -8,15 +8,15 @@ public static class DataProtectionManagementErrorCodes
     {
         public const string Prefix = Namespace + ":001";
         /// <summary>
-        /// 已经存在名为 {Name} 的实体类型定义
+        /// Đã tồn tại định nghĩa loại thực thể có tên {Name}
         /// </summary>
         public const string DuplicateTypeInfo = Prefix + "100";
         /// <summary>
-        /// 实体类型已经存在名为 {Name} 的属性定义
+        /// Loại thực thể đã tồn tại định nghĩa thuộc tính có tên {Name}
         /// </summary>
         public const string DuplicateProperty = Prefix + "200";
         /// <summary>
-        /// 实体属性已经存在名为 {Name} 的枚举定义
+        /// Thuộc tính thực thể đã tồn tại định nghĩa enum có tên {Name}
         /// </summary>
         public const string DuplicateEnum = Prefix + "300";
     }
@@ -25,7 +25,7 @@ public static class DataProtectionManagementErrorCodes
     {
         public const string Prefix = Namespace + ":002";
         /// <summary>
-        /// 已为角色 {RoleName} 分配了实体 {Name} 的 {Operation} 访问规则!
+        /// Đã gán quy tắc truy cập {Operation} của thực thể {Name} cho vai trò {RoleName}!
         /// </summary>
         public const string DuplicateEntityRule = Prefix + "100";
     }
@@ -34,7 +34,7 @@ public static class DataProtectionManagementErrorCodes
     {
         public const string Prefix = Namespace + ":003";
         /// <summary>
-        /// 已为组织机构 {OrgCode} 分配了实体 {Name} 的 {Operation} 访问规则!
+        /// Đã gán quy tắc truy cập {Operation} của thực thể {Name} cho tổ chức {OrgCode}!
         /// </summary>
         public const string DuplicateEntityRule = Prefix + "100";
     }

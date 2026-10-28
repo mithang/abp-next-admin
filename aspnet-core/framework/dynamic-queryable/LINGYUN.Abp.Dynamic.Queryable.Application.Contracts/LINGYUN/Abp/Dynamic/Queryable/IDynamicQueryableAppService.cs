@@ -6,12 +6,12 @@ namespace LINGYUN.Abp.Dynamic.Queryable;
 public interface IDynamicQueryableAppService<TEntityDto>
 {
     /// <summary>
-    /// 获取可用字段列表
+    /// Lấy danh sách các trường khả dụng
     /// </summary>
     /// <returns></returns>
     Task<ListResultDto<DynamicParamterDto>> GetAvailableFieldsAsync();
     /// <summary>
-    /// 根据动态条件查询数据
+    /// Truy vấn dữ liệu theo điều kiện động
     /// </summary>
     /// <param name="dynamicInput"></param>
     /// <returns></returns>

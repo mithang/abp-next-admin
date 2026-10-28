@@ -195,7 +195,7 @@ async function onInit() {
   }
   const dto = await getApi(editMenu!.id);
   await basicFormApi.setValues(dto);
-  // 编辑模式无需使用前缀
+  // Chế độ chỉnh sửa không cần dùng tiền tố
   await onParentIdChange(undefined);
   onInitMetaFormValues(dto.meta);
   drawerApi.setState({ title: `${$t('AppPlatform.Menu:Edit')} - ${dto.name}` });
@@ -236,7 +236,7 @@ async function onLayoutChange(layoutId?: string) {
     const layoutDto = await getLayoutApi(layoutId);
     const dataDto = await getDataDictionaryApi(layoutDto.dataId);
     basicFormApi.setFieldValue('component', layoutDto.path);
-    menuMetas.value = dataDto.items.sort();
+    menuMetas.value = dataDto.items.toSorted();
     onInitMetaFormSchemas();
   } finally {
     drawerApi.setState({ loading: false });
@@ -305,7 +305,7 @@ function onInitMetaFormSchemas() {
           break;
         }
         case ValueType.String: {
-          // 约定名称包含icon时使用IconPicker组件
+          // Theo quy ước, tên chứa icon thì dùng component IconPicker
           const itemNameLowerCase = dataItem.name.toLocaleLowerCase();
           if (itemNameLowerCase.includes('icon')) {
             component = 'IconPicker';

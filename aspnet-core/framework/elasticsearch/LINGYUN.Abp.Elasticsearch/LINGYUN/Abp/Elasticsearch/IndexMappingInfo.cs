@@ -5,71 +5,71 @@ using System.Linq.Expressions;
 
 namespace LINGYUN.Abp.Elasticsearch;
 /// <summary>
-/// 索引映射信息
+/// Thông tin ánh xạ chỉ mục
 /// </summary>
 public class IndexMappingInfo
 {
     /// <summary>
-    /// 索引名称
+    /// Tên chỉ mục
     /// </summary>
     public string IndexName { get; set; } = string.Empty;
 
     /// <summary>
-    /// 文档类型
+    /// Loại tài liệu
     /// </summary>
     public Type? DocumentType { get; set; }
 
     /// <summary>
-    /// 所有字段映射（扁平化）
+    /// Tất cả ánh xạ trường (dạng phẳng)
     /// </summary>
     public Dictionary<string, FieldMappingInfo> Fields { get; set; } = new Dictionary<string, FieldMappingInfo>(StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
-    /// 按 CLR 属性路径索引的字段映射
+    /// Ánh xạ trường được lập chỉ mục theo đường dẫn thuộc tính CLR
     /// </summary>
     public Dictionary<string, FieldMappingInfo> ClrFields { get; set; } = new Dictionary<string, FieldMappingInfo>(StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
-    /// Nested 字段映射
+    /// Ánh xạ trường Nested
     /// </summary>
     public Dictionary<string, NestedMappingInfo> NestedFields { get; set; } = new Dictionary<string, NestedMappingInfo>(StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
-    /// Keyword 字段列表
+    /// Danh sách trường Keyword
     /// </summary>
     public HashSet<string> KeywordFields { get; set; } = new();
 
     /// <summary>
-    /// Text 字段列表
+    /// Danh sách trường Text
     /// </summary>
     public HashSet<string> TextFields { get; set; } = new();
     /// <summary>
-    /// Wildcard 字段列表
+    /// Danh sách trường Wildcard
     /// </summary>
     public HashSet<string> WildcardFields { get; set; } = new();
 
     /// <summary>
-    /// 日期字段列表
+    /// Danh sách trường ngày tháng
     /// </summary>
     public HashSet<string> DateFields { get; set; } = new();
 
     /// <summary>
-    /// 数值字段列表
+    /// Danh sách trường số
     /// </summary>
     public HashSet<string> NumericFields { get; set; } = new();
 
     /// <summary>
-    /// 布尔字段列表
+    /// Danh sách trường Boolean
     /// </summary>
     public HashSet<string> BooleanFields { get; set; } = new();
 
     /// <summary>
-    /// Nested 字段路径列表
+    /// Danh sách đường dẫn trường Nested
     /// </summary>
     public HashSet<string> NestedFieldPaths { get; set; } = new();
 
     /// <summary>
-    /// 获取字段映射信息
+    /// Lấy thông tin ánh xạ trường
     /// </summary>
     public FieldMappingInfo? GetField(string path)
     {
@@ -77,7 +77,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 根据 CLR 属性路径获取字段映射信息
+    /// Lấy thông tin ánh xạ trường theo đường dẫn thuộc tính CLR
     /// </summary>
     public FieldMappingInfo? GetFieldByClrPath(string clrPath)
     {
@@ -85,7 +85,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 根据 CLR 属性表达式获取字段映射信息
+    /// Lấy thông tin ánh xạ trường theo biểu thức thuộc tính CLR
     /// </summary>
     public FieldMappingInfo? GetFieldByExpression<TDocument>(Expression<Func<TDocument, object?>> expression)
     {
@@ -94,7 +94,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 根据 CLR 属性表达式获取 ES 字段路径
+    /// Lấy đường dẫn trường ES theo biểu thức thuộc tính CLR
     /// </summary>
     public string? GetElasticsearchFieldPath<TDocument>(Expression<Func<TDocument, object?>> expression)
     {
@@ -104,7 +104,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 判断是否为 Nested 字段
+    /// Kiểm tra có phải trường Nested hay không
     /// </summary>
     public bool IsNested(string path)
     {
@@ -112,7 +112,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 获取 Nested 字段信息
+    /// Lấy thông tin trường Nested
     /// </summary>
     public NestedMappingInfo? GetNestedField(string path)
     {
@@ -120,7 +120,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 获取字段的精确匹配路径（处理 text 的 keyword 子字段）
+    /// Lấy đường dẫn khớp chính xác của trường (xử lý trường con keyword của text)
     /// </summary>
     public string GetExactFieldPath(string path)
     {
@@ -134,17 +134,17 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 判断字段是否需要 Nested 查询
+    /// Kiểm tra trường có cần truy vấn Nested hay không
     /// </summary>
     public bool ShouldUseNestedQuery(string path)
     {
-        // 检查路径本身是否是 Nested
+        // Kiểm tra bản thân đường dẫn có phải Nested hay không
         if (IsNested(path))
         {
             return true;
         }
 
-        // 检查路径的父级是否是 Nested
+        // Kiểm tra cấp cha của đường dẫn có phải Nested hay không
         var parts = path.Split('.');
         for (var i = 0; i < parts.Length - 1; i++)
         {
@@ -159,7 +159,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 获取 Nested 字段路径（如果字段在 Nested 内部，返回最近的 Nested 父级路径）
+    /// Lấy đường dẫn trường Nested (nếu trường nằm trong Nested thì trả về đường dẫn Nested cha gần nhất)
     /// </summary>
     public string? GetNestedParentPath(string path)
     {
@@ -176,7 +176,7 @@ public class IndexMappingInfo
         return null;
     }
     /// <summary>
-    /// 将 CLR 属性路径转换为 ES 字段路径
+    /// Chuyển đổi đường dẫn thuộc tính CLR thành đường dẫn trường ES
     /// </summary>
     public string? ConvertClrPathToElasticsearchPath(string clrPath)
     {
@@ -185,7 +185,7 @@ public class IndexMappingInfo
     }
 
     /// <summary>
-    /// 将 ES 字段路径转换为 CLR 属性路径
+    /// Chuyển đổi đường dẫn trường ES thành đường dẫn thuộc tính CLR
     /// </summary>
     public string? ConvertElasticsearchPathToClrPath(string esPath)
     {
@@ -204,7 +204,7 @@ public class IndexMappingInfo
             currentExpression = memberExpression.Expression!;
         }
 
-        // 处理转换表达式
+        // Xử lý biểu thức chuyển đổi
         if (currentExpression is UnaryExpression unaryExpression &&
             unaryExpression.NodeType == ExpressionType.Convert &&
             unaryExpression.Operand is MemberExpression convertMemberExpression)

@@ -4,13 +4,13 @@ outline: deep
 
 # CLI
 
-项目中，提供了一些命令行工具，用于一些常用的操作，代码位于 `scrips` 内。
+Trong dự án, có cung cấp một số công cụ dòng lệnh dùng cho một số thao tác thường dùng, mã nguồn nằm trong `scrips`.
 
 ## vsh
 
-用于一些项目操作，如清理项目、检查项目等。
+Dùng cho một số thao tác của dự án, như dọn dẹp dự án, kiểm tra dự án, v.v.
 
-### 用法
+### Cách dùng
 
 ```bash
 pnpm vsh [command] [options]
@@ -18,91 +18,91 @@ pnpm vsh [command] [options]
 
 ### vsh check-circular
 
-检查整个项目循环引用，如果有循环引用，会在控制台输出循环引用的模块。
+Kiểm tra tham chiếu vòng trong toàn bộ dự án, nếu có tham chiếu vòng sẽ xuất mô-đun tham chiếu vòng ra console.
 
-#### 用法
+#### Cách dùng
 
 ```bash
 pnpm vsh check-circular
 ```
 
-#### 选项
+#### Tùy chọn
 
-| 选项       | 说明                                |
+| Tùy chọn   | Mô tả                               |
 | ---------- | ----------------------------------- |
-| `--staged` | 只检查git暂存区内的文件,默认`false` |
+| `--staged` | Chỉ kiểm tra các tệp trong khu vực staged của git, mặc định `false` |
 
 ### vsh check-dep
 
-检查整个项目依赖情况，并在控制台输出`未使用的依赖`、`未安装的依赖`信息
+Kiểm tra tình trạng phụ thuộc của toàn bộ dự án và xuất thông tin `phụ thuộc chưa sử dụng`, `phụ thuộc chưa cài đặt` ra console
 
-#### 用法
+#### Cách dùng
 
 ```bash
 pnpm vsh check-dep
 ```
 
-#### 选项
+#### Tùy chọn
 
-| 选项             | 说明                                    |
+| Tùy chọn         | Mô tả                                   |
 | ---------------- | --------------------------------------- |
-| `-r,--recursive` | 递归删除整个项目,默认`true`             |
-| `--del-lock`     | 是否删除`pnpm-lock.yaml`文件,默认`true` |
+| `-r,--recursive` | Xóa đệ quy toàn bộ dự án, mặc định `true` |
+| `--del-lock`     | Có xóa tệp `pnpm-lock.yaml` hay không, mặc định `true` |
 
 ### vsh lint
 
-对项目进行lint检查，检查项目中的代码是否符合规范。
+Kiểm tra lint cho dự án, kiểm tra mã nguồn trong dự án có tuân thủ quy chuẩn hay không.
 
-#### 用法
+#### Cách dùng
 
 ```bash
 pnpm vsh lint
 ```
 
-#### 选项
+#### Tùy chọn
 
-| 选项       | 说明                           |
+| Tùy chọn   | Mô tả                          |
 | ---------- | ------------------------------ |
-| `--format` | 检查并尝试修复错误,默认`false` |
+| `--format` | Kiểm tra và thử sửa lỗi, mặc định `false` |
 
 ### vsh publint
 
-对 `Monorepo` 项目进行包规范检查，检查项目中的包是否符合规范。
+Kiểm tra quy chuẩn gói cho dự án `Monorepo`, kiểm tra các gói trong dự án có tuân thủ quy chuẩn hay không.
 
-#### 用法
+#### Cách dùng
 
 ```bash
 pnpm vsh publint
 ```
 
-#### 选项
+#### Tùy chọn
 
-| 选项      | 说明                   |
+| Tùy chọn  | Mô tả                  |
 | --------- | ---------------------- |
-| `--check` | 仅执行检查,默认`false` |
+| `--check` | Chỉ thực hiện kiểm tra, mặc định `false` |
 
 ### vsh code-workspace
 
-生成 `vben-admin.code-workspace` 文件，目前不需要手动执行，会在代码提交时自动执行。
+Tạo tệp `vben-admin.code-workspace`, hiện tại không cần thực thi thủ công, sẽ tự động thực thi khi commit mã nguồn.
 
-#### 用法
+#### Cách dùng
 
 ```bash
 pnpm vsh code-workspace
 ```
 
-#### 选项
+#### Tùy chọn
 
-| 选项            | 说明                                   |
+| Tùy chọn        | Mô tả                                  |
 | --------------- | -------------------------------------- |
-| `--auto-commit` | `git commit`时候，自动提交,默认`false` |
-| `--spaces`      | 缩进格式,默认 `2`个缩进                |
+| `--auto-commit` | Khi `git commit`, tự động commit, mặc định `false` |
+| `--spaces`      | Định dạng thụt lề, mặc định thụt lề `2` |
 
 ## turbo-run
 
-用于快速执行大仓中脚本，并提供选项式交互选择。
+Dùng để nhanh chóng thực thi script trong monorepo và cung cấp lựa chọn tương tác dạng tùy chọn.
 
-### 用法
+### Cách dùng
 
 ```bash
 pnpm turbo-run [command]
@@ -110,4 +110,4 @@ pnpm turbo-run [command]
 
 ### turbo-run dev
 
-快速执行`dev`命令，并提供选项式交互选择。
+Nhanh chóng thực thi lệnh `dev` và cung cấp lựa chọn tương tác dạng tùy chọn.

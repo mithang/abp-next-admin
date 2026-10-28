@@ -1,19 +1,19 @@
 # LINGYUN.Abp.Aliyun
 
-阿里云 SDK 集成模块。
+Mô-đun tích hợp Alibaba Cloud SDK.
 
-参照：[阿里云 API 文档](https://help.aliyun.com/document_detail/28763.html)
+Tham khảo: [Tài liệu API Alibaba Cloud](https://help.aliyun.com/document_detail/28763.html)
 
-## 功能特性
+## Tính năng
 
-- 提供阿里云服务的基础 SDK 集成
-- 支持阿里云 RAM（访问控制）认证
-- 支持 STS Token 访问
-- 支持阿里云短信服务（SMS）
-- 支持阿里云对象存储（OSS）
-- 提供分布式缓存支持，优化高并发场景
+- Cung cấp tích hợp SDK cơ sở cho dịch vụ Alibaba Cloud
+- Hỗ trợ xác thực Alibaba Cloud RAM (kiểm soát truy cập)
+- Hỗ trợ truy cập bằng STS Token
+- Hỗ trợ dịch vụ SMS của Alibaba Cloud
+- Hỗ trợ lưu trữ đối tượng của Alibaba Cloud (OSS)
+- Cung cấp hỗ trợ bộ nhớ đệm phân tán, tối ưu kịch bản đồng thời cao
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAliyunModule))]
@@ -23,122 +23,122 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
-### 认证配置
+### Cấu hình xác thực
 
 - **AliyunSettingNames.Authorization.RegionId**
 
-  - 说明：阿里云服务区域
-  - 类型：可选
-  - 默认值：default
-  - 示例：oss-cn-hangzhou
+  - Giải thích: Khu vực dịch vụ Alibaba Cloud
+  - Loại: Tùy chọn
+  - Giá trị mặc định: default
+  - Ví dụ: oss-cn-hangzhou
 
 - **AliyunSettingNames.Authorization.AccessKeyId**
 
-  - 说明：阿里云 RAM 账号的 AccessKey ID
-  - 类型：必须
-  - 获取方式：访问阿里云控制台-访问控制
+  - Giải thích: AccessKey ID của tài khoản RAM Alibaba Cloud
+  - Loại: Bắt buộc
+  - Cách lấy: Truy cập bảng điều khiển Alibaba Cloud - Kiểm soát truy cập
 
 - **AliyunSettingNames.Authorization.AccessKeySecret**
-  - 说明：RAM 账号的 AccessKey Secret
-  - 类型：必须
-  - 获取方式：访问阿里云控制台-访问控制
+  - Giải thích: AccessKey Secret của tài khoản RAM
+  - Loại: Bắt buộc
+  - Cách lấy: Truy cập bảng điều khiển Alibaba Cloud - Kiểm soát truy cập
 
-### STS Token 配置
+### Cấu hình STS Token
 
 - **AliyunSettingNames.Authorization.UseSecurityTokenService**
 
-  - 说明：是否使用 STS Token 访问
-  - 类型：可选
-  - 默认值：false
-  - 建议：建议开启，提高安全性
+  - Giải thích: Có sử dụng STS Token để truy cập hay không
+  - Loại: Tùy chọn
+  - Giá trị mặc định: false
+  - Khuyến nghị: Nên bật, để tăng tính bảo mật
 
 - **AliyunSettingNames.Authorization.RamRoleArn**
 
-  - 说明：阿里云 RAM 角色 ARN
-  - 类型：启用 STS Token 时必须
-  - 格式：acs:ram::$accountID:role/$roleName
+  - Giải thích: ARN của vai trò RAM Alibaba Cloud
+  - Loại: Bắt buộc khi bật STS Token
+  - Định dạng: acs:ram::$accountID:role/$roleName
 
 - **AliyunSettingNames.Authorization.RoleSessionName**
 
-  - 说明：用户自定义令牌名称
-  - 类型：可选
-  - 用途：用于访问审计
+  - Giải thích: Tên token do người dùng tự định nghĩa
+  - Loại: Tùy chọn
+  - Công dụng: Dùng cho kiểm toán truy cập
 
 - **AliyunSettingNames.Authorization.DurationSeconds**
 
-  - 说明：用户令牌的过期时间
-  - 类型：可选
-  - 默认值：3000
-  - 单位：秒
+  - Giải thích: Thời gian hết hạn của token người dùng
+  - Loại: Tùy chọn
+  - Giá trị mặc định: 3000
+  - Đơn vị: giây
 
 - **AliyunSettingNames.Authorization.Policy**
-  - 说明：权限策略
-  - 类型：可选
-  - 格式：JSON 字符串
+  - Giải thích: Chính sách quyền
+  - Loại: Tùy chọn
+  - Định dạng: Chuỗi JSON
 
-### 短信服务配置
+### Cấu hình dịch vụ SMS
 
 ```json
 {
   "Settings": {
     "Abp.Aliyun.Sms": {
-      "Domain": "dysmsapi.aliyuncs.com", // API域名，默认为 dysmsapi.aliyuncs.com
-      "Version": "2017-05-25", // API版本，默认为 2017-05-25
-      "ActionName": "SendSms", // API方法名，默认为 SendSms
-      "DefaultSignName": "", // 默认短信签名
-      "DefaultTemplateCode": "", // 默认短信模板代码
-      "DefaultPhoneNumber": "", // 默认接收短信的手机号码
-      "VisableErrorToClient": "false" // 是否向客户端显示错误信息
+      "Domain": "dysmsapi.aliyuncs.com", // Tên miền API, mặc định là dysmsapi.aliyuncs.com
+      "Version": "2017-05-25", // Phiên bản API, mặc định là 2017-05-25
+      "ActionName": "SendSms", // Tên phương thức API, mặc định là SendSms
+      "DefaultSignName": "", // Chữ ký SMS mặc định
+      "DefaultTemplateCode": "", // Mã mẫu SMS mặc định
+      "DefaultPhoneNumber": "", // Số điện thoại nhận SMS mặc định
+      "VisableErrorToClient": "false" // Có hiển thị thông tin lỗi cho client hay không
     }
   }
 }
 ```
 
-## 可用区域
+## Các khu vực khả dụng
 
-本模块支持以下阿里云区域：
+Mô-đun này hỗ trợ các khu vực Alibaba Cloud sau:
 
-- 中国区域
+- Khu vực Trung Quốc
 
-  - 华北 1（青岛）- cn-qingdao
-  - 华北 2（北京）- cn-beijing
-  - 华北 3（张家口）- cn-zhangjiakou
-  - 华北 5（呼和浩特）- cn-huhehaote
-  - 华东 1（杭州）- cn-hangzhou
-  - 华东 2（上海）- cn-shanghai
-  - 华南 1（深圳）- cn-shenzhen
-  - 华南 2（河源）- cn-heyuan
-  - 华南 3（广州）- cn-guangzhou
-  - 西南 1（成都）- cn-chengdu
+  - Hoa Bắc 1 (Thanh Đảo) - cn-qingdao
+  - Hoa Bắc 2 (Bắc Kinh) - cn-beijing
+  - Hoa Bắc 3 (Trương Gia Khẩu) - cn-zhangjiakou
+  - Hoa Bắc 5 (Hô Hòa Hạo Đặc) - cn-huhehaote
+  - Hoa Đông 1 (Hàng Châu) - cn-hangzhou
+  - Hoa Đông 2 (Thượng Hải) - cn-shanghai
+  - Hoa Nam 1 (Thâm Quyến) - cn-shenzhen
+  - Hoa Nam 2 (Hà Nguyên) - cn-heyuan
+  - Hoa Nam 3 (Quảng Châu) - cn-guangzhou
+  - Tây Nam 1 (Thành Đô) - cn-chengdu
 
-- 香港及海外区域
-  - 香港 - cn-hongkong
-  - 美国（硅谷）- us-west-1
-  - 美国（弗吉尼亚）- us-east-1
-  - 日本（东京）- ap-northeast-1
-  - 韩国（首尔）- ap-northeast-2
-  - 新加坡 - ap-southeast-1
-  - 澳大利亚（悉尼）- ap-southeast-2
-  - 马来西亚（吉隆坡）- ap-southeast-3
-  - 印度尼西亚（雅加达）- ap-southeast-5
-  - 菲律宾（马尼拉）- ap-southeast-6
-  - 泰国（曼谷）- ap-southeast-7
-  - 印度（孟买）- ap-south-1
-  - 德国（法兰克福）- eu-central-1
-  - 英国（伦敦）- eu-west-1
-  - 阿联酋（迪拜）- me-east-1
+- Hồng Kông và các khu vực hải ngoại
+  - Hồng Kông - cn-hongkong
+  - Hoa Kỳ (Thung lũng Silicon) - us-west-1
+  - Hoa Kỳ (Virginia) - us-east-1
+  - Nhật Bản (Tokyo) - ap-northeast-1
+  - Hàn Quốc (Seoul) - ap-northeast-2
+  - Singapore - ap-southeast-1
+  - Úc (Sydney) - ap-southeast-2
+  - Malaysia (Kuala Lumpur) - ap-southeast-3
+  - Indonesia (Jakarta) - ap-southeast-5
+  - Philippines (Manila) - ap-southeast-6
+  - Thái Lan (Bangkok) - ap-southeast-7
+  - Ấn Độ (Mumbai) - ap-south-1
+  - Đức (Frankfurt) - eu-central-1
+  - Anh (Luân Đôn) - eu-west-1
+  - UAE (Dubai) - me-east-1
 
-## 性能优化
+## Tối ưu hiệu năng
 
-- 在高并发场景下，建议开启分布式缓存以提高性能
-- 使用 STS Token 时，Token 会自动缓存到过期前
-- 建议合理设置 DurationSeconds，避免过于频繁的 Token 刷新
+- Trong kịch bản đồng thời cao, nên bật bộ nhớ đệm phân tán để tăng hiệu năng
+- Khi sử dụng STS Token, Token sẽ tự động được lưu đệm cho đến trước khi hết hạn
+- Nên đặt DurationSeconds hợp lý, tránh làm mới Token quá thường xuyên
 
-## 相关模块
+## Các mô-đun liên quan
 
-- [LINGYUN.Abp.Aliyun.SettingManagement](../LINGYUN.Abp.Aliyun.SettingManagement/README.md) - 提供配置管理功能
-- [LINGYUN.Abp.Aliyun.Features](../LINGYUN.Abp.Aliyun.Features/README.md) - 提供功能管理功能
+- [LINGYUN.Abp.Aliyun.SettingManagement](../LINGYUN.Abp.Aliyun.SettingManagement/README.md) - Cung cấp chức năng quản lý cấu hình
+- [LINGYUN.Abp.Aliyun.Features](../LINGYUN.Abp.Aliyun.Features/README.md) - Cung cấp chức năng quản lý tính năng
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

@@ -1,94 +1,94 @@
-# 配置
+# Cấu hình
 
-## 环境变量配置
+## Cấu hình biến môi trường
 
-项目的环境变量配置位于应用目录下的 `.env`、`.env.development`、`.env.production`。
+Cấu hình biến môi trường của dự án nằm trong thư mục ứng dụng, gồm `.env`, `.env.development`, `.env.production`.
 
-规则与 [Vite Env Variables and Modes](https://vitejs.dev/guide/env-and-mode.html) 一致。格式如下：
+Quy tắc giống với [Vite Env Variables and Modes](https://vitejs.dev/guide/env-and-mode.html). Định dạng như sau:
 
 ```bash
-.env                # 在所有的环境中被载入
-.env.local          # 在所有的环境中被载入，但会被 git 忽略
-.env.[mode]         # 只在指定的模式中被载入
-.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
+.env                # Được nạp trong mọi môi trường
+.env.local          # Được nạp trong mọi môi trường, nhưng bị git bỏ qua
+.env.[mode]         # Chỉ được nạp trong chế độ đã chỉ định
+.env.[mode].local   # Chỉ được nạp trong chế độ đã chỉ định, nhưng bị git bỏ qua
 ```
 
 ::: tip
 
-- 只有以 `VITE_` 开头的变量会被嵌入到客户端侧的包中，你可以在项目代码中这样访问它们：
+- Chỉ các biến bắt đầu bằng `VITE_` mới được nhúng vào gói phía client, bạn có thể truy cập chúng trong mã dự án như sau:
 
   ```ts
   console.log(import.meta.env.VITE_PROT);
   ```
 
-- 以 `VITE_GLOB_*` 开头的的变量，在打包的时候，会被加入 `_app.config.js`配置文件当中.
+- Các biến bắt đầu bằng `VITE_GLOB_*` sẽ được đưa vào tệp cấu hình `_app.config.js` khi đóng gói.
 
 :::
 
-## 环境配置说明
+## Giải thích cấu hình môi trường
 
 ::: code-group
 
 ```bash [.env]
-# 应用标题
+# Tiêu đề ứng dụng
 VITE_APP_TITLE=Vben Admin
 
-# 应用命名空间，用于缓存、store等功能的前缀，确保隔离
+# Không gian tên ứng dụng, dùng làm tiền tố cho các chức năng như bộ nhớ đệm, store, đảm bảo tách biệt
 VITE_APP_NAMESPACE=vben-web-antd
 ```
 
 ```bash [.env.development]
-# 端口号
+# Số cổng
 VITE_PORT=5555
 
-# 资源公共路径,需要以 / 开头和结尾
+# Đường dẫn công khai của tài nguyên, cần bắt đầu và kết thúc bằng /
 VITE_BASE=/
 
-# 接口地址
+# Địa chỉ API
 VITE_GLOB_API_URL=/api
 
-# 是否开启 Nitro Mock服务，true 为开启，false 为关闭
+# Có bật dịch vụ Nitro Mock hay không, true là bật, false là tắt
 VITE_NITRO_MOCK=true
 
-# 是否打开 devtools，true 为打开，false 为关闭
+# Có mở devtools hay không, true là mở, false là đóng
 VITE_DEVTOOLS=true
 
-# 是否注入全局loading
+# Có chèn loading toàn cục hay không
 VITE_INJECT_APP_LOADING=true
 
 ```
 
 ```bash [.env.production]
-# 资源公共路径,需要以 / 开头和结尾
+# Đường dẫn công khai của tài nguyên, cần bắt đầu và kết thúc bằng /
 VITE_BASE=/
 
-# 接口地址
+# Địa chỉ API
 VITE_GLOB_API_URL=https://mock-napi.vben.pro/api
 
-# 是否开启压缩，可以设置为 none, brotli, gzip
+# Có bật nén hay không, có thể đặt thành none, brotli, gzip
 VITE_COMPRESS=gzip
 
-# 是否开启 PWA
+# Có bật PWA hay không
 VITE_PWA=false
 
-# vue-router 的模式
+# Chế độ của vue-router
 VITE_ROUTER_HISTORY=hash
 
-# 是否注入全局loading
+# Có chèn loading toàn cục hay không
 VITE_INJECT_APP_LOADING=true
 
-# 打包后是否生成dist.zip
+# Sau khi đóng gói có tạo dist.zip hay không
 VITE_ARCHIVER=true
 
 ```
 
 :::
 
-## 生产环境动态配置
+## Cấu hình động cho môi trường production
 
-当在大仓根目录下，执行 `pnpm build`构建项目之后，会自动在对应的应用下生成 `dist/_app.config.js`文件并插入 `index.html`。
+Khi thực thi `pnpm build` tại thư mục gốc của monorepo để build dự án, tệp `dist/_app.config.js` sẽ tự động được tạo trong ứng dụng tương ứng và chèn vào `index.html`.
 
-`_app.config.js` 是一个动态配置文件，可以在项目构建之后，根据不同的环境动态修改配置。内容如下：
+`_app.config.js` là tệp cấu hình động, có thể sửa đổi cấu hình động theo từng môi trường sau khi dự án được build. Nội dung như sau:
 
 ```ts
 window._VBEN_ADMIN_PRO_APP_CONF_ = {
@@ -101,29 +101,29 @@ Object.defineProperty(window, '_VBEN_ADMIN_PRO_APP_CONF_', {
 });
 ```
 
-### 作用
+### Tác dụng
 
-`_app.config.js` 用于项目在打包后，需要动态修改配置的需求，如接口地址。不用重新进行打包，可在打包后修改 /`dist/_app.config.js` 内的变量，刷新即可更新代码内的局部变量。这里使用`js`文件，是为了确保配置文件加载顺序保持在前面。
+`_app.config.js` phục vụ nhu cầu sửa đổi cấu hình động sau khi dự án đóng gói, ví dụ như địa chỉ API. Không cần đóng gói lại, chỉ cần sửa biến trong /`dist/_app.config.js` sau khi đóng gói rồi làm mới là cập nhật được biến cục bộ trong mã. Dùng tệp `js` ở đây là để đảm bảo thứ tự nạp tệp cấu hình luôn ở phía trước.
 
-### 使用
+### Cách dùng
 
-想要获取 `_app.config.js` 内的变量，需要使用`@vben/hooks`提供的 `useAppConfig`方法。
+Để lấy biến trong `_app.config.js`, cần dùng phương thức `useAppConfig` do `@vben/hooks` cung cấp.
 
 ```ts
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 ```
 
-### 新增
+### Thêm mới
 
-新增一个可动态修改的配置项，只需要按照如下步骤即可：
+Để thêm một mục cấu hình có thể sửa đổi động, chỉ cần làm theo các bước sau:
 
-- 首先在 `.env` 或者对应的开发环境配置文件内，新增需要可动态配置的变量，需要以 `VITE_GLOB_*` 开头的变量，如：
+- Trước hết, trong `.env` hoặc tệp cấu hình môi trường phát triển tương ứng, thêm biến cần cấu hình động, là biến bắt đầu bằng `VITE_GLOB_*`, ví dụ:
 
   ```bash
   VITE_GLOB_OTHER_API_URL=https://mock-napi.vben.pro/other-api
   ```
 
-- 在 `packages/types/global.d.ts`,新增对应的类型定义，如：
+- Trong `packages/types/global.d.ts`, thêm định nghĩa kiểu tương ứng, ví dụ:
 
   ```ts
   export interface VbenAdminProAppConfigRaw {
@@ -137,14 +137,14 @@ const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
   }
   ```
 
-- 在 `packages/effects/hooks/src/use-app-config.ts` 中，新增对应的配置项，如：
+- Trong `packages/effects/hooks/src/use-app-config.ts`, thêm mục cấu hình tương ứng, ví dụ:
 
   ```ts
   export function useAppConfig(
     env: Record<string, any>,
     isProduction: boolean,
   ): ApplicationConfig {
-    // 生产环境下，直接使用 window._VBEN_ADMIN_PRO_APP_CONF_ 全局变量
+    // Trong môi trường production, dùng trực tiếp biến toàn cục window._VBEN_ADMIN_PRO_APP_CONF_
     const config = isProduction
       ? window._VBEN_ADMIN_PRO_APP_CONF_
       : (env as VbenAdminProAppConfigRaw);
@@ -158,43 +158,43 @@ const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
   }
   ```
 
-到这里，就可以在项目内使用 `useAppConfig`方法获取到新增的配置项了。
+Đến đây, bạn đã có thể dùng phương thức `useAppConfig` trong dự án để lấy mục cấu hình mới thêm.
 
 ```ts
 const { otherApiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 ```
 
-::: warning 注意
+::: warning Lưu ý
 
-`useAppConfig`方法只能在应用内使用，不要耦合到包内部去使用。这里传入 `import.meta.env`和`import.meta.env.PROD`是为了避免这种情况，一个纯粹的包，应避免使用特定构建工具的变量。
+Phương thức `useAppConfig` chỉ được dùng trong ứng dụng, đừng gắn chặt vào bên trong gói. Việc truyền `import.meta.env` và `import.meta.env.PROD` ở đây là để tránh trường hợp đó, một gói thuần túy nên tránh dùng biến của công cụ build cụ thể.
 
 :::
 
-## 偏好设置
+## Cài đặt tùy chọn
 
-项目提供了非常丰富的偏好设置，用于动态配置项目的各种功能：
+Dự án cung cấp rất nhiều cài đặt tùy chọn, dùng để cấu hình động các chức năng của dự án:
 
 ![](/guide/preferences.png)
 
-如果你找不到文档说明，可以尝试自己配置好以后，点击`复制偏好设置`，覆盖项目默认即可。配置文件位于应用目录下的`preferences.ts`，在这里，你可以覆盖框架默认的配置，实现自定义配置。
+Nếu bạn không tìm thấy tài liệu hướng dẫn, có thể thử tự cấu hình xong rồi nhấn `Sao chép cài đặt tùy chọn` để ghi đè mặc định của dự án. Tệp cấu hình nằm trong thư mục ứng dụng tại `preferences.ts`, tại đây bạn có thể ghi đè cấu hình mặc định của framework để tùy chỉnh.
 
 ```ts
 import { useAppConfig } from '@vben/hooks';
 import { defineOverridesPreferences } from '@vben/preferences';
 
 /**
- * @description 项目配置文件
- * 只需要覆盖项目中的一部分配置，不需要的配置不用覆盖，会自动使用默认配置
- * !!! 更改配置后请清空缓存，否则可能不生效
+ * @description Tệp cấu hình dự án
+ * Chỉ cần ghi đè một phần cấu hình trong dự án, cấu hình không cần thì không cần ghi đè, sẽ tự động dùng cấu hình mặc định
+ * !!! Sau khi thay đổi cấu hình hãy xóa bộ nhớ đệm, nếu không có thể không có hiệu lực
  */
 export const overridesPreferences = defineOverridesPreferences({
   // overrides
 });
 ```
 
-### 框架默认配置
+### Cấu hình mặc định của framework
 
-::: details 查看框架默认配置
+::: details Xem cấu hình mặc định của framework
 
 ```ts
 const defaultPreferences: Preferences = {
@@ -261,7 +261,7 @@ const defaultPreferences: Preferences = {
     enable: true,
     fit: 'contain',
     source: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp',
-    // sourceDark: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-dark.webp', // 可选：暗色主题logo
+    // sourceDark: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-dark.webp', // Tùy chọn: logo chủ đề tối
   },
   navigation: {
     accordion: true,
@@ -336,66 +336,66 @@ const defaultPreferences: Preferences = {
 
 :::
 
-::: details 查看框架默认配置类型
+::: details Xem kiểu cấu hình mặc định của framework
 
 ```ts
 interface AppPreferences {
-  /** 权限模式 */
+  /** Chế độ quyền */
   accessMode: AccessModeType;
-  /** 登录注册页面布局 */
+  /** Bố cục trang đăng nhập/đăng ký */
   authPageLayout: AuthPageLayoutType;
-  /** 检查更新轮询时间 */
+  /** Thời gian thăm dò kiểm tra cập nhật */
   checkUpdatesInterval: number;
-  /** 是否开启灰色模式 */
+  /** Có bật chế độ xám hay không */
   colorGrayMode: boolean;
-  /** 是否开启色弱模式 */
+  /** Có bật chế độ mù màu hay không */
   colorWeakMode: boolean;
-  /** 是否开启紧凑模式 */
+  /** Có bật chế độ gọn hay không */
   compact: boolean;
-  /** 是否开启内容紧凑模式 */
+  /** Có bật chế độ nội dung gọn hay không */
   contentCompact: ContentCompactType;
-  /** 内容紧凑宽度 */
+  /** Chiều rộng nội dung gọn */
   contentCompactWidth: number;
-  /** 内容内边距 */
+  /** Khoảng đệm trong nội dung */
   contentPadding: number;
-  /** 内容底部内边距 */
+  /** Khoảng đệm dưới nội dung */
   contentPaddingBottom: number;
-  /** 内容左侧内边距 */
+  /** Khoảng đệm trái nội dung */
   contentPaddingLeft: number;
-  /** 内容右侧内边距 */
+  /** Khoảng đệm phải nội dung */
   contentPaddingRight: number;
-  /** 内容顶部内边距 */
+  /** Khoảng đệm trên nội dung */
   contentPaddingTop: number;
-  // /** 应用默认头像 */
+  // /** Ảnh đại diện mặc định của ứng dụng */
   defaultAvatar: string;
-  /** 默认首页地址 */
+  /** Địa chỉ trang chủ mặc định */
   defaultHomePath: string;
-  // /** 开启动态标题 */
+  // /** Bật tiêu đề động */
   dynamicTitle: boolean;
-  /** 是否开启检查更新 */
+  /** Có bật kiểm tra cập nhật hay không */
   enableCheckUpdates: boolean;
-  /** 是否显示偏好设置 */
+  /** Có hiển thị cài đặt tùy chọn hay không */
   enablePreferences: boolean;
-  /** 是否显示复制偏好设置按钮 */
+  /** Có hiển thị nút sao chép cài đặt tùy chọn hay không */
   enableCopyPreferences: boolean;
   /**
-   * @zh_CN 是否开启refreshToken
+   * @zh_CN Có bật refreshToken hay không
    */
   enableRefreshToken: boolean;
-  /** 是否移动端 */
+  /** Có phải thiết bị di động hay không */
   isMobile: boolean;
-  /** 布局方式 */
+  /** Kiểu bố cục */
   layout: LayoutType;
-  /** 支持的语言 */
+  /** Ngôn ngữ được hỗ trợ */
   locale: SupportedLanguagesType;
-  /** 登录过期模式 */
+  /** Chế độ hết hạn đăng nhập */
   loginExpiredMode: LoginExpiredModeType;
-  /** 应用名 */
+  /** Tên ứng dụng */
   name: string;
-  /** 偏好设置按钮位置 */
+  /** Vị trí nút cài đặt tùy chọn */
   preferencesButtonPosition: PreferencesButtonPositionType;
   /**
-   * @zh_CN 是否开启水印
+   * @zh_CN Có bật watermark hay không
    */
   watermark: boolean;
   /** z-index */
@@ -403,233 +403,233 @@ interface AppPreferences {
 }
 
 interface BreadcrumbPreferences {
-  /** 面包屑是否启用 */
+  /** Breadcrumb có được bật hay không */
   enable: boolean;
-  /** 面包屑是否只有一个时隐藏 */
+  /** Breadcrumb có bị ẩn khi chỉ có một hay không */
   hideOnlyOne: boolean;
-  /** 面包屑首页图标是否可见 */
+  /** Biểu tượng trang chủ của breadcrumb có hiển thị hay không */
   showHome: boolean;
-  /** 面包屑图标是否可见 */
+  /** Biểu tượng breadcrumb có hiển thị hay không */
   showIcon: boolean;
-  /** 面包屑风格 */
+  /** Kiểu breadcrumb */
   styleType: BreadcrumbStyleType;
 }
 
 interface CopyrightPreferences {
-  /** 版权公司名 */
+  /** Tên công ty bản quyền */
   companyName: string;
-  /** 版权公司名链接 */
+  /** Liên kết tên công ty bản quyền */
   companySiteLink: string;
-  /** 版权日期 */
+  /** Ngày bản quyền */
   date: string;
-  /** 版权是否可见 */
+  /** Bản quyền có hiển thị hay không */
   enable: boolean;
-  /** 备案号 */
+  /** Số đăng ký ICP */
   icp: string;
-  /** 备案号链接 */
+  /** Liên kết số đăng ký ICP */
   icpLink: string;
-  /** 设置面板是否显示*/
+  /** Bảng cài đặt có hiển thị hay không*/
   settingShow?: boolean;
 }
 
 interface FooterPreferences {
-  /** 底栏是否可见 */
+  /** Thanh dưới có hiển thị hay không */
   enable: boolean;
-  /** 底栏是否固定 */
+  /** Thanh dưới có cố định hay không */
   fixed: boolean;
-  /** 底栏高度 */
+  /** Chiều cao thanh dưới */
   height: number;
 }
 
 interface HeaderPreferences {
-  /** 顶栏是否启用 */
+  /** Thanh trên có được bật hay không */
   enable: boolean;
-  /** 顶栏高度 */
+  /** Chiều cao thanh trên */
   height: number;
-  /** 顶栏是否隐藏,css-隐藏 */
+  /** Thanh trên có bị ẩn hay không, ẩn bằng css */
   hidden: boolean;
-  /** 顶栏菜单位置 */
+  /** Vị trí menu thanh trên */
   menuAlign: LayoutHeaderMenuAlignType;
-  /** header显示模式 */
+  /** Chế độ hiển thị header */
   mode: LayoutHeaderModeType;
 }
 
 interface LogoPreferences {
-  /** logo是否可见 */
+  /** Logo có hiển thị hay không */
   enable: boolean;
-  /** logo图片适应方式 */
+  /** Cách logo vừa với khung hình */
   fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
-  /** logo地址 */
+  /** Địa chỉ logo */
   source: string;
-  /** 暗色主题logo地址 (可选，若不设置则使用 source) */
+  /** Địa chỉ logo chủ đề tối (tùy chọn, nếu không đặt sẽ dùng source) */
   sourceDark?: string;
 }
 
 interface NavigationPreferences {
-  /** 导航菜单手风琴模式 */
+  /** Chế độ accordion của menu điều hướng */
   accordion: boolean;
-  /** 导航菜单是否切割，只在 layout=mixed-nav 生效 */
+  /** Menu điều hướng có tách hay không, chỉ có hiệu lực khi layout=mixed-nav */
   split: boolean;
-  /** 导航菜单风格 */
+  /** Kiểu menu điều hướng */
   styleType: NavigationStyleType;
 }
 
 interface SidebarPreferences {
-  /** 点击目录时自动激活子菜单   */
+  /** Tự động kích hoạt menu con khi nhấn vào thư mục   */
   autoActivateChild: boolean;
-  /** 侧边栏是否折叠 */
+  /** Thanh bên có thu gọn hay không */
   collapsed: boolean;
-  /** 侧边栏折叠按钮是否可见 */
+  /** Nút thu gọn thanh bên có hiển thị hay không */
   collapsedButton: boolean;
-  /** 侧边栏折叠时，是否显示title */
+  /** Khi thanh bên thu gọn, có hiển thị title hay không */
   collapsedShowTitle: boolean;
-  /** 侧边栏折叠宽度 */
+  /** Chiều rộng khi thanh bên thu gọn */
   collapseWidth: number;
-  /** 侧边栏是否可见 */
+  /** Thanh bên có hiển thị hay không */
   enable: boolean;
-  /** 菜单自动展开状态 */
+  /** Trạng thái tự mở rộng menu */
   expandOnHover: boolean;
-  /** 侧边栏扩展区域是否折叠 */
+  /** Vùng mở rộng của thanh bên có thu gọn hay không */
   extraCollapse: boolean;
-  /** 侧边栏扩展区域折叠宽度 */
+  /** Chiều rộng thu gọn của vùng mở rộng thanh bên */
   extraCollapsedWidth: number;
-  /** 侧边栏固定按钮是否可见 */
+  /** Nút cố định thanh bên có hiển thị hay không */
   fixedButton: boolean;
-  /** 侧边栏是否隐藏 - css */
+  /** Thanh bên có bị ẩn hay không - css */
   hidden: boolean;
-  /** 混合侧边栏宽度 */
+  /** Chiều rộng thanh bên hỗn hợp */
   mixedWidth: number;
-  /** 侧边栏宽度 */
+  /** Chiều rộng thanh bên */
   width: number;
 }
 
 interface ShortcutKeyPreferences {
-  /** 是否启用快捷键-全局 */
+  /** Có bật phím tắt - toàn cục hay không */
   enable: boolean;
-  /** 是否启用全局锁屏快捷键 */
+  /** Có bật phím tắt khóa màn hình toàn cục hay không */
   globalLockScreen: boolean;
-  /** 是否启用全局注销快捷键 */
+  /** Có bật phím tắt đăng xuất toàn cục hay không */
   globalLogout: boolean;
-  /** 是否启用全局偏好设置快捷键 */
+  /** Có bật phím tắt cài đặt tùy chọn toàn cục hay không */
   globalPreferences: boolean;
-  /** 是否启用全局搜索快捷键 */
+  /** Có bật phím tắt tìm kiếm toàn cục hay không */
   globalSearch: boolean;
 }
 
 interface TabbarPreferences {
-  /** 是否开启多标签页拖拽 */
+  /** Có bật kéo thả nhiều tab hay không */
   draggable: boolean;
-  /** 是否开启多标签页 */
+  /** Có bật nhiều tab hay không */
   enable: boolean;
-  /** 标签页高度 */
+  /** Chiều cao tab */
   height: number;
-  /** 开启标签页缓存功能 */
+  /** Bật chức năng bộ nhớ đệm tab */
   keepAlive: boolean;
-  /** 限制最大数量 */
+  /** Giới hạn số lượng tối đa */
   maxCount: number;
-  /** 是否点击中键时关闭标签 */
+  /** Có đóng tab khi nhấn nút giữa chuột hay không */
   middleClickToClose: boolean;
-  /** 是否持久化标签 */
+  /** Có lưu tab bền vững hay không */
   persist: boolean;
-  /** 是否开启多标签页图标 */
+  /** Có bật biểu tượng nhiều tab hay không */
   showIcon: boolean;
-  /** 显示最大化按钮 */
+  /** Hiển thị nút phóng to */
   showMaximize: boolean;
-  /** 显示更多按钮 */
+  /** Hiển thị nút thêm */
   showMore: boolean;
-  /** 标签页风格 */
+  /** Kiểu tab */
   styleType: TabsStyleType;
-  /** 是否开启鼠标滚轮响应 */
+  /** Có bật phản hồi con lăn chuột hay không */
   wheelable: boolean;
 }
 
 interface ThemePreferences {
-  /** 内置主题名 */
+  /** Tên chủ đề tích hợp sẵn */
   builtinType: BuiltinThemeType;
-  /** 错误色 */
+  /** Màu lỗi */
   colorDestructive: string;
-  /** 主题色 */
+  /** Màu chủ đề */
   colorPrimary: string;
-  /** 成功色 */
+  /** Màu thành công */
   colorSuccess: string;
-  /** 警告色 */
+  /** Màu cảnh báo */
   colorWarning: string;
-  /** 当前主题 */
+  /** Chủ đề hiện tại */
   mode: ThemeModeType;
-  /** 圆角 */
+  /** Bo góc */
   radius: string;
-  /** 是否开启半深色header（只在theme='light'时生效） */
+  /** Có bật header nửa tối hay không (chỉ có hiệu lực khi theme='light') */
   semiDarkHeader: boolean;
-  /** 是否开启半深色菜单（只在theme='light'时生效） */
+  /** Có bật menu nửa tối hay không (chỉ có hiệu lực khi theme='light') */
   semiDarkSidebar: boolean;
 }
 
 interface TransitionPreferences {
-  /** 页面切换动画是否启用 */
+  /** Hiệu ứng chuyển trang có được bật hay không */
   enable: boolean;
-  // /** 是否开启页面加载loading */
+  // /** Có bật loading khi tải trang hay không */
   loading: boolean;
-  /** 页面切换动画 */
+  /** Hiệu ứng chuyển trang */
   name: PageTransitionType | string;
-  /** 是否开启页面加载进度动画 */
+  /** Có bật hiệu ứng tiến trình tải trang hay không */
   progress: boolean;
 }
 
 interface WidgetPreferences {
-  /** 是否启用全屏部件 */
+  /** Có bật tiện ích toàn màn hình hay không */
   fullscreen: boolean;
-  /** 是否启用全局搜索部件 */
+  /** Có bật tiện ích tìm kiếm toàn cục hay không */
   globalSearch: boolean;
-  /** 是否启用语言切换部件 */
+  /** Có bật tiện ích chuyển ngôn ngữ hay không */
   languageToggle: boolean;
-  /** 是否开启锁屏功能 */
+  /** Có bật chức năng khóa màn hình hay không */
   lockScreen: boolean;
-  /** 是否显示通知部件 */
+  /** Có hiển thị tiện ích thông báo hay không */
   notification: boolean;
-  /** 显示刷新按钮 */
+  /** Hiển thị nút làm mới */
   refresh: boolean;
-  /** 是否显示侧边栏显示/隐藏部件 */
+  /** Có hiển thị tiện ích hiển thị/ẩn thanh bên hay không */
   sidebarToggle: boolean;
-  /** 是否显示主题切换部件 */
+  /** Có hiển thị tiện ích chuyển chủ đề hay không */
   themeToggle: boolean;
 }
 
 interface Preferences {
-  /** 全局配置 */
+  /** Cấu hình toàn cục */
   app: AppPreferences;
-  /** 顶栏配置 */
+  /** Cấu hình thanh trên */
   breadcrumb: BreadcrumbPreferences;
-  /** 版权配置 */
+  /** Cấu hình bản quyền */
   copyright: CopyrightPreferences;
-  /** 底栏配置 */
+  /** Cấu hình thanh dưới */
   footer: FooterPreferences;
-  /** 面包屑配置 */
+  /** Cấu hình breadcrumb */
   header: HeaderPreferences;
-  /** logo配置 */
+  /** Cấu hình logo */
   logo: LogoPreferences;
-  /** 导航配置 */
+  /** Cấu hình điều hướng */
   navigation: NavigationPreferences;
-  /** 快捷键配置 */
+  /** Cấu hình phím tắt */
   shortcutKeys: ShortcutKeyPreferences;
-  /** 侧边栏配置 */
+  /** Cấu hình thanh bên */
   sidebar: SidebarPreferences;
-  /** 标签页配置 */
+  /** Cấu hình tab */
   tabbar: TabbarPreferences;
-  /** 主题配置 */
+  /** Cấu hình chủ đề */
   theme: ThemePreferences;
-  /** 动画配置 */
+  /** Cấu hình hiệu ứng */
   transition: TransitionPreferences;
-  /** 功能配置 */
+  /** Cấu hình chức năng */
   widget: WidgetPreferences;
 }
 ```
 
 :::
 
-::: warning 注意
+::: warning Lưu ý
 
-- `overridesPreferences`方法只需要覆盖项目中的一部分配置，不需要的配置不用覆盖，会自动使用默认配置。
-- 任何配置项都可以覆盖，只需要在`overridesPreferences`方法内覆盖即可，不要修改默认配置文件。
-- 更改配置后请清空缓存，否则可能不生效。
+- Phương thức `overridesPreferences` chỉ cần ghi đè một phần cấu hình trong dự án, cấu hình không cần thì không cần ghi đè, sẽ tự động dùng cấu hình mặc định.
+- Bất kỳ mục cấu hình nào cũng có thể ghi đè, chỉ cần ghi đè trong phương thức `overridesPreferences`, đừng sửa tệp cấu hình mặc định.
+- Sau khi thay đổi cấu hình hãy xóa bộ nhớ đệm, nếu không có thể không có hiệu lực.
 
 :::

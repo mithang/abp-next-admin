@@ -3,9 +3,9 @@ import { computed } from 'vue';
 
 const { animationDuration = 2, animationIterationCount = 'infinite' } =
   defineProps<{
-    // 动画持续时间，单位秒
+    // Thời lượng animation, đơn vị giây
     animationDuration?: number;
-    // 动画是否只执行一次
+    // Animation có chỉ chạy một lần hay không
     animationIterationCount?: 'infinite' | number;
   }>();
 

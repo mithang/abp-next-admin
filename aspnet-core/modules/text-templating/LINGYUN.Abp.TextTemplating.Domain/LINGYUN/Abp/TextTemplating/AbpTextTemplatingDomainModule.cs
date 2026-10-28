@@ -31,7 +31,7 @@ public class AbpTextTemplatingDomainModule : AbpModule
             options.EtoMappings.Add<TextTemplate, TextTemplateEto>(typeof(AbpTextTemplatingDomainModule));
             options.EtoMappings.Add<TextTemplateDefinition, TextTemplateDefinitionEto>(typeof(AbpTextTemplatingDomainModule));
 
-            // TODO: CAP组件异常将导致应用无法启动, 临时禁用
+            // TODO: Ngoại lệ của thành phần CAP sẽ khiến ứng dụng không thể khởi động, tạm thời vô hiệu hóa
             // options.AutoEventSelectors.Add<TextTemplate>();
         });
 

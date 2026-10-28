@@ -7,12 +7,12 @@ import type {
 
 interface VbenLayoutProps {
   /**
-   * 内容区域定宽
+   * Chiều rộng cố định của vùng nội dung
    * @default 'wide'
    */
   contentCompact?: ContentCompactType;
   /**
-   * 定宽布局宽度
+   * Chiều rộng bố cục cố định
    * @default 1200
    */
   contentCompactWidth?: number;
@@ -42,132 +42,132 @@ interface VbenLayoutProps {
    */
   contentPaddingTop?: number;
   /**
-   * footer 是否可见
+   * Footer có hiển thị hay không
    * @default false
    */
   footerEnable?: boolean;
   /**
-   * footer 是否固定
+   * Footer có cố định hay không
    * @default true
    */
   footerFixed?: boolean;
   /**
-   * footer 高度
+   * Chiều cao footer
    * @default 32
    */
   footerHeight?: number;
 
   /**
-   * header高度
+   * Chiều cao header
    * @default 48
    */
   headerHeight?: number;
   /**
-   * 顶栏是否隐藏
+   * Thanh trên cùng có bị ẩn hay không
    * @default false
    */
   headerHidden?: boolean;
   /**
-   * header 显示模式
+   * Chế độ hiển thị header
    * @default 'fixed'
    */
   headerMode?: LayoutHeaderModeType;
   /**
-   * header 顶栏主题
+   * Chủ đề thanh trên cùng của header
    */
   headerTheme?: ThemeModeType;
   /**
-   * 是否显示header切换侧边栏按钮
+   * Có hiển thị nút chuyển đổi thanh bên của header hay không
    * @default
    */
   headerToggleSidebarButton?: boolean;
   /**
-   * header是否显示
+   * Header có hiển thị hay không
    * @default true
    */
   headerVisible?: boolean;
   /**
-   * 是否移动端显示
+   * Có hiển thị trên thiết bị di động hay không
    * @default false
    */
   isMobile?: boolean;
   /**
-   * 布局方式
-   * sidebar-nav 侧边菜单布局
-   * header-nav 顶部菜单布局
-   * mixed-nav 侧边&顶部菜单布局
-   * sidebar-mixed-nav 侧边混合菜单布局
-   * full-content 全屏内容布局
+   * Cách bố cục
+   * sidebar-nav: bố cục menu bên
+   * header-nav: bố cục menu trên cùng
+   * mixed-nav: bố cục menu bên & trên cùng
+   * sidebar-mixed-nav: bố cục menu hỗn hợp bên
+   * full-content: bố cục nội dung toàn màn hình
    * @default sidebar-nav
    */
   layout?: LayoutType;
   /**
-   * 侧边菜单折叠状态
+   * Trạng thái thu gọn menu bên
    * @default false
    */
   sidebarCollapse?: boolean;
   /**
-   * 侧边菜单折叠按钮
+   * Nút thu gọn menu bên
    * @default true
    */
   sidebarCollapsedButton?: boolean;
   /**
-   * 侧边菜单是否折叠时，是否显示title
+   * Khi menu bên thu gọn, có hiển thị title hay không
    * @default true
    */
   sidebarCollapseShowTitle?: boolean;
   /**
-   * 侧边栏是否可见
+   * Thanh bên có hiển thị hay không
    * @default true
    */
   sidebarEnable?: boolean;
   /**
-   * 侧边菜单折叠额外宽度
+   * Chiều rộng bổ sung khi menu bên thu gọn
    * @default 48
    */
   sidebarExtraCollapsedWidth?: number;
   /**
-   * 侧边菜单折叠按钮是否固定
+   * Nút thu gọn menu bên có cố định hay không
    * @default true
    */
   sidebarFixedButton?: boolean;
   /**
-   * 侧边栏是否隐藏
+   * Thanh bên có bị ẩn hay không
    * @default false
    */
   sidebarHidden?: boolean;
   /**
-   * 混合侧边栏宽度
+   * Chiều rộng thanh bên hỗn hợp
    * @default 80
    */
   sidebarMixedWidth?: number;
   /**
-   * 侧边栏
+   * Thanh bên
    * @default dark
    */
   sidebarTheme?: ThemeModeType;
   /**
-   * 侧边栏子栏
+   * Thanh con của thanh bên
    * @default dark
    */
   sidebarThemeSub?: ThemeModeType;
   /**
-   * 侧边栏宽度
+   * Chiều rộng thanh bên
    * @default 210
    */
   sidebarWidth?: number;
   /**
-   *  侧边菜单折叠宽度
+   *  Chiều rộng thu gọn menu bên
    * @default 48
    */
   sideCollapseWidth?: number;
   /**
-   * tab是否可见
+   * Tab có hiển thị hay không
    * @default true
    */
   tabbarEnable?: boolean;
   /**
-   * tab高度
+   * Chiều cao tab
    * @default 30
    */
   tabbarHeight?: number;

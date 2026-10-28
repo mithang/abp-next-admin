@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits.Response;
 /// <summary>
-/// 获取会话内容存档开启成员列表响应参数
+/// Tham số phản hồi lấy danh sách thành viên đã bật lưu trữ nội dung phiên
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91614" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/91614" />
 /// </remarks>
 public class WeChatWorkGetPermitUserListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 设置在开启范围内的成员的userid列表
+    /// Danh sách userid của các thành viên nằm trong phạm vi đã bật
     /// </summary>
     [NotNull]
     [JsonProperty("ids")]

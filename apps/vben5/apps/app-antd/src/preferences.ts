@@ -1,9 +1,9 @@
 import { defineOverridesPreferences } from '@vben/preferences';
 
 /**
- * @description 项目配置文件
- * 只需要覆盖项目中的一部分配置，不需要的配置不用覆盖，会自动使用默认配置
- * !!! 更改配置后请清空缓存，否则可能不生效
+ * @description Tệp cấu hình dự án
+ * Chỉ cần ghi đè một phần cấu hình trong dự án, những cấu hình không cần thiết không cần ghi đè, sẽ tự động dùng cấu hình mặc định
+ * !!! Sau khi thay đổi cấu hình, vui lòng xóa cache, nếu không có thể không có hiệu lực
  */
 export const overridesPreferences = defineOverridesPreferences({
   // overrides

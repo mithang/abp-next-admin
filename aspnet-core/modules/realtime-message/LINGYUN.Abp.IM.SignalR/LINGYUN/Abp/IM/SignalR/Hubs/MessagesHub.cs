@@ -91,7 +91,7 @@ public class MessagesHub : AbpHub
         {
             if (isOnlined)
             {
-                // 应使用群组标识
+                // Nên dùng mã định danh nhóm
                 await Groups.AddToGroupAsync(Context.ConnectionId, group.Id);
             }
             var groupClient = Clients.Group(group.Id);
@@ -107,7 +107,7 @@ public class MessagesHub : AbpHub
         }
     }
     /// <summary>
-    /// 客户端调用发送消息方法
+    /// Phương thức gửi tin nhắn do client gọi
     /// </summary>
     /// <param name="chatMessage"></param>
     /// <returns></returns>
@@ -215,7 +215,7 @@ public class MessagesHub : AbpHub
 
     protected async virtual Task<string> SendMessageAsync(string methodName, ChatMessage chatMessage, bool callbackException = false)
     {
-        // 持久化
+        // Lưu trữ bền vững
         try
         {
             chatMessage.SetProperty(nameof(ChatMessage.IsAnonymous), chatMessage.IsAnonymous);

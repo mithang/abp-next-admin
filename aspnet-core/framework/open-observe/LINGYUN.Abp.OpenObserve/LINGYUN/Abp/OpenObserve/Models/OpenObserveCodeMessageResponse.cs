@@ -3,27 +3,27 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models;
 
 /// <summary>
-/// OpenObserve 通用响应
+/// Phản hồi chung của OpenObserve
 /// </summary>
 /// <remarks>
-/// 多数写操作接口返回 {"code":200,"message":"..."}
+/// Hầu hết các API thao tác ghi trả về {"code":200,"message":"..."}
 /// </remarks>
 public class OpenObserveCodeMessageResponse
 {
     /// <summary>
-    /// 状态码
+    /// Mã trạng thái
     /// </summary>
     [JsonPropertyName("code")]
     public int Code { get; set; }
 
     /// <summary>
-    /// 消息
+    /// Thông báo
     /// </summary>
     [JsonPropertyName("message")]
     public string? Message { get; set; }
 
     /// <summary>
-    /// 请求是否成功
+    /// Yêu cầu có thành công hay không
     /// </summary>
     [JsonIgnore]
     public bool IsSuccess => Code is >= 200 and < 300;

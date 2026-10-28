@@ -5,8 +5,8 @@ import {
 } from './model';
 
 /**
- * 查询会话列表
- * @param { GetUserSessionsInput } input 查询参数
+ * Truy vấn danh sách phiên
+ * @param { GetUserSessionsInput } input Tham số truy vấn
  * @returns { Promise<PagedResultDto<IdentitySessionDto>> }
  */
 export const getSessions = (input?: GetUserSessionsInput): Promise<PagedResultDto<IdentitySessionDto>> => {
@@ -16,8 +16,8 @@ export const getSessions = (input?: GetUserSessionsInput): Promise<PagedResultDt
   });
 };
 /**
- * 撤销会话
- * @param { string } sessionId 会话id
+ * Thu hồi phiên
+ * @param { string } sessionId Id phiên
  * @returns { Promise<void> }
  */
 export const revokeSession = (sessionId: string): Promise<void> => {

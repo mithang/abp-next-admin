@@ -1,26 +1,26 @@
 # LINGYUN.Abp.MessageService.HttpApi.Client
 
-消息服务 HTTP API 客户端模块。
+Mô-đun máy khách HTTP API của dịch vụ tin nhắn.
 
-## 功能特性
+## Tính năng
 
-* 提供消息服务的 HTTP 客户端代理
-* 自动注册 HTTP 客户端代理服务
+* Cung cấp proxy máy khách HTTP cho dịch vụ tin nhắn
+* Tự động đăng ký dịch vụ proxy máy khách HTTP
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
 * [LINGYUN.Abp.MessageService.Application.Contracts](../LINGYUN.Abp.MessageService.Application.Contracts/README.md)
 * `AbpHttpClientModule`
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.MessageService.HttpApi.Client 到你的项目中：
+1. Trước tiên, cần cài đặt LINGYUN.Abp.MessageService.HttpApi.Client vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.MessageService.HttpApi.Client
 ```
 
-2. 添加 `AbpMessageServiceHttpApiClientModule` 到你的模块的依赖列表：
+2. Thêm `AbpMessageServiceHttpApiClientModule` vào danh sách phụ thuộc của mô-đun của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpMessageServiceHttpApiClientModule))]
@@ -29,7 +29,7 @@ public class YourModule : AbpModule
 }
 ```
 
-3. 配置远程服务地址：
+3. Cấu hình địa chỉ dịch vụ từ xa:
 
 ```json
 {
@@ -41,6 +41,6 @@ public class YourModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
 [English document](README.EN.md)

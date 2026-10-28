@@ -6,22 +6,22 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Request;
 /// <summary>
-/// 分配在职成员的客户群请求参数
+/// Tham số yêu cầu phân bổ nhóm khách hàng của thành viên đang làm việc
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95703" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/95703" />
 /// </remarks>
 public class WeChatWorkGroupChatOnjobTransferRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 新群主ID
+    /// ID chủ nhóm mới
     /// </summary>
     [NotNull]
     [JsonProperty("new_owner")]
     [JsonPropertyName("new_owner")]
     public string NewOwner { get; }
     /// <summary>
-    /// 需要转群主的客户群ID列表。取值范围： 1 ~ 100
+    /// Danh sách ID nhóm khách hàng cần chuyển chủ nhóm. Phạm vi giá trị: 1 ~ 100
     /// </summary>
     [NotNull]
     [JsonProperty("chat_id_list")]

@@ -206,7 +206,7 @@ public class OrganizationUnitAppService : IdentityAppServiceBase, IOrganizationU
         var origanizationUnit = await OrganizationUnitRepository.GetAsync(id);
         var users = await UserRepository.GetListByIdListAsync(input.UserIds, includeDetails: true);
 
-        // 调用内部方法设置用户组织机构
+        // Gọi phương thức nội bộ để thiết lập tổ chức của người dùng
         foreach (var user in users)
         {
             await UserManager.AddToOrganizationUnitAsync(user, origanizationUnit);

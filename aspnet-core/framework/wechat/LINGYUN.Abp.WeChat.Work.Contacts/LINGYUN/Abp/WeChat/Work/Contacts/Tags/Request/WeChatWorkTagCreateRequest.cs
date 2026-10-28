@@ -6,19 +6,19 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Tags.Request;
 /// <summary>
-/// 创建标签请求参数
+/// Tham số yêu cầu tạo thẻ
 /// </summary>
 public class WeChatWorkTagCreateRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。
+    /// Id thẻ, số nguyên không âm, khi chỉ định tham số này thì thẻ mới tạo sẽ sinh ra id thẻ tương ứng, khi không chỉ định thì tự tăng từ id lớn nhất hiện tại.
     /// </summary>
     [NotNull]
     [JsonProperty("tagid")]
     [JsonPropertyName("tagid")]
     public int? TagId { get; set; }
     /// <summary>
-    /// 标签名称，长度限制为32个字以内（汉字或英文字母），标签名不可与其他标签重名。
+    /// Tên thẻ, giới hạn độ dài trong 32 ký tự (ký tự chữ Hán hoặc chữ cái tiếng Anh), tên thẻ không được trùng với tên thẻ khác.
     /// </summary>
     [NotNull]
     [StringLength(32)]

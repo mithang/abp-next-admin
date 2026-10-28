@@ -5,16 +5,16 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Messages.Models;
 /// <summary>
-/// 异步任务完成通知
+/// Thông báo hoàn thành tác vụ không đồng bộ
 /// </summary>
 /// <remarks>
-/// 本事件是成员在使用异步任务接口时，用于接收任务执行完毕的结果通知。
+/// Sự kiện này dùng để thành viên nhận thông báo kết quả khi tác vụ đã thực thi xong khi sử dụng giao diện tác vụ không đồng bộ.
 /// </remarks>
 [EventName("batch_job_result")]
 public class BatchJobResultEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 异步任务信息
+    /// Thông tin tác vụ không đồng bộ
     /// </summary>
     [XmlElement("BatchJob")]
     public BatchJob BatchJob { get; set; } = default!;
@@ -28,22 +28,22 @@ public class BatchJobResultEvent : WeChatWorkEventMessage
 public class BatchJob
 {
     /// <summary>
-    /// 异步任务id，最大长度为64字符
+    /// id tác vụ không đồng bộ, độ dài tối đa 64 ký tự
     /// </summary>
     [XmlElement("JobId")]
     public string JobId { get; set; } = default!;
     /// <summary>
-    /// 操作类型，字符串，目前分别有：sync_user(增量更新成员)、 replace_user(全量覆盖成员）、invite_user(邀请成员关注）、replace_party(全量覆盖部门)
+    /// Kiểu thao tác, chuỗi, hiện tại lần lượt gồm: sync_user (cập nhật tăng dần thành viên), replace_user (ghi đè toàn bộ thành viên）, invite_user (mời thành viên theo dõi), replace_party (ghi đè toàn bộ bộ phận)
     /// </summary>
     [XmlElement("JobType")]
     public string JobType { get; set; } = default!;
     /// <summary>
-    /// 返回码
+    /// Mã trả về
     /// </summary>
     [XmlElement("ErrCode")]
     public int ErrCode { get; set; }
     /// <summary>
-    /// 对返回码的文本描述内容
+    /// Nội dung mô tả dạng văn bản của mã trả về
     /// </summary>
     [XmlElement("ErrMsg")]
     public string? ErrMsg { get; set; }

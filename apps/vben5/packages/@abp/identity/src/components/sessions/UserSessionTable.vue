@@ -24,11 +24,11 @@ const DescriptionItem = Descriptions.Item;
 
 const { hasAccessByCodes } = useAccess();
 const abpStore = useAbpStore();
-/** 获取登录用户 */
+/** Lấy người dùng đã đăng nhập */
 const getCurrentUser = computed(() => {
   return abpStore.application?.currentUser;
 });
-/** 获取是否允许撤销会话 */
+/** Lấy xem có cho phép thu hồi phiên hay không */
 const getAllowRevokeSession = computed(() => {
   return (session: IdentitySessionDto) => {
     if (getCurrentUser.value?.sessionId === session.sessionId) {

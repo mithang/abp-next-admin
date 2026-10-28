@@ -125,7 +125,7 @@ export function useValidation(): RuleCreator {
 			message,
 			trigger: field.trigger,
 			validator: (_: any, value: number) => {
-				// beetween不在进行必输检查, 改为数字有效性检查
+				// beetween không còn kiểm tra bắt buộc nhập, đổi sang kiểm tra tính hợp lệ của số
 				if (Number.isNaN(value)) {
 					return Promise.reject(message);
 				}

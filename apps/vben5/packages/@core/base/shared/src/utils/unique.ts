@@ -1,8 +1,8 @@
 /**
- * 根据指定字段对对象数组进行去重
- * @param arr 要去重的对象数组
- * @param key 去重依据的字段名
- * @returns 去重后的对象数组
+ * Khử trùng lặp mảng đối tượng theo trường chỉ định
+ * @param arr Mảng đối tượng cần khử trùng lặp
+ * @param key Tên trường dùng làm căn cứ khử trùng lặp
+ * @returns Mảng đối tượng sau khi khử trùng lặp
  */
 function uniqueByField<T>(arr: T[], key: keyof T): T[] {
   const seen = new Map<any, T>();

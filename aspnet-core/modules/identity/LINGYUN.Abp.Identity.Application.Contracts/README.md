@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.Application.Contracts
 
-身份认证应用服务契约模块，提供身份认证相关的应用服务接口定义。
+Mô-đun hợp đồng dịch vụ ứng dụng xác thực danh tính, cung cấp định nghĩa giao diện dịch vụ ứng dụng liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展Volo.Abp.Identity.AbpIdentityApplicationContractsModule模块
-* 提供身份认证相关的应用服务接口定义
-* 提供身份认证相关的DTO对象定义
-* 集成ABP授权模块
+* Mở rộng mô-đun Volo.Abp.Identity.AbpIdentityApplicationContractsModule
+* Cung cấp định nghĩa giao diện dịch vụ ứng dụng liên quan đến xác thực danh tính
+* Cung cấp định nghĩa đối tượng DTO liên quan đến xác thực danh tính
+* Tích hợp mô-đun ủy quyền ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -22,62 +22,62 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 服务接口
+## Giao diện dịch vụ
 
-* IIdentityUserAppService - 用户管理服务接口
-* IIdentityRoleAppService - 角色管理服务接口
-* IIdentityClaimTypeAppService - 声明类型管理服务接口
-* IIdentitySecurityLogAppService - 安全日志服务接口
-* IIdentitySettingsAppService - 身份认证设置服务接口
-* IProfileAppService - 用户配置文件服务接口
+* IIdentityUserAppService - Giao diện dịch vụ quản lý người dùng
+* IIdentityRoleAppService - Giao diện dịch vụ quản lý vai trò
+* IIdentityClaimTypeAppService - Giao diện dịch vụ quản lý loại claim
+* IIdentitySecurityLogAppService - Giao diện dịch vụ nhật ký bảo mật
+* IIdentitySettingsAppService - Giao diện dịch vụ cài đặt xác thực danh tính
+* IProfileAppService - Giao diện dịch vụ hồ sơ người dùng
 
-## DTO对象
+## Đối tượng DTO
 
-* IdentityUserDto - 用户DTO
-* IdentityRoleDto - 角色DTO
-* IdentityClaimTypeDto - 声明类型DTO
-* IdentitySecurityLogDto - 安全日志DTO
-* GetIdentityUsersInput - 获取用户列表输入DTO
-* GetIdentityRolesInput - 获取角色列表输入DTO
-* IdentityUserCreateDto - 创建用户DTO
-* IdentityUserUpdateDto - 更新用户DTO
-* IdentityRoleCreateDto - 创建角色DTO
-* IdentityRoleUpdateDto - 更新角色DTO
+* IdentityUserDto - DTO người dùng
+* IdentityRoleDto - DTO vai trò
+* IdentityClaimTypeDto - DTO loại claim
+* IdentitySecurityLogDto - DTO nhật ký bảo mật
+* GetIdentityUsersInput - DTO đầu vào lấy danh sách người dùng
+* GetIdentityRolesInput - DTO đầu vào lấy danh sách vai trò
+* IdentityUserCreateDto - DTO tạo người dùng
+* IdentityUserUpdateDto - DTO cập nhật người dùng
+* IdentityRoleCreateDto - DTO tạo vai trò
+* IdentityRoleUpdateDto - DTO cập nhật vai trò
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 实现用户管理服务接口
+1. Triển khai giao diện dịch vụ quản lý người dùng
 ```csharp
 public class YourIdentityUserAppService : IIdentityUserAppService
 {
     public async Task<IdentityUserDto> GetAsync(Guid id)
     {
-        // 实现获取用户的逻辑
+        // Triển khai logic lấy người dùng
     }
 
     public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(GetIdentityUsersInput input)
     {
-        // 实现获取用户列表的逻辑
+        // Triển khai logic lấy danh sách người dùng
     }
 }
 ```
 
-2. 实现角色管理服务接口
+2. Triển khai giao diện dịch vụ quản lý vai trò
 ```csharp
 public class YourIdentityRoleAppService : IIdentityRoleAppService
 {
     public async Task<IdentityRoleDto> GetAsync(Guid id)
     {
-        // 实现获取角色的逻辑
+        // Triển khai logic lấy vai trò
     }
 
     public async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
     {
-        // 实现获取角色列表的逻辑
+        // Triển khai logic lấy danh sách vai trò
     }
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)

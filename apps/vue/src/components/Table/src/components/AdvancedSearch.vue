@@ -241,10 +241,10 @@
   const getAvailableParams = computed(() => {
     const { allowDuplicateFieldSearch } = props;
     if (allowDuplicateFieldSearch) {
-      // 允许字段出现多次, 直接返回原数据
+      // Cho phép trường xuất hiện nhiều lần, trả về trực tiếp dữ liệu gốc
       return defineParamsRef.value;
     }
-    // 每个字段只允许出现一次，已选择字段不再出现在可选列表
+    // Mỗi trường chỉ được xuất hiện một lần, trường đã chọn không còn xuất hiện trong danh sách có thể chọn
     const defineParams = unref(defineParamsRef);
     if (!defineParams.length) return[];
     return defineParams.filter(dp => !formMdel.paramters.some(fp => fp.field === dp.name));
@@ -274,7 +274,7 @@
       if (availableComparator.length === 0) {
         return comparisonOptions;
       }
-      // 过滤可用比较符
+      // Lọc toán tử so sánh khả dụng
       return comparisonOptions
         .filter(c => availableComparator.includes(c.value));
     }

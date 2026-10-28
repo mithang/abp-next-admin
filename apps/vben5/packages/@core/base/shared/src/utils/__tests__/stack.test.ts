@@ -91,7 +91,7 @@ describe('stack', () => {
   it('dedup + maxSize should work together', () => {
     const s = new Stack<number>(true, 3);
 
-    s.push(1, 2, 3, 2); // 去重并重新入栈
+    s.push(1, 2, 3, 2); // Khử trùng lặp và push lại vào ngăn xếp
 
     expect(s.toArray()).toEqual([1, 3, 2]);
     expect(s.size).toBe(3);

@@ -11,39 +11,39 @@ export interface IPropsPanel {
   changeTab: (key: ChangeTabKey) => void;
 }
 export interface IState {
-  // 语言
+  // Ngôn ngữ
   locale: any;
-  // 公用组件
+  // Component dùng chung
   baseComponents: IVFormComponent[];
-  // 自定义组件
+  // Component tùy chỉnh
   customComponents: IVFormComponent[];
-  // 布局组件
+  // Component bố cục
   layoutComponents: IVFormComponent[];
-  // 属性面板实例
+  // Instance bảng thuộc tính
   propsPanel: Ref<null | IPropsPanel>;
-  // json模态框实例
+  // Instance hộp thoại json
   jsonModal: Ref<null | IToolbarMethods>;
-  // 导入json数据模态框
+  // Hộp thoại nhập dữ liệu json
   importJsonModal: Ref<null | IToolbarMethods>;
-  // 代码预览模态框
+  // Hộp thoại xem trước code
   codeModal: Ref<null | IToolbarMethods>;
-  // 预览模态框
+  // Hộp thoại xem trước
   eFormPreview: Ref<null | IToolbarMethods>;
 
   eFormPreview2: Ref<null | IToolbarMethods>;
 }
 
 export interface IFormDesignMethods {
-  // 设置当前选中的控件
+  // Đặt control đang được chọn hiện tại
   handleSetSelectItem(item: IVFormComponent): void;
-  // 添加控件到formConfig.formItems中
+  // Thêm control vào formConfig.formItems
   handleListPush(item: IVFormComponent): void;
-  // 复制控件
+  // Sao chép control
   handleCopy(item?: IVFormComponent, isCopy?: boolean): void;
-  // 添加控件属性
+  // Thêm thuộc tính control
   handleAddAttrs(schemas: IVFormComponent[], index: number): void;
   setFormConfig(config: IFormConfig): void;
-  // 添加到表单中之前触发
+  // Kích hoạt trước khi thêm vào form
   handleBeforeColAdd(
     event: { newIndex: string },
     schemas: IVFormComponent[],

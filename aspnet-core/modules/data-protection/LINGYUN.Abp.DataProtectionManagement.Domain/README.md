@@ -1,49 +1,49 @@
 # LINGYUN.Abp.DataProtectionManagement.Domain
 
-数据权限管理领域模块，提供数据权限管理的核心业务逻辑。
+Module miền quản lý quyền dữ liệu, cung cấp logic nghiệp vụ cốt lõi cho việc quản lý quyền dữ liệu.
 
-## 功能
+## Chức năng
 
-* 数据权限管理
-  * 创建数据权限
-  * 更新数据权限
-  * 删除数据权限
-  * 查询数据权限
-* 数据权限资源管理
-  * 资源定义
-  * 资源分组
-  * 资源属性
-* 数据权限规则管理
-  * 规则定义
-  * 规则分组
-  * 规则操作符
+* Quản lý quyền dữ liệu
+  * Tạo quyền dữ liệu
+  * Cập nhật quyền dữ liệu
+  * Xóa quyền dữ liệu
+  * Truy vấn quyền dữ liệu
+* Quản lý tài nguyên quyền dữ liệu
+  * Định nghĩa tài nguyên
+  * Nhóm tài nguyên
+  * Thuộc tính tài nguyên
+* Quản lý quy tắc quyền dữ liệu
+  * Định nghĩa quy tắc
+  * Nhóm quy tắc
+  * Toán tử quy tắc
 
-## 领域服务
+## Dịch vụ miền
 
-* `IDataProtectionManager` - 数据权限管理服务
-  * `CreateAsync` - 创建数据权限
-  * `UpdateAsync` - 更新数据权限
-  * `DeleteAsync` - 删除数据权限
-  * `GetAsync` - 获取数据权限
-  * `GetListAsync` - 获取数据权限列表
+* `IDataProtectionManager` - Dịch vụ quản lý quyền dữ liệu
+  * `CreateAsync` - Tạo quyền dữ liệu
+  * `UpdateAsync` - Cập nhật quyền dữ liệu
+  * `DeleteAsync` - Xóa quyền dữ liệu
+  * `GetAsync` - Lấy quyền dữ liệu
+  * `GetListAsync` - Lấy danh sách quyền dữ liệu
 
-## 实体
+## Thực thể
 
-* `DataProtection` - 数据权限实体
-  * `Id` - 主键
-  * `Name` - 名称
-  * `DisplayName` - 显示名称
-  * `Description` - 描述
-  * `AllowProperties` - 允许的属性列表
-  * `FilterGroup` - 过滤规则组
+* `DataProtection` - Thực thể quyền dữ liệu
+  * `Id` - Khóa chính
+  * `Name` - Tên
+  * `DisplayName` - Tên hiển thị
+  * `Description` - Mô tả
+  * `AllowProperties` - Danh sách thuộc tính được phép
+  * `FilterGroup` - Nhóm quy tắc lọc
 
-## 仓储
+## Kho lưu trữ
 
-* `IDataProtectionRepository` - 数据权限仓储接口
-  * `GetListAsync` - 获取数据权限列表
-  * `FindByNameAsync` - 根据名称查找数据权限
-  * `GetCountAsync` - 获取数据权限数量
+* `IDataProtectionRepository` - Giao diện kho lưu trữ quyền dữ liệu
+  * `GetListAsync` - Lấy danh sách quyền dữ liệu
+  * `FindByNameAsync` - Tìm quyền dữ liệu theo tên
+  * `GetCountAsync` - Lấy số lượng quyền dữ liệu
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

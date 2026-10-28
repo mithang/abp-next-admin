@@ -1,5 +1,5 @@
 <template>
-  <Card title="快捷导航" v-bind="$attrs">
+  <Card title="Điều hướng nhanh" v-bind="$attrs">
     <CardGrid v-for="item in navItems" :key="item">
       <span class="flex flex-col items-center">
         <Icon :icon="item.icon" :color="item.color" size="20" />

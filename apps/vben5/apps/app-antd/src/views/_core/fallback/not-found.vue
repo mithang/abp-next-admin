@@ -15,12 +15,12 @@ defineOptions({ name: 'Fallback404Demo' });
 const authStore = useAuthStore();
 const { push } = useRouter();
 
-// 返回首页
+// Quay về trang chủ
 function back() {
   push(preferences.app.defaultHomePath);
 }
 
-// 退出登录
+// Đăng xuất
 function logout() {
   Modal.confirm({
     centered: true,

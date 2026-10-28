@@ -1,23 +1,23 @@
 # LINGYUN.Abp.OpenApi.IdentityServer
 
-OpenApi IdentityServer 集成模块，提供基于 IdentityServer 的 AppKey/AppSecret 存储实现。
+Mô-đun tích hợp OpenApi IdentityServer, cung cấp triển khai lưu trữ AppKey/AppSecret dựa trên IdentityServer.
 
-## 功能特性
+## Tính năng
 
-* 基于 IdentityServer 的 AppKey/AppSecret 存储
-* 自动将 AppKey 映射为 IdentityServer 客户端标识
-* 自动将 AppSecret 映射为客户端密钥
-* 支持签名有效期配置
-* 支持客户端名称配置
-* 自动创建和更新客户端信息
+* Lưu trữ AppKey/AppSecret dựa trên IdentityServer
+* Tự động ánh xạ AppKey thành định danh máy khách IdentityServer
+* Tự động ánh xạ AppSecret thành khóa máy khách
+* Hỗ trợ cấu hình thời hạn hiệu lực chữ ký
+* Hỗ trợ cấu hình tên máy khách
+* Tự động tạo và cập nhật thông tin máy khách
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenApi.IdentityServer
 ```
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpOpenApiIdentityServerModule))]
@@ -27,23 +27,23 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 工作原理
+## Nguyên lý hoạt động
 
-1. AppKey 映射
-   * AppKey 将被映射为 IdentityServer 的 ClientId
-   * 通过 `IClientRepository` 接口进行客户端查询和管理
+1. Ánh xạ AppKey
+   * AppKey sẽ được ánh xạ thành ClientId của IdentityServer
+   * Truy vấn và quản lý máy khách thông qua giao diện `IClientRepository`
 
-2. AppSecret 映射
-   * AppSecret 将被映射为客户端密钥（Client Secret）
-   * 密钥将以 AppSecret 作为标识存储
+2. Ánh xạ AppSecret
+   * AppSecret sẽ được ánh xạ thành khóa máy khách (Client Secret)
+   * Khóa sẽ được lưu trữ với AppSecret làm định danh
 
-3. 签名有效期
-   * SignLifetime 将被存储为客户端的自定义属性
-   * 属性名为 "SignLifetime"，值为有效期秒数
+3. Thời hạn hiệu lực chữ ký
+   * SignLifetime sẽ được lưu trữ dưới dạng thuộc tính tùy chỉnh của máy khách
+   * Tên thuộc tính là "SignLifetime", giá trị là số giây hiệu lực
 
-## 基本用法
+## Cách sử dụng cơ bản
 
-1. 存储应用凭证
+1. Lưu trữ thông tin đăng nhập của ứng dụng
    ```csharp
    public class YourService
    {
@@ -57,10 +57,10 @@ public class YouProjectModule : AbpModule
        public async Task CreateAppAsync()
        {
            var descriptor = new AppDescriptor(
-               appName: "测试应用",
+               appName: "Ứng dụng kiểm thử",
                appKey: "your-app-key",
                appSecret: "your-app-secret",
-               signLifeTime: 300  // 5分钟有效期
+               signLifeTime: 300  // Thời hạn hiệu lực 5 phút
            );
 
            await _appKeyStore.StoreAsync(descriptor);
@@ -68,7 +68,7 @@ public class YouProjectModule : AbpModule
    }
    ```
 
-2. 查询应用凭证
+2. Truy vấn thông tin đăng nhập của ứng dụng
    ```csharp
    public class YourService
    {
@@ -86,7 +86,7 @@ public class YouProjectModule : AbpModule
    }
    ```
 
-## 更多信息
+## Thông tin thêm
 
 * [LINGYUN.Abp.OpenApi](../LINGYUN.Abp.OpenApi/README.md)
 * [LINGYUN.Abp.OpenApi.Authorization](../LINGYUN.Abp.OpenApi.Authorization/README.md)

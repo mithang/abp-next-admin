@@ -31,18 +31,18 @@ public class AbpAuditLoggingOpenObserveTestModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 集成测试按宿主实例使用独立数据流, 避免历史数据影响计数断言
-        // (AbpIntegratedTest 每个测试方法会创建新的宿主实例, 仅用时间戳会因同秒碰撞而共用数据流)
+        // Kiểm thử tích hợp dùng luồng dữ liệu riêng cho từng instance host, tránh dữ liệu lịch sử ảnh hưởng đến assert đếm
+        // (AbpIntegratedTest tạo instance host mới cho mỗi phương thức kiểm thử, chỉ dùng timestamp sẽ bị trùng luồng dữ liệu do va chạm cùng giây)
         var suffix = $"{DateTime.Now:yyyyMMddHHmmss}{Guid.NewGuid():N}"[..22];
 
         Configure<AbpAuditLoggingOpenObserveOptions>(options =>
         {
             options.AuditLogStream = $"audit_log_test_{suffix}";
             options.SecurityLogStream = $"security_log_test_{suffix}";
-            // 实体变更/操作数据流由 AuditLogStream 计算: {AuditLogStream}_entity_changes / _actions
+            // Luồng dữ liệu thay đổi thực thể/thao tác được tính từ AuditLogStream: {AuditLogStream}_entity_changes / _actions
         });
 
-        // 收集日志以便断言(例如"数据流不存在"的警告)
+        // Thu thập log để assert (ví dụ cảnh báo "luồng dữ liệu không tồn tại")
         context.Services.AddLogging(builder => builder.AddProvider(new TestLoggerProvider()));
     }
 
@@ -66,7 +66,7 @@ public class AbpAuditLoggingOpenObserveTestModule : AbpModule
             fetchSchema: false,
             type: StreamType.Logs);
 
-        // 数据流按租户隔离, 租户数据流以基础名称为前缀(如 audit_log_test_xxx_<tenantId>), 因此按前缀匹配清理
+        // Luồng dữ liệu được tách biệt theo tenant, luồng dữ liệu của tenant có tên cơ sở làm tiền tố (ví dụ audit_log_test_xxx_<tenantId>), do đó dọn dẹp bằng cách khớp tiền tố
         var prefixes = new List<string>
         {
             options.AuditLogStream,

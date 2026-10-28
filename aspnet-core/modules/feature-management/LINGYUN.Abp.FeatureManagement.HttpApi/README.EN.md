@@ -53,4 +53,4 @@ The module uses ABP's localization system with the following resources:
 * [ABP Web API Documentation](https://docs.abp.io/en/abp/latest/API/Auto-API-Controllers)
 * [ABP Feature Management Documentation](https://docs.abp.io/en/abp/latest/Features)
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

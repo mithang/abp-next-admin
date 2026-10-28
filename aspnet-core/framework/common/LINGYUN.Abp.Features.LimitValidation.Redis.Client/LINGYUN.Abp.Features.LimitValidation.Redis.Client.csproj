@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>功能限制验证组件Redis客户端格式实现</Description>
+		<Description>Triển khai định dạng client Redis cho thành phần xác thực giới hạn tính năng</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

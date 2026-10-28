@@ -1,4 +1,6 @@
 ﻿using LINGYUN.Abp.AspNetCore.Mvc.Wrapper;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Routing;
 using LINGYUN.Abp.AspNetCore.Session;
 using LINGYUN.Abp.AuditLogging.IP.Location;
 using LINGYUN.Abp.IP2Region;
@@ -52,7 +54,7 @@ public class OpenApiGatewayModule : AbpModule
 
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别
+            // Phân biệt theo cổng mở
             options.SnowflakeIdOptions.WorkerId = 0;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -91,7 +93,7 @@ public class OpenApiGatewayModule : AbpModule
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
         });
 
         context.Services.AddAbpSwaggerGenWithOAuth(
@@ -173,6 +175,20 @@ public class OpenApiGatewayModule : AbpModule
                 handler.ActivityHeadersPropagator = null;
             })
             .LoadFromConfig(configuration.GetSection("ReverseProxy"));
+
+        // DEVOPS iter-0006 (DEV-11): gateway truoc day khong co /healthz.
+        // Map /healthz qua AbpEndpointRouter (hoat dong moi moi truong, nhu
+        // cac microservice) + check Redis that (noi DataProtection phu thuoc).
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks(configuration["App:HealthChecks"] ?? "/healthz");
+            });
+        });
+
+        context.Services.AddHealthChecks()
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -188,13 +204,13 @@ public class OpenApiGatewayModule : AbpModule
         app.UseCors();
 
         app.UseMapRequestLocalization();
-        // api签名
+        // Chữ ký API
         app.UseOpenApiAuthorization();
-        // 认证
+        // Xác thực
         app.UseAuthentication();
-        // 令牌
+        // Token
         app.UseDynamicClaims();
-        // 授权
+        // Phân quyền
         app.UseAuthorization();
 
         app.UseSwagger();

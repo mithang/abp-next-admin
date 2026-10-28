@@ -1,30 +1,30 @@
 # LINGYUN.Platform.HttpApi
 
-平台管理模块的HTTP API层，提供了RESTful风格的API接口。
+Lớp HTTP API của module quản lý nền tảng, cung cấp các API theo phong cách RESTful.
 
-## 功能特性
+## Tính năng
 
-* 菜单管理API
-  * 获取当前用户菜单
-  * 获取用户菜单列表
-  * 获取角色菜单列表
-  * 菜单CRUD操作
-  * 用户收藏菜单管理
+* API quản lý menu
+  * Lấy menu của người dùng hiện tại
+  * Lấy danh sách menu của người dùng
+  * Lấy danh sách menu của vai trò
+  * Thao tác CRUD menu
+  * Quản lý menu yêu thích của người dùng
 
-* 布局管理API
-  * 布局CRUD操作
-  * 获取所有布局列表
+* API quản lý bố cục
+  * Thao tác CRUD bố cục
+  * Lấy danh sách tất cả bố cục
 
-* 数据字典API
-  * 数据字典CRUD操作
-  * 数据字典项管理
+* API từ điển dữ liệu
+  * Thao tác CRUD từ điển dữ liệu
+  * Quản lý mục từ điển dữ liệu
 
-* 包管理API
-  * 包CRUD操作
-  * 包文件上传下载
-  * 获取最新版本包
+* API quản lý gói
+  * Thao tác CRUD gói
+  * Tải lên/tải xuống tệp gói
+  * Lấy gói phiên bản mới nhất
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(PlatformHttpApiModule))]
@@ -34,29 +34,29 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API控制器
+## Bộ điều khiển API
 
-* `MenuController`: 菜单管理控制器
-  * `GET /api/platform/menus/by-current-user`: 获取当前用户菜单
-  * `GET /api/platform/menus/by-user`: 获取指定用户菜单
-  * `GET /api/platform/menus/by-role`: 获取角色菜单
-  * `POST /api/platform/menus`: 创建菜单
-  * `PUT /api/platform/menus/{id}`: 更新菜单
-  * `DELETE /api/platform/menus/{id}`: 删除菜单
+* `MenuController`: Bộ điều khiển quản lý menu
+  * `GET /api/platform/menus/by-current-user`: Lấy menu của người dùng hiện tại
+  * `GET /api/platform/menus/by-user`: Lấy menu của người dùng được chỉ định
+  * `GET /api/platform/menus/by-role`: Lấy menu của vai trò
+  * `POST /api/platform/menus`: Tạo menu
+  * `PUT /api/platform/menus/{id}`: Cập nhật menu
+  * `DELETE /api/platform/menus/{id}`: Xóa menu
 
-* `UserFavoriteMenuController`: 用户收藏菜单控制器
-  * `GET /api/platform/menus/favorites/my-favorite-menus`: 获取我的收藏菜单
-  * `POST /api/platform/menus/favorites/my-favorite-menus`: 创建收藏菜单
-  * `PUT /api/platform/menus/favorites/my-favorite-menus/{MenuId}`: 更新收藏菜单
-  * `DELETE /api/platform/menus/favorites/my-favorite-menus`: 删除收藏菜单
+* `UserFavoriteMenuController`: Bộ điều khiển menu yêu thích của người dùng
+  * `GET /api/platform/menus/favorites/my-favorite-menus`: Lấy menu yêu thích của tôi
+  * `POST /api/platform/menus/favorites/my-favorite-menus`: Tạo menu yêu thích
+  * `PUT /api/platform/menus/favorites/my-favorite-menus/{MenuId}`: Cập nhật menu yêu thích
+  * `DELETE /api/platform/menus/favorites/my-favorite-menus`: Xóa menu yêu thích
 
-* `PackageController`: 包管理控制器
-  * `GET /api/platform/packages/{Name}/latest`: 获取最新版本包
-  * `POST /api/platform/packages/{id}/blob`: 上传包文件
-  * `GET /api/platform/packages/{id}/blob/{Name}`: 下载包文件
-  * `DELETE /api/platform/packages/{id}/blob/{Name}`: 删除包文件
+* `PackageController`: Bộ điều khiển quản lý gói
+  * `GET /api/platform/packages/{Name}/latest`: Lấy gói phiên bản mới nhất
+  * `POST /api/platform/packages/{id}/blob`: Tải lên tệp gói
+  * `GET /api/platform/packages/{id}/blob/{Name}`: Tải xuống tệp gói
+  * `DELETE /api/platform/packages/{id}/blob/{Name}`: Xóa tệp gói
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
@@ -66,6 +66,6 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
-更多信息请参考 [Platform](../README.md)
+Xem thêm thông tin tại [Platform](../README.md)

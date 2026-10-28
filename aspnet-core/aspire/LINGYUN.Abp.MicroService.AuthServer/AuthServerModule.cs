@@ -51,11 +51,11 @@ namespace LINGYUN.Abp.MicroService.AuthServer;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpAccountApplicationModule),
     typeof(AbpAccountHttpApiModule),
-    // 使用 LazyCaptcha 验证码组件
+    // Sử dụng thành phần mã xác minh LazyCaptcha
     typeof(AbpAccountWebLazyCaptchaModule),
-    // 使用 腾讯云验证码组件, 需配置好腾讯云相关参数
+    // Sử dụng thành phần mã xác minh Tencent Cloud, cần cấu hình sẵn các tham số liên quan của Tencent Cloud
     typeof(AbpAccountWebTencentCaptchaModule),
-    // 使用 阿里云验证码组件, 需配置好阿里云相关参数
+    // Sử dụng thành phần mã xác minh Alibaba Cloud, cần cấu hình sẵn các tham số liên quan của Alibaba Cloud
     typeof(AbpAccountWebAliyunCaptchaModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAccountWebOAuthModule),
@@ -77,7 +77,7 @@ namespace LINGYUN.Abp.MicroService.AuthServer;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AuthServerMigrationsEntityFrameworkCoreModule),
     typeof(AbpDataDbMigratorModule),
-    typeof(AbpAuditLoggingElasticsearchModule), // 放在 AbpIdentity 模块之后,避免被覆盖,
+    typeof(AbpAuditLoggingElasticsearchModule), // Đặt sau mô-đun AbpIdentity, tránh bị ghi đè,
     typeof(AbpAuditLoggingIPLocationModule),
     typeof(AbpIP2RegionModule),
     typeof(AbpLocalizationCultureMapModule),
@@ -126,7 +126,7 @@ public partial class AuthServerModule : AbpModule
         ConfigureUrls(configuration);
         ConfigureTiming(configuration);
         ConfigureAuditing(configuration);
-        ConfigureAuthServer(configuration);
+        ConfigureAuthServer(configuration, hostingEnvironment);
         ConfigureBlobStoring(configuration);
         ConfigureMultiTenancy(configuration);
         ConfigureJsonSerializer(configuration);

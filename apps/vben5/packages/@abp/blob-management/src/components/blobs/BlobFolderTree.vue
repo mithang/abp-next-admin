@@ -249,7 +249,7 @@ onMounted(onInit);
         {{ $t('BlobManagement.Blobs:CreateFolder') }}
       </Button>
       <div class="h-[calc(100%-100px)] overflow-auto">
-        <!-- 添加 key 属性强制重新渲染树组件 -->
+        <!-- Thêm thuộc tính key để ép render lại component cây -->
         <DirectoryTree
           v-if="containerId"
           :key="containerId"

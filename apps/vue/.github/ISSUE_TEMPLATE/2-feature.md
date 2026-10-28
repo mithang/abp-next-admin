@@ -7,8 +7,8 @@ assignees: ''
 ---
 
 <!--
-感谢您提出使这个项目更好的想法！
-请尽可能填写以下模板。
+Cảm ơn bạn đã đề xuất ý tưởng giúp dự án này tốt hơn!
+Vui lòng điền mẫu dưới đây càng đầy đủ càng tốt.
 
 Thank you for suggesting an idea to make this project better!
 Please fill in as much of the template below as you’re able.

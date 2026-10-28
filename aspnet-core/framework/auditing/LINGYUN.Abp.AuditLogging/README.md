@@ -1,17 +1,17 @@
 # LINGYUN.Abp.AuditLogging
 
-审计日志核心模块，提供审计日志的基础功能和接口定义。
+Mô-đun lõi nhật ký kiểm toán, cung cấp chức năng cơ bản và định nghĩa giao diện cho nhật ký kiểm toán.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 审计日志基础设施
-* 审计日志仓储接口定义
-* 审计日志管理器接口定义
-* 支持忽略特定类型的审计日志记录
+* Hạ tầng nhật ký kiểm toán
+* Định nghĩa giao diện kho lưu trữ nhật ký kiểm toán
+* Định nghĩa giao diện trình quản lý nhật ký kiểm toán
+* Hỗ trợ bỏ qua việc ghi nhật ký kiểm toán của một số loại nhất định
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAuditLoggingModule))]
@@ -21,35 +21,35 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "Auditing": {
-    "IsEnabled": true,  // 是否启用审计日志
-    "HideErrors": true, // 是否隐藏错误信息
-    "IsEnabledForAnonymousUsers": true, // 是否为匿名用户启用审计日志
-    "IsEnabledForGetRequests": false,   // 是否为GET请求启用审计日志
-    "ApplicationName": null  // 应用程序名称
+    "IsEnabled": true,  // Có bật nhật ký kiểm toán hay không
+    "HideErrors": true, // Có ẩn thông tin lỗi hay không
+    "IsEnabledForAnonymousUsers": true, // Có bật nhật ký kiểm toán cho người dùng ẩn danh hay không
+    "IsEnabledForGetRequests": false,   // Có bật nhật ký kiểm toán cho yêu cầu GET hay không
+    "ApplicationName": null  // Tên ứng dụng
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 引用模块
-2. 配置审计日志选项
-3. 实现审计日志存储提供者（例如：EntityFrameworkCore或Elasticsearch）
+1. Tham chiếu mô-đun
+2. Cấu hình tùy chọn nhật ký kiểm toán
+3. Triển khai nhà cung cấp lưu trữ nhật ký kiểm toán (ví dụ: EntityFrameworkCore hoặc Elasticsearch)
 
-## 高级功能
+## Tính năng nâng cao
 
-### 忽略特定类型
+### Bỏ qua một số loại nhất định
 
-默认情况下，模块会忽略以下类型的审计日志：
+Theo mặc định, mô-đun sẽ bỏ qua nhật ký kiểm toán của các loại sau:
 * CancellationToken
 * CancellationTokenSource
 
-你可以通过配置添加更多需要忽略的类型：
+Bạn có thể thêm các loại cần bỏ qua khác thông qua cấu hình:
 
 ```csharp
 Configure<AbpAuditingOptions>(options =>

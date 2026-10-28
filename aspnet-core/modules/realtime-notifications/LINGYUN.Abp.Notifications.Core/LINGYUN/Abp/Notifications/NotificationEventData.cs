@@ -7,39 +7,39 @@ namespace LINGYUN.Abp.Notifications;
 public class NotificationEventData : IMultiTenant
 {
     /// <summary>
-    /// 租户
+    /// Tenant
     /// </summary>
     public Guid? TenantId { get; set; }
     /// <summary>
-    /// 通知名称
+    /// Tên thông báo
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 用来标识一个应用程序
+    /// Dùng để định danh một ứng dụng
     /// </summary>
     /// <remarks>
-    /// tips: 可以通过它来特定于应用程序的边界
+    /// Lưu ý: có thể dùng nó để xác định ranh giới riêng của ứng dụng
     /// </remarks>
     public string Application { get; set; }
     /// <summary>
-    /// 数据
+    /// Dữ liệu
     /// </summary>
     public NotificationData Data { get; set; } = default!;
     /// <summary>
-    /// 创建时间
+    /// Thời gian tạo
     /// </summary>
     public DateTime CreationTime { get; set; }
     /// <summary>
-    /// 紧急级别
+    /// Mức độ khẩn cấp
     /// </summary>
     public NotificationSeverity Severity { get; set; }
     /// <summary>
-    /// 指定的接收用户信息集合
+    /// Tập hợp thông tin người dùng nhận được chỉ định
     /// </summary>
     /// <remarks>
-    /// 注:<br/>
-    /// 如果指定了用户列表,应该在事件订阅程序中通过此集合过滤订阅用户<br/>
-    /// 如果未指定用户列表,应该在事件订阅程序中过滤所有订阅此通知的用户
+    /// Chú ý:<br/>
+    /// Nếu đã chỉ định danh sách người dùng, cần lọc người dùng đã đăng ký thông qua tập hợp này trong trình xử lý đăng ký sự kiện<br/>
+    /// Nếu chưa chỉ định danh sách người dùng, cần lọc tất cả người dùng đã đăng ký thông báo này trong trình xử lý đăng ký sự kiện
     /// </remarks>
     public List<UserIdentifier> Users { get; set; }
     public NotificationEventData()

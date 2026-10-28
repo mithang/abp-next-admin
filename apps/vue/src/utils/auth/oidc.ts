@@ -2,8 +2,8 @@ import oidc from 'oidc-client';
 import { useGlobSetting } from '/@/hooks/setting';
 const glob = useGlobSetting();
 const location = window.location;
-// 预留oidc接口
-// 用于可能的SSO
+// Dành sẵn giao diện oidc
+// Dùng cho SSO có thể có
 // yarn add oidc-client
 export const mgr = new oidc.UserManager({
   authority: glob.authority,

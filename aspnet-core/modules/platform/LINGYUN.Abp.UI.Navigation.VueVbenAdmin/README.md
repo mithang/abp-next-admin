@@ -1,27 +1,27 @@
 # LINGYUN.Abp.UI.Navigation.VueVbenAdmin
 
-适用于 **abp-vue-vben-admin** 的导航菜单初始化模块。本模块提供了与VueVbenAdmin前端框架集成所需的菜单数据初始化功能。
+Mô-đun khởi tạo menu điều hướng dành cho **abp-vue-vben-admin**. Mô-đun này cung cấp chức năng khởi tạo dữ liệu menu cần thiết để tích hợp với khung frontend VueVbenAdmin.
 
-## 功能特性
+## Tính năng
 
-* 菜单数据初始化
-  * 预设菜单结构
-  * 自动注册布局
-  * 动态菜单配置
+* Khởi tạo dữ liệu menu
+  * Cấu trúc menu đặt sẵn
+  * Tự động đăng ký layout
+  * Cấu hình menu động
 
-* VueVbenAdmin集成
-  * 布局组件配置
-  * UI主题适配
-  * 菜单项定制
+* Tích hợp VueVbenAdmin
+  * Cấu hình thành phần layout
+  * Thích ứng giao diện UI
+  * Tùy chỉnh mục menu
 
-* 扩展性支持
-  * 自定义菜单提供者
-  * 菜单数据重写
-  * 布局配置扩展
+* Hỗ trợ mở rộng
+  * Nhà cung cấp menu tùy chỉnh
+  * Ghi đè dữ liệu menu
+  * Mở rộng cấu hình layout
 
-## 快速开始
+## Bắt đầu nhanh
 
-1. 引用模块
+1. Tham chiếu mô-đun
 ```csharp
 [DependsOn(typeof(AbpUINavigationVueVbenAdminModule))]
 public class YouProjectModule : AbpModule
@@ -30,51 +30,51 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 配置选项
+2. Cấu hình tùy chọn
 ```csharp
 Configure<AbpUINavigationVueVbenAdminOptions>(options =>
 {
-    // UI名称配置
+    // Cấu hình tên UI
     options.UI = "Vue Vben Admin";
-    // 布局名称配置
+    // Cấu hình tên layout
     options.LayoutName = "Vben Admin Layout";
-    // 布局组件配置
+    // Cấu hình thành phần layout
     options.LayoutPath = "LAYOUT";
 });
 ```
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
 * `AbpUINavigationVueVbenAdminOptions.UI`
-  * 说明：UI名称
-  * 默认值：Vue Vben Admin
-  * 注意：不建议变更，需要与前端保持一致
+  * Giải thích: Tên UI
+  * Giá trị mặc định: Vue Vben Admin
+  * Lưu ý: Không nên thay đổi, cần giữ nhất quán với frontend
 
 * `AbpUINavigationVueVbenAdminOptions.LayoutName`
-  * 说明：布局名称
-  * 默认值：Vben Admin Layout
-  * 注意：不建议变更，需要与前端保持一致
+  * Giải thích: Tên layout
+  * Giá trị mặc định: Vben Admin Layout
+  * Lưu ý: Không nên thay đổi, cần giữ nhất quán với frontend
 
 * `AbpUINavigationVueVbenAdminOptions.LayoutPath`
-  * 说明：布局组件路径
-  * 默认值：LAYOUT
-  * 注意：不建议变更，需要与前端保持一致
+  * Giải thích: Đường dẫn thành phần layout
+  * Giá trị mặc định: LAYOUT
+  * Lưu ý: Không nên thay đổi, cần giữ nhất quán với frontend
 
-## 使用说明
+## Hướng dẫn sử dụng
 
-1. 菜单初始化
-   * 模块会自动注册默认的菜单数据
-   * 可以通过实现 `INavigationDataSeedContributor` 接口来添加自定义菜单
+1. Khởi tạo menu
+   * Mô-đun sẽ tự động đăng ký dữ liệu menu mặc định
+   * Có thể thêm menu tùy chỉnh bằng cách triển khai giao diện `INavigationDataSeedContributor`
 
-2. 布局配置
-   * 布局配置需要与前端的路由配置相匹配
-   * 修改布局配置时需要同步修改前端相关配置
+2. Cấu hình layout
+   * Cấu hình layout cần khớp với cấu hình route của frontend
+   * Khi sửa cấu hình layout cần đồng bộ sửa cấu hình liên quan của frontend
 
-3. 扩展开发
-   * 可以通过继承 `VueVbenAdminNavigationDataSeeder` 类来自定义菜单初始化逻辑
-   * 支持通过依赖注入覆盖默认实现
+3. Phát triển mở rộng
+   * Có thể tùy chỉnh logic khởi tạo menu bằng cách kế thừa lớp `VueVbenAdminNavigationDataSeeder`
+   * Hỗ trợ ghi đè triển khai mặc định thông qua dependency injection
 
-## 更多信息
+## Thông tin thêm
 
-* [VueVbenAdmin官方文档](https://doc.vvbin.cn/)
-* [ABP官方文档](https://docs.abp.io/)
+* [Tài liệu chính thức VueVbenAdmin](https://doc.vvbin.cn/)
+* [Tài liệu chính thức ABP](https://docs.abp.io/)

@@ -1,20 +1,20 @@
 # LINGYUN.Abp.WeChat.Official
 
-微信公众号SDK集成模块，提供微信公众号开发所需的功能支持。
+Mô-đun tích hợp SDK tài khoản chính thức WeChat, cung cấp hỗ trợ chức năng cần thiết cho việc phát triển tài khoản chính thức WeChat.
 
-## 功能特性
+## Tính năng
 
-* 微信公众号OAuth2.0认证
-* 自定义菜单管理
-* 模板消息发送
-* 素材管理
-* 用户管理
-* 客服消息
-* 微信支付集成
-* 消息加解密
-* 事件处理
+* Xác thực OAuth2.0 tài khoản chính thức WeChat
+* Quản lý menu tùy chỉnh
+* Gửi tin nhắn mẫu
+* Quản lý tài nguyên
+* Quản lý người dùng
+* Tin nhắn dịch vụ khách hàng
+* Tích hợp thanh toán WeChat
+* Mã hóa/giải mã tin nhắn
+* Xử lý sự kiện
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatOfficialModule))]
@@ -24,37 +24,37 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "Official": {
-      "AppId": "",                // 公众号AppId
-      "AppSecret": "",           // 公众号AppSecret
-      "Token": "",               // 公众号消息Token
-      "EncodingAESKey": "",      // 公众号消息加密密钥
-      "IsSandBox": false,        // 是否为沙箱环境
-      "Url": ""                  // 公众号服务器URL
+      "AppId": "",                // AppId tài khoản chính thức
+      "AppSecret": "",           // AppSecret tài khoản chính thức
+      "Token": "",               // Token tin nhắn tài khoản chính thức
+      "EncodingAESKey": "",      // Khóa mã hóa tin nhắn tài khoản chính thức
+      "IsSandBox": false,        // Có phải môi trường sandbox hay không
+      "Url": ""                  // URL máy chủ tài khoản chính thức
     }
   }
 }
 ```
 
-#### 注意事项
+#### Lưu ý
 
-在动态配置中有一个已知的问题: https://github.com/abpframework/abp/issues/6318  
-因此必须要重建一个动态变更 AbpWeChatOfficialOptions 的方法，请使用AbpWeChatOfficialOptionsFactory.CreateAsync()
+Trong cấu hình động có một vấn đề đã biết: https://github.com/abpframework/abp/issues/6318  
+Vì vậy bắt buộc phải xây dựng lại một phương thức thay đổi động AbpWeChatOfficialOptions, vui lòng sử dụng AbpWeChatOfficialOptionsFactory.CreateAsync()
 
-## Settings配置
+## Cấu hình Settings
 
-* `WeChat.Official.AppId`: 公众号AppId
-* `WeChat.Official.AppSecret`: 公众号AppSecret
-* `WeChat.Official.Token`: 公众号消息Token
-* `WeChat.Official.EncodingAESKey`: 公众号消息加密密钥
-* `WeChat.Official.IsSandBox`: 是否为沙箱环境
-* `WeChat.Official.Url`: 公众号服务器URL
+* `WeChat.Official.AppId`: AppId tài khoản chính thức
+* `WeChat.Official.AppSecret`: AppSecret tài khoản chính thức
+* `WeChat.Official.Token`: Token tin nhắn tài khoản chính thức
+* `WeChat.Official.EncodingAESKey`: Khóa mã hóa tin nhắn tài khoản chính thức
+* `WeChat.Official.IsSandBox`: Có phải môi trường sandbox hay không
+* `WeChat.Official.Url`: URL máy chủ tài khoản chính thức
 
-## 更多文档
+## Tài liệu khác
 
-* [微信公众号模块文档](README.EN.md)
+* [Tài liệu mô-đun tài khoản chính thức WeChat](README.EN.md)

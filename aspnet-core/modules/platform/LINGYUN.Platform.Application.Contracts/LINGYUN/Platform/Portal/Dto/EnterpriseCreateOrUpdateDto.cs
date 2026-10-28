@@ -6,11 +6,11 @@ namespace LINGYUN.Platform.Portal;
 public abstract class EnterpriseCreateOrUpdateDto 
 {
     /// <summary>
-    /// 关联租户
+    /// Tenant liên kết
     /// </summary>
     public Guid? TenantId { get; set; }
     /// <summary>
-    /// 英文名称
+    /// Tên tiếng Anh
     /// </summary>
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxEnglishNameLength))]
     public string? EnglishName { get; set; }
@@ -20,36 +20,36 @@ public abstract class EnterpriseCreateOrUpdateDto
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxLogoLength))]
     public string? Logo { get; set; }
     /// <summary>
-    /// 地址
+    /// Địa chỉ
     /// </summary>
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxAddressLength))]
     public string? Address { get; set; }
     /// <summary>
-    /// 法人代表
+    /// Người đại diện pháp luật
     /// </summary>
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxLegalManLength))]
     public string? LegalMan { get; set; }
     /// <summary>
-    /// 税务登记号
+    /// Mã số đăng ký thuế
     /// </summary>
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxTaxCodeLength))]
     public string? TaxCode { get; set; }
     /// <summary>
-    /// 组织机构代码
+    /// Mã tổ chức
     /// </summary>
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxOrganizationCodeLength))]
     public string? OrganizationCode { get; set; }
     /// <summary>
-    /// 注册代码
+    /// Mã đăng ký
     /// </summary>
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxRegistrationCodeLength))]
     public string? RegistrationCode { get; set; }
     /// <summary>
-    /// 注册日期
+    /// Ngày đăng ký
     /// </summary>
     public DateTime? RegistrationDate { get; set; }
     /// <summary>
-    /// 过期日期
+    /// Ngày hết hạn
     /// </summary>
     public DateTime? ExpirationDate { get; set; }
 }

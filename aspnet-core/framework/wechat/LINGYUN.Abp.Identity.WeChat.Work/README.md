@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.WeChat.Work
 
-企业微信用户身份集成模块，提供企业微信用户与ABP Identity系统的集成功能。
+Mô-đun tích hợp danh tính người dùng WeChat doanh nghiệp, cung cấp chức năng tích hợp người dùng WeChat doanh nghiệp với hệ thống ABP Identity.
 
-## 功能特性
+## Tính năng
 
-* 企业微信用户身份集成
-* 支持企业微信用户信息同步到Identity系统
-* 支持企业微信组织架构同步
-* 支持自动创建用户
+* Tích hợp danh tính người dùng WeChat doanh nghiệp
+* Hỗ trợ đồng bộ thông tin người dùng WeChat doanh nghiệp sang hệ thống Identity
+* Hỗ trợ đồng bộ cơ cấu tổ chức WeChat doanh nghiệp
+* Hỗ trợ tự động tạo người dùng
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpIdentityWeChatWorkModule))]
@@ -19,22 +19,22 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "Identity": {
     "WeChat": {
       "Work": {
-        "CreateUserIfNotExist": true,    // 用户不存在时是否自动创建
-        "UpdateUserIfExist": true,       // 用户存在时是否更新信息
-        "SyncOrganizationUnit": true     // 是否同步组织架构
+        "CreateUserIfNotExist": true,    // Có tự động tạo khi người dùng chưa tồn tại hay không
+        "UpdateUserIfExist": true,       // Có cập nhật thông tin khi người dùng đã tồn tại hay không
+        "SyncOrganizationUnit": true     // Có đồng bộ cơ cấu tổ chức hay không
       }
     }
   }
 }
 ```
 
-## 更多文档
+## Tài liệu khác
 
-* [企业微信用户身份集成文档](README.EN.md)
+* [Tài liệu tích hợp danh tính người dùng WeChat doanh nghiệp](README.EN.md)

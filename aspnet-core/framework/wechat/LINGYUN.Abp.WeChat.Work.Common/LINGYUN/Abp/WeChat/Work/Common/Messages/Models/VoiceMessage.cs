@@ -4,18 +4,18 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 语音消息
+/// Tin nhắn thoại
 /// </summary>
 [EventName("voice")]
 public class VoiceMessage : WeChatWorkGeneralMessage
 {
     /// <summary>
-    /// 语音格式，如amr，speex等
+    /// Định dạng thoại, ví dụ amr, speex, v.v.
     /// </summary>
     [XmlElement("Format")]
     public string Format { get; set; } = default!;
     /// <summary>
-    /// 语音消息媒体id，可以调用获取临时素材接口拉取该媒体
+    /// id phương tiện của tin nhắn thoại, có thể gọi giao diện lấy tài nguyên tạm thời để lấy phương tiện này
     /// </summary>
     [XmlElement("MediaId")]
     public string MediaId { get; set; } = default!;

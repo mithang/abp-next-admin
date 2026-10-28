@@ -66,7 +66,7 @@ const UserModal: React.FC<UserModalProps> = ({ visible, userId, onClose, onChang
 			queryClient.invalidateQueries({ queryKey: ["users"] });
 			queryClient.invalidateQueries({ queryKey: ["userRoles"] });
 			queryClient.invalidateQueries({ queryKey: ["assignableRoles"] });
-			queryClient.invalidateQueries({ queryKey: ["permissions"] }); //角色更新会带来permission的变化
+			queryClient.invalidateQueries({ queryKey: ["permissions"] }); // Cập nhật vai trò sẽ kéo theo thay đổi permission
 		},
 	});
 
@@ -151,7 +151,7 @@ const UserModal: React.FC<UserModalProps> = ({ visible, userId, onClose, onChang
 				);
 			}
 			if (userRoles) {
-				// 初始化 targetKeys
+				// Khởi tạo targetKeys
 				const userRoleNames = userRoles.items.map((item) => item.name);
 				setTargetKeys(userRoleNames);
 				form.setFieldValue("roleNames", userRoleNames);
@@ -159,7 +159,7 @@ const UserModal: React.FC<UserModalProps> = ({ visible, userId, onClose, onChang
 
 			// Initialize organization units
 			if (userOus && ousRootList) {
-				//TODO 根据用户的组织关系信息,计算checkedKeys，让用户的父组织们都halfChecked
+				//TODO Dựa vào thông tin quan hệ tổ chức của người dùng, tính checkedKeys để các tổ chức cha của người dùng đều halfChecked
 				setOrganizationUnits(
 					ousRootList.items.map((item) => ({
 						isLeaf: false,
@@ -177,7 +177,7 @@ const UserModal: React.FC<UserModalProps> = ({ visible, userId, onClose, onChang
 		try {
 			const values = await form.validateFields();
 			if (userId) {
-				await updateUser({ ...values, id: userId }); //admin用户更新不了？
+				await updateUser({ ...values, id: userId }); // Người dùng admin không cập nhật được?
 			} else {
 				await createUser(values);
 			}
@@ -186,7 +186,7 @@ const UserModal: React.FC<UserModalProps> = ({ visible, userId, onClose, onChang
 		}
 	};
 
-	// 更新组织机构树结构
+	// Cập nhật cấu trúc cây tổ chức
 	const updateTreeData = (list: DataNode[], key: React.Key, children: DataNode[]): DataNode[] => {
 		return list.map((node) => {
 			if (node.key === key) {
@@ -277,9 +277,9 @@ const UserModal: React.FC<UserModalProps> = ({ visible, userId, onClose, onChang
 									targetKeys={targetKeys}
 									onChange={(targetKeys) => {
 										console.log("targetKeys", targetKeys);
-										const stringTargetKeys = targetKeys.map(String); // 转换成 string[]
-										setTargetKeys(stringTargetKeys); // 触发react更新
-										form.setFieldValue("roleNames", targetKeys); //提交时从form获取roleNames
+										const stringTargetKeys = targetKeys.map(String); // Chuyển thành string[]
+										setTargetKeys(stringTargetKeys); // Kích hoạt cập nhật react
+										form.setFieldValue("roleNames", targetKeys); // Khi gửi, lấy roleNames từ form
 									}}
 									render={(item) => item.title || ""}
 									listStyle={{

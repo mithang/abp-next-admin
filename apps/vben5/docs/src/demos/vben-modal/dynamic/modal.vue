@@ -9,13 +9,13 @@ const [Modal, modalApi] = useVbenModal({
   onConfirm() {
     console.info('onConfirm');
   },
-  title: '动态修改配置示例',
+  title: 'Ví dụ sửa đổi cấu hình động',
 });
 
 const state = modalApi.useStore();
 
 function handleUpdateTitle() {
-  modalApi.setState({ title: '内部动态标题' });
+  modalApi.setState({ title: 'Tiêu đề động nội bộ' });
 }
 
 function handleToggleFullscreen() {
@@ -28,10 +28,10 @@ function handleToggleFullscreen() {
   <Modal>
     <div class="flex-col-center">
       <VbenButton class="mb-3" type="primary" @click="handleUpdateTitle()">
-        内部动态修改标题
+        Sửa đổi tiêu đề động nội bộ
       </VbenButton>
       <VbenButton class="mb-3" @click="handleToggleFullscreen()">
-        {{ state.fullscreen ? '退出全屏' : '打开全屏' }}
+        {{ state.fullscreen ? 'Thoát toàn màn hình' : 'Mở toàn màn hình' }}
       </VbenButton>
     </div>
   </Modal>

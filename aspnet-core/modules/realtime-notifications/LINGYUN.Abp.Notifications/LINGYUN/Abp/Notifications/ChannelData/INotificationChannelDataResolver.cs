@@ -4,82 +4,82 @@ using System.Collections.Generic;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)解析器
+/// Bộ phân tích dữ liệu kênh thông báo (tải trọng)
 /// </summary>
 public interface INotificationChannelDataResolver
 {
     /// <summary>
-    /// 按匹配顺序解析指定渠道的载荷
+    /// Phân tích tải trọng của kênh đã chỉ định theo thứ tự khớp
     /// </summary>
     /// <remarks>
-    /// 仅返回"已写入且可解析"的载荷; 传入非法数据时会被跳过并记录日志,
-    /// 渠道如果需要区分该情况, 应配合 <see cref="IsDeclared"/> 使用。
+    /// Chỉ trả về tải trọng "đã ghi và có thể phân tích"; khi truyền vào dữ liệu không hợp lệ sẽ bị bỏ qua và ghi nhật ký,
+    /// Nếu kênh cần phân biệt trường hợp này, nên dùng phối hợp với <see cref="IsDeclared"/>.
     /// </remarks>
     IReadOnlyList<NotificationChannelData> Resolve(string providerName, NotificationData notificationData);
 
     /// <summary>
-    /// 解析指定类型的渠道数据
+    /// Phân tích dữ liệu kênh của kiểu đã chỉ định
     /// </summary>
-    /// <returns>载荷实例, 未写入或无法解析时返回 null</returns>
+    /// <returns>Phiên bản tải trọng, trả về null khi chưa ghi hoặc không thể phân tích</returns>
     TChannelData? Resolve<TChannelData>(NotificationData notificationData)
         where TChannelData : NotificationChannelData;
 
     /// <summary>
-    /// 解析指定类型的渠道数据
+    /// Phân tích dữ liệu kênh của kiểu đã chỉ định
     /// </summary>
     NotificationChannelData? Resolve(Type payloadType, NotificationData notificationData);
 
     /// <summary>
-    /// 判断生产者是否声明了指定类型的渠道数据
+    /// Xác định nhà sản xuất có khai báo dữ liệu kênh của kiểu đã chỉ định hay không
     /// </summary>
     /// <remarks>
-    /// 与解析结果配合使用, 可以区分
-    /// "生产者未写入载荷" 与 "载荷已写入但无法解析(数据非法)"。
-    /// 后者属于生产者错误, 渠道应当明确报错而不是静默回退。
+    /// Dùng phối hợp với kết quả phân tích, có thể phân biệt
+    /// "Nhà sản xuất chưa ghi tải trọng" với "Tải trọng đã ghi nhưng không thể phân tích (dữ liệu không hợp lệ)".
+    /// Trường hợp sau thuộc lỗi của nhà sản xuất, kênh nên báo lỗi rõ ràng thay vì âm thầm quay lại.
     /// </remarks>
     bool IsDeclared(NotificationData notificationData, Type payloadType);
 
     /// <summary>
-    /// 获取指定渠道的载荷类型集合
+    /// Lấy tập hợp kiểu tải trọng của kênh đã chỉ định
     /// </summary>
     IReadOnlyList<Type> GetPayloadTypes(string providerName);
 
     /// <summary>
-    /// 获取载荷的标识键
+    /// Lấy khóa định danh của tải trọng
     /// </summary>
     /// <remarks>
-    /// 返回该载荷第一个"参与存在性判定"的属性键(数据中的实际键名),
-    /// 用于诊断信息(例如"哪个键解析失败")。未声明可匹配属性时返回 null。
+    /// Trả về khóa thuộc tính "tham gia xác định sự tồn tại" đầu tiên của tải trọng (tên khóa thực tế trong dữ liệu),
+    /// Dùng cho thông tin chẩn đoán (ví dụ "khóa nào phân tích thất bại"). Trả về null khi chưa khai báo thuộc tính có thể khớp.
     /// </remarks>
     string? GetKey(NotificationData notificationData, Type payloadType);
 
     /// <summary>
-    /// 弱类型读取, 并转换为目标类型
+    /// Đọc kiểu yếu, và chuyển đổi sang kiểu đích
     /// </summary>
     object? Get(NotificationData notificationData, string key, Type targetType);
 
     /// <summary>
-    /// 类型化读取渠道数据键
+    /// Đọc theo kiểu khóa dữ liệu kênh
     /// </summary>
     /// <remarks>
-    /// 用于读取"散落的标量选项"(如企业微信的 safe、enable_id_trans),
-    /// 这类值不需要独立载荷类型, 但同样必须经过弱类型转换。
+    /// Dùng để đọc "tùy chọn vô hướng rải rác" (như safe, enable_id_trans của WeChat Doanh nghiệp),
+    /// Các giá trị này không cần kiểu tải trọng độc lập, nhưng cũng phải trải qua chuyển đổi kiểu yếu.
     /// </remarks>
     TValue? GetValue<TValue>(NotificationData notificationData, string key)
         where TValue : struct;
 
     /// <summary>
-    /// 类型化读取渠道数据键, 未设置时返回默认值
+    /// Đọc theo kiểu khóa dữ liệu kênh, trả về giá trị mặc định khi chưa đặt
     /// </summary>
     TValue GetValue<TValue>(NotificationData notificationData, string key, TValue defaultValue)
         where TValue : struct;
 
     /// <summary>
-    /// 大小写不敏感地读取渠道数据键
+    /// Đọc khóa dữ liệu kênh không phân biệt chữ hoa chữ thường
     /// </summary>
     /// <remarks>
-    /// 用于兼容历史渠道实现中大小写敏感的遗留键(如 <c>TemplateId</c>),
-    /// 避免生产者因为大小写差异而静默失效。
+    /// Dùng để tương thích khóa cũ phân biệt chữ hoa chữ thường trong triển khai kênh lịch sử (như <c>TemplateId</c>),
+    /// Tránh nhà sản xuất âm thầm mất hiệu lực do khác biệt chữ hoa chữ thường.
     /// </remarks>
     string? GetOrNull(NotificationData notificationData, params string[] keys);
 }

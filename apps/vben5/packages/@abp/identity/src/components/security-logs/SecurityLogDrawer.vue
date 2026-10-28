@@ -25,6 +25,9 @@ const [Drawer, drawerApi] = useVbenDrawer({
   class: 'w-auto',
   onBeforeClose() {
     cancel('Security log drawer has closed!');
+    // Trả về true để cho phép đóng (undefined cũng cho phép đóng theo
+    // drawer-api, nhưng kiểu onBeforeClose yêu cầu boolean | undefined rõ ràng).
+    return true;
   },
   onCancel() {
     drawerApi.close();
@@ -44,7 +47,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   title: $t('AbpAuditLogging.SecurityLog'),
 });
-/** 查询审计日志 */
+/** Truy vấn nhật ký kiểm toán */
 async function onGet(id: string) {
   const dto = await getApi(id);
   formModel.value = dto;

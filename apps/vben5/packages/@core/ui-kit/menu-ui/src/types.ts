@@ -4,52 +4,52 @@ import type { MenuRecordBadgeRaw, ThemeModeType } from '@vben-core/typings';
 
 interface MenuProps {
   /**
-   * @zh_CN 是否开启手风琴模式
+   * @zh_CN Có bật chế độ accordion không
    * @default true
    */
   accordion?: boolean;
   /**
-   * @zh_CN 菜单是否折叠
+   * @zh_CN Menu có thu gọn không
    * @default false
    */
   collapse?: boolean;
 
   /**
-   * @zh_CN 菜单折叠时是否显示菜单名称
+   * @zh_CN Khi menu thu gọn có hiển thị tên menu không
    * @default false
    */
   collapseShowTitle?: boolean;
 
   /**
-   * @zh_CN 默认激活的菜单
+   * @zh_CN Menu được kích hoạt mặc định
    */
   defaultActive?: string;
 
   /**
-   * @zh_CN 默认展开的菜单
+   * @zh_CN Menu được mở rộng mặc định
    */
   defaultOpeneds?: string[];
 
   /**
-   * @zh_CN 菜单模式
+   * @zh_CN Chế độ menu
    * @default vertical
    */
   mode?: 'horizontal' | 'vertical';
 
   /**
-   * @zh_CN 是否圆润风格
+   * @zh_CN Có phải phong cách bo tròn không
    * @default true
    */
   rounded?: boolean;
 
   /**
-   * @zh_CN 是否自动滚动到激活的菜单项
+   * @zh_CN Có tự động cuộn đến mục menu đang kích hoạt không
    * @default false
    */
   scrollToActive?: boolean;
 
   /**
-   * @zh_CN 菜单主题
+   * @zh_CN Chủ đề menu
    * @default dark
    */
   theme?: ThemeModeType;
@@ -57,38 +57,38 @@ interface MenuProps {
 
 interface SubMenuProps extends MenuRecordBadgeRaw {
   /**
-   * @zh_CN 激活图标
+   * @zh_CN Biểu tượng kích hoạt
    */
   activeIcon?: string;
   /**
-   * @zh_CN 是否禁用
+   * @zh_CN Có bị vô hiệu hóa không
    */
   disabled?: boolean;
   /**
-   * @zh_CN 图标
+   * @zh_CN Biểu tượng
    */
   icon?: Component | string;
   /**
-   * @zh_CN submenu 名称
+   * @zh_CN Tên submenu
    */
   path: string;
 }
 
 interface MenuItemProps extends MenuRecordBadgeRaw {
   /**
-   * @zh_CN 图标
+   * @zh_CN Biểu tượng
    */
   activeIcon?: string;
   /**
-   * @zh_CN 是否禁用
+   * @zh_CN Có bị vô hiệu hóa không
    */
   disabled?: boolean;
   /**
-   * @zh_CN 图标
+   * @zh_CN Biểu tượng
    */
   icon?: Component | string;
   /**
-   * @zh_CN menuitem 名称
+   * @zh_CN Tên menuitem
    */
   path: string;
 }

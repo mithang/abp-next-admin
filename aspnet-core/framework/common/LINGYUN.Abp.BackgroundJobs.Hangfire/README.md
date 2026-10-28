@@ -1,29 +1,29 @@
 # LINGYUN.Abp.BackgroundJobs.Hangfire
 
-[English](README.EN.md) | 简体中文
+[English](README.EN.md) | Tiếng Việt
 
-## 1. 介绍
+## 1. Giới thiệu
 
-`LINGYUN.Abp.BackgroundJobs.Hangfire` 是基于 [Hangfire](https://www.hangfire.io/) 实现的ABP后台作业模块。它提供了一个可靠的后台作业执行框架，支持即时任务、延迟任务和周期性任务的执行。
+`LINGYUN.Abp.BackgroundJobs.Hangfire` là mô-đun tác vụ nền (background job) của ABP được triển khai dựa trên [Hangfire](https://www.hangfire.io/). Nó cung cấp một framework thực thi tác vụ nền đáng tin cậy, hỗ trợ thực thi tác vụ tức thời, tác vụ trì hoãn và tác vụ định kỳ.
 
-## 2. 功能特性
+## 2. Tính năng
 
-* 支持即时任务执行
-* 支持延迟任务执行
-* 支持周期性任务（使用Cron表达式）
-* 与ABP后台作业系统无缝集成
-* 支持作业执行状态跟踪
-* 支持作业重试机制
+* Hỗ trợ thực thi tác vụ tức thời
+* Hỗ trợ thực thi tác vụ trì hoãn
+* Hỗ trợ tác vụ định kỳ (sử dụng biểu thức Cron)
+* Tích hợp liền mạch với hệ thống tác vụ nền của ABP
+* Hỗ trợ theo dõi trạng thái thực thi tác vụ
+* Hỗ trợ cơ chế thử lại tác vụ
 
-## 3. 安装
+## 3. Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.BackgroundJobs.Hangfire
 ```
 
-## 4. 使用方法
+## 4. Cách sử dụng
 
-1. 添加 `AbpBackgroundJobsHangfireModule` 到模块依赖中:
+1. Thêm `AbpBackgroundJobsHangfireModule` vào các phụ thuộc của mô-đun:
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundJobsHangfireModule))]
@@ -32,19 +32,19 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置后台作业:
+2. Cấu hình tác vụ nền:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
     Configure<AbpBackgroundJobOptions>(options =>
     {
-        options.IsJobExecutionEnabled = true; // 启用作业执行
+        options.IsJobExecutionEnabled = true; // Bật thực thi tác vụ
     });
 }
 ```
 
-3. 使用后台作业:
+3. Sử dụng tác vụ nền:
 
 ```csharp
 public class YourService
@@ -58,37 +58,37 @@ public class YourService
 
     public async Task CreateJobAsync()
     {
-        // 创建即时任务
+        // Tạo tác vụ tức thời
         await _backgroundJobManager.EnqueueAsync(new YourArgs());
 
-        // 创建延迟任务
+        // Tạo tác vụ trì hoãn
         await _backgroundJobManager.EnqueueAsync(
             new YourArgs(),
             delay: TimeSpan.FromMinutes(5)
         );
 
-        // 创建周期性任务
+        // Tạo tác vụ định kỳ
         await _backgroundJobManager.EnqueueAsync(
-            "0 0 * * *", // Cron表达式：每天0点执行
+            "0 0 * * *", // Biểu thức Cron: thực thi lúc 0 giờ mỗi ngày
             new YourArgs()
         );
     }
 }
 ```
 
-## 5. 配置项
+## 5. Mục cấu hình
 
-### 5.1 作业配置
+### 5.1 Cấu hình tác vụ
 
-* `AbpBackgroundJobOptions.IsJobExecutionEnabled`: 是否启用作业执行。默认值: `true`
+* `AbpBackgroundJobOptions.IsJobExecutionEnabled`: Có bật thực thi tác vụ hay không. Giá trị mặc định: `true`
 
-## 6. 依赖项
+## 6. Phụ thuộc
 
 * Volo.Abp.BackgroundJobs
 * Hangfire.Core
 * Hangfire.AspNetCore
 
-## 7. 文档和资源
+## 7. Tài liệu và tài nguyên
 
-* [Hangfire官方文档](https://docs.hangfire.io/)
-* [ABP框架文档](https://docs.abp.io/)
+* [Tài liệu chính thức của Hangfire](https://docs.hangfire.io/)
+* [Tài liệu framework ABP](https://docs.abp.io/)

@@ -4,35 +4,35 @@ public static class AbpSaasErrorCodes
 {
     public const string Namespace = "Saas";
     /// <summary>
-    /// 已经存在名为 {DisplayName} 的版本!
+    /// Đã tồn tại phiên bản có tên hiển thị là {DisplayName}!
     /// </summary>
     public const string DuplicateEditionDisplayName = Namespace + ":010001";
     /// <summary>
-    /// 试图删除正在使用的版本: {DisplayName}!
+    /// Đang cố xóa phiên bản đang được sử dụng: {DisplayName}!
     /// </summary>
     public const string DeleteUsedEdition = Namespace + ":010002";
     /// <summary>
-    /// 已经存在名为 {Name} 的租户!
+    /// Đã tồn tại tenant có tên là {Name}!
     /// </summary>
     public const string DuplicateTenantName = Namespace + ":020001";
     /// <summary>
-    /// 租户: {Tenant} 不存在!
+    /// Tenant: {Tenant} không tồn tại!
     /// </summary>
     public const string TenantIdOrNameNotFound = Namespace + ":020002";
     /// <summary>
-    /// 无法打开默认连接字符串指向的数据库连接
+    /// Không thể mở kết nối cơ sở dữ liệu mà chuỗi kết nối mặc định trỏ tới
     /// </summary>
     public const string InvalidDefaultConnectionString = Namespace + ":020101";
     /// <summary>
-    /// 默认连接字符串指向的数据库已经存在
+    /// Cơ sở dữ liệu mà chuỗi kết nối mặc định trỏ tới đã tồn tại
     /// </summary>
     public const string DefaultConnectionStringDatabaseExists = Namespace + ":020102";
     /// <summary>
-    /// {Name} 的连接字符串无效
+    /// Chuỗi kết nối của {Name} không hợp lệ
     /// </summary>
     public const string InvalidConnectionString = Namespace + ":020103";
     /// <summary>
-    /// 不支持 {Name} 类型的数据库连接检查
+    /// Không hỗ trợ kiểm tra kết nối cơ sở dữ liệu thuộc loại {Name}
     /// </summary>
     public const string ConnectionStringProviderNotSupport = Namespace + ":020104";
 }

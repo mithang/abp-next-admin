@@ -124,7 +124,7 @@ function onPropDelete(prop: PropertyInfo) {
       :wrapper-col="{ span: 18 }"
     >
       <Tabs v-model:active-key="activeTab">
-        <!-- 基本信息 -->
+        <!-- Thông tin cơ bản -->
         <TabPane key="basic" :tab="$t('AbpOpenIddict.BasicInfo')">
           <FormItem
             :label="$t('AbpOpenIddict.DisplayName:Name')"
@@ -134,7 +134,7 @@ function onPropDelete(prop: PropertyInfo) {
             <Input v-model:value="formModel.name" autocomplete="off" />
           </FormItem>
         </TabPane>
-        <!-- 显示名称 -->
+        <!-- Tên hiển thị -->
         <TabPane key="displayName" :tab="$t('AbpOpenIddict.DisplayNames')">
           <FormItem
             :label="$t('AbpOpenIddict.DisplayName:DefaultDisplayName')"
@@ -148,7 +148,7 @@ function onPropDelete(prop: PropertyInfo) {
             @delete="onDisplayNameDelete"
           />
         </TabPane>
-        <!-- 描述 -->
+        <!-- Mô tả -->
         <TabPane key="description" :tab="$t('AbpOpenIddict.Descriptions')">
           <FormItem
             :label="$t('AbpOpenIddict.DisplayName:DefaultDescription')"
@@ -162,7 +162,7 @@ function onPropDelete(prop: PropertyInfo) {
             @delete="onDescriptionDelete"
           />
         </TabPane>
-        <!-- 资源 -->
+        <!-- Tài nguyên -->
         <TabPane key="resource" :tab="$t('AbpOpenIddict.Resources')">
           <Transfer
             v-model:target-keys="formModel.resources"
@@ -179,7 +179,7 @@ function onPropDelete(prop: PropertyInfo) {
             show-search
           />
         </TabPane>
-        <!-- 属性 -->
+        <!-- Thuộc tính -->
         <TabPane key="props" :tab="$t('AbpOpenIddict.Propertites')">
           <PropertyTable
             :data="formModel.properties"

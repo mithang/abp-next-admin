@@ -7,8 +7,8 @@ export function useWechatSettingsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取全局设置
-   * @returns 设置数据传输对象列表
+   * Lấy cài đặt toàn cục
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function getGlobalSettingsApi(): Promise<ListResultDto<SettingGroup>> {
     return request<ListResultDto<SettingGroup>>(
@@ -20,8 +20,8 @@ export function useWechatSettingsApi() {
   }
 
   /**
-   * 获取租户设置
-   * @returns 设置数据传输对象列表
+   * Lấy cài đặt tenant
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function getTenantSettingsApi(): Promise<ListResultDto<SettingGroup>> {
     return request<ListResultDto<SettingGroup>>(

@@ -1,23 +1,23 @@
 ﻿namespace LINGYUN.Abp.Identity;
 /// <summary>
-/// 重复登录策略
+/// Chính sách đăng nhập trùng lặp
 /// </summary>
 public enum ConcurrentLoginStrategy
 {
     /// <summary>
-    /// 未定义
+    /// Chưa định nghĩa
     /// </summary>
     None,
     /// <summary>
-    /// 限制相同设备登录数量
+    /// Giới hạn số lượng đăng nhập trên cùng thiết bị
     /// </summary>
     LogoutFromSameTypeDevicesLimit,
     /// <summary>
-    /// 其他相同设备端退出
+    /// Đăng xuất khỏi các đầu cùng loại thiết bị khác
     /// </summary>
     LogoutFromSameTypeDevices,
     /// <summary>
-    /// 其他所有设备退出
+    /// Đăng xuất khỏi tất cả các thiết bị khác
     /// </summary>
     LogoutFromAllDevices
 }

@@ -4,7 +4,6 @@ import type { VxeGridListeners, VxeGridProps } from '@abp/ui';
 import type { VbenFormProps } from '@vben/common-ui';
 
 import type { WebhookDefinitionDto } from '../../../types/definitions';
-import type { WebhookGroupDefinitionDto } from '../../../types/groups';
 
 import { defineAsyncComponent, h, onMounted, ref } from 'vue';
 
@@ -60,7 +59,7 @@ const { deleteApi, getListApi: getDefinitionsApi } = useWebhookDefinitionsApi();
 const webhookGroups = ref<DefinitionGroup[]>([]);
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: false,
   handleReset: onReset,
   async handleSubmit(params) {
@@ -74,13 +73,13 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Kiểm soát form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Nhấn Enter có submit form hay không
   submitOnEnter: true,
 };
 
-const gridOptions: VxeGridProps<WebhookGroupDefinitionDto> = {
+const gridOptions: VxeGridProps<DefinitionGroup> = {
   columns: [
     {
       align: 'center',
@@ -201,7 +200,7 @@ const subGridColumns: VxeGridProps<WebhookDefinitionDto>['columns'] = [
   },
 ];
 
-const gridEvents: VxeGridListeners<WebhookGroupDefinitionDto> = {
+const gridEvents: VxeGridListeners<DefinitionGroup> = {
   sortChange: () => {
     gridApi.query();
   },

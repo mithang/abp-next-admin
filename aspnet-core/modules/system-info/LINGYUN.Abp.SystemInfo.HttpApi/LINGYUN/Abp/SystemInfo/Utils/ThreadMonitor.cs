@@ -6,27 +6,27 @@ namespace LINGYUN.Abp.SystemInfo.Utils;
 public class ThreadMetrics
 {
     /// <summary>
-    /// 可用工作线程数
+    /// Số luồng worker khả dụng
     /// </summary>
     public int AvailableWorkerThreads { get; set; }
     /// <summary>
-    /// 可用I/O线程数
+    /// Số luồng I/O khả dụng
     /// </summary>
     public int AvailableCompletionPortThreads { get; set; }
     /// <summary>
-    /// 最大工作线程数
+    /// Số luồng worker tối đa
     /// </summary>
     public int MaxWorkerThreads { get; set; }
     /// <summary>
-    /// 最大I/O线程数
+    /// Số luồng I/O tối đa
     /// </summary>
     public int MaxCompletionPortThreads { get; set; }
     /// <summary>
-    /// 进程总线程数
+    /// Tổng số luồng của tiến trình
     /// </summary>
     public int ActiveThreads { get; set; }
     /// <summary>
-    /// 线程池活动线程数
+    /// Số luồng đang hoạt động của thread pool
     /// </summary>
     public int ThreadPoolThreadCount { get; set; }
 }
@@ -42,7 +42,7 @@ public class ThreadMonitor
             out var maxWorkerThreads,
             out var maxCompletionPortThreads);
 
-        // 获取进程线程数（近似活动线程数）
+        // Lấy số luồng của tiến trình (xấp xỉ số luồng đang hoạt động)
         var process = Process.GetCurrentProcess();
         var threads = process.Threads;
 

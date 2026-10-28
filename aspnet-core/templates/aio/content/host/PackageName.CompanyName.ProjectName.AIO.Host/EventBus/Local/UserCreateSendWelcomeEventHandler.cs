@@ -22,7 +22,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.EventBus.Local
         public async Task HandleEventAsync(EntityCreatedEventData<UserEto> eventData)
         {
             var userIdentifer = new UserIdentifier(eventData.Entity.Id, eventData.Entity.UserName);
-            // 订阅用户欢迎消息
+            // Đăng ký nhận tin nhắn chào mừng người dùng
             await SubscribeInternalNotifers(userIdentifer, eventData.Entity.TenantId);
 
             await _notificationSender.SendNofiterAsync(
@@ -41,7 +41,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.EventBus.Local
 
         private async Task SubscribeInternalNotifers(UserIdentifier userIdentifer, Guid? tenantId = null)
         {
-            // 订阅内置通知
+            // Đăng ký nhận thông báo tích hợp sẵn
             await _notificationSubscriptionManager
                 .SubscribeAsync(
                     tenantId,
@@ -58,7 +58,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.EventBus.Local
                     userIdentifer,
                     DefaultNotifications.ActivityNotice);
 
-            // 订阅用户欢迎消息
+            // Đăng ký nhận tin nhắn chào mừng người dùng
             await _notificationSubscriptionManager
                 .SubscribeAsync(
                     tenantId,

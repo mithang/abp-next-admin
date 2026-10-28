@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.User;
 
 /// <summary>
-/// 添加用户到组织请求
+/// Yêu cầu thêm người dùng vào tổ chức
 /// </summary>
 public class AddUserToOrganizationRequest
 {
     /// <summary>
-    /// 角色
+    /// Vai trò
     /// </summary>
     /// <remarks>
     /// admin / user

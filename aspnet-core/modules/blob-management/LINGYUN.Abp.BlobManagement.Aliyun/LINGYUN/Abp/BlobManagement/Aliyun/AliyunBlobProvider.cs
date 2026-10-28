@@ -102,7 +102,7 @@ public class AliyunBlobProvider : IBlobProvider
         string blobName,
         CancellationToken cancellationToken = default)
     {
-        // 阿里云Oss没有目录的概念,新建对象时可以模拟目录
+        // Alibaba Cloud OSS không có khái niệm thư mục, khi tạo đối tượng mới có thể mô phỏng thư mục
         return Task.CompletedTask;
     }
 
@@ -153,7 +153,7 @@ public class AliyunBlobProvider : IBlobProvider
         bool isAttachmentContent = true,
         CancellationToken cancellationToken = default)
     {
-        // TODO: 阿里云SDK2.0不支持Bucket跨域配置, 不启用阿里云的预览方式
+        // TODO: SDK 2.0 của Alibaba Cloud không hỗ trợ cấu hình CORS cho Bucket, không bật chế độ xem trước của Alibaba Cloud
         //return InternalGeneratePresignedUrlAsync(
         //    containerName,
         //    blobName,
@@ -168,7 +168,7 @@ public class AliyunBlobProvider : IBlobProvider
         string blobName,
         CancellationToken cancellationToken = default)
     {
-        // 阿里云Oss没有目录的概念,新建对象时可以模拟目录
+        // Alibaba Cloud OSS không có khái niệm thư mục, khi tạo đối tượng mới có thể mô phỏng thư mục
         // https://cloud.tencent.com/document/product/436/13324
         return Task.CompletedTask;
     }

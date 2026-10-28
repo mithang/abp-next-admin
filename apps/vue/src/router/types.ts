@@ -11,7 +11,7 @@ export interface RouteMeta {
   orderNo?: number;
   // only build for Menu
   ignoreRoute?: boolean;
-  // 必要功能
+  // Tính năng bắt buộc
   requiredFeatures?: string | string[];
   // title
   title: string;

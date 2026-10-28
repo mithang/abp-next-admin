@@ -44,8 +44,8 @@ export default defineComponent({
     });
 
     /**
-     * @description: 二次封装需要的所有属性
-     *  1.部分属性需要和全局属性进行合并
+     * @description: Tất cả thuộc tính cần cho việc đóng gói lần hai
+     *  1.Một phần thuộc tính cần hợp nhất với thuộc tính toàn cục
      */
     const getBindValues = computed<BasicTableProps>(() => {
       const propsData: BasicTableProps = {
@@ -57,7 +57,7 @@ export default defineComponent({
     });
 
     /**
-     * @description: Table 所有属性
+     * @description: Tất cả thuộc tính của Table
      */
     const getBindGridValues = computed(() => {
       const omitProps = omit(getBindValues.value, ignorePropKeys);
@@ -69,14 +69,14 @@ export default defineComponent({
     });
 
     /**
-     * @description: 组件外层class
+     * @description: class lớp ngoài của thành phần
      */
     const getWrapperClass = computed(() => {
       return [attrs.class];
     });
 
     /**
-     * @description: 重写Vxe-table 方法
+     * @description: Ghi đè phương thức Vxe-table
      */
     const getBindGridEvent: VxeGridEventProps = {
       ...emitEvents,

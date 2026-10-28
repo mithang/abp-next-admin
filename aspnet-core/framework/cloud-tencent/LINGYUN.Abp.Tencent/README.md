@@ -1,50 +1,50 @@
 # LINGYUN.Abp.Tencent
 
-腾讯云服务基础模块，为其他腾讯云服务模块提供基础设施支持。
+Mô-đun cơ sở dịch vụ Tencent Cloud, cung cấp hỗ trợ hạ tầng cho các mô-đun dịch vụ Tencent Cloud khác.
 
-## 功能特性
+## Tính năng
 
-* 提供腾讯云SDK客户端工厂，支持动态创建腾讯云各项服务的客户端
-* 支持多租户配置
-* 内置多语言本地化支持（中文和英文）
-* 提供统一的腾讯云服务配置管理
-* 支持特性（Feature）管理，可按需启用/禁用功能
-* 支持区域（Region）本地化显示
+* Cung cấp factory client SDK Tencent Cloud, hỗ trợ tạo động client cho từng dịch vụ Tencent Cloud
+* Hỗ trợ cấu hình đa tenant
+* Hỗ trợ sẵn đa ngôn ngữ (tiếng Trung và tiếng Anh)
+* Cung cấp quản lý cấu hình dịch vụ Tencent Cloud thống nhất
+* Hỗ trợ quản lý tính năng (Feature), có thể bật/tắt tính năng theo nhu cầu
+* Hỗ trợ hiển thị địa phương hoá vùng (Region)
 
-## 配置项
+## Cấu hình
 
-### 基础配置
+### Cấu hình cơ bản
 
 ```json
 {
   "Settings": {
     "LINGYUN.Abp.Tencent": {
-      "EndPoint": "ap-guangzhou", // 资源所在地域，默认为广州
-      "SecretId": "您的腾讯云SecretId", // 从腾讯云控制台获取
-      "SecretKey": "您的腾讯云SecretKey", // 从腾讯云控制台获取
-      "DurationSecond": "600" // 会话持续时长，单位秒
+      "EndPoint": "ap-guangzhou", // Vùng tài nguyên đặt tại, mặc định là Quảng Châu
+      "SecretId": "SecretId Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "SecretKey": "SecretKey Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "DurationSecond": "600" // Thời lượng phiên, tính bằng giây
     }
   }
 }
 ```
 
-### 连接配置
+### Cấu hình kết nối
 
 ```json
 {
   "Settings": {
     "LINGYUN.Abp.Tencent.Connection": {
-      "HttpMethod": "POST", // 请求方法，默认POST
-      "Timeout": "60", // 连接超时时间，单位秒
-      "WebProxy": "" // 代理服务器地址，可选
+      "HttpMethod": "POST", // Phương thức yêu cầu, mặc định là POST
+      "Timeout": "60", // Thời gian chờ kết nối, tính bằng giây
+      "WebProxy": "" // Địa chỉ máy chủ proxy, tùy chọn
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 ```csharp
 [DependsOn(typeof(AbpTencentCloudModule))]
 public class YourModule : AbpModule
@@ -53,35 +53,35 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置腾讯云服务
+2. Cấu hình dịch vụ Tencent Cloud
 ```json
 {
   "Settings": {
     "LINGYUN.Abp.Tencent": {
-      "SecretId": "您的腾讯云SecretId",
-      "SecretKey": "您的腾讯云SecretKey"
+      "SecretId": "SecretId Tencent Cloud của bạn",
+      "SecretKey": "SecretKey Tencent Cloud của bạn"
     }
   }
 }
 ```
 
-## 高级特性
+## Tính năng nâng cao
 
-### 特性管理
+### Quản lý tính năng
 
-模块提供以下特性开关：
+Mô-đun cung cấp các công tắc tính năng sau:
 
-* TencentSms - 腾讯云短信服务
-* TencentBlobStoring - 腾讯云对象存储服务
-  * MaximumStreamSize - 单次上传文件流大小限制（MB）
+* TencentSms - Dịch vụ SMS Tencent Cloud
+* TencentBlobStoring - Dịch vụ lưu trữ đối tượng Tencent Cloud
+  * MaximumStreamSize - Giới hạn kích thước luồng tệp tải lên một lần (MB)
 
-### 多租户支持
+### Hỗ trợ đa tenant
 
-所有配置均支持多租户配置，可以为不同租户配置不同的腾讯云服务参数。
+Mọi cấu hình đều hỗ trợ cấu hình đa tenant, có thể cấu hình tham số dịch vụ Tencent Cloud khác nhau cho từng tenant.
 
-## 更多文档
+## Tài liệu thêm
 
-* [腾讯云API密钥管理](https://console.cloud.tencent.com/cam/capi)
-* [腾讯云地域和可用区](https://cloud.tencent.com/document/product/213/6091)
+* [Quản lý khóa API Tencent Cloud](https://console.cloud.tencent.com/cam/capi)
+* [Vùng và khu vực sẵn sàng của Tencent Cloud](https://cloud.tencent.com/document/product/213/6091)
 
 [English](./README.EN.md)

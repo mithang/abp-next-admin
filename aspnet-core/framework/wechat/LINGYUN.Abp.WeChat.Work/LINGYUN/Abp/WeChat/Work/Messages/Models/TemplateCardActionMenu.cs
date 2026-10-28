@@ -5,19 +5,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 卡片右上角更多操作按钮
+/// Nút thao tác thêm ở góc trên bên phải của thẻ
 /// </summary>
 public class TemplateCardActionMenu
 {
     /// <summary>
-    /// 卡片副交互辅助文本说明
+    /// Mô tả văn bản phụ trợ tương tác phụ của thẻ
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]
     [JsonPropertyName("desc")]
     public string? Description { get; set; }
     /// <summary>
-    /// 操作列表，列表长度取值范围为 [1, 3]
+    /// Danh sách thao tác, độ dài danh sách có giá trị trong khoảng [1, 3]
     /// </summary>
     [NotNull]
     [JsonProperty("action_list")]

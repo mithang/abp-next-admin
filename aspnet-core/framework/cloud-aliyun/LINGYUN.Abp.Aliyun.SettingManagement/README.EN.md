@@ -20,4 +20,4 @@ public class YouProjectModule : AbpModule
 
 Since the background management module is responsible for managing all configurations, this module only provides query interfaces.
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Trung](README.md)

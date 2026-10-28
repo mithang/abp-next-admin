@@ -155,7 +155,7 @@ internal static class OpenIddictApplicationExtensions
         return p => p.RemovePreFix(prefix);
     }
     /// <summary>
-    /// 尝试获取应用要求
+    /// Thử lấy các yêu cầu của ứng dụng
     /// </summary>
     /// <param name="requirements"></param>
     /// <param name="dto"></param>
@@ -173,7 +173,7 @@ internal static class OpenIddictApplicationExtensions
         entity.Requirements = jsonSerializer.Serialize(requirements);
     }
     /// <summary>
-    /// 尝试获取应用要求
+    /// Thử lấy các yêu cầu của ứng dụng
     /// </summary>
     /// <param name="requirements"></param>
     /// <param name="dto"></param>
@@ -217,7 +217,7 @@ internal static class OpenIddictApplicationExtensions
         }
     }
     /// <summary>
-    /// 尝试获取应用设置
+    /// Thử lấy các cài đặt của ứng dụng
     /// </summary>
     /// <param name="settings"></param>
     /// <param name="dto"></param>

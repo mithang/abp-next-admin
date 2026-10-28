@@ -3,19 +3,19 @@ import type { NameValue } from './global';
 type FeatureValue = NameValue<string>;
 
 /**
- * 特性检查接口
+ * Interface kiểm tra tính năng
  */
 interface IFeatureChecker {
   /**
-   * 获取特性值
-   * @param name 特性名称
-   * @returns 返回设定的特性值,不存在则为空字符串
+   * Lấy giá trị tính năng
+   * @param name Tên tính năng
+   * @returns Trả về giá trị tính năng đã thiết lập, không tồn tại thì là chuỗi rỗng
    */
   getOrEmpty(name: string): string;
   /**
-   * 是否启用特性
-   * @param featureNames 特性名称
-   * @param requiresAll 是否全部符合
+   * Tính năng có được bật hay không
+   * @param featureNames Tên tính năng
+   * @param requiresAll Có yêu cầu tất cả đều thỏa mãn hay không
    */
   isEnabled(featureNames: string | string[], requiresAll?: boolean): boolean;
 }

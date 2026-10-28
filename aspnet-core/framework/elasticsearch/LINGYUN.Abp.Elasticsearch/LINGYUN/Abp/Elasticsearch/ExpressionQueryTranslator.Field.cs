@@ -9,7 +9,7 @@ namespace LINGYUN.Abp.Elasticsearch;
 public partial class ExpressionQueryTranslator
 {
     /// <summary>
-    /// 解析字段
+    /// Phân tích trường
     /// </summary>
     protected virtual FieldInfo ResolveField(Expression expression, string? prefix, IndexMappingInfo? mappingInfo)
     {
@@ -23,7 +23,7 @@ public partial class ExpressionQueryTranslator
         Type? leafType = null;
         string? leafName = null;
 
-        // 收集成员路径
+        // Thu thập đường dẫn thành viên
         while (current is MemberExpression member)
         {
             leafName ??= member.Member.Name;
@@ -39,7 +39,7 @@ public partial class ExpressionQueryTranslator
 
         var path = string.Join(".", names);
 
-        // 应用前缀
+        // Áp dụng tiền tố
         if (!string.IsNullOrEmpty(prefix) && path.Length > 0)
         {
             path = prefix + "." + path;
@@ -49,17 +49,17 @@ public partial class ExpressionQueryTranslator
             path = prefix ?? string.Empty;
         }
 
-        // 获取字段映射信息
+        // Lấy thông tin ánh xạ trường
         var finalMapping = mappingInfo?.GetField(path);
 
-        // 如果是 text 类型且有 keyword 子字段，自动使用 .keyword
+        // Nếu là kiểu text và có trường con keyword, tự động dùng .keyword
         if (finalMapping?.IsText == true && finalMapping.Properties?.ContainsKey("keyword") == true)
         {
             path = $"{path}.keyword";
             finalMapping = mappingInfo?.GetField(path);
         }
 
-        // 如果 leafType 为 null，使用 expression.Type
+        // Nếu leafType bằng null, dùng expression.Type
         var type = leafType ?? expression.Type;
         var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
 
@@ -81,7 +81,7 @@ public partial class ExpressionQueryTranslator
     }
 
     /// <summary>
-    /// 获取成员的实际类型
+    /// Lấy kiểu thực tế của thành viên
     /// </summary>
     private static Type GetMemberType(MemberInfo member)
     {
@@ -95,11 +95,11 @@ public partial class ExpressionQueryTranslator
     }
 
     /// <summary>
-    /// 解析字段名称
+    /// Phân tích tên trường
     /// </summary>
     private static string ResolveFieldName(MemberInfo member)
     {
-        // 检查 JsonPropertyName 属性
+        // Kiểm tra thuộc tính JsonPropertyName
         if (member is PropertyInfo property)
         {
             var jsonName = property.GetCustomAttribute<JsonPropertyNameAttribute>();

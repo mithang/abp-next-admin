@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 卡票标题
+/// Tiêu đề thẻ
 /// </summary>
 public class TemplateCardMainTitle
 {
@@ -19,14 +19,14 @@ public class TemplateCardMainTitle
     }
 
     /// <summary>
-    /// 一级标题，建议不超过36个字，文本通知型卡片本字段非必填，但不可本字段和sub_title_text都不填，（支持id转译）
+    /// Tiêu đề cấp một, nên không vượt quá 36 ký tự; với thẻ dạng thông báo văn bản thì trường này không bắt buộc, nhưng không được để trống cả trường này và sub_title_text (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string? Title { get; set; }
     /// <summary>
-    /// 标题辅助信息，建议不超过44个字，（支持id转译）
+    /// Thông tin phụ trợ của tiêu đề, nên không vượt quá 44 ký tự (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]

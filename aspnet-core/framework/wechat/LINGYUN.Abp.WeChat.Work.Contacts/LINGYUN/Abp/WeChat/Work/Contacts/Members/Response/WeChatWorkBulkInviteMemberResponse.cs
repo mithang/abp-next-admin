@@ -4,29 +4,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Response;
 /// <summary>
-/// 邀请成员响应参数
+/// Tham số phản hồi mời thành viên
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90975" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90975" />
 /// </remarks>
 public class WeChatWorkBulkInviteMemberResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 非法成员列表
+    /// Danh sách thành viên không hợp lệ
     /// </summary>
     [NotNull]
     [JsonProperty("invaliduser")]
     [JsonPropertyName("invaliduser")]
     public string[] InvalidUser { get; set; } = default!;
     /// <summary>
-    /// 非法部门列表
+    /// Danh sách phòng ban không hợp lệ
     /// </summary>
     [NotNull]
     [JsonProperty("invalidparty")]
     [JsonPropertyName("invalidparty")]
     public int[] InvalidParty { get; set; } = default!;
     /// <summary>
-    /// 非法标签列表
+    /// Danh sách nhãn không hợp lệ
     /// </summary>
     [NotNull]
     [JsonProperty("invalidtag")]

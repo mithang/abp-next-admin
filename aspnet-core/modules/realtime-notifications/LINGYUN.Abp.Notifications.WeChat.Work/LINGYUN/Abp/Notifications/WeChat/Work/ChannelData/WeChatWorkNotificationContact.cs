@@ -3,26 +3,26 @@ using System;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信消息接收者
+/// Người nhận tin nhắn WeChat doanh nghiệp
 /// </summary>
 /// <remarks>
-/// 企业微信要求 touser / toparty / totag 不能同时为空,
-/// 因此接收者必须作为整体传递给消息构造过程。
+/// WeChat doanh nghiệp yêu cầu touser / toparty / totag không được đồng thời để trống,
+/// Do đó, người nhận phải được truyền nguyên vẹn tới quá trình tạo tin nhắn.
 /// </remarks>
 public class WeChatWorkNotificationContact
 {
     /// <summary>
-    /// 成员ID列表, 多个接收者使用"|"分隔
+    /// Danh sách ID thành viên, nhiều người nhận dùng "|" để phân tách
     /// </summary>
     public string? ToUser { get; set; }
 
     /// <summary>
-    /// 部门ID列表, 多个接收者使用"|"分隔
+    /// Danh sách ID phòng ban, nhiều người nhận dùng "|" để phân tách
     /// </summary>
     public string? ToParty { get; set; }
 
     /// <summary>
-    /// 标签ID列表, 多个接收者使用"|"分隔
+    /// Danh sách ID thẻ, nhiều người nhận dùng "|" để phân tách
     /// </summary>
     public string? ToTag { get; set; }
 

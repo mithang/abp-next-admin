@@ -75,7 +75,7 @@ public class DefaultWebhookManager : WebhookManager, ITransientDependency
 
             var record = await WebhookSendAttemptRepository.GetAsync(webhookSendAttemptId);
             record.SetResponse(content, statusCode, resHeaders);
-            // 加入标头信息，便于维护人员调试
+            // Thêm thông tin tiêu đề để nhân viên bảo trì dễ gỡ lỗi
             record.SetRequestHeaders(reqHeaders);
 
             await WebhookSendAttemptRepository.UpdateAsync(record);

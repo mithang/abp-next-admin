@@ -1,13 +1,13 @@
 import { baseRequestClient, requestClient } from '#/api/request';
 
 export namespace AuthApi {
-  /** 登录接口参数 */
+  /** Tham số API đăng nhập */
   export interface LoginParams {
     password?: string;
     username?: string;
   }
 
-  /** 登录接口返回值 */
+  /** Giá trị trả về của API đăng nhập */
   export interface LoginResult {
     accessToken: string;
   }
@@ -19,14 +19,14 @@ export namespace AuthApi {
 }
 
 /**
- * 登录
+ * Đăng nhập
  */
 export async function loginApi(data: AuthApi.LoginParams) {
   return requestClient.post<AuthApi.LoginResult>('/auth/login', data);
 }
 
 /**
- * 刷新accessToken
+ * Làm mới accessToken
  */
 export async function refreshTokenApi() {
   return baseRequestClient.post<AuthApi.RefreshTokenResult>('/auth/refresh', {
@@ -35,7 +35,7 @@ export async function refreshTokenApi() {
 }
 
 /**
- * 退出登录
+ * Đăng xuất
  */
 export async function logoutApi() {
   return baseRequestClient.post('/auth/logout', {
@@ -44,7 +44,7 @@ export async function logoutApi() {
 }
 
 /**
- * 获取用户权限码
+ * Lấy mã quyền của người dùng
  */
 export async function getAccessCodesApi() {
   return requestClient.get<string[]>('/auth/codes');

@@ -5,7 +5,7 @@ public static class WeChatWorkSettingNames
     public const string Prefix = "Abp.WeChat.Work";
 
     /// <summary>
-    /// 启用快捷登录
+    /// Bật đăng nhập nhanh
     /// </summary>
     public const string EnabledQuickLogin = Prefix + ".EnabledQuickLogin";
 
@@ -13,15 +13,15 @@ public static class WeChatWorkSettingNames
     {
         public const string Prefix = WeChatWorkSettingNames.Prefix + ".Connection";
         /// <summary>
-        /// 企业Id
+        /// Id doanh nghiệp
         /// </summary>
         public static string CorpId = Prefix + ".CorpId";
         /// <summary>
-        /// 应用Id
+        /// Id ứng dụng
         /// </summary>
         public static string AgentId = Prefix + ".AgentId";
         /// <summary>
-        /// 应用密钥
+        /// Khóa bí mật ứng dụng
         /// </summary>
         public static string Secret = Prefix + ".Secret";
         /// <summary>

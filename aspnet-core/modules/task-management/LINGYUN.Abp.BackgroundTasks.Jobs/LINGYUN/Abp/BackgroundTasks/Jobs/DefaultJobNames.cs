@@ -3,27 +3,27 @@
 public static class DefaultJobNames
 {
     /// <summary>
-    /// 发送邮件
+    /// Gửi email
     /// </summary>
     public const string SendEmailJob = "SendEmail";
     /// <summary>
-    /// 发送短信
+    /// Gửi SMS
     /// </summary>
     public const string SendSmsJob = "SendSms";
     /// <summary>
-    /// 控制台输出
+    /// Xuất ra console
     /// </summary>
     public const string ConsoleJob = "Console";
     /// <summary>
-    /// 休眠
+    /// Tạm dừng
     /// </summary>
     public const string SleepJob = "Sleep";
     /// <summary>
-    /// 服务间调用
+    /// Gọi giữa các dịch vụ
     /// </summary>
     public const string ServiceInvocationJob = "ServiceInvocation";
     /// <summary>
-    /// Http请求
+    /// Yêu cầu Http
     /// </summary>
     public const string HttpRequestJob = "HttpRequest";
 }

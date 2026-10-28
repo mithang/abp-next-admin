@@ -7,19 +7,19 @@ public class AbpNotificationsPublishOptions
 {
     public const string DefaultDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
     /// <summary>
-    /// 自定义通知发布提供者集合
+    /// Tập hợp nhà cung cấp phát hành thông báo tùy chỉnh
     /// </summary>
     public ITypeList<INotificationPublishProvider> PublishProviders { get; }
     /// <summary>
-    /// 过期时间
-    /// 默认60天
+    /// Thời gian hết hạn
+    /// Mặc định 60 ngày
     /// </summary>
     public TimeSpan ExpirationTime { get; set; }
     /// <summary>
-    /// 默认时间日期序列化格式
+    /// Định dạng tuần tự hóa ngày giờ mặc định
     /// </summary>
     /// <remarks>
-    /// 默认: yyyy-MM-dd HH:mm:ss
+    /// Mặc định: yyyy-MM-dd HH:mm:ss
     /// </remarks>
     public string DateTimeFormat { get; set; }
     public AbpNotificationsPublishOptions()

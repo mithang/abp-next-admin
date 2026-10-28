@@ -2,13 +2,13 @@
 outline: deep
 ---
 
-# 精简版本
+# Phiên bản tinh gọn
 
-从 `5.0` 版本开始，我们不再提供精简的仓库或者分支。我们的目标是提供一个更加一致的开发体验，同时减少维护成本。在这里，我们将如何介绍自己的项目，如何去精简以及移除不需要的功能。
+Từ phiên bản `5.0` trở đi, chúng tôi không còn cung cấp kho lưu trữ hay nhánh tinh gọn nữa. Mục tiêu của chúng tôi là mang lại trải nghiệm phát triển nhất quán hơn, đồng thời giảm chi phí bảo trì. Tại đây, chúng tôi sẽ giới thiệu cách tinh gọn dự án của chính bạn và loại bỏ các tính năng không cần thiết.
 
-## 应用精简
+## Tinh gọn ứng dụng
 
-首先，确认你需要的 `UI` 组件库版本，然后删除对应的应用，比如你选择使用 `Ant Design Vue`，那么你可以删除其他应用， 只需要删除下面两个文件夹即可：
+Trước tiên, hãy xác nhận phiên bản thư viện component `UI` mà bạn cần, sau đó xóa các ứng dụng tương ứng. Ví dụ, nếu bạn chọn dùng `Ant Design Vue`, bạn có thể xóa các ứng dụng khác, chỉ cần xóa hai thư mục dưới đây là được:
 
 ```bash
 apps/web-ele
@@ -18,40 +18,40 @@ apps/web-naive
 
 ::: tip
 
-如果项目没有内置你需要的 `UI` 组件库应用，你可以直接全部删除其他应用。然后自行新建应用即可。
+Nếu dự án không tích hợp sẵn ứng dụng thư viện component `UI` mà bạn cần, bạn có thể xóa toàn bộ các ứng dụng khác. Sau đó tự tạo ứng dụng mới là được.
 
 :::
 
-## 演示代码精简
+## Tinh gọn code demo
 
-如果你不需要演示代码，你可以直接删除 `playground` 文件夹。
+Nếu bạn không cần code demo, bạn có thể xóa trực tiếp thư mục `playground`.
 
-## 文档精简
+## Tinh gọn tài liệu
 
-如果你不需要文档，你可以直接删除`docs`文件夹。
+Nếu bạn không cần tài liệu, bạn có thể xóa trực tiếp thư mục `docs`.
 
-## Mock 服务精简
+## Tinh gọn dịch vụ Mock
 
-如果你不需要`Mock`服务，你可以直接删除`apps/backend-mock`文件夹。同时在你的应用下`.env.development`文件中删除`VITE_NITRO_MOCK`变量。
+Nếu bạn không cần dịch vụ `Mock`, bạn có thể xóa trực tiếp thư mục `apps/backend-mock`. Đồng thời, trong file `.env.development` của ứng dụng của bạn, hãy xóa biến `VITE_NITRO_MOCK`.
 
 ```bash
-# 是否开启 Nitro Mock服务，true 为开启，false 为关闭
+# Có bật dịch vụ Nitro Mock hay không, true là bật, false là tắt
 VITE_NITRO_MOCK=false
 ```
 
-## 安装依赖
+## Cài đặt dependencies
 
-到这里，你已经完成了精简操作，接下来你可以安装依赖，并启动你的项目：
+Đến đây, bạn đã hoàn thành thao tác tinh gọn, tiếp theo bạn có thể cài đặt dependencies và khởi động dự án của mình:
 
 ```bash
-# 根目录下执行
+# Thực thi tại thư mục gốc
 pnpm install
 
 ```
 
-## 命令调整
+## Điều chỉnh lệnh
 
-在精简后，你可能需要根据你的项目调整命令，在根目录下的`package.json`文件中，你可以调整`scripts`字段，移除你不需要的命令。
+Sau khi tinh gọn, bạn có thể cần điều chỉnh lệnh theo dự án của mình. Trong file `package.json` tại thư mục gốc, bạn có thể điều chỉnh trường `scripts` và loại bỏ các lệnh mà bạn không cần.
 
 ```json
 {
@@ -71,25 +71,25 @@ pnpm install
 }
 ```
 
-## 其他
+## Khác
 
-如果你想更进一步精简，你可以删除参考以下文件或者文件夹的作用，判断自己是否需要，不需要删除即可：
+Nếu bạn muốn tinh gọn thêm nữa, bạn có thể tham khảo tác dụng của các file hoặc thư mục dưới đây, đánh giá xem mình có cần hay không, không cần thì xóa là được:
 
-- `.changeset` 文件夹用于管理版本变更
-- `.github` 文件夹用于存放 GitHub 的配置文件
-- `.vscode` 文件夹用于存放 VSCode 的配置文件，如果你使用其他编辑器，可以删除
-- `./scripts/deploy` 文件夹用于存放部署脚本，如果你不需要docker部署，可以删除
+- Thư mục `.changeset` dùng để quản lý thay đổi phiên bản
+- Thư mục `.github` dùng để lưu file cấu hình GitHub
+- Thư mục `.vscode` dùng để lưu file cấu hình VSCode, nếu bạn dùng trình soạn thảo khác thì có thể xóa
+- Thư mục `./scripts/deploy` dùng để lưu script triển khai, nếu bạn không cần triển khai bằng docker thì có thể xóa
 
-## 应用精简
+## Tinh gọn ứng dụng
 
-当你确定了某个应用，你还可以进一步精简：
+Khi bạn đã xác định một ứng dụng nào đó, bạn vẫn có thể tinh gọn thêm:
 
-### 删除不需要的路由及页面
+### Xóa route và trang không cần thiết
 
-- 在应用的 `src/router/routes` 文件中，你可以删除不需要的路由。其中 `core` 文件夹内，如果只需要登录和忘记密码，你可以删除其他路由，如忘记密码、注册等。路由删除后，你可以删除对应的页面文件，在 `src/views/_core` 文件夹中。
+- Trong file `src/router/routes` của ứng dụng, bạn có thể xóa các route không cần thiết. Trong đó, đối với thư mục `core`, nếu chỉ cần đăng nhập và quên mật khẩu, bạn có thể xóa các route khác, như quên mật khẩu, đăng ký, v.v. Sau khi xóa route, bạn có thể xóa các file trang tương ứng trong thư mục `src/views/_core`.
 
-- 在应用的 `src/router/routes` 文件中，你可以按需求删除不需要的路由，如`demos`、`vben` 目录等。路由删除后，你可以在 `src/views` 文件夹中删除对应的页面文件。
+- Trong file `src/router/routes` của ứng dụng, bạn có thể xóa các route không cần thiết theo nhu cầu, như các thư mục `demos`, `vben`, v.v. Sau khi xóa route, bạn có thể xóa các file trang tương ứng trong thư mục `src/views`.
 
-### 删除不需要的组件
+### Xóa component không cần thiết
 
-- 在应用的 `packages/effects/common-ui/src/ui` 文件夹中，你可以删除不需要的组件，如`about`、`dashboard` 目录等。删除之前请先确保你的路由中没有引用到这些组件。
+- Trong thư mục `packages/effects/common-ui/src/ui` của ứng dụng, bạn có thể xóa các component không cần thiết, như các thư mục `about`, `dashboard`, v.v. Trước khi xóa, hãy đảm bảo route của bạn không tham chiếu đến các component này.

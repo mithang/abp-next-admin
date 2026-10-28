@@ -8,73 +8,73 @@ namespace LINGYUN.Abp.Account;
 public interface IAccountAppService : IApplicationService
 {
     /// <summary>
-    /// 通过手机号注册用户账户
+    /// Đăng ký tài khoản người dùng bằng số điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task RegisterAsync(PhoneRegisterDto input);
     /// <summary>
-    /// 通过微信小程序注册用户账户
+    /// Đăng ký tài khoản người dùng qua Mini Program WeChat
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task RegisterAsync(WeChatRegisterDto input);
     /// <summary>
-    /// 通过手机号重置用户密码
+    /// Đặt lại mật khẩu người dùng bằng số điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task ResetPasswordAsync(PhoneResetPasswordDto input);
     /// <summary>
-    /// 发送手机注册验证码短信
+    /// Gửi tin nhắn SMS mã xác minh đăng ký qua điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendPhoneRegisterCodeAsync(SendPhoneRegisterCodeDto input);
     /// <summary>
-    /// 发送手机登录验证码短信
+    /// Gửi tin nhắn SMS mã xác minh đăng nhập qua điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendPhoneSigninCodeAsync(SendPhoneSigninCodeDto input);
     /// <summary>
-    /// 发送手机重置密码验证码短信
+    /// Gửi tin nhắn SMS mã xác minh đặt lại mật khẩu qua điện thoại
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendPhoneResetPasswordCodeAsync(SendPhoneResetPasswordCodeDto input);
     /// <summary>
-    /// 发送邮件注册验证码
+    /// Gửi mã xác minh đăng ký qua email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendEmailRegisterCodeAsync(SendEmailRegisterCodeDto input);
     /// <summary>
-    /// 验证邮件注册验证码
+    /// Xác minh mã xác minh đăng ký qua email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<bool> VerifyEmailRegisterCodeAsync(VerifyEmailRegisterCodeInput input);
     /// <summary>
-    /// 发送邮件登录验证码
+    /// Gửi mã xác minh đăng nhập qua email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendEmailSigninCodeAsync(SendEmailSigninCodeDto input);
     /// <summary>
-    /// 发送确认邮件链接
+    /// Gửi liên kết xác nhận email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task SendEmailConfirmLinkAsync(SendUserEmailConfirmCodeDto input);
     /// <summary>
-    /// 确认邮件地址
+    /// Xác nhận địa chỉ email
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task ConfirmEmailAsync(ConfirmUserEmailInput input);
     /// <summary>
-    /// 获取用户二次认证提供者列表
+    /// Lấy danh sách nhà cung cấp xác thực hai yếu tố của người dùng
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

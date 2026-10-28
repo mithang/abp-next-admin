@@ -76,7 +76,7 @@ public class AccountController : AbpController
         {
             throw new UserFriendlyException("Operation failed: " + identityResult.Errors.Select(e => $"[{e.Code}] {e.Description}").JoinAsString(", "));
         }
-        // 解绑的是当前身份认证方案则退出登录
+        // Nếu hủy liên kết đúng scheme xác thực hiện tại thì đăng xuất
         var amr = CurrentUser.FindClaimValue(ClaimTypes.AuthenticationMethod);
         if (!amr.IsNullOrWhiteSpace() && string.Equals(amr, input.LoginProvider, StringComparison.InvariantCultureIgnoreCase))
         {

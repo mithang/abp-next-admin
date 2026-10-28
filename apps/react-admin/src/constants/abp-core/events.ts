@@ -1,10 +1,10 @@
 export const Events = {
-	/** 收到服务器消息 */
+	/** Nhận được tin nhắn từ máy chủ */
 	GetNotification: "get-notifications",
-	/** 新通知消息 */
+	/** Tin nhắn thông báo mới */
 	NotificationRecevied: "sys_notifications_recevied",
-	/** 用户登录事件 */
+	/** Sự kiện người dùng đăng nhập */
 	UserLogin: "sys_user_login",
-	/** 用户登出事件 */
+	/** Sự kiện người dùng đăng xuất */
 	UserLogout: "sys_user_logout",
 };

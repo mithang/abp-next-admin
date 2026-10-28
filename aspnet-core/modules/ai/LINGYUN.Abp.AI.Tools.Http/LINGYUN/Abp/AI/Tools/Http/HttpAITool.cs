@@ -27,7 +27,7 @@ public class HttpAITool
         IDictionary<string, object?>? paramters = null,
         object? body = null)
     {
-        // Abp远程服务适配
+        // Tương thích dịch vụ từ xa Abp
         //var remoteService = Context.ToolDefinition.GetRemoteServiceOrNull();
         //var remoteMethod = Context.ToolDefinition.GetRemoteMethodOrNull();
         //if (!remoteService.IsNullOrWhiteSpace() && !remoteMethod.IsNullOrWhiteSpace())
@@ -53,10 +53,10 @@ public class HttpAITool
         //            var httpClientProxyType = typeof(IHttpClientProxy<>).MakeGenericType(clientProxyConfig.Type);
         //            var httpClientProxy = Context.ServiceProvider.GetRequiredService(httpClientProxyType);
         //            var service = httpClientProxyType.GetProperty(nameof(IHttpClientProxy<object>.Service))!.GetValue(httpClientProxy);
-        //            // TODO: 暂不支持有参远程服务调用
+        //            // TODO: Tạm thời chưa hỗ trợ gọi dịch vụ từ xa có tham số
         //            var task = (Task)serviceMethod.Invoke(service, null)!;
         //            await task;
-        //            // TODO: 必须为Task<XXX>返回结构
+        //            // TODO: Phải là cấu trúc trả về Task<XXX>
         //            return typeof(Task<>).MakeGenericType(serviceMethod.ReturnType.GenericTypeArguments[0])
         //                .GetProperty(nameof(Task<object>.Result), BindingFlags.Public | BindingFlags.Instance)!
         //                .GetValue(task);

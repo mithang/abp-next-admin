@@ -7,16 +7,16 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Request;
 /// <summary>
-/// 获取日程详情请求参数
+/// Tham số yêu cầu lấy chi tiết lịch trình
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/97724"/>
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/97724"/>
 /// </remarks>
 public class WeChatWorkGetScheduleListRequest : WeChatWorkRequest
 {
     private List<string> _scheduleIdList = new List<string>();
     /// <summary>
-    /// 日程ID列表。一次最多拉取1000条
+    /// Danh sách ID lịch trình. Tối đa 1000 mục mỗi lần lấy
     /// </summary>
     [NotNull]
     [JsonProperty("schedule_id_list")]
@@ -29,7 +29,7 @@ public class WeChatWorkGetScheduleListRequest : WeChatWorkRequest
         _scheduleIdList.AddIfNotContains(calIdList);
     }
     /// <summary>
-    /// 添加日历Id
+    /// Thêm Id lịch
     /// </summary>
     /// <param name="calIdList"></param>
     public void WithCalId(params string[] calIdList)

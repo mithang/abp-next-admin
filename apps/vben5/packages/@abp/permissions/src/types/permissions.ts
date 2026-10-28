@@ -19,9 +19,9 @@ interface PermissionGroupDto {
 }
 
 interface PermissionUpdateDto {
-  /** 是否授权 */
+  /** Có được cấp quyền hay không */
   isGranted: boolean;
-  /** 权限名称 */
+  /** Tên quyền */
   name: string;
 }
 
@@ -35,20 +35,20 @@ interface PermissionResultDto {
 }
 
 interface PermissionTree {
-  /** 子节点 */
+  /** Nút con */
   children: PermissionTree[];
-  /** 是否禁用 */
+  /** Có bị vô hiệu hóa hay không */
   disabled: boolean;
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
-  /** 是否授权 */
+  /** Có được cấp quyền hay không */
   isGranted?: boolean;
   isRoot: boolean;
-  /** 权限标识 */
+  /** Định danh quyền */
   key: string;
-  /** 权限标识 */
+  /** Định danh quyền */
   name: string;
-  /** 父节点 */
+  /** Nút cha */
   parentName?: string;
 }
 

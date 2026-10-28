@@ -1,8 +1,8 @@
 import { posix } from 'node:path';
 
 /**
- * 将给定的文件路径转换为 POSIX 风格。
- * @param {string} pathname - 原始文件路径。
+ * Chuyển đổi đường dẫn tệp đã cho sang phong cách POSIX.
+ * @param {string} pathname - Đường dẫn tệp gốc.
  */
 function toPosixPath(pathname: string) {
   return pathname.split(`\\`).join(posix.sep);

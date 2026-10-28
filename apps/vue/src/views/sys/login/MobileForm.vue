@@ -106,7 +106,7 @@
       const userInfo = await userStore.loginByPhone({
         phoneNumber: data.phoneNumber,
         code: data.code,
-        mode: 'none', //不要默认的错误提示
+        mode: 'none', //Không dùng thông báo lỗi mặc định
       });
       if (userInfo) {
         notification.success({

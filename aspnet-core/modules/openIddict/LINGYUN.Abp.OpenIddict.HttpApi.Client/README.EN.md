@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.HttpApi.Client` is the HTTP API client module for OpenIddict, providing client proxies for remote OpenIddict HTTP API calls.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

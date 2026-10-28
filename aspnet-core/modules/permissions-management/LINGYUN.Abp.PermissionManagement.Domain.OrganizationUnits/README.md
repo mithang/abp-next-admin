@@ -1,20 +1,20 @@
 # LINGYUN.Abp.PermissionManagement.Domain.OrganizationUnits
 
-组织单元权限管理领域模块，提供基于组织单元的权限管理功能。
+Mô-đun miền quản lý quyền của đơn vị tổ chức, cung cấp chức năng quản lý quyền dựa trên đơn vị tổ chức.
 
-## 功能特性
+## Tính năng
 
-* 组织单元权限管理
-  * 支持为组织单元分配权限
-  * 支持组织单元权限的继承
-* 权限提供者
-  * 实现OrganizationUnit权限提供者
-  * 支持角色组织单元权限检查
-  * 支持用户组织单元权限检查
-* 自动权限清理
-  * 组织单元删除时自动清理相关权限
+* Quản lý quyền của đơn vị tổ chức
+  * Hỗ trợ gán quyền cho đơn vị tổ chức
+  * Hỗ trợ kế thừa quyền của đơn vị tổ chức
+* Nhà cung cấp quyền
+  * Triển khai nhà cung cấp quyền OrganizationUnit
+  * Hỗ trợ kiểm tra quyền đơn vị tổ chức của vai trò
+  * Hỗ trợ kiểm tra quyền đơn vị tổ chức của người dùng
+* Tự động dọn dẹp quyền
+  * Khi xóa đơn vị tổ chức sẽ tự động dọn dẹp các quyền liên quan
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -25,9 +25,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 组织单元权限管理
+1. Quản lý quyền của đơn vị tổ chức
 ```csharp
 public class YourService
 {
@@ -40,13 +40,13 @@ public class YourService
 
     public async Task ManageOrganizationUnitPermissionAsync(string organizationUnitCode)
     {
-        // 设置组织单元权限
+        // Đặt quyền của đơn vị tổ chức
         await _permissionManager.SetAsync(
             "MyPermission",
             OrganizationUnitPermissionValueProvider.ProviderName,
             organizationUnitCode);
 
-        // 检查组织单元权限
+        // Kiểm tra quyền của đơn vị tổ chức
         var result = await _permissionManager.GetAsync(
             "MyPermission",
             OrganizationUnitPermissionValueProvider.ProviderName,
@@ -55,7 +55,7 @@ public class YourService
 }
 ```
 
-## 另请参阅
+## Xem thêm
 
 * [LINGYUN.Abp.PermissionManagement.Application](../LINGYUN.Abp.PermissionManagement.Application/README.md)
 * [LINGYUN.Abp.PermissionManagement.Application.Contracts](../LINGYUN.Abp.PermissionManagement.Application.Contracts/README.md)

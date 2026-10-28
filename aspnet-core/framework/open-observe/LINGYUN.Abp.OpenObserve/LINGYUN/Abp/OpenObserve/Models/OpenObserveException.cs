@@ -3,27 +3,27 @@ using System;
 namespace LINGYUN.Abp.OpenObserve.Models;
 
 /// <summary>
-/// OpenObserve 业务异常基类
+/// Lớp cơ sở của ngoại lệ nghiệp vụ OpenObserve
 /// </summary>
 public class OpenObserveException : Exception
 {
     /// <summary>
-    /// 错误码
+    /// Mã lỗi
     /// </summary>
     /// <remarks>
-    /// 业务错误取 OpenObserve 响应中的 code, 否则取 HTTP 状态码
+    /// Lỗi nghiệp vụ lấy code trong phản hồi OpenObserve, nếu không có thì lấy mã trạng thái HTTP
     /// </remarks>
     public int Code => Error?.Code ?? StatusCode;
     /// <summary>
-    /// HTTP 状态码
+    /// Mã trạng thái HTTP
     /// </summary>
     public int StatusCode { get; }
     /// <summary>
-    /// OpenObserve 错误响应
+    /// Phản hồi lỗi OpenObserve
     /// </summary>
     public OpenObserveErrorResponse? Error { get; }
     /// <summary>
-    /// 原始响应内容
+    /// Nội dung phản hồi gốc
     /// </summary>
     public string? ResponseBody { get; }
 

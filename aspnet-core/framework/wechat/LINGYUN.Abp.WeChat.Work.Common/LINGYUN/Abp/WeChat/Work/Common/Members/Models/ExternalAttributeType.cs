@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Members.Models;
 /// <summary>
-/// 属性类型
+/// Loại thuộc tính
 /// </summary>
-[Description("属性类型")]
+[Description("Loại thuộc tính")]
 public enum ExternalAttributeType
 {
     /// <summary>
-    /// 文本
+    /// Văn bản
     /// </summary>
-    [Description("文本")]
+    [Description("Văn bản")]
     Text = 0,
     /// <summary>
-    /// 网页
+    /// Trang web
     /// </summary>
-    [Description("网页")]
+    [Description("Trang web")]
     Web = 1,
     /// <summary>
-    /// 小程序
+    /// Ứng dụng nhỏ
     /// </summary>
-    [Description("小程序")]
+    [Description("Ứng dụng nhỏ")]
     MiniProgram = 2
 }

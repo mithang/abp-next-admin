@@ -17,10 +17,10 @@ using Volo.Abp.Timing;
 namespace LINGYUN.Abp.Identity.Jobs;
 
 /// <summary>
-/// 不活跃用户清理作业
+/// Tác vụ dọn dẹp người dùng không hoạt động
 /// </summary>
 /// <remarks>
-/// 清理长期不活跃用户
+/// Dọn dẹp người dùng không hoạt động trong thời gian dài
 /// </remarks>
 public class InactiveIdentityUserCleanupJob : IJobRunnable
 {
@@ -43,11 +43,11 @@ public class InactiveIdentityUserCleanupJob : IJobRunnable
 
     #endregion
     /// <summary>
-    /// 停用不活跃用户天数
+    /// Số ngày để vô hiệu hóa người dùng không hoạt động
     /// </summary>
     public const string PropertyInactivityPeriodDays = "InactivityPeriodDays";
     /// <summary>
-    /// 已停用用户宽限天数
+    /// Số ngày gia hạn cho người dùng đã bị vô hiệu hóa
     /// </summary>
     public const string PropertyGracePeriodDays = "GracePeriodDays";
 
@@ -61,7 +61,7 @@ public class InactiveIdentityUserCleanupJob : IJobRunnable
 
     protected async virtual Task SetInactiveIdentityUsers(JobRunnableContext context)
     {
-        // 不活跃用户停用时间: 用户距离上次登录天数 + 宽限天数
+        // Thời gian vô hiệu hóa người dùng không hoạt động: số ngày kể từ lần đăng nhập cuối của người dùng + số ngày gia hạn
         var inactivityPeriodDays = context.GetOrDefaultJobData(PropertyInactivityPeriodDays, 180);
         var gracePeriodDays = context.GetOrDefaultJobData(PropertyGracePeriodDays, 60);
 
@@ -125,7 +125,7 @@ public class InactiveIdentityUserCleanupJob : IJobRunnable
     }
 
     /// <summary>
-    /// 发送不活跃用户停用通知
+    /// Gửi thông báo vô hiệu hóa người dùng không hoạt động
     /// </summary>
     /// <param name="context"></param>
     /// <param name="inactiveUsers"></param>
@@ -176,7 +176,7 @@ public class InactiveIdentityUserCleanupJob : IJobRunnable
 
     protected async virtual Task DeleteInactiveIdentityUsers(JobRunnableContext context)
     {
-        // 不活跃用户删除时间: 距离上次发送不活跃通知天数 + 宽限天数
+        // Thời gian xóa người dùng không hoạt động: số ngày kể từ lần gửi thông báo không hoạt động cuối + số ngày gia hạn
         var gracePeriodDays = context.GetOrDefaultJobData(PropertyGracePeriodDays, 60);
 
         var clock = context.GetRequiredService<IClock>();
@@ -228,7 +228,7 @@ public class InactiveIdentityUserCleanupJob : IJobRunnable
     }
 
     /// <summary>
-    /// 发送不活跃用户删除通知
+    /// Gửi thông báo xóa người dùng không hoạt động
     /// </summary>
     /// <param name="context"></param>
     /// <param name="inactiveUsers"></param>

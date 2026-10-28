@@ -4,18 +4,18 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.WeChat.Work.Token.Models;
 
 /// <summary>
-/// 微信访问令牌返回对象
+/// Đối tượng trả về mã truy cập WeChat
 /// </summary>
 public class WeChatWorkTokenResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 访问令牌
+    /// Mã truy cập
     /// </summary>
     [JsonProperty("access_token")]
     [JsonPropertyName("access_token")]
     public string AccessToken { get; set; } = default!;
     /// <summary>
-    /// 过期时间,单位(s)
+    /// Thời gian hết hạn, đơn vị (s)
     /// </summary>
     [JsonProperty("expires_in")]
     [JsonPropertyName("expires_in")]

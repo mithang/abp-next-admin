@@ -1,27 +1,27 @@
 # LINGYUN.Abp.MessageService.Application
 
-消息服务应用层模块。
+Mô-đun tầng ứng dụng của dịch vụ thông điệp.
 
-## 功能特性
+## Tính năng
 
-* 实现消息服务的应用层接口
-* 实现消息服务的业务逻辑
-* 支持自动对象映射
+* Triển khai giao diện tầng ứng dụng của dịch vụ thông điệp
+* Triển khai logic nghiệp vụ của dịch vụ thông điệp
+* Hỗ trợ ánh xạ đối tượng tự động
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
 * [LINGYUN.Abp.MessageService.Application.Contracts](../LINGYUN.Abp.MessageService.Application.Contracts/README.md)
 * [LINGYUN.Abp.MessageService.Domain](../LINGYUN.Abp.MessageService.Domain/README.md)
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 首先，需要安装 LINGYUN.Abp.MessageService.Application 到你的项目中：
+1. Trước tiên, cần cài đặt LINGYUN.Abp.MessageService.Application vào dự án của bạn:
 
 ```bash
 dotnet add package LINGYUN.Abp.MessageService.Application
 ```
 
-2. 添加 `AbpMessageServiceApplicationModule` 到你的模块的依赖列表：
+2. Thêm `AbpMessageServiceApplicationModule` vào danh sách phụ thuộc của mô-đun của bạn:
 
 ```csharp
 [DependsOn(typeof(AbpMessageServiceApplicationModule))]
@@ -30,6 +30,6 @@ public class YourModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
 [English document](README.EN.md)

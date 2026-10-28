@@ -7,7 +7,7 @@ public static class AccountOAuthFeatureNames
     {
         public const string Prefix = GroupName + ".GitHub";
         /// <summary>
-        /// 启用Github认证登录
+        /// Bật đăng nhập xác thực Github
         /// </summary>
         public const string Enable = Prefix + ".Enable";
     }
@@ -15,7 +15,7 @@ public static class AccountOAuthFeatureNames
     {
         public const string Prefix = GroupName + ".QQ";
         /// <summary>
-        /// 启用QQ认证登录
+        /// Bật đăng nhập xác thực QQ
         /// </summary>
         public const string Enable = Prefix + ".Enable";
     }
@@ -23,7 +23,7 @@ public static class AccountOAuthFeatureNames
     {
         public const string Prefix = GroupName + ".WeChat";
         /// <summary>
-        /// 启用微信认证登录
+        /// Bật đăng nhập xác thực WeChat
         /// </summary>
         public const string Enable = Prefix + ".Enable";
     }
@@ -31,7 +31,7 @@ public static class AccountOAuthFeatureNames
     {
         public const string Prefix = GroupName + ".WeCom";
         /// <summary>
-        /// 启用企业微信认证登录
+        /// Bật đăng nhập xác thực WeChat doanh nghiệp
         /// </summary>
         public const string Enable = Prefix + ".Enable";
     }
@@ -39,7 +39,7 @@ public static class AccountOAuthFeatureNames
     {
         public const string Prefix = GroupName + ".Bilibili";
         /// <summary>
-        /// 启用Bilibili认证登录
+        /// Bật đăng nhập xác thực Bilibili
         /// </summary>
         public const string Enable = Prefix + ".Enable";
     }

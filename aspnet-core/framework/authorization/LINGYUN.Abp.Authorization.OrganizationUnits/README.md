@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Authorization.OrganizationUnits
 
-组织单元权限验证模块，提供基于组织单元的权限验证功能。
+Mô-đun xác thực quyền đơn vị tổ chức, cung cấp chức năng xác thực quyền dựa trên đơn vị tổ chức.
 
-## 功能特性
+## Tính năng
 
-* 支持基于组织单元的权限验证
-* 提供组织单元权限值提供者(OrganizationUnitPermissionValueProvider)
-* 支持多组织单元权限验证
-* 集成ABP权限系统
-* 提供组织单元Claim类型扩展
-* 支持当前用户组织单元查询扩展
+* Hỗ trợ xác thực quyền dựa trên đơn vị tổ chức
+* Cung cấp nhà cung cấp giá trị quyền đơn vị tổ chức (OrganizationUnitPermissionValueProvider)
+* Hỗ trợ xác thực quyền cho nhiều đơn vị tổ chức
+* Tích hợp hệ thống quyền ABP
+* Cung cấp phần mở rộng loại Claim cho đơn vị tổ chức
+* Hỗ trợ phần mở rộng truy vấn đơn vị tổ chức của người dùng hiện tại
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAuthorizationOrganizationUnitsModule))]
@@ -21,9 +21,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置权限提供者
+1. Cấu hình nhà cung cấp quyền
    ```csharp
    public override void ConfigureServices(ServiceConfigurationContext context)
    {
@@ -34,7 +34,7 @@ public class YouProjectModule : AbpModule
    }
    ```
 
-2. 获取当前用户的组织单元
+2. Lấy đơn vị tổ chức của người dùng hiện tại
    ```csharp
    public class YourService
    {
@@ -48,26 +48,26 @@ public class YouProjectModule : AbpModule
        public void YourMethod()
        {
            var organizationUnits = _currentUser.FindOrganizationUnits();
-           // 使用组织单元进行业务处理
+           // Sử dụng đơn vị tổ chức để xử lý nghiệp vụ
        }
    }
    ```
 
-3. 从ClaimsPrincipal获取组织单元
+3. Lấy đơn vị tổ chức từ ClaimsPrincipal
    ```csharp
    public class YourService
    {
        public void YourMethod(ClaimsPrincipal principal)
        {
            var organizationUnits = principal.FindOrganizationUnits();
-           // 使用组织单元进行业务处理
+           // Sử dụng đơn vị tổ chức để xử lý nghiệp vụ
        }
    }
    ```
 
-## 更多资源
+## Tài nguyên khác
 
-* [GitHub仓库](https://github.com/colinin/abp-next-admin)
-* [示例应用程序](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/services/LINGYUN.Abp.MicroService.AllInOne)
+* [Kho GitHub](https://github.com/colinin/abp-next-admin)
+* [Ứng dụng mẫu](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/services/LINGYUN.Abp.MicroService.AllInOne)
 
 [English](./README.EN.md)

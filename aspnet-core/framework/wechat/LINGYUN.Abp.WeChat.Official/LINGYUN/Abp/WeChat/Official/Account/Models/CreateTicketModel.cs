@@ -5,27 +5,27 @@ namespace LINGYUN.Abp.WeChat.Official.Account.Models;
 public class CreateTicketModel : WeChatRequest
 {
     /// <summary>
-    /// 该二维码有效时间，以秒为单位。 最大不超过2592000（即30天），此字段如果不填，则默认有效期为60秒。
+    /// Thời gian hiệu lực của mã QR này, tính bằng giây. Tối đa không quá 2592000 (tức 30 ngày); nếu không điền trường này thì thời hạn hiệu lực mặc định là 60 giây.
     /// </summary>
     [JsonProperty("expire_seconds")]
     [JsonPropertyName("expire_seconds")]
     public int? ExpireSeconds { get; set; }
     /// <summary>
-    /// 二维码类型
+    /// Loại mã QR
     /// </summary>
     /// <remarks>
     ///     <list type="table">
-    ///         <item>QR_SCENE为临时的整型参数值</item>
-    ///         <item>QR_STR_SCENE为临时的字符串参数值</item>
-    ///         <item>QR_LIMIT_SCENE为永久的整型参数值</item>
-    ///         <item>QR_LIMIT_STR_SCENE为永久的字符串参数值</item>
+    ///         <item>QR_SCENE là giá trị tham số dạng số nguyên tạm thời</item>
+    ///         <item>QR_STR_SCENE là giá trị tham số dạng chuỗi tạm thời</item>
+    ///         <item>QR_LIMIT_SCENE là giá trị tham số dạng số nguyên vĩnh viễn</item>
+    ///         <item>QR_LIMIT_STR_SCENE là giá trị tham số dạng chuỗi vĩnh viễn</item>
     ///     </list>
     /// </remarks>
     [JsonProperty("action_name")]
     [JsonPropertyName("action_name")]
     public string ActionName { get; private set; } = default!;
     /// <summary>
-    /// 二维码详细信息
+    /// Thông tin chi tiết của mã QR
     /// </summary>
     [JsonProperty("action_info")]
     [JsonPropertyName("action_info")]
@@ -35,10 +35,10 @@ public class CreateTicketModel : WeChatRequest
 
     }
     /// <summary>
-    /// 通过场景值名称创建临时二维码ticket
+    /// Tạo ticket mã QR tạm thời bằng tên giá trị scene
     /// </summary>
-    /// <param name="sceneStr">场景值名称</param>
-    /// <param name="expireSeconds">二维码有效时间</param>
+    /// <param name="sceneStr">Tên giá trị scene</param>
+    /// <param name="expireSeconds">Thời gian hiệu lực của mã QR</param>
     /// <returns></returns>
     public static CreateTicketModel StringScene(
         string sceneStr,
@@ -52,9 +52,9 @@ public class CreateTicketModel : WeChatRequest
         };
     }
     /// <summary>
-    /// 通过场景值名称创建永久二维码ticket
+    /// Tạo ticket mã QR vĩnh viễn bằng tên giá trị scene
     /// </summary>
-    /// <param name="sceneStr">场景值名称</param>
+    /// <param name="sceneStr">Tên giá trị scene</param>
     /// <returns></returns>
     public static CreateTicketModel LimitStringScene(string sceneStr)
     {
@@ -65,10 +65,10 @@ public class CreateTicketModel : WeChatRequest
         };
     }
     /// <summary>
-    /// 通过场景值标识创建二维码ticket
+    /// Tạo ticket mã QR bằng định danh giá trị scene
     /// </summary>
-    /// <param name="sceneId">场景值标识</param>
-    /// <param name="expireSeconds">二维码有效时间</param>
+    /// <param name="sceneId">Định danh giá trị scene</param>
+    /// <param name="expireSeconds">Thời gian hiệu lực của mã QR</param>
     /// <returns></returns>
     public static CreateTicketModel EnumScene(
         int sceneId,
@@ -82,9 +82,9 @@ public class CreateTicketModel : WeChatRequest
         };
     }
     /// <summary>
-    /// 通过场景值标识创建永久二维码ticket
+    /// Tạo ticket mã QR vĩnh viễn bằng định danh giá trị scene
     /// </summary>
-    /// <param name="sceneId">场景值标识</param>
+    /// <param name="sceneId">Định danh giá trị scene</param>
     /// <returns></returns>
     public static CreateTicketModel LimitEnumScene(int sceneId)
     {

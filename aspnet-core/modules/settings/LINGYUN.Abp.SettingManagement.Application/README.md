@@ -1,57 +1,57 @@
 # LINGYUN.Abp.SettingManagement.Application
 
-## 模块说明
+## Mô tả module
 
-设置管理应用服务模块，实现设置管理相关的业务逻辑。
+Module dịch vụ ứng dụng quản lý cài đặt, triển khai logic nghiệp vụ liên quan đến quản lý cài đặt.
 
-### 基础模块
+### Module cơ sở
 
 * LINGYUN.Abp.SettingManagement.Application.Contracts
 * Volo.Abp.SettingManagement.Application
 * Volo.Abp.Ddd.Application
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供设置管理的应用服务实现
-  * SettingAppService - 通用设置管理服务实现
-  * UserSettingAppService - 用户设置管理服务实现
-  * SettingDefinitionAppService - 设置定义管理服务实现
-* 实现以下应用服务接口
+* Cung cấp phần triển khai dịch vụ ứng dụng quản lý cài đặt
+  * SettingAppService - Phần triển khai dịch vụ quản lý cài đặt chung
+  * UserSettingAppService - Phần triển khai dịch vụ quản lý cài đặt người dùng
+  * SettingDefinitionAppService - Phần triển khai dịch vụ quản lý định nghĩa cài đặt
+* Triển khai các giao diện dịch vụ ứng dụng sau
   * ISettingAppService
   * IUserSettingAppService
   * ISettingDefinitionAppService
-* 提供设置缓存管理
-  * DynamicSettingDefinitionStoreCacheInvalidator - 动态设置定义缓存失效处理
+* Cung cấp quản lý bộ nhớ đệm cài đặt
+  * DynamicSettingDefinitionStoreCacheInvalidator - Xử lý vô hiệu hóa bộ nhớ đệm của kho định nghĩa cài đặt động
 
-### 应用服务
+### Dịch vụ ứng dụng
 
 * SettingAppService
-  * GetAllForGlobalAsync - 获取全局设置
-  * GetAllForTenantAsync - 获取租户设置
-  * GetAllForUserAsync - 获取用户设置
-  * GetAllGroupsAsync - 获取所有设置组
-  * UpdateAsync - 更新设置
+  * GetAllForGlobalAsync - Lấy cài đặt toàn cục
+  * GetAllForTenantAsync - Lấy cài đặt tenant
+  * GetAllForUserAsync - Lấy cài đặt người dùng
+  * GetAllGroupsAsync - Lấy tất cả nhóm cài đặt
+  * UpdateAsync - Cập nhật cài đặt
 * UserSettingAppService
-  * GetAsync - 获取用户设置
-  * UpdateAsync - 更新用户设置
-  * DeleteAsync - 删除用户设置
+  * GetAsync - Lấy cài đặt người dùng
+  * UpdateAsync - Cập nhật cài đặt người dùng
+  * DeleteAsync - Xóa cài đặt người dùng
 * SettingDefinitionAppService
-  * GetAsync - 获取设置定义
-  * GetListAsync - 获取设置定义列表
-  * CreateAsync - 创建设置定义
-  * UpdateAsync - 更新设置定义
-  * DeleteAsync - 删除设置定义
+  * GetAsync - Lấy định nghĩa cài đặt
+  * GetListAsync - Lấy danh sách định nghĩa cài đặt
+  * CreateAsync - Tạo định nghĩa cài đặt
+  * UpdateAsync - Cập nhật định nghĩa cài đặt
+  * DeleteAsync - Xóa định nghĩa cài đặt
 
-### 错误代码
+### Mã lỗi
 
-* SettingManagement:010001 - 设置定义名称已存在
-* SettingManagement:010002 - 设置定义不存在
-* SettingManagement:010003 - 设置定义为静态，不允许修改
-* SettingManagement:010004 - 设置定义为静态，不允许删除
+* SettingManagement:010001 - Tên định nghĩa cài đặt đã tồn tại
+* SettingManagement:010002 - Định nghĩa cài đặt không tồn tại
+* SettingManagement:010003 - Định nghĩa cài đặt là tĩnh, không cho phép sửa đổi
+* SettingManagement:010004 - Định nghĩa cài đặt là tĩnh, không cho phép xóa
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpSettingManagementApplicationModule` 依赖
+1. Thêm phụ thuộc `AbpSettingManagementApplicationModule`
 
 ```csharp
 [DependsOn(typeof(AbpSettingManagementApplicationModule))]
@@ -60,7 +60,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 注入并使用设置服务
+2. Tiêm và sử dụng dịch vụ cài đặt
 
 ```csharp
 public class YourService
@@ -78,10 +78,10 @@ public class YourService
 
     public async Task ManageSettingsAsync()
     {
-        // 获取全局设置
+        // Lấy cài đặt toàn cục
         var settings = await _settingAppService.GetAllForGlobalAsync();
 
-        // 更新用户设置
+        // Cập nhật cài đặt người dùng
         await _userSettingAppService.UpdateAsync(
             "SettingName",
             "NewValue");
@@ -89,4 +89,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

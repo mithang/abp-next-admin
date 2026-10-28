@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.Domain
 
-通知系统的领域层模块，提供了通知系统的领域模型和业务逻辑。
+Mô-đun tầng lĩnh vực của hệ thống thông báo, cung cấp mô hình lĩnh vực và logic nghiệp vụ của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知实体定义
-* 通知订阅管理
-* 通知状态管理
-* 通知数据扩展支持
-* 支持自定义通知数据
+* Định nghĩa thực thể thông báo
+* Quản lý đăng ký thông báo
+* Quản lý trạng thái thông báo
+* Hỗ trợ mở rộng dữ liệu thông báo
+* Hỗ trợ dữ liệu thông báo tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsDomainModule))]
@@ -20,27 +20,27 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 领域模型
+## Mô hình lĩnh vực
 
 ### Notification
 
-* Id - 通知唯一标识
-* Name - 通知名称
-* NotificationData - 通知数据
-* CreationTime - 创建时间
-* Type - 通知类型
-* Severity - 通知严重程度
-* ExtraProperties - 扩展属性
+* Id - Định danh duy nhất của thông báo
+* Name - Tên thông báo
+* NotificationData - Dữ liệu thông báo
+* CreationTime - Thời gian tạo
+* Type - Loại thông báo
+* Severity - Mức độ nghiêm trọng của thông báo
+* ExtraProperties - Thuộc tính mở rộng
 
 ### NotificationSubscription
 
-* UserId - 用户标识
-* NotificationName - 通知名称
-* CreationTime - 创建时间
+* UserId - Định danh người dùng
+* NotificationName - Tên thông báo
+* CreationTime - Thời gian tạo
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 创建通知
+1. Tạo thông báo
 ```csharp
 var notification = new Notification(
     id: GuidGenerator.Create(),
@@ -49,13 +49,13 @@ var notification = new Notification(
     tenantId: CurrentTenant.Id);
 ```
 
-2. 管理通知订阅
+2. Quản lý đăng ký thông báo
 ```csharp
 await NotificationSubscriptionManager.SubscribeAsync(
     userId: CurrentUser.Id,
     notificationName: "YourNotification");
 ```
 
-## 更多信息
+## Thêm thông tin
 
-* [ABP文档](https://docs.abp.io)
+* [Tài liệu ABP](https://docs.abp.io)

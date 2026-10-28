@@ -11,9 +11,9 @@ import { loadScript } from '@vben-core/shared/utils';
 interface Props {
   clientId: string;
   corpId: string;
-  // 登录回调地址
+  // Địa chỉ callback đăng nhập
   redirectUri?: string;
-  // 是否内嵌二维码登录
+  // Có đăng nhập bằng mã QR nhúng hay không
   isQrCode?: boolean;
 }
 
@@ -40,12 +40,12 @@ const getRedirectUri = () => {
 };
 
 /**
- * 内嵌二维码登录
+ * Đăng nhập bằng mã QR nhúng
  */
 const handleQrCodeLogin = async () => {
   const { clientId, corpId } = props;
   if (!(window as any).DTFrameLogin) {
-    // 二维码登录 加载资源
+    // Đăng nhập bằng mã QR: tải tài nguyên
     await loadScript(
       'https://g.alicdn.com/dingding/h5-dingtalk-login/0.21.0/ddlogin.js',
     );
@@ -57,7 +57,7 @@ const handleQrCodeLogin = async () => {
       height: 300,
     },
     {
-      // 注意：redirect_uri 需为完整URL，扫码后钉钉会带code跳转到这里
+      // Lưu ý: redirect_uri phải là URL đầy đủ, sau khi quét mã DingTalk sẽ mang code chuyển hướng về đây
       redirect_uri: encodeURIComponent(getRedirectUri()),
       client_id: clientId,
       scope: 'openid corpid',
@@ -68,11 +68,11 @@ const handleQrCodeLogin = async () => {
     },
     (loginResult: any) => {
       const { redirectUrl } = loginResult;
-      // 这里可以直接进行重定向
+      // Có thể chuyển hướng trực tiếp tại đây
       window.location.href = redirectUrl;
     },
     (errorMsg: string) => {
-      // 这里一般需要展示登录失败的具体原因
+      // Tại đây thường cần hiển thị lý do cụ thể khiến đăng nhập thất bại
       alert(`Login Error: ${errorMsg}`);
     },
   );
@@ -81,7 +81,7 @@ const handleQrCodeLogin = async () => {
 const handleLogin = () => {
   const { clientId, corpId, isQrCode } = props;
   if (isQrCode) {
-    // 内嵌二维码登录
+    // Đăng nhập bằng mã QR nhúng
     modalApi.open();
   } else {
     window.location.href = `https://login.dingtalk.com/oauth2/auth?redirect_uri=${encodeURIComponent(getRedirectUri())}&response_type=code&client_id=${clientId}&scope=openid&corpid=${corpId}&prompt=consent`;

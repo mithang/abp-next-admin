@@ -23,7 +23,7 @@ public class AbpDataProtectionModule : AbpModule
     {
         Configure<AbpDataProtectionOptions>(options =>
         {
-            // 当前用户数据过滤
+            // Lọc dữ liệu của người dùng hiện tại
             options.KeywordContributors.Add(DataAccessCurrentUserContributor.Name, new DataAccessCurrentUserContributor());
 
             options.OperateContributors.Add(DataAccessFilterOperate.Equal, new DataAccessEqualContributor());
@@ -42,7 +42,7 @@ public class AbpDataProtectionModule : AbpModule
             options.SubjectContributors.Add(new DataAccessRoleNameContributor());
             options.SubjectContributors.Add(new DataAccessOrganizationUnitContributor());
 
-            // 权限策略提供程序
+            // Nhà cung cấp chính sách quyền
             options.StrategyContributors.Add(new DataAccessStrategyRoleNameContributor());
         });
 

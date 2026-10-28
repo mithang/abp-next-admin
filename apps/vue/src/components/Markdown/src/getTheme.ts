@@ -1,7 +1,7 @@
 /**
- * 获取主题类型 深色浅色模式 对应的值
- * @param darkModeVal 深色模式值
- * @param themeMode 主题类型——外观(默认), 内容, 代码块
+ * Lấy giá trị tương ứng của loại theme, chế độ sáng/tối
+ * @param darkModeVal Giá trị chế độ tối
+ * @param themeMode Loại theme — giao diện (mặc định), nội dung, khối code
  */
  export const getTheme = (
   darkModeVal: 'light' | 'dark' | string,

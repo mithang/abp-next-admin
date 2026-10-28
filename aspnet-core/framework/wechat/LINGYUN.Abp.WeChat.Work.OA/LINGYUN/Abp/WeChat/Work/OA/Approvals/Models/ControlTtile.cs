@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 控件名称
+/// Tên điều khiển
 /// </summary>
 public class ControlTtile
 {
     /// <summary>
-    /// 控件名称。需满足以下条件：1-控件名称不得和现有控件名称重复；2-长度不得超过40个字符。3-Attendance-外出/出差/加班控件title固定为外出/出差/加班，暂不支持自定义
+    /// Tên điều khiển. Cần đáp ứng các điều kiện sau: 1 - Tên điều khiển không được trùng với tên điều khiển hiện có; 2 - Độ dài không được vượt quá 40 ký tự. 3 - title của điều khiển Attendance - ra ngoài/công tác/tăng ca cố định là ra ngoài/công tác/tăng ca, tạm thời chưa hỗ trợ tùy chỉnh
     /// </summary>
     [NotNull]
     [StringLength(40)]
@@ -18,7 +18,7 @@ public class ControlTtile
     [JsonPropertyName("text")]
     public string Text { get; set; } = default!;
     /// <summary>
-    /// 显示语言，中文：zh_CN（注意不是zh-CN）
+    /// Ngôn ngữ hiển thị, tiếng Trung: zh_CN (lưu ý không phải zh-CN)
     /// </summary>
     [NotNull]
     [JsonProperty("lang")]

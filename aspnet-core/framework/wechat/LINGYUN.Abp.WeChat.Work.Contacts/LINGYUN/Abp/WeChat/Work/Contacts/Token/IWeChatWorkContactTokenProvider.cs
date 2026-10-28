@@ -4,18 +4,18 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Token;
 /// <summary>
-/// 通讯录应用Token提供者
+/// Nhà cung cấp Token ứng dụng danh bạ
 /// </summary>
 /// <remarks>
-/// 企业微信部分接口需要使用通讯录应用Token
+/// Một số API của WeChat doanh nghiệp cần sử dụng Token ứng dụng danh bạ
 /// </remarks>
 public interface IWeChatWorkContactTokenProvider
 {
     /// <summary>
-    /// 获取通讯录应用Token
+    /// Lấy Token ứng dụng danh bạ
     /// </summary>
     /// <remarks>
-    /// 参考：https://developer.work.weixin.qq.com/document/path/91039
+    /// Tham khảo: https://developer.work.weixin.qq.com/document/path/91039
     /// </remarks>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

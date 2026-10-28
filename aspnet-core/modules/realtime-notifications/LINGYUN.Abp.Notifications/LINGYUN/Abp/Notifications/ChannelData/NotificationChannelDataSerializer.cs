@@ -5,16 +5,16 @@ using Volo.Abp.DependencyInjection;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)序列化器
+/// Bộ tuần tự hóa dữ liệu kênh thông báo (tải trọng)
 /// </summary>
 /// <remarks>
 /// <para>
-/// 生产者侧的统一入口, 负责把强类型载荷写入 <see cref="NotificationData"/>。
+/// Cổng vào thống nhất phía nhà sản xuất, chịu trách nhiệm ghi tải trọng kiểu mạnh vào <see cref="NotificationData"/>。
 /// </para>
 /// <para>
-/// 载荷的写入是"声明式"的: 载荷类型上的 <see cref="NotificationChannelPropertyAttribute"/>
-/// 决定写入哪些键以及如何转换, 因此生产者与渠道实现共用同一份契约定义,
-/// 不会出现"一方写了键、另一方永远读不到"的情况。
+/// Việc ghi tải trọng mang tính "khai báo": trên kiểu tải trọng có <see cref="NotificationChannelPropertyAttribute"/>
+/// quyết định ghi những khóa nào và chuyển đổi ra sao, do đó phía nhà sản xuất và phía triển khai kênh dùng chung cùng một định nghĩa hợp đồng,
+/// sẽ không xảy ra tình trạng "một bên đã ghi khóa, bên còn lại không bao giờ đọc được".
 /// </para>
 /// </remarks>
 public class NotificationChannelDataSerializer : INotificationChannelDataSerializer, ISingletonDependency

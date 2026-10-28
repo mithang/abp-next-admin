@@ -5,7 +5,7 @@ using Volo.Abp.DependencyInjection;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据存在性判定提供者
+/// Provider xác định sự tồn tại của dữ liệu kênh
 /// </summary>
 public class NotificationChannelDataPresenceProvider : INotificationChannelDataPresenceProvider, ISingletonDependency
 {

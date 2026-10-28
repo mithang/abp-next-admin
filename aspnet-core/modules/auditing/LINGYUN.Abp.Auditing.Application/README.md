@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Auditing.Application
 
-审计日志应用层模块，提供审计日志的应用服务实现。
+Module tầng ứng dụng của nhật ký kiểm toán, cung cấp triển khai dịch vụ ứng dụng cho nhật ký kiểm toán.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 审计日志查询服务
-* 审计日志管理服务
-* 安全日志查询服务
-* 集成自动映射功能
+* Dịch vụ truy vấn nhật ký kiểm toán
+* Dịch vụ quản lý nhật ký kiểm toán
+* Dịch vụ truy vấn nhật ký bảo mật
+* Tích hợp tính năng tự động ánh xạ
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpAuditingApplicationModule))]
@@ -21,33 +21,33 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Module phụ thuộc
 
-* `LINGYUN.Abp.AuditLogging` - 审计日志核心模块
-* `LINGYUN.Abp.Logging` - 日志基础模块
-* `AbpAutoMapper` - ABP自动映射模块
+* `LINGYUN.Abp.AuditLogging` - Module lõi nhật ký kiểm toán
+* `LINGYUN.Abp.Logging` - Module cơ sở nhật ký
+* `AbpAutoMapper` - Module tự động ánh xạ ABP
 
-## 服务接口
+## Giao diện dịch vụ
 
-* IAuditLogAppService - 审计日志应用服务
-  - GetAsync - 获取指定的审计日志
-  - GetListAsync - 获取审计日志列表
-  - DeleteAsync - 删除指定的审计日志
-  - DeleteManyAsync - 批量删除审计日志
+* IAuditLogAppService - Dịch vụ ứng dụng nhật ký kiểm toán
+  - GetAsync - Lấy nhật ký kiểm toán chỉ định
+  - GetListAsync - Lấy danh sách nhật ký kiểm toán
+  - DeleteAsync - Xóa nhật ký kiểm toán chỉ định
+  - DeleteManyAsync - Xóa hàng loạt nhật ký kiểm toán
 
-* ISecurityLogAppService - 安全日志应用服务
-  - GetAsync - 获取指定的安全日志
-  - GetListAsync - 获取安全日志列表
-  - DeleteAsync - 删除指定的安全日志
-  - DeleteManyAsync - 批量删除安全日志
+* ISecurityLogAppService - Dịch vụ ứng dụng nhật ký bảo mật
+  - GetAsync - Lấy nhật ký bảo mật chỉ định
+  - GetListAsync - Lấy danh sách nhật ký bảo mật
+  - DeleteAsync - Xóa nhật ký bảo mật chỉ định
+  - DeleteManyAsync - Xóa hàng loạt nhật ký bảo mật
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 引用模块
-2. 注入所需的应用服务
-3. 调用相应的服务方法
+1. Tham chiếu module
+2. Tiêm dịch vụ ứng dụng cần dùng
+3. Gọi phương thức dịch vụ tương ứng
 
-示例：
+Ví dụ:
 ```csharp
 public class YourService
 {

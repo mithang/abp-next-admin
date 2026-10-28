@@ -6,54 +6,54 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Function;
 
 /// <summary>
-/// 创建/更新函数请求
+/// Yêu cầu tạo/cập nhật hàm
 /// </summary>
 public class SaveFunctionRequest
 {
     /// <summary>
-    /// 函数名称
+    /// Tên hàm
     /// </summary>
     /// <remarks>
-    /// 更新接口以路径参数为准
+    /// Giao diện cập nhật lấy tham số đường dẫn làm chuẩn
     /// </remarks>
     [JsonPropertyName("name")]
     public string? Name { get; set; }
 
     /// <summary>
-    /// 函数体
+    /// Thân hàm
     /// </summary>
     [JsonPropertyName("function")]
     public string Function { get; set; } = default!;
 
     /// <summary>
-    /// 函数参数
+    /// Tham số hàm
     /// </summary>
     [JsonPropertyName("params")]
     public string? Params { get; set; }
 
     /// <summary>
-    /// 参数个数
+    /// Số lượng tham số
     /// </summary>
     [JsonPropertyName("numArgs")]
     public int? NumArgs { get; set; }
 
     /// <summary>
-    /// 函数语言
+    /// Ngôn ngữ hàm
     /// </summary>
     [JsonPropertyName("transType")]
     public FunctionTransType? TransType { get; set; }
 
     /// <summary>
-    /// 函数生效的数据流
+    /// Luồng dữ liệu mà hàm có hiệu lực
     /// </summary>
     [JsonPropertyName("streams")]
     public FunctionStreamInfo[]? Streams { get; set; }
 
     /// <summary>
-    /// 执行顺序
+    /// Thứ tự thực thi
     /// </summary>
     /// <remarks>
-    /// 文档示例包含该字段, 但当前实现并不接受, 保留以兼容文档调用方式
+    /// Ví dụ tài liệu có chứa trường này, nhưng phía triển khai hiện tại không chấp nhận, giữ lại để tương thích với cách gọi theo tài liệu
     /// </remarks>
     [JsonPropertyName("order")]
     public int? Order { get; set; }

@@ -7,7 +7,7 @@ import { isDarkTheme } from '../src/update-css-variables';
 describe('preferences', () => {
   let preferenceManager: PreferenceManager;
 
-  // 模拟 window.matchMedia 方法
+  // Mô phỏng phương thức window.matchMedia
   vi.stubGlobal(
     'matchMedia',
     vi.fn().mockImplementation((query) => ({
@@ -41,8 +41,8 @@ describe('preferences', () => {
       overrides,
     });
 
-    // 等待防抖动操作完成
-    // await new Promise((resolve) => setTimeout(resolve, 300)); // 等待100毫秒
+    // Chờ thao tác chống dội hoàn tất
+    // await new Promise((resolve) => setTimeout(resolve, 300)); // chờ 100 mili giây
 
     const expected = {
       ...defaultPreferences,
@@ -75,21 +75,21 @@ describe('preferences', () => {
   });
 
   it('resets preferences to default', () => {
-    // 先更新一些偏好设置
+    // Cập nhật trước một số tùy chọn
     preferenceManager.updatePreferences({
       theme: {
         mode: 'light',
       },
     });
 
-    // 然后重置偏好设置
+    // Sau đó đặt lại tùy chọn
     preferenceManager.resetPreferences();
 
     expect(preferenceManager.getPreferences()).toEqual(defaultPreferences);
   });
 
   it('updates isMobile correctly', () => {
-    // 模拟移动端状态
+    // Mô phỏng trạng thái thiết bị di động
     vi.stubGlobal(
       'matchMedia',
       vi.fn().mockImplementation((query) => ({
@@ -144,7 +144,7 @@ describe('preferences', () => {
   });
 
   it('resets preferences to default correctly', () => {
-    // 先更新一些偏好设置
+    // Cập nhật trước một số tùy chọn
     preferenceManager.updatePreferences({
       app: { locale: 'en-US' },
       sidebar: { collapsed: true, width: 200 },
@@ -153,7 +153,7 @@ describe('preferences', () => {
       },
     });
 
-    // 然后重置偏好设置
+    // Sau đó đặt lại tùy chọn
     preferenceManager.resetPreferences();
 
     expect(preferenceManager.getPreferences()).toEqual(defaultPreferences);
@@ -185,7 +185,7 @@ describe('preferences', () => {
     const originalPreferences = preferenceManager.getPreferences();
 
     preferenceManager.updatePreferences({
-      app: { isMobile: 'true' as unknown as boolean }, // 错误类型
+      app: { isMobile: 'true' as unknown as boolean }, // Kiểu sai
     });
 
     expect(preferenceManager.getPreferences()).toEqual(originalPreferences);

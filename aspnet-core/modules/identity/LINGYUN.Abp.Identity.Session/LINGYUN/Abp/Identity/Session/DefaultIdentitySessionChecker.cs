@@ -75,17 +75,17 @@ public class DefaultIdentitySessionChecker : IIdentitySessionChecker, ITransient
         if (lastAccessedTime.HasValue &&
             lastAccessedTime.Value < accressedTime.Subtract(SessionCheckOptions.KeepAccessTimeSpan))
         {
-            // 更新缓存中的访问地址以及客户端Ip地址
+            // Cập nhật địa chỉ truy cập và địa chỉ IP máy khách trong bộ nhớ đệm
             identitySessionCacheItem.LastAccessed = accressedTime;
             identitySessionCacheItem.IpAddresses = DeviceInfoProvider.ClientIpAddress;
 
-            // TODO: 暂时移除,否则刷新令牌将无效
-            // 2024-10-10 从令牌中取颁布时间与过期时间计算时间戳,作为默认缓存过期时间
+            // TODO: Tạm thời gỡ bỏ, nếu không token làm mới sẽ không còn hiệu lực
+            // 2024-10-10 Lấy thời gian ban hành và thời gian hết hạn từ token để tính dấu thời gian, dùng làm thời gian hết hạn mặc định của bộ nhớ đệm
             //var expirainTime = claimsPrincipal.FindExpirainTime();
             //var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             //if (expirainTime.HasValue)
             //{
-            //    // 2024-10-25 应计算剩余过期时间
+            //    // 2024-10-25 Nên tính thời gian hết hạn còn lại
             //    identitySessionCacheItem.ExpiraIn = (expirainTime.Value - timestamp) * 1000;
             //}
 
@@ -93,12 +93,12 @@ public class DefaultIdentitySessionChecker : IIdentitySessionChecker, ITransient
             await IdentitySessionCache.RefreshAsync(sessionId, identitySessionCacheItem, cancellationToken);
         }
 
-        // 避免某些场景频繁去刷新持久化设施
+        // Tránh việc làm mới cơ sở lưu trữ bền vững quá thường xuyên trong một số trường hợp
         if (lastAccessedTime.HasValue &&
             lastAccessedTime.Value < accressedTime.Subtract(SessionCheckOptions.SessionSyncTimeSpan))
         {
             Logger.LogDebug("Publishes the cache synchronization user session event from {sessionId}.", sessionId);
-            // 发布事件, 使持久化设施从缓存同步
+            // Phát hành sự kiện để cơ sở lưu trữ bền vững đồng bộ từ bộ nhớ đệm
             var eventData = new IdentitySessionChangeAccessedEvent(
                 identitySessionCacheItem.SessionId,
                 identitySessionCacheItem.IpAddresses,

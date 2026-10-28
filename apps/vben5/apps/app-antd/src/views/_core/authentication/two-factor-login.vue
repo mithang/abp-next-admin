@@ -64,7 +64,7 @@ const [Modal, modalApi] = useVbenModal({
     }
   },
 });
-/** 二次认证登陆 */
+/** Đăng nhập xác thực hai lớp */
 async function onLogin() {
   modalApi.setState({
     confirmLoading: true,
@@ -86,7 +86,7 @@ async function onLogin() {
     });
   }
 }
-/** 发送邮件验证代码 */
+/** Gửi mã xác minh qua email */
 async function onSendEmail() {
   await form.value?.validateFields('email');
   await onSendCode(() =>
@@ -95,7 +95,7 @@ async function onSendEmail() {
     }),
   );
 }
-/** 发送短信验证代码 */
+/** Gửi mã xác minh qua SMS */
 async function onSendSms() {
   await form.value?.validateFields('phoneNumber');
   await onSendCode(() =>
@@ -104,7 +104,7 @@ async function onSendSms() {
     }),
   );
 }
-/** 发送验证代码 */
+/** Gửi mã xác minh */
 async function onSendCode(api: () => Promise<void>) {
   try {
     sendValidCodeLoading.value = true;
@@ -132,7 +132,7 @@ async function onSendCode(api: () => Promise<void>) {
       :model="formModel"
       :wrapper-col="{ span: 18 }"
     >
-      <!-- 选择验证器 -->
+      <!-- Chọn trình xác thực -->
       <FormItem
         :label="$t('abp.oauth.twoFactor.authenticator')"
         name="twoFactorProvider"
@@ -145,7 +145,7 @@ async function onSendCode(api: () => Promise<void>) {
           allow-clear
         />
       </FormItem>
-      <!-- 邮件验证 -->
+      <!-- Xác minh qua email -->
       <template v-if="formModel.twoFactorProvider === 'Email'">
         <FormItem
           :label="$t('abp.oauth.twoFactor.emailAddress')"
@@ -171,7 +171,7 @@ async function onSendCode(api: () => Promise<void>) {
           </div>
         </FormItem>
       </template>
-      <!-- 手机号码验证 -->
+      <!-- Xác minh số điện thoại -->
       <template v-if="formModel.twoFactorProvider === 'Phone'">
         <FormItem
           :label="$t('abp.oauth.twoFactor.phoneNumber')"
@@ -193,7 +193,7 @@ async function onSendCode(api: () => Promise<void>) {
           </div>
         </FormItem>
       </template>
-      <!-- 身份验证程序验证 -->
+      <!-- Xác minh bằng ứng dụng xác thực -->
       <template v-else-if="formModel.twoFactorProvider === 'Authenticator'">
         <FormItem :label="$t('abp.oauth.twoFactor.code')" name="code" required>
           <Input v-model:value="formModel.code" autocomplete="off" />

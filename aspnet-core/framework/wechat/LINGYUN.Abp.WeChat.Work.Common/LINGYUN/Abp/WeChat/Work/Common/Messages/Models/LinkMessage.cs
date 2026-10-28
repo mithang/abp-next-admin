@@ -4,23 +4,23 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 链接消息
+/// Tin nhắn liên kết
 /// </summary>
 [EventName("link")]
 public class LinkMessage : WeChatWorkGeneralMessage
 {
     /// <summary>
-    /// 消息标题
+    /// Tiêu đề tin nhắn
     /// </summary>
     [XmlElement("Title")]
     public string Title { get; set; } = default!;
     /// <summary>
-    /// 消息描述
+    /// Mô tả tin nhắn
     /// </summary>
     [XmlElement("Description")]
     public string? Description { get; set; }
     /// <summary>
-    /// 消息链接
+    /// Liên kết tin nhắn
     /// </summary>
     [XmlElement("Url")]
     public string? Url { get; set; }

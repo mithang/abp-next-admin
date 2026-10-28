@@ -23,4 +23,4 @@ Data protection management domain shared module, providing constants, enums, and
 
 ## Related Links
 
-* [中文文档](./README.md)
+* [Tiếng Việt](./README.md)

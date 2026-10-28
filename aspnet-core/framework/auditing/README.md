@@ -1,30 +1,30 @@
-# LINGYUN.Abp 审计模块
+# Mô-đun kiểm toán LINGYUN.Abp
 
-## 模块概述
+## Tổng quan mô-đun
 
-审计模块提供了全面的日志记录和审计功能，支持多种存储方式和高度可配置的审计选项。
+Mô-đun kiểm toán cung cấp chức năng ghi nhật ký và kiểm toán toàn diện, hỗ trợ nhiều phương thức lưu trữ và các tùy chọn kiểm toán có thể cấu hình cao.
 
-## 功能特性
+## Tính năng
 
-### 核心功能
+### Tính năng cốt lõi
 
-- 审计日志基础设施
-- 审计日志仓储接口定义
-- 审计日志管理器接口定义
-- 支持忽略特定类型的审计日志记录
+- Hạ tầng nhật ký kiểm toán
+- Định nghĩa giao diện kho lưu trữ nhật ký kiểm toán
+- Định nghĩa giao diện trình quản lý nhật ký kiểm toán
+- Hỗ trợ bỏ qua việc ghi nhật ký kiểm toán cho các kiểu cụ thể
 
-### 存储支持
+### Hỗ trợ lưu trữ
 
-- EntityFrameworkCore 实现  
-- Elasticsearch 实现  
-- OpenObserve 实现
+- Triển khai EntityFrameworkCore  
+- Triển khai Elasticsearch  
+- Triển khai OpenObserve  
 
-> 注意: Elastic库限制, 兼容8.x; 9.x版本, 如需使用10.x版本, 请切换 **Elastic.Clients.Elasticsearch** 为9.x版本 
-> 参考: https://www.nuget.org/packages/Elastic.Clients.Elasticsearch#readme-body-tab  
+> Lưu ý: Giới hạn của thư viện Elastic, tương thích với 8.x; phiên bản 9.x, nếu cần dùng phiên bản 10.x, hãy chuyển **Elastic.Clients.Elasticsearch** sang phiên bản 9.x 
+> Tham khảo: https://www.nuget.org/packages/Elastic.Clients.Elasticsearch#readme-body-tab  
 
-## 模块引用
+## Tham chiếu mô-đun
 
-### 核心模块
+### Mô-đun cốt lõi
 
 ```csharp
 [DependsOn(typeof(AbpAuditLoggingModule))]
@@ -34,7 +34,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### EntityFrameworkCore 模块
+### Mô-đun EntityFrameworkCore
 
 ```csharp
 [DependsOn(typeof(AbpAuditLoggingEntityFrameworkCoreModule))]
@@ -44,7 +44,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### Elasticsearch 模块
+### Mô-đun Elasticsearch
 
 ```csharp
 [DependsOn(typeof(AbpAuditLoggingElasticsearchModule))]
@@ -54,7 +54,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### OpenObserve 模块
+### Mô-đun OpenObserve
 
 ```csharp
 [DependsOn(typeof(AbpAuditLoggingOpenObserveModule))]
@@ -64,73 +64,73 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
-### 审计日志配置
+### Cấu hình nhật ký kiểm toán
 
 ```json
 {
   "Auditing": {
-    "IsEnabled": true, // 是否启用审计日志
-    "HideErrors": true, // 是否隐藏错误信息
-    "IsEnabledForAnonymousUsers": true, // 是否为匿名用户启用审计日志
-    "IsEnabledForGetRequests": false, // 是否为GET请求启用审计日志
-    "ApplicationName": null // 应用程序名称
+    "IsEnabled": true, // Có bật nhật ký kiểm toán hay không
+    "HideErrors": true, // Có ẩn thông tin lỗi hay không
+    "IsEnabledForAnonymousUsers": true, // Có bật nhật ký kiểm toán cho người dùng ẩn danh hay không
+    "IsEnabledForGetRequests": false, // Có bật nhật ký kiểm toán cho yêu cầu GET hay không
+    "ApplicationName": null // Tên ứng dụng
   },
-  // 审计日志增强配置
+  // Cấu hình tăng cường nhật ký kiểm toán
   "AuditLogging": {
-    "IsAuditLogEnabled": true, // 是否启用审计日志记录
-    "UseAuditLogQueue": true, // 使用审计日志队列, 不启用队列则直接写入到持久化设施
-    "MaxAuditLogQueueSize": 10000, // 审计日志最大队列大小, 默认10000
-    "BatchAuditLogSize": 100, // 一次处理审计日志队列大小, 队列中同时写入100条记录后立即写入到持久化设施中
-    "IsSecurityLogEnabled": true, // 是否启用安全日志记录
-    "UseSecurityLogQueue": true, // 使用安全日志队列, 不启用队列则直接写入到持久化设施
-    "MaxSecurityLogQueueSize": 10000, // 安全日志最大队列大小, 默认10000
-    "BatchSecurityLogSize": 100 // 一次处理安全日志队列大小, 队列中同时写入100条记录后立即写入到持久化设施中
+    "IsAuditLogEnabled": true, // Có bật ghi nhật ký kiểm toán hay không
+    "UseAuditLogQueue": true, // Sử dụng hàng đợi nhật ký kiểm toán, nếu không bật hàng đợi thì ghi trực tiếp vào cơ sở lưu trữ bền vững
+    "MaxAuditLogQueueSize": 10000, // Kích thước tối đa của hàng đợi nhật ký kiểm toán, mặc định là 10000
+    "BatchAuditLogSize": 100, // Kích thước hàng đợi nhật ký kiểm toán xử lý trong một lần, sau khi ghi đồng thời 100 bản ghi trong hàng đợi sẽ ghi ngay vào cơ sở lưu trữ bền vững
+    "IsSecurityLogEnabled": true, // Có bật ghi nhật ký bảo mật hay không
+    "UseSecurityLogQueue": true, // Sử dụng hàng đợi nhật ký bảo mật, nếu không bật hàng đợi thì ghi trực tiếp vào cơ sở lưu trữ bền vững
+    "MaxSecurityLogQueueSize": 10000, // Kích thước tối đa của hàng đợi nhật ký bảo mật, mặc định là 10000
+    "BatchSecurityLogSize": 100 // Kích thước hàng đợi nhật ký bảo mật xử lý trong một lần, sau khi ghi đồng thời 100 bản ghi trong hàng đợi sẽ ghi ngay vào cơ sở lưu trữ bền vững
   }
 }
 ```
 
-### Elasticsearch 配置
+### Cấu hình Elasticsearch
 
 ```json
 {
   "AuditLogging": {
     "Elasticsearch": {
-      "IndexPrefix": "auditlogging", // 索引前缀
-      "ThrowIfIndexInitFailed": true // 索引初始化失败抛出异常, 默认为: true, 索引初始化失败后应用程序停止运行
+      "IndexPrefix": "auditlogging", // Tiền tố chỉ mục
+      "ThrowIfIndexInitFailed": true // Ném ngoại lệ khi khởi tạo chỉ mục thất bại, mặc định là: true, sau khi khởi tạo chỉ mục thất bại ứng dụng sẽ dừng chạy
     }
   }
 }
 ```
 
-### OpenObserve 配置
+### Cấu hình OpenObserve
 
 ```json
 {
   "OpenObserve": {
-    "Endpoint": "http://localhost:5080", // OpenObserve 服务地址
-    "Organization": "default", // 组织名称
-    "AccessToken": "Basic XXXXXXXXXXX" // 授权头, 或使用 UserName/Password
+    "Endpoint": "http://localhost:5080", // Địa chỉ dịch vụ OpenObserve
+    "Organization": "default", // Tên tổ chức
+    "AccessToken": "Basic XXXXXXXXXXX" // Tiêu đề ủy quyền, hoặc dùng UserName/Password
   },
   "AuditLogging": {
     "OpenObserve": {
-      "Organization": null, // 数据流所属组织, 为空时使用 OpenObserve:Organization
-      "AuditLogStream": "audit_log", // 审计日志主数据流(根)
-      "SecurityLogStream": "security_log", // 安全日志数据流
-      "WriteEntityChanges": true, // 是否把实体变更展平写入 {AuditLogStream}_entity_changes
-      "WriteActions": true, // 是否把操作展平写入 {AuditLogStream}_actions
-      "DefaultQueryDays": 365, // 未指定时间范围时的默认查询跨度(天)
-      "UseLogTimeAsTimestamp": true, // 是否用日志业务时间覆盖 _timestamp
-      "TimestampAllowedUptoHours": 5 // 覆盖 _timestamp 的最大回溯小时数, 需与服务端 ZO_INGEST_ALLOWED_UPTO 一致
+      "Organization": null, // Tổ chức sở hữu luồng dữ liệu, khi để trống sẽ dùng OpenObserve:Organization
+      "AuditLogStream": "audit_log", // Luồng dữ liệu chính của nhật ký kiểm toán (gốc)
+      "SecurityLogStream": "security_log", // Luồng dữ liệu nhật ký bảo mật
+      "WriteEntityChanges": true, // Có làm phẳng các thay đổi thực thể và ghi vào {AuditLogStream}_entity_changes hay không
+      "WriteActions": true, // Có làm phẳng các thao tác và ghi vào {AuditLogStream}_actions hay không
+      "DefaultQueryDays": 365, // Khoảng truy vấn mặc định (ngày) khi không chỉ định phạm vi thời gian
+      "UseLogTimeAsTimestamp": true, // Có dùng thời gian nghiệp vụ của nhật ký để ghi đè _timestamp hay không
+      "TimestampAllowedUptoHours": 5 // Số giờ lùi tối đa khi ghi đè _timestamp, cần khớp với ZO_INGEST_ALLOWED_UPTO ở phía máy chủ
     }
   }
 }
 ```
 
-> 子数据流名称由 `AuditLogStream` 计算(实体变更 = `{AuditLogStream}_entity_changes`, 操作 = `{AuditLogStream}_actions`), 无需单独配置。
+> Tên luồng dữ liệu con được tính từ `AuditLogStream` (thay đổi thực thể = `{AuditLogStream}_entity_changes`, thao tác = `{AuditLogStream}_actions`), không cần cấu hình riêng.
 
-## 数据库连接配置
+## Cấu hình chuỗi kết nối cơ sở dữ liệu
 
 ```json
 {
@@ -141,16 +141,16 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 高级功能
+## Tính năng nâng cao
 
-### 忽略特定类型
+### Bỏ qua các kiểu cụ thể
 
-默认情况下，模块会忽略以下类型的审计日志：
+Theo mặc định, mô-đun sẽ bỏ qua nhật ký kiểm toán của các kiểu sau:
 
 - CancellationToken
 - CancellationTokenSource
 
-你可以通过配置添加更多需要忽略的类型：
+Bạn có thể thêm các kiểu cần bỏ qua khác thông qua cấu hình:
 
 ```csharp
 Configure<AbpAuditingOptions>(options =>
@@ -159,11 +159,11 @@ Configure<AbpAuditingOptions>(options =>
 });
 ```
 
-## 特殊说明
+## Lưu ý đặc biệt
 
-- Elasticsearch 实现支持跨租户，将根据租户自动切换索引
-- EntityFrameworkCore 实现主要作为桥梁，具体实现交由 Abp 官方模块管理
-- OpenObserve 实现同样按租户隔离数据流，租户数据流形如 `audit_log_{tenantId:N}`：写入按日志自身的租户，查询按当前租户，命名规则可通过 `IOpenObserveStreamNameNormalizer` 覆写
-- OpenObserve 为 append-only 存储且不支持 SQL `DELETE`/`UPDATE`，因此 `IAuditLogManager.DeleteAsync`/`DeleteManyAsync` 会抛出业务异常 `AuditLoggingOpenObserve:010001`（"当前日志设施不支持删除记录!"），数据清理请在 OpenObserve 侧配置保留策略或使用其按时间范围删除接口
-- OpenObserve 会把嵌套数组保存为 JSON 字符串列（列名即字段名），因此实体变更与操作分别展平写入独立数据流；操作的 `Actions.*` 条件采用两段式查询（先在操作数据流匹配 `auditlogid`，再回主数据流按 `id in (...)` 过滤）
-- 数据流由 OpenObserve 在首次写入时自动创建，模块不探测、不创建、不修改数据流设置；查询尚未创建的数据流时返回空结果并记录警告日志
+- Triển khai Elasticsearch hỗ trợ đa tenant, sẽ tự động chuyển đổi chỉ mục theo tenant
+- Triển khai EntityFrameworkCore chủ yếu đóng vai trò cầu nối, việc triển khai cụ thể do mô-đun chính thức của Abp quản lý
+- Triển khai OpenObserve cũng cách ly luồng dữ liệu theo tenant, luồng dữ liệu của tenant có dạng `audit_log_{tenantId:N}`: ghi theo tenant của chính nhật ký, truy vấn theo tenant hiện tại, quy tắc đặt tên có thể ghi đè qua `IOpenObserveStreamNameNormalizer`
+- OpenObserve là bộ nhớ chỉ thêm (append-only) và không hỗ trợ SQL `DELETE`/`UPDATE`, do đó `IAuditLogManager.DeleteAsync`/`DeleteManyAsync` sẽ ném ngoại lệ nghiệp vụ `AuditLoggingOpenObserve:010001` ("Cơ sở nhật ký hiện tại không hỗ trợ xóa bản ghi!"), việc dọn dẹp dữ liệu hãy cấu hình chính sách lưu giữ ở phía OpenObserve hoặc dùng giao diện xóa theo phạm vi thời gian của nó
+- OpenObserve sẽ lưu mảng lồng nhau dưới dạng cột chuỗi JSON (tên cột chính là tên trường), do đó các thay đổi thực thể và thao tác được làm phẳng và ghi vào các luồng dữ liệu độc lập; điều kiện `Actions.*` của thao tác dùng truy vấn hai đoạn (trước tiên khớp `auditlogid` trong luồng dữ liệu thao tác, sau đó lọc lại trong luồng dữ liệu chính theo `id in (...)`)
+- Luồng dữ liệu được OpenObserve tự động tạo khi ghi lần đầu, mô-đun không thăm dò, không tạo, không sửa đổi cài đặt luồng dữ liệu; khi truy vấn luồng dữ liệu chưa được tạo sẽ trả về kết quả rỗng và ghi nhật ký cảnh báo

@@ -33,11 +33,11 @@ const abpStore = useAbpStore();
 
 const users = ref<IdentityUserDto[]>([]);
 
-/** 获取登录用户会话Id */
+/** Lấy ID phiên của người dùng đã đăng nhập */
 const getMySessionId = computed(() => {
   return abpStore.application?.currentUser.sessionId;
 });
-/** 获取是否允许撤销会话 */
+/** Lấy trạng thái có cho phép thu hồi phiên hay không */
 const getAllowRevokeSession = computed(() => {
   return (session: IdentitySessionDto) => {
     return getMySessionId.value !== session.sessionId;
@@ -45,7 +45,7 @@ const getAllowRevokeSession = computed(() => {
 });
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: false,
   schema: [
     {
@@ -70,9 +70,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Khi nhấn Enter có gửi form hay không
   submitOnEnter: true,
 };
 

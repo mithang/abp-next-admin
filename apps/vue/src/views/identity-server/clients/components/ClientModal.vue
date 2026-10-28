@@ -22,7 +22,7 @@
         :tabBarStyle="tabsStyle.tabBarStyle"
         @change="handleChangeTab"
       >
-        <!-- 基本信息 -->
+        <!-- Thông tin cơ bản -->
         <TabPane key="basic" :tab="L('Basics')">
           <FormItem name="enabled" :label="L('Enabled')">
             <Checkbox v-model:checked="modelRef.enabled">{{ L('Enabled') }}</Checkbox>
@@ -86,7 +86,7 @@
           <component :is="componentsRef[urlsComponent]" :modelRef="modelRef" />
         </TabPane>
 
-        <!-- 资源 -->
+        <!-- Tài nguyên -->
         <TabPane key="resources">
           <template #tab>
             <Dropdown>
@@ -105,7 +105,7 @@
           <component :is="componentsRef[resourcesComponent]" :modelRef="modelRef" />
         </TabPane>
 
-        <!-- 认证/注销 -->
+        <!-- Xác thực/Đăng xuất -->
         <TabPane key="authentication" :tab="L('Authentication')">
           <FormItem
             name="frontChannelLogoutSessionRequired"
@@ -130,7 +130,7 @@
           </FormItem>
         </TabPane>
 
-        <!-- 令牌 -->
+        <!-- Token -->
         <TabPane key="token" :tab="L('Token')">
           <FormItem name="identityTokenLifetime" :label="L('Client:IdentityTokenLifetime')">
             <InputNumber class="input-number" v-model:value="modelRef.identityTokenLifetime" />
@@ -214,7 +214,7 @@
           </FormItem>
         </TabPane>
 
-        <!-- 同意屏幕 -->
+        <!-- Màn hình đồng ý -->
         <TabPane key="consent" :tab="L('Consent')">
           <FormItem name="requireConsent" :label="L('Client:RequireConsent')">
             <Checkbox v-model:checked="modelRef.requireConsent">{{
@@ -234,7 +234,7 @@
           </FormItem>
         </TabPane>
 
-        <!-- 设备流程 -->
+        <!-- Luồng thiết bị -->
         <TabPane key="deviceFlow" :tab="L('DeviceFlow')">
           <FormItem name="userCodeType" :label="L('Client:UserCodeType')">
             <BInput v-model:value="modelRef.userCodeType" />
@@ -244,7 +244,7 @@
           </FormItem>
         </TabPane>
 
-        <!-- 高级 -->
+        <!-- Nâng cao -->
         <TabPane key="advanced">
           <template #tab>
             <Dropdown>

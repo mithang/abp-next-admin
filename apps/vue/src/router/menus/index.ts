@@ -53,7 +53,7 @@ const staticMenus: Menu[] = [];
 
 async function getAsyncMenus() {
   const permissionStore = usePermissionStore();
-  //递归过滤所有隐藏的菜单
+  //Lọc đệ quy tất cả các menu bị ẩn
   const menuFilter = (items) => {
     return items.filter((item) => {
       const show = !item.meta?.hideMenu && !item.hideMenu;

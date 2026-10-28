@@ -1,5 +1,5 @@
 /**
- * 该文件可自行根据业务逻辑进行调整
+ * Tệp này có thể tự điều chỉnh theo logic nghiệp vụ
  */
 import type { RequestClientOptions } from '@vben/request';
 

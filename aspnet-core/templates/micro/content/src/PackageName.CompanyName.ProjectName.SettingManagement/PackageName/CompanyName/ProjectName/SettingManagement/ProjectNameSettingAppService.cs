@@ -45,7 +45,7 @@ public class ProjectNameSettingAppService : ApplicationService, IProjectNameSett
     [Authorize(ProjectNamePermissions.ManageSettings)]
     public virtual async Task SetCurrentTenantAsync(UpdateSettingsDto input)
     {
-        // 增加特性检查
+        // Thêm kiểm tra tính năng
         await CheckFeatureAsync();
 
         if (CurrentTenant.IsAvailable)
@@ -60,7 +60,7 @@ public class ProjectNameSettingAppService : ApplicationService, IProjectNameSett
     [Authorize]
     public virtual async Task SetCurrentUserAsync(UpdateSettingsDto input)
     {
-        // 增加特性检查
+        // Thêm kiểm tra tính năng
         await CheckFeatureAsync();
 
         foreach (var setting in input.Settings)
@@ -72,7 +72,7 @@ public class ProjectNameSettingAppService : ApplicationService, IProjectNameSett
     [Authorize(ProjectNamePermissions.ManageSettings)]
     public virtual async Task SetGlobalAsync(UpdateSettingsDto input)
     {
-        // 增加特性检查
+        // Thêm kiểm tra tính năng
         await CheckFeatureAsync();
 
         foreach (var setting in input.Settings)
@@ -91,7 +91,7 @@ public class ProjectNameSettingAppService : ApplicationService, IProjectNameSett
     {
         var settingGroups = new SettingGroupResult();
 
-        //TODO: 当前项目所有配置项在此定义返回
+        //TODO: Tất cả các mục cấu hình của dự án hiện tại được định nghĩa và trả về tại đây
 
         await Task.CompletedTask;
 

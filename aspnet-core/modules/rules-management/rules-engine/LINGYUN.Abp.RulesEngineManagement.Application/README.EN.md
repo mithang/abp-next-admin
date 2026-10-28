@@ -43,4 +43,4 @@ The application service implementation layer of the rules engine management modu
 * LINGYUN.Abp.RulesEngineManagement.Application.Contracts
 * LINGYUN.Abp.RulesEngineManagement.Domain
 
-[查看中文文档](README.md)
+[Tiếng Việt](README.md)

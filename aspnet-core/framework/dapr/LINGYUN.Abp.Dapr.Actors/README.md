@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Dapr.Actors
 
-Dapr.IActor客户端代理模块
+Mô-đun proxy client Dapr.IActor
 
-## 功能特性
+## Tính năng
 
-* Dapr Actors的动态代理生成
-* 与ABP远程服务系统集成
-* 支持Actor认证和授权
-* 多租户支持
-* 自动请求/响应处理
-* 自定义错误处理
-* 文化和语言标头支持
+* Tạo proxy động cho Dapr Actors
+* Tích hợp với hệ thống dịch vụ từ xa ABP
+* Hỗ trợ xác thực và phân quyền Actor
+* Hỗ trợ đa tenant
+* Xử lý yêu cầu/phản hồi tự động
+* Xử lý lỗi tùy chỉnh
+* Hỗ trợ tiêu đề văn hóa và ngôn ngữ
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpDaprActorsModule))]
@@ -22,32 +22,32 @@ public class YouProjectModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 注册代理类似于 Volo.Abp.Http.Client 模块
+        // Đăng ký proxy tương tự như mô-đun Volo.Abp.Http.Client
         context.Services.AddDaprActorProxies(
-            typeof(YouProjectActorInterfaceModule).Assembly, // 搜索 YouProjectActorInterfaceModule 模块下的IActor定义
+            typeof(YouProjectActorInterfaceModule).Assembly, // Tìm kiếm định nghĩa IActor trong mô-đun YouProjectActorInterfaceModule
             RemoteServiceName
         );
     }
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
 ```json
 {
     "RemoteServices": {
         "Default": {
-            "BaseUrl": "http://localhost:3500",  // 必需，Dapr HTTP端点
-            "DaprApiToken": "your-api-token",    // 可选，Dapr API Token
-            "RequestTimeout": "30000"            // 可选，请求超时时间（毫秒，默认：30000）
+            "BaseUrl": "http://localhost:3500",  // Bắt buộc, endpoint HTTP Dapr
+            "DaprApiToken": "your-api-token",    // Tùy chọn, Dapr API Token
+            "RequestTimeout": "30000"            // Tùy chọn, thời gian chờ yêu cầu (mili giây, mặc định: 30000)
         }
     }
 }
 ```
 
-## 实现示例
+## Ví dụ triển khai
 
-1. Actor接口定义
+1. Định nghĩa giao diện Actor
 
 ```csharp
 public interface ICounterActor : IActor
@@ -57,7 +57,7 @@ public interface ICounterActor : IActor
 }
 ```
 
-2. Actor实现
+2. Triển khai Actor
 
 ```csharp
 public class CounterActor : Actor, ICounterActor
@@ -82,7 +82,7 @@ public class CounterActor : Actor, ICounterActor
 }
 ```
 
-3. 客户端使用
+3. Sử dụng phía client
 
 ```csharp
 public class CounterService
@@ -103,27 +103,27 @@ public class CounterService
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-* Actor方法必须返回`Task`或`Task<T>`
-* Actor方法最多只能有一个参数
-* Actor实例是单线程的，一次只能处理一个请求
-* Actor状态由Dapr运行时管理
-* 模块自动处理：
-  * 认证标头
-  * 租户上下文
-  * 文化信息
-  * 请求超时
-  * 错误处理
+* Phương thức Actor phải trả về `Task` hoặc `Task<T>`
+* Phương thức Actor tối đa chỉ có một tham số
+* Thể hiện Actor là đơn luồng, mỗi lần chỉ xử lý một yêu cầu
+* Trạng thái Actor do runtime Dapr quản lý
+* Mô-đun tự động xử lý:
+  * Tiêu đề xác thực
+  * Ngữ cảnh tenant
+  * Thông tin văn hóa
+  * Hết thời gian chờ yêu cầu
+  * Xử lý lỗi
 
-## 错误处理
+## Xử lý lỗi
 
-模块为Actor调用提供自定义错误处理：
-* `AbpDaprActorCallException`：当Actor方法调用失败时抛出
-* `ActorMethodInvocationException`：包含有关失败的详细信息
-* 错误响应包括：
-  * 错误消息
-  * 错误代码
-  * 原始异常类型
+Mô-đun cung cấp xử lý lỗi tùy chỉnh cho lời gọi Actor:
+* `AbpDaprActorCallException`：Được ném ra khi lời gọi phương thức Actor thất bại
+* `ActorMethodInvocationException`：Chứa thông tin chi tiết về lỗi
+* Phản hồi lỗi bao gồm:
+  * Thông điệp lỗi
+  * Mã lỗi
+  * Kiểu ngoại lệ gốc
 
-[查看更多](README.EN.md)
+[Xem thêm](README.EN.md)

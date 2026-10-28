@@ -1,19 +1,19 @@
 ﻿namespace LINGYUN.Abp.WeChat.Work.Authorize.Models;
 /// <summary>
-/// 性别
+/// Giới tính
 /// </summary>
 public enum WeChatWorkGender
 {
     /// <summary>
-    /// 未定义
+    /// Chưa xác định
     /// </summary>
     None = 0,
     /// <summary>
-    /// 男性
+    /// Nam
     /// </summary>
     Man = 1,
     /// <summary>
-    /// 女性
+    /// Nữ
     /// </summary>
     Women = 2
 }

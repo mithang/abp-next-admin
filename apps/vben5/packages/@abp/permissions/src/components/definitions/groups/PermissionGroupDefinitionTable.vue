@@ -42,7 +42,7 @@ const { deserialize } = useLocalizationSerializer();
 const { deleteApi, getListApi } = usePermissionGroupDefinitionsApi();
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: false,
   handleReset: onReset,
   async handleSubmit(params) {
@@ -56,9 +56,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Kiểm soát form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Nhấn Enter có submit form hay không
   submitOnEnter: true,
 };
 

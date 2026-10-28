@@ -120,4 +120,4 @@ The module automatically maps the following Actor endpoints:
 * `/dapr/actors/{actorType}/{actorId}/reminders/{reminderName}`
 * `/dapr/actors/{actorType}/{actorId}/timers/{timerName}`
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

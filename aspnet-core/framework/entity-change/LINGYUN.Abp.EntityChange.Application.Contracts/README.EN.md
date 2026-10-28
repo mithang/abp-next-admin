@@ -39,4 +39,4 @@ The module provides localization resources in the following languages:
 
 Localization resources are located in the `/LINGYUN/Abp/EntityChange/Localization/Resources` directory.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

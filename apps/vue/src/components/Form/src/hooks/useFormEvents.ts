@@ -106,7 +106,7 @@ export function useFormEvents({
       .map((item) => item.field)
       .filter(Boolean);
 
-    // key 支持 a.b.c 的嵌套写法
+    // key hỗ trợ cách viết lồng nhau dạng a.b.c
     const delimiter = '.';
     const nestKeyArray = fields.filter((item) => String(item).indexOf(delimiter) >= 0);
 

@@ -23,7 +23,7 @@
       type: String as PropType<MODE>,
       default: MODE.JSON,
       validator(value: any) {
-        // 这个值必须匹配下列字符串中的一个
+        // Giá trị này phải khớp với một trong các chuỗi dưới đây
         return Object.values(MODE).includes(value);
       },
     },

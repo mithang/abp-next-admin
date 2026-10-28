@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 关联审批单控件值
+/// Giá trị điều khiển phiếu phê duyệt liên kết
 /// </summary>
 public class RelatedApprovalControlValue : ControlValue
 {
     /// <summary>
-    /// 关联审批单
+    /// Phiếu phê duyệt liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("related_approval")]
@@ -30,7 +30,7 @@ public class RelatedApprovalControlValue : ControlValue
 public class RelatedApprovalValue
 {
     /// <summary>
-    /// 关联审批单的审批单号
+    /// Số phiếu phê duyệt của phiếu phê duyệt liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("sp_no")]

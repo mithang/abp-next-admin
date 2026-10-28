@@ -3,31 +3,31 @@
 public class Group
 {
     /// <summary>
-    /// 群组标识
+    /// Mã định danh nhóm
     /// </summary>
     public string Id { get; set; } = default!;
     /// <summary>
-    /// 群组名称
+    /// Tên nhóm
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 群组头像
+    /// Ảnh đại diện nhóm
     /// </summary>
     public string? AvatarUrl { get; set; }
     /// <summary>
-    /// 允许匿名聊天
+    /// Cho phép trò chuyện ẩn danh
     /// </summary>
     public bool AllowAnonymous { get; set; }
     /// <summary>
-    /// 允许发送消息
+    /// Cho phép gửi tin nhắn
     /// </summary>
     public bool AllowSendMessage { get; set; }
     /// <summary>
-    /// 最大用户数
+    /// Số người dùng tối đa
     /// </summary>
     public int MaxUserLength { get; set; }
     /// <summary>
-    /// 群组用户数
+    /// Số người dùng trong nhóm
     /// </summary>
     public int GroupUserCount { get; set; }
 }

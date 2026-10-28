@@ -9,7 +9,7 @@
     position: relative;
 
     .moving {
-      // 拖放移动中;
+      // Đang di chuyển khi kéo thả;
       min-height: 35px;
       box-sizing: border-box;
       overflow: hidden;
@@ -39,7 +39,7 @@
         background-color: @primary-hover-bg-color;
       }
 
-      // 选择时 start
+      // Khi chọn start
       &::before {
         content: '';
         height: 5px;
@@ -60,7 +60,7 @@
         }
       }
 
-      // 选择时 end
+      // Khi chọn end
       .form-item-box {
         position: relative;
         box-sizing: border-box;
@@ -76,14 +76,14 @@
         }
 
         .ant-form-item {
-          // 修改ant form-item的margin为padding
+          // Đổi margin của ant form-item thành padding
           margin: 0;
           padding-bottom: 6px;
         }
       }
 
       .show-key-box {
-        // 显示key
+        // Hiển thị key
         position: absolute;
         bottom: 2px;
         right: 5px;
@@ -140,7 +140,7 @@
         box-sizing: border-box;
 
         .ant-form-item {
-          // 修改ant form-item的margin为padding
+          // Đổi margin của ant form-item thành padding
           margin: 0;
           padding-bottom: 15px;
         }
@@ -165,7 +165,7 @@
         }
       }
 
-      // 选择时 start
+      // Khi chọn start
       &::before {
         content: '';
         height: 5px;
@@ -186,7 +186,7 @@
           right: 0;
         }
       }
-      // 选择时 end
+      // Khi chọn end
       > .copy-delete-box {
         > .copy,
         > .delete {

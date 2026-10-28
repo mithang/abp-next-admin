@@ -16,7 +16,7 @@ using Volo.Abp.Users;
 
 namespace LINGYUN.Abp.MicroService.IdentityService.Handlers;
 /// <summary>
-/// 会话控制事件处理器
+/// Bộ xử lý sự kiện kiểm soát phiên
 /// </summary>
 public class IdentitySessionAccessEventHandler :
     IDistributedEventHandler<IdentityUserSessionPasswordChangedEto>,
@@ -48,7 +48,7 @@ public class IdentitySessionAccessEventHandler :
     [UnitOfWork]
     public async virtual Task HandleEventAsync(EntityCreatedEto<IdentitySessionEto> eventData)
     {
-        // 新会话创建时检查登录策略
+        // Khi tạo phiên mới, kiểm tra chính sách đăng nhập
         var lockKey = $"{nameof(IdentitySessionAccessEventHandler)}_{nameof(EntityCreatedEto<IdentitySessionEto>)}";
         await using (var handle = await DistributedLock.TryAcquireAsync(lockKey))
         {
@@ -67,7 +67,7 @@ public class IdentitySessionAccessEventHandler :
     [UnitOfWork]
     public async virtual Task HandleEventAsync(EntityDeletedEto<UserEto> eventData)
     {
-        // 用户被删除, 移除所有会话
+        // Người dùng bị xóa, gỡ bỏ mọi phiên
         var lockKey = $"{nameof(IdentitySessionAccessEventHandler)}_{nameof(EntityDeletedEto<UserEto>)}";
         await using (var handle = await DistributedLock.TryAcquireAsync(lockKey))
         {
@@ -89,7 +89,7 @@ public class IdentitySessionAccessEventHandler :
     {
         if (!eventData.SessionId.IsNullOrWhiteSpace())
         {
-            // 用户密码更新使会话过期
+            // Cập nhật mật khẩu người dùng làm phiên hết hạn
             var lockKey = $"{nameof(IdentitySessionAccessEventHandler)}_{nameof(IdentityUserSessionPasswordChangedEto)}";
             await using var handle = await DistributedLock.TryAcquireAsync(lockKey);
 
@@ -112,7 +112,7 @@ public class IdentitySessionAccessEventHandler :
     [UnitOfWork]
     public async virtual Task HandleEventAsync(IdentitySessionChangeAccessedEvent eventData)
     {
-        // 会话访问更新
+        // Cập nhật truy cập phiên
         var lockKey = $"{nameof(IdentitySessionAccessEventHandler)}_{nameof(IdentitySessionChangeAccessedEvent)}";
         await using (var handle = await DistributedLock.TryAcquireAsync(lockKey))
         {
@@ -142,7 +142,7 @@ public class IdentitySessionAccessEventHandler :
             }
             else
             {
-                // 数据库中不存在会话, 清理缓存, 后续请求会话失效
+                // Phiên không tồn tại trong cơ sở dữ liệu, dọn bộ nhớ đệm, các request sau đó phiên sẽ không còn hiệu lực
                 await IdentitySessionCache.RemoveAsync(eventData.SessionId);
 
                 Logger.LogWarning("User session {SessionId} is invalid. Remove all session caches.", eventData.SessionId);
@@ -152,7 +152,7 @@ public class IdentitySessionAccessEventHandler :
 
     protected async virtual Task CheckConcurrentLoginStrategy(IdentitySessionEto session)
     {
-        // 创建一个会话后根据策略使其他会话失效
+        // Sau khi tạo một phiên, theo chính sách làm các phiên khác mất hiệu lực
         var strategySet = await SettingProvider.GetOrNullAsync(IdentitySettingNames.Session.ConcurrentLoginStrategy);
 
         Logger.LogDebug($"The concurrent login strategy is: {strategySet}");
@@ -161,7 +161,7 @@ public class IdentitySessionAccessEventHandler :
         {
             switch (strategy)
             {
-                // 限制用户相同设备
+                // Giới hạn thiết bị giống nhau của người dùng
                 case ConcurrentLoginStrategy.LogoutFromSameTypeDevicesLimit:
 
                     var sameTypeDevicesCountSet = await SettingProvider.GetAsync(IdentitySettingNames.Session.LogoutFromSameTypeDevicesLimit, 1);
@@ -174,7 +174,7 @@ public class IdentitySessionAccessEventHandler :
                         session.Id,
                         sameTypeDevicesCountSet);
                     break;
-                // 限制登录设备
+                // Giới hạn thiết bị đăng nhập
                 case ConcurrentLoginStrategy.LogoutFromSameTypeDevices:
 
                     Logger.LogDebug($"Clear all other sessions on the device {session.Device}.");
@@ -184,7 +184,7 @@ public class IdentitySessionAccessEventHandler :
                         session.Device,
                         session.Id);
                     break;
-                // 限制多端登录
+                // Giới hạn đăng nhập đa thiết bị
                 case ConcurrentLoginStrategy.LogoutFromAllDevices:
 
                     Logger.LogDebug($"Clear all other user sessions.");

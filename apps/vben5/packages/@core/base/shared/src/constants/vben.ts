@@ -1,10 +1,10 @@
 /**
- * @zh_CN GITHUB 仓库地址
+ * @zh_CN Địa chỉ kho GITHUB
  */
 export const VBEN_GITHUB_URL = 'https://github.com/vbenjs/vue-vben-admin';
 
 /**
- * @zh_CN 文档地址
+ * @zh_CN Địa chỉ tài liệu
  */
 export const VBEN_DOC_URL = 'https://doc.vben.pro';
 
@@ -15,7 +15,7 @@ export const VBEN_LOGO_URL =
   'https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp';
 
 /**
- * @zh_CN Vben Admin 首页地址
+ * @zh_CN Địa chỉ trang chủ Vben Admin
  */
 export const VBEN_PREVIEW_URL = 'https://www.vben.pro';
 

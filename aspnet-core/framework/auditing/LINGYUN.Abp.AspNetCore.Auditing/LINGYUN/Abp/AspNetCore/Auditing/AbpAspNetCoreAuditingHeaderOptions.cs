@@ -4,11 +4,11 @@ namespace LINGYUN.Abp.AspNetCore.Auditing;
 public class AbpAspNetCoreAuditingHeaderOptions
 {
     /// <summary>
-    /// 是否在审计日志中记录Http请求头,默认: true
+    /// Có ghi lại header của yêu cầu Http trong nhật ký kiểm toán hay không, mặc định: true
     /// </summary>
     public bool IsEnabled {  get; set; }
     /// <summary>
-    /// 要记录的Http请求头
+    /// Các header của yêu cầu Http cần ghi lại
     /// </summary>
     public IList<string> HttpHeaders { get; }
     public AbpAspNetCoreAuditingHeaderOptions()

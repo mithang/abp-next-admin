@@ -28,14 +28,14 @@ class MainController extends GetxController {
     _subscriptionService.addOne(_signalrService.onClose(logger.debug));
     _subscriptionService.addOne(_signalrService.onReconnected(logger.debug));
     _subscriptionService.addOne(_signalrService.onReconnecting(logger.debug));
-    // 在SignalR Hub之上再次订阅，用于全局通知启用按钮来管理
+    // Đăng ký lại trên SignalR Hub, để nút bật thông báo toàn cục quản lý
     _subscriptionService.subscribe(
-      // 订阅SignalR Hub
+      // Đăng ký SignalR Hub
       _signalrService.subscribe(NotificationTokens.receiver),
       next: (message) async {
         for (var data in message.data) {
           if (data == null) continue;
-          // 解析通知数据
+          // Phân tích dữ liệu thông báo
           var notification = NotificationInfo.fromJson(data as dynamic);
           _notificationStateService.addNotification(notification);
         }

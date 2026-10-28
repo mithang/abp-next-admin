@@ -1,54 +1,54 @@
 /**
- * 检查传入的值是否为undefined。
+ * Kiểm tra giá trị truyền vào có phải là undefined hay không.
  *
- * @param {unknown} value 要检查的值。
- * @returns {boolean} 如果值是undefined，返回true，否则返回false。
+ * @param {unknown} value Giá trị cần kiểm tra.
+ * @returns {boolean} Trả về true nếu giá trị là undefined, ngược lại trả về false.
  */
 function isUndefined(value?: unknown): value is undefined {
 	return value === undefined;
 }
 
 /**
- * 检查传入的值是否为boolean
+ * Kiểm tra giá trị truyền vào có phải là boolean hay không
  * @param value
- * @returns 如果值是布尔值，返回true，否则返回false。
+ * @returns Trả về true nếu giá trị là giá trị boolean, ngược lại trả về false.
  */
 function isBoolean(value: unknown): value is boolean {
 	return typeof value === "boolean";
 }
 
 /**
- * 检查传入的字符串是否为有效的HTTP或HTTPS URL。
+ * Kiểm tra chuỗi truyền vào có phải là URL HTTP hoặc HTTPS hợp lệ hay không.
  *
- * @param {string} url 要检查的字符串。
- * @return {boolean} 如果字符串是有效的HTTP或HTTPS URL，返回true，否则返回false。
+ * @param {string} url Chuỗi cần kiểm tra.
+ * @return {boolean} Trả về true nếu chuỗi là URL HTTP hoặc HTTPS hợp lệ, ngược lại trả về false.
  */
 function isHttpUrl(url?: string): boolean {
 	if (!url) {
 		return false;
 	}
-	// 使用正则表达式测试URL是否以http:// 或 https:// 开头
+	// Dùng biểu thức chính quy để kiểm tra URL có bắt đầu bằng http:// hoặc https:// hay không
 	const httpRegex = /^https?:\/\/.*$/;
 	return httpRegex.test(url);
 }
 
 /**
- * 检查传入的值是否为window对象。
+ * Kiểm tra giá trị truyền vào có phải là đối tượng window hay không.
  *
- * @param {any} value 要检查的值。
- * @returns {boolean} 如果值是window对象，返回true，否则返回false。
+ * @param {any} value Giá trị cần kiểm tra.
+ * @returns {boolean} Trả về true nếu giá trị là đối tượng window, ngược lại trả về false.
  */
 function isWindow(value: any): value is Window {
 	return typeof window !== "undefined" && value !== null && value === value.window;
 }
 
 /**
- * 检查当前运行环境是否为Mac OS。
+ * Kiểm tra môi trường chạy hiện tại có phải là Mac OS hay không.
  *
- * 这个函数通过检查navigator.userAgent字符串来判断当前运行环境。
- * 如果userAgent字符串中包含"macintosh"或"mac os x"（不区分大小写），则认为当前环境是Mac OS。
+ * Hàm này xác định môi trường chạy hiện tại bằng cách kiểm tra chuỗi navigator.userAgent.
+ * Nếu chuỗi userAgent chứa "macintosh" hoặc "mac os x" (không phân biệt chữ hoa/thường) thì môi trường hiện tại được coi là Mac OS.
  *
- * @returns {boolean} 如果当前环境是Mac OS，返回true，否则返回false。
+ * @returns {boolean} Trả về true nếu môi trường hiện tại là Mac OS, ngược lại trả về false.
  */
 function isMacOs(): boolean {
 	const macRegex = /macintosh|mac os x/i;
@@ -56,12 +56,12 @@ function isMacOs(): boolean {
 }
 
 /**
- * 检查当前运行环境是否为Windows OS。
+ * Kiểm tra môi trường chạy hiện tại có phải là Windows OS hay không.
  *
- * 这个函数通过检查navigator.userAgent字符串来判断当前运行环境。
- * 如果userAgent字符串中包含"windows"或"win32"（不区分大小写），则认为当前环境是Windows OS。
+ * Hàm này xác định môi trường chạy hiện tại bằng cách kiểm tra chuỗi navigator.userAgent.
+ * Nếu chuỗi userAgent chứa "windows" hoặc "win32" (không phân biệt chữ hoa/thường) thì môi trường hiện tại được coi là Windows OS.
  *
- * @returns {boolean} 如果当前环境是Windows OS，返回true，否则返回false。
+ * @returns {boolean} Trả về true nếu môi trường hiện tại là Windows OS, ngược lại trả về false.
  */
 function isWindowsOs(): boolean {
 	const windowsRegex = /windows|win32/i;
@@ -69,7 +69,7 @@ function isWindowsOs(): boolean {
 }
 
 /**
- * 检查传入的值是否为数字
+ * Kiểm tra giá trị truyền vào có phải là số hay không
  * @param value
  */
 function isNumber(value: any): value is number {

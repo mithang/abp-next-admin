@@ -5,22 +5,20 @@ import type {
 } from '@abp/core';
 
 interface EditionDto
-  extends ExtensibleAuditedEntityDto<string>,
-    IHasConcurrencyStamp {
-  /** 显示名称 */
+  extends ExtensibleAuditedEntityDto<string>, IHasConcurrencyStamp {
+  /** Tên hiển thị */
   displayName: string;
 }
 
 interface EditionCreateOrUpdateBase {
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
 }
 
 type EditionCreateDto = EditionCreateOrUpdateBase;
 
 interface EditionUpdateDto
-  extends EditionCreateOrUpdateBase,
-    IHasConcurrencyStamp {}
+  extends EditionCreateOrUpdateBase, IHasConcurrencyStamp {}
 
 interface GetEditionPagedListInput extends PagedAndSortedResultRequestDto {
   filter?: string;

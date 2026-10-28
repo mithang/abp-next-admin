@@ -1,27 +1,27 @@
 # LINGYUN.Abp.IdentityServer.Portal
 
-IdentityServer门户认证模块，提供企业门户的认证功能。
+Mô-đun xác thực cổng IdentityServer, cung cấp chức năng xác thực cho cổng doanh nghiệp.
 
-## 功能特性
+## Tính năng
 
-* 门户认证
-  * `PortalGrantValidator` - 门户授权验证器
-    * 支持企业门户登录
-    * 支持多租户认证
-    * 自动切换租户
-    * 企业信息验证
-    * 用户密码验证
-    * 安全日志记录
+* Xác thực cổng
+  * `PortalGrantValidator` - Trình xác thực ủy quyền cổng
+    * Hỗ trợ đăng nhập cổng doanh nghiệp
+    * Hỗ trợ xác thực đa tenant
+    * Tự động chuyển tenant
+    * Xác thực thông tin doanh nghiệp
+    * Xác thực mật khẩu người dùng
+    * Ghi nhật ký bảo mật
 
-* 认证流程
-  1. 用户使用portal发起登录请求
-  2. 检查是否携带企业标识字段(EnterpriseId)
-     * 未携带EnterpriseId: 返回关联了租户信息的企业列表
-     * 携带EnterpriseId: 检索关联租户信息并切换到指定租户
-  3. 使用password方式进行登录验证
-  4. 登录成功返回token
+* Quy trình xác thực
+  1. Người dùng dùng portal để gửi yêu cầu đăng nhập
+  2. Kiểm tra có mang theo trường định danh doanh nghiệp (EnterpriseId) hay không
+     * Chưa mang theo EnterpriseId: trả về danh sách doanh nghiệp đã liên kết thông tin tenant
+     * Đã mang theo EnterpriseId: truy xuất thông tin tenant liên kết và chuyển sang tenant chỉ định
+  3. Dùng phương thức password để xác thực đăng nhập
+  4. Đăng nhập thành công trả về token
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -33,15 +33,15 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `AbpIdentityServerDomainModule` - ABP IdentityServer领域模块
-* `AbpAspNetCoreMultiTenancyModule` - ABP多租户模块
-* `PlatformDomainModule` - 平台领域模块
+* `AbpIdentityServerDomainModule` - Mô-đun miền ABP IdentityServer
+* `AbpAspNetCoreMultiTenancyModule` - Mô-đun đa tenant ABP
+* `PlatformDomainModule` - Mô-đun miền nền tảng
 
-## 配置使用
+## Cấu hình và sử dụng
 
-### 配置门户认证
+### Cấu hình xác thực cổng
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -53,42 +53,42 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-### 认证请求参数
+### Tham số yêu cầu xác thực
 
-* `grant_type`: "portal" (必填)
-* `enterpriseId`: 企业标识 (可选)
-* `username`: 用户名 (必填)
-* `password`: 密码 (必填)
-* `scope`: 请求范围 (可选)
+* `grant_type`: "portal" (bắt buộc)
+* `enterpriseId`: Định danh doanh nghiệp (tùy chọn)
+* `username`: Tên người dùng (bắt buộc)
+* `password`: Mật khẩu (bắt buộc)
+* `scope`: Phạm vi yêu cầu (tùy chọn)
 
-### 认证响应
+### Phản hồi xác thực
 
-* 未提供enterpriseId时:
+* Khi chưa cung cấp enterpriseId:
 ```json
 {
     "error": "invalid_grant",
     "enterprises": [
         {
-            "id": "企业标识",
-            "name": "企业名称",
-            "code": "企业编码"
+            "id": "Định danh doanh nghiệp",
+            "name": "Tên doanh nghiệp",
+            "code": "Mã doanh nghiệp"
         }
     ]
 }
 ```
 
-* 认证成功:
+* Xác thực thành công:
 ```json
 {
-    "access_token": "访问令牌",
-    "expires_in": 有效期,
+    "access_token": "Mã truy cập",
+    "expires_in": Thời hạn hiệu lực,
     "token_type": "Bearer",
-    "refresh_token": "刷新令牌"
+    "refresh_token": "Mã làm mới"
 }
 ```
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP多租户文档](https://docs.abp.io/en/abp/latest/Multi-Tenancy)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu đa tenant ABP](https://docs.abp.io/en/abp/latest/Multi-Tenancy)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

@@ -1,80 +1,80 @@
 # LINGYUN.Abp.TaskManagement.HttpApi
 
-任务管理模块的HTTP API实现，提供用于管理后台作业的RESTful接口。
+Triển khai HTTP API của mô-đun quản lý tác vụ, cung cấp các giao diện RESTful để quản lý tác vụ nền.
 
-## 功能
+## Tính năng
 
-### 后台作业信息API
-- CRUD操作：
-  - 创建新作业
-  - 获取作业详情
-  - 更新作业属性
-  - 删除作业
-- 作业控制操作：
-  - 启动作业
-  - 停止作业
-  - 暂停作业
-  - 恢复作业
-  - 触发作业
-- 批量操作：
-  - 批量启动
-  - 批量停止
-  - 批量暂停
-  - 批量恢复
-  - 批量触发
-  - 批量删除
-- 查询操作：
-  - 获取分页作业列表
-  - 获取作业定义
-  - 过滤和排序作业
+### API thông tin tác vụ nền
+- Thao tác CRUD:
+  - Tạo tác vụ mới
+  - Lấy chi tiết tác vụ
+  - Cập nhật thuộc tính tác vụ
+  - Xóa tác vụ
+- Thao tác điều khiển tác vụ:
+  - Khởi động tác vụ
+  - Dừng tác vụ
+  - Tạm dừng tác vụ
+  - Tiếp tục tác vụ
+  - Kích hoạt tác vụ
+- Thao tác hàng loạt:
+  - Khởi động hàng loạt
+  - Dừng hàng loạt
+  - Tạm dừng hàng loạt
+  - Tiếp tục hàng loạt
+  - Kích hoạt hàng loạt
+  - Xóa hàng loạt
+- Thao tác truy vấn:
+  - Lấy danh sách tác vụ phân trang
+  - Lấy định nghĩa tác vụ
+  - Lọc và sắp xếp tác vụ
 
-### 后台作业行为API
-- 行为管理：
-  - 添加作业行为
-  - 更新行为属性
-  - 删除行为
-  - 获取行为列表
-- 行为定义：
-  - 获取可用行为定义
-  - 查询行为定义
+### API hành vi tác vụ nền
+- Quản lý hành vi:
+  - Thêm hành vi cho tác vụ
+  - Cập nhật thuộc tính hành vi
+  - Xóa hành vi
+  - Lấy danh sách hành vi
+- Định nghĩa hành vi:
+  - Lấy các định nghĩa hành vi khả dụng
+  - Truy vấn định nghĩa hành vi
 
-### 后台作业日志API
-- 日志操作：
-  - 获取日志详情
-  - 获取分页日志列表
-  - 删除日志
-- 日志过滤：
-  - 按作业过滤
-  - 按时间范围过滤
-  - 按状态过滤
+### API nhật ký tác vụ nền
+- Thao tác nhật ký:
+  - Lấy chi tiết nhật ký
+  - Lấy danh sách nhật ký phân trang
+  - Xóa nhật ký
+- Lọc nhật ký:
+  - Lọc theo tác vụ
+  - Lọc theo khoảng thời gian
+  - Lọc theo trạng thái
 
-### 授权
-- 基于权限的访问控制：
-  - 创建作业权限
-  - 更新作业权限
-  - 删除作业权限
-  - 触发作业权限
-  - 暂停作业权限
-  - 恢复作业权限
-  - 启动作业权限
-  - 停止作业权限
-  - 删除日志权限
+### Phân quyền
+- Kiểm soát truy cập dựa trên quyền:
+  - Quyền tạo tác vụ
+  - Quyền cập nhật tác vụ
+  - Quyền xóa tác vụ
+  - Quyền kích hoạt tác vụ
+  - Quyền tạm dừng tác vụ
+  - Quyền tiếp tục tác vụ
+  - Quyền khởi động tác vụ
+  - Quyền dừng tác vụ
+  - Quyền xóa nhật ký
 
-### API特性
-- RESTful接口
-- 基于HTTP方法的操作
-- 基于路由的API版本控制
-- 标准化的响应格式
-- 分页支持
-- 动态过滤和排序
+### Đặc tính API
+- Giao diện RESTful
+- Thao tác dựa trên phương thức HTTP
+- Kiểm soát phiên bản API dựa trên route
+- Định dạng phản hồi chuẩn hóa
+- Hỗ trợ phân trang
+- Lọc và sắp xếp động
 
-### 本地化
-- 多语言支持
-- 本地化错误消息
-- 本地化验证消息
+### Bản địa hóa
+- Hỗ trợ đa ngôn ngữ
+- Thông báo lỗi đã bản địa hóa
+- Thông báo kiểm tra hợp lệ đã bản địa hóa
 
-### 集成
-- ABP框架集成
-- MVC集成
-- 动态查询支持
-- 验证支持
+### Tích hợp
+- Tích hợp với framework ABP
+- Tích hợp MVC
+- Hỗ trợ truy vấn động
+- Hỗ trợ kiểm tra hợp lệ

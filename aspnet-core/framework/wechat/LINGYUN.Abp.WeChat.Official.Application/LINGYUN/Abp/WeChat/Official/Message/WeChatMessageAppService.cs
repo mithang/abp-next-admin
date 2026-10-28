@@ -33,7 +33,7 @@ public class WeChatMessageAppService : ApplicationService, IWeChatMessageAppServ
 
         Check.NotNull(options, nameof(options));
 
-        // 沙盒测试时，无需验证消息
+        // Khi kiểm thử sandbox, không cần xác thực thông báo
         if (options.IsSandBox)
         {
             return input.EchoStr;
@@ -72,7 +72,7 @@ public class WeChatMessageAppService : ApplicationService, IWeChatMessageAppServ
         if (result.Message == null)
         {
             Logger.LogWarning(input.Data);
-            Logger.LogWarning("解析消息失败, 无法处理微信消息.");
+            Logger.LogWarning("Phân tích thông báo thất bại, không thể xử lý thông báo WeChat.");
         }
         else
         {

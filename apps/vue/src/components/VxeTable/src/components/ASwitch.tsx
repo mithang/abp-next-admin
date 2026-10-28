@@ -34,11 +34,11 @@ export default {
               renderOpts,
               params,
               (value: any) => {
-                // 处理 model 值双向绑定
+                // Xử lý liên kết hai chiều của giá trị model
                 option.data = value;
               },
               () => {
-                // 处理 change 事件相关逻辑
+                // Xử lý logic liên quan đến sự kiện change
                 const { $panel } = params;
                 $panel.changeOption(null, XEUtils.isBoolean(option.data), option);
               },

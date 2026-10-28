@@ -8,13 +8,13 @@ namespace LINGYUN.Abp.MessageService.Groups;
 public interface IGroupAppService : IApplicationService
 {
     /// <summary>
-    /// 搜索群组
+    /// Tìm kiếm nhóm
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<PagedResultDto<Group>> SearchAsync(GroupSearchInput input);
     /// <summary>
-    /// 获取群组信息
+    /// Lấy thông tin nhóm
     /// </summary>
     /// <param name="groupId"></param>
     /// <returns></returns>

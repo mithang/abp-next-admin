@@ -1,14 +1,14 @@
 import type NProgress from 'nprogress';
 
-// 创建一个NProgress实例的变量，初始值为null
+// Tạo một biến cho instance NProgress, giá trị ban đầu là null
 let nProgressInstance: null | typeof NProgress = null;
 
 /**
- * 动态加载NProgress库，并进行配置。
- * 此函数首先检查是否已经加载过NProgress库，如果已经加载过，则直接返回NProgress实例。
- * 否则，动态导入NProgress库，进行配置，然后返回NProgress实例。
+ * Tải động thư viện NProgress và cấu hình.
+ * Hàm này trước tiên kiểm tra xem thư viện NProgress đã được tải hay chưa, nếu đã tải thì trả về trực tiếp instance NProgress.
+ * Ngược lại, import động thư viện NProgress, cấu hình rồi trả về instance NProgress.
  *
- * @returns  NProgress实例的Promise对象。
+ * @returns  Đối tượng Promise của instance NProgress.
  */
 async function loadNprogress() {
   if (nProgressInstance) {
@@ -23,8 +23,8 @@ async function loadNprogress() {
 }
 
 /**
- * 开始显示进度条。
- * 此函数首先加载NProgress库，然后调用NProgress的start方法开始显示进度条。
+ * Bắt đầu hiển thị thanh tiến trình.
+ * Hàm này trước tiên tải thư viện NProgress, sau đó gọi phương thức start của NProgress để bắt đầu hiển thị thanh tiến trình.
  */
 async function startProgress() {
   const nprogress = await loadNprogress();
@@ -32,8 +32,8 @@ async function startProgress() {
 }
 
 /**
- * 停止显示进度条，并隐藏进度条。
- * 此函数首先加载NProgress库，然后调用NProgress的done方法停止并隐藏进度条。
+ * Dừng hiển thị thanh tiến trình và ẩn thanh tiến trình.
+ * Hàm này trước tiên tải thư viện NProgress, sau đó gọi phương thức done của NProgress để dừng và ẩn thanh tiến trình.
  */
 async function stopProgress() {
   const nprogress = await loadNprogress();

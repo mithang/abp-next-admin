@@ -9,7 +9,7 @@ namespace LINGYUN.Platform.Layouts;
 public interface ILayoutRepository : IBasicRepository<Layout, Guid>
 {
     /// <summary>
-    /// 根据名称查询布局
+    /// Truy vấn bố cục theo tên
     /// </summary>
     /// <param name="name"></param>
     /// <param name="includeDetails"></param>

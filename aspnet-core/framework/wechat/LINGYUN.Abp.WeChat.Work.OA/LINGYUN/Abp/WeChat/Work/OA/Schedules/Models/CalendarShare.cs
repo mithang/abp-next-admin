@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日历通知范围成员
+/// Thành viên thuộc phạm vi thông báo lịch
 /// </summary>
 public class CalendarShare
 {
     /// <summary>
-    /// 日历通知范围成员的id
+    /// id của thành viên thuộc phạm vi thông báo lịch
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 日历通知范围成员权限
+    /// Quyền của thành viên thuộc phạm vi thông báo lịch
     /// </summary>
     [NotNull]
     [JsonProperty("permission")]

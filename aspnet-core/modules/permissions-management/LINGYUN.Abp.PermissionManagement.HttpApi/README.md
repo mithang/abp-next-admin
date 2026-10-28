@@ -1,20 +1,20 @@
 # LINGYUN.Abp.PermissionManagement.HttpApi
 
-权限管理HTTP API模块，提供权限管理的RESTful API接口。
+Mô-đun HTTP API quản lý quyền, cung cấp giao diện RESTful API quản lý quyền.
 
-## 功能特性
+## Tính năng
 
-* 权限组定义API
-  * 提供权限组的CRUD操作接口
-  * 支持权限组分页查询
-* 权限定义API
-  * 提供权限的CRUD操作接口
-  * 支持权限分页查询
-* 统一的API基类
-  * PermissionManagementControllerBase - 权限管理控制器基类
-  * 标准化的API响应格式
+* API định nghĩa nhóm quyền
+  * Cung cấp giao diện thao tác CRUD nhóm quyền
+  * Hỗ trợ truy vấn phân trang nhóm quyền
+* API định nghĩa quyền
+  * Cung cấp giao diện thao tác CRUD quyền
+  * Hỗ trợ truy vấn phân trang quyền
+* Lớp cơ sở API thống nhất
+  * PermissionManagementControllerBase - Lớp cơ sở bộ điều khiển quản lý quyền
+  * Định dạng phản hồi API chuẩn hóa
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -26,9 +26,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API接口
+## Giao diện API
 
-1. 权限组定义
+1. Định nghĩa nhóm quyền
 ```
 GET    /api/permission-management/groups
 POST   /api/permission-management/groups
@@ -36,7 +36,7 @@ PUT    /api/permission-management/groups/{name}
 DELETE /api/permission-management/groups/{name}
 ```
 
-2. 权限定义
+2. Định nghĩa quyền
 ```
 GET    /api/permission-management/permissions
 POST   /api/permission-management/permissions
@@ -44,27 +44,27 @@ PUT    /api/permission-management/permissions/{name}
 DELETE /api/permission-management/permissions/{name}
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 权限组定义管理
+1. Quản lý định nghĩa nhóm quyền
 ```http
-### 创建权限组
+### Tạo nhóm quyền
 POST /api/permission-management/groups
 {
     "name": "MyPermissionGroup",
     "displayName": "My Permission Group"
 }
 
-### 更新权限组
+### Cập nhật nhóm quyền
 PUT /api/permission-management/groups/MyPermissionGroup
 {
     "displayName": "Updated Permission Group"
 }
 ```
 
-2. 权限定义管理
+2. Quản lý định nghĩa quyền
 ```http
-### 创建权限
+### Tạo quyền
 POST /api/permission-management/permissions
 {
     "groupName": "MyPermissionGroup",
@@ -73,14 +73,14 @@ POST /api/permission-management/permissions
     "providers": ["Role", "User"]
 }
 
-### 更新权限
+### Cập nhật quyền
 PUT /api/permission-management/permissions/MyPermission
 {
     "displayName": "Updated Permission"
 }
 ```
 
-## 另请参阅
+## Xem thêm
 
 * [LINGYUN.Abp.PermissionManagement.Application](../LINGYUN.Abp.PermissionManagement.Application/README.md)
 * [LINGYUN.Abp.PermissionManagement.Application.Contracts](../LINGYUN.Abp.PermissionManagement.Application.Contracts/README.md)

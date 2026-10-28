@@ -11,9 +11,9 @@ import { useRequest } from '@abp/request';
 export function useMyNotifilersApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取我的通知列表
-   * @param {GetMyNotifilerPagedListInput} input 参数
-   * @returns {Promise<PagedResultDto<UserNotificationDto>>} 通知分页列表
+   * Lấy danh sách thông báo của tôi
+   * @param {GetMyNotifilerPagedListInput} input Tham số
+   * @returns {Promise<PagedResultDto<UserNotificationDto>>} Danh sách phân trang thông báo
    */
   function getMyNotifilersApi(
     input?: GetMyNotifilerPagedListInput,
@@ -27,8 +27,8 @@ export function useMyNotifilersApi() {
     );
   }
   /**
-   * 删除我的通知
-   * @param {string} id 通知id
+   * Xóa thông báo của tôi
+   * @param {string} id Id thông báo
    * @returns {void}
    */
   function deleteMyNotifilerApi(id: string): Promise<void> {
@@ -37,8 +37,8 @@ export function useMyNotifilersApi() {
     });
   }
   /**
-   * 设置通知已读状态
-   * @param {MarkReadStateInput} input 参数
+   * Đặt trạng thái đã đọc của thông báo
+   * @param {MarkReadStateInput} input Tham số
    * @returns {void}
    */
   function markReadStateApi(input: MarkReadStateInput): Promise<void> {

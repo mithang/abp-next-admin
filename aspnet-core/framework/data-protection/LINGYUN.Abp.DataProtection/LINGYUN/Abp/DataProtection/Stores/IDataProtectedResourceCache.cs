@@ -4,41 +4,41 @@ namespace LINGYUN.Abp.DataProtection.Stores;
 public interface IDataProtectedResourceCache
 {
     /// <summary>
-    /// 设置指定数据权限的缓存
+    /// Đặt bộ nhớ đệm của quyền dữ liệu được chỉ định
     /// </summary>
-    /// <param name="item">要更新的数据权限缓存项</param>
+    /// <param name="item">Mục bộ nhớ đệm quyền dữ liệu cần cập nhật</param>
     void SetCache(DataAccessResource resource);
     /// <summary>
-    /// 设置指定数据权限的缓存
+    /// Đặt bộ nhớ đệm của quyền dữ liệu được chỉ định
     /// </summary>
-    /// <param name="item">要更新的数据权限缓存项</param>
+    /// <param name="item">Mục bộ nhớ đệm quyền dữ liệu cần cập nhật</param>
     Task SetCacheAsync(DataAccessResource resource);
     /// <summary>
-    /// 移除指定主体与实体类型的缓存项
+    /// Xóa mục bộ nhớ đệm của chủ thể và loại thực thể được chỉ định
     /// </summary>
-    /// <param name="item">要移除的数据权限缓存项信息</param>
+    /// <param name="item">Thông tin mục bộ nhớ đệm quyền dữ liệu cần xóa</param>
     void RemoveCache(DataAccessResource resource);
     /// <summary>
-    /// 移除指定主体与实体类型的缓存项
+    /// Xóa mục bộ nhớ đệm của chủ thể và loại thực thể được chỉ định
     /// </summary>
-    /// <param name="item">要移除的数据权限缓存项信息</param>
+    /// <param name="item">Thông tin mục bộ nhớ đệm quyền dữ liệu cần xóa</param>
     Task RemoveCacheAsync(DataAccessResource resource);
     /// <summary>
-    /// 获取指定主体与实体类型的数据权限过滤规则
+    /// Lấy quy tắc lọc quyền dữ liệu của chủ thể và loại thực thể được chỉ định
     /// </summary>
-    /// <param name="subjectName">权限主体</param>
-    /// <param name="subjectId">权限主体标识</param>
-    /// <param name="entityTypeFullName">实体类型名称</param>
-    /// <param name="operation">数据权限操作</param>
-    /// <returns>数据过滤条件组</returns>
+    /// <param name="subjectName">Chủ thể quyền</param>
+    /// <param name="subjectId">Định danh chủ thể quyền</param>
+    /// <param name="entityTypeFullName">Tên loại thực thể</param>
+    /// <param name="operation">Thao tác quyền dữ liệu</param>
+    /// <returns>Nhóm điều kiện lọc dữ liệu</returns>
     DataProtectedResourceCacheItem? GetCache(string subjectName, string subjectId, string entityTypeFullName, DataAccessOperation operation);
     /// <summary>
-    /// 获取指定主体与实体类型的数据权限过滤规则
+    /// Lấy quy tắc lọc quyền dữ liệu của chủ thể và loại thực thể được chỉ định
     /// </summary>
-    /// <param name="subjectName">权限主体</param>
-    /// <param name="subjectId">权限主体标识</param>
-    /// <param name="entityTypeFullName">实体类型名称</param>
-    /// <param name="operation">数据权限操作</param>
-    /// <returns>数据过滤条件组</returns>
+    /// <param name="subjectName">Chủ thể quyền</param>
+    /// <param name="subjectId">Định danh chủ thể quyền</param>
+    /// <param name="entityTypeFullName">Tên loại thực thể</param>
+    /// <param name="operation">Thao tác quyền dữ liệu</param>
+    /// <returns>Nhóm điều kiện lọc dữ liệu</returns>
     Task<DataProtectedResourceCacheItem?> GetCacheAsync(string subjectName, string subjectId, string entityTypeFullName, DataAccessOperation operation);
 }

@@ -51,7 +51,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   title: $t('AbpAuditLogging.AuditLog'),
 });
-/** 异常信息表格配置 */
+/** Cấu hình bảng thông tin ngoại lệ */
 const exceptionsGridOptions: VxeGridProps<LogExceptionDto> = {
   border: true,
   columns: [
@@ -124,8 +124,18 @@ async function onGet(id: string) {
               {{ formatToDateTime(logModel.timeStamp) }}
             </DescriptionsItem>
             <DescriptionsItem :label="$t('AbpAuditLogging.Level')">
-              <Tag :color="logLevelOptions[logModel.level]?.color">
-                {{ logLevelOptions[logModel.level]?.label }}
+              <Tag
+                :color="
+                  logModel.level === undefined
+                    ? undefined
+                    : logLevelOptions[logModel.level]?.color
+                "
+              >
+                {{
+                  logModel.level === undefined
+                    ? undefined
+                    : logLevelOptions[logModel.level]?.label
+                }}
               </Tag>
             </DescriptionsItem>
             <DescriptionsItem :label="$t('AbpAuditLogging.Message')" :span="2">
@@ -186,7 +196,7 @@ async function onGet(id: string) {
           </Descriptions>
         </TabPane>
         <TabPane
-          v-if="logModel.exceptions?.length > 0"
+          v-if="(logModel.exceptions?.length ?? 0) > 0"
           key="exception"
           :tab="$t('AbpAuditLogging.Exceptions')"
         >

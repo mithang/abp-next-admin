@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.GroupChats.Models;
 /// <summary>
-/// 邀请者
+/// Người mời
 /// </summary>
 public class GroupChatInvitor
 {
     /// <summary>
-    /// 邀请者的userid
+    /// userid của người mời
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]

@@ -1,26 +1,26 @@
 ﻿namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 消息系统错误码设计
-/// 状态码分为两部分 前2位领域 后3位状态  
+/// Thiết kế mã lỗi hệ thống tin nhắn
+/// Mã trạng thái gồm hai phần: 2 ký tự đầu là lĩnh vực, 3 ký tự sau là trạng thái  
 /// <br />
-/// 领域部分：
+/// Phần lĩnh vực:
 /// <list type="table">
-///     <item>000-019  输入</item>
-///     <item>020-029  群组</item>
-///     <item>030-039  用户</item>
-///     <item>040-049  应用</item>
-///     <item>050-059  内部</item>
-///     <item>100-199  输出</item>
+///     <item>000-019  Đầu vào</item>
+///     <item>020-029  Nhóm</item>
+///     <item>030-039  Người dùng</item>
+///     <item>040-049  Ứng dụng</item>
+///     <item>050-059  Nội bộ</item>
+///     <item>100-199  Đầu ra</item>
 /// </list>
 /// 
-/// 状态部分：
+/// Phần trạng thái:
 /// <list type="table">
-///     <item>200-299 成功</item>
-///     <item>300-399 成功但有后续操作</item>
-///     <item>400-499 业务异常</item>
-///     <item>500-599 内部异常</item>
-///     <item>900-999 输入输出异常</item>
+///     <item>200-299 Thành công</item>
+///     <item>300-399 Thành công nhưng có thao tác tiếp theo</item>
+///     <item>400-499 Ngoại lệ nghiệp vụ</item>
+///     <item>500-599 Ngoại lệ nội bộ</item>
+///     <item>900-999 Ngoại lệ đầu vào/đầu ra</item>
 /// </list>
 /// 
 /// </summary>
@@ -28,7 +28,7 @@ public class NotificationsErrorCodes
 {
     public const string Namespace = "Notifications";
     /// <summary>
-    /// 通知模板不存在!
+    /// Mẫu thông báo không tồn tại!
     /// </summary>
     public const string NotificationTemplateNotFound = Namespace + ":001404";
 

@@ -4,22 +4,22 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.PushPlus.Setting;
 /// <summary>
-/// 发送渠道接口
+/// Giao diện kênh gửi
 /// </summary>
 public interface IPushPlusChannelProvider
 {
     /// <summary>
-    /// 获取默认发送渠道
+    /// Lấy kênh gửi mặc định
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<PushPlusChannel> GetDefaultChannelAsync(
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 修改默认发送渠道
+    /// Thay đổi kênh gửi mặc định
     /// </summary>
-    /// <param name="defaultChannel">默认渠道；wechat-微信公众号,mail-邮件,cp-企业微信应用,webhook-第三方webhook</param>
-    /// <param name="defaultWebhook">渠道参数；webhook和cp渠道需要填写具体的webhook编号或自定义编码</param>
+    /// <param name="defaultChannel">Kênh mặc định; wechat-Tài khoản công khai WeChat, mail-Email, cp-Ứng dụng WeChat doanh nghiệp, webhook-Webhook bên thứ ba</param>
+    /// <param name="defaultWebhook">Tham số kênh; kênh webhook và cp cần điền số webhook cụ thể hoặc mã tùy chỉnh</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task UpdateDefaultChannelAsync(
@@ -27,9 +27,9 @@ public interface IPushPlusChannelProvider
         string defaultWebhook = "",
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 修改接收消息限制
+    /// Thay đổi giới hạn nhận tin nhắn
     /// </summary>
-    /// <param name="recevieLimit">接收消息限制；0-接收全部，1-不接收消息</param>
+    /// <param name="recevieLimit">Giới hạn nhận tin nhắn; 0-Nhận tất cả, 1-Không nhận tin nhắn</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task UpdateRecevieLimitAsync(

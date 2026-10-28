@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 数据流类型
+/// Loại luồng dữ liệu
 /// </summary>
 public enum StreamType
 {

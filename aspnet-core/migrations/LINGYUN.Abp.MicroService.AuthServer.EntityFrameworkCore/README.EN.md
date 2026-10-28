@@ -2,7 +2,7 @@
 
 Authentication server database migration module, providing database migration functionality required by the authentication server.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

@@ -34,7 +34,7 @@ public class ApiResourceAppService : AbpIdentityServerAppServiceBase, IApiResour
         var apiResources = await ApiResourceRepository.GetListAsync(input.Sorting,
             input.SkipCount, input.MaxResultCount,
             input.Filter);
-        // 未加Filter过滤器? 结果数不准
+        // Chưa áp dụng bộ lọc Filter? Số lượng kết quả không chính xác
         var apiResourceCount = await ApiResourceRepository.GetCountAsync(input.Filter);
 
         return new PagedResultDto<ApiResourceDto>(apiResourceCount,
@@ -107,7 +107,7 @@ public class ApiResourceAppService : AbpIdentityServerAppServiceBase, IApiResour
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.ApiResources.ManageClaims))
         {
-            // 删除不存在的UserClaim
+            // Xóa UserClaim không tồn tại
             apiResource.UserClaims.RemoveAll(claim => !input.UserClaims.Any(inputClaim => claim.Type == inputClaim.Type));
             foreach (var inputClaim in input.UserClaims)
             {
@@ -121,7 +121,7 @@ public class ApiResourceAppService : AbpIdentityServerAppServiceBase, IApiResour
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.ApiResources.ManageScopes))
         {
-            // 删除不存在的Scope
+            // Xóa Scope không tồn tại
             apiResource.Scopes.RemoveAll(scope => !input.Scopes.Any(inputScope => scope.Scope == inputScope.Scope));
             foreach (var inputScope in input.Scopes)
             {
@@ -135,11 +135,11 @@ public class ApiResourceAppService : AbpIdentityServerAppServiceBase, IApiResour
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.ApiResources.ManageSecrets))
         {
-            // 删除不存在的Secret
+            // Xóa Secret không tồn tại
             apiResource.Secrets.RemoveAll(secret => !input.Secrets.Any(inputSecret => secret.Type == inputSecret.Type && secret.Value == inputSecret.Value));
             foreach (var inputSecret in input.Secrets)
             {
-                // 第一次重复校验已经加密过的字符串
+                // Lần kiểm tra trùng lặp đầu tiên đối với chuỗi đã mã hóa
                 if (apiResource.FindSecret(inputSecret.Value, inputSecret.Type) == null)
                 {
                     var apiSecretValue = inputSecret.Value;
@@ -154,7 +154,7 @@ public class ApiResourceAppService : AbpIdentityServerAppServiceBase, IApiResour
                             apiSecretValue = inputSecret.Value.Sha512();
                         }
                     }
-                    // 加密之后还需要做一次校验 避免出现重复值
+                    // Sau khi mã hóa vẫn cần kiểm tra thêm một lần để tránh xuất hiện giá trị trùng lặp
                     var secret = apiResource.FindSecret(apiSecretValue, inputSecret.Type);
                     if (secret == null)
                     {
@@ -166,7 +166,7 @@ public class ApiResourceAppService : AbpIdentityServerAppServiceBase, IApiResour
 
         if (await IsGrantAsync(AbpIdentityServerPermissions.ApiResources.ManageProperties))
         {
-            // 删除不存在的属性
+            // Xóa thuộc tính không tồn tại
             apiResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
             foreach (var inputProp in input.Properties)
             {

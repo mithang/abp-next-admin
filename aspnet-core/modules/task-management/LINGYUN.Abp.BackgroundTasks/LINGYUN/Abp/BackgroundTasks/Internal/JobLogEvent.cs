@@ -7,10 +7,10 @@ using Volo.Abp.DependencyInjection;
 namespace LINGYUN.Abp.BackgroundTasks.Internal;
 
 /// <summary>
-/// 存储任务日志
+/// Lưu trữ nhật ký tác vụ
 /// </summary>
 /// <remarks>
-/// 任务类型标记了<see cref="DisableAuditingAttribute"/> 特性则不会记录日志
+/// Nếu kiểu tác vụ được đánh dấu bằng đặc tính <see cref="DisableAuditingAttribute"/> thì sẽ không ghi nhật ký
 /// </remarks>
 public class JobLogEvent : JobEventBase<JobLogEvent>, ITransientDependency
 {

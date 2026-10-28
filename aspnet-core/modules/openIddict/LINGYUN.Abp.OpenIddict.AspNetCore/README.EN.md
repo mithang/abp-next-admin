@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.AspNetCore` is an ASP.NET Core integration module based on ABP OpenIddict, providing user information extensions and avatar URL claim support.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

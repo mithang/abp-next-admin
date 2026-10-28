@@ -6,41 +6,41 @@ using Volo.Abp.Modularity;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据测试基类
+/// Lớp cơ sở kiểm tra dữ liệu kênh
 /// </summary>
 /// <remarks>
-/// 各渠道的测试项目继承本类并指定自己的测试模块(该模块依赖真实渠道模块),
-/// 从而共用同一套"new 消息对象 → <c>IJsonSerializer</c> 序列化 → 渠道侧验证"的写法。
+/// Các dự án kiểm tra của từng kênh kế thừa lớp này và chỉ định mô-đun kiểm tra của riêng mình (mô-đun đó phụ thuộc vào mô-đun kênh thật),
+/// để dùng chung cùng một cách viết "new đối tượng thông báo → <c>IJsonSerializer</c> tuần tự hóa → phía kênh xác thực".
 /// </remarks>
 public abstract class NotificationChannelDataTestsBase<TStartupModule> : AbpTestsBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
     /// <summary>
-    /// 渠道侧解析器
+    /// Bộ phân tích phía kênh
     /// </summary>
     protected INotificationChannelDataResolver ChannelDataResolver
         => GetRequiredService<INotificationChannelDataResolver>();
 
     /// <summary>
-    /// 渠道数据存取器(生产侧写入用)
+    /// Bộ truy cập dữ liệu kênh (phía sản xuất dùng để ghi)
     /// </summary>
     protected INotificationChannelDataAccessor ChannelDataAccessor
         => GetRequiredService<INotificationChannelDataAccessor>();
 
     /// <summary>
-    /// 生产者侧序列化器
+    /// Bộ tuần tự hóa phía nhà sản xuất
     /// </summary>
     protected INotificationChannelDataSerializer ChannelDataSerializer
         => GetRequiredService<INotificationChannelDataSerializer>();
 
     /// <summary>
-    /// ABP 全局 JSON 序列化器
+    /// Bộ tuần tự hóa JSON toàn cục ABP
     /// </summary>
     protected IJsonSerializer JsonSerializer
         => GetRequiredService<IJsonSerializer>();
 
     /// <summary>
-    /// 仅序列化消息对象, 便于断言 JSON 契约
+    /// Chỉ tuần tự hóa đối tượng thông báo, thuận tiện cho việc khẳng định hợp đồng JSON
     /// </summary>
     protected string Serialize<TPayload>(TPayload payload)
         where TPayload : class
@@ -49,11 +49,11 @@ public abstract class NotificationChannelDataTestsBase<TStartupModule> : AbpTest
     }
 
     /// <summary>
-    /// 把消息对象序列化后写入通知数据的载荷键
+    /// Tuần tự hóa đối tượng thông báo rồi ghi vào khóa tải trọng của dữ liệu thông báo
     /// </summary>
     /// <remarks>
-    /// 走生产路径: <see cref="INotificationChannelDataAccessor.Set"/> 对复杂类型
-    /// 调用 <see cref="IJsonSerializer"/> 序列化, 与生产者写入的结果完全一致。
+    /// Đi theo đường dẫn sản xuất: <see cref="INotificationChannelDataAccessor.Set"/> đối với kiểu phức tạp
+    /// gọi <see cref="IJsonSerializer"/> tuần tự hóa, hoàn toàn nhất quán với kết quả ghi của nhà sản xuất.
     /// </remarks>
     protected NotificationData WriteChannelData<TChannelData>(TChannelData channelData)
         where TChannelData : NotificationChannelData
@@ -62,7 +62,7 @@ public abstract class NotificationChannelDataTestsBase<TStartupModule> : AbpTest
     }
 
     /// <summary>
-    /// 把消息对象序列化后合并写入已有的通知数据
+    /// Tuần tự hóa đối tượng thông báo rồi hợp nhất ghi vào dữ liệu thông báo đã có
     /// </summary>
     protected NotificationData MergeChannelData<TChannelData>(
         NotificationData notificationData,

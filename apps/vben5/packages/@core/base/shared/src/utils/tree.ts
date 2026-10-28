@@ -1,14 +1,14 @@
 interface TreeConfigOptions {
-  // 子属性的名称，默认为'children'
+  // Tên của thuộc tính con, mặc định là 'children'
   childProps: string;
 }
 
 /**
- * @zh_CN 遍历树形结构，并返回所有节点中指定的值。
- * @param tree 树形结构数组
- * @param getValue 获取节点值的函数
- * @param options 作为子节点数组的可选属性名称。
- * @returns 所有节点中指定的值的数组
+ * @zh_CN Duyệt cấu trúc cây và trả về giá trị được chỉ định trong tất cả các nút.
+ * @param tree Mảng cấu trúc cây
+ * @param getValue Hàm lấy giá trị của nút
+ * @param options Tên thuộc tính tùy chọn dùng làm mảng nút con.
+ * @returns Mảng các giá trị được chỉ định trong tất cả các nút
  */
 function traverseTreeValues<T, V>(
   tree: T[],
@@ -41,11 +41,11 @@ function traverseTreeValues<T, V>(
 }
 
 /**
- * 根据条件过滤给定树结构的节点，并以原有顺序返回所有匹配节点的数组。
- * @param tree 要过滤的树结构的根节点数组。
- * @param filter 用于匹配每个节点的条件。
- * @param options 作为子节点数组的可选属性名称。
- * @returns 包含所有匹配节点的数组。
+ * Lọc các nút của cấu trúc cây cho trước theo điều kiện và trả về mảng tất cả nút khớp theo thứ tự ban đầu.
+ * @param tree Mảng nút gốc của cấu trúc cây cần lọc.
+ * @param filter Điều kiện dùng để khớp từng nút.
+ * @param options Tên thuộc tính tùy chọn dùng làm mảng nút con.
+ * @returns Mảng chứa tất cả nút khớp.
  */
 function filterTree<T extends Record<string, any>>(
   tree: T[],
@@ -72,10 +72,10 @@ function filterTree<T extends Record<string, any>>(
 }
 
 /**
- * 根据条件重新映射给定树结构的节
- * @param tree 要过滤的树结构的根节点数组。
- * @param mapper 用于map每个节点的条件。
- * @param options 作为子节点数组的可选属性名称。
+ * Ánh xạ lại các nút của cấu trúc cây cho trước theo điều kiện
+ * @param tree Mảng nút gốc của cấu trúc cây cần lọc.
+ * @param mapper Điều kiện dùng để map từng nút.
+ * @param options Tên thuộc tính tùy chọn dùng làm mảng nút con.
  */
 function mapTree<T, V extends Record<string, any>>(
   tree: T[],
@@ -95,11 +95,11 @@ function mapTree<T, V extends Record<string, any>>(
 }
 
 /**
- * 对树形结构数据进行递归排序
- * @param treeData - 树形数据数组
- * @param sortFunction - 排序函数，用于定义排序规则
- * @param options - 配置选项，包括子节点属性名
- * @returns 排序后的树形数据
+ * Sắp xếp đệ quy dữ liệu cấu trúc cây
+ * @param treeData - Mảng dữ liệu cây
+ * @param sortFunction - Hàm sắp xếp, dùng để định nghĩa quy tắc sắp xếp
+ * @param options - Tùy chọn cấu hình, bao gồm tên thuộc tính nút con
+ * @returns Dữ liệu cây sau khi sắp xếp
  */
 function sortTree<T extends Record<string, any>>(
   treeData: T[],

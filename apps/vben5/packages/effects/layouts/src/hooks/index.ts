@@ -9,7 +9,7 @@ import { computed } from 'vue';
 import { preferences, usePreferences } from '@vben/preferences';
 
 /**
- * 转换组件，自动添加 name
+ * Chuyển đổi component, tự động thêm name
  * @param component
  * @param route
  */
@@ -17,7 +17,7 @@ export function transformComponent(
   component: VNode,
   route: RouteLocationNormalizedLoadedGeneric,
 ) {
-  // 组件视图未找到，如果有设置后备视图，则返回后备视图，如果没有，则抛出错误
+  // Không tìm thấy view của component, nếu đã đặt view dự phòng thì trả về view dự phòng, nếu không thì ném ra lỗi
   if (!component) {
     console.error(
       'Component view not found，please check the route configuration',
@@ -26,23 +26,23 @@ export function transformComponent(
   }
 
   const routeName = route.name as string;
-  // 如果组件没有 name，则直接返回
+  // Nếu component không có name thì trả về trực tiếp
   if (!routeName) {
     return component;
   }
   const componentName = (component?.type as any)?.name;
 
-  // 已经设置过 name，则直接返回
+  // Đã đặt name rồi thì trả về trực tiếp
   if (componentName) {
     return component;
   }
 
-  // componentName 与 routeName 一致，则直接返回
+  // componentName và routeName giống nhau thì trả về trực tiếp
   if (componentName === routeName) {
     return component;
   }
 
-  // 设置 name
+  // Đặt name
   component.type ||= {};
   (component.type as any).name = routeName;
 
@@ -50,12 +50,12 @@ export function transformComponent(
 }
 
 /**
- * Layout相关hook
+ * Hook liên quan đến Layout
  */
 export function useLayoutHook() {
   const { keepAlive } = usePreferences();
   /**
-   * 是否使用动画
+   * Có sử dụng animation hay không
    */
   const getEnabledTransition = computed(() => {
     const { transition } = preferences;
@@ -64,27 +64,27 @@ export function useLayoutHook() {
   });
 
   /**
-   * 获取路由过渡动画
+   * Lấy animation chuyển đổi route
    * @param _route
    */
   function getTransitionName(_route: RouteLocationNormalizedLoaded) {
-    // 如果偏好设置未设置，则不使用动画
+    // Nếu cài đặt tùy chọn chưa được đặt thì không dùng animation
     const { tabbar, transition } = preferences;
     const transitionName = transition.name;
     if (!transitionName || !transition.enable) {
       return;
     }
 
-    // 标签页未启用或者未开启缓存，则使用全局配置动画
+    // Nếu tab chưa được bật hoặc chưa bật cache thì dùng animation cấu hình toàn cục
     if (!tabbar.enable || !keepAlive) {
       return transitionName;
     }
 
-    // 如果页面已经加载过，则不使用动画
+    // Nếu trang đã được tải rồi thì không dùng animation
     // if (route.meta.loaded) {
     //   return;
     // }
-    // 已经打开且已经加载过的页面不使用动画
+    // Trang đã mở và đã tải rồi thì không dùng animation
     // const inTabs = getCachedTabs.value.includes(route.name as string);
 
     // return inTabs && route.meta.loaded ? undefined : transitionName;

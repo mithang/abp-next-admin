@@ -14,16 +14,16 @@ public class JsonStatus
     public int Failed { get; set; }
 
     /// <summary>
-    /// 失败原因
+    /// Nguyên nhân thất bại
     /// </summary>
     /// <remarks>
-    /// 如: flatten value must be an object
+    /// Ví dụ: flatten value must be an object
     /// </remarks>
     [JsonPropertyName("error")]
     public string? Error { get; set; }
 
     /// <summary>
-    /// 是否全部成功
+    /// Có thành công toàn bộ hay không
     /// </summary>
     [JsonIgnore]
     public bool IsSuccess => Failed == 0;

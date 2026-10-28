@@ -1,110 +1,110 @@
-# 构建与部署
+# Xây dựng và triển khai
 
-::: tip 前言
+::: tip Lời nói đầu
 
-由于是展示项目，所以打包后相对较大，如果项目中没有用到的插件，可以删除对应的文件或者路由，不引用即可，没有引用就不会打包。
+Vì đây là dự án demo, nên sau khi đóng gói dung lượng tương đối lớn; nếu trong dự án có plugin nào không dùng đến, có thể xóa file hoặc route tương ứng, không tham chiếu là được — không được tham chiếu thì sẽ không được đóng gói.
 
 :::
 
-## 构建
+## Xây dựng
 
-项目开发完成之后，执行以下命令进行构建：
+Sau khi phát triển dự án xong, thực thi lệnh sau để xây dựng:
 
-**注意：** 请在项目根目录下执行以下命令
+**Lưu ý:** Vui lòng thực thi các lệnh sau tại thư mục gốc của dự án
 
 ```bash
 pnpm build
 ```
 
-构建打包成功之后，会在根目录生成对应的应用下的 `dist` 文件夹，里面就是构建打包好的文件，例如: `apps/web-antd/dist/`
+Sau khi xây dựng và đóng gói thành công, sẽ tạo thư mục `dist` của ứng dụng tương ứng tại thư mục gốc, bên trong chính là các file đã được xây dựng và đóng gói, ví dụ: `apps/web-antd/dist/`
 
-## 预览
+## Xem trước
 
-发布之前可以在本地进行预览，有多种方式，这里介绍两种：
+Trước khi phát hành có thể xem trước tại máy local, có nhiều cách, ở đây giới thiệu hai cách:
 
-- 使用项目自定的命令进行预览(推荐)
+- Sử dụng lệnh xem trước tự định nghĩa của dự án (khuyến nghị)
 
-**注意：** 请在项目根目录下执行以下命令
+**Lưu ý:** Vui lòng thực thi các lệnh sau tại thư mục gốc của dự án
 
 ```bash
 pnpm preview
 ```
 
-等待构建成功后，访问 `http://localhost:4173` 即可查看效果。
+Đợi xây dựng thành công, truy cập `http://localhost:4173` là có thể xem hiệu quả.
 
-- 本地服务器预览
+- Xem trước bằng máy chủ local
 
-可以在电脑全局安装 `serve` 服务，如 `live-server`,
+Có thể cài đặt toàn cục trên máy tính dịch vụ `serve`, như `live-server`,
 
 ```bash
 npm i -g live-server
 ```
 
-然后在 `dist` 目录下执行 `live-server` 命令，即可在本地查看效果。
+Sau đó thực thi lệnh `live-server` trong thư mục `dist` là có thể xem hiệu quả tại máy local.
 
 ```bash
 cd apps/web-antd/dist
-# 本地预览，默认端口8080
+# Xem trước tại máy local, cổng mặc định 8080
 live-server
-# 指定端口
+# Chỉ định cổng
 live-server --port=9000
 ```
 
-## 压缩
+## Nén
 
-### 开启 `gzip` 压缩
+### Bật nén `gzip`
 
-需要在打包的时候更改`.env.production`配置:
+Cần thay đổi cấu hình `.env.production` khi đóng gói:
 
 ```bash
 VITE_COMPRESS=gzip
 ```
 
-### 开启 `brotli` 压缩
+### Bật nén `brotli`
 
-需要在打包的时候更改`.env.production`配置:
+Cần thay đổi cấu hình `.env.production` khi đóng gói:
 
 ```bash
 VITE_COMPRESS=brotli
 ```
 
-### 同时开启 `gzip` 和 `brotli` 压缩
+### Đồng thời bật nén `gzip` và `brotli`
 
-需要在打包的时候更改`.env.production`配置:
+Cần thay đổi cấu hình `.env.production` khi đóng gói:
 
 ```bash
 VITE_COMPRESS=gzip,brotli
 ```
 
-::: tip 提示
+::: tip Gợi ý
 
-`gzip` 和 `brotli` 都需要安装特定模块才能使用。
+`gzip` và `brotli` đều cần cài đặt module cụ thể mới có thể sử dụng.
 
 :::
 
-::: details gzip 与 brotli 在 nginx 内的配置
+::: details Cấu hình gzip và brotli trong nginx
 
 ```bash
 http {
-  # 开启gzip
+  # Bật gzip
   gzip on;
-  # 开启gzip_static
-  # gzip_static 开启后可能会报错，需要安装相应的模块, 具体安装方式可以自行查询
-  # 只有这个开启，vue文件打包的.gz文件才会有效果，否则不需要开启gzip进行打包
+  # Bật gzip_static
+  # Sau khi bật gzip_static có thể báo lỗi, cần cài đặt module tương ứng, cách cài đặt cụ thể có thể tự tra cứu
+  # Chỉ khi bật tùy chọn này, file .gz mà file vue đóng gói ra mới có hiệu quả, nếu không thì không cần bật gzip để đóng gói
   gzip_static on;
   gzip_proxied any;
   gzip_min_length 1k;
   gzip_buffers 4 16k;
-  #如果nginx中使用了多层代理 必须设置这个才可以开启gzip。
+  # Nếu trong nginx sử dụng nhiều tầng proxy thì bắt buộc phải thiết lập tùy chọn này mới có thể bật gzip.
   gzip_http_version 1.0;
   gzip_comp_level 2;
   gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
   gzip_vary off;
   gzip_disable "MSIE [1-6]\.";
 
-  # 开启 brotli压缩
-  # 需要安装对应的nginx模块,具体安装方式可以自行查询
-  # 可以与gzip共存不会冲突
+  # Bật nén brotli
+  # Cần cài đặt module nginx tương ứng, cách cài đặt cụ thể có thể tự tra cứu
+  # Có thể cùng tồn tại với gzip mà không xung đột
   brotli on;
   brotli_comp_level 6;
   brotli_buffers 16 8k;
@@ -115,94 +115,94 @@ http {
 
 :::
 
-## 构建分析
+## Phân tích xây dựng
 
-如果你的构建文件很大，可以通过项目内置 [rollup-plugin-analyzer](https://github.com/doesdev/rollup-plugin-analyzer) 插件进行代码体积分析，从而优化你的代码。只需要在`根目录`下执行以下命令：
+Nếu file xây dựng của bạn rất lớn, có thể phân tích dung lượng code bằng plugin [rollup-plugin-analyzer](https://github.com/doesdev/rollup-plugin-analyzer) tích hợp sẵn của dự án, từ đó tối ưu code của bạn. Chỉ cần thực thi lệnh sau tại `thư mục gốc`:
 
 ```bash
 pnpm run build:analyze
 ```
 
-运行之后，在自动打开的页面可以看到具体的体积分布，以分析哪些依赖有问题。
+Sau khi chạy, trên trang tự động mở có thể thấy phân bố dung lượng cụ thể, để phân tích dependency nào có vấn đề.
 
 ![Build analysis report](/guide/report.png)
 
-## 部署
+## Triển khai
 
-简单的部署只需要将最终生成的静态文件，dist 文件夹的静态文件发布到你的 cdn 或者静态服务器即可，需要注意的是其中的 index.html 通常会是你后台服务的入口页面，在确定了 js 和 css 的静态之后可能需要改变页面的引入路径。
+Triển khai đơn giản chỉ cần phát hành file tĩnh cuối cùng tạo ra, file tĩnh trong thư mục dist lên cdn hoặc máy chủ tĩnh của bạn là được, cần lưu ý trong đó index.html thường sẽ là trang vào của dịch vụ backend của bạn, sau khi xác định các file tĩnh js và css có thể cần thay đổi đường dẫn tham chiếu của trang.
 
-例如上传到 nginx 服务器，可以将 dist 文件夹下的文件上传到服务器的 `/srv/www/project/index.html` 目录下，然后访问配置好的域名即可。
+Ví dụ tải lên máy chủ nginx, có thể tải các file trong thư mục dist lên thư mục `/srv/www/project/index.html` trên máy chủ, sau đó truy cập tên miền đã cấu hình là được.
 
 ```bash
-# nginx配置
+# Cấu hình nginx
 location / {
-  # 不缓存html，防止程序更新后缓存继续生效
+  # Không cache html, tránh cache tiếp tục có hiệu lực sau khi chương trình cập nhật
   if ($request_filename ~* .*\.(?:htm|html)$) {
     add_header Cache-Control "private, no-store, no-cache, must-revalidate, proxy-revalidate";
     access_log on;
   }
-  # 这里是vue打包文件dist内的文件的存放路径
+  # Đây là đường dẫn lưu trữ các file trong file dist mà vue đóng gói
   root   /srv/www/project/;
   index  index.html index.htm;
 }
 ```
 
-部署时可能会发现资源路径不对，只需要修改`.env.production`文件即可。
+Khi triển khai có thể phát hiện đường dẫn tài nguyên không đúng, chỉ cần sửa file `.env.production` là được.
 
 ```bash
-# 根据自己路径来配置更改
-# 注意需要以 / 开头和结尾
+# Cấu hình thay đổi theo đường dẫn của riêng bạn
+# Lưu ý cần bắt đầu và kết thúc bằng /
 VITE_BASE=/
 VITE_BASE=/xxx/
 ```
 
-### 前端路由与服务端的结合
+### Kết hợp route frontend với phía server
 
-项目前端路由使用的是 vue-router，所以你可以选择两种方式：history 和 hash。
+Route frontend của dự án sử dụng vue-router, vì vậy bạn có thể chọn hai cách: history và hash.
 
-- `hash` 默认会在 url 后面拼接`#`
-- `history` 则不会，不过 `history` 需要服务器配合
+- `hash` mặc định sẽ nối thêm `#` vào sau url
+- `history` thì không, tuy nhiên `history` cần máy chủ phối hợp
 
-可在 `.env.production` 内进行 mode 修改
+Có thể sửa mode trong `.env.production`
 
 ```bash
 VITE_ROUTER_HISTORY=hash
 ```
 
-### history 路由模式下服务端配置
+### Cấu hình phía server trong chế độ route history
 
-开启 `history` 模式需要服务器配置，更多的服务器配置详情可以看 [history-mode](https://router.vuejs.org/guide/essentials/history-mode.html#html5-mode)
+Bật chế độ `history` cần cấu hình máy chủ, chi tiết cấu hình máy chủ khác có thể xem [history-mode](https://router.vuejs.org/guide/essentials/history-mode.html#html5-mode)
 
-这里以 `nginx` 配置为例：
+Ở đây lấy cấu hình `nginx` làm ví dụ:
 
-#### 部署到根目录
+#### Triển khai tới thư mục gốc
 
 ```bash {5}
 server {
   listen 80;
   location / {
-    # 用于配合 History 使用
+    # Dùng để phối hợp với History
     try_files $uri $uri/ /index.html;
   }
 }
 ```
 
-#### 部署到非根目录
+#### Triển khai tới thư mục không phải gốc
 
-- 首先需要在打包的时候更改`.env.production`配置:
+- Trước tiên cần thay đổi cấu hình `.env.production` khi đóng gói:
 
 ```bash
 VITE_BASE = /sub/
 ```
 
-- 然后在 nginx 配置文件中配置
+- Sau đó cấu hình trong file cấu hình nginx
 
 ```bash {8}
 server {
     listen       80;
     server_name  localhost;
     location /sub/ {
-      # 这里是vue打包文件dist内的文件的存放路径
+      # Đây là đường dẫn lưu trữ các file trong file dist mà vue đóng gói
       alias   /srv/www/project/;
       index index.html index.htm;
       try_files $uri $uri/ /sub/index.html;
@@ -210,28 +210,28 @@ server {
 }
 ```
 
-## 跨域处理
+## Xử lý cross-domain
 
-使用 nginx 处理项目部署后的跨域问题
+Sử dụng nginx để xử lý vấn đề cross-domain sau khi triển khai dự án
 
-1. 配置前端项目接口地址，在项目目录下的`.env.production`文件中配置：
+1. Cấu hình địa chỉ interface của dự án frontend, cấu hình trong file `.env.production` dưới thư mục dự án:
 
 ```bash
 VITE_GLOB_API_URL=/api
 ```
 
-2. 在 nginx 配置请求转发到后台
+2. Cấu hình chuyển tiếp yêu cầu tới backend trong nginx
 
 ```bash {10-11}
 server {
   listen       8080;
   server_name  localhost;
-  # 接口代理，用于解决跨域问题
+  # Proxy interface, dùng để giải quyết vấn đề cross-domain
   location /api {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    # 后台接口地址
+    # Địa chỉ interface backend
     proxy_pass http://110.110.1.1:8080/api;
     rewrite "^/api/(.*)$" /$1 break;
     proxy_redirect default;

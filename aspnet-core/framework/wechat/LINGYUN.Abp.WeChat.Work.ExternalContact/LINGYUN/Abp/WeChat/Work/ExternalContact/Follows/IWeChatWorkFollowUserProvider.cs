@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Follows;
 /// <summary>
-/// 企业服务人员管理接口
+/// Giao diện quản lý nhân viên dịch vụ doanh nghiệp
 /// </summary>
 public interface IWeChatWorkFollowUserProvider
 {
     /// <summary>
-    /// 获取配置了客户联系功能的成员列表
+    /// Lấy danh sách thành viên đã cấu hình tính năng liên hệ khách hàng
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92571" />
+    /// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/92571" />
     /// </remarks>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

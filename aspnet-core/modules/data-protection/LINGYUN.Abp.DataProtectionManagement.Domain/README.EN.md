@@ -46,4 +46,4 @@ Data protection management domain module, providing core business logic for data
 
 ## Related Links
 
-* [中文文档](./README.md)
+* [Tiếng Việt](./README.md)

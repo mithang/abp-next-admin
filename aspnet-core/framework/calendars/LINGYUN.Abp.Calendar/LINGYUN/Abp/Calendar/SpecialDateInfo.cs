@@ -2,20 +2,20 @@
 
 namespace LINGYUN.Abp.Calendar;
 /// <summary>
-/// 特殊日期
+/// Ngày đặc biệt
 /// </summary>
 public class SpecialDateInfo
 {
     /// <summary>
-    /// 日期
+    /// Ngày
     /// </summary>
     public DateOnly Date { get; set; }
     /// <summary>
-    /// 特殊日期类型
+    /// Loại ngày đặc biệt
     /// </summary>
     public SpecialDateType Type { get; set; }
     /// <summary>
-    /// 特殊日期描述
+    /// Mô tả ngày đặc biệt
     /// </summary>
     public string? Description { get; set; }
 }

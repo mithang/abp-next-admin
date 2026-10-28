@@ -1,47 +1,47 @@
 # LINGYUN.Abp.TextTemplating.HttpApi
 
-## 模块说明
+## Mô tả mô-đun
 
-文本模板 HTTP API 模块，提供文本模板管理的 RESTful API 接口。
+Mô-đun HTTP API mẫu văn bản, cung cấp giao diện API RESTful để quản lý mẫu văn bản.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * LINGYUN.Abp.TextTemplating.Application.Contracts
 * Volo.Abp.AspNetCore.Mvc
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供文本模板管理的 API 控制器
-  * TextTemplateDefinitionController - 模板定义管理控制器
-  * TextTemplateContentController - 模板内容管理控制器
+* Cung cấp bộ điều khiển API quản lý mẫu văn bản
+  * TextTemplateDefinitionController - Bộ điều khiển quản lý định nghĩa mẫu
+  * TextTemplateContentController - Bộ điều khiển quản lý nội dung mẫu
 
-### API 接口
+### Giao diện API
 
 * /api/text-templating/template-definitions
-  * GET - 获取模板定义列表
-  * POST - 创建模板定义
-  * PUT - 更新模板定义
-  * DELETE - 删除模板定义
-  * GET /{name} - 获取指定模板定义
+  * GET - Lấy danh sách định nghĩa mẫu
+  * POST - Tạo định nghĩa mẫu
+  * PUT - Cập nhật định nghĩa mẫu
+  * DELETE - Xóa định nghĩa mẫu
+  * GET /{name} - Lấy định nghĩa mẫu đã chỉ định
 * /api/text-templating/template-contents
-  * GET - 获取模板内容
-  * PUT - 更新模板内容
-  * DELETE - 删除模板内容
-  * POST /restore - 恢复模板内容
+  * GET - Lấy nội dung mẫu
+  * PUT - Cập nhật nội dung mẫu
+  * DELETE - Xóa nội dung mẫu
+  * POST /restore - Khôi phục nội dung mẫu
 
-### 权限要求
+### Yêu cầu quyền
 
 * AbpTextTemplating.TextTemplateDefinitions
-  * Create - 创建模板定义
-  * Update - 更新模板定义
-  * Delete - 删除模板定义
+  * Create - Tạo định nghĩa mẫu
+  * Update - Cập nhật định nghĩa mẫu
+  * Delete - Xóa định nghĩa mẫu
 * AbpTextTemplating.TextTemplateContents
-  * Update - 更新模板内容
-  * Delete - 删除模板内容
+  * Update - Cập nhật nội dung mẫu
+  * Delete - Xóa nội dung mẫu
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpTextTemplatingHttpApiModule` 依赖
+1. Thêm phụ thuộc `AbpTextTemplatingHttpApiModule`
 
 ```csharp
 [DependsOn(typeof(AbpTextTemplatingHttpApiModule))]
@@ -50,7 +50,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用 API 接口
+2. Sử dụng giao diện API
 
 ```csharp
 public class YourService
@@ -64,11 +64,11 @@ public class YourService
 
     public async Task ManageTemplateAsync()
     {
-        // 获取模板定义列表
+        // Lấy danh sách định nghĩa mẫu
         var response = await _httpClient.GetAsync("/api/text-templating/template-definitions");
         var templates = await response.Content.ReadFromJsonAsync<ListResultDto<TextTemplateDefinitionDto>>();
     }
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

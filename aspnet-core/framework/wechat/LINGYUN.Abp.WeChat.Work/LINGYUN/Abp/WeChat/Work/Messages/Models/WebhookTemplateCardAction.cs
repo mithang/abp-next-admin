@@ -1,37 +1,37 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 卡片的点击跳转事件
+/// Sự kiện chuyển hướng khi nhấp vào thẻ
 /// </summary>
 public class WebhookTemplateCardAction
 {
     /// <summary>
-    /// 卡片跳转类型，1 代表跳转url，2 代表打开小程序。text_notice模版卡片中该字段取值范围为[1,2]
+    /// Loại chuyển hướng của thẻ, 1 nghĩa là chuyển đến url, 2 nghĩa là mở chương trình mini. Trong thẻ mẫu text_notice, phạm vi giá trị của trường này là [1,2]
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public int Type { get; set; }
     /// <summary>
-    /// 跳转链接的url，type是1时必填
+    /// Url của liên kết chuyển hướng, bắt buộc khi type là 1
     /// </summary>
     [CanBeNull]
     [JsonProperty("url")]
     [JsonPropertyName("url")]
     public string? Url { get; set; }
     /// <summary>
-    /// 点击跳转的小程序的appid，type是2时必填
+    /// Appid của chương trình mini chuyển đến khi nhấp vào, bắt buộc khi type là 2
     /// </summary>
     [CanBeNull]
     [JsonProperty("appid")]
     [JsonPropertyName("appid")]
     public string? AppId { get; set; }
     /// <summary>
-    /// 点击跳转的小程序的pagepath，type是2时选填
+    /// Pagepath của chương trình mini chuyển đến khi nhấp vào, tùy chọn khi type là 2
     /// </summary>
     [CanBeNull]
     [JsonProperty("pagepath")]
@@ -50,9 +50,9 @@ public class WebhookTemplateCardAction
         PagePath = pagePath;
     }
     /// <summary>
-    /// 创建一个跳转链接卡片事件
+    /// Tạo một sự kiện thẻ liên kết chuyển hướng
     /// </summary>
-    /// <param name="url">跳转链接的url</param>
+    /// <param name="url">Url của liên kết chuyển hướng</param>
     /// <returns></returns>
     public static WebhookTemplateCardAction Link(string url)
     {
@@ -61,10 +61,10 @@ public class WebhookTemplateCardAction
         return new WebhookTemplateCardAction(1, url);
     }
     /// <summary>
-    /// 创建一个跳转小程序卡片事件
+    /// Tạo một sự kiện thẻ chương trình mini chuyển hướng
     /// </summary>
-    /// <param name="appId">小程序的appid</param>
-    /// <param name="pagePath">小程序的pagePath</param>
+    /// <param name="appId">Appid của chương trình mini</param>
+    /// <param name="pagePath">PagePath của chương trình mini</param>
     /// <returns></returns>
     public static WebhookTemplateCardAction MiniProgram(string appId, string pagePath)
     {

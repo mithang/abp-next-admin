@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信群聊文本图文消息
+/// Tin nhắn văn bản - hình ảnh (mp) trong nhóm trò chuyện của WeChat doanh nghiệp
 /// </summary>
 public class WeChatWorkAppChatMpNewMessage : WeChatWorkAppChatMessage
 {
@@ -16,17 +16,17 @@ public class WeChatWorkAppChatMpNewMessage : WeChatWorkAppChatMessage
         News = mpnews;
     }
     /// <summary>
-    /// 图文消息（mp）
+    /// Tin nhắn văn bản - hình ảnh (mp)
     /// </summary>
     [NotNull]
     [JsonProperty("mpnews")]
     [JsonPropertyName("mpnews")]
     public MpNewMessagePayload News { get; set; }
     /// <summary>
-    /// 表示是否是保密消息，
-    /// 0不保密
-    /// 1保密
-    /// 默认为0
+    /// Cho biết có phải là tin nhắn bảo mật hay không,
+    /// 0: không bảo mật
+    /// 1: bảo mật
+    /// Mặc định là 0
     /// </summary>
     [JsonProperty("safe")]
     [JsonPropertyName("safe")]

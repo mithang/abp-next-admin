@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Auditing.HttpApi
 
-审计日志HTTP API模块，提供审计日志的REST API接口。
+Mô-đun HTTP API nhật ký kiểm toán, cung cấp giao diện REST API của nhật ký kiểm toán.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 审计日志REST API接口
-* 安全日志REST API接口
-* 支持API版本控制
-* 集成Swagger文档
+* Giao diện REST API nhật ký kiểm toán
+* Giao diện REST API nhật ký bảo mật
+* Hỗ trợ kiểm soát phiên bản API
+* Tích hợp tài liệu Swagger
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpAuditingHttpApiModule))]
@@ -21,30 +21,30 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API接口
+## Giao diện API
 
-### 审计日志
+### Nhật ký kiểm toán
 
-* GET /api/audit-logging/audit-logs/{id} - 获取指定的审计日志
-* GET /api/audit-logging/audit-logs - 获取审计日志列表
-* DELETE /api/audit-logging/audit-logs/{id} - 删除指定的审计日志
-* DELETE /api/audit-logging/audit-logs/batch - 批量删除审计日志
+* GET /api/audit-logging/audit-logs/{id} - Lấy nhật ký kiểm toán được chỉ định
+* GET /api/audit-logging/audit-logs - Lấy danh sách nhật ký kiểm toán
+* DELETE /api/audit-logging/audit-logs/{id} - Xóa nhật ký kiểm toán được chỉ định
+* DELETE /api/audit-logging/audit-logs/batch - Xóa hàng loạt nhật ký kiểm toán
 
-### 安全日志
+### Nhật ký bảo mật
 
-* GET /api/audit-logging/security-logs/{id} - 获取指定的安全日志
-* GET /api/audit-logging/security-logs - 获取安全日志列表
-* DELETE /api/audit-logging/security-logs/{id} - 删除指定的安全日志
-* DELETE /api/audit-logging/security-logs/batch - 批量删除安全日志
+* GET /api/audit-logging/security-logs/{id} - Lấy nhật ký bảo mật được chỉ định
+* GET /api/audit-logging/security-logs - Lấy danh sách nhật ký bảo mật
+* DELETE /api/audit-logging/security-logs/{id} - Xóa nhật ký bảo mật được chỉ định
+* DELETE /api/audit-logging/security-logs/batch - Xóa hàng loạt nhật ký bảo mật
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 引用模块
-2. 配置权限（如需要）
-3. 通过HTTP客户端调用相应的API接口
+1. Tham chiếu mô-đun
+2. Cấu hình quyền (nếu cần)
+3. Gọi giao diện API tương ứng qua HTTP client
 
-## API文档
+## Tài liệu API
 
-启动应用程序后，可以通过Swagger UI查看完整的API文档：
-* /swagger - Swagger UI界面
-* /swagger/v1/swagger.json - OpenAPI规范文档
+Sau khi khởi động ứng dụng, có thể xem tài liệu API đầy đủ qua Swagger UI:
+* /swagger - Giao diện Swagger UI
+* /swagger/v1/swagger.json - Tài liệu đặc tả OpenAPI

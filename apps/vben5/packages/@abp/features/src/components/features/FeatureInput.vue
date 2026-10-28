@@ -15,7 +15,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (event: 'change', feature: FeatureDto, groupIndex: number): void;
+  (event: 'change', feature: FeatureDto, groupIndex: number, value: any): void;
 }>();
 
 const FormItem = Form.Item;
@@ -65,8 +65,11 @@ function createRules(field: string, validator: Validator) {
   return featureRules;
 }
 
-function handleChange() {
-  emit('change', props.feature, props.groupIndex);
+// Không v-model trực tiếp vào prop `feature` (vue/no-mutating-props):
+// chỉ hiển thị giá trị (`:checked`/`:value`) và emit giá trị mới;
+// component sở hữu formModel (FeaturesModal2) sẽ ghi giá trị đó.
+function handleChange(value: any) {
+  emit('change', props.feature, props.groupIndex, value);
 }
 
 const isCheckbox = computed(
@@ -96,38 +99,38 @@ const isSelection = computed(
     :extra="feature.description"
     :rules="createRules(feature.displayName, feature.valueType.validator)"
   >
-    <!-- 复选框类型 -->
+    <!-- Loại hộp kiểm -->
     <Checkbox
       v-if="isCheckbox"
-      v-model:checked="feature.value"
-      @change="handleChange"
+      :checked="feature.value"
+      @update:checked="(val) => handleChange(val)"
     >
       {{ feature.displayName }}
     </Checkbox>
 
-    <!-- 文本/数字类型 -->
+    <!-- Loại văn bản/số -->
     <div v-else-if="isFreeText">
       <InputNumber
         v-if="isNumeric"
         style="width: 100%"
-        v-model:value="feature.value"
-        @change="handleChange"
+        :value="feature.value"
+        @update:value="(val) => handleChange(val)"
       />
       <Input
         v-else
-        v-model:value="feature.value"
+        :value="feature.value"
         autocomplete="off"
-        @change="handleChange"
+        @update:value="(val) => handleChange(val)"
       />
     </div>
 
-    <!-- 选择类型 -->
+    <!-- Loại lựa chọn -->
     <Select
       v-else-if="isSelection"
-      v-model:value="feature.value"
+      :value="feature.value"
       :options="feature.valueType.itemSource?.items"
       :field-names="{ label: 'displayName', value: 'value' }"
-      @change="handleChange"
+      @update:value="(val) => handleChange(val)"
     />
   </FormItem>
 </template>

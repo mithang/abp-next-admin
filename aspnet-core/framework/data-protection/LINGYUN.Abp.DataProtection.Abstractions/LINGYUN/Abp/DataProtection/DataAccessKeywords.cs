@@ -1,15 +1,15 @@
 ﻿namespace LINGYUN.Abp.DataProtection;
 /// <summary>
-/// 系统保留关键字列表
+/// Danh sách từ khóa hệ thống giữ lại
 /// </summary>
 public static class DataAccessKeywords
 {
     /// <summary>
-    /// 授权角色
+    /// Vai trò được ủy quyền
     /// </summary>
     public const string AUTH_ROLES = "AR";
     /// <summary>
-    /// 授权组织机构
+    /// Tổ chức được ủy quyền
     /// </summary>
     public const string AUTH_ORGS = "AO";
 }

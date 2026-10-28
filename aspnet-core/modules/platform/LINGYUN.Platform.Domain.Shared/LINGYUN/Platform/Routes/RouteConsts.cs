@@ -44,15 +44,15 @@ public class RouteConsts
         set;
     } = 255;
     /// <summary>
-    /// 层级深度
+    /// Độ sâu phân cấp
     /// </summary>
     public const int MaxDepth = 16;
     /// <summary>
-    /// 编码长度
+    /// Độ dài mã
     /// </summary>
     public const int CodeUnitLength = 5;
     /// <summary>
-    /// 编号最大长度
+    /// Độ dài tối đa của số hiệu
     /// </summary>
     public const int MaxCodeLength = MaxDepth * (CodeUnitLength + 1) - 1;
 }

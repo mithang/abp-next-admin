@@ -1,28 +1,28 @@
 # LINGYUN.Abp.BackgroundTasks
 
-后台任务（队列）模块，Abp提供的后台作业与后台工作者不支持Cron表达式, 提供可管理的后台任务（队列）功能. 
+Mô-đun tác vụ nền (hàng đợi), các background job và background worker do Abp cung cấp không hỗ trợ biểu thức Cron, cung cấp chức năng tác vụ nền (hàng đợi) có thể quản lý. 
 
-实现了**Volo.Abp.BackgroundJobs.IBackgroundJobManager**, 意味着您也能通过框架后台作业接口添加新作业.  
-实现了**Volo.Abp.BackgroundWorkers.IBackgroundWorkerManager**, 意味着您也能通过框架后台工作者接口添加新作业.  
+Đã triển khai **Volo.Abp.BackgroundJobs.IBackgroundJobManager**, nghĩa là bạn cũng có thể thêm job mới qua giao diện background job của framework.  
+Đã triển khai **Volo.Abp.BackgroundWorkers.IBackgroundWorkerManager**, nghĩa là bạn cũng có thể thêm job mới qua giao diện background worker của framework.  
 
-## 任务类别  
+## Loại tác vụ  
 
-* JobType.Once:         一次性任务, 此类型只会被执行一次, 适用于邮件通知等场景  
-* JobType.Period:       周期性任务, 此类型任务会根据Cron表达式来决定运行方式, 适用于报表分析等场景  
-* JobType.Persistent:   持续性任务, 此类型任务按照给定重复次数、重复间隔运行, 适用于接口压测等场景  
+* JobType.Once:         Tác vụ một lần, loại này chỉ được thực thi một lần, phù hợp với các tình huống như thông báo email  
+* JobType.Period:       Tác vụ định kỳ, loại tác vụ này quyết định cách chạy theo biểu thức Cron, phù hợp với các tình huống như phân tích báo cáo  
+* JobType.Persistent:   Tác vụ liên tục, loại tác vụ này chạy theo số lần lặp và khoảng lặp đã cho, phù hợp với các tình huống như kiểm tra áp lực giao diện  
 
-## 接口说明
+## Mô tả giao diện
 
-* [IJobPublisher](/LINGYUN/Abp/BackgroundTasks/IJobPublisher.cs): 作业发布接口, 将指定作业发布到当前节点  
-* [IJobDispatcher](/LINGYUN/Abp/BackgroundTasks/IJobDispatcher.cs): 作业调度接口, 将指定作业调度到指定节点  
-* [IJobScheduler](/LINGYUN/Abp/BackgroundTasks/IJobScheduler.cs): 调度器接口, 管理当前运行节点作业调度器  
-* [IJobLockProvider](/LINGYUN/Abp/BackgroundTasks/IJobLockProvider.cs): 作业锁定接口, 指定作业加锁, 防止重复运行, 锁定时长参见作业 **LockTimeOut**  
-* [IJobEventTrigger](/LINGYUN/Abp/BackgroundTasks/IJobEventTrigger.cs): 作业事件触发器接口, 作业运行前与运行后监听接口  
-* [IJobStore](/LINGYUN/Abp/BackgroundTasks/IJobStore.cs): 作业持久化接口  
+* [IJobPublisher](/LINGYUN/Abp/BackgroundTasks/IJobPublisher.cs): Giao diện phát hành job, phát hành job đã chỉ định tới nút hiện tại  
+* [IJobDispatcher](/LINGYUN/Abp/BackgroundTasks/IJobDispatcher.cs): Giao diện điều phối job, điều phối job đã chỉ định tới nút đã chỉ định  
+* [IJobScheduler](/LINGYUN/Abp/BackgroundTasks/IJobScheduler.cs): Giao diện bộ lập lịch, quản lý bộ lập lịch job của nút đang chạy hiện tại  
+* [IJobLockProvider](/LINGYUN/Abp/BackgroundTasks/IJobLockProvider.cs): Giao diện khóa job, khóa job đã chỉ định, ngăn chạy trùng lặp, thời gian khóa xem **LockTimeOut** của job  
+* [IJobEventTrigger](/LINGYUN/Abp/BackgroundTasks/IJobEventTrigger.cs): Giao diện trình kích hoạt sự kiện job, giao diện lắng nghe trước và sau khi job chạy  
+* [IJobStore](/LINGYUN/Abp/BackgroundTasks/IJobStore.cs): Giao diện lưu trữ bền vững job  
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksModule))]
@@ -46,7 +46,7 @@ public class DemoClass
     {
         var scheduler = ServiceProvider.GetRequiredService<IJobScheduler>();
 
-        // 将周期性（5秒一次）任务添加到队列
+        // Thêm tác vụ định kỳ (mỗi 5 giây một lần) vào hàng đợi
         await scheduler.QueueAsync(new JobInfo
         {
             Type = typeof(ConsoleJob).AssemblyQualifiedName,
@@ -60,11 +60,11 @@ public class DemoClass
             Cron = "0/5 * * * * ? ",
             TryCount = 10,
             Status = JobStatus.Running,
-            // 定义此字段处理并发
+            // Định nghĩa trường này để xử lý đồng thời
             LockTimeOut = 120,
         });
 
-        // 将一次性任务添加到队列, 将在10（Interval）秒后被执行
+        // Thêm tác vụ một lần vào hàng đợi, sẽ được thực thi sau 10 (Interval) giây
         await scheduler.QueueAsync(new JobInfo
         {
             Type = typeof(ConsoleJob).AssemblyQualifiedName,
@@ -80,7 +80,7 @@ public class DemoClass
             Status = JobStatus.Running,
         });
 
-        // 将持续性任务添加到队列, 将在10（Interval）秒后被执行, 最大执行5（MaxCount）次
+        // Thêm tác vụ liên tục vào hàng đợi, sẽ được thực thi sau 10 (Interval) giây, tối đa 5 (MaxCount) lần
         await scheduler.QueueAsync(new JobInfo
         {
             Type = typeof(ConsoleJob).AssemblyQualifiedName,
@@ -97,20 +97,20 @@ public class DemoClass
             Status = JobStatus.Running,
         });
 
-        // 同样可以把框架后台作业添加到作业调度器中, 不需要更改使用习惯
+        // Tương tự, có thể thêm background job của framework vào bộ lập lịch job mà không cần thay đổi thói quen sử dụng
         var backgroundJobManager = ServiceProvider.GetRequiredService<IBackgroundJobManager>();
         await jobManager.EnqueueAsync(
             new SmsJobArgs
             {
                 PhoneNumber = "13800138000",
-                Message = "来自框架的后台工作者"
+                Message = "Từ background worker của framework"
             },
             BackgroundJobPriority.High,
             TimeSpan.FromSeconds(10));
 
-        // 同样可以把框架后台工作者添加到作业调度器中, 不需要更改使用习惯
+        // Tương tự, có thể thêm background worker của framework vào bộ lập lịch job mà không cần thay đổi thói quen sử dụng
         var backgroundWorkManager = ServiceProvider.GetRequiredService<IBackgroundWorkerManager>();
-        // 每20秒控制台输出
+        // Xuất ra console mỗi 20 giây
         await backgroundWorkManager.AddAsync(ServiceProvider.GetRequiredService<ConsoleWorker>());
     }
 }

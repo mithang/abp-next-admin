@@ -5,60 +5,60 @@ namespace LINGYUN.Abp.Location.Baidu;
 public class BaiduLocationOptions
 {
     /// <summary>
-    /// 用户申请注册的key
+    /// Key người dùng đăng ký
     /// </summary>
     public string AccessKey { get; set; } = default!;
     /// <summary>
-    /// 用户申请注册的AccessSecret
+    /// AccessSecret người dùng đăng ký
     /// </summary>
     public string AccessSecret { get; set; } = default!;
     /// <summary>
-    /// 坐标的类型，目前支持的坐标类型包括：
-    /// bd09ll（百度经纬度坐标）
-    /// bd09mc（百度米制坐标）
-    /// gcj02ll（国测局经纬度坐标，仅限中国）
-    /// wgs84ll（ GPS经纬度）
+    /// Loại tọa độ, các loại tọa độ hiện được hỗ trợ bao gồm:
+    /// bd09ll (tọa độ kinh/vĩ độ Baidu)
+    /// bd09mc (tọa độ hệ mét Baidu)
+    /// gcj02ll (tọa độ kinh/vĩ độ của Cục Đo đạc Quốc gia, chỉ giới hạn ở Trung Quốc)
+    /// wgs84ll (kinh/vĩ độ GPS)
     /// </summary>
     public string CoordType { get; set; } = "bd09ll";
     /// <summary>
-    /// 可选参数，添加后返回国测局经纬度坐标或百度米制
-    /// gcj02ll（国测局坐标）
-    /// bd09mc（百度墨卡托坐标）
+    /// Tham số tùy chọn, sau khi thêm sẽ trả về tọa độ kinh/vĩ độ của Cục Đo đạc Quốc gia hoặc hệ mét Baidu
+    /// gcj02ll (tọa độ của Cục Đo đạc Quốc gia)
+    /// bd09mc (tọa độ Mercator Baidu)
     /// </summary>
     public string ReturnCoordType { get; set; } = "bd09ll";
     /// <summary>
-    /// 计算sn
+    /// Tính sn
     /// </summary>
     public bool CaculateAKSN => !AccessSecret.IsNullOrWhiteSpace();
     /// <summary>
-    /// extensions_poi=0，不召回pois数据。
-    /// extensions_poi=1，返回pois数据，
-    /// 默认显示周边1000米内的poi。
+    /// extensions_poi=0, không truy hồi dữ liệu pois.
+    /// extensions_poi=1, trả về dữ liệu pois,
+    /// Theo mặc định hiển thị poi trong phạm vi 1000 mét xung quanh.
     /// </summary>
     public string ExtensionsPoi { get; set; } = "1";
     /// <summary>
-    /// 当取值为true时，召回坐标周围最近的3条道路数据。
-    /// 区别于行政区划中的street参数（street参数为行政区划中的街道，和普通道路不对应）
+    /// Khi giá trị là true, truy hồi dữ liệu của 3 tuyến đường gần nhất xung quanh tọa độ.
+    /// Khác với tham số street trong phân chia hành chính (tham số street là đường phố trong phân chia hành chính, không tương ứng với đường thông thường)
     /// </summary>
     public bool ExtensionsRoad { get; set; } = false;
     /// <summary>
-    /// 当取值为true时，行政区划返回乡镇级数据（仅国内召回乡镇数据）。
-    /// 默认不访问。
+    /// Khi giá trị là true, phân chia hành chính trả về dữ liệu cấp xã/thị trấn (chỉ truy hồi dữ liệu cấp xã trong nước).
+    /// Theo mặc định không truy cập.
     /// </summary>
     public bool ExtensionsTown { get; set; } = false;
     /// <summary>
-    /// 指定召回的新政区划语言类型。
+    /// Chỉ định loại ngôn ngữ của phân chia hành chính mới được truy hồi.
     /// el gu en vi ca it iw sv eu ar cs gl id es en-GB ru sr nl pt tr tl lv en-AU lt th ro 
     /// fil ta fr bg hr bn de hu fa hi pt-BR fi da ja te pt-PT ml ko kn sk zh-CN pl uk sl mr 
     /// local
     /// </summary>
     public string Language { get; set; } = "zh-CN";
     /// <summary>
-    /// 输出格式为json或者xml
+    /// Định dạng đầu ra là json hoặc xml
     /// </summary>
     public string Output { get; set; } = "json";
     /// <summary>
-    /// 展示错误给客户端
+    /// Hiển thị lỗi cho client
     /// </summary>
     public bool VisableErrorToClient { get; set; } = false;
 }

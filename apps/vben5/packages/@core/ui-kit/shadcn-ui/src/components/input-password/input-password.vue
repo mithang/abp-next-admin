@@ -10,7 +10,7 @@ import PasswordStrength from './password-strength.vue';
 interface Props {
   class?: any;
   /**
-   * 是否显示密码强度
+   * Có hiển thị độ mạnh mật khẩu hay không
    */
   passwordStrength?: boolean;
 }

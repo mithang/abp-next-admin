@@ -1,9 +1,9 @@
 <!--
- * @Description: 渲染JSON数据
+ * @Description: Render dữ liệu JSON
 -->
 <template>
   <Modal
-    title="JSON数据"
+    title="Dữ liệu JSON"
     :footer="null"
     :visible="visible"
     @cancel="handleCancel"
@@ -33,11 +33,11 @@
         visible: boolean;
         jsonData: IFormConfig;
       }>({
-        visible: false, // 控制json数据弹框显示
-        jsonData: {} as IFormConfig, // json数据
+        visible: false, // Điều khiển hiển thị hộp thoại dữ liệu json
+        jsonData: {} as IFormConfig, // dữ liệu json
       });
       /**
-       * 显示Json数据弹框
+       * Hiển thị hộp thoại dữ liệu Json
        * @param jsonData
        */
       const showModal = (jsonData: IFormConfig) => {
@@ -45,11 +45,11 @@
         state.jsonData = jsonData;
         state.visible = true;
       };
-      // 计算json数据
+      // Tính toán dữ liệu json
       const editorJson = computed(() => {
         return JSON.stringify(removeAttrs(state.jsonData), null, '\t');
       });
-      // 关闭弹框
+      // Đóng hộp thoại
       const handleCancel = () => {
         state.visible = false;
         emit('cancel');

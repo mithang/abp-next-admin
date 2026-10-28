@@ -1,14 +1,14 @@
 <!--
- * @Description: 渲染组件，无法使用Vben的组件
+ * @Description: Render component, không thể dùng component của Vben
 -->
 <template>
   <Modal
-    title="预览(支持布局)"
+    title="Xem trước (hỗ trợ bố cục)"
     :visible="visible"
     @ok="handleGetData"
     @cancel="handleCancel"
-    okText="获取数据"
-    cancelText="关闭"
+    okText="Lấy dữ liệu"
+    cancelText="Đóng"
     style="top: 20px"
     :destroyOnClose="true"
     :width="900"
@@ -20,7 +20,7 @@
       @submit="onSubmit"
     >
       <template #slotName="{ formModel, field }">
-        <a-input v-model:value="formModel[field]" placeholder="我是插槽传递的输入框" />
+        <a-input v-model:value="formModel[field]" placeholder="Tôi là ô nhập được truyền qua slot" />
       </template>
     </VFormCreate>
     <JsonModal ref="jsonModal" />
@@ -57,7 +57,7 @@
         fApi: {} as IVFormMethods,
       });
       /**
-       * 显示Json数据弹框
+       * Hiển thị hộp thoại dữ liệu Json
        * @param jsonData
        */
       const showModal = (jsonData: IFormConfig) => {
@@ -67,7 +67,7 @@
         state.visible = true;
       };
       /**
-       * 获取表单数据
+       * Lấy dữ liệu form
        * @return {Promise<void>}
        */
       const handleCancel = () => {

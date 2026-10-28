@@ -10,26 +10,26 @@ import type {
 import requestClient from "../request";
 
 /**
- * 删除Webhook分组定义
- * @param name Webhook分组名称
+ * Xóa định nghĩa nhóm Webhook
+ * @param name Tên nhóm Webhook
  */
 export function deleteApi(name: string): Promise<void> {
 	return requestClient.delete(`/api/webhooks/definitions/groups/${name}`);
 }
 
 /**
- * 查询Webhook分组定义
- * @param name Webhook分组名称
- * @returns Webhook分组定义数据传输对象
+ * Truy vấn định nghĩa nhóm Webhook
+ * @param name Tên nhóm Webhook
+ * @returns Đối tượng truyền dữ liệu định nghĩa nhóm Webhook
  */
 export function getApi(name: string): Promise<WebhookGroupDefinitionDto> {
 	return requestClient.get<WebhookGroupDefinitionDto>(`/api/webhooks/definitions/groups/${name}`);
 }
 
 /**
- * 查询Webhook分组定义列表
- * @param input Webhook分组过滤条件
- * @returns Webhook分组定义数据传输对象列表
+ * Truy vấn danh sách định nghĩa nhóm Webhook
+ * @param input Điều kiện lọc nhóm Webhook
+ * @returns Danh sách đối tượng truyền dữ liệu định nghĩa nhóm Webhook
  */
 export function getListApi(
 	input?: WebhookGroupDefinitionGetListInput,
@@ -40,19 +40,19 @@ export function getListApi(
 }
 
 /**
- * 创建Webhook分组定义
- * @param input Webhook分组定义参数
- * @returns Webhook分组定义数据传输对象
+ * Tạo định nghĩa nhóm Webhook
+ * @param input Tham số định nghĩa nhóm Webhook
+ * @returns Đối tượng truyền dữ liệu định nghĩa nhóm Webhook
  */
 export function createApi(input: WebhookGroupDefinitionCreateDto): Promise<WebhookGroupDefinitionDto> {
 	return requestClient.post<WebhookGroupDefinitionDto>("/api/webhooks/definitions/groups", input);
 }
 
 /**
- * 更新Webhook分组定义
- * @param name Webhook分组名称
- * @param input Webhook分组定义参数
- * @returns Webhook分组定义数据传输对象
+ * Cập nhật định nghĩa nhóm Webhook
+ * @param name Tên nhóm Webhook
+ * @param input Tham số định nghĩa nhóm Webhook
+ * @returns Đối tượng truyền dữ liệu định nghĩa nhóm Webhook
  */
 export function updateApi(name: string, input: WebhookGroupDefinitionUpdateDto): Promise<WebhookGroupDefinitionDto> {
 	return requestClient.put<WebhookGroupDefinitionDto>(`/api/webhooks/definitions/groups/${name}`, input);

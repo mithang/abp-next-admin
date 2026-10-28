@@ -1,16 +1,16 @@
 interface SettingBase {
-	/** 名称 */
+	/** Tên */
 	name: string;
-	/** 当前设置值 */
+	/** Giá trị cài đặt hiện tại */
 	value: string;
 }
 
-/** 配置变更对象 */
+/** Đối tượng thay đổi cấu hình */
 type SettingUpdateInput = SettingBase;
 
-/** 配置变更集合对象 */
+/** Tập hợp đối tượng thay đổi cấu hình */
 interface SettingsUpdateInput {
-	/** 配置集合 */
+	/** Tập hợp cấu hình */
 	settings: SettingUpdateInput[];
 }
 

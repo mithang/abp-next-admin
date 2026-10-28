@@ -12,19 +12,19 @@ const [Form, formApi] = useVbenForm({
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field1',
-      label: '字段1',
+      label: 'Trường 1',
       rules: 'required',
     },
     {
       component: 'Input',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'field2',
-      label: '字段2',
+      label: 'Trường 2',
       rules: 'required',
     },
   ],
@@ -46,7 +46,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
       }
     }
   },
-  title: '内嵌表单示例',
+  title: 'Ví dụ biểu mẫu nhúng',
 });
 </script>
 <template>

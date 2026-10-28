@@ -3,19 +3,19 @@
 public class AbpWeChatMiniProgramOptions
 {
     /// <summary>
-    /// 小程序AppId
+    /// AppId của chương trình mini
     /// </summary>
     public string AppId { get; set; } = default!;
     /// <summary>
-    /// 小程序AppSecret
+    /// AppSecret của chương trình mini
     /// </summary>
     public string AppSecret { get; set; } = default!;
     /// <summary>
-    /// 小程序消息解密Token
+    /// Token giải mã tin nhắn của chương trình mini
     /// </summary>
     public string Token { get; set; } = default!;
     /// <summary>
-    /// 小程序消息解密AESKey
+    /// AESKey giải mã tin nhắn của chương trình mini
     /// </summary>
     public string EncodingAESKey { get; set; } = default!;
 }

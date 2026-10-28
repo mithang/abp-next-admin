@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 关联审批单控件配置
+/// Cấu hình điều khiển đơn phê duyệt liên kết
 /// </summary>
 public class RelatedApprovalControlConfig : ControlConfig
 {
     /// <summary>
-    /// 关联审批单控件
+    /// Điều khiển đơn phê duyệt liên kết
     /// </summary>
     [NotNull]
     [JsonProperty("related_approval")]
@@ -29,7 +29,7 @@ public class RelatedApprovalControlConfig : ControlConfig
 public class RelatedApprovalConfig
 {
     /// <summary>
-    /// 关联审批单的template_id ，不填时表示可以关联所有模版，该template_id可通过获取审批模版接口获取
+    /// Template_id của đơn phê duyệt liên kết; khi không điền nghĩa là có thể liên kết tất cả mẫu, template_id này có thể lấy qua giao diện lấy mẫu phê duyệt
     /// </summary>
     [NotNull]
     [JsonProperty("template_id")]

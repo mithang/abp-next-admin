@@ -1,19 +1,19 @@
 # LINGYUN.Abp.WebhooksManagement.Application.Contracts
 
-Webhook管理应用服务契约模块，定义Webhook管理的应用服务接口和DTO。
+Mô-đun hợp đồng dịch vụ ứng dụng quản lý Webhook, định nghĩa giao diện dịch vụ ứng dụng và DTO quản lý Webhook。
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* Webhook订阅服务接口
-* Webhook组服务接口
-* Webhook定义服务接口
-* Webhook日志服务接口
-* Webhook权限定义
-* Webhook DTO定义
+* Giao diện dịch vụ đăng ký Webhook
+* Giao diện dịch vụ nhóm Webhook
+* Giao diện dịch vụ định nghĩa Webhook
+* Giao diện dịch vụ nhật ký Webhook
+* Định nghĩa quyền Webhook
+* Định nghĩa DTO Webhook
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksManagementApplicationContractsModule))]
@@ -23,16 +23,16 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 服务接口
+## Giao diện dịch vụ
 
-* IWebhookSubscriptionAppService - Webhook订阅管理服务
-* IWebhookGroupAppService - Webhook组管理服务
-* IWebhookDefinitionAppService - Webhook定义管理服务
-* IWebhookSendAttemptAppService - Webhook发送日志服务
+* IWebhookSubscriptionAppService - Dịch vụ quản lý đăng ký Webhook
+* IWebhookGroupAppService - Dịch vụ quản lý nhóm Webhook
+* IWebhookDefinitionAppService - Dịch vụ quản lý định nghĩa Webhook
+* IWebhookSendAttemptAppService - Dịch vụ nhật ký gửi Webhook
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 实现Webhook订阅服务
+1. Triển khai dịch vụ đăng ký Webhook
 ```csharp
 public class WebhookSubscriptionAppService : 
     ApplicationService,
@@ -41,18 +41,18 @@ public class WebhookSubscriptionAppService :
     public async Task<WebhookSubscriptionDto> CreateAsync(
         WebhookSubscriptionCreateDto input)
     {
-        // 实现创建订阅逻辑
+        // Triển khai logic tạo đăng ký
     }
 
     public async Task<PagedResultDto<WebhookSubscriptionDto>> GetListAsync(
         WebhookSubscriptionGetListInput input)
     {
-        // 实现查询订阅逻辑
+        // Triển khai logic truy vấn đăng ký
     }
 }
 ```
 
-2. 使用Webhook DTO
+2. Sử dụng DTO Webhook
 ```csharp
 public class YourDto
 {

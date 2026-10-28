@@ -1,20 +1,20 @@
-/** 分组权限 */
+/** Quyền nhóm */
 export const GroupDefinitionsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'PermissionManagement.GroupDefinitions.Create',
   Default: 'PermissionManagement.GroupDefinitions',
-  /** 删除 */
+  /** Xóa */
   Delete: 'PermissionManagement.GroupDefinitions.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'PermissionManagement.GroupDefinitions.Update',
 };
-/** 权限定义权限 */
+/** Quyền định nghĩa quyền */
 export const PermissionDefinitionsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'PermissionManagement.Definitions.Create',
   Default: 'PermissionManagement.Definitions',
-  /** 删除 */
+  /** Xóa */
   Delete: 'PermissionManagement.Definitions.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'PermissionManagement.Definitions.Update',
 };

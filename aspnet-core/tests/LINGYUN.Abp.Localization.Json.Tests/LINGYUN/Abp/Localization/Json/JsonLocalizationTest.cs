@@ -20,7 +20,7 @@ namespace LINGYUN.Abp.Localization.Json
         {
             using (CultureHelper.Use("zh-Hans"))
             {
-                _localizer["Hello China"].Value.ShouldBe("China 你好!");
+                _localizer["Hello China"].Value.ShouldBe("China Xin chào!");
             }
 
             using (CultureHelper.Use("en"))

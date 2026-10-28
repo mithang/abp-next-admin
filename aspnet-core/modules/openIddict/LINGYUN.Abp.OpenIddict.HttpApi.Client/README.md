@@ -3,35 +3,35 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.HttpApi.Client%2FLINGYUN.Abp.OpenIddict.HttpApi.Client.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.HttpApi.Client.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.HttpApi.Client)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.HttpApi.Client` 是 OpenIddict 的 HTTP API 客户端模块，提供了远程调用 OpenIddict HTTP API 的客户端代理。
+`LINGYUN.Abp.OpenIddict.HttpApi.Client` là module máy khách HTTP API của OpenIddict, cung cấp proxy máy khách để gọi từ xa HTTP API của OpenIddict.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* HTTP API 客户端代理
-  * 自动生成 HTTP 客户端代理
-  * 支持远程服务调用
-  * 集成 ABP 动态 HTTP 客户端代理
+* Proxy máy khách HTTP API
+  * Tự động tạo proxy máy khách HTTP
+  * Hỗ trợ gọi dịch vụ từ xa
+  * Tích hợp proxy máy khách HTTP động của ABP
 
-* 远程服务配置
-  * 支持配置远程服务地址
-  * 支持配置认证方式
-  * 支持配置请求头
+* Cấu hình dịch vụ từ xa
+  * Hỗ trợ cấu hình địa chỉ dịch vụ từ xa
+  * Hỗ trợ cấu hình phương thức xác thực
+  * Hỗ trợ cấu hình header yêu cầu
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.HttpApi.Client
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictHttpApiClientModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictHttpApiClientModule))]` vào lớp module của bạn.
 
-2. 配置远程服务:
+2. Cấu hình dịch vụ từ xa:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -48,10 +48,10 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-3. 使用示例:
+3. Ví dụ sử dụng:
 
 ```csharp
-// 注入客户端代理
+// Tiêm proxy máy khách
 private readonly IOpenIddictApplicationAppService _applicationService;
 
 public YourService(IOpenIddictApplicationAppService applicationService)
@@ -59,25 +59,25 @@ public YourService(IOpenIddictApplicationAppService applicationService)
     _applicationService = applicationService;
 }
 
-// 调用远程服务
+// Gọi dịch vụ từ xa
 var input = new OpenIddictApplicationCreateDto
 {
     ClientId = "your-client-id",
     DisplayName = "Your App",
-    // ... 其他属性
+    // ... các thuộc tính khác
 };
 var result = await _applicationService.CreateAsync(input);
 ```
 
-## 配置项
+## Các mục cấu hình
 
 * RemoteServices
-  * Default:BaseUrl - 默认远程服务地址
-  * OpenIddict:BaseUrl - OpenIddict 远程服务地址
+  * Default:BaseUrl - Địa chỉ dịch vụ từ xa mặc định
+  * OpenIddict:BaseUrl - Địa chỉ dịch vụ từ xa OpenIddict
 
-## 注意事项
+## Lưu ý
 
-* 需要配置正确的远程服务地址
-* 如果远程服务需要认证，需要配置相应的认证信息
-* 建议在生产环境中使用 HTTPS
-* 客户端代理会自动处理认证令牌的传递
+* Cần cấu hình đúng địa chỉ dịch vụ từ xa
+* Nếu dịch vụ từ xa cần xác thực, cần cấu hình thông tin xác thực tương ứng
+* Khuyến nghị dùng HTTPS trong môi trường production
+* Proxy máy khách sẽ tự xử lý việc truyền token xác thực

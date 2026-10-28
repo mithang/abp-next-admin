@@ -1,24 +1,24 @@
 interface FallbackProps {
   /**
-   * 描述
+   * Mô tả
    */
   description?: string;
   /**
-   *  @zh_CN 首页路由地址
+   *  @zh_CN Địa chỉ route trang chủ
    *  @default /
    */
   homePath?: string;
   /**
-   * @zh_CN 默认显示的图片
+   * @zh_CN Hình ảnh hiển thị mặc định
    * @default pageNotFoundSvg
    */
   image?: string;
   /**
-   *  @zh_CN 内置类型
+   *  @zh_CN Loại có sẵn
    */
   status?: '403' | '404' | '500' | 'coming-soon' | 'offline';
   /**
-   *  @zh_CN 页面提示语
+   *  @zh_CN Câu nhắc của trang
    */
   title?: string;
 }

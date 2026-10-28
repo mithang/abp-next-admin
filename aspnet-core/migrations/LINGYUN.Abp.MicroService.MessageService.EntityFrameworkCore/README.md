@@ -1,21 +1,21 @@
 # LINGYUN.Abp.MicroService.MessageService.EntityFrameworkCore
 
-实时消息数据迁移模块，提供实时消息和通知系统相关的数据库迁移功能。
+Mô-đun di chuyển dữ liệu tin nhắn thời gian thực, cung cấp chức năng di chuyển cơ sở dữ liệu liên quan đến tin nhắn thời gian thực và hệ thống thông báo.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成SaaS多租户数据迁移
-* 集成通知系统数据迁移
-* 集成消息服务数据迁移
-* 集成文本模板数据迁移
-* 集成设置管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 支持MySQL数据库
+* Tích hợp di chuyển dữ liệu đa thuê bao SaaS
+* Tích hợp di chuyển dữ liệu hệ thống thông báo
+* Tích hợp di chuyển dữ liệu dịch vụ tin nhắn
+* Tích hợp di chuyển dữ liệu mẫu văn bản
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -30,22 +30,22 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "RealtimeMessageDbMigrator": "你的数据库连接字符串"
+    "RealtimeMessageDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置RealtimeMessageDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Trong appsettings.json, cấu hình chuỗi kết nối RealtimeMessageDbMigrator
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(RealtimeMessageMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -54,18 +54,18 @@
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* AbpNotifications - 通知系统数据表
-* AbpNotificationsDefinition - 通知定义数据表
-* AbpMessageService - 消息服务数据表
-* Saas相关表 - 租户、版本等多租户相关数据
-* AbpSettings - 系统设置数据
-* AbpPermissionGrants - 权限授权数据
-* AbpFeatures - 功能特性数据
-* AbpTextTemplates - 文本模板数据
+* AbpNotifications - Bảng dữ liệu hệ thống thông báo
+* AbpNotificationsDefinition - Bảng dữ liệu định nghĩa thông báo
+* AbpMessageService - Bảng dữ liệu dịch vụ tin nhắn
+* Các bảng liên quan đến Saas - Dữ liệu đa thuê bao như thuê bao, phiên bản
+* AbpSettings - Dữ liệu cài đặt hệ thống
+* AbpPermissionGrants - Dữ liệu cấp quyền
+* AbpFeatures - Dữ liệu tính năng
+* AbpTextTemplates - Dữ liệu mẫu văn bản
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [ABP通知系统文档](https://docs.abp.io/zh-Hans/abp/latest/Notification-System)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu hệ thống thông báo ABP](https://docs.abp.io/zh-Hans/abp/latest/Notification-System)

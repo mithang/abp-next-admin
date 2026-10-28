@@ -49,7 +49,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.Pages.Account
             var user = await SignInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                // ˫������Ϣ��֤ʧ��,һ�㶼�ǳ�ʱ�˻����û���Ϣ���
+                // Xác thực thông tin hai yếu tố thất bại, thường là do hết thời gian chờ hoặc thông tin người dùng đã thay đổi
                 Alerts.Warning(L["TwoFactorAuthenticationInvaidUser"]);
                 return Page();
             }
@@ -70,7 +70,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.Pages.Account
 
             if (Input.SelectedProvider == "Authenticator")
             {
-                // �û�ͨ���ʼ�/�������ӽ�����Ȩҳ��
+                // Người dùng vào trang ủy quyền qua liên kết email/SMS
                 return RedirectToPage("VerifyAuthenticatorCode", new
                 {
                     returnUrl = ReturnUrl,
@@ -78,7 +78,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.Pages.Account
                     rememberMe = RememberMe
                 });
             }
-            // ������֤��
+            // Tạo mã xác thực
             var code = await UserManager.GenerateTwoFactorTokenAsync(user, Input.SelectedProvider);
             if (string.IsNullOrWhiteSpace(code))
             {
@@ -100,7 +100,7 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.Pages.Account
                 var templateCode = await SettingProvider.GetOrNullAsync(IdentitySettingNames.User.SmsUserSignin);
                 Check.NotNullOrWhiteSpace(templateCode, nameof(IdentitySettingNames.User.SmsUserSignin));
 
-                // TODO: �Ժ���չ����ģ�巢��
+                // TODO: Về sau mở rộng gửi mẫu SMS
                 var smsMessage = new SmsMessage(phoneNumber, code);
                 smsMessage.Properties.Add("code", code);
                 smsMessage.Properties.Add("TemplateCode", templateCode);

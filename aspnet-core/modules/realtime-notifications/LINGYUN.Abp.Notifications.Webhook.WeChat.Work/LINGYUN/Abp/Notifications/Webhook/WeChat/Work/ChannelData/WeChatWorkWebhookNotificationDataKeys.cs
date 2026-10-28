@@ -1,56 +1,56 @@
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 企业微信 Webhook 通知数据键
+/// Khóa dữ liệu thông báo Webhook WeChat Work
 /// </summary>
 /// <remarks>
 /// <para>
-/// 前缀 <c>wx-work-hook:</c> 归属 Webhook 渠道自身。
-/// 企业微信**应用消息**渠道使用 <c>wx-work:</c> 前缀 —— 两者是不同传输方式,
-/// 键空间必须分开, 否则同一个通知被两个渠道同时订阅时,
-/// 载荷会被两边都解析并各发一条。
+/// Tiền tố <c>wx-work-hook:</c> thuộc về chính kênh Webhook.
+/// Kênh **tin nhắn ứng dụng** của WeChat Work sử dụng tiền tố <c>wx-work:</c> — hai kênh là các phương thức truyền tải khác nhau,
+/// Không gian khóa phải tách riêng, nếu không khi cùng một thông báo được cả hai kênh đăng ký đồng thời,
+/// payload sẽ bị cả hai phía phân tích và gửi đi mỗi phía một bản.
 /// </para>
 /// <para>
-/// 读取过程大小写不敏感(精确匹配优先)。
+/// Quá trình đọc không phân biệt chữ hoa/chữ thường (ưu tiên khớp chính xác).
 /// </para>
 /// </remarks>
 public static class WeChatWorkWebhookNotificationDataKeys
 {
     /// <summary>
-    /// 本渠道的数据键前缀
+    /// Tiền tố khóa dữ liệu của kênh này
     /// </summary>
     public const string Prefix = "wx-work-hook:";
 
     /// <summary>
-    /// 文本消息
+    /// Tin nhắn văn bản
     /// </summary>
     public const string Text = Prefix + "text";
     /// <summary>
-    /// markdown 消息
+    /// Tin nhắn markdown
     /// </summary>
     public const string Markdown = Prefix + "markdown";
     /// <summary>
-    /// markdown_v2 消息
+    /// Tin nhắn markdown_v2
     /// </summary>
     public const string MarkdownV2 = Prefix + "markdown_v2";
     /// <summary>
-    /// 图片消息(base64 + md5)
+    /// Tin nhắn hình ảnh (base64 + md5)
     /// </summary>
     public const string Image = Prefix + "image";
     /// <summary>
-    /// 图文消息
+    /// Tin nhắn hình ảnh và văn bản
     /// </summary>
     public const string News = Prefix + "news";
     /// <summary>
-    /// 文件消息
+    /// Tin nhắn tệp
     /// </summary>
     public const string File = Prefix + "file";
     /// <summary>
-    /// 语音消息
+    /// Tin nhắn thoại
     /// </summary>
     public const string Voice = Prefix + "voice";
     /// <summary>
-    /// 模板卡片消息
+    /// Tin nhắn thẻ mẫu
     /// </summary>
     public const string TemplateCard = Prefix + "template_card";
 }

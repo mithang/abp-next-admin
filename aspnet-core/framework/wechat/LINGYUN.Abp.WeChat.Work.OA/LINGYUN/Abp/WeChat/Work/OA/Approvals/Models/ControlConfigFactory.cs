@@ -5,7 +5,7 @@ namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 internal static class ControlConfigFactory
 {
     /// <summary>
-    /// 根据控件类型创建配置（System.Text.Json）
+    /// Tạo cấu hình theo loại điều khiển (System.Text.Json)
     /// </summary>
     public static ControlConfig? CreateConfig(string controlType, JsonElement configElement)
     {
@@ -21,13 +21,13 @@ internal static class ControlConfigFactory
             "Selector" => JsonSerializer.Deserialize<SelectorControlConfig>(configElement.GetRawText()),
             "Table" => JsonSerializer.Deserialize<TableControlConfig>(configElement.GetRawText()),
             "Tips" => JsonSerializer.Deserialize<TipsControlConfig>(configElement.GetRawText()),
-            // 添加其他控件类型...
+            // Thêm các loại điều khiển khác...
             _ => null
         };
     }
 
     /// <summary>
-    /// 根据控件类型创建配置（Newtonsoft.Json）
+    /// Tạo cấu hình theo loại điều khiển (Newtonsoft.Json)
     /// </summary>
     public static ControlConfig? CreateConfig(string controlType, JToken configToken)
     {
@@ -43,7 +43,7 @@ internal static class ControlConfigFactory
             "Selector" => configToken.ToObject<SelectorControlConfig>(),
             "Table" => configToken.ToObject<TableControlConfig>(),
             "Tips" => configToken.ToObject<TipsControlConfig>(),
-            // 添加其他控件类型...
+            // Thêm các loại điều khiển khác...
             _ => null
         };
     }

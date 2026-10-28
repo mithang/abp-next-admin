@@ -1,6 +1,6 @@
 # LINGYUN.Abp.UI.Navigation
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 Menu navigation module that provides extensible custom menu items.
 

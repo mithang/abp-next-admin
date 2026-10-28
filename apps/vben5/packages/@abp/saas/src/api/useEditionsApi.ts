@@ -13,9 +13,9 @@ export function useEditionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 创建版本
-   * @param {EditionCreateDto} input 参数
-   * @returns 创建的版本
+   * Tạo phiên bản
+   * @param {EditionCreateDto} input Tham số
+   * @returns Phiên bản đã tạo
    */
   function createApi(input: EditionCreateDto): Promise<EditionDto> {
     return request<EditionDto>('/api/saas/editions', {
@@ -25,10 +25,10 @@ export function useEditionsApi() {
   }
 
   /**
-   * 编辑版本
-   * @param {string} id 参数
-   * @param {EditionUpdateDto} input 参数
-   * @returns 编辑的版本
+   * Chỉnh sửa phiên bản
+   * @param {string} id Tham số
+   * @param {EditionUpdateDto} input Tham số
+   * @returns Phiên bản đã chỉnh sửa
    */
   function updateApi(id: string, input: EditionUpdateDto): Promise<EditionDto> {
     return request<EditionDto>(`/api/saas/editions/${id}`, {
@@ -38,9 +38,9 @@ export function useEditionsApi() {
   }
 
   /**
-   * 查询版本
+   * Truy vấn phiên bản
    * @param {string} id Id
-   * @returns 查询的版本
+   * @returns Phiên bản đã truy vấn
    */
   function getApi(id: string): Promise<EditionDto> {
     return request<EditionDto>(`/api/saas/editions/${id}`, {
@@ -49,7 +49,7 @@ export function useEditionsApi() {
   }
 
   /**
-   * 删除版本
+   * Xóa phiên bản
    * @param {string} id Id
    * @returns {void}
    */
@@ -60,8 +60,8 @@ export function useEditionsApi() {
   }
 
   /**
-   * 查询版本分页列表
-   * @param {GetEditionPagedListInput} input 参数
+   * Truy vấn danh sách phân trang phiên bản
+   * @param {GetEditionPagedListInput} input Tham số
    * @returns {void}
    */
   function getPagedListApi(

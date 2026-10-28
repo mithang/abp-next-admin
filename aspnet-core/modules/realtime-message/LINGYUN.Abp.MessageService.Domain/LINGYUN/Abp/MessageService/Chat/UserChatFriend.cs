@@ -8,39 +8,39 @@ namespace LINGYUN.Abp.MessageService.Chat;
 public class UserChatFriend : CreationAuditedAggregateRoot<long>, IMultiTenant
 {
     /// <summary>
-    /// 租户
+    /// Tenant
     /// </summary>
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 用户标识
+    /// Định danh người dùng
     /// </summary>
     public virtual Guid UserId { get; protected set; }
     /// <summary>
-    /// 好友标识
+    /// Định danh bạn bè
     /// </summary>
     public virtual Guid FrientId { get; protected set; }
     /// <summary>
-    /// 系统预置
+    /// Được hệ thống tạo sẵn
     /// </summary>
     public virtual bool IsStatic { get; set; }
     /// <summary>
-    /// 已添加黑名单
+    /// Đã thêm vào danh sách chặn
     /// </summary>
     public virtual bool Black { get; set; }
     /// <summary>
-    /// 消息免打扰
+    /// Không làm phiền tin nhắn
     /// </summary>
     public virtual bool DontDisturb { get; set; }
     /// <summary>
-    /// 特别关注
+    /// Quan tâm đặc biệt
     /// </summary>
     public virtual bool SpecialFocus { get; set; }
     /// <summary>
-    /// 备注名称
+    /// Tên ghi chú
     /// </summary>
     public virtual string? RemarkName { get; set; }
     /// <summary>
-    /// 附加说明
+    /// Mô tả bổ sung
     /// </summary>
     public virtual string? Description { get; set; }
 
@@ -69,7 +69,7 @@ public class UserChatFriend : CreationAuditedAggregateRoot<long>, IMultiTenant
     {
         if (Status == UserFriendStatus.NeedValidation && status == UserFriendStatus.Added)
         {
-            // 如果是后续验证通过的需要单独的事件
+            // Nếu là trường hợp xác thực sau đó được chấp thuận thì cần một sự kiện riêng
             AddLocalEvent(new UserChatFriendEto
             {
                 TenantId = TenantId,

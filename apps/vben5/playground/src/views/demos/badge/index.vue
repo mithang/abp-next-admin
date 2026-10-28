@@ -12,11 +12,11 @@ import { Button, Card, Radio, RadioGroup } from 'ant-design-vue';
 import { useVbenForm } from '#/adapter/form';
 
 const colors = [
-  { label: '预设：默认', value: 'default' },
-  { label: '预设：关键', value: 'destructive' },
-  { label: '预设：主要', value: 'primary' },
-  { label: '预设：成功', value: 'success' },
-  { label: '自定义', value: 'bg-gray-200 text-black' },
+  { label: 'Preset: Mặc định', value: 'default' },
+  { label: 'Preset: Quan trọng', value: 'destructive' },
+  { label: 'Preset: Chính', value: 'primary' },
+  { label: 'Preset: Thành công', value: 'success' },
+  { label: 'Tùy chỉnh', value: 'bg-gray-200 text-black' },
 ];
 
 const route = useRoute();
@@ -40,31 +40,31 @@ const [Form] = useVbenForm({
       componentProps: {
         buttonStyle: 'solid',
         options: [
-          { label: '点徽标', value: 'dot' },
-          { label: '文字徽标', value: 'normal' },
+          { label: 'Huy hiệu chấm', value: 'dot' },
+          { label: 'Huy hiệu chữ', value: 'normal' },
         ],
         optionType: 'button',
       },
       defaultValue: badgeProps.badgeType,
       fieldName: 'badgeType',
-      label: '类型',
+      label: 'Loại',
     },
     {
       component: 'Input',
       componentProps: {
         maxLength: 4,
-        placeholder: '请输入徽标内容',
+        placeholder: 'Vui lòng nhập nội dung huy hiệu',
         style: { width: '200px' },
       },
       defaultValue: badgeProps.badge,
       fieldName: 'badge',
-      label: '徽标内容',
+      label: 'Nội dung huy hiệu',
     },
     {
       component: 'RadioGroup',
       defaultValue: badgeProps.badgeVariants,
       fieldName: 'badgeVariants',
-      label: '颜色',
+      label: 'Màu sắc',
     },
     {
       component: 'Input',
@@ -85,10 +85,10 @@ function updateMenuBadge() {
 
 <template>
   <Page
-    description="菜单项上可以显示徽标，这些徽标可以主动更新"
-    title="菜单徽标"
+    description="Các mục menu có thể hiển thị huy hiệu，các huy hiệu này có thể cập nhật chủ động"
+    title="Huy hiệu menu"
   >
-    <Card title="徽标更新">
+    <Card title="Cập nhật huy hiệu">
       <Form>
         <template #badgeVariants="slotProps">
           <RadioGroup v-bind="slotProps">
@@ -109,7 +109,9 @@ function updateMenuBadge() {
           </RadioGroup>
         </template>
         <template #action>
-          <Button type="primary" @click="updateMenuBadge">更新徽标</Button>
+          <Button type="primary" @click="updateMenuBadge">
+            Cập nhật huy hiệu
+          </Button>
         </template>
       </Form>
     </Card>

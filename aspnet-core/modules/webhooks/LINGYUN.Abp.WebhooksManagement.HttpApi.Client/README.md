@@ -1,17 +1,17 @@
 # LINGYUN.Abp.WebhooksManagement.HttpApi.Client
 
-Webhook管理HTTP API客户端模块，提供对Webhook管理HTTP API的动态代理客户端。
+Mô-đun client HTTP API quản lý Webhook, cung cấp client proxy động cho HTTP API quản lý Webhook.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 动态API客户端代理
-* 自动HTTP客户端配置
-* 支持远程服务调用
-* 集成ABP动态C# API客户端
+* Proxy client API động
+* Tự động cấu hình HTTP client
+* Hỗ trợ gọi dịch vụ từ xa
+* Tích hợp client C# API động của ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksManagementHttpApiClientModule))]
@@ -21,21 +21,21 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Cấu hình
 
 ```json
 {
   "RemoteServices": {
     "WebhooksManagement": {
-      "BaseUrl": "http://localhost:44315/"  // Webhook管理服务的基础URL
+      "BaseUrl": "http://localhost:44315/"  // URL cơ sở của dịch vụ quản lý Webhook
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置远程服务
+1. Cấu hình dịch vụ từ xa
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
@@ -49,7 +49,7 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 使用HTTP客户端
+2. Sử dụng HTTP client
 ```csharp
 public class YourService
 {
@@ -62,14 +62,14 @@ public class YourService
 
     public async Task CallRemoteApi()
     {
-        // 创建订阅
+        // Tạo đăng ký
         await _webhookSubscriptionAppService.CreateAsync(new WebhookSubscriptionCreateDto
         {
             WebhookUri = "https://your-webhook-endpoint",
             Webhooks = new[] { "YourWebhook" }
         });
 
-        // 查询订阅
+        // Tra cứu đăng ký
         var subscriptions = await _webhookSubscriptionAppService.GetListAsync(
             new WebhookSubscriptionGetListInput());
     }

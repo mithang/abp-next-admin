@@ -1,17 +1,17 @@
-# 组件库切换
+# Chuyển đổi thư viện component
 
-`Vue Admin` 支持你自由选择组件库，目前演示站点的默认组件库是 `Ant Design Vue`，与旧版本保持一致。同时框架还内置了 `Element Plus` 版本和 `Naive UI` 版本，你可以根据自己的喜好选择。
+`Vue Admin` hỗ trợ bạn tự do chọn thư viện component, hiện thư viện component mặc định của trang demo là `Ant Design Vue`, giữ nhất quán với phiên bản cũ. Đồng thời framework còn tích hợp sẵn phiên bản `Element Plus` và phiên bản `Naive UI`, bạn có thể chọn theo sở thích của mình.
 
-## 新增组件库应用
+## Thêm ứng dụng thư viện component mới
 
-如果你想用其他别的组件库，你只需要按以下步骤进行操作：
+Nếu bạn muốn dùng thư viện component khác, bạn chỉ cần làm theo các bước sau:
 
-1. 在`apps`内创建一个新的文件夹，例如`apps/web-xxx`。
-2. 更改`apps/web-xxx/package.json`的`name`字段为`web-xxx`。
-3. 移除其他组件库依赖及代码，并用你的组件库进行替换相应逻辑，需要改动的地方不多。
-4. 调整`locales`内的语言文件。
-5. 调整 `app.vue` 内的组件。
-6. 自行适配组件库的主题，与 `Vben Admin` 契合。
-7. 调整 `.env` 内的应用名
-8. 在大仓根目录增加 `dev:xxx` 脚本
-9. 执行 `pnpm install` 安装依赖
+1. Tạo một thư mục mới trong `apps`, ví dụ `apps/web-xxx`.
+2. Đổi trường `name` của `apps/web-xxx/package.json` thành `web-xxx`.
+3. Gỡ bỏ dependency và code của các thư viện component khác, và thay thế logic tương ứng bằng thư viện component của bạn, không có nhiều chỗ cần sửa.
+4. Điều chỉnh các file ngôn ngữ trong `locales`.
+5. Điều chỉnh các component trong `app.vue`.
+6. Tự điều chỉnh theme của thư viện component sao cho phù hợp với `Vben Admin`.
+7. Điều chỉnh tên ứng dụng trong `.env`
+8. Thêm script `dev:xxx` tại thư mục gốc của monorepo
+9. Chạy `pnpm install` để cài đặt dependency

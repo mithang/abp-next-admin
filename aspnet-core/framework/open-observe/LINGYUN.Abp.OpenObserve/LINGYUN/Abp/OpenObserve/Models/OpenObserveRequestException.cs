@@ -3,10 +3,10 @@ using System.Net.Http;
 namespace LINGYUN.Abp.OpenObserve.Models;
 
 /// <summary>
-/// OpenObserve 请求异常
+/// Ngoại lệ yêu cầu OpenObserve
 /// </summary>
 /// <remarks>
-/// 响应内容无法解析为 OpenObserve 标准错误响应时抛出
+/// Được ném khi nội dung phản hồi không thể phân tích thành phản hồi lỗi chuẩn của OpenObserve
 /// </remarks>
 public class OpenObserveRequestException : OpenObserveException
 {

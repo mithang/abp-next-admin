@@ -47,39 +47,39 @@ export enum ValidationEnum {
   ThisFieldOnlyAcceptsFilesWithTheFollowingExtensions = 'ThisFieldOnlyAcceptsFilesWithTheFollowingExtensions:{0}',
 }
 
-/** 规则创建器 */
+/** Bộ tạo quy tắc */
 interface IRuleCreator {
-  /** 自定义验证器 */
+  /** Bộ kiểm tra tùy chỉnh */
   defineValidator(field: IDefineFieldValidator): Rule[];
-  /** input 与 value 是否匹配 */
+  /** input và value có khớp nhau hay không */
   doNotMatch(field: IFieldMatch): Rule[];
-  /** 字段是无效值 */
+  /** Trường là giá trị không hợp lệ */
   fieldInvalid(field: IFieldValidator): Rule[];
-  /** 验证未通过 */
+  /** Kiểm tra không đạt */
   fieldIsNotValid(field: IFieldValidator): Rule[];
-  /** 字段{0}必须是最大长度为'{1}'的字符串或数组 */
+  /** Trường {0} phải là chuỗi hoặc mảng có độ dài tối đa là '{1}' */
   fieldMustBeStringOrArrayWithMaximumLength(field: IFieldLength): Rule[];
-  /** 字段{0}必须是最小长度为'{1}'的字符串或数组 */
+  /** Trường {0} phải là chuỗi hoặc mảng có độ dài tối thiểu là '{1}' */
   fieldMustBeStringOrArrayWithMinimumLength(field: IFieldLength): Rule[];
-  /** 字段{0}必须是最大长度为{1}的字符串 */
+  /** Trường {0} phải là chuỗi có độ dài tối đa là {1} */
   fieldMustBeStringWithMaximumLength(field: IFieldLength): Rule[];
-  /** 字段{0}必须是最小长度为{2}并且最大长度{1}的字符串 */
+  /** Trường {0} phải là chuỗi có độ dài tối thiểu là {2} và tối đa là {1} */
   fieldMustBeStringWithMinimumLengthAndMaximumLength(field: IFieldRange): Rule[];
-  /** 字段{0}值必须在{1}和{2}范围内 */
+  /** Giá trị của trường {0} phải nằm trong khoảng từ {1} đến {2} */
   fieldMustBeetWeen(field: IFieldBeetWeen): Rule[];
-  /** 字段{0}与正则表达式不匹配 */
+  /** Trường {0} không khớp với biểu thức chính quy */
   fieldMustMatchRegularExpression(field: IFieldRegular): Rule[];
-  /** 字段{0}不是有效的信用卡号码 */
+  /** Trường {0} không phải là số thẻ tín dụng hợp lệ */
   fieldDoNotValidCreditCardNumber(field: IField): Rule[];
-  /** 字段{0}不是有效的邮箱地址 */
+  /** Trường {0} không phải là địa chỉ email hợp lệ */
   fieldDoNotValidEmailAddress(field: IField): Rule[];
-  /** 字段{0}不是有效的完全限定的http,https或ftp URL. */
+  /** Trường {0} không phải là URL http, https hoặc ftp đầy đủ hợp lệ. */
   fieldDoNotValidFullyQualifiedUrl(field: IField): Rule[];
-  /** 字段{0}不是有效的手机号码 */
+  /** Trường {0} không phải là số điện thoại hợp lệ */
   fieldDoNotValidPhoneNumber(field: IField): Rule[];
-  /** 字段{0}不可为空 */
+  /** Trường {0} không được để trống */
   fieldRequired(field: IField): Rule[];
-  /** {0}字段只允许以下扩展名的文件: {1} */
+  /** Trường {0} chỉ cho phép các tệp có phần mở rộng sau: {1} */
   fieldOnlyAcceptsFilesExtensions(field: IFieldContains): Rule[];
 }
 
@@ -203,7 +203,7 @@ export function useValidation() {
       message: message,
       trigger: field.trigger,
       validator: (_, value) => {
-        // beetween不在进行必输检查, 改为数字有效性检查
+        // beetween không còn kiểm tra bắt buộc nhập nữa, chuyển sang kiểm tra tính hợp lệ của số
         if (isNaN(value)) {
           return Promise.reject(message);
         }

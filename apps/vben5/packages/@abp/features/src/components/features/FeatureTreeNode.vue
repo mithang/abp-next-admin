@@ -15,7 +15,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (event: 'change', feature: FeatureDto, groupIndex: number): void;
+  (event: 'change', feature: FeatureDto, groupIndex: number, value: any): void;
 }>();
 
 const indentSize = computed(() => props.baseIndentSize || 8);
@@ -31,7 +31,7 @@ const indentStyle = computed(() =>
         :feature="node.feature"
         :group-index="groupIndex"
         :feature-index="0"
-        @change="(feature, idx) => emit('change', feature, idx)"
+        @change="(feature, idx, value) => emit('change', feature, idx, value)"
       />
     </div>
 
@@ -40,7 +40,7 @@ const indentStyle = computed(() =>
         :node="child"
         :group-index="groupIndex"
         :base-indent-size="baseIndentSize"
-        @change="(feature, idx) => emit('change', feature, idx)"
+        @change="(feature, idx, value) => emit('change', feature, idx, value)"
       />
     </template>
   </div>

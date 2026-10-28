@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Webhooks
 
-Webhook基础模块，提供Webhook的基本定义和功能。
+Module Webhook cơ sở, cung cấp định nghĩa và chức năng cơ bản của Webhook.
 
 [English](README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 基本Webhook定义
-* Webhook发布和订阅
-* Webhook事件数据处理
-* Webhook配置管理
+* Định nghĩa Webhook cơ bản
+* Phát hành và đăng ký Webhook
+* Xử lý dữ liệu sự kiện Webhook
+* Quản lý cấu hình Webhook
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpWebhooksModule))]
@@ -21,9 +21,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 定义Webhook
+1. Định nghĩa Webhook
 ```csharp
 public class YourWebhookDefinitionProvider : WebhookDefinitionProvider
 {
@@ -40,7 +40,7 @@ public class YourWebhookDefinitionProvider : WebhookDefinitionProvider
 }
 ```
 
-2. 发布Webhook
+2. Phát hành Webhook
 ```csharp
 public class YourService
 {
@@ -61,13 +61,13 @@ public class YourService
 }
 ```
 
-3. 处理Webhook事件
+3. Xử lý sự kiện Webhook
 ```csharp
 public class YourWebhookHandler : IWebhookHandler, ITransientDependency
 {
     public async Task HandleWebhookAsync(WebhookPayload webhook)
     {
-        // 处理webhook事件
+        // Xử lý sự kiện webhook
     }
 }
 ```

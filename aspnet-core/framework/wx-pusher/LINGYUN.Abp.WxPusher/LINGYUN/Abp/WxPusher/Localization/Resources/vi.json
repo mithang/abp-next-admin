@@ -1,0 +1,20 @@
+{
+  "culture": "vi",
+  "texts": {
+    "DisplayName:WxPusher": "WxPusher",
+    "Description:WxPusher": "WxPusher",
+    "Settings:Security.AppToken": "Dấu hiệu nhận dạng của ứng dụng",
+    "Settings:Security.AppTokenDesc": "Sở hữu APP_TOKEN, bạn có thể gửi tin nhắn cho người dùng của ứng dụng tương ứng, vui lòng giữ bí mật nghiêm ngặt.",
+    "Features:WxPusher": "Dịch vụ đẩy WeChat WxPusher",
+    "Features:WxPusherEnable": "Bật WxPusher",
+    "Features:WxPusherEnableDesc": "Bật để ứng dụng có khả năng WxPusher.",
+    "Features:Message": "Đẩy tin nhắn WeChat qua WxPusher",
+    "Features:MessageEnable": "Bật đẩy tin nhắn WeChat WxPusher",
+    "Features:MessageEnableDesc": "Bật để ứng dụng có khả năng đẩy tới WeChat qua WxPusher.",
+    "Features:Message.SendLimit": "Lượng đẩy tin nhắn WeChat",
+    "Features:Message.SendLimitDesc": "Thiết lập để giới hạn lượng đẩy tin nhắn WeChat.",
+    "Features:Message.SendLimitInterval": "Chu kỳ giới hạn tin nhắn WeChat",
+    "Features:Message.SendLimitIntervalDesc": "Cài đặt chu kỳ giới hạn tin nhắn WeChat (thang thời gian: ngày). Một người dùng WeChat (uid) mỗi ngày tối đa nhận 500 tin nhắn, vui lòng sắp xếp tần suất gửi hợp lý.",
+    "Security": "Tùy chọn bảo mật"
+  }
+}

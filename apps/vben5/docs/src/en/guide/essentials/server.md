@@ -256,11 +256,11 @@ function createRequestClient(baseURL: string) {
   // Generic error handling; if none of the above error handling logic is triggered, it will fall back to this.
   client.addResponseInterceptor(
     errorMessageResponseInterceptor((msg: string, error) => {
-      // 这里可以根据业务进行定制,你可以拿到 error 内的信息进行定制化处理，根据不同的 code 做不同的提示，而不是直接使用 message.error 提示 msg
-      // 当前mock接口返回的错误字段是 error 或者 message
+      // Tại đây có thể tùy chỉnh theo nghiệp vụ, bạn có thể lấy thông tin trong error để xử lý tùy chỉnh, đưa ra thông báo khác nhau theo code khác nhau, thay vì trực tiếp dùng message.error để thông báo msg
+      // Trường lỗi mà giao diện mock hiện tại trả về là error hoặc message
       const responseData = error?.response?.data ?? {};
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
-      // 如果没有错误信息，则会根据状态码进行提示
+      // Nếu không có thông tin lỗi, sẽ thông báo theo mã trạng thái
       message.error(errorMessage || msg);
     }),
   );

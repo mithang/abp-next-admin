@@ -5,7 +5,7 @@ namespace LINGYUN.Abp.WeChat.Official.Account.Models;
 public class EnumScene : Scene
 {
     /// <summary>
-    /// 场景值ID，临时二维码时为32位非0整型，永久二维码时最大值为100000（目前参数只支持1--100000）
+    /// ID giá trị scene, với mã QR tạm thời là số nguyên khác 0 có 32 bit, với mã QR vĩnh viễn giá trị lớn nhất là 100000 (hiện tại tham số chỉ hỗ trợ 1--100000)
     /// </summary>
     [JsonProperty("scene_id")]
     [JsonPropertyName("scene_id")]

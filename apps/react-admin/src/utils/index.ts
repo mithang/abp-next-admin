@@ -26,7 +26,7 @@ export function bindMethods<T extends object>(instance: T): void {
 	});
 }
 
-// 映射函数：将 LocalEnum 转为 API 格式
+// Hàm ánh xạ: chuyển LocalEnum sang định dạng API
 export function mapLocaleToAbpLanguageFormat(locale: keyof typeof LocalEnum): string {
 	return locale.replace("_", "-");
 }

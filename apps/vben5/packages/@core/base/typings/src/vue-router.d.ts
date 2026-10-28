@@ -3,131 +3,126 @@ import type { Router, RouteRecordRaw } from 'vue-router';
 
 interface RouteMeta {
   /**
-   * 激活图标（菜单/tab）
+   * Biểu tượng kích hoạt（menu/tab）
    */
   activeIcon?: string;
   /**
-   * 当前激活的菜单，有时候不想激活现有菜单，需要激活父级菜单时使用
+   * Menu đang kích hoạt hiện tại, đôi khi không muốn kích hoạt menu hiện có, dùng khi cần kích hoạt menu cha
    */
   activePath?: string;
   /**
-   * 是否固定标签页
+   * Có cố định tab hay không
    * @default false
    */
   affixTab?: boolean;
   /**
-   * 固定标签页的顺序
+   * Thứ tự của tab cố định
    * @default 0
    */
   affixTabOrder?: number;
   /**
-   * 需要特定的角色标识才可以访问
+   * Cần có mã định danh vai trò cụ thể mới có thể truy cập
    * @default []
    */
   authority?: string[];
   /**
-   * 徽标
+   * Huy hiệu
    */
   badge?: string;
   /**
-   * 徽标类型
+   * Loại huy hiệu
    */
   badgeType?: 'dot' | 'normal';
   /**
-   * 徽标颜色
+   * Màu huy hiệu
    */
   badgeVariants?:
-    | 'default'
-    | 'destructive'
-    | 'primary'
-    | 'success'
-    | 'warning'
-    | string;
+    'default' | 'destructive' | 'primary' | 'success' | 'warning' | string;
   /**
-   * 路由对应dom是否缓存起来
+   * DOM tương ứng của route có được lưu cache hay không
    */
   domCached?: boolean;
   /**
-   * 路由的完整路径作为key（默认true）
+   * Đường dẫn đầy đủ của route làm key（mặc định true）
    */
   fullPathKey?: boolean;
   /**
-   * 当前路由的子级在菜单中不展现
+   * Route con của route hiện tại không hiển thị trong menu
    * @default false
    */
   hideChildrenInMenu?: boolean;
   /**
-   * 当前路由在面包屑中不展现
+   * Route hiện tại không hiển thị trong breadcrumb
    * @default false
    */
   hideInBreadcrumb?: boolean;
   /**
-   * 当前路由在菜单中不展现
+   * Route hiện tại không hiển thị trong menu
    * @default false
    */
   hideInMenu?: boolean;
   /**
-   * 当前路由在标签页不展现
+   * Route hiện tại không hiển thị trong tab
    * @default false
    */
   hideInTab?: boolean;
   /**
-   * 图标（菜单/tab）
+   * Biểu tượng（menu/tab）
    */
   icon?: Component | string;
   /**
-   * iframe 地址
+   * Địa chỉ iframe
    */
   iframeSrc?: string;
   /**
-   * 忽略权限，直接可以访问
+   * Bỏ qua quyền, có thể truy cập trực tiếp
    * @default false
    */
   ignoreAccess?: boolean;
   /**
-   * 开启KeepAlive缓存
+   * Bật cache KeepAlive
    */
   keepAlive?: boolean;
   /**
-   * 外链-跳转路径
+   * Liên kết ngoài - đường dẫn chuyển hướng
    */
   link?: string;
   /**
-   * 路由是否已经加载过
+   * Route đã được tải hay chưa
    */
   loaded?: boolean;
   /**
-   * 标签页最大打开数量
+   * Số lượng tab mở tối đa
    * @default -1
    */
   maxNumOfOpenTab?: number;
   /**
-   * 菜单可以看到，但是访问会被重定向到403
+   * Menu có thể nhìn thấy, nhưng khi truy cập sẽ bị chuyển hướng tới 403
    */
   menuVisibleWithForbidden?: boolean;
   /**
-   * 不使用基础布局（仅在顶级生效）
+   * Không dùng bố cục cơ sở（chỉ có hiệu lực ở cấp cao nhất）
    */
   noBasicLayout?: boolean;
   /**
-   * 在新窗口打开
+   * Mở trong cửa sổ mới
    */
   openInNewWindow?: boolean;
   /**
-   * 用于路由->菜单排序
+   * Dùng để sắp xếp route -> menu
    */
   order?: number;
   /**
-   * 菜单所携带的参数
+   * Tham số mà menu mang theo
    */
   query?: Recordable;
   /**
-   * 标题名称
+   * Tên tiêu đề
    */
   title: string;
 }
 
-// 定义递归类型以将 RouteRecordRaw 的 component 属性更改为 string
+// Định nghĩa kiểu đệ quy để đổi thuộc tính component của RouteRecordRaw thành string
 type RouteRecordStringComponent<T = string> = Omit<
   RouteRecordRaw,
   'children' | 'component'

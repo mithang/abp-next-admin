@@ -15,9 +15,9 @@ namespace LINGYUN.Abp.MicroService.AllInOne.EntityFrameworkCore.MySql;
 
 [DependsOn(
     typeof(AbpEntityFrameworkCoreMySQLMicrotingModule),
-    // Quartz MySql数据库初始化模块
+    // Module khởi tạo cơ sở dữ liệu MySql của Quartz
     typeof(AbpQuartzMySqlInstallerModule),
-    // Elsa工作流模块 MySql集成
+    // Tích hợp MySql cho module quy trình làm việc Elsa
     //typeof(AbpElsaEntityFrameworkCoreMySqlModule),
     typeof(SingleMigrationsEntityFrameworkCoreModule)
     )]

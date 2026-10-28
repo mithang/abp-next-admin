@@ -98,7 +98,7 @@ public class MinioBlobProvider : IBlobProvider
         string blobName,
         CancellationToken cancellationToken = default)
     {
-        // Minio没有目录的概念,新建对象时可以模拟目录
+        // Minio không có khái niệm thư mục, khi tạo đối tượng mới có thể mô phỏng thư mục
         return Task.CompletedTask;
     }
 
@@ -162,7 +162,7 @@ public class MinioBlobProvider : IBlobProvider
         string blobName,
         CancellationToken cancellationToken = default)
     {
-        // Minio没有目录的概念,新建对象时可以模拟目录
+        // Minio không có khái niệm thư mục, khi tạo đối tượng mới có thể mô phỏng thư mục
         return Task.CompletedTask;
     }
 

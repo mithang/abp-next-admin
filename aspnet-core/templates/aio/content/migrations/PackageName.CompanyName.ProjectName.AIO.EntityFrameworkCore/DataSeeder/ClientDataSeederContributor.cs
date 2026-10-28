@@ -93,7 +93,7 @@ public class ClientDataSeederContributor : IDataSeedContributor, ITransientDepen
                 DisplayName = scope + " access",
                 DisplayNames =
                 {
-                    [CultureInfo.GetCultureInfo("zh-Hans")] = "Abp API 应用程序访问",
+                    [CultureInfo.GetCultureInfo("zh-Hans")] = "Abp API quyền truy cập ứng dụng",
                     [CultureInfo.GetCultureInfo("en")] = "Abp API Application Access"
                 },
                 Resources =
@@ -330,7 +330,7 @@ public class ClientDataSeederContributor : IDataSeedContributor, ITransientDepen
                 "role",
                 "phone",
                 "address",
-                "offline_access" // 加上刷新,
+                "offline_access" // thêm làm mới (refresh),
 
             };
 
@@ -356,7 +356,7 @@ public class ClientDataSeederContributor : IDataSeedContributor, ITransientDepen
             );
         }
 
-        // InternalService 内部服务间通讯客户端,必要的话需要在前端指定它拥有所有权限,当前项目仅预置用户查询权限
+        // InternalService là client giao tiếp giữa các service nội bộ, nếu cần phải chỉ định ở frontend rằng nó có mọi quyền, dự án hiện tại chỉ cài đặt sẵn quyền truy vấn người dùng
         var internalServiceClientId = configurationSection["InternalService:ClientId"];
         if (!internalServiceClientId.IsNullOrWhiteSpace())
         {

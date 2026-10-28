@@ -1,23 +1,23 @@
 # LINGYUN.Abp.Idempotent
 
-接口幂等性检查模块，用于防止接口重复提交和确保接口调用的幂等性。
+Module kiểm tra tính lũy đẳng (idempotency) của API, dùng để ngăn việc gửi trùng lặp API và đảm bảo các lần gọi API là lũy đẳng.
 
-## 功能
+## Tính năng
 
-* 自动幂等性检查
-* 支持自定义幂等键生成
-* 灵活的超时配置
-* 支持分布式锁
-* 支持多语言错误消息
-* 支持忽略特定接口或方法
+* Tự động kiểm tra tính lũy đẳng
+* Hỗ trợ tạo khóa lũy đẳng tùy chỉnh
+* Cấu hình thời gian chờ linh hoạt
+* Hỗ trợ khóa phân tán
+* Hỗ trợ thông báo lỗi đa ngôn ngữ
+* Hỗ trợ bỏ qua API hoặc phương thức cụ thể
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Idempotent
 ```
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(typeof(AbpIdempotentModule))]
@@ -27,29 +27,29 @@ public class YouProjectModule : AbpModule
     {
         Configure<AbpIdempotentOptions>(options =>
         {
-            // 全局启用幂等检查
+            // Bật kiểm tra lũy đẳng trên toàn cục
             options.IsEnabled = true;
-            // 默认每个接口提供5秒超时
+            // Mặc định mỗi API có thời gian chờ 5 giây
             options.DefaultTimeout = 5000;
-            // 幂等token名称, 通过HttpHeader传递
+            // Tên token lũy đẳng, truyền qua HttpHeader
             options.IdempotentTokenName = "X-With-Idempotent-Token";
-            // 幂等校验失败时Http响应代码
+            // Mã phản hồi Http khi kiểm tra lũy đẳng thất bại
             options.HttpStatusCode = 429;
         });
     }
 }
 ```
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
-* `IsEnabled` - 是否启用幂等检查，默认：false
-* `DefaultTimeout` - 默认幂等性检查超时时间（毫秒），默认：5000
-* `IdempotentTokenName` - 幂等性Token的HTTP头名称，默认：X-With-Idempotent-Token
-* `HttpStatusCode` - 幂等性检查失败时的HTTP状态码，默认：429 (Too Many Requests)
+* `IsEnabled` - Có bật kiểm tra lũy đẳng hay không, mặc định: false
+* `DefaultTimeout` - Thời gian chờ kiểm tra lũy đẳng mặc định (mili giây), mặc định: 5000
+* `IdempotentTokenName` - Tên HTTP header của token lũy đẳng, mặc định: X-With-Idempotent-Token
+* `HttpStatusCode` - Mã trạng thái HTTP khi kiểm tra lũy đẳng thất bại, mặc định: 429 (Too Many Requests)
 
-## 使用示例
+## Ví dụ sử dụng
 
-### 1. 基本使用
+### 1. Sử dụng cơ bản
 
 ```csharp
 [Idempotent]
@@ -57,13 +57,13 @@ public class OrderAppService : ApplicationService
 {
     public async Task<OrderDto> CreateAsync(CreateOrderDto input)
     {
-        // 方法会自动进行幂等性检查
+        // Phương thức sẽ tự động thực hiện kiểm tra lũy đẳng
         return await _orderRepository.CreateAsync(input);
     }
 }
 ```
 
-### 2. 自定义幂等键
+### 2. Khóa lũy đẳng tùy chỉnh
 
 ```csharp
 [Idempotent(
@@ -76,7 +76,7 @@ public async Task<OrderDto> UpdateAsync(UpdateOrderDto input)
 }
 ```
 
-### 3. 忽略幂等性检查
+### 3. Bỏ qua kiểm tra lũy đẳng
 
 ```csharp
 [IgnoreIdempotent]
@@ -86,13 +86,13 @@ public async Task<OrderDto> QueryAsync(string orderId)
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-1. 默认对所有继承自 `ICreateAppService`、`IUpdateAppService` 和 `IDeleteAppService` 的服务启用幂等性检查
-2. 可以通过 `[IgnoreIdempotent]` 特性来忽略特定方法的幂等性检查
-3. 幂等性检查基于分布式锁实现，确保在分布式环境中的正确性
-4. 建议在所有修改数据的接口上启用幂等性检查
+1. Mặc định bật kiểm tra lũy đẳng cho tất cả các service kế thừa `ICreateAppService`, `IUpdateAppService` và `IDeleteAppService`
+2. Có thể dùng đặc tính `[IgnoreIdempotent]` để bỏ qua kiểm tra lũy đẳng cho phương thức cụ thể
+3. Kiểm tra lũy đẳng được triển khai dựa trên khóa phân tán, đảm bảo tính đúng đắn trong môi trường phân tán
+4. Nên bật kiểm tra lũy đẳng trên tất cả các API thay đổi dữ liệu
 
-## 链接
+## Liên kết
 
 * [English document](./README.EN.md)

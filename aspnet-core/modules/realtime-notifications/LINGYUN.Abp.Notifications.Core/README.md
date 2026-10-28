@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Notifications.Core
 
-通知系统的核心模块，提供了通知系统的基础功能和定义。
+Mô-đun lõi của hệ thống thông báo, cung cấp chức năng và định nghĩa cơ bản của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知定义管理
-* 通知组定义管理
-* 可扩展的通知提供者机制
-* 支持自定义通知定义提供者
+* Quản lý định nghĩa thông báo
+* Quản lý định nghĩa nhóm thông báo
+* Cơ chế nhà cung cấp thông báo có thể mở rộng
+* Hỗ trợ nhà cung cấp định nghĩa thông báo tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsCoreModule))]
@@ -19,26 +19,26 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "Notifications": {
-    "DeletedNotifications": [], // 需要删除的通知定义列表
-    "DeletedNotificationGroups": [] // 需要删除的通知组定义列表
+    "DeletedNotifications": [], // Danh sách định nghĩa thông báo cần xóa
+    "DeletedNotificationGroups": [] // Danh sách định nghĩa nhóm thông báo cần xóa
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 实现自定义通知定义提供者
+1. Triển khai nhà cung cấp định nghĩa thông báo tùy chỉnh
 ```csharp
 public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
 {
     public override void Define(INotificationDefinitionContext context)
     {
-        // 定义通知
+        // Định nghĩa thông báo
         context.Add(
             new NotificationDefinition(
                 name: "YourNotification",
@@ -52,7 +52,7 @@ public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
 }
 ```
 
-2. 注册通知定义提供者
+2. Đăng ký nhà cung cấp định nghĩa thông báo
 ```csharp
 Configure<AbpNotificationsOptions>(options =>
 {
@@ -60,6 +60,6 @@ Configure<AbpNotificationsOptions>(options =>
 });
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
+* [Tài liệu ABP](https://docs.abp.io)

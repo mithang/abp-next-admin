@@ -1,0 +1,30 @@
+{
+  "culture": "vi",
+  "texts": {
+    "DisplayName:WeChat.MiniProgram": "Mini Program WeChat",
+    "Description:WeChat.MiniProgram": "Mini Program WeChat",
+    "DisplayName:WeChat.MiniProgram.AppId": "AppId mini program",
+    "Description:WeChat.MiniProgram.AppId": "WeChat Mini Program AppId, xem chi tiết: https://developers.weixin.qq.com/miniprogram/dev/framework/",
+    "DisplayName:WeChat.MiniProgram.AppSecret": "AppSecret Mini Program",
+    "Description:WeChat.MiniProgram.AppSecret": "AppSecret của mini program WeChat, chi tiết xem: https://developers.weixin.qq.com/miniprogram/dev/framework/",
+    "DisplayName:WeChat.MiniProgram.Token": "Token mini program",
+    "Description:WeChat.MiniProgram.Token": "Token mini program WeChat, xem chi tiết:https://developers.weixin.qq.com/miniprogram/dev/framework/",
+    "DisplayName:WeChat.MiniProgram.EncodingAESKey": "EncodingAESKey của Mini Program",
+    "Description:WeChat.MiniProgram.EncodingAESKey": "EncodingAESKey của ứng dụng nhỏ WeChat, chi tiết xem: https://developers.weixin.qq.com/miniprogram/dev/framework/",
+    "Features:WeChat.MiniProgram": "Mini Program WeChat",
+    "Features:WeChat.MiniProgramDesc": "Mini Program WeChat",
+    "Features:WeChat.MiniProgram.Enable": "Mini Program WeChat",
+    "Features:WeChat.MiniProgram.EnableDesc": "Bật tính năng Mini Program WeChat trong ứng dụng",
+    "Features:WeChat.MiniProgram.EnableAuthorization": "Xác thực Mini Program WeChat",
+    "Features:WeChat.MiniProgram.EnableAuthorizationDesc": "Bật xác thực mini program WeChat trong ứng dụng",
+    "Features:WeChat.MiniProgram.Messages": "Tin nhắn mẫu",
+    "Features:WeChat.MiniProgram.MessagesDesc": "Tin nhắn mẫu",
+    "Features:WeChat.MiniProgram.EnableMessages": "Bật tin nhắn mẫu",
+    "Features:WeChat.MiniProgram.EnableMessagesDesc": "Bật tin nhắn mẫu Mini Program WeChat trong ứng dụng",
+    "Features:WeChat.MiniProgram.SendLimit": "Giới hạn gửi tin nhắn",
+    "Features:WeChat.MiniProgram.SendLimitDesc": "Giới hạn số lần gọi tin nhắn mẫu Mini Program WeChat trong một chu kỳ nhất định",
+    "Features:WeChat.MiniProgram.SendLimitInterval": "Thời lượng giới hạn gửi tin nhắn",
+    "Features:WeChat.MiniProgram.SendLimitIntervalDesc": "Thời gian giới hạn mức tối đa gọi tin nhắn mẫu, chu kỳ là tháng",
+    "Settings:WeChat.MiniProgram": "Mini Program WeChat"
+  }
+}

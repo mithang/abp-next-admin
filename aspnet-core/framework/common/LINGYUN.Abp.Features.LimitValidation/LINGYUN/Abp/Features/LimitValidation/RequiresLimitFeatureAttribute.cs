@@ -5,32 +5,32 @@ using Volo.Abp;
 namespace LINGYUN.Abp.Features.LimitValidation;
 
 /// <summary>
-/// 单个功能的调用量限制
+/// Giới hạn số lượng gọi của một tính năng
 /// </summary>
 /// <remarks>
-/// 需要对于限制时长和限制上限功能区分,以便于更细粒度的限制
+/// Cần phân biệt tính năng về thời lượng giới hạn và giới hạn tối đa, để giới hạn chi tiết hơn
 /// </remarks>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
 public class RequiresLimitFeatureAttribute : Attribute
 {
     /// <summary>
-    /// 功能限制策略
+    /// Chính sách giới hạn tính năng
     /// </summary>
     public LimitPolicy Policy { get; }
     /// <summary>
-    /// 默认限制时长
+    /// Thời lượng giới hạn mặc định
     /// </summary>
     public int DefaultLimit { get; }
     /// <summary>
-    /// 限制上限名称
+    /// Tên giới hạn tối đa
     /// </summary>
     public string LimitFeature { get; }
     /// <summary>
-    /// 默认限制时长
+    /// Thời lượng giới hạn mặc định
     /// </summary>
     public int DefaultInterval { get; }
     /// <summary>
-    /// 限制时长名称
+    /// Tên thời lượng giới hạn
     /// </summary>
     public string IntervalFeature { get; }
 

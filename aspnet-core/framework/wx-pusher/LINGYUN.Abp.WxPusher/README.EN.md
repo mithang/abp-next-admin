@@ -2,7 +2,7 @@
 
 ABP module integrating WxPusher WeChat push service, implementing WxPusher related API documentation and providing WxPusher capabilities.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 For more details, see WxPusher documentation: https://wxpusher.dingliqc.com/docs/#/
 

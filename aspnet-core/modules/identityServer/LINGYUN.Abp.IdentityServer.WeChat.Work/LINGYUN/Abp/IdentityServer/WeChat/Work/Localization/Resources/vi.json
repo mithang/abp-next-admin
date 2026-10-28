@@ -1,0 +1,8 @@
+{
+  "culture": "vi",
+  "texts": {
+    "InvalidGrant:GrantTypeInvalid": "Loại cấp quyền không được phép!",
+    "InvalidGrant:AgentIdOrCodeNotFound": "Không tìm thấy mã định danh doanh nghiệp hoặc người dùng đã hủy đăng nhập!",
+    "InvalidGrant:UserIdNotRegister": "Người dùng doanh nghiệp chưa đăng ký!"
+  }
+}

@@ -4,29 +4,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 申请流程节点
+/// Nút quy trình phê duyệt
 /// </summary>
 public class ApprovalApplyProcessNode
 {
     /// <summary>
-    /// 节点类型 1:审批人 2:抄送人 3:办理人
+    /// Loại nút 1: người phê duyệt 2: người nhận bản sao 3: người xử lý
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public ApprovalProcessNodeType Type { get; set; }
     /// <summary>
-    /// 多人审批方式 1-会签；2-或签 3-依次审批
+    /// Phương thức phê duyệt nhiều người 1 - đồng ký; 2 - hoặc ký 3 - phê duyệt lần lượt
     /// </summary>
     /// <remarks>
-    /// type为1、3时必填	
+    /// Bắt buộc khi type là 1, 3
     /// </remarks>
     [NotNull]
     [JsonProperty("apv_rel")]
     [JsonPropertyName("apv_rel")]
     public byte? ApvRel { get; set; }
     /// <summary>
-    /// 用户id
+    /// Id người dùng
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
@@ -44,29 +44,29 @@ public class ApprovalApplyProcessNode
         ApvRel = apvRel;
     }
     /// <summary>
-    /// 审批人节点
+    /// Nút người phê duyệt
     /// </summary>
-    /// <param name="userId">审批人Id</param>
-    /// <param name="apvRel">多人审批方式 1-会签；2-或签 3-依次审批</param>
+    /// <param name="userId">Id người phê duyệt</param>
+    /// <param name="apvRel">Phương thức phê duyệt nhiều người 1 - đồng ký; 2 - hoặc ký 3 - phê duyệt lần lượt</param>
     /// <returns></returns>
     public static ApprovalApplyProcessNode Approver(string userId, byte apvRel)
     {
         return new ApprovalApplyProcessNode(ApprovalProcessNodeType.Approver, userId, apvRel);
     }
     /// <summary>
-    /// 办理人节点
+    /// Nút người xử lý
     /// </summary>
-    /// <param name="userId">办理人Id</param>
-    /// <param name="apvRel">多人审批方式 1-会签；2-或签 3-依次审批</param>
+    /// <param name="userId">Id người xử lý</param>
+    /// <param name="apvRel">Phương thức phê duyệt nhiều người 1 - đồng ký; 2 - hoặc ký 3 - phê duyệt lần lượt</param>
     /// <returns></returns>
     public static ApprovalApplyProcessNode Handler(string userId, byte apvRel)
     {
         return new ApprovalApplyProcessNode(ApprovalProcessNodeType.Handler, userId, apvRel);
     }
     /// <summary>
-    /// 抄送人节点
+    /// Nút người nhận bản sao
     /// </summary>
-    /// <param name="userId">抄送人Id</param>
+    /// <param name="userId">Id người nhận bản sao</param>
     /// <returns></returns>
     public static ApprovalApplyProcessNode To(string userId)
     {

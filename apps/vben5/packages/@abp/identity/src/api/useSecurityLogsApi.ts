@@ -12,7 +12,7 @@ export function useSecurityLogsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除安全日志
+   * Xóa nhật ký bảo mật
    * @param id id
    */
   function deleteApi(id: string): Promise<void> {
@@ -22,8 +22,8 @@ export function useSecurityLogsApi() {
   }
 
   /**
-   * 批量删除安全日志
-   * @param input 参数
+   * Xóa hàng loạt nhật ký bảo mật
+   * @param input Tham số
    */
   function deleteManyApi(input: SecurityLogDeleteManyInput): Promise<void> {
     return request(`/api/auditing/security-log/bulk`, {
@@ -33,9 +33,9 @@ export function useSecurityLogsApi() {
   }
 
   /**
-   * 查询安全日志
+   * Truy vấn nhật ký bảo mật
    * @param id id
-   * @returns 安全日志实体数据传输对象
+   * @returns Đối tượng truyền dữ liệu thực thể nhật ký bảo mật
    */
   function getApi(id: string): Promise<SecurityLogDto> {
     return request<SecurityLogDto>(`/api/auditing/security-log/${id}`, {
@@ -44,9 +44,9 @@ export function useSecurityLogsApi() {
   }
 
   /**
-   * 查询安全日志分页列表
-   * @param input 过滤参数
-   * @returns 安全日志实体数据传输对象分页列表
+   * Truy vấn danh sách phân trang nhật ký bảo mật
+   * @param input Tham số lọc
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể nhật ký bảo mật
    */
   function getPagedListApi(
     input?: GetSecurityLogPagedRequest,

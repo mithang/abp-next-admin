@@ -3,7 +3,7 @@ import type { Recordable } from '@vben/types';
 import { requestClient } from '#/api/request';
 
 /**
- * 发起数组请求
+ * Gửi yêu cầu mảng
  */
 async function getParamsData(
   params: Recordable<any>,

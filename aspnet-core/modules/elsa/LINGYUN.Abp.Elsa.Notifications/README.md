@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Elsa.Notifications
 
-工作流通知集成, 当工作流触发后, 发布相应事件通知    
+Tích hợp thông báo quy trình làm việc, khi quy trình làm việc được kích hoạt sẽ phát hành thông báo sự kiện tương ứng    
 
-## 可用状态
+## Trạng thái khả dụng
 
-* Faulted:      工作流执行出现错误  
-* Cancelled:    工作流取消  
-* Completed:    工作流执行完毕  
-* Suspended:    工作流暂停  
+* Faulted:      Quy trình làm việc thực thi gặp lỗi  
+* Cancelled:    Quy trình làm việc bị hủy  
+* Completed:    Quy trình làm việc thực thi xong  
+* Suspended:    Quy trình làm việc tạm dừng  
 
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 
@@ -23,14 +23,14 @@
 ```
 
 ```csharp
-    // 定义通知
+    // Định nghĩa thông báo
     public class DemoNotificationDefinitionProvider : NotificationDefinitionProvider
     {
         public override void Define(INotificationDefinitionContext context)
         {
             var demoGroup = context.AddGroup("Group");
 
-            // 由于通知的多样性, 需要使用模板消息来传递数据
+            // Do tính đa dạng của thông báo, cần dùng thông báo mẫu để truyền dữ liệu
             demoGroup.AddNotification("Faulted")
                 .WithTemplate(template => { });
             demoGroup.AddNotification("Cancelled")
@@ -45,7 +45,7 @@
 
 ```csharp
 
-    // 定义工作流
+    // Định nghĩa quy trình làm việc
     public class DemoWorkflow : IWorkflow
     {
         public void Build(IWorkflowBuilder builder)
@@ -57,9 +57,9 @@
                 .WithCompletedNotification("Completed")
                 .SetVariable("demo", context =>
                 {
-                    // 可传递自定义参数, 将作为瞬时变量写入到发布的通知数据中
+                    // Có thể truyền tham số tùy chỉnh, sẽ được ghi vào dữ liệu thông báo đã phát hành dưới dạng biến tạm thời
                     context.WithNotificationData("demo", "demo");
-                    // 自定义用于发布通知的租户标识
+                    // Mã định danh tenant tùy chỉnh dùng để phát hành thông báo
                     context.WithNotificationTenantId(Guid.NewGuid());
                 })
                 .WriteLine("Start a workflow.")

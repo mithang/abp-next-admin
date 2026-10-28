@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 按时间范围删除数据任务状态
+/// Trạng thái tác vụ xóa dữ liệu theo phạm vi thời gian
 /// </summary>
 public class StreamDeleteJobStatusResponse
 {
@@ -13,7 +13,7 @@ public class StreamDeleteJobStatusResponse
     public string Id { get; set; } = default!;
 
     /// <summary>
-    /// 任务状态
+    /// Trạng thái tác vụ
     /// </summary>
     /// <remarks>
     /// Completed / Pending
@@ -22,13 +22,13 @@ public class StreamDeleteJobStatusResponse
     public string Status { get; set; } = default!;
 
     /// <summary>
-    /// 各集群/区域的执行明细
+    /// Chi tiết thực thi của từng cụm/vùng
     /// </summary>
     [JsonPropertyName("metadata")]
     public StreamDeleteJobMetadata[]? Metadata { get; set; }
 
     /// <summary>
-    /// 执行错误
+    /// Lỗi thực thi
     /// </summary>
     [JsonPropertyName("errors")]
     public StreamDeleteJobError[]? Errors { get; set; }

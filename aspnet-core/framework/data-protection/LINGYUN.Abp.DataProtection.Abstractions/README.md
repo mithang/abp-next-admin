@@ -1,30 +1,30 @@
 # LINGYUN.Abp.DataProtection.Abstractions
 
-数据权限抽象模块，提供数据权限相关的接口定义和基础类型。
+Mô-đun trừu tượng quyền dữ liệu, cung cấp định nghĩa giao diện và các kiểu cơ sở liên quan đến quyền dữ liệu.
 
-## 功能
+## Chức năng
 
-* `IDataProtected` - 数据权限接口，标记实体需要进行数据权限控制
-* `DataProtectedAttribute` - 数据权限特性，标记方法或类需要进行数据权限控制
-* `DisableDataProtectedAttribute` - 禁用数据权限特性，标记方法或类不进行数据权限控制
+* `IDataProtected` - Giao diện quyền dữ liệu, đánh dấu thực thể cần kiểm soát quyền dữ liệu
+* `DataProtectedAttribute` - Thuộc tính quyền dữ liệu, đánh dấu phương thức hoặc lớp cần kiểm soát quyền dữ liệu
+* `DisableDataProtectedAttribute` - Thuộc tính vô hiệu hóa quyền dữ liệu, đánh dấu phương thức hoặc lớp không kiểm soát quyền dữ liệu
 
-## 数据操作类型
+## Các loại thao tác dữ liệu
 
-* `DataAccessOperation.Read` - 查询操作
-* `DataAccessOperation.Write` - 更新操作
-* `DataAccessOperation.Delete` - 删除操作
+* `DataAccessOperation.Read` - Thao tác truy vấn
+* `DataAccessOperation.Write` - Thao tác cập nhật
+* `DataAccessOperation.Delete` - Thao tác xóa
 
-## 数据过滤
+## Lọc dữ liệu
 
-* `DataAccessFilterLogic` - 数据过滤逻辑
-  * `And` - 且
-  * `Or` - 或
-* `DataAccessFilterRule` - 数据过滤规则
-  * `Field` - 字段名
-  * `Value` - 字段值
-  * `Operate` - 操作符
-  * `IsLeft` - 是否左括号
+* `DataAccessFilterLogic` - Logic lọc dữ liệu
+  * `And` - Và
+  * `Or` - Hoặc
+* `DataAccessFilterRule` - Quy tắc lọc dữ liệu
+  * `Field` - Tên trường
+  * `Value` - Giá trị trường
+  * `Operate` - Toán tử
+  * `IsLeft` - Có phải dấu ngoặc trái hay không
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

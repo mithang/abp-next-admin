@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getElementVisibleRect } from '../dom';
 
 describe('getElementVisibleRect', () => {
-  // 设置浏览器视口尺寸的 mock
+  // Mock thiết lập kích thước viewport của trình duyệt
   beforeEach(() => {
     vi.spyOn(document.documentElement, 'clientHeight', 'get').mockReturnValue(
       800,

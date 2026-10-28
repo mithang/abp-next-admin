@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Features.LimitValidation.Redis
 
-基于Redis的功能限制验证组件
+Thành phần xác thực giới hạn tính năng dựa trên Redis
 
-## 功能特性
+## Tính năng
 
-* 使用Redis存储和验证功能调用次数限制
-* 支持Lua脚本进行原子性操作
-* 支持多种限制策略（分钟、小时、天、周、月、年）
-* 支持自定义Redis配置选项
+* Sử dụng Redis để lưu trữ và xác thực giới hạn số lần gọi tính năng
+* Hỗ trợ script Lua để thực hiện thao tác nguyên tử
+* Hỗ trợ nhiều chính sách giới hạn (phút, giờ, ngày, tuần, tháng, năm)
+* Hỗ trợ tùy chỉnh tùy chọn cấu hình Redis
 
-## 配置使用
+## Cấu hình và sử dụng
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpFeaturesValidationRedisModule))]
@@ -21,7 +21,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 配置Redis选项
+2. Cấu hình tùy chọn Redis
 
 ```json
 {
@@ -36,21 +36,21 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
-* Configuration：Redis连接字符串
-* InstanceName：Redis实例名称（可选）
-* ConfigurationOptions：Redis配置选项（可选，用于更详细的Redis配置）
+* Configuration: Chuỗi kết nối Redis
+* InstanceName: Tên instance Redis (tùy chọn)
+* ConfigurationOptions: Tùy chọn cấu hình Redis (tùy chọn, dùng cho cấu hình Redis chi tiết hơn)
 
-## 使用示例
+## Ví dụ sử dụng
 
 ```csharp
-// 限制某个方法每分钟最多调用100次
+// Giới hạn một phương thức được gọi tối đa 100 lần mỗi phút
 [RequiresLimitFeature("YourFeature.MethodLimit", "YourFeature.Interval", LimitPolicy.Minute)]
 public async Task YourMethod()
 {
-    // 业务逻辑
+    // Logic nghiệp vụ
 }
 ```
 
-[简体中文](./README.md) | [English](./README.EN.md)
+[Tiếng Việt](./README.md) | [English](./README.EN.md)

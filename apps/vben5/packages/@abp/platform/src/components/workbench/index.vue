@@ -150,7 +150,7 @@ async function onInitNotifiers() {
   unReadNotifilerCount.value = totalCount;
 }
 async function onInitTodoList() {
-  // TODO: 实现待办事项列表
+  // TODO: Triển khai danh sách việc cần làm
   todoList.value = [];
 }
 
@@ -177,7 +177,7 @@ onMounted(onInit);
       <template #title>
         {{ getWelcomeTitle }}
       </template>
-      <template #description> 今日晴，20℃ - 32℃！ </template>
+      <template #description> Hôm nay trời nắng, 20℃ - 32℃! </template>
     </WorkbenchHeader>
 
     <div class="mt-5 flex flex-col lg:flex-row">

@@ -2,8 +2,8 @@ import type { Preferences } from '@vben-core/preferences';
 import type { DeepPartial } from '@vben-core/typings';
 
 /**
- * 如果你想所有的app都使用相同的默认偏好设置，你可以在这里定义
- * 而不是去修改 @vben-core/preferences 中的默认偏好设置
+ * Nếu bạn muốn mọi app đều dùng cùng cài đặt mặc định của preferences, bạn có thể định nghĩa tại đây
+ * Thay vì sửa cài đặt mặc định của preferences trong @vben-core/preferences
  * @param preferences
  * @returns
  */

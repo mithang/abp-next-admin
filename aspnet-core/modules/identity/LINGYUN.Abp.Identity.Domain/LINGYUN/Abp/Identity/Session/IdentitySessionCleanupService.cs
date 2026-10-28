@@ -7,7 +7,7 @@ using Volo.Abp.Uow;
 
 namespace LINGYUN.Abp.Identity.Session;
 /// <summary>
-/// 用户会话清理服务
+/// Dịch vụ dọn dẹp phiên người dùng
 /// </summary>
 public class IdentitySessionCleanupService : ITransientDependency
 {

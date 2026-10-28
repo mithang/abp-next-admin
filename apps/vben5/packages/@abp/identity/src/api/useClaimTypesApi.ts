@@ -13,9 +13,9 @@ export function useClaimTypesApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 新增用户声明
-   * @param input 参数
-   * @returns 用户声明实体数据传输对象
+   * Thêm khai báo người dùng
+   * @param input Tham số
+   * @returns Đối tượng truyền dữ liệu thực thể khai báo người dùng
    */
   function createApi(
     input: IdentityClaimTypeCreateDto,
@@ -27,8 +27,8 @@ export function useClaimTypesApi() {
   }
 
   /**
-   * 删除用户声明
-   * @param id 用户声明id
+   * Xóa khai báo người dùng
+   * @param id Id khai báo người dùng
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/identity/claim-types/${id}`, {
@@ -37,9 +37,9 @@ export function useClaimTypesApi() {
   }
 
   /**
-   * 查询用户声明
-   * @param id 用户声明id
-   * @returns 用户声明实体数据传输对象
+   * Truy vấn khai báo người dùng
+   * @param id Id khai báo người dùng
+   * @returns Đối tượng truyền dữ liệu thực thể khai báo người dùng
    */
   function getApi(id: string): Promise<IdentityClaimTypeDto> {
     return request<IdentityClaimTypeDto>(`/api/identity/claim-types/${id}`, {
@@ -48,9 +48,9 @@ export function useClaimTypesApi() {
   }
 
   /**
-   * 更新用户声明
-   * @param id 用户声明id
-   * @returns 用户声明实体数据传输对象
+   * Cập nhật khai báo người dùng
+   * @param id Id khai báo người dùng
+   * @returns Đối tượng truyền dữ liệu thực thể khai báo người dùng
    */
   function updateApi(
     id: string,
@@ -63,9 +63,9 @@ export function useClaimTypesApi() {
   }
 
   /**
-   * 查询用户声明分页列表
-   * @param input 过滤参数
-   * @returns 用户声明实体数据传输对象分页列表
+   * Truy vấn danh sách phân trang khai báo người dùng
+   * @param input Tham số lọc
+   * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể khai báo người dùng
    */
   function getPagedListApi(
     input?: GetIdentityClaimTypePagedListInput,
@@ -80,7 +80,7 @@ export function useClaimTypesApi() {
   }
 
   /**
-   * 获取可用的声明类型列表
+   * Lấy danh sách loại khai báo khả dụng
    */
   function getAssignableClaimsApi(): Promise<
     ListResultDto<IdentityClaimTypeDto>

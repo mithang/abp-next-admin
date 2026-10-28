@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Contacts;
 /// <summary>
-/// 外部联系人接口
+/// API liên hệ bên ngoài
 /// </summary>
 public interface IWeChatWorkExternalContactProvider
 {
     /// <summary>
-    /// 获取已服务的外部联系人
+    /// Lấy liên hệ bên ngoài đã phục vụ
     /// </summary>
     /// <remarks>
-    /// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/99434" />
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/99434" />
     /// </remarks>
-    /// <param name="request">请求参数</param>
+    /// <param name="request">Tham số yêu cầu</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<WeChatWorkGetExternalContactListResponse> GetExternalContactListAsync(

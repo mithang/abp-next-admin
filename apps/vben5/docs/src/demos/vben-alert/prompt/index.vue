@@ -8,10 +8,10 @@ import { BadgeJapaneseYen } from 'lucide-vue-next';
 
 function showPrompt() {
   prompt({
-    content: '请输入一些东西',
+    content: 'Vui lòng nhập một vài thứ',
   })
     .then((val) => {
-      alert(`已收到你的输入：${val}`);
+      alert(`Đã nhận được nội dung bạn nhập: ${val}`);
     })
     .catch(() => {
       alert('Canceled');
@@ -21,7 +21,7 @@ function showPrompt() {
 function showSlotsPrompt() {
   prompt({
     component: () => {
-      // 获取弹窗上下文。注意：只能在setup或者函数式组件中调用
+      // Lấy ngữ cảnh popup. Lưu ý: chỉ có thể gọi trong setup hoặc component hàm
       const { doConfirm } = useAlertContext();
       return h(
         Input,
@@ -29,12 +29,12 @@ function showSlotsPrompt() {
           onKeydown(e: KeyboardEvent) {
             if (e.key === 'Enter') {
               e.preventDefault();
-              // 调用弹窗提供的确认方法
+              // Gọi phương thức xác nhận do popup cung cấp
               doConfirm();
             }
           },
-          placeholder: '请输入',
-          prefix: '充值金额：',
+          placeholder: 'Vui lòng nhập',
+          prefix: 'Số tiền nạp:',
           type: 'number',
         },
         {
@@ -43,11 +43,11 @@ function showSlotsPrompt() {
       );
     },
     content:
-      '此弹窗演示了如何使用自定义插槽，并且可以使用useAlertContext获取到弹窗的上下文。\n在输入框中按下回车键会触发确认操作。',
+      'Popup này minh họa cách sử dụng slot tùy chỉnh, và có thể dùng useAlertContext để lấy ngữ cảnh của popup.\nNhấn Enter trong hộp nhập liệu sẽ kích hoạt thao tác xác nhận.',
     icon: 'question',
     modelPropName: 'value',
   }).then((val) => {
-    if (val) alert(`你输入的是${val}`);
+    if (val) alert(`Bạn đã nhập ${val}`);
   });
 }
 
@@ -60,16 +60,16 @@ function showSelectPrompt() {
         { label: 'Option B', value: 'Option B' },
         { label: 'Option C', value: 'Option C' },
       ],
-      placeholder: '请选择',
-      // 弹窗会设置body的pointer-events为none，这回影响下拉框的点击事件
+      placeholder: 'Vui lòng chọn',
+      // Popup sẽ đặt pointer-events của body thành none, điều này sẽ ảnh hưởng đến sự kiện nhấp của hộp thả xuống
       popupClassName: 'pointer-events-auto',
     },
-    content: '此弹窗演示了如何使用component传递自定义组件',
+    content: 'Popup này minh họa cách dùng component để truyền component tùy chỉnh',
     icon: 'question',
     modelPropName: 'value',
   }).then((val) => {
     if (val) {
-      alert(`你选择了${val}`);
+      alert(`Bạn đã chọn ${val}`);
     }
   });
 }
@@ -83,10 +83,10 @@ function showAsyncPrompt() {
     async beforeClose(scope) {
       if (scope.isConfirm) {
         if (scope.value) {
-          // 模拟异步操作，如果不成功，可以返回false
+          // Mô phỏng thao tác bất đồng bộ, nếu không thành công, có thể trả về false
           await sleep(2000);
         } else {
-          alert('请选择一个选项');
+          alert('Vui lòng chọn một tùy chọn');
           return false;
         }
       }
@@ -100,11 +100,11 @@ function showAsyncPrompt() {
         { label: 'Option 3', value: 'option3' },
       ],
     },
-    content: '选择一个选项后再点击[确认]',
+    content: 'Chọn một tùy chọn rồi nhấn [Xác nhận]',
     icon: 'question',
     modelPropName: 'value',
   }).then((val) => {
-    alert(`${val} 已设置。`);
+    alert(`${val} đã được đặt.`);
   });
 }
 </script>

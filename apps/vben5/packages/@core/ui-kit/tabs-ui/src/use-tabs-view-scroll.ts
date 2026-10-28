@@ -68,7 +68,7 @@ export function useTabsViewScroll(props: TabsProps) {
     await nextTick();
     scrollToActiveIntoView();
 
-    // 监听大小变化
+    // Lắng nghe thay đổi kích thước
     resizeObserver?.disconnect();
     resizeObserver = new ResizeObserver(
       useDebounceFn((_entries: ResizeObserverEntry[]) => {
@@ -80,7 +80,7 @@ export function useTabsViewScroll(props: TabsProps) {
 
     tabItemCount = props.tabs?.length || 0;
     mutationObserver?.disconnect();
-    // 使用 MutationObserver 仅监听子节点数量变化
+    // Dùng MutationObserver chỉ lắng nghe thay đổi số lượng nút con
     mutationObserver = new MutationObserver(() => {
       const count = viewportEl.querySelectorAll(
         `div[data-tab-item="true"]`,
@@ -96,7 +96,7 @@ export function useTabsViewScroll(props: TabsProps) {
       }
     });
 
-    // 配置为仅监听子节点的添加和移除
+    // Cấu hình chỉ lắng nghe việc thêm và xóa nút con
     mutationObserver.observe(viewportEl, {
       attributes: false,
       childList: true,
@@ -124,7 +124,7 @@ export function useTabsViewScroll(props: TabsProps) {
   }
 
   /**
-   * 计算tabs 宽度，用于判断是否显示左右滚动按钮
+   * Tính chiều rộng tabs, dùng để xác định có hiển thị nút cuộn trái/phải hay không
    */
   async function calcShowScrollbarButton() {
     if (!scrollViewportEl.value) {
@@ -152,7 +152,7 @@ export function useTabsViewScroll(props: TabsProps) {
   watch(
     () => props.active,
     async () => {
-      // 200为了等待 tab 切换动画完成
+      // 200 để chờ animation chuyển tab hoàn tất
       // setTimeout(() => {
       scrollToActiveIntoView();
       // }, 300);

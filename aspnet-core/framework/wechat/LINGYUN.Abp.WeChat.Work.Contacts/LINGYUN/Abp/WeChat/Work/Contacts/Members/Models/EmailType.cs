@@ -2,19 +2,19 @@
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Models;
 /// <summary>
-/// 邮箱类型
+/// Loại hộp thư
 /// </summary>
-[Description("邮箱类型")]
+[Description("Loại hộp thư")]
 public enum EmailType
 {
     /// <summary>
-    /// 企业邮箱
+    /// Hộp thư doanh nghiệp
     /// </summary>
-    [Description("企业邮箱")]
+    [Description("Hộp thư doanh nghiệp")]
     BizEmail = 1,
     /// <summary>
-    /// 个人邮箱
+    /// Hộp thư cá nhân
     /// </summary>
-    [Description("个人邮箱")]
+    [Description("Hộp thư cá nhân")]
     PersonEmail = 2,
 }

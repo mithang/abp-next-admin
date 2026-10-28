@@ -1,22 +1,22 @@
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知渠道数据(载荷)基类
+/// Lớp cơ sở dữ liệu kênh thông báo (payload)
 /// </summary>
 /// <remarks>
 /// <para>
-/// 渠道数据是"发布渠道能理解的强类型数据结构", 生产者用它表达渠道专属语义,
-/// 渠道实现用它解析出具体的消息载体。
+/// Dữ liệu kênh là "cấu trúc dữ liệu kiểu mạnh mà kênh phát hành có thể hiểu", nhà sản xuất dùng nó để biểu đạt ngữ nghĩa riêng của kênh,
+/// phía triển khai kênh dùng nó để phân tích ra vật mang tin nhắn cụ thể.
 /// </para>
 /// <para>
-/// 派生类需要做两件事:
+/// Lớp dẫn xuất cần làm hai việc:
 /// <list type="number">
 /// <item>
-/// 用 <see cref="NotificationChannelDataAttribute"/> 声明渠道、匹配顺序与
-/// <see cref="NotificationChannelDataAttribute.Presence"/> 存在性判定模式;
+/// Dùng <see cref="NotificationChannelDataAttribute"/> để khai báo kênh, thứ tự khớp và
+/// <see cref="NotificationChannelDataAttribute.Presence"/> chế độ xác định sự tồn tại;
 /// </item>
 /// <item>
-/// 用 <see cref="NotificationChannelPropertyAttribute"/> 标注参与读写的属性。
+/// Dùng <see cref="NotificationChannelPropertyAttribute"/> để gắn thuộc tính tham gia đọc/ghi.
 /// </item>
 /// </list>
 /// </para>

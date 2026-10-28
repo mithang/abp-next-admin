@@ -53,11 +53,11 @@ const { getPagedListApi: getResourcesApi } = useResourcesApi();
 const { getLocalizationApi } = useLocalizationsApi();
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: false,
   collapsedRows: 2,
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
@@ -98,9 +98,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Khi nhấn Enter có gửi form hay không
   submitOnEnter: true,
 };
 
@@ -265,7 +265,7 @@ function onDelete(row: TextDifferenceDto) {
 async function onChange(data: TextDto) {
   const input = await gridApi.formApi.getValues();
   onGet(input);
-  // 资源变化刷新本地多语言缓存
+  // Khi tài nguyên thay đổi, làm mới bộ nhớ đệm đa ngôn ngữ cục bộ
   const cultureName =
     abpStore.application!.localization.currentCulture.cultureName;
   if (data.cultureName === cultureName) {

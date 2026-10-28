@@ -7,7 +7,7 @@
     @selected="$emit('selected')"
     @delNode="$emit('delNode')"
     @insertNode="(type) => $emit('insertNode', type)"
-    placeholder="请设置触发活动的路径"
+    placeholder="Vui lòng đặt đường dẫn kích hoạt hoạt động"
     header-bgc="#3296fa"
   >
     <template #headerIcon>
@@ -43,21 +43,21 @@
     state.showError = false;
     if (isNullOrWhiteSpace(props.config.props.name)) {
       state.showError = true;
-      state.errorInfo = '请设置活动的名称';
+      state.errorInfo = 'Vui lòng đặt tên hoạt động';
       return;
     }
     if (isNullOrWhiteSpace(props.config.props.path)) {
       state.showError = true;
-      state.errorInfo = '请设置触发活动的请求地址';
+      state.errorInfo = 'Vui lòng đặt địa chỉ yêu cầu kích hoạt hoạt động';
       return;
     }
     if (Array.isArray(props.config.props.methods) && props.config.props.methods.length === 0) {
       state.showError = true;
-      state.errorInfo = '请设置触发活动的请求方法';
+      state.errorInfo = 'Vui lòng đặt phương thức yêu cầu kích hoạt hoạt động';
       return;
     }
     if (state.showError) {
-      err.push(`${props.config.name} 活动配置未设置完善`);
+      err.push(`${props.config.name} cấu hình hoạt động chưa được đặt đầy đủ`);
     }
     return !state.showError;
   }

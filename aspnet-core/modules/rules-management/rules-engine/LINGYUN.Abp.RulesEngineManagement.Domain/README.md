@@ -1,54 +1,54 @@
 # LINGYUN.Abp.RulesEngineManagement.Domain
 
-## 1. 介绍
+## 1. Giới thiệu
 
-规则引擎管理模块的领域层，实现了规则引擎的核心业务逻辑，包括工作流存储、规则记录、动作记录等功能。
+Lớp miền (domain layer) của module quản lý rules engine, triển khai logic nghiệp vụ cốt lõi của rules engine, bao gồm lưu trữ workflow, bản ghi quy tắc, bản ghi hành động, v.v.
 
-## 2. 功能
+## 2. Tính năng
 
-* 工作流存储
-  * 支持基于内存缓存的工作流存储
-  * 提供工作流的获取和查询功能
-  * 支持按类型获取工作流列表
+* Lưu trữ workflow
+  * Hỗ trợ lưu trữ workflow dựa trên bộ nhớ đệm (in-memory cache)
+  * Cung cấp chức năng lấy và truy vấn workflow
+  * Hỗ trợ lấy danh sách workflow theo loại
   
-* 规则记录
-  * 定义规则记录实体
-  * 提供规则记录仓储接口
-  * 支持规则的CRUD操作
+* Bản ghi quy tắc
+  * Định nghĩa thực thể bản ghi quy tắc
+  * Cung cấp giao diện kho (repository) bản ghi quy tắc
+  * Hỗ trợ các thao tác CRUD trên quy tắc
   
-* 工作流规则记录
-  * 定义工作流规则记录实体
-  * 支持工作流和规则的关联
+* Bản ghi quy tắc của workflow
+  * Định nghĩa thực thể bản ghi quy tắc của workflow
+  * Hỗ trợ liên kết workflow với quy tắc
   
-* 参数记录
-  * 定义参数记录实体
-  * 支持工作流参数的管理
+* Bản ghi tham số
+  * Định nghĩa thực thể bản ghi tham số
+  * Hỗ trợ quản lý tham số của workflow
   
-* 动作记录
-  * 定义动作记录实体
-  * 支持成功/失败动作的记录
+* Bản ghi hành động
+  * Định nghĩa thực thể bản ghi hành động
+  * Hỗ trợ ghi lại hành động thành công/thất bại
 
-## 3. 领域服务
+## 3. Dịch vụ miền
 
 * WorkflowStore
-  * 实现了IWorkflowStore接口
-  * 提供工作流的缓存管理
-  * 支持工作流的查询和映射
+  * Triển khai giao diện IWorkflowStore
+  * Cung cấp quản lý bộ nhớ đệm cho workflow
+  * Hỗ trợ truy vấn và ánh xạ workflow
 
-## 4. 仓储接口
+## 4. Giao diện kho (Repository)
 
 * IRuleRecordRepository
-  * 提供规则记录的CRUD操作
-  * 支持按名称查询规则
+  * Cung cấp các thao tác CRUD trên bản ghi quy tắc
+  * Hỗ trợ truy vấn quy tắc theo tên
   
 * IWorkflowRecordRepository
-  * 提供工作流记录的CRUD操作
-  * 支持按名称和类型查询工作流
+  * Cung cấp các thao tác CRUD trên bản ghi workflow
+  * Hỗ trợ truy vấn workflow theo tên và loại
 
-## 5. 依赖
+## 5. Phụ thuộc
 
 * Volo.Abp.Domain
 * LINGYUN.Abp.Rules.RulesEngine
 * Microsoft.Extensions.Caching.Memory
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

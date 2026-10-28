@@ -22,9 +22,9 @@ public class NotificationsCommonNotificationDefinitionProvider : NotificationDef
             lifetime: NotificationLifetime.Persistent,
             contentType: NotificationContentType.Html,
             allowSubscriptionToClients: false)
-            // 指定通知提供程序
+            // Chỉ định nhà cung cấp thông báo
             .WithProviders(NotificationProviderNames.Emailing)
-            // 设定为模板通知
+            // Đặt thành thông báo mẫu
             .WithTemplate(typeof(NotificationsResource), layout: "EmailNotifierLayout")
             .WithTemplate(template =>
             {

@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Models;
 /// <summary>
-/// 会议室使用范围
+/// Phạm vi sử dụng phòng họp
 /// </summary>
 public class MeetingRoomRange
 {
     /// <summary>
-    /// 会议室使用范围的userid列表
+    /// Danh sách userid thuộc phạm vi sử dụng phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("user_list")]
     [JsonPropertyName("user_list")]
     public string[]? UserList { get; }
     /// <summary>
-    /// 会议室使用范围的部门id列表
+    /// Danh sách id phòng ban thuộc phạm vi sử dụng phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("department_list")]

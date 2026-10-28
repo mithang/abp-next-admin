@@ -100,10 +100,10 @@ public class AbpWrapResultApiDescriptionProvider : IApiDescriptionProvider, ITra
                         });
                     }
                 }
-                // TODO: 是否有必要对其他响应代码定义包装结果?
-                // 例外1: 当用户传递 _AbpDontWrapResult 请求头时, 响应结果与预期不一致
-                // 例外2: 当控制器Url在被忽略Url中, 响应结果与预期不一致
-                // 例外3: 当引发异常在被忽略异常中, 响应结果为 RemoteServiceErrorResponse 对象, 与预期不一致
+                // TODO: Có cần định nghĩa kết quả bao bọc cho các mã phản hồi khác không?
+                // Ngoại lệ 1: Khi người dùng truyền tiêu đề yêu cầu _AbpDontWrapResult, kết quả phản hồi không khớp với mong đợi
+                // Ngoại lệ 2: Khi Url của controller nằm trong Url bị bỏ qua, kết quả phản hồi không khớp với mong đợi
+                // Ngoại lệ 3: Khi ngoại lệ phát sinh nằm trong các ngoại lệ bị bỏ qua, kết quả phản hồi là đối tượng RemoteServiceErrorResponse, không khớp với mong đợi
 
                 result.SupportedResponseTypes.RemoveAll(x => x.StatusCode == responseType.StatusCode);
                 result.SupportedResponseTypes.AddIfNotContains(

@@ -115,7 +115,7 @@
         username: data.userName,
         password: data.password,
         enterpriseId: enterpriseId,
-        mode: 'none', //不要默认的错误提示
+        mode: 'none', // Không dùng gợi ý lỗi mặc định
         isPortalLogin: true,
         loginCallback: () => {
           return new Promise((resolve) => {
@@ -155,7 +155,7 @@
       }
       // createConfirm({
       //   iconType: 'info',
-      //   title: '请选择登陆平台',
+      //   title: 'Vui lòng chọn nền tảng đăng nhập',
       //   content: '',
       //   okCancel: false,
       // });

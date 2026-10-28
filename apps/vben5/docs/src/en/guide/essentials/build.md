@@ -82,7 +82,7 @@ Both `gzip` and `brotli` require specific modules to be installed for use.
 
 :::
 
-::: details gzip 与 brotli 在 nginx 内的配置
+::: details cấu hình gzip và brotli trong nginx
 
 ```bash
 http {

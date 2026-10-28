@@ -10,26 +10,26 @@ import type {
 import requestClient from "../../request";
 
 /**
- * 删除权限定义
- * @param name 权限名称
+ * Xóa định nghĩa quyền
+ * @param name Tên quyền
  */
 export function deleteApi(name: string): Promise<void> {
 	return requestClient.delete(`/api/permission-management/definitions/${name}`);
 }
 
 /**
- * 查询权限定义
- * @param name 权限名称
- * @returns 权限定义数据传输对象
+ * Truy vấn định nghĩa quyền
+ * @param name Tên quyền
+ * @returns Đối tượng truyền dữ liệu định nghĩa quyền
  */
 export function getApi(name: string): Promise<PermissionDefinitionDto> {
 	return requestClient.get<PermissionDefinitionDto>(`/api/permission-management/definitions/${name}`);
 }
 
 /**
- * 查询权限定义列表
- * @param input 权限过滤条件
- * @returns 权限定义数据传输对象列表
+ * Truy vấn danh sách định nghĩa quyền
+ * @param input Điều kiện lọc quyền
+ * @returns Danh sách đối tượng truyền dữ liệu định nghĩa quyền
  */
 export function getListApi(input?: PermissionDefinitionGetListInput): Promise<ListResultDto<PermissionDefinitionDto>> {
 	return requestClient.get<ListResultDto<PermissionDefinitionDto>>("/api/permission-management/definitions", {
@@ -38,19 +38,19 @@ export function getListApi(input?: PermissionDefinitionGetListInput): Promise<Li
 }
 
 /**
- * 创建权限定义
- * @param input 权限定义参数
- * @returns 权限定义数据传输对象
+ * Tạo định nghĩa quyền
+ * @param input Tham số định nghĩa quyền
+ * @returns Đối tượng truyền dữ liệu định nghĩa quyền
  */
 export function createApi(input: PermissionDefinitionCreateDto): Promise<PermissionDefinitionDto> {
 	return requestClient.post<PermissionDefinitionDto>("/api/permission-management/definitions", input);
 }
 
 /**
- * 更新权限定义
- * @param name 权限名称
- * @param input 权限定义参数
- * @returns 权限定义数据传输对象
+ * Cập nhật định nghĩa quyền
+ * @param name Tên quyền
+ * @param input Tham số định nghĩa quyền
+ * @returns Đối tượng truyền dữ liệu định nghĩa quyền
  */
 export function updateApi(name: string, input: PermissionDefinitionUpdateDto): Promise<PermissionDefinitionDto> {
 	return requestClient.put<PermissionDefinitionDto>(`/api/permission-management/definitions/${name}`, input);

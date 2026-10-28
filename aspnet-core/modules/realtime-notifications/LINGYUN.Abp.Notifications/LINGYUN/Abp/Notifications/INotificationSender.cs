@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 发送通知接口
+/// Giao diện gửi thông báo
 /// </summary>
 public interface INotificationSender
 {
     /// <summary>
-    /// 发送通知
+    /// Gửi thông báo
     /// </summary>
-    /// <param name="name">名称</param>
-    /// <param name="data">数据</param>
-    /// <param name="users">用户列表,为空标识发给所有订阅用户</param>
-    /// <param name="tenantId">租户</param>
-    /// <param name="severity">严重级别</param>
-    /// <param name="useProviders">使用通知提供程序</param>
-    /// <returns>通知标识</returns>
+    /// <param name="name">Tên</param>
+    /// <param name="data">Dữ liệu</param>
+    /// <param name="users">Danh sách người dùng, để trống nghĩa là gửi cho tất cả người dùng đã đăng ký</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="severity">Mức độ nghiêm trọng</param>
+    /// <param name="useProviders">Sử dụng nhà cung cấp thông báo</param>
+    /// <returns>Định danh thông báo</returns>
     Task<string> SendNofiterAsync(
         string name,
         NotificationData data,
@@ -27,14 +27,14 @@ public interface INotificationSender
         NotificationSeverity severity = NotificationSeverity.Info,
         IEnumerable<string>? useProviders = null);
     /// <summary>
-    /// 发送模板通知
+    /// Gửi thông báo mẫu
     /// </summary>
-    /// <param name="name">名称</param>
-    /// <param name="template">模板对象</param>
-    /// <param name="users">用户列表,为空标识发给所有订阅用户</param>
-    /// <param name="tenantId">租户</param>
-    /// <param name="severity">严重级别</param>
-    /// <param name="useProviders">使用通知提供程序</param>
+    /// <param name="name">Tên</param>
+    /// <param name="template">Đối tượng mẫu</param>
+    /// <param name="users">Danh sách người dùng, để trống nghĩa là gửi cho tất cả người dùng đã đăng ký</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="severity">Mức độ nghiêm trọng</param>
+    /// <param name="useProviders">Sử dụng nhà cung cấp thông báo</param>
     /// <returns></returns>
     Task<string> SendNofiterAsync(
         string name,

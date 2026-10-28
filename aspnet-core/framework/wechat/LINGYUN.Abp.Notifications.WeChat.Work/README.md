@@ -1,20 +1,20 @@
 # LINGYUN.Abp.Notifications.WeChat.Work
 
-企业微信应用消息通知模块，提供通过企业微信应用向用户发送消息的功能。
+Mô-đun thông báo tin nhắn ứng dụng WeChat Doanh nghiệp, cung cấp chức năng gửi tin nhắn tới người dùng thông qua ứng dụng WeChat Doanh nghiệp.
 
-## 功能特性
+## Tính năng
 
-* 支持企业微信应用消息发送
-* 支持文本消息
-* 支持图片消息
-* 支持语音消息
-* 支持视频消息
-* 支持文件消息
-* 支持图文消息
-* 支持模板卡片消息
-* 集成ABP通知系统
+* Hỗ trợ gửi tin nhắn ứng dụng WeChat Doanh nghiệp
+* Hỗ trợ tin nhắn văn bản
+* Hỗ trợ tin nhắn hình ảnh
+* Hỗ trợ tin nhắn thoại
+* Hỗ trợ tin nhắn video
+* Hỗ trợ tin nhắn tệp
+* Hỗ trợ tin nhắn đồ họa-văn bản
+* Hỗ trợ tin nhắn thẻ mẫu
+* Tích hợp hệ thống thông báo ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsWeChatWorkModule))]
@@ -24,26 +24,26 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "Work": {
       "Notifications": {
-        "DefaultAgentId": 0,            // 默认应用ID
-        "DefaultToParty": "",           // 默认接收消息的部门ID列表
-        "DefaultToTag": "",             // 默认接收消息的标签ID列表
-        "DefaultSafe": 0,               // 默认表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印
-        "DefaultEnableIdTrans": 0,      // 默认表示是否开启id转译，0表示否，1表示是
-        "DefaultEnableDuplicateCheck": 0, // 默认表示是否开启重复消息检查，0表示否，1表示是
-        "DefaultDuplicateCheckInterval": 1800 // 默认表示重复消息检查的时间间隔，默认1800秒
+        "DefaultAgentId": 0,            // ID ứng dụng mặc định
+        "DefaultToParty": "",           // Danh sách ID phòng ban nhận tin nhắn mặc định
+        "DefaultToTag": "",             // Danh sách ID thẻ nhận tin nhắn mặc định
+        "DefaultSafe": 0,               // Mặc định cho biết có phải tin nhắn bảo mật hay không, 0 nghĩa là có thể chia sẻ ra ngoài, 1 nghĩa là không thể chia sẻ và nội dung hiển thị watermark
+        "DefaultEnableIdTrans": 0,      // Mặc định cho biết có bật chuyển đổi id hay không, 0 nghĩa là không, 1 nghĩa là có
+        "DefaultEnableDuplicateCheck": 0, // Mặc định cho biết có bật kiểm tra tin nhắn trùng lặp hay không, 0 nghĩa là không, 1 nghĩa là có
+        "DefaultDuplicateCheckInterval": 1800 // Mặc định cho biết khoảng thời gian kiểm tra tin nhắn trùng lặp, mặc định là 1800 giây
       }
     }
   }
 }
 ```
 
-## 更多文档
+## Tài liệu khác
 
-* [企业微信应用消息通知文档](README.EN.md)
+* [Tài liệu thông báo tin nhắn ứng dụng WeChat Doanh nghiệp](README.EN.md)

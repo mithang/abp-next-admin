@@ -2,12 +2,12 @@
 
 namespace LINGYUN.Abp.Account.Dto;
 /// <summary>
-/// 验证关联用户TokenDto
+/// Dto xác minh Token người dùng liên kết
 /// </summary>
 public class VerifyLinkTokenInput : LinkUserBaseDto
 {
     /// <summary>
-    /// 关联用户Token
+    /// Token người dùng liên kết
     /// </summary>
     [Required]
     public string Token { get; set; } = default!;

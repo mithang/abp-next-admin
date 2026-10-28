@@ -217,7 +217,7 @@ public class VueVbenAdminNavigationSeedContributor : NavigationSeedContributor
             GuidGenerator.Create(),
             "UI Framework",
             CodeNumberGenerator.CreateCode(10),
-            "UI框架",
+            "Khung giao diện",
             "UI Framework",
             null,
             tenantId)
@@ -243,7 +243,7 @@ public class VueVbenAdminNavigationSeedContributor : NavigationSeedContributor
     {
         var layout = await RouteDataSeeder.SeedLayoutAsync(
            Options.LayoutName,
-           Options.LayoutPath, // 路由层面已经处理好了,只需要传递LAYOUT可自动引用布局
+           Options.LayoutPath, // Ở tầng định tuyến đã xử lý xong, chỉ cần truyền LAYOUT là tự động tham chiếu được layout
            Options.LayoutName,
            data.Id,
            uiDataItem.Name,
@@ -261,7 +261,7 @@ public class VueVbenAdminNavigationSeedContributor : NavigationSeedContributor
             GuidGenerator.Create(),
             Options.LayoutName,
             CodeNumberGenerator.CreateCode(10),
-            "Vben Admin 布局约束",
+            "Ràng buộc layout Vben Admin",
             "Vben Admin Layout Meta Dictionary",
             null,
             tenantId)
@@ -272,163 +272,163 @@ public class VueVbenAdminNavigationSeedContributor : NavigationSeedContributor
         data.AddItem(
             GuidGenerator,
             "hideMenu",
-            "不在菜单显示",
+            "Không hiển thị trong menu",
             "false",
             ValueType.Boolean,
-            "当前路由不在菜单显示",
+            "Route hiện tại không hiển thị trong menu",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "icon",
-            "图标",
+            "Biểu tượng",
             "",
             ValueType.String,
-            "图标，也是菜单图标",
+            "Biểu tượng, cũng là biểu tượng menu",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "currentActiveMenu",
-            "当前激活的菜单",
+            "Menu đang kích hoạt",
             "",
             ValueType.String,
-            "用于配置详情页时左侧激活的菜单路径",
+            "Dùng để cấu hình đường dẫn menu kích hoạt bên trái khi ở trang chi tiết",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "ignoreKeepAlive",
-            "KeepAlive缓存",
+            "Bộ nhớ đệm KeepAlive",
             "false",
             ValueType.Boolean,
-            "是否忽略KeepAlive缓存",
+            "Có bỏ qua bộ nhớ đệm KeepAlive hay không",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "frameSrc",
-            "IFrame地址",
+            "Địa chỉ IFrame",
             "",
             ValueType.String,
-            "内嵌iframe的地址",
+            "Địa chỉ iframe nhúng",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "transitionName",
-            "路由切换动画",
+            "Hiệu ứng chuyển route",
             "",
             ValueType.String,
-            "指定该路由切换的动画名",
+            "Chỉ định tên hiệu ứng khi chuyển route này",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "roles",
-            "可以访问的角色",
+            "Các vai trò được phép truy cập",
             "",
             ValueType.Array,
-            "可以访问的角色，只在权限模式为Role的时候有效",
+            "Các vai trò được phép truy cập, chỉ có hiệu lực khi chế độ quyền là Role",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "title",
-            "路由标题",
+            "Tiêu đề route",
             "",
             ValueType.String,
-            "路由title 一般必填",
+            "Title của route, thường là bắt buộc",
             false,
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "carryParam",
-            "在tab页显示",
+            "Hiển thị trên tab",
             "false",
             ValueType.Boolean,
-            "如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true",
+            "Nếu route này mang theo tham số và cần hiển thị trên tab thì phải đặt thành true",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "hideBreadcrumb",
-            "隐藏面包屑",
+            "Ẩn breadcrumb",
             "false",
             ValueType.Boolean,
-            "隐藏该路由在面包屑上面的显示",
+            "Ẩn hiển thị của route này trên breadcrumb",
             isStatic: true);
         data.AddItem(
            GuidGenerator,
            "ignoreAuth",
-           "忽略权限",
+           "Bỏ qua quyền",
            "false",
            ValueType.Boolean,
-           "是否忽略权限，只在权限模式为Role的时候有效",
+           "Có bỏ qua quyền hay không, chỉ có hiệu lực khi chế độ quyền là Role",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "hideChildrenInMenu",
-            "隐藏所有子菜单",
+            "Ẩn tất cả menu con",
             "false",
             ValueType.Boolean,
-            "隐藏所有子菜单",
+            "Ẩn tất cả menu con",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "hideTab",
-            "不在标签页显示",
+            "Không hiển thị trên tab",
             "false",
             ValueType.Boolean,
-            "当前路由不在标签页显示",
+            "Route hiện tại không hiển thị trên tab",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "affix",
-            "固定标签页",
+            "Ghim tab",
             "false",
             ValueType.Boolean,
-            "是否固定标签页",
+            "Có ghim tab hay không",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "requiredFeatures",
-            "必要的功能",
+            "Tính năng bắt buộc",
             "",
             ValueType.String,
-            "多个功能间用英文 , 分隔",
+            "Nhiều tính năng ngăn cách nhau bằng dấu phẩy tiếng Anh (,)",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "dynamicLevel",
-            "可打开Tab页数",
+            "Số tab có thể mở",
             "",
             ValueType.Numeic,
-            "动态路由可打开Tab页数",
+            "Số tab có thể mở của route động",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "hidePathForChildren",
-            "忽略本级path",
+            "Bỏ qua path cấp này",
             "",
             ValueType.Boolean,
-            "是否在子级菜单的完整path中忽略本级path。2.5.3以上版本有效",
+            "Có bỏ qua path cấp này trong path đầy đủ của menu con hay không. Chỉ có hiệu lực từ phiên bản 2.5.3 trở lên",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "orderNo",
-            "菜单排序",
+            "Thứ tự menu",
             "",
             ValueType.Numeic,
-            "菜单排序，只对第一级有效",
+            "Thứ tự menu, chỉ có hiệu lực với cấp đầu tiên",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "realPath",
-            "实际Path",
+            "Path thực tế",
             "",
             ValueType.String,
-            "动态路由的实际Path, 即去除路由的动态部分;",
+            "Path thực tế của route động, tức là đã loại bỏ phần động của route;",
             isStatic: true);
         data.AddItem(
             GuidGenerator,
             "frameFormat",
-            "格式化IFrame",
+            "Định dạng IFrame",
             "false",
             ValueType.Boolean,
-            "扩展的格式化frame，{token}: 在打开的iframe页面传递token请求头");
+            "Frame định dạng mở rộng, {token}: truyền header yêu cầu token khi mở trang iframe");
 
         await DataDictionaryDataSeeder.SeedAsync(data);
 

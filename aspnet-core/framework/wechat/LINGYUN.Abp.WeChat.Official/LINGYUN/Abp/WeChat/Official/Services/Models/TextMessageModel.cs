@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Official.Services.Models;
 /// <summary>
-/// 发送文本消息
+/// Gửi tin nhắn văn bản
 /// </summary>
 [Serializable]
 public class TextMessageModel : MessageModel
 {
     /// <summary>
-    /// 接收消息用户
+    /// Người dùng nhận tin nhắn
     /// </summary>
     [JsonProperty("touser")]
     [JsonPropertyName("touser")]
     public string ToUser { get; }
     /// <summary>
-    /// 消息内容
+    /// Nội dung tin nhắn
     /// </summary>
     [JsonProperty("text")]
     [JsonPropertyName("text")]
@@ -32,7 +32,7 @@ public class TextMessageModel : MessageModel
 public class TextMessage
 {
     /// <summary>
-    /// 内容文本
+    /// Văn bản nội dung
     /// </summary>
     [JsonProperty("content")]
     [JsonPropertyName("content")]

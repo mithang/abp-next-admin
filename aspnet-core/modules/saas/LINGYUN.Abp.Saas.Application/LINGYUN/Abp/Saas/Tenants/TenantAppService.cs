@@ -163,7 +163,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
             return;
         }
 
-        // 租户删除时查询会失效, 在删除前确认
+        // Truy vấn sẽ không còn hiệu lực khi tenant bị xóa, cần xác nhận trước khi xóa
         var recycleStrategy = RecycleStrategy.Recycle;
         var strategySet = await FeatureChecker.GetOrNullAsync(SaasFeatureNames.Tenant.RecycleStrategy);
         if (!strategySet.IsNullOrWhiteSpace() && Enum.TryParse<RecycleStrategy>(strategySet, out var strategy))
@@ -287,7 +287,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
             Logger.LogWarning(checkResult.Error, "An error occurred while checking the database connection.");
         }
 
-        // 检查连接是否可用
+        // Kiểm tra kết nối có khả dụng hay không
         if (!checkResult.Connected)
         {
             throw input.Name.IsNullOrWhiteSpace()
@@ -295,8 +295,8 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
                 : new BusinessException(AbpSaasErrorCodes.InvalidConnectionString)
                     .WithData("Name", input.Name);
         }
-        // 默认连接字符串改变不能影响到现有数据库
-        // 移除此检查, 需要配合数据库迁移才有效
+        // Việc thay đổi chuỗi kết nối mặc định không được ảnh hưởng đến cơ sở dữ liệu hiện có
+        // Việc gỡ bỏ kiểm tra này cần kết hợp với migration cơ sở dữ liệu mới có hiệu lực
         //if (checkResult.DatabaseExists && (input.Name.IsNullOrWhiteSpace() || "Default".Equals(input.Name, StringComparison.InvariantCultureIgnoreCase)))
         //{
         //    throw new BusinessException(AbpSaasErrorCodes.DefaultConnectionStringDatabaseExists);

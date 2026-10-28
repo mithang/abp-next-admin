@@ -57,13 +57,13 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
         if (!isAsyncMethod)
         {
             // see: https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/
-            // Dapr Actor文档: Actor方法的返回类型必须为Task或Task<object>
+            // Tài liệu Dapr Actor: Kiểu trả về của phương thức Actor phải là Task hoặc Task<object>
             throw new AbpException("The return type of Actor method must be Task or Task<object>");
         }
         if (invocation.Arguments.Length > 1)
         {
             // see: https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/
-            // Dapr Actor文档: Actor方法最多可以有一个参数
+            // Tài liệu Dapr Actor: Phương thức Actor tối đa chỉ có một tham số
             throw new AbpException("Actor method can have one argument at a maximum");
         }
         await MakeRequestAsync(invocation);
@@ -71,11 +71,11 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
 
     private async Task MakeRequestAsync(IAbpMethodInvocation invocation)
     {
-        // 获取Actor配置
+        // Lấy cấu hình Actor
         var actorProxyConfig = DaprActorProxyOptions.ActorProxies.GetOrDefault(typeof(TService)) ?? throw new AbpException($"Could not get DynamicDaprActorProxyConfig for {typeof(TService).FullName}.");
         var remoteServiceConfig = await RemoteServiceConfigurationProvider.GetConfigurationOrDefaultAsync(actorProxyConfig.RemoteServiceName);
 
-        // Actors的定义太多, 可以考虑使用默认的 BaseUrl 作为远程地址
+        // Có quá nhiều định nghĩa Actors, có thể cân nhắc dùng BaseUrl mặc định làm địa chỉ từ xa
         if (remoteServiceConfig.BaseUrl.IsNullOrWhiteSpace())
         {
             throw new AbpException($"Could not get BaseUrl for {actorProxyConfig.RemoteServiceName} Or Default.");
@@ -89,16 +89,16 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
             JsonSerializerOptions = JsonSerializerOptions.JsonSerializerOptions,
         };
 
-        // 自定义请求处理器
-        // 添加请求头用于传递状态
-        // TODO: Actor一次只能处理一个请求,使用状态管理来传递状态的可行性?
+        // Bộ xử lý yêu cầu tùy chỉnh
+        // Thêm tiêu đề yêu cầu để truyền trạng thái
+        // TODO: Actor mỗi lần chỉ xử lý được một yêu cầu, tính khả thi của việc dùng quản lý trạng thái để truyền trạng thái?
         var httpClientHandler = new DaprHttpClientHandler();
 
         AddHeaders(httpClientHandler);
 
         httpClientHandler.PreConfigure(async (requestMessage) =>
         {
-            // 占位
+            // Giữ chỗ
             var httpClient = HttpClientFactory.Create(AbpDaprActorsModule.DaprHttpClient);
 
             await ClientAuthenticator.Authenticate(
@@ -107,7 +107,7 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
                     requestMessage,
                     remoteServiceConfig,
                     actorProxyConfig.RemoteServiceName));
-            // 标头
+            // Tiêu đề
             if (requestMessage.Headers.Authorization == null &&
                 httpClient.DefaultRequestHeaders.Authorization != null)
             {
@@ -115,7 +115,7 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
             }
         });
 
-        // 代理工厂
+        // Factory proxy
         var proxyFactory = new ActorProxyFactory(actorProxyOptions, (HttpMessageHandler)httpClientHandler);
 
         await MakeRequestAsync(invocation, proxyFactory);
@@ -128,7 +128,7 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
     {
         var invokeType = typeof(TService);
 
-        // 约定的 RemoteServiceAttribute 为Actor名称
+        // RemoteServiceAttribute theo quy ước là tên Actor
         var remoteServiceAttr = invokeType.GetTypeInfo().GetCustomAttribute<RemoteServiceAttribute>();
         var actorType = remoteServiceAttr != null
             ? remoteServiceAttr.Name
@@ -138,27 +138,27 @@ public class DynamicDaprActorProxyInterceptor<TService> : AbpInterceptor, ITrans
 
         try
         {
-            // 创建强类型代理
+            // Tạo proxy kiểu mạnh
             var actorProxy = proxyFactory.CreateActorProxy<TService>(actorId, actorType);
-            // 远程调用
+            // Gọi từ xa
             var task = (Task)invocation.Method.Invoke(actorProxy, invocation.Arguments)!;
             await task;
 
-            // 存在返回值
+            // Có giá trị trả về
             if (!invocation.Method.ReturnType.GenericTypeArguments.IsNullOrEmpty())
             {
-                // 处理返回值
+                // Xử lý giá trị trả về
                 invocation.ReturnValue = typeof(Task<>)
                     .MakeGenericType(invocation.Method.ReturnType.GenericTypeArguments[0])
                     .GetProperty(nameof(Task<object>.Result), BindingFlags.Public | BindingFlags.Instance)!
                     .GetValue(task)!;
             }
         }
-        catch (ActorMethodInvocationException amie) // 其他异常忽略交给框架处理
+        catch (ActorMethodInvocationException amie) // Các ngoại lệ khác bỏ qua, giao cho framework xử lý
         {
             if (amie.InnerException != null && amie.InnerException is ActorInvokeException aie)
             {
-                // Dapr 包装了远程服务异常
+                // Dapr đã bọc ngoại lệ của dịch vụ từ xa
                 throw new AbpDaprActorCallException(
                     new RemoteServiceErrorInfo
                     {

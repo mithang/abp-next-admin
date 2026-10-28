@@ -62,7 +62,7 @@ function dynamicImport(
     );
     return;
   } else {
-    warn('在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!');
+    warn('Không tìm thấy `' + component + '.vue` hoặc `' + component + '.tsx` trong src/views/, vui lòng tự tạo!');
     return EXCEPTION_COMPONENT;
   }
 }
@@ -85,7 +85,7 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
         route.meta = meta;
       }
     } else {
-      warn('请正确配置路由：' + route?.name + '的component属性');
+      warn('Vui lòng cấu hình route đúng: thuộc tính component của ' + route?.name);
     }
     route.children && asyncImportRoute(route.children);
   });

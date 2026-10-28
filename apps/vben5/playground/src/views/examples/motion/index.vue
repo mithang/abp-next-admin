@@ -15,7 +15,7 @@ import {
   Row,
   Select,
 } from 'ant-design-vue';
-// 本例子用不到visible类型的动画。带有VisibleOnce和Visible的类型会在组件进入视口被显示时执行动画，
+// Ví dụ này không dùng animation kiểu visible. Các kiểu có VisibleOnce và Visible sẽ thực thi animation khi component đi vào khung nhìn và được hiển thị,
 const presets = MotionPresets.filter((v) => !v.includes('Visible'));
 const showCard1 = refAutoReset(true, 100);
 const showCard2 = refAutoReset(true, 100);
@@ -61,12 +61,15 @@ function openDocPage() {
 <template>
   <Page title="Motion">
     <template #description>
-      <span>一个易于使用的为其它组件赋予动画效果的组件。</span>
-      <Button type="link" @click="openDocPage">查看文档</Button>
+      <span>
+        Một component dễ sử dụng, dùng để tạo hiệu ứng animation cho các
+        component khác.
+      </span>
+      <Button type="link" @click="openDocPage">Xem tài liệu</Button>
     </template>
-    <Card title="使用指令" :body-style="{ minHeight: '5rem' }">
+    <Card title="Sử dụng directive" :body-style="{ minHeight: '5rem' }">
       <template #extra>
-        <Button type="primary" @click="showCard1 = false">重载</Button>
+        <Button type="primary" @click="showCard1 = false">Tải lại</Button>
       </template>
       <div>
         <div class="relative flex gap-2 overflow-hidden" v-if="showCard1">
@@ -81,7 +84,7 @@ function openDocPage() {
     </Card>
     <Card
       class="mt-2"
-      title="使用组件（将内部作为一个整体添加动画）"
+      title="Sử dụng component (thêm animation cho nội bộ như một tổng thể)"
       :body-style="{ padding: 0 }"
     >
       <div
@@ -92,15 +95,17 @@ function openDocPage() {
           v-if="showCard2"
           class="flex items-center gap-2"
         >
-          <Button size="large">这个按钮在显示时会有动画效果</Button>
-          <span>附属组件，会作为整体处理动画</span>
+          <Button size="large">
+            Nút này sẽ có hiệu ứng animation khi hiển thị
+          </Button>
+          <span>Component phụ, sẽ được xử lý animation như một tổng thể</span>
         </Motion>
       </div>
       <div
         class="relative flex min-h-32 items-center justify-center gap-2 overflow-hidden"
       >
         <div v-if="showCard2" class="flex items-center gap-2">
-          <span>顺序延迟</span>
+          <span>Độ trễ theo thứ tự</span>
           <Motion
             v-bind="{
               ...motionProps,
@@ -109,7 +114,7 @@ function openDocPage() {
             v-for="i in 5"
             :key="i"
           >
-            <Button size="large">按钮{{ i }}</Button>
+            <Button size="large">Nút {{ i }}</Button>
           </Motion>
         </div>
       </div>
@@ -117,7 +122,7 @@ function openDocPage() {
         <Form :model="motionProps" :label-col="{ span: 10 }">
           <Row>
             <Col :span="8">
-              <FormItem prop="preset" label="动画效果">
+              <FormItem prop="preset" label="Hiệu ứng animation">
                 <Select v-model:value="motionProps.preset">
                   <Select.Option
                     :value="preset"
@@ -130,22 +135,22 @@ function openDocPage() {
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="duration" label="持续时间">
+              <FormItem prop="duration" label="Thời lượng">
                 <InputNumber v-model:value="motionProps.duration" />
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="delay" label="延迟动画">
+              <FormItem prop="delay" label="Trì hoãn animation">
                 <InputNumber v-model:value="motionProps.delay" />
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="hovered.scale" label="Hover缩放">
+              <FormItem prop="hovered.scale" label="Thu phóng khi Hover">
                 <InputNumber v-model:value="motionProps.hovered.scale" />
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="hovered.tapped" label="按下时缩放">
+              <FormItem prop="hovered.tapped" label="Thu phóng khi nhấn">
                 <InputNumber v-model:value="motionProps.tapped.scale" />
               </FormItem>
             </Col>
@@ -155,25 +160,25 @@ function openDocPage() {
     </Card>
     <Card
       class="mt-2"
-      title="分组动画（每个子元素都会应用相同的独立动画）"
+      title="Animation theo nhóm (mỗi phần tử con đều được áp dụng cùng một animation độc lập)"
       :body-style="{ padding: 0 }"
     >
       <div
         class="relative flex min-h-32 items-center justify-center gap-2 overflow-hidden"
       >
         <MotionGroup v-bind="motionGroupProps" v-if="showCard3">
-          <Button size="large">按钮1</Button>
-          <Button size="large">按钮2</Button>
-          <Button size="large">按钮3</Button>
-          <Button size="large">按钮4</Button>
-          <Button size="large">按钮5</Button>
+          <Button size="large">Nút 1</Button>
+          <Button size="large">Nút 2</Button>
+          <Button size="large">Nút 3</Button>
+          <Button size="large">Nút 4</Button>
+          <Button size="large">Nút 5</Button>
         </MotionGroup>
       </div>
       <div>
         <Form :model="motionGroupProps" :label-col="{ span: 10 }">
           <Row>
             <Col :span="8">
-              <FormItem prop="preset" label="动画效果">
+              <FormItem prop="preset" label="Hiệu ứng animation">
                 <Select v-model:value="motionGroupProps.preset">
                   <Select.Option
                     :value="preset"
@@ -186,22 +191,22 @@ function openDocPage() {
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="duration" label="持续时间">
+              <FormItem prop="duration" label="Thời lượng">
                 <InputNumber v-model:value="motionGroupProps.duration" />
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="delay" label="延迟动画">
+              <FormItem prop="delay" label="Trì hoãn animation">
                 <InputNumber v-model:value="motionGroupProps.delay" />
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="hovered.scale" label="Hover缩放">
+              <FormItem prop="hovered.scale" label="Thu phóng khi Hover">
                 <InputNumber v-model:value="motionGroupProps.hovered.scale" />
               </FormItem>
             </Col>
             <Col :span="8">
-              <FormItem prop="hovered.tapped" label="按下时缩放">
+              <FormItem prop="hovered.tapped" label="Thu phóng khi nhấn">
                 <InputNumber v-model:value="motionGroupProps.tapped.scale" />
               </FormItem>
             </Col>

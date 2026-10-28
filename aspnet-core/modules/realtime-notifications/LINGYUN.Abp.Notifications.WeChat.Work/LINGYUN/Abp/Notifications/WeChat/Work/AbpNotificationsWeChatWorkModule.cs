@@ -32,13 +32,13 @@ public class AbpNotificationsWeChatWorkModule : AbpModule
             options.PublishProviders.Add<WeChatWorkNotificationPublishProvider>();
         });
 
-        // 模板卡片是抽象类型: 注册类型转换器, 使其能在渠道数据(JSON)中往返
+        // Thẻ mẫu là kiểu trừu tượng: đăng ký bộ chuyển đổi kiểu để nó có thể chuyển đổi qua lại trong dữ liệu kênh (JSON)
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Converters.Add(new TemplateCardSystemTextJsonConverter());
         });
 
-        // 声明本渠道支持的载荷形态(注册期即校验存在性契约)
+        // Khai báo các dạng tải trọng mà kênh này hỗ trợ (hợp đồng kiểm tra tính tồn tại ngay tại thời điểm đăng ký)
         Configure<AbpNotificationChannelDataOptions>(options =>
         {
             options.Add<WeChatWorkMiniProgramNoticeChannelData>();
@@ -50,7 +50,7 @@ public class AbpNotificationsWeChatWorkModule : AbpModule
             options.Add<WeChatWorkFileChannelData>();
         });
 
-        // 消息载体工厂分派
+        // Phân phối factory của vật chứa thông báo
         Configure<AbpWeChatWorkNotificationMessageOptions>(options =>
         {
             options.MapDefaultMessageFactories();

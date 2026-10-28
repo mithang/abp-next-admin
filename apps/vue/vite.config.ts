@@ -10,8 +10,8 @@ import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
 
 /**
- * 天气api代理
- * production环境请在nginx配置
+ * Proxy api thời tiết
+ * Môi trường production vui lòng cấu hình trong nginx
  */
 function buildWeatherProxy(): Record<string, ProxyOptions> {
   return {
@@ -88,7 +88,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       outDir: OUTPUT_DIR,
       // minify: 'terser',
       /**
-       * 当 minify=“minify:'terser'” 解开注释
+       * Khi minify=“minify:'terser'” thì bỏ comment
        * Uncomment when minify="minify:'terser'"
        */
       // terserOptions: {

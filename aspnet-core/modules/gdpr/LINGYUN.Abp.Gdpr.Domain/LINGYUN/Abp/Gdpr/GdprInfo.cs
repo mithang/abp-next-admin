@@ -5,23 +5,23 @@ using Volo.Abp.Domain.Entities;
 namespace LINGYUN.Abp.Gdpr;
 
 /// <summary>
-/// 表示用户的个人数据
+/// Biểu thị dữ liệu cá nhân của người dùng
 /// See: https://abp.io/docs/latest/modules/gdpr#gdprinfo
 /// </summary>
 public class GdprInfo : Entity<Guid>
 {
     /// <summary>
-    /// GDPR 请求的 ID
+    /// ID của yêu cầu GDPR
     /// </summary>
     public virtual Guid RequestId { get; protected set; }
 
     /// <summary>
-    /// 用于存储个人数据
+    /// Dùng để lưu trữ dữ liệu cá nhân
     /// </summary>
     public virtual string Data { get; protected set; } = default!;
 
     /// <summary>
-    /// 表示收集个人数据的模块
+    /// Biểu thị module thu thập dữ liệu cá nhân
     /// </summary>
     public virtual string Provider { get; protected set; } = default!;
 

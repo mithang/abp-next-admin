@@ -13,7 +13,7 @@ public class AbpNotificationsWebhookWeChatWorkModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // 允许使用方在 PreConfigure 中覆盖(例如关闭 markdown v2)
+        // Cho phép bên sử dụng ghi đè trong PreConfigure (ví dụ: tắt markdown v2)
         var preActions = context.Services.GetPreConfigureActions<AbpNotificationsWebhookWeChatWorkOptions>();
 
         Configure<AbpNotificationsWebhookWeChatWorkOptions>(options =>
@@ -28,13 +28,13 @@ public class AbpNotificationsWebhookWeChatWorkModule : AbpModule
             options.Contributors.Add(new WeChatWorkWebhookNotificationContributor());
         });
 
-        // 模板卡片是抽象类型: 注册类型转换器, 使其能在渠道数据(JSON)中往返
+        // Thẻ mẫu là kiểu trừu tượng: đăng ký bộ chuyển đổi kiểu để nó có thể đi-về trong dữ liệu kênh (JSON)
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Converters.Add(new WebhookTemplateCardSystemTextJsonConverter());
         });
 
-        // 声明本渠道支持的载荷形态(注册期即校验存在性契约)
+        // Khai báo các dạng tải trọng mà kênh này hỗ trợ (hợp đồng kiểm tra sự tồn tại ngay tại thời điểm đăng ký)
         Configure<AbpNotificationChannelDataOptions>(options =>
         {
             options.Add<WeChatWorkWebhookTextChannelData>();
@@ -47,7 +47,7 @@ public class AbpNotificationsWebhookWeChatWorkModule : AbpModule
             options.Add<WeChatWorkWebhookTemplateCardChannelData>();
         });
 
-        // 消息载体工厂分派
+        // Phân phối qua factory vật mang tin nhắn
         Configure<AbpNotificationsWebhookWeChatWorkMessageOptions>(options =>
         {
             options.MapDefaultMessageFactories();

@@ -1,16 +1,16 @@
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 企业微信 Webhook 渠道数据(载荷)基类
+/// Lớp cơ sở dữ liệu kênh Webhook WeChat doanh nghiệp (tải trọng)
 /// </summary>
 /// <remarks>
-/// 每个载荷对应一种 Webhook 消息载体, 通过 <see cref="Kind"/> 显式声明形态,
-/// 渠道侧使用工厂字典做 O(1) 分派。
+/// Mỗi tải trọng tương ứng với một vật mang tin nhắn Webhook, khai báo rõ dạng thức qua <see cref="Kind"/>,
+/// Phía kênh dùng từ điển factory để phân phối O(1).
 /// </remarks>
 public abstract class WeChatWorkWebhookChannelData : NotificationChannelData
 {
     /// <summary>
-    /// 消息载体类型
+    /// Loại vật mang tin nhắn
     /// </summary>
     public abstract WeChatWorkWebhookMessageKind Kind { get; }
 }

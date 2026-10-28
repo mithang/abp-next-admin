@@ -44,7 +44,7 @@ public class EfCoreIdentityUserInactiveRepository : EfCoreRepository<IIdentityDb
             .Where(x => !ignoreUserIds.Contains(x.Id))
             .Where(x => x.IsActive &&
                 ((x.LastSignInTime.HasValue && x.LastSignInTime < threshold) ||
-                 // 更新到abp新版后用户未登陆过使用上次修改时间作为判断依据?
+                 // Sau khi nâng cấp lên phiên bản ABP mới, người dùng chưa từng đăng nhập sẽ dùng thời gian sửa đổi lần cuối làm căn cứ phán đoán?
                  // (x.LastModificationTime.HasValue && x.LastModificationTime < threshold) ||
                  x.CreationTime < threshold))
             .CountAsync(GetCancellationToken(cancellationToken));
@@ -67,7 +67,7 @@ public class EfCoreIdentityUserInactiveRepository : EfCoreRepository<IIdentityDb
             .Where(x => !ignoreUserIds.Contains(x.Id))
             .Where(x => x.IsActive &&
                 ((x.LastSignInTime.HasValue && x.LastSignInTime < threshold) ||
-                 // 更新到abp新版后用户未登陆过使用上次修改时间作为判断依据?
+                 // Sau khi nâng cấp lên phiên bản ABP mới, người dùng chưa từng đăng nhập sẽ dùng thời gian sửa đổi lần cuối làm căn cứ phán đoán?
                  // (x.LastModificationTime.HasValue && x.LastModificationTime < threshold) ||
                  x.CreationTime < threshold))
             .OrderBy(!sorting.IsNullOrWhiteSpace() ? sorting : nameof(IdentityUser.LastSignInTime))

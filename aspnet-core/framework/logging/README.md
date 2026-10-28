@@ -1,45 +1,45 @@
-# LINGYUN.Abp 日志模块
+# Mô-đun nhật ký LINGYUN.Abp
 
-## 模块概述
+## Tổng quan mô-đun
 
-日志模块提供日志接入与检索能力: 基于 Serilog 的日志写入与属性增强, 以及从持久化设施中检索日志的
-`ILoggingProvider` 实现（通过 `ILoggingManager` 对外提供统一查询接口）。
+Mô-đun nhật ký cung cấp khả năng ghi và truy xuất nhật ký: ghi nhật ký dựa trên Serilog và tăng cường thuộc tính, cùng với việc truy xuất nhật ký từ cơ sở lưu trữ
+thông qua triển khai `ILoggingProvider` (cung cấp giao diện truy vấn thống nhất ra bên ngoài thông qua `ILoggingManager`).
 
-## 模块列表
+## Danh sách mô-đun
 
-| 模块 | 说明 | 文档 |
+| Mô-đun | Mô tả | Tài liệu |
 | --- | --- | --- |
-| LINGYUN.Abp.Logging | 日志基础设施, 定义并实现 `ILoggingManager`, 实现日志信息查询 | [README](./LINGYUN.Abp.Logging/README.md) |
-| LINGYUN.Abp.Logging.Serilog.Elasticsearch | `ILoggingProvider` 的 Elasticsearch 实现 | [README](./LINGYUN.Abp.Logging.Serilog.Elasticsearch/README.md) |
-| LINGYUN.Abp.Logging.Serilog.OpenObserve | `ILoggingProvider` 的 OpenObserve 实现 | [README](./LINGYUN.Abp.Logging.Serilog.OpenObserve/README.md) |
-| LINGYUN.Abp.Serilog.Enrichers.Application | 为日志属性添加应用程序标识 | [README](./LINGYUN.Abp.Serilog.Enrichers.Application/README.md) |
-| LINGYUN.Abp.Serilog.Enrichers.UniqueId | 为日志属性添加唯一标识（雪花算法） | [README](./LINGYUN.Abp.Serilog.Enrichers.UniqueId/README.md) |
+| LINGYUN.Abp.Logging | Hạ tầng nhật ký, định nghĩa và triển khai `ILoggingManager`, triển khai truy vấn thông tin nhật ký | [README](./LINGYUN.Abp.Logging/README.md) |
+| LINGYUN.Abp.Logging.Serilog.Elasticsearch | Triển khai Elasticsearch của `ILoggingProvider` | [README](./LINGYUN.Abp.Logging.Serilog.Elasticsearch/README.md) |
+| LINGYUN.Abp.Logging.Serilog.OpenObserve | Triển khai OpenObserve của `ILoggingProvider` | [README](./LINGYUN.Abp.Logging.Serilog.OpenObserve/README.md) |
+| LINGYUN.Abp.Serilog.Enrichers.Application | Thêm định danh ứng dụng vào thuộc tính nhật ký | [README](./LINGYUN.Abp.Serilog.Enrichers.Application/README.md) |
+| LINGYUN.Abp.Serilog.Enrichers.UniqueId | Thêm định danh duy nhất vào thuộc tính nhật ký (thuật toán Snowflake) | [README](./LINGYUN.Abp.Serilog.Enrichers.UniqueId/README.md) |
 
-## 功能特性
+## Tính năng
 
-### 核心功能
+### Chức năng cốt lõi
 
-- 统一的日志查询接口 `ILoggingManager`, 以及可替换的 `ILoggingProvider` 抽象
-- 支持多种日志字段查询（时间戳、日志级别、消息等）
-- 支持异常信息记录和查询
-- 支持丰富的日志字段信息（机器名称、环境名称、应用名称、请求上下文等）
-- 支持分页查询和计数统计
+- Giao diện truy vấn nhật ký thống nhất `ILoggingManager`, cùng với trừu tượng `ILoggingProvider` có thể thay thế
+- Hỗ trợ truy vấn theo nhiều trường nhật ký (dấu thời gian, mức nhật ký, thông điệp, v.v.)
+- Hỗ trợ ghi và truy vấn thông tin ngoại lệ
+- Hỗ trợ thông tin trường nhật ký phong phú (tên máy, tên môi trường, tên ứng dụng, ngữ cảnh yêu cầu, v.v.)
+- Hỗ trợ truy vấn phân trang và thống kê đếm
 
-### 存储支持
+### Hỗ trợ lưu trữ
 
-- Elasticsearch 实现（Serilog 写入 + `ILoggingProvider` 检索）
-- OpenObserve 实现（Serilog 写入 + `ILoggingProvider` 检索）
+- Triển khai Elasticsearch (Serilog ghi + `ILoggingProvider` truy xuất)
+- Triển khai OpenObserve (Serilog ghi + `ILoggingProvider` truy xuất)
 
-> 两种实现都通过 `Logging:Provider` 指定检索实现。
+> Cả hai triển khai đều chỉ định triển khai truy xuất thông qua `Logging:Provider`.
 
-### 日志属性增强
+### Tăng cường thuộc tính nhật ký
 
-- 应用名称（`WithApplicationName`）
-- 唯一标识（`WithUniqueId`, 雪花算法）
+- Tên ứng dụng (`WithApplicationName`)
+- Định danh duy nhất (`WithUniqueId`, thuật toán Snowflake)
 
-## 模块引用
+## Tham chiếu mô-đun
 
-### 核心模块
+### Mô-đun cốt lõi
 
 ```csharp
 [DependsOn(typeof(AbpLoggingModule))]
@@ -49,7 +49,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### Elasticsearch 模块
+### Mô-đun Elasticsearch
 
 ```csharp
 [DependsOn(typeof(AbpLoggingSerilogElasticsearchModule))]
@@ -59,7 +59,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### OpenObserve 模块
+### Mô-đun OpenObserve
 
 ```csharp
 [DependsOn(typeof(AbpLoggingSerilogOpenObserveModule))]
@@ -69,7 +69,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### 应用名称增强器
+### Bộ tăng cường tên ứng dụng
 
 ```csharp
 [DependsOn(typeof(AbpSerilogEnrichersApplicationModule))]
@@ -82,7 +82,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### 唯一标识增强器
+### Bộ tăng cường định danh duy nhất
 
 ```csharp
 [DependsOn(typeof(AbpSerilogEnrichersUniqueIdModule))]
@@ -92,22 +92,22 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
-### 日志基础配置
+### Cấu hình nhật ký cơ bản
 
 ```json
 {
   "Logging": {
-    "MachineName": "你的机器名称",
-    "EnvironmentName": "环境名称"
+    "MachineName": "Tên máy của bạn",
+    "EnvironmentName": "Tên môi trường"
   }
 }
 ```
 
-### Elasticsearch 配置
+### Cấu hình Elasticsearch
 
-* AbpLoggingSerilogElasticsearchOptions.IndexFormat  必须和 Serilog 配置项中的 IndexFormat 相同, 否则无法定位到正确的索引
+* AbpLoggingSerilogElasticsearchOptions.IndexFormat phải giống với IndexFormat trong mục cấu hình Serilog, nếu không sẽ không thể xác định đúng chỉ mục
 
 ```json
 {
@@ -122,10 +122,10 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### OpenObserve 配置
+### Cấu hình OpenObserve
 
-* AbpLoggingSerilogOpenObserveOptions.Stream  存储日志的 stream 名称
-* AbpLoggingSerilogOpenObserveOptions.Organization  存储日志的 organization 名称
+* AbpLoggingSerilogOpenObserveOptions.Stream là tên stream lưu trữ nhật ký
+* AbpLoggingSerilogOpenObserveOptions.Organization là tên organization lưu trữ nhật ký
 
 ```json
 {
@@ -145,24 +145,24 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### 唯一标识配置
+### Cấu hình định danh duy nhất
 
-* AbpSerilogUniqueIdConsts.UniqueIdPropertyName  唯一标识字段的名称, 默认为 "UniqueId"
+* AbpSerilogUniqueIdConsts.UniqueIdPropertyName là tên của trường định danh duy nhất, mặc định là "UniqueId"
 
 ```json
 {
   "UniqueId": {
     "Snowflake": {
-      "WorkerId": 1,        // 工作机器ID
-      "DatacenterId": 1,    // 数据中心ID
-      "Sequence": 0,        // 序列号
-      "BaseTime": "2020-01-01 00:00:00"  // 基准时间
+      "WorkerId": 1,        // ID máy worker
+      "DatacenterId": 1,    // ID trung tâm dữ liệu
+      "Sequence": 0,        // Số thứ tự
+      "BaseTime": "2020-01-01 00:00:00"  // Thời gian cơ sở
     }
   }
 }
 ```
 
-### 日志属性增强（Serilog Enrich）
+### Tăng cường thuộc tính nhật ký(Serilog Enrich)
 
 ```json
 {
@@ -175,9 +175,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 注入 `ILoggingManager` 接口：
+1. Tiêm giao diện `ILoggingManager`:
 
 ```csharp
 public class YourService
@@ -191,10 +191,10 @@ public class YourService
 }
 ```
 
-2. 查询日志：
+2. Truy vấn nhật ký:
 
 ```csharp
-// 获取日志列表
+// Lấy danh sách nhật ký
 var logs = await _loggingManager.GetListAsync(
     startTime: DateTime.Now.AddDays(-1),
     maxResultCount: 10,
@@ -204,65 +204,65 @@ var logs = await _loggingManager.GetListAsync(
     application: "YourApp"
 );
 
-// 获取日志总数
+// Lấy tổng số nhật ký
 var count = await _loggingManager.GetCountAsync(
     startTime: DateTime.Now.AddDays(-1),
     level: LogLevel.Error
 );
 
-// 获取单条日志
+// Lấy một bản ghi nhật ký
 var log = await _loggingManager.GetAsync(id);
 ```
 
-### 支持的查询条件
+### Các điều kiện truy vấn được hỗ trợ
 
-* 时间范围（startTime、endTime）
-* 日志级别（level）
-* 机器名称（machineName）
-* 环境名称（environment）
-* 应用名称（application）
-* 上下文（context）
-* 请求ID（requestId）
-* 请求路径（requestPath）
-* 关联ID（correlationId）
-* 进程ID（processId）
-* 线程ID（threadId）
-* 是否包含异常（hasException）
+* Khoảng thời gian (startTime, endTime)
+* Mức nhật ký (level)
+* Tên máy (machineName)
+* Tên môi trường(environment)
+* Tên ứng dụng (application)
+* Ngữ cảnh (context)
+* ID yêu cầu (requestId)
+* Đường dẫn yêu cầu (requestPath)
+* ID tương quan (correlationId)
+* ID tiến trình (processId)
+* ID luồng (threadId)
+* Có chứa ngoại lệ hay không (hasException)
 
-## 日志字段说明
+## Mô tả trường nhật ký
 
-* TimeStamp - 日志时间戳
-* Level - 日志级别
-* Message - 日志消息
-* Fields - 日志字段信息
-  * Id - 日志唯一标识
-  * MachineName - 机器名称
-  * Environment - 环境名称
-  * Application - 应用名称
-  * Context - 上下文
-  * ActionId - 操作ID
-  * ActionName - 操作名称
-  * RequestId - 请求ID
-  * RequestPath - 请求路径
-  * ConnectionId - 连接ID
-  * CorrelationId - 关联ID
-  * ClientId - 客户端ID
-  * UserId - 用户ID
-  * ProcessId - 进程ID
-  * ThreadId - 线程ID
-* Exceptions - 异常信息列表
+* TimeStamp - Dấu thời gian nhật ký
+* Level - Mức nhật ký
+* Message - Thông điệp nhật ký
+* Fields - Thông tin trường nhật ký
+  * Id - Định danh duy nhất của nhật ký
+  * MachineName - Tên máy
+  * Environment - Tên môi trường
+  * Application - Tên ứng dụng
+  * Context - Ngữ cảnh
+  * ActionId - ID thao tác
+  * ActionName - Tên thao tác
+  * RequestId - ID yêu cầu
+  * RequestPath - Đường dẫn yêu cầu
+  * ConnectionId - ID kết nối
+  * CorrelationId - ID tương quan
+  * ClientId - ID máy khách
+  * UserId - ID người dùng
+  * ProcessId - ID tiến trình
+  * ThreadId - ID luồng
+* Exceptions - Danh sách thông tin ngoại lệ
 
-## 特殊说明
+## Lưu ý đặc biệt
 
-- Elasticsearch 实现: `IndexFormat` 必须与 Serilog 配置保持一致（默认 `logstash-{0:yyyy.MM.dd}`）;
-  支持多租户, 会根据当前租户ID过滤日志; 查询支持分页、排序与请求路径模糊匹配
-- OpenObserve 实现: 支持按 `Stream`/`Organization` 检索; 写入侧受服务端 `ZO_INGEST_ALLOWED_UPTO`
-  （默认 5 小时）限制; 存储为 append-only, 不支持按记录删除
-- 应用名称增强器: 应用名称为静态值, 一旦设置对该应用的所有日志条目生效; 仅当日志事件不存在该属性时才写入
-- 唯一标识增强器: 雪花算法生成的 ID 趋势递增但不保证严格递增; 工作机器ID与数据中心ID在集群中必须唯一;
-  基准时间设置后不可修改
+- Triển khai Elasticsearch: `IndexFormat` phải nhất quán với cấu hình Serilog (mặc định `logstash-{0:yyyy.MM.dd}`);
+  Hỗ trợ đa tenant, sẽ lọc nhật ký theo ID tenant hiện tại; truy vấn hỗ trợ phân trang, sắp xếp và khớp mờ đường dẫn yêu cầu
+- Triển khai OpenObserve: hỗ trợ truy xuất theo `Stream`/`Organization`; phía ghi chịu giới hạn `ZO_INGEST_ALLOWED_UPTO` từ phía máy chủ
+  (mặc định 5 giờ); lưu trữ dạng append-only, không hỗ trợ xóa theo bản ghi
+- Bộ tăng cường tên ứng dụng: tên ứng dụng là giá trị tĩnh, một khi đã đặt sẽ có hiệu lực với mọi mục nhật ký của ứng dụng đó; chỉ ghi khi sự kiện nhật ký chưa có thuộc tính này
+- Bộ tăng cường định danh duy nhất: ID do thuật toán Snowflake tạo ra tăng dần theo xu hướng nhưng không đảm bảo tăng nghiêm ngặt; ID máy worker và ID trung tâm dữ liệu phải là duy nhất trong cụm;
+  thời gian cơ sở sau khi đặt không thể sửa đổi
 
-## 相关模块
+## Mô-đun liên quan
 
-* 审计日志的 OpenObserve 实现: [LINGYUN.Abp.AuditLogging.OpenObserve](../auditing/LINGYUN.Abp.AuditLogging.OpenObserve/README.md)
-* 审计日志的 Elasticsearch 实现: [LINGYUN.Abp.AuditLogging.Elasticsearch](../auditing/LINGYUN.Abp.AuditLogging.Elasticsearch/README.md)
+* Triển khai OpenObserve của nhật ký kiểm toán: [LINGYUN.Abp.AuditLogging.OpenObserve](../auditing/LINGYUN.Abp.AuditLogging.OpenObserve/README.md)
+* Triển khai Elasticsearch của nhật ký kiểm toán: [LINGYUN.Abp.AuditLogging.Elasticsearch](../auditing/LINGYUN.Abp.AuditLogging.Elasticsearch/README.md)

@@ -36,7 +36,7 @@ public class AbpDataProtectedWritePropertiesInterceptor : SaveChangesInterceptor
                         allowProperties.AddIfNotContains(properties);
                     }
 
-                    // 仅配置了字段级控制才生效
+                    // Chỉ có hiệu lực khi đã cấu hình kiểm soát ở cấp trường
                     if (allowProperties.Count != 0)
                     {
                         if (DataProtectionOptions.Value.EntityIgnoreProperties.TryGetValue(entityType, out var entityIgnoreProps))

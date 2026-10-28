@@ -11,15 +11,15 @@ public abstract class IPLocationResolveContributorBase : IIPLocationResolveContr
     public abstract Task ResolveAsync(IIPLocationResolveContext context);
 
     /// <summary>
-    /// 由国家/省份/城市构造 <see cref="IPLocation"/>, 并按 <see cref="AbpIPLocationResolveOptions"/> 生成备注(Remarks)
+    /// Được tạo từ quốc gia/tỉnh/thành phố <see cref="IPLocation"/>, và tạo ghi chú (Remarks) theo <see cref="AbpIPLocationResolveOptions"/>
     /// </summary>
     /// <remarks>
-    /// 各 IP 位置解析贡献者共用的备注规则(名称匹配忽略大小写与首尾空白, 适用于所有国家的 IP 地址解析):
-    /// * 省份名称匹配到 <see cref="AbpIPLocationResolveOptions.RemoveProvince"/> 时, 省份从备注中移除, 备注使用城市(如 杭州市);
-    /// * 国家名称匹配到 <see cref="AbpIPLocationResolveOptions.RemoveCountry"/> 时, 国家从备注中移除,
-    ///   备注使用省份与城市组合(省市同名时仅使用城市, 如 重庆市; 仅有省份时使用省份, 如 香港特别行政区);
-    /// * 都未匹配时, 备注使用国家名称(如 中国、日本、美国);
-    /// * 匹配到的名称被移除后没有可显示的层级时, 备注为空。
+    /// Quy tắc ghi chú dùng chung cho các contributor phân giải vị trí IP (so khớp tên không phân biệt chữ hoa/thường và khoảng trắng đầu/cuối, áp dụng cho việc phân giải địa chỉ IP của mọi quốc gia):
+    /// * Khi tên tỉnh khớp với <see cref="AbpIPLocationResolveOptions.RemoveProvince"/> thì tỉnh sẽ bị loại khỏi ghi chú, ghi chú dùng thành phố (ví dụ: thành phố Hàng Châu);
+    /// * Khi tên quốc gia khớp với <see cref="AbpIPLocationResolveOptions.RemoveCountry"/> thì quốc gia sẽ bị loại khỏi ghi chú,
+    ///   ghi chú dùng tổ hợp tỉnh và thành phố (khi tỉnh và thành phố cùng tên thì chỉ dùng thành phố, ví dụ: thành phố Trùng Khánh; khi chỉ có tỉnh thì dùng tỉnh, ví dụ: Đặc khu hành chính Hồng Kông);
+    /// * Khi đều không khớp, ghi chú dùng tên quốc gia (ví dụ: Trung Quốc, Nhật Bản, Mỹ);
+    /// * Khi tên đã khớp bị loại bỏ mà không còn cấp nào để hiển thị, ghi chú sẽ trống.
     /// </remarks>
     protected virtual IPLocation CreateIPLocation(
         IIPLocationResolveContext context,
@@ -31,40 +31,40 @@ public abstract class IPLocationResolveContributorBase : IIPLocationResolveContr
 
         var ipLocation = new IPLocation(country, province, city);
 
-        // 匹配到配置的名称时, 对应的层级从备注中移除
+        // Khi khớp với tên đã cấu hình, cấp tương ứng sẽ bị loại khỏi ghi chú
         var useCountry = !IsExcluded(options.RemoveCountry, country);
         var useProvince = !IsExcluded(options.RemoveProvince, province);
 
-        // 220.246.0.0|220.246.255.255|中国|香港|0|电讯盈科
+        // 220.246.0.0|220.246.255.255|Trung Quốc|Hồng Kông|0|PCCW
         if (!useProvince)
         {
-            // 省份名称匹配到移除列表: 备注使用城市(如 杭州市)
+            // Tên tỉnh khớp với danh sách loại bỏ: ghi chú dùng thành phố (ví dụ: thành phố Hàng Châu)
             ipLocation.Remarks = string.IsNullOrWhiteSpace(city) ? null : city;
         }
-        // 36.133.232.0|36.133.239.255|中国|重庆|重庆市|移动
+        // 36.133.232.0|36.133.239.255|Trung Quốc|Trùng Khánh|thành phố Trùng Khánh|China Mobile
         else if (!useCountry)
         {
-            // 国家名称匹配到移除列表: 备注使用省份与城市组合
+            // Tên quốc gia khớp với danh sách loại bỏ: ghi chú dùng tổ hợp tỉnh và thành phố
             if (!string.IsNullOrWhiteSpace(province) &&
                 !string.IsNullOrWhiteSpace(city))
             {
                 if (province!.Length <= city!.Length &&
                     city.StartsWith(province, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    // 重庆市
+                    // thành phố Trùng Khánh
                     ipLocation.Remarks = city;
                 }
-                // 111.26.31.0|111.26.31.127|中国|吉林省|吉林市|移动
+                // 111.26.31.0|111.26.31.127|Trung Quốc|tỉnh Cát Lâm|thành phố Cát Lâm|China Mobile
                 else
                 {
-                    // 吉林省吉林市
+                    // tỉnh Cát Lâm thành phố Cát Lâm
                     ipLocation.Remarks = $"{province}{city}";
                 }
             }
-            // 220.246.0.0|220.246.255.255|中国|香港特别行政区|0
+            // 220.246.0.0|220.246.255.255|Trung Quốc|Đặc khu hành chính Hồng Kông|0
             else if (!string.IsNullOrWhiteSpace(province))
             {
-                // 香港特别行政区
+                // Đặc khu hành chính Hồng Kông
                 ipLocation.Remarks = province;
             }
             else if (!string.IsNullOrWhiteSpace(city))
@@ -73,14 +73,14 @@ public abstract class IPLocationResolveContributorBase : IIPLocationResolveContr
             }
             else
             {
-                // 匹配到的名称已从备注中移除(例如仅有"中国"时备注为空)
+                // Tên đã khớp đã bị loại khỏi ghi chú (ví dụ: khi chỉ có "Trung Quốc" thì ghi chú trống)
                 ipLocation.Remarks = null;
             }
         }
-        // 103.151.173.0|103.151.173.255|日本|东京|东京|IKUUU网络
+        // 103.151.173.0|103.151.173.255|Nhật Bản|Tokyo|Tokyo|mạng IKUUU
         else
         {
-            // 日本 / 美国 / 德国(未匹配到移除列表时仅使用国家名称)
+            // Nhật Bản / Mỹ / Đức (khi không khớp danh sách loại bỏ thì chỉ dùng tên quốc gia)
             ipLocation.Remarks = country;
         }
 
@@ -88,7 +88,7 @@ public abstract class IPLocationResolveContributorBase : IIPLocationResolveContr
     }
 
     /// <summary>
-    /// 名称是否匹配到移除列表(忽略大小写与首尾空白)
+    /// Tên có khớp với danh sách loại bỏ hay không (không phân biệt chữ hoa/thường và khoảng trắng đầu/cuối)
     /// </summary>
     protected virtual bool IsExcluded(string[] names, string? name)
     {

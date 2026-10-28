@@ -1,25 +1,25 @@
 # LINGYUN.Abp.CachingManagement.StackExchangeRedis
 
-基于 StackExchange.Redis 的缓存管理实现模块。
+Mô-đun triển khai quản lý bộ nhớ đệm dựa trên StackExchange.Redis.
 
-## 功能
+## Tính năng
 
-* 实现了 `ICacheManager` 接口，提供基于 Redis 的缓存管理功能：
-  * 获取缓存键列表（支持前缀匹配和过滤）
-  * 获取缓存值
-  * 设置缓存值（支持绝对过期时间和滑动过期时间）
-  * 刷新缓存
-  * 删除缓存
+* Triển khai giao diện `ICacheManager`, cung cấp chức năng quản lý bộ nhớ đệm dựa trên Redis:
+  * Lấy danh sách khóa bộ nhớ đệm (hỗ trợ khớp tiền tố và lọc)
+  * Lấy giá trị bộ nhớ đệm
+  * Đặt giá trị bộ nhớ đệm (hỗ trợ thời gian hết hạn tuyệt đối và thời gian hết hạn trượt)
+  * Làm mới bộ nhớ đệm
+  * Xóa bộ nhớ đệm
 
-## 安装
+## Cài đặt
 
 ```bash
 abp add-module LINGYUN.Abp.CachingManagement
 ```
 
-## 配置使用
+## Cấu hình sử dụng
 
-1. 首先需要配置 Redis 连接字符串，在 `appsettings.json` 中添加：
+1. Trước tiên cần cấu hình chuỗi kết nối Redis, thêm vào `appsettings.json`:
 
 ```json
 {
@@ -29,33 +29,33 @@ abp add-module LINGYUN.Abp.CachingManagement
 }
 ```
 
-2. 在模块的 `ConfigureServices` 方法中添加以下代码：
+2. Thêm đoạn mã sau vào phương thức `ConfigureServices` của mô-đun:
 
 ```csharp
 Configure<RedisCacheOptions>(options =>
 {
-    // 可选：配置 Redis 实例名称前缀
+    // Tùy chọn: cấu hình tiền tố tên phiên bản Redis
     options.InstanceName = "MyApp:";
 });
 
 Configure<AbpDistributedCacheOptions>(options =>
 {
-    // 可选：配置缓存键前缀
+    // Tùy chọn: cấu hình tiền tố khóa bộ nhớ đệm
     options.KeyPrefix = "MyApp:";
 });
 ```
 
-## 多租户支持
+## Hỗ trợ đa thuê bao
 
-模块内置了多租户支持，会自动根据当前租户ID来隔离缓存数据：
-* 有租户时的键格式：`{InstanceName}t:{TenantId}:{KeyPrefix}:{Key}`
-* 无租户时的键格式：`{InstanceName}c:{KeyPrefix}:{Key}`
+Mô-đun tích hợp sẵn hỗ trợ đa thuê bao, sẽ tự động tách biệt dữ liệu bộ nhớ đệm theo ID thuê bao hiện tại:
+* Định dạng khóa khi có thuê bao: `{InstanceName}t:{TenantId}:{KeyPrefix}:{Key}`
+* Định dạng khóa khi không có thuê bao: `{InstanceName}c:{KeyPrefix}:{Key}`
 
-## 更多
+## Thêm
 
-有关更多信息，请参阅以下资源：
+Để biết thêm thông tin, hãy tham khảo các tài nguyên sau:
 
-* [应用服务实现](../LINGYUN.Abp.CachingManagement.Application/README.md)
-* [应用服务契约](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
+* [Triển khai dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application/README.md)
+* [Hợp đồng dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
 * [HTTP API](../LINGYUN.Abp.CachingManagement.HttpApi/README.md)
-* [领域层](../LINGYUN.Abp.CachingManagement.Domain/README.md)
+* [Tầng miền](../LINGYUN.Abp.CachingManagement.Domain/README.md)

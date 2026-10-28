@@ -14,7 +14,7 @@ export * from './tree';
 export * from '@vben-core/form-ui';
 export * from '@vben-core/popup-ui';
 
-// 给文档用
+// Dùng cho tài liệu
 export {
   VbenAvatar,
   VbenButton,

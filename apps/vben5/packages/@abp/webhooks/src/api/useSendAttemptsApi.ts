@@ -13,9 +13,9 @@ export function useSendAttemptsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询发送记录
-   * @param id 记录Id
-   * @returns 发送记录Dto
+   * Truy vấn bản ghi gửi
+   * @param id Id bản ghi
+   * @returns Dto bản ghi gửi
    */
   function getApi(id: string): Promise<WebhookSendRecordDto> {
     return request<WebhookSendRecordDto>(`/api/webhooks/send-attempts/${id}`, {
@@ -23,8 +23,8 @@ export function useSendAttemptsApi() {
     });
   }
   /**
-   * 删除发送记录
-   * @param id 记录Id
+   * Xóa bản ghi gửi
+   * @param id Id bản ghi
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/webhooks/send-attempts/${id}`, {
@@ -32,8 +32,8 @@ export function useSendAttemptsApi() {
     });
   }
   /**
-   * 批量删除发送记录
-   * @param input 参数
+   * Xóa hàng loạt bản ghi gửi
+   * @param input Tham số
    */
   function bulkDeleteApi(
     input: WebhookSendRecordDeleteManyInput,
@@ -44,9 +44,9 @@ export function useSendAttemptsApi() {
     });
   }
   /**
-   * 查询发送记录分页列表
-   * @param input 过滤参数
-   * @returns 发送记录Dto分页列表
+   * Truy vấn danh sách phân trang bản ghi gửi
+   * @param input Tham số lọc
+   * @returns Danh sách phân trang Dto bản ghi gửi
    */
   function getPagedListApi(
     input: WebhookSendRecordGetListInput,
@@ -60,8 +60,8 @@ export function useSendAttemptsApi() {
     );
   }
   /**
-   * 重新发送
-   * @param id 记录Id
+   * Gửi lại
+   * @param id Id bản ghi
    */
   function reSendApi(id: string): Promise<void> {
     return request(`/api/webhooks/send-attempts/${id}/resend`, {
@@ -69,8 +69,8 @@ export function useSendAttemptsApi() {
     });
   }
   /**
-   * 批量重新发送
-   * @param input 参数
+   * Gửi lại hàng loạt
+   * @param input Tham số
    */
   function bulkReSendApi(
     input: WebhookSendRecordResendManyInput,

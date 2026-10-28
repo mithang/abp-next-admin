@@ -8,32 +8,34 @@ const formSchema = computed(() => {
     {
       value: true,
       fieldName: 'accountPassword',
-      label: '账户密码',
-      description: '当前密码强度：强',
+      label: 'Mật khẩu tài khoản',
+      description: 'Độ mạnh mật khẩu hiện tại: Mạnh',
     },
     {
       value: true,
       fieldName: 'securityPhone',
-      label: '密保手机',
-      description: '已绑定手机：138****8293',
+      label: 'Điện thoại bảo mật',
+      description: 'Đã liên kết điện thoại: 138****8293',
     },
     {
       value: true,
       fieldName: 'securityQuestion',
-      label: '密保问题',
-      description: '未设置密保问题，密保问题可有效保护账户安全',
+      label: 'Câu hỏi bảo mật',
+      description:
+        'Chưa đặt câu hỏi bảo mật, câu hỏi bảo mật có thể bảo vệ tài khoản hiệu quả',
     },
     {
       value: true,
       fieldName: 'securityEmail',
-      label: '备用邮箱',
-      description: '已绑定邮箱：ant***sign.com',
+      label: 'Email dự phòng',
+      description: 'Đã liên kết email: ant***sign.com',
     },
     {
       value: false,
       fieldName: 'securityMfa',
-      label: 'MFA 设备',
-      description: '未绑定 MFA 设备，绑定后，可以进行二次确认',
+      label: 'Thiết bị MFA',
+      description:
+        'Chưa liên kết thiết bị MFA, sau khi liên kết có thể xác nhận lần hai',
     },
   ];
 });

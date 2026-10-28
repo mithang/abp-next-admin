@@ -8,9 +8,8 @@ export default defineConfig(async () => {
         proxy: {
           '/api': {
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-            // mock代理目标地址
-            target: 'http://localhost:5320/api',
+            // Backend ABP AllInOne local (giữ nguyên tiền tố /api, bản thân API ABP nằm dưới /api)
+            target: 'http://localhost:30000',
             ws: true,
           },
         },

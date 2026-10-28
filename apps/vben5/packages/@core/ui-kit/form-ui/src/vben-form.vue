@@ -14,7 +14,7 @@ import {
 import { Form } from './form-render';
 import { provideFormProps, useFormInitial } from './use-form-context';
 
-// 通过 extends 会导致热更新卡死
+// Dùng extends sẽ khiến hot update bị treo
 interface Props extends VbenFormProps {}
 const props = withDefaults(defineProps<Props>(), {
   actionWrapperClass: '',
@@ -41,7 +41,7 @@ provideFormProps([props, form]);
 
 const handleUpdateCollapsed = (value: boolean) => {
   currentCollapsed.value = value;
-  // 触发收起展开状态变化回调
+  // Kích hoạt callback thay đổi trạng thái thu gọn/mở rộng
   props.handleCollapsedChange?.(value);
 };
 

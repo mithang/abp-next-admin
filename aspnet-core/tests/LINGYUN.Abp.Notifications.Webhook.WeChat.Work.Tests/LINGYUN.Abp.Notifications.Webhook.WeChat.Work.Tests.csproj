@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\modules\realtime-notifications\LINGYUN.Abp.Notifications.Webhook.WeChat.Work\LINGYUN.Abp.Notifications.Webhook.WeChat.Work.csproj" />
-		<!-- 用于断言 Webhook 渠道与应用消息渠道互不串扰 -->
+		<!-- Dùng để khẳng định kênh Webhook và kênh tin nhắn ứng dụng không can thiệp lẫn nhau -->
 		<ProjectReference Include="..\..\modules\realtime-notifications\LINGYUN.Abp.Notifications.WeChat.Work\LINGYUN.Abp.Notifications.WeChat.Work.csproj" />
 		<ProjectReference Include="..\LINGYUN.Abp.Notifications.Tests\LINGYUN.Abp.Notifications.Tests.csproj" />
 		<ProjectReference Include="..\LINGYUN.Abp.TestBase\LINGYUN.Abp.TestsBase.csproj" />

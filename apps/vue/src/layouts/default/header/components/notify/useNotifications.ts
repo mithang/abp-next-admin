@@ -25,7 +25,7 @@ export function useNotifications() {
   const { deserialize } = useNotificationSerializer();
   const notifierRef = ref<TabItem>({
     key: '1',
-    name: '通知',
+    name: 'Thông báo',
     list: [],
   });
   const signalR = useSignalR({
@@ -46,7 +46,7 @@ export function useNotifications() {
 
   function onNotifyReceived(notificationInfo: NotificationInfo, notifer?: boolean) {
     if (notifer && notificationInfo.type === NotificationType.ServiceCallback) {
-      // 以通知名称来发起服务端回调
+      // Dùng tên thông báo để khởi tạo callback phía server
       emitter.emit(notificationInfo.name, notificationInfo);
       return;
     }

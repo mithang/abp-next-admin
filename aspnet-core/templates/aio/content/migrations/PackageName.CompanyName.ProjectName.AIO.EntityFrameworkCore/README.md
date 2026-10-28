@@ -1,30 +1,30 @@
 # PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore
 
-单体应用数据迁移模块，提供完整的应用程序数据库迁移功能。
+Mô-đun di chuyển dữ liệu ứng dụng đơn khối, cung cấp chức năng di chuyển cơ sở dữ liệu ứng dụng đầy đủ.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成审计日志数据迁移
-* 集成设置管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 集成通知系统数据迁移
-* 集成消息服务数据迁移
-* 集成平台管理数据迁移
-* 集成本地化管理数据迁移
-* 集成身份认证数据迁移
-* 集成IdentityServer数据迁移
-* 集成OpenIddict数据迁移
-* 集成文本模板数据迁移
-* 集成Webhooks管理数据迁移
-* 集成任务管理数据迁移
-* 集成SaaS多租户数据迁移
-* 支持数据库迁移事件处理
-* 提供数据库迁移服务
+* Tích hợp di chuyển dữ liệu nhật ký kiểm toán
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Tích hợp di chuyển dữ liệu hệ thống thông báo
+* Tích hợp di chuyển dữ liệu dịch vụ tin nhắn
+* Tích hợp di chuyển dữ liệu quản lý nền tảng
+* Tích hợp di chuyển dữ liệu quản lý bản địa hóa
+* Tích hợp di chuyển dữ liệu xác thực danh tính
+* Tích hợp di chuyển dữ liệu IdentityServer
+* Tích hợp di chuyển dữ liệu OpenIddict
+* Tích hợp di chuyển dữ liệu mẫu văn bản
+* Tích hợp di chuyển dữ liệu quản lý Webhooks
+* Tích hợp di chuyển dữ liệu quản lý tác vụ
+* Tích hợp di chuyển dữ liệu đa thuê bao SaaS
+* Hỗ trợ xử lý sự kiện di chuyển cơ sở dữ liệu
+* Cung cấp dịch vụ di chuyển cơ sở dữ liệu
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -48,22 +48,22 @@
 )]
 ```
 
-## 配置项
+## Cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "SingleDbMigrator": "你的数据库连接字符串"
+    "SingleDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置SingleDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Trong appsettings.json, cấu hình chuỗi kết nối SingleDbMigrator
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(SingleMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -72,26 +72,26 @@
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* AbpAuditLogs - 审计日志数据
-* Identity相关表 - 用户、角色、声明等身份认证相关数据
-* IdentityServer相关表 - 客户端、API资源、身份资源等OAuth/OpenID Connect相关数据
-* OpenIddict相关表 - OpenID Connect认证相关数据
-* AbpPermissionGrants - 权限授权数据
-* AbpSettings - 系统设置数据
-* AbpFeatures - 功能特性数据
-* AbpNotifications - 通知系统数据
-* AbpMessageService - 消息服务数据
-* Platform相关表 - 平台管理相关数据
-* AbpLocalization - 本地化管理数据
-* AbpTextTemplates - 文本模板数据
-* AbpWebhooks - Webhooks管理数据
-* AbpTasks - 任务管理数据
-* Saas相关表 - 租户、版本等多租户相关数据
+* AbpAuditLogs - Dữ liệu nhật ký kiểm toán
+* Các bảng liên quan đến Identity - Dữ liệu liên quan đến xác thực danh tính như người dùng, vai trò, claim
+* Các bảng liên quan đến IdentityServer - Dữ liệu liên quan đến OAuth/OpenID Connect như client, tài nguyên API, tài nguyên danh tính
+* Các bảng liên quan đến OpenIddict - Dữ liệu liên quan đến xác thực OpenID Connect
+* AbpPermissionGrants - Dữ liệu cấp quyền
+* AbpSettings - Dữ liệu cài đặt hệ thống
+* AbpFeatures - Dữ liệu tính năng
+* AbpNotifications - Dữ liệu hệ thống thông báo
+* AbpMessageService - Dữ liệu dịch vụ tin nhắn
+* Các bảng liên quan đến Platform - Dữ liệu quản lý nền tảng
+* AbpLocalization - Dữ liệu quản lý bản địa hóa
+* AbpTextTemplates - Dữ liệu mẫu văn bản
+* AbpWebhooks - Dữ liệu quản lý Webhooks
+* AbpTasks - Dữ liệu quản lý tác vụ
+* Các bảng liên quan đến Saas - Dữ liệu đa thuê bao như thuê bao, phiên bản
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [OpenIddict文档](https://documentation.openiddict.com)
-* [IdentityServer4文档](https://identityserver4.readthedocs.io)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu OpenIddict](https://documentation.openiddict.com)
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io)

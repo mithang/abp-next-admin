@@ -1,41 +1,41 @@
-/** 分组权限 */
+/** Quyền nhóm */
 export const GroupDefinitionsPermissions = {
-	/** 新增 */
+	/** Thêm */
 	Create: "AbpWebhooks.GroupDefinitions.Create",
 	Default: "AbpWebhooks.GroupDefinitions",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpWebhooks.GroupDefinitions.Delete",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpWebhooks.GroupDefinitions.Update",
 };
 
-/** Webhook定义权限 */
+/** Quyền định nghĩa Webhook */
 export const WebhookDefinitionsPermissions = {
-	/** 新增 */
+	/** Thêm */
 	Create: "AbpWebhooks.Definitions.Create",
 	Default: "AbpWebhooks.Definitions",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpWebhooks.Definitions.Delete",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpWebhooks.Definitions.Update",
 };
 
-/** Webhook订阅权限 */
+/** Quyền đăng ký Webhook */
 export const WebhookSubscriptionPermissions = {
-	/** 新增 */
+	/** Thêm */
 	Create: "AbpWebhooks.Subscriptions.Create",
 	Default: "AbpWebhooks.Subscriptions",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpWebhooks.Subscriptions.Delete",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpWebhooks.Subscriptions.Update",
 };
 
-/** Webhook发送记录权限 */
+/** Quyền bản ghi gửi Webhook */
 export const WebhooksSendAttemptsPermissions = {
 	Default: "AbpWebhooks.SendAttempts",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpWebhooks.SendAttempts.Delete",
-	/** 更新 */
+	/** Cập nhật */
 	Resend: "AbpWebhooks.SendAttempts.Resend",
 };

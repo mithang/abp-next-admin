@@ -56,7 +56,7 @@ public class AliyunSmsSender : ISmsSender, IAliyunSmsVerifyCodeSender
         {
             smsMessage.Properties.TryGetValue("SignName", out var signName);
             smsMessage.Properties.TryGetValue("TemplateCode", out var templateCode);
-            // 调用短信验证码服务
+            // Gọi dịch vụ mã xác minh SMS
             await SendAsync(
                 new SmsVerifyCodeMessage(
                     smsMessage.PhoneNumber,

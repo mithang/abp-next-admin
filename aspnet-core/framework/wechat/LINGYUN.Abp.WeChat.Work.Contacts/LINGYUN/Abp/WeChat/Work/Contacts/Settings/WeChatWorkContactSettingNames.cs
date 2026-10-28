@@ -6,7 +6,7 @@ public static class WeChatWorkContactSettingNames
 {
     public const string Prefix = WeChatWorkSettingNames.Prefix + ".Contacts";
     /// <summary>
-    /// 通讯录应用Srcret
+    /// Srcret của ứng dụng Danh bạ
     /// </summary>
     public const string Secret = Prefix + ".Secret";
 }

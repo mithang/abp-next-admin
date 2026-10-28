@@ -52,7 +52,7 @@ export function useFormInitial(
       if (Reflect.has(item, 'defaultValue')) {
         set(initialValues, item.fieldName, item.defaultValue);
       } else if (item.rules && !isString(item.rules)) {
-        // 检查规则是否适合提取默认值
+        // Kiểm tra quy tắc có phù hợp để trích xuất giá trị mặc định hay không
         const customDefaultValue = getCustomDefaultValue(item.rules);
         zodObject[item.fieldName] = item.rules;
         if (customDefaultValue !== undefined) {
@@ -69,25 +69,25 @@ export function useFormInitial(
     }
     return mergeWithArrayOverride(initialValues, zodDefaults);
   }
-  // 自定义默认值提取逻辑
+  // Logic trích xuất giá trị mặc định tùy chỉnh
   function getCustomDefaultValue(rule: any): any {
     if (rule instanceof ZodString) {
-      return ''; // 默认为空字符串
+      return ''; // Mặc định là chuỗi rỗng
     } else if (rule instanceof ZodNumber) {
-      return null; // 默认为 null（避免显示 0）
+      return null; // Mặc định là null (tránh hiển thị 0)
     } else if (rule instanceof ZodObject) {
-      // 递归提取嵌套对象的默认值
+      // Trích xuất đệ quy giá trị mặc định của đối tượng lồng nhau
       const defaultValues: Record<string, any> = {};
       for (const [key, valueSchema] of Object.entries(rule.shape)) {
         defaultValues[key] = getCustomDefaultValue(valueSchema);
       }
       return defaultValues;
     } else if (rule instanceof ZodIntersection) {
-      // 对于交集类型，从schema 提取默认值
+      // Đối với kiểu giao nhau, trích xuất giá trị mặc định từ schema
       const leftDefaultValue = getCustomDefaultValue(rule._def.left);
       const rightDefaultValue = getCustomDefaultValue(rule._def.right);
 
-      // 如果左右两边都能提取默认值，合并它们
+      // Nếu cả hai phía đều trích xuất được giá trị mặc định, hợp nhất chúng
       if (
         typeof leftDefaultValue === 'object' &&
         typeof rightDefaultValue === 'object'
@@ -95,10 +95,10 @@ export function useFormInitial(
         return { ...leftDefaultValue, ...rightDefaultValue };
       }
 
-      // 否则优先使用左边的默认值
+      // Ngược lại ưu tiên dùng giá trị mặc định phía bên trái
       return leftDefaultValue ?? rightDefaultValue;
     } else {
-      return undefined; // 其他类型不提供默认值
+      return undefined; // Các kiểu khác không cung cấp giá trị mặc định
     }
   }
 

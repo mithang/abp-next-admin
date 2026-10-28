@@ -18,7 +18,7 @@ const tokenTheme = computed(() => {
     ? [theme.darkAlgorithm]
     : [theme.defaultAlgorithm];
 
-  // antd 紧凑模式算法
+  // Thuật toán chế độ compact của antd
   if (preferences.app.compact) {
     algorithm.push(theme.compactAlgorithm);
   }

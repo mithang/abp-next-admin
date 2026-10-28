@@ -7,75 +7,75 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Request;
 /// <summary>
-/// 编辑会议室请求参数
+/// Tham số request chỉnh sửa phòng họp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93619#%E7%BC%96%E8%BE%91%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/93619#%E7%BC%96%E8%BE%91%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
 /// </remarks>
 public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 会议室id
+    /// Id phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("meetingroom_id")]
     [JsonPropertyName("meetingroom_id")]
     public int MeetingRoomId { get; }
     /// <summary>
-    /// 会议室名称
+    /// Tên phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string? Name { get; set; }
     /// <summary>
-    /// 会议室容纳人数
+    /// Sức chứa của phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("capacity")]
     [JsonPropertyName("capacity")]
     public int Capacity { get; set; }
     /// <summary>
-    /// 会议室所在城市
+    /// Thành phố nơi đặt phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("city")]
     [JsonPropertyName("city")]
     public string? City { get; private set; }
     /// <summary>
-    /// 会议室所在楼宇
+    /// Tòa nhà nơi đặt phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("building")]
     [JsonPropertyName("building")]
     public string? Building { get; private set; }
     /// <summary>
-    /// 会议室所在楼层
+    /// Tầng nơi đặt phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("floor")]
     [JsonPropertyName("floor")]
     public string? Floor { get; private set; }
     /// <summary>
-    /// 会议室支持的设备列表
+    /// Danh sách thiết bị phòng họp hỗ trợ
     /// </summary>
     private readonly List<int> _equipment;
     /// <summary>
-    /// 会议室支持的设备列表
+    /// Danh sách thiết bị phòng họp hỗ trợ
     /// </summary>
     [NotNull]
     [JsonProperty("equipment")]
     [JsonPropertyName("equipment")]
     public int[] Equipment => _equipment.ToArray();
     /// <summary>
-    /// 会议室坐标
+    /// Tọa độ phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("coordinate")]
     [JsonPropertyName("coordinate")]
     public MeetingRoomCoordinate? Coordinate { get; set; }
     /// <summary>
-    /// 会议室使用范围
+    /// Phạm vi sử dụng phòng họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("range")]
@@ -88,7 +88,7 @@ public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
         _equipment = new List<int>();
     }
     /// <summary>
-    /// 设置位置信息
+    /// Thiết lập thông tin vị trí
     /// </summary>
     /// <param name="city"></param>
     /// <param name="building"></param>
@@ -100,7 +100,7 @@ public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
         Floor = Check.NotNullOrWhiteSpace(floor, nameof(floor));
     }
     /// <summary>
-    /// 允许电视设备
+    /// Cho phép thiết bị TV
     /// </summary>
     /// <returns></returns>
     public void WithTv()
@@ -108,7 +108,7 @@ public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
         _equipment.AddIfNotContains(1);
     }
     /// <summary>
-    /// 允许电话设备
+    /// Cho phép thiết bị điện thoại
     /// </summary>
     /// <returns></returns>
     public void WithPhone()
@@ -117,7 +117,7 @@ public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
 
     }
     /// <summary>
-    /// 允许投影设备
+    /// Cho phép thiết bị máy chiếu
     /// </summary>
     /// <returns></returns>
     public void WithProjection()
@@ -125,7 +125,7 @@ public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
         _equipment.AddIfNotContains(3);
     }
     /// <summary>
-    /// 允许白板设备
+    /// Cho phép thiết bị bảng trắng
     /// </summary>
     /// <returns></returns>
     public void WithWhiteboard()
@@ -133,7 +133,7 @@ public class WeChatWorkUpdateMeetingRoomRequest : WeChatWorkRequest
         _equipment.AddIfNotContains(4);
     }
     /// <summary>
-    /// 允许视频设备
+    /// Cho phép thiết bị video
     /// </summary>
     /// <returns></returns>
     public void WithVideo()

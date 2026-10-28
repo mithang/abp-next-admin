@@ -6,11 +6,11 @@ namespace LINGYUN.Abp.PermissionManagement;
 public interface IMultiplePermissionManager : IPermissionManager
 {
     /// <summary>
-    /// 批量设置权限
+    /// Đặt quyền hàng loạt
     /// </summary>
-    /// <param name="providerName">权限提供者</param>
-    /// <param name="providerKey">权限提供者Key</param>
-    /// <param name="permissions">权限集合</param>
+    /// <param name="providerName">Nhà cung cấp quyền</param>
+    /// <param name="providerKey">Key của nhà cung cấp quyền</param>
+    /// <param name="permissions">Tập hợp quyền</param>
     /// <returns></returns>
     Task SetManyAsync(string providerName, string providerKey, IEnumerable<PermissionChangeState> permissions);
 }

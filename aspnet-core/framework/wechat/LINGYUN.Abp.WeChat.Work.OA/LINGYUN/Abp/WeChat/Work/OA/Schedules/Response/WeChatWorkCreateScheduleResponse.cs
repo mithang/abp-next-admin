@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Response;
 /// <summary>
-/// 创建日程响应参数
+/// Tham số phản hồi tạo lịch trình
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93648"/>
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/93648"/>
 /// </remarks>
 public class WeChatWorkCreateScheduleResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 日程ID
+    /// ID lịch trình
     /// </summary>
     [NotNull]
     [JsonProperty("schedule_id")]

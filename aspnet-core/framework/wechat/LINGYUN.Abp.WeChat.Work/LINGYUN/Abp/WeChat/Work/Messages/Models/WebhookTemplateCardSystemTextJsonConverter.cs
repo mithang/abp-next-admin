@@ -8,21 +8,21 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 
 /// <summary>
-/// Webhook 模板卡片消息 System.Text.Json 序列化
+/// Tuần tự hóa System.Text.Json cho tin nhắn thẻ mẫu Webhook
 /// </summary>
 /// <remarks>
 /// <para>
-/// <see cref="WebhookTemplateCardMessage"/> 是抽象类型, 且具体类型的构造函数带必填参数
-/// (例如 <see cref="WebhookNewsNoticeCardMessage"/> 的 <c>cardImage</c> / <c>action</c> / <c>mainTitle</c>),
-/// 因此无法通过无参构造还原 —— 模板卡片一旦作为通知数据持久化就再也无法反序列化。
+/// <see cref="WebhookTemplateCardMessage"/> là kiểu trừu tượng, và constructor của các kiểu cụ thể có tham số bắt buộc
+/// (ví dụ <see cref="WebhookNewsNoticeCardMessage"/> với <c>cardImage</c> / <c>action</c> / <c>mainTitle</c>),
+/// do đó không thể khôi phục bằng constructor không tham số — một khi thẻ mẫu đã được lưu bền dưới dạng dữ liệu thông báo thì không thể giải tuần tự hóa lại được nữa.
 /// </para>
 /// <para>
-/// 这里按 <c>card_type</c> 判别符还原具体类型。判别符由构造函数传递给基类, 通过读取构造函数
-/// IL 中的字符串常量获得, 因此新增卡片类型无需修改本转换器。
+/// Ở đây khôi phục kiểu cụ thể theo ký hiệu phân biệt <c>card_type</c>. Ký hiệu phân biệt được constructor truyền cho lớp cơ sở, bằng cách đọc
+/// hằng chuỗi trong IL của constructor, do đó khi thêm kiểu thẻ mới không cần sửa bộ chuyển đổi này.
 /// </para>
 /// <para>
-/// 项目使用的 JSON 集成是 <c>Volo.Abp.Json.SystemTextJson</c>,
-/// 因此由渠道模块在启动时自动注册到全局选项。
+/// Tích hợp JSON mà dự án sử dụng là <c>Volo.Abp.Json.SystemTextJson</c>,
+/// do đó được mô-đun kênh tự động đăng ký vào tùy chọn toàn cục khi khởi động.
 /// </para>
 /// </remarks>
 public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookTemplateCardMessage>
@@ -67,7 +67,7 @@ public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookT
                 $"Unable to resolve a webhook template card type for card_type: '{cardType}'.");
         }
 
-        // 指定具体类型反序列化, 从而避开本转换器(否则会递归)
+        // Giải tuần tự hóa với kiểu cụ thể đã chỉ định, để tránh bộ chuyển đổi này (nếu không sẽ đệ quy)
         return (WebhookTemplateCardMessage?)JsonSerializer.Deserialize(
             jsonElement.GetRawText(),
             concreteType,
@@ -79,12 +79,12 @@ public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookT
         WebhookTemplateCardMessage value,
         JsonSerializerOptions options)
     {
-        // 按运行时类型写出, 避免只输出基类成员
+        // Ghi ra theo kiểu thời gian chạy, tránh chỉ xuất các thành viên của lớp cơ sở
         JsonSerializer.Serialize(writer, value, value.GetType(), options);
     }
 
     /// <summary>
-    /// 按 <c>card_type</c> 获取具体的卡片类型
+    /// Lấy kiểu thẻ cụ thể theo <c>card_type</c>
     /// </summary>
     public static Type? GetCardType(string cardType)
     {
@@ -113,13 +113,13 @@ public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookT
             return mappedType;
         }
 
-        // 缺少判别符时: 目标是具体类型则直接使用
+        // Khi thiếu ký hiệu phân biệt: nếu đích là kiểu cụ thể thì dùng trực tiếp
         if (!targetType.IsAbstract)
         {
             return targetType;
         }
 
-        // 抽象目标且判别符缺失: 回退到文本通知模版卡片
+        // Đích trừu tượng và thiếu ký hiệu phân biệt: quay về thẻ mẫu thông báo văn bản
         return CardTypes.TryGetValue(nameof(WebhookTextNoticeCardMessage), out var fallbackType)
             ? fallbackType
             : null;
@@ -157,11 +157,11 @@ public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookT
     }
 
     /// <summary>
-    /// 获取卡片类型的判别符
+    /// Lấy ký hiệu phân biệt của kiểu thẻ
     /// </summary>
     /// <remarks>
-    /// 判别符由构造函数传递给基类, 因此读取构造函数 IL 中的字符串常量。
-    /// 同时以类型名作为兜底键。
+    /// Ký hiệu phân biệt được constructor truyền cho lớp cơ sở, do đó đọc hằng chuỗi trong IL của constructor.
+    /// Đồng thời dùng tên kiểu làm khóa dự phòng.
     /// </remarks>
     private static IEnumerable<string> GetDiscriminators(Type cardType)
     {
@@ -185,7 +185,7 @@ public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookT
             }
             catch
             {
-                // 读取 IL 失败不影响兜底判别符
+                // Đọc IL thất bại không ảnh hưởng đến ký hiệu phân biệt dự phòng
             }
         }
 
@@ -216,7 +216,7 @@ public class WebhookTemplateCardSystemTextJsonConverter : JsonConverter<WebhookT
             }
             catch
             {
-                // 不是字符串元数据标记, 继续扫描
+                // Không phải thẻ đánh dấu siêu dữ liệu chuỗi, tiếp tục quét
             }
         }
 

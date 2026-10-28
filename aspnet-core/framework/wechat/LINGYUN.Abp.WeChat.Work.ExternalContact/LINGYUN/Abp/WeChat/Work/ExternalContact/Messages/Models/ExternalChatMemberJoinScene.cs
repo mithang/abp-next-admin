@@ -3,21 +3,21 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 成员的入群方式
+/// Cách thành viên tham gia nhóm
 /// </summary>
-[Description("成员的入群方式")]
+[Description("Cách thành viên tham gia nhóm")]
 public enum ExternalChatMemberJoinScene
 {
     /// <summary>
-    /// 由成员邀请入群
+    /// Được thành viên mời tham gia nhóm
     /// </summary>
     [XmlEnum("0")]
-    [Description("由成员邀请入群")]
+    [Description("Được thành viên mời tham gia nhóm")]
     MemberInvitation = 0,
     /// <summary>
-    /// 通过扫描群二维码入群
+    /// Tham gia nhóm bằng cách quét mã QR của nhóm
     /// </summary>
     [XmlEnum("3")]
-    [Description("通过扫描群二维码入群")]
+    [Description("Tham gia nhóm bằng cách quét mã QR của nhóm")]
     ScanQrCode = 3
 }

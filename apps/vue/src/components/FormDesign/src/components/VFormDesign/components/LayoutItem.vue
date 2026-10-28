@@ -1,6 +1,6 @@
 <!--
- * @Description: 表单项布局控件
- * 千万不要在template下面的第一行加注释，因为这里拖动的第一个元素
+ * @Description: Control bố cục mục form
+ * Tuyệt đối không thêm comment ở dòng đầu tiên dưới template, vì đây là phần tử đầu tiên được kéo
 -->
 
 <template>
@@ -96,7 +96,7 @@
         return colProps;
       });
       const list1 = computed(() => props.schema.columns);
-      // 计算布局元素，水平模式下为ACol，非水平模式下为div
+      // Tính phần tử bố cục, ở chế độ ngang là ACol, ở chế độ không ngang là div
       const layoutTag = computed(() => {
         return formConfig.value.layout === 'horizontal' ? 'Col' : 'div';
       });

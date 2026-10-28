@@ -7,14 +7,14 @@ namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 public abstract class TemplateCard
 {
     /// <summary>
-    /// 模板卡片类型
+    /// Loại thẻ mẫu
     /// </summary>
     [NotNull]
     [JsonProperty("card_type")]
     [JsonPropertyName("card_type")]
     public string Type { get; }
     /// <summary>
-    /// 任务id，同一个应用任务id不能重复，只能由数字、字母和“_-@”组成，最长128字节
+    /// id nhiệm vụ, id nhiệm vụ của cùng một ứng dụng không được trùng lặp, chỉ gồm chữ số, chữ cái và “_-@”, dài tối đa 128 byte
     /// </summary>
     [CanBeNull]
     [JsonProperty("task_id")]

@@ -29,23 +29,32 @@ public class GroupStore : IGroupStore, ITransientDependency
     public async virtual Task<Group> GetAsync(
         Guid? tenantId,
         string groupId,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default)
     {
         using (_currentTenant.Change(tenantId))
         {
             var group = await _groupRepository.GetByIdAsync(long.Parse(groupId), cancellationToken);
-            return _objectMapper.Map<ChatGroup, Group>(group);
+            var result = _objectMapper.Map<ChatGroup, Group>(group);
+            // SEC-04: request ẩn danh chỉ được thấy group cho phép trò chuyện ẩn danh.
+            // Trả cùng lỗi "không tìm thấy" để không lộ sự tồn tại của group không public.
+            if (allowAnonymousOnly && !result.AllowAnonymous)
+            {
+                throw new BusinessException(MessageServiceErrorCodes.GroupNotFount);
+            }
+            return result;
         }
     }
 
     public async virtual Task<int> GetCountAsync(
         Guid? tenantId,
         string? filter = null,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default)
     {
         using (_currentTenant.Change(tenantId))
         {
-            return await _groupRepository.GetCountAsync(filter, cancellationToken);
+            return await _groupRepository.GetCountAsync(filter, allowAnonymousOnly, cancellationToken);
         }
     }
 
@@ -55,6 +64,7 @@ public class GroupStore : IGroupStore, ITransientDependency
         string? sorting = nameof(Group.Name),
         int skipCount = 0,
         int maxResultCount = 10,
+        bool allowAnonymousOnly = false,
         CancellationToken cancellationToken = default)
     {
         using (_currentTenant.Change(tenantId))
@@ -64,6 +74,7 @@ public class GroupStore : IGroupStore, ITransientDependency
                 sorting,
                 skipCount,
                 maxResultCount,
+                allowAnonymousOnly,
                 cancellationToken);
 
             return _objectMapper.Map<List<ChatGroup>, List<Group>>(groups);

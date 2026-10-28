@@ -48,7 +48,7 @@ await app.InitializeApplicationAsync();
 app.MapDefaultEndpoints();
 
 app.UseForwardedHeaders();
-// 本地化
+// Bản địa hóa
 app.UseMapRequestLocalization();
 app.UseCorrelationId();
 app.MapAbpStaticAssets();
@@ -59,6 +59,14 @@ app.UseJwtTokenMiddleware();
 app.UseMultiTenancy();
 app.UseDynamicClaims();
 app.UseAuthorization();
+// DEVOPS iter-0009: swagger middleware only in Development, same
+// fix as ApiGateway Program.cs (iter-0008). The swagger provider is
+// registered by AddAbpSwaggerGenWithOAuth, which is skipped when no
+// AuthServer:Authority is configured -- but UseSwagger() used to run
+// unconditionally, and Swashbuckle resolves ISwaggerProvider eagerly,
+// so EVERY request (including /healthz) answered 500 in Production.
+if (app.Environment.IsDevelopment())
+{
 app.UseSwagger();
 app.UseAbpSwaggerUI(options =>
 {
@@ -68,6 +76,7 @@ app.UseAbpSwaggerUI(options =>
     options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
     options.OAuthScopes(configuration["AuthServer:Audience"]);
 });
+}
 app.UseAuditing();
 app.UseAbpSerilogEnrichers();
 app.UseConfiguredEndpoints();

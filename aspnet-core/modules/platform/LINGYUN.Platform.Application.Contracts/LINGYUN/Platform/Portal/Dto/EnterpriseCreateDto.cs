@@ -6,7 +6,7 @@ namespace LINGYUN.Platform.Portal;
 public class EnterpriseCreateDto : EnterpriseCreateOrUpdateDto
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     [Required]
     [DynamicStringLength(typeof(EnterpriseConsts), nameof(EnterpriseConsts.MaxNameLength))]

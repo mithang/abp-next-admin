@@ -1,18 +1,18 @@
 # LINGYUN.Abp.Elsa.Activities.Notifications
 
-Elsa工作流的通知活动集成模块
+Mô-đun tích hợp hoạt động thông báo của quy trình làm việc Elsa
 
-## 功能
+## Tính năng
 
-* 提供 **SendNotification** 活动用于发送通知
-  * 支持发送给多个用户
-  * 支持通知数据和模板内容
-  * 支持JavaScript和Liquid语法
-  * 支持设置通知严重程度
-  * 集成ABP框架的 `INotificationSender` 接口
-  * 支持多租户
+* Cung cấp hoạt động **SendNotification** để gửi thông báo
+  * Hỗ trợ gửi tới nhiều người dùng
+  * Hỗ trợ dữ liệu thông báo và nội dung mẫu
+  * Hỗ trợ cú pháp JavaScript và Liquid
+  * Hỗ trợ đặt mức độ nghiêm trọng của thông báo
+  * Tích hợp giao diện `INotificationSender` của khung ABP
+  * Hỗ trợ đa tenant
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(
@@ -28,20 +28,20 @@ public class YouProjectModule : AbpModule
 ```json
 {
     "Elsa": {
-        "Notification": true    // 启用通知活动
+        "Notification": true    // Bật hoạt động thông báo
     }
 }
 ```
 
-## 活动参数
+## Tham số hoạt động
 
-* **NotificationName**: 注册的通知名称
-* **NotificationData**: 通知数据或模板内容
-* **To**: 接收用户ID列表
-* **Severity**: 通知严重程度（默认为Info）
+* **NotificationName**: Tên thông báo đã đăng ký
+* **NotificationData**: Dữ liệu thông báo hoặc nội dung mẫu
+* **To**: Danh sách ID người dùng nhận
+* **Severity**: Mức độ nghiêm trọng của thông báo (mặc định là Info)
 
-## 输出参数
+## Tham số đầu ra
 
-* **NotificationId**: 发送的通知ID
+* **NotificationId**: ID của thông báo đã gửi
 
 [English](./README.EN.md)

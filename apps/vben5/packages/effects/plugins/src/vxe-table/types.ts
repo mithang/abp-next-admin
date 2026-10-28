@@ -22,12 +22,12 @@ export interface VxePaginationInfo {
 }
 
 interface ToolbarConfigOptions extends VxeGridPropTypes.ToolbarConfig {
-  /** 是否显示切换搜索表单的按钮 */
+  /** Có hiển thị nút chuyển đổi form tìm kiếm hay không */
   search?: boolean;
 }
 
 export interface VxeTableGridOptions<T = any> extends VxeTableGridProps<T> {
-  /** 工具栏配置 */
+  /** Cấu hình thanh công cụ */
   toolbarConfig?: ToolbarConfigOptions;
 }
 
@@ -41,15 +41,15 @@ export interface VxeGridProps<
   D extends BaseFormComponentType = BaseFormComponentType,
 > {
   /**
-   * 标题
+   * Tiêu đề
    */
   tableTitle?: string;
   /**
-   * 标题帮助
+   * Trợ giúp tiêu đề
    */
   tableTitleHelp?: string;
   /**
-   * 组件class
+   * class của component
    */
   class?: ClassType;
   /**
@@ -57,23 +57,23 @@ export interface VxeGridProps<
    */
   gridClass?: ClassType;
   /**
-   * vxe-grid 配置
+   * Cấu hình vxe-grid
    */
   gridOptions?: DeepPartial<VxeTableGridOptions<T>>;
   /**
-   * vxe-grid 事件
+   * Sự kiện vxe-grid
    */
   gridEvents?: DeepPartial<VxeGridListeners<T>>;
   /**
-   * 表单配置
+   * Cấu hình form
    */
   formOptions?: VbenFormProps<D>;
   /**
-   * 显示搜索表单
+   * Hiển thị form tìm kiếm
    */
   showSearchForm?: boolean;
   /**
-   * 搜索表单与表格主体之间的分隔条
+   * Thanh phân cách giữa form tìm kiếm và phần thân bảng
    */
   separator?: boolean | SeparatorOptions;
 }

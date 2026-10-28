@@ -1,51 +1,51 @@
 # LINGYUN.Abp.SettingManagement.HttpApi
 
-## 模块说明
+## Mô tả mô-đun
 
-设置管理 HTTP API 模块，提供设置管理的 RESTful API 接口。
+Mô-đun HTTP API quản lý cài đặt, cung cấp giao diện API RESTful quản lý cài đặt.
 
-### 基础模块
+### Mô-đun cơ sở
 
 * LINGYUN.Abp.SettingManagement.Application.Contracts
 * Volo.Abp.AspNetCore.Mvc
 
-### 功能定义
+### Định nghĩa chức năng
 
-* 提供设置管理的 API 控制器
-  * SettingController - 通用设置管理控制器
-  * UserSettingController - 用户设置管理控制器
-  * SettingDefinitionController - 设置定义管理控制器
+* Cung cấp bộ điều khiển API quản lý cài đặt
+  * SettingController - Bộ điều khiển quản lý cài đặt chung
+  * UserSettingController - Bộ điều khiển quản lý cài đặt người dùng
+  * SettingDefinitionController - Bộ điều khiển quản lý định nghĩa cài đặt
 
-### API 接口
+### Giao diện API
 
 * /api/setting-management/settings
-  * GET /by-global - 获取全局设置
-  * GET /by-tenant - 获取租户设置
-  * GET /by-user - 获取用户设置
-  * GET /groups - 获取所有设置组
-  * PUT /{providerName}/{providerKey} - 更新设置
+  * GET /by-global - Lấy cài đặt toàn cục
+  * GET /by-tenant - Lấy cài đặt tenant
+  * GET /by-user - Lấy cài đặt người dùng
+  * GET /groups - Lấy tất cả nhóm cài đặt
+  * PUT /{providerName}/{providerKey} - Cập nhật cài đặt
 * /api/setting-management/users
-  * GET - 获取用户设置
-  * PUT - 更新用户设置
-  * DELETE - 删除用户设置
+  * GET - Lấy cài đặt người dùng
+  * PUT - Cập nhật cài đặt người dùng
+  * DELETE - Xóa cài đặt người dùng
 * /api/setting-management/definitions
-  * GET - 获取设置定义列表
-  * POST - 创建设置定义
-  * PUT - 更新设置定义
-  * DELETE - 删除设置定义
-  * GET /{name} - 获取指定设置定义
+  * GET - Lấy danh sách định nghĩa cài đặt
+  * POST - Tạo định nghĩa cài đặt
+  * PUT - Cập nhật định nghĩa cài đặt
+  * DELETE - Xóa định nghĩa cài đặt
+  * GET /{name} - Lấy định nghĩa cài đặt chỉ định
 
-### 权限要求
+### Yêu cầu quyền
 
 * SettingManagement.Settings
-  * Update - 更新设置
-  * ManageGroup - 管理设置组
+  * Update - Cập nhật cài đặt
+  * ManageGroup - Quản lý nhóm cài đặt
 * SettingManagement.ManageFeatures
-  * ManageHostFeatures - 管理主机功能
+  * ManageHostFeatures - Quản lý tính năng máy chủ
 
-### 如何使用
+### Cách sử dụng
 
-1. 添加 `AbpSettingManagementHttpApiModule` 依赖
+1. Thêm phụ thuộc `AbpSettingManagementHttpApiModule`
 
 ```csharp
 [DependsOn(typeof(AbpSettingManagementHttpApiModule))]
@@ -54,7 +54,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 使用 API 接口
+2. Sử dụng giao diện API
 
 ```csharp
 public class YourService
@@ -68,11 +68,11 @@ public class YourService
 
     public async Task ManageSettingsAsync()
     {
-        // 获取全局设置
+        // Lấy cài đặt toàn cục
         var response = await _httpClient.GetAsync("/api/setting-management/settings/by-global");
         var settings = await response.Content.ReadFromJsonAsync<ListResultDto<SettingGroupDto>>();
 
-        // 更新用户设置
+        // Cập nhật cài đặt người dùng
         await _httpClient.PutAsJsonAsync("/api/setting-management/users", new UpdateSettingDto
         {
             Name = "SettingName",
@@ -82,4 +82,4 @@ public class YourService
 }
 ```
 
-[查看英文](README.EN.md)
+[Xem bản tiếng Anh](README.EN.md)

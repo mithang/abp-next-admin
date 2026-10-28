@@ -5,35 +5,35 @@ namespace LINGYUN.Abp.Location;
 public class Location
 {
     /// <summary>
-    /// 地球半径（米）
+    /// Bán kính Trái Đất (mét)
     /// </summary>
     public const double EARTH_RADIUS = 6378137;
     /// <summary>
-    /// 纬度
+    /// Vĩ độ
     /// </summary>
     public double Latitude { get; set; }
     /// <summary>
-    /// 经度
+    /// Kinh độ
     /// </summary>
     public double Longitude { get; set; }
 
     /// <summary>
-    /// 计算两个位置的距离，返回两点的距离，单位 米
-    /// 该公式为GOOGLE提供，误差小于0.2米
+    /// Tính khoảng cách giữa hai vị trí, trả về khoảng cách của hai điểm, đơn vị mét
+    /// Công thức này do GOOGLE cung cấp, sai số nhỏ hơn 0,2 mét
     /// </summary>
-    /// <param name="location">参与计算的位置信息</param>
-    /// <returns>返回两个位置的距离</returns>
+    /// <param name="location">Thông tin vị trí tham gia tính toán</param>
+    /// <returns>Trả về khoảng cách giữa hai vị trí</returns>
     public double CalcDistance(Location location)
     {
         return CalcDistance(this, location);
     }
     /// <summary>
-    /// 计算两个位置的距离，返回两点的距离，单位 米
-    /// 该公式为GOOGLE提供，误差小于0.2米
+    /// Tính khoảng cách giữa hai vị trí, trả về khoảng cách của hai điểm, đơn vị mét
+    /// Công thức này do GOOGLE cung cấp, sai số nhỏ hơn 0,2 mét
     /// </summary>
-    /// <param name="location1">参与计算的位置信息</param>
-    /// <param name="location2">参与计算的位置信息</param>
-    /// <returns>返回两个位置的距离</returns>
+    /// <param name="location1">Thông tin vị trí tham gia tính toán</param>
+    /// <param name="location2">Thông tin vị trí tham gia tính toán</param>
+    /// <returns>Trả về khoảng cách giữa hai vị trí</returns>
     public static double CalcDistance(Location location1, Location location2)
     {
         double radLat1 = Rad(location1.Latitude);
@@ -47,10 +47,10 @@ public class Location
         return result;
     }
     /// <summary>
-    /// 计算位置的偏移距离
+    /// Tính khoảng cách lệch của vị trí
     /// </summary>
-    /// <param name="location">参与计算的位置</param>
-    /// <param name="distance">位置偏移量,单位 米</param>
+    /// <param name="location">Vị trí tham gia tính toán</param>
+    /// <param name="distance">Độ lệch vị trí, đơn vị mét</param>
     /// <returns></returns>
     public static Position CalcOffsetDistance(Location location, double distance)
     {
@@ -75,7 +75,7 @@ public class Location
     }
 
     /// <summary>
-    /// 角度转换为弧度
+    /// Chuyển đổi góc sang radian
     /// </summary>
     /// <param name="d"></param>
     /// <returns></returns>
@@ -85,7 +85,7 @@ public class Location
     }
 
     /// <summary>
-    /// 弧度转换为角度
+    /// Chuyển đổi radian sang góc
     /// </summary>
     /// <param name="d"></param>
     /// <returns></returns>

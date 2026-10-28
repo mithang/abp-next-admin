@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Members.Models;
 /// <summary>
-/// 小程序类型属性
+/// Thuộc tính loại ứng dụng nhỏ
 /// </summary>
 public class ExternalMiniProgramAttribute : ExternalAttribute
 {
     /// <summary>
-    /// 小程序
+    /// Ứng dụng nhỏ
     /// </summary>
     [NotNull]
     [JsonProperty("miniprogram")]
@@ -20,21 +20,21 @@ public class ExternalMiniProgramAttribute : ExternalAttribute
 public class ExternalMiniProgramModel
 {
     /// <summary>
-    /// 小程序appid，必须是有在本企业安装授权的小程序，否则会被忽略
+    /// Appid của ứng dụng nhỏ, phải là ứng dụng nhỏ đã được cài đặt và ủy quyền trong doanh nghiệp này, nếu không sẽ bị bỏ qua
     /// </summary>
     [NotNull]
     [JsonProperty("appid")]
     [JsonPropertyName("appid")]
     public string AppId { get; set; } = default!;
     /// <summary>
-    /// 小程序的展示标题，长度限制12个UTF8字符
+    /// Tiêu đề hiển thị của ứng dụng nhỏ, giới hạn độ dài 12 ký tự UTF8
     /// </summary>
     [NotNull]
     [JsonProperty("title")]
     [JsonPropertyName("title")]
     public string Title { get; set; } = default!;
     /// <summary>
-    /// 小程序的页面路径
+    /// Đường dẫn trang của ứng dụng nhỏ
     /// </summary>
     [NotNull]
     [JsonProperty("pagepath")]

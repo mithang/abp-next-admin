@@ -118,7 +118,7 @@
   // search
   "search.searchEditor.singleClickBehaviour": "peekDefinition",
   "search.followSymlinks": false,
-  // 在使用搜索功能时，将这些文件夹/文件排除在外
+  // Khi sử dụng chức năng tìm kiếm, loại trừ các thư mục/tệp này
   "search.exclude": {
     "**/node_modules": true,
     "**/*.log": true,
@@ -211,7 +211,7 @@
   "i18n-ally.sortKeys": true,
   "i18n-ally.namespace": true,
 
-  // 控制相关文件嵌套展示
+  // Kiểm soát hiển thị lồng nhau của các tệp liên quan
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {

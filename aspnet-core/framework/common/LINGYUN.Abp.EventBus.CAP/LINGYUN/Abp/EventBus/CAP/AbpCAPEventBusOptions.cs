@@ -1,12 +1,12 @@
 ﻿namespace LINGYUN.Abp.EventBus.CAP;
 
 /// <summary>
-/// 过期消息清理配置项
+/// Mục cấu hình dọn dẹp thông điệp hết hạn
 /// </summary>
 public class AbpCAPEventBusOptions
 {
     /// <summary>
-    /// 发布消息处理失败通知
+    /// Thông báo khi xử lý thông điệp đã phát hành thất bại
     /// default: false
     /// </summary>
     public bool NotifyFailedCallback { get; set; } = false;

@@ -1,105 +1,105 @@
-/** 高级查询条件属性 */
+/** Thuộc tính điều kiện truy vấn nâng cao */
 export interface AdvanceSearchProps {
-  /** 使用高级查询 */
+  /** Sử dụng truy vấn nâng cao */
   useAdvancedSearch?: boolean;
-  /** 允许字段重复搜索 */
+  /** Cho phép tìm kiếm trùng lặp trường */
   allowDuplicateFieldSearch?: boolean;
-  /** 字段列表api */
+  /** api danh sách trường */
   defineFieldApi?: () => Promise<any>;
   /**
-   * 自定义字段列表
-   * @remarks 从服务器返回字段列表后自定义过滤函数,返回字段列表
+   * Danh sách trường tùy chỉnh
+   * @remarks Sau khi trả về danh sách trường từ máy chủ, hàm lọc tùy chỉnh, trả về danh sách trường
    */
   defineFieldReplace?: (response: any) => DefineParamter[];
   /**
-   * 字段列表api返回结果字段
-   * @remarks 从服务器返回字段列表在数据结构中的字段名,默认: items
+   * Trường kết quả trả về của api danh sách trường
+   * @remarks Tên trường của danh sách trường trả về từ máy chủ trong cấu trúc dữ liệu, mặc định: items
   */
   listField?: string;
-  /** 高级查询api */
+  /** api truy vấn nâng cao */
   fetchApi?: (...arg: any) => Promise<any>,
 }
 
-/** 选项 */
+/** Tùy chọn */
 export interface ParamterOption {
-  /** 键名 */
+  /** Tên khóa */
   key: string;
-  /** 键值 */
+  /** Giá trị khóa */
   value: any;
 }
 
-/** 自定义字段 */
+/** Trường tùy chỉnh */
 export interface DefineParamter {
-  /** 字段名称 */
+  /** Tên trường */
   name: string;
-  /** 字段描述 */
+  /** Mô tả trường */
   description?: string;
-  /** 数据类型(后端) */
+  /** Kiểu dữ liệu (backend) */
   type: string;
-  /** 数据类型(js) */
+  /** Kiểu dữ liệu (js) */
   javaScriptType: string;
-  /** 可用运算条件列表, 用于进一步约束字段可用比较符 */
+  /** Danh sách điều kiện toán tử khả dụng, dùng để ràng buộc thêm toán tử so sánh khả dụng của trường */
   availableComparator?: DynamicComparison[];
-  /** 选项 */
+  /** Tùy chọn */
   options: ParamterOption[];
 }
 
-/** 连接条件 */
+/** Điều kiện kết nối */
 export enum DynamicLogic {
-  /** 且 */
+  /** Và */
   And = 0,
-  /** 或 */
+  /** Hoặc */
   Or = 1
 }
 
-/** 运算条件 */
+/** Điều kiện toán tử */
 export enum DynamicComparison {
-  /** 等于 */
+  /** Bằng */
   Equal = 0,
-  /** 不等于 */
+  /** Không bằng */
   NotEqual = 1,
-  /** 小于 */
+  /** Nhỏ hơn */
   LessThan = 2,
-  /** 小于等于 */
+  /** Nhỏ hơn hoặc bằng */
   LessThanOrEqual = 3,
-  /** 大于 */
+  /** Lớn hơn */
   GreaterThan = 4,
-  /** 大于等于 */
+  /** Lớn hơn hoặc bằng */
   GreaterThanOrEqual = 5,
-  /** 左包含 */
+  /** Chứa bên trái */
   StartsWith = 6,
-  /** 左不包含 */
+  /** Không chứa bên trái */
   NotStartsWith = 7,
-  /** 右包含 */
+  /** Chứa bên phải */
   EndsWith = 8,
-  /** 右不包含 */
+  /** Không chứa bên phải */
   NotEndsWith = 9,
-  /** 包含 */
+  /** Chứa */
   Contains = 10,
-  /** 不包含 */
+  /** Không chứa */
   NotContains = 11,
-  /** 空 */
+  /** Rỗng */
   Null = 12,
-  /** 非空 */
+  /** Không rỗng */
   NotNull = 13,
 }
 
-/** 动态查询字段 */
+/** Trường truy vấn động */
 export interface DynamicParamter {
-  /** 字段名称 */
+  /** Tên trường */
   field: string;
-  /** 连接条件 */
+  /** Điều kiện kết nối */
   logic: DynamicLogic;
-  /** 运算条件 */
+  /** Điều kiện toán tử */
   comparison: DynamicComparison;
-  /** 比较值 */
+  /** Giá trị so sánh */
   value: any;
-  /** 数据类型(js), 仅作为前端输入控件切换 */
+  /** Kiểu dữ liệu (js), chỉ dùng để chuyển đổi điều khiển nhập liệu phía frontend */
   javaScriptType?: string;
 }
 
-/** 动态查询条件 */
+/** Điều kiện truy vấn động */
 export interface DynamicQueryable {
-  /** 参数列表 */
+  /** Danh sách tham số */
   paramters: DynamicParamter[];
 }

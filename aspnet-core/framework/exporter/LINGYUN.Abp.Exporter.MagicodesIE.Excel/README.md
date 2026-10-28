@@ -1,12 +1,12 @@
 # LINGYUN.Abp.Exporter.MagicodesIE.Excel
 
-数据导出接口的 [Magicodes.IE.Excel](https://github.com/dotnetcore/Magicodes.IE) 实现
+Triển khai [Magicodes.IE.Excel](https://github.com/dotnetcore/Magicodes.IE) của giao diện xuất dữ liệu
 
 Import and export general library, support Dto import and export, template export, fancy export and dynamic export, support Excel, Csv, Word, Pdf and Html.
 
-详情请参考 [Magicodes.IE.Excel 文档](https://github.com/dotnetcore/Magicodes.IE/blob/master/docs/2.%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%E4%B9%8B%E5%AF%BC%E5%87%BAExcel.md)
+Xem chi tiết tại [Tài liệu Magicodes.IE.Excel](https://github.com/dotnetcore/Magicodes.IE/blob/master/docs/2.%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%E4%B9%8B%E5%AF%BC%E5%87%BAExcel.md)
 
-## 配置使用
+## Cấu hình sử dụng
 
 
 ```csharp
@@ -18,12 +18,12 @@ Import and export general library, support Dto import and export, template expor
     {
         Configure<AbpExporterMagicodesIEExcelOptions>(options =>
         {
-            // 配置类型数据导出
+            // Cấu hình xuất dữ liệu theo kiểu
             options.MapExportSetting(typeof(DemoClass), config =>
             {
-                // 表头位置从第二行开始
+                // Vị trí tiêu đề bắt đầu từ dòng thứ hai
                 config.HeaderRowIndex = 2;
-                // 其他配置
+                // Các cấu hình khác
             });
         });
     }

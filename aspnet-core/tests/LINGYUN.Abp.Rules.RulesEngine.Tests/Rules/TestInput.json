@@ -4,35 +4,35 @@
     "Rules": [
       {
         "RuleName": "InputRequired",
-        "ErrorMessage": "字段 Required 必须输入!",
+        "ErrorMessage": "Trường Required bắt buộc phải nhập!",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
         "Expression": "!string.IsNullOrWhiteSpace(input1.Required)"
       },
       {
         "RuleName": "MustBeGreaterThan100",
-        "ErrorMessage": "字段 Integer1 必须大于100!",
+        "ErrorMessage": "Trường Integer1 phải lớn hơn 100!",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
         "Expression": "input1.Integer1 > 100"
       },
       {
         "RuleName": "MustBeLessThan100",
-        "ErrorMessage": "字段 Integer2 必须小于100!",
+        "ErrorMessage": "Trường Integer2 phải nhỏ hơn 100!",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
         "Expression": "input1.Integer2 < 100"
       },
       {
         "RuleName": "SumMustBeGreaterThan150",
-        "ErrorMessage": "字段 Integer1 与 Integer2 之和 必须大于150!",
+        "ErrorMessage": "Tổng của trường Integer1 và Integer2 phải lớn hơn 150!",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
         "Expression": "input1.Integer1 + input1.Integer2 > 150"
       },
       {
         "RuleName": "RequiredLengthMustBeGreaterThan5",
-        "ErrorMessage": "字段 Length 长度必须大于5!",
+        "ErrorMessage": "Độ dài trường Length phải lớn hơn 5!",
         "ErrorType": "Error",
         "RuleExpressionType": "LambdaExpression",
         "Expression": "input1.Length.Length > 5"

@@ -21,10 +21,11 @@ const value = ref();
   <Modal
     append-to-main
     class="w-[600px]"
-    title="基础弹窗示例"
-    title-tooltip="标题提示内容"
+    title="Ví dụ popup cơ bản"
+    title-tooltip="Nội dung gợi ý tiêu đề"
   >
-    此弹窗指定在内容区域打开，并且在关闭之后弹窗内容不会被销毁
-    <Input v-model:value="value" placeholder="KeepAlive测试" />
+    Popup này được chỉ định mở trong vùng nội dung, và sau khi đóng thì nội dung
+    popup sẽ không bị hủy
+    <Input v-model:value="value" placeholder="Kiểm tra KeepAlive" />
   </Modal>
 </template>

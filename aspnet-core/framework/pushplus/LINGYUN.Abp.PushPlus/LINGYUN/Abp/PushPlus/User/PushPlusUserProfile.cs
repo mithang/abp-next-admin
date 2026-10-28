@@ -6,63 +6,63 @@ namespace LINGYUN.Abp.PushPlus.User;
 public class PushPlusUserProfile
 {
     /// <summary>
-    /// 用户微信的openId
+    /// openId WeChat của người dùng
     /// </summary>
     [JsonProperty("openId")]
     public string? OpenId { get; set; }
     /// <summary>
-    /// 用户微信的unionId
+    /// unionId WeChat của người dùng
     /// </summary>
     [JsonProperty("unionId")]
     public string? UnionId { get; set; }
     /// <summary>
-    /// 昵称
+    /// Biệt danh
     /// </summary>
     [JsonProperty("nickName")]
     public string? NickName { get; set; }
     /// <summary>
-    /// 头像
+    /// Ảnh đại diện
     /// </summary>
     [JsonProperty("headImgUrl")]
     public string? HeadImgUrl { get; set; }
     /// <summary>
-    /// 性别；
-    /// 0-未设置，
-    /// 1-男，
-    /// 2-女
+    /// Giới tính;
+    /// 0-Chưa thiết lập,
+    /// 1-Nam,
+    /// 2-Nữ
     /// </summary>
     [JsonProperty("userSex")]
     public PushPlusUserSex? Sex { get; set; }
     /// <summary>
-    /// 用户令牌
+    /// Mã token của người dùng
     /// </summary>
     [JsonProperty("token")]
     public string? Token { get; set; }
     /// <summary>
-    /// 手机号
+    /// Số điện thoại di động
     /// </summary>
     [JsonProperty("phoneNumber")]
     public string? PhoneNumber { get; set; }
     /// <summary>
-    /// 邮箱
+    /// Email
     /// </summary>
     [JsonProperty("email")]
     public string? Email { get; set; }
     /// <summary>
-    /// 邮箱验证状态；
-    /// 0-未验证，
-    /// 1-待验证，
-    /// 2-已验证
+    /// Trạng thái xác minh email;
+    /// 0-Chưa xác minh,
+    /// 1-Chờ xác minh,
+    /// 2-Đã xác minh
     /// </summary>
     [JsonProperty("emailStatus")]
     public PushPlusUserEmailStatus? EmailStatus { get; set; }
     /// <summary>
-    /// 生日
+    /// Ngày sinh
     /// </summary>
     [JsonProperty("birthday")]
     public DateTime? Birthday { get; set; }
     /// <summary>
-    /// 用户积分
+    /// Điểm tích lũy của người dùng
     /// </summary>
     [JsonProperty("points")]
     public int? Points { get; set; }

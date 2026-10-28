@@ -10,12 +10,12 @@ const router = useRouter();
 
 <template>
   <Fallback
-    description="面包屑导航-平级模式-详情页"
+    description="Điều hướng breadcrumb - chế độ ngang hàng - trang chi tiết"
     status="coming-soon"
-    title="注意观察面包屑导航变化"
+    title="Chú ý quan sát sự thay đổi của điều hướng breadcrumb"
   >
     <template #action>
-      <Button @click="router.go(-1)">返回</Button>
+      <Button @click="router.go(-1)">Quay lại</Button>
     </template>
   </Fallback>
 </template>

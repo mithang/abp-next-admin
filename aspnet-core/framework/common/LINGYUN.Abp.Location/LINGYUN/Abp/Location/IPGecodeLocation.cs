@@ -5,27 +5,27 @@ namespace LINGYUN.Abp.Location;
 public class IPGecodeLocation
 {
     /// <summary>
-    /// IP地址
+    /// Địa chỉ IP
     /// </summary>
     public string IpAddress { get; set; } = default!;
     /// <summary>
-    /// 定位坐标
+    /// Tọa độ định vị
     /// </summary>
     public Location Location { get; set; } = new Location();
     /// <summary>
-    /// 国家
+    /// Quốc gia
     /// </summary>
     public string? Country { get; set; }
     /// <summary>
-    /// 城市
+    /// Thành phố
     /// </summary>
     public string? City { get; set; }
     /// <summary>
-    /// 省份
+    /// Tỉnh
     /// </summary>
     public string? Province { get; set; }
     /// <summary>
-    /// 区县
+    /// Quận/huyện
     /// </summary>
     public string? District { get; set; }
     /// <summary>

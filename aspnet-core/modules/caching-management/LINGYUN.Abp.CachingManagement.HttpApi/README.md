@@ -1,53 +1,53 @@
 # LINGYUN.Abp.CachingManagement.HttpApi
 
-缓存管理模块的 HTTP API 实现。
+Triển khai HTTP API của mô-đun quản lý bộ nhớ đệm.
 
-## API 接口
+## Giao diện API
 
 ### /api/caching-management/cache
 
-* GET `/api/caching-management/cache/keys`: 获取缓存键列表
-  * 参数：
-    * prefix (string, optional): 键前缀
-    * filter (string, optional): 过滤条件
-    * marker (string, optional): 分页标记
-  * 权限：AbpCachingManagement.Cache
+* GET `/api/caching-management/cache/keys`: Lấy danh sách khóa bộ nhớ đệm
+  * Tham số:
+    * prefix (string, optional): Tiền tố khóa
+    * filter (string, optional): Điều kiện lọc
+    * marker (string, optional): Dấu phân trang
+  * Quyền: AbpCachingManagement.Cache
 
-* GET `/api/caching-management/cache/{key}`: 获取指定键的缓存值
-  * 参数：
-    * key (string, required): 缓存键
-  * 权限：AbpCachingManagement.Cache
+* GET `/api/caching-management/cache/{key}`: Lấy giá trị bộ nhớ đệm của khóa chỉ định
+  * Tham số:
+    * key (string, required): Khóa bộ nhớ đệm
+  * Quyền: AbpCachingManagement.Cache
 
-* POST `/api/caching-management/cache`: 设置缓存值
-  * 参数：
-    * key (string, required): 缓存键
-    * value (string, required): 缓存值
-    * absoluteExpiration (DateTime, optional): 绝对过期时间
-    * slidingExpiration (DateTime, optional): 滑动过期时间
-  * 权限：AbpCachingManagement.Cache.ManageValue
+* POST `/api/caching-management/cache`: Đặt giá trị bộ nhớ đệm
+  * Tham số:
+    * key (string, required): Khóa bộ nhớ đệm
+    * value (string, required): Giá trị bộ nhớ đệm
+    * absoluteExpiration (DateTime, optional): Thời gian hết hạn tuyệt đối
+    * slidingExpiration (DateTime, optional): Thời gian hết hạn trượt
+  * Quyền: AbpCachingManagement.Cache.ManageValue
 
-* PUT `/api/caching-management/cache/refresh`: 刷新缓存
-  * 参数：
-    * key (string, required): 缓存键
-    * absoluteExpiration (DateTime, optional): 绝对过期时间
-    * slidingExpiration (DateTime, optional): 滑动过期时间
-  * 权限：AbpCachingManagement.Cache.Refresh
+* PUT `/api/caching-management/cache/refresh`: Làm mới bộ nhớ đệm
+  * Tham số:
+    * key (string, required): Khóa bộ nhớ đệm
+    * absoluteExpiration (DateTime, optional): Thời gian hết hạn tuyệt đối
+    * slidingExpiration (DateTime, optional): Thời gian hết hạn trượt
+  * Quyền: AbpCachingManagement.Cache.Refresh
 
-* DELETE `/api/caching-management/cache`: 删除缓存
-  * 参数：
-    * key (string, required): 缓存键
-  * 权限：AbpCachingManagement.Cache.Delete
+* DELETE `/api/caching-management/cache`: Xóa bộ nhớ đệm
+  * Tham số:
+    * key (string, required): Khóa bộ nhớ đệm
+  * Quyền: AbpCachingManagement.Cache.Delete
 
-## 安装
+## Cài đặt
 
 ```bash
 abp add-module LINGYUN.Abp.CachingManagement
 ```
 
-## 更多
+## Thêm
 
-有关更多信息，请参阅以下资源：
+Để biết thêm thông tin, vui lòng tham khảo các tài nguyên sau:
 
-* [应用服务实现](../LINGYUN.Abp.CachingManagement.Application/README.md)
-* [应用服务契约](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
-* [领域层](../LINGYUN.Abp.CachingManagement.Domain/README.md)
+* [Triển khai dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application/README.md)
+* [Hợp đồng dịch vụ ứng dụng](../LINGYUN.Abp.CachingManagement.Application.Contracts/README.md)
+* [Tầng miền](../LINGYUN.Abp.CachingManagement.Domain/README.md)

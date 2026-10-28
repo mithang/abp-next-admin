@@ -1,65 +1,65 @@
 # LINGYUN.Abp.BlobStoring.Tencent
 
-腾讯云对象存储（COS）模块，集成腾讯云对象存储服务到ABP BlobStoring系统。
+Mô-đun lưu trữ đối tượng Tencent Cloud (COS), tích hợp dịch vụ lưu trữ đối tượng Tencent Cloud vào hệ thống ABP BlobStoring.
 
-## 功能特性
+## Tính năng
 
-* 支持腾讯云对象存储服务
-* 支持多租户配置
-* 支持自动创建存储桶（Bucket）
-* 支持存储桶防盗链配置
-* 支持多区域配置
-* 支持文件大小限制
-* 支持按租户隔离存储
+* Hỗ trợ dịch vụ lưu trữ đối tượng Tencent Cloud
+* Hỗ trợ cấu hình đa tenant
+* Hỗ trợ tự động tạo bucket
+* Hỗ trợ cấu hình chống hotlink cho bucket
+* Hỗ trợ cấu hình đa vùng
+* Hỗ trợ giới hạn kích thước tệp
+* Hỗ trợ lưu trữ tách biệt theo tenant
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
-### 基础配置
+### Cấu hình cơ bản
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud": {
-      "SecretId": "您的腾讯云SecretId", // 从腾讯云控制台获取
-      "SecretKey": "您的腾讯云SecretKey", // 从腾讯云控制台获取
-      "DurationSecond": "600" // 会话持续时长，单位秒
+      "SecretId": "SecretId Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "SecretKey": "SecretKey Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "DurationSecond": "600" // Thời lượng phiên, tính bằng giây
     }
   }
 }
 ```
 
-### 对象存储配置
+### Cấu hình lưu trữ đối tượng
 
 ```json
 {
   "Tencent": {
     "OSS": {
-      "AppId": "", // 腾讯云AppId
-      "Region": "", // 存储桶所在地域
-      "BucketName": "", // 存储桶名称
-      "CreateBucketIfNotExists": false, // 存储桶不存在时是否创建
-      "CreateBucketReferer": [] // 创建存储桶时的防盗链设置
+      "AppId": "", // AppId Tencent Cloud
+      "Region": "", // Vùng chứa bucket
+      "BucketName": "", // Tên bucket
+      "CreateBucketIfNotExists": false, // Có tạo bucket khi bucket chưa tồn tại hay không
+      "CreateBucketReferer": [] // Cài đặt chống hotlink khi tạo bucket
     }
   }
 }
 ```
 
-### 存储桶命名规范
+### Quy tắc đặt tên bucket
 
-* 仅支持小写英文字母和数字，即[a-z，0-9]、中划线"-"及其组合
-* 不能以短划线（-）开头或结尾
-* 存储桶名称的最大允许字符受到地域简称和APPID的字符数影响，组成的完整请求域名字符数总计最多60个字符
-* 更多规范请参考[腾讯云存储桶命名规范](https://cloud.tencent.com/document/product/436/13312)
+* Chỉ hỗ trợ chữ cái thường và chữ số, tức là [a-z，0-9], dấu gạch ngang "-" và tổ hợp của chúng
+* Không được bắt đầu hoặc kết thúc bằng dấu gạch ngang (-)
+* Số ký tự tối đa cho phép của tên bucket chịu ảnh hưởng bởi số ký tự của tên viết tắt vùng và APPID, tổng số ký tự của tên miền yêu cầu đầy đủ tạo thành tối đa 60 ký tự
+* Xem thêm quy tắc tại[Quy tắc đặt tên bucket Tencent Cloud](https://cloud.tencent.com/document/product/436/13312)
 
-### 对象命名规范
+### Quy tắc đặt tên đối tượng
 
-* 不允许以正斜线/或者反斜线\\开头
-* 对象键中不支持ASCII控制字符中的字符上(↑)，字符下(↓)，字符右(→)，字符左(←)
-* 更多规范请参考[腾讯云对象命名规范](https://cloud.tencent.com/document/product/436/13324)
+* Không được bắt đầu bằng dấu gạch chéo / hoặc dấu gạch chéo ngược \\
+* Khóa đối tượng không hỗ trợ các ký tự điều khiển ASCII gồm ký tự lên (↑), ký tự xuống (↓), ký tự phải (→), ký tự trái (←)
+* Xem thêm quy tắc tại[Quy tắc đặt tên đối tượng Tencent Cloud](https://cloud.tencent.com/document/product/436/13324)
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 ```csharp
 [DependsOn(typeof(AbpBlobStoringTencentCloudModule))]
 public class YourModule : AbpModule
@@ -68,7 +68,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置腾讯云对象存储
+2. Cấu hình lưu trữ đối tượng Tencent Cloud
 ```csharp
 Configure<AbpBlobStoringOptions>(options =>
 {
@@ -76,7 +76,7 @@ Configure<AbpBlobStoringOptions>(options =>
     {
         container.UseTencentCloud(tencent =>
         {
-            tencent.AppId = "您的腾讯云AppId";
+            tencent.AppId = "AppId Tencent Cloud của bạn";
             tencent.Region = "ap-guangzhou";
             tencent.BucketName = "your-bucket-name";
             tencent.CreateBucketIfNotExists = true;
@@ -90,7 +90,7 @@ Configure<AbpBlobStoringOptions>(options =>
 });
 ```
 
-3. 使用BLOB存储
+3. Sử dụng lưu trữ BLOB
 ```csharp
 public class YourService
 {
@@ -113,25 +113,25 @@ public class YourService
 }
 ```
 
-## 高级特性
+## Tính năng nâng cao
 
-### 多租户支持
+### Hỗ trợ đa tenant
 
-模块支持按租户隔离存储，存储路径格式如下：
-* 宿主：`host/{blobName}`
-* 租户：`tenants/{tenantId}/{blobName}`
+Mô-đun hỗ trợ lưu trữ tách biệt theo tenant, định dạng đường dẫn lưu trữ như sau:
+* Máy chủ (host):`host/{blobName}`
+* Tenant:`tenants/{tenantId}/{blobName}`
 
-### 特性管理
+### Quản lý tính năng
 
-模块提供以下特性开关：
+Mô-đun cung cấp các công tắc tính năng sau:
 
-* TencentBlobStoring - 控制腾讯云对象存储服务的启用/禁用
-* TencentBlobStoringMaximumStreamSize - 控制上传文件的最大大小限制（MB）
+* TencentBlobStoring - Điều khiển bật/tắt dịch vụ lưu trữ đối tượng Tencent Cloud
+* TencentBlobStoringMaximumStreamSize - Điều khiển giới hạn kích thước tối đa của tệp tải lên (MB)
 
-## 更多文档
+## Tài liệu thêm
 
-* [腾讯云对象存储](https://cloud.tencent.com/document/product/436)
-* [腾讯云COS控制台](https://console.cloud.tencent.com/cos)
-* [ABP BlobStoring系统](https://docs.abp.io/en/abp/latest/Blob-Storing)
+* [Lưu trữ đối tượng Tencent Cloud](https://cloud.tencent.com/document/product/436)
+* [Bảng điều khiển COS Tencent Cloud](https://console.cloud.tencent.com/cos)
+* [Hệ thống ABP BlobStoring](https://docs.abp.io/en/abp/latest/Blob-Storing)
 
 [English](./README.EN.md)

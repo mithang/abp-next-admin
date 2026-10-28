@@ -74,7 +74,7 @@ namespace LINGYUN.Abp.MicroService.AdminService;
     typeof(AbpIP2RegionModule),
     typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
 
-    // 设置管理
+    // Thiết lập quản trị
     typeof(AbpAliyunSettingManagementModule),
     typeof(AbpTencentCloudSettingManagementModule),
     // typeof(AbpWeChatSettingManagementModule),
@@ -100,9 +100,9 @@ namespace LINGYUN.Abp.MicroService.AdminService;
     typeof(AbpCachingManagementApplicationModule),
     typeof(AbpCachingManagementHttpApiModule),
     typeof(AbpCachingManagementStackExchangeRedisModule),
-    typeof(AbpIdentityEntityFrameworkCoreModule),// 用户角色权限需要引用包
-    typeof(AbpOpenIddictEntityFrameworkCoreModule), // 客户端权限需要引用包
-    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // 组织机构权限管理
+    typeof(AbpIdentityEntityFrameworkCoreModule),// Cần tham chiếu package cho quyền vai trò người dùng
+    typeof(AbpOpenIddictEntityFrameworkCoreModule), // Cần tham chiếu package cho quyền client
+    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // Quản lý quyền tổ chức
     typeof(AbpSaasEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementDomainIdentityModule),
@@ -111,7 +111,7 @@ namespace LINGYUN.Abp.MicroService.AdminService;
     typeof(AbpFeatureManagementEntityFrameworkCoreModule),
     typeof(AbpLocalizationManagementEntityFrameworkCoreModule),
     typeof(AbpTextTemplatingEntityFrameworkCoreModule),
-    // 重写模板引擎支持外部本地化
+    // Ghi đè template engine để hỗ trợ bản địa hóa bên ngoài
     typeof(AbpTextTemplatingScribanModule),
     typeof(AdminServiceMigrationsEntityFrameworkCoreModule),
     typeof(AbpDataDbMigratorModule),
@@ -180,30 +180,30 @@ public partial class AdminServiceModule : AbpModule
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
         app.UseForwardedHeaders();
-        // 本地化
+        // Bản địa hóa
         app.UseMapRequestLocalization();
-        // http调用链
+        // Chuỗi gọi HTTP
         app.UseCorrelationId();
-        // 文件系统
+        // Hệ thống file
         app.MapAbpStaticAssets();
-        // 路由
+        // Định tuyến
         app.UseRouting();
-        // 跨域
+        // CORS
         app.UseCors();
-        // 认证
+        // Xác thực
         app.UseAuthentication();
         app.UseJwtTokenMiddleware();
-        // 多租户
+        // Đa tenant
         app.UseMultiTenancy();
         // jwt
         app.UseDynamicClaims();
-        // 授权
+        // Phân quyền
         app.UseAuthorization();
         if (env.IsDevelopment())
         {
             // Swagger
             app.UseSwagger();
-            // Swagger可视化界面
+            // Giao diện trực quan Swagger
             app.UseAbpSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support Admin Service API");
@@ -213,10 +213,10 @@ public partial class AdminServiceModule : AbpModule
                 options.OAuthScopes(configuration["AuthServer:Audience"]);
             });
         }
-        // 审计日志
+        // Nhật ký kiểm toán
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
-        // 路由
+        // Định tuyến
         app.UseConfiguredEndpoints();
     }
 }

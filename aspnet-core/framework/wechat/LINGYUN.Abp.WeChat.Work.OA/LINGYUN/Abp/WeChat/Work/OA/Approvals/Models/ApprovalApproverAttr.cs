@@ -2,18 +2,18 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 节点审批方式
+/// Phương thức phê duyệt của nút
 /// </summary>
 public enum ApprovalApproverAttr : byte
 {
     /// <summary>
-    /// 或签
+    /// Hoặc ký
     /// </summary>
-    [Description("或签")]
+    [Description("Hoặc ký")]
     OrSign = 1,
     /// <summary>
-    /// 会签
+    /// Hội ký
     /// </summary>
-    [Description("会签")]
+    [Description("Hội ký")]
     CoSign = 2,
 }

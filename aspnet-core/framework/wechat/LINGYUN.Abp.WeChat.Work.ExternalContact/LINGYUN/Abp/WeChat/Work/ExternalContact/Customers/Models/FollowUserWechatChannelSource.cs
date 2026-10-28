@@ -2,29 +2,29 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 视频号添加场景
+/// Kịch bản thêm qua kênh Video
 /// </summary>
-[Description("视频号添加场景")]
+[Description("Kịch bản thêm qua kênh Video")]
 public enum FollowUserWechatChannelSource
 {
     /// <summary>
-    /// 未知
+    /// Không xác định
     /// </summary>
-    [Description("未知")]
+    [Description("Không xác định")]
     None = 0,
     /// <summary>
-    /// 视频号主页
+    /// Trang chủ kênh Video
     /// </summary>
-    [Description("视频号主页")]
+    [Description("Trang chủ kênh Video")]
     Home = 1,
     /// <summary>
-    /// 视频号直播间
+    /// Phòng phát trực tiếp kênh Video
     /// </summary>
-    [Description("视频号直播间")]
+    [Description("Phòng phát trực tiếp kênh Video")]
     LiveRoom = 2,
     /// <summary>
-    /// 视频号留资服务
+    /// Dịch vụ thu thập thông tin khách hàng tiềm năng của kênh Video
     /// </summary>
-    [Description("视频号留资服务")]
+    [Description("Dịch vụ thu thập thông tin khách hàng tiềm năng của kênh Video")]
     RetentionService = 3
 }

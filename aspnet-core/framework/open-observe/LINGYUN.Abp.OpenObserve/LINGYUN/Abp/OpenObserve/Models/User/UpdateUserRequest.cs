@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.User;
 
 /// <summary>
-/// 更新用户请求
+/// Yêu cầu cập nhật người dùng
 /// </summary>
 public class UpdateUserRequest
 {
@@ -16,25 +16,25 @@ public class UpdateUserRequest
     public string? LastName { get; set; }
 
     /// <summary>
-    /// 旧密码
+    /// Mật khẩu cũ
     /// </summary>
     /// <remarks>
-    /// 不修改密码时不要传值
+    /// Không truyền giá trị khi không đổi mật khẩu
     /// </remarks>
     [JsonPropertyName("old_password")]
     public string? OldPassword { get; set; }
 
     /// <summary>
-    /// 新密码
+    /// Mật khẩu mới
     /// </summary>
     /// <remarks>
-    /// 不修改密码时不要传值
+    /// Không truyền giá trị khi không đổi mật khẩu
     /// </remarks>
     [JsonPropertyName("new_password")]
     public string? NewPassword { get; set; }
 
     /// <summary>
-    /// 角色
+    /// Vai trò
     /// </summary>
     [JsonPropertyName("role")]
     public string? Role { get; set; }

@@ -24,7 +24,7 @@ public class GlobalHttpAIToolDefinitionProvider : AIToolDefinitionProvider
                     L("Tools:GetApplicationConfiguration"))
                 .WithHttpEndpoint(Options.EndPoint)
                 .WithHttpMethod(HttpMethod.Get)
-                .WithHttpHeaders("_AbpDontWrapResult", "true")// 无需包装结果
+                .WithHttpHeaders("_AbpDontWrapResult", "true")// Không cần đóng gói kết quả
                 .UseHttpCurrentAccessToken());
         }
     }

@@ -12,13 +12,13 @@ export enum MenuTypeEnum {
   TOP_MENU = 'top-menu',
 }
 
-// 折叠触发器位置
+// Vị trí trigger thu gọn
 export enum TriggerEnum {
-  // 不显示
+  // Không hiển thị
   NONE = 'NONE',
-  // 菜单底部
+  // Cuối menu
   FOOTER = 'FOOTER',
-  // 头部
+  // Phần đầu trang
   HEADER = 'HEADER',
 }
 

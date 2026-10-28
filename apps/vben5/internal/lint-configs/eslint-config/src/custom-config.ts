@@ -7,7 +7,7 @@ const restrictedImportIgnores = [
 ];
 
 const customConfig: Linter.Config[] = [
-  // shadcn-ui 内部组件是自动生成的，不做太多限制
+  // Các component nội bộ của shadcn-ui được tạo tự động, không áp quá nhiều giới hạn
   {
     files: ['packages/@core/ui-kit/shadcn-ui/**/**'],
     rules: {
@@ -36,7 +36,7 @@ const customConfig: Linter.Config[] = [
     },
   },
   {
-    // apps内部的一些基础规则
+    // Một số quy tắc cơ bản nội bộ của apps
     files: ['apps/**/**'],
     ignores: restrictedImportIgnores,
     rules: {
@@ -71,7 +71,7 @@ const customConfig: Linter.Config[] = [
     },
   },
   {
-    // @core内部组件，不能引入@vben/* 里面的包
+    // Component nội bộ của @core không được import các package trong @vben/*
     files: ['packages/@core/**/**'],
     ignores: restrictedImportIgnores,
     rules: {
@@ -90,7 +90,7 @@ const customConfig: Linter.Config[] = [
     },
   },
   {
-    // @core/shared内部组件，不能引入@vben/* 或者 @vben-core/* 里面的包
+    // Component nội bộ của @core/shared không được import các package trong @vben/* hoặc @vben-core/*
     files: ['packages/@core/base/**/**'],
     ignores: restrictedImportIgnores,
     rules: {
@@ -110,7 +110,7 @@ const customConfig: Linter.Config[] = [
   },
 
   {
-    // 不能引入@vben/*里面的包
+    // Không được import các package trong @vben/*
     files: [
       'packages/types/**/**',
       'packages/utils/**/**',
@@ -137,7 +137,7 @@ const customConfig: Linter.Config[] = [
       ],
     },
   },
-  // 后端模拟代码，不需要太多规则
+  // Code mô phỏng phía backend, không cần quá nhiều quy tắc
   {
     files: ['apps/backend-mock/**/**', 'docs/**/**'],
     rules: {

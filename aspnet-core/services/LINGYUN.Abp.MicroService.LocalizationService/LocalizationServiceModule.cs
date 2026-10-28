@@ -120,30 +120,30 @@ public partial class LocalizationServiceModule : AbpModule
         var env = context.GetEnvironment();
 
         app.UseForwardedHeaders();
-        // 本地化
+        // Bản địa hóa
         app.UseMapRequestLocalization();
-        // http调用链
+        // Chuỗi gọi HTTP
         app.UseCorrelationId();
-        // 虚拟文件系统
+        // Hệ thống tệp ảo
         app.MapAbpStaticAssets();
-        // 路由
+        // Định tuyến
         app.UseRouting();
-        // 跨域
+        // Cross-domain
         app.UseCors();
-        // 认证
+        // Xác thực
         app.UseAuthentication();
         app.UseJwtTokenMiddleware();
-        // 多租户
+        // Đa tenant
         app.UseMultiTenancy();
-        // 会话
+        // Phiên
         app.UseDynamicClaims();
-        // 授权
+        // Ủy quyền
         app.UseAuthorization();
         if (env.IsDevelopment())
         {
             // Swagger
             app.UseSwagger();
-            // Swagger可视化界面
+            // Giao diện trực quan Swagger
             app.UseAbpSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support Localization Service API");
@@ -153,10 +153,10 @@ public partial class LocalizationServiceModule : AbpModule
                 options.OAuthScopes(configuration["AuthServer:Audience"]);
             });
         }
-        // 审计日志
+        // Nhật ký kiểm toán
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
-        // 路由
+        // Định tuyến
         app.UseConfiguredEndpoints();
     }
 }

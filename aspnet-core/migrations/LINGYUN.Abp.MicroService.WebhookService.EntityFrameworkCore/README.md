@@ -1,19 +1,19 @@
 # LINGYUN.Abp.MicroService.WebhookService.EntityFrameworkCore
 
-Webhooks管理数据迁移模块，提供Webhooks管理系统相关的数据库迁移功能。
+Mô-đun di chuyển dữ liệu quản lý Webhooks, cung cấp chức năng di chuyển cơ sở dữ liệu liên quan đến hệ thống quản lý Webhooks.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成SaaS多租户数据迁移
-* 集成Webhooks管理数据迁移
-* 集成设置管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 支持MySQL数据库
+* Tích hợp di chuyển dữ liệu đa thuê bao SaaS
+* Tích hợp di chuyển dữ liệu quản lý Webhooks
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -27,22 +27,22 @@ Webhooks管理数据迁移模块，提供Webhooks管理系统相关的数据库�
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "WebhooksManagementDbMigrator": "你的数据库连接字符串"
+    "WebhooksManagementDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置WebhooksManagementDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Trong appsettings.json cấu hình chuỗi kết nối WebhooksManagementDbMigrator
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(WebhooksManagementMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -51,19 +51,19 @@ Webhooks管理数据迁移模块，提供Webhooks管理系统相关的数据库�
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* AbpWebhooks - Webhooks基本信息表
-* AbpWebhookSubscriptions - Webhooks订阅表
-* AbpWebhookGroups - Webhooks分组表
-* AbpWebhookEvents - Webhooks事件表
-* AbpWebhookSendAttempts - Webhooks发送记录表
-* Saas相关表 - 租户、版本等多租户相关数据
-* AbpSettings - 系统设置数据
-* AbpPermissionGrants - 权限授权数据
-* AbpFeatures - 功能特性数据
+* AbpWebhooks - Bảng thông tin cơ bản Webhooks
+* AbpWebhookSubscriptions - Bảng đăng ký Webhooks
+* AbpWebhookGroups - Bảng nhóm Webhooks
+* AbpWebhookEvents - Bảng sự kiện Webhooks
+* AbpWebhookSendAttempts - Bảng bản ghi gửi Webhooks
+* Bảng liên quan đến Saas - dữ liệu đa thuê bao như thuê bao, phiên bản
+* AbpSettings - Dữ liệu cài đặt hệ thống
+* AbpPermissionGrants - Dữ liệu cấp quyền
+* AbpFeatures - Dữ liệu tính năng
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [ABP Webhooks模块](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/modules/webhooks-management)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Mô-đun ABP Webhooks](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/modules/webhooks-management)

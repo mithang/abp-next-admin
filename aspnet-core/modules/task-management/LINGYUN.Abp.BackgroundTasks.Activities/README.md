@@ -1,16 +1,16 @@
 # LINGYUN.Abp.BackgroundTasks.Activities
 
-后台任务（队列）模块行为处理模块    
+Mô-đun xử lý hành vi của mô-đun tác vụ nền (hàng đợi)    
 
-## 接口参数  
+## Tham số giao diện  
 
-* IJobActionStore				实现此接口获取作业管理行为  
-* JobActionDefinitionProvider	实现此接口自定义作业行为  
-* JobExecutedProvider			实现此接口扩展作业行为  
+* IJobActionStore				Triển khai giao diện này để lấy hành vi quản lý tác vụ  
+* JobActionDefinitionProvider	Triển khai giao diện này để tùy chỉnh hành vi tác vụ  
+* JobExecutedProvider			Triển khai giao diện này để mở rộng hành vi tác vụ  
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksActivitiesModule))]

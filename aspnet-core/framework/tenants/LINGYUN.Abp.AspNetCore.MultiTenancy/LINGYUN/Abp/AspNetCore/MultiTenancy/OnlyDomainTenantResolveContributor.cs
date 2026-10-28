@@ -35,7 +35,7 @@ public class OnlyDomainTenantResolveContributor : HttpTenantResolveContributorBa
         var options = httpContext.RequestServices.GetRequiredService<IOptions<AbpAspNetCoreMultiTenancyResolveOptions>>();
         if (options.Value.OnlyResolveDomain)
         {
-            // 仅仅解析域名, 如果请求的是IP地址, 则不使用这个解析贡献者
+            // Chỉ phân giải tên miền, nếu yêu cầu là địa chỉ IP thì không dùng contributor phân giải này
             if (IPAddress.TryParse(httpContext.Request.Host.Host, out var _))
             {
                 return Task.FromResult<string?>(null);

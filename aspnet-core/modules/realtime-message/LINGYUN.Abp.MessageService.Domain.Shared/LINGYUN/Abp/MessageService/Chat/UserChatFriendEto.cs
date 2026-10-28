@@ -8,15 +8,15 @@ public class UserChatFriendEto : IMultiTenant
 {
     public Guid? TenantId { get; set; }
     /// <summary>
-    /// 用户标识
+    /// Mã định danh người dùng
     /// </summary>
     public Guid UserId { get; set; }
     /// <summary>
-    /// 好友标识
+    /// Mã định danh bạn bè
     /// </summary>
     public Guid FrientId { get; set; }
     /// <summary>
-    /// 状态
+    /// Trạng thái
     /// </summary>
     public UserFriendStatus Status { get; set; }
 }

@@ -1,49 +1,49 @@
-# 关于 Vben Admin
+# Về Vben Admin
 
-::: info 你正在阅读的是 [Vben Admin](https://github.com/vbenjs/vue-vben-admin) `5.0`版本的文档！
+::: info Bạn đang đọc tài liệu phiên bản `5.0` của [Vben Admin](https://github.com/vbenjs/vue-vben-admin)!
 
-- Vben Admin 2.x 目前已存档，仅进行重大问题修复。
-- 新版本与旧版本不兼容，如果你使用的是旧版本（v2、v3），请查看 [Vue Vben Admin 2.x 文档](https://doc.vvbin.cn)
-- 如发现文档有误，欢迎提交 [issue](https://github.com/vbenjs/vue-vben-admin/issues) 帮助我们改进。
-- 如果你只是想体验一下，你可以查看[快速开始](./quick-start.md)。
+- Vben Admin 2.x hiện đã được lưu trữ, chỉ sửa các vấn đề nghiêm trọng.
+- Phiên bản mới không tương thích với phiên bản cũ, nếu bạn đang dùng phiên bản cũ (v2, v3), vui lòng xem [Tài liệu Vue Vben Admin 2.x](https://doc.vvbin.cn)
+- Nếu phát hiện tài liệu có sai sót, bạn có thể gửi [issue](https://github.com/vbenjs/vue-vben-admin/issues) để giúp chúng tôi cải thiện.
+- Nếu bạn chỉ muốn trải nghiệm thử, bạn có thể xem [Bắt đầu nhanh](./quick-start.md).
 
 :::
 
-[Vben Admin](https://github.com/vbenjs/vue-vben-admin) 是一个基于 [Vue3.0](https://github.com/vuejs/core)、[Vite](https://github.com/vitejs/vite)、 [TypeScript](https://www.typescriptlang.org/) 的中后台解决方案，目标是为开发中大型项目提供开箱即用的解决方案。包括二次封装组件、utils、hooks、动态菜单、权限校验、多主题配置、按钮级别权限控制等功能。项目会使用前端较新的技术栈，可以作为项目的启动模板，以帮助你快速搭建企业级中后台产品原型。也可以作为一个示例，用于学习 `vue3`、`vite`、`ts` 等主流技术。该项目会持续跟进最新技术，并将其应用在项目中。
+[Vben Admin](https://github.com/vbenjs/vue-vben-admin) là một giải pháp quản trị trung - hậu đài dựa trên [Vue3.0](https://github.com/vuejs/core), [Vite](https://github.com/vitejs/vite), [TypeScript](https://www.typescriptlang.org/), với mục tiêu cung cấp giải pháp dùng ngay cho việc phát triển các dự án vừa và lớn. Bao gồm các tính năng như đóng gói lại component, utils, hooks, menu động, kiểm tra quyền, cấu hình đa chủ đề, kiểm soát quyền ở cấp nút bấm, v.v. Dự án sẽ sử dụng các công nghệ frontend khá mới, có thể dùng làm mẫu khởi động dự án để giúp bạn nhanh chóng xây dựng nguyên mẫu sản phẩm quản trị doanh nghiệp. Đồng thời cũng có thể dùng làm ví dụ để học các công nghệ phổ biến như `vue3`, `vite`, `ts`. Dự án này sẽ liên tục theo dõi các công nghệ mới nhất và áp dụng chúng vào dự án.
 
-## 特点
+## Đặc điểm
 
-- **最新技术栈**：使用 `Vue3`、`Vite`、`TypeScript` 等前端前沿技术开发。
-- **国际化**：内置完善的国际化方案，支持多语言切换。
-- **权限验证**：完善的权限验证方案，按钮级别权限控制。
-- **多主题**：内置多种主题配置和黑暗模式，满足个性化需求。
-- **动态菜单**：支持动态菜单，可以根据权限配置显示菜单。
-- **Mock 数据**：基于 `Nitro` 的本地高性能 Mock 数据方案。
-- **组件丰富**：提供了丰富的组件，可以满足大部分的业务需求。
-- **规范**：代码规范，使用 `ESLint`、`Prettier`、`Stylelint`、`Publint`、`CSpell` 等工具保证代码质量。
-- **工程化**：使用 `Pnpm Monorepo`、`TurboRepo`、`Changeset` 等工具，提高开发效率。
-- **多UI库支持**：支持 `Ant Design Vue`、`Element Plus`、`Naive` 等主流 UI 库，不再限制于特定框架。
+- **Công nghệ mới nhất**：Phát triển bằng các công nghệ frontend tiên tiến như `Vue3`, `Vite`, `TypeScript`.
+- **Quốc tế hóa**：Tích hợp sẵn giải pháp quốc tế hóa hoàn chỉnh, hỗ trợ chuyển đổi đa ngôn ngữ.
+- **Xác thực quyền**：Giải pháp xác thực quyền hoàn chỉnh, kiểm soát quyền ở cấp nút bấm.
+- **Đa chủ đề**：Tích hợp sẵn nhiều cấu hình chủ đề và chế độ tối, đáp ứng nhu cầu cá nhân hóa.
+- **Menu động**：Hỗ trợ menu động, có thể hiển thị menu theo cấu hình quyền.
+- **Dữ liệu Mock**：Giải pháp dữ liệu Mock cục bộ hiệu năng cao dựa trên `Nitro`.
+- **Component phong phú**：Cung cấp nhiều component, có thể đáp ứng hầu hết nhu cầu nghiệp vụ.
+- **Quy chuẩn**：Quy chuẩn code, sử dụng các công cụ như `ESLint`, `Prettier`, `Stylelint`, `Publint`, `CSpell` để đảm bảo chất lượng code.
+- **Kỹ thuật hóa**：Sử dụng các công cụ như `Pnpm Monorepo`, `TurboRepo`, `Changeset` để nâng cao hiệu quả phát triển.
+- **Hỗ trợ đa thư viện UI**：Hỗ trợ các thư viện UI phổ biến như `Ant Design Vue`, `Element Plus`, `Naive`, không còn giới hạn ở một framework cụ thể.
 
-## 浏览器支持
+## Hỗ trợ trình duyệt
 
-- **本地开发**推荐使用`Chrome 最新版`浏览器，**不支持**`Chrome 80`以下版本。
+- **Phát triển cục bộ**nên dùng trình duyệt `Chrome phiên bản mới nhất`, **không hỗ trợ** các phiên bản dưới `Chrome 80`.
 
-- **生产环境**支持现代浏览器，不支持 IE。
+- **Môi trường production**hỗ trợ các trình duyệt hiện đại, không hỗ trợ IE.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/)IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Safari |
 | :-: | :-: | :-: | :-: | :-: |
-| 不支持 | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+| Không hỗ trợ | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-## 贡献
+## Đóng góp
 
-- [Vben Admin](https://github.com/vbenjs/vue-vben-admin) 还在持续更新中，本项目欢迎您的参与，共同维护，逐步完善，打造更好的中后台解决方案。
-- 如果你有兴趣加入我们，可以通过以下方式开始，我们会根据你的活跃度邀请你加入。
+- [Vben Admin](https://github.com/vbenjs/vue-vben-admin) vẫn đang được cập nhật liên tục, dự án này hoan nghênh sự tham gia của bạn, cùng nhau bảo trì, từng bước hoàn thiện, xây dựng giải pháp quản trị trung - hậu đài tốt hơn.
+- Nếu bạn có hứng thú tham gia cùng chúng tôi, bạn có thể bắt đầu bằng các cách sau, chúng tôi sẽ mời bạn tham gia dựa trên mức độ tích cực của bạn.
 
-::: info 加入我们
+::: info Tham gia cùng chúng tôi
 
-- 长期提交 `PR`。
-- 提供有价值的建议。
-- 参与讨论，帮助解决 `issue`。
-- 共同维护文档。
+- Gửi `PR` lâu dài.
+- Đưa ra những đề xuất có giá trị.
+- Tham gia thảo luận, giúp giải quyết `issue`.
+- Cùng nhau bảo trì tài liệu.
 
 :::

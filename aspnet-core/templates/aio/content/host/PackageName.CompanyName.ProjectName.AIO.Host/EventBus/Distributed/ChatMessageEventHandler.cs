@@ -42,13 +42,13 @@ namespace PackageName.CompanyName.ProjectName.AIO.Host.EventBus.Distributed
             Logger.LogDebug($"Persistent chat message.");
 
             var message = eventData.Data;
-            // 消息拦截
-            // 扩展敏感词汇过滤
+            // Chặn tin nhắn
+            // Mở rộng lọc từ nhạy cảm
             await MessageBlocker.InterceptAsync(message);
 
             await MessageStore.StoreMessageAsync(message);
 
-            // 发送消息
+            // Gửi tin nhắn
             foreach (var provider in MessageSenderProviderManager.Providers)
             {
                 Logger.LogDebug($"Sending message with provider {provider.Name}");

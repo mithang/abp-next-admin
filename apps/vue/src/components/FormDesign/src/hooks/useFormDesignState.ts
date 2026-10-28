@@ -3,7 +3,7 @@ import { IFormDesignMethods } from '../typings/form-type';
 import { IFormConfig } from '../typings/v-form-component';
 
 /**
- * 获取formDesign状态
+ * Lấy trạng thái formDesign
  */
 export function useFormDesignState() {
   const formConfig = inject('formConfig') as Ref<IFormConfig>;

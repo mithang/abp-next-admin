@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Members.Models;
 /// <summary>
-/// 网页类型属性
+/// Thuộc tính loại trang web
 /// </summary>
 public class ExternalWebAttribute : ExternalAttribute
 {
     /// <summary>
-    /// 网页
+    /// Trang web
     /// </summary>
     [NotNull]
     [JsonProperty("web")]
@@ -20,14 +20,14 @@ public class ExternalWebAttribute : ExternalAttribute
 public class ExternalWebModel
 {
     /// <summary>
-    /// 网页的url，必须包含http或者https头
+    /// url của trang web, phải chứa tiền tố http hoặc https
     /// </summary>
     [NotNull]
     [JsonProperty("url")]
     [JsonPropertyName("url")]
     public string Url { get; set; } = default!;
     /// <summary>
-    /// 网页的展示标题，长度限制12个UTF8字符
+    /// Tiêu đề hiển thị của trang web, giới hạn độ dài 12 ký tự UTF8
     /// </summary>
     [NotNull]
     [JsonProperty("title")]

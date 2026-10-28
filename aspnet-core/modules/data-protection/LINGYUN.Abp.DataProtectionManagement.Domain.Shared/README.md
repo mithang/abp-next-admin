@@ -1,26 +1,26 @@
 # LINGYUN.Abp.DataProtectionManagement.Domain.Shared
 
-数据权限管理领域共享模块，提供数据权限管理的常量、枚举和其他共享类型。
+Module chia sẻ miền quản lý quyền dữ liệu, cung cấp các hằng số, enum và các kiểu chia sẻ khác của quản lý quyền dữ liệu.
 
-## 功能
+## Chức năng
 
-* 本地化资源
-* 权限定义
-* 设置定义
+* Tài nguyên bản địa hóa
+* Định nghĩa quyền
+* Định nghĩa cài đặt
 
-## 权限定义
+## Định nghĩa quyền
 
-* DataProtectionManagement.DataProtection - 数据权限管理
-  * DataProtectionManagement.DataProtection.Create - 创建数据权限
-  * DataProtectionManagement.DataProtection.Update - 更新数据权限
-  * DataProtectionManagement.DataProtection.Delete - 删除数据权限
+* DataProtectionManagement.DataProtection - Quản lý quyền dữ liệu
+  * DataProtectionManagement.DataProtection.Create - Tạo quyền dữ liệu
+  * DataProtectionManagement.DataProtection.Update - Cập nhật quyền dữ liệu
+  * DataProtectionManagement.DataProtection.Delete - Xóa quyền dữ liệu
 
-## 设置定义
+## Định nghĩa cài đặt
 
-* DataProtectionManagement.EnabledDataProtection - 是否启用数据权限管理
-  * 默认值: true
-  * 可以通过配置文件或管理界面修改
+* DataProtectionManagement.EnabledDataProtection - Có bật quản lý quyền dữ liệu hay không
+  * Giá trị mặc định: true
+  * Có thể sửa qua file cấu hình hoặc giao diện quản trị
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

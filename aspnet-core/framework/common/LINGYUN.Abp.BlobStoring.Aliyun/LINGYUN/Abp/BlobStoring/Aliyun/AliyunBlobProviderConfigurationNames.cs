@@ -3,35 +3,35 @@
 public static class AliyunBlobProviderConfigurationNames
 {
     /// <summary>
-    /// 数据中心
+    /// Trung tâm dữ liệu
     /// </summary>
     public const string Endpoint = "Aliyun:OSS:Endpoint";
     /// <summary>
-    /// 命名空间
+    /// Không gian tên
     /// </summary>
     public const string BucketName = "Aliyun:OSS:BucketName";
     /// <summary>
-    /// 签名版本（可选项：v1、v4）
+    /// Phiên bản chữ ký (tùy chọn: v1, v4)
     /// </summary>
     public const string SignatureVersion = "Aliyun:OSS:SignatureVersion";
     /// <summary>
-    /// 跳过服务器证书验证
+    /// Bỏ qua việc xác thực chứng chỉ máy chủ
     /// </summary>
     public const string InsecureSkipVerify = "Aliyun:OSS:InsecureSkipVerify";
     /// <summary>
-    /// 命名空间不存在是否创建
+    /// Có tạo không gian tên hay không khi không gian tên chưa tồn tại
     /// </summary>
     public const string CreateBucketIfNotExists = "Aliyun:OSS:CreateBucketIfNotExists";
     /// <summary>
-    /// 创建命名空间时防盗链列表
+    /// Danh sách chống liên kết trộm khi tạo không gian tên
     /// </summary>
     public const string CreateBucketReferer = "Aliyun:OSS:CreateBucketReferer";
     /// <summary>
-    /// 创建命名空间时的Acl
+    /// Acl khi tạo không gian tên
     /// </summary>
     public const string CreateBucketAcl = "Aliyun:OSS:CreateBucketAcl"; 
     /// <summary>
-    /// 生成预签名Uri的过期时间(s)
+    /// Thời gian hết hạn (giây) của Uri ký trước khi tạo
     /// </summary>
     public const string PresignedGetExpirySeconds = "Aliyun:OSS:PresignedGetExpirySeconds";
 

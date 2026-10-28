@@ -10,9 +10,9 @@ import { useRequest } from '@abp/request';
 export function useNotificationSendRecordsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取通知发送记录分页列表
-   * @param input 查询过滤参数
-   * @returns {Promise<PagedResultDto<NotificationSendRecordDto>>} 通知发送记录分页列表
+   * Lấy danh sách phân trang bản ghi gửi thông báo
+   * @param input Tham số lọc truy vấn
+   * @returns {Promise<PagedResultDto<NotificationSendRecordDto>>} Danh sách phân trang bản ghi gửi thông báo
    */
   function getPagedListApi(
     input?: NotificationSendRecordGetPagedListInput,
@@ -26,8 +26,8 @@ export function useNotificationSendRecordsApi() {
     );
   }
   /**
-   * 删除发送记录
-   * @param id 发送记录Id
+   * Xóa bản ghi gửi
+   * @param id Id bản ghi gửi
    * @returns {Promise<void>}
    */
   function deleteApi(id: string): Promise<void> {
@@ -36,8 +36,8 @@ export function useNotificationSendRecordsApi() {
     });
   }
   /**
-   * 重新发送通知
-   * @param id 发送记录Id
+   * Gửi lại thông báo
+   * @param id Id bản ghi gửi
    * @returns {Promise<void>}
    */
   function reSendApi(id: string): Promise<void> {

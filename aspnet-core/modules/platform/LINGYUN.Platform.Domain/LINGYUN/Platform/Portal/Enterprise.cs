@@ -5,20 +5,20 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace LINGYUN.Platform.Portal;
 /// <summary>
-/// 企业信息
+/// Thông tin doanh nghiệp
 /// </summary>
 public class Enterprise : FullAuditedAggregateRoot<Guid>
 {
     /// <summary>
-    /// 关联租户
+    /// Tenant liên kết
     /// </summary>
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public virtual string Name { get; protected set; } = default!;
     /// <summary>
-    /// 英文名称
+    /// Tên tiếng Anh
     /// </summary>
     public virtual string? EnglishName { get; set; }
     /// <summary>
@@ -26,31 +26,31 @@ public class Enterprise : FullAuditedAggregateRoot<Guid>
     /// </summary>
     public virtual string? Logo { get; set; }
     /// <summary>
-    /// 地址
+    /// Địa chỉ
     /// </summary>
     public virtual string? Address { get; set; }
     /// <summary>
-    /// 法人代表
+    /// Người đại diện pháp luật
     /// </summary>
     public virtual string? LegalMan { get; set; }
     /// <summary>
-    /// 税务登记号
+    /// Mã số thuế
     /// </summary>
     public virtual string? TaxCode { get; set; }
     /// <summary>
-    /// 组织机构代码
+    /// Mã tổ chức
     /// </summary>
     public virtual string? OrganizationCode { get; protected set; }
     /// <summary>
-    /// 注册代码
+    /// Mã đăng ký
     /// </summary>
     public virtual string? RegistrationCode { get; protected set; }
     /// <summary>
-    /// 注册日期
+    /// Ngày đăng ký
     /// </summary>
     public virtual DateTime? RegistrationDate { get; protected set; }
     /// <summary>
-    /// 过期日期
+    /// Ngày hết hạn
     /// </summary>
     public virtual DateTime? ExpirationDate { get; protected set; }
     protected Enterprise() 

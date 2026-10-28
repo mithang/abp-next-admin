@@ -1,32 +1,32 @@
 # LINGYUN.Abp.Account.Application
 
-ABP账户模块的应用服务实现，提供完整的账户管理功能实现。
+Triển khai dịch vụ ứng dụng của mô-đun tài khoản ABP, cung cấp triển khai đầy đủ chức năng quản lý tài khoản.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 账户管理服务实现
-  * 手机号注册
-  * 微信小程序注册
-  * 密码重置
-  * 验证码发送（短信、邮件）
-* 个人资料管理
-  * 基本信息维护
-  * 密码修改
-  * 手机号变更
-  * 头像更新
-  * 双因素认证
-* 用户声明管理
-* 邮件服务
-  * 邮件确认
-  * 邮件验证
-* 短信服务
-  * 验证码发送
-* 微信小程序集成
-* 虚拟文件系统支持
+* Triển khai dịch vụ quản lý tài khoản
+  * Đăng ký bằng số điện thoại
+  * Đăng ký bằng WeChat Mini Program
+  * Đặt lại mật khẩu
+  * Gửi mã xác minh (SMS, email)
+* Quản lý hồ sơ cá nhân
+  * Bảo trì thông tin cơ bản
+  * Đổi mật khẩu
+  * Thay đổi số điện thoại
+  * Cập nhật ảnh đại diện
+  * Xác thực hai yếu tố
+* Quản lý claim của người dùng
+* Dịch vụ email
+  * Xác nhận email
+  * Xác minh email
+* Dịch vụ SMS
+  * Gửi mã xác minh
+* Tích hợp WeChat Mini Program
+* Hỗ trợ hệ thống tệp ảo
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -41,43 +41,43 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务
+## Dịch vụ ứng dụng
 
 ### AccountAppService
 
-实现`IAccountAppService`接口，提供：
-* 用户注册（手机号、微信小程序）
-* 密码重置
-* 验证码发送
+Triển khai giao diện `IAccountAppService`, cung cấp:
+* Đăng ký người dùng (số điện thoại, WeChat Mini Program)
+* Đặt lại mật khẩu
+* Gửi mã xác minh
 
 ### MyProfileAppService
 
-实现`IMyProfileAppService`接口，提供：
-* 个人资料管理
-* 密码修改
-* 手机号变更
-* 头像更新
-* 双因素认证管理
+Triển khai giao diện `IMyProfileAppService`, cung cấp:
+* Quản lý hồ sơ cá nhân
+* Đổi mật khẩu
+* Thay đổi số điện thoại
+* Cập nhật ảnh đại diện
+* Quản lý xác thực hai yếu tố
 
 ### MyClaimAppService
 
-实现`IMyClaimAppService`接口，提供：
-* 用户声明管理
+Triển khai giao diện `IMyClaimAppService`, cung cấp:
+* Quản lý claim của người dùng
 
-## 邮件服务
+## Dịch vụ email
 
-提供以下邮件服务：
-* `IAccountEmailConfirmSender` - 邮件确认服务
-* `IAccountEmailVerifySender` - 邮件验证服务
-* `AccountEmailSender` - 邮件发送实现
+Cung cấp các dịch vụ email sau:
+* `IAccountEmailConfirmSender` - Dịch vụ xác nhận email
+* `IAccountEmailVerifySender` - Dịch vụ xác minh email
+* `AccountEmailSender` - Triển khai gửi email
 
-## 短信服务
+## Dịch vụ SMS
 
-提供以下短信服务：
-* `IAccountSmsSecurityCodeSender` - 短信验证码发送服务
-* `AccountSmsSecurityCodeSender` - 短信验证码发送实现
+Cung cấp các dịch vụ SMS sau:
+* `IAccountSmsSecurityCodeSender` - Dịch vụ gửi mã xác minh SMS
+* `AccountSmsSecurityCodeSender` - Triển khai gửi mã xác minh SMS
 
-## URL配置
+## Cấu hình URL
 
-模块预配置了以下URL：
-* EmailConfirm - 邮件确认URL，默认为"Account/EmailConfirm"
+Mô-đun đã cấu hình sẵn các URL sau:
+* EmailConfirm - URL xác nhận email, mặc định là "Account/EmailConfirm"

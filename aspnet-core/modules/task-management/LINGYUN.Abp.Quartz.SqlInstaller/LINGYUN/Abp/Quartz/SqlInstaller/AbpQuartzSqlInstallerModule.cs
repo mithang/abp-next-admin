@@ -48,7 +48,7 @@ public class AbpQuartzSqlInstallerModule : AbpModule
             var driverDelegateType = configuration[$"Quartz:Properties:quartz.jobStore.driverDelegateType"];
             if (!string.IsNullOrWhiteSpace(driverDelegateType))
             {
-                // 初始化 Quartz 数据库
+                // Khởi tạo cơ sở dữ liệu Quartz
                 var installs = context.ServiceProvider.GetServices<IQuartzSqlInstaller>();
 
                 foreach (var install in installs)

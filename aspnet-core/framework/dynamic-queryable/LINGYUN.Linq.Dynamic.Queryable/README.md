@@ -1,22 +1,22 @@
 # LINGYUN.Linq.Dynamic.Queryable
 
-动态查询基本库, 扩展Linq, 动态构建表达式树  
+Thư viện cơ bản cho truy vấn động, mở rộng Linq, xây dựng cây biểu thức một cách động
 
-## 功能特性
+## Tính năng
 
-* 支持动态构建查询条件
-* 支持多种比较运算符：等于、不等于、大于、小于、大于等于、小于等于、包含、不包含、开始于、不开始于、结束于、不结束于等
-* 支持动态类型转换和空值处理
-* 支持枚举类型的动态查询
+* Hỗ trợ xây dựng điều kiện truy vấn một cách động
+* Hỗ trợ nhiều toán tử so sánh: bằng, không bằng, lớn hơn, nhỏ hơn, lớn hơn hoặc bằng, nhỏ hơn hoặc bằng, chứa, không chứa, bắt đầu bằng, không bắt đầu bằng, kết thúc bằng, không kết thúc bằng, v.v.
+* Hỗ trợ chuyển đổi kiểu động và xử lý giá trị null
+* Hỗ trợ truy vấn động cho kiểu enum
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用, 只提供针对Linq的扩展。
+Module được tham chiếu theo nhu cầu, chỉ cung cấp các extension cho Linq.
 
-### 基本用法
+### Cách dùng cơ bản
 
 ```csharp
-// 创建动态查询参数
+// Tạo tham số truy vấn động
 var parameter = new DynamicParamter 
 {
     Field = "Name",
@@ -24,35 +24,35 @@ var parameter = new DynamicParamter
     Value = "test"
 };
 
-// 创建查询条件
+// Tạo điều kiện truy vấn
 var queryable = new DynamicQueryable
 {
     Paramters = new List<DynamicParamter> { parameter }
 };
 
-// 应用到Expression
+// Áp dụng vào Expression
 Expression<Func<TEntity, bool>> condition = e => true;
 condition = condition.DynamicQuery(queryable);
 
-// 使用条件进行查询
+// Sử dụng điều kiện để truy vấn
 var result = await repository.Where(condition).ToListAsync();
 ```
 
-### 支持的比较运算符
+### Các toán tử so sánh được hỗ trợ
 
-* `Equal` - 等于
-* `NotEqual` - 不等于
-* `LessThan` - 小于
-* `LessThanOrEqual` - 小于等于
-* `GreaterThan` - 大于
-* `GreaterThanOrEqual` - 大于等于
-* `Contains` - 包含
-* `NotContains` - 不包含
-* `StartsWith` - 开始于
-* `NotStartsWith` - 不开始于
-* `EndsWith` - 结束于
-* `NotEndsWith` - 不结束于
+* `Equal` - Bằng
+* `NotEqual` - Không bằng
+* `LessThan` - Nhỏ hơn
+* `LessThanOrEqual` - Nhỏ hơn hoặc bằng
+* `GreaterThan` - Lớn hơn
+* `GreaterThanOrEqual` - Lớn hơn hoặc bằng
+* `Contains` - Chứa
+* `NotContains` - Không chứa
+* `StartsWith` - Bắt đầu bằng
+* `NotStartsWith` - Không bắt đầu bằng
+* `EndsWith` - Kết thúc bằng
+* `NotEndsWith` - Không kết thúc bằng
 
-## 相关链接
+## Liên kết liên quan
 
 * [LINGYUN.Abp.Dynamic.Queryable.Application](../LINGYUN.Abp.Dynamic.Queryable.Application/README.md)

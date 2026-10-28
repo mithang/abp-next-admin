@@ -6,31 +6,31 @@ namespace LINGYUN.Abp.WeChat.Work.Security.Models;
 public class WeChatIpModel
 {
     /// <summary>
-    /// ip地址
+    /// Địa chỉ IP
     /// </summary>
     [JsonProperty("ip")]
     [JsonPropertyName("ip")]
     public string Ip { get; set; } = default!;
     /// <summary>
-    /// 协议 如TCP UDP
+    /// Giao thức, ví dụ TCP, UDP
     /// </summary>
     [JsonProperty("protocol")]
     [JsonPropertyName("protocol")]
     public string Protocol { get; set; } = default!;
     /// <summary>
-    /// 端口号列表
+    /// Danh sách số cổng
     /// </summary>
     [JsonProperty("port")]
     [JsonPropertyName("port")]
     public List<int> Port { get; set; } = new List<int>();
     /// <summary>
-    /// 是否必要，0-否 1-是， 如果必要的域名或IP被拦截，将导致企业微信的功能出现异常
+    /// Có bắt buộc hay không, 0 - không, 1 - có, nếu tên miền hoặc IP bắt buộc bị chặn sẽ khiến chức năng của WeChat doanh nghiệp gặp bất thường
     /// </summary>
     [JsonProperty("is_necessary")]
     [JsonPropertyName("is_necessary")]
     public int IsNecessary { get; set; } = default!;
     /// <summary>
-    /// IP涉及到的功能的描述信息
+    /// Thông tin mô tả chức năng liên quan đến IP
     /// </summary>
     [JsonProperty("description")]
     [JsonPropertyName("description")]

@@ -8,11 +8,11 @@ using Xunit;
 namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
 {
     /// <summary>
-    /// 微信小程序订阅消息渠道数据测试
+    /// Kiểm thử dữ liệu kênh tin nhắn đăng ký của WeChat Mini Program
     /// </summary>
     /// <remarks>
-    /// 统一写法: 先 new 渠道数据 → 通过 <c>IJsonSerializer</c> 序列化写入通知数据 →
-    /// 再让渠道实际发布, 断言捕获到的模板消息。
+    /// Cách viết thống nhất: trước tiên new dữ liệu kênh → tuần tự hóa qua <c>IJsonSerializer</c> ghi vào dữ liệu thông báo →
+    /// sau đó để kênh thực sự phát hành, khẳng định tin nhắn mẫu đã bắt được.
     /// </remarks>
     public class WeChatMiniProgramChannelData_Tests : AbpNotificationsWeChatMiniProgramTestsBase
     {
@@ -21,7 +21,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
         private FakeSubscribeMessager Messager
             => (FakeSubscribeMessager)GetRequiredService<LINGYUN.Abp.WeChat.MiniProgram.Messages.ISubscribeMessager>();
 
-        // ---------- 1. 解析渠道数据 ----------
+        // ---------- 1. Phân tích dữ liệu kênh ----------
 
         [Fact]
         public void Should_Resolve_New_Prefixed_Keys()
@@ -46,7 +46,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
         [Fact]
         public void Should_Declare_Payload_When_Only_TemplateId_Is_Written()
         {
-            // 跳转参数是"可选读取项", 不得参与存在性判定
+            // Tham số chuyển hướng là "mục đọc tùy chọn", không được tham gia vào việc xác định sự tồn tại
             var data = WriteChannelData(new WeChatMiniProgramSubscribeChannelData
             {
                 TemplateId = "TPL_ONLY"
@@ -69,7 +69,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
             ChannelDataResolver.Resolve<WeChatMiniProgramSubscribeChannelData>(data)!
                 .TemplateId.ShouldBe("TPL_CASE");
 
-            // 换一种大小写写入也应命中
+            // Ghi bằng kiểu chữ hoa/thường khác cũng phải khớp
             var upper = new NotificationData();
             upper.TrySetData("WX-MP:TEMPLATE_ID", "TPL_UPPER");
 
@@ -77,7 +77,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
                 .TemplateId.ShouldBe("TPL_UPPER");
         }
 
-        // ---------- 2. 渠道实际发布(端到端) ----------
+        // ---------- 2. Kênh phát hành thực tế (đầu-cuối) ----------
 
         [Fact]
         public async Task Should_Send_With_Resolved_Channel_Data()
@@ -119,8 +119,8 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
         {
             Messager.Clear();
 
-            // 历史遗留的无前缀键, 已安装的生产者可能仍在写入
-            // (测试历史兼容路径, 因此显式压制弃用告警)
+            // Các khóa không tiền tố còn tồn tại từ trước, các producer đã cài đặt có thể vẫn đang ghi
+            // (Kiểm thử đường tương thích cũ, vì vậy tắt cảnh báo lỗi thời một cách tường minh)
             var data = new NotificationData();
 #pragma warning disable CS0618 // Type or member is obsolete: this test verifies the legacy compatibility fallback
             data.TrySetData(WeChatMiniProgramNotificationDataKeys.Legacy.TemplateId, "TPL_LEGACY");
@@ -143,7 +143,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
             {
                 TemplateId = "TPL_NEW"
             });
-            // 同时写入遗留键, 带前缀的必须优先
+            // Đồng thời ghi khóa cũ, khóa có tiền tố phải được ưu tiên
 #pragma warning disable CS0618 // Type or member is obsolete: this test verifies the prefixed key wins over the legacy key
             data.TrySetData(WeChatMiniProgramNotificationDataKeys.Legacy.TemplateId, "TPL_LEGACY");
 #pragma warning restore CS0618
@@ -158,7 +158,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
         {
             Messager.Clear();
 
-            // 覆盖默认模板为空
+            // Ghi đè mẫu mặc định thành rỗng
             var options = GetRequiredService<Microsoft.Extensions.Options.IOptions<AbpNotificationsWeChatMiniProgramOptions>>().Value;
             var original = options.DefaultTemplateId;
             options.DefaultTemplateId = string.Empty;
@@ -176,7 +176,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
             }
         }
 
-        // ---------- 3. 模板数据取自属性包 ----------
+        // ---------- 3. Dữ liệu mẫu lấy từ gói thuộc tính ----------
 
         [Fact]
         public async Task Should_Pass_Extra_Properties_As_Template_Data()
@@ -188,7 +188,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
                 TemplateId = "TPL_DATA"
             });
             data.TrySetData("character_string1", "SO20251001001");
-            data.TrySetData("thing2", "顺丰速运");
+            data.TrySetData("thing2", "Thuận Phong Express");
 
             await PublishAsync(data, NewUser());
 
@@ -199,7 +199,7 @@ namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram
             templateData.ShouldContainKey("thing2");
         }
 
-        // ---------- 辅助 ----------
+        // ---------- Hỗ trợ ----------
 
         private static UserIdentifier NewUser() => new(Guid.NewGuid(), "tester");
 

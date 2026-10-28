@@ -5,23 +5,23 @@ namespace LINGYUN.Abp.IM.Contract;
 public class UserFriend : UserCard
 {
     /// <summary>
-    /// 好友标识
+    /// Định danh bạn bè
     /// </summary>
     public Guid FriendId { get; set; }
     /// <summary>
-    /// 已添加黑名单
+    /// Đã thêm vào danh sách chặn
     /// </summary>
     public bool Black { get; set; }
     /// <summary>
-    /// 特别关注
+    /// Quan tâm đặc biệt
     /// </summary>
     public bool SpecialFocus { get; set; }
     /// <summary>
-    /// 消息免打扰
+    /// Tin nhắn không làm phiền
     /// </summary>
     public bool DontDisturb { get; set; }
     /// <summary>
-    /// 备注名称
+    /// Tên ghi chú
     /// </summary>
     public string? RemarkName { get; set; }
 

@@ -3,7 +3,7 @@
 namespace LINGYUN.Abp.BackgroundTasks;
 
 /// <summary>
-/// 任务类需要实现此接口
+/// Lớp tác vụ cần triển khai giao diện này
 /// </summary>
 public interface IJobRunnable
 {

@@ -5,15 +5,15 @@ namespace LINGYUN.Abp.PushPlus.User;
 public class PushPlusUserLimitTime
 {
     /// <summary>
-    /// 发送限制状态;
-    /// 1-无限制，
-    /// 2-短期限制，
-    /// 3-永久限制
+    /// Trạng thái giới hạn gửi;
+    /// 1-Không giới hạn,
+    /// 2-Giới hạn ngắn hạn,
+    /// 3-Giới hạn vĩnh viễn
     /// </summary>
     [JsonProperty("sendLimit")]
     public PushPlusUserSendLimit SendLimit { get; set; }
     /// <summary>
-    /// 解封时间
+    /// Thời gian gỡ chặn
     /// </summary>
     [JsonProperty("userLimitTime")]
     public string? UserLimitTime { get; set; }

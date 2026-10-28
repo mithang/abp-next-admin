@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 成员控件配置
+/// Cấu hình điều khiển thành viên
 /// </summary>
 public class ContactControlConfig : ControlConfig
 {
     /// <summary>
-    /// 成员、部门控件
+    /// Điều khiển thành viên, phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("contact")]
@@ -29,14 +29,14 @@ public class ContactControlConfig : ControlConfig
 public class ContactConfig
 {
     /// <summary>
-    /// single-单选、multi-多选
+    /// single-Chọn một, multi-Chọn nhiều
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// user-成员、department-部门
+    /// user-Thành viên, department-Phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("mode")]

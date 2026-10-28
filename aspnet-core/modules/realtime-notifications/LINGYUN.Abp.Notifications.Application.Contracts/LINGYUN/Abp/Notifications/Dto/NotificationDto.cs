@@ -3,27 +3,27 @@
 public class NotificationDto
 {
     /// <summary>
-    /// 通知名称
+    /// Tên thông báo
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public string? DisplayName { get; set; }
     /// <summary>
-    /// 说明
+    /// Mô tả
     /// </summary>
     public string? Description { get; set; }
     /// <summary>
-    /// 存活类型
+    /// Loại vòng đời
     /// </summary>
     public NotificationLifetime Lifetime { get; set; }
     /// <summary>
-    /// 通知类型
+    /// Loại thông báo
     /// </summary>
     public NotificationType Type { get; set; }
     /// <summary>
-    /// 通知内容类型
+    /// Loại nội dung thông báo
     /// </summary>
     public NotificationContentType ContentType { get; set; }
 }

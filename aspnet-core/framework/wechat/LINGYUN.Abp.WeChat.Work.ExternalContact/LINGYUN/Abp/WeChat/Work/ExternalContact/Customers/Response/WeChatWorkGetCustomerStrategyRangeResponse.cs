@@ -5,22 +5,22 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Response;
 /// <summary>
-/// 获取规则组管理范围响应参数
+/// Tham số phản hồi lấy phạm vi quản lý nhóm quy tắc
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/94883" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/94883" />
 /// </remarks>
 public class WeChatWorkGetCustomerStrategyRangeResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 规则组管理范围
+    /// Phạm vi quản lý nhóm quy tắc
     /// </summary>
     [NotNull]
     [JsonProperty("range")]
     [JsonPropertyName("range")]
     public CustomerStrategyRange[] Range { get; set; } = default!;
     /// <summary>
-    /// 分页游标，用于查询下一个分页的数据，无更多数据时不返回
+    /// Con trỏ phân trang, dùng để truy vấn dữ liệu của trang tiếp theo, không trả về khi không còn dữ liệu nữa
     /// </summary>
     [CanBeNull]
     [JsonProperty("next_cursor")]

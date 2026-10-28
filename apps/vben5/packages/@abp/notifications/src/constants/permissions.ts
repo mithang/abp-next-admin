@@ -1,28 +1,28 @@
-/** 分组权限 */
+/** Quyền nhóm */
 export const GroupDefinitionsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'Notifications.GroupDefinitions.Create',
   Default: 'Notifications.GroupDefinitions',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Notifications.GroupDefinitions.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'Notifications.GroupDefinitions.Update',
 };
-/** 通知定义权限 */
+/** Quyền định nghĩa thông báo */
 export const NotificationDefinitionsPermissions = {
-  /** 新增 */
+  /** Thêm mới */
   Create: 'Notifications.Definitions.Create',
   Default: 'Notifications.Definitions',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Notifications.Definitions.Delete',
-  /** 更新 */
+  /** Cập nhật */
   Update: 'Notifications.Definitions.Update',
 };
-/** 通知权限 */
+/** Quyền thông báo */
 export const NotificationPermissions = {
-  /** 发送通知 */
+  /** Gửi thông báo */
   Create: 'Notifications.Notification.Send',
   Default: 'Notifications.Notification',
-  /** 删除 */
+  /** Xóa */
   Delete: 'Notifications.Notification.Delete',
 };

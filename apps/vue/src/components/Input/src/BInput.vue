@@ -2,7 +2,7 @@
   import { defineComponent, h } from 'vue';
   import { Input } from 'ant-design-vue';
 
-  /** 封装为全局禁用自动完成input组件 */
+  /** Đóng gói thành component input vô hiệu hóa tự động hoàn thành trên toàn cục */
   export default defineComponent({
     name: 'BInput',
     render() {

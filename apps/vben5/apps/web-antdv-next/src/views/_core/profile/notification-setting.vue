@@ -8,20 +8,21 @@ const formSchema = computed(() => {
     {
       value: true,
       fieldName: 'accountPassword',
-      label: '账户密码',
-      description: '其他用户的消息将以站内信的形式通知',
+      label: 'Mật khẩu tài khoản',
+      description:
+        'Tin nhắn của người dùng khác sẽ được thông báo dưới dạng thư nội bộ',
     },
     {
       value: true,
       fieldName: 'systemMessage',
-      label: '系统消息',
-      description: '系统消息将以站内信的形式通知',
+      label: 'Tin nhắn hệ thống',
+      description: 'Tin nhắn hệ thống sẽ được thông báo dưới dạng thư nội bộ',
     },
     {
       value: true,
       fieldName: 'todoTask',
-      label: '待办任务',
-      description: '待办任务将以站内信的形式通知',
+      label: 'Nhiệm vụ cần làm',
+      description: 'Nhiệm vụ cần làm sẽ được thông báo dưới dạng thư nội bộ',
     },
   ];
 });

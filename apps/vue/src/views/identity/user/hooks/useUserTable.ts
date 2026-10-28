@@ -38,7 +38,7 @@ export function useUserTable() {
       if (record.lockoutEnd) {
         const lockTime = new Date(record.lockoutEnd);
         if (lockTime) {
-          // 锁定时间高于当前时间不显示
+          // Thời gian khóa cao hơn thời gian hiện tại thì không hiển thị
           const nowTime = new Date();
           return lockTime > nowTime;
         }

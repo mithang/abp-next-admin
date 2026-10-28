@@ -7,63 +7,63 @@ namespace LINGYUN.Abp.TaskManagement;
 public class BackgroundJobInfoGetListInput: PagedAndSortedResultRequestDto
 {
     /// <summary>
-    /// 其他过滤条件
+    /// Điều kiện lọc khác
     /// </summary>
     public string? Filter { get; set; }
     /// <summary>
-    /// 任务名称
+    /// Tên tác vụ
     /// </summary>
     public string? Name { get; set; }
     /// <summary>
-    /// 任务分组
+    /// Nhóm tác vụ
     /// </summary>
     public string? Group { get; set; }
     /// <summary>
-    /// 任务类型
+    /// Loại tác vụ
     /// </summary>
     public string? Type { get; set; }
     /// <summary>
-    /// 任务状态
+    /// Trạng thái tác vụ
     /// </summary>
     public JobStatus? Status { get; set; }
     /// <summary>
-    /// 开始时间
+    /// Thời gian bắt đầu
     /// </summary>
     public DateTime? BeginTime { get; set; }
     /// <summary>
-    /// 结束时间
+    /// Thời gian kết thúc
     /// </summary>
     public DateTime? EndTime { get; set; }
     /// <summary>
-    /// 上次起始触发时间
+    /// Thời gian kích hoạt lần trước (bắt đầu)
     /// </summary>
     public DateTime? BeginLastRunTime { get; set; }
     /// <summary>
-    /// 上次截止触发时间
+    /// Thời gian kích hoạt lần trước (kết thúc)
     /// </summary>
     public DateTime? EndLastRunTime { get; set; }
     /// <summary>
-    /// 起始创建时间
+    /// Thời gian tạo (bắt đầu)
     /// </summary>
     public DateTime? BeginCreationTime { get; set; }
     /// <summary>
-    /// 截止创建时间
+    /// Thời gian tạo (kết thúc)
     /// </summary>
     public DateTime? EndCreationTime { get; set; }
     /// <summary>
-    /// 是否已放弃任务
+    /// Tác vụ đã bị hủy hay chưa
     /// </summary>
     public bool? IsAbandoned { get; set; }
     /// <summary>
-    /// 任务类型
+    /// Loại tác vụ
     /// </summary>
     public JobType? JobType { get; set; }
     /// <summary>
-    /// 优先级
+    /// Mức độ ưu tiên
     /// </summary>
     public JobPriority? Priority { get; set; }
     /// <summary>
-    /// 作业来源
+    /// Nguồn tác vụ
     /// </summary>
     public JobSource? Source { get; set; }
 }

@@ -5,24 +5,24 @@ using Volo.Abp.Application.Services;
 
 namespace LINGYUN.Platform.Datas;
 /// <summary>
-/// 公用数据字典应用服务接口
+/// Giao diện dịch vụ ứng dụng từ điển dữ liệu dùng chung
 /// </summary>
 public interface IGlobalDataAppService : IApplicationService
 {
     /// <summary>
-    /// 获取数据字典
+    /// Lấy từ điển dữ liệu
     /// </summary>
-    /// <param name="name">名称</param>
+    /// <param name="name">Tên</param>
     /// <returns></returns>
     Task<DataDto> GetByNameAsync(string name);
     /// <summary>
-    /// 获取数据字典
+    /// Lấy từ điển dữ liệu
     /// </summary>
     /// <param name="id">Id</param>
     /// <returns></returns>
     Task<DataDto> GetAsync(Guid id);
     /// <summary>
-    /// 获取所有数据字典
+    /// Lấy tất cả từ điển dữ liệu
     /// </summary>
     /// <returns></returns>
     Task<ListResultDto<DataDto>> GetAllAsync();

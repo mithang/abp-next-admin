@@ -3,11 +3,11 @@
 public static class AbpWxPusherClaimTypes
 {
     /// <summary>
-    /// 用户的唯一标识
+    /// Định danh duy nhất của người dùng
     /// </summary>
     public static string Uid { get; set; } = "wxp-uid";
     /// <summary>
-    /// 用户订阅topic
+    /// Topic mà người dùng đăng ký
     /// </summary>
     public static string Topic { get; set; } = "wxp-topic";
 }

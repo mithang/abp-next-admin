@@ -5,7 +5,7 @@ public abstract class NotificationTemplateResolveContributorBase : INotification
 {
     public abstract string Name { get; }
     /// <summary>
-    /// 实现此接口处理模板数据
+    /// Triển khai interface này để xử lý dữ liệu mẫu
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>

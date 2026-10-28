@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Elsa.Activities
 
-常用Activity集成  
+Tích hợp Activity thường dùng  
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 

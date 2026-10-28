@@ -76,4 +76,4 @@ Related Documentation:
 * [IdentityServer4 Documentation](https://identityserver4.readthedocs.io/)
 * [ABP Authorization Documentation](https://docs.abp.io/en/abp/latest/Authorization)
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Việt](README.md)

@@ -1,46 +1,46 @@
 # LINGYUN.Abp.Tencent.QQ
 
-腾讯QQ互联模块，集成腾讯QQ互联服务到ABP应用程序。
+Module kết nối QQ của Tencent, tích hợp dịch vụ kết nối QQ của Tencent vào ứng dụng ABP.
 
-## 功能特性
+## Tính năng
 
-* 支持QQ互联快速登录
-* 支持多租户配置
-* 提供QQ互联客户端工厂，支持动态创建客户端
+* Hỗ trợ đăng nhập nhanh qua kết nối QQ
+* Hỗ trợ cấu hình đa tenant
+* Cung cấp factory client kết nối QQ, hỗ trợ tạo client động
 
-## 配置项说明
+## Mô tả các mục cấu hình
 
-### 基础配置
+### Cấu hình cơ bản
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud": {
-      "SecretId": "您的腾讯云SecretId", // 从腾讯云控制台获取
-      "SecretKey": "您的腾讯云SecretKey", // 从腾讯云控制台获取
-      "DurationSecond": "600" // 会话持续时间（秒）
+      "SecretId": "SecretId Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "SecretKey": "SecretKey Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "DurationSecond": "600" // Thời gian duy trì phiên (giây)
     }
   }
 }
 ```
 
-### QQ互联配置
+### Cấu hình kết nối QQ
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud.QQConnect": {
-      "AppId": "", // QQ互联应用ID，从QQ互联管理中心获取
-      "AppKey": "", // QQ互联应用密钥，从QQ互联管理中心获取
-      "IsMobile": "false" // 是否使用移动端样式，默认为PC端样式
+      "AppId": "", // ID ứng dụng kết nối QQ, lấy từ trung tâm quản lý kết nối QQ
+      "AppKey": "", // Khóa ứng dụng kết nối QQ, lấy từ trung tâm quản lý kết nối QQ
+      "IsMobile": "false" // Có sử dụng kiểu giao diện di động hay không, mặc định là kiểu PC
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 添加模块依赖
+1. Thêm phụ thuộc module
 ```csharp
 [DependsOn(typeof(AbpTencentQQModule))]
 public class YourModule : AbpModule
@@ -49,11 +49,11 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置QQ互联服务
+2. Cấu hình dịch vụ kết nối QQ
 
-参考上述配置项说明进行相应配置。
+Tham khảo mô tả các mục cấu hình ở trên để cấu hình tương ứng.
 
-3. QQ互联服务使用示例
+3. Ví dụ sử dụng dịch vụ kết nối QQ
 ```csharp
 public class YourService
 {
@@ -67,15 +67,15 @@ public class YourService
     public async Task QQConnectAsync()
     {
         var qqClient = await _qqClientFactory.CreateAsync();
-        // 使用qqClient调用QQ互联服务API
-        // 详细API使用方法请参考QQ互联开发文档
+        // Dùng qqClient để gọi API dịch vụ kết nối QQ
+        // Cách dùng API chi tiết vui lòng tham khảo tài liệu phát triển kết nối QQ
     }
 }
 ```
 
-## 更多文档
+## Thêm tài liệu
 
-* [QQ互联开放平台](https://connect.qq.com/)
-* [QQ互联开发文档](https://wiki.connect.qq.com/)
+* [Nền tảng mở kết nối QQ](https://connect.qq.com/)
+* [Tài liệu phát triển kết nối QQ](https://wiki.connect.qq.com/)
 
 [English](./README.EN.md)

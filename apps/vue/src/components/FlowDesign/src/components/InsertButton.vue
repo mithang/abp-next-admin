@@ -1,30 +1,30 @@
 <template>
-  <Popover placement="bottomLeft" title="添加流程节点" width="350" trigger="click">
+  <Popover placement="bottomLeft" title="Thêm nút quy trình" width="350" trigger="click">
     <template #content>
       <div class="node-select">
         <div @click="addApprovalNode">
           <CheckOutlined class="icon" style="color: rgb(255, 148, 62)" />
-          <span>审批人</span>
+          <span>Người phê duyệt</span>
         </div>
         <div @click="addCcNode">
           <SendOutlined class="icon" style="color: rgb(50, 150, 250)" />
-          <span>抄送人</span>
+          <span>Người nhận CC</span>
         </div>
         <div @click="addConditionsNode">
           <ShareAltOutlined class="icon" style="color: rgb(21, 188, 131)" />
-          <span>条件分支</span>
+          <span>Nhánh điều kiện</span>
         </div>
         <div @click="addConcurrentsNode">
           <ThunderboltOutlined class="icon" style="color: #718dff" />
-          <span>并行分支</span>
+          <span>Nhánh song song</span>
         </div>
         <div @click="addDelayNode">
           <ClockCircleOutlined class="icon" style="color: #f25643" />
-          <span>延迟等待</span>
+          <span>Chờ trễ</span>
         </div>
         <div @click="addTriggerNode">
           <SettingOutlined class="icon" style="color: #15bc83" />
-          <span>触发器</span>
+          <span>Trigger</span>
         </div>
         <div @click="addHttpEndPointNode">
           <GlobalOutlined class="icon" style="color: #2f65c3" />

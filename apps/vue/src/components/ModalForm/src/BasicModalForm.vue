@@ -23,12 +23,12 @@
   import { BasicForm, useForm, FormSchema } from '/@/components/Form/index';
 
   const props = {
-    /** 接受一个动态表单定义 */
+    /** Nhận một định nghĩa biểu mẫu động */
     formItems: { type: Array as PropType<Array<FormSchema>>, required: true },
-    /** 弹出窗标题 */
+    /** Tiêu đề cửa sổ popup */
     title: { type: String, required: true },
-    /** 点击确定按钮后需要调用的事件
-     *  必须是返回一个Promise类型的函数
+    /** Sự kiện cần gọi sau khi nhấn nút xác nhận
+     *  Phải là hàm trả về kiểu Promise
      */
     saveChanges: { type: Function as PropType<(data: any) => Promise<any>>, required: true },
     labelWidth: { type: Number, default: 120 },

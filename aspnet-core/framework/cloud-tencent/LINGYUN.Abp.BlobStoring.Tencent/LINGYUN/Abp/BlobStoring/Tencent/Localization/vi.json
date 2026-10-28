@@ -1,0 +1,6 @@
+{
+  "culture": "vi",
+  "texts": {
+    "TencentCloud:10101": "Kích thước tệp tải lên không được vượt quá giới hạn lưu trữ của Tencent Cloud {Size}!"
+  }
+}

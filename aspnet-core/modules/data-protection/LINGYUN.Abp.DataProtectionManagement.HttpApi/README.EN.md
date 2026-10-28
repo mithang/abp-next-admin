@@ -29,4 +29,4 @@ Data protection management HTTP API module, providing REST API interfaces for da
 
 ## Related Links
 
-* [中文文档](./README.md)
+* [Tiếng Việt](./README.md)

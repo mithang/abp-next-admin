@@ -10,11 +10,11 @@ namespace LINGYUN.Abp.Elasticsearch;
 public interface IExpressionQueryService
 {
     /// <summary>
-    /// 查询符合条件的文档数量
+    /// Truy vấn số lượng tài liệu thỏa mãn điều kiện
     /// </summary>
-    /// <typeparam name="TDocument">文档类型</typeparam>
-    /// <param name="indexName">文档索引</param>
-    /// <param name="expression">查询表达式树</param>
+    /// <typeparam name="TDocument">Loại tài liệu</typeparam>
+    /// <param name="indexName">Chỉ mục tài liệu</param>
+    /// <param name="expression">Cây biểu thức truy vấn</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<long> GetCountAsync<TDocument>(
@@ -22,17 +22,17 @@ public interface IExpressionQueryService
         Expression<Func<TDocument, bool>> expression,
         CancellationToken cancellationToken = default) where TDocument : class;
     /// <summary>
-    /// 查询符合条件的文档列表
+    /// Truy vấn danh sách tài liệu thỏa mãn điều kiện
     /// </summary>
-    /// <typeparam name="TDocument">文档类型</typeparam>
-    /// <param name="indexName">文档索引</param>
-    /// <param name="expression">查询表达式树</param>
-    /// <param name="sorting">排序字段</param>
-    /// <param name="maxResultCount">最大返回数据大小</param>
-    /// <param name="skipCount">跳过数据大小</param>
-    /// <param name="sourceExcludes">包含字段</param>
-    /// <param name="sourceIncludes">忽略字段</param>
-    /// <param name="beginMarker">排序起始字段</param>
+    /// <typeparam name="TDocument">Loại tài liệu</typeparam>
+    /// <param name="indexName">Chỉ mục tài liệu</param>
+    /// <param name="expression">Cây biểu thức truy vấn</param>
+    /// <param name="sorting">Trường sắp xếp</param>
+    /// <param name="maxResultCount">Kích thước dữ liệu tối đa trả về</param>
+    /// <param name="skipCount">Kích thước dữ liệu bỏ qua</param>
+    /// <param name="sourceExcludes">Trường bao gồm</param>
+    /// <param name="sourceIncludes">Trường bỏ qua</param>
+    /// <param name="beginMarker">Trường bắt đầu sắp xếp</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<List<TDocument>> GetListAsync<TDocument>(

@@ -93,7 +93,7 @@ public class TencentBlobProvider : IBlobProvider
         string blobName,
         CancellationToken cancellationToken = default)
     {
-        // 腾讯云Oss没有目录的概念,新建对象时可以模拟目录
+        // Tencent Cloud OSS không có khái niệm thư mục, khi tạo đối tượng mới có thể mô phỏng thư mục
         return Task.CompletedTask;
     }
 
@@ -126,7 +126,7 @@ public class TencentBlobProvider : IBlobProvider
         bool isAttachmentContent = true,
         CancellationToken cancellationToken = default)
     {
-        // TODO: 腾讯云需用户开通对象处理服务以支持预览, 不启用腾讯云的预览方式.
+        // TODO: Tencent Cloud yêu cầu người dùng bật dịch vụ xử lý đối tượng để hỗ trợ xem trước, không bật cách xem trước của Tencent Cloud.
         //return InternalGeneratePresignedUrlAsync(
         //    containerName,
         //    blobName,
@@ -142,7 +142,7 @@ public class TencentBlobProvider : IBlobProvider
         string blobName,
         CancellationToken cancellationToken = default)
     {
-        // 腾讯云Oss没有目录的概念,新建对象时可以模拟目录
+        // Tencent Cloud OSS không có khái niệm thư mục, khi tạo đối tượng mới có thể mô phỏng thư mục
         // https://cloud.tencent.com/document/product/436/13324
         return Task.CompletedTask;
     }
@@ -189,15 +189,15 @@ public class TencentBlobProvider : IBlobProvider
         // See: https://cloud.tencent.com/document/product/436/47238
         var preSignatureStruct = new PreSignatureStruct
         {
-            appid = configuration.AppId,//"1250000000"; //腾讯云账号 APPID
-            region = configuration.Region,//"COS_REGION"; //存储桶地域
-            bucket = bucket,//"examplebucket-1250000000"; //存储桶
-            key = objectName, //对象键
-            httpMethod = "GET", //HTTP 请求方法
-            isHttps = true, //生成 HTTPS 请求 URL
-            signDurationSecond = expiration.TotalSeconds.To<long>(), //请求签名时间
-            headers = null, //签名中需要校验的 header
-            queryParameters = null //签名中需要校验的 URL 中请求参数
+            appid = configuration.AppId,//"1250000000"; //APPID tài khoản Tencent Cloud
+            region = configuration.Region,//"COS_REGION"; //Vùng của bucket lưu trữ
+            bucket = bucket,//"examplebucket-1250000000"; //Bucket lưu trữ
+            key = objectName, //Khóa đối tượng
+            httpMethod = "GET", //Phương thức yêu cầu HTTP
+            isHttps = true, //Tạo URL yêu cầu HTTPS
+            signDurationSecond = expiration.TotalSeconds.To<long>(), //Thời gian ký yêu cầu
+            headers = null, //header cần kiểm tra trong chữ ký
+            queryParameters = null //Tham số yêu cầu trong URL cần kiểm tra trong chữ ký
         };
         var fileName = Path.GetFileName(blobName);
         var type = isAttachmentContent ? "attachment" : "inline";

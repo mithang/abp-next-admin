@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>阿里云验证码服务Abp集成</Description>
+		<Description>Tích hợp ABP cho dịch vụ mã xác thực Alibaba Cloud</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

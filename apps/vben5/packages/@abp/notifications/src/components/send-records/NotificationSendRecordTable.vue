@@ -139,9 +139,9 @@ const formOptions: VbenFormProps = {
       label: $t('Notifications.DisplayName:SendTime'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Kiểm soát form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi form khi nhấn Enter hay không
   submitOnEnter: true,
 };
 

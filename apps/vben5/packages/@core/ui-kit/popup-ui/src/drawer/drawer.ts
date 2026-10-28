@@ -10,128 +10,128 @@ export type CloseIconPlacement = 'left' | 'right';
 
 export interface DrawerProps {
   /**
-   * 是否挂载到内容区域
+   * Có gắn vào vùng nội dung hay không
    * @default false
    */
   appendToMain?: boolean;
   /**
-   * 取消按钮文字
+   * Văn bản nút hủy
    */
   cancelText?: string;
   class?: ClassType;
   /**
-   * 是否显示关闭按钮
+   * Có hiển thị nút đóng hay không
    * @default true
    */
   closable?: boolean;
   /**
-   * 关闭按钮的位置
+   * Vị trí nút đóng
    */
   closeIconPlacement?: CloseIconPlacement;
   /**
-   * 点击弹窗遮罩是否关闭弹窗
+   * Nhấn vào lớp phủ của hộp thoại có đóng hộp thoại hay không
    * @default true
    */
   closeOnClickModal?: boolean;
   /**
-   * 按下 ESC 键是否关闭弹窗
+   * Nhấn phím ESC có đóng hộp thoại hay không
    * @default true
    */
   closeOnPressEscape?: boolean;
   /**
-   * 确定按钮 loading
+   * Trạng thái loading của nút xác nhận
    * @default false
    */
   confirmLoading?: boolean;
   /**
-   * 确定按钮文字
+   * Văn bản nút xác nhận
    */
   confirmText?: string;
   contentClass?: string;
   /**
-   * 弹窗描述
+   * Mô tả hộp thoại
    */
   description?: string;
   /**
-   * 在关闭时销毁抽屉
+   * Hủy ngăn kéo khi đóng
    */
   destroyOnClose?: boolean;
   /**
-   * 是否显示底部
+   * Có hiển thị phần chân hay không
    * @default true
    */
   footer?: boolean;
   /**
-   * 弹窗底部样式
+   * Kiểu phần chân hộp thoại
    */
   footerClass?: ClassType;
   /**
-   * 是否显示顶栏
+   * Có hiển thị thanh trên cùng hay không
    * @default true
    */
   header?: boolean;
   /**
-   * 弹窗头部样式
+   * Kiểu phần đầu hộp thoại
    */
   headerClass?: ClassType;
   /**
-   * 弹窗是否显示
+   * Hộp thoại có hiển thị hay không
    * @default false
    */
   loading?: boolean;
   /**
-   * 是否显示遮罩
+   * Có hiển thị lớp phủ hay không
    * @default true
    */
   modal?: boolean;
 
   /**
-   * 是否自动聚焦
+   * Có tự động lấy tiêu điểm hay không
    */
   openAutoFocus?: boolean;
   /**
-   * 弹窗遮罩模糊效果
+   * Hiệu ứng làm mờ lớp phủ hộp thoại
    */
   overlayBlur?: number;
   /**
-   * 抽屉位置
+   * Vị trí ngăn kéo
    * @default right
    */
   placement?: DrawerPlacement;
 
   /**
-   * 是否显示取消按钮
+   * Có hiển thị nút hủy hay không
    * @default true
    */
   showCancelButton?: boolean;
   /**
-   * 是否显示确认按钮
+   * Có hiển thị nút xác nhận hay không
    * @default true
    */
   showConfirmButton?: boolean;
   /**
-   * 提交中（锁定抽屉状态）
+   * Đang gửi (khóa trạng thái ngăn kéo)
    */
   submitting?: boolean;
   /**
-   * 弹窗标题
+   * Tiêu đề hộp thoại
    */
   title?: string;
   /**
-   * 弹窗标题提示
+   * Gợi ý tiêu đề hộp thoại
    */
   titleTooltip?: string;
   /**
-   * 抽屉层级
+   * Cấp ngăn kéo
    */
   zIndex?: number;
 }
 
 export interface DrawerState extends DrawerProps {
-  /** 弹窗打开状态 */
+  /** Trạng thái mở hộp thoại */
   isOpen?: boolean;
   /**
-   * 共享数据
+   * Dữ liệu dùng chung
    */
   sharedData?: Record<string, any>;
 }
@@ -144,35 +144,35 @@ export type ExtendedDrawerApi = DrawerApi & {
 
 export interface DrawerApiOptions extends DrawerState {
   /**
-   * 独立的抽屉组件
+   * Thành phần ngăn kéo độc lập
    */
   connectedComponent?: Component;
   /**
-   * 关闭前的回调，返回 false 可以阻止关闭
+   * Callback trước khi đóng, trả về false có thể ngăn việc đóng
    * @returns
    */
   onBeforeClose?: () => MaybePromise<boolean | undefined>;
   /**
-   * 点击取消按钮的回调
+   * Callback khi nhấn nút hủy
    */
   onCancel?: () => void;
   /**
-   * 弹窗关闭动画结束的回调
+   * Callback khi kết thúc hiệu ứng đóng hộp thoại
    * @returns
    */
   onClosed?: () => void;
   /**
-   * 点击确定按钮的回调
+   * Callback khi nhấn nút xác nhận
    */
   onConfirm?: () => void;
   /**
-   * 弹窗状态变化回调
+   * Callback khi trạng thái hộp thoại thay đổi
    * @param isOpen
    * @returns
    */
   onOpenChange?: (isOpen: boolean) => void;
   /**
-   * 弹窗打开动画结束的回调
+   * Callback khi kết thúc hiệu ứng mở hộp thoại
    * @returns
    */
   onOpened?: () => void;

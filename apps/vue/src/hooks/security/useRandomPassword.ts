@@ -1,7 +1,7 @@
 import { useSettings } from '/@/hooks/abp/useSettings';
 /**
- * 摘自 https://www.html5tricks.com/demo/js-passwd-generator/index.html
- * 侵权请联系删除
+ * Trích từ https://www.html5tricks.com/demo/js-passwd-generator/index.html
+ * Nếu xâm phạm bản quyền, vui lòng liên hệ để gỡ bỏ
  */
 export function useRandomPassword() {
   const randomFunc = {
@@ -31,18 +31,18 @@ export function useRandomPassword() {
 
   function generatePassword() {
     const { settingProvider } = useSettings();
-    // 根据配置项生成随机密码
-    // 密码长度
+    // Tạo mật khẩu ngẫu nhiên theo các tùy chọn cấu hình
+    // Độ dài mật khẩu
     const length = settingProvider.getNumber('Abp.Identity.Password.RequiredLength');
-    // 需要小写字母
+    // Cần chữ thường
     const lower = settingProvider.isTrue('Abp.Identity.Password.RequireLowercase');
-    // 需要大写字母
+    // Cần chữ hoa
     const upper = settingProvider.isTrue('Abp.Identity.Password.RequireUppercase');
-    // 需要数字
+    // Cần chữ số
     const number = settingProvider.isTrue('Abp.Identity.Password.RequireDigit');
-    // 需要符号
+    // Cần ký tự đặc biệt
     const symbol = settingProvider.isTrue('Abp.Identity.Password.RequireNonAlphanumeric');
-    // 默认生成数字
+    // Mặc định tạo chữ số
     const defaultNumber = !lower && !upper && !number && !symbol;
 
     let generatedPassword = '';

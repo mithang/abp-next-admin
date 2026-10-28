@@ -47,9 +47,9 @@ class NotifierManageController extends GetxController {
       },
       cancel: () {
         if (super.isClosed) {
-          // 页面退出时需要取消网络请求
+          // Khi thoát trang cần hủy yêu cầu mạng
           requestOptions.cancel();
-          // 页面退出时需要改变加载状态
+          // Khi thoát trang cần thay đổi trạng thái tải
           _stateService.changeLoadingState(notification, false);
         }
       },

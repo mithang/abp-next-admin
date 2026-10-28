@@ -2,34 +2,34 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 日程参与者的接受状态
+/// Trạng thái chấp nhận của người tham gia lịch trình
 /// </summary>
-[Description("日程参与者的接受状态")]
+[Description("Trạng thái chấp nhận của người tham gia lịch trình")]
 public enum ScheduleAttendeeResponseStatus : uint
 {
     /// <summary>
-    /// 未处理
+    /// Chưa xử lý
     /// </summary>
-    [Description("未处理")]
+    [Description("Chưa xử lý")]
     UnProcessed = 0,
     /// <summary>
-    /// 待定
+    /// Đang chờ quyết định
     /// </summary>
-    [Description("待定")]
+    [Description("Đang chờ quyết định")]
     Determined = 1,
     /// <summary>
-    /// 全部接受
+    /// Chấp nhận toàn bộ
     /// </summary>
-    [Description("全部接受")]
+    [Description("Chấp nhận toàn bộ")]
     AcceptAll = 2,
     /// <summary>
-    /// 仅接受一次
+    /// Chỉ chấp nhận một lần
     /// </summary>
-    [Description("仅接受一次")]
+    [Description("Chỉ chấp nhận một lần")]
     AcceptedOnce = 3,
     /// <summary>
-    /// 拒绝
+    /// Từ chối
     /// </summary>
-    [Description("拒绝")]
+    [Description("Từ chối")]
     Refuse = 4,
 }

@@ -24,10 +24,10 @@ function lockDrawer() {
 }
 </script>
 <template>
-  <Drawer title="基础抽屉示例" title-tooltip="标题提示内容">
+  <Drawer title="Ví dụ ngăn kéo cơ bản" title-tooltip="Nội dung gợi ý tiêu đề">
     <template #extra> extra </template>
     base demo
-    <Button type="primary" @click="lockDrawer">锁定抽屉状态</Button>
+    <Button type="primary" @click="lockDrawer">Khóa trạng thái ngăn kéo</Button>
     <!-- <template #prepend-footer> slot </template> -->
     <!-- <template #append-footer> prepend slot </template> -->
     <!-- <template #center-footer> center slot </template> -->

@@ -1,8 +1,8 @@
 # LINGYUN.Abp.Exporter.Pdf
 
-Pdf导出模块
+Mô-đun xuất Pdf
 
-## 配置使用
+## Cấu hình sử dụng
 
 
 ```csharp
@@ -16,7 +16,7 @@ Pdf导出模块
     }
 ```
 
-> 导出数据
+> Xuất dữ liệu
 ```csharp
     public class ExportDemoClass
     {

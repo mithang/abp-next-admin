@@ -4,7 +4,7 @@ import { Store } from '@vben-core/shared/store';
 import { bindMethods, isFunction } from '@vben-core/shared/utils';
 
 export class DrawerApi {
-  // 共享数据
+  // Dữ liệu dùng chung
   public sharedData: Record<'payload', any> = {
     payload: {},
   };
@@ -86,12 +86,12 @@ export class DrawerApi {
   }
 
   /**
-   * 关闭抽屉
-   * @description 关闭抽屉时会调用 onBeforeClose 钩子函数，如果 onBeforeClose 返回 false，则不关闭弹窗
+   * Đóng drawer
+   * @description Khi đóng drawer sẽ gọi hàm hook onBeforeClose, nếu onBeforeClose trả về false thì không đóng popup
    */
   async close() {
-    // 通过 onBeforeClose 钩子函数来判断是否允许关闭弹窗
-    // 如果 onBeforeClose 返回 false，则不关闭弹窗
+    // Dựa vào hàm hook onBeforeClose để xác định có cho phép đóng popup không
+    // Nếu onBeforeClose trả về false thì không đóng popup
     const allowClose = (await this.api.onBeforeClose?.()) ?? true;
     if (allowClose) {
       this.store.setState((prev) => ({
@@ -107,16 +107,16 @@ export class DrawerApi {
   }
 
   /**
-   * 锁定抽屉状态（用于提交过程中的等待状态）
-   * @description 锁定状态将禁用默认的取消按钮，使用spinner覆盖抽屉内容，隐藏关闭按钮，阻止手动关闭弹窗，将默认的提交按钮标记为loading状态
-   * @param isLocked 是否锁定
+   * Khóa trạng thái drawer (dùng cho trạng thái chờ trong quá trình gửi)
+   * @description Trạng thái khóa sẽ vô hiệu hóa nút hủy mặc định, dùng spinner phủ lên nội dung drawer, ẩn nút đóng, ngăn đóng popup thủ công, đánh dấu nút gửi mặc định ở trạng thái loading
+   * @param isLocked Có khóa không
    */
   lock(isLocked: boolean = true) {
     return this.setState({ submitting: isLocked });
   }
 
   /**
-   * 取消操作
+   * Hủy thao tác
    */
   onCancel() {
     if (this.api.onCancel) {
@@ -127,7 +127,7 @@ export class DrawerApi {
   }
 
   /**
-   * 弹窗关闭动画播放完毕后的回调
+   * Callback sau khi animation đóng popup phát xong
    */
   onClosed() {
     if (!this.state.isOpen) {
@@ -136,14 +136,14 @@ export class DrawerApi {
   }
 
   /**
-   * 确认操作
+   * Xác nhận thao tác
    */
   onConfirm() {
     this.api.onConfirm?.();
   }
 
   /**
-   * 弹窗打开动画播放完毕后的回调
+   * Callback sau khi animation mở popup phát xong
    */
   onOpened() {
     if (this.state.isOpen) {
@@ -162,8 +162,7 @@ export class DrawerApi {
 
   setState(
     stateOrFn:
-      | ((prev: DrawerState) => Partial<DrawerState>)
-      | Partial<DrawerState>,
+      ((prev: DrawerState) => Partial<DrawerState>) | Partial<DrawerState>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState(stateOrFn);
@@ -174,8 +173,8 @@ export class DrawerApi {
   }
 
   /**
-   * 解除抽屉的锁定状态
-   * @description 解除由lock方法设置的锁定状态，是lock(false)的别名
+   * Hủy trạng thái khóa của drawer
+   * @description Hủy trạng thái khóa do phương thức lock đặt, là bí danh của lock(false)
    */
   unlock() {
     return this.lock(false);

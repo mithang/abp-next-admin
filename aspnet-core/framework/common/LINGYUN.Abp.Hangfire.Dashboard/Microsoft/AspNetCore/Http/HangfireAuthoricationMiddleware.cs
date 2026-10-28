@@ -7,7 +7,7 @@ public class HangfireAuthoricationMiddleware : IMiddleware, ITransientDependency
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        // 通过 iframe 加载页面的话,初次传递 access_token 到 QueryString
+        // Khi tải trang qua iframe, lần đầu truyền access_token vào QueryString
         if (context.Request.Path.StartsWithSegments("/hangfire") && 
             context.User.Identity?.IsAuthenticated != true)
         {

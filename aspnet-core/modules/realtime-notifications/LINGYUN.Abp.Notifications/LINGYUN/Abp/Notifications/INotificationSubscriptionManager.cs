@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知订阅管理器
+/// Trình quản lý đăng ký thông báo
 /// </summary>
 public interface INotificationSubscriptionManager
 {
     /// <summary>
-    /// 是否已订阅
+    /// Đã đăng ký hay chưa
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="userId">用户标识</param>
-    /// <param name="notificationName">通知名称</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="userId">Định danh người dùng</param>
+    /// <param name="notificationName">Tên thông báo</param>
     /// <returns></returns>
     Task<bool> IsSubscribedAsync(
         Guid? tenantId, 
@@ -23,11 +23,11 @@ public interface INotificationSubscriptionManager
         string notificationName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 订阅通知
+    /// Đăng ký thông báo
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="identifier">用户标识</param>
-    /// <param name="notificationName">通知名称</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="identifier">Định danh người dùng</param>
+    /// <param name="notificationName">Tên thông báo</param>
     /// <returns></returns>
     Task SubscribeAsync(
         Guid? tenantId,
@@ -35,11 +35,11 @@ public interface INotificationSubscriptionManager
         string notificationName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 订阅通知
+    /// Đăng ký thông báo
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="identifiers">用户标识列表</param>
-    /// <param name="notificationName">通知名称</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="identifiers">Danh sách định danh người dùng</param>
+    /// <param name="notificationName">Tên thông báo</param>
     /// <returns></returns>
     Task SubscribeAsync(
         Guid? tenantId, 
@@ -47,21 +47,21 @@ public interface INotificationSubscriptionManager
         string notificationName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 取消所有用户订阅
+    /// Hủy đăng ký của tất cả người dùng
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="notificationName">通知名称</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="notificationName">Tên thông báo</param>
     /// <returns></returns>
     Task UnsubscribeAllAsync(
         Guid? tenantId, 
         string notificationName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 取消订阅
+    /// Hủy đăng ký
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="identifier">用户标识</param>
-    /// <param name="notificationName">通知名称</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="identifier">Định danh người dùng</param>
+    /// <param name="notificationName">Tên thông báo</param>
     /// <returns></returns>
     Task UnsubscribeAsync(
         Guid? tenantId, 
@@ -69,11 +69,11 @@ public interface INotificationSubscriptionManager
         string notificationName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 取消订阅
+    /// Hủy đăng ký
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="identifiers">用户标识列表</param>
-    /// <param name="notificationName">通知名称</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="identifiers">Danh sách định danh người dùng</param>
+    /// <param name="notificationName">Tên thông báo</param>
     /// <returns></returns>
     Task UnsubscribeAsync(
         Guid? tenantId, 
@@ -81,11 +81,11 @@ public interface INotificationSubscriptionManager
         string notificationName,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取通知被订阅用户列表
+    /// Lấy danh sách người dùng đã đăng ký thông báo
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="notificationName">通知名称</param>
-    /// <param name="identifiers">需要检查的用户列表</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="notificationName">Tên thông báo</param>
+    /// <param name="identifiers">Danh sách người dùng cần kiểm tra</param>
     /// <returns></returns>
     Task<List<NotificationSubscriptionInfo>> GetUsersSubscriptionsAsync(
         Guid? tenantId, 
@@ -93,20 +93,20 @@ public interface INotificationSubscriptionManager
         IEnumerable<UserIdentifier>? identifiers = null,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取用户订阅列表
+    /// Lấy danh sách đăng ký của người dùng
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="userId">用户标识</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="userId">Định danh người dùng</param>
     /// <returns></returns>
     Task<List<NotificationSubscriptionInfo>> GetUserSubscriptionsAsync(
         Guid? tenantId, 
         Guid userId,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取用户订阅列表
+    /// Lấy danh sách đăng ký của người dùng
     /// </summary>
-    /// <param name="tenantId">租户</param>
-    /// <param name="userName">用户名</param>
+    /// <param name="tenantId">Tenant</param>
+    /// <param name="userName">Tên người dùng</param>
     /// <returns></returns>
     Task<List<NotificationSubscriptionInfo>> GetUserSubscriptionsAsync(
         Guid? tenantId, 

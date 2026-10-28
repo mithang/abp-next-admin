@@ -6,14 +6,14 @@ namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Tags.Request;
 public class WeChatWorkDeleteStrategyTagRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 标签组的id列表
+    /// Danh sách id của nhóm thẻ
     /// </summary>
     [CanBeNull]
     [JsonProperty("group_id")]
     [JsonPropertyName("group_id")]
     public string[]? GroupId { get; }
     /// <summary>
-    /// 标签组的id列表
+    /// Danh sách id của nhóm thẻ
     /// </summary>
     [CanBeNull]
     [JsonProperty("tag_id")]

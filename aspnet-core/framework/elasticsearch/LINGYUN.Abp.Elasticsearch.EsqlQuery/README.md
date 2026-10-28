@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Elasticsearch.EsqlQuery
 
-[IExpressionQueryService](../LINGYUN.Abp.Elasticsearch/LINGYUN/Abp/Elasticsearch/IExpressionQueryService.cs) 的ES|QL查询集成.  
+[IExpressionQueryService](../LINGYUN.Abp.Elasticsearch/LINGYUN/Abp/Elasticsearch/IExpressionQueryService.cs) là tích hợp truy vấn ES|QL.  
 
-**注意**: 
-* 使用 ES|QL 查询方案不能进行深度分页,数据条目超出10000时依旧存在ES分页限制.  
-如需支持深度分页,请使用默认  [ExpressionQueryService](../LINGYUN.Abp.Elasticsearch/LINGYUN/Abp/Elasticsearch/ExpressionQueryService.cs) `search_after` 方案
+**Lưu ý**: 
+* Khi dùng phương án truy vấn ES|QL thì không thể phân trang sâu; khi số lượng bản ghi vượt quá 10000 vẫn tồn tại giới hạn phân trang của ES.  
+Nếu cần hỗ trợ phân trang sâu, hãy dùng phương án `search_after` mặc định của  [ExpressionQueryService](../LINGYUN.Abp.Elasticsearch/LINGYUN/Abp/Elasticsearch/ExpressionQueryService.cs)
 
-* 不支持使用 由于ES|QL不支持 `Skip`, 暂不支持分页查询  
+* Do ES|QL không hỗ trợ `Skip` nên tạm thời chưa hỗ trợ truy vấn phân trang  
 
-* 对于嵌套类型的集合方法测试未通过,请勿使用集合的过滤条件  
+* Các phương thức tập hợp trên kiểu lồng nhau chưa vượt qua kiểm thử, vui lòng không dùng điều kiện lọc của tập hợp  
 
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpElasticsearchEsqlQueryModule))]

@@ -3,7 +3,7 @@ import tableProps from 'vxe-table/es/table/src/props';
 import { CSSProperties } from 'vue';
 
 /**
- * @description: table二次开发需要后，需要接受的所有prop属性
+ * @description: Tất cả các thuộc tính prop cần nhận sau khi phát triển lần hai cho table
  */
 export const basicProps = {
   ...tableProps,

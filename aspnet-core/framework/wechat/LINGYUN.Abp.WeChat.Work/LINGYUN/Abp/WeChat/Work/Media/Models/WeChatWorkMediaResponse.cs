@@ -4,23 +4,23 @@ namespace LINGYUN.Abp.WeChat.Work.Media.Models;
 public class WeChatWorkMediaResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 媒体文件类型
+    /// Loại tệp phương tiện
     /// </summary>
     /// <remarks>
-    /// 图片（image）
-    /// 语音（voice）
-    /// 视频（video）
-    /// 普通文件(file)
+    /// Hình ảnh (image)
+    /// Giọng nói (voice)
+    /// Video (video)
+    /// Tệp thông thường (file)
     /// </remarks>
     [JsonProperty("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 媒体文件上传后获取的唯一标识，3天内有效
+    /// Định danh duy nhất thu được sau khi tải lên tệp phương tiện, có hiệu lực trong 3 ngày
     /// </summary>
     [JsonProperty("media_id")]
     public string MediaId { get; set; } = default!;
     /// <summary>
-    /// 媒体文件上传时间戳
+    /// Dấu thời gian tải lên tệp phương tiện
     /// </summary>
     [JsonProperty("created_at")]
     public string CreatedAt { get; set; } = default!;

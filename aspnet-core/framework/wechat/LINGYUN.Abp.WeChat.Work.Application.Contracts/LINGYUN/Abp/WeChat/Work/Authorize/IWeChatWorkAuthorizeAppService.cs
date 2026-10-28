@@ -5,21 +5,21 @@ namespace LINGYUN.Abp.WeChat.Work.Authorize;
 public interface IWeChatWorkAuthorizeAppService : IApplicationService
 {
     /// <summary>
-    /// 生成授权链接
+    /// Tạo liên kết ủy quyền
     /// </summary>
-    /// <param name="urlName">授权回调Url名称</param>
-    /// <param name="responseType">响应类型</param>
-    /// <param name="scope">授权范围</param>
+    /// <param name="urlName">Tên Url gọi lại ủy quyền</param>
+    /// <param name="responseType">Kiểu phản hồi</param>
+    /// <param name="scope">Phạm vi ủy quyền</param>
     /// <returns></returns>
     Task<string> GenerateOAuth2AuthorizeAsync(
         string urlName,
         string responseType = "code",
         string scope = "snsapi_base");
     /// <summary>
-    /// 生成登录链接
+    /// Tạo liên kết đăng nhập
     /// </summary>
-    /// <param name="urlName">授权回调Url名称</param>
-    /// <param name="loginType">登录类型</param>
+    /// <param name="urlName">Tên Url gọi lại ủy quyền</param>
+    /// <param name="loginType">Kiểu đăng nhập</param>
     /// <returns></returns>
     Task<string> GenerateOAuth2LoginAsync(
         string urlName,

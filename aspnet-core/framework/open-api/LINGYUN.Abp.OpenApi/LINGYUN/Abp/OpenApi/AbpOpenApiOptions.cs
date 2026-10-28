@@ -5,17 +5,17 @@ namespace LINGYUN.Abp.OpenApi;
 public class AbpOpenApiOptions
 {
     /// <summary>
-    /// 启用Api签名检查
+    /// Bật kiểm tra chữ ký Api
     /// </summary>
     /// <remarks>
-    /// 默认: true
+    /// Mặc định: true
     /// </remarks>
     public bool IsEnabled { get; set; }
     /// <summary>
-    /// 请求随机数过期时间
+    /// Thời gian hết hạn số ngẫu nhiên của yêu cầu
     /// </summary>
     /// <remarks>
-    /// 默认: 10分钟
+    /// Mặc định: 10 phút
     /// </remarks>
     public TimeSpan RequestNonceExpireIn { get; set; }
 

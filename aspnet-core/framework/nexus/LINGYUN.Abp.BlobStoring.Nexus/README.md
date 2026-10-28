@@ -1,18 +1,18 @@
 # LINGYUN.Abp.BlobStoring.Nexus
 
-[English](./README.EN.md) | 简体中文
+[English](./README.EN.md) | Tiếng Việt
 
-基于 Sonatype Nexus 的 Blob 存储提供程序。
+Nhà cung cấp lưu trữ Blob dựa trên Sonatype Nexus.
 
-## 功能
+## Tính năng
 
-* 支持将文件存储到 Nexus 仓库
-* 支持文件的上传、下载、删除等基本操作
-* 支持文件路径规范化
-* 支持文件重复检查和覆盖选项
-* 支持多租户
+* Hỗ trợ lưu trữ tệp vào kho Nexus
+* Hỗ trợ các thao tác cơ bản với tệp như tải lên, tải xuống, xóa
+* Hỗ trợ chuẩn hóa đường dẫn tệp
+* Hỗ trợ kiểm tra tệp trùng lặp và tùy chọn ghi đè
+* Hỗ trợ đa thuê bao (multi-tenant)
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpBlobStoringNexusModule))]
@@ -22,11 +22,11 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-### 1. 配置 Nexus 存储
+### 1. Cấu hình lưu trữ Nexus
 
-在 `appsettings.json` 中配置 Nexus 存储选项：
+Cấu hình tùy chọn lưu trữ Nexus trong `appsettings.json`:
 
 ```json
 {
@@ -38,7 +38,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-### 2. 配置容器
+### 2. Cấu hình container
 
 ```csharp
 Configure<AbpBlobStoringOptions>(options =>
@@ -53,7 +53,7 @@ Configure<AbpBlobStoringOptions>(options =>
 });
 ```
 
-### 3. 使用 BLOB 存储
+### 3. Sử dụng bộ lưu trữ BLOB
 
 ```csharp
 public class MyService
@@ -77,19 +77,19 @@ public class MyService
 }
 ```
 
-## 配置选项
+## Tùy chọn cấu hình
 
-* Repository - Nexus 仓库名称
+* Repository - tên kho Nexus
 
-## 最佳实践
+## Thực hành tốt nhất
 
-1. 合理规划文件路径和命名，便于管理和维护
-2. 根据实际需求配置文件覆盖选项
-3. 合理使用多租户功能，确保数据隔离
+1. Lập kế hoạch hợp lý cho đường dẫn và tên tệp để dễ quản lý và bảo trì
+2. Cấu hình tùy chọn ghi đè tệp theo nhu cầu thực tế
+3. Sử dụng hợp lý tính năng đa thuê bao để đảm bảo cách ly dữ liệu
 
-## 注意事项
+## Lưu ý
 
-1. 确保 Nexus 仓库已正确配置并可访问
-2. 文件路径会被自动规范化，将反斜杠替换为正斜杠
-3. 默认情况下不允许覆盖已存在的文件，需要显式设置 OverrideExisting 选项
-4. 文件操作可能会受到网络状况的影响，建议添加适当的错误处理机制
+1. Đảm bảo kho Nexus đã được cấu hình đúng và có thể truy cập
+2. Đường dẫn tệp sẽ được tự động chuẩn hóa, thay dấu gạch chéo ngược bằng dấu gạch chéo xuôi
+3. Theo mặc định không cho phép ghi đè tệp đã tồn tại, cần đặt tường minh tùy chọn OverrideExisting
+4. Thao tác với tệp có thể bị ảnh hưởng bởi tình trạng mạng, nên thêm cơ chế xử lý lỗi phù hợp

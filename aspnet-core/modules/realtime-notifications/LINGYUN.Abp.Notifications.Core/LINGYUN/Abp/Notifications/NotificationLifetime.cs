@@ -1,17 +1,17 @@
 ﻿namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 通知存活时间
-/// 发送之后取消用户订阅,类似于微信小程序
+/// Thời gian tồn tại của thông báo
+/// Sau khi gửi sẽ hủy đăng ký của người dùng, tương tự WeChat Mini Program
 /// </summary>
 public enum NotificationLifetime
 {
     /// <summary>
-    /// 持久化
+    /// Lưu trữ bền vững
     /// </summary>
     Persistent = 0,
     /// <summary>
-    /// 一次性
+    /// Một lần
     /// </summary>
     OnlyOne = 1
 }

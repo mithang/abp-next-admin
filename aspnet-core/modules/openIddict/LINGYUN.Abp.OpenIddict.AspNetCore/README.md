@@ -3,72 +3,72 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.AspNetCore%2FLINGYUN.Abp.OpenIddict.AspNetCore.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.AspNetCore.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.AspNetCore)
 
-## 简介
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.AspNetCore` 是基于 ABP OpenIddict 的 ASP.NET Core 集成模块，提供了用户信息扩展和头像URL声明支持。
+`LINGYUN.Abp.OpenIddict.AspNetCore` là mô-đun tích hợp ASP.NET Core dựa trên ABP OpenIddict, cung cấp mở rộng thông tin người dùng và hỗ trợ claim URL ảnh đại diện.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 扩展用户信息端点
-  * 支持返回用户头像URL
-  * 扩展标准 OpenID Connect 声明
-  * 支持多租户
+* Mở rộng endpoint thông tin người dùng
+  * Hỗ trợ trả về URL ảnh đại diện của người dùng
+  * Mở rộng claim chuẩn OpenID Connect
+  * Hỗ trợ đa tenant
 
-* 头像URL声明贡献者
-  * 自动添加用户头像URL声明
-  * 与身份系统集成
+* Bên đóng góp claim URL ảnh đại diện
+  * Tự động thêm claim URL ảnh đại diện của người dùng
+  * Tích hợp với hệ thống danh tính
 
-* OpenIddict 服务器配置
-  * 预配置头像URL声明支持
-  * 继承自 Volo.Abp.OpenIddict.AbpOpenIddictAspNetCoreModule
+* Cấu hình máy chủ OpenIddict
+  * Cấu hình sẵn hỗ trợ claim URL ảnh đại diện
+  * Kế thừa từ Volo.Abp.OpenIddict.AbpOpenIddictAspNetCoreModule
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.AspNetCore
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictAspNetCoreModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictAspNetCoreModule))]` vào lớp mô-đun của bạn.
 
-2. 用户信息端点将自动扩展以包含以下声明：
-   * sub (用户ID)
-   * tenant_id (租户ID，如果启用了多租户)
-   * preferred_username (用户名)
-   * family_name (姓氏)
-   * given_name (名字)
-   * picture (头像URL)
+2. Endpoint thông tin người dùng sẽ tự động được mở rộng để bao gồm các claim sau:
+   * sub (ID người dùng)
+   * tenant_id (ID tenant, nếu đã bật đa tenant)
+   * preferred_username (Tên người dùng)
+   * family_name (Họ)
+   * given_name (Tên)
+   * picture (URL ảnh đại diện)
    * email
    * email_verified
    * phone_number
    * phone_number_verified
    * role
 
-3. 头像URL声明会自动添加到用户的身份声明中。
+3. Claim URL ảnh đại diện sẽ tự động được thêm vào claim danh tính của người dùng.
 
-## 配置
+## Cấu hình
 
-默认情况下，模块已预配置了所需的设置。如果需要自定义配置，可以在模块的 `PreConfigureServices` 方法中修改：
+Theo mặc định, mô-đun đã được cấu hình sẵn các thiết lập cần thiết. Nếu cần tùy chỉnh cấu hình, có thể sửa trong phương thức `PreConfigureServices` của mô-đun:
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
 {
     PreConfigure<OpenIddictServerBuilder>(builder =>
     {
-        // 自定义配置
+        // Cấu hình tùy chỉnh
         builder.RegisterClaims(new[] { "your_custom_claim" });
     });
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-* 头像URL声明的类型为 `IdentityConsts.ClaimType.Avatar.Name`
-* 用户信息端点需要相应的作用域权限才能返回信息：
-  * profile: 基本信息和头像
-  * email: 电子邮件相关信息
-  * phone: 电话号码相关信息
-  * roles: 用户角色信息
+* Loại của claim URL ảnh đại diện là `IdentityConsts.ClaimType.Avatar.Name`
+* Endpoint thông tin người dùng cần quyền phạm vi tương ứng mới trả về thông tin:
+  * profile: Thông tin cơ bản và ảnh đại diện
+  * email: Thông tin liên quan đến email
+  * phone: Thông tin liên quan đến số điện thoại
+  * roles: Thông tin vai trò người dùng

@@ -1,7 +1,7 @@
 import { GridMethods, TableMethods } from 'vxe-table';
 
 export const gridComponentMethodKeys: (keyof GridMethods | keyof TableMethods)[] = [
-  // vxe-grid 部分
+  // Phần vxe-grid
   'dispatchEvent',
   'commitProxy',
   'getFormItems',
@@ -12,7 +12,7 @@ export const gridComponentMethodKeys: (keyof GridMethods | keyof TableMethods)[]
   'revert',
   'getProxyInfo',
 
-  // vxe-table和vxe-grid公共部分
+  // Phần chung của vxe-table và vxe-grid
   'clearAll',
   'syncData',
   'updateData',
@@ -126,6 +126,6 @@ export const gridComponentMethodKeys: (keyof GridMethods | keyof TableMethods)[]
   'blur',
   'connect',
 
-  //... 如有缺少在此处追加
+  //... Nếu còn thiếu thì bổ sung tại đây
   // xxx
 ];

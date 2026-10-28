@@ -53,7 +53,7 @@ public class YourService
     {
         var result = await _ipLocationResolver.ResolveAsync(ip);
 
-        // 223.5.5.5 => 浙江杭州
+        // 223.5.5.5 => Chiết Giang Hàng Châu
         return result.Location?.Remarks;
     }
 }
@@ -94,9 +94,9 @@ That means a single singleton reader serves every culture — no need for one re
 
 | Current culture | Remarks for `8.8.8.8` | Remarks for `223.5.5.5` |
 |---|---|---|
-| `zh-CN` | 美国 | 浙江杭州 |
+| `zh-CN` | Mỹ | Chiết Giang Hàng Châu |
 | `en-US` | United States | China |
-| `ja-JP` | アメリカ | 中国 |
+| `ja-JP` | アメリカ | Trung Quốc |
 | `ko-KR` (not in database, falls back to `Name`) | United States | China |
 
 ### Remarks rules
@@ -107,9 +107,9 @@ The remarks rules are handled by `LINGYUN.Abp.IP.Location` and shared with `LING
 Configure<AbpIPLocationResolveOptions>(options =>
 {
     // country names removed from the remarks (hide the country for Chinese IPs)
-    options.RemoveCountry = new[] { "中国" };
+    options.RemoveCountry = new[] { "Trung Quốc" };
     // province names removed from the remarks
-    // options.RemoveProvince = new[] { "香港特别行政区" };
+    // options.RemoveProvince = new[] { "Hồng Kông (Đặc khu hành chính)" };
 });
 ```
 
@@ -118,23 +118,23 @@ The options can also come from configuration (the `LINGYUN.Abp.IP.Location` modu
 ```json
 {
   "IPLocation": {
-    "RemoveCountry": [ "中国" ]
+    "RemoveCountry": [ "Trung Quốc" ]
   }
 }
 ```
 
 ```yaml
 # docker-compose environment
-- IPLocation__RemoveCountry__0=中国
+- IPLocation__RemoveCountry__0=Trung Quốc
 ```
 
 | Scenario | `Remarks` example |
 |---|---|
-| Country matches `RemoveCountry`, province and city present | `浙江杭州` (city only when province equals city) |
-| Country matches `RemoveCountry`, province only | `香港特别行政区` |
+| Country matches `RemoveCountry`, province and city present | `Chiết Giang Hàng Châu` (city only when province equals city) |
+| Country matches `RemoveCountry`, province only | `Hồng Kông (Đặc khu hành chính)` |
 | Country matches `RemoveCountry`, country data only | empty |
-| Province matches `RemoveProvince` | `杭州` (city only) |
-| Nothing matches | `美国`, `日本`, `德国` (country only) |
+| Province matches `RemoveProvince` | `Hàng Châu` (city only) |
+| Nothing matches | `Mỹ`, `Nhật Bản`, `Đức` (country only) |
 | Loopback / private / reserved / not in database | empty |
 
 > Name matching ignores case and surrounding whitespace, and applies to the IPs of every country.
@@ -196,7 +196,7 @@ GC=Concurrent Workstation, Toolchain=InProcessEmitToolchain (IterationCount=15)
 
 ## Links
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Trung](./README.md)
 * [MaxMind GeoIP2 .NET](https://github.com/maxmind/GeoIP2-dotnet)
 * [GeoLite2 free databases](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data)
 * [Offline mmdb download (wp-statistics/GeoLite2-City)](https://github.com/wp-statistics/GeoLite2-City)

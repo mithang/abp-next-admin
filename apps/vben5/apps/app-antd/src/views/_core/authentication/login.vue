@@ -164,7 +164,7 @@ onMounted(onInit);
       :show-register="isTrue('Abp.Account.IsSelfRegistrationEnabled')"
       @submit="onLogin"
     >
-      <!-- 第三方登录 -->
+      <!-- Đăng nhập bên thứ ba -->
       <template #third-party-login>
         <ThirdPartyLogin />
       </template>

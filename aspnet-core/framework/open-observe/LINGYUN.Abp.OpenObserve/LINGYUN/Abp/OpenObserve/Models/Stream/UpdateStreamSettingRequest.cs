@@ -5,11 +5,11 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 更新数据流设置请求
+/// Yêu cầu cập nhật cài đặt luồng dữ liệu
 /// </summary>
 /// <remarks>
 /// PUT /api/{org_id}/streams/{stream_name}/settings
-/// 支持 add/set/remove 的字段使用包装语法
+/// Các trường hỗ trợ add/set/remove sử dụng cú pháp bọc
 /// </remarks>
 public class UpdateStreamSettingRequest
 {

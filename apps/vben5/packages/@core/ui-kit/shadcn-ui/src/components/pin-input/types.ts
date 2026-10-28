@@ -1,28 +1,28 @@
 interface PinInputProps {
   class?: any;
   /**
-   * 验证码长度
+   * Độ dài mã xác minh
    */
   codeLength?: number;
   /**
-   * 发送验证码按钮文本
+   * Văn bản nút gửi mã xác minh
    */
   createText?: (countdown: number) => string;
   /**
-   * 是否禁用
+   * Có bị vô hiệu hóa hay không
    */
   disabled?: boolean;
   /**
-   * 自定义验证码发送逻辑
+   * Logic gửi mã xác minh tùy chỉnh
    * @returns
    */
   handleSendCode?: () => Promise<void>;
   /**
-   * 发送验证码按钮loading
+   * Trạng thái loading của nút gửi mã xác minh
    */
   loading?: boolean;
   /**
-   * 最大重试时间
+   * Thời gian thử lại tối đa
    */
   maxTime?: number;
 }

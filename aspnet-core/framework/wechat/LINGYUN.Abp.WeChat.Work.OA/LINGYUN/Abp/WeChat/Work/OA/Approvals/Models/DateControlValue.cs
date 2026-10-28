@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 日期/日期+时间控件值
+/// Giá trị điều khiển ngày/ngày + giờ
 /// </summary>
 public class DateControlValue : ControlValue
 {
     /// <summary>
-    /// 金额内容，在此填写金额控件的输入值
+    /// Nội dung số tiền, điền tại đây giá trị nhập của điều khiển số tiền
     /// </summary>
     [NotNull]
     [JsonProperty("date")]
@@ -29,14 +29,14 @@ public class DateControlValue : ControlValue
 public class DateValue
 {
     /// <summary>
-    /// 时间展示类型：day-日期；hour-日期+时间 ，和对应模板控件属性一致
+    /// Loại hiển thị thời gian: day-Ngày; hour-Ngày + giờ, nhất quán với thuộc tính điều khiển mẫu tương ứng
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 时间戳-字符串类型，在此填写日期/日期+时间控件的选择值，以此为准
+    /// Dấu thời gian - kiểu chuỗi, điền tại đây giá trị đã chọn của điều khiển ngày/ngày + giờ, lấy giá trị này làm chuẩn
     /// </summary>
     [NotNull]
     [JsonProperty("s_timestamp")]

@@ -6,10 +6,10 @@ namespace PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DataSeeder
     public interface IProjectNameDataSeeder
     {
         /// <summary>
-        /// 初始化数据
+        /// Khởi tạo dữ liệu
         /// </summary>
-        /// <param name="context">数据种子上下文</param>
-        /// <returns>任务</returns>
+        /// <param name="context">Ngữ cảnh seed dữ liệu</param>
+        /// <returns>Tác vụ</returns>
         Task SeedAsync(DataSeedContext context);
     }
 }

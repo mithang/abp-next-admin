@@ -1,18 +1,18 @@
 # LINGYUN.Abp.Serilog.Enrichers.UniqueId
 
-简体中文 | [English](./README.EN.md)
+Tiếng Việt | [English](./README.EN.md)
 
-日志属性添加唯一标识，使用雪花算法生成唯一ID。
+Thêm định danh duy nhất vào thuộc tính nhật ký, dùng thuật toán Snowflake để tạo ID duy nhất.
 
-## 功能特性
+## Tính năng
 
-* 为每个日志事件添加唯一标识
-* 基于雪花算法（Snowflake）生成分布式唯一ID
-* 支持自定义雪花算法配置
-* 支持代码配置和JSON配置两种方式
-* 与Serilog无缝集成
+* Thêm định danh duy nhất cho mỗi sự kiện nhật ký
+* Tạo ID duy nhất phân tán dựa trên thuật toán Snowflake
+* Hỗ trợ tùy chỉnh cấu hình thuật toán Snowflake
+* Hỗ trợ hai cách cấu hình: bằng code và bằng JSON
+* Tích hợp liền mạch với Serilog
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpSerilogEnrichersUniqueIdModule))]
@@ -22,41 +22,41 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-### 常量配置
+### Cấu hình hằng số
 
-* AbpSerilogUniqueIdConsts.UniqueIdPropertyName - 唯一标识字段的名称，默认为"UniqueId"
+* AbpSerilogUniqueIdConsts.UniqueIdPropertyName - tên của trường định danh duy nhất, mặc định là "UniqueId"
 
-### 雪花算法配置
+### Cấu hình thuật toán Snowflake
 
-通过 `AbpSerilogEnrichersUniqueIdOptions` 配置雪花算法参数：
+Cấu hình tham số thuật toán Snowflake qua `AbpSerilogEnrichersUniqueIdOptions`:
 
 ```json
 {
   "UniqueId": {
     "Snowflake": {
-      "WorkerId": 1,        // 工作机器ID
-      "DatacenterId": 1,    // 数据中心ID
-      "Sequence": 0,        // 序列号
-      "BaseTime": "2020-01-01 00:00:00"  // 基准时间
+      "WorkerId": 1,        // ID máy worker
+      "DatacenterId": 1,    // ID trung tâm dữ liệu
+      "Sequence": 0,        // Số thứ tự
+      "BaseTime": "2020-01-01 00:00:00"  // Thời gian cơ sở
     }
   }
 }
 ```
 
-## 使用方法
+## Cách sử dụng
 
-### 代码配置方式
+### Cách cấu hình bằng code
 
 ```csharp
 Log.Logger = new LoggerConfiguration()
     .Enrich.WithUniqueId()
-    // ...其他配置...
+    // ...cấu hình khác...
     .CreateLogger();
 ```
 
-### JSON配置方式
+### Cách cấu hình bằng JSON
 
 ```json
 {
@@ -69,18 +69,18 @@ Log.Logger = new LoggerConfiguration()
 }
 ```
 
-## 实现细节
+## Chi tiết triển khai
 
-该enricher使用雪花算法为每个日志事件生成一个唯一的ID。雪花算法的特点是：
+Enricher này dùng thuật toán Snowflake để tạo một ID duy nhất cho mỗi sự kiện nhật ký. Đặc điểm của thuật toán Snowflake là:
 
-* 生成的ID是64位的长整型
-* ID由时间戳、数据中心ID、工作机器ID和序列号组成
-* 保证在分布式环境下的唯一性
-* 基于时间戳的有序性
+* ID tạo ra là số nguyên dài 64 bit
+* ID gồm dấu thời gian, ID trung tâm dữ liệu, ID máy worker và số thứ tự
+* Đảm bảo tính duy nhất trong môi trường phân tán
+* Tính có thứ tự dựa trên dấu thời gian
 
-## 最佳实践
+## Thực tiễn tốt nhất
 
-1. 合理配置工作机器ID和数据中心ID，避免在分布式环境中产生冲突：
+1. Cấu hình hợp lý ID máy worker và ID trung tâm dữ liệu để tránh xung đột trong môi trường phân tán:
 ```json
 {
   "UniqueId": {
@@ -92,7 +92,7 @@ Log.Logger = new LoggerConfiguration()
 }
 ```
 
-2. 设置合适的基准时间以最大化ID的可用时间范围：
+2. Đặt thời gian cơ sở phù hợp để tối đa hóa khoảng thời gian ID có thể dùng:
 ```json
 {
   "UniqueId": {
@@ -103,11 +103,11 @@ Log.Logger = new LoggerConfiguration()
 }
 ```
 
-3. 在日志查询时可以使用UniqueId字段进行精确定位。
+3. Khi truy vấn nhật ký có thể dùng trường UniqueId để định vị chính xác.
 
-## 注意事项
+## Lưu ý
 
-1. 雪花算法生成的ID是趋势递增的，但不保证严格递增
-2. 工作机器ID和数据中心ID在集群中必须唯一
-3. 基准时间一旦设置就不能修改，否则可能导致ID重复
-4. 每个日志事件都会生成新的唯一ID，这可能会增加一些性能开销
+1. ID do thuật toán Snowflake tạo ra tăng dần theo xu hướng, nhưng không đảm bảo tăng nghiêm ngặt
+2. ID máy worker và ID trung tâm dữ liệu trong cụm phải là duy nhất
+3. Thời gian cơ sở một khi đã đặt thì không được sửa, nếu không có thể gây trùng ID
+4. Mỗi sự kiện nhật ký đều tạo ID duy nhất mới, điều này có thể làm tăng một chút chi phí hiệu năng

@@ -26,7 +26,7 @@ public abstract class AbpDataProtectionDbContext<TDbContext> : AbpDbContext<TDbC
 
         if (LazyServiceProvider != null)
         {
-            // TODO: 需要优化表达式树
+            // TODO: Cần tối ưu cây biểu thức
             //optionsBuilder.AddInterceptors(LazyServiceProvider.GetRequiredService<AbpDataProtectedWriteEntityInterceptor>());
             optionsBuilder.AddInterceptors(LazyServiceProvider.GetRequiredService<AbpDataProtectedWritePropertiesInterceptor>());
         }
@@ -42,7 +42,7 @@ public abstract class AbpDataProtectionDbContext<TDbContext> : AbpDbContext<TDbC
     {
         if (entry.Entity is IDataProtected data)
         {
-            // TODO: 埋点, 以后可用EF.Functions查询
+            // TODO: Thêm điểm theo dõi, sau này có thể truy vấn bằng EF.Functions
             //if (data.GetProperty(DataAccessKeywords.AUTH_ROLES) == null)
             //{
             //    data.SetProperty(DataAccessKeywords.AUTH_ROLES, CurrentUser.Roles);

@@ -1,11 +1,11 @@
 # LINGYUN.Abp.Exporter.Application.Contracts
 
-数据导出/导入接口契约层,定义通用的数据导入/导入服务接口
+Tầng hợp đồng giao diện xuất/nhập dữ liệu, định nghĩa các giao diện dịch vụ xuất/nhập dữ liệu dùng chung
 
-## 配置使用
+## Cấu hình và sử dụng
 
 
-> 配置模块依赖
+> Cấu hình phụ thuộc mô-đun
 ```csharp
 
 [DependsOn(
@@ -17,7 +17,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-> 定义导出类型
+> Định nghĩa kiểu xuất
 ```csharp
 public class DemoClassDto
 {
@@ -30,7 +30,7 @@ public class DemoClassDto
 }
 ```
 
-> 定义导入类型
+> Định nghĩa kiểu nhập
 ```csharp
 public class DemoClassImportInput
 {
@@ -43,7 +43,7 @@ public class DemoClassImportInput
 }
 ```
 
-> 定义数据过滤类型
+> Định nghĩa kiểu lọc dữ liệu
 ```csharp
 public class DemoClassExportListInput
 {
@@ -58,7 +58,7 @@ public class DemoClassExportListInput
 }
 ```
 
-> 导出数据
+> Xuất dữ liệu
 ```csharp
     public class ExportDemoClassExportAppService : IExporterAppService<DemoClassDto, DemoClassExportListInput>
     {
@@ -71,7 +71,7 @@ public class DemoClassExportListInput
 
         public async virtual Task<IRemoteStreamContent> ExportAsync(DemoClassExportListInput input)
         {
-            var dtos = 通过仓储接口查询数据列表;
+            var dtos = truy vấn danh sách dữ liệu qua giao diện kho lưu trữ;
 
             var stream = await _exporterProvider.ExportAsync(dtos);
 
@@ -80,7 +80,7 @@ public class DemoClassExportListInput
     }
 ```
 
-> 导入数据
+> Nhập dữ liệu
 ```csharp
     public class ExportDemoClassImportAppService : IImporterAppService<DemoClassImportInput>
     {
@@ -97,7 +97,7 @@ public class DemoClassExportListInput
 
             var demos = await _importerProvider.ImportAsync<DemoClass>(stream);
 
-            // 其他操作
+            // Các thao tác khác
         }
     }
 ```

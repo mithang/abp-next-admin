@@ -1,16 +1,16 @@
 # LINGYUN.Abp.LocalizationManagement.Application.Contracts
 
-本地化管理应用服务层契约模块，定义了本地化管理的应用服务接口、DTO对象和权限定义。
+Mô-đun hợp đồng tầng dịch vụ ứng dụng quản lý bản địa hóa, định nghĩa giao diện dịch vụ ứng dụng, đối tượng DTO và định nghĩa quyền của quản lý bản địa hóa.
 
-## 功能特性
+## Tính năng
 
-* 定义语言管理应用服务接口
-* 定义资源管理应用服务接口
-* 定义文本管理应用服务接口
-* 定义权限和授权
-* 提供DTO对象定义
+* Định nghĩa giao diện dịch vụ ứng dụng quản lý ngôn ngữ
+* Định nghĩa giao diện dịch vụ ứng dụng quản lý tài nguyên
+* Định nghĩa giao diện dịch vụ ứng dụng quản lý văn bản
+* Định nghĩa quyền và phân quyền
+* Cung cấp định nghĩa đối tượng DTO
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLocalizationManagementApplicationContractsModule))]
@@ -20,27 +20,27 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 权限定义
+## Định nghĩa quyền
 
-* LocalizationManagement.Resource - 授权对象是否允许访问资源
-* LocalizationManagement.Resource.Create - 授权对象是否允许创建资源
-* LocalizationManagement.Resource.Update - 授权对象是否允许修改资源
-* LocalizationManagement.Resource.Delete - 授权对象是否允许删除资源
-* LocalizationManagement.Language - 授权对象是否允许访问语言
-* LocalizationManagement.Language.Create - 授权对象是否允许创建语言
-* LocalizationManagement.Language.Update - 授权对象是否允许修改语言
-* LocalizationManagement.Language.Delete - 授权对象是否允许删除语言
-* LocalizationManagement.Text - 授权对象是否允许访问文档
-* LocalizationManagement.Text.Create - 授权对象是否允许创建文档
-* LocalizationManagement.Text.Update - 授权对象是否允许修改文档
-* LocalizationManagement.Text.Delete - 授权对象是否允许删除文档
+* LocalizationManagement.Resource - Đối tượng được ủy quyền có được phép truy cập tài nguyên hay không
+* LocalizationManagement.Resource.Create - Đối tượng được ủy quyền có được phép tạo tài nguyên hay không
+* LocalizationManagement.Resource.Update - Đối tượng được ủy quyền có được phép sửa tài nguyên hay không
+* LocalizationManagement.Resource.Delete - Đối tượng được ủy quyền có được phép xóa tài nguyên hay không
+* LocalizationManagement.Language - Đối tượng được ủy quyền có được phép truy cập ngôn ngữ hay không
+* LocalizationManagement.Language.Create - Đối tượng được ủy quyền có được phép tạo ngôn ngữ hay không
+* LocalizationManagement.Language.Update - Đối tượng được ủy quyền có được phép sửa ngôn ngữ hay không
+* LocalizationManagement.Language.Delete - Đối tượng được ủy quyền có được phép xóa ngôn ngữ hay không
+* LocalizationManagement.Text - Đối tượng được ủy quyền có được phép truy cập tài liệu hay không
+* LocalizationManagement.Text.Create - Đối tượng được ủy quyền có được phép tạo tài liệu hay không
+* LocalizationManagement.Text.Update - Đối tượng được ủy quyền có được phép sửa tài liệu hay không
+* LocalizationManagement.Text.Delete - Đối tượng được ủy quyền có được phép xóa tài liệu hay không
 
-## 应用服务接口
+## Giao diện dịch vụ ứng dụng
 
-* `ILanguageAppService`: 语言管理应用服务接口
-* `IResourceAppService`: 资源管理应用服务接口
-* `ITextAppService`: 文本管理应用服务接口
+* `ILanguageAppService`: Giao diện dịch vụ ứng dụng quản lý ngôn ngữ
+* `IResourceAppService`: Giao diện dịch vụ ứng dụng quản lý tài nguyên
+* `ITextAppService`: Giao diện dịch vụ ứng dụng quản lý văn bản
 
-## 更多信息
+## Thông tin thêm
 
 * [English documentation](./README.EN.md)

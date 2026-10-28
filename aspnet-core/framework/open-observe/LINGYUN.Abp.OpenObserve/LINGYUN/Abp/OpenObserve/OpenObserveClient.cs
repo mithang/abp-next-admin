@@ -26,16 +26,16 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 解析组织名称
+    /// Phân tích tên tổ chức
     /// </summary>
-    /// <param name="organization">未指定时使用 AbpOpenObserveOptions.Organization</param>
+    /// <param name="organization">Khi không chỉ định sẽ dùng AbpOpenObserveOptions.Organization</param>
     protected virtual string ResolveOrganization(string? organization = null)
     {
         return !organization.IsNullOrWhiteSpace() ? organization! : Options.Organization;
     }
 
     /// <summary>
-    /// 创建 JSON 请求内容
+    /// Tạo nội dung yêu cầu JSON
     /// </summary>
     protected virtual StringContent CreateJsonContent<T>(T value)
     {
@@ -46,10 +46,10 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 尝试解析错误响应
+    /// Thử phân tích phản hồi lỗi
     /// </summary>
     /// <remarks>
-    /// 响应体不是标准错误结构时返回 null, 由调用方抛出 <see cref="OpenObserveRequestException"/>
+    /// Khi thân phản hồi không phải cấu trúc lỗi chuẩn thì trả về null, phía gọi sẽ ném <see cref="OpenObserveRequestException"/>
     /// </remarks>
     protected virtual OpenObserveErrorResponse? TryDeserializeErrorResponse(string? responseContent)
     {
@@ -64,10 +64,10 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 处理 OpenObserve 统一错误响应
+    /// Xử lý phản hồi lỗi thống nhất của OpenObserve
     /// </summary>
     /// <remarks>
-    /// 4xx/5xx 响应体为 OpenObserve 标准错误结构: {"code":..,"message":..,"error_detail":..,"hint":..,"suggestions":[..]}
+    /// Thân phản hồi 4xx/5xx là cấu trúc lỗi chuẩn của OpenObserve: {"code":..,"message":..,"error_detail":..,"hint":..,"suggestions":[..]}
     /// </remarks>
     protected async virtual Task<HttpResponseMessage> EnsureSuccessStatusCode(
         HttpResponseMessage httpResponse,

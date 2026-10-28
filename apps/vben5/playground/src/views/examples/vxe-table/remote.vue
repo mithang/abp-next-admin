@@ -23,7 +23,7 @@ const gridOptions: VxeGridProps<RowType> = {
     labelField: 'name',
   },
   columns: [
-    { title: '序号', type: 'seq', width: 50 },
+    { title: 'STT', type: 'seq', width: 50 },
     { align: 'left', title: 'Name', type: 'checkbox', width: 100 },
     { field: 'category', sortable: true, title: 'Category' },
     { field: 'color', sortable: true, title: 'Color' },
@@ -67,13 +67,13 @@ const [Grid, gridApi] = useVbenVxeGrid({
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="数据列表" table-title-help="提示">
+    <Grid table-title="Danh sách dữ liệu" table-title-help="Gợi ý">
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="() => gridApi.query()">
-          刷新当前页面
+          Làm mới trang hiện tại
         </Button>
         <Button type="primary" @click="() => gridApi.reload()">
-          刷新并返回第一页
+          Làm mới và quay về trang đầu tiên
         </Button>
       </template>
     </Grid>

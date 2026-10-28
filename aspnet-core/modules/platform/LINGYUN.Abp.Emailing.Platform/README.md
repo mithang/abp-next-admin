@@ -1,12 +1,12 @@
 # LINGYUN.Abp.Emailing.Platform
 
-abp框架邮件发送接口**IEmailSender**的消息处理平台实现  
+Triển khai nền tảng xử lý thông điệp cho giao diện gửi email **IEmailSender** của framework ABP  
 
-通过平台服务接口实现邮件消息管理,发送,查询等功能  
+Thông qua giao diện dịch vụ nền tảng để thực hiện các chức năng quản lý, gửi và truy vấn thông điệp email  
 
-## 配置使用
+## Cấu hình và sử dụng
 
-模块按需引用
+Tham chiếu mô-đun theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpEmailingPlatformModule))]
@@ -15,7 +15,7 @@ public class YouProjectModule : AbpModule
   // other
 }
 ```
-## 配置项说明
+## Mô tả các mục cấu hình
 
 ```json
 
@@ -41,11 +41,11 @@ public class YouProjectModule : AbpModule
 
 ```
 
-## 相关链接
+## Liên kết liên quan
 
-* [平台服务模块](../README.md)
-* [邮件发送集成](https://abp.io/docs/latest/framework/infrastructure/emailing)
-* [动态接口代理](https://abp.io/docs/latest/framework/api-development/dynamic-csharp-clients)
+* [Mô-đun dịch vụ nền tảng](../README.md)
+* [Tích hợp gửi email](https://abp.io/docs/latest/framework/infrastructure/emailing)
+* [Proxy giao diện động](https://abp.io/docs/latest/framework/api-development/dynamic-csharp-clients)
 
-## 其他
+## Khác
 

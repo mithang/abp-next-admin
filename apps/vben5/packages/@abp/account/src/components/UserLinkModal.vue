@@ -123,6 +123,8 @@ async function onCreatLink() {
         const token = await generateLinkTokenApi();
         emit('link', token);
       }
+      // AlertProps: chỉ false mới hủy việc đóng; true = cho phép đóng như trước.
+      return true;
     },
     centered: true,
     content: $t('AbpAccount.LinkAccountWillBeCreateWarning'),
@@ -146,6 +148,8 @@ async function onDeleteLink(record: LinkUserDto) {
         message.success($t('AbpUi.DeletedSuccessfully'));
         await onInit();
       }
+      // AlertProps: chỉ false mới hủy việc đóng; true = cho phép đóng như trước.
+      return true;
     },
     centered: true,
     content: $t('AbpAccount.LinkAccountWillBeDeleteWarning', [

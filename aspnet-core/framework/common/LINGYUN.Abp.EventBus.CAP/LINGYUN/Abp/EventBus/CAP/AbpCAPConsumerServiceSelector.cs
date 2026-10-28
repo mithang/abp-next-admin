@@ -14,7 +14,7 @@ using Volo.Abp.EventBus.Distributed;
 namespace LINGYUN.Abp.EventBus.CAP;
 
 /// <summary>
-/// 消费者查找器
+/// Bộ tìm kiếm consumer
 /// </summary>
 [Dependency(ServiceLifetime.Singleton, ReplaceServices = true)]
 [ExposeServices(typeof(IConsumerServiceSelector), typeof(AbpCAPConsumerServiceSelector))]
@@ -22,15 +22,15 @@ namespace LINGYUN.Abp.EventBus.CAP;
 public class AbpCAPConsumerServiceSelector : ConsumerServiceSelector
 {
     /// <summary>
-    /// CAP配置
+    /// Cấu hình CAP
     /// </summary>
     protected CapOptions CapOptions { get; }
     /// <summary>
-    /// Abp分布式事件配置
+    /// Cấu hình sự kiện phân tán Abp
     /// </summary>
     protected AbpDistributedEventBusOptions AbpDistributedEventBusOptions { get; }
     /// <summary>
-    /// 服务提供者
+    /// Nhà cung cấp dịch vụ
     /// </summary>
     protected IServiceProvider ServiceProvider { get; }
 
@@ -47,7 +47,7 @@ public class AbpCAPConsumerServiceSelector : ConsumerServiceSelector
         AbpDistributedEventBusOptions = distributedEventBusOptions.Value;
     }
     /// <summary>
-    /// 查找消费者集合
+    /// Tìm tập hợp consumer
     /// </summary>
     /// <param name="provider"></param>
     /// <returns></returns>
@@ -77,12 +77,12 @@ public class AbpCAPConsumerServiceSelector : ConsumerServiceSelector
                     {
                         if (executorDescriptorList.Any(x => consumerExecutorDescriptorComparer.Equals(x, consumerExecutorDescriptor)))
                         {
-                            // 如果存在多个消费者,后续的消费者需要重新定义分组才能不被 CAP 框架过滤掉
+                            // Nếu tồn tại nhiều consumer, các consumer tiếp theo cần định nghĩa lại nhóm thì mới không bị framework CAP lọc bỏ
                             var groupAliaName = handler.IsGenericType
                                 ? handler.GetGenericTypeDefinition().Name
                                 : handler.Name;
 
-                            // TODO: 2021-05-21 直接使用类型全名作为GroupName会引起用户困惑,加上组别名称在前
+                            // TODO: 2021-05-21 Việc dùng trực tiếp tên đầy đủ của kiểu làm GroupName sẽ gây khó hiểu cho người dùng, cần thêm tên nhóm ở phía trước
                             consumerExecutorDescriptor.Attribute.Group = $"{CapOptions.DefaultGroupName}.{groupAliaName}";
                             SetSubscribeAttribute(consumerExecutorDescriptor.Attribute);
 
@@ -96,7 +96,7 @@ public class AbpCAPConsumerServiceSelector : ConsumerServiceSelector
         return executorDescriptorList;
     }
     /// <summary>
-    /// 获取事件处理器集合
+    /// Lấy tập hợp bộ xử lý sự kiện
     /// </summary>
     /// <param name="eventType"></param>
     /// <param name="typeInfo"></param>
@@ -110,7 +110,7 @@ public class AbpCAPConsumerServiceSelector : ConsumerServiceSelector
                 nameof(IDistributedEventHandler<object>.HandleEventAsync),
                 new[] { eventType }
             );
-        // TODO: 事件名称定义在事件参数类型,就无法创建多个订阅者类了,增加可选配置,让用户决定事件名称定义在哪里
+        // TODO: Tên sự kiện được định nghĩa trong kiểu tham số sự kiện thì không thể tạo nhiều lớp subscriber, cần thêm cấu hình tuỳ chọn để người dùng quyết định tên sự kiện được định nghĩa ở đâu
         var eventName = EventNameAttribute.GetNameOrDefault(eventType);
         var topicAttr = method!.GetCustomAttributes<TopicAttribute>(true);
         var topicAttributes = topicAttr.ToList();

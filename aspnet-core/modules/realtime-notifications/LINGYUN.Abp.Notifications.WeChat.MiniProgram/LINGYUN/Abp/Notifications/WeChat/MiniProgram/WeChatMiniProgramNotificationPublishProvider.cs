@@ -12,11 +12,11 @@ using Volo.Abp.Features;
 namespace LINGYUN.Abp.Notifications.WeChat.MiniProgram;
 
 /// <summary>
-/// 微信小程序消息推送提供者
+/// Nhà cung cấp đẩy thông báo của Mini Program WeChat
 /// </summary>
 /// <remarks>
-/// 小程序订阅消息的模板数据本身就是动态键值对, 因此载荷只声明标量字段,
-/// 模板数据仍然直接取自通知数据的属性包。
+/// Dữ liệu mẫu của thông báo đăng ký Mini Program vốn là các cặp khóa-giá trị động, vì vậy tải trọng chỉ khai báo các trường vô hướng,
+/// Dữ liệu mẫu vẫn lấy trực tiếp từ gói thuộc tính của dữ liệu thông báo.
 /// </remarks>
 public class WeChatMiniProgramNotificationPublishProvider : NotificationPublishProvider
 {
@@ -44,8 +44,8 @@ public class WeChatMiniProgramNotificationPublishProvider : NotificationPublishP
 
     protected async override Task PublishAsync(NotificationPublishContext context, CancellationToken cancellationToken = default)
     {
-        // 微信不支持推送到所有用户
-        // 在小程序里用户订阅消息后通过 api/subscribes/subscribe 接口订阅对应模板消息
+        // WeChat không hỗ trợ đẩy tới tất cả người dùng
+        // Trong Mini Program, sau khi người dùng đăng ký nhận thông báo thì đăng ký thông báo mẫu tương ứng qua giao diện api/subscribes/subscribe
         var channelData = ResolveChannelData(context.Notification.Data);
 
         foreach (var identifier in context.Users)
@@ -63,12 +63,12 @@ public class WeChatMiniProgramNotificationPublishProvider : NotificationPublishP
             Logger.LogDebug($"Get wechat weapp state: {channelData.WeAppState ?? null}");
             Logger.LogDebug($"Get wechat weapp language: {channelData.WeAppLanguage ?? null}");
 
-            // TODO: 如果微信端发布通知,请组装好 openid 字段在通知数据内容里面
+            // TODO: Nếu phía WeChat phát hành thông báo, hãy lắp ráp sẵn trường openid trong nội dung dữ liệu thông báo
             var openId = ChannelDataResolver.GetOrNull(context.Notification.Data, AbpWeChatClaimTypes.OpenId);
 
             if (openId.IsNullOrWhiteSpace())
             {
-                // 发送小程序订阅消息
+                // Gửi thông báo đăng ký của Mini Program
                 await SubscribeMessager
                     .SendAsync(
                         identifier.UserId,
@@ -88,12 +88,12 @@ public class WeChatMiniProgramNotificationPublishProvider : NotificationPublishP
                     channelData.WeAppState,
                     channelData.WeAppLanguage);
 
-                // 写入模板数据
+                // Ghi dữ liệu mẫu
                 weChatWeAppNotificationData.WriteData(context.Notification.Data.ExtraProperties);
 
                 Logger.LogDebug($"Sending wechat weapp notification: {context.Notification.Name}");
 
-                // 发送小程序订阅消息
+                // Gửi thông báo đăng ký của Mini Program
                 await SubscribeMessager.SendAsync(weChatWeAppNotificationData, cancellationToken);
 
                 Logger.LogDebug("The notification: {0} with provider: {1} has successfully published!", context.Notification.Name, Name);
@@ -102,19 +102,19 @@ public class WeChatMiniProgramNotificationPublishProvider : NotificationPublishP
     }
 
     /// <summary>
-    /// 解析小程序渠道数据
+    /// Phân giải dữ liệu kênh Mini Program
     /// </summary>
     /// <remarks>
-    /// 键名带本渠道前缀, 读取大小写不敏感;
-    /// 为了让已安装的生产者平滑升级, 这里对历史遗留的**无前缀键**做只读回退;
-    /// 缺省值来自渠道配置。
+    /// Tên khóa mang tiền tố của kênh này, việc đọc không phân biệt chữ hoa/thường;
+    /// Để các nhà sản xuất đã cài đặt nâng cấp trơn tru, ở đây thực hiện đọc dự phòng chỉ-đọc đối với các **khóa không có tiền tố** còn tồn tại từ trước;
+    /// Giá trị mặc định lấy từ cấu hình kênh.
     /// </remarks>
     protected virtual WeChatMiniProgramSubscribeChannelData ResolveChannelData(NotificationData notificationData)
     {
         var channelData = ChannelDataResolver.Resolve<WeChatMiniProgramSubscribeChannelData>(notificationData)
             ?? new WeChatMiniProgramSubscribeChannelData();
 
-        // 历史遗留的无前缀键只读回退
+        // Đọc dự phòng chỉ-đọc đối với khóa không có tiền tố còn tồn tại từ trước
         ApplyLegacyKeys(channelData, notificationData);
 
         if (channelData.TemplateId.IsNullOrWhiteSpace())
@@ -134,12 +134,12 @@ public class WeChatMiniProgramNotificationPublishProvider : NotificationPublishP
     }
 
     /// <summary>
-    /// 回退读取历史遗留的无前缀键
+    /// Đọc dự phòng khóa không có tiền tố còn tồn tại từ trước
     /// </summary>
     /// <remarks>
     /// <para>
-    /// 早期版本使用 <c>TemplateId</c> 这类无前缀键, 已安装的生产者可能仍在写入。
-    /// 带前缀的键优先; 命中遗留键时记录一次警告以便推动迁移。
+    /// Phiên bản trước đây dùng các khóa không có tiền tố như <c>TemplateId</c>, các nhà sản xuất đã cài đặt có thể vẫn đang ghi.
+    /// Khóa có tiền tố được ưu tiên; khi trúng khóa cũ sẽ ghi một cảnh báo để thúc đẩy việc di chuyển.
     /// </para>
     /// </remarks>
 #pragma warning disable CS0618 // Type or member is obsolete: the only sanctioned read site for legacy keys

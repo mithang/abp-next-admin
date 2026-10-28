@@ -31,10 +31,10 @@ public class ExternalLoginBindModel : AbpPageModel
     }
 
     /// <summary>
-    /// SPA绑定第三方绑定
+    /// SPA ràng buộc đăng nhập bên thứ ba
     /// </summary>
-    /// <param name="provider">第三方提供者</param>
-    /// <param name="returnUrl">绑定成功回调地址</param>
+    /// <param name="provider">Nhà cung cấp bên thứ ba</param>
+    /// <param name="returnUrl">Địa chỉ callback khi ràng buộc thành công</param>
     /// <returns>IActionResult</returns>
     public virtual async Task<IActionResult> OnPostAsync(string provider, string returnUrl)
     {
@@ -61,11 +61,11 @@ public class ExternalLoginBindModel : AbpPageModel
     }
 
     /// <summary>
-    /// SPA绑定第三方登录回调
+    /// Callback đăng nhập bên thứ ba được SPA ràng buộc
     /// </summary>
-    /// <param name="returnUrl">绑定成功回调地址</param>
-    /// <param name="userId">用户Id</param>
-    /// <param name="tenantId">租户Id</param>
+    /// <param name="returnUrl">Địa chỉ callback khi ràng buộc thành công</param>
+    /// <param name="userId">Id người dùng</param>
+    /// <param name="tenantId">Id tenant</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [UnitOfWork]
     public virtual async Task<IActionResult> OnGetBindCallbackAsync(string returnUrl, string userId, Guid? tenantId)

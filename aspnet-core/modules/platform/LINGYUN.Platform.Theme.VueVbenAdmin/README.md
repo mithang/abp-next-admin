@@ -1,47 +1,47 @@
 # LINGYUN.Platform.Theme.VueVbenAdmin
 
-VueVbenAdmin前端框架的主题管理模块，提供主题、布局、菜单等相关配置的管理功能。
+Mô-đun quản lý giao diện (theme) cho framework frontend VueVbenAdmin, cung cấp chức năng quản lý các cấu hình liên quan như giao diện, bố cục, menu.
 
-## 功能特性
+## Tính năng
 
-* 主题设置
-  * 暗黑模式
-  * 灰色模式
-  * 色弱模式
-  * 主题色配置
+* Cài đặt giao diện
+  * Chế độ tối
+  * Chế độ xám
+  * Chế độ mù màu
+  * Cấu hình màu chủ đạo
 
-* 布局设置
-  * 全屏模式
-  * 内容模式
-  * 页面加载状态
-  * 页脚显示
-  * 返回顶部
+* Cài đặt bố cục
+  * Chế độ toàn màn hình
+  * Chế độ nội dung
+  * Trạng thái tải trang
+  * Hiển thị chân trang
+  * Quay lại đầu trang
 
-* 菜单设置
-  * 菜单模式
-  * 菜单主题
-  * 菜单宽度
-  * 菜单折叠
-  * 菜单拆分
-  * 菜单拖拽
+* Cài đặt menu
+  * Chế độ menu
+  * Giao diện menu
+  * Chiều rộng menu
+  * Thu gọn menu
+  * Tách menu
+  * Kéo thả menu
 
-* 标题栏设置
-  * 固定头部
-  * 头部主题
-  * 全屏按钮
-  * 文档按钮
-  * 通知按钮
-  * 搜索按钮
+* Cài đặt thanh tiêu đề
+  * Cố định phần đầu trang
+  * Giao diện phần đầu trang
+  * Nút toàn màn hình
+  * Nút tài liệu
+  * Nút thông báo
+  * Nút tìm kiếm
 
-* 多标签页设置
-  * 标签页缓存
-  * 标签页拖拽
-  * 标签页刷新
-  * 标签页折叠
+* Cài đặt nhiều tab
+  * Bộ nhớ đệm tab
+  * Kéo thả tab
+  * Làm mới tab
+  * Thu gọn tab
 
-## 快速开始
+## Bắt đầu nhanh
 
-1. 引用模块
+1. Tham chiếu mô-đun
 ```csharp
 [DependsOn(typeof(PlatformThemeVueVbenAdminModule))]
 public class YouProjectModule : AbpModule
@@ -50,7 +50,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-2. 配置选项
+2. Cấu hình tùy chọn
 ```json
 {
   "Theme": {
@@ -92,39 +92,39 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 使用说明
+## Hướng dẫn sử dụng
 
-1. 主题配置
-   * 支持多种主题模式切换
-   * 可自定义主题色
-   * 提供主题持久化存储
+1. Cấu hình giao diện
+   * Hỗ trợ chuyển đổi nhiều chế độ giao diện
+   * Có thể tùy chỉnh màu chủ đạo
+   * Cung cấp lưu trữ bền vững cho giao diện
 
-2. 布局配置
-   * 灵活的布局模式
-   * 可配置的页面元素显示
-   * 支持响应式布局
+2. Cấu hình bố cục
+   * Chế độ bố cục linh hoạt
+   * Có thể cấu hình hiển thị các thành phần trang
+   * Hỗ trợ bố cục đáp ứng (responsive)
 
-3. 菜单配置
-   * 多样的菜单显示模式
-   * 支持菜单拖拽排序
-   * 菜单主题自定义
+3. Cấu hình menu
+   * Nhiều chế độ hiển thị menu
+   * Hỗ trợ kéo thả sắp xếp menu
+   * Tùy chỉnh giao diện menu
 
-4. 扩展开发
-   * 支持自定义主题配置提供者
-   * 可扩展的主题设置项
-   * 主题数据本地化支持
+4. Phát triển mở rộng
+   * Hỗ trợ nhà cung cấp cấu hình giao diện tùy chỉnh
+   * Có thể mở rộng các mục cài đặt giao diện
+   * Hỗ trợ bản địa hóa dữ liệu giao diện
 
-## 注意事项
+## Lưu ý
 
-1. 主题配置
-   * 主题配置会影响所有用户的界面显示
-   * 建议根据实际需求选择合适的主题模式
+1. Cấu hình giao diện
+   * Cấu hình giao diện sẽ ảnh hưởng đến hiển thị giao diện của tất cả người dùng
+   * Nên chọn chế độ giao diện phù hợp theo nhu cầu thực tế
 
-2. 性能考虑
-   * 合理配置标签页缓存数量
-   * 适当使用页面加载动画
+2. Xem xét hiệu năng
+   * Cấu hình hợp lý số lượng tab được lưu trong bộ nhớ đệm
+   * Sử dụng hiệu ứng tải trang một cách phù hợp
 
-## 更多信息
+## Thông tin thêm
 
-* [VueVbenAdmin主题配置文档](https://doc.vvbin.cn/guide/design.html)
-* [ABP官方文档](https://docs.abp.io/)
+* [Tài liệu cấu hình giao diện VueVbenAdmin](https://doc.vvbin.cn/guide/design.html)
+* [Tài liệu chính thức ABP](https://docs.abp.io/)

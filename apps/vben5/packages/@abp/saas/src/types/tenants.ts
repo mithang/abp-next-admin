@@ -11,21 +11,20 @@ type TenantConnectionStringDto = NameValue<string>;
 type TenantConnectionStringSetInput = NameValue<string>;
 
 interface TenantDto
-  extends ExtensibleAuditedEntityDto<string>,
-    IHasConcurrencyStamp {
-  /** 禁用时间 */
+  extends ExtensibleAuditedEntityDto<string>, IHasConcurrencyStamp {
+  /** Thời gian vô hiệu hóa */
   disableTime?: string;
-  /** 版本Id */
+  /** Id phiên bản */
   editionId?: string;
-  /** 版本名称 */
+  /** Tên phiên bản */
   editionName?: string;
-  /** 启用时间 */
+  /** Thời gian kích hoạt */
   enableTime?: string;
-  /** 是否可用 */
+  /** Có khả dụng không */
   isActive: boolean;
-  /** 名称 */
+  /** Tên */
   name: string;
-  /** 名称 */
+  /** Tên */
   normalizedName: string;
 }
 
@@ -34,15 +33,15 @@ interface GetTenantPagedListInput extends PagedAndSortedResultRequestDto {
 }
 
 interface TenantCreateOrUpdateBase extends ExtensibleObject {
-  /** 禁用时间 */
+  /** Thời gian vô hiệu hóa */
   disableTime?: string;
-  /** 版本Id */
+  /** Id phiên bản */
   editionId?: string;
-  /** 启用时间 */
+  /** Thời gian kích hoạt */
   enableTime?: string;
-  /** 是否可用 */
+  /** Có khả dụng không */
   isActive: boolean;
-  /** 名称 */
+  /** Tên */
   name: string;
 }
 
@@ -61,8 +60,7 @@ interface TenantConnectionStringCheckInput {
 }
 
 interface TenantUpdateDto
-  extends IHasConcurrencyStamp,
-    TenantCreateOrUpdateBase {}
+  extends IHasConcurrencyStamp, TenantCreateOrUpdateBase {}
 
 export type {
   GetTenantPagedListInput,

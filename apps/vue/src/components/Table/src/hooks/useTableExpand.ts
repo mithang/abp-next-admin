@@ -72,7 +72,7 @@ export function useTableExpand(
     return keyValues;
   }
 
-  // 获取展开路径 keyValues
+  // Lấy đường dẫn mở rộng keyValues
   function getKeyPaths(
     records: Recordable[],
     childrenColumnName: string,
@@ -96,7 +96,7 @@ export function useTableExpand(
     return false;
   }
 
-  // 手风琴展开
+  // Mở rộng kiểu accordion
   function expandRowAccordion(keyValue: Key) {
     const { childrenColumnName } = unref(propsRef);
     const paths: Array<Key> = [];
@@ -104,11 +104,11 @@ export function useTableExpand(
     expandedRowKeys.value = paths;
   }
 
-  // 监听展开事件，用于支持手风琴展开效果
+  // Lắng nghe sự kiện mở rộng, để hỗ trợ hiệu ứng mở rộng kiểu accordion
   function handleTableExpand(expanded, record) {
-    // 手风琴开关
-    // isTreeTable 或 expandRowByClick 时支持
-    // 展开操作
+    // Công tắc accordion
+    // Hỗ trợ khi là isTreeTable hoặc expandRowByClick
+    // Thao tác mở rộng
     if (
       propsRef.value.accordion &&
       (propsRef.value.isTreeTable || propsRef.value.expandRowByClick) &&

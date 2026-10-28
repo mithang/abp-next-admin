@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>Oss对象存储Nexus集成</Description>
+		<Description>Tích hợp Nexus với lưu trữ đối tượng OSS</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

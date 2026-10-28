@@ -1,12 +1,12 @@
 namespace LINGYUN.Abp.AuditLogging.OpenObserve.Serialization;
 
 /// <summary>
-/// 审计日志 OpenObserve 序列化器
+/// Bộ tuần tự hóa OpenObserve cho nhật ký kiểm toán
 /// </summary>
 /// <remarks>
-/// 用于需要以 JSON 字符串列保存的成员(如实体变更的属性明细 <c>propertychanges</c>),
-/// 默认实现委托给 ABP 的 <c>IJsonSerializer</c>, 从而复用
-/// <c>AbpSystemTextJsonSerializerModifiersOptions</c> 注册的修饰器
+/// Dùng cho các thành viên cần lưu dưới dạng cột chuỗi JSON (ví dụ chi tiết thuộc tính thay đổi của thực thể <c>propertychanges</c>),
+/// Triển khai mặc định ủy quyền cho <c>IJsonSerializer</c>, nhờ đó tái sử dụng
+/// <c>AbpSystemTextJsonSerializerModifiersOptions</c> bộ trang trí đã đăng ký
 /// </remarks>
 public interface IAuditLoggingOpenObserveSerializer
 {

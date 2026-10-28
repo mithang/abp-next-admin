@@ -5,32 +5,32 @@ using System;
 namespace LINGYUN.Abp.WeChat.OpenId;
 
 /// <summary>
-/// 微信OpenId返回对象
+/// Đối tượng trả về OpenId của WeChat
 /// </summary>
 public class WeChatOpenIdResponse
 {
     /// <summary>
-    /// 错误码
+    /// Mã lỗi
     /// </summary>
     [JsonProperty("errcode")]
     public string ErrorCode { get; set; } = default!;
     /// <summary>
-    /// 会话密钥
+    /// Khóa phiên
     /// </summary>
     [JsonProperty("session_key")]
     public string SessionKey { get; set; } = default!;
     /// <summary>
-    /// 用户唯一标识
+    /// Định danh duy nhất của người dùng
     /// </summary>
     [JsonProperty("openid")]
     public string OpenId { get; set; } = default!;
     /// <summary>
-    /// 用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回
+    /// Định danh duy nhất của người dùng trên nền tảng mở, được trả về khi thỏa mãn điều kiện cấp phát UnionID
     /// </summary>
     [JsonProperty("unionid")]
     public string? UnionId { get; set; }
     /// <summary>
-    /// 错误消息
+    /// Thông báo lỗi
     /// </summary>
     public string ErrorMessage
     {
@@ -38,17 +38,17 @@ public class WeChatOpenIdResponse
         {
             return ErrorCode switch
             {
-                "-1" => "系统繁忙，此时请开发者稍候再试",
+                "-1" => "Hệ thống đang bận, nhà phát triển vui lòng thử lại sau",
                 "0" => string.Empty,
-                "40029" => "code 无效",
-                "45011" => "频率限制，每个用户每分钟100次",
-                _ => $"未定义的异常代码:{ErrorCode},请重试",
+                "40029" => "code không hợp lệ",
+                "45011" => "Giới hạn tần suất, mỗi người dùng 100 lần mỗi phút",
+                _ => $"Mã ngoại lệ chưa được định nghĩa: {ErrorCode}, vui lòng thử lại",
             };
             ;
         }
     }
     /// <summary>
-    /// 微信认证成功没有errorcode或者errorcode为0
+    /// Xác thực WeChat thành công khi không có errorcode hoặc errorcode bằng 0
     /// </summary>
     public bool IsError => !ErrorCode.IsNullOrWhiteSpace() && !"0".Equals(ErrorCode);
 

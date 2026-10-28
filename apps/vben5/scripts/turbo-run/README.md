@@ -1,59 +1,59 @@
 # @vben/turbo-run
 
-`turbo-run` 是一个命令行工具，允许你在多个包中并行运行命令。它提供了一个交互式的界面，让你可以选择要运行命令的包。
+`turbo-run` là một công cụ dòng lệnh, cho phép bạn chạy lệnh song song trong nhiều package. Nó cung cấp một giao diện tương tác để bạn chọn package cần chạy lệnh.
 
-## 特性
+## Tính năng
 
-- 🚀 交互式选择要运行的包
-- 📦 支持 monorepo 项目结构
-- 🔍 自动检测可用的命令
-- 🎯 精确过滤目标包
+- 🚀 Chọn tương tác package cần chạy
+- 📦 Hỗ trợ cấu trúc dự án monorepo
+- 🔍 Tự động phát hiện các lệnh khả dụng
+- 🎯 Lọc chính xác package đích
 
-## 安装
+## Cài đặt
 
 ```bash
 pnpm add -D @vben/turbo-run
 ```
 
-## 使用方法
+## Cách sử dụng
 
-基本语法：
+Cú pháp cơ bản:
 
 ```bash
 turbo-run [script]
 ```
 
-例如，如果你想运行 `dev` 命令：
+Ví dụ, nếu bạn muốn chạy lệnh `dev`:
 
 ```bash
 turbo-run dev
 ```
 
-工具会自动检测哪些包有 `dev` 命令，并提供一个交互式界面让你选择要运行的包。
+Công cụ sẽ tự động phát hiện package nào có lệnh `dev` và cung cấp một giao diện tương tác để bạn chọn package cần chạy.
 
-## 示例
+## Ví dụ
 
-假设你的项目中有以下包：
+Giả sử dự án của bạn có các package sau:
 
 - `@vben/app`
 - `@vben/admin`
 - `@vben/website`
 
-当你运行：
+Khi bạn chạy:
 
 ```bash
 turbo-run dev
 ```
 
-工具会：
+Công cụ sẽ:
 
-1. 检测哪些包有 `dev` 命令
-2. 显示一个交互式选择界面
-3. 让你选择要运行命令的包
-4. 使用 `pnpm --filter` 在选定的包中运行命令
+1. Phát hiện package nào có lệnh `dev`
+2. Hiển thị giao diện chọn tương tác
+3. Để bạn chọn package cần chạy lệnh
+4. Dùng `pnpm --filter` để chạy lệnh trong package đã chọn
 
-## 注意事项
+## Lưu ý
 
-- 确保你的项目使用 pnpm 作为包管理器
-- 确保目标包在 `package.json` 中定义了相应的脚本命令
-- 该工具需要在 monorepo 项目的根目录下运行
+- Đảm bảo dự án của bạn dùng pnpm làm trình quản lý package
+- Đảm bảo package đích đã định nghĩa lệnh script tương ứng trong `package.json`
+- Công cụ này cần chạy tại thư mục gốc của dự án monorepo

@@ -5,36 +5,36 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Chat;
 /// <summary>
-/// 群聊操作接口
+/// Giao diện thao tác trò chuyện nhóm
 /// </summary>
 /// <remarks>
-/// 参考：https://developer.work.weixin.qq.com/document/path/90244
+/// Tham khảo: https://developer.work.weixin.qq.com/document/path/90244
 /// </remarks>
 public interface IWeChatWorkAppChatManager
 {
     /// <summary>
-    /// 创建群聊会话
+    /// Tạo phiên trò chuyện nhóm
     /// </summary>
     /// <remarks>
-    /// 参考：https://developer.work.weixin.qq.com/document/path/90245
+    /// Tham khảo: https://developer.work.weixin.qq.com/document/path/90245
     /// </remarks>
     Task<WeChatWorkAppChatCreateResponse> CreateAsync(
         WeChatWorkAppChatCreateRequest request, 
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 修改群聊会话
+    /// Sửa phiên trò chuyện nhóm
     /// </summary>
     /// <remarks>
-    /// 参考：https://developer.work.weixin.qq.com/document/path/98913
+    /// Tham khảo: https://developer.work.weixin.qq.com/document/path/98913
     /// </remarks>
     Task<WeChatWorkResponse> UpdateAsync(
         WeChatWorkAppChatUpdateRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取群聊会话
+    /// Lấy phiên trò chuyện nhóm
     /// </summary>
     /// <remarks>
-    /// 参考：https://developer.work.weixin.qq.com/document/path/98914
+    /// Tham khảo: https://developer.work.weixin.qq.com/document/path/98914
     /// </remarks>
     Task<WeChatWorkAppChatInfoResponse> GetAsync(
         string agentId,

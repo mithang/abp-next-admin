@@ -9,11 +9,11 @@ namespace LINGYUN.Abp.Features.LimitValidation;
 public class AbpFeatureLimitException : AbpException, ILocalizeErrorMessage, IBusinessException
 {
     /// <summary>
-    /// 功能名称名称
+    /// Tên tính năng
     /// </summary>
     public string Feature { get; }
     /// <summary>
-    /// 上限
+    /// Giới hạn tối đa
     /// </summary>
     public int Limit { get; }
 

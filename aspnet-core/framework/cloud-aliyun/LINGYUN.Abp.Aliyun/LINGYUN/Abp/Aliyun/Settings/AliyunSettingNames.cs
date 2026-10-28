@@ -5,97 +5,97 @@ public static class AliyunSettingNames
     public const string Prefix = "Abp.Aliyun";
 
     /// <summary>
-    /// 认证方式
+    /// Phương thức xác thực
     /// </summary>
     public class Authorization
     {
         public const string Prefix = AliyunSettingNames.Prefix + ".Authorization";
         /// <summary>
-        /// 地域ID
+        /// ID khu vực
         /// </summary>
         public const string RegionId = Prefix + ".RegionId";
         /// <summary>
-        /// RAM账号的AccessKey ID
+        /// AccessKey ID của tài khoản RAM
         /// </summary>
         public const string AccessKeyId = Prefix + ".AccessKeyId";
         /// <summary>
-        /// RAM账号的AccessKey Secret
+        /// AccessKey Secret của tài khoản RAM
         /// </summary>
         public const string AccessKeySecret = Prefix + ".AccessKeySecret";
         /// <summary>
-        /// 使用STS Token访问
+        /// Truy cập bằng STS Token
         /// </summary>
         public const string UseSecurityTokenService = Prefix + ".UseSecurityTokenService";
         /// <summary>
-        /// 使用RAM子账号的AssumeRole方式访问
+        /// Truy cập bằng phương thức AssumeRole của tài khoản con RAM
         /// </summary>
         public const string RamRoleArn = Prefix + ".RamRoleArn";
         /// <summary>
-        /// 用户自定义参数。此参数用来区分不同的令牌，可用于用户级别的访问审计
+        /// Tham số tùy chỉnh của người dùng. Tham số này dùng để phân biệt các token khác nhau, có thể dùng cho kiểm toán truy cập cấp người dùng
         /// </summary>
         public const string RoleSessionName = Prefix + ".RoleSessionName";
         /// <summary>
-        /// 过期时间，单位为秒。
+        /// Thời gian hết hạn, đơn vị là giây.
         /// </summary>
         public const string DurationSeconds = Prefix + ".DurationSeconds";
         /// <summary>
-        /// 权限策略。
+        /// Chính sách quyền.
         /// </summary>
         public const string Policy = Prefix + ".Policy";
     }
 
     /// <summary>
-    /// 短信服务
+    /// Dịch vụ SMS
     /// </summary>
     public class Sms
     {
         public const string Prefix = AliyunSettingNames.Prefix + ".Sms";
         /// <summary>
-        /// 阿里云sms服务域名
+        /// Tên miền dịch vụ sms của Alibaba Cloud
         /// </summary>
         public const string Domain = Prefix + ".Domain";
         /// <summary>
-        /// 调用方法名称
+        /// Tên phương thức gọi
         /// </summary>
         public const string ActionName = Prefix + ".ActionName";
         /// <summary>
-        /// 默认版本号
+        /// Phiên bản mặc định
         /// </summary>
         public const string Version = Prefix + ".Version";
         /// <summary>
-        /// 默认签名
+        /// Chữ ký mặc định
         /// </summary>
         public const string DefaultSignName = Prefix + ".DefaultSignName";
         /// <summary>
-        /// 默认短信模板号
+        /// Mã mẫu SMS mặc định
         /// </summary>
         public const string DefaultTemplateCode = Prefix + ".DefaultTemplateCode";
         /// <summary>
-        /// 默认号码
+        /// Số điện thoại mặc định
         /// </summary>
         public const string DefaultPhoneNumber = Prefix + ".DefaultPhoneNumber";
         /// <summary>
-        /// 展示错误给客户端
+        /// Hiển thị lỗi cho client
         /// </summary>
         public const string VisableErrorToClient = Prefix + ".VisableErrorToClient";
     }
 
     /// <summary>
-    /// 云通信号码认证服务
+    /// Dịch vụ xác thực số điện thoại đám mây
     /// </summary>
     public class SmsVerifyCode
     {
         public const string Prefix = AliyunSettingNames.Prefix + ".SmsVerifyCode";
         /// <summary>
-        /// 阿里云号码认证服务域名
+        /// Tên miền dịch vụ xác thực số điện thoại của Alibaba Cloud
         /// </summary>
         public const string Domain = Prefix + ".Domain";
         /// <summary>
-        /// 默认签名
+        /// Chữ ký mặc định
         /// </summary>
         public const string DefaultSignName = Prefix + ".DefaultSignName";
         /// <summary>
-        /// 默认短信模板号
+        /// Mã mẫu SMS mặc định
         /// </summary>
         public const string DefaultTemplateCode = Prefix + ".DefaultTemplateCode";
     }

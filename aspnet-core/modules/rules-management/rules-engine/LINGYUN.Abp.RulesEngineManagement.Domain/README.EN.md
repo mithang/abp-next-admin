@@ -51,4 +51,4 @@ The domain layer of the rules engine management module implements the core busin
 * LINGYUN.Abp.Rules.RulesEngine
 * Microsoft.Extensions.Caching.Memory
 
-[查看中文文档](README.md)
+[Tiếng Việt](README.md)

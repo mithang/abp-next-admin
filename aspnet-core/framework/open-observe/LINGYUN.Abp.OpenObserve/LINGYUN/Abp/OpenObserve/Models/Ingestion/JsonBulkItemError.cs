@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Ingestion;
 
 /// <summary>
-/// _bulk 失败项错误信息
+/// Thông tin lỗi của mục thất bại trong _bulk
 /// </summary>
 public class JsonBulkItemError
 {

@@ -2,11 +2,11 @@ import { defineStore } from 'pinia';
 
 interface AppState {
   /**
-   * 是否锁屏状态
+   * Trạng thái khoá màn hình hay không
    */
   isLockScreen: boolean;
   /**
-   * 锁屏密码
+   * Mật khẩu khoá màn hình
    */
   lockScreenPassword?: string;
 }

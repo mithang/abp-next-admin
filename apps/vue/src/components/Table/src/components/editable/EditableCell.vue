@@ -90,7 +90,7 @@
           compProps = compProps({ text: val, record, column, index }) ?? {};
         }
 
-        // 用临时变量存储 onChange方法 用于 handleChange方法 获取，并删除原始onChange, 防止存在两个 onChange
+        // Dùng biến tạm để lưu phương thức onChange cho phương thức handleChange lấy, đồng thời xóa onChange gốc để tránh tồn tại hai onChange
         compProps.onChangeTemp = compProps.onChange;
         delete compProps.onChange;
 
@@ -506,7 +506,7 @@
   }
   .@{prefix-cls} {
     position: relative;
-    min-height: 24px; //设置高度让其始终可被hover
+    min-height: 24px; // Đặt chiều cao để nó luôn có thể được hover
 
     &__wrapper {
       display: flex;

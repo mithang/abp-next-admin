@@ -3,15 +3,15 @@
 public enum PushPlusUserSendLimit
 {
     /// <summary>
-    /// 未限制
+    /// Chưa bị giới hạn
     /// </summary>
     None = 1,
     /// <summary>
-    /// 短期限制
+    /// Giới hạn ngắn hạn
     /// </summary>
     Short = 2,
     /// <summary>
-    /// 永久限制
+    /// Giới hạn vĩnh viễn
     /// </summary>
     Permanent = 3,
 }

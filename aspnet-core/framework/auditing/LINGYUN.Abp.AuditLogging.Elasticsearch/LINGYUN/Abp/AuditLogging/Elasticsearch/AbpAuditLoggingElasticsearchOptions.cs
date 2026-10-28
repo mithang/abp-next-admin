@@ -7,22 +7,22 @@ public class AbpAuditLoggingElasticsearchOptions
     public const string DefaultIndexPrefix = "auditlogging";
     public string IndexPrefix { get; set; }
     /// <summary>
-    /// 索引滚动间隔
+    /// Khoảng thời gian cuộn chỉ mục
     /// </summary>
     public RollingInterval RollingInterval { get; set; }
     /// <summary>
-    /// 索引初始化失败抛出异常
+    /// Ném ngoại lệ khi khởi tạo chỉ mục thất bại
     /// </summary>
     /// <remarks>
-    /// 默认为: true, 索引初始化失败后应用程序停止运行
+    /// Mặc định: true, ứng dụng sẽ dừng chạy sau khi khởi tạo chỉ mục thất bại
     /// </remarks>
     public bool ThrowIfIndexInitFailed { get; set; }
     /// <summary>
-    /// 审计日志索引设置
+    /// Cài đặt chỉ mục nhật ký kiểm toán
     /// </summary>
     public IndexSettings AuditLogSettings { get; set; }
     /// <summary>
-    /// 安全日志索引设置
+    /// Cài đặt chỉ mục nhật ký bảo mật
     /// </summary>
     public IndexSettings SecurityLogSettings { get; set; }
 

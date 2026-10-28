@@ -8,28 +8,28 @@ namespace LINGYUN.Abp.BackgroundTasks;
 public class JobDefinition
 {
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; }
     /// <summary>
-    /// 作业类型
+    /// Kiểu công việc
     /// </summary>
     public Type JobType { get; }
     /// <summary>
-    /// 是否对客户端可见
+    /// Có hiển thị cho client hay không
     /// Default: true.
     /// </summary>
     public bool IsVisibleToClients { get; set; }
     /// <summary>
-    /// 显示名称
+    /// Tên hiển thị
     /// </summary>
     public ILocalizableString DisplayName { get; }
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public ILocalizableString? Description { get; }
     /// <summary>
-    /// 参数列表
+    /// Danh sách tham số
     /// </summary>
     public IReadOnlyList<JobDefinitionParamter>? Paramters { get; }
     public JobDefinition(

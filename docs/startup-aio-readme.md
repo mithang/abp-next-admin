@@ -1,31 +1,31 @@
-# 单体服务启动指南
+# Hướng dẫn khởi động dịch vụ đơn khối
 
-[English](startup-aio-readme.en.md) | 简体中文
+[English](startup-aio-readme.en.md) | Tiếng Việt
 
-## 目录
+## Mục lục
 
-- [CLI 快速启动](#cli快速启动)
-  - [环境要求](#cli环境要求)
-  - [安装命令行工具](#安装命令行工具)
-  - [创建项目](#创建项目)
-  - [运行项目](#运行项目)
-- [源码启动](#源码启动)
-  - [环境要求](#环境要求)
-  - [项目编译](#项目编译)
-  - [环境配置](#环境配置)
-    - [必选配置](#必选配置)
-    - [可选配置](#可选配置)
-  - [数据库初始化](#数据库初始化)
-  - [服务启动](#服务启动)
-  - [配置说明](#配置说明)
-- [常见问题](#常见问题)
+- [Khởi động nhanh bằng CLI](#khởi-động-nhanh-bằng-cli)
+  - [Yêu cầu môi trường](#yêu-cầu-môi-trường)
+  - [Cài đặt công cụ dòng lệnh](#cài-đặt-công-cụ-dòng-lệnh)
+  - [Tạo dự án](#tạo-dự-án)
+  - [Chạy dự án](#chạy-dự-án)
+- [Khởi động từ mã nguồn](#khởi-động-từ-mã-nguồn)
+  - [Yêu cầu môi trường](#yêu-cầu-môi-trường)
+  - [Biên dịch dự án](#biên-dịch-dự-án)
+  - [Cấu hình môi trường](#cấu-hình-môi-trường)
+    - [Cấu hình bắt buộc](#cấu-hình-bắt-buộc)
+    - [Cấu hình tuỳ chọn](#cấu-hình-tuỳ-chọn)
+  - [Khởi tạo cơ sở dữ liệu](#khởi-tạo-cơ-sở-dữ-liệu)
+  - [Khởi động dịch vụ](#khởi-động-dịch-vụ)
+  - [Giải thích cấu hình](#giải-thích-cấu-hình)
+- [Câu hỏi thường gặp](#câu-hỏi-thường-gặp)
 
-## CLI 快速启动
+## Khởi động nhanh bằng CLI
 
-### CLI 环境要求
+### Yêu cầu môi trường CLI
 
 - .NET 8.0 SDK
-- 数据库（支持以下任一种）：
+- Cơ sở dữ liệu (hỗ trợ bất kỳ loại nào sau đây):
   - MySQL
   - SQL Server
   - SQLite
@@ -34,82 +34,82 @@
   - PostgreSQL
 - Redis
 
-### 安装模板
+### Cài đặt template
 
 ```bash
-# 安装微服务模板:lam
+# Cài đặt template microservice: lam
 dotnet new install LINGYUN.Abp.MicroService.Templates
 
-# 安装单体应用模板:laa
+# Cài đặt template ứng dụng đơn khối: laa
 dotnet new install LINGYUN.Abp.AllInOne.Templates
 ```
 
-### 安装 labp 命令行工具
+### Cài đặt công cụ dòng lệnh labp
 
 ```bash
   dotnet tool install --global LINGYUN.Abp.Cli
 ```
 
-### 创建项目
+### Tạo dự án
 
 ```bash
-# 简写名称：laa (LINGYUN Abp AllInOne)
+# Tên viết tắt: laa (LINGYUN Abp AllInOne)
 labp create YourCompanyName.YourProjectName -pk YourPackageName -t laa -o /path/to/output --dbms MySql --cs "Server=127.0.0.1;Database=Platform-V70;User Id=root;Password=123456;SslMode=None" --no-random-port
 ```
 
-参数说明：
+Giải thích tham số:
 
-- `-pk` 或 `--package-name`: 包名
-- `-t` 或 `--template`: 模板类型，使用 `laa` 表示单体应用模板
-- `-o` 或 `--output`: 输出目录
-- `--dbms`: 数据库类型，支持 MySql、SqlServer、Sqlite、Oracle、OracleDevart、PostgreSql
-- `--cs`: 数据库连接字符串
-- `--no-random-port`: 不使用随机端口
+- `-pk` hoặc `--package-name`: Tên gói
+- `-t` hoặc `--template`: Loại template, dùng `laa` để chỉ template ứng dụng đơn khối
+- `-o` hoặc `--output`: Thư mục đầu ra
+- `--dbms`: Loại cơ sở dữ liệu, hỗ trợ MySql, SqlServer, Sqlite, Oracle, OracleDevart, PostgreSql
+- `--cs`: Chuỗi kết nối cơ sở dữ liệu
+- `--no-random-port`: Không dùng cổng ngẫu nhiên
 
-### 运行项目
+### Chạy dự án
 
-创建项目后，进入项目目录：
+Sau khi tạo dự án, vào thư mục dự án:
 
 ```bash
 cd /path/to/output/host/YourPackageName.YourCompanyName.YourProjectName.AIO.Host
 dotnet run --launch-profile "YourPackageName.YourCompanyName.YourProjectName.Development"
 ```
 
-## 源码启动
+## Khởi động từ mã nguồn
 
-### 环境要求
+### Yêu cầu môi trường
 
 - .NET 8.0 SDK
-- 数据库（支持以下任一种）：
+- Cơ sở dữ liệu (hỗ trợ bất kỳ loại nào sau đây):
   - PostgreSQL
   - MySQL
-  - SQL Server（即将支持）
+  - SQL Server (sắp hỗ trợ)
 - Redis
-- Docker（可选）
+- Docker (tuỳ chọn)
 
-### 项目编译
+### Biên dịch dự án
 
-1. 确保已安装 .NET 8.0 SDK
-2. 在项目根目录执行以下命令编译整个项目：
+1. Đảm bảo đã cài .NET 8.0 SDK
+2. Trong thư mục gốc của dự án, thực thi lệnh sau để biên dịch toàn bộ dự án:
 
 ```shell
 ./build/build-aspnetcore-release.ps1
 ```
 
-3. 使用 IDE 打开 `LINGYUN.Abp.MicroService.AllInOne` 解决方案进行调试或发布
+3. Dùng IDE mở solution `LINGYUN.Abp.MicroService.AllInOne` để debug hoặc publish
 
-### 环境配置
+### Cấu hình môi trường
 
-#### 必选配置
+#### Cấu hình bắt buộc
 
-#### 1. 数据库配置
+#### 1. Cấu hình cơ sở dữ liệu
 
-支持多种数据库，以下是各种数据库的配置示例：
+Hỗ trợ nhiều loại cơ sở dữ liệu, sau đây là ví dụ cấu hình của từng loại cơ sở dữ liệu:
 
 ##### PostgreSQL
 
 ```shell
-# 使用Docker启动PostgreSQL
+# Dùng Docker để khởi động PostgreSQL
 docker run -d --name postgres \
     -p 5432:5432 \
     -e POSTGRES_PASSWORD=123456 \
@@ -120,7 +120,7 @@ docker run -d --name postgres \
 ##### MySQL
 
 ```shell
-# 使用Docker启动MySQL
+# Dùng Docker để khởi động MySQL
 docker run -d --name mysql \
     -p 3306:3306 \
     -e MYSQL_ROOT_PASSWORD=123456 \
@@ -130,7 +130,7 @@ docker run -d --name mysql \
 ##### SQL Server
 
 ```shell
-# 使用Docker启动SQL Server
+# Dùng Docker để khởi động SQL Server
 docker run -d --name sqlserver \
     -p 1433:1433 \
     -e "ACCEPT_EULA=Y" \
@@ -138,11 +138,11 @@ docker run -d --name sqlserver \
     mcr.microsoft.com/mssql/server:latest
 ```
 
-#### 2. 配置文件修改
+#### 2. Sửa file cấu hình
 
-需要根据选择的数据库类型修改以下配置文件中的数据库连接字符串：
+Cần sửa chuỗi kết nối cơ sở dữ liệu trong các file cấu hình sau theo loại cơ sở dữ liệu đã chọn:
 
-数据库连接字符串示例：
+Ví dụ chuỗi kết nối cơ sở dữ liệu:
 
 PostgreSQL:
 
@@ -177,14 +177,14 @@ SQL Server:
 }
 ```
 
-#### 3. Redis 服务
+#### 3. Dịch vụ Redis
 
 ```shell
-# 使用Docker启动Redis
+# Dùng Docker để khởi động Redis
 docker run -d --name redis -p 6379:6379 redis:latest
 ```
 
-Redis 配置示例：
+Ví dụ cấu hình Redis:
 
 ```json
 {
@@ -210,11 +210,11 @@ Redis 配置示例：
 }
 ```
 
-### 可选配置
+### Cấu hình tuỳ chọn
 
-以下配置适用于单体分布式架构：
+Các cấu hình sau áp dụng cho kiến trúc phân tán đơn khối:
 
-#### 1. MinIO 分布式文件存储
+#### 1. Lưu trữ file phân tán MinIO
 
 ```json
 {
@@ -229,7 +229,7 @@ Redis 配置示例：
 }
 ```
 
-#### 2. Elasticsearch 分布式审计日志
+#### 2. Nhật ký kiểm toán phân tán Elasticsearch
 
 ```json
 {
@@ -239,44 +239,44 @@ Redis 配置示例：
 }
 ```
 
-### 数据库初始化
+### Khởi tạo cơ sở dữ liệu
 
-1. 运行数据库迁移脚本：
+1. Chạy script migration cơ sở dữ liệu:
 
-方案一：
+Phương án 1:
 
 ```shell
 ./aspnet-core/migrations/Migrate.ps1
 ```
 
-根据命令行提示生成迁移文件和 sql 脚本，然后执行 sql 脚本来创建数据表
+Theo nhắc của dòng lệnh để tạo file migration và script sql, sau đó thực thi script sql để tạo bảng dữ liệu
 
-方案二（推荐）：
-以 pgsql 为例
+Phương án 2 (khuyến nghị):
+Lấy pgsql làm ví dụ
 
-1. 选择启动配置
-   - 选择 `LINGYUN.Abp.MicroService.AllInOne.DbMigrator/Properties/launchSettings.json` 中的 `Single.PostgreSql.Dev`
+1. Chọn cấu hình khởi động
+   - Chọn `Single.PostgreSql.Dev` trong `LINGYUN.Abp.MicroService.AllInOne.DbMigrator/Properties/launchSettings.json`
 
-2. 配置数据初始化：
+2. Cấu hình khởi tạo dữ liệu:
 
-   - 修改 `LINGYUN.Abp.MicroService.AllInOne.DbMigrator/appsettings.PostgreSql.json` 中的数据库连接信息
+   - Sửa thông tin kết nối cơ sở dữ liệu trong `LINGYUN.Abp.MicroService.AllInOne.DbMigrator/appsettings.PostgreSql.json`
 
-3. 执行数据迁移：
-   - 运行 `LINGYUN.Abp.MicroService.AllInOne.DbMigrator` 项目
-   - 等待数据迁移完成，基础表数据将被初始化
+3. Thực thi migration dữ liệu:
+   - Chạy dự án `LINGYUN.Abp.MicroService.AllInOne.DbMigrator`
+   - Chờ migration dữ liệu hoàn tất, dữ liệu bảng cơ bản sẽ được khởi tạo
 
-### 服务启动
-1. 选择启动配置
-   - 选择 `LINGYUN.Abp.MicroService.AllInOne/Properties/launchSettings.json` 中的 `Single.PostgreSql.Dev`
-1. 运行 `LINGYUN.Abp.MicroService.AllInOne` 项目
-2. 在浏览器中访问 Swagger 接口文档：
+### Khởi động dịch vụ
+1. Chọn cấu hình khởi động
+   - Chọn `Single.PostgreSql.Dev` trong `LINGYUN.Abp.MicroService.AllInOne/Properties/launchSettings.json`
+1. Chạy dự án `LINGYUN.Abp.MicroService.AllInOne`
+2. Trong trình duyệt, truy cập tài liệu giao diện Swagger:
    - URL: http://127.0.0.1:30000/swagger
 
-### 配置说明
+### Giải thích cấu hình
 
-#### 基础配置
+#### Cấu hình cơ bản
 
-#### 应用程序配置
+#### Cấu hình ứng dụng
 
 ```json
 {
@@ -288,7 +288,7 @@ Redis 配置示例：
 }
 ```
 
-#### 分布式缓存配置
+#### Cấu hình bộ nhớ đệm phân tán
 
 ```json
 {
@@ -303,9 +303,9 @@ Redis 配置示例：
 }
 ```
 
-### 认证配置
+### Cấu hình xác thực
 
-#### OpenIddict 配置
+#### Cấu hình OpenIddict
 
 ```json
 {
@@ -325,7 +325,7 @@ Redis 配置示例：
 }
 ```
 
-#### 身份认证配置
+#### Cấu hình xác thực danh tính
 
 ```json
 {
@@ -350,7 +350,7 @@ Redis 配置示例：
 }
 ```
 
-### 功能开关配置
+### Cấu hình công tắc tính năng
 
 ```json
 {
@@ -366,7 +366,7 @@ Redis 配置示例：
 }
 ```
 
-### 日志配置
+### Cấu hình nhật ký
 
 ```json
 {
@@ -391,14 +391,14 @@ Redis 配置示例：
 }
 ```
 
-## 常见问题
+## Câu hỏi thường gặp
 
-如果遇到问题，请检查：
+Nếu gặp vấn đề, hãy kiểm tra:
 
-1. 数据库连接字符串是否正确
-2. 是否选择了正确的数据库提供程序
-3. Redis 连接是否正常
-4. 必要的端口是否被占用
-5. 数据库迁移是否成功完成
-6. 认证服务器配置是否正确
-7. CORS 配置是否正确（如果前端访问出现跨域问题）
+1. Chuỗi kết nối cơ sở dữ liệu có đúng không
+2. Có chọn đúng provider cơ sở dữ liệu không
+3. Kết nối Redis có bình thường không
+4. Các cổng cần thiết có bị chiếm không
+5. Migration cơ sở dữ liệu đã hoàn tất thành công chưa
+6. Cấu hình máy chủ xác thực có đúng không
+7. Cấu hình CORS có đúng không (nếu frontend truy cập gặp vấn đề cross-origin)

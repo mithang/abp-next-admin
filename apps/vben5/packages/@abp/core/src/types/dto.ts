@@ -11,266 +11,266 @@ import type {
   NameValue,
   TimeZone,
 } from './global';
-/** 包装器数据传输对象 */
+/** Đối tượng truyền dữ liệu bao bọc */
 interface WrapResult<T> {
   /**
-   * 错误代码
-   * @summary '0' 表示正常
+   * Mã lỗi
+   * @summary '0' nghĩa là bình thường
    */
   code: string;
-  /** 错误详情 */
+  /** Chi tiết lỗi */
   details?: string;
-  /** 错误消息 */
+  /** Thông báo lỗi */
   message: string;
-  /** 返回数据 */
+  /** Dữ liệu trả về */
   result: T;
 }
-/** 远程服务验证错误描述 */
+/** Mô tả lỗi xác thực của dịch vụ từ xa */
 interface RemoteServiceValidationErrorInfo {
-  /** 字段名称列表 */
+  /** Danh sách tên trường */
   members: string[];
-  /** 错误消息 */
+  /** Thông báo lỗi */
   message: string;
 }
-/** 远程服务错误描述（仅适用于接口代理） */
+/** Mô tả lỗi của dịch vụ từ xa (chỉ áp dụng cho proxy giao diện) */
 interface RemoteServiceErrorInfo {
-  /** 错误代码 */
+  /** Mã lỗi */
   code?: string;
-  /** 异常数据 */
+  /** Dữ liệu ngoại lệ */
   data?: { [key: string]: any };
-  /** 错误详情 */
+  /** Chi tiết lỗi */
   details?: string;
-  /** 错误消息 */
+  /** Thông báo lỗi */
   message?: string;
-  /** 验证错误列表 */
+  /** Danh sách lỗi xác thực */
   validationErrors: RemoteServiceValidationErrorInfo[];
 }
-/** 扩展属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng */
 interface ExtensibleObject {
-  /** 扩展属性 */
+  /** Thuộc tính mở rộng */
   extraProperties: ExtraPropertyDictionary;
 }
-/** 实体数据传输对象 */
+/** Đối tượng truyền dữ liệu thực thể */
 interface EntityDto<TPrimaryKey> {
-  /** 实体标识 */
+  /** Định danh thực thể */
   id: TPrimaryKey;
 }
-/** 实体新增属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính tạo mới thực thể */
 interface CreationAuditedEntityDto<TPrimaryKey> extends EntityDto<TPrimaryKey> {
-  /** 创建时间 */
+  /** Thời gian tạo */
   creationTime: Date;
-  /** 创建人标识 */
+  /** Định danh người tạo */
   creatorId?: string;
 }
-/** 实体新增用户属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính tạo mới người dùng thực thể */
 interface CreationAuditedEntityWithUserDto<
   TPrimaryKey,
   TUserDto,
 > extends CreationAuditedEntityDto<TPrimaryKey> {
-  /** 创建人实体数据传输对象 */
+  /** Đối tượng truyền dữ liệu thực thể người tạo */
   creator: TUserDto;
 }
-/** 实体审计属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính kiểm tra thực thể */
 interface AuditedEntityDto<
   TPrimaryKey,
 > extends CreationAuditedEntityDto<TPrimaryKey> {
-  /** 上次变更过时间 */
+  /** Thời gian thay đổi lần cuối */
   lastModificationTime?: Date;
-  /** 上次变更人 */
+  /** Người thay đổi lần cuối */
   lastModifierId?: string;
 }
-/** 实体审计用户属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính kiểm tra người dùng thực thể */
 interface AuditedEntityWithUserDto<
   TPrimaryKey,
   TUserDto,
 > extends AuditedEntityDto<TPrimaryKey> {
-  /** 创建人实体数据传输对象 */
+  /** Đối tượng truyền dữ liệu thực thể người tạo */
   creator: TUserDto;
-  /** 变更人实体数据传输对象 */
+  /** Đối tượng truyền dữ liệu thực thể người thay đổi */
   lastModifier: TUserDto;
 }
-/** 实体审计全属性数据传输对象 */
+/** Đối tượng truyền dữ liệu toàn bộ thuộc tính kiểm tra thực thể */
 interface FullAuditedEntityDto<
   TPrimaryKey,
 > extends AuditedEntityDto<TPrimaryKey> {
-  /** 删除人标识 */
+  /** Định danh người xóa */
   deleterId?: string;
-  /** 删除时间 */
+  /** Thời gian xóa */
   deletionTime?: Date;
-  /** 是否已删除 */
+  /** Đã xóa hay chưa */
   isDeleted: boolean;
 }
-/** 实体审计用户全属性数据传输对象 */
+/** Đối tượng truyền dữ liệu toàn bộ thuộc tính kiểm tra người dùng thực thể */
 interface FullAuditedEntityWithUserDto<TPrimaryKey, TUserDto>
   extends
     AuditedEntityWithUserDto<TPrimaryKey, TUserDto>,
     FullAuditedEntityDto<TPrimaryKey> {
-  /** 删除人实体数据传输对象 */
+  /** Đối tượng truyền dữ liệu thực thể người xóa */
   deleter: TUserDto;
 }
-/** 实体扩展属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng thực thể */
 interface ExtensibleEntityDto<TKey> extends EntityDto<TKey>, ExtensibleObject {}
-/** 实体新增扩展属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng tạo mới thực thể */
 interface ExtensibleCreationAuditedEntityDto<TPrimaryKey>
   extends
     CreationAuditedEntityDto<TPrimaryKey>,
     ExtensibleEntityDto<TPrimaryKey> {}
-/** 实体新增用户扩展属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng tạo mới người dùng thực thể */
 interface ExtensibleCreationAuditedEntityWithUserDto<TPrimaryKey, TUserDto>
   extends
     CreationAuditedEntityWithUserDto<TPrimaryKey, TUserDto>,
     ExtensibleEntityDto<TPrimaryKey> {}
-/** 实体审计扩展属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng kiểm tra thực thể */
 interface ExtensibleAuditedEntityDto<TPrimaryKey>
   extends AuditedEntityDto<TPrimaryKey>, ExtensibleEntityDto<TPrimaryKey> {}
-/** 实体审计用户扩展属性数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng kiểm tra người dùng thực thể */
 interface ExtensibleAuditedEntityWithUserDto<TPrimaryKey, TUserDto>
   extends
     AuditedEntityWithUserDto<TPrimaryKey, TUserDto>,
     ExtensibleEntityDto<TPrimaryKey> {}
-/** 实体审计全属性扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng kiểm tra toàn bộ thực thể */
 interface ExtensibleFullAuditedEntityDto<TPrimaryKey>
   extends ExtensibleEntityDto<TPrimaryKey>, FullAuditedEntityDto<TPrimaryKey> {}
-/** 实体审计用户全属性扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu thuộc tính mở rộng kiểm tra toàn bộ người dùng thực thể */
 interface ExtensibleFullAuditedEntityWithUserDto<TPrimaryKey, TUserDto>
   extends
     ExtensibleEntityDto<TPrimaryKey>,
     FullAuditedEntityWithUserDto<TPrimaryKey, TUserDto> {}
-/** 最大请求数据传输对象 */
+/** Đối tượng truyền dữ liệu yêu cầu tối đa */
 interface LimitedResultRequestDto {
-  /** 最大返回数据大小 */
+  /** Kích thước dữ liệu trả về tối đa */
   maxResultCount?: number;
 }
-/** 最大请求扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu mở rộng yêu cầu tối đa */
 interface ExtensibleLimitedResultRequestDto
   extends ExtensibleObject, LimitedResultRequestDto {}
-/** 排序请求数据传输对象 */
+/** Đối tượng truyền dữ liệu yêu cầu sắp xếp */
 interface SortedResultRequest {
-  /** 排序字段
-   * @summary 升序: 字段名称 + asc；降序: 字段名称 + desc
+  /** Trường sắp xếp
+   * @summary Tăng dần: tên trường + asc; giảm dần: tên trường + desc
    * @example fieldA asc
    * @example fieldB desc
    */
   sorting?: string;
 }
-/** 分页请求数据传输对象 */
+/** Đối tượng truyền dữ liệu yêu cầu phân trang */
 interface PagedResultRequestDto extends LimitedResultRequestDto {
   /**
-   * 跳过数据大小
-   * @summary 分页时跳过的数据大小，计算方式：（当前页 - 1）* 最大返回结果，不能小于0
+   * Kích thước dữ liệu bỏ qua
+   * @summary Kích thước dữ liệu bỏ qua khi phân trang, cách tính: (trang hiện tại - 1) * kết quả trả về tối đa, không được nhỏ hơn 0
    * @example (pageNum - 1) * pageSize
    */
   skipCount?: number;
 }
-/** 分页排序请求数据传输对象 */
+/** Đối tượng truyền dữ liệu yêu cầu sắp xếp phân trang */
 interface PagedAndSortedResultRequestDto
   extends PagedResultRequestDto, SortedResultRequest {}
-/** 分页排序请求扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu mở rộng yêu cầu sắp xếp phân trang */
 interface ExtensiblePagedAndSortedResultRequestDto
   extends ExtensibleObject, PagedAndSortedResultRequestDto {}
-/** 列表数据传输对象 */
+/** Đối tượng truyền dữ liệu danh sách */
 interface ListResultDto<T> {
-  /** 返回项目列表 */
+  /** Danh sách mục trả về */
   items: T[];
 }
-/** 列表扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu mở rộng danh sách */
 interface ExtensibleListResultDto<T>
   extends ExtensibleObject, ListResultDto<T> {}
-/** 分页列表数据传输对象 */
+/** Đối tượng truyền dữ liệu danh sách phân trang */
 interface PagedResultDto<T> extends ListResultDto<T> {
-  /** 符合条件的最大数量 */
+  /** Số lượng tối đa thỏa điều kiện */
   totalCount: number;
 }
-/** 分页列表扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu mở rộng danh sách phân trang */
 interface ExtensiblePagedResultDto<T>
   extends ExtensibleObject, PagedResultDto<T> {}
-/** 分页列表扩展数据传输对象 */
+/** Đối tượng truyền dữ liệu mở rộng danh sách phân trang */
 interface ExtensiblePagedResultRequestDto
   extends ExtensibleObject, PagedResultRequestDto {}
-/** 应用程序本地化资源数据传输对象 */
+/** Đối tượng truyền dữ liệu tài nguyên bản địa hóa ứng dụng */
 interface ApplicationLocalizationResourceDto {
-  /** 继承资源名称列表 */
+  /** Danh sách tên tài nguyên kế thừa */
   baseResources: string[];
-  /** 本地化文本字典列表 */
+  /** Danh sách từ điển văn bản bản địa hóa */
   texts: Dictionary<string, string>;
 }
-/** 应用程序本地化数据传输对象 */
+/** Đối tượng truyền dữ liệu bản địa hóa ứng dụng */
 interface ApplicationLocalizationDto {
-  /** 当前语言环境 */
+  /** Ngôn ngữ hiện tại */
   currentCulture: CurrentCulture;
-  /** 资源字典列表 */
+  /** Danh sách từ điển tài nguyên */
   resources: Dictionary<string, ApplicationLocalizationResourceDto>;
 }
-/** 应用程序本地化配置数据传输对象 */
+/** Đối tượng truyền dữ liệu cấu hình bản địa hóa ứng dụng */
 interface ApplicationLocalizationConfigurationDto {
-  /** 当前语言环境 */
+  /** Ngôn ngữ hiện tại */
   currentCulture: CurrentCulture;
-  /** 默认本地化资源名称 */
+  /** Tên tài nguyên bản địa hóa mặc định */
   defaultResourceName: string;
-  /** 多语言文件配置映射（仅后端） */
+  /** Ánh xạ cấu hình tệp đa ngôn ngữ (chỉ phía backend) */
   languageFilesMap: Dictionary<string, NameValue<any>[]>;
-  /** 支持的多语言列表 */
+  /** Danh sách đa ngôn ngữ được hỗ trợ */
   languages: LanguageInfo[];
-  /** 多语言资源映射（仅后端） */
+  /** Ánh xạ tài nguyên đa ngôn ngữ (chỉ phía backend) */
   languagesMap: Dictionary<string, NameValue<any>[]>;
-  /** 本地化资源字典列表 */
+  /** Danh sách từ điển tài nguyên bản địa hóa */
   resources: Dictionary<string, ApplicationLocalizationResourceDto>;
-  /** 本地化资源文本字典列表 */
+  /** Danh sách từ điển văn bản tài nguyên bản địa hóa */
   values: Dictionary<string, Dictionary<string, string>>;
 }
-/** 应用程序授权数据传输对象 */
+/** Đối tượng truyền dữ liệu ủy quyền ứng dụng */
 interface ApplicationAuthConfigurationDto {
-  /** 已授权字典列表 */
+  /** Danh sách từ điển đã ủy quyền */
   grantedPolicies: Dictionary<string, boolean>;
 }
-/** 应用程序设置数据传输对象 */
+/** Đối tượng truyền dữ liệu cài đặt ứng dụng */
 interface ApplicationSettingConfigurationDto {
-  /** 设置值字典列表 */
+  /** Danh sách từ điển giá trị cài đặt */
   values: Dictionary<string, string>;
 }
-/** 应用程序功能数据传输对象 */
+/** Đối tượng truyền dữ liệu tính năng ứng dụng */
 interface ApplicationFeatureConfigurationDto {
-  /** 功能值字典列表 */
+  /** Danh sách từ điển giá trị tính năng */
   values: Dictionary<string, string>;
 }
-/** 应用程序全局功能数据传输对象 */
+/** Đối tượng truyền dữ liệu tính năng toàn cục ứng dụng */
 interface ApplicationGlobalFeatureConfigurationDto {
-  /** 已启用功能名称列表 */
+  /** Danh sách tên tính năng đã bật */
   enabledFeatures: string[];
 }
-/** 应用程序时区数据传输对象 */
+/** Đối tượng truyền dữ liệu múi giờ ứng dụng */
 interface TimingDto {
-  /** 时区配置定义 */
+  /** Định nghĩa cấu hình múi giờ */
   timeZone: TimeZone;
 }
-/** 本地化文本数据对象 */
+/** Đối tượng dữ liệu văn bản bản địa hóa */
 interface LocalizableStringDto {
-  /** 文本名称 */
+  /** Tên văn bản */
   name: string;
-  /** 资源名称 */
+  /** Tên tài nguyên */
   resource?: string;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyApiGetDto {
   isAvailable: boolean;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyApiCreateDto {
   isAvailable: boolean;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyApiUpdateDto {
   isAvailable: boolean;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyUiTableDto {
   isAvailable: boolean;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyUiFormDto {
   isAvailable: boolean;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyUiLookupDto {
   displayPropertyName: string;
   filterParamName: string;
@@ -278,25 +278,25 @@ interface ExtensionPropertyUiLookupDto {
   url: string;
   valuePropertyName: string;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyApiDto {
   onCreate: ExtensionPropertyApiCreateDto;
   onGet: ExtensionPropertyApiGetDto;
   onUpdate: ExtensionPropertyApiUpdateDto;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyUiDto {
   lookup: ExtensionPropertyUiLookupDto;
   onCreateForm: ExtensionPropertyUiFormDto;
   onEditForm: ExtensionPropertyUiFormDto;
   onTable: ExtensionPropertyUiTableDto;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyAttributeDto {
   config: Dictionary<string, any>;
   typeSimple: string;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionPropertyDto {
   api: ExtensionPropertyApiDto;
   attributes: ExtensionPropertyAttributeDto[];
@@ -307,52 +307,52 @@ interface ExtensionPropertyDto {
   typeSimple: string;
   ui: ExtensionPropertyUiDto;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface EntityExtensionDto {
   configuration: Dictionary<string, any>;
   properties: Dictionary<string, ExtensionPropertyDto>;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ModuleExtensionDto {
   configuration: Dictionary<string, any>;
   entities: Dictionary<string, EntityExtensionDto>;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionEnumFieldDto {
   name: string;
   value: any;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ExtensionEnumDto {
   fields: ExtensionEnumFieldDto[];
   localizationResource: string;
 }
-/** 扩展属性（用于请求代理，忽略） */
+/** Thuộc tính mở rộng (dùng cho proxy yêu cầu, bỏ qua) */
 interface ObjectExtensionsDto {
   enums: Dictionary<string, ExtensionEnumDto>;
   modules: Dictionary<string, ModuleExtensionDto>;
 }
-/** 应用程序配置数据传输对象 */
+/** Đối tượng truyền dữ liệu cấu hình ứng dụng */
 interface ApplicationConfigurationDto extends IHasExtraProperties {
-  /** 授权配置 */
+  /** Cấu hình ủy quyền */
   auth: ApplicationAuthConfigurationDto;
-  /** 时钟配置 */
+  /** Cấu hình đồng hồ */
   clock: Clock;
-  /** 当前租户 */
+  /** Tenant hiện tại */
   currentTenant: CurrentTenant;
-  /** 当前用户 */
+  /** Người dùng hiện tại */
   currentUser: CurrentUser;
-  /** 功能配置 */
+  /** Cấu hình tính năng */
   features: ApplicationFeatureConfigurationDto;
-  /** 全局功能配置 */
+  /** Cấu hình tính năng toàn cục */
   globalFeatures: ApplicationGlobalFeatureConfigurationDto;
-  /** 本地化配置 */
+  /** Cấu hình bản địa hóa */
   localization: ApplicationLocalizationConfigurationDto;
-  /** 多租户配置 */
+  /** Cấu hình đa tenant */
   multiTenancy: MultiTenancyInfo;
-  /** 实体对象扩展配置 */
+  /** Cấu hình mở rộng đối tượng thực thể */
   objectExtensions: ObjectExtensionsDto;
-  /** 系统设置 */
+  /** Cài đặt hệ thống */
   setting: ApplicationSettingConfigurationDto;
   // timing: Timing;
 }

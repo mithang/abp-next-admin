@@ -5,17 +5,17 @@ import { cn } from '@vben-core/shared/utils';
 interface LoadingProps {
   class?: string;
   /**
-   * @zh_CN 最小加载时间
+   * @zh_CN Thời gian tải tối thiểu
    * @en_US Minimum loading time
    */
   minLoadingTime?: number;
 
   /**
-   * @zh_CN loading状态开启
+   * @zh_CN Trạng thái loading bật
    */
   spinning?: boolean;
   /**
-   * @zh_CN 文字
+   * @zh_CN Văn bản
    */
   text?: string;
 }

@@ -5,13 +5,13 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 删除企业客户事件
+/// Sự kiện xóa khách hàng doanh nghiệp
 /// </summary>
 [EventName("external_contact_delete")]
 public class ExternalContactDeleteEvent : ExternalContactChangeEvent
 {
     /// <summary>
-    /// 删除客户的操作来源，DELETE_BY_TRANSFER表示此客户是因在职继承自动被转接成员删除
+    /// Nguồn thao tác xóa khách hàng, DELETE_BY_TRANSFER nghĩa là khách hàng này bị thành viên tiếp nhận xóa tự động do kế thừa khi đang tại chức
     /// </summary>
     [XmlElement("Source")]
     public string Source { get; set; } = default!;

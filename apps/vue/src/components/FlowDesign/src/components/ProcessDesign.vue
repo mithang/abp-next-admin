@@ -24,7 +24,7 @@
           <MinusOutlined />
         </template>
       </Button>
-      <Button @click="validate">校验流程</Button>
+      <Button @click="validate">Kiểm tra quy trình</Button>
     </div>
     <div class="design" :style="'transform: scale(' + state.scale / 100 + ');'">
       <ProcessTree ref="processTreeRef" @selectedNode="nodeSelected" />
@@ -76,7 +76,7 @@
   function loadInitFrom() {
     flowStore.loadForm({
       formId: null,
-      formName: '未命名表单',
+      formName: 'Form chưa đặt tên',
       logo: {
         icon: 'home',
         background: '#1e90ff',
@@ -87,7 +87,7 @@
         sign: false,
         notify: {
           types: ['APP'],
-          title: '消息通知标题',
+          title: 'Tiêu đề thông báo tin nhắn',
         },
       },
       groupId: undefined,
@@ -96,15 +96,15 @@
         id: 'root',
         parentId: null,
         type: 'ROOT',
-        name: '发起人',
-        desc: '任何人',
+        name: 'Người khởi tạo',
+        desc: 'Bất kỳ ai',
         props: {
           assignedUser: [],
           formPerms: [],
         },
         children: {},
       },
-      remark: '备注说明',
+      remark: 'Ghi chú giải thích',
     });
   }
 
@@ -114,7 +114,7 @@
   }
 
   function nodeSelected(node) {
-    console.log('配置节点', node);
+    console.log('Cấu hình nút', node);
     state.showConfig = true;
   }
 

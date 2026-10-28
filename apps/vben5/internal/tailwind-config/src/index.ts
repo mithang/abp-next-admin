@@ -16,7 +16,7 @@ const { packages } = getPackagesSync(process.cwd());
 const tailwindPackages: string[] = [];
 
 packages.forEach((pkg) => {
-  // apps目录下和 @vben-core/tailwind-ui 包需要使用到 tailwindcss ui
+  // Thư mục apps và gói @vben-core/tailwind-ui cần dùng tailwindcss ui
   // if (fs.existsSync(path.join(pkg.dir, 'tailwind.config.mjs'))) {
   tailwindPackages.push(pkg.dir);
   // }
@@ -205,29 +205,29 @@ export default {
 } as Config;
 
 function createColorsPalette(name: string) {
-  // backgroundLightest: '#EFF6FF', // Tailwind CSS 默认的 `blue-50`
-  //         backgroundLighter: '#DBEAFE',  // Tailwind CSS 默认的 `blue-100`
-  //         backgroundLight: '#BFDBFE',    // Tailwind CSS 默认的 `blue-200`
-  //         borderLight: '#93C5FD',        // Tailwind CSS 默认的 `blue-300`
-  //         border: '#60A5FA',             // Tailwind CSS 默认的 `blue-400`
-  //         main: '#3B82F6',               // Tailwind CSS 默认的 `blue-500`
-  //         hover: '#2563EB',              // Tailwind CSS 默认的 `blue-600`
-  //         active: '#1D4ED8',             // Tailwind CSS 默认的 `blue-700`
-  //         backgroundDark: '#1E40AF',     // Tailwind CSS 默认的 `blue-800`
-  //         backgroundDarker: '#1E3A8A',   // Tailwind CSS 默认的 `blue-900`
-  //         backgroundDarkest: '#172554',  // Tailwind CSS 默认的 `blue-950`
+  // backgroundLightest: '#EFF6FF', // `blue-50` mặc định của Tailwind CSS
+  //         backgroundLighter: '#DBEAFE',  // `blue-100` mặc định của Tailwind CSS
+  //         backgroundLight: '#BFDBFE',    // `blue-200` mặc định của Tailwind CSS
+  //         borderLight: '#93C5FD',        // `blue-300` mặc định của Tailwind CSS
+  //         border: '#60A5FA',             // `blue-400` mặc định của Tailwind CSS
+  //         main: '#3B82F6',               // `blue-500` mặc định của Tailwind CSS
+  //         hover: '#2563EB',              // `blue-600` mặc định của Tailwind CSS
+  //         active: '#1D4ED8',             // `blue-700` mặc định của Tailwind CSS
+  //         backgroundDark: '#1E40AF',     // `blue-800` mặc định của Tailwind CSS
+  //         backgroundDarker: '#1E3A8A',   // `blue-900` mặc định của Tailwind CSS
+  //         backgroundDarkest: '#172554',  // `blue-950` mặc định của Tailwind CSS
 
-  // •	backgroundLightest (#EFF6FF): 适用于最浅的背景色，可能用于非常轻微的阴影或卡片的背景。
-  // •	backgroundLighter (#DBEAFE): 适用于略浅的背景色，通常用于次要背景或略浅的区域。
-  // •	backgroundLight (#BFDBFE): 适用于浅色背景，可能用于输入框或表单区域的背景。
-  // •	borderLight (#93C5FD): 适用于浅色边框，可能用于输入框或卡片的边框。
-  // •	border (#60A5FA): 适用于普通边框，可能用于按钮或卡片的边框。
-  // •	main (#3B82F6): 适用于主要的主题色，通常用于按钮、链接或主要的强调色。
-  // •	hover (#2563EB): 适用于鼠标悬停状态下的颜色，例如按钮悬停时的背景色或边框色。
-  // •	active (#1D4ED8): 适用于激活状态下的颜色，例如按钮按下时的背景色或边框色。
-  // •	backgroundDark (#1E40AF): 适用于深色背景，可能用于主要按钮或深色卡片背景。
-  // •	backgroundDarker (#1E3A8A): 适用于更深的背景，通常用于头部导航栏或页脚。
-  // •	backgroundDarkest (#172554): 适用于最深的背景，可能用于非常深色的区域或极端对比色。
+  // •	backgroundLightest (#EFF6FF): dùng cho màu nền nhạt nhất, có thể dùng cho bóng đổ rất nhẹ hoặc nền của thẻ.
+  // •	backgroundLighter (#DBEAFE): dùng cho màu nền nhạt hơn, thường dùng cho nền phụ hoặc vùng nhạt hơn.
+  // •	backgroundLight (#BFDBFE): dùng cho nền sáng, có thể dùng cho nền của ô nhập liệu hoặc vùng biểu mẫu.
+  // •	borderLight (#93C5FD): dùng cho viền sáng, có thể dùng cho viền của ô nhập liệu hoặc thẻ.
+  // •	border (#60A5FA): dùng cho viền thông thường, có thể dùng cho viền của nút hoặc thẻ.
+  // •	main (#3B82F6): dùng cho màu chủ đạo, thường dùng cho nút, liên kết hoặc màu nhấn chính.
+  // •	hover (#2563EB): dùng cho màu ở trạng thái di chuột qua, ví dụ màu nền hoặc màu viền khi di chuột qua nút.
+  // •	active (#1D4ED8): dùng cho màu ở trạng thái kích hoạt, ví dụ màu nền hoặc màu viền khi nhấn nút.
+  // •	backgroundDark (#1E40AF): dùng cho nền đậm, có thể dùng cho nút chính hoặc nền thẻ đậm.
+  // •	backgroundDarker (#1E3A8A): dùng cho nền đậm hơn, thường dùng cho thanh điều hướng đầu trang hoặc chân trang.
+  // •	backgroundDarkest (#172554): dùng cho nền đậm nhất, có thể dùng cho vùng rất đậm hoặc màu tương phản cực mạnh.
 
   return {
     50: `hsl(var(--${name}-50))`,
@@ -241,26 +241,26 @@ function createColorsPalette(name: string) {
     // 800: `hsl(var(--${name}-800))`,
     // 900: `hsl(var(--${name}-900))`,
     // 950: `hsl(var(--${name}-950))`,
-    // 激活状态下的颜色，适用于按钮按下时的背景色或边框色。
+    // Màu ở trạng thái kích hoạt, dùng cho màu nền hoặc màu viền khi nhấn nút.
     active: `hsl(var(--${name}-700))`,
-    // 浅色背景，适用于输入框或表单区域的背景。
+    // Nền sáng, dùng cho nền của ô nhập liệu hoặc vùng biểu mẫu.
     'background-light': `hsl(var(--${name}-200))`,
-    // 适用于略浅的背景色，通常用于次要背景或略浅的区域。
+    // Dùng cho màu nền nhạt hơn, thường dùng cho nền phụ hoặc vùng nhạt hơn.
     'background-lighter': `hsl(var(--${name}-100))`,
-    // 最浅的背景色，适用于非常轻微的阴影或卡片的背景。
+    // Màu nền nhạt nhất, dùng cho bóng đổ rất nhẹ hoặc nền của thẻ.
     'background-lightest': `hsl(var(--${name}-50))`,
-    // 适用于普通边框，可能用于按钮或卡片的边框。
+    // Dùng cho viền thông thường, có thể dùng cho viền của nút hoặc thẻ.
     border: `hsl(var(--${name}-400))`,
-    // 浅色边框，适用于输入框或卡片的边框。
+    // Viền sáng, dùng cho viền của ô nhập liệu hoặc thẻ.
     'border-light': `hsl(var(--${name}-300))`,
     foreground: `hsl(var(--${name}-foreground))`,
-    // 鼠标悬停状态下的颜色，适用于按钮悬停时的背景色或边框色。
+    // Màu ở trạng thái di chuột qua, dùng cho màu nền hoặc màu viền khi di chuột qua nút.
     hover: `hsl(var(--${name}-600))`,
-    // 主色文本
+    // Văn bản màu chủ đạo
     text: `hsl(var(--${name}-500))`,
-    // 主色文本激活态
+    // Văn bản màu chủ đạo ở trạng thái kích hoạt
     'text-active': `hsl(var(--${name}-700))`,
-    // 主色文本悬浮态
+    // Văn bản màu chủ đạo ở trạng thái di chuột qua
     'text-hover': `hsl(var(--${name}-600))`,
   };
 }

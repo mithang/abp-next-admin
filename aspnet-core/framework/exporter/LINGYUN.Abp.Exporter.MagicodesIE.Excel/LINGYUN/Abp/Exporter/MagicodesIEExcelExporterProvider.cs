@@ -65,7 +65,7 @@ public class MagicodesIEExcelExporterProvider :
         var fileBytes = new List<byte>();
         var exportHelper = new ExportHelper<T>();
 
-        // 由于Microsoft.IE.Excel官方此接口未暴露用户配置,做一次转换
+        // Vì giao diện chính thức này của Microsoft.IE.Excel không công khai cấu hình người dùng nên thực hiện một lần chuyển đổi
         if (_options.ExportSettingMapping.TryGetValue(typeof(T), out var exportSetting))
         {
             exportSetting?.Invoke(exportHelper.ExcelExporterSettings);

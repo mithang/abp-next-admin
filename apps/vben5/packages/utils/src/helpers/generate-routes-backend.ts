@@ -9,15 +9,15 @@ import type {
 import { mapTree } from '@vben-core/shared/utils';
 
 /**
- * 判断路由是否在菜单中显示但访问时展示 403（让用户知悉功能并申请权限）
+ * Kiểm tra route có hiển thị trong menu nhưng khi truy cập thì hiện 403 hay không (để người dùng biết tính năng và xin cấp quyền)
  */
 function menuHasVisibleWithForbidden(route: RouteRecordRaw): boolean {
   return !!route.meta?.menuVisibleWithForbidden;
 }
 
 /**
- * 动态生成路由 - 后端方式
- * 对 meta.menuVisibleWithForbidden 为 true 的项直接替换为 403 组件，让用户知悉功能并申请权限。
+ * Tạo route động - theo cách backend
+ * Các mục có meta.menuVisibleWithForbidden bằng true sẽ được thay trực tiếp bằng component 403, để người dùng biết tính năng và xin cấp quyền.
  */
 async function generateRoutesByBackend(
   options: GenerateMenuAndRoutesOptions,
@@ -72,10 +72,10 @@ function convertRoutes(
       console.error('route name is required', route);
     }
 
-    // layout转换
+    // Chuyển đổi layout
     if (component && layoutMap[component]) {
       route.component = layoutMap[component];
-      // 页面组件转换
+      // Chuyển đổi component trang
     } else if (component) {
       const normalizePath = normalizeViewPath(component);
       const pageKey = normalizePath.endsWith('.vue')
@@ -94,15 +94,15 @@ function convertRoutes(
 }
 
 function normalizeViewPath(path: string): string {
-  // 去除相对路径前缀
+  // Loại bỏ tiền tố đường dẫn tương đối
   const normalizedPath = path.replace(/^(\.\/|\.\.\/)+/, '');
 
-  // 确保路径以 '/' 开头
+  // Đảm bảo đường dẫn bắt đầu bằng '/'
   const viewPath = normalizedPath.startsWith('/')
     ? normalizedPath
     : `/${normalizedPath}`;
 
-  // 这里耦合了vben-admin的目录结构
+  // Tại đây gắn chặt với cấu trúc thư mục của vben-admin
   return viewPath.replace(/^\/views/, '');
 }
 export { generateRoutesByBackend };

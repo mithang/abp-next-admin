@@ -48,7 +48,7 @@ public class DefaultDbSchemaMigrator : IDbSchemaMigrator, ITransientDependency
         }
 
         var defaultConnectionString = _dbConnectionOptions.GetConnectionStringOrNull(connectionStringName);
-        // 租户连接字符串与默认连接字符串相同,则不执行迁移脚本
+        // Nếu chuỗi kết nối của tenant giống với chuỗi kết nối mặc định thì không thực thi script migration
         if (string.Equals(
             connectionString,
             defaultConnectionString,

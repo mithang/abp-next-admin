@@ -1,8 +1,8 @@
 # LINGYUN.Abp.AspNetCore.Auditing
 
-审计日期扩展模块, 用于在审计日志中加入特定的Http请求头记录  
+Mô-đun mở rộng ngày kiểm toán, dùng để ghi các Http header cụ thể vào nhật ký kiểm toán  
 
-## 模块引用
+## Tham chiếu mô-đun
 
 
 ```csharp
@@ -13,7 +13,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-*	AbpAspNetCoreAuditingHeaderOptions.IsEnabled      是否在审计日志中记录Http请求头,默认: true
-*	AbpAspNetCoreAuditingHeaderOptions.HttpHeaders    需要在审计日志中记录的Http请求头列表
+*	AbpAspNetCoreAuditingHeaderOptions.IsEnabled      Có ghi Http header vào nhật ký kiểm toán hay không, mặc định: true
+*	AbpAspNetCoreAuditingHeaderOptions.HttpHeaders    Danh sách Http header cần ghi vào nhật ký kiểm toán

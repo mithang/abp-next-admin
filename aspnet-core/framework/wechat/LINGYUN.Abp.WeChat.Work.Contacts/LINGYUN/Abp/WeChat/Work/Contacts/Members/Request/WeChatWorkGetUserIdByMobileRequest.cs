@@ -5,15 +5,15 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Request;
 /// <summary>
-/// 手机号获取userid请求参数
+/// Tham số yêu cầu lấy userid bằng số điện thoại di động
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95402" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/95402" />
 /// </remarks>
 public class WeChatWorkGetUserIdByMobileRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 用户在企业微信通讯录中的手机号码。长度为5~32个字节
+    /// Số điện thoại di động của người dùng trong danh bạ WeChat Doanh nghiệp. Độ dài 5~32 byte
     /// </summary>
     [NotNull]
     [JsonProperty("mobile")]

@@ -4,71 +4,71 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Authorize.Models;
 /// <summary>
-/// 企业微信用户详情
+/// Chi tiết người dùng WeChat Work
 /// </summary>
 public class WeChatWorkUserDetail
 {
     /// <summary>
-    /// 成员UserID
+    /// UserID của thành viên
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 性别。
-    /// 0表示未定义，
-    /// 1表示男性，
-    /// 2表示女性。
-    /// 仅在用户同意snsapi_privateinfo授权时返回真实值，否则返回0
+    /// Giới tính.
+    /// 0 nghĩa là chưa xác định,
+    /// 1 nghĩa là nam,
+    /// 2 nghĩa là nữ.
+    /// Chỉ trả về giá trị thật khi người dùng đồng ý ủy quyền snsapi_privateinfo, nếu không sẽ trả về 0
     /// </summary>
     [CanBeNull]
     [JsonProperty("gender")]
     [JsonPropertyName("gender")]
     public WeChatWorkGender Gender { get; set; }
     /// <summary>
-    /// 头像url。
-    /// 仅在用户同意snsapi_privateinfo授权时返回真实头像，否则返回默认头像
+    /// URL ảnh đại diện.
+    /// Chỉ trả về ảnh đại diện thật khi người dùng đồng ý ủy quyền snsapi_privateinfo, nếu không sẽ trả về ảnh đại diện mặc định
     /// </summary>
     [CanBeNull]
     [JsonProperty("avatar")]
     [JsonPropertyName("avatar")]
     public string? Avatar { get; set; }
     /// <summary>
-    /// 员工个人二维码（扫描可添加为外部联系人）
-    /// 仅在用户同意snsapi_privateinfo授权时返回
+    /// Mã QR cá nhân của nhân viên (quét để thêm làm liên hệ bên ngoài)
+    /// Chỉ trả về khi người dùng đồng ý ủy quyền snsapi_privateinfo
     /// </summary>
     [CanBeNull]
     [JsonProperty("qr_code")]
     [JsonPropertyName("qr_code")]
     public string? QrCode { get; set; }
     /// <summary>
-    /// 手机
-    /// 仅在用户同意snsapi_privateinfo授权时返回，第三方应用不可获取
+    /// Số điện thoại di động
+    /// Chỉ trả về khi người dùng đồng ý ủy quyền snsapi_privateinfo, ứng dụng bên thứ ba không thể lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("mobile")]
     [JsonPropertyName("mobile")]
     public string? Mobile { get; set; }
     /// <summary>
-    /// 邮箱
-    /// 仅在用户同意snsapi_privateinfo授权时返回，第三方应用不可获取
+    /// Email
+    /// Chỉ trả về khi người dùng đồng ý ủy quyền snsapi_privateinfo, ứng dụng bên thứ ba không thể lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("email")]
     [JsonPropertyName("email")]
     public string? Email { get; set; }
     /// <summary>
-    /// 企业邮箱
-    /// 仅在用户同意snsapi_privateinfo授权时返回，第三方应用不可获取
+    /// Email doanh nghiệp
+    /// Chỉ trả về khi người dùng đồng ý ủy quyền snsapi_privateinfo, ứng dụng bên thứ ba không thể lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("biz_mail")]
     [JsonPropertyName("biz_mail")]
     public string? WorkEmail { get; set; }
     /// <summary>
-    /// 地址
-    /// 仅在用户同意snsapi_privateinfo授权时返回，第三方应用不可获取
+    /// Địa chỉ
+    /// Chỉ trả về khi người dùng đồng ý ủy quyền snsapi_privateinfo, ứng dụng bên thứ ba không thể lấy được
     /// </summary>
     [CanBeNull]
     [JsonProperty("address")]

@@ -4,11 +4,11 @@ public static class GdprErrorCodes
 {
     public const string Namespace = "Gdpr";
     /// <summary>
-    /// 你已经提交了一个个人数据下载请求, 请在 {RequestTimeInterval} 后再次尝试.
+    /// Bạn đã gửi một yêu cầu tải xuống dữ liệu cá nhân, vui lòng thử lại sau {RequestTimeInterval}.
     /// </summary>
     public const string PersonalDataRequestAlreadyDays = Namespace + ":010001";
     /// <summary>
-    /// 你的个人数据正在准备中, 请在 {ReadyTime} 后再次尝试下载.
+    /// Dữ liệu cá nhân của bạn đang được chuẩn bị, vui lòng thử tải xuống lại sau {ReadyTime}.
     /// </summary>
     public const string DataNotPreparedYet = Namespace + ":010002";
 }

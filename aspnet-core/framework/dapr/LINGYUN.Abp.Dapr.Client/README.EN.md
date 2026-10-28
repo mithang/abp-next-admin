@@ -274,4 +274,4 @@ Configure<AbpDaprClientProxyOptions>(options =>
 * Request header configuration should consider security and authentication requirements
 * Logging is important for problem diagnosis
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

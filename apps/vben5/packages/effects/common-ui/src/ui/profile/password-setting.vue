@@ -26,7 +26,7 @@ const [Form, formApi] = useVbenForm(
   reactive({
     commonConfig: {
       labelWidth: 130,
-      // 所有表单项
+      // Tất cả các mục biểu mẫu
       componentProps: {
         class: 'w-full',
       },

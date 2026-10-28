@@ -1,3 +1,3 @@
 # @vben-core
 
-系统一些比较基础的SDK和UI组件库，该目录后续完善后，可能会迁移出去或者发布到npm，请勿将任何业务逻辑和业务包放在该目录。
+Một số SDK và thư viện component UI tương đối cơ bản của hệ thống, thư mục này sau khi hoàn thiện có thể được di chuyển ra ngoài hoặc phát hành lên npm, vui lòng không đặt bất kỳ logic nghiệp vụ và gói nghiệp vụ nào trong thư mục này.

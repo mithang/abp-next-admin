@@ -11,7 +11,7 @@
     mgr
       .signinRedirectCallback()
       .then((user) => {
-        // TODO: 暂时先删除XSRF TOKEN?
+        // TODO: Tạm thời xóa XSRF TOKEN trước?
         cookies?.remove('XSRF-TOKEN');
         userStore.oidcLogin(user);
         // go(PageEnum.BASE_HOME);

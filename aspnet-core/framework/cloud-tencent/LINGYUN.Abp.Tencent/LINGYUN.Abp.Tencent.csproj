@@ -11,7 +11,7 @@
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 		<RootNamespace />
-		<Description>腾讯云SDK基础框架</Description>
+		<Description>Framework cơ sở SDK Tencent Cloud</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

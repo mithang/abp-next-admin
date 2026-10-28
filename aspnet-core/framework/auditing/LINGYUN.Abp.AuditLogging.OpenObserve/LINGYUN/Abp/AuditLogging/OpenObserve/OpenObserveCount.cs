@@ -1,10 +1,10 @@
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 统计查询结果
+/// Kết quả truy vấn thống kê
 /// </summary>
 /// <remarks>
-/// 对应 <c>select count(*) as total from ...</c> 的命中结构
+/// Cấu trúc trúng khớp tương ứng với <c>select count(*) as total from ...</c>
 /// </remarks>
 public class OpenObserveCount
 {

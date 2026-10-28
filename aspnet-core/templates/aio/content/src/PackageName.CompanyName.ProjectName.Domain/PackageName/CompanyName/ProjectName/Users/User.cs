@@ -6,34 +6,34 @@ using Volo.Abp.Identity;
 namespace PackageName.CompanyName.ProjectName.Users
 {
     /// <summary>
-    /// 用户实体
+    /// Thực thể người dùng
     /// </summary>
     public class User : FullAuditedEntity<Guid>
     {
         /// <summary>
-        /// 用户名称
+        /// Tên người dùng
         /// </summary>
         [MaxLength(50)]
         public string NickName { get; set; }
 
         /// <summary>
-        /// Identity用户Id
+        /// Id người dùng Identity
         /// </summary>
         public Guid IdentityUserId { get; set; }
 
         /// <summary>
-        /// Identity用户
+        /// Người dùng Identity
         /// </summary>
         public virtual IdentityUser IdentityUser { get; set; }
         
         /// <summary>
-        /// 联系方式
+        /// Thông tin liên hệ
         /// </summary>
         [MaxLength(50)]
         public string ContactInfo { get; set; }
         
         /// <summary>
-        /// 职位
+        /// Chức vụ
         /// </summary>
         [MaxLength(50)]
         public string Position { get; set; }

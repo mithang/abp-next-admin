@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Ingestion;
 
 /// <summary>
-/// _bulk 单条记录处理结果
+/// Kết quả xử lý của từng bản ghi _bulk
 /// </summary>
 public class JsonBulkItem
 {
@@ -16,49 +16,49 @@ public class JsonBulkItem
     public string? Id { get; set; }
 
     /// <summary>
-    /// 版本
+    /// Phiên bản
     /// </summary>
     /// <remarks>
-    /// 兼容 Elasticsearch 的占位值, 不代表真实版本
+    /// Giá trị giữ chỗ tương thích với Elasticsearch, không đại diện cho phiên bản thực
     /// </remarks>
     [JsonPropertyName("_version")]
     public int Version { get; set; }
 
     /// <summary>
-    /// 处理结果
+    /// Kết quả xử lý
     /// </summary>
     /// <remarks>
-    /// 如 created
+    /// Ví dụ: created
     /// </remarks>
     [JsonPropertyName("result")]
     public string? Result { get; set; }
 
     /// <summary>
-    /// 状态码
+    /// Mã trạng thái
     /// </summary>
     /// <remarks>
-    /// 200 表示成功, >=400 表示失败
+    /// 200 nghĩa là thành công, >=400 nghĩa là thất bại
     /// </remarks>
     [JsonPropertyName("status")]
     public int Status { get; set; }
 
     /// <summary>
-    /// 错误信息
+    /// Thông tin lỗi
     /// </summary>
     [JsonPropertyName("error")]
     public JsonBulkItemError? Error { get; set; }
 
     /// <summary>
-    /// 原始记录
+    /// Bản ghi gốc
     /// </summary>
     /// <remarks>
-    /// 仅在失败时返回
+    /// Chỉ trả về khi thất bại
     /// </remarks>
     [JsonPropertyName("originalRecord")]
     public JsonElement? OriginalRecord { get; set; }
 
     /// <summary>
-    /// 是否成功
+    /// Có thành công hay không
     /// </summary>
     [JsonIgnore]
     public bool IsSuccess => Status is >= 200 and < 300;

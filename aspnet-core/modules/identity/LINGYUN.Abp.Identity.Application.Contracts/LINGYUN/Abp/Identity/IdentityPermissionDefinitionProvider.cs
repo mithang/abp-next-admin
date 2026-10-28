@@ -39,7 +39,7 @@ public class IdentityPermissionDefinitionProvider : PermissionDefinitionProvider
             origanizationUnitPermission.AddChild(IdentityPermissions.OrganizationUnits.ManageUsers, L("Permission:ManageUsers"));
             origanizationUnitPermission.AddChild(IdentityPermissions.OrganizationUnits.ManagePermissions, L("Permission:ChangePermissions"));
 
-            // 2020-10-23 修复Bug 租户用户也必须能查询自定义的声明, 管理权限只能为主机
+            // 2020-10-23 Sửa lỗi: người dùng tenant cũng phải có thể truy vấn các claim tùy chỉnh, quyền quản trị chỉ dành cho host
             var identityClaimType = identityGroup.AddPermission(IdentityPermissions.IdentityClaimType.Default, L("Permission:IdentityClaimTypeManagement"));
             identityClaimType.AddChild(IdentityPermissions.IdentityClaimType.Create, L("Permission:Create"), MultiTenancySides.Host);
             identityClaimType.AddChild(IdentityPermissions.IdentityClaimType.Update, L("Permission:Edit"), MultiTenancySides.Host);

@@ -7,29 +7,29 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Request;
 /// <summary>
-/// 修改客户备注信息请求参数
+/// Tham số yêu cầu sửa thông tin ghi chú của khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92115" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/92115" />
 /// </remarks>
 public class WeChatWorkUpdateCustomerRemarkRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 企业成员的userid
+    /// userid của thành viên doanh nghiệp
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; }
     /// <summary>
-    /// 外部联系人userid
+    /// userid của liên hệ bên ngoài
     /// </summary>
     [NotNull]
     [JsonProperty("external_userid")]
     [JsonPropertyName("external_userid")]
     public string ExternalUserId { get; }
     /// <summary>
-    /// 此用户对外部联系人的备注，最多20个字符
+    /// Ghi chú của người dùng này đối với liên hệ bên ngoài, tối đa 20 ký tự
     /// </summary>
     [CanBeNull]
     [StringLength(20)]
@@ -37,7 +37,7 @@ public class WeChatWorkUpdateCustomerRemarkRequest : WeChatWorkRequest
     [JsonPropertyName("remark")]
     public string? Remark { get; }
     /// <summary>
-    /// 此用户对外部联系人的描述，最多150个字符
+    /// Mô tả của người dùng này đối với liên hệ bên ngoài, tối đa 150 ký tự
     /// </summary>
     [CanBeNull]
     [StringLength(150)]
@@ -45,7 +45,7 @@ public class WeChatWorkUpdateCustomerRemarkRequest : WeChatWorkRequest
     [JsonPropertyName("description")]
     public string? Description { get; }
     /// <summary>
-    /// 此用户对外部联系人备注的所属公司名称，最多20个字符
+    /// Tên công ty sở hữu ghi chú của người dùng này đối với liên hệ bên ngoài, tối đa 20 ký tự
     /// </summary>
     [CanBeNull]
     [StringLength(20)]
@@ -53,14 +53,14 @@ public class WeChatWorkUpdateCustomerRemarkRequest : WeChatWorkRequest
     [JsonPropertyName("remark_company")]
     public string? RemarkCompany { get; }
     /// <summary>
-    /// 此用户对外部联系人备注的手机号
+    /// Số điện thoại di động trong ghi chú của người dùng này đối với liên hệ bên ngoài
     /// </summary>
     [CanBeNull]
     [JsonProperty("remark_mobiles")]
     [JsonPropertyName("remark_mobiles")]
     public List<string>? RemarkMobiles { get; }
     /// <summary>
-    /// 备注图片的mediaid
+    /// mediaid của ảnh ghi chú
     /// </summary>
     [CanBeNull]
     [JsonProperty("remark_pic_mediaid")]

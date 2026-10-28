@@ -46,42 +46,42 @@
 
   defineEmits(['delNode', 'insertNode', 'selected']);
   defineProps({
-    //是否为根节点
+    // Có phải nút gốc hay không
     isRoot: {
       type: Boolean,
       default: false,
     },
-    //是否显示节点体
+    // Có hiển thị thân nút hay không
     show: {
       type: Boolean,
       default: true,
     },
-    //节点内容区域文字
+    // Văn bản vùng nội dung của nút
     content: {
       type: String,
       default: '',
     },
     title: {
       type: String,
-      default: '标题',
+      default: 'Tiêu đề',
     },
     placeholder: {
       type: String,
-      default: '请设置',
+      default: 'Vui lòng thiết lập',
     },
-    //头部背景色
+    // Màu nền phần đầu
     headerBgc: {
       type: String,
       default: '#576a95',
     },
-    //是否显示错误状态
+    // Có hiển thị trạng thái lỗi hay không
     showError: {
       type: Boolean,
       default: false,
     },
     errorInfo: {
       type: String,
-      default: '无信息',
+      default: 'Không có thông tin',
     },
   });
 </script>

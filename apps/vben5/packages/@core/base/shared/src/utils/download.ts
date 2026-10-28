@@ -9,8 +9,8 @@ interface DownloadOptions<T = string> {
 const DEFAULT_FILENAME = 'downloaded_file';
 
 /**
- * 通过 URL 下载文件，支持跨域
- * @throws {Error} - 当下载失败时抛出错误
+ * Tải file xuống qua URL, hỗ trợ cross-domain
+ * @throws {Error} - Khi tải xuống thất bại sẽ ném ra lỗi
  */
 export async function downloadFileFromUrl({
   fileName,
@@ -41,7 +41,7 @@ export async function downloadFileFromUrl({
 }
 
 /**
- * 通过 Base64 下载文件
+ * Tải file xuống qua Base64
  */
 export function downloadFileFromBase64({ fileName, source }: DownloadOptions) {
   if (!source || typeof source !== 'string') {
@@ -53,7 +53,7 @@ export function downloadFileFromBase64({ fileName, source }: DownloadOptions) {
 }
 
 /**
- * 通过图片 URL 下载图片文件
+ * Tải file ảnh xuống qua URL ảnh
  */
 export async function downloadFileFromImageUrl({
   fileName,
@@ -64,7 +64,7 @@ export async function downloadFileFromImageUrl({
 }
 
 /**
- * 通过 Blob 下载文件
+ * Tải file xuống qua Blob
  */
 export function downloadFileFromBlob({
   fileName = DEFAULT_FILENAME,
@@ -79,19 +79,19 @@ export function downloadFileFromBlob({
 }
 
 /**
- * 下载文件，支持 Blob、字符串和其他 BlobPart 类型
+ * Tải file xuống, hỗ trợ Blob, chuỗi và các kiểu BlobPart khác
  */
 export function downloadFileFromBlobPart({
   fileName = DEFAULT_FILENAME,
   source,
 }: DownloadOptions<BlobPart>): void {
-  // 如果 data 不是 Blob，则转换为 Blob
+  // Nếu data không phải là Blob thì chuyển đổi thành Blob
   const blob =
     source instanceof Blob
       ? source
       : new Blob([source], { type: 'application/octet-stream' });
 
-  // 创建对象 URL 并触发下载
+  // Tạo URL đối tượng và kích hoạt tải xuống
   const url = URL.createObjectURL(blob);
   triggerDownload(url, fileName);
 }
@@ -122,10 +122,10 @@ export function urlToBase64(url: string, mineType?: string): Promise<string> {
 }
 
 /**
- * 通用下载触发函数
- * @param href - 文件下载的 URL
- * @param fileName - 下载文件的名称，如果未提供则自动识别
- * @param revokeDelay - 清理 URL 的延迟时间 (毫秒)
+ * Hàm kích hoạt tải xuống chung
+ * @param href - URL tải file xuống
+ * @param fileName - Tên file tải xuống, nếu không cung cấp sẽ tự động nhận dạng
+ * @param revokeDelay - Thời gian trễ để dọn dẹp URL (mili giây)
  */
 export function triggerDownload(
   href: string,
@@ -148,7 +148,7 @@ export function triggerDownload(
   link.click();
   link.remove();
 
-  // 清理临时 URL 以释放内存
+  // Dọn dẹp URL tạm thời để giải phóng bộ nhớ
   setTimeout(() => URL.revokeObjectURL(href), revokeDelay);
 }
 

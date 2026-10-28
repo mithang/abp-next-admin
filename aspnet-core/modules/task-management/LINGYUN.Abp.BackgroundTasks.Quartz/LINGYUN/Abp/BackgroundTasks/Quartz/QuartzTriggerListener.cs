@@ -46,7 +46,7 @@ public class QuartzTriggerListener : TriggerListenerSupport, ISingletonDependenc
         context.MergedJobDataMap.TryGetValue(nameof(JobInfo.LockTimeOut), out var lockTime);
         if (jobId != null && lockTime != null && int.TryParse(lockTime.ToString(), out var time) && time > 0)
         {
-            // 传递令牌将清除本次锁, 那并无意义
+            // Việc truyền token sẽ xóa khóa trong lần này, điều đó không có ý nghĩa
             if (!await JobLockProvider.TryLockAsync(NormalizeKey(context, jobId), time))
             {
                 context.Put("JobLocked", time);

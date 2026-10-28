@@ -16,12 +16,12 @@ public static class TaskManagementPermissions
         public const string Start = Default + ".Start";
         public const string Stop = Default + ".Stop";
         /// <summary>
-        /// 是否允许管理系统内置作业
-        /// 通常内置作业是由程序运行中产生，需要控制用户行为
+        /// Có cho phép quản lý các công việc tích hợp sẵn của hệ thống hay không
+        /// Thông thường các công việc tích hợp sẵn được tạo ra trong quá trình chương trình chạy, cần kiểm soát hành vi người dùng
         /// </summary>
         public const string ManageSystemJobs = Default + ".ManageSystemJobs";
         /// <summary>
-        /// 管理作业行为
+        /// Quản lý hành vi công việc
         /// </summary>
         public const string ManageActions = Default + ".ManageActions";
     }

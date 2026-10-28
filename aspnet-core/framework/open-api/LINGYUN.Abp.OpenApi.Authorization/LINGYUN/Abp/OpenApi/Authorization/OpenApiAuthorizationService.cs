@@ -264,7 +264,7 @@ namespace LINGYUN.Abp.OpenApi.Authorization
         private static string CalculationSignature(string url, IDictionary<string, string> queryDictionary)
         {
             var queryString = BuildQuery(queryDictionary);
-            // %20 替换 +
+            // Thay + bằng %20
             var encodeUrl = UrlEncode(string.Concat(url, "?", queryString)).Replace("+", "%20");
 
             return encodeUrl.ToMd5();

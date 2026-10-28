@@ -1,15 +1,15 @@
 # LINGYUN.Abp.EntityChange.Application.Contracts
 
-实体变更追踪与恢复的应用层契约模块。
+Mô-đun hợp đồng tầng ứng dụng cho việc theo dõi và khôi phục thay đổi thực thể.
 
-## 功能
+## Tính năng
 
-* 提供实体变更查询接口
-* 提供实体恢复接口
-* 提供实体变更相关DTO对象
-* 提供多语言本地化资源
+* Cung cấp giao diện truy vấn thay đổi thực thể
+* Cung cấp giao diện khôi phục thực thể
+* Cung cấp các đối tượng DTO liên quan đến thay đổi thực thể
+* Cung cấp tài nguyên bản địa hóa đa ngôn ngữ
 
-## 基本用法
+## Cách dùng cơ bản
 
 ```csharp
 [DependsOn(typeof(AbpEntityChangeApplicationContractsModule))]
@@ -24,19 +24,19 @@ public class YouProjectModule : AbpModule
 
 ## API
 
-* `IEntityChangeAppService`: 实体变更查询服务接口
-  * `GetListAsync`: 获取实体变更历史记录列表
+* `IEntityChangeAppService`: Giao diện dịch vụ truy vấn thay đổi thực thể
+  * `GetListAsync`: Lấy danh sách lịch sử thay đổi thực thể
 
-* `IEntityRestoreAppService`: 实体恢复服务接口
-  * `RestoreEntityAsync`: 恢复单个实体到指定版本
-  * `RestoreEntitesAsync`: 批量恢复实体到指定版本
+* `IEntityRestoreAppService`: Giao diện dịch vụ khôi phục thực thể
+  * `RestoreEntityAsync`: Khôi phục một thực thể về phiên bản chỉ định
+  * `RestoreEntitesAsync`: Khôi phục hàng loạt thực thể về phiên bản chỉ định
 
-## 本地化
+## Bản địa hóa
 
-模块提供了以下语言的本地化资源：
+Mô-đun cung cấp tài nguyên bản địa hóa cho các ngôn ngữ sau:
 * en
 * zh-Hans
 
-本地化资源位于 `/LINGYUN/Abp/EntityChange/Localization/Resources` 目录下。
+Tài nguyên bản địa hóa nằm trong thư mục `/LINGYUN/Abp/EntityChange/Localization/Resources`.
 
 [English](./README.EN.md)

@@ -1,11 +1,11 @@
 /**
- * 加载js文件
- * @param src js文件地址
+ * Tải file js
+ * @param src Địa chỉ file js
  */
 function loadScript(src: string) {
   return new Promise<void>((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
-      // 如果已经加载过，直接 resolve
+      // Nếu đã tải rồi, resolve trực tiếp
       return resolve();
     }
     const script = document.createElement('script');

@@ -7,8 +7,8 @@ import { useRequest } from '@abp/request';
 export function useSettingsApi() {
   const { cancel, request } = useRequest();
   /**
-   * 获取设置
-   * @returns 设置数据传输对象列表
+   * Lấy cài đặt
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function getSettingsApi(): Promise<ListResultDto<SettingGroup>> {
     return request<ListResultDto<SettingGroup>>(
@@ -20,8 +20,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 变更设置
-   * @returns 设置数据传输对象列表
+   * Thay đổi cài đặt
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function setSettingsApi(input: SettingsUpdateInput): Promise<void> {
     return request(`/api/v2/setting-management/settings`, {
@@ -31,8 +31,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 获取全局设置
-   * @returns 设置数据传输对象列表
+   * Lấy cài đặt toàn cục
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function getGlobalSettingsApi(): Promise<ListResultDto<SettingGroup>> {
     return request<ListResultDto<SettingGroup>>(
@@ -44,8 +44,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 设置全局设置
-   * @returns 设置数据传输对象列表
+   * Đặt cài đặt toàn cục
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function setGlobalSettingsApi(input: SettingsUpdateInput): Promise<void> {
     return request(`/api/setting-management/settings/change-global`, {
@@ -55,8 +55,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 获取租户设置
-   * @returns 设置数据传输对象列表
+   * Lấy cài đặt tenant
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function getTenantSettingsApi(): Promise<ListResultDto<SettingGroup>> {
     return request<ListResultDto<SettingGroup>>(
@@ -68,8 +68,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 设置租户设置
-   * @returns 设置数据传输对象列表
+   * Đặt cài đặt tenant
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function setTenantSettingsApi(input: SettingsUpdateInput): Promise<void> {
     return request(`/api/setting-management/settings/change-current-tenant`, {
@@ -78,8 +78,8 @@ export function useSettingsApi() {
     });
   }
   /**
-   * 获取用户设置
-   * @returns 设置数据传输对象列表
+   * Lấy cài đặt người dùng
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function getUserSettingsApi(): Promise<ListResultDto<SettingGroup>> {
     return request<ListResultDto<SettingGroup>>(
@@ -91,8 +91,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 设置用户设置
-   * @returns 设置数据传输对象列表
+   * Đặt cài đặt người dùng
+   * @returns Danh sách đối tượng truyền dữ liệu cài đặt
    */
   function setUserSettingsApi(input: SettingsUpdateInput): Promise<void> {
     return request(`/api/v2/setting-management/my-settings`, {
@@ -102,8 +102,8 @@ export function useSettingsApi() {
   }
 
   /**
-   * 发送测试邮件
-   * @param emailAddress 邮件接收方地址
+   * Gửi email kiểm tra
+   * @param emailAddress Địa chỉ người nhận email
    */
   const sendTestEmailApi = (emailAddress: string) => {
     return request(`/api/setting-management/settings/send-test-email`, {

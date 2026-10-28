@@ -5,14 +5,14 @@ using System.Linq.Expressions;
 namespace LINGYUN.Abp.OpenObserve.Utils;
 
 /// <summary>
-/// 从 <see cref="Expression{TDelegate}"/> 中提取查询条件
+/// Từ <see cref="Expression{TDelegate}"/> trích xuất điều kiện truy vấn
 /// </summary>
 /// <remarks>
-/// 支持的操作:
-/// * 比较: ==, !=, &gt;, &gt;=, &lt;, &lt;=
-/// * 逻辑: &amp;&amp;, ||, !(取反时忽略操作符)
-/// * 方法: Contains / StartsWith / EndsWith / Enumerable.Contains / Any(集合成员)
-/// * null 判断: == null, != null
+/// Các thao tác được hỗ trợ:
+/// * So sánh: ==, !=, &gt;, &gt;=, &lt;, &lt;=
+/// * Logic: &amp;&amp;, ||, !(khi phủ định thì bỏ qua toán tử)
+/// * Phương thức: Contains / StartsWith / EndsWith / Enumerable.Contains / Any(thành viên của tập hợp)
+/// * Kiểm tra null: == null, != null
 /// </remarks>
 public static class ExpressionParser
 {
@@ -97,8 +97,8 @@ public static class ExpressionParser
 
     private static void ParseMethodCall(MethodCallExpression methodCall, List<Condition> result)
     {
-        // 集合成员查询: x.Actions.Any(a => a.Parameters.Contains(".."))
-        // Enumerable.Any 是静态扩展方法, Object 为 null, 需要在此处处理
+        // Truy vấn thành viên của tập hợp: x.Actions.Any(a => a.Parameters.Contains(".."))
+        // Enumerable.Any là phương thức mở rộng tĩnh, Object bằng null, cần xử lý tại đây
         if (methodCall.Method.Name == "Any" && methodCall.Arguments.Count == 2)
         {
             var collectionPath = GetMemberPath(methodCall.Arguments[0]);

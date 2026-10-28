@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.WeChat.MiniProgram
 
-微信小程序通知发布模块，提供通过微信小程序向用户发送订阅消息的功能。
+Mô-đun phát hành thông báo Mini Program WeChat, cung cấp chức năng gửi tin nhắn đăng ký cho người dùng qua Mini Program WeChat.
 
-## 功能特性
+## Tính năng
 
-* 微信小程序订阅消息发送
-* 支持自定义消息模板
-* 支持多语言消息
-* 支持不同环境（开发版、体验版、正式版）
-* 集成ABP通知系统
+* Gửi tin nhắn đăng ký của Mini Program WeChat
+* Hỗ trợ mẫu tin nhắn tùy chỉnh
+* Hỗ trợ tin nhắn đa ngôn ngữ
+* Hỗ trợ các môi trường khác nhau (bản phát triển, bản trải nghiệm, bản chính thức)
+* Tích hợp hệ thống thông báo ABP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsWeChatMiniProgramModule))]
@@ -20,28 +20,28 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
-> 注意：此配置项将在下一个微信相关大版本移除，合并到 LINGYUN.Abp.WeChat.MiniProgram.AbpWeChatMiniProgramOptions
+> Lưu ý: mục cấu hình này sẽ bị loại bỏ trong phiên bản lớn liên quan đến WeChat tiếp theo, và được hợp nhất vào LINGYUN.Abp.WeChat.MiniProgram.AbpWeChatMiniProgramOptions
 
 ```json
 {
   "Notifications": {
     "WeChat": {
       "MiniProgram": {
-        "DefaultMsgPrefix": "",           // 默认消息头部标记
-        "DefaultTemplateId": "",          // 默认小程序模板ID
-        "DefaultState": "developer",      // 默认跳转小程序类型：developer（开发版）、trial（体验版）、formal（正式版）
-        "DefaultLanguage": "zh_CN"        // 默认小程序语言
+        "DefaultMsgPrefix": "",           // Dấu đầu tin nhắn mặc định
+        "DefaultTemplateId": "",          // ID mẫu Mini Program mặc định
+        "DefaultState": "developer",      // Loại Mini Program nhảy đến mặc định: developer (bản phát triển), trial (bản trải nghiệm), formal (bản chính thức)
+        "DefaultLanguage": "zh_CN"        // Ngôn ngữ Mini Program mặc định
       }
     }
   }
 }
 ```
 
-## 使用方式
+## Cách sử dụng
 
-### 发送通知
+### Gửi thông báo
 
 ```csharp
 public class YourService
@@ -56,16 +56,16 @@ public class YourService
     public async Task SendNotificationAsync()
     {
         await _notificationPublisher.PublishAsync(
-            "WeChatMiniProgram.Notification", // 通知名称
-            new NotificationData(),           // 通知数据
-            userIds: new[] { "userId" },      // 接收用户ID列表
-            tenantIds: new[] { "tenantId" }   // 租户ID列表
+            "WeChatMiniProgram.Notification", // Tên thông báo
+            new NotificationData(),           // Dữ liệu thông báo
+            userIds: new[] { "userId" },      // Danh sách ID người dùng nhận
+            tenantIds: new[] { "tenantId" }   // Danh sách ID tenant
         );
     }
 }
 ```
 
-### 自定义通知处理
+### Xử lý thông báo tùy chỉnh
 
 ```csharp
 public class YourNotificationHandler : 
@@ -74,12 +74,12 @@ public class YourNotificationHandler :
     public async Task HandleNotificationAsync(
         WeChatMiniProgramNotification notification)
     {
-        // 处理通知
+        // Xử lý thông báo
     }
 }
 ```
 
-## 更多文档
+## Tài liệu thêm
 
-* [微信小程序通知发布模块文档](README.EN.md)
-* [微信小程序订阅消息开发文档](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message.html)
+* [Tài liệu mô-đun phát hành thông báo Mini Program WeChat](README.EN.md)
+* [Tài liệu phát triển tin nhắn đăng ký Mini Program WeChat](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message.html)

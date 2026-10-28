@@ -12,25 +12,25 @@ import type {
 import requestClient from "../request";
 
 /**
- * 创建订阅
- * @param input 参数
- * @returns 订阅Dto
+ * Tạo đăng ký
+ * @param input Tham số
+ * @returns Dto đăng ký
  */
 export function createApi(input: WebhookSubscriptionCreateDto): Promise<WebhookSubscriptionDto> {
 	return requestClient.post<WebhookSubscriptionDto>("/api/webhooks/subscriptions", input);
 }
 
 /**
- * 删除订阅
- * @param id 订阅Id
+ * Xóa đăng ký
+ * @param id Id đăng ký
  */
 export function deleteApi(id: string): Promise<void> {
 	return requestClient.delete(`/api/webhooks/subscriptions/${id}`);
 }
 
 /**
- * 批量删除订阅
- * @param input 参数
+ * Xóa hàng loạt đăng ký
+ * @param input Tham số
  */
 export function bulkDeleteApi(input: WebhookSubscriptionDeleteManyInput): Promise<void> {
 	return requestClient.delete("/api/webhooks/subscriptions/delete-many", {
@@ -39,26 +39,26 @@ export function bulkDeleteApi(input: WebhookSubscriptionDeleteManyInput): Promis
 }
 
 /**
- * 查询所有可用的Webhook分组列表
- * @returns Webhook分组列表
+ * Truy vấn danh sách tất cả nhóm Webhook khả dụng
+ * @returns Danh sách nhóm Webhook
  */
 export function getAllAvailableWebhooksApi(): Promise<ListResultDto<WebhookAvailableGroupDto>> {
 	return requestClient.get<ListResultDto<WebhookAvailableGroupDto>>("/api/webhooks/subscriptions/availables");
 }
 
 /**
- * 查询订阅
- * @param id 订阅Id
- * @returns 订阅Dto
+ * Truy vấn đăng ký
+ * @param id Id đăng ký
+ * @returns Dto đăng ký
  */
 export function getApi(id: string): Promise<WebhookSubscriptionDto> {
 	return requestClient.get<WebhookSubscriptionDto>(`/api/webhooks/subscriptions/${id}`);
 }
 
 /**
- * 查询订阅分页列表
- * @param input 过滤参数
- * @returns 订阅Dto列表
+ * Truy vấn danh sách phân trang đăng ký
+ * @param input Tham số lọc
+ * @returns Danh sách Dto đăng ký
  */
 export function getPagedListApi(
 	input: WebhookSubscriptionGetListInput,
@@ -69,10 +69,10 @@ export function getPagedListApi(
 }
 
 /**
- * 更新订阅
- * @param id 订阅Id
- * @param input 更新参数
- * @returns 订阅Dto
+ * Cập nhật đăng ký
+ * @param id Id đăng ký
+ * @param input Tham số cập nhật
+ * @returns Dto đăng ký
  */
 export function updateApi(id: string, input: WebhookSubscriptionUpdateDto): Promise<WebhookSubscriptionDto> {
 	return requestClient.put<WebhookSubscriptionDto>(`/api/webhooks/subscriptions/${id}`, input);

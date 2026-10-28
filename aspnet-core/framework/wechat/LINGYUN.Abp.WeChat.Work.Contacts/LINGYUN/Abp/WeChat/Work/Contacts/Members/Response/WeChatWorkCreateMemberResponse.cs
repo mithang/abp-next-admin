@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Response;
 /// <summary>
-/// 创建成员响应参数
+/// Tham số phản hồi tạo thành viên
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90195" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90195" />
 /// </remarks>
 public class WeChatWorkCreateMemberResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 因填写不存在的部门，新增的部门列表
+    /// Danh sách phòng ban mới thêm do đã điền phòng ban không tồn tại
     /// </summary>
     [CanBeNull]
     [JsonProperty("created_department_list")]

@@ -1,20 +1,20 @@
 # @vben/types
 
-用于多个 `app` 公用的工具类型，继承了 `@vben-core/typings` 的所有能力。业务上有通用的类型定义可以放在这里。
+Dùng cho các kiểu công cụ dùng chung cho nhiều `app`, kế thừa toàn bộ khả năng của `@vben-core/typings`. Các định nghĩa kiểu dùng chung cho nghiệp vụ có thể đặt tại đây.
 
-## 用法
+## Cách dùng
 
-### 添加依赖
+### Thêm dependency
 
 ```bash
-# 进入目标应用目录，例如 apps/xxxx-app
+# Vào thư mục ứng dụng đích, ví dụ apps/xxxx-app
 # cd apps/xxxx-app
 pnpm add @vben/types
 ```
 
-### 使用
+### Sử dụng
 
 ```ts
-// 推荐加上 type
+// Khuyến nghị thêm type
 import type { SelectOption } from '@vben/types';
 ```

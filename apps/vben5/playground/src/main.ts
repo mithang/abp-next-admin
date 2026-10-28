@@ -4,27 +4,27 @@ import { unmountGlobalLoading } from '@vben/utils';
 import { overridesPreferences } from './preferences';
 
 /**
- * 应用初始化完成之后再进行页面加载渲染
+ * Chỉ render tải trang sau khi khởi tạo ứng dụng xong
  */
 async function initApplication() {
-  // name用于指定项目唯一标识
-  // 用于区分不同项目的偏好设置以及存储数据的key前缀以及其他一些需要隔离的数据
+  // name dùng để chỉ định định danh duy nhất của dự án
+  // Dùng để phân biệt cài đặt tùy chọn của các dự án khác nhau, tiền tố key lưu trữ dữ liệu và một số dữ liệu khác cần cách ly
   const env = import.meta.env.PROD ? 'prod' : 'dev';
   const appVersion = import.meta.env.VITE_APP_VERSION;
   const namespace = `${import.meta.env.VITE_APP_NAMESPACE}-${appVersion}-${env}`;
 
-  // app偏好设置初始化
+  // Khởi tạo cài đặt tùy chọn của app
   await initPreferences({
     namespace,
     overrides: overridesPreferences,
   });
 
-  // 启动应用并挂载
-  // vue应用主要逻辑及视图
+  // Khởi động ứng dụng và mount
+  // Logic chính và view của ứng dụng vue
   const { bootstrap } = await import('./bootstrap');
   await bootstrap(namespace);
 
-  // 移除并销毁loading
+  // Gỡ bỏ và hủy loading
   unmountGlobalLoading();
 }
 

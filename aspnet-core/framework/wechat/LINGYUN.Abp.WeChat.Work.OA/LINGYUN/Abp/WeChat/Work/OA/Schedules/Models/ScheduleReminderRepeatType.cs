@@ -2,34 +2,34 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 重复类型
+/// Loại lặp lại
 /// </summary>
-[Description("重复类型")]
+[Description("Loại lặp lại")]
 public enum ScheduleReminderRepeatType : uint
 {
     /// <summary>
-    /// 每日
+    /// Hàng ngày
     /// </summary>
-    [Description("每日")]
+    [Description("Hàng ngày")]
     Daily = 0,
     /// <summary>
-    /// 每周
+    /// Hàng tuần
     /// </summary>
-    [Description("每周")]
+    [Description("Hàng tuần")]
     Weekly = 1,
     /// <summary>
-    /// 每月
+    /// Hàng tháng
     /// </summary>
-    [Description("每月")]
+    [Description("Hàng tháng")]
     EveryMonth = 2,
     /// <summary>
-    /// 每年
+    /// Hàng năm
     /// </summary>
-    [Description("每年")]
+    [Description("Hàng năm")]
     EveryYear = 5,
     /// <summary>
-    /// 工作日
+    /// Ngày làm việc
     /// </summary>
-    [Description("工作日")]
+    [Description("Ngày làm việc")]
     WorkingDays = 7,
 }

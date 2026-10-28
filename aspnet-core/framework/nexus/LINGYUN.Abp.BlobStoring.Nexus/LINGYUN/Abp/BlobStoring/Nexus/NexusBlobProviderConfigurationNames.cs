@@ -2,15 +2,15 @@
 public static class NexusBlobProviderConfigurationNames
 {
     /// <summary>
-    /// 基础路径
+    /// Đường dẫn cơ sở
     /// </summary>
     public const string BasePath = "Sonatype:Nexus:Raw:BasePath";
     /// <summary>
-    /// 添加容器名称到基础路径
+    /// Thêm tên container vào đường dẫn cơ sở
     /// </summary>
     public const string AppendContainerNameToBasePath = "Sonatype:Nexus:Raw:AppendContainerNameToBasePath";
     /// <summary>
-    /// Nexus raw仓库名称
+    /// Tên kho raw của Nexus
     /// </summary>
     public const string Repository = "Sonatype:Nexus:Raw:Repository";
 }

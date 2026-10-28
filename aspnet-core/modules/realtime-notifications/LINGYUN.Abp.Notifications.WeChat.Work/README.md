@@ -1,28 +1,28 @@
 # LINGYUN.Abp.Notifications.WeChat.Work
 
-企业微信通知发布模块，提供通过企业微信应用向用户发送消息的功能。
+Mô-đun phát hành thông báo WeChat Doanh nghiệp, cung cấp chức năng gửi tin nhắn tới người dùng qua ứng dụng WeChat Doanh nghiệp.
 
-## 功能特性
+## Tính năng
 
-* 支持多种消息类型
-  * 文本消息
-  * 文本卡片消息
-  * Markdown消息
-* 灵活的消息发送目标
-  * 支持发送到指定用户
-  * 支持发送到指定部门
-  * 支持发送到指定标签
-  * 支持发送到多个应用
-* 多语言支持
-  * 支持本地化消息内容
-  * 支持多语言标题和描述
-* 特性开关控制
-  * 支持通过功能开关控制消息发送
-* 扩展性
-  * 支持自定义通知定义
-  * 支持自定义消息处理
+* Hỗ trợ nhiều loại tin nhắn
+  * Tin nhắn văn bản
+  * Tin nhắn thẻ văn bản
+  * Tin nhắn Markdown
+* Mục tiêu gửi tin nhắn linh hoạt
+  * Hỗ trợ gửi tới người dùng chỉ định
+  * Hỗ trợ gửi tới phòng ban chỉ định
+  * Hỗ trợ gửi tới thẻ chỉ định
+  * Hỗ trợ gửi tới nhiều ứng dụng
+* Hỗ trợ đa ngôn ngữ
+  * Hỗ trợ nội dung tin nhắn bản địa hóa
+  * Hỗ trợ tiêu đề và mô tả đa ngôn ngữ
+* Điều khiển bằng công tắc tính năng
+  * Hỗ trợ điều khiển việc gửi tin nhắn qua công tắc tính năng
+* Khả năng mở rộng
+  * Hỗ trợ định nghĩa thông báo tùy chỉnh
+  * Hỗ trợ xử lý tin nhắn tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsWeChatWorkModule))]
@@ -32,13 +32,13 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置说明
+## Hướng dẫn cấu hình
 
-### 1. 基础配置
+### 1. Cấu hình cơ bản
 
-消息发送需要在企业微信后台配置应用，并获取相应的应用ID（AgentId）。
+Việc gửi tin nhắn cần cấu hình ứng dụng trong hệ thống quản trị WeChat Doanh nghiệp và lấy ID ứng dụng tương ứng (AgentId).
 
-### 2. 通知定义配置
+### 2. Cấu hình định nghĩa thông báo
 
 ```csharp
 public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
@@ -48,15 +48,15 @@ public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
         var notification = context.Create(
             name: "App.Notification.Test",
             displayName: L("TestNotification"))
-            .WithAgentId("1000001")               // 设置应用ID
-            .WithParty("1|2|3")                   // 设置接收部门
-            .WithTag("TagId1|TagId2")             // 设置接收标签
-            .WithAllAgent();                      // 发送到所有应用
+            .WithAgentId("1000001")               // Đặt ID ứng dụng
+            .WithParty("1|2|3")                   // Đặt phòng ban nhận
+            .WithTag("TagId1|TagId2")             // Đặt thẻ nhận
+            .WithAllAgent();                      // Gửi tới tất cả ứng dụng
     }
 }
 ```
 
-### 3. 发送通知
+### 3. Gửi thông báo
 
 ```csharp
 public class YourService
@@ -72,36 +72,36 @@ public class YourService
     {
         var notificationData = new NotificationData();
         
-        // 设置消息内容
-        notificationData.TrySetData("title", "消息标题");
-        notificationData.TrySetData("message", "消息内容");
-        notificationData.TrySetData("description", "消息描述");
+        // Đặt nội dung tin nhắn
+        notificationData.TrySetData("title", "Tiêu đề tin nhắn");
+        notificationData.TrySetData("message", "Nội dung tin nhắn");
+        notificationData.TrySetData("description", "Mô tả tin nhắn");
 
-        // 设置发送目标
-        notificationData.SetAgentId("1000001");   // 设置应用ID
-        notificationData.SetParty("1|2|3");       // 设置接收部门
-        notificationData.SetTag("TagId1|TagId2"); // 设置接收标签
-        notificationData.WithAllAgent();          // 发送到所有应用
+        // Đặt mục tiêu gửi
+        notificationData.SetAgentId("1000001");   // Đặt ID ứng dụng
+        notificationData.SetParty("1|2|3");       // Đặt phòng ban nhận
+        notificationData.SetTag("TagId1|TagId2"); // Đặt thẻ nhận
+        notificationData.WithAllAgent();          // Gửi tới tất cả ứng dụng
 
         await _notificationPublisher.PublishAsync(
-            "App.Notification.Test",              // 通知名称
-            notificationData,                     // 通知数据
-            userIds: new[] { "userId" },          // 接收用户ID列表
-            tenantIds: new[] { "tenantId" }       // 租户ID列表
+            "App.Notification.Test",              // Tên thông báo
+            notificationData,                     // Dữ liệu thông báo
+            userIds: new[] { "userId" },          // Danh sách ID người dùng nhận
+            tenantIds: new[] { "tenantId" }       // Danh sách ID tenant
         );
     }
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-1. 发送消息时需要确保企业微信应用配置正确，包括应用ID和相关权限。
-2. 部门ID和标签ID需要与企业微信后台配置的一致。
-3. 多个接收者（部门/标签）使用'|'分隔，最多支持100个。
-4. 使用 `WithAllAgent()` 时会向所有配置的应用发送消息。
-5. 消息发送依赖于企业微信API，需要确保网络连接正常。
+1. Khi gửi tin nhắn cần đảm bảo ứng dụng WeChat Doanh nghiệp được cấu hình đúng, bao gồm ID ứng dụng và các quyền liên quan.
+2. ID phòng ban và ID thẻ cần khớp với cấu hình trong hệ thống quản trị WeChat Doanh nghiệp.
+3. Nhiều người nhận (phòng ban/thẻ) dùng '|' để phân tách, hỗ trợ tối đa 100 người nhận.
+4. Khi dùng `WithAllAgent()` sẽ gửi tin nhắn tới tất cả ứng dụng đã cấu hình.
+5. Việc gửi tin nhắn phụ thuộc vào API WeChat Doanh nghiệp, cần đảm bảo kết nối mạng bình thường.
 
-## 更多文档
+## Tài liệu khác
 
 * [English Documentation](README.EN.md)
-* [企业微信应用消息开发文档](https://developer.work.weixin.qq.com/document/path/90236)
+* [Tài liệu phát triển tin nhắn ứng dụng WeChat Doanh nghiệp](https://developer.work.weixin.qq.com/document/path/90236)

@@ -10,10 +10,10 @@ type LayoutType =
 type ThemeModeType = 'auto' | 'dark' | 'light';
 
 /**
- * 偏好设置按钮位置
- * fixed 固定在右侧
- * header 顶栏
- * auto 自动
+ * Vị trí nút tùy chọn
+ * fixed Cố định ở phía phải
+ * header Thanh trên cùng
+ * auto Tự động
  */
 type PreferencesButtonPositionType = 'auto' | 'fixed' | 'header';
 
@@ -43,58 +43,58 @@ type LayoutHeaderModeType = 'auto' | 'auto-scroll' | 'fixed' | 'static';
 type LayoutHeaderMenuAlignType = 'center' | 'end' | 'start';
 
 /**
- * 登录过期模式
- * modal 弹窗模式
- * page 页面模式
+ * Chế độ hết hạn đăng nhập
+ * modal Chế độ cửa sổ bật lên
+ * page Chế độ trang
  */
 type LoginExpiredModeType = 'modal' | 'page';
 
 /**
- * 面包屑样式
- * background 背景
- * normal 默认
+ * Kiểu breadcrumb
+ * background Nền
+ * normal Mặc định
  */
 type BreadcrumbStyleType = 'background' | 'normal';
 
 /**
- * 权限模式
- * backend 后端权限模式
- * frontend 前端权限模式
- * mixed 混合权限模式
+ * Chế độ quyền
+ * backend Chế độ quyền phía máy chủ
+ * frontend Chế độ quyền phía máy khách
+ * mixed Chế độ quyền kết hợp
  */
 type AccessModeType = 'backend' | 'frontend' | 'mixed';
 
 /**
- * 导航风格
- * plain 朴素
- * rounded 圆润
+ * Phong cách điều hướng
+ * plain Đơn giản
+ * rounded Bo tròn
  */
 type NavigationStyleType = 'plain' | 'rounded';
 
 /**
- * 标签栏风格
- * brisk 轻快
- * card 卡片
- * chrome 谷歌
- * plain 朴素
+ * Phong cách thanh tab
+ * brisk Nhẹ nhàng
+ * card Thẻ
+ * chrome Kiểu Chrome
+ * plain Đơn giản
  */
 type TabsStyleType = 'brisk' | 'card' | 'chrome' | 'plain';
 
 /**
- * 页面切换动画
+ * Animation chuyển trang
  */
 type PageTransitionType = 'fade' | 'fade-down' | 'fade-slide' | 'fade-up';
 
 /**
- * 页面切换动画
- * panel-center 居中布局
- * panel-left 居左布局
- * panel-right 居右布局
+ * Animation chuyển trang
+ * panel-center Bố cục căn giữa
+ * panel-left Bố cục căn trái
+ * panel-right Bố cục căn phải
  */
 type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
 
 /**
- * 时区选项
+ * Tùy chọn múi giờ
  */
 interface TimezoneOption {
   label: string;

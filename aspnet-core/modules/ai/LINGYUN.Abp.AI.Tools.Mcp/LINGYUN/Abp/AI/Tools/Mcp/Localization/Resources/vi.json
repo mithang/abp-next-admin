@@ -1,0 +1,22 @@
+{
+  "culture": "vi",
+  "texts": {
+    "McpAITool:Endpoint": "Địa chỉ yêu cầu",
+    "McpAITool:Headers": "Header yêu cầu",
+    "McpAITool:TransportMode": "Phương thức truyền",
+    "McpAITool:TransportModeDesc": "Phương thức truyền được sử dụng cho kết nối, mặc định: Auto Detect.",
+    "McpAITool:ConnectionTimeout": "Thời gian chờ",
+    "McpAITool:ConnectionTimeoutDesc": "Thời gian chờ để thiết lập kết nối ban đầu với máy chủ SSE, mặc định: 30 giây.",
+    "McpAITool:MaxReconnectionAttempts": "Số lần kết nối lại tối đa",
+    "McpAITool:MaxReconnectionAttemptsDesc": "Số lần kết nối lại tối đa, mặc định: 5 lần.",
+    "McpAITool:CurrentAccessToken": "Sử dụng Token của người dùng hiện tại",
+    "McpAITool:UseOAuth": "Sử dụng xác thực OAuth",
+    "McpAITool:RedirectUri": "Uri chuyển hướng",
+    "McpAITool:ClientId": "Id client",
+    "McpAITool:ClientSecret": "Khóa bí mật ứng dụng khách",
+    "McpAITool:ClientMetadataDocumentUri": "Uri tài liệu khám phá",
+    "McpAITool:Scopes": "Phạm vi ủy quyền",
+    "McpAITool:ScopesDesc": "Nhiều phạm vi ủy quyền được phân tách bằng dấu cách.",
+    "McpAITool:AdditionalParameters": "Tham số bổ sung"
+  }
+}

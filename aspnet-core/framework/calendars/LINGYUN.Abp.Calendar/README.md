@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Calendar
 
-日历模块, 定义系统日历参数, 用于特定场景.  
+Mô-đun lịch, định nghĩa tham số lịch hệ thống, dùng cho các tình huống cụ thể.  
 
-#### 注意
-
-
-## 功能特性
+#### Lưu ý
 
 
-## 配置使用
+## Tính năng
 
 
-## 更多信息
+## Cấu hình sử dụng
+
+
+## Thông tin thêm
 

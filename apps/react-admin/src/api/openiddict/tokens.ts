@@ -3,26 +3,26 @@ import type { OpenIddictTokenDto, OpenIddictTokenGetListInput } from "#/openiddi
 import requestClient from "../request";
 
 /**
- * 删除令牌
- * @param id 令牌id
+ * Xoá token
+ * @param id Id token
  */
 export function deleteApi(id: string): Promise<void> {
 	return requestClient.delete(`/api/openiddict/tokens/${id}`);
 }
 
 /**
- * 获取令牌
- * @param id 令牌id
- * @returns 令牌实体数据传输对象
+ * Lấy token
+ * @param id Id token
+ * @returns Đối tượng truyền dữ liệu thực thể token
  */
 export function getApi(id: string): Promise<OpenIddictTokenDto> {
 	return requestClient.get<OpenIddictTokenDto>(`/api/openiddict/tokens/${id}`);
 }
 
 /**
- * 获取令牌分页列表
- * @param input 过滤参数
- * @returns 令牌实体数据传输对象分页列表
+ * Lấy danh sách phân trang token
+ * @param input Tham số lọc
+ * @returns Danh sách phân trang đối tượng truyền dữ liệu thực thể token
  */
 export function getPagedListApi(input?: OpenIddictTokenGetListInput): Promise<PagedResultDto<OpenIddictTokenDto>> {
 	return requestClient.get<PagedResultDto<OpenIddictTokenDto>>("/api/openiddict/tokens", {

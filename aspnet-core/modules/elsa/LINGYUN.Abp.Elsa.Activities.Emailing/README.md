@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Elsa.Activities.Emailing
 
-Elsa工作流的邮件发送活动集成模块
+Mô-đun tích hợp hoạt động gửi email của quy trình làm việc Elsa
 
-## 功能
+## Tính năng
 
-* 提供 **SendEmailing** 活动用于发送电子邮件
-  * 支持发送给多个收件人
-  * 支持使用模板渲染邮件内容
-  * 支持JavaScript和Liquid语法
-  * 集成ABP框架的 `IEmailSender` 接口
-  * 集成ABP框架的 `ITemplateRenderer` 接口进行模板渲染
+* Cung cấp hoạt động **SendEmailing** để gửi email
+  * Hỗ trợ gửi cho nhiều người nhận
+  * Hỗ trợ dùng mẫu để hiển thị nội dung email
+  * Hỗ trợ cú pháp JavaScript và Liquid
+  * Tích hợp giao diện `IEmailSender` của khung ABP
+  * Tích hợp giao diện `ITemplateRenderer` của khung ABP để hiển thị mẫu
 
-## 配置使用
+## Cấu hình và sử dụng
 
 ```csharp
 [DependsOn(
@@ -27,18 +27,18 @@ public class YouProjectModule : AbpModule
 ```json
 {
     "Elsa": {
-        "Emailing": true    // 启用邮件发送活动
+        "Emailing": true    // Bật hoạt động gửi email
     }
 }
 ```
 
-## 活动参数
+## Tham số hoạt động
 
-* **To**: 收件人邮箱地址列表
-* **Subject**: 邮件主题
-* **Body**: 邮件正文内容
-* **Culture**: 文化信息
-* **Template**: 模板名称
-* **Model**: 用于格式化模板内容的模型参数
+* **To**: Danh sách địa chỉ email người nhận
+* **Subject**: Tiêu đề email
+* **Body**: Nội dung email
+* **Culture**: Thông tin văn hóa (culture)
+* **Template**: Tên mẫu
+* **Model**: Tham số mô hình dùng để định dạng nội dung mẫu
 
 [English](./README.EN.md)

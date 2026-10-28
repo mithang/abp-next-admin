@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 附件控件值
+/// Giá trị điều khiển tệp đính kèm
 /// </summary>
 public class FileControlValue : ControlValue
 {
     /// <summary>
-    /// 附件列表
+    /// Danh sách tệp đính kèm
     /// </summary>
     [NotNull]
     [JsonProperty("files")]
@@ -30,35 +30,35 @@ public class FileControlValue : ControlValue
 public class FileValue
 {
     /// <summary>
-    /// 文件id，该id为临时素材上传接口返回的的media_id，注：提单后将作为单据内容转换为长期文件存储；目前一个审批申请单，全局仅支持上传6个附件，否则将失败。
+    /// id tệp, id này là media_id do giao diện tải lên tài liệu tạm thời trả về, lưu ý: sau khi nộp đơn sẽ được chuyển thành nội dung chứng từ và lưu trữ dưới dạng tệp dài hạn; hiện tại mỗi đơn xin phê duyệt, toàn cục chỉ hỗ trợ tải lên tối đa 6 tệp đính kèm, nếu không sẽ thất bại.
     /// </summary>
     [NotNull]
     [JsonProperty("file_id")]
     [JsonPropertyName("file_id")]
     public string FileId { get; set; } = default!;
     /// <summary>
-    /// 文件名称，类型为string，如果没有可以填空字符串。
+    /// Tên tệp, kiểu string, nếu không có có thể điền chuỗi rỗng.
     /// </summary>
     [CanBeNull]
     [JsonProperty("file_name")]
     [JsonPropertyName("file_name")]
     public string? FileName { get; set; }
     /// <summary>
-    /// 文件大小，类型为number，如果没有可以填空字符串。
+    /// Kích thước tệp, kiểu number, nếu không có có thể điền chuỗi rỗng.
     /// </summary>
     [CanBeNull]
     [JsonProperty("file_size")]
     [JsonPropertyName("file_size")]
     public long? FileSize { get; set; }
     /// <summary>
-    /// 文件类型，类型为string，如果没有可以填空字符串。
+    /// Loại tệp, kiểu string, nếu không có có thể điền chuỗi rỗng.
     /// </summary>
     [CanBeNull]
     [JsonProperty("file_type")]
     [JsonPropertyName("file_type")]
     public string? FileType { get; set; }
     /// <summary>
-    /// 文件地址，类型为string，如果没有可以填空字符串。
+    /// Địa chỉ tệp, kiểu string, nếu không có có thể điền chuỗi rỗng.
     /// </summary>
     [CanBeNull]
     [JsonProperty("file_url")]

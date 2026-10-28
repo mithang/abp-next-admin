@@ -1,21 +1,21 @@
 # LINGYUN.Abp.Notifications.Common
 
-通知系统的公共模块，提供了通知系统的基础定义和共享功能。
+Mô-đun chung của hệ thống thông báo, cung cấp định nghĩa cơ sở và chức năng dùng chung của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知定义
-  * 通知组定义
-  * 通知类型定义
-  * 通知级别定义
-* 通用工具类
-  * 通知数据处理
-  * 通知状态管理
-* 扩展功能
-  * 通知数据扩展
-  * 通知提供者扩展
+* Định nghĩa thông báo
+  * Định nghĩa nhóm thông báo
+  * Định nghĩa loại thông báo
+  * Định nghĩa mức độ thông báo
+* Lớp công cụ chung
+  * Xử lý dữ liệu thông báo
+  * Quản lý trạng thái thông báo
+* Chức năng mở rộng
+  * Mở rộng dữ liệu thông báo
+  * Mở rộng nhà cung cấp thông báo
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsCommonModule))]
@@ -25,9 +25,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基础定义
+## Định nghĩa cơ sở
 
-### 通知组
+### Nhóm thông báo
 
 ```csharp
 public class NotificationGroupDefinition
@@ -39,7 +39,7 @@ public class NotificationGroupDefinition
 }
 ```
 
-### 通知定义
+### Định nghĩa thông báo
 
 ```csharp
 public class NotificationDefinition
@@ -53,9 +53,9 @@ public class NotificationDefinition
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 定义通知组
+1. Định nghĩa nhóm thông báo
 ```csharp
 public class YourNotificationGroupDefinitionProvider : NotificationGroupDefinitionProvider
 {
@@ -72,7 +72,7 @@ public class YourNotificationGroupDefinitionProvider : NotificationGroupDefiniti
 }
 ```
 
-2. 定义通知
+2. Định nghĩa thông báo
 ```csharp
 public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
 {
@@ -91,7 +91,7 @@ public class YourNotificationDefinitionProvider : NotificationDefinitionProvider
 }
 ```
 
-3. 使用通知数据扩展
+3. Sử dụng mở rộng dữ liệu thông báo
 ```csharp
 public static class NotificationDataExtensions
 {
@@ -107,7 +107,7 @@ public static class NotificationDataExtensions
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [通知系统文档](https://docs.abp.io/en/abp/latest/Notifications)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu hệ thống thông báo](https://docs.abp.io/en/abp/latest/Notifications)

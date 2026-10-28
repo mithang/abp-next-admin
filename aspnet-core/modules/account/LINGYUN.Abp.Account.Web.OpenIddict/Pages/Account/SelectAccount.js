@@ -1,26 +1,26 @@
 ﻿$(function () {
     var l = abp.localization.getResource('AbpOpenIddict');
 
-    // 账户选择交互 - 使用 Bootstrap 的 list-group-item-action
+    // Tương tác chọn tài khoản - dùng list-group-item-action của Bootstrap
     $('.account-item').on('click', function (e) {
-        // 如果点击的是链接或按钮，不处理
+        // Nếu nhấn vào liên kết hoặc nút thì không xử lý
         if ($(e.target).is('a, button, .btn') ||
             $(e.target).closest('a, button, .btn').length) {
             return;
         }
 
-        // 移除所有 active 状态
+        // Xóa mọi trạng thái active
         $('.account-item').removeClass('active');
 
-        // 添加当前选中状态
+        // Thêm trạng thái đang chọn hiện tại
         $(this).addClass('active');
 
-        // 选中对应的 radio button
+        // Chọn radio button tương ứng
         var radio = $(this).find('input[type="radio"]');
         radio.prop('checked', true);
     });
 
-    // 表单提交验证
+    // Kiểm tra khi gửi biểu mẫu
     $('#selectAccountForm').on('submit', function (e) {
         var selectedAccount = $('input[name="Input.SelectedAccountId"]:checked').val();
 
@@ -33,11 +33,11 @@
         return true;
     });
 
-    // 初始选中第一个账户（如果不是当前账户）
+    // Ban đầu chọn tài khoản đầu tiên (nếu không phải tài khoản hiện tại)
     if (!$('.account-item.active').length) {
         $('.account-item:first').trigger('click');
     }
 
-    // 自动聚焦到选中的账户
+    // Tự động focus vào tài khoản đang chọn
     $('.account-item.active').find('input[type="radio"]').focus();
 });

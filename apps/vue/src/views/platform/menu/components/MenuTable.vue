@@ -64,7 +64,7 @@
     columns: getDataColumns(),
     api: getAll,
     beforeFetch: (request) => {
-      // 子组件需要此参数,拦截一下
+      // Component con cần tham số này, hãy chặn lại
       useFramework.value = request.framework;
       return request;
     },

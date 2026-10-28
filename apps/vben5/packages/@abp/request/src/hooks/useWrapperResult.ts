@@ -11,13 +11,13 @@ export function useWrapperResult(response: AxiosResponse) {
   const _defaultWrapperHeaderKey: string = '_abpwrapresult';
   const { data, headers } = response;
 
-  /** 是否请求错误 */
+  /** Có phải lỗi request hay không */
   function hasError(): boolean {
     if (hasAbpError()) return true;
     return Reflect.has(data, 'code') && data.code !== '0';
   }
 
-  /** 是否已包装结果 */
+  /** Kết quả đã được đóng gói hay chưa */
   function hasWrapResult(): boolean {
     if (
       typeof headers.has === 'function' &&
@@ -28,13 +28,13 @@ export function useWrapperResult(response: AxiosResponse) {
     return hasAbpError();
   }
 
-  /** 获取包装结果 */
+  /** Lấy kết quả đã đóng gói */
   function getData(): any {
     throwIfError();
     return data.result;
   }
 
-  /** 如果请求错误,抛出异常 */
+  /** Nếu request bị lỗi, ném ngoại lệ */
   function throwIfError(): void {
     throwIfAbpError();
     if (hasError()) {
@@ -51,7 +51,7 @@ export function useWrapperResult(response: AxiosResponse) {
     }
   }
 
-  /** 获取错误消息 */
+  /** Lấy thông báo lỗi */
   function getErrorMessage(): string | undefined {
     if (!hasWrapResult()) return undefined;
     const errorMessage = getAbpErrorMessage();

@@ -1,15 +1,15 @@
 # LINGYUN.Abp.LocalizationManagement.Domain.Shared
 
-本地化管理领域层共享模块，定义了错误代码、本地化资源、常量等共享内容。
+Mô-đun chia sẻ tầng lĩnh vực quản lý bản địa hóa, định nghĩa mã lỗi, tài nguyên bản địa hóa, hằng số và các nội dung chia sẻ khác.
 
-## 功能特性
+## Tính năng
 
-* 定义本地化管理相关的常量
-* 定义本地化错误代码
-* 提供本地化资源文件
-* 支持多语言错误消息
+* Định nghĩa các hằng số liên quan đến quản lý bản địa hóa
+* Định nghĩa mã lỗi bản địa hóa
+* Cung cấp tệp tài nguyên bản địa hóa
+* Hỗ trợ thông báo lỗi đa ngôn ngữ
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLocalizationManagementDomainSharedModule))]
@@ -19,27 +19,27 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 错误代码
+## Mã lỗi
 
-* Localization:001100 - 语言 {CultureName} 已经存在
-* Localization:001400 - 语言名称 {CultureName} 不存在或内置语言不允许操作
-* Localization:002100 - 资源 {Name} 已经存在
-* Localization:002400 - 资源名称 {Name} 不存在或内置资源不允许操作
+* Localization:001100 - Ngôn ngữ {CultureName} đã tồn tại
+* Localization:001400 - Tên ngôn ngữ {CultureName} không tồn tại hoặc ngôn ngữ tích hợp sẵn không cho phép thao tác
+* Localization:002100 - Tài nguyên {Name} đã tồn tại
+* Localization:002400 - Tên tài nguyên {Name} không tồn tại hoặc tài nguyên tích hợp sẵn không cho phép thao tác
 
-## 本地化资源
+## Tài nguyên bản địa hóa
 
-模块定义了以下本地化资源：
+Mô-đun định nghĩa các tài nguyên bản địa hóa sau:
 
-* DisplayName:Enable - 启用
-* DisplayName:CreationTime - 创建时间
-* DisplayName:LastModificationTime - 修改时间
-* DisplayName:SaveAndNext - 保存并下一步
-* Permissions:LocalizationManagement - 本地化管理
-* Permissions:Language - 语言管理
-* Permissions:Resource - 资源管理
-* Permissions:Text - 文档管理
-* 等...
+* DisplayName:Enable - Bật
+* DisplayName:CreationTime - Thời gian tạo
+* DisplayName:LastModificationTime - Thời gian sửa đổi
+* DisplayName:SaveAndNext - Lưu và bước tiếp theo
+* Permissions:LocalizationManagement - Quản lý bản địa hóa
+* Permissions:Language - Quản lý ngôn ngữ
+* Permissions:Resource - Quản lý tài nguyên
+* Permissions:Text - Quản lý tài liệu
+* v.v...
 
-## 更多信息
+## Thêm thông tin
 
 * [English documentation](./README.EN.md)

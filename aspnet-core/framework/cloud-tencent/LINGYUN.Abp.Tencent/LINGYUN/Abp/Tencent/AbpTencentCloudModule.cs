@@ -35,7 +35,7 @@ public class AbpTencentCloudModule : AbpModule
         context.Services.AddTransient(typeof(TencentCloudClientFactory<>));
         //Configure<AbpTencentCloudOptions>(options =>
         //{
-        //    按照腾讯SDK, 所有客户端都有三个参数组成, 暂时设计为通过反射构造函数来创建客户端
+        //    Theo SDK Tencent, mọi client đều gồm ba tham số, tạm thời thiết kế tạo client qua constructor bằng reflection
         //    options.ClientProxies.Add(typeof(AaClient), (cred, endpoint, profile) => new AaClient(cred, endpoint, profile));
         //    options.ClientProxies.Add(typeof(AaiClient), (cred, endpoint, profile) => new AaiClient(cred, endpoint, profile));
         //    options.ClientProxies.Add(typeof(AdvisorClient), (cred, endpoint, profile) => new AdvisorClient(cred, endpoint, profile));

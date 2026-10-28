@@ -1,20 +1,20 @@
 # LY.MicroService.Platform.EntityFrameworkCore
 
-平台管理数据迁移模块，提供平台管理系统相关的数据库迁移功能。
+Mô-đun di chuyển dữ liệu quản trị nền tảng, cung cấp chức năng di chuyển cơ sở dữ liệu liên quan đến hệ thống quản trị nền tảng.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 集成SaaS多租户数据迁移
-* 集成平台管理数据迁移
-* 集成设置管理数据迁移
-* 集成权限管理数据迁移
-* 集成特性管理数据迁移
-* 集成Vue Vben Admin UI导航数据迁移
-* 支持MySQL数据库
+* Tích hợp di chuyển dữ liệu đa thuê bao SaaS
+* Tích hợp di chuyển dữ liệu quản trị nền tảng
+* Tích hợp di chuyển dữ liệu quản lý cài đặt
+* Tích hợp di chuyển dữ liệu quản lý quyền
+* Tích hợp di chuyển dữ liệu quản lý tính năng
+* Tích hợp di chuyển dữ liệu điều hướng giao diện Vue Vben Admin
+* Hỗ trợ cơ sở dữ liệu MySQL
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -28,22 +28,22 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "PlatformDbMigrator": "你的数据库连接字符串"
+    "PlatformDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置PlatformDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Cấu hình chuỗi kết nối PlatformDbMigrator trong appsettings.json
 
-2. 添加模块依赖
+2. Thêm phụ thuộc mô-đun
    ```csharp
    [DependsOn(typeof(PlatformMigrationsEntityFrameworkCoreModule))]
    public class YourModule : AbpModule
@@ -52,16 +52,16 @@
    }
    ```
 
-## 数据库表说明
+## Mô tả bảng cơ sở dữ liệu
 
-* Platform相关表 - 包含数据字典、组织机构、菜单、版本等平台基础数据
-* Saas相关表 - 租户、版本等多租户相关数据
-* AbpSettings - 系统设置数据
-* AbpPermissionGrants - 权限授权数据
-* AbpFeatures - 功能特性数据
-* AbpUINavigation - Vue Vben Admin UI导航数据
+* Bảng liên quan đến Platform - dữ liệu nền tảng như từ điển dữ liệu, tổ chức, menu, phiên bản
+* Bảng liên quan đến Saas - dữ liệu đa thuê bao như thuê bao, phiên bản
+* AbpSettings - dữ liệu cài đặt hệ thống
+* AbpPermissionGrants - dữ liệu cấp quyền
+* AbpFeatures - dữ liệu tính năng
+* AbpUINavigation - dữ liệu điều hướng giao diện Vue Vben Admin
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [Vue Vben Admin文档](https://doc.vvbin.cn/)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu Vue Vben Admin](https://doc.vvbin.cn/)

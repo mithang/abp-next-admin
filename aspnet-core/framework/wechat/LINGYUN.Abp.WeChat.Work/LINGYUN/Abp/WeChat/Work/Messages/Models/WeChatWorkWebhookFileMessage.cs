@@ -4,21 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 企业微信Webhook文件消息
+/// Tin nhắn tệp Webhook của WeChat Work
 /// </summary>
 public class WeChatWorkWebhookFileMessage : WeChatWorkWebhookMessage
 {
     /// <summary>
-    /// 文件消息体
+    /// Thân tin nhắn tệp
     /// </summary>
     [NotNull]
     [JsonProperty("file")]
     [JsonPropertyName("file")]
     public WebhookFileMessage File { get; set; }
     /// <summary>
-    /// 创建一个企业微信Webhook文件消息
+    /// Tạo một tin nhắn tệp Webhook của WeChat Work
     /// </summary>
-    /// <param name="file">文件消息体</param>
+    /// <param name="file">Thân tin nhắn tệp</param>
     public WeChatWorkWebhookFileMessage(WebhookFileMessage file)
         : base("file")
     {

@@ -7,54 +7,54 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Request;
 /// <summary>
-/// 预定会议室请求参数
+/// Tham số yêu cầu đặt phòng họp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93620#%E9%A2%84%E5%AE%9A%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/93620#%E9%A2%84%E5%AE%9A%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
 /// </remarks>
 public class WeChatWorkBookMeetingRoomRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 参与人的userid列表
+    /// Danh sách userid của người tham gia
     /// </summary>
     private readonly static List<string> _attendees = new List<string>();
     /// <summary>
-    /// 会议室id
+    /// Id phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("meetingroom_id")]
     [JsonPropertyName("meetingroom_id")]
     public int MeetingRoomId { get; }
     /// <summary>
-    /// 预定开始时间
+    /// Thời gian bắt đầu đặt
     /// </summary>
     [NotNull]
     [JsonProperty("start_time")]
     [JsonPropertyName("start_time")]
     public long StartTime { get; }
     /// <summary>
-    /// 预定结束时间
+    /// Thời gian kết thúc đặt
     /// </summary>
     [NotNull]
     [JsonProperty("end_time")]
     [JsonPropertyName("end_time")]
     public long EndTime { get; }
     /// <summary>
-    /// 预定人的userid
+    /// Userid của người đặt
     /// </summary>
     [NotNull]
     [JsonProperty("booker")]
     [JsonPropertyName("booker")]
     public string Booker { get; }
     /// <summary>
-    /// 会议主题
+    /// Chủ đề cuộc họp
     /// </summary>
     [CanBeNull]
     [JsonProperty("subject")]
     [JsonPropertyName("subject")]
     public string? Subject { get; }
     /// <summary>
-    /// 参与人的userid列表
+    /// Danh sách userid của người tham gia
     /// </summary>
     [NotNull]
     [JsonProperty("attendees")]
@@ -74,7 +74,7 @@ public class WeChatWorkBookMeetingRoomRequest : WeChatWorkRequest
         Subject = subject;
     }
     /// <summary>
-    /// 添加一个参与人
+    /// Thêm một người tham gia
     /// </summary>
     /// <param name="userId"></param>
     public void AddAttendee(string userId)
@@ -82,7 +82,7 @@ public class WeChatWorkBookMeetingRoomRequest : WeChatWorkRequest
         _attendees.AddIfNotContains(userId);
     }
     /// <summary>
-    /// 移除一个参与人
+    /// Xóa một người tham gia
     /// </summary>
     /// <param name="userId"></param>
     public void RemoveAttendee(string userId)
@@ -90,7 +90,7 @@ public class WeChatWorkBookMeetingRoomRequest : WeChatWorkRequest
         _attendees.RemoveAll(attendee => string.Equals(attendee, userId));
     }
     /// <summary>
-    /// 清空参与人
+    /// Xóa toàn bộ người tham gia
     /// </summary>
     public void ClearAttendee()
     {

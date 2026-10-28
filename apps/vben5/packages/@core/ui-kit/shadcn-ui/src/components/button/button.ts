@@ -31,25 +31,25 @@ export interface VbenButtonGroupProps extends Pick<
   VbenButtonProps,
   'disabled'
 > {
-  /** 单选模式下允许清除选中 */
+  /** Ở chế độ chọn đơn, cho phép xóa lựa chọn */
   allowClear?: boolean;
-  /** 值改变前的回调 */
+  /** Callback trước khi giá trị thay đổi */
   beforeChange?: (
     value: ValueType,
     isChecked: boolean,
   ) => boolean | PromiseLike<boolean | undefined> | undefined;
-  /** 按钮样式 */
+  /** Kiểu nút */
   btnClass?: any;
-  /** 按钮间隔距离 */
+  /** Khoảng cách giữa các nút */
   gap?: number;
-  /** 多选模式下限制最多选择的数量。0表示不限制 */
+  /** Ở chế độ chọn nhiều, giới hạn số lượng chọn tối đa. 0 nghĩa là không giới hạn */
   maxCount?: number;
-  /** 是否允许多选 */
+  /** Có cho phép chọn nhiều hay không */
   multiple?: boolean;
-  /** 选项 */
+  /** Tùy chọn */
   options?: { [key: string]: any; label: CustomRenderType; value: ValueType }[];
-  /** 显示图标 */
+  /** Hiển thị biểu tượng */
   showIcon?: boolean;
-  /** 尺寸 */
+  /** Kích thước */
   size?: 'large' | 'middle' | 'small';
 }

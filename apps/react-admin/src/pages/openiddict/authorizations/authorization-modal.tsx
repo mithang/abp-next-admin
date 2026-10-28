@@ -21,7 +21,7 @@ const AuthorizationModal: React.FC<Props> = ({ visible, authorizationId, onClose
 	const { t: $t } = useTranslation();
 	const [form] = Form.useForm();
 
-	// 获取授权详情和关联数据
+	// Lấy chi tiết ủy quyền và dữ liệu liên quan
 	const { data: authorizationData, isLoading } = useQuery({
 		queryKey: ["authorization", authorizationId],
 		queryFn: async () => {
@@ -51,7 +51,7 @@ const AuthorizationModal: React.FC<Props> = ({ visible, authorizationId, onClose
 		enabled: visible && !!authorizationId,
 	});
 
-	// 更新表单数据
+	// Cập nhật dữ liệu biểu mẫu
 	useEffect(() => {
 		if (authorizationData && authorizationData.id === authorizationId) {
 			form.setFieldsValue(authorizationData);
@@ -108,7 +108,7 @@ const AuthorizationModal: React.FC<Props> = ({ visible, authorizationId, onClose
 				<Form
 					form={form}
 					layout="vertical"
-					disabled // 表单只读
+					disabled // Biểu mẫu chỉ đọc
 				>
 					{formItems.map((item) => (
 						<Form.Item key={item.name} name={item.name} label={item.label}>

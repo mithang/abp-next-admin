@@ -5,21 +5,21 @@ namespace LINGYUN.Abp.WeChat.Common.Crypto;
 public interface IWeChatCryptoService
 {
     /// <summary>
-    /// 校验
+    /// Kiểm tra
     /// </summary>
     /// <param name="data"></param>
     /// <param name="sReplyEchoStr"></param>
     /// <returns></returns>
     string Validation(WeChatCryptoEchoData data);
     /// <summary>
-    /// 解密
+    /// Giải mã
     /// </summary>
     /// <param name="data"></param>
     /// <param name="sMsg"></param>
     /// <returns></returns>
     string Decrypt(WeChatCryptoDecryptData data);
     /// <summary>
-    /// 加密
+    /// Mã hóa
     /// </summary>
     /// <param name="data"></param>
     /// <param name="sEncryptMsg"></param>

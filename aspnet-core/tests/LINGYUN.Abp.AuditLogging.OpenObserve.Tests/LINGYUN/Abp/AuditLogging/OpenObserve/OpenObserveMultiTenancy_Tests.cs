@@ -8,10 +8,10 @@ using Xunit;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 多租户隔离测试
+/// Kiểm thử cách ly đa tenant
 /// </summary>
 /// <remarks>
-/// 参考 Elasticsearch 实现: 不同租户使用不同数据流, 写入按日志自身租户, 查询按当前租户
+/// Tham khảo triển khai Elasticsearch: tenant khác nhau dùng luồng dữ liệu khác nhau, ghi theo tenant của chính nhật ký, truy vấn theo tenant hiện tại
 /// </remarks>
 public class OpenObserveMultiTenancy_Tests : AbpAuditLoggingOpenObserveTestBase
 {
@@ -42,11 +42,11 @@ public class OpenObserveMultiTenancy_Tests : AbpAuditLoggingOpenObserveTestBase
 
         await Task.Delay(10000);
 
-        // 宿主(未指定租户)看不到租户的数据流
+        // Host (chưa chỉ định tenant) không thấy luồng dữ liệu của tenant
         (await _manager.GetAsync(id)).ShouldBeNull();
         (await _manager.GetCountAsync()).ShouldBe(0);
 
-        // 切换到租户后可见
+        // Sau khi chuyển sang tenant thì thấy được
         using (_currentTenant.Change(tenantId))
         {
             (await _manager.GetAsync(id)).ShouldNotBeNull();

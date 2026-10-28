@@ -92,49 +92,49 @@ namespace LINGYUN.Abp.DataProtection
                     await _repository.InsertManyAsync(values, true);
                 }
 
-                // role2规则
+                // Quy tắc của role2
                 var rule2FilterGroup = new DataAccessFilterGroup();
-                // 只允许查询Num3小于等于400
+                // Chỉ cho phép truy vấn Num3 nhỏ hơn hoặc bằng 400
                 rule2FilterGroup.AddRule(new DataAccessFilterRule(nameof(FakeProtectionObject.Num3), 400, typeof(int).FullName, "number", DataAccessFilterOperate.LessOrEqual));
                 await _store.SetAsync(new DataAccessResource(RolePermissionValueProvider.ProviderName, "role2", typeof(FakeProtectionObject).FullName, DataAccessOperation.Read, rule2FilterGroup));
 
-                // role3编辑规则
+                // Quy tắc chỉnh sửa của role3
                 var rule3WriteAccess = new DataAccessFilterGroup();
-                // 只允许编辑自己提交的数据
+                // Chỉ cho phép chỉnh sửa dữ liệu do chính mình gửi
                 rule3WriteAccess.AddRule(new DataAccessFilterRule(nameof(FakeProtectionObject.CreatorId), DataAccessCurrentUserContributor.Name, typeof(Guid?).FullName, "string", DataAccessFilterOperate.Equal));
                 var rule3WriteAccessCacheItem = new DataAccessResource(RolePermissionValueProvider.ProviderName, "role3", typeof(FakeProtectionObject).FullName, DataAccessOperation.Write, rule3WriteAccess);
-                // 只允许编辑Num3字段
+                // Chỉ cho phép chỉnh sửa trường Num3
                 rule3WriteAccessCacheItem.AccessedProperties.AddRange(new string[] { nameof(FakeProtectionObject.Num3) });
                 await _store.SetAsync(rule3WriteAccessCacheItem);
 
-                // role1读取规则
+                // Quy tắc đọc của role1
                 var rule1ReadAccess = new DataAccessFilterGroup();
-                // 只允许读取自己提交的数据
+                // Chỉ cho phép đọc dữ liệu do chính mình gửi
                 rule1ReadAccess.AddRule(new DataAccessFilterRule(nameof(FakeProtectionObject.CreatorId), DataAccessCurrentUserContributor.Name, typeof(Guid?).FullName, "string", DataAccessFilterOperate.Equal));
                 var rule1ReadAccessCacheItem = new DataAccessResource(RolePermissionValueProvider.ProviderName, "role1", typeof(FakeProtectionObject).FullName, DataAccessOperation.Read, rule1ReadAccess);
-                // 只允许读取Num3字段
+                // Chỉ cho phép đọc trường Num3
                 rule1ReadAccessCacheItem.AccessedProperties.AddRange(new string[] { nameof(FakeProtectionObject.Id), nameof(FakeProtectionObject.Num3) });
                 await _store.SetAsync(rule1ReadAccessCacheItem);
 
 
-                // ou1读取规则
+                // Quy tắc đọc của ou1
                 var ou1ReadAccess = new DataAccessFilterGroup();
-                // 允许读本部门及下级部门数据
-                // 获取部门树结构列表, 便利增加多个部门条件集
+                // Cho phép đọc dữ liệu của phòng ban mình và các phòng ban cấp dưới
+                // Lấy danh sách cấu trúc cây phòng ban, thuận tiện thêm nhiều tập điều kiện phòng ban
                 ou1ReadAccess.AddRule(new DataAccessFilterRule($"{nameof(FakeProtectionObject.CreatorId)}", new List<Guid?>() { validUser, Guid.NewGuid() }, typeof(Guid?).FullName, "string", DataAccessFilterOperate.Contains, true));
                 //ou1ReadAccess.AddRule(new DataAccessFilterRule($"{nameof(FakeProtectionObject.ExtraProperties)}.{DataAccessKeywords.AUTH_ORGS}", "[00001]", DataAccessFilterOperate.Contains));
                 //ou1ReadAccess.AddRule(new DataAccessFilterRule($"{nameof(FakeProtectionObject.ExtraProperties)}.{DataAccessKeywords.AUTH_ORGS}", "[00001.00002]", DataAccessFilterOperate.Contains));
 
                 var ou1ReadAccessCacheItem = new DataAccessResource(OrganizationUnitPermissionValueProvider.ProviderName, "00001", typeof(FakeProtectionObject).FullName, DataAccessOperation.Read, ou1ReadAccess);
 
-                // 只允许读取Num3字段
+                // Chỉ cho phép đọc trường Num3
                 ou1ReadAccessCacheItem.AccessedProperties.AddRange(new string[] { nameof(FakeProtectionObject.Id), nameof(FakeProtectionObject.Num3) });
                 await _store.SetAsync(ou1ReadAccessCacheItem);
             });
 
             await WithUnitOfWorkAsync(async () =>
             {
-                // 标记不启用数据过滤器应该能获取全部数据
+                // Đánh dấu không bật bộ lọc dữ liệu thì phải lấy được toàn bộ dữ liệu
                 var result = await _repository.GetAllListAsync();
                 result.Count.ShouldBe(4);
             });
@@ -148,7 +148,7 @@ namespace LINGYUN.Abp.DataProtection
                 identity2.AddClaim(new Claim(AbpClaimTypes.Role, "role2"));
                 using (_accessor.Change(identity2))
                 {
-                    // 应该只能读取到 Num3小于等于400的数据，只有3条
+                    // Phải chỉ đọc được dữ liệu Num3 nhỏ hơn hoặc bằng 400, chỉ có 3 bản ghi
                     var result = await _repository.GetListAsync();
                     result.Count.ShouldBe(3);
                 }
@@ -162,7 +162,7 @@ namespace LINGYUN.Abp.DataProtection
                 identity3.AddClaim(new Claim(AbpOrganizationUnitClaimTypes.OrganizationUnit, "00001"));
                 using (_accessor.Change(identity3))
                 {
-                    // 应该能获取4条数据
+                    // Phải lấy được 4 bản ghi
                     var result = await _repository.GetListAsync();
                     result.Count.ShouldBe(4);
                 }
@@ -179,11 +179,11 @@ namespace LINGYUN.Abp.DataProtection
                     var entity = await _repository.FindAsync(1);
                     entity.Protect1 = "New Protect1";
                     entity.Num3 = 100;
-                    // 切换为授权用户应该可以保存数据
+                    // Chuyển sang người dùng được ủy quyền thì phải lưu được dữ liệu
                     var resultEntity = await _repository.UpdateAsync(entity, true);
-                    // 授权字段应该会保存成功
+                    // Trường được ủy quyền phải lưu thành công
                     resultEntity.Num3.ShouldBe(100);
-                    // 未授权字段应该不会保存成功
+                    // Trường chưa được ủy quyền phải không lưu thành công
                     resultEntity.Protect1.ShouldBe("Protect1");
                 }
             });
@@ -211,9 +211,9 @@ namespace LINGYUN.Abp.DataProtection
                     var resultBuilder = GetRequiredService<IEntityPropertyResultBuilder>();
                     var exp = await resultBuilder.Build(typeof(FakeProtectionObject), DataAccessOperation.Read);
                     var comp = exp.Compile();
-                    // 使用非泛型接口编译表达式树，对返回结果进行替换
+                    // Dùng interface phi generic để biên dịch cây biểu thức, thay thế kết quả trả về
                     var resultEntity = comp.DynamicInvoke(entity).As<FakeProtectionObject>();
-                    // 未授权字段应返回默认值
+                    // Trường chưa được ủy quyền phải trả về giá trị mặc định
                     resultEntity.Protect1.ShouldBeNullOrWhiteSpace();
                 }
             });
@@ -229,7 +229,7 @@ namespace LINGYUN.Abp.DataProtection
                     var entity = await _repository.FindAsync(1);
 
                     entity.Num3 = 300;
-                    // 对未授权实体的操作应该抛出未授权异常
+                    // Thao tác trên thực thể chưa được ủy quyền phải ném ngoại lệ chưa được ủy quyền
                     await Assert.ThrowsAsync<AbpAuthorizationException>(async () => await _repository.UpdateAsync(entity, true));
                 }
             });
@@ -240,7 +240,7 @@ namespace LINGYUN.Abp.DataProtection
                 entity.Num3 = 200;
                 using (_dataFilter.Disable<IDataProtected>())
                 {
-                    // 禁用数据保护过滤器之后应可保存数据
+                    // Sau khi tắt bộ lọc bảo vệ dữ liệu thì phải lưu được dữ liệu
                     var resultEntity = await _repository.UpdateAsync(entity);
                     resultEntity.Num3.ShouldBe(200);
                 }

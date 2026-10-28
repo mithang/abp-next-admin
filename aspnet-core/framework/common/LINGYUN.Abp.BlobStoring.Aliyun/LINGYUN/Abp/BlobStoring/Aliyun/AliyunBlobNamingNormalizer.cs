@@ -8,37 +8,37 @@ namespace LINGYUN.Abp.BlobStoring.Aliyun;
 public class AliyunBlobNamingNormalizer : IBlobNamingNormalizer, ITransientDependency
 {
     /// <summary>
-    /// 阿里云对象命名规范
+    /// Quy tắc đặt tên đối tượng của Alibaba Cloud
     /// https://help.aliyun.com/document_detail/31827.html?spm=a2c4g.11186623.6.607.37b332eaM3NKzY
     /// </summary>
     /// <param name="blobName"></param>
     /// <returns></returns>
     public virtual string NormalizeBlobName(string blobName)
     {
-        // 不能以正斜线（/）或者反斜线（\）开头。
+        // Không được bắt đầu bằng dấu gạch chéo xuôi (/) hoặc dấu gạch chéo ngược (\).
         return blobName
             .RemovePreFix("/")
             .RemovePreFix("\\");
     }
 
     /// <summary>
-    /// 阿里云BucketName命名规范
+    /// Quy tắc đặt tên BucketName của Alibaba Cloud
     /// https://help.aliyun.com/document_detail/31885.html?spm=a2c4g.11186623.6.583.56081c62w6meOR
     /// </summary>
     /// <param name="containerName"></param>
     /// <returns></returns>
     public virtual string NormalizeContainerName(string containerName)
     {
-        // 小写字母、数字和短划线（-）
+        // Chữ thường, chữ số và dấu gạch ngang (-)
         containerName = containerName.ToLower();
         containerName = Regex.Replace(containerName, "[^a-z0-9-]", string.Empty);
 
-        // 不能以短划线（-）开头
+        // Không được bắt đầu bằng dấu gạch ngang (-)
         containerName = Regex.Replace(containerName, "^-", string.Empty);
-        // 不能以短划线（-）结尾
+        // Không được kết thúc bằng dấu gạch ngang (-)
         containerName = Regex.Replace(containerName, "-$", string.Empty);
 
-        // 长度必须在3-63之间
+        // Độ dài phải nằm trong khoảng 3-63
         if (containerName.Length < 3)
         {
             var length = containerName.Length;

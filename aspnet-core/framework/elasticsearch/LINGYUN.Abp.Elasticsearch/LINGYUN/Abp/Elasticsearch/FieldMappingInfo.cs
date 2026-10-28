@@ -26,7 +26,7 @@ public class FieldMappingInfo
     public bool? Store { get; set; }
     public bool? Index { get; set; }
 
-    // 子字段（用于 text 的 keyword 子字段，或 object/nested 的内部字段）
+    // Trường con (dùng cho trường con keyword của text, hoặc trường nội bộ của object/nested)
     public Dictionary<string, FieldMappingInfo>? Properties { get; set; }
     public Dictionary<string, object>? Meta { get; set; }
 
@@ -39,7 +39,7 @@ public class FieldMappingInfo
             return Path;
         }
 
-        // 如果是 text 类型且有 keyword 子字段
+        // Nếu là kiểu text và có trường con keyword
         if (IsText && Properties?.ContainsKey("keyword") == true)
         {
             return $"{Path}.keyword";

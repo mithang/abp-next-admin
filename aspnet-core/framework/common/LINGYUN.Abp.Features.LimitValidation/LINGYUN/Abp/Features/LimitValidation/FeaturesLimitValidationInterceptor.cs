@@ -45,18 +45,18 @@ public class FeaturesLimitValidationInterceptor : AbpInterceptor, ITransientDepe
             return;
         }
 
-        // 获取功能限制上限
+        // Lấy giới hạn tối đa của tính năng
         var limit = await _featureChecker.GetAsync(limitFeature.LimitFeature, limitFeature.DefaultLimit);
-        // 获取功能限制时长
+        // Lấy khoảng thời gian giới hạn của tính năng
         var interval = await _featureChecker.GetAsync(limitFeature.IntervalFeature, limitFeature.DefaultInterval);
-        // 必要的上下文参数
+        // Các tham số ngữ cảnh bắt buộc
         var limitFeatureContext = new RequiresLimitFeatureContext(limitFeature.LimitFeature, _options, limitFeature.Policy, interval, limit);
-        // 检查次数限制
+        // Kiểm tra giới hạn số lần
         await PreCheckFeatureAsync(limitFeatureContext);
-        // 执行代理方法
+        // Thực thi phương thức được proxy
         await invocation.ProceedAsync();
-        // 调用次数递增
-        // TODO: 使用Redis结合Lua脚本?
+        // Tăng số lần gọi
+        // TODO: Dùng Redis kết hợp với script Lua?
         await PostCheckFeatureAsync(limitFeatureContext);
     }
 
@@ -79,14 +79,14 @@ public class FeaturesLimitValidationInterceptor : AbpInterceptor, ITransientDepe
         var limitFeature = methodInfo.GetCustomAttribute<RequiresLimitFeatureAttribute>(false);
         if (limitFeature != null)
         {
-            // 限制次数定义的不是范围参数,则不参与限制功能
+            // Nếu giới hạn số lần được định nghĩa không phải là tham số phạm vi thì không tham gia tính năng giới hạn
             var featureLimitDefinition = await _featureDefinitionManager.GetOrNullAsync(limitFeature.LimitFeature);
             if (featureLimitDefinition == null ||
                 !typeof(NumericValueValidator).IsAssignableFrom(featureLimitDefinition.ValueType?.Validator.GetType()))
             {
                 return null;
             }
-            // 时长刻度定义的不是范围参数,则不参与限制功能
+            // Nếu thang thời lượng được định nghĩa không phải là tham số phạm vi thì không tham gia tính năng giới hạn
             var featureIntervalDefinition = await _featureDefinitionManager.GetOrNullAsync(limitFeature.IntervalFeature);
             if (featureIntervalDefinition == null ||
                 !typeof(NumericValueValidator).IsAssignableFrom(featureIntervalDefinition.ValueType?.Validator.GetType()))

@@ -1,24 +1,24 @@
 # LINGYUN.Abp.MultiTenancy.Editions
 
-多租户版本管理模块，提供租户版本（Edition）的基础功能支持。
+Mô-đun quản lý phiên bản đa tenant, cung cấp hỗ trợ chức năng cơ bản cho phiên bản tenant (Edition).
 
-## 功能特性
+## Tính năng
 
-- 版本管理
-  - 支持为租户分配不同版本
-  - 版本信息包含 ID 和显示名称
-  - 支持版本信息的存储和检索
-- 全局功能开关
-  - 支持通过全局功能开关控制版本功能
-  - 可灵活配置版本功能的启用/禁用
-- 身份认证集成
-  - 自动将版本信息添加到用户 Claims 中
-  - 支持在应用程序中获取当前租户的版本信息
-- 可扩展性
-  - 提供 IEditionStore 接口用于自定义版本存储
-  - 支持自定义版本配置提供程序
+- Quản lý phiên bản
+  - Hỗ trợ gán các phiên bản khác nhau cho tenant
+  - Thông tin phiên bản bao gồm ID và tên hiển thị
+  - Hỗ trợ lưu trữ và truy xuất thông tin phiên bản
+- Công tắc tính năng toàn cục
+  - Hỗ trợ điều khiển tính năng phiên bản bằng công tắc tính năng toàn cục
+  - Có thể cấu hình linh hoạt việc bật/tắt tính năng phiên bản
+- Tích hợp xác thực danh tính
+  - Tự động thêm thông tin phiên bản vào Claims của người dùng
+  - Hỗ trợ lấy thông tin phiên bản của tenant hiện tại trong ứng dụng
+- Khả năng mở rộng
+  - Cung cấp giao diện IEditionStore để tùy chỉnh bộ nhớ phiên bản
+  - Hỗ trợ nhà cung cấp cấu hình phiên bản tùy chỉnh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpMultiTenancyEditionsModule))]
@@ -28,25 +28,25 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置说明
+## Mô tả cấu hình
 
-### 1. 全局功能配置
+### 1. Cấu hình tính năng toàn cục
 
 ```csharp
 GlobalFeatureManager.Instance.Modules.Editions(editions =>
 {
-    // 在这里配置版本相关的全局功能
+    // Cấu hình các tính năng toàn cục liên quan đến phiên bản tại đây
 });
 ```
 
-### 2. 实现版本存储
+### 2. Triển khai bộ nhớ phiên bản
 
 ```csharp
 public class YourEditionStore : IEditionStore
 {
     public async Task<EditionInfo> FindByTenantAsync(Guid tenantId)
     {
-        // 实现从存储中获取租户版本信息的逻辑
+        // Triển khai logic lấy thông tin phiên bản tenant từ bộ nhớ
         return new EditionInfo(
             id: Guid.NewGuid(),
             displayName: "Standard Edition"
@@ -55,7 +55,7 @@ public class YourEditionStore : IEditionStore
 }
 ```
 
-### 3. 获取版本信息
+### 3. Lấy thông tin phiên bản
 
 ```csharp
 public class YourService
@@ -74,9 +74,9 @@ public class YourService
 }
 ```
 
-## 版本信息在 Claims 中的使用
+## Sử dụng thông tin phiên bản trong Claims
 
-当启用版本功能时，模块会自动将版本信息添加到用户的 Claims 中：
+Khi bật tính năng phiên bản, mô-đun sẽ tự động thêm thông tin phiên bản vào Claims của người dùng:
 
 ```csharp
 public class YourController
@@ -84,18 +84,18 @@ public class YourController
     public async Task<IActionResult> GetEditionInfo()
     {
         var editionId = User.FindFirstValue(AbpClaimTypes.EditionId);
-        // 使用版本ID进行相关操作
+        // Sử dụng ID phiên bản để thực hiện các thao tác liên quan
     }
 }
 ```
 
-## 注意事项
+## Lưu ý
 
-1. 使用版本功能前需要确保已启用全局功能开关。
-2. 版本存储的实现需要考虑性能和并发访问的问题。
-3. 版本信息的变更可能会影响租户的功能访问权限。
-4. Claims 中的版本信息会在用户认证时自动更新。
+1. Cần đảm bảo đã bật công tắc tính năng toàn cục trước khi sử dụng tính năng phiên bản.
+2. Việc triển khai bộ nhớ phiên bản cần cân nhắc vấn đề hiệu năng và truy cập đồng thời.
+3. Thay đổi thông tin phiên bản có thể ảnh hưởng đến quyền truy cập tính năng của tenant.
+4. Thông tin phiên bản trong Claims sẽ tự động cập nhật khi người dùng xác thực.
 
-## 更多文档
+## Tài liệu khác
 
 - [English Documentation](README.EN.md)

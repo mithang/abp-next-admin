@@ -12,8 +12,8 @@ export function useAuditLogsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取审计日志
-   * @param id 日志id
+   * Lấy nhật ký kiểm toán
+   * @param id Id nhật ký
    */
   function getApi(id: string): Promise<AuditLogDto> {
     return request<AuditLogDto>(`/api/auditing/audit-log/${id}`, {
@@ -22,8 +22,8 @@ export function useAuditLogsApi() {
   }
 
   /**
-   * 获取审计日志分页列表
-   * @param input 参数
+   * Lấy danh sách phân trang nhật ký kiểm toán
+   * @param input Tham số
    */
   function getPagedListApi(
     input: AuditLogGetListInput,
@@ -35,8 +35,8 @@ export function useAuditLogsApi() {
   }
 
   /**
-   * 删除审计日志
-   * @param id 日志id
+   * Xóa nhật ký kiểm toán
+   * @param id Id nhật ký
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/auditing/audit-log/${id}`, {
@@ -45,8 +45,8 @@ export function useAuditLogsApi() {
   }
 
   /**
-   * 批量删除审计日志
-   * @param input 参数
+   * Xóa hàng loạt nhật ký kiểm toán
+   * @param input Tham số
    */
   function deleteManyApi(input: AuditLogDeleteManyInput): Promise<void> {
     return request(`/api/auditing/audit-log/bulk`, {

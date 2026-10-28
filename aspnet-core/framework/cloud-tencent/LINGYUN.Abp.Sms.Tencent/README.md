@@ -1,49 +1,49 @@
 # LINGYUN.Abp.Sms.Tencent
 
-腾讯云短信服务模块，集成腾讯云短信服务到ABP应用程序。
+Mô-đun dịch vụ SMS Tencent Cloud, tích hợp dịch vụ SMS Tencent Cloud vào ứng dụng ABP.
 
-## 功能特性
+## Tính năng
 
-* 支持腾讯云短信服务的发送功能
-* 支持多租户配置
-* 支持默认签名和模板配置
-* 支持多手机号批量发送
-* 支持短信模板参数传递
-* 内置错误处理和日志记录
+* Hỗ trợ gửi tin nhắn bằng dịch vụ SMS Tencent Cloud
+* Hỗ trợ cấu hình đa thuê bao
+* Hỗ trợ cấu hình chữ ký và mẫu mặc định
+* Hỗ trợ gửi hàng loạt tới nhiều số điện thoại
+* Hỗ trợ truyền tham số mẫu SMS
+* Tích hợp sẵn xử lý lỗi và ghi nhật ký
 
-## 配置项说明
+## Mô tả các mục cấu hình
 
-### 基础配置
+### Cấu hình cơ bản
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud": {
-      "SecretId": "您的腾讯云SecretId", // 从腾讯云控制台获取
-      "SecretKey": "您的腾讯云SecretKey", // 从腾讯云控制台获取
-      "DurationSecond": "600" // 会话持续时长，单位秒
+      "SecretId": "SecretId Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "SecretKey": "SecretKey Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "DurationSecond": "600" // Thời lượng phiên, đơn vị giây
     }
   }
 }
 ```
 
-### 短信服务配置
+### Cấu hình dịch vụ SMS
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud.Sms": {
-      "AppId": "", // 短信应用ID，在短信控制台添加应用后生成
-      "DefaultSignName": "", // 默认短信签名
-      "DefaultTemplateId": "" // 默认短信模板ID
+      "AppId": "", // ID ứng dụng SMS, được tạo sau khi thêm ứng dụng trong bảng điều khiển SMS
+      "DefaultSignName": "", // Chữ ký SMS mặc định
+      "DefaultTemplateId": "" // ID mẫu SMS mặc định
     }
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 ```csharp
 [DependsOn(typeof(AbpSmsTencentModule))]
 public class YourModule : AbpModule
@@ -52,24 +52,24 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置腾讯云短信服务
+2. Cấu hình dịch vụ SMS Tencent Cloud
 ```json
 {
   "Settings": {
     "Abp.TencentCloud": {
-      "SecretId": "您的腾讯云SecretId",
-      "SecretKey": "您的腾讯云SecretKey"
+      "SecretId": "SecretId Tencent Cloud của bạn",
+      "SecretKey": "SecretKey Tencent Cloud của bạn"
     },
     "Abp.TencentCloud.Sms": {
-      "AppId": "您的短信应用ID",
-      "DefaultSignName": "您的短信签名",
-      "DefaultTemplateId": "您的默认模板ID"
+      "AppId": "ID ứng dụng SMS của bạn",
+      "DefaultSignName": "Chữ ký SMS của bạn",
+      "DefaultTemplateId": "ID mẫu mặc định của bạn"
     }
   }
 }
 ```
 
-3. 发送短信示例
+3. Ví dụ gửi SMS
 ```csharp
 public class YourService
 {
@@ -80,7 +80,7 @@ public class YourService
         _smsSender = smsSender;
     }
 
-    // 使用默认签名和模板发送
+    // Gửi bằng chữ ký và mẫu mặc định
     public async Task SendSmsAsync(string phoneNumber, Dictionary<string, object> templateParams)
     {
         await _smsSender.SendAsync(
@@ -89,7 +89,7 @@ public class YourService
             templateParams);
     }
 
-    // 使用指定签名和模板发送
+    // Gửi bằng chữ ký và mẫu được chỉ định
     public async Task SendSmsAsync(
         string signName,
         string templateCode,
@@ -105,23 +105,23 @@ public class YourService
 }
 ```
 
-## 高级特性
+## Tính năng nâng cao
 
-### 特性开关
+### Công tắc tính năng
 
-模块提供以下特性开关：
+Mô-đun cung cấp các công tắc tính năng sau:
 
-* TencentSms - 控制腾讯云短信服务的启用/禁用
+* TencentSms - điều khiển việc bật/tắt dịch vụ SMS Tencent Cloud
 
-### 错误处理
+### Xử lý lỗi
 
-* 当所有短信发送失败时，会抛出异常
-* 当部分短信发送失败时，会记录警告日志
-* 支持查看发送失败的详细信息，包括流水号、手机号、错误代码和错误信息
+* Khi tất cả SMS đều gửi thất bại, ngoại lệ sẽ được ném ra
+* Khi một phần SMS gửi thất bại, nhật ký cảnh báo sẽ được ghi lại
+* Hỗ trợ xem chi tiết các lần gửi thất bại, bao gồm mã giao dịch, số điện thoại, mã lỗi và thông báo lỗi
 
-## 更多文档
+## Tài liệu thêm
 
-* [腾讯云短信服务](https://cloud.tencent.com/document/product/382)
-* [短信控制台](https://console.cloud.tencent.com/smsv2)
+* [Dịch vụ SMS Tencent Cloud](https://cloud.tencent.com/document/product/382)
+* [Bảng điều khiển SMS](https://console.cloud.tencent.com/smsv2)
 
 [English](./README.EN.md)

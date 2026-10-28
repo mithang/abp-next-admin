@@ -12,43 +12,43 @@ export interface CaptchaData {
    */
   y: number;
   /**
-   * 时间戳
+   * Dấu thời gian
    */
   t: number;
 }
 export interface CaptchaPoint extends CaptchaData {
   /**
-   * 数据索引
+   * Chỉ số dữ liệu
    */
   i: number;
 }
 export interface PointSelectionCaptchaCardProps {
   /**
-   * 验证码图片
+   * Hình ảnh mã xác minh
    */
   captchaImage: string;
   /**
-   * 验证码图片高度
+   * Chiều cao hình ảnh mã xác minh
    * @default '220px'
    */
   height?: number | string;
   /**
-   * 水平内边距
+   * Khoảng đệm ngang
    * @default '12px'
    */
   paddingX?: number | string;
   /**
-   * 垂直内边距
+   * Khoảng đệm dọc
    * @default '16px'
    */
   paddingY?: number | string;
   /**
-   * 标题
-   * @default '请按图依次点击'
+   * Tiêu đề
+   * @default 'Vui lòng nhấn lần lượt theo hình'
    */
   title?: string;
   /**
-   * 验证码图片宽度
+   * Chiều rộng hình ảnh mã xác minh
    * @default '300px'
    */
   width?: number | string;
@@ -56,17 +56,17 @@ export interface PointSelectionCaptchaCardProps {
 
 export interface PointSelectionCaptchaProps extends PointSelectionCaptchaCardProps {
   /**
-   * 是否展示确定按钮
+   * Có hiển thị nút xác nhận hay không
    * @default false
    */
   showConfirm?: boolean;
   /**
-   * 提示图片
+   * Hình ảnh gợi ý
    * @default ''
    */
   hintImage?: string;
   /**
-   * 提示文本
+   * Văn bản gợi ý
    * @default ''
    */
   hintText?: string;
@@ -75,121 +75,121 @@ export interface PointSelectionCaptchaProps extends PointSelectionCaptchaCardPro
 export interface SliderCaptchaProps {
   class?: ClassType;
   /**
-   * @description 滑块的样式
+   * @description Kiểu của thanh trượt
    * @default {}
    */
   actionStyle?: CSSProperties;
 
   /**
-   * @description 滑块条的样式
+   * @description Kiểu của thanh trượt
    * @default {}
    */
   barStyle?: CSSProperties;
 
   /**
-   * @description 内容的样式
+   * @description Kiểu của nội dung
    * @default {}
    */
   contentStyle?: CSSProperties;
 
   /**
-   * @description 组件的样式
+   * @description Kiểu của component
    * @default {}
    */
   wrapperStyle?: CSSProperties;
 
   /**
-   * @description 是否作为插槽使用，用于联动组件，可参考旋转校验组件
+   * @description Có dùng làm slot hay không, dùng cho component liên động, có thể tham khảo component xác minh xoay
    * @default false
    */
   isSlot?: boolean;
 
   /**
-   * @description 验证成功的提示
-   * @default '验证通过'
+   * @description Gợi ý khi xác minh thành công
+   * @default 'Xác minh thành công'
    */
   successText?: string;
 
   /**
-   * @description 提示文字
-   * @default '请按住滑块拖动'
+   * @description Văn bản gợi ý
+   * @default 'Vui lòng giữ thanh trượt và kéo'
    */
   text?: string;
 }
 
 export interface SliderRotateCaptchaProps {
   /**
-   * @description 旋转的角度
+   * @description Góc xoay
    * @default 20
    */
   diffDegree?: number;
 
   /**
-   * @description 图片的宽度
+   * @description Chiều rộng hình ảnh
    * @default 260
    */
   imageSize?: number;
 
   /**
-   * @description 图片的样式
+   * @description Kiểu hình ảnh
    * @default {}
    */
   imageWrapperStyle?: CSSProperties;
 
   /**
-   * @description 最大旋转角度
+   * @description Góc xoay tối đa
    * @default 270
    */
   maxDegree?: number;
 
   /**
-   * @description 最小旋转角度
+   * @description Góc xoay tối thiểu
    * @default 90
    */
   minDegree?: number;
 
   /**
-   * @description 图片的地址
+   * @description Địa chỉ hình ảnh
    */
   src?: string;
   /**
-   * @description 默认提示文本
+   * @description Văn bản gợi ý mặc định
    */
   defaultTip?: string;
 }
 
 export interface SliderTranslateCaptchaProps {
   /**
-   * @description 拼图的宽度
+   * @description Chiều rộng mảnh ghép
    * @default 420
    */
   canvasWidth?: number;
   /**
-   * @description 拼图的高度
+   * @description Chiều cao mảnh ghép
    * @default 280
    */
   canvasHeight?: number;
   /**
-   * @description 切块上正方形的长度
+   * @description Độ dài hình vuông trên khối cắt
    * @default 42
    */
   squareLength?: number;
   /**
-   * @description 切块上圆形的半径
+   * @description Bán kính hình tròn trên khối cắt
    * @default 10
    */
   circleRadius?: number;
   /**
-   * @description 图片的地址
+   * @description Địa chỉ hình ảnh
    */
   src?: string;
   /**
-   * @description 允许的最大差距
+   * @description Khoảng chênh lệch tối đa cho phép
    * @default 3
    */
   diffDistance?: number;
   /**
-   * @description 默认提示文本
+   * @description Văn bản gợi ý mặc định
    */
   defaultTip?: string;
 }

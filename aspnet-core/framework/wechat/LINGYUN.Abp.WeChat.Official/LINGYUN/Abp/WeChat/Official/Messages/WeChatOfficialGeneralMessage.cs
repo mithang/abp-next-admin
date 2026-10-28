@@ -5,12 +5,12 @@ namespace LINGYUN.Abp.WeChat.Official.Messages;
 public abstract class WeChatOfficialGeneralMessage : WeChatGeneralMessage
 {
     /// <summary>
-    /// 消息的数据ID（消息如果来自文章时才有）
+    /// ID dữ liệu của thông báo (chỉ có khi thông báo đến từ bài viết)
     /// </summary>
     [XmlElement("MsgDataId")]
     public string? MsgDataId { get; set; }
     /// <summary>
-    /// 多图文时第几篇文章，从1开始（消息如果来自文章时才有）
+    /// Bài viết thứ mấy khi có nhiều bài viết kèm hình ảnh, bắt đầu từ 1 (chỉ có khi thông báo đến từ bài viết)
     /// </summary>
     [XmlElement("Idx")]
     public string? Idx { get; set; }

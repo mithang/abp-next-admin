@@ -1,6 +1,6 @@
 # LINGYUN.Abp.Sonatype.Nexus
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 ABP framework integration module for Sonatype Nexus REST API.
 

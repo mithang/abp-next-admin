@@ -5,21 +5,21 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Messages.Models;
 /// <summary>
-/// 日程回执事件
+/// Sự kiện phản hồi lịch trình
 /// </summary>
 /// <remarks>
-/// 当应用创建的日程，参与人进行回执操作（接受、待定、拒绝）时，触发该事件。
+/// Khi người tham gia thực hiện thao tác phản hồi (chấp nhận, chờ xác nhận, từ chối) đối với lịch trình do ứng dụng tạo, sự kiện này sẽ được kích hoạt.
 /// </remarks>
 [EventName("respond_schedule")]
 public class RespondScheduleEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 日历ID
+    /// ID lịch
     /// </summary>
     [XmlElement("CalId")]
     public string? CalId { get; set; }
     /// <summary>
-    /// 日程ID
+    /// ID lịch trình
     /// </summary>
     [XmlElement("ScheduleId")]
     public string ScheduleId { get; set; } = default!;

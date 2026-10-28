@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { defaultPreferences } from '../src/config';
 
 describe('defaultPreferences immutability test', () => {
-  // 创建快照，确保默认配置对象不被修改
+  // Tạo snapshot, đảm bảo đối tượng cấu hình mặc định không bị sửa đổi
   it('should not modify the config object', () => {
     expect(defaultPreferences).toMatchSnapshot();
   });

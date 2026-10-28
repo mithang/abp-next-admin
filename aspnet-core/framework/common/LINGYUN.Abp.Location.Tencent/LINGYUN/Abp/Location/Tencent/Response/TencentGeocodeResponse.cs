@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.Location.Tencent.Response;
 public class TencentGeocodeResponse : TencentLocationResponse
 {
     /// <summary>
-    /// 地址解析结果
+    /// Kết quả phân tích địa chỉ
     /// </summary>
     [JsonProperty("result")]
     public TencentGeocode Result { get; set; } = new TencentGeocode();

@@ -5,20 +5,20 @@ using Volo.Abp.Application.Dtos;
 namespace LINGYUN.Abp.Demo.Books;
 public class BookDto : AuditedEntityDto<Guid>
 {
-    [DisplayName("名称")]
+    [DisplayName("Tên")]
     public string Name { get; set; } = default!;
 
-    [DisplayName("类型")]
+    [DisplayName("Loại")]
     public BookType Type { get; set; }
 
-    [DisplayName("出版日期")]
+    [DisplayName("Ngày xuất bản")]
     public DateTime PublishDate { get; set; }
 
-    [DisplayName("价格")]
+    [DisplayName("Giá")]
     public float Price { get; set; }
 
     public Guid AuthorId { get; set; }
 
-    [DisplayName("作者")]
+    [DisplayName("Tác giả")]
     public string AuthorName { get; set; } = default!;
 }

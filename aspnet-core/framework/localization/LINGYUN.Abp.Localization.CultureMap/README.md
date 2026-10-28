@@ -1,42 +1,42 @@
 # LINGYUN.Abp.Localization.CultureMap
 
-## 模块说明
+## Mô tả mô-đun
 
-本模块用于解决存在多种格式的区域性本地化问题。它允许你将不同格式的区域性标识映射到标准格式。
+Mô-đun này dùng để giải quyết vấn đề bản địa hóa vùng miền khi tồn tại nhiều định dạng. Nó cho phép bạn ánh xạ các mã định danh vùng miền ở định dạng khác nhau về định dạng chuẩn.
 
-参考项目: [Owl.Abp.CultureMap](https://github.com/maliming/Owl.Abp.CultureMap)
+Dự án tham khảo: [Owl.Abp.CultureMap](https://github.com/maliming/Owl.Abp.CultureMap)
 
-## 功能特性
+## Tính năng
 
-* 支持将多种格式的区域性标识映射到标准格式
-* 支持区域性（Culture）和UI区域性（UICulture）的独立映射
-* 与ABP请求本地化集成
-* 支持自定义区域性映射规则
+* Hỗ trợ ánh xạ mã định danh vùng miền ở nhiều định dạng về định dạng chuẩn
+* Hỗ trợ ánh xạ độc lập cho vùng miền (Culture) và vùng miền giao diện (UICulture)
+* Tích hợp với tính năng bản địa hóa theo yêu cầu của ABP
+* Hỗ trợ quy tắc ánh xạ vùng miền tùy chỉnh
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Localization.CultureMap
 ```
 
-## 基础模块
+## Mô-đun cơ sở
 
 * Volo.Abp.AspNetCore
 
-## 配置说明
+## Hướng dẫn cấu hình
 
-模块提供了以下配置选项：
+Mô-đun cung cấp các tùy chọn cấu hình sau:
 
-* CulturesMaps：区域性映射列表
-* UiCulturesMaps：UI区域性映射列表
+* CulturesMaps: danh sách ánh xạ vùng miền
+* UiCulturesMaps: danh sách ánh xạ vùng miền giao diện
 
-每个映射项包含：
-* TargetCulture：目标区域性标识
-* SourceCultures：源区域性标识列表
+Mỗi mục ánh xạ bao gồm:
+* TargetCulture: mã định danh vùng miền đích
+* SourceCultures: danh sách mã định danh vùng miền nguồn
 
-## 使用方法
+## Cách sử dụng
 
-1. 添加模块依赖：
+1. Thêm phụ thuộc mô-đun:
 
 ```csharp
 [DependsOn(
@@ -67,9 +67,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 常见用例
+## Trường hợp sử dụng thường gặp
 
-1. 统一简体中文区域性标识：
+1. Thống nhất mã định danh vùng miền tiếng Trung giản thể:
 ```csharp
 options.CulturesMaps.Add(new CultureMapInfo
 {
@@ -78,7 +78,7 @@ options.CulturesMaps.Add(new CultureMapInfo
 });
 ```
 
-2. 统一繁体中文区域性标识：
+2. Thống nhất mã định danh vùng miền tiếng Trung phồn thể:
 ```csharp
 options.CulturesMaps.Add(new CultureMapInfo
 {
@@ -87,9 +87,9 @@ options.CulturesMaps.Add(new CultureMapInfo
 });
 ```
 
-## 更多信息
+## Thông tin thêm
 
 * [English Documentation](./README.EN.md)
-* [ABP本地化文档](https://docs.abp.io/zh-Hans/abp/latest/Localization)
+* [Tài liệu bản địa hóa ABP](https://docs.abp.io/zh-Hans/abp/latest/Localization)
 
-## 更新日志 
+## Nhật ký cập nhật 

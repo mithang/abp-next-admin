@@ -5,12 +5,12 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages;
 /// <summary>
-/// 企业微信Webhook消息结构体
+/// Cấu trúc tin nhắn Webhook WeChat Work
 /// </summary>
 public abstract class WeChatWorkWebhookMessage : WeChatWorkRequest
 {
     /// <summary>
-    /// 消息类型
+    /// Loại tin nhắn
     /// </summary>
     [NotNull]
     [JsonProperty("msgtype")]

@@ -1,14 +1,14 @@
 # LINGYUN.Abp.EventBus.CAP
 
-分布式事件总线 CAP 集成
+Tích hợp CAP cho bus sự kiện phân tán
 
-#### 注意
+#### Lưu ý
 
-* 自定义事件处理器接口 ICustomDistributedEventSubscriber 未实现,当前的分布式事件只能由 CustomDistributedEventSubscriber 在启动中发现  
+* Giao diện bộ xử lý sự kiện tùy chỉnh ICustomDistributedEventSubscriber chưa được triển khai, các sự kiện phân tán hiện tại chỉ có thể được CustomDistributedEventSubscriber phát hiện khi khởi động  
 
-* 由于 CAP 不支持同一事件参数的多个消费者,在 ConsumerServiceSelector 接口通过消费者的类全名创建一个新的Group
+* Do CAP không hỗ trợ nhiều consumer cho cùng một tham số sự kiện, trong giao diện ConsumerServiceSelector sẽ tạo một Group mới thông qua tên đầy đủ của lớp consumer
 
-## 配置使用
+## Cấu hình và sử dụng
 
 ```csharp
 [DependsOn(typeof(AbpCAPEventBusModule))]
@@ -17,6 +17,6 @@ public class YouProjectModule : AbpModule
   // other
 }
 
-## 变更历史
+## Lịch sử thay đổi
 
-【2021-03-14】 增加多租户的支持
+【2021-03-14】 Bổ sung hỗ trợ đa tenant

@@ -4,8 +4,8 @@ import { Fallback } from '@vben/common-ui';
 
 <template>
   <Fallback
-    description="当前页面仅 Super 账号可见"
+    description="Trang hiện tại chỉ tài khoản Super mới thấy"
     status="coming-soon"
-    title="页面访问测试"
+    title="Kiểm thử truy cập trang"
   />
 </template>

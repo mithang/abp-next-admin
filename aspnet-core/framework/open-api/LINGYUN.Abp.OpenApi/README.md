@@ -1,24 +1,24 @@
 # LINGYUN.Abp.OpenApi
 
-OpenApi 认证模块，为 ABP 应用程序提供基于 AppKey/AppSecret 的 API 签名认证功能。
+Mô-đun xác thực OpenApi, cung cấp chức năng xác thực chữ ký API dựa trên AppKey/AppSecret cho ứng dụng ABP.
 
-## 功能特性
+## Tính năng
 
-* 支持 AppKey/AppSecret 认证
-* 支持请求签名验证
-* 支持防重放攻击（Nonce随机数验证）
-* 支持请求时间戳验证
-* 支持客户端白名单
-* 支持IP地址白名单
-* 支持多语言错误消息
+* Hỗ trợ xác thực AppKey/AppSecret
+* Hỗ trợ xác minh chữ ký yêu cầu
+* Hỗ trợ chống tấn công phát lại (xác minh số ngẫu nhiên Nonce)
+* Hỗ trợ xác minh dấu thời gian của yêu cầu
+* Hỗ trợ danh sách trắng máy khách
+* Hỗ trợ danh sách trắng địa chỉ IP
+* Hỗ trợ thông báo lỗi đa ngôn ngữ
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenApi
 ```
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpOpenApiModule))]
@@ -28,33 +28,33 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "OpenApi": {
-    "IsEnabled": true,                   // 是否启用API签名检查，默认: true
-    "RequestNonceExpireIn": "00:10:00",  // 请求随机数过期时间，默认: 10分钟
-    "AppDescriptors": [                  // AppKey配置列表
+    "IsEnabled": true,                   // Có bật kiểm tra chữ ký API hay không, mặc định: true
+    "RequestNonceExpireIn": "00:10:00",  // Thời gian hết hạn của số ngẫu nhiên trong yêu cầu, mặc định: 10 phút
+    "AppDescriptors": [                  // Danh sách cấu hình AppKey
       {
-        "AppName": "测试应用",           // 应用名称
-        "AppKey": "你的AppKey",          // 应用标识
-        "AppSecret": "你的AppSecret",     // 应用密钥
-        "AppToken": "可选的Token",       // 可选的应用令牌
-        "SignLifetime": 300              // 签名有效期（秒）
+        "AppName": "Ứng dụng kiểm thử",           // Tên ứng dụng
+        "AppKey": "AppKey của bạn",          // Định danh ứng dụng
+        "AppSecret": "AppSecret của bạn",     // Khóa ứng dụng
+        "AppToken": "Token tùy chọn",       // Mã thông báo ứng dụng tùy chọn
+        "SignLifetime": 300              // Thời hạn hiệu lực của chữ ký (giây)
       }
     ]
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置 AppKey/AppSecret
-   * 在配置文件中添加 AppKey 和 AppSecret
-   * 或者实现自定义的 `IAppKeyStore` 接口来管理 AppKey
+1. Cấu hình AppKey/AppSecret
+   * Thêm AppKey và AppSecret vào tệp cấu hình
+   * Hoặc triển khai giao diện `IAppKeyStore` tùy chỉnh để quản lý AppKey
 
-2. 启用 OpenApi 认证
+2. Bật xác thực OpenApi
    ```csharp
    public override void ConfigureServices(ServiceConfigurationContext context)
    {
@@ -63,43 +63,43 @@ public class YouProjectModule : AbpModule
    }
    ```
 
-3. 自定义客户端验证（可选）
+3. Xác minh máy khách tùy chỉnh (tùy chọn)
    ```csharp
    public class CustomClientChecker : IClientChecker
    {
        public Task<bool> IsGrantAsync(string clientId, CancellationToken cancellationToken = default)
        {
-           // 实现自定义的客户端验证逻辑
+           // Triển khai logic xác minh máy khách tùy chỉnh
            return Task.FromResult(true);
        }
    }
    ```
 
-4. 自定义IP地址验证（可选）
+4. Xác minh địa chỉ IP tùy chỉnh (tùy chọn)
    ```csharp
    public class CustomIpAddressChecker : IIpAddressChecker
    {
        public Task<bool> IsGrantAsync(string ipAddress, CancellationToken cancellationToken = default)
        {
-           // 实现自定义的IP地址验证逻辑
+           // Triển khai logic xác minh địa chỉ IP tùy chỉnh
            return Task.FromResult(true);
        }
    }
    ```
 
-## 错误代码
+## Mã lỗi
 
-* AbpOpenApi:9100 - 无效的应用标识
-* AbpOpenApi:9101 - 未携带应用标识
-* AbpOpenApi:9110 - 无效的签名
-* AbpOpenApi:9111 - 未携带签名
-* AbpOpenApi:9210 - 请求超时或会话已过期
-* AbpOpenApi:9211 - 未携带时间戳标识
-* AbpOpenApi:9220 - 重复发起的请求
-* AbpOpenApi:9221 - 未携带随机数
-* AbpOpenApi:9300 - 客户端不在允许的范围内
-* AbpOpenApi:9400 - 客户端IP不在允许的范围内
+* AbpOpenApi:9100 - Định danh ứng dụng không hợp lệ
+* AbpOpenApi:9101 - Không mang theo định danh ứng dụng
+* AbpOpenApi:9110 - Chữ ký không hợp lệ
+* AbpOpenApi:9111 - Không mang theo chữ ký
+* AbpOpenApi:9210 - Yêu cầu đã hết thời gian chờ hoặc phiên đã hết hạn
+* AbpOpenApi:9211 - Không mang theo định danh dấu thời gian
+* AbpOpenApi:9220 - Yêu cầu được gửi lặp lại
+* AbpOpenApi:9221 - Không mang theo số ngẫu nhiên
+* AbpOpenApi:9300 - Máy khách không nằm trong phạm vi cho phép
+* AbpOpenApi:9400 - IP máy khách không nằm trong phạm vi cho phép
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP框架](https://abp.io/)
+* [Khung ABP](https://abp.io/)

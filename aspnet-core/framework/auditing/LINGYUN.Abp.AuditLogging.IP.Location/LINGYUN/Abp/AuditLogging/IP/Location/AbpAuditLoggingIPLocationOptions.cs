@@ -1,20 +1,20 @@
 namespace LINGYUN.Abp.AuditLogging.IP.Location;
 
 /// <summary>
-/// 审计日志 IP 定位选项
+/// Tùy chọn định vị IP cho nhật ký kiểm toán
 /// </summary>
 /// <remarks>
-/// 配置节: <c>AuditLogging:IPLocation</c>
-/// (环境变量: <c>AuditLogging__IPLocation__IsEnabled</c>)
+/// Phần cấu hình: <c>AuditLogging:IPLocation</c>
+/// (Biến môi trường: <c>AuditLogging__IPLocation__IsEnabled</c>)
 /// </remarks>
 public class AbpAuditLoggingIPLocationOptions
 {
     /// <summary>
-    /// 是否启用 IP 定位
+    /// Có bật định vị IP hay không
     /// </summary>
     /// <remarks>
-    /// 默认 <c>false</c>, 需要在宿主配置(例如 docker-compose)中显式开启;
-    /// 开启后会把解析结果写入审计日志与安全日志的 <c>Location</c> 属性。
+    /// Mặc định là <c>false</c>, cần bật tường minh trong cấu hình host (ví dụ docker-compose);
+    /// Sau khi bật, kết quả phân giải sẽ được ghi vào thuộc tính <c>Location</c> của nhật ký kiểm toán và nhật ký bảo mật.
     /// </remarks>
     public bool IsEnabled { get; set; } = false;
 }

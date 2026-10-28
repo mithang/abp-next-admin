@@ -5,16 +5,16 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Messages.Models;
 /// <summary>
-/// 修改日历事件
+/// Sửa đổi sự kiện lịch
 /// </summary>
 /// <remarks>
-/// 当日历管理员修改了API创建的日历时，触发该事件。
+/// Khi quản trị viên lịch sửa đổi lịch được tạo bằng API, sự kiện này sẽ được kích hoạt.
 /// </remarks>
 [EventName("modify_calendar")]
 public class UpdateCalendarEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 日历ID
+    /// Id lịch
     /// </summary>
     [XmlElement("CalId")]
     public string CalId { get; set; } = default!;

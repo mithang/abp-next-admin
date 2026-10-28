@@ -1,38 +1,38 @@
 # LINGYUN.Abp.IdGenerator
 
-## 介绍
+## Giới thiệu
 
-`LINGYUN.Abp.IdGenerator` 是一个分布式ID生成器模块，主要实现了雪花算法（Snowflake）来生成分布式唯一ID。
+`LINGYUN.Abp.IdGenerator` là một mô-đun trình tạo ID phân tán, chủ yếu triển khai thuật toán Snowflake để tạo ID duy nhất phân tán.
 
-## 功能
+## Tính năng
 
-* 雪花算法ID生成器 (`SnowflakeIdGenerator`)
-  * 支持自定义工作机器ID和数据中心ID
-  * 支持自定义序列号位数
-  * 支持时间回退处理
-  * 提供分布式环境下的唯一ID生成
+* Trình tạo ID thuật toán Snowflake (`SnowflakeIdGenerator`)
+  * Hỗ trợ tùy chỉnh ID máy làm việc và ID trung tâm dữ liệu
+  * Hỗ trợ tùy chỉnh số bit của số thứ tự
+  * Hỗ trợ xử lý quay ngược thời gian
+  * Cung cấp khả năng tạo ID duy nhất trong môi trường phân tán
 
-## 配置项
+## Mục cấu hình
 
 ### SnowflakeIdOptions
 
-* `WorkerIdBits` (默认: 5) - 工作机器ID位数
-* `DatacenterIdBits` (默认: 5) - 数据中心ID位数
-* `Sequence` (默认: 0) - 序列号起始值
-* `SequenceBits` (默认: 12) - 序列号位数
-* `UsePreviousInTimeRollback` (默认: true) - 是否在时间回退时使用上一个时间戳
-* `WorkerId` - 工作机器ID，如未指定则从环境变量WORKERID获取或随机生成
-* `DatacenterId` - 数据中心ID，如未指定则从环境变量DATACENTERID获取或随机生成
+* `WorkerIdBits` (Mặc định: 5) - Số bit của ID máy làm việc
+* `DatacenterIdBits` (Mặc định: 5) - Số bit của ID trung tâm dữ liệu
+* `Sequence` (Mặc định: 0) - Giá trị bắt đầu của số thứ tự
+* `SequenceBits` (Mặc định: 12) - Số bit của số thứ tự
+* `UsePreviousInTimeRollback` (Mặc định: true) - Có sử dụng dấu thời gian trước đó khi thời gian bị quay ngược hay không
+* `WorkerId` - ID máy làm việc, nếu không chỉ định thì lấy từ biến môi trường WORKERID hoặc tạo ngẫu nhiên
+* `DatacenterId` - ID trung tâm dữ liệu, nếu không chỉ định thì lấy từ biến môi trường DATACENTERID hoặc tạo ngẫu nhiên
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.IdGenerator
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpIdGeneratorModule))]` 到你的模块类上。
+1. Thêm `[DependsOn(typeof(AbpIdGeneratorModule))]` vào lớp mô-đun của bạn.
 
 ```csharp
 [DependsOn(typeof(AbpIdGeneratorModule))]
@@ -49,7 +49,7 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 注入并使用ID生成器：
+2. Inject và sử dụng trình tạo ID:
 
 ```csharp
 public class YourService
@@ -68,6 +68,6 @@ public class YourService
 }
 ```
 
-## 链接
+## Liên kết
 
 * [English document](./README.EN.md)

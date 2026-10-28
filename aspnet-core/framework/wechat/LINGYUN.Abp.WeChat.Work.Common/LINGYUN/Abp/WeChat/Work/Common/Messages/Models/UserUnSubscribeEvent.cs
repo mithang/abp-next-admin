@@ -3,7 +3,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 用户取消关注事件
+/// Sự kiện người dùng hủy theo dõi
 /// </summary>
 [EventName("user_un_subscribe")]
 public class UserUnSubscribeEvent : WeChatWorkEventMessage

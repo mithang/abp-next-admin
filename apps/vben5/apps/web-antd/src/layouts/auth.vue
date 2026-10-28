@@ -17,7 +17,7 @@ const logo = computed(() => preferences.logo.source);
     :page-description="$t('authentication.pageDesc')"
     :page-title="$t('authentication.pageTitle')"
   >
-    <!-- 自定义工具栏 -->
+    <!-- Thanh công cụ tùy chỉnh -->
     <!-- <template #toolbar></template> -->
   </AuthPageLayout>
 </template>

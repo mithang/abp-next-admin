@@ -1,14 +1,14 @@
 # LINGYUN.Abp.Identity.HttpApi.Client
 
-身份认证HTTP API客户端模块，提供身份认证相关的HTTP API客户端代理。
+Mô-đun máy khách HTTP API xác thực danh tính, cung cấp proxy máy khách HTTP API liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展Volo.Abp.Identity.AbpIdentityHttpApiClientModule模块
-* 提供身份认证相关的HTTP API客户端代理
-* 自动注册HTTP客户端代理服务
+* Mở rộng mô-đun Volo.Abp.Identity.AbpIdentityHttpApiClientModule
+* Cung cấp proxy máy khách HTTP API liên quan đến xác thực danh tính
+* Tự động đăng ký dịch vụ proxy máy khách HTTP
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -20,7 +20,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
@@ -32,18 +32,18 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 客户端代理
+## Proxy máy khách
 
-* IIdentityUserAppService - 用户管理客户端代理
-* IIdentityRoleAppService - 角色管理客户端代理
-* IIdentityClaimTypeAppService - 声明类型管理客户端代理
-* IIdentitySecurityLogAppService - 安全日志客户端代理
-* IIdentitySettingsAppService - 身份认证设置客户端代理
-* IProfileAppService - 用户配置文件客户端代理
+* IIdentityUserAppService - Proxy máy khách quản lý người dùng
+* IIdentityRoleAppService - Proxy máy khách quản lý vai trò
+* IIdentityClaimTypeAppService - Proxy máy khách quản lý loại claim
+* IIdentitySecurityLogAppService - Proxy máy khách nhật ký bảo mật
+* IIdentitySettingsAppService - Proxy máy khách cài đặt xác thực danh tính
+* IProfileAppService - Proxy máy khách hồ sơ người dùng
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置远程服务
+1. Cấu hình dịch vụ từ xa
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
 {
@@ -57,7 +57,7 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-2. 使用客户端代理
+2. Sử dụng proxy máy khách
 ```csharp
 public class YourService
 {
@@ -84,7 +84,7 @@ public class YourService
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
-* [ABP HTTP API客户端代理文档](https://docs.abp.io/en/abp/latest/API/HTTP-Client-Proxies)
+* [Tài liệu xác thực danh tính ABP](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu proxy máy khách HTTP API ABP](https://docs.abp.io/en/abp/latest/API/HTTP-Client-Proxies)

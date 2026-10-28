@@ -68,4 +68,4 @@ Related Documentation:
 * [IdentityServer4 Documentation](https://identityserver4.readthedocs.io/)
 * [ABP EntityFrameworkCore Documentation](https://docs.abp.io/en/abp/latest/Entity-Framework-Core)
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Việt](README.md)

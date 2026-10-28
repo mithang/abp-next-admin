@@ -11,9 +11,9 @@ export function useMyFavoriteMenusApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 新增常用菜单
-   * @param input 参数
-   * @returns 常用菜单
+   * Thêm menu thường dùng
+   * @param input Tham số
+   * @returns Menu thường dùng
    */
   function createApi(
     input: UserFavoriteMenuCreateDto,
@@ -28,8 +28,8 @@ export function useMyFavoriteMenusApi() {
   }
 
   /**
-   * 删除常用菜单
-   * @param id 菜单Id
+   * Xóa menu thường dùng
+   * @param id Id menu
    */
   function deleteApi(id: string): Promise<void> {
     return request(`/api/platform/menus/favorites/my-favorite-menus/${id}`, {
@@ -38,9 +38,9 @@ export function useMyFavoriteMenusApi() {
   }
 
   /**
-   * 获取常用菜单列表
-   * @param framework ui框架
-   * @returns 菜单列表
+   * Lấy danh sách menu thường dùng
+   * @param framework Khung giao diện người dùng
+   * @returns Danh sách menu
    */
   function getListApi(
     framework?: string,

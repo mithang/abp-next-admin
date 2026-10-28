@@ -1,38 +1,38 @@
 <!--
- * @Description: 右侧属性面板控件 表单属性面板
+ * @Description: Control bảng thuộc tính bên phải, bảng thuộc tính form
 -->
 <template>
   <div class="properties-content">
     <Form class="properties-body" label-align="left" layout="vertical">
       <!--      <e-upload v-model="fileList"></e-upload>-->
 
-      <FormItem label="表单布局">
+      <FormItem label="Bố cục form">
         <RadioGroup button-style="solid" v-model:value="formConfig.layout">
-          <RadioButton value="horizontal">水平</RadioButton>
+          <RadioButton value="horizontal">Ngang</RadioButton>
           <RadioButton value="vertical" :disabled="formConfig.labelLayout === 'Grid'">
-            垂直
+            Dọc
           </RadioButton>
           <RadioButton value="inline" :disabled="formConfig.labelLayout === 'Grid'">
-            行内
+            Nội tuyến
           </RadioButton>
         </RadioGroup>
       </FormItem>
 
       <!-- <Row> -->
-      <FormItem label="标签布局">
+      <FormItem label="Bố cục nhãn">
         <RadioGroup
           buttonStyle="solid"
           v-model:value="formConfig.labelLayout"
           @change="lableLayoutChange"
         >
-          <RadioButton value="flex">固定</RadioButton>
+          <RadioButton value="flex">Cố định</RadioButton>
           <RadioButton value="Grid" :disabled="formConfig.layout !== 'horizontal'">
-            栅格
+            Lưới
           </RadioButton>
         </RadioGroup>
       </FormItem>
       <!-- </Row> -->
-      <FormItem label="标签宽度（px）" v-show="formConfig.labelLayout === 'flex'">
+      <FormItem label="Chiều rộng nhãn (px)" v-show="formConfig.labelLayout === 'flex'">
         <InputNumber
           :style="{ width: '100%' }"
           v-model:value="formConfig.labelWidth"
@@ -48,29 +48,29 @@
           <Slider v-model:value="formConfig.wrapperCol!.span" :max="24" />
         </FormItem>
 
-        <FormItem label="标签对齐">
+        <FormItem label="Căn chỉnh nhãn">
           <RadioGroup button-style="solid" v-model:value="formConfig.labelAlign">
-            <RadioButton value="left">靠左</RadioButton>
-            <RadioButton value="right">靠右</RadioButton>
+            <RadioButton value="left">Căn trái</RadioButton>
+            <RadioButton value="right">Căn phải</RadioButton>
           </RadioGroup>
         </FormItem>
 
-        <FormItem label="控件大小">
+        <FormItem label="Kích thước control">
           <RadioGroup button-style="solid" v-model:value="formConfig.size">
-            <RadioButton value="default">默认</RadioButton>
-            <RadioButton value="small">小</RadioButton>
-            <RadioButton value="large">大</RadioButton>
+            <RadioButton value="default">Mặc định</RadioButton>
+            <RadioButton value="small">Nhỏ</RadioButton>
+            <RadioButton value="large">Lớn</RadioButton>
           </RadioGroup>
         </FormItem>
       </div>
-      <FormItem label="表单属性">
+      <FormItem label="Thuộc tính form">
         <Col
           ><Checkbox v-model:checked="formConfig.colon" v-if="formConfig.layout == 'horizontal'"
-            >label后面显示冒号</Checkbox
+            >Hiển thị dấu hai chấm sau label</Checkbox
           ></Col
         >
-        <Col><Checkbox v-model:checked="formConfig.disabled">禁用</Checkbox></Col>
-        <Col><Checkbox v-model:checked="formConfig.hideRequiredMark">隐藏必选标记</Checkbox></Col>
+        <Col><Checkbox v-model:checked="formConfig.disabled">Vô hiệu hóa</Checkbox></Col>
+        <Col><Checkbox v-model:checked="formConfig.hideRequiredMark">Ẩn dấu bắt buộc</Checkbox></Col>
       </FormItem>
     </Form>
   </div>

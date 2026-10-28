@@ -1,22 +1,22 @@
 # LINGYUN.Abp.Http.Client.Wrapper
 
-HTTP客户端包装器模块，用于在HTTP客户端请求中自动添加包装器请求头。
+Mô-đun bao bọc (wrapper) cho HTTP client, dùng để tự động thêm header yêu cầu bao bọc vào các yêu cầu HTTP client.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 自动添加包装器请求头
-* 与ABP HTTP客户端集成
-* 支持全局配置包装器开关
+* Tự động thêm header yêu cầu bao bọc
+* Tích hợp với ABP HTTP client
+* Hỗ trợ cấu hình toàn cục công tắc bao bọc
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.Http.Client.Wrapper
 ```
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(typeof(AbpHttpClientWrapperModule))]
@@ -26,20 +26,20 @@ public class YouProjectModule : AbpModule
     {
         Configure<AbpWrapperOptions>(options =>
         {
-            // 启用包装器
+            // Bật bao bọc
             options.IsEnabled = true;
         });
     }
 }
 ```
 
-## 工作原理
+## Nguyên lý hoạt động
 
-当启用包装器时（`AbpWrapperOptions.IsEnabled = true`），模块会自动为所有HTTP客户端请求添加 `_AbpWrapResult` 请求头。
-当禁用包装器时（`AbpWrapperOptions.IsEnabled = false`），模块会自动为所有HTTP客户端请求添加 `_AbpDontWrapResult` 请求头。
+Khi bật bao bọc (`AbpWrapperOptions.IsEnabled = true`), mô-đun sẽ tự động thêm header yêu cầu `_AbpWrapResult` cho mọi yêu cầu HTTP client.
+Khi tắt bao bọc (`AbpWrapperOptions.IsEnabled = false`), mô-đun sẽ tự động thêm header yêu cầu `_AbpDontWrapResult` cho mọi yêu cầu HTTP client.
 
-这样可以确保HTTP客户端的请求结果与服务器端的包装配置保持一致。
+Nhờ vậy, kết quả yêu cầu của HTTP client được đảm bảo nhất quán với cấu hình bao bọc phía máy chủ.
 
-## 源码位置
+## Vị trí mã nguồn
 
 [LINGYUN.Abp.Http.Client.Wrapper](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/framework/common/LINGYUN.Abp.Http.Client.Wrapper)

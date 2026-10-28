@@ -1,23 +1,23 @@
 # LY.MicroService.Platform.DbMigrator
 
-平台管理数据库迁移控制台应用程序，用于执行平台管理系统的数据库迁移和初始化种子数据。
+Ứng dụng console di chuyển cơ sở dữ liệu quản lý nền tảng, dùng để thực thi di chuyển cơ sở dữ liệu và khởi tạo dữ liệu seed cho hệ thống quản lý nền tảng.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 自动执行数据库迁移
-* 初始化系统必要的种子数据
-* 支持命令行参数配置
-* 集成Autofac依赖注入容器
-* 继承平台管理系统的所有迁移功能
-* 支持数据字典管理
-* 支持组织机构管理
-* 支持菜单管理
-* 支持版本管理
-* 支持Vue Vben Admin UI导航
+* Tự động thực thi di chuyển cơ sở dữ liệu
+* Khởi tạo dữ liệu seed cần thiết cho hệ thống
+* Hỗ trợ cấu hình bằng tham số dòng lệnh
+* Tích hợp bộ chứa dependency injection Autofac
+* Kế thừa toàn bộ chức năng di chuyển của hệ thống quản lý nền tảng
+* Hỗ trợ quản lý từ điển dữ liệu
+* Hỗ trợ quản lý tổ chức
+* Hỗ trợ quản lý menu
+* Hỗ trợ quản lý phiên bản
+* Hỗ trợ điều hướng Vue Vben Admin UI
 
-## 模块依赖
+## Phụ thuộc mô-đun
 
 ```csharp
 [DependsOn(
@@ -26,46 +26,46 @@
 )]
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "ConnectionStrings": {
-    "PlatformDbMigrator": "你的数据库连接字符串"
+    "PlatformDbMigrator": "Chuỗi kết nối cơ sở dữ liệu của bạn"
   }
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置数据库连接字符串
-   * 在appsettings.json中配置PlatformDbMigrator连接字符串
+1. Cấu hình chuỗi kết nối cơ sở dữ liệu
+   * Cấu hình chuỗi kết nối PlatformDbMigrator trong appsettings.json
 
-2. 运行迁移程序
+2. Chạy chương trình di chuyển
    ```bash
    dotnet run
    ```
 
-## 命令行参数
+## Tham số dòng lệnh
 
 * --database-provider
-  * 指定数据库提供程序 (默认: MySQL)
+  * Chỉ định nhà cung cấp cơ sở dữ liệu (mặc định: MySQL)
 * --connection-string
-  * 指定数据库连接字符串
+  * Chỉ định chuỗi kết nối cơ sở dữ liệu
 * --skip-db-migrations
-  * 跳过数据库迁移
+  * Bỏ qua di chuyển cơ sở dữ liệu
 * --skip-seed-data
-  * 跳过种子数据初始化
+  * Bỏ qua khởi tạo dữ liệu seed
 
-## 种子数据
+## Dữ liệu seed
 
-* 默认数据字典
-* 基础组织机构
-* 系统菜单
-* 默认版本配置
-* UI导航配置
+* Từ điển dữ liệu mặc định
+* Tổ chức cơ sở
+* Menu hệ thống
+* Cấu hình phiên bản mặc định
+* Cấu hình điều hướng UI
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [Vue Vben Admin文档](https://doc.vvbin.cn/)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu Vue Vben Admin](https://doc.vvbin.cn/)

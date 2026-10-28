@@ -1,25 +1,25 @@
 # LINGYUN.Abp.AspNetCore.Mvc.Wrapper
 
-包装器 MVC 实现模块，用于统一包装ASP.NET Core MVC的响应结果。
+Module triển khai MVC dạng wrapper, dùng để đóng gói thống nhất kết quả phản hồi của ASP.NET Core MVC.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 自动包装MVC响应结果
-* 支持自定义包装规则
-* 支持异常结果包装
-* 支持本地化错误消息
-* 支持API文档包装描述
-* 支持忽略特定控制器、命名空间、返回类型的包装
+* Tự động đóng gói kết quả phản hồi MVC
+* Hỗ trợ quy tắc đóng gói tùy chỉnh
+* Hỗ trợ đóng gói kết quả ngoại lệ
+* Hỗ trợ thông báo lỗi đã bản địa hóa
+* Hỗ trợ mô tả đóng gói tài liệu API
+* Hỗ trợ bỏ qua đóng gói đối với bộ điều khiển, không gian tên và kiểu trả về cụ thể
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.AspNetCore.Mvc.Wrapper
 ```
 
-## 配置使用
+## Cấu hình sử dụng
 
 ```csharp
 [DependsOn(typeof(AbpAspNetCoreMvcWrapperModule))]
@@ -29,19 +29,19 @@ public class YouProjectModule : AbpModule
     {
         Configure<AbpWrapperOptions>(options =>
         {
-            // 启用包装器
+            // Bật wrapper
             options.IsEnabled = true;
             
-            // 忽略特定返回类型
+            // Bỏ qua kiểu trả về cụ thể
             options.IgnoreReturnTypes.Add<IRemoteStreamContent>();
             
-            // 忽略特定控制器
+            // Bỏ qua bộ điều khiển cụ thể
             options.IgnoreControllers.Add<AbpApiDefinitionController>();
             
-            // 忽略特定URL前缀
+            // Bỏ qua tiền tố URL cụ thể
             options.IgnorePrefixUrls.Add("/connect");
             
-            // 自定义空结果消息
+            // Tùy chỉnh thông báo kết quả rỗng
             options.MessageWithEmptyResult = (serviceProvider) =>
             {
                 var localizer = serviceProvider.GetRequiredService<IStringLocalizer<AbpMvcWrapperResource>>();
@@ -52,30 +52,30 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项说明
+## Giải thích các mục cấu hình
 
-* `IsEnabled`: 是否启用包装器
-* `IsWrapUnauthorizedEnabled`: 是否包装未授权响应
-* `HttpStatusCode`: 包装响应的HTTP状态码
-* `IgnoreReturnTypes`: 忽略包装的返回类型列表
-* `IgnoreControllers`: 忽略包装的控制器列表
-* `IgnoreNamespaces`: 忽略包装的命名空间列表
-* `IgnorePrefixUrls`: 忽略包装的URL前缀列表
-* `IgnoreExceptions`: 忽略包装的异常类型列表
-* `ErrorWithEmptyResult`: 空结果是否返回错误信息
-* `CodeWithEmptyResult`: 空结果的错误代码
-* `MessageWithEmptyResult`: 空结果的错误消息
-* `CodeWithSuccess`: 成功时的代码
+* `IsEnabled`: Có bật wrapper hay không
+* `IsWrapUnauthorizedEnabled`: Có đóng gói phản hồi chưa được ủy quyền hay không
+* `HttpStatusCode`: Mã trạng thái HTTP của phản hồi đã đóng gói
+* `IgnoreReturnTypes`: Danh sách kiểu trả về bỏ qua đóng gói
+* `IgnoreControllers`: Danh sách bộ điều khiển bỏ qua đóng gói
+* `IgnoreNamespaces`: Danh sách không gian tên bỏ qua đóng gói
+* `IgnorePrefixUrls`: Danh sách tiền tố URL bỏ qua đóng gói
+* `IgnoreExceptions`: Danh sách kiểu ngoại lệ bỏ qua đóng gói
+* `ErrorWithEmptyResult`: Kết quả rỗng có trả về thông tin lỗi hay không
+* `CodeWithEmptyResult`: Mã lỗi của kết quả rỗng
+* `MessageWithEmptyResult`: Thông báo lỗi của kết quả rỗng
+* `CodeWithSuccess`: Mã khi thành công
 
-## 高级用法
+## Cách dùng nâng cao
 
-### 1. 使用特性标记忽略包装
+### 1. Dùng attribute để đánh dấu bỏ qua đóng gói
 
 ```csharp
 [IgnoreWrapResult]
 public class TestController : AbpController
 {
-    // 该控制器下所有Action都不会被包装
+    // Mọi Action trong bộ điều khiển này đều sẽ không bị đóng gói
 }
 
 public class TestController : AbpController
@@ -83,16 +83,16 @@ public class TestController : AbpController
     [IgnoreWrapResult]
     public IActionResult Test()
     {
-        // 该Action不会被包装
+        // Action này sẽ không bị đóng gói
     }
 }
 ```
 
-### 2. 通过请求头控制包装
+### 2. Điều khiển đóng gói qua header của yêu cầu
 
-* 添加 `_AbpDontWrapResult` 请求头可以禁用包装
-* 添加 `_AbpWrapResult` 请求头可以强制启用包装
+* Thêm header `_AbpDontWrapResult` có thể tắt đóng gói
+* Thêm header `_AbpWrapResult` có thể bắt buộc bật đóng gói
 
-## 源码位置
+## Vị trí mã nguồn
 
 [LINGYUN.Abp.AspNetCore.Mvc.Wrapper](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/framework/mvc/LINGYUN.Abp.AspNetCore.Mvc.Wrapper)

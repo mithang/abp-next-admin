@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- 只测试框架契约; 各渠道的数据测试在各自的测试项目中 -->
+		<!-- Chỉ kiểm tra hợp đồng framework; kiểm tra dữ liệu của từng kênh nằm ở từng dự án kiểm tra riêng -->
 		<ProjectReference Include="..\..\modules\realtime-notifications\LINGYUN.Abp.Notifications\LINGYUN.Abp.Notifications.csproj" />
 	</ItemGroup>
 

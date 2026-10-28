@@ -19,8 +19,8 @@ export function useProfileApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询个人信息
-   * @returns 个人信息
+   * Truy vấn thông tin cá nhân
+   * @returns Thông tin cá nhân
    */
   function getApi(): Promise<ProfileDto> {
     return request<ProfileDto>('/api/account/my-profile', {
@@ -29,9 +29,9 @@ export function useProfileApi() {
   }
 
   /**
-   * 更新个人信息
-   * @param input 参数
-   * @returns 个人信息
+   * Cập nhật thông tin cá nhân
+   * @param input Tham số
+   * @returns Thông tin cá nhân
    */
   function updateApi(input: UpdateProfileDto): Promise<ProfileDto> {
     return request<ProfileDto>('/api/account/my-profile', {
@@ -41,8 +41,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 修改密码
-   * @param input 参数
+   * Đổi mật khẩu
+   * @param input Tham số
    */
   function changePasswordApi(input: ChangePasswordInput): Promise<void> {
     return request('/api/account/my-profile/change-password', {
@@ -52,8 +52,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 发送修改手机号验证码
-   * @param input 参数
+   * Gửi mã xác minh đổi số điện thoại
+   * @param input Tham số
    */
   function sendChangePhoneNumberCodeApi(
     input: SendChangePhoneNumberCodeInput,
@@ -65,8 +65,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 修改手机号
-   * @param input 参数
+   * Đổi số điện thoại
+   * @param input Tham số
    */
   function changePhoneNumberApi(input: ChangePhoneNumberInput): Promise<void> {
     return request('/api/account/my-profile/change-phone-number', {
@@ -76,8 +76,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 修改头像
-   * @param input 参数
+   * Đổi ảnh đại diện
+   * @param input Tham số
    */
   function changePictureApi(input: ChangePictureInput): Promise<void> {
     return request('/api/account/my-profile/picture', {
@@ -90,8 +90,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 获取头像
-   * @returns 头像文件流
+   * Lấy ảnh đại diện
+   * @returns Luồng tệp ảnh đại diện
    */
   function getPictureApi(): Promise<Blob> {
     return request('/api/account/my-profile/picture', {
@@ -101,7 +101,7 @@ export function useProfileApi() {
   }
 
   /**
-   * 获取二次认证启用状态
+   * Lấy trạng thái bật xác thực hai yếu tố
    */
   function getTwoFactorEnabledApi(): Promise<TwoFactorEnabledDto> {
     return request<TwoFactorEnabledDto>('/api/account/my-profile/two-factor', {
@@ -110,7 +110,7 @@ export function useProfileApi() {
   }
 
   /**
-   * 设置二次认证启用状态
+   * Đặt trạng thái bật xác thực hai yếu tố
    */
   function changeTwoFactorEnabledApi(
     input: TwoFactorEnabledDto,
@@ -122,8 +122,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 获取身份验证器配置
-   * @returns 身份验证器
+   * Lấy cấu hình trình xác thực
+   * @returns Trình xác thực
    */
   function getAuthenticatorApi(): Promise<AuthenticatorDto> {
     return request<AuthenticatorDto>('/api/account/my-profile/authenticator', {
@@ -132,9 +132,9 @@ export function useProfileApi() {
   }
 
   /**
-   * 验证身份验证代码
-   * @param input 参数
-   * @returns 重置代码
+   * Xác minh mã xác thực
+   * @param input Tham số
+   * @returns Mã đặt lại
    */
   function verifyAuthenticatorCodeApi(
     input: VerifyAuthenticatorCodeInput,
@@ -149,7 +149,7 @@ export function useProfileApi() {
   }
 
   /**
-   * 重置验证器
+   * Đặt lại trình xác thực
    */
   function resetAuthenticatorApi(): Promise<void> {
     return request('/api/account/my-profile/reset-authenticator', {
@@ -158,8 +158,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 发送邮件确认链接
-   * @param input 参数
+   * Gửi liên kết xác nhận email
+   * @param input Tham số
    */
   function sendEmailConfirmLinkApi(
     input: SendEmailConfirmCodeDto,
@@ -171,8 +171,8 @@ export function useProfileApi() {
   }
 
   /**
-   * 确认邮件
-   * @param input 参数
+   * Xác nhận email
+   * @param input Tham số
    */
   function confirmEmailApi(input: ConfirmEmailInput) {
     return request('/api/account/my-profile/confirm-email', {

@@ -1,68 +1,68 @@
 # LINGYUN.Abp.TaskManagement.Domain.Shared
 
-任务管理领域共享模块，包含共享的领域模型、枚举和常量。
+Module chia sẻ miền quản lý tác vụ, chứa các mô hình miền, enum và hằng số dùng chung.
 
-## 功能
+## Tính năng
 
-### 权限管理
-- 任务调度平台权限
-- 后台作业权限
-- 作业行为权限
-- 作业日志权限
+### Quản lý quyền
+- Quyền nền tảng lập lịch tác vụ
+- Quyền công việc nền
+- Quyền hành vi công việc
+- Quyền nhật ký công việc
 
-### 作业类型和状态
-- 作业类型:
-  - 一次性作业（只执行一次）
-  - 周期性作业（按照给定条件周期性运行）
-  - 持续性作业（按照给定条件重复运行）
-- 作业状态:
-  - 未定义
-  - 已完成
-  - 运行中
-  - 队列中
-  - 已暂停
-  - 失败重试
-  - 已停止
+### Loại và trạng thái công việc
+- Loại công việc:
+  - Công việc một lần (chỉ thực thi một lần)
+  - Công việc định kỳ (chạy định kỳ theo điều kiện cho trước)
+  - Công việc liên tục (chạy lặp lại theo điều kiện cho trước)
+- Trạng thái công việc:
+  - Chưa xác định
+  - Đã hoàn thành
+  - Đang chạy
+  - Trong hàng đợi
+  - Đã tạm dừng
+  - Thử lại sau thất bại
+  - Đã dừng
 
-### 优先级别
-- 低
-- 低于正常
-- 正常
-- 高于正常
-- 高
+### Mức ưu tiên
+- Thấp
+- Thấp hơn bình thường
+- Bình thường
+- Cao hơn bình thường
+- Cao
 
-### 作业属性
-- 基本信息:
-  - 分组
-  - 名称
-  - 描述
-  - 类型
-  - 状态
-  - 开始/结束时间
-- 执行设置:
-  - 时间间隔（秒）
-  - Cron表达式
-  - 锁定超时时间
-  - 优先级
-  - 最大触发次数
-  - 最大重试次数
-- 跟踪信息:
-  - 创建时间
-  - 上次执行时间
-  - 下次预期时间
-  - 触发次数
-  - 尝试次数
-  - 执行结果
+### Thuộc tính công việc
+- Thông tin cơ bản:
+  - Nhóm
+  - Tên
+  - Mô tả
+  - Loại
+  - Trạng thái
+  - Thời gian bắt đầu/kết thúc
+- Cài đặt thực thi:
+  - Khoảng thời gian (giây)
+  - Biểu thức Cron
+  - Thời gian chờ khóa
+  - Mức ưu tiên
+  - Số lần kích hoạt tối đa
+  - Số lần thử lại tối đa
+- Thông tin theo dõi:
+  - Thời gian tạo
+  - Thời gian thực thi lần cuối
+  - Thời gian dự kiến lần tới
+  - Số lần kích hoạt
+  - Số lần thử
+  - Kết quả thực thi
 
-### 本地化
-- 支持多语言
-- 错误代码本地化
-- UI文本本地化
+### Bản địa hóa
+- Hỗ trợ đa ngôn ngữ
+- Bản địa hóa mã lỗi
+- Bản địa hóa văn bản giao diện
 
-### 多租户支持
-- 租户级作业管理
-- 系统级作业管理
+### Hỗ trợ đa tenant
+- Quản lý tác vụ cấp tenant
+- Quản lý tác vụ cấp hệ thống
 
-### 来源类型
-- 用户作业
-- 系统内置作业
+### Loại nguồn
+- Tác vụ của người dùng
+- Tác vụ tích hợp sẵn của hệ thống

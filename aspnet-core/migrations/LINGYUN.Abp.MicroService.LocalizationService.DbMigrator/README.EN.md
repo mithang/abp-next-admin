@@ -2,7 +2,7 @@
 
 Localization Management Database Migration Console Application, used for executing database migrations and initializing seed data for the localization management system.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

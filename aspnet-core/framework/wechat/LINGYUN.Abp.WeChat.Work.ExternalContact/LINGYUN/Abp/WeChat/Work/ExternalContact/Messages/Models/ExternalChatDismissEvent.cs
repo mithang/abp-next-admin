@@ -4,7 +4,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 客户群解散事件推送
+/// Đẩy sự kiện giải tán nhóm khách hàng
 /// </summary>
 [EventName("external_chat_dismiss")]
 public class ExternalChatDismissEvent : ExternalChatChangeEvent

@@ -10,24 +10,24 @@ export function useLayout(props: VbenLayoutProps) {
   );
 
   /**
-   * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
+   * Có hiển thị content toàn màn hình hay không, không cần vùng sidebar, bottom, top, tab
    */
   const isFullContent = computed(() => currentLayout.value === 'full-content');
 
   /**
-   * 是否侧边混合模式
+   * Có phải chế độ hỗn hợp sidebar hay không
    */
   const isSidebarMixedNav = computed(
     () => currentLayout.value === 'sidebar-mixed-nav',
   );
 
   /**
-   * 是否为头部导航模式
+   * Có phải chế độ điều hướng header hay không
    */
   const isHeaderNav = computed(() => currentLayout.value === 'header-nav');
 
   /**
-   * 是否为混合导航模式
+   * Có phải chế độ điều hướng hỗn hợp hay không
    */
   const isMixedNav = computed(
     () =>
@@ -36,7 +36,7 @@ export function useLayout(props: VbenLayoutProps) {
   );
 
   /**
-   * 是否为头部混合模式
+   * Có phải chế độ hỗn hợp header hay không
    */
   const isHeaderMixedNav = computed(
     () => currentLayout.value === 'header-mixed-nav',

@@ -73,16 +73,16 @@ function onActionClick(e: OnActionClickParams<SystemRoleApi.SystemRole>) {
 }
 
 /**
- * 将Antd的Modal.confirm封装为promise，方便在异步函数中调用。
- * @param content 提示内容
- * @param title 提示标题
+ * Đóng gói Modal.confirm của Antd thành promise, thuận tiện gọi trong hàm không đồng bộ.
+ * @param content Nội dung gợi ý
+ * @param title Tiêu đề gợi ý
  */
 function confirm(content: string, title: string) {
   return new Promise((reslove, reject) => {
     Modal.confirm({
       content,
       onCancel() {
-        reject(new Error('已取消'));
+        reject(new Error('Đã hủy'));
       },
       onOk() {
         reslove(true);
@@ -93,23 +93,23 @@ function confirm(content: string, title: string) {
 }
 
 /**
- * 状态开关即将改变
- * @param newStatus 期望改变的状态值
- * @param row 行数据
- * @returns 返回false则中止改变，返回其他值（undefined、true）则允许改变
+ * Công tắc trạng thái sắp thay đổi
+ * @param newStatus Giá trị trạng thái kỳ vọng thay đổi
+ * @param row Dữ liệu hàng
+ * @returns Trả về false thì hủy thay đổi, trả về các giá trị khác (undefined, true) thì cho phép thay đổi
  */
 async function onStatusChange(
   newStatus: number,
   row: SystemRoleApi.SystemRole,
 ) {
   const status: Recordable<string> = {
-    0: '禁用',
-    1: '启用',
+    0: 'Vô hiệu hóa',
+    1: 'Kích hoạt',
   };
   try {
     await confirm(
-      `你要将${row.name}的状态切换为 【${status[newStatus.toString()]}】 吗？`,
-      `切换状态`,
+      `Bạn có muốn chuyển trạng thái của ${row.name} thành 【${status[newStatus.toString()]}】 không?`,
+      `Chuyển đổi trạng thái`,
     );
     await updateRole(row.id, { status: newStatus });
     return true;

@@ -1,15 +1,15 @@
 # LINGYUN.Abp.LocalizationManagement.EntityFrameworkCore
 
-本地化管理模块的Entity Framework Core集成实现，提供数据访问和持久化功能。
+Triển khai tích hợp Entity Framework Core của module quản lý bản địa hóa, cung cấp chức năng truy cập dữ liệu và lưu trữ bền vững.
 
-## 功能特性
+## Tính năng
 
-* 实现本地化管理的数据库映射
-* 支持自定义表前缀和Schema
-* 提供仓储接口的EF Core实现
-* 支持语言、资源、文本的数据库操作
+* Triển khai ánh xạ cơ sở dữ liệu cho quản lý bản địa hóa
+* Hỗ trợ tiền tố bảng và Schema tùy chỉnh
+* Cung cấp triển khai EF Core cho giao diện kho lưu trữ (repository)
+* Hỗ trợ thao tác cơ sở dữ liệu cho ngôn ngữ, tài nguyên và văn bản
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpLocalizationManagementEntityFrameworkCoreModule))]
@@ -19,7 +19,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -33,12 +33,12 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 
     Configure<AbpDbContextOptions>(options =>
     {
-        options.UseMySQL(); // 或其他数据库
+        options.UseMySQL(); // hoặc cơ sở dữ liệu khác
     });
 }
 ```
 
-数据库表配置选项：
+Tùy chọn cấu hình bảng cơ sở dữ liệu:
 ```csharp
 public class LocalizationModelBuilderConfigurationOptions : AbpModelBuilderConfigurationOptions
 {
@@ -51,12 +51,12 @@ public class LocalizationModelBuilderConfigurationOptions : AbpModelBuilderConfi
 }
 ```
 
-## 数据库表
+## Bảng cơ sở dữ liệu
 
-* Languages - 语言表
-* Resources - 资源表
-* Texts - 文本表
+* Languages - Bảng ngôn ngữ
+* Resources - Bảng tài nguyên
+* Texts - Bảng văn bản
 
-## 更多信息
+## Thông tin thêm
 
 * [English documentation](./README.EN.md)

@@ -1,45 +1,45 @@
 # LINGYUN.Abp.TaskManagement.HttpApi.Client
 
-任务管理模块的HTTP API客户端实现，提供远程API调用的客户端代理服务。
+Triển khai client HTTP API của mô-đun quản lý tác vụ, cung cấp dịch vụ proxy client để gọi API từ xa.
 
-## 功能
+## Tính năng
 
-### HTTP客户端代理
-- 自动生成应用程序契约的代理
-- 类型安全的客户端接口
-- 强类型DTO
+### Proxy client HTTP
+- Tự động tạo proxy cho hợp đồng ứng dụng
+- Giao diện client an toàn về kiểu
+- DTO kiểu mạnh
 
-### 远程服务配置
-- 远程服务名称配置
-- 服务端点配置
-- 客户端选项配置
+### Cấu hình dịch vụ từ xa
+- Cấu hình tên dịch vụ từ xa
+- Cấu hình endpoint dịch vụ
+- Cấu hình tùy chọn client
 
-### 身份认证
-- 基于令牌的身份认证支持
-- 认证头处理
-- 安全通信
+### Xác thực danh tính
+- Hỗ trợ xác thực danh tính dựa trên token
+- Xử lý header xác thực
+- Giao tiếp an toàn
 
-### 服务集成
-- 与ABP框架的无缝集成
-- 动态HTTP客户端配置
-- 自动服务注册
+### Tích hợp dịch vụ
+- Tích hợp liền mạch với framework ABP
+- Cấu hình client HTTP động
+- Tự động đăng ký dịch vụ
 
-### 错误处理
-- 异常转换
-- 错误响应处理
-- 重试策略
+### Xử lý lỗi
+- Chuyển đổi ngoại lệ
+- Xử lý phản hồi lỗi
+- Chiến lược thử lại
 
-### 客户端功能
-- 异步操作
-- 请求/响应拦截器
-- 自动内容协商
+### Tính năng client
+- Thao tác bất đồng bộ
+- Bộ chặn request/response
+- Tự động thương lượng nội dung
 
-### 依赖注入
-- 自动依赖注册
-- 作用域服务生命周期
-- 服务解析
+### Dependency injection
+- Tự động đăng ký dependency
+- Vòng đời dịch vụ theo scope
+- Phân giải dịch vụ
 
-### 模块配置
-- 模块依赖管理
-- 服务配置
-- 客户端代理配置
+### Cấu hình mô-đun
+- Quản lý dependency của mô-đun
+- Cấu hình dịch vụ
+- Cấu hình proxy client

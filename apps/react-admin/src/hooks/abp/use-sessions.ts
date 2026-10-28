@@ -28,7 +28,7 @@ export const useSessions = () => {
 				content: message,
 				centered: true,
 				afterClose: () => {
-					//TODO 测试
+					//TODO Kiểm thử
 					clearUserInfoAndToken();
 					backToLogin();
 				},

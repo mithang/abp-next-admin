@@ -37,16 +37,16 @@ public class DefaultOpenObserveSerializer_Tests : AbpOpenObserveTestBase
     {
         var json = CreateSerializer().Serialize(new { name = "my_func", order = (int?)null });
 
-        // 非本库命名空间的类型不参与 null 忽略
+        // Các kiểu ngoài không gian tên của thư viện này không tham gia bỏ qua null
         json.ShouldBe("{\"name\":\"my_func\",\"order\":null}");
     }
 
     [Fact]
     public void Should_Use_Relaxed_Encoding_When_Serializing()
     {
-        var json = CreateSerializer().Serialize(new { message = "中文 \"quoted\"" });
+        var json = CreateSerializer().Serialize(new { message = "Tiếng Việt \"quoted\"" });
 
-        json.ShouldContain("中文");
+        json.ShouldContain("Tiếng Việt");
         json.ShouldContain("\\\"quoted\\\"");
         json.ShouldNotContain("\\u");
     }

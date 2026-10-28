@@ -4,26 +4,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Departments.Models;
 /// <summary>
-/// 子部门
+/// Phòng ban con
 /// </summary>
 public class SubDepartment
 {
     /// <summary>
-    /// 部门id
+    /// id phòng ban
     /// </summary>
     [NotNull]
     [JsonProperty("id")]
     [JsonPropertyName("id")]
     public string Id { get; set; } = default!;
     /// <summary>
-    /// 父部门id。根部门为1。
+    /// id phòng ban cha. Phòng ban gốc là 1.
     /// </summary>
     [NotNull]
     [JsonProperty("parentid")]
     [JsonPropertyName("parentid")]
     public int ParentId { get; set; }
     /// <summary>
-    /// 在父部门中的次序值。order值大的排序靠前。值范围是[0, 2^32)。
+    /// Giá trị thứ tự trong phòng ban cha. Giá trị order lớn được xếp trước. Phạm vi giá trị là [0, 2^32).
     /// </summary>
     [NotNull]
     [JsonProperty("order")]

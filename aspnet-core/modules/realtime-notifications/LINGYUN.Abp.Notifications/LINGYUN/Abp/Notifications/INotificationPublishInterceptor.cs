@@ -2,19 +2,19 @@
 
 namespace LINGYUN.Abp.Notifications;
 /// <summary>
-/// 通知发布拦截器, 实现此接口来增加发布前的自定义检查
+/// Bộ chặn phát hành thông báo, triển khai giao diện này để thêm kiểm tra tùy chỉnh trước khi phát hành
 /// </summary>
 public interface INotificationPublishInterceptor
 {
     /// <summary>
-    /// 拦截优先级，数值越小优先级越高
+    /// Mức độ ưu tiên chặn, giá trị càng nhỏ mức độ ưu tiên càng cao
     /// </summary>
     int Priority { get; }
 
     /// <summary>
-    /// 在通知发布前执行检查
+    /// Thực hiện kiểm tra trước khi phát hành thông báo
     /// </summary>
-    /// <param name="notification">通知信息</param>
-    /// <returns>true-允许发布, false-阻止发布</returns>
+    /// <param name="notification">Thông tin thông báo</param>
+    /// <returns>true - cho phép phát hành, false - chặn phát hành</returns>
     Task<bool> CanPublishAsync(NotificationInfo notification);
 }

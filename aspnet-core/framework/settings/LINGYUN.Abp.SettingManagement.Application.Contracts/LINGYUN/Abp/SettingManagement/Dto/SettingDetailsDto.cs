@@ -20,11 +20,11 @@ public class SettingDetailsDto
 
     public ValueType ValueType { get; set; }
     /// <summary>
-    /// 插槽,前端定义控件
+    /// Slot, control do frontend định nghĩa
     /// </summary>
     public string? Slot { get; set; }
     /// <summary>
-    /// 选项列表,仅当 ValueType 为 Option有效
+    /// Danh sách tùy chọn, chỉ có hiệu lực khi ValueType là Option
     /// </summary>
     public List<OptionDto> Options { get; set; } = new List<OptionDto>();
 

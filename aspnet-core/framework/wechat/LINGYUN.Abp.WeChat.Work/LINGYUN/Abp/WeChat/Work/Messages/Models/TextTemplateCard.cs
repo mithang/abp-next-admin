@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 文本模板卡片消息
+/// Tin nhắn thẻ mẫu văn bản
 /// </summary>
 public class TextTemplateCard : TemplateCard
 {
@@ -18,63 +18,63 @@ public class TextTemplateCard : TemplateCard
     }
 
     /// <summary>
-    /// 卡片来源样式信息，不需要来源样式可不填写
+    /// Thông tin kiểu nguồn của thẻ, nếu không cần kiểu nguồn có thể không điền
     /// </summary>
     [CanBeNull]
     [JsonProperty("source")]
     [JsonPropertyName("source")]
     public TemplateCardSource? Source { get; set; }
     /// <summary>
-    /// 卡片右上角更多操作按钮
+    /// Nút thao tác thêm ở góc trên bên phải của thẻ
     /// </summary>
     [CanBeNull]
     [JsonProperty("action_menu")]
     [JsonPropertyName("action_menu")]
     public TemplateCardActionMenu? ActionMenu { get; set; }
     /// <summary>
-    /// 一级标题
+    /// Tiêu đề cấp một
     /// </summary>
     [CanBeNull]
     [JsonProperty("main_title")]
     [JsonPropertyName("main_title")]
     public TemplateCardMainTitle? MainTitle { get; set; }
     /// <summary>
-    /// 二级普通文本，建议不超过160个字，（支持id转译）
+    /// Văn bản thường cấp hai, nên không quá 160 ký tự (hỗ trợ chuyển đổi id)
     /// </summary>
     [CanBeNull]
     [JsonProperty("sub_title_text")]
     [JsonPropertyName("sub_title_text")]
     public string? SubTitle { get; set; }
     /// <summary>
-    /// 引用文献样式
+    /// Kiểu trích dẫn tài liệu
     /// </summary>
     [CanBeNull]
     [JsonProperty("quote_area")]
     [JsonPropertyName("quote_area")]
     public TemplateCardQuoteArea? QuoteArea { get; set; }
     /// <summary>
-    /// 关键数据样式
+    /// Kiểu dữ liệu quan trọng
     /// </summary>
     [CanBeNull]
     [JsonProperty("emphasis_content")]
     [JsonPropertyName("emphasis_content")]
     public TemplateCardEmphasisContent? EmphasisContent { get; set; }
     /// <summary>
-    /// 二级标题+文本列表，该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过6
+    /// Danh sách tiêu đề cấp hai + văn bản, trường này có thể là mảng rỗng, nhưng nếu có dữ liệu cần xác nhận trường tương ứng có bắt buộc hay không, độ dài danh sách không quá 6
     /// </summary>
     [CanBeNull]
     [JsonProperty("horizontal_content_list")]
     [JsonPropertyName("horizontal_content_list")]
     public List<TemplateCardHorizontalContent>? HorizontalContents { get; set; }
     /// <summary>
-    /// 跳转指引样式的列表，该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过3
+    /// Danh sách kiểu hướng dẫn chuyển hướng, trường này có thể là mảng rỗng, nhưng nếu có dữ liệu cần xác nhận trường tương ứng có bắt buộc hay không, độ dài danh sách không quá 3
     /// </summary>
     [CanBeNull]
     [JsonProperty("jump_list")]
     [JsonPropertyName("jump_list")]
     public List<TemplateCardJump>? Jumps { get; set; }
     /// <summary>
-    /// 整体卡片的点击跳转事件，text_notice必填本字段
+    /// Sự kiện chuyển hướng khi nhấp vào toàn bộ thẻ, text_notice bắt buộc phải có trường này
     /// </summary>
     [NotNull]
     [JsonProperty("TemplateCardCardAction")]

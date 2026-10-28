@@ -1,6 +1,6 @@
 import { updatePreferences, usePreferences } from '@vben/preferences';
 /**
- * 主体区域最大化
+ * Tối đa hóa vùng chính
  */
 export function useContentMaximize() {
   const { contentIsMaximize } = usePreferences();

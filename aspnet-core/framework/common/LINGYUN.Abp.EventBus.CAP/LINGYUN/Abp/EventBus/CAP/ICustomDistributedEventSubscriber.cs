@@ -4,18 +4,18 @@ using Volo.Abp.EventBus;
 namespace LINGYUN.Abp.EventBus.CAP;
 
 /// <summary>
-/// 自定义事件订阅者
+/// Người đăng ký sự kiện tùy chỉnh
 /// </summary>
 public  interface ICustomDistributedEventSubscriber
 {
     /// <summary>
-    /// 订阅事件
+    /// Đăng ký sự kiện
     /// </summary>
     /// <param name="eventType"></param>
     /// <param name="factory"></param>
     void Subscribe(Type eventType, IEventHandlerFactory factory);
     /// <summary>
-    /// 取消订阅
+    /// Hủy đăng ký
     /// </summary>
     /// <param name="eventType"></param>
     /// <param name="factory"></param>

@@ -1,11 +1,11 @@
 # LINGYUN.Abp.BackgroundTasks.Quartz
 
-后台任务（队列）模块的Quartz实现.  
-并添加一个监听器用于通知管理者任务状态  
+Triển khai Quartz của mô-đun tác vụ nền (hàng đợi).  
+Và thêm một listener để thông báo trạng thái tác vụ cho người quản lý  
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用,具体配置参考Volo.Abp.Quartz模块  
+Mô-đun được tham chiếu theo nhu cầu, cấu hình cụ thể tham khảo mô-đun Volo.Abp.Quartz  
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksQuartzModule))]

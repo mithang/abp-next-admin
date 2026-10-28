@@ -1,31 +1,31 @@
 # LINGYUN.Abp.WxPusher.SettingManagement
 
-WxPusher设置管理模块，提供WxPusher相关设置的管理功能。
+Mô-đun quản lý cài đặt WxPusher, cung cấp chức năng quản lý các cài đặt liên quan đến WxPusher.
 
 [English](./README.EN.md)
 
-## 功能特性
+## Tính năng
 
-* 支持WxPusher设置管理
-  * AppToken管理
-  * 安全设置管理
-* 权限控制
-  * 基于ABP权限系统
-  * 细粒度的设置管理权限
-* 多租户支持
-  * 支持全局设置
-  * 支持租户级设置
-* 本地化支持
-  * 支持多语言界面
-  * 支持本地化设置描述
+* Hỗ trợ quản lý cài đặt WxPusher
+  * Quản lý AppToken
+  * Quản lý cài đặt bảo mật
+* Kiểm soát quyền
+  * Dựa trên hệ thống quyền ABP
+  * Quyền quản lý cài đặt chi tiết
+* Hỗ trợ đa tenant
+  * Hỗ trợ cài đặt toàn cục
+  * Hỗ trợ cài đặt cấp tenant
+* Hỗ trợ bản địa hóa
+  * Hỗ trợ giao diện đa ngôn ngữ
+  * Hỗ trợ mô tả cài đặt đã bản địa hóa
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.WxPusher.SettingManagement
 ```
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWxPusherSettingManagementModule))]
@@ -35,14 +35,14 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 权限配置
+## Cấu hình quyền
 
-### 1. 权限定义
+### 1. Định nghĩa quyền
 
-* `WxPusher`: WxPusher权限组
-* `WxPusher.ManageSetting`: 管理WxPusher设置的权限
+* `WxPusher`: Nhóm quyền WxPusher
+* `WxPusher.ManageSetting`: Quyền quản lý cài đặt WxPusher
 
-### 2. 授权配置
+### 2. Cấu hình ủy quyền
 
 ```csharp
 public class YourAuthorizationProvider : AuthorizationProvider
@@ -57,9 +57,9 @@ public class YourAuthorizationProvider : AuthorizationProvider
 }
 ```
 
-## 使用方式
+## Cách sử dụng
 
-### 1. 获取设置
+### 1. Lấy cài đặt
 
 ```csharp
 public class YourService
@@ -73,26 +73,26 @@ public class YourService
 
     public async Task GetSettingsAsync()
     {
-        // 获取全局设置
+        // Lấy cài đặt toàn cục
         var globalSettings = await _wxPusherSettingAppService.GetAllForGlobalAsync();
 
-        // 获取当前租户设置
+        // Lấy cài đặt tenant hiện tại
         var tenantSettings = await _wxPusherSettingAppService.GetAllForCurrentTenantAsync();
     }
 }
 ```
 
-### 2. API接口
+### 2. Giao diện API
 
-* `GET /api/setting-management/wxpusher/by-global`: 获取全局设置
-* `GET /api/setting-management/wxpusher/by-current-tenant`: 获取当前租户设置
+* `GET /api/setting-management/wxpusher/by-global`: Lấy cài đặt toàn cục
+* `GET /api/setting-management/wxpusher/by-current-tenant`: Lấy cài đặt tenant hiện tại
 
-## 注意事项
+## Lưu ý
 
-1. 需要正确配置权限才能管理设置。
-2. AppToken等敏感信息需要妥善保管。
-3. 多租户环境下需要注意设置的作用范围。
+1. Cần cấu hình quyền chính xác mới có thể quản lý cài đặt.
+2. Các thông tin nhạy cảm như AppToken cần được bảo quản cẩn thận.
+3. Trong môi trường đa tenant cần chú ý phạm vi tác dụng của cài đặt.
 
-## 源码位置
+## Vị trí mã nguồn
 
 [LINGYUN.Abp.WxPusher.SettingManagement](https://github.com/colinin/abp-next-admin/tree/master/aspnet-core/framework/wx-pusher/LINGYUN.Abp.WxPusher.SettingManagement)

@@ -7,20 +7,20 @@ using Volo.Abp.Data;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 展平的操作记录(写入 OpenObserve 操作数据流)
+/// Bản ghi thao tác đã làm phẳng (ghi vào luồng dữ liệu thao tác OpenObserve)
 /// </summary>
 /// <remarks>
-/// <see cref="AuditLogAction.Parameters"/> 在大数据量操作下可能很大, 因此操作被展平写入
-/// <c>{AuditLogStream}_actions</c> 独立数据流; 查询时先在该数据流匹配 <c>auditlogid</c>,
-/// 再回主数据流按 id 过滤
+/// <see cref="AuditLogAction.Parameters"/> có thể rất lớn khi thao tác với khối lượng dữ liệu lớn, vì vậy thao tác được làm phẳng và ghi vào
+/// <c>{AuditLogStream}_actions</c> là luồng dữ liệu độc lập; khi truy vấn, trước tiên khớp trong luồng dữ liệu này <c>auditlogid</c>,
+/// sau đó quay lại luồng dữ liệu chính để lọc theo id
 /// </remarks>
 public class OpenObserveAuditLogAction
 {
     /// <summary>
-    /// OpenObserve 文档时间(微秒)
+    /// Thời gian tài liệu OpenObserve (micro giây)
     /// </summary>
     /// <remarks>
-    /// 由 <see cref="AuditLogAction.ExecutionTime"/> 覆盖; 为 null 时使用服务端写入时间
+    /// Được <see cref="AuditLogAction.ExecutionTime"/> ghi đè; khi null sẽ sử dụng thời gian ghi phía máy chủ
     /// </remarks>
     [JsonPropertyName("_timestamp")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -43,12 +43,12 @@ public class OpenObserveAuditLogAction
     public int ExecutionDuration { get; set; }
 
     /// <summary>
-    /// 所属审计日志的用户(冗余, 便于独立检索)
+    /// Người dùng của nhật ký kiểm toán sở hữu (dư thừa, thuận tiện cho việc tra cứu độc lập)
     /// </summary>
     public Guid? UserId { get; set; }
 
     /// <summary>
-    /// 所属审计日志的用户名(冗余, 便于独立检索)
+    /// Tên người dùng của nhật ký kiểm toán sở hữu (dư thừa, thuận tiện cho việc tra cứu độc lập)
     /// </summary>
     public string? UserName { get; set; }
 
@@ -63,7 +63,7 @@ public class OpenObserveAuditLogAction
     }
 
     /// <summary>
-    /// 从审计日志与操作创建展平记录
+    /// Tạo bản ghi đã làm phẳng từ nhật ký kiểm toán và thao tác
     /// </summary>
     public static OpenObserveAuditLogAction From(AuditLog auditLog, AuditLogAction action)
     {
@@ -84,7 +84,7 @@ public class OpenObserveAuditLogAction
     }
 
     /// <summary>
-    /// 还原为操作
+    /// Khôi phục thành thao tác
     /// </summary>
     public virtual AuditLogAction ToAuditLogAction()
     {
@@ -103,7 +103,7 @@ public class OpenObserveAuditLogAction
     }
 
     /// <summary>
-    /// 批量创建展平记录
+    /// Tạo hàng loạt bản ghi đã làm phẳng
     /// </summary>
     public static List<OpenObserveAuditLogAction> CreateMany(AuditLog auditLog)
     {

@@ -11,7 +11,7 @@
       </div>
       <a @click="addGridOptions">
         <Icon icon="ant-design:file-add-outlined" />
-        添加栅格
+        Thêm lưới
       </a>
     </div>
     <div v-else-if="['Table'].includes(formConfig.currentItem!.component)">
@@ -26,7 +26,7 @@
       </div>
       <a @click="addTableColumns">
         <Icon icon="ant-design:file-add-outlined" />
-        添加列
+        Thêm cột
       </a>
     </div>
     <div v-else>
@@ -41,7 +41,7 @@
       </div>
       <a @click="addOptions">
         <Icon icon="ant-design:file-add-outlined" />
-        添加选项
+        Thêm tùy chọn
       </a>
     </div>
   </div>
@@ -67,7 +67,7 @@
           formConfig.value.currentItem!.componentProps![key] = [];
         const len = formConfig.value.currentItem?.componentProps?.[key].length + 1;
         formConfig.value.currentItem!.componentProps![key].push({
-          label: `选项${len}`,
+          label: `Tùy chọn ${len}`,
           value: '' + len,
         });
       };
@@ -81,7 +81,7 @@
         });
       };
       const deleteGridOptions = (index: number) => {
-        if (index === 0) return message.warning('请至少保留一个栅格');
+        if (index === 0) return message.warning('Vui lòng giữ lại ít nhất một lưới');
         remove(formConfig.value.currentItem!['columns']!, index);
       };
 
@@ -89,19 +89,19 @@
         const len = formConfig.value.currentItem?.componentProps?.['columns'].length + 1;
         formConfig.value.currentItem!.componentProps!['columns']?.push({
           align: 'left',
-          title: `列${len}`,
+          title: `Cột ${len}`,
           dataIndex: `col${len}`,
         });
         const dataSource = formConfig.value.currentItem!.componentProps!['dataSource'];
         dataSource &&
           Array.isArray(dataSource) &&
           dataSource.forEach((data, di) => {
-            Reflect.defineProperty(data, `col${len}`, { value: `数据${len}-${di + 1}` });
+            Reflect.defineProperty(data, `col${len}`, { value: `Dữ liệu ${len}-${di + 1}` });
           });
       };
 
       const deleteTableColumns = (index: number) => {
-        if (index === 0) return message.warning('请至少保留一个列');
+        if (index === 0) return message.warning('Vui lòng giữ lại ít nhất một cột');
         remove(formConfig.value.currentItem!.componentProps!['columns']!, index);
         const dataSource = formConfig.value.currentItem!.componentProps!['dataSource'];
         dataSource &&

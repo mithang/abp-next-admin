@@ -1,34 +1,34 @@
-/** 租户查询过滤对象 */
+/** Đối tượng lọc truy vấn tenant */
 export interface TenantGetByPaged extends PagedAndSortedResultRequestDto {
-    /** 查询过滤字段 */
+    /** Trường lọc truy vấn */
     filter?: string;
   }
   
-  /** 租户创建对象 */
+  /** Đối tượng tạo tenant */
   export interface TenantCreateOrEdit {
-    /** 管理员邮件地址 */
+    /** Địa chỉ email của quản trị viên */
     adminEmailAddress: string;
-    /** 管理员密码 */
+    /** Mật khẩu quản trị viên */
     adminPassword: string;
-    /** 租户名称 */
+    /** Tên tenant */
     name: string;
-    /** 使用共享数据库 */
+    /** Sử dụng cơ sở dữ liệu dùng chung */
     useSharedDatabase: boolean;
-    /** 默认连接字符串 */
+    /** Chuỗi kết nối mặc định */
     defaultConnectionString?: string;
   }
   
-  /** 租户对象 */
+  /** Đối tượng tenant */
   export interface TenantDto extends FullAuditedEntityDto<string> {
-    /** 租户名称 */
+    /** Tên tenant */
     name: string;
   }
   
-  /** 租户连接字符串 */
+  /** Chuỗi kết nối tenant */
   export interface TenantConnectionString {
-    /** 名称 */
+    /** Tên */
     name: string;
-    /** 值 */
+    /** Giá trị */
     value: string;
   }
   

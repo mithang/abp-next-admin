@@ -4,7 +4,7 @@ import { message } from 'ant-design-vue';
 import { useVbenForm } from '#/adapter/form';
 
 const [Form] = useVbenForm({
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
   schema: [
     {
@@ -12,35 +12,35 @@ const [Form] = useVbenForm({
       defaultValue: 'hidden value',
       dependencies: {
         show: false,
-        // 随意一个字段改变时，都会触发
+        // Khi bất kỳ trường nào thay đổi cũng sẽ kích hoạt
         triggerFields: ['field1Switch'],
       },
       fieldName: 'hiddenField',
-      label: '隐藏字段',
+      label: 'Trường ẩn',
     },
     {
       component: 'Switch',
       defaultValue: true,
       fieldName: 'field1Switch',
-      help: '通过Dom控制销毁',
-      label: '显示字段1',
+      help: 'Hủy qua điều khiển DOM',
+      label: 'Trường hiển thị 1',
     },
     {
       component: 'Switch',
       defaultValue: true,
       fieldName: 'field2Switch',
-      help: '通过css控制隐藏',
-      label: '显示字段2',
+      help: 'Ẩn qua điều khiển CSS',
+      label: 'Trường hiển thị 2',
     },
     {
       component: 'Switch',
       fieldName: 'field3Switch',
-      label: '禁用字段3',
+      label: 'Trường bị vô hiệu hóa 3',
     },
     {
       component: 'Switch',
       fieldName: 'field4Switch',
-      label: '字段4必填',
+      label: 'Trường 4 bắt buộc',
     },
     {
       component: 'Input',
@@ -48,13 +48,13 @@ const [Form] = useVbenForm({
         if(values) {
           return !!values.field1Switch;
         },
-        // 只有指定的字段改变时，才会触发
+        // Chỉ kích hoạt khi trường được chỉ định thay đổi
         triggerFields: ['field1Switch'],
       },
-      // 字段名
+      // Tên trường
       fieldName: 'field1',
-      // 界面显示的label
-      label: '字段1',
+      // Label hiển thị trên giao diện
+      label: 'Trường 1',
     },
     {
       component: 'Input',
@@ -65,7 +65,7 @@ const [Form] = useVbenForm({
         triggerFields: ['field2Switch'],
       },
       fieldName: 'field2',
-      label: '字段2',
+      label: 'Trường 2',
     },
     {
       component: 'Input',
@@ -76,7 +76,7 @@ const [Form] = useVbenForm({
         triggerFields: ['field3Switch'],
       },
       fieldName: 'field3',
-      label: '字段3',
+      label: 'Trường 3',
     },
     {
       component: 'Input',
@@ -87,7 +87,7 @@ const [Form] = useVbenForm({
         triggerFields: ['field4Switch'],
       },
       fieldName: 'field4',
-      label: '字段4',
+      label: 'Trường 4',
     },
     {
       component: 'Input',
@@ -101,8 +101,8 @@ const [Form] = useVbenForm({
         triggerFields: ['field1'],
       },
       fieldName: 'field5',
-      help: '当字段1的值为`123`时，必填',
-      label: '动态rules',
+      help: 'Bắt buộc khi giá trị trường 1 là `123`',
+      label: 'Rules động',
     },
     {
       component: 'Select',
@@ -112,15 +112,15 @@ const [Form] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       dependencies: {
@@ -129,15 +129,15 @@ const [Form] = useVbenForm({
             return {
               options: [
                 {
-                  label: '选项1',
+                  label: 'Tùy chọn 1',
                   value: '1',
                 },
                 {
-                  label: '选项2',
+                  label: 'Tùy chọn 2',
                   value: '2',
                 },
                 {
-                  label: '选项3',
+                  label: 'Tùy chọn 3',
                   value: '3',
                 },
               ],
@@ -148,11 +148,11 @@ const [Form] = useVbenForm({
         triggerFields: ['field2'],
       },
       fieldName: 'field6',
-      help: '当字段2的值为`123`时，更改下拉选项',
-      label: '动态配置',
+      help: 'Đổi tùy chọn dropdown khi giá trị trường 2 là `123`',
+      label: 'Cấu hình động',
     },
   ],
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi hàng, màn hình vừa 2 mục mỗi hàng, màn hình nhỏ 1 mục mỗi hàng
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
 });
 

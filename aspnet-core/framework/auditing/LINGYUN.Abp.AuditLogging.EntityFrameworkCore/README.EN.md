@@ -1,6 +1,6 @@
 # LINGYUN.Abp.AuditLogging.EntityFrameworkCore
 
-[简体中文](./README.md) | English
+[Tiếng Trung giản thể](./README.md) | English
 
 EntityFrameworkCore implementation for the audit logging module. This module serves as a bridge, with the actual implementation delegated to the official ABP modules.
 

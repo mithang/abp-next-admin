@@ -13,7 +13,7 @@ function parseSvg(svgData: string): IconifyIconStructure {
   const xmlDoc = parser.parseFromString(svgData, 'image/svg+xml');
   const svgElement = xmlDoc.documentElement;
 
-  // 提取 SVG 根元素的关键样式属性
+  // Trích xuất các thuộc tính style quan trọng của phần tử gốc SVG
   const getAttrs = (el: Element, attrs: string[]) =>
     attrs
       .map((attr) =>
@@ -33,7 +33,7 @@ function parseSvg(svgData: string): IconifyIconStructure {
     .filter((node) => node.nodeType === Node.ELEMENT_NODE)
     .map((node) => new XMLSerializer().serializeToString(node))
     .join('');
-  // 若根有属性，用一个 g 标签包裹内容并继承属性
+  // Nếu phần tử gốc có thuộc tính, dùng một thẻ g bao quanh nội dung và kế thừa thuộc tính
   const body = rootAttrs ? `<g ${rootAttrs}>${svgContent}</g>` : svgContent;
 
   const viewBoxValue = svgElement.getAttribute('viewBox') || '';
@@ -52,7 +52,7 @@ function parseSvg(svgData: string): IconifyIconStructure {
 }
 
 /**
- * 自定义的svg图片转化为组件
+ * Chuyển đổi hình ảnh svg tùy chỉnh thành component
  * @example ./svg/avatar.svg
  * <Icon icon="svg:avatar"></Icon>
  */

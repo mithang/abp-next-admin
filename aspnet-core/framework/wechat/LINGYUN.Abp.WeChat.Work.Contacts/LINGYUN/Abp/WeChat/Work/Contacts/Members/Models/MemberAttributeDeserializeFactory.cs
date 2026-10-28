@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Models;
 internal static class MemberAttributeDeserializeFactory
 {
     /// <summary>
-    /// 根据属性类型创建属性（System.Text.Json）
+    /// Tạo thuộc tính theo loại thuộc tính (System.Text.Json)
     /// </summary>
     public static MemberAttribute CreateExternalAttribute(AttributeType type, JsonElement configElement)
     {
@@ -19,7 +19,7 @@ internal static class MemberAttributeDeserializeFactory
     }
 
     /// <summary>
-    /// 根据属性类型创建属性（Newtonsoft.Json）
+    /// Tạo thuộc tính theo loại thuộc tính (Newtonsoft.Json)
     /// </summary>
     public static MemberAttribute CreateExternalAttribute(AttributeType type, JToken configToken)
     {

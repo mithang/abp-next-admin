@@ -1,56 +1,56 @@
 # LINGYUN.Abp.IdentityServer.Application.Contracts
 
-IdentityServer应用服务契约模块，定义IdentityServer4资源管理相关功能的应用服务接口和DTO。
+Mô-đun hợp đồng dịch vụ ứng dụng IdentityServer, định nghĩa các giao diện dịch vụ ứng dụng và DTO cho các chức năng quản lý tài nguyên IdentityServer4.
 
-## 功能特性
+## Tính năng
 
-* 权限定义
-  * 客户端权限
-    * 默认权限 - `AbpIdentityServer.Clients`
-    * 创建权限 - `AbpIdentityServer.Clients.Create`
-    * 更新权限 - `AbpIdentityServer.Clients.Update`
-    * 删除权限 - `AbpIdentityServer.Clients.Delete`
-    * 克隆权限 - `AbpIdentityServer.Clients.Clone`
-    * 管理权限 - `AbpIdentityServer.Clients.ManagePermissions`
-    * 管理声明 - `AbpIdentityServer.Clients.ManageClaims`
-    * 管理密钥 - `AbpIdentityServer.Clients.ManageSecrets`
-    * 管理属性 - `AbpIdentityServer.Clients.ManageProperties`
+* Định nghĩa quyền
+  * Quyền máy khách
+    * Quyền mặc định - `AbpIdentityServer.Clients`
+    * Quyền tạo - `AbpIdentityServer.Clients.Create`
+    * Quyền cập nhật - `AbpIdentityServer.Clients.Update`
+    * Quyền xóa - `AbpIdentityServer.Clients.Delete`
+    * Quyền nhân bản - `AbpIdentityServer.Clients.Clone`
+    * Quyền quản lý - `AbpIdentityServer.Clients.ManagePermissions`
+    * Quản lý claim - `AbpIdentityServer.Clients.ManageClaims`
+    * Quản lý secret - `AbpIdentityServer.Clients.ManageSecrets`
+    * Quản lý thuộc tính - `AbpIdentityServer.Clients.ManageProperties`
 
-  * API资源权限
-    * 默认权限 - `AbpIdentityServer.ApiResources`
-    * 创建权限 - `AbpIdentityServer.ApiResources.Create`
-    * 更新权限 - `AbpIdentityServer.ApiResources.Update`
-    * 删除权限 - `AbpIdentityServer.ApiResources.Delete`
-    * 管理声明 - `AbpIdentityServer.ApiResources.ManageClaims`
-    * 管理密钥 - `AbpIdentityServer.ApiResources.ManageSecrets`
-    * 管理作用域 - `AbpIdentityServer.ApiResources.ManageScopes`
-    * 管理属性 - `AbpIdentityServer.ApiResources.ManageProperties`
+  * Quyền tài nguyên API
+    * Quyền mặc định - `AbpIdentityServer.ApiResources`
+    * Quyền tạo - `AbpIdentityServer.ApiResources.Create`
+    * Quyền cập nhật - `AbpIdentityServer.ApiResources.Update`
+    * Quyền xóa - `AbpIdentityServer.ApiResources.Delete`
+    * Quản lý claim - `AbpIdentityServer.ApiResources.ManageClaims`
+    * Quản lý secret - `AbpIdentityServer.ApiResources.ManageSecrets`
+    * Quản lý scope - `AbpIdentityServer.ApiResources.ManageScopes`
+    * Quản lý thuộc tính - `AbpIdentityServer.ApiResources.ManageProperties`
 
-  * API作用域权限
-    * 默认权限 - `AbpIdentityServer.ApiScopes`
-    * 创建权限 - `AbpIdentityServer.ApiScopes.Create`
-    * 更新权限 - `AbpIdentityServer.ApiScopes.Update`
-    * 删除权限 - `AbpIdentityServer.ApiScopes.Delete`
-    * 管理声明 - `AbpIdentityServer.ApiScopes.ManageClaims`
-    * 管理属性 - `AbpIdentityServer.ApiScopes.ManageProperties`
+  * Quyền scope API
+    * Quyền mặc định - `AbpIdentityServer.ApiScopes`
+    * Quyền tạo - `AbpIdentityServer.ApiScopes.Create`
+    * Quyền cập nhật - `AbpIdentityServer.ApiScopes.Update`
+    * Quyền xóa - `AbpIdentityServer.ApiScopes.Delete`
+    * Quản lý claim - `AbpIdentityServer.ApiScopes.ManageClaims`
+    * Quản lý thuộc tính - `AbpIdentityServer.ApiScopes.ManageProperties`
 
-  * 身份资源权限
-    * 默认权限 - `AbpIdentityServer.IdentityResources`
-    * 创建权限 - `AbpIdentityServer.IdentityResources.Create`
-    * 更新权限 - `AbpIdentityServer.IdentityResources.Update`
-    * 删除权限 - `AbpIdentityServer.IdentityResources.Delete`
-    * 管理声明 - `AbpIdentityServer.IdentityResources.ManageClaims`
-    * 管理属性 - `AbpIdentityServer.IdentityResources.ManageProperties`
+  * Quyền tài nguyên danh tính
+    * Quyền mặc định - `AbpIdentityServer.IdentityResources`
+    * Quyền tạo - `AbpIdentityServer.IdentityResources.Create`
+    * Quyền cập nhật - `AbpIdentityServer.IdentityResources.Update`
+    * Quyền xóa - `AbpIdentityServer.IdentityResources.Delete`
+    * Quản lý claim - `AbpIdentityServer.IdentityResources.ManageClaims`
+    * Quản lý thuộc tính - `AbpIdentityServer.IdentityResources.ManageProperties`
 
-  * 授权许可权限
-    * 默认权限 - `AbpIdentityServer.Grants`
-    * 删除权限 - `AbpIdentityServer.Grants.Delete`
+  * Quyền cấp phép ủy quyền
+    * Quyền mặc định - `AbpIdentityServer.Grants`
+    * Quyền xóa - `AbpIdentityServer.Grants.Delete`
 
-* 本地化资源
-  * 支持多语言本地化
-  * 内置中英文资源
+* Tài nguyên bản địa hóa
+  * Hỗ trợ bản địa hóa đa ngôn ngữ
+  * Tích hợp sẵn tài nguyên tiếng Trung và tiếng Anh
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -62,18 +62,18 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `AbpAuthorizationModule` - ABP授权模块
-* `AbpDddApplicationContractsModule` - ABP DDD应用服务契约模块
-* `AbpIdentityServerDomainSharedModule` - IdentityServer领域共享模块
+* `AbpAuthorizationModule` - Mô-đun phân quyền ABP
+* `AbpDddApplicationContractsModule` - Mô-đun hợp đồng dịch vụ ứng dụng DDD ABP
+* `AbpIdentityServerDomainSharedModule` - Mô-đun chia sẻ miền IdentityServer
 
-## 配置使用
+## Cấu hình và sử dụng
 
-模块提供了IdentityServer4资源管理所需的应用服务接口定义和数据传输对象。所有权限默认只对宿主租户开放。
+Mô-đun cung cấp định nghĩa giao diện dịch vụ ứng dụng và đối tượng truyền dữ liệu cần thiết cho việc quản lý tài nguyên IdentityServer4. Tất cả các quyền mặc định chỉ mở cho tenant máy chủ.
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP授权文档](https://docs.abp.io/en/abp/latest/Authorization)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu phân quyền ABP](https://docs.abp.io/en/abp/latest/Authorization)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

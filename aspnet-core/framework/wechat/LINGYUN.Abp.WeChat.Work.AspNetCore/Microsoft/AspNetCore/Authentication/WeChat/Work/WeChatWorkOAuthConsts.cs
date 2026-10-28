@@ -5,36 +5,36 @@ namespace Microsoft.AspNetCore.Authentication.WeChat.Work;
 public static class WeChatWorkOAuthConsts
 {
     /// <summary>
-    /// 企业微信授权名称
+    /// Tên ủy quyền WeChat Doanh nghiệp
     /// </summary>
     public static string AuthenticationScheme => AbpWeChatWorkGlobalConsts.ProviderName;
     /// <summary>
-    /// 微信提供者显示名称
+    /// Tên hiển thị nhà cung cấp WeChat
     /// </summary>
     public static string DisplayName => AbpWeChatWorkGlobalConsts.DisplayName;
     /// <summary>
-    /// 回调地址
+    /// Địa chỉ callback
     /// </summary>
     public static string CallbackPath { get; set; } = "/signin-wxwork";
     /// <summary>
-    /// 微信客户端内的网页登录
+    /// Đăng nhập web trong ứng dụng khách WeChat
     /// </summary>
     public const string AuthorizationEndpoint = "https://open.weixin.qq.com/connect/oauth2/authorize";
     /// <summary>
-    /// Web网页登录
+    /// Đăng nhập Web
     /// </summary>
     public const string AuthorizationSsoEndpoint = "https://login.work.weixin.qq.com/wwlogin/sso/login";
     /// <summary>
-    /// 用户允许授权后通过返回的code换取access_token地址
+    /// Địa chỉ đổi access_token bằng code trả về sau khi người dùng cho phép ủy quyền
     /// </summary>
     public const string TokenEndpoint = "https://qyapi.weixin.qq.com/cgi-bin/gettoken";
 
     /// <summary>
-    /// 使用access_token获取用户个人信息地址
+    /// Địa chỉ lấy thông tin cá nhân người dùng bằng access_token
     /// </summary>
     public const string UserInfoEndpoint = "https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo";
     /// <summary>
-    /// 使用access_token获取用户敏感信息地址
+    /// Địa chỉ lấy thông tin nhạy cảm người dùng bằng access_token
     /// </summary>
     public const string UserDetailEndpoint = "https://qyapi.weixin.qq.com/cgi-bin/auth/getuserdetail";
 

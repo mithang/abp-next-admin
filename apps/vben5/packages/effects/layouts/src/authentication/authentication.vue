@@ -40,14 +40,14 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
   usePreferences();
 
 /**
- * @zh_CN 根据主题选择合适的 logo 图标
+ * @zh_CN Chọn biểu tượng logo phù hợp theo chủ đề
  */
 const logoSrc = computed(() => {
-  // 如果是暗色主题且提供了 logoDark，则使用暗色主题的 logo
+  // Nếu là chủ đề tối và đã cung cấp logoDark thì dùng logo của chủ đề tối
   if (isDark.value && props.logoDark) {
     return props.logoDark;
   }
-  // 否则使用默认的 logo
+  // Ngược lại dùng logo mặc định
   return props.logo;
 });
 </script>
@@ -62,7 +62,7 @@ const logoSrc = computed(() => {
         <Toolbar :toolbar-list="toolbarList" />
       </slot>
     </template>
-    <!-- 左侧认证面板 -->
+    <!-- Bảng xác thực bên trái -->
     <AuthenticationFormView
       v-if="authPanelLeft"
       class="min-h-full w-2/5 flex-1"
@@ -79,7 +79,7 @@ const logoSrc = computed(() => {
     </AuthenticationFormView>
 
     <slot name="logo">
-      <!-- 头部 Logo 和应用名称 -->
+      <!-- Logo phần đầu và tên ứng dụng -->
       <div
         v-if="logoSrc || appName"
         class="absolute left-0 top-0 z-10 flex flex-1"
@@ -103,7 +103,7 @@ const logoSrc = computed(() => {
       </div>
     </slot>
 
-    <!-- 系统介绍 -->
+    <!-- Giới thiệu hệ thống -->
     <div v-if="!authPanelCenter" class="relative hidden w-0 flex-1 lg:block">
       <div
         class="bg-background-deep absolute inset-0 h-full w-full dark:bg-[#070709]"
@@ -135,7 +135,7 @@ const logoSrc = computed(() => {
       </div>
     </div>
 
-    <!-- 中心认证面板 -->
+    <!-- Bảng xác thực ở giữa -->
     <div v-if="authPanelCenter" class="flex-center relative w-full">
       <div class="login-background absolute left-0 top-0 size-full"></div>
       <AuthenticationFormView
@@ -153,7 +153,7 @@ const logoSrc = computed(() => {
       </AuthenticationFormView>
     </div>
 
-    <!-- 右侧认证面板 -->
+    <!-- Bảng xác thực bên phải -->
     <AuthenticationFormView
       v-if="authPanelRight"
       class="min-h-full w-2/5 flex-1"

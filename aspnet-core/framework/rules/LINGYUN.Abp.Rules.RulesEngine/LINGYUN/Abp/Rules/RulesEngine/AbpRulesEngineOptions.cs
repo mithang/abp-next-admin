@@ -5,11 +5,11 @@ namespace LINGYUN.Abp.Rules.RulesEngine;
 public class AbpRulesEngineOptions
 {
     /// <summary>
-    /// 是否忽略租户
+    /// Có bỏ qua tenant hay không
     /// </summary>
     public bool IgnoreMultiTenancy { get; set; }
     /// <summary>
-    /// 规则引擎可配置
+    /// Rule engine có thể cấu hình
     /// </summary>
     public ReSettings Settings { get; set; }
 

@@ -1,20 +1,20 @@
 # Dynamic.Queryable
 
-动态查询支持库, 为以后台服务提供动态查询支持  
+Thư viện hỗ trợ truy vấn động, cung cấp hỗ trợ truy vấn động cho các dịch vụ backend  
 
-* 应用程序接口定义层引用**LINGYUN.Abp.Dynamic.Queryable.Application.Contracts**模块, 实现**IDynamicQueryableAppService**接口可对外提供动态查询支持  
+* Lớp định nghĩa giao diện ứng dụng tham chiếu module **LINGYUN.Abp.Dynamic.Queryable.Application.Contracts**, triển khai giao diện **IDynamicQueryableAppService** là có thể cung cấp hỗ trợ truy vấn động ra bên ngoài  
 
-* 应用程序接口实现层引用**LINGYUN.Abp.Dynamic.Queryable.Application**模块，继承自**DynamicQueryableAppService**接口，实现**GetCountAsync**与**GetListAsync**方法即可(为仓储层接口提供传递的**Expression<Func<TEntity, bool>>**结构)  
+* Lớp triển khai giao diện ứng dụng tham chiếu module **LINGYUN.Abp.Dynamic.Queryable.Application**, kế thừa từ **DynamicQueryableAppService**, triển khai các phương thức **GetCountAsync** và **GetListAsync** là đủ (cung cấp cho giao diện tầng kho dữ liệu cấu trúc **Expression<Func<TEntity, bool>>** được truyền vào)  
 
-* 控制器层引用**LINGYUN.Abp.Dynamic.Queryable.HttpApi**模块，继承**DynamicQueryableControllerBase**接口，自动公开动态查询接口。
+* Lớp controller tham chiếu module **LINGYUN.Abp.Dynamic.Queryable.HttpApi**, kế thừa **DynamicQueryableControllerBase**, tự động công khai giao diện truy vấn động.
 
-## 接口说明
+## Mô tả giao diện
 
-* **GetAvailableFieldsAsync**(<font color="green">[GET]</font> <font color="blue">/{controller}/available-fields</font>): 对外提供可选的属性明细, 默认返回所有字段(不包含已定义的排除字段).
+* **GetAvailableFieldsAsync**(<font color="green">[GET]</font> <font color="blue">/{controller}/available-fields</font>): Cung cấp ra bên ngoài chi tiết thuộc tính có thể chọn, mặc định trả về tất cả các trường (không bao gồm các trường loại trừ đã định nghĩa).
 
-* **GetListAsync**(<font color="orange">[POST]</font> <font color="blue">/{controller}/search</font>):    根据用户传递的动态条件返回查询结果列表.
+* **GetListAsync**(<font color="orange">[POST]</font> <font color="blue">/{controller}/search</font>):    Trả về danh sách kết quả truy vấn theo điều kiện động do người dùng truyền vào.
 
-## 配置使用
+## Cấu hình sử dụng
 
-* AbpDynamicQueryableOptions.IgnoreFields:	定义不对用户公开的字段列表,默认排除租户标识、软删除过滤器接口字段.
+* AbpDynamicQueryableOptions.IgnoreFields:	Định nghĩa danh sách các trường không công khai cho người dùng, mặc định loại trừ trường định danh tenant và trường giao diện bộ lọc xóa mềm.
 

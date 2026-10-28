@@ -4,7 +4,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 删除跟进成员事件
+/// Sự kiện xóa thành viên theo dõi
 /// </summary>
 [EventName("external_contact_del_follow_user")]
 public class ExternalContactDeleteFollowUserEvent : ExternalContactChangeEvent

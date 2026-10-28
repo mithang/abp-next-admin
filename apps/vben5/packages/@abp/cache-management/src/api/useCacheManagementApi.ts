@@ -10,14 +10,14 @@ import type {
 
 import { useRequest } from '@abp/request';
 
-/** 缓存管理API接口 */
+/** Giao diện API quản lý cache */
 export function useCacheManagementApi() {
   const apiPrefix = '/api/caching-management/cache';
   const { cancel, request } = useRequest();
 
   /**
-   * 获取所有缓存键
-   * @param input 参数
+   * Lấy tất cả các khóa cache
+   * @param input Tham số
    */
   function getKeysApi(input?: GetCacheKeysInput): Promise<CacheKeysDto> {
     return request<CacheKeysDto>(`${apiPrefix}/keys`, {
@@ -27,8 +27,8 @@ export function useCacheManagementApi() {
   }
 
   /**
-   * 获取缓存值
-   * @param input 参数
+   * Lấy giá trị cache
+   * @param input Tham số
    */
   function getKeyValueApi(input: CacheKeyInput): Promise<CacheValueDto> {
     return request<CacheValueDto>(`${apiPrefix}/value`, {
@@ -38,8 +38,8 @@ export function useCacheManagementApi() {
   }
 
   /**
-   * 设置缓存值
-   * @param input 参数
+   * Đặt giá trị cache
+   * @param input Tham số
    */
   function setValueApi(input: CacheSetInput): Promise<void> {
     return request(`${apiPrefix}/set`, {
@@ -49,8 +49,8 @@ export function useCacheManagementApi() {
   }
 
   /**
-   * 刷新缓存
-   * @param input 参数
+   * Làm mới cache
+   * @param input Tham số
    */
   function refreshApi(input: CacheRefreshInput): Promise<void> {
     return request(`${apiPrefix}/refresh`, {
@@ -60,8 +60,8 @@ export function useCacheManagementApi() {
   }
 
   /**
-   * 移除缓存
-   * @param input 参数
+   * Xóa cache
+   * @param input Tham số
    */
   function removeApi(input: CacheKeyInput): Promise<void> {
     return request(`${apiPrefix}/remove`, {
@@ -71,8 +71,8 @@ export function useCacheManagementApi() {
   }
 
   /**
-   * 批量移除缓存
-   * @param input 参数
+   * Xóa cache hàng loạt
+   * @param input Tham số
    */
   function bulkRemoveApi(input: CacheRemoveKeysInput): Promise<void> {
     return request(`${apiPrefix}/bulk/remove`, {

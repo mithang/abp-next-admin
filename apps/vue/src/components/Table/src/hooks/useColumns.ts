@@ -264,7 +264,7 @@ export function useColumns(
     cacheColumns = columns.filter((item) => !item.flag);
   }
   /**
-   * 拖拽列宽修改列的宽度
+   * Kéo thả để thay đổi độ rộng cột
    */
   function setColumnWidth(w: number, col: ColumnType<BasicColumn>) {
     col.width = w;
@@ -297,11 +297,11 @@ function sortFixedColumn(columns: BasicColumn[]) {
     }
     defColumns.push(column);
   }
-  // 筛选逻辑
+  // Logic lọc
   const filterFunc = (item) => !item.defaultHidden;
-  // 筛选首层显示列（1级表头）
+  // Lọc các cột hiển thị ở tầng đầu (tiêu đề cấp 1)
   const viewColumns = [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(filterFunc);
-  // 筛选>=2级表头（深度优先）
+  // Lọc tiêu đề >= cấp 2 (ưu tiên theo chiều sâu)
   const list = [...viewColumns];
   while (list.length) {
     const current = list[0];

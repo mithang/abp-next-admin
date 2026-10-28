@@ -16,7 +16,7 @@ class UserInfoPage extends GetView<UserInfoController> {
         padding: const EdgeInsets.only(top: 12),
         child: Column(
           children: [
-            /// 主题设置
+            /// Cài đặt giao diện
             _actionButton(
               title: 'Avatar'.tr,
               suffix: Obx(() => Avatar(
@@ -25,7 +25,7 @@ class UserInfoPage extends GetView<UserInfoController> {
                 takeToken: controller.token?.accessToken,
               )),
             ),
-            /// 账号设置
+            /// Cài đặt tài khoản
             _actionButton(
               title: 'DisplayName:UserName'.tr,
               suffix: Obx(() => Text(controller.state.profile?.userName ?? '')),

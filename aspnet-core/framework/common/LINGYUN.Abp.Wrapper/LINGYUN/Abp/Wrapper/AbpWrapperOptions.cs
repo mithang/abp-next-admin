@@ -8,66 +8,66 @@ namespace LINGYUN.Abp.Wrapper;
 public class AbpWrapperOptions
 {
     /// <summary>
-    /// 未处理异常代码
-    /// 默认: 500
+    /// Mã lỗi ngoại lệ chưa được xử lý
+    /// Mặc định: 500
     /// </summary>
     public string CodeWithUnhandled { get; set; }
     /// <summary>
-    /// 是否启用包装器
-    /// 默认: false
+    /// Có bật wrapper hay không
+    /// Mặc định: false
     /// </summary>
     public bool IsEnabled { get; set; }
     /// <summary>
-    /// 成功时返回代码
-    /// 默认：0
+    /// Mã trả về khi thành công
+    /// Mặc định：0
     /// </summary>
     public string CodeWithSuccess { get; set; }
     /// <summary>
-    /// 资源为空时是否提示错误
-    /// 默认: false
+    /// Khi tài nguyên trống có báo lỗi hay không
+    /// Mặc định: false
     /// </summary>
     public bool ErrorWithEmptyResult { get; set; }
     /// <summary>
-    /// 是否启用401错误包装
-    /// 默认: false
+    /// Có bật đóng gói lỗi 401 hay không
+    /// Mặc định: false
     /// </summary>
     public bool IsWrapUnauthorizedEnabled { get; set; }
     /// <summary>
-    /// 资源为空时返回代码
-    /// 默认：404
+    /// Mã trả về khi tài nguyên trống
+    /// Mặc định：404
     /// </summary>
     public Func<IServiceProvider, string> CodeWithEmptyResult { get; set; }
     /// <summary>
-    /// 资源为空时返回错误消息
+    /// Thông báo lỗi trả về khi tài nguyên trống
     /// </summary>
     public Func<IServiceProvider, string> MessageWithEmptyResult { get; set; }
     /// <summary>
-    /// 包装后的返回状态码
-    /// 默认：200  HttpStatusCode.OK
+    /// Mã trạng thái trả về sau khi đóng gói
+    /// Mặc định：200  HttpStatusCode.OK
     /// </summary>
     public HttpStatusCode HttpStatusCode { get; set; }
     /// <summary>
-    /// 忽略Url开头类型
+    /// Bỏ qua các loại bắt đầu bằng Url
     /// </summary>
     public IList<string> IgnorePrefixUrls { get; }
     /// <summary>
-    /// 忽略指定命名空间
+    /// Bỏ qua namespace đã chỉ định
     /// </summary>
     public IList<string> IgnoreNamespaces { get; }
     /// <summary>
-    /// 忽略控制器
+    /// Bỏ qua controller
     /// </summary>
     public ITypeList IgnoreControllers { get; }
     /// <summary>
-    /// 忽略返回值
+    /// Bỏ qua giá trị trả về
     /// </summary>
     public ITypeList IgnoreReturnTypes { get; }
     /// <summary>
-    /// 忽略异常
+    /// Bỏ qua ngoại lệ
     /// </summary>
     public ITypeList<Exception> IgnoreExceptions { get; }
     /// <summary>
-    /// 忽略接口类型
+    /// Bỏ qua loại giao diện
     /// </summary>
     public ITypeList IgnoredInterfaces { get; }
 

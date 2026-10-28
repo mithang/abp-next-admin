@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 媒体文件消息
+/// Tin nhắn tệp phương tiện
 /// </summary>
 public class MediaMessage
 {
     /// <summary>
-    ///媒体文件id，可以调用上传临时素材接口获取
+    ///id tệp phương tiện, có thể lấy bằng cách gọi API tải lên tài nguyên tạm thời
     /// </summary>
     [NotNull]
     [JsonProperty("media_id")]

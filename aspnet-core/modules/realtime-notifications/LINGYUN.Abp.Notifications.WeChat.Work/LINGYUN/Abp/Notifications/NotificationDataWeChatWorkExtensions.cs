@@ -14,7 +14,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     private const string DuplicateCheckIntervalKey = Prefix + "duplicate_check_interval";
 
     /// <summary>
-    /// 设定发送到所有应用
+    /// Đặt gửi tới tất cả ứng dụng
     /// </summary>
     /// <param name="notificationData"></param>
     /// <returns></returns>
@@ -25,7 +25,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 设定消息应用标识
+    /// Đặt định danh ứng dụng tin nhắn
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="agentId"></param>
@@ -37,7 +37,7 @@ public static partial class NotificationDataWeChatWorkExtensions
         notificationData.TrySetData(AgentIdKey, agentId);
     }
     /// <summary>
-    /// 获取消息应用标识
+    /// Lấy định danh ứng dụng tin nhắn
     /// </summary>
     /// <param name="notificationData"></param>
     public static string? GetAgentIdOrNull(
@@ -46,7 +46,7 @@ public static partial class NotificationDataWeChatWorkExtensions
         return notificationData.TryGetData(AgentIdKey)?.ToString();
     }
     /// <summary>
-    /// 指定接收消息的标签，标签ID列表，多个接收者用‘|’分隔，最多支持100个。
+    /// Chỉ định nhãn nhận tin nhắn, danh sách ID nhãn, nhiều người nhận phân tách bằng ‘|’, tối đa hỗ trợ 100.
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="tag"></param>
@@ -58,7 +58,7 @@ public static partial class NotificationDataWeChatWorkExtensions
         notificationData.TrySetData(ToTagKey, tag);
     }
     /// <summary>
-    /// 获取接收消息的标签
+    /// Lấy nhãn nhận tin nhắn
     /// </summary>
     /// <param name="notificationData"></param>
     public static string? GetTagOrNull(
@@ -67,7 +67,7 @@ public static partial class NotificationDataWeChatWorkExtensions
         return notificationData.TryGetData(ToTagKey)?.ToString();
     }
     /// <summary>
-    /// 指定接收消息的部门，部门ID列表，多个接收者用‘|’分隔，最多支持100个。
+    /// Chỉ định phòng ban nhận tin nhắn, danh sách ID phòng ban, nhiều người nhận phân tách bằng ‘|’, tối đa hỗ trợ 100.
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="party"></param>
@@ -79,7 +79,7 @@ public static partial class NotificationDataWeChatWorkExtensions
         notificationData.TrySetData(ToPartyKey, party);
     }
     /// <summary>
-    /// 获取接收消息的部门
+    /// Lấy phòng ban nhận tin nhắn
     /// </summary>
     /// <param name="notificationData"></param>
     public static string? GetPartyOrNull(
@@ -89,7 +89,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 设置是否保密消息(仅文本消息支持)
+    /// Đặt có bảo mật tin nhắn hay không (chỉ tin nhắn văn bản hỗ trợ)
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="safe"></param>
@@ -101,10 +101,10 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取是否保密消息, 默认 0(不保密)
+    /// Lấy có bảo mật tin nhắn hay không, mặc định 0 (không bảo mật)
     /// </summary>
     /// <remarks>
-    /// 企业微信要求 int: 0 表示否, 1 表示是
+    /// WeChat Doanh nghiệp yêu cầu int: 0 nghĩa là không, 1 nghĩa là có
     /// </remarks>
     /// <param name="notificationData"></param>
     public static int GetSafe(
@@ -116,7 +116,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 设置是否开启id转译
+    /// Đặt có bật chuyển đổi id hay không
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="enableIdTrans"></param>
@@ -128,10 +128,10 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取是否开启id转译, 默认 0(不开启)
+    /// Lấy có bật chuyển đổi id hay không, mặc định 0 (không bật)
     /// </summary>
     /// <remarks>
-    /// 企业微信要求 byte: 0 表示否, 1 表示是
+    /// WeChat Doanh nghiệp yêu cầu byte: 0 nghĩa là không, 1 nghĩa là có
     /// </remarks>
     /// <param name="notificationData"></param>
     public static byte GetEnableIdTrans(
@@ -143,7 +143,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 设置是否开启重复消息检查
+    /// Đặt có bật kiểm tra tin nhắn trùng lặp hay không
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="enableDuplicateCheck"></param>
@@ -155,10 +155,10 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取是否开启重复消息检查, 默认 0(不开启)
+    /// Lấy có bật kiểm tra tin nhắn trùng lặp hay không, mặc định 0 (không bật)
     /// </summary>
     /// <remarks>
-    /// 企业微信要求 byte: 0 表示否, 1 表示是
+    /// WeChat Doanh nghiệp yêu cầu byte: 0 nghĩa là không, 1 nghĩa là có
     /// </remarks>
     /// <param name="notificationData"></param>
     public static byte GetEnableDuplicateCheck(
@@ -170,7 +170,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 设置重复消息检查的时间间隔(秒)
+    /// Đặt khoảng thời gian kiểm tra tin nhắn trùng lặp (giây)
     /// </summary>
     /// <param name="notificationData"></param>
     /// <param name="interval"></param>
@@ -182,7 +182,7 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 获取重复消息检查的时间间隔(秒), 默认 1800
+    /// Lấy khoảng thời gian kiểm tra tin nhắn trùng lặp (giây), mặc định 1800
     /// </summary>
     /// <param name="notificationData"></param>
     public static int GetDuplicateCheckInterval(
@@ -194,16 +194,16 @@ public static partial class NotificationDataWeChatWorkExtensions
     }
 
     /// <summary>
-    /// 尝试获取消息载荷
+    /// Thử lấy tải trọng tin nhắn
     /// </summary>
     /// <remarks>
-    /// 消息载荷以 JSON 字符串写入属性包(见各 <c>With*Message</c> 方法),
-    /// 因此这里按 JSON 反序列化还原。<c>TMessage</c> 若为具体类型可直接还原;
-    /// 抽象类型(如 <c>TemplateCard</c>)需要 JSON 转换器参与类型判别。
+    /// Tải trọng tin nhắn được ghi vào gói thuộc tính dưới dạng chuỗi JSON (xem các phương thức <c>With*Message</c>),
+    /// vì vậy ở đây khôi phục bằng cách giải tuần tự hóa JSON. Nếu <c>TMessage</c> là kiểu cụ thể thì có thể khôi phục trực tiếp;
+    /// kiểu trừu tượng (như <c>TemplateCard</c>) cần bộ chuyển đổi JSON tham gia phân biệt kiểu.
     /// </remarks>
     /// <param name="notificationData"></param>
-    /// <param name="messageKey">消息键</param>
-    /// <param name="message">消息载荷</param>
+    /// <param name="messageKey">Khóa tin nhắn</param>
+    /// <param name="message">Tải trọng tin nhắn</param>
     /// <returns></returns>
     public static bool TryGetMessagePayload<TMessage>(
         this NotificationData notificationData,
@@ -219,7 +219,7 @@ public static partial class NotificationDataWeChatWorkExtensions
             return false;
         }
 
-        // 属性包中的值可能是 JSON 字符串, 也可能已被反序列化为 JSON 节点
+        // Giá trị trong gói thuộc tính có thể là chuỗi JSON, cũng có thể đã được giải tuần tự hóa thành nút JSON
         var json = payload as string ?? payload.ToString();
 
         if (string.IsNullOrWhiteSpace(json))
@@ -233,7 +233,7 @@ public static partial class NotificationDataWeChatWorkExtensions
         }
         catch (JsonException)
         {
-            // 载荷非法时返回 false, 由调用方决定是否回退
+            // Khi tải trọng không hợp lệ thì trả về false, bên gọi quyết định có quay lại hay không
             return false;
         }
 

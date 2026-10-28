@@ -1,15 +1,15 @@
 # LINGYUN.Abp.Identity.Application
 
-身份认证应用服务模块，提供身份认证相关的应用服务实现。
+Mô-đun dịch vụ ứng dụng xác thực danh tính, cung cấp các triển khai dịch vụ ứng dụng liên quan đến xác thực danh tính.
 
-## 功能特性
+## Tính năng
 
-* 扩展Volo.Abp.Identity.AbpIdentityApplicationModule模块
-* 提供身份认证相关的应用服务实现
-* 集成AutoMapper对象映射
-* 支持用户头像URL扩展属性
+* Mở rộng mô-đun Volo.Abp.Identity.AbpIdentityApplicationModule
+* Cung cấp các triển khai dịch vụ ứng dụng liên quan đến xác thực danh tính
+* Tích hợp ánh xạ đối tượng AutoMapper
+* Hỗ trợ thuộc tính mở rộng URL ảnh đại diện người dùng
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -22,27 +22,27 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务
+## Dịch vụ ứng dụng
 
-* IdentityUserAppService - 用户管理服务
-* IdentityRoleAppService - 角色管理服务
-* IdentityClaimTypeAppService - 声明类型管理服务
-* IdentitySecurityLogAppService - 安全日志服务
-* IdentitySettingsAppService - 身份认证设置服务
-* ProfileAppService - 用户配置文件服务
+* IdentityUserAppService - Dịch vụ quản lý người dùng
+* IdentityRoleAppService - Dịch vụ quản lý vai trò
+* IdentityClaimTypeAppService - Dịch vụ quản lý loại claim
+* IdentitySecurityLogAppService - Dịch vụ nhật ký bảo mật
+* IdentitySettingsAppService - Dịch vụ cài đặt xác thực danh tính
+* ProfileAppService - Dịch vụ hồ sơ người dùng
 
-## 对象映射
+## Ánh xạ đối tượng
 
-模块使用AutoMapper进行对象映射，主要映射包括：
+Mô-đun sử dụng AutoMapper để ánh xạ đối tượng, các ánh xạ chính bao gồm:
 
 * IdentityUser -> IdentityUserDto
 * IdentityRole -> IdentityRoleDto
 * IdentityClaimType -> IdentityClaimTypeDto
 * IdentitySecurityLog -> IdentitySecurityLogDto
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 使用用户管理服务
+1. Sử dụng dịch vụ quản lý người dùng
 ```csharp
 public class YourService
 {
@@ -60,7 +60,7 @@ public class YourService
 }
 ```
 
-2. 使用角色管理服务
+2. Sử dụng dịch vụ quản lý vai trò
 ```csharp
 public class YourService
 {
@@ -78,6 +78,6 @@ public class YourService
 }
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP身份认证文档](https://docs.abp.io/en/abp/latest/Identity)
+* [Tài liệu xác thực ABP](https://docs.abp.io/en/abp/latest/Identity)

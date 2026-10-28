@@ -186,4 +186,4 @@ public class CustomErrorHandler : IAbpWrapperErrorHandler
 * Recommended to use response wrapping consistently in microservices architecture
 * Wrapper format can be customized by implementing `IAbpWrapperResponseBuilder`
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

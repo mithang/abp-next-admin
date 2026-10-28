@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.WeChat` is a WeChat authentication extension module based on OpenIddict, supporting authentication flows for WeChat Official Platform and WeChat Mini Program.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

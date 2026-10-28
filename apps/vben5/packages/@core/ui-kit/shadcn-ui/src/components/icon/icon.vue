@@ -12,7 +12,7 @@ import {
 } from '@vben-core/shared/utils';
 
 const props = defineProps<{
-  // 没有是否显示默认图标
+  // Không có tùy chọn có hiển thị biểu tượng mặc định hay không
   fallback?: boolean;
   icon?: Component | Function | string;
 }>();

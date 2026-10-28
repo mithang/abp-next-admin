@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.MsgAudits.Models;
 /// <summary>
-/// 群聊成员
+/// Thành viên nhóm trò chuyện
 /// </summary>
 public class RoomMember
 {
     /// <summary>
-    /// roomid群成员的id，userid
+    /// Id của thành viên nhóm roomid, userid
     /// </summary>
     [NotNull]
     [JsonProperty("memberid")]
     [JsonPropertyName("memberid")]
     public string MemberId { get; set; } = default!;
     /// <summary>
-    /// roomid群成员的入群时间
+    /// Thời gian tham gia nhóm của thành viên nhóm roomid
     /// </summary>
     [NotNull]
     [JsonProperty("jointime")]

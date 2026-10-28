@@ -5,7 +5,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace LINGYUN.Platform.Feedbacks;
 /// <summary>
-/// 评论
+/// Bình luận
 /// </summary>
 public class FeedbackComment : AuditedEntity<Guid>, IMultiTenant
 {

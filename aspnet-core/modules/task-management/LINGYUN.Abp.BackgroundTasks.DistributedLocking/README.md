@@ -1,12 +1,12 @@
 # LINGYUN.Abp.BackgroundTasks.DistributedLocking
 
-后台任务（队列）模块分布式锁模块  
+Mô-đun khóa phân tán của mô-đun tác vụ nền (hàng đợi)  
 
 See: [Distributed-Locking](https://docs.abp.io/en/abp/latest/Distributed-Locking)
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块按需引用
+Mô-đun được tham chiếu theo nhu cầu
 
 ```csharp
 [DependsOn(typeof(AbpBackgroundTasksDistributedLockingModule))]

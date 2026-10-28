@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SSE } from './sse';
 
-// 模拟 TextDecoder
+// Mô phỏng TextDecoder
 const OriginalTextDecoder = globalThis.TextDecoder;
 
 beforeEach(() => {
@@ -19,7 +19,7 @@ beforeEach(() => {
   );
 });
 
-// 创建 fetch mock
+// Tạo fetch mock
 const createFetchMock = (chunks: string[], ok = true) => {
   const encoder = new TextEncoder();
   let index = 0;
@@ -89,7 +89,7 @@ describe('sSE', () => {
 
     expect(onMessage).toHaveBeenCalledTimes(2);
     expect(messages.join('')).toBe('hello world');
-    // onEnd 不再带参数
+    // onEnd không còn mang tham số
     expect(onEnd).toHaveBeenCalled();
   });
 
@@ -102,7 +102,7 @@ describe('sSE', () => {
       fulfilled: interceptor,
     });
 
-    // 创建 fetch mock，并挂到全局
+    // Tạo fetch mock và gắn vào đối tượng toàn cục
     const fetchMock = createFetchMock(['data']);
     vi.stubGlobal('fetch', fetchMock);
 

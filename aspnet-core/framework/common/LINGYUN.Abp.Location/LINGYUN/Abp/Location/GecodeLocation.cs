@@ -3,26 +3,26 @@
 namespace LINGYUN.Abp.Location;
 
 /// <summary>
-/// 正地址
+/// Địa chỉ chuẩn
 /// </summary>
 public class GecodeLocation : Location
 {
     /// <summary>
-    /// 绝对精度
+    /// Độ chính xác tuyệt đối
     /// </summary>
     public int Confidence { get; set; }
     /// <summary>
-    /// 理解程度
-    /// 分值范围0-100
-    /// 分值越大，服务对地址理解程度越高
+    /// Mức độ hiểu
+    /// Phạm vi điểm 0-100
+    /// Điểm càng cao, mức độ dịch vụ hiểu địa chỉ càng cao
     /// </summary>
     public int Pomprehension { get; set; }
     /// <summary>
-    /// 能精确理解的地址类型
+    /// Loại địa chỉ có thể hiểu chính xác
     /// </summary>
     public string? Level { get; set; }
     /// <summary>
-    /// 附加信息
+    /// Thông tin bổ sung
     /// </summary>
     public IDictionary<string, object> Additionals { get; }
 

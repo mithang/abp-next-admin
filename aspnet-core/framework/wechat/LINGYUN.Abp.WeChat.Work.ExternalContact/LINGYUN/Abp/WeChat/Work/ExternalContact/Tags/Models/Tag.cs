@@ -6,28 +6,28 @@ namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Tags.Models;
 public abstract class Tag
 {
     /// <summary>
-    /// 标签id
+    /// id nhãn
     /// </summary>
     [NotNull]
     [JsonProperty("id")]
     [JsonPropertyName("id")]
     public string Id { get; set; } = default!;
     /// <summary>
-    /// 标签名称
+    /// Tên nhãn
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 标签创建时间
+    /// Thời gian tạo nhãn
     /// </summary>
     [NotNull]
     [JsonProperty("create_time")]
     [JsonPropertyName("create_time")]
     public long CreateTime { get; set; }
     /// <summary>
-    /// 标签排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
+    /// Giá trị thứ tự sắp xếp của nhãn, giá trị order lớn được xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [NotNull]
     [JsonProperty("order")]

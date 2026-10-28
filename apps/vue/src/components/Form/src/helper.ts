@@ -7,7 +7,7 @@ import { isNumber, isObject } from '/@/utils/is';
 const { t } = useI18n();
 
 /**
- * @description: 生成placeholder
+ * @description: Tạo placeholder
  */
 export function createPlaceholderMessage(component: ComponentType) {
   if (component.includes('Input') || component.includes('Complete')) {
@@ -23,7 +23,7 @@ export function createPlaceholderMessage(component: ComponentType) {
     component.includes('Radio') ||
     component.includes('Switch')
   ) {
-    // return `请选择${label}`;
+    // return `Vui lòng chọn ${label}`;
     return t('common.chooseText');
   }
   return '';
@@ -67,7 +67,7 @@ export function handleInputNumberValue(component?: ComponentType, val?: any) {
 }
 
 /**
- * 时间字段
+ * Trường thời gian
  */
 export const dateItemType = genType();
 

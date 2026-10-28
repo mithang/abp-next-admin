@@ -1,6 +1,6 @@
 /**
- * 通用组件共同的使用的基础组件，原先放在 adapter/form 内部，限制了使用范围，这里提取出来，方便其他地方使用
- * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
+ * Component cơ sở dùng chung cho các component thông dụng, trước đây nằm trong adapter/form nên bị giới hạn phạm vi sử dụng, nay tách ra để các nơi khác tiện dùng
+ * Có thể dùng cho các component như vben-form, vben-modal, vben-drawer,
  */
 
 /* eslint-disable vue/one-component-per-file */
@@ -113,7 +113,7 @@ const withDefaultPlaceholder = <T extends Component>(
         props?.placeholder ||
         attrs?.placeholder ||
         $t(`ui.placeholder.${type}`);
-      // 透传组件暴露的方法
+      // Các phương thức mà component chuyển tiếp (expose)
       const innerRef = ref();
       expose(
         new Proxy(
@@ -135,7 +135,7 @@ const withDefaultPlaceholder = <T extends Component>(
 };
 
 const withPreviewUpload = () => {
-  // 检查是否为图片文件的辅助函数
+  // Hàm hỗ trợ kiểm tra file có phải là file ảnh hay không
   const isImageFile = (file: UploadFile): boolean => {
     const imageExtensions = new Set([
       'bmp',
@@ -162,7 +162,7 @@ const withPreviewUpload = () => {
     }
     return file.type.startsWith('image/');
   };
-  // 创建默认的上传按钮插槽
+  // Tạo slot nút tải lên mặc định
   const createDefaultSlotsWithUpload = (
     listType: string,
     placeholder: string,
@@ -190,13 +190,13 @@ const withPreviewUpload = () => {
       }
     }
   };
-  // 构建预览图片组
+  // Xây dựng nhóm ảnh xem trước
   const previewImage = async (
     file: UploadFile,
     visible: Ref<boolean>,
     fileList: Ref<UploadProps['fileList']>,
   ) => {
-    // 如果当前文件不是图片，直接打开
+    // Nếu file hiện tại không phải là ảnh, mở trực tiếp
     if (!isImageFile(file)) {
       if (file.url) {
         window.open(file.url, '_blank');
@@ -208,7 +208,7 @@ const withPreviewUpload = () => {
       return;
     }
 
-    // 对于图片文件，继续使用预览组
+    // Với file ảnh, tiếp tục dùng nhóm xem trước
     const [ImageComponent, PreviewGroupComponent] = await Promise.all([
       Image,
       PreviewGroup,
@@ -222,12 +222,12 @@ const withPreviewUpload = () => {
         reader.addEventListener('error', (error) => reject(error));
       });
     };
-    // 从fileList中过滤出所有图片文件
+    // Lọc tất cả file ảnh từ fileList
     const imageFiles = (unref(fileList) || []).filter((element) =>
       isImageFile(element),
     );
 
-    // 为所有没有预览地址的图片生成预览
+    // Tạo bản xem trước cho mọi ảnh chưa có địa chỉ xem trước
     for (const imgFile of imageFiles) {
       if (!imgFile.url && !imgFile.preview && imgFile.originFileObj) {
         imgFile.preview = (await getBase64(imgFile.originFileObj)) as string;
@@ -236,7 +236,7 @@ const withPreviewUpload = () => {
     const container: HTMLElement | null = document.createElement('div');
     document.body.append(container);
 
-    // 用于追踪组件是否已卸载
+    // Dùng để theo dõi component đã bị unmount hay chưa
     let isUnmounted = false;
 
     const PreviewWrapper = {
@@ -249,12 +249,12 @@ const withPreviewUpload = () => {
               class: 'hidden',
               preview: {
                 open: visible.value,
-                // 设置初始显示的图片索引
+                // Đặt chỉ số ảnh hiển thị ban đầu
                 current: imageFiles.findIndex((f) => f.uid === file.uid),
                 onOpenChange: (value: boolean) => {
                   visible.value = value;
                   if (!value) {
-                    // 延迟清理，确保动画完成
+                    // Dọn dẹp trễ để đảm bảo animation hoàn tất
                     setTimeout(() => {
                       if (!isUnmounted && container) {
                         isUnmounted = true;
@@ -267,7 +267,7 @@ const withPreviewUpload = () => {
               },
             },
             () =>
-              // 渲染所有图片文件
+              // Render tất cả file ảnh
               imageFiles.map((imgFile) =>
                 h(ImageComponent, {
                   key: imgFile.uid,
@@ -282,13 +282,13 @@ const withPreviewUpload = () => {
     render(h(PreviewWrapper), container);
   };
 
-  // 图片裁剪操作
+  // Thao tác cắt ảnh
   const cropImage = (file: File, aspectRatio: string | undefined) => {
     return new Promise((resolve, reject) => {
       const container: HTMLElement | null = document.createElement('div');
       document.body.append(container);
 
-      // 用于追踪组件是否已卸载
+      // Dùng để theo dõi component đã bị unmount hay chưa
       let isUnmounted = false;
       let objectUrl: null | string = null;
 
@@ -297,7 +297,7 @@ const withPreviewUpload = () => {
 
       const closeModal = () => {
         open.value = false;
-        // 延迟清理，确保动画完成
+        // Dọn dẹp trễ để đảm bảo animation hoàn tất
         setTimeout(() => {
           if (!isUnmounted && container) {
             if (objectUrl) {
@@ -406,7 +406,7 @@ const withPreviewUpload = () => {
           file.status = 'removed';
           return false;
         }
-        // 多选或者非图片不唤起裁剪框
+        // Không mở khung cắt khi chọn nhiều file hoặc file không phải ảnh
         if (
           attrs.crop &&
           !attrs.multiple &&
@@ -414,7 +414,7 @@ const withPreviewUpload = () => {
           isImageFile(file)
         ) {
           file.status = 'removed';
-          // antd Upload组件问题 file参数获取的是UploadFile类型对象无法取到File类型 所以通过originFileList[0]获取
+          // Vấn đề của component Upload trong antd: tham số file lấy được là đối tượng kiểu UploadFile, không lấy được kiểu File, nên lấy qua originFileList[0]
           const blob = await cropImage(originFileList[0], aspectRatio.value);
           return new Promise((resolve, reject) => {
             if (!blob) {
@@ -429,9 +429,9 @@ const withPreviewUpload = () => {
 
       const handleChange = (event: UploadChangeParam) => {
         try {
-          // 行内写法 handleChange: (event) => {}
+          // Cách viết inline handleChange: (event) => {}
           attrs.handleChange?.(event);
-          // template写法 @handle-change="(event) => {}"
+          // Cách viết template @handle-change="(event) => {}"
           attrs.onHandleChange?.(event);
         } catch (error) {
           // Avoid breaking internal v-model sync on user handler errors
@@ -454,18 +454,18 @@ const withPreviewUpload = () => {
       const renderUploadButton = (): any => {
         const isDisabled = attrs.disabled;
 
-        // 如果禁用，不渲染上传按钮
+        // Nếu bị vô hiệu hóa, không render nút tải lên
         if (isDisabled) {
           return null;
         }
 
-        // 否则渲染默认上传按钮
+        // Ngược lại, render nút tải lên mặc định
         return isEmpty(slots)
           ? createDefaultSlotsWithUpload(listType, placeholder)
           : slots;
       };
 
-      // 可以监听到表单API设置的值
+      // Có thể lắng nghe giá trị mà API form đặt
       watch(
         () => attrs.modelValue,
         (res) => {
@@ -490,7 +490,7 @@ const withPreviewUpload = () => {
   });
 };
 
-// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
+// Ở đây cần tự điều chỉnh theo thư viện component nghiệp vụ, mọi component cần dùng đều phải khai báo kiểu tại đây
 export type ComponentType =
   | 'ApiCascader'
   | 'ApiSelect'
@@ -523,7 +523,7 @@ export type ComponentType =
 
 async function initComponentAdapter() {
   const components: Partial<Record<ComponentType, Component>> = {
-    // 如果你的组件体积比较大，可以使用异步加载
+    // Nếu component của bạn có kích thước lớn, có thể dùng tải không đồng bộ
     // Button: () =>
     // import('xxx').then((res) => res.Button),
 
@@ -553,7 +553,7 @@ async function initComponentAdapter() {
     Checkbox,
     CheckboxGroup,
     DatePicker,
-    // 自定义默认按钮
+    // Nút mặc định tùy chỉnh
     DefaultButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'default' }, slots);
     },
@@ -567,7 +567,7 @@ async function initComponentAdapter() {
     InputNumber: withDefaultPlaceholder(InputNumber, 'input'),
     InputPassword: withDefaultPlaceholder(InputPassword, 'input'),
     Mentions: withDefaultPlaceholder(Mentions, 'input'),
-    // 自定义主要按钮
+    // Nút chính tùy chỉnh
     PrimaryButton: (props, { attrs, slots }) => {
       return h(Button, { ...props, attrs, type: 'primary' }, slots);
     },
@@ -584,12 +584,12 @@ async function initComponentAdapter() {
     Upload: withPreviewUpload(),
   };
 
-  // 将组件注册到全局共享状态中
+  // Đăng ký component vào trạng thái dùng chung toàn cục
   globalShareState.setComponents(components);
 
-  // 定义全局共享状态中的消息提示
+  // Định nghĩa thông báo trong trạng thái dùng chung toàn cục
   globalShareState.defineMessage({
-    // 复制成功消息提示
+    // Thông báo khi sao chép thành công
     copyPreferencesSuccess: (title, content) => {
       notification.success({
         description: content,

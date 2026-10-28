@@ -1,0 +1,6 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Idempotent:010001": "Không thể gửi nhiều yêu cầu lặp lại trong thời gian giới hạn, vui lòng thử lại sau!"
+  }
+}

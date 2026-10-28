@@ -115,7 +115,7 @@ public class MySqlQuartzSqlInstaller : IQuartzSqlInstaller
 
     public async virtual Task<string> CreateDataBaseIfNotExists(string dataBase, MySqlConnectionStringBuilder connectionStringBuilder)
     {
-        // 切换主数据库查询数据库是否存在
+        // Chuyển sang cơ sở dữ liệu chính để truy vấn xem cơ sở dữ liệu có tồn tại hay không
         connectionStringBuilder.Database = "mysql";
         using var mySqlConnection = new MySqlConnection(connectionStringBuilder.ConnectionString);
         if (mySqlConnection.State == ConnectionState.Closed)

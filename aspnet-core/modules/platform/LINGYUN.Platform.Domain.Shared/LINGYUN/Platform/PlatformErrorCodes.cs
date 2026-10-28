@@ -6,67 +6,67 @@ public static class PlatformErrorCodes
 
     public const string VersionFileNotFound = Namespace + ":01404";
     /// <summary>
-    /// 包版本不能降级
+    /// Phiên bản gói không thể hạ cấp
     /// </summary>
     public const string PackageVersionDegraded = Namespace + ":01403";
     /// <summary>
-    /// 同级菜单已经存在
+    /// Menu cùng cấp đã tồn tại
     /// </summary>
     public const string DuplicateMenu = Namespace + ":02001";
     /// <summary>
-    /// 不能删除拥有子菜单的节点
+    /// Không thể xóa nút có menu con
     /// </summary>
     public const string DeleteMenuHaveChildren = Namespace + ":02002";
     /// <summary>
-    /// 菜单层级已达到最大值
+    /// Cấp menu đã đạt giá trị tối đa
     /// </summary>
     public const string MenuAchieveMaxDepth = Namespace + ":02003";
     /// <summary>
-    /// 当前菜单不能与上级菜单相同
+    /// Menu hiện tại không thể trùng với menu cấp trên
     /// </summary>
     public const string CannotSetSelfParentMenu = Namespace + ":02004";
     /// <summary>
-    /// 菜单元数据缺少必要的元素
+    /// Siêu dữ liệu menu thiếu các phần tử bắt buộc
     /// </summary>
     public const string MenuMissingMetadata = Namespace + ":02101";
     /// <summary>
-    /// 元数据格式不匹配
+    /// Định dạng siêu dữ liệu không khớp
     /// </summary>
     public const string MetaFormatMissMatch = Namespace + ":03001";
     /// <summary>
-    /// 用户重复收藏菜单
+    /// Người dùng đã lưu menu trùng lặp
     /// </summary>
     public const string UserDuplicateFavoriteMenu = Namespace + ":04400";
     /// <summary>
-    /// 用户收藏菜单未找到
+    /// Không tìm thấy menu người dùng đã lưu
     /// </summary>
     public const string UserFavoriteMenuNotFound = Namespace + ":04404";
     /// <summary>
-    /// 无法对处于{Status}状态的问题进行评论
+    /// Không thể bình luận về vấn đề đang ở trạng thái {Status}
     /// </summary>
     public const string UnableFeedbackCommentInStatus = Namespace + ":05101";
     /// <summary>
-    /// 不能添加重复的附件 {Name}!
+    /// Không thể thêm tệp đính kèm trùng lặp {Name}!
     /// </summary>
     public const string DuplicateFeedbackAttachment = Namespace + ":05102";
     /// <summary>
-    /// 用户反馈未找到名为 {Name} 的附件!
+    /// Phản hồi của người dùng không tìm thấy tệp đính kèm tên {Name}!
     /// </summary>
     public const string FeedackAttachmentNotFound = Namespace + ":05103";
     /// <summary>
-    /// 附件 {Name} 已失效, 请重新上传!
+    /// Tệp đính kèm {Name} đã hết hiệu lực, vui lòng tải lên lại!
     /// </summary>
     public const string FeedackAttachmentLoseEffectiveness = Namespace + ":05104";
     /// <summary>
-    /// 不能添加重复的标头 {Key}!
+    /// Không thể thêm tiêu đề trùng lặp {Key}!
     /// </summary>
     public const string DuplicateEmailMessageHeader = Namespace + ":06101";
     /// <summary>
-    /// 不能添加重复的附件 {Name}!
+    /// Không thể thêm tệp đính kèm trùng lặp {Name}!
     /// </summary>
     public const string DuplicateEmailMessageAttachment = Namespace + ":06102";
     /// <summary>
-    /// 已经存在名为 {Name} 的企业信息!
+    /// Đã tồn tại thông tin doanh nghiệp tên {Name}!
     /// </summary>
     public const string DuplicateEnterpriseName = Namespace + ":07101";
 }

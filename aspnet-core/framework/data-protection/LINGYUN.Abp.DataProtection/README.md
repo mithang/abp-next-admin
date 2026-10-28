@@ -1,42 +1,42 @@
 # LINGYUN.Abp.DataProtection
 
-数据权限实现模块，提供数据权限的核心实现。
+Mô-đun triển khai quyền dữ liệu, cung cấp phần triển khai cốt lõi của quyền dữ liệu.
 
-## 功能
+## Tính năng
 
-* 数据权限拦截器 - 自动拦截标记了数据权限特性的方法
-* 数据权限验证服务 - 提供数据权限验证功能
-* 数据权限资源存储 - 提供数据权限资源的内存存储实现
+* Bộ chặn quyền dữ liệu - tự động chặn các phương thức được đánh dấu bằng đặc tính quyền dữ liệu
+* Dịch vụ xác thực quyền dữ liệu - cung cấp chức năng xác thực quyền dữ liệu
+* Bộ lưu trữ tài nguyên quyền dữ liệu - cung cấp triển khai lưu trữ trong bộ nhớ cho tài nguyên quyền dữ liệu
 
-## 配置项
+## Mục cấu hình
 
 ```csharp
 public class AbpDataProtectionOptions
 {
     /// <summary>
-    /// 是否启用数据权限
-    /// 默认: true
+    /// Có bật quyền dữ liệu hay không
+    /// Mặc định: true
     /// </summary>
     public bool IsEnabled { get; set; }
 
     /// <summary>
-    /// 数据权限主体提供者列表
+    /// Danh sách nhà cung cấp chủ thể quyền dữ liệu
     /// </summary>
     public IList<IDataAccessSubjectContributor> SubjectContributors { get; }
 
     /// <summary>
-    /// 数据权限关键字提供者字典
+    /// Từ điển nhà cung cấp từ khóa quyền dữ liệu
     /// </summary>
     public IDictionary<string, IDataAccessKeywordContributor> KeywordContributors { get; }
 
     /// <summary>
-    /// 数据权限操作提供者字典
+    /// Từ điển nhà cung cấp thao tác quyền dữ liệu
     /// </summary>
     public IDictionary<DataAccessFilterOperate, IDataAccessOperateContributor> OperateContributors { get; }
 
     /// <summary>
-    /// 忽略审计属性列表
-    /// 默认包含：Id, LastModifierId, LastModificationTime, CreatorId, CreationTime, 
+    /// Danh sách thuộc tính kiểm toán bị bỏ qua
+    /// Mặc định bao gồm:Id, LastModifierId, LastModificationTime, CreatorId, CreationTime, 
     /// IsDeleted, DeleterId, DeletionTime, TenantId, EntityVersion, 
     /// ConcurrencyStamp, ExtraProperties
     /// </summary>
@@ -44,9 +44,9 @@ public class AbpDataProtectionOptions
 }
 ```
 
-## 使用方式
+## Cách sử dụng
 
-1. 配置模块
+1. Cấu hình mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpDataProtectionModule))]
@@ -56,40 +56,40 @@ public class YourModule : AbpModule
     {
         Configure<AbpDataProtectionOptions>(options =>
         {
-            // 配置数据权限选项
+            // Cấu hình tùy chọn quyền dữ liệu
             options.IsEnabled = true;
             
-            // 添加自定义主体提供者
+            // Thêm nhà cung cấp chủ thể tùy chỉnh
             options.SubjectContributors.Add(new YourSubjectContributor());
             
-            // 添加自定义关键字提供者
+            // Thêm nhà cung cấp từ khóa tùy chỉnh
             options.KeywordContributors.Add("your-keyword", new YourKeywordContributor());
             
-            // 添加自定义操作提供者
+            // Thêm nhà cung cấp thao tác tùy chỉnh
             options.OperateContributors.Add(DataAccessFilterOperate.Equal, new YourOperateContributor());
             
-            // 添加忽略的审计属性
+            // Thêm thuộc tính kiểm toán bị bỏ qua
             options.IgnoreAuditedProperties.Add("YourProperty");
         });
     }
 }
 ```
 
-2. 使用数据权限特性
+2. Sử dụng đặc tính quyền dữ liệu
 
 ```csharp
-// 类级别的数据权限控制
+// Kiểm soát quyền dữ liệu ở cấp lớp
 [DataProtected]
 public class YourService
 {
-    // 方法级别的数据权限控制
+    // Kiểm soát quyền dữ liệu ở cấp phương thức
     [DataProtected]
     public virtual Task<YourEntity> GetAsync(Guid id)
     {
         // ...
     }
 
-    // 禁用数据权限控制
+    // Tắt kiểm soát quyền dữ liệu
     [DisableDataProtected]
     public virtual Task<YourEntity> GetWithoutProtectionAsync(Guid id)
     {
@@ -98,6 +98,6 @@ public class YourService
 }
 ```
 
-## 相关链接
+## Liên kết liên quan
 
 * [English document](./README.EN.md)

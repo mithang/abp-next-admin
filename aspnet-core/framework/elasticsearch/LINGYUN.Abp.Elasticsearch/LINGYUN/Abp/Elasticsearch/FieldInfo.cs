@@ -2,7 +2,7 @@
 
 namespace LINGYUN.Abp.Elasticsearch;
 /// <summary>
-/// 字段信息
+/// Thông tin trường
 /// </summary>
 public record FieldInfo
 {

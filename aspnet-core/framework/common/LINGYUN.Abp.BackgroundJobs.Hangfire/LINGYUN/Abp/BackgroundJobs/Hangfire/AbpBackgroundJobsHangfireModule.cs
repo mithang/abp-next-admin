@@ -33,7 +33,7 @@ public class AbpBackgroundJobsHangfireModule : AbpModule
                     //{
                     //    return job.Type.FullName;
                     //}
-                    //// TODO: 把特性作为任务名称?
+                    //// TODO: Dùng đặc tính làm tên tác vụ?
                     //return BackgroundJobNameAttribute.GetName(job.Type.GenericTypeArguments[0]);
                 }
                 var context = dashboardContext.GetHttpContext();

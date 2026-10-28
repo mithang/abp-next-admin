@@ -2,76 +2,76 @@
 public class SmsVerifyCodeMessage
 {
     /// <summary>
-    /// 方案名称，如果不填则为“默认方案”。最多不超过 20 个字符。
+    /// Tên phương án, nếu không điền thì là “phương án mặc định”. Tối đa không quá 20 ký tự.
     /// </summary>
     public string? SchemeName { get; set; }
     /// <summary>
-    /// 号码国家编码。默认为 86，目前也仅支持中国国内号码发送。
+    /// Mã quốc gia của số điện thoại. Mặc định là 86, hiện tại cũng chỉ hỗ trợ gửi tới số điện thoại trong nước Trung Quốc.
     /// </summary>
     public string? CountryCode { get; set; }
     /// <summary>
-    /// 上行短信扩展码。上行短信指发送给通信服务提供商的短信，用于定制某种服务、完成查询，或是办理某种业务等，需要收费，按运营商普通短信资费进行扣费。
+    /// Mã mở rộng SMS chiều lên. SMS chiều lên là SMS gửi tới nhà cung cấp dịch vụ viễn thông, dùng để tùy chỉnh một loại dịch vụ, hoàn thành tra cứu hoặc xử lý một loại nghiệp vụ, có tính phí, trừ phí theo cước SMS thông thường của nhà mạng.
     /// </summary>
     public string? SmsUpExtendCode { get; set; }
     /// <summary>
-    /// 外部流水号。
+    /// Mã giao dịch bên ngoài.
     /// </summary>
     public string? OutId { get; set; }
     /// <summary>
-    /// 验证码长度支持 4～8 位长度，默认是 4 位。
+    /// Độ dài mã xác minh hỗ trợ từ 4 đến 8 ký tự, mặc định là 4 ký tự.
     /// </summary>
     public long? CodeLength { get; set; }
     /// <summary>
-    /// 验证码有效时长，单位秒，默认为 300 秒。
+    /// Thời hạn hiệu lực của mã xác minh, đơn vị giây, mặc định là 300 giây.
     /// </summary>
     public long? ValidTime { get; set; }
     /// <summary>
-    /// 核验规则，当有效时间内对同场景内的同号码重复发送验证码时，旧验证码如何处理。
+    /// Quy tắc kiểm tra, khi gửi lặp mã xác minh tới cùng một số điện thoại trong cùng một ngữ cảnh trong thời gian hiệu lực thì mã xác minh cũ được xử lý như thế nào.
     /// </summary>
     /// <remarks>
-    /// 1 - 覆盖处理（默认），即旧验证码会失效掉。<br />
-    /// 2 - 保留，即多个验证码都是在有效期内都可以校验通过。
+    /// 1 - Xử lý ghi đè (mặc định), tức mã xác minh cũ sẽ hết hiệu lực.<br />
+    /// 2 - Giữ lại, tức nhiều mã xác minh đều có thể được xác thực thành công trong thời gian hiệu lực.
     /// </remarks>
     public long? DuplicatePolicy { get; set; }
     /// <summary>
-    /// 时间间隔，单位：秒。即多久间隔可以发送一次验证码，用于频控，默认 60 秒。
+    /// Khoảng thời gian, đơn vị: giây. Tức sau bao lâu thì có thể gửi một lần mã xác minh, dùng để kiểm soát tần suất, mặc định 60 giây.
     /// </summary>
     public long? Interval { get; set; }
     /// <summary>
-    /// 生成的验证码类型。当参数 TemplateParam 传入占位符时，此参数必填，将由系统根据指定的规则生成验证码。
+    /// Loại mã xác minh được tạo. Khi tham số TemplateParam truyền vào placeholder thì tham số này là bắt buộc, hệ thống sẽ tạo mã xác minh theo quy tắc đã chỉ định.
     /// </summary>
     /// <remarks>
-    /// 1 - 纯数字（默认）。
-    /// 2 - 纯大写字母。
-    /// 3 - 纯小写字母。
-    /// 4 - 大小字母混合。
-    /// 5 - 数字+大写字母混合。
-    /// 6 - 数字+小写字母混合。
-    /// 7 - 数字+大小写字母混合。
+    /// 1 - Chỉ chữ số (mặc định).
+    /// 2 - Chỉ chữ hoa.
+    /// 3 - Chỉ chữ thường.
+    /// 4 - Chữ hoa và chữ thường trộn lẫn.
+    /// 5 - Chữ số + chữ hoa trộn lẫn.
+    /// 6 - Chữ số + chữ thường trộn lẫn.
+    /// 7 - Chữ số + chữ hoa và chữ thường trộn lẫn.
     /// </remarks>
     public long? CodeType { get; set; }
     /// <summary>
-    /// 是否返回验证码。
+    /// Có trả về mã xác minh hay không.
     /// </summary>
     public bool? ReturnVerifyCode { get; set; }
     /// <summary>
-    /// 是否自动替换签名重试（默认开启。
+    /// Có tự động thay thế chữ ký để thử lại hay không (mặc định bật.
     /// </summary>
     public bool? AutoRetry { get; set; }
     /// <summary>
-    /// 短信接收方手机号。
+    /// Số điện thoại di động của bên nhận SMS.
     /// </summary>
     public string PhoneNumber { get; }
     /// <summary>
-    /// 签名名称。暂不支持使用自定义签名，请使用系统赠送的签名。
+    /// Tên chữ ký. Tạm thời chưa hỗ trợ dùng chữ ký tùy chỉnh, vui lòng dùng chữ ký do hệ thống tặng.
     /// </summary>
     public string? SignName { get; }
     /// <summary>
-    /// 短信模板 CODE。参数SignName选择赠送签名时，必须搭配赠送模板下发短信。您可在赠送模板配置页面选择适用您业务场景的模板。
+    /// CODE mẫu SMS. Khi tham số SignName chọn chữ ký được tặng thì bắt buộc phải dùng kèm mẫu được tặng để gửi SMS. Bạn có thể chọn mẫu phù hợp với ngữ cảnh nghiệp vụ của mình tại trang cấu hình mẫu được tặng.
     /// </summary>
     public string? TemplateCode { get; }
     /// <summary>
-    /// 短信模板参数。
+    /// Tham số mẫu SMS.
     /// </summary>
     public SmsVerifyCodeMessageParam TemplateParam { get; }
     public SmsVerifyCodeMessage(

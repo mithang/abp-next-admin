@@ -1,15 +1,15 @@
 ﻿namespace LINGYUN.Abp.Saas.Tenants;
 /// <summary>
-/// 资源回收策略
+/// Chiến lược thu hồi tài nguyên
 /// </summary>
 public enum RecycleStrategy
 {
     /// <summary>
-    /// 保留
+    /// Giữ lại
     /// </summary>
     Reserve,
     /// <summary>
-    /// 回收
+    /// Thu hồi
     /// </summary>
     Recycle,
 }

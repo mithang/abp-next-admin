@@ -125,7 +125,7 @@ public class MenuAppService : PlatformApplicationServiceBase, IMenuAppService
             CurrentTenant.Id,
             input.IsPublic);
 
-        // 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
+        // Sử dụng từ điển dữ liệu đã thỏa thuận theo bố cục để kiểm tra siêu dữ liệu tuyến đường bắt buộc; việc bổ sung siêu dữ liệu là để thích ứng với tuyến đường đa nền tảng
         foreach (var dataItem in data.Items)
         {
             if (!input.Meta.TryGetValue(dataItem.Name, out var meta))
@@ -136,12 +136,12 @@ public class MenuAppService : PlatformApplicationServiceBase, IMenuAppService
                         .WithData("Name", dataItem.DisplayName)
                         .WithData("DataName", data.DisplayName);
                 }
-                // 是否需要设定默认值
+                // Có cần đặt giá trị mặc định hay không
                 menu.SetProperty(dataItem.Name, dataItem.DefaultValue);
             }
             else
             {
-                // 需要检查参数是否有效
+                // Cần kiểm tra tham số có hợp lệ hay không
                 menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
             }
         }
@@ -156,7 +156,7 @@ public class MenuAppService : PlatformApplicationServiceBase, IMenuAppService
     {
         var menu = await MenuRepository.GetAsync(id);
 
-        // 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
+        // Sử dụng từ điển dữ liệu đã thỏa thuận theo bố cục để kiểm tra siêu dữ liệu tuyến đường bắt buộc; việc bổ sung siêu dữ liệu là để thích ứng với tuyến đường đa nền tảng
         var layout = await LayoutRepository.GetAsync(menu.LayoutId);
         var data = await DataRepository.GetAsync(layout.DataId);
         foreach (var dataItem in data.Items)
@@ -169,18 +169,18 @@ public class MenuAppService : PlatformApplicationServiceBase, IMenuAppService
                         .WithData("Name", dataItem.DisplayName)
                         .WithData("DataName", data.DisplayName);
                 }
-                // 是否需要设定默认值?
+                // Có cần đặt giá trị mặc định hay không?
                 menu.SetProperty(dataItem.Name, dataItem.DefaultValue);
             }
             else
             {
-                // 与现有的数据做对比
+                // So sánh với dữ liệu hiện có
                 var menuMeta = menu.GetProperty(dataItem.Name);
                 if (menuMeta != null && menuMeta.Equals(meta))
                 {
                     continue;
                 }
-                // 需要检查参数是否有效
+                // Cần kiểm tra tham số có hợp lệ hay không
                 menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
             }
         }

@@ -123,7 +123,7 @@ public static class JobDispatcherSelectorListExtensions
     public static JobTypeSelector GetJobTypeSelector([NotNull] this IJobDispatcherSelectorList selectors, Type jobType)
     {
         Check.NotNull(selectors, nameof(selectors));
-        // 取最后一次注册作业配置
+        // Lấy cấu hình công việc được đăng ký gần nhất
         return selectors.Last(x => x.Predicate(jobType));
     }
 }

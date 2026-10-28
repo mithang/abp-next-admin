@@ -110,8 +110,8 @@
       }
 
       async function setModalHeight() {
-        // 解决在弹窗关闭的时候监听还存在,导致再次打开弹窗没有高度
-        // 加上这个,就必须在使用的时候传递父级的visible
+        // Khắc phục việc listener vẫn còn khi popup đóng, khiến lần mở popup tiếp theo không có chiều cao
+        // Thêm cái này thì khi sử dụng bắt buộc phải truyền visible của cấp cha
         if (!props.visible) return;
         const wrapperRefDom = unref(wrapperRef);
         if (!wrapperRefDom) return;
@@ -134,7 +134,7 @@
             props.modalFooterHeight -
             props.modalHeaderHeight;
 
-          // 距离顶部过进会出现滚动条
+          // Quá gần đỉnh sẽ xuất hiện thanh cuộn
           if (modalTop < 40) {
             maxHeight -= 26;
           }

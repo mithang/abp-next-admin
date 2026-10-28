@@ -103,7 +103,7 @@ public abstract class DaprClientProxyBase<TService> : ClientProxyBase<TService>
                 )
             );
 
-            // 其他库可能将授权标头写入到HttpClient中
+            // Các thư viện khác có thể ghi header ủy quyền vào HttpClient
             if (requestMessage.Headers.Authorization == null &&
                 httpClient.DefaultRequestHeaders.Authorization != null)
             {
@@ -111,7 +111,7 @@ public abstract class DaprClientProxyBase<TService> : ClientProxyBase<TService>
             }
         }
 
-        // 增加一个可配置的请求消息
+        // Thêm một thông điệp yêu cầu có thể cấu hình
         foreach (var clientRequestAction in DaprClientProxyOptions.Value.ProxyRequestActions)
         {
             clientRequestAction(appId, requestMessage);

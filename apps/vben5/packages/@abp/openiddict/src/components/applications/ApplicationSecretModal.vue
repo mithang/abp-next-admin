@@ -23,7 +23,7 @@ const applicationModel = ref<OpenIddictApplicationDto>();
 const { cancel, getApi, updateApi } = useApplicationsApi();
 const [Form, formApi] = useVbenForm({
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục biểu mẫu
     componentProps: {
       class: 'w-full',
     },

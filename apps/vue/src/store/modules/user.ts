@@ -29,7 +29,7 @@ interface UserState {
   roleList: RoleEnum[];
   sessionTimeout?: boolean;
   lastUpdateTime: number;
-  /** sso标记,用于后台退出 */
+  /** Cờ sso, dùng cho việc đăng xuất ở phía backend */
   sso?: boolean;
 }
 
@@ -178,7 +178,7 @@ export const useUserStore = defineStore({
       const abpStore = useAbpStoreWithOut();
 
       let currentUser = abpStore.getApplication.currentUser;
-      //  避免多次请求接口
+      //  Tránh gọi API nhiều lần
       if (userInfo?.sub !== currentUser.id) {
         await abpStore.initlizeAbpApplication();
         currentUser = abpStore.getApplication.currentUser;
@@ -189,11 +189,11 @@ export const useUserStore = defineStore({
       }
 
       const outgoingUserInfo: { [key: string]: any } = {
-        // 从 currentuser 接口获取
+        // Lấy từ API currentuser
         userId: currentUser.id,
         username: currentUser.userName,
         roles: currentUser.roles,
-        // 从 userinfo 端点获取
+        // Lấy từ endpoint userinfo
         realName: userInfo?.nickname,
         phoneNumber: userInfo?.phone_number,
         phoneNumberConfirmed: userInfo?.phone_number_verified === 'True',

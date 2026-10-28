@@ -9,7 +9,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/colinin/abp-next-admin</RepositoryUrl>
-		<!-- 启用XML文档生成 -->
+		<!-- Bật tạo tài liệu XML -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 		<GeneratePackageOnBuild Condition="$(AssemblyName.StartsWith('LINGYUN'))">true</GeneratePackageOnBuild>

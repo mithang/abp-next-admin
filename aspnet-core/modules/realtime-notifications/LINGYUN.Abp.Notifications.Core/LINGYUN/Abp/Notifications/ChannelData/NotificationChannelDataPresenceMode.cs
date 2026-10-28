@@ -1,32 +1,32 @@
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据(载荷)存在性判定模式
+/// Chế độ xác định sự tồn tại của dữ liệu kênh (payload)
 /// </summary>
 public enum NotificationChannelDataPresenceMode
 {
     /// <summary>
-    /// 载荷始终被视为存在
+    /// Payload luôn được coi là tồn tại
     /// </summary>
     /// <remarks>
-    /// 适用于不依赖通知数据的载荷(由渠道在运行时构造)。
+    /// Áp dụng cho payload không phụ thuộc vào dữ liệu thông báo (do kênh tự xây dựng lúc chạy).
     /// </remarks>
     None = 0,
 
     /// <summary>
-    /// 参与匹配的属性全部存在时, 载荷被视为存在(默认)
+    /// Khi tất cả thuộc tính tham gia khớp đều tồn tại, payload được coi là tồn tại (mặc định)
     /// </summary>
     /// <remarks>
-    /// 适用于"某个键就是载荷标识"的场景, 例如企业微信的各消息类型。
+    /// Áp dụng cho trường hợp "một khóa nào đó chính là định danh payload", ví dụ các loại tin nhắn của WeChat doanh nghiệp.
     /// </remarks>
     DeclaredProperties = 1,
 
     /// <summary>
-    /// 参与匹配的属性存在任意一个时, 载荷被视为存在
+    /// Khi bất kỳ thuộc tính nào tham gia khớp tồn tại, payload được coi là tồn tại
     /// </summary>
     /// <remarks>
-    /// 适用于"多个可选键中任意一个即可"的场景,
-    /// 例如 PushPlus 的 webhook 与 callback 二者其一。
+    /// Áp dụng cho trường hợp "chỉ cần bất kỳ một trong nhiều khóa tùy chọn",
+    /// ví dụ webhook và callback của PushPlus, chỉ cần một trong hai.
     /// </remarks>
     AnyDeclaredProperty = 2
 }

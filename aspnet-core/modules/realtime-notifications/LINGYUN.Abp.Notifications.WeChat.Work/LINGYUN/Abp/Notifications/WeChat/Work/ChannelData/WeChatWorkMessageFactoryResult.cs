@@ -3,17 +3,17 @@ using LINGYUN.Abp.WeChat.Work.Messages;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信消息构造结果
+/// Kết quả xây dựng thông báo WeChat doanh nghiệp
 /// </summary>
 public class WeChatWorkMessageFactoryResult
 {
     /// <summary>
-    /// 消息载体
+    /// Vật chứa thông báo
     /// </summary>
     public WeChatWorkMessage Message { get; }
 
     /// <summary>
-    /// 消息载体类型, 用于日志与排障
+    /// Kiểu vật chứa thông báo, dùng cho ghi log và khắc phục sự cố
     /// </summary>
     public WeChatWorkMessageKind Kind { get; }
 

@@ -52,7 +52,7 @@ public class LayoutAppService : PlatformApplicationServiceBase, ILayoutAppServic
 
         //if (await LayoutRepository.AnyMenuAsync(layout.Id))
         //{
-        //    throw new UserFriendlyException($"不能删除存在菜单的布局!");
+        //    throw new UserFriendlyException($"Không thể xóa bố cục đang chứa menu!");
         //}
 
         await LayoutRepository.DeleteAsync(layout);

@@ -1,6 +1,6 @@
 // type Diff<T = any> = T;
 
-// 比较两个数组是否相等
+// So sánh hai mảng có bằng nhau hay không
 
 function arraysEqual<T>(a: T[], b: T[]): boolean {
   if (a.length !== b.length) return false;
@@ -18,7 +18,7 @@ function arraysEqual<T>(a: T[], b: T[]): boolean {
   return true;
 }
 
-// 深度对比两个值
+// So sánh sâu hai giá trị
 // function deepEqual<T>(oldVal: T, newVal: T): boolean {
 //   if (
 //     typeof oldVal === 'object' &&
@@ -34,7 +34,7 @@ function arraysEqual<T>(a: T[], b: T[]): boolean {
 //   }
 // }
 
-// // diff 函数
+// // Hàm diff
 // function diff<T extends object>(
 //   oldObj: T,
 //   newObj: T,

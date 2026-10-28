@@ -1,18 +1,18 @@
 # LINGYUN.Abp.WeChat.Work.Application
 
-企业微信应用服务模块，提供企业微信应用开发的应用层服务实现。
+Mô-đun dịch vụ ứng dụng WeChat Doanh nghiệp, cung cấp triển khai tầng ứng dụng cho việc phát triển ứng dụng WeChat Doanh nghiệp.
 
-## 功能特性
+## Tính năng
 
-* 通讯录管理服务
-* 应用管理服务
-* 消息推送服务
-* 客户联系服务
-* 身份验证服务
-* 企业支付服务
-* 电子发票服务
+* Dịch vụ quản lý danh bạ
+* Dịch vụ quản lý ứng dụng
+* Dịch vụ đẩy tin nhắn
+* Dịch vụ liên hệ khách hàng
+* Dịch vụ xác thực danh tính
+* Dịch vụ thanh toán doanh nghiệp
+* Dịch vụ hóa đơn điện tử
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatWorkApplicationModule))]
@@ -22,36 +22,36 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务
+## Dịch vụ ứng dụng
 
-### 通讯录管理
+### Quản lý danh bạ
 
-* `IWeChatWorkContactService`: 通讯录管理服务
-  * 部门管理
-  * 成员管理
-  * 标签管理
-  * 互联企业管理
+* `IWeChatWorkContactService`: Dịch vụ quản lý danh bạ
+  * Quản lý phòng ban
+  * Quản lý thành viên
+  * Quản lý thẻ
+  * Quản lý doanh nghiệp liên kết
 
-### 应用管理
+### Quản lý ứng dụng
 
-* `IWeChatWorkAgentService`: 应用管理服务
-  * 应用创建
-  * 应用配置
-  * 应用可见范围设置
-  * 应用主页设置
+* `IWeChatWorkAgentService`: Dịch vụ quản lý ứng dụng
+  * Tạo ứng dụng
+  * Cấu hình ứng dụng
+  * Cài đặt phạm vi hiển thị của ứng dụng
+  * Cài đặt trang chủ ứng dụng
 
-### 消息推送
+### Đẩy tin nhắn
 
-* `IWeChatWorkMessageService`: 消息推送服务
-  * 文本消息
-  * 图片消息
-  * 语音消息
-  * 视频消息
-  * 文件消息
-  * 文本卡片消息
-  * 图文消息
-  * 模板卡片消息
+* `IWeChatWorkMessageService`: Dịch vụ đẩy tin nhắn
+  * Tin nhắn văn bản
+  * Tin nhắn hình ảnh
+  * Tin nhắn giọng nói
+  * Tin nhắn video
+  * Tin nhắn tệp
+  * Tin nhắn thẻ văn bản
+  * Tin nhắn đồ họa
+  * Tin nhắn thẻ mẫu
 
-## 更多文档
+## Tài liệu khác
 
-* [企业微信应用服务模块文档](README.EN.md)
+* [Tài liệu mô-đun dịch vụ ứng dụng WeChat Doanh nghiệp](README.EN.md)

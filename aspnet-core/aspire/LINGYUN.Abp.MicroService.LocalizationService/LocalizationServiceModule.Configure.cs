@@ -7,10 +7,14 @@ using Medallion.Threading;
 using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -60,7 +64,7 @@ public partial class LocalizationServiceModule
     {
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别，应在0-31之间
+            // Phân biệt bằng cổng đang mở, phải nằm trong khoảng 0-31
             options.SnowflakeIdOptions.WorkerId = 30;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -107,7 +111,7 @@ public partial class LocalizationServiceModule
 
     private void ConfigureJsonSerializer(IConfiguration configuration)
     {
-        // 统一时间日期格式
+        // Thống nhất định dạng ngày giờ
         Configure<AbpJsonOptions>(options =>
         {
             var jsonConfiguration = configuration.GetSection("Json");
@@ -116,7 +120,7 @@ public partial class LocalizationServiceModule
                 jsonConfiguration.Bind(options);
             }
         });
-        // 中文序列化的编码问题
+        // Vấn đề mã hoá khi tuần tự hoá tiếng Trung
         Configure<AbpSystemTextJsonSerializerOptions>(options =>
         {
             options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
@@ -127,7 +131,7 @@ public partial class LocalizationServiceModule
     {
         Configure<AbpAuditingOptions>(options =>
         {
-            // 是否启用实体变更记录
+            // Có bật ghi lại thay đổi của thực thể hay không
             var allEntitiesSelectorIsEnabled = configuration["Auditing:AllEntitiesSelector"];
             if (allEntitiesSelectorIsEnabled.IsNullOrWhiteSpace() ||
                 (bool.TryParse(allEntitiesSelectorIsEnabled, out var enabled) && enabled))
@@ -178,7 +182,33 @@ public partial class LocalizationServiceModule
         {
             options.ExposeIntegrationServices = true;
         });
-    }
+
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks(configuration["App:HealthChecks"] ?? "/healthz");
+            });
+        });
+
+        // DEVOPS iter-0006 (DEV-11): /healthz truoc day tro trui (AddHealthChecks()
+        // khong check nao) nen luon 200 ke ca khi DB/Redis chet. Dang ky check
+        // dependency that tai day; xem HealthChecks/LocalizationServiceHealthChecks.cs. Quet DbContext tu
+        // IServiceCollection: ABP chay ConfigureServices cua module phu thuoc truoc
+        // module host, nen luc ConfigureMvc chay thi cac DbContext da duoc dang ky.
+        var dbContextTypes = services
+            .Where(s => s.ServiceType.IsClass && !s.ServiceType.IsAbstract
+                && typeof(DbContext).IsAssignableFrom(s.ServiceType))
+            .Select(s => s.ServiceType)
+            .Distinct()
+            .ToList();
+        services.AddSingleton(sp => new HealthChecks.DatabaseHealthCheck(
+            dbContextTypes,
+            sp.GetRequiredService<IServiceScopeFactory>(),
+            sp.GetService<ILogger<HealthChecks.DatabaseHealthCheck>>()));
+        services.AddHealthChecks()
+            .AddCheck<HealthChecks.DatabaseHealthCheck>("database")
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));    }
 
     private void ConfigureVirtualFileSystem()
     {
@@ -190,7 +220,7 @@ public partial class LocalizationServiceModule
 
     private void ConfigureMultiTenancy(IConfiguration configuration)
     {
-        // 多租户
+        // Đa tenant
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = false;
@@ -209,12 +239,27 @@ public partial class LocalizationServiceModule
     private void ConfigureSwagger(IServiceCollection services, IConfiguration configuration)
     {
         // Swagger
+        // DEVOPS iter-0009: same Production-boot guard as ApiGatewayModule
+        // (iter-0008). AuthServer settings only exist in
+        // appsettings.Development.json, so a non-Development boot used to
+        // crash here with ArgumentNullException (Dictionary.Add with a null
+        // audience key), and AddAbpSwaggerGenWithOAuth throws
+        // NullReferenceException when AuthServer:Authority is null. Skip the
+        // scope entry when no audience is configured, and skip the whole
+        // registration when no authority is configured; both guards only
+        // affect states that previously crashed, never a working config.
+        var swaggerScopes = new Dictionary<string, string>();
+        var swaggerAudience = configuration["AuthServer:Audience"];
+        if (!string.IsNullOrWhiteSpace(swaggerAudience))
+        {
+            swaggerScopes.Add(swaggerAudience, "Localization Service API");
+        }
+        var swaggerAuthority = configuration["AuthServer:Authority"];
+        if (!string.IsNullOrWhiteSpace(swaggerAuthority))
+        {
         services.AddAbpSwaggerGenWithOAuth(
-            configuration["AuthServer:Authority"],
-            new Dictionary<string, string>
-            {
-                { configuration["AuthServer:Audience"], "Localization Service API"}
-            },
+            swaggerAuthority,
+            swaggerScopes,
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -248,6 +293,7 @@ public partial class LocalizationServiceModule
                 options.SchemaFilter<EnumDescriptionSchemaFilter>();
                 options.OperationFilter<TenantHeaderParamter>();
             });
+        }
     }
 
     private void PreConfigureLocalization()
@@ -260,11 +306,11 @@ public partial class LocalizationServiceModule
 
     private void ConfigureLocalization()
     {
-        // 默认支持的本地化语言类型
+        // Các loại ngôn ngữ bản địa hoá được hỗ trợ theo mặc định
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "Tiếng Trung giản thể"));
         });
 
         Configure<AbpLocalizationCultureMapOptions>(options =>
@@ -356,7 +402,7 @@ public partial class LocalizationServiceModule
 
     private void PreConfigureWrapper()
     {
-        // 服务间调用不包装
+        // Lời gọi giữa các service không được đóng gói kết quả
         PreConfigure<AbpHttpClientBuilderOptions>(options =>
         {
             options.ProxyClientActions.Add(

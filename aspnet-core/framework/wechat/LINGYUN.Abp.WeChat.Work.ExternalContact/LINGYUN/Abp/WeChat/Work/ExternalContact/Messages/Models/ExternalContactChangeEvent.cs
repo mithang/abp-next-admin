@@ -3,22 +3,22 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 企业客户变更事件推送
+/// Đẩy sự kiện thay đổi khách hàng doanh nghiệp
 /// </summary>
 public abstract class ExternalContactChangeEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 变更类型
+    /// Loại thay đổi
     /// </summary>
     [XmlElement("ChangeType")]
     public string ChangeType { get; set; } = default!;
     /// <summary>
-    /// 企业服务人员的UserID
+    /// UserID của nhân viên phục vụ doanh nghiệp
     /// </summary>
     [XmlElement("UserID")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 外部联系人的userid，注意不是企业成员的账号
+    /// userid của liên hệ bên ngoài, lưu ý không phải tài khoản thành viên doanh nghiệp
     /// </summary>
     [XmlElement("ExternalUserID")]
     public string ExternalUserId { get; set; } = default!;

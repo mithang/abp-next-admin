@@ -1,45 +1,45 @@
 # LINGYUN.Platform.Settings.VueVbenAdmin
 
-VueVbenAdmin前端框架的平台设置模块，提供了主题、布局、菜单等设置功能。
+Mô-đun cài đặt nền tảng của framework frontend VueVbenAdmin, cung cấp các chức năng cài đặt giao diện, bố cục, menu, v.v.
 
-## 功能特性
+## Tính năng
 
-* 主题设置
-  * 暗黑模式
-  * 灰色模式
-  * 色弱模式
-  * 主题颜色
+* Cài đặt giao diện
+  * Chế độ tối
+  * Chế độ xám
+  * Chế độ mù màu
+  * Màu giao diện
 
-* 布局设置
-  * 全屏模式
-  * 内容模式
-  * 页面加载状态
-  * 页脚显示
-  * 返回顶部
+* Cài đặt bố cục
+  * Chế độ toàn màn hình
+  * Chế độ nội dung
+  * Trạng thái tải trang
+  * Hiển thị chân trang
+  * Quay lại đầu trang
 
-* 菜单设置
-  * 菜单模式
-  * 菜单主题
-  * 菜单宽度
-  * 菜单折叠
-  * 菜单分割
-  * 菜单拖拽
+* Cài đặt menu
+  * Chế độ menu
+  * Giao diện menu
+  * Chiều rộng menu
+  * Thu gọn menu
+  * Tách menu
+  * Kéo thả menu
 
-* 标题栏设置
-  * 固定标题栏
-  * 标题栏主题
-  * 全屏按钮
-  * 文档按钮
-  * 通知按钮
-  * 搜索按钮
+* Cài đặt thanh tiêu đề
+  * Ghim thanh tiêu đề
+  * Giao diện thanh tiêu đề
+  * Nút toàn màn hình
+  * Nút tài liệu
+  * Nút thông báo
+  * Nút tìm kiếm
 
-* 多标签页设置
-  * 标签页缓存
-  * 标签页拖拽
-  * 标签页刷新
-  * 标签页折叠
+* Cài đặt nhiều tab
+  * Bộ nhớ đệm tab
+  * Kéo thả tab
+  * Làm mới tab
+  * Thu gọn tab
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(PlatformSettingsVueVbenAdminModule))]
@@ -49,12 +49,12 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 本地化资源
+## Tài nguyên bản địa hóa
 
-* 支持中文简体
-* 支持英文
+* Hỗ trợ tiếng Trung giản thể
+* Hỗ trợ tiếng Anh
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
@@ -82,6 +82,6 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 更多
+## Thêm
 
-更多信息请参考 [Platform](../README.md)
+Để biết thêm thông tin, xem [Platform](../README.md)

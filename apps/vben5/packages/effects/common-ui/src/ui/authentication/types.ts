@@ -1,68 +1,68 @@
 interface AuthenticationProps {
   /**
-   * @zh_CN 验证码登录路径
+   * @zh_CN Đường dẫn đăng nhập bằng mã xác minh
    */
   codeLoginPath?: string;
   /**
-   * @zh_CN 忘记密码路径
+   * @zh_CN Đường dẫn quên mật khẩu
    */
   forgetPasswordPath?: string;
 
   /**
-   * @zh_CN 是否处于加载处理状态
+   * @zh_CN Có đang ở trạng thái xử lý tải không
    */
   loading?: boolean;
 
   /**
-   * @zh_CN 二维码登录路径
+   * @zh_CN Đường dẫn đăng nhập bằng mã QR
    */
   qrCodeLoginPath?: string;
 
   /**
-   * @zh_CN 注册路径
+   * @zh_CN Đường dẫn đăng ký
    */
   registerPath?: string;
 
   /**
-   * @zh_CN 是否显示验证码登录
+   * @zh_CN Có hiển thị đăng nhập bằng mã xác minh không
    */
   showCodeLogin?: boolean;
   /**
-   * @zh_CN 是否显示忘记密码
+   * @zh_CN Có hiển thị quên mật khẩu không
    */
   showForgetPassword?: boolean;
 
   /**
-   * @zh_CN 是否显示二维码登录
+   * @zh_CN Có hiển thị đăng nhập bằng mã QR không
    */
   showQrcodeLogin?: boolean;
 
   /**
-   * @zh_CN 是否显示注册按钮
+   * @zh_CN Có hiển thị nút đăng ký không
    */
   showRegister?: boolean;
 
   /**
-   * @zh_CN 是否显示记住账号
+   * @zh_CN Có hiển thị ghi nhớ tài khoản không
    */
   showRememberMe?: boolean;
 
   /**
-   * @zh_CN 是否显示第三方登录
+   * @zh_CN Có hiển thị đăng nhập bên thứ ba không
    */
   showThirdPartyLogin?: boolean;
 
   /**
-   * @zh_CN 登录框子标题
+   * @zh_CN Tiêu đề phụ của hộp đăng nhập
    */
   subTitle?: string;
 
   /**
-   * @zh_CN 登录框标题
+   * @zh_CN Tiêu đề của hộp đăng nhập
    */
   title?: string;
   /**
-   * @zh_CN 提交按钮文本
+   * @zh_CN Văn bản nút gửi
    */
   submitButtonText?: string;
 }

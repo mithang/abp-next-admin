@@ -10,14 +10,14 @@ import { createRouterGuard } from './guard';
 import { routes } from './routes';
 
 /**
- *  @zh_CN 创建vue-router实例
+ *  @zh_CN Tạo instance vue-router
  */
 const router = createRouter({
   history:
     import.meta.env.VITE_ROUTER_HISTORY === 'hash'
       ? createWebHashHistory(import.meta.env.VITE_BASE)
       : createWebHistory(import.meta.env.VITE_BASE),
-  // 应该添加到路由的初始路由列表。
+  // Danh sách route ban đầu cần thêm vào router.
   routes,
   scrollBehavior: (to, _from, savedPosition) => {
     if (savedPosition) {
@@ -25,13 +25,13 @@ const router = createRouter({
     }
     return to.hash ? { behavior: 'smooth', el: to.hash } : { left: 0, top: 0 };
   },
-  // 是否应该禁止尾部斜杠。
+  // Có nên cấm dấu gạch chéo ở cuối hay không.
   // strict: true,
 });
 
 const resetRoutes = () => resetStaticRoutes(router, routes);
 
-// 创建路由守卫
+// Tạo router guard
 createRouterGuard(router);
 
 export { resetRoutes, router };

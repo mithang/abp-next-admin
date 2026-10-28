@@ -34,7 +34,7 @@
             },
             {
                 "cultureName": "zh-Hans",
-                "displayName": "简体中文"
+                "displayName": "Tiếng Trung giản thể"
             }
         ]
     },
@@ -55,7 +55,7 @@
         "android": {
             "channelId": "abp-flutter",
             "channelName": "abp-flutter",
-            "channelDescription": "适用于Android端的通知通道定义"
+            "channelDescription": "Định nghĩa kênh thông báo dành cho Android"
         },
         "linux": {
             "defaultActionName": "Open notification"

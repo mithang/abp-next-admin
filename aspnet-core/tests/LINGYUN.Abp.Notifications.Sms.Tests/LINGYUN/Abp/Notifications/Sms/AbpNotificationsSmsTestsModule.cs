@@ -11,7 +11,7 @@ namespace LINGYUN.Abp.Notifications.Sms
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
-            // 改变默认参数前缀设置
+            // Thay đổi thiết đặt tiền tố tham số mặc định
             PreConfigure<AbpNotificationsSmsOptions>(options =>
             {
                 options.TemplateParamsPrefix = "[sms-override]";
@@ -20,7 +20,7 @@ namespace LINGYUN.Abp.Notifications.Sms
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            // 自定义数据处理器设置
+            // Thiết đặt bộ xử lý dữ liệu tùy chỉnh
             Configure<AbpNotificationsPublishOptions>(options =>
             {
             });

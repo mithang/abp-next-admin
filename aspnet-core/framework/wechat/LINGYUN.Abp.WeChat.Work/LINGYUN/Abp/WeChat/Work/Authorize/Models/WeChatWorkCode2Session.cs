@@ -7,21 +7,21 @@ namespace LINGYUN.Abp.WeChat.Work.Authorize.Models;
 public class WeChatWorkCode2Session
 {
     /// <summary>
-    /// 用户所属企业的corpid
+    /// Corpid của doanh nghiệp mà người dùng thuộc về
     /// </summary>
     [NotNull]
     [JsonProperty("corpid")]
     [JsonPropertyName("corpid")]
     public string CorpId { get; set; } = default!;
     /// <summary>
-    /// 用户在企业内的UserID，对应管理端的账号，企业内唯一。注意：第三方小程序此处返回加密的userid
+    /// UserID của người dùng trong doanh nghiệp, tương ứng với tài khoản ở phía quản trị, duy nhất trong doanh nghiệp. Lưu ý: mini program của bên thứ ba trả về userid đã mã hóa tại đây
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string UserId { get; set; } = default!;
     /// <summary>
-    /// 会话密钥
+    /// Khóa phiên
     /// </summary>
     [NotNull]
     [JsonProperty("session_key")]

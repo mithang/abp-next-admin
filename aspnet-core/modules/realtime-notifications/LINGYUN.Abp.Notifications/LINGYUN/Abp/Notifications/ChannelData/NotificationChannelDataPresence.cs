@@ -7,7 +7,7 @@ using System.Reflection;
 namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 渠道数据存在性判定
+/// Xác định tính tồn tại của dữ liệu kênh
 /// </summary>
 /// <remarks>
 public static class NotificationChannelDataPresence
@@ -16,7 +16,7 @@ public static class NotificationChannelDataPresence
     private static readonly object SyncLock = new();
 
     /// <summary>
-    /// 获取载荷声明的存在性判定模式
+    /// Lấy chế độ xác định tính tồn tại do tải trọng khai báo
     /// </summary>
     public static NotificationChannelDataPresenceMode GetPresenceMode(Type channelDataType)
     {
@@ -26,7 +26,7 @@ public static class NotificationChannelDataPresence
     }
 
     /// <summary>
-    /// 获取参与匹配的属性键
+    /// Lấy các khóa thuộc tính tham gia khớp
     /// </summary>
     public static IReadOnlyList<string> GetMatchingKeys(Type channelDataType)
     {
@@ -44,10 +44,10 @@ public static class NotificationChannelDataPresence
     }
 
     /// <summary>
-    /// 校验载荷的存在性声明
+    /// Kiểm tra khai báo tính tồn tại của tải trọng
     /// </summary>
     /// <exception cref="AbpNotificationChannelDataConfigurationException">
-    /// 声明了按键判定, 却没有任何可参与匹配的属性
+    /// Đã khai báo xác định theo khóa, nhưng không có thuộc tính nào có thể tham gia khớp
     /// </exception>
     public static void Validate(Type channelDataType)
     {
@@ -66,7 +66,7 @@ public static class NotificationChannelDataPresence
     }
 
     /// <summary>
-    /// 创建存在性判定委托
+    /// Tạo delegate xác định tính tồn tại
     /// </summary>
     public static Func<NotificationData, bool> Create(Type channelDataType)
     {
@@ -93,11 +93,11 @@ public static class NotificationChannelDataPresence
     }
 
     /// <summary>
-    /// 判断通知数据中是否存在该键(大小写不敏感)
+    /// Xác định khóa có tồn tại trong dữ liệu thông báo hay không (không phân biệt chữ hoa/thường)
     /// </summary>
     /// <remarks>
-    /// 精确匹配优先, 未命中时按大小写不敏感匹配,
-    /// 与 <see cref="INotificationChannelDataAccessor.TryGetRawValue"/> 的规则保持一致。
+    /// Ưu tiên khớp chính xác, khi không trúng thì khớp không phân biệt chữ hoa/thường,
+    /// nhất quán với quy tắc của <see cref="INotificationChannelDataAccessor.TryGetRawValue"/>.
     /// </remarks>
     public static bool ContainsKey(NotificationData notificationData, string key)
     {

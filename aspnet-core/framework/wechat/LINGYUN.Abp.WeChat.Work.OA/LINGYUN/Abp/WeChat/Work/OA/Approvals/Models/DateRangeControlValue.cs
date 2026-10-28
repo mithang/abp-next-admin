@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 时长控件值
+/// Giá trị điều khiển khoảng thời gian
 /// </summary>
 public class DateRangeControlValue : ControlValue
 {
     /// <summary>
-    /// 时长
+    /// Khoảng thời gian
     /// </summary>
     [NotNull]
     [JsonProperty("date_range")]
@@ -29,28 +29,28 @@ public class DateRangeControlValue : ControlValue
 public class DateRangeValue
 {
     /// <summary>
-    /// 时长粒度：halfday:按天 hour:按小时
+    /// Độ chi tiết của khoảng thời gian: halfday: theo ngày, hour: theo giờ
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 开始时间,unix时间戳。当type 为halfday时，取值只能为固定两个时间点 上午：当天00:00:00点时间戳 下午：当天12:00:00时间戳
+    /// Thời gian bắt đầu, dấu thời gian Unix. Khi type là halfday, giá trị chỉ có thể là hai thời điểm cố định: buổi sáng: dấu thời gian 00:00:00 trong ngày, buổi chiều: dấu thời gian 12:00:00 trong ngày
     /// </summary>
     [NotNull]
     [JsonProperty("new_begin")]
     [JsonPropertyName("new_begin")]
     public long NewBegin { get; set; } = default!;
     /// <summary>
-    /// 结束时间，unix时间戳。 当type 为halfday时，取值只能为固定两个时间点 上午：当天00:00:00点时间戳 下午：当天12:00:00时间戳
+    /// Thời gian kết thúc, dấu thời gian Unix. Khi type là halfday, giá trị chỉ có thể là hai thời điểm cố định: buổi sáng: dấu thời gian 00:00:00 trong ngày, buổi chiều: dấu thời gian 12:00:00 trong ngày
     /// </summary>
     [NotNull]
     [JsonProperty("new_end")]
     [JsonPropertyName("new_end")]
     public long NewEnd { get; set; }
     /// <summary>
-    /// 时长范围， 单位秒
+    /// Phạm vi khoảng thời gian, đơn vị giây
     /// </summary>
     [NotNull]
     [JsonProperty("new_duration")]

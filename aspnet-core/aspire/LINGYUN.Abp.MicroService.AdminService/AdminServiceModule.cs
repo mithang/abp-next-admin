@@ -57,7 +57,7 @@ namespace LINGYUN.Abp.MicroService.AdminService;
     typeof(AbpIP2RegionModule),
     typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
 
-    // 设置管理
+    // Quản lý cài đặt
     typeof(AbpAliyunSettingManagementModule),
     typeof(AbpTencentCloudSettingManagementModule),
     // typeof(AbpWeChatSettingManagementModule),
@@ -83,11 +83,11 @@ namespace LINGYUN.Abp.MicroService.AdminService;
     typeof(AbpCachingManagementApplicationModule),
     typeof(AbpCachingManagementHttpApiModule),
     typeof(AbpCachingManagementStackExchangeRedisModule),
-    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // 组织机构权限管理
+    typeof(AbpPermissionManagementDomainOrganizationUnitsModule), // Quản lý quyền của đơn vị tổ chức
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpPermissionManagementDomainOpenIddictModule),
 
-    // 重写模板引擎支持外部本地化
+    // Ghi đè công cụ mẫu để hỗ trợ bản địa hóa bên ngoài
     typeof(AbpTextTemplatingScribanModule),
 
     typeof(AdminServiceMigrationsEntityFrameworkCoreModule),

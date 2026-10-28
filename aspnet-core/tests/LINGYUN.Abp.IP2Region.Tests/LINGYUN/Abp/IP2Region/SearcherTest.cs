@@ -19,7 +19,7 @@ public class SearcherTest : AbpIP2RegionTestBase
     private const string IPv6XdbFile = "/LINGYUN/Abp/IP2Region/Resources/ip2region_v6.xdb";
 
     /// <summary>
-    /// IPv6 离线库数据量较大(约 67 万段), 基准测试按该步长抽样校验
+    /// Dữ liệu thư viện ngoại tuyến IPv6 khá lớn (khoảng 670 nghìn đoạn), kiểm thử hiệu năng lấy mẫu kiểm tra theo bước này
     /// </summary>
     private const int IPv6BenchSampleStep = 512;
 
@@ -39,9 +39,9 @@ public class SearcherTest : AbpIP2RegionTestBase
 
     [Theory]
     [InlineData("8.8.8.8", "United States")]
-    [InlineData("36.133.108.1", "重庆市")]
-    [InlineData("111.26.31.1", "吉林省吉林市")]
-    [InlineData("220.246.0.1", "香港特别行政区")]
+    [InlineData("36.133.108.1", "Trùng Khánh")]
+    [InlineData("111.26.31.1", "Cát LâmCát Lâm")]
+    [InlineData("220.246.0.1", "Hồng Kông")]
     [InlineData("103.151.173.211", "Japan")]
     [InlineData("103.151.191.5", "Indonesia")]
     public async Task TestSearchLocation(string ip, string shouldBeRemarks)
@@ -54,10 +54,10 @@ public class SearcherTest : AbpIP2RegionTestBase
     [Theory]
     [InlineData("2001:4860:4860::8888", "United States")]
     [InlineData("2606:4700:4700::1111", "United Kingdom")]
-    [InlineData("2400:3200::1", "浙江省杭州市")]
+    [InlineData("2400:3200::1", "Chiết GiangHàng Châu")]
     [InlineData("2001:200::1", "Japan")]
-    [InlineData("240e:4c:4008::1", "北京市")]
-    [InlineData("2408:8000::1", "北京市")]
+    [InlineData("240e:4c:4008::1", "Bắc Kinh")]
+    [InlineData("2408:8000::1", "Bắc Kinh")]
     public async Task TestSearchLocationIPv6(string ip, string shouldBeRemarks)
     {
         var resolver = GetRequiredService<IIPLocationResolver>();
@@ -66,10 +66,10 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     [Theory]
-    [InlineData("114.114.114.114", "中国|江苏省|南京市|0|CN")]
-    [InlineData("119.29.29.29", "中国|北京市|北京市|腾讯|CN")]
-    [InlineData("223.5.5.5", "中国|浙江省|杭州市|阿里|CN")]
-    [InlineData("180.76.76.76", "中国|北京市|北京市|百度|CN")]
+    [InlineData("114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN")]
+    [InlineData("119.29.29.29", "Trung Quốc|Bắc Kinh|Bắc Kinh|Tencent|CN")]
+    [InlineData("223.5.5.5", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
+    [InlineData("180.76.76.76", "Trung Quốc|Bắc Kinh|Bắc Kinh|Baidu|CN")]
     [InlineData("8.8.8.8", "United States|California|0|Google LLC|US")]
     public void TestSearchCacheContent(string ip, string shouldBeRegion)
     {
@@ -79,10 +79,10 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     [Theory]
-    [InlineData("114.114.114.114", "中国|江苏省|南京市|0|CN")]
-    [InlineData("119.29.29.29", "中国|北京市|北京市|腾讯|CN")]
-    [InlineData("223.5.5.5", "中国|浙江省|杭州市|阿里|CN")]
-    [InlineData("180.76.76.76", "中国|北京市|北京市|百度|CN")]
+    [InlineData("114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN")]
+    [InlineData("119.29.29.29", "Trung Quốc|Bắc Kinh|Bắc Kinh|Tencent|CN")]
+    [InlineData("223.5.5.5", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
+    [InlineData("180.76.76.76", "Trung Quốc|Bắc Kinh|Bắc Kinh|Baidu|CN")]
     [InlineData("8.8.8.8", "United States|California|0|Google LLC|US")]
     public void TestSearchCacheVector(string ip, string shouldBeRegion)
     {
@@ -92,10 +92,10 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     [Theory]
-    [InlineData("114.114.114.114", "中国|江苏省|南京市|0|CN")]
-    [InlineData("119.29.29.29", "中国|北京市|北京市|腾讯|CN")]
-    [InlineData("223.5.5.5", "中国|浙江省|杭州市|阿里|CN")]
-    [InlineData("180.76.76.76", "中国|北京市|北京市|百度|CN")]
+    [InlineData("114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN")]
+    [InlineData("119.29.29.29", "Trung Quốc|Bắc Kinh|Bắc Kinh|Tencent|CN")]
+    [InlineData("223.5.5.5", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
+    [InlineData("180.76.76.76", "Trung Quốc|Bắc Kinh|Bắc Kinh|Baidu|CN")]
     [InlineData("8.8.8.8", "United States|California|0|Google LLC|US")]
     public void TestSearchCacheFile(string ip, string shouldBeRegion)
     {
@@ -107,14 +107,14 @@ public class SearcherTest : AbpIP2RegionTestBase
     [Theory]
     [InlineData("2001:4860:4860::8888", "United States|Florida|Miami|Google LLC|US")]
     [InlineData("2606:4700:4700::1111", "United Kingdom|England|London|Cloudflare, Inc.|GB")]
-    [InlineData("2400:3200::1", "中国|浙江省|杭州市|阿里|CN")]
+    [InlineData("2400:3200::1", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
     [InlineData("2001:200::1", "Japan|Tokyo|Tokyo|WIDE Project|JP")]
-    [InlineData("240e:4c:4008::1", "中国|北京市|北京市|电信|CN")]
+    [InlineData("240e:4c:4008::1", "Trung Quốc|Bắc Kinh|Bắc Kinh|Viễn thông|CN")]
     [InlineData("2a00:1450:4001:81b::200e", "Germany|Hesse|Frankfurt am Main|Google LLC|DE")]
     public void TestSearchIPv6CacheContent(string ip, string shouldBeRegion)
     {
         using var ipv6XdbStream = CreateXdbStream(IPv6XdbFile);
-        // 单文件模式: 只加载 IPv6 离线库
+        // Chế độ một tệp: chỉ tải thư viện ngoại tuyến IPv6
         using var searcher = new AbpSearcher(CachePolicy.Content, ipv6XdbStream);
 
         searcher.Search(ip).ShouldBe(shouldBeRegion);
@@ -123,9 +123,9 @@ public class SearcherTest : AbpIP2RegionTestBase
     [Theory]
     [InlineData("2001:4860:4860::8888", "United States|Florida|Miami|Google LLC|US")]
     [InlineData("2606:4700:4700::1111", "United Kingdom|England|London|Cloudflare, Inc.|GB")]
-    [InlineData("2400:3200::1", "中国|浙江省|杭州市|阿里|CN")]
+    [InlineData("2400:3200::1", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
     [InlineData("2001:200::1", "Japan|Tokyo|Tokyo|WIDE Project|JP")]
-    [InlineData("240e:4c:4008::1", "中国|北京市|北京市|电信|CN")]
+    [InlineData("240e:4c:4008::1", "Trung Quốc|Bắc Kinh|Bắc Kinh|Viễn thông|CN")]
     [InlineData("2a00:1450:4001:81b::200e", "Germany|Hesse|Frankfurt am Main|Google LLC|DE")]
     public void TestSearchIPv6CacheVector(string ip, string shouldBeRegion)
     {
@@ -138,9 +138,9 @@ public class SearcherTest : AbpIP2RegionTestBase
     [Theory]
     [InlineData("2001:4860:4860::8888", "United States|Florida|Miami|Google LLC|US")]
     [InlineData("2606:4700:4700::1111", "United Kingdom|England|London|Cloudflare, Inc.|GB")]
-    [InlineData("2400:3200::1", "中国|浙江省|杭州市|阿里|CN")]
+    [InlineData("2400:3200::1", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
     [InlineData("2001:200::1", "Japan|Tokyo|Tokyo|WIDE Project|JP")]
-    [InlineData("240e:4c:4008::1", "中国|北京市|北京市|电信|CN")]
+    [InlineData("240e:4c:4008::1", "Trung Quốc|Bắc Kinh|Bắc Kinh|Viễn thông|CN")]
     [InlineData("2a00:1450:4001:81b::200e", "Germany|Hesse|Frankfurt am Main|Google LLC|DE")]
     public void TestSearchIPv6CacheFile(string ip, string shouldBeRegion)
     {
@@ -151,13 +151,13 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// 同时加载 IPv4 与 IPv6 离线库时, 按地址族自动路由
+    /// Khi tải đồng thời thư viện ngoại tuyến IPv4 và IPv6, tự động định tuyến theo họ địa chỉ
     /// </summary>
     [Theory]
-    [InlineData("114.114.114.114", "中国|江苏省|南京市|0|CN")]
+    [InlineData("114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN")]
     [InlineData("8.8.8.8", "United States|California|0|Google LLC|US")]
     [InlineData("2001:4860:4860::8888", "United States|Florida|Miami|Google LLC|US")]
-    [InlineData("2400:3200::1", "中国|浙江省|杭州市|阿里|CN")]
+    [InlineData("2400:3200::1", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN")]
     [InlineData("2001:200::1", "Japan|Tokyo|Tokyo|WIDE Project|JP")]
     public void TestSearchDualDatabase(string ip, string shouldBeRegion)
     {
@@ -169,10 +169,10 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// IPv4 映射的 IPv6 地址(::ffff:x.x.x.x)会归一到 IPv4 查询
+    /// Địa chỉ IPv6 ánh xạ IPv4 (::ffff:x.x.x.x) sẽ được chuẩn hóa về truy vấn IPv4
     /// </summary>
     [Theory]
-    [InlineData("::ffff:114.114.114.114", "中国|江苏省|南京市|0|CN")]
+    [InlineData("::ffff:114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN")]
     [InlineData("::ffff:8.8.8.8", "United States|California|0|Google LLC|US")]
     public void TestSearchIPv4MappedIPv6(string ip, string shouldBeRegion)
     {
@@ -184,7 +184,7 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// 内网、回环、保留地址等特殊地址不返回国家/省份/城市, Remarks 为空
+    /// Các địa chỉ đặc biệt như mạng nội bộ, loopback, địa chỉ dự trữ không trả về quốc gia/tỉnh/thành phố, Remarks trống
     /// </summary>
     [Theory]
     [InlineData("10.0.0.1")]
@@ -214,7 +214,7 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// 非法地址、本地回环与未指定地址由 IIPLocationResolver 统一处理, 不返回位置
+    /// Địa chỉ không hợp lệ, loopback cục bộ và địa chỉ chưa chỉ định do IIPLocationResolver xử lý thống nhất, không trả về vị trí
     /// </summary>
     [Theory]
     [InlineData("not-an-ip")]
@@ -233,7 +233,7 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// 默认选项: 内置离线库(虚拟文件系统路径) + CachePolicy.Content(并发安全)
+    /// Tùy chọn mặc định: thư viện ngoại tuyến tích hợp (đường dẫn hệ thống tệp ảo) + CachePolicy.Content (an toàn đồng thời)
     /// </summary>
     [Fact]
     public void TestDefaultOptions()
@@ -246,7 +246,7 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// 单例查询器并发查询 IPv4 / IPv6 时应返回正确结果(缓存策略需保证并发安全)
+    /// Trình truy vấn singleton truy vấn đồng thời IPv4 / IPv6 phải trả về kết quả đúng (chính sách bộ nhớ đệm phải đảm bảo an toàn đồng thời)
     /// </summary>
     [Fact]
     public async Task TestSearchConcurrently()
@@ -255,11 +255,11 @@ public class SearcherTest : AbpIP2RegionTestBase
 
         var expected = new (string Ip, string Region)[]
         {
-            ("114.114.114.114", "中国|江苏省|南京市|0|CN"),
+            ("114.114.114.114", "Trung Quốc|Giang Tô|Nam Kinh|0|CN"),
             ("8.8.8.8", "United States|California|0|Google LLC|US"),
-            ("223.5.5.5", "中国|浙江省|杭州市|阿里|CN"),
+            ("223.5.5.5", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN"),
             ("2001:4860:4860::8888", "United States|Florida|Miami|Google LLC|US"),
-            ("2400:3200::1", "中国|浙江省|杭州市|阿里|CN"),
+            ("2400:3200::1", "Trung Quốc|Chiết Giang|Hàng Châu|Alibaba|CN"),
         };
 
         var tasks = Enumerable.Range(0, Environment.ProcessorCount * 8)
@@ -278,7 +278,7 @@ public class SearcherTest : AbpIP2RegionTestBase
     }
 
     /// <summary>
-    /// 未提供 IPv6 离线库时, IPv6 查询返回 null(不使用 IPv4 离线库解析), IPv4 查询不受影响
+    /// Khi không cung cấp thư viện ngoại tuyến IPv6, truy vấn IPv6 trả về null (không dùng thư viện ngoại tuyến IPv4 để phân tích), truy vấn IPv4 không bị ảnh hưởng
     /// </summary>
     [Fact]
     public void TestSearchIPv6WithoutDatabase()
@@ -287,11 +287,11 @@ public class SearcherTest : AbpIP2RegionTestBase
         using var searcher = new AbpSearcher(CachePolicy.File, ipv4XdbStream, null);
 
         searcher.Search("2001:4860:4860::8888").ShouldBeNull();
-        searcher.Search("114.114.114.114").ShouldBe("中国|江苏省|南京市|0|CN");
+        searcher.Search("114.114.114.114").ShouldBe("Trung Quốc|Giang Tô|Nam Kinh|0|CN");
     }
 
     /// <summary>
-    /// IPv6 离线库查询结果应与官方源数据一致(抽样校验)
+    /// Kết quả truy vấn thư viện ngoại tuyến IPv6 phải nhất quán với dữ liệu nguồn chính thức (kiểm tra lấy mẫu)
     /// </summary>
     [Theory]
     [InlineData(CachePolicy.VectorIndex)]
@@ -306,7 +306,7 @@ public class SearcherTest : AbpIP2RegionTestBase
 
         foreach (var line in File.ReadLines(srcPath))
         {
-            // 数据量较大, 按步长抽样
+            // Dữ liệu khá lớn, lấy mẫu theo bước
             if (lineIndex++ % IPv6BenchSampleStep != 0)
             {
                 continue;

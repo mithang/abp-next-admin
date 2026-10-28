@@ -3,12 +3,12 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 上下游共享应用事件
+/// Sự kiện ứng dụng được chia sẻ giữa thượng nguồn và hạ nguồn
 /// </summary>
 /// <remarks>
-/// 本事件触发时机为：
-/// 1. 上游企业把自建应用共享给下游企业使用
-/// 2. 上游企业把下游企业从共享应用中移除
+/// Thời điểm kích hoạt sự kiện này là:
+/// 1. Doanh nghiệp thượng nguồn chia sẻ ứng dụng tự xây cho doanh nghiệp hạ nguồn sử dụng
+/// 2. Doanh nghiệp thượng nguồn loại doanh nghiệp hạ nguồn khỏi ứng dụng được chia sẻ
 /// </remarks>
 [EventName("share_chain_change")]
 public class ShareChainChangeEvent : WeChatWorkEventMessage

@@ -53,12 +53,12 @@ public class UserGroupAppService : AbpMessageServiceApplicationServiceBase, IUse
             .GetUserGroupCardAsync(CurrentTenant.Id, input.GroupId, CurrentUser.GetId());
         if (myGroupCard == null)
         {
-            // 当前登录用户不再用户组
+            // Người dùng đang đăng nhập không còn trong nhóm người dùng
             throw new UserFriendlyException("");
         }
         if (!myGroupCard.IsAdmin)
         {
-            // 当前登录用户没有加人权限
+            // Người dùng đang đăng nhập không có quyền thêm người
             throw new UserFriendlyException("");
         }
         await _userGroupStore
@@ -71,12 +71,12 @@ public class UserGroupAppService : AbpMessageServiceApplicationServiceBase, IUse
             .GetUserGroupCardAsync(CurrentTenant.Id, input.GroupId, CurrentUser.GetId());
         if (myGroupCard == null)
         {
-            // 当前登录用户不再用户组
+            // Người dùng đang đăng nhập không còn trong nhóm người dùng
             throw new UserFriendlyException("");
         }
         if (!myGroupCard.IsAdmin)
         {
-            // 当前登录用户没有踢人权限
+            // Người dùng đang đăng nhập không có quyền loại người
             throw new UserFriendlyException("");
         }
         await _userGroupStore

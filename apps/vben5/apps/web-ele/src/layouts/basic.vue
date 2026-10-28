@@ -6,7 +6,7 @@ import { computed, ref, watch } from 'vue';
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
 import { useWatermark } from '@vben/hooks';
-import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
+import { BookOpenText, CircleHelp, SvgGithubIcon } from '@vben/icons';
 import {
   BasicLayout,
   LockScreen,
@@ -23,32 +23,36 @@ import LoginForm from '#/views/_core/authentication/login.vue';
 
 const notifications = ref<NotificationItem[]>([
   {
+    id: 1,
     avatar: 'https://avatar.vercel.sh/vercel.svg?text=VB',
-    date: '3小时前',
+    date: '3 giờ trước',
     isRead: true,
-    message: '描述信息描述信息描述信息',
-    title: '收到了 14 份新周报',
+    message: 'Thông tin mô tả thông tin mô tả thông tin mô tả',
+    title: 'Đã nhận 14 báo cáo tuần mới',
   },
   {
+    id: 2,
     avatar: 'https://avatar.vercel.sh/1',
-    date: '刚刚',
+    date: 'Vừa xong',
     isRead: false,
-    message: '描述信息描述信息描述信息',
-    title: '朱偏右 回复了你',
+    message: 'Thông tin mô tả thông tin mô tả thông tin mô tả',
+    title: 'Chu Thiên Hữu đã trả lời bạn',
   },
   {
+    id: 3,
     avatar: 'https://avatar.vercel.sh/1',
     date: '2024-01-01',
     isRead: false,
-    message: '描述信息描述信息描述信息',
-    title: '曲丽丽 评论了你',
+    message: 'Thông tin mô tả thông tin mô tả thông tin mô tả',
+    title: 'Khúc Lệ Lệ đã bình luận về bạn',
   },
   {
+    id: 4,
     avatar: 'https://avatar.vercel.sh/satori',
-    date: '1天前',
+    date: '1 ngày trước',
     isRead: false,
-    message: '描述信息描述信息描述信息',
-    title: '代办提醒',
+    message: 'Thông tin mô tả thông tin mô tả thông tin mô tả',
+    title: 'Nhắc nhở việc cần làm',
   },
 ]);
 
@@ -76,7 +80,7 @@ const menus = computed(() => [
         target: '_blank',
       });
     },
-    icon: MdiGithub,
+    icon: SvgGithubIcon,
     text: 'GitHub',
   },
   {

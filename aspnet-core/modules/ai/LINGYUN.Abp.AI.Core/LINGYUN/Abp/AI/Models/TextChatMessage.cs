@@ -5,7 +5,7 @@ namespace LINGYUN.Abp.AI.Models;
 public class TextChatMessage : ChatMessage
 {
     /// <summary>
-    /// 消息内容
+    /// Nội dung tin nhắn
     /// </summary>
     public string Content { get; }
     public TextChatMessage(

@@ -6,27 +6,27 @@ namespace LINGYUN.Abp.DataProtection;
 public class DataAccessFilterRule
 {
     /// <summary>
-    /// 字段名称
+    /// Tên trường
     /// </summary>
     public string Field { get; set; } = default!;
     /// <summary>
-    /// 字段值
+    /// Giá trị trường
     /// </summary>
     public object? Value { get; set; }
     /// <summary>
-    /// 类型全名
+    /// Tên đầy đủ của kiểu
     /// </summary>
     public string TypeFullName { get; set; } = default!;
     /// <summary>
-    /// Js类型
+    /// Kiểu JS
     /// </summary>
     public string JavaScriptType { get; set; } = default!;
     /// <summary>
-    /// 操作类型
+    /// Loại thao tác
     /// </summary>
     public DataAccessFilterOperate Operate { get; set; }
     /// <summary>
-    /// 左侧条件
+    /// Điều kiện phía trái
     /// </summary>
     public bool IsLeft { get; set; }
 

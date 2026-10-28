@@ -48,8 +48,8 @@ public class BackgroundWorkerManager : IBackgroundWorkerManager
             return;
         }
 
-        // 如果通过远程接口发布作业, 可能会造成Group与Name重复
-        // 重新设定Name为唯一Id
+        // Nếu phát hành job qua giao diện từ xa, có thể khiến Group và Name bị trùng lặp
+        // Đặt lại Name thành Id duy nhất
         var jobId = GuidGenerator.Create();
         jobInfo.Id = jobId.ToString();
         jobInfo.Name = jobId.ToString();
@@ -81,10 +81,10 @@ public class BackgroundWorkerManager : IBackgroundWorkerManager
             }
         }
 
-        // 存储状态
+        // Lưu trữ trạng thái
         await JobStore.StoreAsync(jobInfo, cancellationToken);
 
-        // 发布作业
+        // Phát hành job
         await JobPublisher.PublishAsync(jobInfo, cancellationToken);
     }
 

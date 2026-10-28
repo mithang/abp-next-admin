@@ -2,7 +2,7 @@ import type { ApplicationConfigurationDto, ApplicationLocalizationDto } from "#/
 import requestClient from "../request";
 
 /**
- * 获取应用程序配置信息
+ * Lấy thông tin cấu hình ứng dụng
  */
 export function getConfigApi(options?: {
 	includeLocalizationResources?: boolean;
@@ -13,8 +13,8 @@ export function getConfigApi(options?: {
 }
 
 /**
- * 获取应用程序语言
- * @returns 本地化配置
+ * Lấy ngôn ngữ ứng dụng
+ * @returns Cấu hình bản địa hóa
  */
 export function getLocalizationApi(options: {
 	cultureName: string;

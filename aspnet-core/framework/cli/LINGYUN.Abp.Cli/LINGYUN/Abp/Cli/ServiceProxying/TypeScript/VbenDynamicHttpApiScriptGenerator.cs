@@ -6,7 +6,7 @@ using Volo.Abp.Http.Modeling;
 
 namespace LINGYUN.Abp.Cli.ServiceProxying.TypeScript;
 
-// 用于vben动态axios代理生成
+// Dùng để tạo proxy axios động cho vben
 public class VbenDynamicHttpApiScriptGenerator : IHttpApiScriptGenerator, ITransientDependency
 {
     public const string Name = "vben-dynamic";
@@ -180,7 +180,7 @@ public class VbenDynamicHttpApiScriptGenerator : IHttpApiScriptGenerator, ITrans
             if (action.Value.AllowAnonymous == true)
             {
                 apiScriptBuilder.AppendLine(",{");
-                // 匿名方法无需token
+                // Phương thức ẩn danh không cần token
                 apiScriptBuilder.AppendLine("    withToken: false,");
 
                 apiScriptBuilder.Append("  }");

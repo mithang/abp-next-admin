@@ -3,18 +3,18 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Request;
 /// <summary>
-/// 撤回消息请求载体
+/// Đối tượng yêu cầu thu hồi tin nhắn
 /// </summary>
 public class WeChatWorkMessageReCallRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 调用接口凭证
+    /// Chứng thực gọi giao diện
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
     [Newtonsoft.Json.JsonIgnore]
     public string AccessToken { get; set; }
     /// <summary>
-    /// 消息ID
+    /// ID tin nhắn
     /// </summary>
     [JsonProperty("msgid")]
     [JsonPropertyName("msgid")]

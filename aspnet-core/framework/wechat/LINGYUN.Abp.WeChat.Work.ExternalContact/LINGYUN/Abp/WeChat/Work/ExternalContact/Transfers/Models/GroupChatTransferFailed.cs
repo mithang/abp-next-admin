@@ -4,26 +4,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Transfers.Models;
 /// <summary>
-/// 没能成功继承的群详情
+/// Chi tiết nhóm không thể kế thừa thành công
 /// </summary>
 public class GroupChatTransferFailed
 {
     /// <summary>
-    /// 没能成功继承的群ID
+    /// ID nhóm không thể kế thừa thành công
     /// </summary>
     [NotNull]
     [JsonProperty("chat_id")]
     [JsonPropertyName("chat_id")]
     public string ChatId { get; set; } = default!;
     /// <summary>
-    /// 没能成功继承的群，错误码
+    /// Nhóm không thể kế thừa thành công, mã lỗi
     /// </summary>
     [NotNull]
     [JsonProperty("errcode")]
     [JsonPropertyName("errcode")]
     public int ErrCode { get; set; }
     /// <summary>
-    /// 没能成功继承的群，错误描述
+    /// Nhóm không thể kế thừa thành công, mô tả lỗi
     /// </summary>
     [NotNull]
     [JsonProperty("errmsg")]

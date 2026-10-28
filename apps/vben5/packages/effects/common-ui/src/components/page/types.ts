@@ -3,7 +3,7 @@ export interface PageProps {
   description?: string;
   contentClass?: string;
   /**
-   * 根据content可见高度自适应
+   * Tự thích ứng theo chiều cao hiển thị của content
    */
   autoContentHeight?: boolean;
   headerClass?: string;

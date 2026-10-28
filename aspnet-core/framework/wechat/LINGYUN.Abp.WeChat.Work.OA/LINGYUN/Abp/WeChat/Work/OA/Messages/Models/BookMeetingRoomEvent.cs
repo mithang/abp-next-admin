@@ -5,21 +5,21 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Messages.Models;
 /// <summary>
-/// 会议室预定事件
+/// Sự kiện đặt phòng họp
 /// </summary>
 /// <remarks>
-/// 当用户在企业微信预定会议室时，会触发该事件回调给会议室系统应用。
+/// Khi người dùng đặt phòng họp trong WeChat Work, sự kiện này sẽ được gọi lại cho ứng dụng hệ thống phòng họp.
 /// </remarks>
 [EventName("book_meeting_room")]
 public class BookMeetingRoomEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 会议室id
+    /// Id phòng họp
     /// </summary>
     [XmlElement("MeetingRoomId")]
     public int MeetingRoomId { get; set; }
     /// <summary>
-    /// 预定id，可根据该ID查询具体的会议预定情况
+    /// Id đặt phòng, có thể truy vấn tình trạng đặt cuộc họp cụ thể theo ID này
     /// </summary>
     [XmlElement("BookingId")]
     public string BookingId { get; set; } = default!;

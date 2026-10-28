@@ -9,7 +9,7 @@ public static class NotificationDefinitionExtensions
     private const string ChannelTypeKey = Prefix + "channel";
     private const string TopicKey = Prefix + "topic";
     /// <summary>
-    /// 设定消息模板
+    /// Thiết lập mẫu thông báo
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="template"></param>
@@ -21,7 +21,7 @@ public static class NotificationDefinitionExtensions
         return notification.WithProperty(TemplateKey, template);
     }
     /// <summary>
-    /// 获取消息模板
+    /// Lấy mẫu thông báo
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="defaultTemplate"></param>
@@ -46,7 +46,7 @@ public static class NotificationDefinitionExtensions
         };
     }
     /// <summary>
-    /// 设定消息发送通道
+    /// Thiết lập kênh gửi thông báo
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="channelType"></param>
@@ -58,7 +58,7 @@ public static class NotificationDefinitionExtensions
         return notification.WithProperty(ChannelTypeKey, channelType);
     }
     /// <summary>
-    /// 获取消息发送通道
+    /// Lấy kênh gửi thông báo
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="defaultChannelType"></param>
@@ -76,10 +76,10 @@ public static class NotificationDefinitionExtensions
         return defaultChannelType;
     }
     /// <summary>
-    /// 消息群发群组编码
+    /// Mã nhóm gửi hàng loạt thông báo
     /// see: https://www.pushplus.plus/doc/guide/api.html#%E4%B8%80%E3%80%81%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3
     /// </summary>
-    /// <param name="notification">群组编码</param>
+    /// <param name="notification">Mã nhóm</param>
     /// <param name="topic"></param>
     /// <returns>
     /// <see cref="NotificationDefinition"/>
@@ -91,11 +91,11 @@ public static class NotificationDefinitionExtensions
         return notification.WithProperty(TopicKey, topic);
     }
     /// <summary>
-    /// 获取消息群发群组编码
+    /// Lấy mã nhóm gửi hàng loạt thông báo
     /// </summary>
     /// <param name="notification"></param>
     /// <returns>
-    /// 通知定义的群组编码,未定义返回null
+    /// Mã nhóm của định nghĩa thông báo, trả về null nếu chưa được định nghĩa
     /// </returns>
     public static string? GetTopicOrNull(
         this NotificationDefinition notification)

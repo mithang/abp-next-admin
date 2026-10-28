@@ -3,42 +3,42 @@
 namespace LINGYUN.Abp.Location.Tencent.Model;
 
 /// <summary>
-/// 逆地址解析结果
+/// Kết quả phân giải địa chỉ ngược
 /// </summary>
 public class TencentReGeocode
 {
     /// <summary>
-    /// 地址描述
+    /// Mô tả địa chỉ
     /// </summary>
     [JsonProperty("address")]
     public string? Address { get; set; }
     /// <summary>
-    /// 位置描述
+    /// Mô tả vị trí
     /// </summary>
     [JsonProperty("formatted_addresses")]
     public FormattedAddress FormattedAddress { get; set; } = new FormattedAddress();
     /// <summary>
-    /// 地址部件，address不满足需求时可自行拼接
+    /// Các thành phần địa chỉ; khi address không đáp ứng nhu cầu có thể tự ghép lại
     /// </summary>
     [JsonProperty("address_component")]
     public AddressComponent AddressComponent { get; set; } = new AddressComponent();
     /// <summary>
-    /// 行政区划信息
+    /// Thông tin phân chia hành chính
     /// </summary>
     [JsonProperty("ad_info")]
     public AddressInfo AddressInfo { get; set; } = new AddressInfo();
     /// <summary>
-    /// 坐标相对位置参考
+    /// Tham chiếu vị trí tương đối của tọa độ
     /// </summary>
     [JsonProperty("address_reference")]
     public AddressReference AddressReference { get; set; } = new AddressReference();
     /// <summary>
-    /// 查询的周边poi的总数
+    /// Tổng số POI xung quanh được truy vấn
     /// </summary>
     [JsonProperty("poi_count")]
     public int PoiCount { get; set; }
     /// <summary>
-    /// POI数组，对象中每个子项为一个POI对象
+    /// Mảng POI, mỗi mục con trong đối tượng là một đối tượng POI
     /// </summary>
     [JsonProperty("pois")]
     public Poi[] Pois { get; set; } = new Poi[0];

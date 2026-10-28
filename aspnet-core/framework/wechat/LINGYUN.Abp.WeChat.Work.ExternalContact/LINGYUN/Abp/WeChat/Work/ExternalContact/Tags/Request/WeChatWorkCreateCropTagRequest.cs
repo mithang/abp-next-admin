@@ -7,15 +7,15 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Tags.Request;
 /// <summary>
-/// 添加企业客户标签请求参数
+/// Tham số yêu cầu thêm thẻ khách hàng doanh nghiệp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/92117#%E6%B7%BB%E5%8A%A0%E4%BC%81%E4%B8%9A%E5%AE%A2%E6%88%B7%E6%A0%87%E7%AD%BE" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/92117#%E6%B7%BB%E5%8A%A0%E4%BC%81%E4%B8%9A%E5%AE%A2%E6%88%B7%E6%A0%87%E7%AD%BE" />
 /// </remarks>
 public class WeChatWorkCreateCropTagRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 标签组id
+    /// Id nhóm thẻ
     /// </summary>
     [CanBeNull]
     [JsonProperty("group_id")]
@@ -24,7 +24,7 @@ public class WeChatWorkCreateCropTagRequest : WeChatWorkRequest
 
     private string? _groupName;
     /// <summary>
-    /// 标签组名称，最长为30个字符
+    /// Tên nhóm thẻ, tối đa 30 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("group_name")]
@@ -38,21 +38,21 @@ public class WeChatWorkCreateCropTagRequest : WeChatWorkRequest
         }
     }
     /// <summary>
-    /// 标签组排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
+    /// Giá trị thứ tự sắp xếp của nhóm thẻ, giá trị order càng lớn càng xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [CanBeNull]
     [JsonProperty("order")]
     [JsonPropertyName("order")]
     public int? Order { get; set; }
     /// <summary>
-    /// 授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数
+    /// Agentid của ứng dụng mà bên được uỷ quyền đã cài đặt. Chỉ bộ ứng dụng đa ứng dụng bên thứ ba cũ mới cần điền tham số này
     /// </summary>
     [CanBeNull]
     [JsonProperty("agentid")]
     [JsonPropertyName("agentid")]
     public string? AgentId { get; set; }
     /// <summary>
-    /// 添加的标签组
+    /// Nhóm thẻ được thêm
     /// </summary>
     [CanBeNull]
     [JsonProperty("tag")]
@@ -77,14 +77,14 @@ public class WeChatWorkCreateCropTagRequest : WeChatWorkRequest
 public class NewCropTag
 {
     /// <summary>
-    /// 添加的标签名称，最长为30个字符
+    /// Tên thẻ được thêm, tối đa 30 ký tự
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
     [JsonPropertyName("name")]
     public string Name { get; }
     /// <summary>
-    /// 标签次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
+    /// Giá trị thứ tự của thẻ. Giá trị order càng lớn càng xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [CanBeNull]
     [JsonProperty("order")]

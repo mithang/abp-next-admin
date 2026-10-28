@@ -1,20 +1,20 @@
 # LINGYUN.Abp.UI.Navigation
 
-简体中文 | [English](./README.EN.md)
+Tiếng Việt | [English](./README.EN.md)
 
-菜单导航模块，提供可扩展自定义的菜单项  
+Mô-đun điều hướng menu, cung cấp các mục menu có thể mở rộng và tùy chỉnh  
 
-## 功能特性
+## Tính năng
 
-* 支持自定义菜单项定义和扩展
-* 支持多租户
-* 支持菜单项的层级结构
-* 支持菜单项的排序
-* 支持菜单项的可见性和禁用状态
-* 支持菜单项的图标和重定向
-* 支持菜单种子数据的初始化
+* Hỗ trợ định nghĩa và mở rộng mục menu tùy chỉnh
+* Hỗ trợ đa tenant
+* Hỗ trợ cấu trúc phân cấp của mục menu
+* Hỗ trợ sắp xếp mục menu
+* Hỗ trợ trạng thái hiển thị và vô hiệu hóa của mục menu
+* Hỗ trợ biểu tượng và chuyển hướng của mục menu
+* Hỗ trợ khởi tạo dữ liệu hạt giống (seed) của mục menu
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpUINavigationModule))]
@@ -24,11 +24,11 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-### 1. 定义菜单提供者
+### 1. Định nghĩa nhà cung cấp menu
 
-通过实现 `INavigationDefinitionProvider` 接口来定义菜单项：
+Định nghĩa mục menu bằng cách triển khai giao diện `INavigationDefinitionProvider`:
 
 ```csharp
 public class FakeNavigationDefinitionProvider : NavigationDefinitionProvider
@@ -42,68 +42,68 @@ public class FakeNavigationDefinitionProvider : NavigationDefinitionProvider
     {
         var dashboard = new ApplicationMenu(
             name: "Vben Dashboard",
-            displayName: "仪表盘",
+            displayName: "Bảng điều khiển",
             url: "/dashboard",
             component: "",
-            description: "仪表盘",
+            description: "Bảng điều khiển",
             icon: "ion:grid-outline",
             redirect: "/dashboard/analysis");
 
          dashboard.AddItem(
             new ApplicationMenu(
             name: "Analysis",
-            displayName: "分析页",
+            displayName: "Trang phân tích",
             url: "/dashboard/analysis",
             component: "/dashboard/analysis/index",
-            description: "分析页"));
+            description: "Trang phân tích"));
 
          return new NavigationDefinition(dashboard);
     }
 }
 ```
 
-### 2. 初始化菜单数据
+### 2. Khởi tạo dữ liệu menu
 
-通过实现 `INavigationSeedContributor` 接口来初始化菜单种子数据：
+Khởi tạo dữ liệu hạt giống menu bằng cách triển khai giao diện `INavigationSeedContributor`:
 
 ```csharp
 public class YourNavigationDataSeeder : INavigationSeedContributor
 {
     public async Task SeedAsync(NavigationSeedContext context)
     {
-        // 在这里初始化菜单数据
+        // Khởi tạo dữ liệu menu tại đây
     }
 }
 ```
 
-## 菜单项属性说明
+## Giải thích thuộc tính mục menu
 
-* Name - 菜单项名称（唯一标识）
-* DisplayName - 显示名称
-* Description - 说明
-* Url - 路径
-* Component - 组件路径
-* Redirect - 重定向路径
-* Icon - 图标
-* Order - 排序（默认1000）
-* IsDisabled - 是否禁用
-* IsVisible - 是否可见
-* Items - 子菜单项集合
-* ExtraProperties - 扩展属性
-* MultiTenancySides - 多租户选项
+* Name - Tên mục menu (định danh duy nhất)
+* DisplayName - Tên hiển thị
+* Description - Mô tả
+* Url - Đường dẫn
+* Component - Đường dẫn thành phần
+* Redirect - Đường dẫn chuyển hướng
+* Icon - Biểu tượng
+* Order - Thứ tự sắp xếp (mặc định 1000)
+* IsDisabled - Có bị vô hiệu hóa hay không
+* IsVisible - Có hiển thị hay không
+* Items - Tập hợp mục menu con
+* ExtraProperties - Thuộc tính mở rộng
+* MultiTenancySides - Tùy chọn đa tenant
 
-## 最佳实践
+## Thực hành tốt nhất
 
-1. 菜单项命名建议使用有意义的名称，便于管理和维护
-2. 合理使用菜单项的排序，保持界面的整洁
-3. 使用图标增强用户体验
-4. 适当使用重定向功能优化导航体验
-5. 根据实际需求控制菜单项的可见性和禁用状态
+1. Nên đặt tên mục menu có ý nghĩa để dễ quản lý và bảo trì
+2. Sử dụng hợp lý thứ tự sắp xếp của mục menu để giữ giao diện gọn gàng
+3. Sử dụng biểu tượng để nâng cao trải nghiệm người dùng
+4. Sử dụng hợp lý chức năng chuyển hướng để tối ưu trải nghiệm điều hướng
+5. Điều khiển trạng thái hiển thị và vô hiệu hóa của mục menu theo nhu cầu thực tế
 
-## 注意事项
+## Lưu ý
 
-1. 菜单项的Name必须唯一
-2. 子菜单项会继承父菜单项的多租户设置
-3. 菜单项的排序值越小越靠前
-4. 禁用的菜单项仍然可见，但无法点击
-5. 组件路径应与前端路由配置保持一致
+1. Name của mục menu phải là duy nhất
+2. Mục menu con sẽ kế thừa cài đặt đa tenant của mục menu cha
+3. Giá trị sắp xếp của mục menu càng nhỏ càng xếp trước
+4. Mục menu bị vô hiệu hóa vẫn hiển thị nhưng không thể nhấp
+5. Đường dẫn thành phần phải nhất quán với cấu hình định tuyến frontend

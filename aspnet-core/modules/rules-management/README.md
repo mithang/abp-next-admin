@@ -1,111 +1,111 @@
 # LINGYUN.Abp.RulesManagement
 
-规则引擎管理模块，提供了基于规则引擎的工作流和规则管理功能。
+Mô-đun quản lý công cụ quy tắc, cung cấp chức năng quản lý quy trình làm việc và quy tắc dựa trên công cụ quy tắc.
 
-## 1. 模块说明
+## 1. Mô tả mô-đun
 
-该模块基于RulesEngine实现，提供了工作流规则的持久化管理、缓存管理以及API接口。主要包含以下子模块：
+Mô-đun này được triển khai dựa trên RulesEngine, cung cấp khả năng quản lý bền vững quy tắc quy trình làm việc, quản lý bộ nhớ đệm và giao diện API. Chủ yếu bao gồm các mô-đun con sau:
 
 ### 1.1 Domain.Shared
 
-* 定义了工作流记录、规则记录、动作记录等基础常量
-* 提供了动作类型等枚举定义
-* [查看详细说明](rules-engine/LINGYUN.Abp.RulesEngineManagement.Domain.Shared/README.md)
+* Định nghĩa các hằng số cơ sở như bản ghi quy trình làm việc, bản ghi quy tắc, bản ghi hành động
+* Cung cấp định nghĩa enum cho loại hành động và các loại tương tự
+* [Xem mô tả chi tiết](rules-engine/LINGYUN.Abp.RulesEngineManagement.Domain.Shared/README.md)
 
 ### 1.2 Domain
 
-* 实现了工作流存储的核心业务逻辑
-* 提供了基于内存缓存的工作流存储实现
-* 定义了规则记录、工作流记录等领域模型
-* [查看详细说明](rules-engine/LINGYUN.Abp.RulesEngineManagement.Domain/README.md)
+* Triển khai logic nghiệp vụ cốt lõi của kho lưu trữ quy trình làm việc
+* Cung cấp triển khai kho lưu trữ quy trình làm việc dựa trên bộ nhớ đệm trong bộ nhớ
+* Định nghĩa các mô hình miền như bản ghi quy tắc, bản ghi quy trình làm việc
+* [Xem mô tả chi tiết](rules-engine/LINGYUN.Abp.RulesEngineManagement.Domain/README.md)
 
 ### 1.3 EntityFrameworkCore
 
-* 提供了基于EF Core的数据访问层实现
-* 实现了工作流、规则等实体的数据库映射
-* 实现了仓储接口
-* [查看详细说明](rules-engine/LINGYUN.Abp.RulesEngineManagement.EntityFrameworkCore/README.md)
+* Cung cấp tầng truy cập dữ liệu triển khai dựa trên EF Core
+* Triển khai ánh xạ cơ sở dữ liệu cho các thực thể như quy trình làm việc, quy tắc
+* Triển khai giao diện kho lưu trữ (repository)
+* [Xem mô tả chi tiết](rules-engine/LINGYUN.Abp.RulesEngineManagement.EntityFrameworkCore/README.md)
 
 ### 1.4 Application.Contracts
 
-* 定义了规则引擎管理的应用服务接口
-* 定义了数据传输对象（DTOs）
-* 定义了权限
-* [查看详细说明](rules-engine/LINGYUN.Abp.RulesEngineManagement.Application.Contracts/README.md)
+* Định nghĩa giao diện dịch vụ ứng dụng của quản lý công cụ quy tắc
+* Định nghĩa đối tượng truyền dữ liệu (DTOs)
+* Định nghĩa quyền
+* [Xem mô tả chi tiết](rules-engine/LINGYUN.Abp.RulesEngineManagement.Application.Contracts/README.md)
 
 ### 1.5 Application
 
-* 实现了规则记录和工作流记录的应用服务
-* 提供了对象自动映射配置
-* [查看详细说明](rules-engine/LINGYUN.Abp.RulesEngineManagement.Application/README.md)
+* Triển khai dịch vụ ứng dụng của bản ghi quy tắc và bản ghi quy trình làm việc
+* Cung cấp cấu hình ánh xạ đối tượng tự động
+* [Xem mô tả chi tiết](rules-engine/LINGYUN.Abp.RulesEngineManagement.Application/README.md)
 
 ### 1.6 HttpApi
 
-* 提供了RESTful风格的API接口
-* 实现了规则和工作流的CRUD操作API
-* [查看详细说明](rules-engine/LINGYUN.Abp.RulesEngineManagement.HttpApi/README.md)
+* Cung cấp giao diện API theo phong cách RESTful
+* Triển khai API thao tác CRUD cho quy tắc và quy trình làm việc
+* [Xem mô tả chi tiết](rules-engine/LINGYUN.Abp.RulesEngineManagement.HttpApi/README.md)
 
-## 2. 功能特性
+## 2. Tính năng
 
-* 工作流管理
-  * 支持工作流的创建、修改、删除、查询
-  * 提供工作流的缓存管理
-  * 支持按类型查询工作流
+* Quản lý quy trình làm việc
+  * Hỗ trợ tạo, sửa, xóa, truy vấn quy trình làm việc
+  * Cung cấp quản lý bộ nhớ đệm cho quy trình làm việc
+  * Hỗ trợ truy vấn quy trình làm việc theo loại
   
-* 规则管理
-  * 支持规则的创建、修改、删除、查询
-  * 支持规则表达式的定义
-  * 支持规则与工作流的关联
+* Quản lý quy tắc
+  * Hỗ trợ tạo, sửa, xóa, truy vấn quy tắc
+  * Hỗ trợ định nghĩa biểu thức quy tắc
+  * Hỗ trợ liên kết quy tắc với quy trình làm việc
   
-* 参数管理
-  * 支持工作流参数的定义
-  * 支持参数值的验证
+* Quản lý tham số
+  * Hỗ trợ định nghĩa tham số quy trình làm việc
+  * Hỗ trợ kiểm chứng giá trị tham số
   
-* 动作管理
-  * 支持成功/失败动作的定义
-  * 支持动作执行结果的记录
+* Quản lý hành động
+  * Hỗ trợ định nghĩa hành động thành công/thất bại
+  * Hỗ trợ ghi lại kết quả thực thi hành động
 
-## 3. 配置项
+## 3. Cấu hình
 
-### 3.1 工作流记录配置
+### 3.1 Cấu hình bản ghi quy trình làm việc
 
-* MaxNameLength: 工作流名称最大长度，默认64
-* MaxTypeFullNameLength: 类型全名最大长度，默认255
-* MaxInjectWorkflowsLength: 注入工作流最大长度，默认(MaxNameLength + 1) * 5
+* MaxNameLength: Độ dài tối đa của tên quy trình làm việc, mặc định 64
+* MaxTypeFullNameLength: Độ dài tối đa của tên đầy đủ của loại, mặc định 255
+* MaxInjectWorkflowsLength: Độ dài tối đa của quy trình làm việc được inject, mặc định (MaxNameLength + 1) * 5
 
-### 3.2 规则记录配置
+### 3.2 Cấu hình bản ghi quy tắc
 
-* MaxNameLength: 规则名称最大长度，默认64
-* MaxOperatorLength: 操作符最大长度，默认30
-* MaxErrorMessageLength: 错误消息最大长度，默认255
-* MaxExpressionLength: 表达式最大长度，默认int.MaxValue
-* MaxSuccessEventLength: 成功事件最大长度，默认128
+* MaxNameLength: Độ dài tối đa của tên quy tắc, mặc định 64
+* MaxOperatorLength: Độ dài tối đa của toán tử, mặc định 30
+* MaxErrorMessageLength: Độ dài tối đa của thông báo lỗi, mặc định 255
+* MaxExpressionLength: Độ dài tối đa của biểu thức, mặc định int.MaxValue
+* MaxSuccessEventLength: Độ dài tối đa của sự kiện thành công, mặc định 128
 
-## 4. 权限
+## 4. Quyền
 
 * RulesEngineManagement.Rule
-  * 规则管理权限
-  * 包含创建、修改、删除、查询权限
+  * Quyền quản lý quy tắc
+  * Bao gồm quyền tạo, sửa, xóa, truy vấn
   
 * RulesEngineManagement.Workflow
-  * 工作流管理权限
-  * 包含创建、修改、删除、查询权限
+  * Quyền quản lý quy trình làm việc
+  * Bao gồm quyền tạo, sửa, xóa, truy vấn
 
-## 5. API接口
+## 5. Giao diện API
 
-### 5.1 规则记录API
+### 5.1 API bản ghi quy tắc
 
-* 基路径: api/rules-engine-management/rules
-* 提供规则记录的CRUD操作API
-* 支持分页查询API
+* Đường dẫn cơ sở: api/rules-engine-management/rules
+* Cung cấp API thao tác CRUD cho bản ghi quy tắc
+* Hỗ trợ API truy vấn phân trang
 
-### 5.2 工作流记录API
+### 5.2 API bản ghi quy trình làm việc
 
-* 基路径: api/rules-engine-management/workflows
-* 提供工作流记录的CRUD操作API
-* 支持分页查询API
+* Đường dẫn cơ sở: api/rules-engine-management/workflows
+* Cung cấp API thao tác CRUD cho bản ghi quy trình làm việc
+* Hỗ trợ API truy vấn phân trang
 
-## 6. 依赖
+## 6. Phụ thuộc
 
 * Volo.Abp.Core
 * LINGYUN.Abp.Rules.RulesEngine

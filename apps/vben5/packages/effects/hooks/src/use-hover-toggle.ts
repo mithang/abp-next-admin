@@ -9,26 +9,26 @@ import { isFunction } from '@vben/utils';
 import { useElementHover } from '@vueuse/core';
 
 interface HoverDelayOptions {
-  /** 鼠标进入延迟时间 */
+  /** Thời gian trễ khi chuột di vào */
   enterDelay?: (() => number) | number;
-  /** 鼠标离开延迟时间 */
+  /** Thời gian trễ khi chuột di ra */
   leaveDelay?: (() => number) | number;
 }
 
-const DEFAULT_LEAVE_DELAY = 500; // 鼠标离开延迟时间，默认为 500ms
-const DEFAULT_ENTER_DELAY = 0; // 鼠标进入延迟时间，默认为 0（立即响应）
+const DEFAULT_LEAVE_DELAY = 500; // Thời gian trễ khi chuột di ra, mặc định là 500ms
+const DEFAULT_ENTER_DELAY = 0; // Thời gian trễ khi chuột di vào, mặc định là 0 (phản hồi ngay)
 
 /**
- * 监测鼠标是否在元素内部，如果在元素内部则返回 true，否则返回 false
- * @param refElement 所有需要检测的元素。支持单个元素、元素数组或响应式引用的元素数组。如果鼠标在任何一个元素内部都会返回 true
- * @param delay 延迟更新状态的时间，可以是数字或包含进入/离开延迟的配置对象
- * @returns 返回一个数组，第一个元素是一个 ref，表示鼠标是否在元素内部，第二个元素是一个控制器，可以通过 enable 和 disable 方法来控制监听器的启用和禁用
+ * Theo dõi xem chuột có đang ở bên trong phần tử hay không, nếu ở bên trong thì trả về true, ngược lại trả về false
+ * @param refElement Tất cả các phần tử cần kiểm tra. Hỗ trợ một phần tử, mảng phần tử hoặc mảng phần tử dạng tham chiếu phản ứng. Nếu chuột ở bên trong bất kỳ phần tử nào cũng sẽ trả về true
+ * @param delay Thời gian trễ cập nhật trạng thái, có thể là số hoặc đối tượng cấu hình chứa thời gian trễ khi vào/ra
+ * @returns Trả về một mảng, phần tử đầu tiên là một ref cho biết chuột có đang ở bên trong phần tử hay không, phần tử thứ hai là một bộ điều khiển, có thể bật/tắt listener thông qua các phương thức enable và disable
  */
 export function useHoverToggle(
   refElement: Arrayable<MaybeElementRef> | Ref<HTMLElement[] | null>,
   delay: (() => number) | HoverDelayOptions | number = DEFAULT_LEAVE_DELAY,
 ) {
-  // 兼容旧版本API
+  // Tương thích với API phiên bản cũ
   const normalizedOptions: HoverDelayOptions =
     typeof delay === 'number' || isFunction(delay)
       ? { enterDelay: DEFAULT_ENTER_DELAY, leaveDelay: delay }
@@ -43,18 +43,18 @@ export function useHoverToggle(
   const leaveTimer = ref<ReturnType<typeof setTimeout> | undefined>();
   const hoverScopes = ref<ReturnType<typeof effectScope>[]>([]);
 
-  // 使用计算属性包装 refElement，使其响应式变化
+  // Dùng computed để bọc refElement, giúp nó thay đổi một cách phản ứng
   const refs = computed(() => {
     const raw = unref(refElement);
     if (raw === null) return [];
     return Array.isArray(raw) ? raw : [raw];
   });
-  // 存储所有 hover 状态
+  // Lưu trữ tất cả trạng thái hover
   const isHovers = ref<Array<Ref<boolean>>>([]);
 
-  // 更新 hover 监听的函数
+  // Hàm cập nhật listener hover
   function updateHovers() {
-    // 停止并清理之前的作用域
+    // Dừng và dọn dẹp các scope trước đó
     hoverScopes.value.forEach((scope) => scope.stop());
     hoverScopes.value = [];
 
@@ -67,7 +67,7 @@ export function useHoverToggle(
         return ele instanceof Element ? ele : (ele?.$el as Element);
       });
 
-      // 为每个元素创建独立的作用域
+      // Tạo scope riêng cho từng phần tử
       const scope = effectScope();
       const hoverRef = scope.run(() => useElementHover(eleRef)) || ref(false);
       hoverScopes.value.push(scope);
@@ -76,17 +76,17 @@ export function useHoverToggle(
     });
   }
 
-  // 监听元素数量变化，避免过度执行
+  // Theo dõi sự thay đổi số lượng phần tử, tránh thực thi quá mức
   const elementsCount = computed(() => {
     const raw = unref(refElement);
     if (raw === null) return 0;
     return Array.isArray(raw) ? raw.length : 1;
   });
 
-  // 初始设置
+  // Thiết lập ban đầu
   updateHovers();
 
-  // 只在元素数量变化时重新设置监听器
+  // Chỉ thiết lập lại listener khi số lượng phần tử thay đổi
   const stopWatcher = watch(elementsCount, updateHovers, { deep: false });
 
   const isOutsideAll = computed(() => isHovers.value.every((v) => !v.value));
@@ -106,7 +106,7 @@ export function useHoverToggle(
     clearTimers();
 
     if (val) {
-      // 鼠标进入
+      // Chuột di vào
       const enterDelay = normalizedOptions.enterDelay ?? DEFAULT_ENTER_DELAY;
       const delayTime = isFunction(enterDelay) ? enterDelay() : enterDelay;
 
@@ -119,7 +119,7 @@ export function useHoverToggle(
         }, delayTime);
       }
     } else {
-      // 鼠标离开
+      // Chuột di ra
       const leaveDelay = normalizedOptions.leaveDelay ?? DEFAULT_LEAVE_DELAY;
       const delayTime = isFunction(leaveDelay) ? leaveDelay() : leaveDelay;
 
@@ -153,9 +153,9 @@ export function useHoverToggle(
 
   onUnmounted(() => {
     clearTimers();
-    // 停止监听器
+    // Dừng listener
     stopWatcher();
-    // 停止所有剩余的作用域
+    // Dừng tất cả các scope còn lại
     hoverScopes.value.forEach((scope) => scope.stop());
   });
 

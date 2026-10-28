@@ -31,46 +31,46 @@ interface RouteCached {
 interface TabbarState {
   cachedRoutes: Map<string, RouteCached>;
   /**
-   * @zh_CN 当前打开的标签页列表缓存
+   * @zh_CN Bộ nhớ đệm danh sách các tab đang mở
    */
   cachedTabs: Set<string>;
   /**
-   * @zh_CN 拖拽结束的索引
+   * @zh_CN Chỉ số kết thúc kéo thả
    */
   dragEndIndex: number;
   /**
-   * @zh_CN 需要排除缓存的标签页
+   * @zh_CN Các tab cần loại khỏi bộ nhớ đệm
    */
   excludeCachedTabs: Set<string>;
   /**
-   * @zh_CN 标签右键菜单列表
+   * @zh_CN Danh sách menu chuột phải của tab
    */
   menuList: string[];
   /**
-   * @zh_CN 是否刷新
+   * @zh_CN Có làm mới hay không
    */
   renderRouteView?: boolean;
   /**
-   * @zh_CN 当前打开的标签页列表
+   * @zh_CN Danh sách các tab đang mở
    */
   tabs: TabDefinition[];
   /**
-   * @zh_CN 更新时间，用于一些更新场景，使用watch深度监听的话，会损耗性能
+   * @zh_CN Thời gian cập nhật, dùng cho một số tình huống cập nhật; nếu dùng watch theo dõi sâu sẽ tốn hiệu năng
    */
   updateTime?: number;
   /**
-   * @zh_CN 上一个标签页打开的标签
+   * @zh_CN Tab được mở bởi tab trước đó
    */
   visitHistory: Stack<string>;
 }
 
 /**
- * @zh_CN 访问历史记录最大数量
+ * @zh_CN Số lượng tối đa của lịch sử truy cập
  */
 const MAX_VISIT_HISTORY = 50;
 
 /**
- * @zh_CN 访问权限相关
+ * @zh_CN Liên quan đến quyền truy cập
  */
 export const useTabbarStore = defineStore('core-tabbar', {
   actions: {
@@ -89,7 +89,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       await this.updateCacheTabs();
     },
     /**
-     * @zh_CN 关闭标签页
+     * @zh_CN Đóng tab
      * @param tab
      */
     _close(tab: TabDefinition) {
@@ -100,7 +100,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       index !== -1 && this.tabs.splice(index, 1);
     },
     /**
-     * @zh_CN 跳转到默认标签页
+     * @zh_CN Chuyển đến tab mặc định
      */
     async _goToDefaultTab(router: Router) {
       if (this.getTabs.length <= 0) {
@@ -112,7 +112,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       }
     },
     /**
-     * @zh_CN 跳转到标签页
+     * @zh_CN Chuyển đến tab
      * @param tab
      * @param router
      */
@@ -126,7 +126,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       await router.replace(toParams);
     },
     /**
-     * @zh_CN 添加标签页
+     * @zh_CN Thêm tab
      * @param routeTab
      */
     addTab(routeTab: TabDefinition): TabDefinition {
@@ -144,23 +144,23 @@ export const useTabbarStore = defineStore('core-tabbar', {
 
       if (tabIndex === -1) {
         const maxCount = preferences.tabbar.maxCount;
-        // 获取动态路由打开数，超过 0 即代表需要控制打开数
+        // Lấy số lượng route động đang mở, lớn hơn 0 tức là cần kiểm soát số lượng mở
         const maxNumOfOpenTab = (routeTab?.meta?.maxNumOfOpenTab ??
           -1) as number;
-        // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
-        // 获取到已经打开的动态路由数, 判断是否大于某一个值
+        // Nếu cấp của route động lớn hơn 0 thì phải giới hạn số lượng mở của route đó
+        // Lấy số lượng route động đã mở, kiểm tra xem có lớn hơn một giá trị nào đó không
         if (
           maxNumOfOpenTab > 0 &&
           this.tabs.filter((tab) => tab.name === routeTab.name).length >=
             maxNumOfOpenTab
         ) {
-          // 关闭第一个
+          // Đóng tab đầu tiên
           const index = this.tabs.findIndex(
             (item) => item.name === routeTab.name,
           );
           index !== -1 && this.tabs.splice(index, 1);
         } else if (maxCount > 0 && this.tabs.length >= maxCount) {
-          // 关闭第一个
+          // Đóng tab đầu tiên
           const index = this.tabs.findIndex(
             (item) =>
               !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
@@ -169,7 +169,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         }
         this.tabs.push(tab);
       } else {
-        // 页面已经存在，不重复添加选项卡，只更新选项卡参数
+        // Trang đã tồn tại, không thêm tab trùng lặp, chỉ cập nhật tham số của tab
         const currentTab = toRaw(this.tabs)[tabIndex];
         const mergedTab = {
           ...currentTab,
@@ -189,19 +189,19 @@ export const useTabbarStore = defineStore('core-tabbar', {
         this.tabs.splice(tabIndex, 1, mergedTab);
       }
       this.updateCacheTabs();
-      // 添加访问历史记录
+      // Thêm lịch sử truy cập
       if (isVisitHistory()) {
         this.visitHistory.push(tab.key as string);
       }
       return tab;
     },
     /**
-     * @zh_CN 关闭所有标签页
+     * @zh_CN Đóng tất cả các tab
      */
     async closeAllTabs(router: Router) {
       const newTabs = this.tabs.filter((tab) => isAffixTab(tab));
       this.tabs = newTabs.length > 0 ? newTabs : [...this.tabs].splice(0, 1);
-      // 设置访问历史记录
+      // Thiết lập lịch sử truy cập
       if (isVisitHistory()) {
         this.visitHistory.retain(
           this.tabs.map((item) => getTabKeyFromTab(item)),
@@ -211,7 +211,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.updateCacheTabs();
     },
     /**
-     * @zh_CN 关闭左侧标签页
+     * @zh_CN Đóng các tab bên trái
      * @param tab
      */
     async closeLeftTabs(tab: TabDefinition) {
@@ -232,7 +232,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       await this._bulkCloseByKeys(keys);
     },
     /**
-     * @zh_CN 关闭其他标签页
+     * @zh_CN Đóng các tab khác
      * @param tab
      */
     async closeOtherTabs(tab: TabDefinition) {
@@ -256,7 +256,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       await this._bulkCloseByKeys(keys);
     },
     /**
-     * @zh_CN 关闭右侧标签页
+     * @zh_CN Đóng các tab bên phải
      * @param tab
      */
     async closeRightTabs(tab: TabDefinition) {
@@ -276,18 +276,18 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 关闭标签页
+     * @zh_CN Đóng tab
      * @param tab
      * @param router
      */
     async closeTab(tab: TabDefinition, router: Router) {
       const { currentRoute } = router;
       const currentTabKey = getTabKey(currentRoute.value);
-      // 关闭不是激活选项卡
+      // Đóng tab không phải là tab đang kích hoạt
       if (currentTabKey !== getTabKeyFromTab(tab)) {
         this._close(tab);
         this.updateCacheTabs();
-        // 移除访问历史记录
+        // Xóa khỏi lịch sử truy cập
         if (isVisitHistory()) {
           this.visitHistory.remove(getTabKeyFromTab(tab));
         }
@@ -297,7 +297,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
         console.error('Failed to close the tab; only one tab remains open.');
         return;
       }
-      // 从访问历史记录中移除当前关闭的tab
+      // Xóa tab đang đóng khỏi lịch sử truy cập
       if (isVisitHistory()) {
         this.visitHistory.remove(currentTabKey);
         this._close(tab);
@@ -319,7 +319,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
           : this._goToDefaultTab(router));
         return;
       }
-      // 未开启访问历史记录，直接跳转下一个或上一个tab
+      // Chưa bật lịch sử truy cập, chuyển thẳng đến tab tiếp theo hoặc tab trước đó
       const index = this.getTabs.findIndex(
         (item) => getTabKeyFromTab(item) === getTabKey(currentRoute.value),
       );
@@ -327,11 +327,11 @@ export const useTabbarStore = defineStore('core-tabbar', {
       const before = this.getTabs[index - 1];
       const after = this.getTabs[index + 1];
 
-      // 下一个tab存在，跳转到下一个
+      // Tab tiếp theo tồn tại, chuyển đến tab tiếp theo
       if (after) {
         this._close(tab);
         await this._goToTab(after, router);
-        // 上一个tab存在，跳转到上一个
+        // Tab trước đó tồn tại, chuyển đến tab trước đó
       } else if (before) {
         this._close(tab);
         await this._goToTab(before, router);
@@ -339,7 +339,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 通过key关闭标签页
+     * @zh_CN Đóng tab theo key
      * @param key
      * @param router
      */
@@ -359,7 +359,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * 根据tab的key获取tab
+     * Lấy tab theo key của tab
      * @param key
      */
     getTabByKey(key: string) {
@@ -368,7 +368,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       ) as TabDefinition;
     },
     /**
-     * @zh_CN 新窗口打开标签页
+     * @zh_CN Mở tab trong cửa sổ mới
      * @param tab
      */
     async openTabInNewWindow(tab: TabDefinition) {
@@ -376,7 +376,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 固定标签页
+     * @zh_CN Ghim tab
      * @param tab
      */
     async pinTab(tab: TabDefinition) {
@@ -389,20 +389,20 @@ export const useTabbarStore = defineStore('core-tabbar', {
       tab.meta.title = oldTab?.meta?.title as string;
       // this.addTab(tab);
       this.tabs.splice(index, 1, tab);
-      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
+      // Lọc các tab đã ghim, nếu sau này thay đổi giá trị affixTabOrder có thể sẽ có vấn đề, hiện tại việc sắp xếp affixTabs ở dòng 464 chưa đặt giá trị
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
-      // 获得固定tabs的index
+      // Lấy index của các tab đã ghim
       const newIndex = affixTabs.findIndex((item) => equalTab(item, tab));
-      // 交换位置重新排序
+      // Hoán đổi vị trí để sắp xếp lại
       await this.sortTabs(index, newIndex);
     },
 
     /**
-     * 刷新标签页
+     * Làm mới tab
      */
     async refresh(router: Router | string) {
-      // 如果是Router路由，那么就根据当前路由刷新
-      // 如果是string字符串，为路由名称，则定向刷新指定标签页，不能是当前路由名称，否则不会刷新
+      // Nếu là route của Router thì làm mới theo route hiện tại
+      // Nếu là chuỗi string, tức tên route, thì làm mới tab được chỉ định theo tên, không được là tên route hiện tại, nếu không sẽ không làm mới
       if (typeof router === 'string') {
         return await this.refreshByName(router);
       }
@@ -422,7 +422,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * 根据路由名称刷新指定标签页
+     * Làm mới tab được chỉ định theo tên route
      */
     async refreshByName(name: string) {
       this.excludeCachedTabs.add(name);
@@ -431,7 +431,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 重置标签页标题
+     * @zh_CN Đặt lại tiêu đề tab
      */
     async resetTabTitle(tab: TabDefinition) {
       if (tab?.meta?.newTabTitle) {
@@ -445,7 +445,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * 设置固定标签页
+     * Đặt các tab đã ghim
      * @param tabs
      */
     setAffixTabs(tabs: RouteRecordNormalized[]) {
@@ -456,7 +456,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 更新菜单列表
+     * @zh_CN Cập nhật danh sách menu
      * @param list
      */
     setMenuList(list: string[]) {
@@ -464,21 +464,21 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 设置标签页标题
+     * @zh_CN Đặt tiêu đề tab
      *
-     * @zh_CN 支持设置静态标题字符串或计算属性作为动态标题
-     * @zh_CN 当标题为计算属性时,标题会随计算属性值变化而自动更新
-     * @zh_CN 适用于需要根据状态或多语言动态更新标题的场景
+     * @zh_CN Hỗ trợ đặt chuỗi tiêu đề tĩnh hoặc thuộc tính tính toán (computed) làm tiêu đề động
+     * @zh_CN Khi tiêu đề là thuộc tính tính toán, tiêu đề sẽ tự động cập nhật theo sự thay đổi của giá trị thuộc tính tính toán
+     * @zh_CN Phù hợp với các tình huống cần cập nhật tiêu đề động theo trạng thái hoặc đa ngôn ngữ
      *
-     * @param {TabDefinition} tab - 标签页对象
-     * @param {ComputedRef<string> | string} title - 标题内容,支持静态字符串或计算属性
-     *
-     * @example
-     * // 设置静态标题
-     * setTabTitle(tab, '新标签页');
+     * @param {TabDefinition} tab - Đối tượng tab
+     * @param {ComputedRef<string> | string} title - Nội dung tiêu đề, hỗ trợ chuỗi tĩnh hoặc thuộc tính tính toán
      *
      * @example
-     * // 设置动态标题
+     * // Đặt tiêu đề tĩnh
+     * setTabTitle(tab, 'Tab mới');
+     *
+     * @example
+     * // Đặt tiêu đề động
      * setTabTitle(tab, computed(() => t('common.dashboard')));
      */
     async setTabTitle(tab: TabDefinition, title: ComputedRef<string> | string) {
@@ -494,7 +494,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.updateTime = Date.now();
     },
     /**
-     * @zh_CN 设置标签页顺序
+     * @zh_CN Đặt thứ tự các tab
      * @param oldIndex
      * @param newIndex
      */
@@ -509,7 +509,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 切换固定标签页
+     * @zh_CN Chuyển đổi trạng thái ghim tab
      * @param tab
      */
     async toggleTabPin(tab: TabDefinition) {
@@ -519,7 +519,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
 
     /**
-     * @zh_CN 取消固定标签页
+     * @zh_CN Hủy ghim tab
      * @param tab
      */
     async unpinTab(tab: TabDefinition) {
@@ -532,21 +532,21 @@ export const useTabbarStore = defineStore('core-tabbar', {
       tab.meta.title = oldTab?.meta?.title as string;
       // this.addTab(tab);
       this.tabs.splice(index, 1, tab);
-      // 过滤固定tabs，后面更改affixTabOrder的值的话可能会有问题，目前行464排序affixTabs没有设置值
+      // Lọc các tab đã ghim, nếu sau này thay đổi giá trị affixTabOrder có thể sẽ có vấn đề, hiện tại việc sắp xếp affixTabs ở dòng 464 chưa đặt giá trị
       const affixTabs = this.tabs.filter((tab) => isAffixTab(tab));
-      // 获得固定tabs的index,使用固定tabs的下一个位置也就是活动tabs的第一个位置
+      // Lấy index của các tab đã ghim, dùng vị trí tiếp theo của các tab đã ghim, tức vị trí đầu tiên của các tab đang hoạt động
       const newIndex = affixTabs.length;
-      // 交换位置重新排序
+      // Hoán đổi vị trí để sắp xếp lại
       await this.sortTabs(index, newIndex);
     },
     /**
-     * 根据当前打开的选项卡更新缓存
+     * Cập nhật bộ nhớ đệm theo các tab đang mở
      */
     async updateCacheTabs() {
       const cacheMap = new Set<string>();
 
       for (const tab of this.tabs) {
-        // 跳过不需要持久化的标签页
+        // Bỏ qua các tab không cần duy trì (persist)
         const keepAlive = tab.meta?.keepAlive;
         if (!keepAlive) {
           continue;
@@ -563,7 +563,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
       this.cachedTabs = cacheMap;
     },
     /**
-     * 添加缓存的route
+     * Thêm route đã lưu vào bộ nhớ đệm
      * @param component
      * @param route
      */
@@ -610,7 +610,7 @@ export const useTabbarStore = defineStore('core-tabbar', {
     },
   },
   persist: [
-    // tabs不需要保存在localStorage
+    // tabs không cần lưu trong localStorage
     {
       pick: ['tabs', 'visitHistory'],
       storage: sessionStorage,
@@ -618,8 +618,8 @@ export const useTabbarStore = defineStore('core-tabbar', {
         serialize: JSON.stringify,
         deserialize(value: string) {
           const parsed = JSON.parse(value);
-          // Stack 类实例经 JSON 序列化后会变成普通对象 {dedup, items, maxSize}，
-          // 丢失所有方法和 getter，需要重新构建 Stack 实例
+          // Sau khi đối tượng Stack được tuần tự hóa JSON sẽ trở thành đối tượng thường {dedup, items, maxSize},
+          // mất tất cả phương thức và getter, cần xây dựng lại đối tượng Stack
           if (parsed.visitHistory && !(parsed.visitHistory instanceof Stack)) {
             const raw = parsed.visitHistory;
             const stack = createStack<string>(true, MAX_VISIT_HISTORY);
@@ -656,14 +656,14 @@ export const useTabbarStore = defineStore('core-tabbar', {
   }),
 });
 
-// 解决热更新问题
+// Giải quyết vấn đề hot update
 const hot = import.meta.hot;
 if (hot) {
   hot.accept(acceptHMRUpdate(useTabbarStore, hot));
 }
 
 /**
- * @zh_CN 克隆路由,防止路由被修改
+ * @zh_CN Sao chép route, ngăn route bị sửa đổi
  * @param route
  */
 function cloneTab(route: TabDefinition): TabDefinition {
@@ -688,7 +688,7 @@ function cloneTab(route: TabDefinition): TabDefinition {
 }
 
 /**
- * @zh_CN 是否是固定标签页
+ * @zh_CN Có phải là tab đã ghim hay không
  * @param tab
  */
 function isAffixTab(tab: TabDefinition) {
@@ -696,7 +696,7 @@ function isAffixTab(tab: TabDefinition) {
 }
 
 /**
- * @zh_CN 是否显示标签
+ * @zh_CN Có hiển thị tab hay không
  * @param tab
  */
 function isTabShown(tab: TabDefinition) {
@@ -705,7 +705,7 @@ function isTabShown(tab: TabDefinition) {
 }
 
 /**
- * 从route获取tab页的key
+ * Lấy key của tab từ route
  * @param tab
  */
 function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
@@ -715,7 +715,7 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
     meta: { fullPathKey } = {},
     query = {},
   } = tab as RouteLocationNormalized;
-  // pageKey可能是数组（查询参数重复时可能出现）
+  // pageKey có thể là mảng (khi tham số truy vấn bị trùng lặp)
   const pageKey = Array.isArray(query.pageKey)
     ? query.pageKey[0]
     : query.pageKey;
@@ -733,15 +733,15 @@ function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized) {
 }
 
 /**
- * @zh_CN 是否开启访问历史记录
+ * @zh_CN Có bật lịch sử truy cập hay không
  */
 function isVisitHistory() {
   return preferences.tabbar.visitHistory;
 }
 
 /**
- * 从tab获取tab页的key
- * 如果tab没有key,那么就从route获取key
+ * Lấy key của tab từ tab
+ * Nếu tab không có key thì lấy key từ route
  * @param tab
  */
 function getTabKeyFromTab(tab: TabDefinition): string {
@@ -749,7 +749,7 @@ function getTabKeyFromTab(tab: TabDefinition): string {
 }
 
 /**
- * 比较两个tab是否相等
+ * So sánh hai tab có bằng nhau hay không
  * @param a
  * @param b
  */

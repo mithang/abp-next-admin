@@ -6,28 +6,28 @@ using Volo.Abp.Timing;
 namespace LINGYUN.Abp.MessageService.Groups;
 
 /// <summary>
-/// 用户群组卡片
+/// Thẻ nhóm của người dùng
 /// </summary>
 public class UserGroupCard : AuditedAggregateRoot<long>, IMultiTenant
 {
     /// <summary>
-    /// 租户
+    /// Bên thuê
     /// </summary>
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 用户标识
+    /// Mã định danh người dùng
     /// </summary>
     public virtual Guid UserId { get; protected set; }
     /// <summary>
-    /// 昵称
+    /// Biệt danh
     /// </summary>
     public virtual string? NickName { get; set; }
     /// <summary>
-    /// 是否管理员
+    /// Có phải quản trị viên không
     /// </summary>
     public virtual bool IsAdmin { get; protected set; }
     /// <summary>
-    /// 禁言期止
+    /// Thời điểm kết thúc cấm chat
     /// </summary>
     public virtual DateTime? SilenceEnd { get; protected set; }
     protected UserGroupCard()
@@ -47,7 +47,7 @@ public class UserGroupCard : AuditedAggregateRoot<long>, IMultiTenant
         TenantId = tenantId;
     }
     /// <summary>
-    /// 设置管理员
+    /// Đặt quản trị viên
     /// </summary>
     /// <param name="admin"></param>
     public void SetAdmin(bool admin)
@@ -55,7 +55,7 @@ public class UserGroupCard : AuditedAggregateRoot<long>, IMultiTenant
         IsAdmin = admin;
     }
     /// <summary>
-    /// 禁言
+    /// Cấm chat
     /// </summary>
     /// <param name="clock"></param>
     /// <param name="seconds"></param>
@@ -64,7 +64,7 @@ public class UserGroupCard : AuditedAggregateRoot<long>, IMultiTenant
         SilenceEnd = clock.Now.AddSeconds(seconds);
     }
     /// <summary>
-    /// 解除禁言
+    /// Hủy cấm chat
     /// </summary>
     public void UnSilence()
     {

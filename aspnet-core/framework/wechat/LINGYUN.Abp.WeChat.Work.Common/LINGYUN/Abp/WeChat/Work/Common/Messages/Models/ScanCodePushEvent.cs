@@ -3,7 +3,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 扫码推事件的事件推送
+/// Đẩy sự kiện quét mã
 /// </summary>
 [EventName("scancode_push")]
 public class ScanCodePushEvent : ScanCodeEvent

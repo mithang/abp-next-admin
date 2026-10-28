@@ -12,7 +12,7 @@ export namespace SystemDeptApi {
 }
 
 /**
- * 获取部门列表数据
+ * Lấy dữ liệu danh sách phòng ban
  */
 async function getDeptList() {
   return requestClient.get<Array<SystemDeptApi.SystemDept>>(
@@ -21,8 +21,8 @@ async function getDeptList() {
 }
 
 /**
- * 创建部门
- * @param data 部门数据
+ * Tạo phòng ban
+ * @param data Dữ liệu phòng ban
  */
 async function createDept(
   data: Omit<SystemDeptApi.SystemDept, 'children' | 'id'>,
@@ -31,10 +31,10 @@ async function createDept(
 }
 
 /**
- * 更新部门
+ * Cập nhật phòng ban
  *
- * @param id 部门 ID
- * @param data 部门数据
+ * @param id ID phòng ban
+ * @param data Dữ liệu phòng ban
  */
 async function updateDept(
   id: string,
@@ -44,8 +44,8 @@ async function updateDept(
 }
 
 /**
- * 删除部门
- * @param id 部门 ID
+ * Xóa phòng ban
+ * @param id ID phòng ban
  */
 async function deleteDept(id: string) {
   return requestClient.delete(`/system/dept/${id}`);

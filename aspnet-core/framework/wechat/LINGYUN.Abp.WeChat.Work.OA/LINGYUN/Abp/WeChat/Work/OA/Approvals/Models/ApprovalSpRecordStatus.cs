@@ -2,43 +2,43 @@
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 审批节点状态
+/// Trạng thái nút phê duyệt
 /// </summary>
 public enum ApprovalSpRecordStatus : byte
 {
     /// <summary>
-    /// 审批中
+    /// Đang phê duyệt
     /// </summary>
-    [Description("审批中")]
+    [Description("Đang phê duyệt")]
     UnderApproval = 1,
     /// <summary>
-    /// 已同意
+    /// Đã đồng ý
     /// </summary>
-    [Description("已同意")]
+    [Description("Đã đồng ý")]
     Passed = 2,
     /// <summary>
-    /// 已驳回
+    /// Đã từ chối
     /// </summary>
-    [Description("已驳回")]
+    [Description("Đã từ chối")]
     Rejected = 3,
     /// <summary>
-    /// 已转审
+    /// Đã chuyển xét duyệt
     /// </summary>
-    [Description("已转审")]
+    [Description("Đã chuyển xét duyệt")]
     Transferred = 4,
     /// <summary>
-    /// 已退回
+    /// Đã trả lại
     /// </summary>
-    [Description("已退回")]
+    [Description("Đã trả lại")]
     Returned = 11,
     /// <summary>
-    /// 已加签
+    /// Đã ký bổ sung
     /// </summary>
-    [Description("已加签")]
+    [Description("Đã ký bổ sung")]
     Signed = 12,
     /// <summary>
-    /// 已同意并加签
+    /// Đã đồng ý và ký bổ sung
     /// </summary>
-    [Description("已同意并加签")]
+    [Description("Đã đồng ý và ký bổ sung")]
     AgreedAndSigned = 13,
 }

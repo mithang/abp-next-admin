@@ -7,17 +7,17 @@ using System.Net;
 namespace LINGYUN.Abp.MaxMindGeoIP2;
 
 /// <summary>
-/// 空的 GeoIP2 数据库解读器
+/// Trình đọc cơ sở dữ liệu GeoIP2 rỗng
 /// </summary>
 /// <remarks>
-/// 未提供(或找不到)离线库文件时使用: 相当于解读了一份空内容,
-/// 所有查询都返回"无数据"——<c>TryXxx</c> 返回 <c>false</c>、<c>Xxx</c> 抛出
-/// <see cref="AddressNotFoundException"/>, 与真实解读器未命中时的行为一致, 不影响业务流程
+/// Dùng khi không cung cấp (hoặc không tìm thấy) tệp thư viện ngoại tuyến: tương đương với việc đọc một nội dung rỗng,
+/// Mọi truy vấn đều trả về "không có dữ liệu" — <c>TryXxx</c> trả về <c>false</c>, <c>Xxx</c> ném
+/// <see cref="AddressNotFoundException"/>, giống hành vi khi trình đọc thật không tìm thấy kết quả, không ảnh hưởng đến luồng nghiệp vụ
 /// </remarks>
 public class EmptyGeoIP2DatabaseReader : IGeoIP2DatabaseReader
 {
     /// <summary>
-    /// 空解读器不提供数据库元数据
+    /// Trình đọc rỗng không cung cấp siêu dữ liệu của cơ sở dữ liệu
     /// </summary>
     public virtual Metadata Metadata => null!;
 
@@ -94,7 +94,7 @@ public class EmptyGeoIP2DatabaseReader : IGeoIP2DatabaseReader
     public virtual bool TryIsp(string ipAddress, out IspResponse response) => TryGet(out response);
 
     /// <summary>
-    /// 所有查询都没有数据
+    /// Mọi truy vấn đều không có dữ liệu
     /// </summary>
     protected virtual bool TryGet<TResponse>(out TResponse response)
         where TResponse : class

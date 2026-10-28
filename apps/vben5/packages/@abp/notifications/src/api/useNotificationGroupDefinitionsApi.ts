@@ -13,8 +13,8 @@ export function useNotificationGroupDefinitionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除通知分组定义
-   * @param name 通知分组名称
+   * Xóa định nghĩa nhóm thông báo
+   * @param name Tên nhóm thông báo
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/notifications/definitions/groups/${name}`, {
@@ -23,9 +23,9 @@ export function useNotificationGroupDefinitionsApi() {
   }
 
   /**
-   * 查询通知分组定义
-   * @param name 通知分组名称
-   * @returns 通知分组定义数据传输对象
+   * Truy vấn định nghĩa nhóm thông báo
+   * @param name Tên nhóm thông báo
+   * @returns Đối tượng truyền dữ liệu định nghĩa nhóm thông báo
    */
   function getApi(name: string): Promise<NotificationGroupDefinitionDto> {
     return request<NotificationGroupDefinitionDto>(
@@ -37,9 +37,9 @@ export function useNotificationGroupDefinitionsApi() {
   }
 
   /**
-   * 查询通知分组定义列表
-   * @param input 通知分组过滤条件
-   * @returns 通知分组定义数据传输对象列表
+   * Truy vấn danh sách định nghĩa nhóm thông báo
+   * @param input Điều kiện lọc nhóm thông báo
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa nhóm thông báo
    */
   function getListApi(
     input?: NotificationGroupDefinitionGetListInput,
@@ -54,9 +54,9 @@ export function useNotificationGroupDefinitionsApi() {
   }
 
   /**
-   * 创建通知分组定义
-   * @param input 通知分组定义参数
-   * @returns 通知分组定义数据传输对象
+   * Tạo định nghĩa nhóm thông báo
+   * @param input Tham số định nghĩa nhóm thông báo
+   * @returns Đối tượng truyền dữ liệu định nghĩa nhóm thông báo
    */
   function createApi(
     input: NotificationGroupDefinitionCreateDto,
@@ -71,10 +71,10 @@ export function useNotificationGroupDefinitionsApi() {
   }
 
   /**
-   * 更新通知分组定义
-   * @param name 通知分组名称
-   * @param input 通知分组定义参数
-   * @returns 通知分组定义数据传输对象
+   * Cập nhật định nghĩa nhóm thông báo
+   * @param name Tên nhóm thông báo
+   * @param input Tham số định nghĩa nhóm thông báo
+   * @returns Đối tượng truyền dữ liệu định nghĩa nhóm thông báo
    */
   function updateApi(
     name: string,

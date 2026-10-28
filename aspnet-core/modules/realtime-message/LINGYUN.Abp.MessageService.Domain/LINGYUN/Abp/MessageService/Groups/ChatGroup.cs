@@ -5,56 +5,56 @@ using Volo.Abp.MultiTenancy;
 namespace LINGYUN.Abp.MessageService.Groups;
 
 /// <summary>
-/// 聊天群组
+/// Nhóm trò chuyện
 /// </summary>
 public class ChatGroup : AuditedEntity<long>, IMultiTenant
 {
     /// <summary>
-    /// 租户
+    /// Tenant
     /// </summary>
     public virtual Guid? TenantId { get; protected set; }
     /// <summary>
-    /// 群主
+    /// Chủ nhóm
     /// </summary>
     public virtual Guid AdminUserId { get; protected set; }
     /// <summary>
-    /// 群组标识
+    /// Mã định danh nhóm
     /// </summary>
     public virtual long GroupId { get; protected set; }
     /// <summary>
-    /// 群组名称
+    /// Tên nhóm
     /// </summary>
     public virtual string Name { get; protected set; } = default!;
     /// <summary>
-    /// 群组标记
+    /// Nhãn của nhóm
     /// </summary>
     public virtual string? Tag { get; protected set; }
     /// <summary>
-    /// 群组地址
+    /// Địa chỉ nhóm
     /// </summary>
     public virtual string? Address { get; set; }
     /// <summary>
-    /// 群组公告
+    /// Thông báo của nhóm
     /// </summary>
     public virtual string? Notice { get; set; }
     /// <summary>
-    /// 最大用户数量
+    /// Số lượng người dùng tối đa
     /// </summary>
     public virtual int MaxUserCount { get; protected set; }
     /// <summary>
-    /// 允许匿名聊天
+    /// Cho phép trò chuyện ẩn danh
     /// </summary>
     public virtual bool AllowAnonymous { get; set; }
     /// <summary>
-    /// 允许发送消息
+    /// Cho phép gửi tin nhắn
     /// </summary>
     public virtual bool AllowSendMessage { get; set; }
     /// <summary>
-    /// 群组说明
+    /// Mô tả nhóm
     /// </summary>
     public virtual string? Description { get; set; }
     /// <summary>
-    /// 群组头像地址
+    /// Địa chỉ ảnh đại diện của nhóm
     /// </summary>
     public virtual string? AvatarUrl { get; set; }
     protected ChatGroup()

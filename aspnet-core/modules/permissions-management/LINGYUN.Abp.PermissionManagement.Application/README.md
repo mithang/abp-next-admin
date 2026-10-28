@@ -1,23 +1,23 @@
 # LINGYUN.Abp.PermissionManagement.Application
 
-权限管理应用服务模块，提供权限管理的应用层实现。
+Mô-đun dịch vụ ứng dụng quản lý quyền, cung cấp triển khai tầng ứng dụng quản lý quyền.
 
-## 功能特性
+## Tính năng
 
-* 权限组定义管理
-  * 创建、更新、删除权限组定义
-  * 支持权限组的启用/禁用
-  * 支持权限组的静态/动态配置
-* 权限定义管理
-  * 创建、更新、删除权限定义
-  * 支持权限的启用/禁用
-  * 支持权限的静态/动态配置
-  * 支持权限的父子层级关系
-* 多租户支持
-  * 支持Host和Tenant两种多租户模式
-  * 支持权限的多租户侧配置
+* Quản lý định nghĩa nhóm quyền
+  * Tạo, cập nhật, xóa định nghĩa nhóm quyền
+  * Hỗ trợ bật/tắt nhóm quyền
+  * Hỗ trợ cấu hình tĩnh/động nhóm quyền
+* Quản lý định nghĩa quyền
+  * Tạo, cập nhật, xóa định nghĩa quyền
+  * Hỗ trợ bật/tắt quyền
+  * Hỗ trợ cấu hình tĩnh/động quyền
+  * Hỗ trợ quan hệ phân cấp cha-con của quyền
+* Hỗ trợ đa thuê bao
+  * Hỗ trợ hai chế độ đa thuê bao Host và Tenant
+  * Hỗ trợ cấu hình phía đa thuê bao của quyền
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -29,9 +29,9 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 权限组定义管理
+1. Quản lý định nghĩa nhóm quyền
 ```csharp
 public class YourService
 {
@@ -44,14 +44,14 @@ public class YourService
 
     public async Task ManageGroupDefinitionAsync()
     {
-        // 创建权限组
+        // Tạo nhóm quyền
         await _groupDefinitionAppService.CreateAsync(new PermissionGroupDefinitionCreateDto
         {
             Name = "MyPermissionGroup",
             DisplayName = "My Permission Group"
         });
 
-        // 更新权限组
+        // Cập nhật nhóm quyền
         await _groupDefinitionAppService.UpdateAsync("MyPermissionGroup", 
             new PermissionGroupDefinitionUpdateDto
             {
@@ -61,7 +61,7 @@ public class YourService
 }
 ```
 
-2. 权限定义管理
+2. Quản lý định nghĩa quyền
 ```csharp
 public class YourService
 {
@@ -74,7 +74,7 @@ public class YourService
 
     public async Task ManagePermissionDefinitionAsync()
     {
-        // 创建权限
+        // Tạo quyền
         await _permissionDefinitionAppService.CreateAsync(new PermissionDefinitionCreateDto
         {
             GroupName = "MyPermissionGroup",
@@ -83,7 +83,7 @@ public class YourService
             Providers = new[] { "Role", "User" }
         });
 
-        // 更新权限
+        // Cập nhật quyền
         await _permissionDefinitionAppService.UpdateAsync("MyPermission",
             new PermissionDefinitionUpdateDto
             {
@@ -93,7 +93,7 @@ public class YourService
 }
 ```
 
-## 另请参阅
+## Xem thêm
 
 * [LINGYUN.Abp.PermissionManagement.Application.Contracts](../LINGYUN.Abp.PermissionManagement.Application.Contracts/README.md)
 * [LINGYUN.Abp.PermissionManagement.Domain.OrganizationUnits](../LINGYUN.Abp.PermissionManagement.Domain.OrganizationUnits/README.md)

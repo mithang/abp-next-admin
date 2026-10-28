@@ -16,58 +16,58 @@ import { useElementSize } from '@vueuse/core';
 
 interface Props {
   /**
-   * 是否启用点击文本展开全部
+   * Có bật mở rộng toàn bộ văn bản khi nhấp vào văn bản hay không
    * @default false
    */
   expand?: boolean;
   /**
-   * 文本最大行数
+   * Số dòng tối đa của văn bản
    * @default 1
    */
   line?: number;
   /**
-   * 文本最大宽度
+   * Chiều rộng tối đa của văn bản
    * @default '100%'
    */
   maxWidth?: number | string;
   /**
-   * 提示框位置
+   * Vị trí của hộp gợi ý
    * @default 'top'
    */
   placement?: 'bottom' | 'left' | 'right' | 'top';
   /**
-   * 是否启用文本提示框
+   * Có bật hộp gợi ý văn bản hay không
    * @default true
    */
   tooltip?: boolean;
   /**
-   * 是否只在文本被截断时显示提示框
+   * Có chỉ hiển thị hộp gợi ý khi văn bản bị cắt ngắn hay không
    * @default false
    */
   tooltipWhenEllipsis?: boolean;
   /**
-   * 文本截断检测的像素差异阈值，越大则判断越严格
+   * Ngưỡng chênh lệch pixel để phát hiện văn bản bị cắt ngắn; giá trị càng lớn thì phán đoán càng nghiêm ngặt
    * @default 3
    */
   ellipsisThreshold?: number;
   /**
-   * 提示框背景颜色，优先级高于 overlayStyle
+   * Màu nền của hộp gợi ý, có độ ưu tiên cao hơn overlayStyle
    */
   tooltipBackgroundColor?: string;
   /**
-   * 提示文本字体颜色，优先级高于 overlayStyle
+   * Màu chữ của văn bản gợi ý, có độ ưu tiên cao hơn overlayStyle
    */
   tooltipColor?: string;
   /**
-   * 提示文本字体大小，单位px，优先级高于 overlayStyle
+   * Cỡ chữ của văn bản gợi ý, đơn vị px, có độ ưu tiên cao hơn overlayStyle
    */
   tooltipFontSize?: number;
   /**
-   * 提示框内容最大宽度，单位px，默认不设置时，提示文本内容自动与展示文本宽度保持一致
+   * Chiều rộng tối đa của nội dung hộp gợi ý, đơn vị px; mặc định khi không đặt, nội dung văn bản gợi ý sẽ tự động giữ cùng chiều rộng với văn bản hiển thị
    */
   tooltipMaxWidth?: number;
   /**
-   * 提示框内容区域样式
+   * Kiểu của vùng nội dung hộp gợi ý
    * @default { textAlign: 'justify' }
    */
   tooltipOverlayStyle?: CSSProperties;
@@ -103,7 +103,7 @@ const isEllipsis = ref(false);
 
 const { width: eleWidth } = useElementSize(ellipsis);
 
-// 检测文本是否被截断
+// Kiểm tra xem văn bản có bị cắt ngắn hay không
 const checkEllipsis = () => {
   if (!ellipsis.value || !props.tooltipWhenEllipsis) return;
 
@@ -112,7 +112,7 @@ const checkEllipsis = () => {
   const originalText = element.textContent || '';
   const originalTrimmed = originalText.trim();
 
-  // 对于空文本直接返回 false
+  // Với văn bản rỗng thì trả về false trực tiếp
   if (!originalTrimmed) {
     isEllipsis.value = false;
     return;
@@ -121,14 +121,14 @@ const checkEllipsis = () => {
   const widthDiff = element.scrollWidth - element.clientWidth;
   const heightDiff = element.scrollHeight - element.clientHeight;
 
-  // 使用足够大的差异阈值确保只有真正被截断的文本才会显示 tooltip
+  // Dùng ngưỡng chênh lệch đủ lớn để đảm bảo chỉ văn bản thực sự bị cắt ngắn mới hiển thị tooltip
   isEllipsis.value =
     props.line === 1
       ? widthDiff > props.ellipsisThreshold
       : heightDiff > props.ellipsisThreshold;
 };
 
-// 使用 ResizeObserver 监听尺寸变化
+// Dùng ResizeObserver để theo dõi thay đổi kích thước
 let resizeObserver: null | ResizeObserver = null;
 
 onMounted(() => {
@@ -142,11 +142,11 @@ onMounted(() => {
     }
   }
 
-  // 初始检测
+  // Kiểm tra ban đầu
   checkEllipsis();
 });
 
-// 使用onUpdated钩子检测内容变化
+// Dùng hook onUpdated để phát hiện thay đổi nội dung
 onUpdated(() => {
   if (props.tooltipWhenEllipsis) {
     checkEllipsis();

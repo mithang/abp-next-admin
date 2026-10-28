@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace Microsoft.AspNetCore.Authentication.WeChat.Official;
 
 /// <summary>
-/// 网页授权只有公众平台的实现
+/// Chỉ nền tảng tài khoản chính thức mới hỗ trợ ủy quyền qua trang web
 /// </summary>
 public class WeChatOfficialOAuthHandler : OAuthHandler<WeChatOfficialOAuthOptions>
 {
@@ -38,7 +38,7 @@ public class WeChatOfficialOAuthHandler : OAuthHandler<WeChatOfficialOAuthOption
     {
         var weChatOfficialOptions = await WeChatOfficialOptionsFactory.CreateAsync();
 
-        // 用配置项重写
+        // Ghi đè bằng mục cấu hình
         Options.ClientId = weChatOfficialOptions.AppId;
         Options.ClientSecret = weChatOfficialOptions.AppSecret;
         Options.TimeProvider ??= TimeProvider.System;
@@ -46,7 +46,7 @@ public class WeChatOfficialOAuthHandler : OAuthHandler<WeChatOfficialOAuthOption
         await base.InitializeHandlerAsync();
     }
     /// <summary>
-    ///  第一步：构建用户授权地址
+    ///  Bước 1: Xây dựng địa chỉ ủy quyền của người dùng
     /// </summary> 
     protected override string BuildChallengeUrl(AuthenticationProperties properties, string redirectUri)
     {
@@ -75,7 +75,7 @@ public class WeChatOfficialOAuthHandler : OAuthHandler<WeChatOfficialOAuthOption
     }
 
     /// <summary>
-    /// 第二步：code换取access_token
+    /// Bước 2: Dùng code để đổi lấy access_token
     /// </summary> 
     protected async override Task<OAuthTokenResponse> ExchangeCodeAsync(OAuthCodeExchangeContext context)
     {
@@ -116,7 +116,7 @@ public class WeChatOfficialOAuthHandler : OAuthHandler<WeChatOfficialOAuthOption
     }
 
     /// <summary>
-    /// 第三步：构建用户票据
+    /// Bước 3: Xây dựng vé (ticket) của người dùng
     /// </summary>
     /// <param name="identity"></param>
     /// <param name="properties"></param>
@@ -172,7 +172,7 @@ public class WeChatOfficialOAuthHandler : OAuthHandler<WeChatOfficialOAuthOption
     {
         var query = Request.Query;
 
-        // TODO: 此处借用唯一的 CorrelationId, 将 properties生成的State缓存取出,进行解密
+        // TODO: Tại đây mượn CorrelationId duy nhất để lấy State do properties tạo ra khỏi bộ nhớ đệm rồi giải mã
         var state = query["protected"];
 
         var properties = Options.StateDataFormat.Unprotect(state);

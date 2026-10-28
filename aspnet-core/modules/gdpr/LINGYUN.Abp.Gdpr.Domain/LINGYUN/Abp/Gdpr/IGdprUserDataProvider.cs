@@ -2,21 +2,21 @@
 
 namespace LINGYUN.Abp.Gdpr;
 /// <summary>
-/// 用户个人数据提供者<br />
-/// 实现: https://abp.io/docs/latest/modules/gdpr#gdpruserdatarequestedeto
+/// Nhà cung cấp dữ liệu cá nhân của người dùng<br />
+/// Triển khai: https://abp.io/docs/latest/modules/gdpr#gdpruserdatarequestedeto
 /// </summary>
 public interface IGdprUserDataProvider
 {
     /// <summary>
-    /// 提供者名称
+    /// Tên nhà cung cấp
     /// </summary>
     string Name { get; }
     /// <summary>
-    /// 准备用户数据
+    /// Chuẩn bị dữ liệu người dùng
     /// </summary>
     Task PorepareAsync(GdprPrepareUserDataContext context);
     /// <summary>
-    /// 删除用户数据
+    /// Xóa dữ liệu người dùng
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>

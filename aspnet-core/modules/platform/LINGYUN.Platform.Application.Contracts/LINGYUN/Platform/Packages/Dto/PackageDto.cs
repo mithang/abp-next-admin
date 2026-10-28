@@ -9,23 +9,23 @@ public class PackageDto : ExtensibleAuditedEntityDto<Guid>, IHasConcurrencyStamp
 {
     public string ConcurrencyStamp { get; set; } = default!;
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 版本说明
+    /// Mô tả phiên bản
     /// </summary>
     public string Note { get; set; } = default!;
     /// <summary>
-    /// 版本
+    /// Phiên bản
     /// </summary>
     public string Version { get; set; } = default!;
     /// <summary>
-    /// 描述
+    /// Mô tả
     /// </summary>
     public string? Description { get; set; }
     /// <summary>
-    /// 强制更新
+    /// Buộc cập nhật
     /// </summary>
     public bool ForceUpdate { get; set; }
 

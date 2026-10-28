@@ -5,7 +5,7 @@ public static class AuditLoggingOpenObserveErrorCodes
     public const string Namespace = "AuditLoggingOpenObserve";
 
     /// <summary>
-    /// 当前日志设施不支持删除记录!
+    /// Cơ sở hạ tầng ghi nhật ký hiện tại không hỗ trợ xóa bản ghi!
     /// </summary>
     public const string DeleteNotSupported = Namespace + ":010001";
 }

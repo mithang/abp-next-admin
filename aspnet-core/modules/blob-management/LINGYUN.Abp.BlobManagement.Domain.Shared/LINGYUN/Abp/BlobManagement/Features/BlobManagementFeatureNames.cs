@@ -4,11 +4,11 @@ public static class BlobManagementFeatureNames
 {
     public const string GroupName = "AbpBlobManagement";
     /// <summary>
-    /// 启用对象存储管理
+    /// Bật quản lý lưu trữ đối tượng
     /// </summary>
     public const string Enable = GroupName + ".Enable";
     /// <summary>
-    /// 是否允许未经授权的用户访问公共目录
+    /// Có cho phép người dùng chưa được ủy quyền truy cập thư mục công khai hay không
     /// </summary>
     public const string PublicAccess = GroupName + ".PublicAccess";
 
@@ -16,39 +16,39 @@ public static class BlobManagementFeatureNames
     {
         public const string Default = GroupName + ".Blob";
         /// <summary>
-        /// 启用Blob
+        /// Bật Blob
         /// </summary>
         public const string Enable = Default + ".Enable";
         /// <summary>
-        /// 生成临时文件下载链接
+        /// Tạo liên kết tải xuống tệp tạm thời
         /// </summary>
         public const string GenerateDownloadUrl = Default + ".GenerateDownloadUrl";
         /// <summary>
-        /// 下载文件功能
+        /// Chức năng tải xuống tệp
         /// </summary>
         public const string DownloadFile = Default + ".DownloadFile";
         /// <summary>
-        /// 下载文件功能限制次数
+        /// Số lần giới hạn của chức năng tải xuống tệp
         /// </summary>
         public const string DownloadLimit = Default + ".DownloadLimit";
         /// <summary>
-        /// 下载文件功能限制次数周期
+        /// Chu kỳ giới hạn số lần của chức năng tải xuống tệp
         /// </summary>
         public const string DownloadInterval = Default + ".DownloadInterval";
         /// <summary>
-        /// 上传文件功能
+        /// Chức năng tải lên tệp
         /// </summary>
         public const string UploadFile = Default + ".UploadFile";
         /// <summary>
-        /// 上传文件功能限制次数
+        /// Số lần giới hạn của chức năng tải lên tệp
         /// </summary>
         public const string UploadLimit = Default + ".UploadLimit";
         /// <summary>
-        /// 上传文件功能限制次数周期
+        /// Chu kỳ giới hạn số lần của chức năng tải lên tệp
         /// </summary>
         public const string UploadInterval = Default + ".UploadInterval";
         /// <summary>
-        /// 最大上传文件
+        /// Số tệp tải lên tối đa
         /// </summary>
         public const string MaxUploadFileCount = Default + ".MaxUploadFileCount";
     }

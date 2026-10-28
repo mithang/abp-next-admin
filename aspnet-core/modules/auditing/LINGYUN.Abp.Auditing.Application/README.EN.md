@@ -2,7 +2,7 @@
 
 Application layer module for audit logging, providing implementation of audit logging application services.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace LINGYUN.Abp.DataProtection;
 
 /// <summary>
-/// 数据权限策略过滤器
+/// Bộ lọc chính sách quyền dữ liệu
 /// </summary>
 public interface IDataAccessStrategyFilterBuilder
 {

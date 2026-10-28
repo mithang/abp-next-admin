@@ -3,7 +3,7 @@
 public class AbpRulesEnginePhysicalFileResolveOptions
 {
     /// <summary>
-    /// 本地文件路径
+    /// Đường dẫn file cục bộ
     /// </summary>
     public string PhysicalPath { get; set; } = default!;
 }

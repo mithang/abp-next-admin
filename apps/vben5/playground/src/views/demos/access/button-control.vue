@@ -52,19 +52,19 @@ async function changeAccount(role: string) {
 
 <template>
   <Page
-    :title="`${accessMode === 'frontend' ? '前端' : '后端'}按钮访问权限演示`"
-    description="切换不同的账号，观察按钮变化。"
+    :title="`${accessMode === 'frontend' ? 'Frontend' : 'Backend'}Demo quyền truy cập nút`"
+    description="Chuyển đổi giữa các tài khoản khác nhau và quan sát sự thay đổi của nút."
   >
     <Card class="mb-5">
       <template #title>
-        <span class="font-semibold">当前角色:</span>
+        <span class="font-semibold">Vai trò hiện tại:</span>
         <span class="mx-4 text-lg text-primary">
           {{ userStore.userRoles?.[0] }}
         </span>
       </template>
 
       <Button :type="roleButtonType('super')" @click="changeAccount('super')">
-        切换为 Super 账号
+        Chuyển sang tài khoản Super
       </Button>
 
       <Button
@@ -72,26 +72,26 @@ async function changeAccount(role: string) {
         class="mx-4"
         @click="changeAccount('admin')"
       >
-        切换为 Admin 账号
+        Chuyển sang tài khoản Admin
       </Button>
       <Button :type="roleButtonType('user')" @click="changeAccount('user')">
-        切换为 User 账号
+        Chuyển sang tài khoản User
       </Button>
     </Card>
 
-    <Card class="mb-5" title="组件形式控制 - 权限码">
+    <Card class="mb-5" title="Điều khiển dạng component - Mã quyền">
       <AccessControl :codes="['AC_100100']" type="code">
-        <Button class="mr-4"> Super 账号可见 ["AC_100100"] </Button>
+        <Button class="mr-4"> Tài khoản Super nhìn thấy ["AC_100100"] </Button>
       </AccessControl>
       <AccessControl :codes="['AC_100030']" type="code">
-        <Button class="mr-4"> Admin 账号可见 ["AC_100030"] </Button>
+        <Button class="mr-4"> Tài khoản Admin nhìn thấy ["AC_100030"] </Button>
       </AccessControl>
       <AccessControl :codes="['AC_1000001']" type="code">
-        <Button class="mr-4"> User 账号可见 ["AC_1000001"] </Button>
+        <Button class="mr-4"> Tài khoản User nhìn thấy ["AC_1000001"] </Button>
       </AccessControl>
       <AccessControl :codes="['AC_100100', 'AC_100030']" type="code">
         <Button class="mr-4">
-          Super & Admin 账号可见 ["AC_100100","AC_100030"]
+          Tài khoản Super & Admin nhìn thấy ["AC_100100","AC_100030"]
         </Button>
       </AccessControl>
     </Card>
@@ -99,58 +99,68 @@ async function changeAccount(role: string) {
     <Card
       v-if="accessMode === 'frontend'"
       class="mb-5"
-      title="组件形式控制 - 角色"
+      title="Điều khiển dạng component - Vai trò"
     >
       <AccessControl :codes="['super']" type="role">
-        <Button class="mr-4"> Super 角色可见 </Button>
+        <Button class="mr-4"> Vai trò Super nhìn thấy </Button>
       </AccessControl>
       <AccessControl :codes="['admin']" type="role">
-        <Button class="mr-4"> Admin 角色可见 </Button>
+        <Button class="mr-4"> Vai trò Admin nhìn thấy </Button>
       </AccessControl>
       <AccessControl :codes="['user']" type="role">
-        <Button class="mr-4"> User 角色可见 </Button>
+        <Button class="mr-4"> Vai trò User nhìn thấy </Button>
       </AccessControl>
       <AccessControl :codes="['super', 'admin']" type="role">
-        <Button class="mr-4"> Super & Admin 角色可见 </Button>
+        <Button class="mr-4"> Vai trò Super & Admin nhìn thấy </Button>
       </AccessControl>
     </Card>
 
-    <Card class="mb-5" title="函数形式控制">
+    <Card class="mb-5" title="Điều khiển dạng hàm">
       <Button v-if="hasAccessByCodes(['AC_100100'])" class="mr-4">
-        Super 账号可见 ["AC_100100"]
+        Tài khoản Super nhìn thấy ["AC_100100"]
       </Button>
       <Button v-if="hasAccessByCodes(['AC_100030'])" class="mr-4">
-        Admin 账号可见 ["AC_100030"]
+        Tài khoản Admin nhìn thấy ["AC_100030"]
       </Button>
       <Button v-if="hasAccessByCodes(['AC_1000001'])" class="mr-4">
-        User 账号可见 ["AC_1000001"]
+        Tài khoản User nhìn thấy ["AC_1000001"]
       </Button>
       <Button v-if="hasAccessByCodes(['AC_100100', 'AC_100030'])" class="mr-4">
-        Super & Admin 账号可见 ["AC_100100","AC_100030"]
+        Tài khoản Super & Admin nhìn thấy ["AC_100100","AC_100030"]
       </Button>
     </Card>
 
-    <Card class="mb-5" title="指令方式 - 权限码">
+    <Card class="mb-5" title="Cách dùng directive - Mã quyền">
       <Button class="mr-4" v-access:code="['AC_100100']">
-        Super 账号可见 ["AC_100100"]
+        Tài khoản Super nhìn thấy ["AC_100100"]
       </Button>
       <Button class="mr-4" v-access:code="['AC_100030']">
-        Admin 账号可见 ["AC_100030"]
+        Tài khoản Admin nhìn thấy ["AC_100030"]
       </Button>
       <Button class="mr-4" v-access:code="['AC_1000001']">
-        User 账号可见 ["AC_1000001"]
+        Tài khoản User nhìn thấy ["AC_1000001"]
       </Button>
       <Button class="mr-4" v-access:code="['AC_100100', 'AC_100030']">
-        Super & Admin 账号可见 ["AC_100100","AC_100030"]
+        Tài khoản Super & Admin nhìn thấy ["AC_100100","AC_100030"]
       </Button>
     </Card>
 
-    <Card v-if="accessMode === 'frontend'" class="mb-5" title="指令方式 - 角色">
-      <Button class="mr-4" v-access:role="['super']"> Super 角色可见 </Button>
-      <Button class="mr-4" v-access:role="['admin']"> Admin 角色可见 </Button>
-      <Button class="mr-4" v-access:role="['user']"> User 角色可见 </Button>
+    <Card
+      v-if="accessMode === 'frontend'"
+      class="mb-5"
+      title="Cách dùng directive - Vai trò"
+    >
+      <Button class="mr-4" v-access:role="['super']">
+        Vai trò Super nhìn thấy
+      </Button>
+      <Button class="mr-4" v-access:role="['admin']">
+        Vai trò Admin nhìn thấy
+      </Button>
+      <Button class="mr-4" v-access:role="['user']">
+        Vai trò User nhìn thấy
+      </Button>
       <Button class="mr-4" v-access:role="['super', 'admin']">
-        Super & Admin 角色可见
+        Vai trò Super & Admin nhìn thấy
       </Button>
     </Card>
   </Page>

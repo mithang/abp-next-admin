@@ -36,4 +36,4 @@ public class YouProjectModule : AbpModule
 
 The module uses `AbpEntityChangeResource` as localization resource, supporting multilingual display.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)

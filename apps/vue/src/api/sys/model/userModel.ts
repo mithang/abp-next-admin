@@ -23,13 +23,13 @@ export interface RoleInfo {
  * @description: Login interface return value
  */
 export interface LoginResultModel {
-  /** 访问令牌 */
+  /** Token truy cập */
   access_token: string;
-  /** 过期时间 */
+  /** Thời gian hết hạn */
   expires_in: number;
-  /** 令牌类型 */
+  /** Loại token */
   token_type: string;
-  /** 刷新令牌 */
+  /** Token làm mới */
   refresh_token: string;
 }
 

@@ -6,19 +6,19 @@ namespace LINGYUN.Abp.Telemetry.OpenTelemetry;
 public class AbpTelemetryOpenTelemetryOptions
 {
     /// <summary>
-    /// 是否忽略CAP仪表板请求, 默认: true
+    /// Có bỏ qua yêu cầu bảng điều khiển CAP hay không, mặc định: true
     /// </summary>
     public bool IgnoreCapDashboardUrls { get; set; }
     /// <summary>
-    /// 是否忽略ES请求, 默认: true
+    /// Có bỏ qua yêu cầu ES hay không, mặc định: true
     /// </summary>
     public bool IgnoreElasticsearchUrls { get; set; }
     /// <summary>
-    /// 忽略本地请求路径
+    /// Đường dẫn yêu cầu nội bộ bị bỏ qua
     /// </summary>
     public List<string> IgnoreLocalRequestUrls { get; set; }
     /// <summary>
-    /// 忽略远程请求路径
+    /// Đường dẫn yêu cầu từ xa bị bỏ qua
     /// </summary>
     public List<string> IgnoreRemoteRequestUrls { get; set; }
 
@@ -26,7 +26,7 @@ public class AbpTelemetryOpenTelemetryOptions
     {
         IgnoreLocalRequestUrls = new List<string>
         {
-             "/healthz",    // 服务健康状态请求不记录
+             "/healthz",    // Yêu cầu kiểm tra tình trạng dịch vụ không được ghi lại
         };
         IgnoreRemoteRequestUrls = new List<string>();
         IgnoreCapDashboardUrls = true;
@@ -35,7 +35,7 @@ public class AbpTelemetryOpenTelemetryOptions
 
     public bool IsIgnureLocalRequestUrl(string url)
     {
-        // 忽略CAP仪表板请求
+        // Bỏ qua yêu cầu bảng điều khiển CAP
         if (IgnoreCapDashboardUrls && url.StartsWith("/cap"))
         {
             return true;
@@ -46,7 +46,7 @@ public class AbpTelemetryOpenTelemetryOptions
 
     public bool IsIgnureRemoteRequestUrl(string url)
     {
-        // 忽略向es推送数据请求
+        // Bỏ qua yêu cầu đẩy dữ liệu tới es
         if (IgnoreElasticsearchUrls && url.EndsWith("/_bulk"))
         {
             return true;

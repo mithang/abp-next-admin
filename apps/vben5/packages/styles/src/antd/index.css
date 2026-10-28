@@ -1,4 +1,4 @@
-/* ant-design-vue 组件库的一些样式重置 */
+/* Một số thiết lập lại kiểu dáng cho thư viện component ant-design-vue */
 
 .ant-app {
   width: 100%;
@@ -12,7 +12,7 @@
     display: inline-flex;
   }
 
-  /* * 修复按钮添加图标时的位置问题 */
+  /* * Sửa vấn đề vị trí khi nút thêm biểu tượng */
   > svg {
     display: inline-block;
   }
@@ -38,7 +38,7 @@
 }
 
 .form-valid-error {
-  /** select 选择器的样式 */
+  /** Kiểu dáng của bộ chọn select */
 
   .ant-select:not(.valid-success) .ant-select-selector:not(.valid-success) {
     border-color: hsl(var(--destructive)) !important;
@@ -48,12 +48,12 @@
     box-shadow: 0 0 0 2px rgb(255 38 5 / 6%) !important;
   }
 
-  /** 数字输入框样式 */
+  /** Kiểu dáng của ô nhập số */
   .ant-input-number-focused {
     box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
   }
 
-  /** 密码输入框样式 */
+  /** Kiểu dáng của ô nhập mật khẩu */
   .ant-input-affix-wrapper:hover {
     border-color: hsl(var(--destructive));
     box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
@@ -64,12 +64,12 @@
   }
 }
 
-/** 区间选择器下面来回切换时的样式 */
+/** Kiểu dáng khi chuyển qua lại dưới bộ chọn khoảng */
 .ant-app .form-valid-error .ant-picker-active-bar {
   background-color: hsl(var(--destructive));
 }
 
-/** 时间选择器的样式 */
+/** Kiểu dáng của bộ chọn thời gian */
 .ant-app .form-valid-error .ant-picker-focused {
   box-shadow: 0 0 0 2px rgb(255 38 5 / 6%);
 }

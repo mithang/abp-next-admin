@@ -58,7 +58,7 @@ export function loginApi(
 }
 
 /**
- * 手机登录
+ * Đăng nhập bằng điện thoại
  * @param params
  * @param mode
  * @returns

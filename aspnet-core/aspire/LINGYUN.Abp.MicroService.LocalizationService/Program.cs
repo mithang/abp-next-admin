@@ -53,27 +53,35 @@ try
     app.MapCustomHealthChecks("/health/service");
 
     app.UseForwardedHeaders();
-    // 本地化
+    // Bản địa hóa
     app.UseMapRequestLocalization();
-    // http调用链
+    // Chuỗi gọi HTTP
     app.UseCorrelationId();
-    // 虚拟文件系统
+    // Hệ thống tệp ảo
     app.MapAbpStaticAssets();
-    // 路由
+    // Định tuyến
     app.UseRouting();
-    // 跨域
+    // Cross-domain
     app.UseCors();
-    // 认证
+    // Xác thực
     app.UseAuthentication();
     app.UseJwtTokenMiddleware();
-    // 多租户
+    // Đa tenant
     app.UseMultiTenancy();
     app.UseDynamicClaims();
-    // 授权
+    // Ủy quyền
     app.UseAuthorization();
+    // DEVOPS iter-0009: swagger middleware only in Development, same
+    // fix as ApiGateway Program.cs (iter-0008). The swagger provider is
+    // registered by AddAbpSwaggerGenWithOAuth, which is skipped when no
+    // AuthServer:Authority is configured -- but UseSwagger() used to run
+    // unconditionally, and Swashbuckle resolves ISwaggerProvider eagerly,
+    // so EVERY request (including /healthz) answered 500 in Production.
+    if (app.Environment.IsDevelopment())
+    {
     // Swagger
     app.UseSwagger();
-    // Swagger可视化界面
+    // Giao diện trực quan Swagger
     app.UseAbpSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support Localization Service API");
@@ -82,10 +90,11 @@ try
         options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
         options.OAuthScopes(configuration["AuthServer:Audience"]);
     });
-    // 审计日志
+    }
+    // Nhật ký kiểm toán
     app.UseAuditing();
     app.UseAbpSerilogEnrichers();
-    // 路由
+    // Định tuyến
     app.UseConfiguredEndpoints();
 
     await app.RunAsync();

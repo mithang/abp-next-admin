@@ -24,7 +24,7 @@ export function useSessions() {
     release();
   }
 
-  /** 处理会话过期事件 */
+  /** Xử lý sự kiện hết hạn phiên */
   function _onSessionExpired(event?: NotificationInfo) {
     if (!event) {
       return;

@@ -75,7 +75,7 @@ public class BackgroundWorkerAdapter<TWorker> : BackgroundWorkerBase, IBackgroun
             Interval = period.Value / 1000,
             MaxCount = 0,
             MaxTryCount = 10,
-            // 确保不会被轮询入队
+            // Đảm bảo không bị đưa vào hàng đợi bởi cơ chế thăm dò
             Status = JobStatus.None,
             Type = typeof(BackgroundWorkerAdapter<TWorker>).AssemblyQualifiedName!,
         };

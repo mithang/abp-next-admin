@@ -3,24 +3,24 @@ using Volo.Abp.Modularity;
 namespace LINGYUN.Abp.Notifications.Webhook.WeChat.Work;
 
 /// <summary>
-/// 企业微信 Webhook 通知渠道名
+/// Tên kênh thông báo Webhook của WeChat Work
 /// </summary>
 /// <remarks>
 /// <para>
-/// Webhook 的**发布**仍走 <c>WebhookNotificationPublishProvider</c>(渠道名 <c>Webhook</c>),
-/// 本常量只作为**载荷注册表的键**使用:
-/// 企业微信应用消息(渠道名 <c>WeChat.Work</c>)与 Webhook 是两种传输方式、
-/// 两套载体模型, 因此必须使用不同的注册表键, 避免载荷被对方误解析。
+/// Việc **phát hành** của Webhook vẫn đi qua <c>WebhookNotificationPublishProvider</c> (tên kênh <c>Webhook</c>),
+/// Hằng số này chỉ được dùng làm **khóa của sổ đăng ký tải trọng**:
+/// Thông báo ứng dụng WeChat Work (tên kênh <c>WeChat.Work</c>) và Webhook là hai phương thức truyền tải,
+/// hai mô hình vật mang khác nhau, vì vậy phải dùng các khóa sổ đăng ký khác nhau để tránh tải trọng bị phía còn lại phân tích nhầm.
 /// </para>
 /// <para>
-/// 生产者侧: 通知定义中仍声明 <c>ProviderName</c> 为 <c>"Webhook"</c> 才会被发布,
-/// 载荷用本渠道的数据键(前缀 <c>wx-work-hook:</c>)写入。
+/// Phía nhà sản xuất: trong định nghĩa thông báo vẫn phải khai báo <c>ProviderName</c> là <c>"Webhook"</c> thì mới được phát hành,
+/// Tải trọng được ghi bằng khóa dữ liệu của kênh này (tiền tố <c>wx-work-hook:</c>).
 /// </para>
 /// </remarks>
 public static class WeChatWorkWebhookNotificationProvider
 {
     /// <summary>
-    /// 本渠道的载荷注册表键
+    /// Khóa sổ đăng ký tải trọng của kênh này
     /// </summary>
     public const string ProviderName = "WeChat.Work.Webhook";
 }

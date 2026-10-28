@@ -6,10 +6,10 @@ namespace LINGYUN.Abp.WeChat.Work.Security;
 public interface IWeChatWorkServerProvider
 {
     /// <summary>
-    /// 获取企业微信域名IP信息
+    /// Lấy thông tin IP tên miền WeChat Work
     /// </summary>
     /// <remarks>
-    /// 参考：https://developer.work.weixin.qq.com/document/path/100079
+    /// Tham khảo：https://developer.work.weixin.qq.com/document/path/100079
     /// </remarks>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

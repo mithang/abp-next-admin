@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.Aliyun.Captcha;
 public interface ICaptchaClientFactory
 {
     /// <summary>
-    /// 构建验证码客户端
+    /// Xây dựng client mã xác thực
     /// </summary>
     /// <returns></returns>
     Task<Client> CreateAsync();

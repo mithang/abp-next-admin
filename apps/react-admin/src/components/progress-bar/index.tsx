@@ -4,7 +4,7 @@ import { usePathname } from "@/router/hooks";
 import { useEffect } from "react";
 import "./index.css";
 
-// 配置 NProgress
+// Cấu hình NProgress
 NProgress.configure({
 	showSpinner: false,
 	minimum: 0.1,
@@ -22,7 +22,7 @@ export default function ProgressBar() {
 			clearTimeout(timer);
 			NProgress.done();
 		};
-	}, [pathname]); // 保留 pathname 依赖
+	}, [pathname]); // Giữ lại dependency pathname
 
 	return null;
 }

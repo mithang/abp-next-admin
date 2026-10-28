@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Response;
 /// <summary>
-/// 更新日历响应参数
+/// Tham số phản hồi cập nhật lịch
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/97716"/>
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/97716"/>
 /// </remarks>
 public class WeChatWorkUpdateCalendarResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 无效的输入内容
+    /// Nội dung đầu vào không hợp lệ
     /// </summary>
     [NotNull]
     [JsonProperty("fail_result")]

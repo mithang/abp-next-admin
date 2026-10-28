@@ -2,22 +2,22 @@
   <div class="end-point">
     <Form layout="vertical">
       <Tabs v-model:activeKey="state.activeKey">
-        <TabPane key="common" tab="常用">
-          <FormItem label="名称" extra="活动的名称。" name="name">
+        <TabPane key="common" tab="Thường dùng">
+          <FormItem label="Tên" extra="Tên của hoạt động." name="name">
             <Input v-model:value="nodeProps.name" />
           </FormItem>
-          <FormItem label="显示名称" extra="活动的显示名称。" name="displayName">
+          <FormItem label="Tên hiển thị" extra="Tên hiển thị của hoạt động." name="displayName">
             <Input v-model:value="nodeProps.displayName" />
           </FormItem>
-          <FormItem label="描述" extra="活动的描述。" name="description">
+          <FormItem label="Mô tả" extra="Mô tả của hoạt động." name="description">
             <TextArea v-model:value="nodeProps.description" show-count :autoSize="{ minRows: 3 }" />
           </FormItem>
         </TabPane>
-        <TabPane key="properties" tab="属性">
-          <FormItem label="路径" extra="触发此活动的相对路径" name="path">
+        <TabPane key="properties" tab="Thuộc tính">
+          <FormItem label="Đường dẫn" extra="Đường dẫn tương đối kích hoạt hoạt động này" name="path">
             <Input v-model:value="nodeProps.path" />
           </FormItem>
-          <FormItem label="请求方法" extra="触发此活动的HTTP方法。" name="methods">
+          <FormItem label="Phương thức yêu cầu" extra="Phương thức HTTP kích hoạt hoạt động này." name="methods">
             <Select v-model:value="nodeProps.methods" mode="multiple">
               <SelectOption value="GET">GET</SelectOption>
               <SelectOption value="POST">POST</SelectOption>
@@ -29,29 +29,29 @@
             </Select>
           </FormItem>
           <FormItem
-            label="读取内容"
-            extra="指示是否应将HTTP请求内容体作为HTTP请求模型的一部分读取和存储。存储的格式取决于内容类型头。"
+            label="Đọc nội dung"
+            extra="Cho biết có nên đọc và lưu trữ thân yêu cầu HTTP như một phần của mô hình yêu cầu HTTP hay không. Định dạng lưu trữ phụ thuộc vào tiêu đề loại nội dung."
             name="readContent"
             class="user-type"
           >
             <Checkbox v-model:checked="nodeProps.readContent" />
           </FormItem>
         </TabPane>
-        <TabPane key="advanced" tab="高级">
-          <FormItem label="数据类型" extra="表单数据类型" name="targetType">
+        <TabPane key="advanced" tab="Nâng cao">
+          <FormItem label="Loại dữ liệu" extra="Loại dữ liệu biểu mẫu" name="targetType">
             <Input v-model:value="nodeProps.targetType" />
           </FormItem>
-          <FormItem label="架构" extra="Json格式数据架构" name="schema">
+          <FormItem label="Lược đồ" extra="Lược đồ dữ liệu định dạng Json" name="schema">
             <CodeEditor v-model:value="nodeProps.schema" />
           </FormItem>
         </TabPane>
-        <TabPane key="security" tab="安全">
-          <FormItem label="身份认证" extra="选中以只允许经过身份验证的请求" name="authorize">
+        <TabPane key="security" tab="Bảo mật">
+          <FormItem label="Xác thực danh tính" extra="Chọn để chỉ cho phép các yêu cầu đã xác thực" name="authorize">
             <Checkbox v-model:checked="nodeProps.authorize" />
           </FormItem>
           <FormItem
-            label="策略"
-            extra="提供一个要评估的策略。如果策略失败，请求将被禁止。"
+            label="Chính sách"
+            extra="Cung cấp một chính sách cần đánh giá. Nếu chính sách thất bại, yêu cầu sẽ bị cấm."
             name="policy"
           >
             <Input v-model:value="nodeProps.policy" />

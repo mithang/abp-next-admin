@@ -43,4 +43,4 @@ public class YouProjectModule : AbpModule
 
 ## More Information
 
-* [中文文档](./README.md)
+* [Tài liệu tiếng Việt](./README.md)

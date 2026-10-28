@@ -3,17 +3,17 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Messages.Models;
 /// <summary>
-/// 客户群变更事件推送
+/// Đẩy sự kiện thay đổi nhóm khách hàng
 /// </summary>
 public abstract class ExternalChatChangeEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 变更类型
+    /// Loại thay đổi
     /// </summary>
     [XmlElement("ChangeType")]
     public string ChangeType { get; set; } = default!;
     /// <summary>
-    /// 群ID
+    /// Id nhóm
     /// </summary>
     [XmlElement("ChatId")]
     public string ChatId { get; set; } = default!;

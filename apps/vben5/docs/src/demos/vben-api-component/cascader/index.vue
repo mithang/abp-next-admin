@@ -5,72 +5,72 @@ import { Cascader } from 'ant-design-vue';
 
 const treeData: Record<string, any> = [
   {
-    label: '浙江',
+    label: 'Chiết Giang',
     value: 'zhejiang',
     children: [
       {
         value: 'hangzhou',
-        label: '杭州',
+        label: 'Hàng Châu',
         children: [
           {
             value: 'xihu',
-            label: '西湖',
+            label: 'Tây Hồ',
           },
           {
             value: 'sudi',
-            label: '苏堤',
+            label: 'Tô Đê',
           },
         ],
       },
       {
         value: 'jiaxing',
-        label: '嘉兴',
+        label: 'Gia Hưng',
         children: [
           {
             value: 'wuzhen',
-            label: '乌镇',
+            label: 'Ô Trấn',
           },
           {
             value: 'meihuazhou',
-            label: '梅花洲',
+            label: 'Mai Hoa Châu',
           },
         ],
       },
       {
         value: 'zhoushan',
-        label: '舟山',
+        label: 'Chu Sơn',
         children: [
           {
             value: 'putuoshan',
-            label: '普陀山',
+            label: 'Phổ Đà Sơn',
           },
           {
             value: 'taohuadao',
-            label: '桃花岛',
+            label: 'Đào Hoa Đảo',
           },
         ],
       },
     ],
   },
   {
-    label: '江苏',
+    label: 'Giang Tô',
     value: 'jiangsu',
     children: [
       {
         value: 'nanjing',
-        label: '南京',
+        label: 'Nam Kinh',
         children: [
           {
             value: 'zhonghuamen',
-            label: '中华门',
+            label: 'Trung Hoa Môn',
           },
           {
             value: 'zijinshan',
-            label: '紫金山',
+            label: 'Tử Kim Sơn',
           },
           {
             value: 'yuhuatai',
-            label: '雨花台',
+            label: 'Vũ Hoa Đài',
           },
         ],
       },
@@ -78,7 +78,7 @@ const treeData: Record<string, any> = [
   },
 ];
 /**
- * 模拟请求接口
+ * Mô phỏng giao diện yêu cầu
  */
 function fetchApi(): Promise<Record<string, any>> {
   return new Promise((resolve) => {

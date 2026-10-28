@@ -23,26 +23,26 @@ namespace Microsoft.AspNetCore.Http
                 var options = await WeChatOfficialOptionsFactory.CreateAsync();
 
                 var requestPath = context.Request.Path.Value;
-                // 访问地址是否与定义的地址匹配
+                // Kiểm tra địa chỉ truy cập có khớp với địa chỉ đã định nghĩa không
                 if (requestPath.Equals(options.Url))
                 {
                     var timestamp = context.Request.Query["timestamp"];
                     var nonce = context.Request.Query["nonce"];
                     var signature = context.Request.Query["signature"];
                     var echostr = context.Request.Query["echostr"];
-                    // 验证消息合法性
+                    // Xác thực tính hợp lệ của thông điệp
                     var check = CheckWeChatSignature(options.Token, timestamp, nonce, signature);
                     if (check)
                     {
-                        // 验证通过需要把微信服务器传递的字符原封不动传回
+                        // Sau khi xác thực thành công cần trả lại nguyên vẹn các ký tự mà máy chủ WeChat đã truyền tới
                         await context.Response.WriteAsync(echostr);
                         return;
                     }
-                    // 微信消息验证不通过
+                    // Xác thực thông điệp WeChat không thành công
                     throw new AbpException("Invalid wechat signature");
                 }
             }
-            // 不属于微信的消息进入下一个中间件
+            // Thông điệp không thuộc về WeChat sẽ đi vào middleware tiếp theo
             await next(context);
         }
 
@@ -54,18 +54,18 @@ namespace Microsoft.AspNetCore.Http
                 timestamp,
                 nonce
             };
-            // step1 排序
+            // bước 1: sắp xếp
             al.Sort();
             string signatureStr = string.Empty;
-            // step2 拼接
+            // bước 2: nối chuỗi
             for (int i = 0; i < al.Count; i++)
             {
                 signatureStr += al[i];
             }
-            // step3 SHA1加密
+            // bước 3: mã hoá SHA1
             byte[] bytes_out = signatureStr.Sha1();
             string result = BitConverter.ToString(bytes_out).Replace("-", "");
-            // step4 比对
+            // bước 4: so sánh
             if (result.Equals(signature, StringComparison.CurrentCultureIgnoreCase))
             {
                 return true;

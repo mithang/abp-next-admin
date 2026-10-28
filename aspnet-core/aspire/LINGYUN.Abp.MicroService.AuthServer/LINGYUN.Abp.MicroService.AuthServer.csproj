@@ -92,7 +92,7 @@
 	</ItemGroup>
 
 	<Target Name="RestoreNpmPackages" BeforeTargets="BeforeBuild">
-		<Message Text="正在执行 abp install-libs ..." Importance="high" />
+		<Message Text="Đang thực thi abp install-libs ..." Importance="high" />
 
 		<PropertyGroup>
 			<PackageJsonPath>$(MSBuildProjectDirectory)\package.json</PackageJsonPath>

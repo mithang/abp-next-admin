@@ -7,117 +7,117 @@ namespace LINGYUN.Abp.BackgroundTasks;
 public class AbpBackgroundTasksOptions
 {
     /// <summary>
-    /// 作业异常类型转换
+    /// Chuyển đổi loại ngoại lệ của tác vụ
     /// </summary>
     public IDictionary<string, JobExceptionType> ErrorCodeToExceptionTypeMappings { get; }
     /// <summary>
-    /// 任务监听类型列表
+    /// Danh sách loại lắng nghe tác vụ
     /// </summary>
     /// <remarks>
-    /// 用户可以实现事件监听实现自定义逻辑
+    /// Người dùng có thể triển khai bộ lắng nghe sự kiện để thực hiện logic tùy chỉnh
     /// </remarks>
     public ITypeList<IJobEvent> JobMonitors { get; }
     /// <summary>
-    /// 作业提供者列表
+    /// Danh sách nhà cung cấp tác vụ
     /// </summary>
     /// <remarks>
-    /// 用户实现的作业可以添加在集合中
+    /// Các tác vụ do người dùng triển khai có thể được thêm vào tập hợp
     /// </remarks>
     public ITypeList<IJobDefinitionProvider> DefinitionProviders { get; }
     /// <summary>
-    /// 作业发布预配置
+    /// Cấu hình trước khi phát hành tác vụ
     /// </summary>
     /// <remarks>
     /// Tips: <br />
-    /// 仅作用于适用于 IBackgroundJobManager与IBackgroundWorker 适配器接口的作业预配置
+    /// Chỉ áp dụng cho cấu hình trước của tác vụ dùng cho giao diện bộ điều hợp IBackgroundJobManager và IBackgroundWorker
     /// <br />
-    /// <see cref="IJobRunnable"/> 标准实现的作业参数请通过接口直接管理
+    /// Các tham số tác vụ triển khai chuẩn <see cref="IJobRunnable"/> vui lòng quản lý trực tiếp qua giao diện
     /// </remarks>
     public IJobDispatcherSelectorList JobDispatcherSelectors { get; }
     /// <summary>
-    /// 启用清理任务
+    /// Bật dọn dẹp tác vụ
     /// </summary>
     /// <remarks>
-    /// 主节点启用
+    /// Bật trên nút chính
     /// </remarks>
     public bool JobCleanEnabled { get; set; }
     /// <summary>
-    /// 任务过期时间
-    /// 默认: 15 days
+    /// Thời gian hết hạn của tác vụ
+    /// Mặc định: 15 days
     /// </summary>
     /// <remarks>
-    /// 任务过期时间,超出时间段清理
+    /// Thời gian hết hạn của tác vụ, dọn dẹp khi vượt quá khoảng thời gian
     /// </remarks>
     public TimeSpan JobExpiratime { get; set; }
     /// <summary>
-    /// 每次清理任务批次大小
-    /// 默认: 1000
+    /// Kích thước lô mỗi lần dọn dẹp tác vụ
+    /// Mặc định: 1000
     /// </summary>
     public int MaxJobCleanCount { get; set; }
     /// <summary>
-    /// 清理过期任务批次Cron表达式
-    /// 默认: 600秒（0 0/10 * * * ? * ）
+    /// Biểu thức Cron của lô dọn dẹp tác vụ hết hạn
+    /// Mặc định: 600 giây（0 0/10 * * * ? * ）
     /// </summary>
     /// <remarks>
-    /// Cron表达式
+    /// Biểu thức Cron
     /// </remarks>
     public string JobCleanCronExpression { get; set; }
     /// <summary>
-    /// 启用轮询任务
+    /// Bật thăm dò tác vụ
     /// </summary>
     /// <remarks>
-    /// 主节点启用
+    /// Bật trên nút chính
     /// </remarks>
     public bool JobFetchEnabled { get; set; }
     /// <summary>
-    /// 每次轮询任务批次大小
-    /// 默认: 1000
+    /// Kích thước lô mỗi lần thăm dò tác vụ
+    /// Mặc định: 1000
     /// </summary>
     public int MaxJobFetchCount { get; set; }
     /// <summary>
-    /// 轮询任务批次Cron表达式
-    /// 默认: 30秒（0/30 * * * * ? ）
+    /// Biểu thức Cron của lô thăm dò tác vụ
+    /// Mặc định: 30 giây（0/30 * * * * ? ）
     /// </summary>
     /// <remarks>
-    /// Cron表达式
+    /// Biểu thức Cron
     /// </remarks>
     public string JobFetchCronExpression { get; set; }
     /// <summary>
-    /// 轮询任务批次时锁定任务超时时长（秒）
-    /// 默认：120
+    /// Thời gian chờ khóa tác vụ khi thăm dò lô tác vụ (giây)
+    /// Mặc định: 120
     /// </summary>
     /// <remarks>
-    /// 轮询任务也属于一个后台任务, 需要对每一次轮询加锁，防止重复任务入库
+    /// Tác vụ thăm dò cũng là một tác vụ nền, cần khóa mỗi lần thăm dò để tránh tác vụ trùng lặp được đưa vào kho
     /// </remarks>
     public int JobFetchLockTimeOut { get; set; }
 
     /// <summary>
-    /// 启用检查任务
+    /// Bật kiểm tra tác vụ
     /// </summary>
     /// <remarks>
-    /// 主节点启用
+    /// Bật trên nút chính
     /// </remarks>
     public bool JobCheckEnabled { get; set; }
     /// <summary>
-    /// 每次检查任务批次大小
-    /// 默认: 100
+    /// Kích thước lô mỗi lần kiểm tra tác vụ
+    /// Mặc định: 100
     /// </summary>
     public int MaxJobCheckCount { get; set; }
     /// <summary>
-    /// 检查任务批次Cron表达式
-    /// 默认: 每2小时执行一次（0 0 0/2 * * ? ）
+    /// Biểu thức Cron của lô kiểm tra tác vụ
+    /// Mặc định: thực thi 2 giờ một lần（0 0 0/2 * * ? ）
     /// </summary>
     /// <remarks>
-    /// Cron表达式
+    /// Biểu thức Cron
     /// </remarks>
     public string JobCheckCronExpression { get; set; }
     /// <summary>
-    /// 检查任务批次时锁定任务超时时长（秒）
-    /// 默认：120
+    /// Thời gian chờ khóa tác vụ khi kiểm tra lô tác vụ (giây)
+    /// Mặc định: 120
     /// </summary>
     public int JobCheckLockTimeOut { get; set; }
     /// <summary>
-    /// 指定运行节点
+    /// Chỉ định nút chạy
     /// </summary>
     public string? NodeName { get; set; }
     public AbpBackgroundTasksOptions()

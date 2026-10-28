@@ -3,32 +3,32 @@
 namespace LINGYUN.Abp.Calendar;
 
 /// <summary>
-/// 工作日历信息
+/// Thông tin lịch làm việc
 /// </summary>
 public class WorkdayCalendarInfo
 {
     /// <summary>
-    /// 日历名称
+    /// Tên lịch
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 默认日历
+    /// Lịch mặc định
     /// </summary>
     public bool IsDefault { get; set; }
     /// <summary>
-    /// 工作日范围
+    /// Phạm vi ngày làm việc
     /// </summary>
     public DayOfWeek[] Workdays { get; set; } = default!;
     /// <summary>
-    /// 工作时间范围
+    /// Phạm vi thời gian làm việc
     /// </summary>
     public WorkTimeRange[]? WorkTimes { get; set; }
     /// <summary>
-    /// 是否启用工作时间限制
+    /// Có bật giới hạn thời gian làm việc hay không
     /// </summary>
     public bool EnableWorkTimeRestriction { get; set; }
     /// <summary>
-    /// 特殊日期列表
+    /// Danh sách ngày đặc biệt
     /// </summary>
     public SpecialDateInfo[]? SpecialDates { get; set; }
 }

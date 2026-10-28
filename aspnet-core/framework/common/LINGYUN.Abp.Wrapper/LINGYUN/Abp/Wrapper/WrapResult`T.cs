@@ -3,26 +3,26 @@
 namespace LINGYUN.Abp.Wrapper;
 
 /// <summary>
-/// 返回值包装结构
+/// Cấu trúc đóng gói giá trị trả về
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
 [Serializable]
 public class WrapResult<TResult>
 {
     /// <summary>
-    /// 错误代码
+    /// Mã lỗi
     /// </summary>
     public string Code { get; set; } = default!;
     /// <summary>
-    /// 错误提示消息
+    /// Thông báo lỗi
     /// </summary>
     public string Message { get; set; } = default!;
     /// <summary>
-    /// 补充消息
+    /// Thông báo bổ sung
     /// </summary>
     public string? Details { get; set; }
     /// <summary>
-    /// 返回值
+    /// Giá trị trả về
     /// </summary>
     public TResult? Result { get; set; }
     public WrapResult() { }

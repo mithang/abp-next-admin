@@ -6,29 +6,29 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.MeetingRooms.Request;
 /// <summary>
-/// 取消预定会议室请求参数
+/// Tham số yêu cầu hủy đặt phòng họp
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/93620#%E5%8F%96%E6%B6%88%E9%A2%84%E5%AE%9A%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/93620#%E5%8F%96%E6%B6%88%E9%A2%84%E5%AE%9A%E4%BC%9A%E8%AE%AE%E5%AE%A4"/>
 /// </remarks>
 public class WeChatWorkCancelBookMeetingRoomRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 会议室的预定id
+    /// Id đặt phòng của phòng họp
     /// </summary>
     [NotNull]
     [JsonProperty("booking_id")]
     [JsonPropertyName("booking_id")]
     public string BookingId { get; }
     /// <summary>
-    /// 是否保留日程，0-同步删除 1-保留，仅对非重复日程有效
+    /// Có giữ lại lịch trình hay không, 0 - xóa đồng bộ, 1 - giữ lại, chỉ có hiệu lực với lịch trình không lặp lại
     /// </summary>
     [NotNull]
     [JsonProperty("keep_schedule")]
     [JsonPropertyName("keep_schedule")]
     public int KeepSchedule { get; }
     /// <summary>
-    /// 对于重复日程，如果不填写此参数，表示取消所有重复预定；如果填写，则表示取消对应日期当天的会议室预定
+    /// Đối với lịch trình lặp lại, nếu không điền tham số này nghĩa là hủy tất cả các lần đặt lặp lại; nếu điền, nghĩa là hủy lần đặt phòng họp của ngày tương ứng
     /// </summary>
     [CanBeNull]
     [JsonProperty("cancel_date")]

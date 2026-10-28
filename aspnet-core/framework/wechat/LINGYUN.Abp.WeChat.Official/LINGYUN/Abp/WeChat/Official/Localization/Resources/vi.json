@@ -1,0 +1,22 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Features:WeChat.Official.Enable": "Bật tài khoản chính thức WeChat",
+    "Features:WeChat.Official.EnableDesc": "Bật để ứng dụng có khả năng tài khoản chính thức WeChat",
+    "DisplayName:WeChat.Official": "Tài khoản chính thức WeChat",
+    "Description:WeChat.Official": "Tài khoản chính thức WeChat",
+    "DisplayName:WeChat.Official.IsSandBox": "Có phải kiểm thử sandbox không",
+    "Description:WeChat.Official.IsSandBox": "Trước khi sử dụng tính năng tài khoản chính thức WeChat, bạn có thể đăng ký tài khoản kiểm tra để làm quen với việc gọi, chi tiết xem: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Requesting_an_API_Test_Account.html",
+    "DisplayName:WeChat.Official.AppId": "AppId tài khoản chính thức",
+    "Description:WeChat.Official.AppId": "AppId tài khoản chính thức WeChat, chi tiết xem: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html",
+    "DisplayName:WeChat.Official.AppSecret": "AppSecret tài khoản chính thức",
+    "Description:WeChat.Official.AppSecret": "WeChat Official Account AppSecret, xem chi tiết: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html",
+    "DisplayName:WeChat.Official.Url": "Url tài khoản chính thức",
+    "Description:WeChat.Official.Url": "Url tài khoản chính thức WeChat, xem chi tiết:https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html",
+    "DisplayName:WeChat.Official.Token": "Token tài khoản chính thức",
+    "Description:WeChat.Official.Token": "Token tài khoản chính thức WeChat, chi tiết xem: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html",
+    "DisplayName:WeChat.Official.EncodingAESKey": "EncodingAESKey của tài khoản chính thức",
+    "Description:WeChat.Official.EncodingAESKey": "EncodingAESKey của tài khoản chính thức WeChat, chi tiết xem: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html",
+    "Settings:WeChat.Official": "Tài khoản chính thức WeChat"
+  }
+}

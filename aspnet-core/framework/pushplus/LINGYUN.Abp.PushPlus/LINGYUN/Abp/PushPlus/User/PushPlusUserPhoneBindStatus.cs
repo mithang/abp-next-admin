@@ -2,11 +2,11 @@
 public enum PushPlusUserPhoneBindStatus
 {
     /// <summary>
-    /// 绑定
+    /// Đã liên kết
     /// </summary>
     Bind = 0,
     /// <summary>
-    /// 未绑定
+    /// Chưa liên kết
     /// </summary>
     NoBind = 1,
 }

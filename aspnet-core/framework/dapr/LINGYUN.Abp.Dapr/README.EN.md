@@ -201,4 +201,4 @@ public override void ConfigureServices(ServiceConfigurationContext context)
 * Recommended to use different named DaprClients for different microservices
 * Configure appropriate timeout and retry policies in production environments
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

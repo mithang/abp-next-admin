@@ -13,8 +13,8 @@ export function useFeatureGroupDefinitionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 删除功能定义
-   * @param name 功能名称
+   * Xóa định nghĩa tính năng
+   * @param name Tên tính năng
    */
   function deleteApi(name: string): Promise<void> {
     return request(`/api/feature-management/definitions/groups/${name}`, {
@@ -23,9 +23,9 @@ export function useFeatureGroupDefinitionsApi() {
   }
 
   /**
-   * 查询功能定义
-   * @param name 功能名称
-   * @returns 功能定义数据传输对象
+   * Truy vấn định nghĩa tính năng
+   * @param name Tên tính năng
+   * @returns Đối tượng truyền dữ liệu định nghĩa tính năng
    */
   function getApi(name: string): Promise<FeatureGroupDefinitionDto> {
     return request<FeatureGroupDefinitionDto>(
@@ -37,9 +37,9 @@ export function useFeatureGroupDefinitionsApi() {
   }
 
   /**
-   * 查询功能定义列表
-   * @param input 功能过滤条件
-   * @returns 功能定义数据传输对象列表
+   * Truy vấn danh sách định nghĩa tính năng
+   * @param input Điều kiện lọc tính năng
+   * @returns Danh sách đối tượng truyền dữ liệu định nghĩa tính năng
    */
   function getListApi(
     input?: FeatureGroupDefinitionGetListInput,
@@ -54,9 +54,9 @@ export function useFeatureGroupDefinitionsApi() {
   }
 
   /**
-   * 创建功能定义
-   * @param input 功能定义参数
-   * @returns 功能定义数据传输对象
+   * Tạo định nghĩa tính năng
+   * @param input Tham số định nghĩa tính năng
+   * @returns Đối tượng truyền dữ liệu định nghĩa tính năng
    */
   function createApi(
     input: FeatureGroupDefinitionCreateDto,
@@ -71,10 +71,10 @@ export function useFeatureGroupDefinitionsApi() {
   }
 
   /**
-   * 更新功能定义
-   * @param name 功能名称
-   * @param input 功能定义参数
-   * @returns 功能定义数据传输对象
+   * Cập nhật định nghĩa tính năng
+   * @param name Tên tính năng
+   * @param input Tham số định nghĩa tính năng
+   * @returns Đối tượng truyền dữ liệu định nghĩa tính năng
    */
   function updateApi(
     name: string,

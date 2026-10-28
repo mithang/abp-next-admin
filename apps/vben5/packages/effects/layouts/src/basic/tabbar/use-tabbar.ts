@@ -45,7 +45,7 @@ export function useTabbar() {
   } = useTabs();
 
   /**
-   * 当前路径对应的tab的key
+   * Key của tab tương ứng với đường dẫn hiện tại
    */
   const currentActive = computed(() => {
     return getTabKey(route);
@@ -65,7 +65,7 @@ export function useTabbar() {
   );
 
   /**
-   * 初始化固定标签页
+   * Khởi tạo các tab cố định
    */
   const initAffixTabs = () => {
     const affixTabs = filterTree(router.getRoutes(), (route) => {
@@ -74,13 +74,13 @@ export function useTabbar() {
     tabbarStore.setAffixTabs(affixTabs);
   };
 
-  // 点击tab,跳转路由
+  // Nhấn tab để chuyển route
   const handleClick = (key: string) => {
     const { fullPath, path } = tabbarStore.getTabByKey(key);
     router.push(fullPath || path);
   };
 
-  // 关闭tab
+  // Đóng tab
   const handleClose = async (key: string) => {
     await closeTabByKey(key);
   };

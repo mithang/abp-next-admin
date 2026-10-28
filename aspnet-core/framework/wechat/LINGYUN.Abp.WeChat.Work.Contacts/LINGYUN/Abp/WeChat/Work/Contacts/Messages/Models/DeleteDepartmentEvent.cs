@@ -5,13 +5,13 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Messages.Models;
 /// <summary>
-/// 删除部门事件
+/// Sự kiện xóa phòng ban
 /// </summary>
 [EventName("delete_party")]
 public class DeleteDepartmentEvent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 部门Id
+    /// ID phòng ban
     /// </summary>
     [XmlElement("Id")]
     public string Id { get; set; } = default!;

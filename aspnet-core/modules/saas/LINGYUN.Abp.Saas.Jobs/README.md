@@ -1,35 +1,35 @@
 # LINGYUN.Abp.Saas.Jobs
 
-SaaS后台作业模块，提供租户资源监控和管理的后台作业实现。
+Mô-đun tác vụ nền SaaS, cung cấp triển khai tác vụ nền giám sát và quản lý tài nguyên tenant.
 
-## 功能特性
+## Tính năng
 
-* 租户使用监控作业(TenantUsageMonitoringJob)
-  * 监控租户资源使用情况
-  * 处理租户过期预警
-  * 处理过期租户资源回收
+* Tác vụ giám sát mức sử dụng tenant (TenantUsageMonitoringJob)
+  * Giám sát tình hình sử dụng tài nguyên của tenant
+  * Xử lý cảnh báo tenant sắp hết hạn
+  * Xử lý thu hồi tài nguyên của tenant đã hết hạn
 
-## 配置说明
+## Hướng dẫn cấu hình
 
-### 作业配置
+### Cấu hình tác vụ
 
 ```json
 {
   "Hangfire": {
     "TenantUsageMonitoring": {
-      "CronExpression": "0 0 * * *",  // 每天执行一次
-      "Queue": "default",              // 作业队列
-      "Enabled": true                  // 是否启用
+      "CronExpression": "0 0 * * *",  // chạy mỗi ngày một lần
+      "Queue": "default",              // hàng đợi tác vụ
+      "Enabled": true                  // có bật hay không
     }
   }
 }
 ```
 
-### 作业参数
+### Tham số tác vụ
 
-* Saas:AdminEmail：管理员邮件地址，用于接收预警通知
-* Saas:TenantId：租户标识
+* Saas:AdminEmail: địa chỉ email quản trị viên, dùng để nhận thông báo cảnh báo
+* Saas:TenantId: định danh tenant
 
-## 更多
+## Thêm
 
 [English](README.EN.md)

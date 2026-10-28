@@ -59,7 +59,7 @@ function handleClick(e: MouseEvent) {
 
     const rect = dom.getBoundingClientRect();
 
-    // 点击位置边界校验
+    // Kiểm tra biên vị trí nhấn
     if (xPos < 0 || yPos < 0 || xPos > rect.width || yPos > rect.height) {
       console.warn('Click position is out of the valid range');
       return;

@@ -1,17 +1,17 @@
 # LINGYUN.Abp.Tencent.TTS
 
-腾讯云语音合成服务模块，集成腾讯云语音合成服务到ABP应用程序。
+Mô-đun dịch vụ tổng hợp giọng nói Tencent Cloud, tích hợp dịch vụ tổng hợp giọng nói Tencent Cloud vào ứng dụng ABP.
 
-## 功能特性
+## Tính năng
 
-* 支持腾讯云语音合成服务（TTS）
-* 支持多租户配置
-* 基于腾讯云TTS SDK V20190823
-* 提供TTS客户端工厂，支持动态创建TTS客户端
+* Hỗ trợ dịch vụ tổng hợp giọng nói Tencent Cloud (TTS)
+* Hỗ trợ cấu hình đa tenant
+* Dựa trên Tencent Cloud TTS SDK V20190823
+* Cung cấp factory client TTS, hỗ trợ tạo client TTS động
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 添加模块依赖
+1. Thêm phụ thuộc mô-đun
 ```csharp
 [DependsOn(typeof(AbpTencentTTSModule))]
 public class YourModule : AbpModule
@@ -20,19 +20,19 @@ public class YourModule : AbpModule
 }
 ```
 
-2. 配置腾讯云服务
+2. Cấu hình dịch vụ Tencent Cloud
 ```json
 {
   "Settings": {
     "LINGYUN.Abp.Tencent": {
-      "SecretId": "您的腾讯云SecretId",
-      "SecretKey": "您的腾讯云SecretKey"
+      "SecretId": "SecretId Tencent Cloud của bạn",
+      "SecretKey": "SecretKey Tencent Cloud của bạn"
     }
   }
 }
 ```
 
-3. 使用TTS服务示例
+3. Ví dụ sử dụng dịch vụ TTS
 ```csharp
 public class YourService
 {
@@ -46,48 +46,48 @@ public class YourService
     public async Task TextToSpeechAsync(string text)
     {
         var ttsClient = await _ttsClientFactory.CreateAsync();
-        // 使用ttsClient调用腾讯云TTS服务API
-        // 详细API使用方法请参考腾讯云TTS SDK文档
+        // Sử dụng ttsClient để gọi API dịch vụ TTS Tencent Cloud
+        // Cách sử dụng API chi tiết, vui lòng tham khảo tài liệu Tencent Cloud TTS SDK
     }
 }
 ```
 
-## 配置项说明
+## Mô tả các mục cấu hình
 
-### 基础配置
+### Cấu hình cơ bản
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud": {
-      "SecretId": "您的腾讯云SecretId", // 从腾讯云控制台获取
-      "SecretKey": "您的腾讯云SecretKey", // 从腾讯云控制台获取
-      "DurationSecond": "600" // 会话持续时间（秒）
+      "SecretId": "SecretId Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "SecretKey": "SecretKey Tencent Cloud của bạn", // Lấy từ bảng điều khiển Tencent Cloud
+      "DurationSecond": "600" // Thời lượng phiên (giây)
     }
   }
 }
 ```
 
-### TTS服务配置
+### Cấu hình dịch vụ TTS
 
 ```json
 {
   "Settings": {
     "Abp.TencentCloud.TTS": {
-      "AppId": "", // TTS应用ID
-      "VoiceType": "", // 音色，默认为"0"
-      "Language": "1", // 语言，1-中文，2-英文
-      "Speed": "0", // 语速，范围：-2~2
-      "Volume": "0", // 音量，范围：0~10
-      "ProjectId": "0" // 项目ID
+      "AppId": "", // ID ứng dụng TTS
+      "VoiceType": "", // Giọng đọc, mặc định là "0"
+      "Language": "1", // Ngôn ngữ, 1-Tiếng Trung, 2-Tiếng Anh
+      "Speed": "0", // Tốc độ đọc, phạm vi: -2~2
+      "Volume": "0", // Âm lượng, phạm vi: 0~10
+      "ProjectId": "0" // ID dự án
     }
   }
 }
 ```
 
-## 更多文档
+## Tài liệu khác
 
-* [腾讯云语音合成服务](https://cloud.tencent.com/document/product/1073)
-* [腾讯云TTS SDK文档](https://cloud.tencent.com/document/product/1073/37927)
+* [Dịch vụ tổng hợp giọng nói Tencent Cloud](https://cloud.tencent.com/document/product/1073)
+* [Tài liệu Tencent Cloud TTS SDK](https://cloud.tencent.com/document/product/1073/37927)
 
 [English](./README.EN.md)

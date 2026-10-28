@@ -3,11 +3,11 @@
 public enum UserFriendStatus : byte
 {
     /// <summary>
-    /// 需要验证
+    /// Cần xác thực
     /// </summary>
     NeedValidation,
     /// <summary>
-    /// 已添加
+    /// Đã thêm
     /// </summary>
     Added
 }

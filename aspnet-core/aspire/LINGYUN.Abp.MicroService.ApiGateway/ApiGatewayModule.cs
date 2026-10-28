@@ -5,10 +5,13 @@ using LINGYUN.Abp.Serilog.Enrichers.Application;
 using LINGYUN.Abp.Serilog.Enrichers.UniqueId;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.WebSockets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi;
 using StackExchange.Redis;
 using System;
@@ -42,7 +45,7 @@ public class ApiGatewayModule : AbpModule
     {
         PreConfigure<AbpSerilogEnrichersUniqueIdOptions>(options =>
         {
-            // 以开放端口区别
+            // Phân biệt bằng cổng mở
             options.SnowflakeIdOptions.WorkerId = 0;
             options.SnowflakeIdOptions.WorkerIdBits = 5;
             options.SnowflakeIdOptions.DatacenterId = 1;
@@ -62,18 +65,45 @@ public class ApiGatewayModule : AbpModule
             options.ControllersToRemove.Add(typeof(AbpApplicationConfigurationScriptController));
         });
 
+        // DEVOPS iter-0008: AuthServer settings only exist in
+        // appsettings.Development.json, so a non-Development boot used to
+        // crash here with ArgumentNullException (Dictionary.Add with a
+        // null audience key) before the host could start at all. Skip
+        // the scope entry when no audience is configured, and skip the
+        // swagger-OAuth registration when no authority is configured —
+        // both guards only affect states that previously crashed, never
+        // a working configuration. A real Production deployment must
+        // still supply AuthServer settings plus Redis/YARP config.
+        var swaggerScopes = new Dictionary<string, string>();
+        var swaggerAudience = configuration["AuthServer:Audience"];
+        if (!string.IsNullOrWhiteSpace(swaggerAudience))
+        {
+            swaggerScopes.Add(swaggerAudience, "Api Gateway API");
+        }
+        // DEVOPS iter-0008 (continued): the audience guard above exposed
+        // the next layer of the same Production crash — ABP's
+        // AddAbpSwaggerGenWithOAuth throws NullReferenceException when
+        // AuthServer:Authority is null (it builds OAuth endpoints from
+        // it). Skip ONLY this swagger-OAuth registration when no
+        // authority is configured (everything below — JwtBearer auth,
+        // DataProtection, CORS, YARP, health checks — still runs): a
+        // gateway without an AuthServer cannot offer OAuth swagger
+        // anyway, and skipping is strictly better than failing to
+        // start. When authority IS configured (the only state that ever
+        // worked), this block behaves exactly like the old code.
+        var swaggerAuthority = configuration["AuthServer:Authority"];
+        if (!string.IsNullOrWhiteSpace(swaggerAuthority))
+        {
         context.Services.AddAbpSwaggerGenWithOAuth(
-            authority: configuration["AuthServer:Authority"],
-            scopes: new Dictionary<string, string>
-            {
-                { configuration["AuthServer:Audience"], "Api Gateway API"}
-            },
+            authority: swaggerAuthority,
+            scopes: swaggerScopes,
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiGateway", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
+        }
         context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -131,5 +161,20 @@ public class ApiGatewayModule : AbpModule
                 handler.ActivityHeadersPropagator = null;
             })
             .LoadFromConfig(configuration.GetSection("ReverseProxy"));
+
+        // DEVOPS iter-0006 (DEV-11): gateway truoc day khong co /healthz (chi co
+        // /health cua Aspire, chi o Development, chi check "self" rong).
+        // Map /healthz qua AbpEndpointRouter (hoat dong moi moi truong, nhu
+        // cac microservice) + check Redis that (noi DataProtection phu thuoc).
+        Configure<AbpEndpointRouterOptions>(options =>
+        {
+            options.EndpointConfigureActions.Add((builder) =>
+            {
+                builder.Endpoints.MapHealthChecks(configuration["App:HealthChecks"] ?? "/healthz");
+            });
+        });
+
+        context.Services.AddHealthChecks()
+            .AddCheck("redis", new HealthChecks.RedisHealthCheck(configuration["Redis:Configuration"]));
     }
 }

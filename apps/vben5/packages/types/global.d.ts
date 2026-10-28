@@ -1,3 +1,6 @@
+// eslint-disable-next-line spaced-comment
+/// <reference path="./shims.d.ts" />
+
 import type { RouteMeta as IRouteMeta } from '@vben-core/typings';
 
 import 'vue-router';

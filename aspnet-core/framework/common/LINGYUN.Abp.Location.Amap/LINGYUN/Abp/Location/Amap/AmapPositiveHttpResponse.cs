@@ -3,20 +3,20 @@
 namespace LINGYUN.Abp.Location.Amap
 {
     /// <summary>
-    /// 正地址解析结果
+    /// Kết quả phân tích địa chỉ thuận
     /// </summary>
     public class AmapPositiveHttpResponse : AmapHttpResponse
     {
         /// <summary>
-        /// 返回结果数目
+        /// Số lượng kết quả trả về
         /// </summary>
         /// <remarks>
-        /// 返回结果的个数。
+        /// Số lượng kết quả trả về.
         /// </remarks>
         public int Count { get; set; }
 
         /// <summary>
-        /// 地理编码信息列表
+        /// Danh sách thông tin mã địa lý
         /// </summary>
         [JsonProperty("geocodes")]
         public AmapGeocode[] Geocodes { get; set; }

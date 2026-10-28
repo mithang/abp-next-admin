@@ -4,29 +4,29 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Attachments.Response;
 /// <summary>
-/// 上传附件资源响应结果
+/// Kết quả phản hồi tải lên tài nguyên tệp đính kèm
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/95098" />
+/// Chi tiết xem tại: <see href="https://developer.work.weixin.qq.com/document/path/95098" />
 /// </remarks>
 public class WeChatWorkUploadAttachmentResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
+    /// Loại tệp phương tiện, gồm hình ảnh (image), âm thanh (voice), video (video), tệp thông thường (file)
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string MediaType { get; set; } = default!;
     /// <summary>
-    /// 媒体文件上传后获取的唯一标识，三天有效，可使用获取临时素材接口获取
+    /// Định danh duy nhất thu được sau khi tải lên tệp phương tiện, có hiệu lực trong ba ngày, có thể lấy qua giao diện lấy tài liệu tạm thời
     /// </summary>
     [NotNull]
     [JsonProperty("media_id")]
     [JsonPropertyName("media_id")]
     public string MediaId { get; set; } = default!;
     /// <summary>
-    /// 媒体文件上传时间戳
+    /// Dấu thời gian tải lên tệp phương tiện
     /// </summary>
     [NotNull]
     [JsonProperty("created_at")]

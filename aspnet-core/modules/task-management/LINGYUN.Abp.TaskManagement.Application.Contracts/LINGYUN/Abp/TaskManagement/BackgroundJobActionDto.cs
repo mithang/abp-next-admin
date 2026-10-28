@@ -7,19 +7,19 @@ namespace LINGYUN.Abp.TaskManagement;
 public class BackgroundJobActionDto : EntityDto<Guid>
 {
     /// <summary>
-    /// 作业标识
+    /// Định danh job
     /// </summary>
     public string JobId { get; set; } = default!;
     /// <summary>
-    /// 名称
+    /// Tên
     /// </summary>
     public string Name { get; set; } = default!;
     /// <summary>
-    /// 是否启用
+    /// Có bật hay không
     /// </summary>
     public bool IsEnabled { get; set; }
     /// <summary>
-    /// 参数
+    /// Tham số
     /// </summary>
     public ExtraPropertyDictionary Paramters { get; set; } = new ExtraPropertyDictionary();
 }

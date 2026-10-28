@@ -1,0 +1,153 @@
+{
+  "abp": {
+    "title": "Framework ABP",
+    "oauth": {
+      "twoFactor": {
+        "title": "Xác thực hai bước",
+        "authenticator": "Phương thức xác minh",
+        "emailAddress": "Email",
+        "phoneNumber": "Số điện thoại",
+        "getCode": "Lấy mã xác minh",
+        "code": "Mã xác minh"
+      },
+      "qrcodeLogin": {
+        "scaned": "Vui lòng xác nhận đăng nhập trên điện thoại."
+      },
+      "errors": {
+        "accountLockedByInvalidLoginAttempts": "Do thử đăng nhập không hợp lệ, tài khoản người dùng bị khóa. Vui lòng thử lại sau!",
+        "accountInactive": "Bạn không thể đăng nhập, tài khoản của bạn không hợp lệ!",
+        "invalidUserNameOrPassword": "Tên người dùng hoặc mật khẩu sai!",
+        "tokenHasExpired": "Phiên yêu cầu của bạn đã hết hạn, vui lòng đăng nhập lại!",
+        "requiresTwoFactor": "Cần xác minh danh tính, vui lòng chọn một phương thức xác minh!",
+        "shouldChangePassword": "Mật khẩu của bạn đã hết hạn, vui lòng đổi mật khẩu rồi đăng nhập!",
+        "accessDenied": "Bạn đã từ chối ủy quyền bắt buộc của ứng dụng, vui lòng đăng nhập lại!"
+      }
+    },
+    "manage": {
+      "title": "Quản lý",
+      "identity": {
+        "title": "Quản lý xác thực danh tính",
+        "user": "Người dùng",
+        "role": "Vai trò",
+        "claimTypes": "Định danh danh tính",
+        "securityLogs": "Nhật ký bảo mật",
+        "organizationUnits": "Tổ chức",
+        "sessions": "Quản lý phiên"
+      },
+      "permissions": {
+        "title": "Quản lý quyền",
+        "groups": "Nhóm quyền",
+        "definitions": "Định nghĩa quyền"
+      },
+      "features": {
+        "title": "Quản lý chức năng",
+        "groups": "Nhóm tính năng",
+        "definitions": "Định nghĩa tính năng"
+      },
+      "settings": {
+        "title": "Quản lý cài đặt",
+        "definitions": "Định nghĩa cài đặt",
+        "system": "Cài đặt hệ thống"
+      },
+      "notifications": {
+        "title": "Quản lý thông báo",
+        "myNotifilers": "Thông báo của tôi",
+        "groups": "Nhóm thông báo",
+        "definitions": "Định nghĩa thông báo"
+      },
+      "localization": {
+        "title": "Quản lý bản địa hóa",
+        "resources": "Quản lý tài nguyên",
+        "languages": "Quản lý ngôn ngữ",
+        "texts": "Quản lý tài liệu"
+      },
+      "dataProtection": {
+        "title": "Quyền dữ liệu",
+        "entityTypeInfos": "Danh sách thực thể"
+      },
+      "auditLogs": "Nhật ký kiểm toán",
+      "loggings": "Nhật ký hệ thống",
+      "openApi": "Tài liệu giao diện",
+      "cache": "Quản lý bộ nhớ đệm"
+    },
+    "openiddict": {
+      "title": "OpenIddict",
+      "applications": "Quản lý ứng dụng",
+      "authorizations": "Quản lý ủy quyền",
+      "scopes": "Quản lý phạm vi",
+      "tokens": "Token ủy quyền"
+    },
+    "account": {
+      "title": "Quản lý tài khoản",
+      "settings": {
+        "title": "Cài đặt cá nhân",
+        "basic": {
+          "title": "Cài đặt cơ bản"
+        },
+        "security": {
+          "title": "Cài đặt bảo mật",
+          "unSet": "Chưa cài đặt",
+          "verified": "Đã xác minh",
+          "unVerified": "Chưa xác thực",
+          "email": "Email",
+          "password": "Mật khẩu",
+          "passwordDesc": "Đặt lại mật khẩu của tôi",
+          "phoneNumber": "Số điện thoại"
+        },
+        "bindSettings": "Liên kết tài khoản",
+        "noticeSettings": "Thông báo tin nhắn mới",
+        "authenticatorSettings": "Trình xác thực danh tính",
+        "changeAvatar": "Thay đổi ảnh đại diện",
+        "sessionSettings": "Quản lý phiên",
+        "personalDataSettings": "Quản lý thông tin cá nhân"
+      },
+      "profile": "Trung tâm cá nhân"
+    },
+    "platform": {
+      "title": "Quản lý nền tảng",
+      "messages": {
+        "title": "Quản lý tin nhắn",
+        "email": "Tin nhắn email",
+        "sms": "Tin nhắn SMS"
+      },
+      "dataDictionaries": "Từ điển dữ liệu",
+      "layouts": "Quản lý bố cục",
+      "menus": "Quản lý menu"
+    },
+    "saas": {
+      "title": "Saas",
+      "editions": "Quản lý phiên bản",
+      "tenants": "Quản lý bên thuê"
+    },
+    "demo": {
+      "title": "Demo",
+      "books": "Danh sách sách"
+    },
+    "tasks": {
+      "title": "Tác vụ nền",
+      "jobInfo": {
+        "title": "Quản lý tác vụ"
+      }
+    },
+    "webhooks": {
+      "title": "Quản lý Webhook",
+      "groups": "Nhóm Webhook",
+      "definitions": "Định nghĩa Webhook",
+      "subscriptions": "Quản lý đăng ký",
+      "sendAttempts": "Lịch sử gửi"
+    },
+    "textTemplating": {
+      "title": "Mẫu văn bản",
+      "definitions": "Định nghĩa mẫu"
+    },
+    "oss": {
+      "title": "Lưu trữ đối tượng",
+      "containers": "Quản lý container",
+      "objects": "Quản lý tệp"
+    },
+    "wechat": {
+      "title": "Tích hợp WeChat",
+      "settings": "Cài đặt WeChat"
+    }
+  }
+}

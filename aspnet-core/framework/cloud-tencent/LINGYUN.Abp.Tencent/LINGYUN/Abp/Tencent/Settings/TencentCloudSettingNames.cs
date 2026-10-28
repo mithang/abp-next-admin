@@ -12,74 +12,74 @@ public static class TencentCloudSettingNames
     /// </summary>
     public const string SecretKey = Prefix + ".SecretKey";
     /// <summary>
-    /// 连接地域
+    /// Kết nối khu vực
     /// </summary>
     public const string EndPoint = Prefix + ".EndPoint";
     /// <summary>
-    /// 会话持续时间
+    /// Thời lượng phiên
     /// </summary>
     public const string DurationSecond = Prefix + ".DurationSecond";
     /// <summary>
-    /// 认证方式
+    /// Phương thức xác thực
     /// </summary>
     public class Authorization
     {
         public const string Prefix = TencentCloudSettingNames.Prefix + ".Authorization";
         /// <summary>
-        /// 地域ID
+        /// ID khu vực
         /// </summary>
         public const string RegionId = Prefix + ".RegionId";
         /// <summary>
-        /// RAM账号的AccessKey ID
+        /// AccessKey ID của tài khoản RAM
         /// </summary>
         public const string AccessKeyId = Prefix + ".AccessKeyId";
         /// <summary>
-        /// RAM账号的AccessKey Secret
+        /// AccessKey Secret của tài khoản RAM
         /// </summary>
         public const string AccessKeySecret = Prefix + ".AccessKeySecret";
         /// <summary>
-        /// 使用STS Token访问
+        /// Truy cập bằng STS Token
         /// </summary>
         public const string UseSecurityTokenService = Prefix + ".UseSecurityTokenService";
         /// <summary>
-        /// 使用RAM子账号的AssumeRole方式访问
+        /// Truy cập bằng phương thức AssumeRole của tài khoản con RAM
         /// </summary>
         public const string RamRoleArn = Prefix + ".RamRoleArn";
         /// <summary>
-        /// 用户自定义参数。此参数用来区分不同的令牌，可用于用户级别的访问审计
+        /// Tham số tùy chỉnh của người dùng. Tham số này dùng để phân biệt các token khác nhau, có thể dùng cho kiểm toán truy cập cấp người dùng
         /// </summary>
         public const string RoleSessionName = Prefix + ".RoleSessionName";
         /// <summary>
-        /// 过期时间，单位为秒。
+        /// Thời gian hết hạn, đơn vị là giây.
         /// </summary>
         public const string DurationSeconds = Prefix + ".DurationSeconds";
         /// <summary>
-        /// 权限策略。
+        /// Chính sách quyền.
         /// </summary>
         public const string Policy = Prefix + ".Policy";
     }
     /// <summary>
-    /// 连接设置
+    /// Cài đặt kết nối
     /// </summary>
     public class Connection
     {
         public const string Prefix = TencentCloudSettingNames.Prefix + ".Connection";
         /// <summary>
-        /// 代理服务器
+        /// Máy chủ proxy
         /// </summary>
         public const string WebProxy = Prefix + ".WebProxy";
         /// <summary>
-        /// 连接地域
-        /// 按照腾讯云文档，对于金融区服务需要指定域名
+        /// Kết nối khu vực
+        /// Theo tài liệu Tencent Cloud, đối với dịch vụ khu vực tài chính cần chỉ định tên miền
         /// </summary>
         public const string EndPoint = Prefix + ".EndPoint";
         /// <summary>
-        /// Http方法，按照腾讯云文档，不同的方法对于请求大小有限制
-        /// 默认：POST
+        /// Phương thức Http, theo tài liệu Tencent Cloud, các phương thức khác nhau có giới hạn về kích thước yêu cầu
+        /// Mặc định: POST
         /// </summary>
         public const string HttpMethod = Prefix + ".HttpMethod";
         /// <summary>
-        /// 超时时间
+        /// Thời gian chờ
         /// </summary>
         public const string Timeout = Prefix + ".Timeout";
     }
@@ -88,16 +88,16 @@ public static class TencentCloudSettingNames
     {
         private const string Prefix = TencentCloudSettingNames.Prefix + ".Sms";
         /// <summary>
-        /// 短信 SdkAppId
-        /// 在 短信控制台 添加应用后生成的实际 SdkAppId，示例如1400006666。
+        /// SdkAppId SMS
+        /// SdkAppId thực tế được tạo sau khi thêm ứng dụng trong Bảng điều khiển SMS, ví dụ 1400006666.
         /// </summary>
         public const string AppId = Prefix + ".AppId";
         /// <summary>
-        /// 短信签名内容
+        /// Nội dung chữ ký SMS
         /// </summary>
         public const string DefaultSignName = Prefix + ".DefaultSignName";
         /// <summary>
-        /// 默认短信模板 ID
+        /// ID mẫu SMS mặc định
         /// </summary>
         public const string DefaultTemplateId = Prefix + ".DefaultTemplateId";
     }

@@ -1,5 +1,5 @@
 /**
- * 将字符串的首字母大写
+ * Viết hoa chữ cái đầu của chuỗi
  * @param string
  */
 function capitalizeFirstLetter(string: string): string {
@@ -7,18 +7,18 @@ function capitalizeFirstLetter(string: string): string {
 }
 
 /**
- * 将字符串的首字母转换为小写。
+ * Chuyển chữ cái đầu của chuỗi thành chữ thường.
  *
- * @param str 要转换的字符串
- * @returns 首字母小写的字符串
+ * @param str Chuỗi cần chuyển đổi
+ * @returns Chuỗi có chữ cái đầu viết thường
  */
 function toLowerCaseFirstLetter(str: string): string {
-  if (!str) return str; // 如果字符串为空，直接返回
+  if (!str) return str; // Nếu chuỗi rỗng, trả về trực tiếp
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
 
 /**
- *  生成驼峰命名法的键名
+ *  Tạo tên khóa theo quy tắc camelCase
  * @param key
  * @param parentKey
  */

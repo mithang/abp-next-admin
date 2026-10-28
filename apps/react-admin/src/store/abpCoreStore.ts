@@ -25,7 +25,7 @@ const useAbpStore = create<AbpStore>()(
 			application: undefined,
 			localization: undefined,
 			actions: {
-				// 获取 i18n 格式的本地化文本
+				// Lấy văn bản bản địa hoá theo định dạng i18n
 				getI18nLocales: () => {
 					const localization = get().localization;
 					const abpLocales: Record<string, any> = {};
@@ -39,14 +39,14 @@ const useAbpStore = create<AbpStore>()(
 						if (resourcesByName) {
 							Object.keys(resourcesByName.texts).forEach((key) => {
 								// let localeKey = key.replaceAll(".", "_");
-								// // 清理多余的 _ 后缀或前缀
+								// // Dọn dẹp hậu tố/tiền tố _ thừa
 								// if (localeKey.endsWith("_")) {
 								// 	localeKey = localeKey.slice(0, Math.max(0, localeKey.length - 1));
 								// }
 								// if (localeKey.startsWith("_")) {
 								// 	localeKey = localeKey.slice(1);
 								// }
-								//(25-02-16) 不用额外转key "AbpIdentity.Users.UserName" -> "AbpIdentity_Users_UserName"
+								//(25-02-16) Không cần chuyển key thêm "AbpIdentity.Users.UserName" -> "AbpIdentity_Users_UserName"
 
 								resourceLocales[key] = resourcesByName.texts[key];
 							});
@@ -56,18 +56,18 @@ const useAbpStore = create<AbpStore>()(
 					return abpLocales;
 				},
 				setTenantId: (val) => set({ tenantId: val }),
-				// 设置 application 数据
+				// Thiết lập dữ liệu application
 				setApplication: (val) => {
 					set({ application: val });
 					const match = document.cookie.match(new RegExp("(^| )XSRF-TOKEN=([^;]+)"));
 					const xsrfToken = match ? match[2] : undefined;
 					set({ xsrfToken });
 					// console.log("--------- xsrfToken set in store:", get().xsrfToken);
-					// 提取并设置 xsrfToken
+					// Trích xuất và thiết lập xsrfToken
 				},
-				// 设置 localization 数据
+				// Thiết lập dữ liệu localization
 				setLocalization: (val) => set({ localization: val }),
-				// 重置 store
+				// Đặt lại store
 				reset: () => set({ application: undefined, localization: undefined }),
 			},
 		}),
@@ -81,7 +81,7 @@ const useAbpStore = create<AbpStore>()(
 	),
 );
 
-// Store 的钩子函数
+// Hàm hook của Store
 export const useApplication = () => useAbpStore((state) => state.application);
 // export const useLocalization = () => useAbpStore((state) => state.localization);
 export const useAbpActions = () => useAbpStore((state) => state.actions);

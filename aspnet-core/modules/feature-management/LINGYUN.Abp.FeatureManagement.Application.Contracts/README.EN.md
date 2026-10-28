@@ -66,4 +66,4 @@ public static class FeatureManagementPermissionNames
 * [ABP Feature Management Documentation](https://docs.abp.io/en/abp/latest/Features)
 * [ABP Application Services Documentation](https://docs.abp.io/en/abp/latest/Application-Services)
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

@@ -15,9 +15,9 @@ export function useTextsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询文本列表
-   * @param input 参数
-   * @returns 文本列表
+   * Truy vấn danh sách văn bản
+   * @param input Tham số
+   * @returns Danh sách văn bản
    */
   function getListApi(
     input: GetTextsInput,
@@ -32,9 +32,9 @@ export function useTextsApi() {
   }
 
   /**
-   * 查询文本
-   * @param input 参数
-   * @returns 查询的文本
+   * Truy vấn văn bản
+   * @param input Tham số
+   * @returns Văn bản được truy vấn
    */
   function getApi(input: GetTextByKeyInput): Promise<TextDto> {
     return request<TextDto>('/api/localization/texts/by-key', {
@@ -44,8 +44,8 @@ export function useTextsApi() {
   }
 
   /**
-   * 设置文本
-   * @param input 参数
+   * Đặt văn bản
+   * @param input Tham số
    */
   function setApi(input: SetTextInput): Promise<void> {
     return request('/api/localization/texts', {
@@ -55,8 +55,8 @@ export function useTextsApi() {
   }
 
   /**
-   * 删除文本
-   * @param input 参数
+   * Xóa văn bản
+   * @param input Tham số
    */
   function deleteApi(input: DeleteTextInput): Promise<void> {
     return request('/api/localization/texts', {

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import en_US from "antd/locale/en_US";
 import zh_CN from "antd/locale/zh_CN";
+import vi_VN from "antd/locale/vi_VN";
 import { LocalEnum } from "#/enum";
 import { getLocalizationApi } from "@/api/abp-core";
 
@@ -25,6 +26,12 @@ export const LANGUAGE_MAP: Record<Locale, Language> = {
 		icon: "ic-locale_zh_CN",
 		antdLocal: zh_CN,
 	},
+	[LocalEnum.vi_VN]: {
+		locale: LocalEnum.vi_VN,
+		label: "Vietnamese",
+		icon: "ic-locale_vi_VN",
+		antdLocal: vi_VN,
+	},
 	[LocalEnum.en_US]: {
 		locale: LocalEnum.en_US,
 		label: "English",
@@ -46,7 +53,7 @@ type LocaleStore = {
 const useLocaleStore = create<LocaleStore>()(
 	persist(
 		(set) => ({
-			locale: LocalEnum.en_US, // 默认语言
+			locale: LocalEnum.en_US, // Ngôn ngữ mặc định
 			language: LANGUAGE_MAP[LocalEnum.en_US],
 			localizations: {},
 			actions: {
@@ -58,21 +65,21 @@ const useLocaleStore = create<LocaleStore>()(
 					const lang = mapLocaleToAbpLanguageFormat(locale);
 					if (lang !== localization?.currentCulture.cultureName) {
 						localization = await getLocalizationApi({
-							cultureName: lang, //api的语言转换
+							cultureName: lang, // chuyển đổi ngôn ngữ của api
 							onlyDynamics: false,
 						});
 					}
 
 					if (localization) {
-						setLocalization(localization); //存进去
+						setLocalization(localization); // lưu vào
 					}
-					const locales = getI18nLocales(); //刚刚存进去的，清理下
+					const locales = getI18nLocales(); // vừa lưu vào, dọn dẹp lại
 					i18n.changeLanguage(locale);
 					Object.keys(locales).forEach((resource) => {
-						const translations = { [resource]: locales[resource] }; // 保留嵌套结构
-						i18n.addResourceBundle(locale, "translation", translations, true, true); // 添加资源到 i18n
+						const translations = { [resource]: locales[resource] }; // Giữ cấu trúc lồng nhau
+						i18n.addResourceBundle(locale, "translation", translations, true, true); // Thêm tài nguyên vào i18n
 					});
-					// 更新 Zustand 状态
+					// Cập nhật trạng thái Zustand
 					set({
 						locale,
 						language: LANGUAGE_MAP[locale],
@@ -84,7 +91,7 @@ const useLocaleStore = create<LocaleStore>()(
 		{
 			name: "localeI18nStore",
 			storage: createJSONStorage(() => localStorage),
-			// 保持风格，但暂时不持久化数据
+			// Giữ phong cách, nhưng tạm thời không lưu trữ dữ liệu
 			partialize: () => ({}),
 		},
 	),

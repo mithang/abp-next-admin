@@ -6,12 +6,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 单选/多选控件值
+/// Giá trị điều khiển chọn đơn/chọn nhiều
 /// </summary>
 public class SelectorControlValue : ControlValue
 {
     /// <summary>
-    /// 单选/多选内容
+    /// Nội dung chọn đơn/chọn nhiều
     /// </summary>
     [NotNull]
     [JsonProperty("selector")]
@@ -31,14 +31,14 @@ public class SelectorControlValue : ControlValue
 public class SelectorValue
 {
     /// <summary>
-    /// 选择方式：single-单选；multi-多选
+    /// Phương thức chọn: single - chọn đơn; multi - chọn nhiều
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
     /// <summary>
-    /// 多选选项，多选属性的选择控件允许输入多个
+    /// Tùy chọn chọn nhiều; điều khiển chọn có thuộc tính chọn nhiều cho phép nhập nhiều giá trị
     /// </summary>
     [NotNull]
     [JsonProperty("options")]
@@ -55,7 +55,7 @@ public class SelectorValue
         Options = options;
     }
     /// <summary>
-    /// 创建一个单选选项
+    /// Tạo một tùy chọn chọn đơn
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -65,7 +65,7 @@ public class SelectorValue
     }
 
     /// <summary>
-    /// 创建一个多选选项
+    /// Tạo một tùy chọn chọn nhiều
     /// </summary>
     /// <param name="options"></param>
     /// <returns></returns>
@@ -78,14 +78,14 @@ public class SelectorValue
 public class SelectorValueOption
 {
     /// <summary>
-    /// 选项key，可通过“获取审批模板详情”接口获得
+    /// Khóa tùy chọn, có thể lấy qua giao diện “lấy chi tiết mẫu phê duyệt”
     /// </summary>
     [NotNull]
     [JsonProperty("key")]
     [JsonPropertyName("key")]
     public string Key { get; set; } = default!;
     /// <summary>
-    /// 选项值，若配置了多语言则会包含中英文的选项值
+    /// Giá trị tùy chọn; nếu đã cấu hình đa ngôn ngữ thì sẽ bao gồm giá trị tùy chọn tiếng Trung và tiếng Anh
     /// </summary>
     [NotNull]
     [JsonProperty("value")]
@@ -106,7 +106,7 @@ public class SelectorValueOption
 public class SelectorValueOptionValue
 {
     /// <summary>
-    /// 选项值
+    /// Giá trị tùy chọn
     /// </summary>
     [NotNull]
     [StringLength(40)]
@@ -114,7 +114,7 @@ public class SelectorValueOptionValue
     [JsonPropertyName("text")]
     public string Text { get; set; } = default!;
     /// <summary>
-    /// 多语言名称
+    /// Tên đa ngôn ngữ
     /// </summary>
     [NotNull]
     [JsonProperty("lang")]

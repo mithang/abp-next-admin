@@ -27,9 +27,9 @@ public class AbpGdprDomainIdentityModule : AbpModule
 
         Configure<AbpGdprOptions>(options =>
         {
-            // 用户数据提供者
+            // Nhà cung cấp dữ liệu người dùng
             options.GdprUserDataProviders.Add(new AbpGdprIdentityUserDataProvider());
-            // 用户账户提供者
+            // Nhà cung cấp tài khoản người dùng
             options.GdprUserAccountProviders.Add(new AbpGdprIdentityUserAccountProvider());
         });
     }

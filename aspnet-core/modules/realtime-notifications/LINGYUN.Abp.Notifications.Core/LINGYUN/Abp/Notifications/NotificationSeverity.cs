@@ -1,28 +1,28 @@
 ﻿namespace LINGYUN.Abp.Notifications;
 
 /// <summary>
-/// 严重级别
+/// Mức độ nghiêm trọng
 /// </summary>
 public enum NotificationSeverity : sbyte
 {
     /// <summary>
-    /// 成功
+    /// Thành công
     /// </summary>
     Success = 0,
     /// <summary>
-    /// 信息
+    /// Thông tin
     /// </summary>
     Info = 10,
     /// <summary>
-    /// 警告
+    /// Cảnh báo
     /// </summary>
     Warn = 20,
     /// <summary>
-    /// 错误
+    /// Lỗi
     /// </summary>
     Error = 30,
     /// <summary>
-    /// 致命错误
+    /// Lỗi nghiêm trọng
     /// </summary>
     Fatal = 40
 }

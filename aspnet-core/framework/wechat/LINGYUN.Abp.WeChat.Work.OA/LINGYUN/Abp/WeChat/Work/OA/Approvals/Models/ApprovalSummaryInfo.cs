@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 摘要信息
+/// Thông tin tóm tắt
 /// </summary>
 public class ApprovalSummaryInfo
 {
     /// <summary>
-    /// 摘要行显示文字，用于记录列表和消息通知的显示，不要超过20个字符
+    /// Văn bản hiển thị của dòng tóm tắt, dùng để hiển thị danh sách ghi chép và thông báo tin nhắn, không vượt quá 20 ký tự
     /// </summary>
     [NotNull]
     [StringLength(20)]
@@ -18,7 +18,7 @@ public class ApprovalSummaryInfo
     [JsonPropertyName("text")]
     public string Text { get; set; } = default!;
     /// <summary>
-    /// 摘要行显示语言，中文：zh_CN（注意不是zh-CN），英文：en。
+    /// Ngôn ngữ hiển thị của dòng tóm tắt, tiếng Trung: zh_CN (lưu ý không phải zh-CN), tiếng Anh: en.
     /// </summary>
     [NotNull]
     [StringLength(30)]

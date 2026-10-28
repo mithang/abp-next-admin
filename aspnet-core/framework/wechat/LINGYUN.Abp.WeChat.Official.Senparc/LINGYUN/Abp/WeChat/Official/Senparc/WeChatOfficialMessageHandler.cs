@@ -24,7 +24,7 @@ public class WeChatOfficialMessageHandler : MessageHandler<WeChatOfficialMessage
     public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
     {
         var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
-        responseMessage.Content = $"这条消息来自DefaultResponseMessage。\r\n您收到这条消息，表明该公众号没有对【{requestMessage.MsgType}】类型做处理。";
+        responseMessage.Content = $"Tin nhắn này đến từ DefaultResponseMessage.\r\nBạn nhận được tin nhắn này nghĩa là tài khoản chính thức này chưa xử lý loại 【{requestMessage.MsgType}】.";
         return responseMessage;
     }
 }

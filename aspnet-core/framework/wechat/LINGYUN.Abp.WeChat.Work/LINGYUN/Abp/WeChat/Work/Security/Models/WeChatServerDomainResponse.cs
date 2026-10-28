@@ -5,12 +5,12 @@ namespace LINGYUN.Abp.WeChat.Work.Security.Models;
 public class WeChatServerDomainResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 域名列表
+    /// Danh sách tên miền
     /// </summary>
     [JsonProperty("domain_list")]
     public List<WeChatDomainModel> Domains { get; set; } = new List<WeChatDomainModel>();
     /// <summary>
-    /// Ip列表
+    /// Danh sách IP
     /// </summary>
     [JsonProperty("ip_list")]
     public List<WeChatIpModel> Ips { get; set; } = new List<WeChatIpModel>();

@@ -13,7 +13,7 @@ const { getApi } = useEmailMessagesApi();
 
 const [Form, formApi] = useVbenForm({
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục biểu mẫu
     componentProps: {
       class: 'w-full',
     },

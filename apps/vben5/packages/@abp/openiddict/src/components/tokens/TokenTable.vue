@@ -11,7 +11,6 @@ import { defineAsyncComponent, h, onMounted, ref } from 'vue';
 
 import { useAccess } from '@vben/access';
 import { useVbenModal } from '@vben/common-ui';
-import { createIconifyIcon } from '@vben/icons';
 import { $t } from '@vben/locales';
 
 import { formatToDateTime } from '@abp/core';
@@ -28,23 +27,20 @@ defineOptions({
   name: 'TokenTable',
 });
 
-const CheckIcon = createIconifyIcon('ant-design:check-outlined');
-const CloseIcon = createIconifyIcon('ant-design:close-outlined');
-
 const { hasAccessByCodes } = useAccess();
 const { getPagedListApi: getApplications } = useApplicationsApi();
 const { deleteApi, getPagedListApi } = useTokensApi();
 
 const applications = ref<OpenIddictApplicationDto[]>([]);
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: true,
   collapsedRows: 2,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Dùng chung cho mọi mục form, có thể ghi đè riêng trong từng form
   commonConfig: {
-    // 在label后显示一个冒号
+    // Hiển thị một dấu hai chấm sau label
     colon: true,
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
@@ -108,9 +104,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi form khi nhấn Enter hay không
   submitOnEnter: true,
 };
 
@@ -270,18 +266,6 @@ onMounted(onSearchClient);
         @change="onChangeClient"
         @search="onSearchClient"
       />
-    </template>
-    <template #required="{ row }">
-      <div class="flex flex-row justify-center">
-        <CheckIcon v-if="row.required" class="text-green-500" />
-        <CloseIcon v-else class="text-red-500" />
-      </div>
-    </template>
-    <template #static="{ row }">
-      <div class="flex flex-row justify-center">
-        <CheckIcon v-if="row.isStatic" class="text-green-500" />
-        <CloseIcon v-else class="text-red-500" />
-      </div>
     </template>
     <template #action="{ row }">
       <div class="flex flex-row">

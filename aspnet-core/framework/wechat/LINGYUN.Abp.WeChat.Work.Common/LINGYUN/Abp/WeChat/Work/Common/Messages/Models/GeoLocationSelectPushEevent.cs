@@ -4,23 +4,23 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 弹出地理位置选择器的事件推送
+/// Đẩy sự kiện mở bộ chọn vị trí địa lý
 /// </summary>
 [EventName("location_select")]
 public class GeoLocationSelectPushEevent : WeChatWorkEventMessage
 {
     /// <summary>
-    /// 事件KEY值
+    /// Giá trị KEY của sự kiện
     /// </summary>
     [XmlElement("EventKey")]
     public string EventKey { get; set; } = default!;
     /// <summary>
-    /// 发送的位置信息
+    /// Thông tin vị trí đã gửi
     /// </summary>
     [XmlElement("SendLocationInfo")]
     public LocationInfo SendLocationInfo { get; set; } = default!;
     /// <summary>
-    /// app类型，在企业微信固定返回wxwork，在微信不返回该字段
+    /// Loại app, trong WeChat Doanh nghiệp luôn trả về wxwork, trong WeChat thì không trả về trường này
     /// </summary>
     [XmlElement("AppType")]
     public string? AppType { get; set; }
@@ -34,27 +34,27 @@ public class GeoLocationSelectPushEevent : WeChatWorkEventMessage
 public class LocationInfo
 {
     /// <summary>
-    /// 地理位置纬度
+    /// Vĩ độ của vị trí địa lý
     /// </summary>
     [XmlElement("Location_X")]
     public double Latitude { get; set; }
     /// <summary>
-    /// 地理位置经度
+    /// Kinh độ của vị trí địa lý
     /// </summary>
     [XmlElement("Location_Y")]
     public double Longitude { get; set; }
     /// <summary>
-    /// 地图缩放大小
+    /// Mức thu phóng bản đồ
     /// </summary>
     [XmlElement("Scale")]
     public double Scale { get; set; }
     /// <summary>
-    /// 地理位置信息
+    /// Thông tin vị trí địa lý
     /// </summary>
     [XmlElement("Label")]
     public string? Label { get; set; }
     /// <summary>
-    /// POI的名字，可能为空
+    /// Tên của POI, có thể để trống
     /// </summary>
     [XmlElement("Poiname")]
     public string? PoiName { get; set; }

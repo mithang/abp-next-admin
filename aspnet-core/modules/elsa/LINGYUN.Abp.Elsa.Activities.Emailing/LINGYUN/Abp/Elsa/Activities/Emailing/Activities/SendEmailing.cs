@@ -14,11 +14,11 @@ using Volo.Abp.TextTemplating;
 namespace LINGYUN.Abp.Elsa.Activities.Emailing;
 
 /// <summary>
-/// 发送邮件
+/// Gửi email
 /// </summary>
 /// <remarks>
-/// 与elsa基础SendEmail命名冲突,故改名
-/// 此活动使用abp框架内置邮件发送接口<see cref="IEmailSender"/>
+/// Do xung đột tên với SendEmail cơ bản của Elsa nên đổi tên
+/// Hoạt động này sử dụng giao diện gửi email tích hợp sẵn của framework Abp<see cref="IEmailSender"/>
 /// </remarks>
 [Action(
     Category = "Emailing", 

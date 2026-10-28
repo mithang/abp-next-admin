@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { openWindow } from '../window';
 
 describe('openWindow', () => {
-  // 保存原始的 window.open 函数
+  // Lưu hàm window.open gốc
   let originalOpen: typeof window.open;
 
   beforeEach(() => {
@@ -20,10 +20,10 @@ describe('openWindow', () => {
 
     window.open = vi.fn();
 
-    // 调用函数
+    // Gọi hàm
     openWindow(url, options);
 
-    // 验证 window.open 是否被正确地调用
+    // Kiểm chứng window.open có được gọi đúng hay không
     expect(window.open).toHaveBeenCalledWith(
       url,
       options.target,

@@ -6,7 +6,7 @@ namespace LINGYUN.Abp.DataProtectionManagement;
 public class DataProtectionManagementOptions
 {
     /// <summary>
-    /// 受保护的实体类型
+    /// Các loại thực thể được bảo vệ
     /// </summary>
     public IDictionary<Type, List<Type>> ProtectedEntities { get; }
 

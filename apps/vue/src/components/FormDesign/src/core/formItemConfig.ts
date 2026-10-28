@@ -1,5 +1,5 @@
 /**
- * @description：表单配置
+ * @description：Cấu hình form
  */
 import { IVFormComponent } from '../typings/v-form-component';
 import { isArray } from 'lodash-es';
@@ -11,16 +11,16 @@ import { Component } from 'vue';
 
 const componentMap = new Map<string, Component>();
 
-//如果有其它控件，可以在这里初始化
+//Nếu có các control khác, có thể khởi tạo tại đây
 
-//注册Ant控件库
+//Đăng ký thư viện control Ant
 Cmp.forEach((value, key) => {
   componentMap.set(key, value);
   if (VbenCmp[key] == null) {
     add(key as ComponentType, value);
   }
 });
-//注册vben控件库
+//Đăng ký thư viện control vben
 VbenCmp.forEach((value, key) => {
   componentMap.set(key, value);
 });
@@ -28,7 +28,7 @@ VbenCmp.forEach((value, key) => {
 export { componentMap };
 
 /**
- * 设置自定义表单控件
+ * Thiết lập control form tùy chỉnh
  * @param {IVFormComponent | IVFormComponent[]} config
  */
 export function setFormDesignComponents(config: IVFormComponent | IVFormComponent[]) {
@@ -45,16 +45,16 @@ export function setFormDesignComponents(config: IVFormComponent | IVFormComponen
   }
 }
 
-//外部设置的自定义控件
+//Control tùy chỉnh được thiết lập từ bên ngoài
 export const customComponents: IVFormComponent[] = [];
 
-// 左侧控件列表与初始化的控件属性
-// props.slotName,会在formitem级别生成一个slot,并绑定当前record值
-// 属性props，类型为对象，不能为undefined或是null。
+// Danh sách control bên trái và thuộc tính khởi tạo của control
+// props.slotName sẽ tạo một slot ở cấp formitem và gắn giá trị record hiện tại
+// Thuộc tính props có kiểu là đối tượng, không được là undefined hoặc null.
 export const baseComponents: IVFormComponent[] = [
   {
     component: 'InputCountDown',
-    label: '倒计时输入',
+    label: 'Nhập đếm ngược',
     icon: 'line-md:iconify2',
     colProps: { span: 24 },
     field: '',
@@ -62,7 +62,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'IconPicker',
-    label: '图标选择器',
+    label: 'Bộ chọn biểu tượng',
     icon: 'line-md:iconify2',
     colProps: { span: 24 },
     field: '',
@@ -70,7 +70,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'StrengthMeter',
-    label: '密码强度',
+    label: 'Độ mạnh mật khẩu',
     icon: 'wpf:password1',
     colProps: { span: 24 },
     field: '',
@@ -78,27 +78,27 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'AutoComplete',
-    label: '自动完成',
+    label: 'Tự động hoàn thành',
     icon: 'wpf:password1',
     colProps: { span: 24 },
     field: '',
     componentProps: {
-      placeholder: '请输入正则表达式',
+      placeholder: 'Vui lòng nhập biểu thức chính quy',
       options: [
         {
           value: '/^(?:(?:\\+|00)86)?1[3-9]\\d{9}$/',
-          label: '手机号码',
+          label: 'Số điện thoại di động',
         },
         {
           value: '/^((ht|f)tps?:\\/\\/)?[\\w-]+(\\.[\\w-]+)+:\\d{1,5}\\/?$/',
-          label: '网址带端口号',
+          label: 'Địa chỉ web kèm cổng',
         },
       ],
     },
   },
   {
     component: 'Divider',
-    label: '分割线',
+    label: 'Đường phân cách',
     icon: 'radix-icons:divider-horizontal',
     colProps: { span: 24 },
     field: '',
@@ -109,25 +109,25 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Checkbox',
-    label: '复选框',
+    label: 'Hộp kiểm',
     icon: 'ant-design:check-circle-outlined',
     colProps: { span: 24 },
     field: '',
   },
   {
     component: 'CheckboxGroup',
-    label: '复选框-组',
+    label: 'Hộp kiểm - Nhóm',
     icon: 'ant-design:check-circle-filled',
     field: '',
     colProps: { span: 24 },
     componentProps: {
       options: [
         {
-          label: '选项1',
+          label: 'Tùy chọn 1',
           value: '1',
         },
         {
-          label: '选项2',
+          label: 'Tùy chọn 2',
           value: '2',
         },
       ],
@@ -135,7 +135,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Input',
-    label: '输入框',
+    label: 'Ô nhập liệu',
     icon: 'bi:input-cursor-text',
     field: '',
     colProps: { span: 24 },
@@ -145,7 +145,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'InputNumber',
-    label: '数字输入框',
+    label: 'Ô nhập số',
     icon: 'ant-design:field-number-outlined',
     field: '',
     colProps: { span: 24 },
@@ -153,7 +153,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'InputTextArea',
-    label: '文本域',
+    label: 'Vùng văn bản',
     icon: 'ant-design:file-text-filled',
     field: '',
     colProps: { span: 24 },
@@ -161,18 +161,18 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Select',
-    label: '下拉选择',
+    label: 'Chọn thả xuống',
     icon: 'gg:select',
     field: '',
     colProps: { span: 24 },
     componentProps: {
       options: [
         {
-          label: '选项1',
+          label: 'Tùy chọn 1',
           value: '1',
         },
         {
-          label: '选项2',
+          label: 'Tùy chọn 2',
           value: '2',
         },
       ],
@@ -181,7 +181,7 @@ export const baseComponents: IVFormComponent[] = [
 
   {
     component: 'Radio',
-    label: '单选框',
+    label: 'Nút radio',
     icon: 'ant-design:check-circle-outlined',
     field: '',
     colProps: { span: 24 },
@@ -189,18 +189,18 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'RadioGroup',
-    label: '单选框-组',
+    label: 'Nút radio - Nhóm',
     icon: 'carbon:radio-button-checked',
     field: '',
     colProps: { span: 24 },
     componentProps: {
       options: [
         {
-          label: '选项1',
+          label: 'Tùy chọn 1',
           value: '1',
         },
         {
-          label: '选项2',
+          label: 'Tùy chọn 2',
           value: '2',
         },
       ],
@@ -208,7 +208,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'DatePicker',
-    label: '日期选择',
+    label: 'Chọn ngày',
     icon: 'healthicons:i-schedule-school-date-time-outline',
     field: '',
     colProps: { span: 24 },
@@ -216,27 +216,27 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'RangePicker',
-    label: '日期范围',
+    label: 'Khoảng ngày',
     icon: 'healthicons:i-schedule-school-date-time-outline',
     field: '',
     colProps: { span: 24 },
     componentProps: {
-      placeholder: ['开始日期', '结束日期'],
+      placeholder: ['Ngày bắt đầu', 'Ngày kết thúc'],
     },
   },
   {
     component: 'MonthPicker',
-    label: '月份选择',
+    label: 'Chọn tháng',
     icon: 'healthicons:i-schedule-school-date-time-outline',
     field: '',
     colProps: { span: 24 },
     componentProps: {
-      placeholder: '请选择月份',
+      placeholder: 'Vui lòng chọn tháng',
     },
   },
   {
     component: 'TimePicker',
-    label: '时间选择',
+    label: 'Chọn thời gian',
     icon: 'healthicons:i-schedule-school-date-time',
     field: '',
     colProps: { span: 24 },
@@ -244,7 +244,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Slider',
-    label: '滑动输入条',
+    label: 'Thanh trượt nhập liệu',
     icon: 'vaadin:slider',
     field: '',
     colProps: { span: 24 },
@@ -252,7 +252,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Rate',
-    label: '评分',
+    label: 'Đánh giá',
     icon: 'ic:outline-star-rate',
     field: '',
     colProps: { span: 24 },
@@ -260,7 +260,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Switch',
-    label: '开关',
+    label: 'Công tắc',
     icon: 'entypo:switch',
     field: '',
     colProps: { span: 24 },
@@ -268,24 +268,24 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'TreeSelect',
-    label: '树形选择',
+    label: 'Chọn dạng cây',
     icon: 'clarity:tree-view-line',
     field: '',
     colProps: { span: 24 },
     componentProps: {
       treeData: [
         {
-          label: '选项1',
+          label: 'Tùy chọn 1',
           value: '1',
           children: [
             {
-              label: '选项三',
+              label: 'Tùy chọn 3',
               value: '1-1',
             },
           ],
         },
         {
-          label: '选项2',
+          label: 'Tùy chọn 2',
           value: '2',
         },
       ],
@@ -293,7 +293,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Upload',
-    label: '上传',
+    label: 'Tải lên',
     icon: 'ant-design:upload-outlined',
     field: '',
     colProps: { span: 24 },
@@ -303,24 +303,24 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Cascader',
-    label: '级联选择',
+    label: 'Chọn xếp tầng',
     icon: 'ant-design:check-outlined',
     field: '',
     colProps: { span: 24 },
     componentProps: {
       options: [
         {
-          label: '选项1',
+          label: 'Tùy chọn 1',
           value: '1',
           children: [
             {
-              label: '选项三',
+              label: 'Tùy chọn 3',
               value: '1-1',
             },
           ],
         },
         {
-          label: '选项2',
+          label: 'Tùy chọn 2',
           value: '2',
         },
       ],
@@ -328,7 +328,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   // {
   //   component: 'Button',
-  //   label: '按钮',
+  //   label: 'Nút bấm',
   //   icon: 'dashicons:button',
   //   field: '',
   //   colProps: { span: 24 },
@@ -337,7 +337,7 @@ export const baseComponents: IVFormComponent[] = [
   // },
   // {
   //   component: 'ColorPicker',
-  //   label: '颜色选择器',
+  //   label: 'Bộ chọn màu',
   //   icon: 'carbon:color-palette',
   //   field: '',
   //   colProps: { span: 24 },
@@ -348,7 +348,7 @@ export const baseComponents: IVFormComponent[] = [
   // },
   {
     component: 'Avatar',
-    label: '头像',
+    label: 'Ảnh đại diện',
     icon: 'radix-icons:avatar',
     field: '',
     colProps: { span: 24 },
@@ -356,18 +356,18 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'Descriptions',
-    label: '描述列表',
+    label: 'Danh sách mô tả',
     icon: 'cil:description',
     field: '',
     colProps: { span: 24 },
     componentProps: {
       options: [
         {
-          label: '选项1',
+          label: 'Tùy chọn 1',
           value: '1',
         },
         {
-          label: '选项2',
+          label: 'Tùy chọn 2',
           value: '2',
         },
       ],
@@ -375,7 +375,7 @@ export const baseComponents: IVFormComponent[] = [
   },
   {
     component: 'slot',
-    label: '插槽',
+    label: 'Slot',
     icon: 'vs:timeslot-question',
     field: '',
     colProps: { span: 24 },
@@ -388,7 +388,7 @@ export const baseComponents: IVFormComponent[] = [
 // https://next.antdv.com/components/transfer-cn
 const transferControl = {
   component: 'Transfer',
-  label: '穿梭框',
+  label: 'Hộp chuyển đổi',
   icon: 'bx:bx-transfer-alt',
   field: '',
   colProps: { span: 24 },
@@ -397,8 +397,8 @@ const transferControl = {
     dataSource: [
       {
         key: 'key-1',
-        title: '标题1',
-        description: '描述',
+        title: 'Tiêu đề 1',
+        description: 'Mô tả',
         disabled: false,
         chosen: true,
       },
@@ -410,8 +410,8 @@ const transferControl = {
       },
       {
         key: 'key-3',
-        title: '标题3',
-        description: '描述3',
+        title: 'Tiêu đề 3',
+        description: 'Mô tả 3',
         disabled: false,
         chosen: true,
       },
@@ -423,7 +423,7 @@ baseComponents.push(transferControl);
 
 const tableControl = {
   component: 'Table',
-  label: '表格',
+  label: 'Bảng',
   icon: 'bx:bx-table',
   field: '',
   colProps: { span: 24 },
@@ -432,35 +432,35 @@ const tableControl = {
     columns: [
       {
         align: 'left',
-        title: '列1',
+        title: 'Cột 1',
         dataIndex: 'col1'
       },
       {
         align: 'left',
-        title: '列2',
+        title: 'Cột 2',
         dataIndex: 'col2'
       },
       {
         align: 'left',
-        title: '列3',
+        title: 'Cột 3',
         dataIndex: 'col3'
       },
     ],
     dataSource: [
       {
-        col1: '数据1-1',
-        col2: '数据1-2',
-        col3: '数据1-3',
+        col1: 'Dữ liệu 1-1',
+        col2: 'Dữ liệu 1-2',
+        col3: 'Dữ liệu 1-3',
       },
       {
-        col1: '数据2-1',
-        col2: '数据2-2',
-        col3: '数据2-3',
+        col1: 'Dữ liệu 2-1',
+        col2: 'Dữ liệu 2-2',
+        col3: 'Dữ liệu 2-3',
       },
       {
-        col1: '数据3-1',
-        col2: '数据3-2',
-        col3: '数据3-3',
+        col1: 'Dữ liệu 3-1',
+        col2: 'Dữ liệu 3-2',
+        col3: 'Dữ liệu 3-3',
       },
     ],
   },
@@ -472,7 +472,7 @@ export const layoutComponents: IVFormComponent[] = [
   {
     field: '',
     component: 'Grid',
-    label: '栅格布局',
+    label: 'Bố cục lưới',
     icon: 'icon-grid',
     componentProps: {},
     columns: [

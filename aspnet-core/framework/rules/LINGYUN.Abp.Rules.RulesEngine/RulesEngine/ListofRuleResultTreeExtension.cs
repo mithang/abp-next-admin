@@ -18,7 +18,7 @@ public static class ListofRuleResultTreeExtension
 
         if (validationResults.Any())
         {
-            throw new AbpValidationException("一个或多个规则未通过", validationResults);
+            throw new AbpValidationException("Một hoặc nhiều quy tắc không đạt", validationResults);
         }
     }
 
@@ -35,7 +35,7 @@ public static class ListofRuleResultTreeExtension
                 errorBuilder.AppendLine(failedResult.ExceptionMessage);
             }
 
-            // TODO: 需要修改源代码, ChildResults的验证错误个人认为有必要展示出来
+            // TODO: Cần sửa mã nguồn, lỗi xác thực của ChildResults theo tôi là cần hiển thị ra
             if (failedResult.ChildResults != null && failedResult.ChildResults.Any())
             {
                 errorBuilder.Append(failedResult.ChildResults.GetErrorMessage(out member));

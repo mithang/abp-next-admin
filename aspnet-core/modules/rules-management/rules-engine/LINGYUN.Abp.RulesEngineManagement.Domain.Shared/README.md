@@ -1,42 +1,42 @@
 # LINGYUN.Abp.RulesEngineManagement.Domain.Shared
 
-## 1. 介绍
+## 1. Giới thiệu
 
-规则引擎管理模块的共享领域层，包含了规则引擎管理所需的常量定义、枚举类型等基础设施。
+Tầng miền dùng chung của mô-đun quản lý công cụ quy tắc, bao gồm các định nghĩa hằng số, kiểu liệt kê v.v. cần cho việc quản lý công cụ quy tắc.
 
-## 2. 功能
+## 2. Chức năng
 
-* 定义了工作流记录相关的常量
-* 定义了规则记录相关的常量
-* 定义了动作记录相关的常量
-* 定义了参数记录相关的常量
-* 定义了动作类型枚举
+* Định nghĩa các hằng số liên quan đến bản ghi quy trình làm việc
+* Định nghĩa các hằng số liên quan đến bản ghi quy tắc
+* Định nghĩa các hằng số liên quan đến bản ghi hành động
+* Định nghĩa các hằng số liên quan đến bản ghi tham số
+* Định nghĩa liệt kê loại hành động
 
-## 3. 常量配置
+## 3. Cấu hình hằng số
 
-### 3.1 工作流记录常量
+### 3.1 Hằng số bản ghi quy trình làm việc
 
-* MaxNameLength: 工作流名称最大长度，默认64
-* MaxTypeFullNameLength: 类型全名最大长度，默认255
-* MaxInjectWorkflowsLength: 注入工作流最大长度，默认为(MaxNameLength + 1) * 5
+* MaxNameLength: độ dài tối đa của tên quy trình làm việc, mặc định 64
+* MaxTypeFullNameLength: độ dài tối đa của tên đầy đủ của loại, mặc định 255
+* MaxInjectWorkflowsLength: độ dài tối đa của quy trình làm việc được chèn, mặc định là (MaxNameLength + 1) * 5
 
-### 3.2 规则记录常量
+### 3.2 Hằng số bản ghi quy tắc
 
-* MaxNameLength: 规则名称最大长度，默认64
-* MaxOperatorLength: 操作符最大长度，默认30
-* MaxErrorMessageLength: 错误消息最大长度，默认255
-* MaxInjectWorkflowsLength: 注入工作流最大长度，默认为(MaxNameLength + 1) * 5
-* MaxExpressionLength: 表达式最大长度，默认为int.MaxValue
-* MaxSuccessEventLength: 成功事件最大长度，默认128
+* MaxNameLength: độ dài tối đa của tên quy tắc, mặc định 64
+* MaxOperatorLength: độ dài tối đa của toán tử, mặc định 30
+* MaxErrorMessageLength: độ dài tối đa của thông báo lỗi, mặc định 255
+* MaxInjectWorkflowsLength: độ dài tối đa của quy trình làm việc được chèn, mặc định là (MaxNameLength + 1) * 5
+* MaxExpressionLength: độ dài tối đa của biểu thức, mặc định là int.MaxValue
+* MaxSuccessEventLength: độ dài tối đa của sự kiện thành công, mặc định 128
 
-### 3.3 动作类型枚举
+### 3.3 Liệt kê loại hành động
 
-* Success = 0: 成功
-* Failure = 1: 失败
+* Success = 0: Thành công
+* Failure = 1: Thất bại
 
-## 4. 依赖
+## 4. Phụ thuộc
 
 * Volo.Abp.Validation
 * LINGYUN.Abp.Rules.RulesEngine
 
-[点击查看英文文档](README.EN.md)
+[Nhấn để xem tài liệu tiếng Anh](README.EN.md)

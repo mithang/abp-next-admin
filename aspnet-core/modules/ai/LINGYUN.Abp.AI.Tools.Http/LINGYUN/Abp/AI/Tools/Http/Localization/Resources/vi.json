@@ -1,0 +1,10 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Tools:GetApplicationConfiguration": "Lấy cấu hình ứng dụng, khi người dùng không yêu cầu rõ ràng cần truyền tham số IncludeLocalizationResources, giá trị tham số là false.",
+    "HttpAITool:Endpoint": "Địa chỉ yêu cầu",
+    "HttpAITool:Method": "Phương thức yêu cầu",
+    "HttpAITool:Headers": "Header yêu cầu",
+    "HttpAITool:CurrentAccessToken": "Sử dụng Token của người dùng hiện tại"
+  }
+}

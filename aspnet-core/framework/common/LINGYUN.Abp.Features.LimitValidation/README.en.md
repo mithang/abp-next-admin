@@ -1,4 +1,4 @@
-English | [简体中文](./README.md)
+English | [Tiếng Trung giản thể](./README.md)
 
 # LINGYUN.Abp.Features.LimitValidation  
 

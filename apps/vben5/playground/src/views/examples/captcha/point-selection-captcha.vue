@@ -22,7 +22,7 @@ const params = reactive({
   height: undefined,
   hintImage: '',
   hintImageUrl: DEFAULT_HINT_IMAGE,
-  hintText: '唇，燕，碴，找',
+  hintText: 'a, b, c, d',
   paddingX: undefined,
   paddingY: undefined,
   showConfirm: true,

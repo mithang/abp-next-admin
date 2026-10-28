@@ -6,15 +6,15 @@ namespace LINGYUN.Platform.Menus;
 public class MenuItemDto : RouteDto
 {
     /// <summary>
-    /// 菜单编号
+    /// Số hiệu menu
     /// </summary>
     public string Code { get; set; } = default!;
     /// <summary>
-    /// 菜单组件
+    /// Thành phần menu
     /// </summary>
     public string Component { get; set; } = default!;
     /// <summary>
-    /// 子菜单列表
+    /// Danh sách menu con
     /// </summary>
     public List<MenuItemDto> Children { get; set; } = new List<MenuItemDto>();
 }

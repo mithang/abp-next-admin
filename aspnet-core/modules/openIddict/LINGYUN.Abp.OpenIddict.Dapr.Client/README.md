@@ -3,37 +3,37 @@
 [![ABP version](https://img.shields.io/badge/dynamic/xml?style=flat-square&color=yellow&label=abp&query=%2F%2FProject%2FPropertyGroup%2FAbpVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fcolinin%2Fabp-next-admin%2Fmaster%2Faspnet-core%2Fmodules%2FopenIddict%2FLINGYUN.Abp.OpenIddict.Dapr.Client%2FLINGYUN.Abp.OpenIddict.Dapr.Client.csproj)](https://abp.io)
 [![NuGet](https://img.shields.io/nuget/v/LINGYUN.Abp.OpenIddict.Dapr.Client.svg?style=flat-square)](https://www.nuget.org/packages/LINGYUN.Abp.OpenIddict.Dapr.Client)
 
-## 介绍
+## Giới thiệu
 
-`LINGYUN.Abp.OpenIddict.Dapr.Client` 是一个基于 Dapr 的 OpenIddict 客户端模块，提供了使用 Dapr 服务调用构建块来调用 OpenIddict 远程服务的功能。
+`LINGYUN.Abp.OpenIddict.Dapr.Client` là một module client OpenIddict dựa trên Dapr, cung cấp chức năng gọi dịch vụ từ xa OpenIddict bằng building block gọi dịch vụ của Dapr.
 
 [English](./README.EN.md)
 
-## 功能
+## Tính năng
 
-* Dapr 服务调用集成
-  * 自动注册 OpenIddict 应用程序契约的 Dapr 客户端代理
-  * 支持通过 Dapr 服务调用访问 OpenIddict 远程服务
-  * 支持分布式系统中的服务间通信
+* Tích hợp gọi dịch vụ Dapr
+  * Tự động đăng ký proxy client Dapr cho các hợp đồng ứng dụng OpenIddict
+  * Hỗ trợ truy cập dịch vụ từ xa OpenIddict thông qua gọi dịch vụ Dapr
+  * Hỗ trợ giao tiếp giữa các dịch vụ trong hệ thống phân tán
 
-* 远程服务支持
-  * 支持所有 OpenIddict 应用程序契约定义的服务
-  * 支持应用程序管理
-  * 支持授权管理
-  * 支持作用域管理
-  * 支持令牌管理
+* Hỗ trợ dịch vụ từ xa
+  * Hỗ trợ mọi dịch vụ do hợp đồng ứng dụng OpenIddict định nghĩa
+  * Hỗ trợ quản lý ứng dụng
+  * Hỗ trợ quản lý ủy quyền
+  * Hỗ trợ quản lý phạm vi (scope)
+  * Hỗ trợ quản lý token
 
-## 安装
+## Cài đặt
 
 ```bash
 dotnet add package LINGYUN.Abp.OpenIddict.Dapr.Client
 ```
 
-## 使用
+## Sử dụng
 
-1. 添加 `[DependsOn(typeof(AbpOpenIddictDaprClientModule))]` 到你的模块类。
+1. Thêm `[DependsOn(typeof(AbpOpenIddictDaprClientModule))]` vào lớp module của bạn.
 
-2. 配置 Dapr 服务调用：
+2. Cấu hình gọi dịch vụ Dapr:
 
 ```csharp
 public override void ConfigureServices(ServiceConfigurationContext context)
@@ -42,14 +42,14 @@ public override void ConfigureServices(ServiceConfigurationContext context)
     {
         options.ApplicationServices.Configure(config =>
         {
-            // 配置 OpenIddict 服务的 AppId
+            // Cấu hình AppId của dịch vụ OpenIddict
             config.AppId = "openiddict-service";
         });
     });
 }
 ```
 
-3. 使用示例：
+3. Ví dụ sử dụng:
 
 ```csharp
 public class MyService
@@ -63,27 +63,27 @@ public class MyService
 
     public async Task DoSomethingAsync()
     {
-        // 通过 Dapr 服务调用访问 OpenIddict 应用程序服务
+        // Truy cập dịch vụ ứng dụng OpenIddict thông qua gọi dịch vụ Dapr
         var applications = await _applicationAppService.GetListAsync(
             new GetApplicationsInput());
     }
 }
 ```
 
-## 配置
+## Cấu hình
 
 * AppId
-  * OpenIddict 服务的应用程序标识符
-  * 必须与 Dapr 组件配置中的应用 ID 匹配
+  * Định danh ứng dụng của dịch vụ OpenIddict
+  * Phải khớp với ID ứng dụng trong cấu hình thành phần Dapr
 
 * RemoteServiceName
-  * OpenIddict 远程服务的名称
-  * 默认值为 "OpenIddict"
+  * Tên của dịch vụ từ xa OpenIddict
+  * Giá trị mặc định là "OpenIddict"
 
-## 注意事项
+## Lưu ý
 
-* 确保 Dapr Sidecar 已正确配置和运行
-* 确保 OpenIddict 服务已在 Dapr 中注册
-* 建议在生产环境中配置服务间的身份认证
-* 建议配置服务调用的重试策略
-* 建议配置服务发现机制
+* Đảm bảo Dapr Sidecar đã được cấu hình và chạy đúng cách
+* Đảm bảo dịch vụ OpenIddict đã được đăng ký trong Dapr
+* Nên cấu hình xác thực giữa các dịch vụ trong môi trường production
+* Nên cấu hình chính sách thử lại cho việc gọi dịch vụ
+* Nên cấu hình cơ chế phát hiện dịch vụ

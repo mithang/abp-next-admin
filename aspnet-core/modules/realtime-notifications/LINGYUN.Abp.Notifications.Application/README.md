@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.Application
 
-通知系统的应用层模块，提供了通知系统的应用服务实现。
+Mô-đun tầng ứng dụng của hệ thống thông báo, cung cấp triển khai dịch vụ ứng dụng của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知管理服务
-* 通知订阅服务
-* 通知发布服务
-* 通知查询服务
-* 通知状态管理服务
+* Dịch vụ quản lý thông báo
+* Dịch vụ đăng ký thông báo
+* Dịch vụ phát hành thông báo
+* Dịch vụ truy vấn thông báo
+* Dịch vụ quản lý trạng thái thông báo
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsApplicationModule))]
@@ -20,26 +20,26 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 应用服务
+## Dịch vụ ứng dụng
 
 ### INotificationAppService
 
-* GetAsync - 获取通知详情
-* GetListAsync - 获取通知列表
-* DeleteAsync - 删除通知
-* MarkReadAsync - 标记通知为已读
-* MarkAllReadAsync - 标记所有通知为已读
+* GetAsync - Lấy chi tiết thông báo
+* GetListAsync - Lấy danh sách thông báo
+* DeleteAsync - Xóa thông báo
+* MarkReadAsync - Đánh dấu thông báo là đã đọc
+* MarkAllReadAsync - Đánh dấu tất cả thông báo là đã đọc
 
 ### INotificationSubscriptionAppService
 
-* SubscribeAsync - 订阅通知
-* UnSubscribeAsync - 取消订阅通知
-* GetAssignableSubscribersAsync - 获取可分配的订阅者列表
-* GetSubscribedListAsync - 获取已订阅的通知列表
+* SubscribeAsync - Đăng ký thông báo
+* UnSubscribeAsync - Hủy đăng ký thông báo
+* GetAssignableSubscribersAsync - Lấy danh sách người đăng ký có thể phân công
+* GetSubscribedListAsync - Lấy danh sách thông báo đã đăng ký
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 发送通知
+1. Gửi thông báo
 ```csharp
 await NotificationAppService.PublishAsync(
     name: "YourNotification",
@@ -47,12 +47,12 @@ await NotificationAppService.PublishAsync(
     userIds: new[] { CurrentUser.Id });
 ```
 
-2. 管理通知订阅
+2. Quản lý đăng ký thông báo
 ```csharp
 await NotificationSubscriptionAppService.SubscribeAsync(
     notificationName: "YourNotification");
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
+* [Tài liệu ABP](https://docs.abp.io)

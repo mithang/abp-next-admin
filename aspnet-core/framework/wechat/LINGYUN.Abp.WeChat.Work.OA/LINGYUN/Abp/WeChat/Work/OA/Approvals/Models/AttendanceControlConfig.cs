@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Models;
 /// <summary>
-/// 假勤组件-出差/外出/加班组件配置
+/// Cấu hình thành phần chấm công nghỉ phép - thành phần công tác/ngoài văn phòng/tăng ca
 /// </summary>
 public class AttendanceControlConfig : ControlConfig
 {
     /// <summary>
-    /// 假勤组件-出差/外出/加班组件
+    /// Thành phần chấm công nghỉ phép - thành phần công tác/ngoài văn phòng/tăng ca
     /// </summary>
     [NotNull]
     [JsonProperty("attendance")]
@@ -29,14 +29,14 @@ public class AttendanceControlConfig : ControlConfig
 public class AttendanceConfig
 {
     /// <summary>
-    /// 假勤组件类型：3-出差；4-外出；5-加班
+    /// Loại thành phần chấm công nghỉ phép: 3-Công tác; 4-Ngoài văn phòng; 5-Tăng ca
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public byte Type { get; set; }
     /// <summary>
-    /// 假勤组件时间选择范围
+    /// Phạm vi chọn thời gian của thành phần chấm công nghỉ phép
     /// </summary>
     [NotNull]
     [JsonProperty("date_range")]

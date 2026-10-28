@@ -3,35 +3,35 @@
 public class AbpWeChatWorkGlobalConsts
 {
     /// <summary>
-    ///  企业微信对应的Provider名称
+    ///  Tên Provider tương ứng với WeChat Doanh nghiệp
     /// </summary>
     public static string ProviderName { get; set; } = "WorkWeixin";
     /// <summary>
-    /// 企业微信OAuth授权类型
+    /// Loại ủy quyền OAuth của WeChat Doanh nghiệp
     /// </summary>
     public static string OAuthGrantType { get; set; } = "wecom_oauth";
     /// <summary>
-    /// 企业微信小程序授权类型
+    /// Loại ủy quyền mini-program của WeChat Doanh nghiệp
     /// </summary>
     public static string MiniProgramGrantType { get; set; } = "wecom_mp";
     /// <summary>
-    /// 企业微信个人信息标识
+    /// Định danh thông tin cá nhân của WeChat Doanh nghiệp
     /// </summary>
     public static string ProfileKey { get; set; } = "wecom.profile";
     /// <summary>
-    /// 企业微信授权应用标识参数
+    /// Tham số định danh ứng dụng được ủy quyền của WeChat Doanh nghiệp
     /// </summary>
     public static string AgentId { get; set; } = "agent_id";
     /// <summary>
-    /// 企业微信授权Code参数
+    /// Tham số Code ủy quyền của WeChat Doanh nghiệp
     /// </summary>
     public static string Code  { get; set; }= "code";
     /// <summary>
-    /// 企业微信授权显示名称
+    /// Tên hiển thị ủy quyền của WeChat Doanh nghiệp
     /// </summary>
-    public static string DisplayName { get; set; } = "企业微信";
+    public static string DisplayName { get; set; } = "WeChat Doanh nghiệp";
     /// <summary>
-    ///企业微信授权方法名称
+    ///Tên phương thức ủy quyền của WeChat Doanh nghiệp
     /// </summary>
     public static string AuthenticationMethod { get; set; } = "wecom";
 

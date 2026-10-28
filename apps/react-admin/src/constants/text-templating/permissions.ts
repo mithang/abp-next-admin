@@ -1,10 +1,10 @@
-/** 模板定义权限 */
+/** Quyền định nghĩa mẫu */
 export const TextTemplatePermissions = {
-	/** 新增 */
+	/** Thêm mới */
 	Create: "AbpTextTemplating.TextTemplateDefinitions.Create",
 	Default: "AbpTextTemplating.TextTemplateDefinitions",
-	/** 删除 */
+	/** Xóa */
 	Delete: "AbpTextTemplating.TextTemplateDefinitions.Delete",
-	/** 更新 */
+	/** Cập nhật */
 	Update: "AbpTextTemplating.TextTemplateDefinitions.Update",
 };

@@ -3,7 +3,7 @@ using Volo.Abp.EventBus;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages.Models;
 /// <summary>
-/// 扫码推事件且弹出“消息接收中”提示框的事件推送
+/// Đẩy sự kiện quét mã kèm hộp thoại nhắc “Đang nhận tin nhắn”
 /// </summary>
 [EventName("scancode_waitmsg")]
 public class ScanCodeWaitMsgPushEvent : ScanCodeEvent

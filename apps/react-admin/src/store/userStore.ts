@@ -19,8 +19,8 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 type UserStore = {
 	userInfo: Partial<UserInfo>;
 	userToken: UserToken;
-	accessCodes: string[]; //权限码 TODO 之后和动态生成菜单放一块去
-	// 使用 actions 命名空间来存放所有的 action
+	accessCodes: string[]; //Mã quyền TODO sau này đặt chung với menu tạo động
+	// Dùng namespace actions để chứa tất cả các action
 	actions: {
 		setUserInfo: (userInfo: UserInfo) => void;
 		setUserToken: (token: UserToken) => void;
@@ -59,7 +59,7 @@ const useUserStore = create<UserStore>()(
 				// 		const abpConfig = await getConfigApi();
 				// 		const picture = await getPictureApi();
 				// 		userInfo = {
-				// 			id: userInfoRes.sub, //额外加的
+				// 			id: userInfoRes.sub, //thêm ngoài
 				// 			userId: userInfoRes.sub,
 				// 			username: userInfoRes.uniqueName ?? abpConfig.currentUser.userName,
 				// 			realName: userInfoRes.name ?? abpConfig.currentUser.name,
@@ -75,7 +75,7 @@ const useUserStore = create<UserStore>()(
 				// 			homePath: "/",
 				// 		};
 
-				// 		// 更新一系列到 zustand store 中
+				// 		// Cập nhật hàng loạt vào zustand store
 				// 		set({ userInfo });
 
 				// 		useAbpStore.getState().actions.setApplication(abpConfig);
@@ -191,7 +191,7 @@ export const useSignIn = () => {
 			const res = await signInMutation.mutateAsync(data);
 
 			const { tokenType, accessToken, refreshToken } = res;
-			// 如果成功获取到 accessToken
+			// Nếu lấy accessToken thành công
 			if (accessToken) {
 				setUserToken({ accessToken: `${tokenType} ${accessToken}`, refreshToken });
 
@@ -207,7 +207,7 @@ export const useSignIn = () => {
 
 	return signIn;
 };
-// 添加类型守卫
+// Thêm type guard
 function isTokenResult(res: TokenResult | SignInRedirectResult): res is TokenResult {
 	return "accessToken" in res;
 }
@@ -226,7 +226,7 @@ export const useExternalSignIn = (handleRegister: (res: SignInRedirectResult) =>
 
 			if (isTokenResult(res)) {
 				const { tokenType, accessToken, refreshToken } = res;
-				// 如果成功获取到 accessToken
+				// Nếu lấy accessToken thành công
 				if (accessToken) {
 					setUserToken({ accessToken: `${tokenType} ${accessToken}`, refreshToken });
 

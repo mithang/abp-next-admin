@@ -1,11 +1,11 @@
 namespace LINGYUN.Abp.OpenObserve.Models.Search;
 
 /// <summary>
-/// 搜索来源
+/// Nguồn tìm kiếm
 /// </summary>
 /// <remarks>
-/// 文档给出 ui / dashboards / reports / alerts, 实现还接受 values / other / rum /
-/// derived_stream / search_job / download / insights, 非法值返回 400
+/// Tài liệu đưa ra ui / dashboards / reports / alerts, triển khai còn chấp nhận values / other / rum /
+/// derived_stream / search_job / download / insights, giá trị không hợp lệ trả về 400
 /// </remarks>
 public enum SearchType
 {
@@ -25,7 +25,7 @@ public enum SearchType
 public static class SearchTypeExtensions
 {
     /// <summary>
-    /// 转换为接口所需的字符串值
+    /// Chuyển đổi thành giá trị chuỗi mà giao diện yêu cầu
     /// </summary>
     public static string AsString(this SearchType searchType)
     {

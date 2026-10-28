@@ -43,36 +43,36 @@ interface UserIdentifier {
 }
 
 interface NotificationSendInput {
-  /** 当前文化（模板渲染时需要） */
+  /** Văn hóa hiện tại (cần khi kết xuất mẫu) */
   culture?: string;
-  /** 通知数据 */
+  /** Dữ liệu thông báo */
   data: Dictionary<string, any>;
-  /** 通知（模板通知时为模板名称）名称 */
+  /** Tên thông báo (tên mẫu khi là thông báo mẫu) */
   name: string;
-  /** 紧急程度 */
+  /** Mức độ khẩn cấp */
   severity?: NotificationSeverity;
-  /** 接收人列表 */
+  /** Danh sách người nhận */
   toUsers?: UserIdentifier[];
 }
 
 type NotificationTemplateSendInput = NotificationSendInput;
 
 interface NotificationInfo {
-  /** 内容类型 */
+  /** Loại nội dung */
   contentType: NotificationContentType;
-  /** 创建时间 */
+  /** Thời gian tạo */
   creationTime: Date;
-  /** 数据 */
+  /** Dữ liệu */
   data: NotificationData;
   /** Id */
   id: string;
-  /** 生命周期 */
+  /** Vòng đời */
   lifetime: NotificationLifetime;
-  /** 名称 */
+  /** Tên */
   name: string;
-  /** 紧急程度 */
+  /** Mức độ khẩn cấp */
   severity: NotificationSeverity;
-  /** 类型 */
+  /** Loại */
   type: NotificationType;
 }
 

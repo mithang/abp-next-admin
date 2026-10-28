@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.DataProtection;
 /// <summary>
-/// 实体过滤条件构造器
+/// Trình tạo điều kiện lọc thực thể
 /// </summary>
 public interface IEntityTypeFilterBuilder
 {
     /// <summary>
-    /// 获取实体的查询过滤表达式
+    /// Lấy biểu thức lọc truy vấn của thực thể
     /// </summary>
-    /// <param name="operation">数据权限操作</param>
-    /// <param name="group">查询条件组</param>
-    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <param name="operation">Thao tác quyền dữ liệu</param>
+    /// <param name="group">Nhóm điều kiện truy vấn</param>
+    /// <typeparam name="TEntity">Kiểu thực thể</typeparam>
     /// <returns></returns>
     Task<Expression<Func<TEntity, bool>>> Build<TEntity>(DataAccessOperation operation, DataAccessFilterGroup? group = null);
 

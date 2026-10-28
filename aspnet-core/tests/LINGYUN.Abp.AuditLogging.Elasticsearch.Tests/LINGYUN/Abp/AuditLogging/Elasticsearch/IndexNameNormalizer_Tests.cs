@@ -196,7 +196,7 @@ public class IndexNameNormalizer_Tests : AbpAuditLoggingElasticsearchTestBase
 
         var result = normalizer.NormalizeIndex("audit-log");
 
-        // 无租户时不应包含 32 位 hex 形态的 GUID
+        // Khi không có tenant thì không được chứa GUID dạng hex 32 ký tự
         result.ShouldNotMatch(@"-[0-9a-f]{32}");
     }
 
@@ -264,14 +264,14 @@ public class IndexNameNormalizer_Tests : AbpAuditLoggingElasticsearchTestBase
     {
         var normalizer = CreateNormalizer();
 
-        // 100 个汉字 = 300 字节，应截断到不超过 255 字节
-        var result = normalizer.NormalizeIndex(new string('中', 100));
+        // 100 ký tự tiếng Việt 3 byte = 300 byte, phải cắt ngắn xuống không quá 255 byte
+        var result = normalizer.NormalizeIndex(new string('ệ', 100));
 
         Encoding.UTF8.GetByteCount(result)
             .ShouldBeLessThanOrEqualTo(IndexNameNormalizer.MaxByteLength);
 
-        // 不应截断到半个字符
-        result.ShouldBe(new string('中', result.Length));
+        // Không được cắt ngắn giữa chừng một ký tự
+        result.ShouldBe(new string('ệ', result.Length));
     }
 
     [Fact]
@@ -279,13 +279,13 @@ public class IndexNameNormalizer_Tests : AbpAuditLoggingElasticsearchTestBase
     {
         var normalizer = CreateNormalizer();
 
-        // 254 个 ASCII + 1 个 emoji（4 字节代理对），总 258 字节
+        // 254 ký tự ASCII + 1 emoji (cặp surrogate 4 byte), tổng 258 byte
         var result = normalizer.NormalizeIndex(new string('a', 254) + "😀");
 
         Encoding.UTF8.GetByteCount(result)
             .ShouldBeLessThanOrEqualTo(IndexNameNormalizer.MaxByteLength);
 
-        // 不应以孤立的高代理项结尾
+        // Không được kết thúc bằng một high surrogate đơn lẻ
         char.IsHighSurrogate(result[result.Length - 1]).ShouldBeFalse();
     }
 
@@ -446,7 +446,7 @@ public class IndexNameNormalizer_Tests : AbpAuditLoggingElasticsearchTestBase
             "", " ", "-", "_", "+", "---",
             "audit/log", "audit log", "audit#log",
             new string('a', 1000),
-            "中文索引名",
+            "Tên chỉ mục tiếng Việt",
             "😀😀😀",
             ".", "..",
         };
@@ -467,7 +467,7 @@ public class IndexNameNormalizer_Tests : AbpAuditLoggingElasticsearchTestBase
             "", " ", "-", "_", "+", "---",
             "audit/log", "audit log", "audit#log",
             new string('a', 1000),
-            "中文索引名",
+            "Tên chỉ mục tiếng Việt",
             "😀😀😀",
         };
 
@@ -484,7 +484,7 @@ public class IndexNameNormalizer_Tests : AbpAuditLoggingElasticsearchTestBase
 
         var result = normalizer.NormalizeIndex("audit-log");
 
-        // 未知枚举应回退为无时间后缀
+        // Enum không xác định phải fallback về không có hậu tố thời gian
         result.ShouldBe("audit-log");
     }
 

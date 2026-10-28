@@ -1,4 +1,4 @@
-﻿using DotNetCore.CAP;
+using DotNetCore.CAP;
 using LINGYUN.Abp.SystemInfo.Models;
 using LINGYUN.Abp.SystemInfo.Permissions;
 using LINGYUN.Abp.SystemInfo.Utils;
@@ -47,14 +47,14 @@ public class SystemInfoController : AbpControllerBase
 
         var systemKeys = new List<ComponentKeyModel>
         {
-            new ComponentKeyModel("sys_machine_name", "机器名称"),
-            new ComponentKeyModel("sys_environment", "运行环境"),
-            new ComponentKeyModel("sys_framework_version", ".NET版本"),
-            new ComponentKeyModel("sys_os_version", "操作系统版本"),
-            new ComponentKeyModel("sys_app_db_provider", "数据库"),
-            new ComponentKeyModel("sys_app_version", "应用版本"),
-            new ComponentKeyModel("sys_app_build_time", "编译时间"),
-            new ComponentKeyModel("sys_app_start_time", "启动时间"),
+            new ComponentKeyModel("sys_machine_name", "Tên máy"),
+            new ComponentKeyModel("sys_environment", "Môi trường chạy"),
+            new ComponentKeyModel("sys_framework_version", "Phiên bản .NET"),
+            new ComponentKeyModel("sys_os_version", "Phiên bản hệ điều hành"),
+            new ComponentKeyModel("sys_app_db_provider", "Cơ sở dữ liệu"),
+            new ComponentKeyModel("sys_app_version", "Phiên bản ứng dụng"),
+            new ComponentKeyModel("sys_app_build_time", "Thời gian biên dịch"),
+            new ComponentKeyModel("sys_app_start_time", "Thời gian khởi động"),
         };
 
         var systemDetails = new Dictionary<string, object?>
@@ -83,7 +83,7 @@ public class SystemInfoController : AbpControllerBase
             systemDetails.Add("sys_app_build_time", "N/A");
         }
 
-        return new ComponentInfoModel("系统", systemKeys.ToArray(), systemDetails);
+        return new ComponentInfoModel("Hệ thống", systemKeys.ToArray(), systemDetails);
     }
 
     private ComponentInfoModel GetPerformanceInfo()
@@ -95,25 +95,25 @@ public class SystemInfoController : AbpControllerBase
         var gcMetrics = new GCMonitor().GetGCMetrics();
 
         return new ComponentInfoModel(
-            "性能",
+            "Hiệu năng",
             new ComponentKeyModel[]
             {
-                new ComponentKeyModel("perf_total_memory", "总内存(MB)"),
-                new ComponentKeyModel("perf_working_set", "工作集内存(MB)"),
-                new ComponentKeyModel("perf_private_memory", "私有内存(MB)"),
-                new ComponentKeyModel("perf_gc_heap_size", "GC堆大小(MB)"),
-                new ComponentKeyModel("perf_gc0", "Gen0回收次数"),
-                new ComponentKeyModel("perf_gc1", "Gen1回收次数"),
-                new ComponentKeyModel("perf_gc2", "Gen2回收次数"),
-                new ComponentKeyModel("perf_active_total_memory", "总可用内存"),
-                new ComponentKeyModel("perf_memory_load", "内存负载"),
-                new ComponentKeyModel("perf_fragmented_bytes", "内存碎片大小"),
-                new ComponentKeyModel("perf_available_worker_threads", "可用工作线程数"),
-                new ComponentKeyModel("perf_available_completion_port_threads", "可用I/O线程数"),
-                new ComponentKeyModel("perf_max_worker_threads", "最大工作线程数"),
-                new ComponentKeyModel("perf_max_completion_port_threads", "最大I/O线程数"),
-                new ComponentKeyModel("perf_active_threads", "进程总线程数"),
-                new ComponentKeyModel("perf_thread_pool_thread_count", "线程池活动线程数"),
+                new ComponentKeyModel("perf_total_memory", "Tổng bộ nhớ (MB)"),
+                new ComponentKeyModel("perf_working_set", "Bộ nhớ working set (MB)"),
+                new ComponentKeyModel("perf_private_memory", "Bộ nhớ riêng tư (MB)"),
+                new ComponentKeyModel("perf_gc_heap_size", "Kích thước heap GC (MB)"),
+                new ComponentKeyModel("perf_gc0", "Số lần thu gom Gen0"),
+                new ComponentKeyModel("perf_gc1", "Số lần thu gom Gen1"),
+                new ComponentKeyModel("perf_gc2", "Số lần thu gom Gen2"),
+                new ComponentKeyModel("perf_active_total_memory", "Tổng bộ nhớ khả dụng"),
+                new ComponentKeyModel("perf_memory_load", "Tải bộ nhớ"),
+                new ComponentKeyModel("perf_fragmented_bytes", "Kích thước phân mảnh bộ nhớ"),
+                new ComponentKeyModel("perf_available_worker_threads", "Số luồng làm việc khả dụng"),
+                new ComponentKeyModel("perf_available_completion_port_threads", "Số luồng I/O khả dụng"),
+                new ComponentKeyModel("perf_max_worker_threads", "Số luồng làm việc tối đa"),
+                new ComponentKeyModel("perf_max_completion_port_threads", "Số luồng I/O tối đa"),
+                new ComponentKeyModel("perf_active_threads", "Tổng số luồng của tiến trình"),
+                new ComponentKeyModel("perf_thread_pool_thread_count", "Số luồng đang hoạt động của thread pool"),
             },
             new Dictionary<string, object?>
             {
@@ -144,20 +144,20 @@ public class SystemInfoController : AbpControllerBase
 
         var capKeys = new List<ComponentKeyModel>
         {
-            new ComponentKeyModel("cap_status", "状态"),
-            new ComponentKeyModel("cap_version", "版本"),
-            new ComponentKeyModel("cap_storage", "持久化"),
-            new ComponentKeyModel("cap_transport", "传输"),
+            new ComponentKeyModel("cap_status", "Trạng thái"),
+            new ComponentKeyModel("cap_version", "Phiên bản"),
+            new ComponentKeyModel("cap_storage", "Lưu trữ bền vững"),
+            new ComponentKeyModel("cap_transport", "Truyền tải"),
         };
         var capDetails = new Dictionary<string, object?>
         {
-            { "cap_status", cap != null ? "正常" : "未启用" },
+            { "cap_status", cap != null ? "Bình thường" : "Chưa bật" },
             { "cap_version", cap != null ? cap.Version.Substring(0, 5) : "N/A" },
             { "cap_storage", storage != null ? storage.Name : "N/A" },
             { "cap_transport", broker != null ? broker.Name : "N/A" }
         };
 
-        return new ComponentInfoModel("CAP组件", capKeys.ToArray(), capDetails);
+        return new ComponentInfoModel("Thành phần CAP", capKeys.ToArray(), capDetails);
     }
 
     private ComponentInfoModel GetRedisInfo()
@@ -166,14 +166,14 @@ public class SystemInfoController : AbpControllerBase
         if (redis == null)
         {
             return new ComponentInfoModel(
-                "Redis组件",
+                "Thành phần Redis",
                 new ComponentKeyModel[]
                 {
-                    new ComponentKeyModel("redis_status", "状态")
+                    new ComponentKeyModel("redis_status", "Trạng thái")
                 },
                 new Dictionary<string, object?>
                 {
-                    { "redis_status", "未注册" },
+                    { "redis_status", "Chưa đăng ký" },
                 });
         }
         var redisInfo = new Dictionary<string, string>();
@@ -195,14 +195,14 @@ public class SystemInfoController : AbpControllerBase
             Logger.LogWarning("There is an exception in connecting to the redis server: {message}", ex.Message);
 
             return new ComponentInfoModel(
-                "Redis组件",
+                "Thành phần Redis",
                 new ComponentKeyModel[]
                 {
-                    new ComponentKeyModel("redis_status", "状态")
+                    new ComponentKeyModel("redis_status", "Trạng thái")
                 },
                 new Dictionary<string, object?>
                 {
-                    { "redis_status", "连接异常" },
+                    { "redis_status", "Lỗi kết nối" },
                 });
         }
 
@@ -219,35 +219,35 @@ public class SystemInfoController : AbpControllerBase
 
         var redisKeys = new List<ComponentKeyModel>()
         {
-            new ComponentKeyModel("redis_version", "版本"),
-            new ComponentKeyModel("redis_mode", "运行模式"),
-            new ComponentKeyModel("redis_os", "操作系统"),
-            new ComponentKeyModel("redis_uptime", "运行时间"),
-            new ComponentKeyModel("redis_used_cpu_sys", "系统CPU使用时间"),
-            new ComponentKeyModel("redis_used_cpu_user", "用户CPU使用时间"),
-            new ComponentKeyModel("redis_used_memory_mb", "使用内存(MB)"),
-            new ComponentKeyModel("redis_used_memory_rss_mb", "物理内存(MB)"),
-            new ComponentKeyModel("redis_used_memory_peak_mb", "内存使用峰值(MB)"),
-            new ComponentKeyModel("redis_maxmemory_mb", "最大内存限制(MB)"),
-            new ComponentKeyModel("redis_memory_usage_percent", "内存使用率(%)"),
-            new ComponentKeyModel("redis_mem_fragmentation_ratio", "内存碎片率"),
-            new ComponentKeyModel("redis_connected_clients", "已连接客户端数"),
-            new ComponentKeyModel("redis_blocked_clients", "阻塞客户端数"),
-            new ComponentKeyModel("redis_client_longest_output_list", "客户端最长输出列表"),
-            new ComponentKeyModel("redis_client_biggest_input_buf", "客户端最大输入缓冲区"),
-            new ComponentKeyModel("redis_maxclients", "最大客户端数"),
-            new ComponentKeyModel("redis_total_keys", "总键数量"),
-            new ComponentKeyModel("redis_expires_keys", "设置过期键数量"),
-            new ComponentKeyModel("redis_expired_keys", "已过期键数量"),
-            new ComponentKeyModel("redis_evicted_keys", "被驱逐键数量"),
-            new ComponentKeyModel("redis_avg_ttl_seconds", "平均TTL(秒)"),
+            new ComponentKeyModel("redis_version", "Phiên bản"),
+            new ComponentKeyModel("redis_mode", "Chế độ chạy"),
+            new ComponentKeyModel("redis_os", "Hệ điều hành"),
+            new ComponentKeyModel("redis_uptime", "Thời gian chạy"),
+            new ComponentKeyModel("redis_used_cpu_sys", "Thời gian sử dụng CPU hệ thống"),
+            new ComponentKeyModel("redis_used_cpu_user", "Thời gian sử dụng CPU người dùng"),
+            new ComponentKeyModel("redis_used_memory_mb", "Bộ nhớ đã dùng (MB)"),
+            new ComponentKeyModel("redis_used_memory_rss_mb", "Bộ nhớ vật lý (MB)"),
+            new ComponentKeyModel("redis_used_memory_peak_mb", "Đỉnh sử dụng bộ nhớ (MB)"),
+            new ComponentKeyModel("redis_maxmemory_mb", "Giới hạn bộ nhớ tối đa (MB)"),
+            new ComponentKeyModel("redis_memory_usage_percent", "Tỷ lệ sử dụng bộ nhớ (%)"),
+            new ComponentKeyModel("redis_mem_fragmentation_ratio", "Tỷ lệ phân mảnh bộ nhớ"),
+            new ComponentKeyModel("redis_connected_clients", "Số client đã kết nối"),
+            new ComponentKeyModel("redis_blocked_clients", "Số client bị chặn"),
+            new ComponentKeyModel("redis_client_longest_output_list", "Danh sách đầu ra dài nhất của client"),
+            new ComponentKeyModel("redis_client_biggest_input_buf", "Bộ đệm đầu vào lớn nhất của client"),
+            new ComponentKeyModel("redis_maxclients", "Số client tối đa"),
+            new ComponentKeyModel("redis_total_keys", "Tổng số khóa"),
+            new ComponentKeyModel("redis_expires_keys", "Số khóa đã đặt hết hạn"),
+            new ComponentKeyModel("redis_expired_keys", "Số khóa đã hết hạn"),
+            new ComponentKeyModel("redis_evicted_keys", "Số khóa bị loại bỏ"),
+            new ComponentKeyModel("redis_avg_ttl_seconds", "TTL trung bình (giây)"),
         };
         var redisDetails = new Dictionary<string, object?>()
         {
             { "redis_version", redisInfo.GetValueOrDefault("redis_version", "unknown") },
             { "redis_mode", redisInfo.GetValueOrDefault("redis_mode", "unknown") },
             { "redis_os", redisInfo.GetValueOrDefault("os", "unknown") },
-            { "redis_uptime", $"{days}天{hours}时{minutes}分" },
+            { "redis_uptime", $"{days} ngày {hours} giờ {minutes} phút" },
             { "redis_used_cpu_sys", redisInfo.GetValueOrDefault("used_cpu_sys", "0") },
             { "redis_used_cpu_user", redisInfo.GetValueOrDefault("used_cpu_user", "0") },
             { "redis_used_memory_mb", Math.Round((double)usedMemory / 1024 / 1024, 2) },
@@ -270,7 +270,7 @@ public class SystemInfoController : AbpControllerBase
             { "redis_avg_ttl_seconds", avgTtl },
         };
 
-        return new ComponentInfoModel("Redis组件", redisKeys.ToArray(), redisDetails);
+        return new ComponentInfoModel("Thành phần Redis", redisKeys.ToArray(), redisDetails);
     }
 
     private long CalculateTotalKeys(Dictionary<string, string> redisInfo)

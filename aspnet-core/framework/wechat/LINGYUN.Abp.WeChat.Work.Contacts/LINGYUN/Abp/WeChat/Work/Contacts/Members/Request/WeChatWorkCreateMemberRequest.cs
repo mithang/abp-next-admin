@@ -9,15 +9,15 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Members.Request;
 /// <summary>
-/// 创建成员请求参数
+/// Tham số yêu cầu tạo thành viên
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/90195" />
+/// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90195" />
 /// </remarks>
 public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 成员UserID。对应管理端的账号，企业内必须唯一。长度为1~64个字节。只能由数字、字母和“_-@.”四种字符组成，且第一个字符必须是数字或字母。系统进行唯一性检查时会忽略大小写。
+    /// UserID của thành viên. Tương ứng với tài khoản trong trang quản trị, phải là duy nhất trong doanh nghiệp. Độ dài 1~64 byte. Chỉ được gồm các ký tự số, chữ cái và bốn ký tự “_-@.”, ký tự đầu tiên phải là số hoặc chữ cái. Khi hệ thống kiểm tra tính duy nhất sẽ bỏ qua chữ hoa/thường.
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]
@@ -25,7 +25,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [StringLength(64, MinimumLength = 1)]
     public string UserId { get; set; }
     /// <summary>
-    /// 成员名称。长度为1~64个utf8字符
+    /// Tên thành viên. Độ dài 1~64 ký tự utf8
     /// </summary>
     [NotNull]
     [JsonProperty("name")]
@@ -33,7 +33,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [StringLength(64, MinimumLength = 1)]
     public string Name { get; set; }
     /// <summary>
-    /// 成员别名。长度1~64个utf8字符
+    /// Bí danh của thành viên. Độ dài 1~64 ký tự utf8
     /// </summary>
     [CanBeNull]
     [JsonProperty("alias")]
@@ -41,28 +41,28 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [StringLength(64, MinimumLength = 1)]
     public string? Alias { get; set; }
     /// <summary>
-    /// 手机号码。企业内必须唯一，mobile/email二者不能同时为空 ，中国大陆手机号码可省略“+86”，其他国家或地区必须要带上国际码。
+    /// Số điện thoại di động. Phải là duy nhất trong doanh nghiệp, mobile/email không được đồng thời để trống. Số điện thoại tại Trung Quốc đại lục có thể bỏ “+86”, các quốc gia hoặc khu vực khác bắt buộc phải kèm mã quốc tế.
     /// </summary>
     [CanBeNull]
     [JsonProperty("mobile")]
     [JsonPropertyName("mobile")]
     public string? Mobile { get; set; }
     /// <summary>
-    /// 成员所属部门id列表，不超过100个。当不填写department或id为0时，成员会放在其他（待设置部门）下，当填写的部门不存在时，会在在其他（待设置部门）下新建对应部门
+    /// Danh sách id các phòng ban mà thành viên thuộc về, không vượt quá 100 phòng ban. Khi không điền department hoặc id bằng 0, thành viên sẽ được đặt trong mục Khác (phòng ban chờ thiết lập); khi phòng ban đã điền không tồn tại, hệ thống sẽ tạo phòng ban tương ứng trong mục Khác (phòng ban chờ thiết lập)
     /// </summary>
     [CanBeNull]
     [JsonProperty("department")]
     [JsonPropertyName("department")]
     public int[]? Department { get; set; }
     /// <summary>
-    /// 部门内的排序值，默认为0，成员次序以创建时间从小到大排列。个数必须和参数department的个数一致，数值越大排序越前面。有效的值范围是[0, 2^32)
+    /// Giá trị sắp xếp trong phòng ban, mặc định là 0, thứ tự thành viên được sắp xếp theo thời gian tạo từ nhỏ đến lớn. Số lượng phải bằng số lượng của tham số department, giá trị càng lớn càng xếp trước. Phạm vi giá trị hợp lệ là [0, 2^32)
     /// </summary>
     [CanBeNull]
     [JsonProperty("order")]
     [JsonPropertyName("order")]
     public int[]? Order { get; set; }
     /// <summary>
-    /// 职务信息。长度为0~128个字符
+    /// Thông tin chức vụ. Độ dài 0~128 ký tự
     /// </summary>
     [CanBeNull]
     [StringLength(128)]
@@ -70,7 +70,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [JsonPropertyName("position")]
     public string? Position { get; set; }
     /// <summary>
-    /// 性别
+    /// Giới tính
     /// </summary>
     [CanBeNull]
     [JsonProperty("gender")]
@@ -79,7 +79,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.EnumToNumberStringConverter<Gender>))]
     public Gender? Gender { get; set; }
     /// <summary>
-    /// 邮箱。可填写企业已有的邮箱账号，方便同事获取成员的邮箱账号以发邮件。长度6~64个字节，且为有效的email格式。企业内必须唯一，mobile/email二者不能同时为空。境外成员可用此邮箱登录企业微信。
+    /// Email. Có thể điền tài khoản email mà doanh nghiệp đã có để đồng nghiệp dễ dàng lấy email của thành viên để gửi thư. Độ dài 6~64 byte và phải đúng định dạng email hợp lệ. Phải là duy nhất trong doanh nghiệp, mobile/email không được đồng thời để trống. Thành viên ở nước ngoài có thể dùng email này để đăng nhập WeChat Work.
     /// </summary>
     [CanBeNull]
     [StringLength(64)]
@@ -87,7 +87,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [JsonPropertyName("email")]
     public string? Email { get; set; }
     /// <summary>
-    /// 如果企业已开通腾讯企业邮（企业微信邮箱），设置该值可创建企业邮箱账号。长度6~64个字节，且为有效的企业邮箱格式。企业内必须唯一。未填写则系统会为用户生成默认企业邮箱（由系统生成的邮箱可修改一次）
+    /// Nếu doanh nghiệp đã kích hoạt Tencent Enterprise Mail (email của WeChat Work), việc đặt giá trị này sẽ tạo tài khoản email doanh nghiệp. Độ dài 6~64 byte và phải đúng định dạng email doanh nghiệp hợp lệ. Phải là duy nhất trong doanh nghiệp. Nếu không điền, hệ thống sẽ tạo email doanh nghiệp mặc định cho người dùng (email do hệ thống tạo có thể sửa một lần)
     /// </summary>
     [CanBeNull]
     [StringLength(64)]
@@ -95,7 +95,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [JsonPropertyName("biz_mail")]
     public string? BizEmail { get; set; }
     /// <summary>
-    /// 座机。32字节以内，由纯数字、“-”、“+”或“,”组成。
+    /// Điện thoại bàn. Tối đa 32 byte, gồm chữ số thuần túy, “-”, “+” hoặc “,”.
     /// </summary>
     [CanBeNull]
     [StringLength(32)]
@@ -103,56 +103,56 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [JsonPropertyName("telephone")]
     public string? TelePhone { get; set; }
     /// <summary>
-    /// 个数必须和参数department的个数一致，表示在所在的部门内是否为部门负责人。1表示为部门负责人，0表示非部门负责人。在审批(自建、第三方)等应用里可以用来标识上级审批人
+    /// Số lượng phải bằng số lượng của tham số department, cho biết thành viên có phải là người phụ trách phòng ban tại phòng ban đó hay không. 1 nghĩa là người phụ trách phòng ban, 0 nghĩa là không phải người phụ trách phòng ban. Trong các ứng dụng phê duyệt (tự xây dựng, bên thứ ba) có thể dùng để xác định người phê duyệt cấp trên
     /// </summary>
     [CanBeNull]
     [JsonProperty("is_leader_in_dept")]
     [JsonPropertyName("is_leader_in_dept")]
     public int[]? IsLeaderInDept { get; set; }
     /// <summary>
-    /// 直属上级UserID，设置范围为企业内成员，可以设置最多1个上级
+    /// UserID của cấp trên trực tiếp, phạm vi đặt là thành viên trong doanh nghiệp, có thể đặt tối đa 1 cấp trên
     /// </summary>
     [CanBeNull]
     [JsonProperty("direct_leader")]
     [JsonPropertyName("direct_leader")]
     public string[]? DirectLeader { get; set; }
     /// <summary>
-    /// 成员头像的mediaid，通过素材管理接口上传图片获得的mediaid
+    /// mediaid ảnh đại diện của thành viên, là mediaid thu được khi tải ảnh lên qua giao diện quản lý tài liệu
     /// </summary>
     [CanBeNull]
     [JsonProperty("avatar_mediaid")]
     [JsonPropertyName("avatar_mediaid")]
     public string? AvatarMediaId { get; set; }
     /// <summary>
-    /// 启用/禁用成员。1表示启用成员，0表示禁用成员
+    /// Bật/tắt thành viên. 1 nghĩa là bật thành viên, 0 nghĩa là tắt thành viên
     /// </summary>
     [CanBeNull]
     [JsonProperty("enable")]
     [JsonPropertyName("enable")]
     public int? Enable { get; set; }
     /// <summary>
-    /// 扩展属性。扩展属性字段需要先在WEB管理端添加，见扩展属性添加方法，否则忽略未知属性的赋值。字段详情见成员扩展属性
+    /// Thuộc tính mở rộng. Các trường thuộc tính mở rộng cần được thêm trước trong trang quản trị WEB, xem phương pháp thêm thuộc tính mở rộng, nếu không hệ thống sẽ bỏ qua việc gán các thuộc tính không xác định. Xem chi tiết trường trong thuộc tính mở rộng của thành viên
     /// </summary>
     [CanBeNull]
     [JsonProperty("extattr")]
     [JsonPropertyName("extattr")]
     public MemberExternalAttribute? ExternalAttribute { get; set; }
     /// <summary>
-    /// 是否邀请该成员使用企业微信（将通过微信服务通知或短信或邮件下发邀请，每天自动下发一次，最多持续3个工作日），默认值为true。
+    /// Có mời thành viên này sử dụng WeChat Work hay không (lời mời sẽ được gửi qua thông báo dịch vụ WeChat, SMS hoặc email, tự động gửi mỗi ngày một lần, tối đa 3 ngày làm việc), giá trị mặc định là true.
     /// </summary>
     [CanBeNull]
     [JsonProperty("to_invite")]
     [JsonPropertyName("to_invite")]
     public bool? ToInvite { get; set; }
     /// <summary>
-    /// 成员对外属性，字段详情见对外属性
+    /// Thuộc tính đối ngoại của thành viên, xem chi tiết trường trong thuộc tính đối ngoại
     /// </summary>
     [CanBeNull]
     [JsonProperty("external_profile")]
     [JsonPropertyName("external_profile")]
     public ExternalProfile? ExternalProfile { get; set; }
     /// <summary>
-    /// 对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。长度12个汉字内
+    /// Chức vụ đối ngoại, nếu đặt giá trị này thì sẽ dùng nó làm chức vụ hiển thị ra bên ngoài, nếu không sẽ hiển thị position. Độ dài tối đa 12 ký tự tiếng Trung
     /// </summary>
     [CanBeNull]
     [StringLength(12)]
@@ -160,14 +160,14 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [JsonPropertyName("external_position")]
     public string? ExternalPosition { get; set; }
     /// <summary>
-    /// 视频号名字（设置后，成员将对外展示该视频号）。须从企业绑定到企业微信的视频号中选择，可在“我的企业”页中查看绑定的视频号
+    /// Tên kênh video (sau khi đặt, thành viên sẽ hiển thị kênh video này ra bên ngoài). Phải chọn từ các kênh video mà doanh nghiệp đã liên kết với WeChat Work, có thể xem các kênh video đã liên kết trong trang “Doanh nghiệp của tôi”
     /// </summary>
     [CanBeNull]
     [JsonProperty("nickname")]
     [JsonPropertyName("nickname")]
     public string? NickName { get; set; }
     /// <summary>
-    /// 地址。长度最大128个字符
+    /// Địa chỉ. Độ dài tối đa 128 ký tự
     /// </summary>
     [CanBeNull]
     [StringLength(128)]
@@ -175,7 +175,7 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
     [JsonPropertyName("address")]
     public string? Address { get; set; }
     /// <summary>
-    /// 主部门
+    /// Phòng ban chính
     /// </summary>
     [CanBeNull]
     [JsonProperty("main_department")]
@@ -201,36 +201,36 @@ public class WeChatWorkCreateMemberRequest : WeChatWorkRequest
         Check.Length(TelePhone, nameof(TelePhone), 32);
         Check.Length(ExternalPosition, nameof(ExternalPosition), 12);
         Check.Length(Address, nameof(Address), 128);
-        // mobile/email二者不能同时为空
+        // mobile/email không được đồng thời để trống
         if (Mobile.IsNullOrWhiteSpace() && Email.IsNullOrWhiteSpace())
         {
             throw new ArgumentException("mobile and email cannot be empty at the same time!");
         }
-        // 成员所属部门id列表，不超过100个
+        // Danh sách id các phòng ban mà thành viên thuộc về, không vượt quá 100 phòng ban
         if (Department?.Length > 0)
         {
-            // 成员所属部门id列表，不超过100个
+            // Danh sách id các phòng ban mà thành viên thuộc về, không vượt quá 100 phòng ban
             if (Department?.Length > 100)
             {
                 throw new ArgumentException("The list of department ids to which members belong shall not exceed 100!");
             }
-            // 部门排序列表个数必须和参数department的个数一致
+            // Số lượng danh sách sắp xếp phòng ban phải bằng số lượng của tham số department
             if (Order?.Length != Department?.Length)
             {
                 throw new ArgumentException("The number of Order must be consistent with the number of the parameter \"department\"!");
             }
-            // 部门负责人列表个数必须和参数department的个数一致
+            // Số lượng danh sách người phụ trách phòng ban phải bằng số lượng của tham số department
             if (IsLeaderInDept?.Length != Department?.Length)
             {
                 throw new ArgumentException("The number of IsLeaderInDept must be consistent with the number of the parameter \"Department\"!");
             }
         }
-        // 最多只可设置一个直属上级
+        // Tối đa chỉ được đặt một cấp trên trực tiếp
         if (DirectLeader?.Length > 1)
         {
             throw new ArgumentException("At most, only one direct superior can be set up!");
         }
-        // 只可存在两种值
+        // Chỉ có thể tồn tại hai giá trị
         if (Enable.HasValue && Enable != 0)
         {
             Enable = 1;

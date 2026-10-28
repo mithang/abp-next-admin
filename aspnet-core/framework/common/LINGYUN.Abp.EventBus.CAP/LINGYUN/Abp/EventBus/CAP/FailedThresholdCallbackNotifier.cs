@@ -21,7 +21,7 @@ public class FailedThresholdCallbackNotifier : IFailedThresholdCallbackNotifier
 
     public async virtual Task NotifyAsync(AbpCAPExecutionFailedException exception)
     {
-        // 通过额外的选项来控制是否发送消息处理失败的事件
+        // Kiểm soát việc có gửi sự kiện xử lý thông điệp thất bại hay không thông qua tùy chọn bổ sung
         if (Options.NotifyFailedCallback)
         {
             await ExceptionNotifier.NotifyAsync(exception);

@@ -15,6 +15,7 @@ import { preferences } from '@vben/preferences';
 
 import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
+import viLocale from 'element-plus/es/locale/lang/vi';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
 const elementLocale = ref<Language>(defaultLocale);
@@ -26,8 +27,8 @@ const localesMap = loadLocalesMapFromDir(
   modules,
 );
 /**
- * 加载应用特有的语言包
- * 这里也可以改造为从服务端获取翻译数据
+ * Tải gói ngôn ngữ riêng của ứng dụng
+ * Tại đây cũng có thể cải tiến thành lấy dữ liệu bản dịch từ phía máy chủ
  * @param lang
  */
 async function loadMessages(lang: SupportedLanguagesType) {
@@ -39,7 +40,7 @@ async function loadMessages(lang: SupportedLanguagesType) {
 }
 
 /**
- * 加载第三方组件库的语言包
+ * Tải gói ngôn ngữ của thư viện component bên thứ ba
  * @param lang
  */
 async function loadThirdPartyMessage(lang: SupportedLanguagesType) {
@@ -47,7 +48,7 @@ async function loadThirdPartyMessage(lang: SupportedLanguagesType) {
 }
 
 /**
- * 加载dayjs的语言包
+ * Tải gói ngôn ngữ của dayjs
  * @param lang
  */
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
@@ -57,11 +58,15 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
       locale = await import('dayjs/locale/en');
       break;
     }
+    case 'vi-VN': {
+      locale = await import('dayjs/locale/vi');
+      break;
+    }
     case 'zh-CN': {
       locale = await import('dayjs/locale/zh-cn');
       break;
     }
-    // 默认使用英语
+    // Mặc định dùng tiếng Anh
     default: {
       locale = await import('dayjs/locale/en');
     }
@@ -74,13 +79,17 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
 }
 
 /**
- * 加载element-plus的语言包
+ * Tải gói ngôn ngữ của element-plus
  * @param lang
  */
 async function loadElementLocale(lang: SupportedLanguagesType) {
   switch (lang) {
     case 'en-US': {
       elementLocale.value = enLocale;
+      break;
+    }
+    case 'vi-VN': {
+      elementLocale.value = viLocale;
       break;
     }
     case 'zh-CN': {

@@ -102,7 +102,7 @@ public class ClientUpdateDto : ClientCreateOrUpdateDto
 
     public List<ClientPropertyDto> Properties { get; set; }
     /// <summary>
-    /// 声明
+    /// Claim
     /// </summary>
     public List<ClientClaimDto> Claims { get; set; }
 

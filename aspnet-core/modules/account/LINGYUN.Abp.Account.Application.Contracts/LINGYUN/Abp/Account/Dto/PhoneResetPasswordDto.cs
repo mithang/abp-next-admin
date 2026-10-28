@@ -10,10 +10,10 @@ public class PhoneResetPasswordDto
     [Required]
     [Phone]
     [DynamicStringLength(typeof(IdentityUserConsts), nameof(IdentityUserConsts.MaxPhoneNumberLength))]
-    // 如果Dto属性和本地化内容不一致,需要指定本地化名称如下
-    // [Display(Name = "DisplayName:RequiredPhoneNumber")] //json本地化文件中必须有相同的格式: DisplayName:RequiredPhoneNumber
-    //[DisplayName("DisplayName:RequiredPhoneNumber")] //两种方法都可以
-    // 如果Dto属性与本地化内容一致,不需要显示指定名称,但是本地化文件必须存在对应格式的文本: DisplayName:PhoneNumber
+    // Nếu thuộc tính Dto và nội dung bản địa hoá không nhất quán, cần chỉ định tên bản địa hoá như sau
+    // [Display(Name = "DisplayName:RequiredPhoneNumber")] //trong file bản địa hoá JSON phải có cùng định dạng: DisplayName:RequiredPhoneNumber
+    //[DisplayName("DisplayName:RequiredPhoneNumber")] //Cả hai cách đều được
+    // Nếu thuộc tính Dto nhất quán với nội dung bản địa hoá, không cần chỉ định tên hiển thị, nhưng file bản địa hoá phải có văn bản định dạng tương ứng: DisplayName:PhoneNumber
     public string PhoneNumber { get; set; } = default!;
 
     [Required]

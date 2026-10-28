@@ -3,7 +3,7 @@
 namespace LINGYUN.Abp.Gdpr;
 
 /// <summary>
-/// 用户账户删除请求事件传输对象
+/// Đối tượng truyền tải sự kiện yêu cầu xóa tài khoản người dùng
 /// </summary>
 [Serializable]
 public class GdprUserAccountDeletionRequestedEto

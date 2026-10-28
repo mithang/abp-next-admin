@@ -110,7 +110,7 @@ function onPropDelete(prop: PropertyInfo) {
       :wrapper-col="{ span: 18 }"
     >
       <Tabs v-model:active-key="activeTab">
-        <!-- 基本信息 -->
+        <!-- Thông tin cơ bản -->
         <TabPane key="basic" :tab="$t('Notifications.BasicInfo')">
           <FormItem
             :label="$t('Notifications.DisplayName:Name')"
@@ -155,7 +155,7 @@ function onPropDelete(prop: PropertyInfo) {
             </Checkbox>
           </FormItem>
         </TabPane>
-        <!-- 属性 -->
+        <!-- Thuộc tính -->
         <TabPane key="props" :tab="$t('Notifications.Properties')">
           <PropertyTable
             :data="formModel.extraProperties"

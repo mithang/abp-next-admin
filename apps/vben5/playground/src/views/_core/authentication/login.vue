@@ -110,11 +110,11 @@ const loginRef =
 
 async function onSubmit(params: Recordable<any>) {
   authStore.authLogin(params).catch(() => {
-    // 登陆失败，刷新验证码的演示
+    // Demo: đăng nhập thất bại thì làm mới mã xác minh
     const formApi = loginRef.value?.getFormApi();
-    // 重置验证码组件的值
+    // Đặt lại giá trị của component mã xác minh
     formApi?.setFieldValue('captcha', false, false);
-    // 使用表单API获取验证码组件实例，并调用其resume方法来重置验证码
+    // Dùng form API để lấy instance của component mã xác minh và gọi phương thức resume của nó để đặt lại mã xác minh
     formApi
       ?.getFieldComponentRef<InstanceType<typeof SliderCaptcha>>('captcha')
       ?.resume();

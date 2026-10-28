@@ -21,9 +21,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# vite 打包分析产物
+# Sản phẩm phân tích đóng gói của vite
 stats.html
 
 
-# 取消上层忽略
+# Hủy bỏ việc bỏ qua ở tầng trên
 !.vscode/

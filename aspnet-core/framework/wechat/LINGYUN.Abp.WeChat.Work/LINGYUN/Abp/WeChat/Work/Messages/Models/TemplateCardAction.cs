@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 卡片操作按钮
+/// Nút thao tác trên thẻ
 /// </summary>
 public class TemplateCardAction
 {
@@ -15,14 +15,14 @@ public class TemplateCardAction
     }
 
     /// <summary>
-    /// 操作key值，用户点击后，会产生回调事件将本参数作为EventKey返回，回调事件会带上该key值，最长支持1024字节，不可重复
+    /// Giá trị key của thao tác; sau khi người dùng nhấn, sự kiện gọi lại sẽ trả về tham số này dưới dạng EventKey, sự kiện gọi lại sẽ mang theo key này, hỗ trợ tối đa 1024 byte, không được trùng lặp
     /// </summary>
     [NotNull]
     [JsonProperty("key")]
     [JsonPropertyName("key")]
     public string Key { get; set; }
     /// <summary>
-    /// 操作的描述文案
+    /// Văn bản mô tả thao tác
     /// </summary>
     [NotNull]
     [JsonProperty("text")]

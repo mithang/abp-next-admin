@@ -51,7 +51,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
   title: $t('AbpAuditLogging.AuditLog'),
 });
-/** 调用方法表格配置 */
+/** Cấu hình bảng phương thức được gọi */
 const actionsGridOptions: VxeGridProps<Action> = {
   border: true,
   columns: [
@@ -122,11 +122,11 @@ const actionsGridOptions: VxeGridProps<Action> = {
     enabled: false,
   },
 };
-/** 调用方法表格 */
+/** Bảng phương thức được gọi */
 const [ActionsGrid] = useVbenVxeGrid({
   gridOptions: actionsGridOptions,
 });
-/** 查询审计日志 */
+/** Tra cứu nhật ký kiểm tra */
 async function onGet(id: string) {
   const dto = await getApi(id);
   auditLogModel.value = dto;

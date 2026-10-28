@@ -2,19 +2,19 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 外部联系人类型
+/// Loại liên hệ bên ngoài
 /// </summary>
-[Description("外部联系人类型")]
+[Description("Loại liên hệ bên ngoài")]
 public enum ExternalContactType
 {
     /// <summary>
-    /// 微信用户
+    /// Người dùng WeChat
     /// </summary>
-    [Description("微信用户")]
+    [Description("Người dùng WeChat")]
     WeChat = 1,
     /// <summary>
-    /// 企业微信用户
+    /// Người dùng WeChat Work
     /// </summary>
-    [Description("企业微信用户")]
+    [Description("Người dùng WeChat Work")]
     WeChatWork = 2,
 }

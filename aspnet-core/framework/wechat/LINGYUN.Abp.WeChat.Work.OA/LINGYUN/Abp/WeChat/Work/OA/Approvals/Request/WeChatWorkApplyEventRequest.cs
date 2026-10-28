@@ -6,57 +6,57 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Approvals.Request;
 /// <summary>
-/// 提交审批申请请求参数
+/// Tham số yêu cầu gửi đơn xin phê duyệt
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91853"/>
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/91853"/>
 /// </remarks>
 public class WeChatWorkApplyEventRequest : WeChatWorkRequest
 {
     /// <summary>
-    /// 流程
+    /// Quy trình
     /// </summary>
     /// <remarks>
-    /// use_template_approver = 0 时必填
+    /// Bắt buộc khi use_template_approver = 0
     /// </remarks>
     [CanBeNull]
     [JsonProperty("process")]
     [JsonPropertyName("process")]
     public ApprovalApplyProcess? Process { get; set; }
     /// <summary>
-    /// 摘要信息，用于显示在审批通知卡片、审批列表的摘要信息，最多3行
+    /// Thông tin tóm tắt, dùng để hiển thị trong thẻ thông báo phê duyệt và thông tin tóm tắt của danh sách phê duyệt, tối đa 3 dòng
     /// </summary>
     [CanBeNull]
     [JsonProperty("summary_list")]
     [JsonPropertyName("summary_list")]
     public List<ApprovalSummary>? Summaries { get; set; }
     /// <summary>
-    /// 审批申请数据，可定义审批申请中各个控件的值，其中必填项必须有值，选填项可为空，数据结构同“获取审批申请详情”接口返回值中同名参数“apply_data”
+    /// Dữ liệu đơn xin phê duyệt, có thể định nghĩa giá trị của từng điều khiển trong đơn xin phê duyệt, trong đó mục bắt buộc phải có giá trị, mục tùy chọn có thể để trống, cấu trúc dữ liệu giống tham số cùng tên “apply_data” trong giá trị trả về của giao diện “Lấy chi tiết đơn xin phê duyệt”
     /// </summary>
     [NotNull]
     [JsonProperty("apply_data")]
     [JsonPropertyName("apply_data")]
     public ApprovalApplyData ApplyData { get; set; }
     /// <summary>
-    /// 模板id。可在“获取审批申请详情”、“审批状态变化回调通知”中获得，也可在审批模板的模板编辑页面链接中获得。暂不支持通过接口提交[打卡补卡][调班]模板审批单。
+    /// Id mẫu. Có thể lấy trong “Lấy chi tiết đơn xin phê duyệt”, “Thông báo callback khi trạng thái phê duyệt thay đổi”, hoặc trong liên kết trang chỉnh sửa mẫu của mẫu phê duyệt. Tạm thời chưa hỗ trợ gửi đơn phê duyệt mẫu [Bù chấm công][Đổi ca] qua giao diện.
     /// </summary>
     [NotNull]
     [JsonProperty("template_id")]
     [JsonPropertyName("template_id")]
     public string TemplateId { get; set; }
     /// <summary>
-    /// 申请人userid，此审批申请将以此员工身份提交，申请人需在应用可见范围内
+    /// Userid của người nộp đơn, đơn xin phê duyệt này sẽ được gửi với tư cách nhân viên này, người nộp đơn phải nằm trong phạm vi hiển thị của ứng dụng
     /// </summary>
     [NotNull]
     [JsonProperty("creator_userid")]
     [JsonPropertyName("creator_userid")]
     public string CreatorUserId { get; set; }
     /// <summary>
-    /// 审批人模式
+    /// Chế độ người phê duyệt
     /// </summary>
     /// <remarks>
-    /// 0-通过接口指定审批人、抄送人（此时process参数必填）; <br />
-    /// 1-使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批。默认为0
+    /// 0-Chỉ định người phê duyệt, người nhận bản sao qua giao diện (lúc này tham số process là bắt buộc); <br />
+    /// 1-Sử dụng quy trình phê duyệt được đặt cho mẫu này trong trang quản trị (cần đảm bảo quy trình phê duyệt không có nút “Người nộp đơn tự chọn”), hỗ trợ phê duyệt có điều kiện. Mặc định là 0
     /// </remarks>
     [NotNull]
     [JsonProperty("use_template_approver")]
@@ -72,7 +72,7 @@ public class WeChatWorkApplyEventRequest : WeChatWorkRequest
         }
     }
     /// <summary>
-    /// 提单者提单部门id，不填默认为主部门
+    /// Id phòng ban của người lập đơn, không điền sẽ mặc định là phòng ban chính
     /// </summary>
     [CanBeNull]
     [JsonProperty("choose_department")]

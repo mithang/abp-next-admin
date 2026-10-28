@@ -7,7 +7,7 @@ namespace LINGYUN.Abp.Account;
 public class SendChangePhoneNumberCodeInput
 {
     /// <summary>
-    /// 新手机号
+    /// Số điện thoại mới
     /// </summary>
     [Required]
     [Phone]

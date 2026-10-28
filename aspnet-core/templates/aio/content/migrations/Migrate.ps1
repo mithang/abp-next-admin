@@ -1,38 +1,38 @@
-# 数据库迁移脚本
+# Script di chuyển cơ sở dữ liệu
 
-# 导入必要的模块
+# Nhập các module cần thiết
 using namespace System.Management.Automation.Host
 
-# 加入环境变量FROM_MIGRATION,使其在Program.cs文件中可以进行判断
+# Thêm biến môi trường FROM_MIGRATION để có thể kiểm tra trong file Program.cs
 $env:FROM_MIGRATION = "true"
 
-# 定义项目路径
+# Định nghĩa đường dẫn dự án
 $projectPath = Resolve-Path (Join-Path $PSScriptRoot "..")
 
-# 定义函数来动态查找所有可用的DbContext
+# Định nghĩa hàm để tìm động tất cả DbContext khả dụng
 function Get-AvailableDbContexts {
     $migrationsPath = Join-Path $projectPath "migrations"
     $dbContexts = @{}
     $counter = 1
 
-    # 查找所有包含EntityFrameworkCore的目录
+    # Tìm tất cả thư mục chứa EntityFrameworkCore
     $efCoreDirectories = Get-ChildItem -Path $migrationsPath -Directory | Where-Object { $_.Name -like "*EntityFrameworkCore*" }
     
     foreach ($dir in $efCoreDirectories) {
-        # 优先查找 DbContextFactory 文件
+        # Ưu tiên tìm file DbContextFactory
         $factoryFiles = Get-ChildItem -Path $dir.FullName -Filter "*DbContextFactory.cs" -Recurse -File
         
-        # 如果找到了 Factory 文件
+        # Nếu tìm thấy file Factory
         $foundFactory = $false
         foreach ($factoryFile in $factoryFiles) {
             $factoryContent = Get-Content $factoryFile.FullName -Raw
             
-            # 查找 Factory 类名和对应的 DbContext 类
+            # Tìm tên lớp Factory và lớp DbContext tương ứng
             if ($factoryContent -match 'class\s+(\w+Factory)\s*:\s*IDesignTimeDbContextFactory<(\w+)>') {
                 $factoryName = $matches[1]
                 $contextName = $matches[2]
                 
-                # 如果找到了上下文和工厂，添加到列表中
+                # Nếu tìm thấy context và factory, thêm vào danh sách
                 $dbContexts["$counter"] = @{
                     Name = $dir.Name
                     Context = $contextName
@@ -43,7 +43,7 @@ function Get-AvailableDbContexts {
             }
         }
         
-        # 只有当没有找到 Factory 时，才查找 DbContext 文件作为备选
+        # Chỉ khi không tìm thấy Factory mới tìm file DbContext làm phương án dự phòng
         if (-not $foundFactory) {
             $dbContextFiles = Get-ChildItem -Path $dir.FullName -Filter "*DbContext.cs" -Recurse -File
             
@@ -52,7 +52,7 @@ function Get-AvailableDbContexts {
                 if ($contextContent -match 'class\s+(\w+DbContext)') {
                     $contextName = $matches[1]
                     
-                    # 添加到列表中，但没有对应的 Factory
+                    # Thêm vào danh sách, nhưng không có Factory tương ứng
                     $dbContexts["$counter"] = @{
                         Name = $dir.Name
                         Context = $contextName
@@ -64,7 +64,7 @@ function Get-AvailableDbContexts {
         }
     }
 
-    # 如果没有找到任何上下文，使用默认的
+    # Nếu không tìm thấy context nào, dùng mặc định
     if ($dbContexts.Count -eq 0) {
         $dbContexts["1"] = @{
             Name = "PackageName.CompanyName.ProjectName.AIO.EntityFrameworkCore.DatabaseManagementName"
@@ -76,20 +76,20 @@ function Get-AvailableDbContexts {
     return $dbContexts
 }
 
-# 获取可用的DbContext
+# Lấy các DbContext khả dụng
 $dbContexts = Get-AvailableDbContexts
 
-# 显示DbContext选择菜单
+# Hiển thị menu chọn DbContext
 function Show-DbContextMenu {
     $host.UI.RawUI.BackgroundColor = "Black"
     $host.UI.RawUI.ForegroundColor = "White"
     Clear-Host
 
     Write-Host "========================================" -ForegroundColor Cyan
-    Write-Host "     数据库迁移上下文选择" -ForegroundColor Yellow
+    Write-Host "     Chọn context di chuyển cơ sở dữ liệu" -ForegroundColor Yellow
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "请选择要迁移的数据库上下文:" -ForegroundColor Green
+    Write-Host "Vui lòng chọn context cơ sở dữ liệu cần di chuyển:" -ForegroundColor Green
     foreach ($key in $dbContexts.Keys) {
         $context = $dbContexts[$key]
         Write-Host "[$key] " -NoNewline -ForegroundColor Magenta
@@ -98,40 +98,40 @@ function Show-DbContextMenu {
     Write-Host ""
 }
 
-# 选择DbContext
+# Chọn DbContext
 function Select-DbContext {
     Show-DbContextMenu
     
     while ($true) {
-        $choice = Read-Host "请输入数字选择"
+        $choice = Read-Host "Vui lòng nhập số để chọn"
         if ($dbContexts.ContainsKey($choice)) {
             return $dbContexts[$choice]
         }
-        Write-Host "无效的选择，请重新输入。" -ForegroundColor Red
+        Write-Host "Lựa chọn không hợp lệ, vui lòng nhập lại." -ForegroundColor Red
     }
 }
 
-# 获取迁移名称
+# Lấy tên migration
 function Get-MigrationName {
     $defaultName = "AddNewMigration_" + (Get-Date -Format "yyyyMMdd_HHmmss")
-    $migrationName = Read-Host "请输入迁移名称 (留空将使用默认名称: $defaultName)"
+    $migrationName = Read-Host "Vui lòng nhập tên migration (để trống sẽ dùng tên mặc định: $defaultName)"
     
     return ($migrationName ? $migrationName : $defaultName)
 }
 
-# 执行数据库迁移
+# Thực thi di chuyển cơ sở dữ liệu
 function Invoke-DatabaseMigration($dbContext, $migrationName) {
     Write-Host "========================================" -ForegroundColor Cyan
-    Write-Host "正在执行数据库迁移..." -ForegroundColor Green
-    Write-Host "上下文: " -NoNewline -ForegroundColor Yellow
+    Write-Host "Đang thực thi di chuyển cơ sở dữ liệu..." -ForegroundColor Green
+    Write-Host "Context: " -NoNewline -ForegroundColor Yellow
     Write-Host "$($dbContext.Name)" -ForegroundColor White
-    Write-Host "迁移名称: " -NoNewline -ForegroundColor Yellow
+    Write-Host "Tên migration: " -NoNewline -ForegroundColor Yellow
     Write-Host "$migrationName" -ForegroundColor White
-    Write-Host "项目路径: " -NoNewline -ForegroundColor Yellow
+    Write-Host "Đường dẫn dự án: " -NoNewline -ForegroundColor Yellow
     Write-Host "$projectPath" -ForegroundColor White
     Write-Host "========================================" -ForegroundColor Cyan
     
-    # 切换到项目目录并执行迁移
+    # Chuyển sang thư mục dự án và thực thi migration
     Push-Location $projectPath
     try {
         dotnet ef migrations add $migrationName --project "migrations/$($dbContext.Name)" --context "$($dbContext.Context)"
@@ -141,24 +141,24 @@ function Invoke-DatabaseMigration($dbContext, $migrationName) {
     }
 }
 
-# 获取所有迁移文件
+# Lấy tất cả file migration
 function Get-AllMigrations($dbContext) {
     Push-Location $projectPath
     try {
         $migrations = @(dotnet ef migrations list --project "migrations/$($dbContext.Name)" --context "$($dbContext.Context)")
-        return $migrations | Where-Object { $_ -match '\S' } # 过滤空行
+        return $migrations | Where-Object { $_ -match '\S' } # Lọc các dòng trống
     }
     finally {
         Pop-Location
     }
 }
 
-# 选择起始迁移
+# Chọn migration bắt đầu
 function Select-FromMigration($dbContext) {
     $migrations = Get-AllMigrations -dbContext $dbContext
     
     Write-Host "========================================" -ForegroundColor Cyan
-    Write-Host "可用的迁移文件:" -ForegroundColor Yellow
+    Write-Host "Các file migration khả dụng:" -ForegroundColor Yellow
     Write-Host "========================================" -ForegroundColor Cyan
     
     for ($i = 0; $i -lt $migrations.Count; $i++) {
@@ -167,12 +167,12 @@ function Select-FromMigration($dbContext) {
     }
     
     Write-Host "[A] " -NoNewline -ForegroundColor Magenta
-    Write-Host "生成所有迁移的SQL脚本" -ForegroundColor White
+    Write-Host "Tạo script SQL cho tất cả migration" -ForegroundColor White
     Write-Host "[L] " -NoNewline -ForegroundColor Magenta
-    Write-Host "仅生成最新迁移的SQL脚本" -ForegroundColor White
+    Write-Host "Chỉ tạo script SQL cho migration mới nhất" -ForegroundColor White
     
     while ($true) {
-        $choice = Read-Host "请选择起始迁移文件"
+        $choice = Read-Host "Vui lòng chọn file migration bắt đầu"
         if ($choice -eq "A" -or $choice -eq "a") {
             return $null
         }
@@ -188,20 +188,20 @@ function Select-FromMigration($dbContext) {
                 return $migrations[$index]
             }
         }
-        Write-Host "无效的选择，请重新输入。" -ForegroundColor Red
+        Write-Host "Lựa chọn không hợp lệ, vui lòng nhập lại." -ForegroundColor Red
     }
 }
 
-# 生成SQL脚本
+# Tạo script SQL
 function Export-SqlScript($dbContext, $migrationName) {
-    $choice = Read-Host "是否生成SQL迁移脚本？(Y/N)"
+    $choice = Read-Host "Có tạo script SQL migration không? (Y/N)"
     
     if ($choice -eq "Y" -or $choice -eq "y") {
         $sqlFileName = (Get-Date -Format "yyyyMMddHHmm") + ".sql"
         $initSqlPath = Join-Path $projectPath "InitSql"
         $contextSqlPath = Join-Path $initSqlPath $dbContext.Name
         
-        # 确保InitSql和上下文特定目录存在
+        # Đảm bảo thư mục InitSql và thư mục riêng theo context tồn tại
         if (-not (Test-Path $initSqlPath)) {
             New-Item -ItemType Directory -Path $initSqlPath | Out-Null
         }
@@ -211,20 +211,20 @@ function Export-SqlScript($dbContext, $migrationName) {
         
         $sqlFilePath = Join-Path $contextSqlPath $sqlFileName
         
-        # 选择起始迁移
+        # Chọn migration bắt đầu
         $fromMigration = Select-FromMigration -dbContext $dbContext
         
         Write-Host "========================================" -ForegroundColor Cyan
-        Write-Host "正在生成SQL脚本..." -ForegroundColor Green
-        Write-Host "输出路径: " -NoNewline -ForegroundColor Yellow
+        Write-Host "Đang tạo script SQL..." -ForegroundColor Green
+        Write-Host "Đường dẫn xuất: " -NoNewline -ForegroundColor Yellow
         Write-Host "$sqlFilePath" -ForegroundColor White
         if ($fromMigration) {
-            Write-Host "起始迁移: " -NoNewline -ForegroundColor Yellow
+            Write-Host "Migration bắt đầu: " -NoNewline -ForegroundColor Yellow
             Write-Host "$fromMigration" -ForegroundColor White
         }
         Write-Host "========================================" -ForegroundColor Cyan
         
-        # 切换到项目目录并生成SQL脚本
+        # Chuyển sang thư mục dự án và tạo script SQL
         Push-Location $projectPath
         try {
             if ($fromMigration) {
@@ -238,27 +238,27 @@ function Export-SqlScript($dbContext, $migrationName) {
             Pop-Location
         }
         
-        Write-Host "SQL脚本已生成: " -NoNewline -ForegroundColor Green
+        Write-Host "Đã tạo script SQL: " -NoNewline -ForegroundColor Green
         Write-Host "$sqlFilePath" -ForegroundColor White
     }
 }
 
-# 主执行流程
+# Luồng thực thi chính
 try {
     $dbContext = Select-DbContext
     $migrationName = Get-MigrationName
     Invoke-DatabaseMigration -dbContext $dbContext -migrationName $migrationName
     
-    # 生成SQL脚本
+    # Tạo script SQL
     Export-SqlScript -dbContext $dbContext -migrationName $migrationName
     
-    Write-Host "迁移完成！" -ForegroundColor Green
+    Write-Host "Đã hoàn tất di chuyển!" -ForegroundColor Green
 }
 catch {
-    Write-Host "迁移过程中发生错误:" -ForegroundColor Red
+    Write-Host "Đã xảy ra lỗi trong quá trình di chuyển:" -ForegroundColor Red
     Write-Host $_.Exception.Message -ForegroundColor Red
 }
 finally {
-    Write-Host "`n按任意键退出..."
+    Write-Host "`nNhấn phím bất kỳ để thoát..."
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }

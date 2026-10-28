@@ -62,13 +62,13 @@ public class WrapResultChecker : IWrapResultChecker, ISingletonDependency
             return false;
         }
 
-        // 用户传递不包装
+        // Người dùng truyền vào thì không bọc
         if (context.HttpContext.Request.Headers.ContainsKey(AbpHttpWrapConsts.AbpDontWrapResult))
         {
             return false;
         }
 
-        // 用户传递需要包装
+        // Người dùng truyền vào thì cần bọc
         if (context.HttpContext.Request.Headers.ContainsKey(AbpHttpWrapConsts.AbpWrapResult))
         {
             return true;

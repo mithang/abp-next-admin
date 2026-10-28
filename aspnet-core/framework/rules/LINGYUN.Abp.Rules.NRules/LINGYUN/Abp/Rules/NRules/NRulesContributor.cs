@@ -41,7 +41,7 @@ public class NRulesContributor : RuleContributorBase, ISingletonDependency
                 session.InsertAll(@params);
             }
 
-            // TODO: 需要研究源码
+            // TODO: Cần nghiên cứu mã nguồn
             session.Fire(cancellationToken);
         }
 

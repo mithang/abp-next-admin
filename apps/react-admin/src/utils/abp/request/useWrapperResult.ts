@@ -6,18 +6,18 @@ export function wrapperResult(response: AxiosResponse) {
 	const { hasError, throwIfError: throwIfAbpError } = errorFormat(response);
 	const _defaultWrapperHeaderKey: string = "_abpwrapresult";
 	const { data, headers } = response;
-	/** 是否已包装结果 */
+	/** Kết quả đã được đóng gói hay chưa */
 	function hasWrapResult(): boolean {
 		return headers[_defaultWrapperHeaderKey] === "true" || hasError();
 	}
 
-	/** 获取包装结果 */
+	/** Lấy kết quả đã đóng gói */
 	function getData(): any {
 		throwIfError();
 		return data.result;
 	}
 
-	/** 如果请求错误,抛出异常 */
+	/** Nếu yêu cầu lỗi, ném ngoại lệ */
 	function throwIfError(): void {
 		throwIfAbpError();
 		const { code, details, message } = data;

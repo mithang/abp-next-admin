@@ -1,0 +1,8 @@
+{
+  "culture": "vi",
+  "texts": {
+    "TextTemplate:ExceptionHandlingTemplates.SendEmail": "Mẫu gửi email bất thường của ứng dụng",
+    "SendEmailTitle": "Đẩy ngoại lệ ứng dụng",
+    "SendEmailHeader": "Bất thường ứng dụng"
+  }
+}

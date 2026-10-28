@@ -93,7 +93,7 @@ public class JsApiTicketProvider : IJsApiTicketProvider, ISingletonDependency
 
         var cacheOptions = new DistributedCacheEntryOptions
         {
-            // 设置绝对过期时间为Token有效期剩余的二分钟
+            // Đặt thời gian hết hạn tuyệt đối là 2 phút còn lại của thời hạn hiệu lực Token
             AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(ticketInfo.ExpiresIn - 100),
         };
 

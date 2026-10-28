@@ -62,13 +62,24 @@ try
     app.UseCorrelationId();
     app.UseCors();
 
-    // 认证
+    // Xác thực
     app.UseAuthentication();
     // jwt
     app.UseDynamicClaims();
-    // 授权
+    // Ủy quyền
     app.UseAuthorization();
 
+    // DEVOPS iter-0008: swagger middleware only in Development. The
+    // swagger provider is registered by AddAbpSwaggerGenWithOAuth, which
+    // is skipped when no AuthServer:Authority is configured (see
+    // ApiGatewayModule) — but UseSwagger() used to run unconditionally,
+    // and Swashbuckle resolves ISwaggerProvider eagerly, so EVERY
+    // request (including /healthz) answered 500 in Production. Swagger
+    // is dev tooling for this gateway; Production serves no API docs
+    // from it, so gating the middleware to Development is the correct
+    // fix rather than registering a dummy provider.
+    if (app.Environment.IsDevelopment())
+    {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -109,6 +120,7 @@ try
             options.OAuthClientSecret(configuration["AuthServer:SwaggerClientSecret"]);
         }
     });
+    }
 
     // app.UseRewriter(new RewriteOptions().AddRedirect("^(|\\|\\s+)$", "/swagger"));
 
@@ -132,6 +144,14 @@ catch (Exception ex)
     }
 
     Log.Fatal(ex, "Host terminated unexpectedly!");
+    // DEVOPS iter-0007: Log.Fatal above goes to Serilog's silent default
+    // logger when startup fails before UseSerilog takes effect, which is
+    // why this host previously exited 0 with no output at all. Mirror the
+    // services/ hosts' pattern: always print to stdout and exit non-zero
+    // so an orchestrator sees a crash, not a clean shutdown.
+    Console.WriteLine("Host terminated unexpectedly!");
+    Console.WriteLine(ex.ToString());
+    Environment.Exit(1);
 }
 finally
 {

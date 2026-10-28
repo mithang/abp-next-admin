@@ -4,26 +4,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// 卡片来源样式信息
+/// Thông tin kiểu nguồn của thẻ
 /// </summary>
 public class WebhookTemplateCardSource
 {
     /// <summary>
-    /// 来源图片的url
+    /// URL hình ảnh nguồn
     /// </summary>
     [CanBeNull]
     [JsonProperty("icon_url")]
     [JsonPropertyName("icon_url")]
     public string? IconUrl { get; set; }
     /// <summary>
-    /// 来源图片的描述，建议不超过13个字
+    /// Mô tả hình ảnh nguồn, khuyến nghị không vượt quá 13 ký tự
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc")]
     [JsonPropertyName("desc")]
     public string? Description { get; set; }
     /// <summary>
-    /// 来源文字的颜色，目前支持：0(默认) 灰色，1 黑色，2 红色，3 绿色
+    /// Màu của văn bản nguồn, hiện hỗ trợ: 0 (mặc định) xám, 1 đen, 2 đỏ, 3 xanh lá
     /// </summary>
     [CanBeNull]
     [JsonProperty("desc_color")]
@@ -40,40 +40,40 @@ public class WebhookTemplateCardSource
         DescriptionColor = descriptionColor;
     }
     /// <summary>
-    /// 创建一个灰色卡片来源样式
+    /// Tạo một kiểu nguồn thẻ màu xám
     /// </summary>
-    /// <param name="iconUrl">来源图片的url</param>
-    /// <param name="description">来源图片的描述</param>
+    /// <param name="iconUrl">URL hình ảnh nguồn</param>
+    /// <param name="description">Mô tả hình ảnh nguồn</param>
     /// <returns></returns>
     public static WebhookTemplateCardSource Grey(string iconUrl, string? description = null)
     {
         return new WebhookTemplateCardSource(iconUrl, description, 0);
     }
     /// <summary>
-    /// 创建一个黑色卡片来源样式
+    /// Tạo một kiểu nguồn thẻ màu đen
     /// </summary>
-    /// <param name="iconUrl">来源图片的url</param>
-    /// <param name="description">来源图片的描述</param>
+    /// <param name="iconUrl">URL hình ảnh nguồn</param>
+    /// <param name="description">Mô tả hình ảnh nguồn</param>
     /// <returns></returns>
     public static WebhookTemplateCardSource Black(string iconUrl, string? description = null)
     {
         return new WebhookTemplateCardSource(iconUrl, description, 1);
     }
     /// <summary>
-    /// 创建一个红色卡片来源样式
+    /// Tạo một kiểu nguồn thẻ màu đỏ
     /// </summary>
-    /// <param name="iconUrl">来源图片的url</param>
-    /// <param name="description">来源图片的描述</param>
+    /// <param name="iconUrl">URL hình ảnh nguồn</param>
+    /// <param name="description">Mô tả hình ảnh nguồn</param>
     /// <returns></returns>
     public static WebhookTemplateCardSource Red(string iconUrl, string? description = null)
     {
         return new WebhookTemplateCardSource(iconUrl, description, 2);
     }
     /// <summary>
-    /// 创建一个绿色卡片来源样式
+    /// Tạo một kiểu nguồn thẻ màu xanh lá
     /// </summary>
-    /// <param name="iconUrl">来源图片的url</param>
-    /// <param name="description">来源图片的描述</param>
+    /// <param name="iconUrl">URL hình ảnh nguồn</param>
+    /// <param name="description">Mô tả hình ảnh nguồn</param>
     /// <returns></returns>
     public static WebhookTemplateCardSource Green(string iconUrl, string? description = null)
     {

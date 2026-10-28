@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace LINGYUN.Abp.OpenObserve.Models.Stream;
 
 /// <summary>
-/// 删除任务错误
+/// Lỗi xóa tác vụ
 /// </summary>
 public class StreamDeleteJobError
 {

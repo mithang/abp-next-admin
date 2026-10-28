@@ -4,37 +4,37 @@ using Volo.Abp;
 namespace LINGYUN.Abp.Notifications.WeChat.Work;
 
 /// <summary>
-/// 企业微信消息公共选项
+/// Tùy chọn chung của tin nhắn WeChat doanh nghiệp
 /// </summary>
 public class WeChatWorkMessageOptions
 {
     /// <summary>
-    /// 消息应用标识, 由渠道在发布时填充
+    /// Định danh ứng dụng tin nhắn, được kênh điền khi phát hành
     /// </summary>
     public string AgentId { get; set; } = default!;
 
     /// <summary>
-    /// 是否是保密消息
+    /// Có phải là tin nhắn bảo mật hay không
     /// </summary>
     public bool? Safe { get; set; }
 
     /// <summary>
-    /// 是否开启id转译
+    /// Có bật chuyển đổi id hay không
     /// </summary>
     public bool? EnableIdTrans { get; set; }
 
     /// <summary>
-    /// 是否开启重复消息检查
+    /// Có bật kiểm tra tin nhắn trùng lặp hay không
     /// </summary>
     public bool? EnableDuplicateCheck { get; set; }
 
     /// <summary>
-    /// 重复消息检查的时间间隔(秒)
+    /// Khoảng thời gian kiểm tra tin nhắn trùng lặp (giây)
     /// </summary>
     public int? DuplicateCheckInterval { get; set; }
 
     /// <summary>
-    /// 从通知数据中解析公共选项
+    /// Phân tích tùy chọn chung từ dữ liệu thông báo
     /// </summary>
     public static WeChatWorkMessageOptions From(
         INotificationChannelDataResolver resolver,
@@ -53,22 +53,22 @@ public class WeChatWorkMessageOptions
     }
 
     /// <summary>
-    /// 保密消息标记
+    /// Cờ đánh dấu tin nhắn bảo mật
     /// </summary>
     public byte SafeValue => Safe == true ? (byte)1 : (byte)0;
 
     /// <summary>
-    /// id转译标记
+    /// Cờ đánh dấu chuyển đổi id
     /// </summary>
     public byte EnableIdTransValue => EnableIdTrans == true ? (byte)1 : (byte)0;
 
     /// <summary>
-    /// 重复消息检查标记
+    /// Cờ đánh dấu kiểm tra tin nhắn trùng lặp
     /// </summary>
     public byte EnableDuplicateCheckValue => EnableDuplicateCheck == true ? (byte)1 : (byte)0;
 
     /// <summary>
-    /// 重复消息检查间隔, 未设置时使用企业微信默认值
+    /// Khoảng thời gian kiểm tra tin nhắn trùng lặp, khi chưa thiết lập sẽ dùng giá trị mặc định của WeChat doanh nghiệp
     /// </summary>
     public int DuplicateCheckIntervalValue => DuplicateCheckInterval ?? 1800;
 }

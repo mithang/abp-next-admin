@@ -4,18 +4,18 @@ namespace LINGYUN.Abp.Identity.Session;
 public class IdentitySessionCleanupOptions
 {
     /// <summary>
-    /// 是否启用会话清理
-    /// 默认: false
+    /// Có bật dọn dẹp phiên hay không
+    /// Mặc định: false
     /// </summary>
     public bool IsCleanupEnabled { get; set; }
     /// <summary>
-    /// 会话清理间隔（ms）
-    /// 默认: 1小时
+    /// Khoảng thời gian dọn dẹp phiên (ms)
+    /// Mặc định: 1 giờ
     /// </summary>
     public int CleanupPeriod { get; set; }
     /// <summary>
-    /// 不活跃会话保持时长
-    /// 默认: 30天
+    /// Thời gian giữ phiên không hoạt động
+    /// Mặc định: 30 ngày
     /// </summary>
     public TimeSpan InactiveTimeSpan { get; set; }
     public IdentitySessionCleanupOptions()

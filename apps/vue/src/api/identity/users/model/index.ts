@@ -1,20 +1,20 @@
 import { IdentityClaim } from "../../claims/model";
 
-/** 用户对象接口 */
+/** Giao diện đối tượng người dùng */
 export interface IUser {
-  /** 用户名 */
+  /** Tên người dùng */
   name: string;
-  /** 用户账户 */
+  /** Tài khoản người dùng */
   userName: string;
-  /** 用户简称 */
+  /** Tên rút gọn của người dùng */
   surname?: string;
-  /** 邮件地址 */
+  /** Địa chỉ email */
   email: string;
-  /** 联系方式 */
+  /** Thông tin liên hệ */
   phoneNumber?: string;
-  /** 双因素验证 */
+  /** Xác thực hai yếu tố */
   twoFactorEnabled: boolean;
-  /** 登录锁定 */
+  /** Khóa đăng nhập */
   lockoutEnabled: boolean;
 }
 
@@ -31,42 +31,42 @@ export interface IdentityUserOrganizationUnitUpdateDto {
   organizationUnitIds: string[]
 }
 
-/** 用户对象 */
+/** Đối tượng người dùng */
 export interface User extends FullAuditedEntityDto<string>, IUser, IHasConcurrencyStamp {
-  /** 租户标识 */
+  /** Mã định danh tenant */
   tenentId?: string;
-  /** 邮箱已验证 */
+  /** Email đã được xác minh */
   emailConfirmed: boolean;
-  /** 联系方式已验证 */
+  /** Thông tin liên hệ đã được xác minh */
   phoneNumberConfirmed: boolean;
-  /** 锁定截止时间 */
+  /** Thời gian kết thúc khóa */
   lockoutEnd?: Date;
-  /** 已激活的用户 */
+  /** Người dùng đã kích hoạt */
   isActive: boolean;
-  /** 角色列表 */
+  /** Danh sách vai trò */
   roleNames: string[];
 }
 
 export interface CreateOrUpdateUser extends ExtensibleObject {
-   /** 用户名 */
+   /** Tên người dùng */
    name: string;
-   /** 用户账户 */
+   /** Tài khoản người dùng */
    userName: string;
-   /** 用户简称 */
+   /** Tên rút gọn của người dùng */
    surname?: string;
-   /** 邮件地址 */
+   /** Địa chỉ email */
    email: string;
-   /** 联系方式 */
+   /** Thông tin liên hệ */
    phoneNumber?: string;
-   /** 登录锁定 */
+   /** Khóa đăng nhập */
    lockoutEnabled: boolean;
-  /** 角色列表 */
+  /** Danh sách vai trò */
   roleNames?: string[];
-  /** 密码 */
+  /** Mật khẩu */
   password?: string;
 }
 
-/** 变更用户对象 */
+/** Đối tượng người dùng cần thay đổi */
 export interface UpdateUser extends CreateOrUpdateUser {}
 
 export interface CreateUser extends CreateOrUpdateUser {}

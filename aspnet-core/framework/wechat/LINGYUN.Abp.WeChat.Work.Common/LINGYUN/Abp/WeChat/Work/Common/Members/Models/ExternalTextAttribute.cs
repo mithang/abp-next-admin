@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Members.Models;
 /// <summary>
-/// 文本类型属性
+/// Thuộc tính dạng văn bản
 /// </summary>
 public class ExternalTextAttribute : ExternalAttribute
 {
     /// <summary>
-    /// 文本
+    /// Văn bản
     /// </summary>
     [NotNull]
     [JsonProperty("text")]
@@ -20,7 +20,7 @@ public class ExternalTextAttribute : ExternalAttribute
 public class ExternalTextModel
 {
     /// <summary>
-    /// 文本
+    /// Văn bản
     /// </summary>
     [NotNull]
     [JsonProperty("value")]

@@ -2,7 +2,7 @@
 
 Audit logging core module, providing basic functionality and interface definitions for audit logging.
 
-[简体中文](./README.md)
+[Tiếng Trung giản thể](./README.md)
 
 ## Features
 

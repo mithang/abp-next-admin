@@ -1,11 +1,11 @@
 # LINGYUN.Abp.AI.Core
 
-[Abp AI Module](https://abp.io/docs/latest/framework/infrastructure/artificial-intelligence) 扩展. 
+[Abp AI Module](https://abp.io/docs/latest/framework/infrastructure/artificial-intelligence) mở rộng. 
 
-## 功能特性
+## Tính năng
 
 
-## 模块引用
+## Tham chiếu module
 
 ```csharp
 [DependsOn(typeof(AbpAICoreModule))]
@@ -15,14 +15,14 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Module phụ thuộc
 
 * [AbpAIModule](https://abp.io/docs/latest/framework/infrastructure/artificial-intelligence)  
 * [AbpLocalizationModule](https://abp.io/docs/latest/framework/fundamentals/localization)  
 
-## 基本用法
+## Cách dùng cơ bản
 
-> 定义系统工作区  
+> Định nghĩa workspace hệ thống  
 ```csharp
 [DependsOn(typeof(AbpAICoreModule))]
 public class YouProjectModule : AbpModule
@@ -62,7 +62,7 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-> 兼容 `IKernelAccessor` 与 `IChatClientAccessor` 的语法.  
+> Tương thích với cú pháp của `IKernelAccessor` và `IChatClientAccessor`.  
 ```csharp
 using LINGYUN.Abp.AI;
 using LINGYUN.Abp.AI.Agent;
@@ -78,21 +78,21 @@ var application = await AbpApplicationFactory.CreateAsync<YouProjectModule>(opti
 
 await application.InitializeAsync();
 
-// 使用 IKernelFactory
+// Sử dụng IKernelFactory
 Console.WriteLine("Use Microsoft.SemanticKernel:");
 var kernelFactory = application.ServiceProvider.GetRequiredService<IKernelFactory>();
 
 var kernel = await kernelFactory.CreateAsync<YouWorkspace>();
-var kernelResponse = kernel.InvokePromptStreamingAsync("如何优化 C# 代码性能?");
+var kernelResponse = kernel.InvokePromptStreamingAsync("Làm thế nào để tối ưu hiệu năng code C#?");
 await foreach (var item in kernelResponse)
 {
     Console.Write(item);
 }
 Console.WriteLine();
 
-// 使用 IKernelAccessor
+// Sử dụng IKernelAccessor
 var kernelWithAbp = application.ServiceProvider.GetRequiredService<IKernelAccessor<YouWorkspace>>();
-var kernelWithAbpResponse = kernelWithAbp.InvokePromptStreamingAsync("如何优化 C# 代码性能?");
+var kernelWithAbpResponse = kernelWithAbp.InvokePromptStreamingAsync("Làm thế nào để tối ưu hiệu năng code C#?");
 await foreach (var item in kernelWithAbpResponse)
 {
     Console.Write(item);
@@ -107,7 +107,7 @@ Console.WriteLine("AI Console completed!");
 Console.ReadKey();
 ```
 
-> 定义动态工作区  
+> Định nghĩa workspace động  
 ```csharp
 public class YouWorkspaceDefinitionProvider : WorkspaceDefinitionProvider
 {
@@ -126,7 +126,7 @@ public class YouWorkspaceDefinitionProvider : WorkspaceDefinitionProvider
 
 ```
 
-> 支持动态工作区语法.  
+> Hỗ trợ cú pháp workspace động.  
 ```csharp
 using LINGYUN.Abp.AI;
 using LINGYUN.Abp.AI.Agent;
@@ -147,7 +147,7 @@ Console.WriteLine("Use Microsoft.SemanticKernel:");
 var kernelFactory = application.ServiceProvider.GetRequiredService<IKernelFactory>();
 
 var kernel = await kernelFactory.CreateAsync("YouWorkspace");
-var kernelResponse = kernel.InvokePromptStreamingAsync("如何优化 C# 代码性能?");
+var kernelResponse = kernel.InvokePromptStreamingAsync("Làm thế nào để tối ưu hiệu năng code C#?");
 await foreach (var item in kernelResponse)
 {
     Console.Write(item);

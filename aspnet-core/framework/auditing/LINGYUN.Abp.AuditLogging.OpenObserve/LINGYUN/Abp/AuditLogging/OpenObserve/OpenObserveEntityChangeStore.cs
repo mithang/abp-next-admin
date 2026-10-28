@@ -15,17 +15,17 @@ using Volo.Abp.Timing;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 实体变更 OpenObserve 存储
+/// Lưu trữ thay đổi thực thể trên OpenObserve
 /// </summary>
 /// <remarks>
-/// 实体变更被展平写入 <see cref="AbpAuditLoggingOpenObserveOptions.GetEntityChangeStream"/>,
-/// 因此可直接按实体字段检索
+/// Các thay đổi thực thể được làm phẳng rồi ghi vào <see cref="AbpAuditLoggingOpenObserveOptions.GetEntityChangeStream"/>,
+/// Do đó có thể truy vấn trực tiếp theo trường của thực thể
 /// </remarks>
 [Dependency(ReplaceServices = true)]
 public class OpenObserveEntityChangeStore : OpenObserveAuditLoggingManagerBase, IEntityChangeStore, ITransientDependency
 {
     /// <summary>
-    /// 表达式成员名 -> 数据流列名(数据流列名一律小写)
+    /// Tên thành viên biểu thức -> tên cột của luồng dữ liệu(tên cột của luồng dữ liệu đều viết thường)
     /// </summary>
     protected readonly static Dictionary<string, string> MapedFields = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -155,7 +155,7 @@ public class OpenObserveEntityChangeStore : OpenObserveAuditLoggingManagerBase, 
     }
 
     /// <summary>
-    /// 查询实体变更
+    /// Truy vấn thay đổi thực thể
     /// </summary>
     protected async virtual Task<List<OpenObserveEntityChange>> FindAsync(
         string condition,
@@ -173,7 +173,7 @@ public class OpenObserveEntityChangeStore : OpenObserveAuditLoggingManagerBase, 
     }
 
     /// <summary>
-    /// 由查询参数构建条件
+    /// Xây dựng điều kiện từ tham số truy vấn
     /// </summary>
     protected virtual List<Condition> BuildConditions(
         Guid? auditLogId = null,

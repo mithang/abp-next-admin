@@ -145,7 +145,7 @@ public partial class WorkflowServiceModule : AbpModule
         var env = context.GetEnvironment();
 
         app.UseForwardedHeaders();
-        // 本地化
+        // Bản địa hóa
         app.UseMapRequestLocalization();
         if (env.IsDevelopment())
         {

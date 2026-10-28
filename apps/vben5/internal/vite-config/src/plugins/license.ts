@@ -10,7 +10,7 @@ import { EOL } from 'node:os';
 import { dateUtil, readPackageJSON } from '@vben/node-utils';
 
 /**
- * 用于注入版权信息
+ * Dùng để chèn thông tin bản quyền
  * @returns
  */
 
@@ -45,11 +45,11 @@ async function viteLicensePlugin(
         for (const [, fileContent] of Object.entries(bundle)) {
           if (fileContent.type === 'chunk' && fileContent.isEntry) {
             const chunkContent = fileContent as OutputChunk;
-            // 插入版权信息
+            // Chèn thông tin bản quyền
             const content = chunkContent.code;
             const updatedContent = `${copyrightText}${EOL}${content}`;
 
-            // 更新bundle
+            // Cập nhật bundle
             (fileContent as OutputChunk).code = updatedContent;
           }
         }

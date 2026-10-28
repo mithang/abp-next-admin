@@ -57,7 +57,7 @@ const item: MenuItemRegistered = reactive({
 });
 
 /**
- * 菜单项点击事件
+ * Sự kiện nhấn vào mục menu
  */
 function handleClick() {
   if (props.disabled) {

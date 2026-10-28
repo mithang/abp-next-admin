@@ -5,7 +5,7 @@ using Volo.Abp.Json;
 namespace LINGYUN.Abp.OpenObserve.Serialization;
 
 /// <summary>
-/// 默认序列化器
+/// Bộ tuần tự hóa mặc định
 /// </summary>
 public class DefaultOpenObserveSerializer : IOpenObserveSerializer, ITransientDependency
 {
@@ -43,7 +43,7 @@ public class DefaultOpenObserveSerializer : IOpenObserveSerializer, ITransientDe
         }
         catch (Exception)
         {
-            // 允许解析失败的场景(如错误响应体不是标准结构)
+            // Cho phép các trường hợp phân tích thất bại (ví dụ thân phản hồi lỗi không phải cấu trúc chuẩn)
             return false;
         }
     }

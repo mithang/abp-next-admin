@@ -46,7 +46,7 @@
                     break;
                 case 5:
                     $('#QrCodeStatus').text(il('QrCode:Scaned'));
-                    // TODO: 替换用户头像?
+                    // TODO: Thay ảnh đại diện người dùng?
                     if (result.picture) {
                         $('#QrCode').html('<img src="' + result.picture + '" alt="User Avatar" style="width: 150px; height: 150px; border-radius: 50%;">');
                     }

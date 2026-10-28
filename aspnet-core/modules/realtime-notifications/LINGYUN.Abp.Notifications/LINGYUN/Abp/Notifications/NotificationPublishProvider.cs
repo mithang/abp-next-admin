@@ -37,7 +37,7 @@ public abstract class NotificationPublishProvider : INotificationPublishProvider
     {
         var cancellationToken = GetCancellationToken();
 
-        // 通知拦截器检查
+        // Kiểm tra bộ chặn thông báo
         if (!await ExecuteInterceptorsAsync(context, cancellationToken))
         {
             return;
@@ -47,7 +47,7 @@ public abstract class NotificationPublishProvider : INotificationPublishProvider
     }
 
     /// <summary>
-    /// 是否允许发布通知
+    /// Có cho phép phát hành thông báo hay không
     /// </summary>
     /// <param name="notification"></param>
     /// <param name="cancellationToken"></param>
@@ -60,7 +60,7 @@ public abstract class NotificationPublishProvider : INotificationPublishProvider
     }
 
     /// <summary>
-    /// 执行通知发布拦截器
+    /// Thực thi bộ chặn phát hành thông báo
     /// </summary>
     /// <param name="context"></param>
     /// <param name="cancellationToken"></param>
@@ -126,9 +126,9 @@ public abstract class NotificationPublishProvider : INotificationPublishProvider
         return CancellationTokenProvider.FallbackToProvider(cancellationToken);
     }
     /// <summary>
-    /// 重写实现通知发布
+    /// Ghi đè để triển khai phát hành thông báo
     /// </summary>
-    /// <param name="context">通知发送上下文</param>
+    /// <param name="context">Bối cảnh gửi thông báo</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     protected abstract Task PublishAsync(NotificationPublishContext context, CancellationToken cancellationToken = default);

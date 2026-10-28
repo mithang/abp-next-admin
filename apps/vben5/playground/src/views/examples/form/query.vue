@@ -6,48 +6,48 @@ import { Card, message } from 'ant-design-vue';
 import { useVbenForm } from '#/adapter/form';
 
 const [QueryForm] = useVbenForm({
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: false,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Tất cả các mục form dùng chung, có thể ghi đè riêng trong form
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
   },
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input trên cùng một dòng
   layout: 'horizontal',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần được đăng ký trong #/adapter.ts và thêm kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số tương ứng của component
       componentProps: {
-        placeholder: '请输入用户名',
+        placeholder: 'Vui lòng nhập tên đăng nhập',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'username',
-      // 界面显示的label
-      label: '字符串',
+      // Label hiển thị trên giao diện
+      label: 'Chuỗi',
     },
     {
       component: 'InputPassword',
       componentProps: {
-        placeholder: '请输入密码',
+        placeholder: 'Vui lòng nhập mật khẩu',
       },
       fieldName: 'password',
-      label: '密码',
+      label: 'Mật khẩu',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'number',
-      label: '数字(带后缀)',
+      label: 'Số (kèm hậu tố)',
       suffix: () => '¥',
     },
     {
@@ -57,32 +57,32 @@ const [QueryForm] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       fieldName: 'options',
-      label: '下拉选',
+      label: 'Chọn thả xuống',
     },
     {
       component: 'DatePicker',
       fieldName: 'datePicker',
-      label: '日期选择框',
+      label: 'Hộp chọn ngày',
     },
   ],
-  // 是否可展开
+  // Có thể mở rộng hay không
   showCollapseButton: true,
   submitButtonOptions: {
-    content: '查询',
+    content: 'Truy vấn',
   },
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi hàng, màn hình vừa 2 mục mỗi hàng, màn hình nhỏ 1 mục mỗi hàng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
@@ -90,32 +90,32 @@ const [InlineForm] = useVbenForm({
   layout: 'inline',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần được đăng ký trong #/adapter.ts và thêm kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số tương ứng của component
       componentProps: {
-        placeholder: '请输入用户名',
+        placeholder: 'Vui lòng nhập tên đăng nhập',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'username',
-      // 界面显示的label
-      label: '字符串',
+      // Label hiển thị trên giao diện
+      label: 'Chuỗi',
     },
     {
       component: 'InputPassword',
       componentProps: {
-        placeholder: '请输入密码',
+        placeholder: 'Vui lòng nhập mật khẩu',
       },
       fieldName: 'password',
-      label: '密码',
+      label: 'Mật khẩu',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'number',
-      label: '数字(带后缀)',
+      label: 'Số (kèm hậu tố)',
       suffix: () => '¥',
     },
     {
@@ -125,123 +125,123 @@ const [InlineForm] = useVbenForm({
         filterOption: true,
         options: [
           {
-            label: '选项1',
+            label: 'Tùy chọn 1',
             value: '1',
           },
           {
-            label: '选项2',
+            label: 'Tùy chọn 2',
             value: '2',
           },
         ],
-        placeholder: '请选择',
+        placeholder: 'Vui lòng chọn',
         showSearch: true,
       },
       fieldName: 'options',
-      label: '下拉选',
+      label: 'Chọn thả xuống',
     },
   ],
 });
 
 const [QueryForm1] = useVbenForm({
-  // 默认展开
+  // Mặc định mở rộng
   collapsed: true,
   collapsedRows: 2,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Tất cả các mục form dùng chung, có thể ghi đè riêng trong form
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
   },
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input trên cùng một dòng
   layout: 'horizontal',
   schema: (() => {
     const schema = [];
     for (let index = 0; index < 14; index++) {
       schema.push({
-        // 组件需要在 #/adapter.ts内注册，并加上类型
+        // Component cần được đăng ký trong #/adapter.ts và thêm kiểu
         component: 'Input',
-        // 字段名
+        // Tên trường
         fieldName: `field${index}`,
-        // 界面显示的label
-        label: `字段${index}`,
+        // Label hiển thị trên giao diện
+        label: `Trường${index}`,
       });
     }
     return schema;
   })(),
-  // 是否可展开
+  // Có thể mở rộng hay không
   showCollapseButton: true,
   submitButtonOptions: {
-    content: '查询',
+    content: 'Truy vấn',
   },
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi hàng, màn hình vừa 2 mục mỗi hàng, màn hình nhỏ 1 mục mỗi hàng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
 const [QueryForm2] = useVbenForm({
-  // 操作按钮组 newLine: 在新行显示。rowEnd: 在行内显示，靠右对齐（默认）。inline: 使用grid默认样式
+  // Nhóm nút thao tác newLine: hiển thị trên dòng mới. rowEnd: hiển thị trong dòng, căn phải (mặc định). inline: dùng kiểu grid mặc định
   actionLayout: 'newLine',
-  actionPosition: 'left', // 操作按钮组在左侧显示
-  // 默认折叠
+  actionPosition: 'left', // Nhóm nút thao tác hiển thị ở phía bên trái
+  // Mặc định thu gọn
   collapsed: true,
   collapsedRows: 3,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Tất cả các mục form dùng chung, có thể ghi đè riêng trong form
   commonConfig: {
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
   },
-  // 提交函数
+  // Hàm submit
   handleSubmit: onSubmit,
-  // 垂直布局，label和input在不同行，值为vertical
-  // 水平布局，label和input在同一行
+  // Bố cục dọc, label và input ở các dòng khác nhau, giá trị là vertical
+  // Bố cục ngang, label và input trên cùng một dòng
   layout: 'vertical',
   schema: [
     {
-      // 组件需要在 #/adapter.ts内注册，并加上类型
+      // Component cần được đăng ký trong #/adapter.ts và thêm kiểu
       component: 'Input',
-      // 对应组件的参数
+      // Tham số tương ứng của component
       componentProps: {
-        placeholder: '请输入用户名',
+        placeholder: 'Vui lòng nhập tên đăng nhập',
       },
-      // 字段名
+      // Tên trường
       fieldName: 'username',
-      // 界面显示的label
-      label: '字符串',
+      // Label hiển thị trên giao diện
+      label: 'Chuỗi',
     },
     {
       component: 'InputPassword',
       componentProps: {
-        placeholder: '请输入密码',
+        placeholder: 'Vui lòng nhập mật khẩu',
       },
       fieldName: 'password',
-      label: '密码',
+      label: 'Mật khẩu',
     },
     {
       component: 'InputNumber',
       componentProps: {
-        placeholder: '请输入',
+        placeholder: 'Vui lòng nhập',
       },
       fieldName: 'number',
-      label: '数字(带后缀)',
+      label: 'Số (kèm hậu tố)',
       suffix: () => '¥',
     },
     {
       component: 'DatePicker',
       fieldName: 'datePicker',
-      label: '日期选择框',
+      label: 'Hộp chọn ngày',
     },
   ],
-  // 是否可展开
+  // Có thể mở rộng hay không
   showCollapseButton: true,
   submitButtonOptions: {
-    content: '查询',
+    content: 'Truy vấn',
   },
-  // 大屏一行显示3个，中屏一行显示2个，小屏一行显示1个
+  // Màn hình lớn hiển thị 3 mục mỗi hàng, màn hình vừa 2 mục mỗi hàng, màn hình nhỏ 1 mục mỗi hàng
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 });
 
@@ -254,22 +254,22 @@ function onSubmit(values: Record<string, any>) {
 
 <template>
   <Page
-    description="查询表单，常用语和表格组合使用，可进行收缩展开。"
-    title="表单组件"
+    description="Form truy vấn, thường dùng kết hợp với bảng, có thể thu gọn/mở rộng."
+    title="Component form"
   >
-    <Card class="mb-5" title="查询表单，默认展开">
+    <Card class="mb-5" title="Form truy vấn, mặc định mở rộng">
       <QueryForm />
     </Card>
 
-    <Card class="mb-5" title="查询表单，单行表单">
+    <Card class="mb-5" title="Form truy vấn, form một dòng">
       <InlineForm />
     </Card>
 
-    <Card class="mb-5" title="查询表单，默认展开，垂直布局">
+    <Card class="mb-5" title="Form truy vấn, mặc định mở rộng, bố cục dọc">
       <QueryForm2 />
     </Card>
 
-    <Card title="查询表单，默认折叠，折叠时保留2行">
+    <Card title="Form truy vấn, mặc định thu gọn, giữ lại 2 hàng khi thu gọn">
       <QueryForm1 />
     </Card>
   </Page>

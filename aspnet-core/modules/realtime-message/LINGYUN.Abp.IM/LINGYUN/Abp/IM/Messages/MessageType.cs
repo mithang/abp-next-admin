@@ -3,32 +3,32 @@
 public enum MessageType
 {
     /// <summary>
-    /// 文本消息
+    /// Tin nhắn văn bản
     /// </summary>
     Text = 0,
     /// <summary>
-    /// 图片消息
+    /// Tin nhắn hình ảnh
     /// </summary>
     Image = 10,
     /// <summary>
-    /// 链接
+    /// Liên kết
     /// </summary>
     Link = 20,
     /// <summary>
-    /// 视频
+    /// Video
     /// </summary>
     Video = 30,
     /// <summary>
-    /// 音频
+    /// Âm thanh
     /// </summary>
     Voice = 40,
     /// <summary>
-    /// 文件
+    /// Tệp
     /// </summary>
     File = 50,
     /// <summary>
-    /// 通知
-    /// 一般用于错误处理
+    /// Thông báo
+    /// Thường dùng cho xử lý lỗi
     /// </summary>
     Notifier = 100,
 }

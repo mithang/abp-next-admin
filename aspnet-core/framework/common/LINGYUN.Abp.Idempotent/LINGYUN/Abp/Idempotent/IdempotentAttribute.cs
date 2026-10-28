@@ -6,29 +6,29 @@ namespace LINGYUN.Abp.Idempotent;
 public class IdempotentAttribute : Attribute
 {
     /// <summary>
-    /// 超时等待时间
+    /// Thời gian chờ hết hạn
     /// </summary>
     public int? Timeout { get; }
     /// <summary>
-    /// 用作建立唯一标识的参数名称列表
+    /// Danh sách tên tham số dùng để tạo định danh duy nhất
     /// </summary>
     /// <remarks>
-    /// 通过查找参数列表中的值定义序列化唯一md5值
+    /// Xác định giá trị md5 duy nhất đã tuần tự hóa bằng cách tra cứu giá trị trong danh sách tham số
     /// </remarks>
     public string[]? KeyMap { get; }
     /// <summary>
-    /// 资源重定向路径模板
+    /// Mẫu đường dẫn chuyển hướng tài nguyên
     /// </summary>
     /// <remarks>
-    /// 定义一个可格式化的资源路径,当请求冲突时如果参数名称匹配成功则重定向目标路径
+    /// Định nghĩa một đường dẫn tài nguyên có thể định dạng; khi yêu cầu xung đột, nếu tên tham số trùng khớp thành công thì chuyển hướng đến đường dẫn đích
     /// <br />
-    /// 例: /api/app/demo/{id}
+    /// Ví dụ: /api/app/demo/{id}
     /// <br />
-    /// 例: /api/app/demo/method?id={id}
+    /// Ví dụ: /api/app/demo/method?id={id}
     /// </remarks>
     public string? RedirectUrl { get; }
     /// <summary>
-    /// 自定义的幂等key
+    /// Khóa lũy đẳng tùy chỉnh
     /// </summary>
     public string? IdempotentKey { get; set; }
     public IdempotentAttribute()

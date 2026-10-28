@@ -8,21 +8,21 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.Messages.Models;
 /// <summary>
-/// Webhook图文消息体
+/// Thân tin nhắn đồ họa-văn bản Webhook
 /// </summary>
 public class WebhookNewsMessage
 {
     /// <summary>
-    /// 图文消息，一个图文消息支持1到8条图文
+    /// Tin nhắn đồ họa-văn bản, một tin nhắn đồ họa-văn bản hỗ trợ 1 đến 8 tin nhắn đồ họa-văn bản
     /// </summary>
     [NotNull]
     [JsonProperty("articles")]
     [JsonPropertyName("articles")]
     public List<WebhookArticleMessage> Articles { get; set; }
     /// <summary>
-    /// 创建一个Webhook图文消息体
+    /// Tạo một thân tin nhắn đồ họa-văn bản Webhook
     /// </summary>
-    /// <param name="articles">图文消息列表</param>
+    /// <param name="articles">Danh sách tin nhắn đồ họa-văn bản</param>
     /// <exception cref="ArgumentException"></exception>
     public WebhookNewsMessage(List<WebhookArticleMessage> articles)
     {
@@ -38,7 +38,7 @@ public class WebhookNewsMessage
 public class WebhookArticleMessage
 {
     /// <summary>
-    /// 标题，不超过128个字节，超过会自动截断
+    /// Tiêu đề, không quá 128 byte, vượt quá sẽ tự động bị cắt ngắn
     /// </summary>
     [NotNull]
     [StringLength(128)]
@@ -46,7 +46,7 @@ public class WebhookArticleMessage
     [JsonPropertyName("title")]
     public string Title { get; set; }
     /// <summary>
-    /// 描述，不超过512个字节，超过会自动截断
+    /// Mô tả, không quá 512 byte, vượt quá sẽ tự động bị cắt ngắn
     /// </summary>
     [CanBeNull]
     [StringLength(512)]
@@ -54,26 +54,26 @@ public class WebhookArticleMessage
     [JsonPropertyName("description")]
     public string? Description { get; set; }
     /// <summary>
-    /// 点击后跳转的链接。
+    /// Liên kết sẽ chuyển đến sau khi nhấp.
     /// </summary>
     [NotNull]
     [JsonProperty("url")]
     [JsonPropertyName("url")]
     public string Url { get; set; }
     /// <summary>
-    /// 图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图 1068*455，小图150*150。
+    /// Liên kết hình ảnh của tin nhắn đồ họa-văn bản, hỗ trợ định dạng JPG, PNG, hiệu quả tốt hơn với ảnh lớn 1068*455, ảnh nhỏ 150*150.
     /// </summary>
     [CanBeNull]
     [JsonProperty("picurl")]
     [JsonPropertyName("picurl")]
     public string? PictureUrl { get; set; }
     /// <summary>
-    /// 创建一个图文消息
+    /// Tạo một tin nhắn đồ họa-văn bản
     /// </summary>
-    /// <param name="title">标题</param>
-    /// <param name="url">点击后跳转的链接</param>
-    /// <param name="description">描述</param>
-    /// <param name="pictureUrl">图文消息的图片链接</param>
+    /// <param name="title">Tiêu đề</param>
+    /// <param name="url">Liên kết sẽ chuyển đến sau khi nhấp</param>
+    /// <param name="description">Mô tả</param>
+    /// <param name="pictureUrl">Liên kết hình ảnh của tin nhắn đồ họa-văn bản</param>
     public WebhookArticleMessage(
         string title,
         string url,

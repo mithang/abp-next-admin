@@ -4,22 +4,22 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.Exporter;
 /// <summary>
-/// Word数据导出
+/// Xuất dữ liệu Word
 /// </summary>
 public interface IWordExporterProvider
 {
     /// <summary>
-    /// 数据导出
+    /// Xuất dữ liệu
     /// </summary>
-    /// <param name="data">导出数据</param>
+    /// <param name="data">Dữ liệu xuất</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<Stream> ExportAsync(object data, CancellationToken cancellationToken = default);
     /// <summary>
-    /// 数据导出
+    /// Xuất dữ liệu
     /// </summary>
-    /// <param name="template">模板数据</param>
-    /// <param name="data">导出数据</param>
+    /// <param name="template">Dữ liệu mẫu</param>
+    /// <param name="data">Dữ liệu xuất</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<Stream> ExportAsync(byte[] template, object data, CancellationToken cancellationToken = default);

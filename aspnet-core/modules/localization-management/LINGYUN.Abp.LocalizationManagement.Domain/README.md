@@ -1,17 +1,17 @@
 # LINGYUN.Abp.LocalizationManagement.Domain
 
-本地化管理领域层模块，实现了动态本地化资源存储和管理功能。
+Mô-đun tầng miền quản lý bản địa hóa, triển khai chức năng lưu trữ và quản lý tài nguyên bản địa hóa động。
 
-## 功能特性
+## Tính năng
 
-* 实现 `ILocalizationStore` 接口，提供本地化资源的存储和检索功能
-* 支持语言管理（增删改查）
-* 支持资源管理（增删改查）
-* 支持文本管理（增删改查）
-* 支持本地化资源的内存缓存
-* 支持分布式缓存同步
+* Triển khai giao diện `ILocalizationStore`, cung cấp chức năng lưu trữ và truy xuất tài nguyên bản địa hóa
+* Hỗ trợ quản lý ngôn ngữ (thêm, xóa, sửa, truy vấn)
+* Hỗ trợ quản lý tài nguyên (thêm, xóa, sửa, truy vấn)
+* Hỗ trợ quản lý văn bản (thêm, xóa, sửa, truy vấn)
+* Hỗ trợ bộ nhớ đệm trong bộ nhớ cho tài nguyên bản địa hóa
+* Hỗ trợ đồng bộ bộ nhớ đệm phân tán
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpLocalizationManagementDomainModule))]
@@ -21,25 +21,25 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "LocalizationManagement": {
-    "LocalizationCacheStampTimeOut": "00:02:00",  // 本地化缓存时间戳超时时间，默认2分钟
-    "LocalizationCacheStampExpiration": "00:30:00" // 本地化缓存过期时间，默认30分钟
+    "LocalizationCacheStampTimeOut": "00:02:00",  // Thời gian chờ dấu thời gian bộ nhớ đệm bản địa hóa, mặc định 2 phút
+    "LocalizationCacheStampExpiration": "00:30:00" // Thời gian hết hạn bộ nhớ đệm bản địa hóa, mặc định 30 phút
   }
 }
 ```
 
-## 领域服务
+## Dịch vụ miền
 
-* `LanguageManager`: 语言管理服务，提供语言的创建、更新、删除等功能
-* `ResourceManager`: 资源管理服务，提供资源的创建、更新、删除等功能
-* `TextManager`: 文本管理服务，提供文本的创建、更新、删除等功能
-* `LocalizationStore`: 本地化存储服务，实现了 `ILocalizationStore` 接口
-* `LocalizationStoreInMemoryCache`: 本地化资源内存缓存服务
+* `LanguageManager`: Dịch vụ quản lý ngôn ngữ, cung cấp chức năng tạo, cập nhật, xóa ngôn ngữ, v.v.
+* `ResourceManager`: Dịch vụ quản lý tài nguyên, cung cấp chức năng tạo, cập nhật, xóa tài nguyên, v.v.
+* `TextManager`: Dịch vụ quản lý văn bản, cung cấp chức năng tạo, cập nhật, xóa văn bản, v.v.
+* `LocalizationStore`: Dịch vụ lưu trữ bản địa hóa, triển khai giao diện `ILocalizationStore`
+* `LocalizationStoreInMemoryCache`: Dịch vụ bộ nhớ đệm trong bộ nhớ cho tài nguyên bản địa hóa
 
-## 更多信息
+## Thông tin thêm
 
 * [English documentation](./README.EN.md)

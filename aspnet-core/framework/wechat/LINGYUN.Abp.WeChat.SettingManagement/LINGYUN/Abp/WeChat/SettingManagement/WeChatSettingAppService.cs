@@ -60,11 +60,11 @@ public class WeChatSettingAppService : ApplicationService, IWeChatSettingAppServ
             ValueType.Boolean,
             providerName);
 
-        // 无权限返回空结果,直接报错的话,网关聚合会抛出异常
+        // Không có quyền thì trả về kết quả rỗng, nếu báo lỗi trực tiếp thì gateway tổng hợp sẽ ném ngoại lệ
         if (await FeatureChecker.IsEnabledAsync(WeChatOfficialFeatures.Enable) &&
             await PermissionChecker.IsGrantedAsync(WeChatSettingPermissionNames.Official))
         {
-            #region 公众号
+            #region Tài khoản chính thức
 
             var officialSetting = wechatSettingGroup.AddSetting(L["DisplayName:WeChat.Official"], L["Description:WeChat.Official"]);
             officialSetting.AddDetail(
@@ -110,7 +110,7 @@ public class WeChatSettingAppService : ApplicationService, IWeChatSettingAppServ
         if (await FeatureChecker.IsEnabledAsync(WeChatMiniProgramFeatures.Enable) &&
             await PermissionChecker.IsGrantedAsync(WeChatSettingPermissionNames.MiniProgram))
         {
-            #region 小程序
+            #region Mini Program
 
             var miniProgramSetting = wechatSettingGroup.AddSetting(L["DisplayName:WeChat.MiniProgram"], L["Description:WeChat.MiniProgram"]);
             miniProgramSetting.AddDetail(
@@ -146,7 +146,7 @@ public class WeChatSettingAppService : ApplicationService, IWeChatSettingAppServ
         if (await FeatureChecker.IsEnabledAsync(WeChatWorkFeatureNames.Enable) &&
             await PermissionChecker.IsGrantedAsync(WeChatSettingPermissionNames.Work))
         {
-            #region 企业微信
+            #region WeChat doanh nghiệp
             var wechatWorkSettingGroup = new SettingGroupDto(L["DisplayName:WeChatWork"], L["Description:WeChatWork"]);
 
             var workLoginSetting = wechatWorkSettingGroup.AddSetting(L["UserLogin"], L["UserLogin"]);

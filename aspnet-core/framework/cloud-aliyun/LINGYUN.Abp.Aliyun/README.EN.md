@@ -141,4 +141,4 @@ The module supports the following Alibaba Cloud regions:
 - [LINGYUN.Abp.Aliyun.SettingManagement](../LINGYUN.Abp.Aliyun.SettingManagement/README.md) - Provides configuration management functionality
 - [LINGYUN.Abp.Aliyun.Features](../LINGYUN.Abp.Aliyun.Features/README.md) - Provides feature management functionality
 
-[查看中文文档](README.md)
+[Xem tài liệu tiếng Trung](README.md)

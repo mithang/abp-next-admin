@@ -1,12 +1,12 @@
 import type { ExtensibleAuditedEntityDto, IHasConcurrencyStamp, PagedAndSortedResultRequestDto } from "#/abp-core";
 
 interface EditionDto extends ExtensibleAuditedEntityDto<string>, IHasConcurrencyStamp {
-	/** 显示名称 */
+	/** Tên hiển thị */
 	displayName: string;
 }
 
 interface EditionCreateOrUpdateBase {
-	/** 显示名称 */
+	/** Tên hiển thị */
 	displayName: string;
 }
 

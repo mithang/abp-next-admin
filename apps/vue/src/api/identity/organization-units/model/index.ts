@@ -1,42 +1,42 @@
-/** 组织机构 */
+/** Tổ chức */
 export interface OrganizationUnit extends AuditedEntityDto<string> {
-    /** 父节点标识 */
+    /** Định danh nút cha */
     parentId?: string;
-    /** 编号 */
+    /** Số hiệu */
     code: string;
-    /** 显示名称 */
+    /** Tên hiển thị */
     displayName: string;
   }
   
-  /** 组织机构分页查询对象 */
+  /** Đối tượng truy vấn phân trang tổ chức */
   export interface GetOrganizationUnitPagedRequest extends PagedAndSortedResultRequestDto {
-    /** 过滤字符 */
+    /** Ký tự lọc */
     filter?: string;
   }
   
-  /** 组织机构创建对象 */
+  /** Đối tượng tạo tổ chức */
   export interface CreateOrganizationUnit {
-    /** 显示名称 */
+    /** Tên hiển thị */
     displayName: string;
-    /** 父节点标识 */
+    /** Định danh nút cha */
     parentId?: string;
   }
   
-  /** 组织机构变更对象 */
+  /** Đối tượng thay đổi tổ chức */
   export interface UpdateOrganizationUnit {
-    /** 显示名称 */
+    /** Tên hiển thị */
     displayName: string;
   }
   
-  /** 组织机构增加部门对象 */
+  /** Đối tượng thêm phòng ban của tổ chức */
   export interface OrganizationUnitAddRole {
-    /** 角色标识列表 */
+    /** Danh sách định danh vai trò */
     roleIds: string[];
   }
   
-  /** 组织机构增加用户对象 */
+  /** Đối tượng thêm người dùng của tổ chức */
   export interface OrganizationUnitAddUser {
-    /** 用户标识列表 */
+    /** Danh sách định danh người dùng */
     userIds: string[];
   }
   

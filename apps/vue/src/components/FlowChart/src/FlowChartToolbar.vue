@@ -36,41 +36,41 @@
         {
           type: ToolbarTypeEnum.ZOOM_IN,
           icon: 'codicon:zoom-out',
-          tooltip: '缩小',
+          tooltip: 'Thu nhỏ',
         },
         {
           type: ToolbarTypeEnum.ZOOM_OUT,
           icon: 'codicon:zoom-in',
-          tooltip: '放大',
+          tooltip: 'Phóng to',
         },
         {
           type: ToolbarTypeEnum.RESET_ZOOM,
           icon: 'codicon:screen-normal',
-          tooltip: '重置比例',
+          tooltip: 'Đặt lại tỷ lệ',
         },
         { separate: true },
         {
           type: ToolbarTypeEnum.UNDO,
           icon: 'ion:arrow-undo-outline',
-          tooltip: '后退',
+          tooltip: 'Quay lại',
           disabled: true,
         },
         {
           type: ToolbarTypeEnum.REDO,
           icon: 'ion:arrow-redo-outline',
-          tooltip: '前进',
+          tooltip: 'Tiến tới',
           disabled: true,
         },
         { separate: true },
         {
           type: ToolbarTypeEnum.SNAPSHOT,
           icon: 'ion:download-outline',
-          tooltip: '下载',
+          tooltip: 'Tải xuống',
         },
         {
           type: ToolbarTypeEnum.VIEW_DATA,
           icon: 'carbon:document-view',
-          tooltip: '查看数据',
+          tooltip: 'Xem dữ liệu',
         },
       ]);
 

@@ -74,7 +74,7 @@ public static class ObjectQueryableExtensions
                         typeof(string).GetMethod(nameof(String.StartsWith), new[] { typeof(string) })!,
                         GetValue(paramter, propertyType));
 
-                    // TODO: 单元测试通过
+                    // TODO: Đã qua kiểm thử đơn vị
                     // For example(MySql): 
                     // ...Other ((Field IS NOT NULL) AND (Field LIKE 'Value%'))
                     //var startsWithNotNullExp = Expression.Not(
@@ -100,7 +100,7 @@ public static class ObjectQueryableExtensions
                             typeof(string).GetMethod(nameof(String.StartsWith), new[] { typeof(string) })!,
                             GetValue(paramter, propertyType)));
 
-                    // TODO: 单元测试通过
+                    // TODO: Đã qua kiểm thử đơn vị
                     // For example(MySql): 
                     // ...Other ((Field IS NULL) OR NOT (Field LIKE 'Value%'))
                     //var notStartsWithNullExp = Expression.Equal(leftParamter,
@@ -123,7 +123,7 @@ public static class ObjectQueryableExtensions
                         typeof(string).GetMethod(nameof(String.EndsWith), new[] { typeof(string) })!,
                         GetValue(paramter, propertyType));
 
-                    // TODO: 单元测试通过
+                    // TODO: Đã qua kiểm thử đơn vị
                     // For example(MySql): 
                     // ...Other ((Field IS NOT NULL) AND (Field LIKE '%Value'))
                     //var endsWithNotNullExp = Expression.Not(
@@ -147,7 +147,7 @@ public static class ObjectQueryableExtensions
                             typeof(string).GetMethod(nameof(String.EndsWith), new[] { typeof(string) })!,
                             GetValue(paramter, propertyType)));
 
-                    // TODO: 单元测试通过
+                    // TODO: Đã qua kiểm thử đơn vị
                     // For example(MySql): 
                     // ...Other ((Field IS NULL) OR NOT (Field LIKE '%Value'))
                     //var notEndsWithNullExp = Expression.Equal(leftParamter,
@@ -170,7 +170,7 @@ public static class ObjectQueryableExtensions
                         typeof(string).GetMethod(nameof(String.Contains), new[] { typeof(string) })!,
                         GetValue(paramter, propertyType));
 
-                    // TODO: 单元测试通过
+                    // TODO: Đã qua kiểm thử đơn vị
                     // For example(MySql): 
                     // ...Other ((Field IS NOT NULL) AND (Field LIKE '%Value%'))
                     //var containsNotNullExp = Expression.Not(
@@ -193,7 +193,7 @@ public static class ObjectQueryableExtensions
                            leftParamter,
                            typeof(string).GetMethod(nameof(String.Contains), new[] { typeof(string) })!,
                            GetValue(paramter, propertyType)));
-                    // TODO: 单元测试通过
+                    // TODO: Đã qua kiểm thử đơn vị
                     // For example(MySql): 
                     // ...Other ((Field IS NULL) OR (Field NOT LIKE '%Value%'))
 
@@ -213,7 +213,7 @@ public static class ObjectQueryableExtensions
                     // For example(MySql): 
                     // ...Other (Field IS NULL)
 
-                    // 非空字段设定为比对默认值
+                    // Trường không rỗng được đặt để so sánh với giá trị mặc định
                     exp = Expression.Equal(leftParamter,
                         Expression.Constant(GetDefaultValue(propertyType)));
                     break;
@@ -261,7 +261,7 @@ public static class ObjectQueryableExtensions
     {
         if (propertyType == typeof(string))
         {
-            // 字符串比较: Field < Value
+            // So sánh chuỗi: Field < Value
             return Expression.LessThan(
                 Expression.Call(
                     member,
@@ -271,7 +271,7 @@ public static class ObjectQueryableExtensions
         }
         if (propertyType.IsNullableType())
         {
-            // 可空类型比较: Field < Value
+            // So sánh kiểu nullable: Field < Value
             var underlyingType = Nullable.GetUnderlyingType(propertyType)!;
 
             var hasValue = Expression.Property(member, "HasValue");
@@ -285,7 +285,7 @@ public static class ObjectQueryableExtensions
         }
         else
         {
-            // 数值比较: Field < Value
+            // So sánh số: Field < Value
             return Expression.LessThan(
                 member,
                 GetValue(paramter, propertyType));
@@ -296,7 +296,7 @@ public static class ObjectQueryableExtensions
     {
         if (propertyType == typeof(string))
         {
-            // 字符串比较: Field <= Value
+            // So sánh chuỗi: Field <= Value
             return Expression.LessThanOrEqual(
                 Expression.Call(
                     member,
@@ -306,7 +306,7 @@ public static class ObjectQueryableExtensions
         }
         if (propertyType.IsNullableType())
         {
-            // 可空类型比较: Field <= Value
+            // So sánh kiểu nullable: Field <= Value
             var underlyingType = Nullable.GetUnderlyingType(propertyType)!;
 
             var hasValue = Expression.Property(member, "HasValue");
@@ -320,7 +320,7 @@ public static class ObjectQueryableExtensions
         }
         else
         {
-            // 数值比较: Field <= Value
+            // So sánh số: Field <= Value
             return Expression.LessThanOrEqual(
                 member,
                 GetValue(paramter, propertyType));
@@ -331,7 +331,7 @@ public static class ObjectQueryableExtensions
     {
         if (propertyType == typeof(string))
         {
-            // 字符串比较: Field > Value
+            // So sánh chuỗi: Field > Value
             return Expression.GreaterThan(
                 Expression.Call(
                     member,
@@ -341,7 +341,7 @@ public static class ObjectQueryableExtensions
         }
         if (propertyType.IsNullableType())
         {
-            // 可空类型比较: Field > Value
+            // So sánh kiểu nullable: Field > Value
             var underlyingType = Nullable.GetUnderlyingType(propertyType)!;
 
             var hasValue = Expression.Property(member, "HasValue");
@@ -355,7 +355,7 @@ public static class ObjectQueryableExtensions
         }
         else
         {
-            // 数值比较: Field > Value
+            // So sánh số: Field > Value
             return Expression.GreaterThan(
                 member,
                 GetValue(paramter, propertyType));
@@ -366,7 +366,7 @@ public static class ObjectQueryableExtensions
     {
         if (propertyType == typeof(string))
         {
-            // 字符串比较: Field >= Value
+            // So sánh chuỗi: Field >= Value
             return Expression.GreaterThanOrEqual(
                 Expression.Call(
                     member,
@@ -377,7 +377,7 @@ public static class ObjectQueryableExtensions
 
         if (propertyType.IsNullableType())
         {
-            // 可空类型比较: Field >= Value
+            // So sánh kiểu nullable: Field >= Value
             var underlyingType = Nullable.GetUnderlyingType(propertyType)!;
 
             var hasValue = Expression.Property(member, "HasValue");
@@ -391,7 +391,7 @@ public static class ObjectQueryableExtensions
         }
         else
         {
-            // 数值比较: Field >= Value
+            // So sánh số: Field >= Value
             return Expression.GreaterThanOrEqual(
                 member,
                 GetValue(paramter, propertyType));
@@ -413,7 +413,7 @@ public static class ObjectQueryableExtensions
 
     private static object? GetDefaultValue(Type type)
     {
-        // TODO: 非空字段此处返回默认值
+        // TODO: Trường không rỗng trả về giá trị mặc định tại đây
         if (type.IsNullableType())
         {
             return null;

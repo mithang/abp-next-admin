@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 namespace LINGYUN.Abp.AuditLogging.OpenObserve;
 
 /// <summary>
-/// 测试用日志提供器(收集日志以进行断言)
+/// Nhà cung cấp nhật ký dùng cho kiểm tra (thu thập nhật ký để khẳng định)
 /// </summary>
 public class TestLoggerProvider : ILoggerProvider
 {

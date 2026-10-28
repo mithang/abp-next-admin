@@ -27,25 +27,25 @@ public class ProjectNameApplicationTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        // //设置ILogger为NullLogger
+        // //Đặt ILogger thành NullLogger
         context.Services.AddLogging(builder => builder.AddProvider(NullLoggerProvider.Instance));
         context.Services.AddTransient<IProjectNameDataSeeder, ProjectNameDataSeeder>();
         context.Services.AddLogging(builder => builder.AddProvider(NullLoggerProvider.Instance));
         context.Services.AddTransient<IHostEnvironment, TestHostEnvironment>();
         context.Services.AddTransient<IFileProvider, TestFileProvider>();
         
-        // 增加配置文件定义,在新建租户时需要
+        // Thêm định nghĩa file cấu hình, cần khi tạo tenant mới
         Configure<IdentityOptions>(options =>
         {
-            // 允许中文用户名
+            // Cho phép tên người dùng tiếng Trung
             options.User.AllowedUserNameCharacters = null;
-            // 支持弱密码
+            // Hỗ trợ mật khẩu yếu
             options.Password.RequireDigit = false;
             options.Password.RequiredLength = 1;
             options.Password.RequireLowercase = false;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
-            // 添加默认的双因素令牌提供者配置
+            // Thêm cấu hình nhà cung cấp token hai yếu tố mặc định
             options.Tokens.ProviderMap.Add("Default", new TokenProviderDescriptor(typeof(EmailTokenProvider<IdentityUser>)));
         });
         Configure<AbpClaimsPrincipalFactoryOptions>(options =>
@@ -56,7 +56,7 @@ public class ProjectNameApplicationTestModule : AbpModule
         {
             options.IsCleanupEnabled = true;
         });
-        // 配置Hangfire
+        // Cấu hình Hangfire
         context.Services.AddHangfire(config =>
         {
             config.UseMemoryStorage();

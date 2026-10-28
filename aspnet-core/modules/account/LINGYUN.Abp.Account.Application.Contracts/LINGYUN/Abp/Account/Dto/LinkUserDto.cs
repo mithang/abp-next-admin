@@ -2,28 +2,28 @@
 
 namespace LINGYUN.Abp.Account.Dto;
 /// <summary>
-/// 关联用户Dto
+/// Dto người dùng liên kết
 /// </summary>
 public class LinkUserDto
 {
     /// <summary>
-    /// 关联用户Id
+    /// Id người dùng liên kết
     /// </summary>
     public Guid LinkUserId { get; set; }
     /// <summary>
-    /// 关联用户名
+    /// Tên người dùng liên kết
     /// </summary>
     public string LinkUserName { get; set; } = default!;
     /// <summary>
-    /// 关联租户Id
+    /// Id tenant liên kết
     /// </summary>
     public Guid? LinkTenantId { get; set; }
     /// <summary>
-    /// 关联租户名
+    /// Tên tenant liên kết
     /// </summary>
     public string? LinkTenantName { get; set; }
     /// <summary>
-    /// 直接关联
+    /// Liên kết trực tiếp
     /// </summary>
     public bool DirectlyLinked { get; set; }
 }

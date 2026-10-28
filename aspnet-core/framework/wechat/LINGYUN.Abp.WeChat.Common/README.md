@@ -1,16 +1,16 @@
 # LINGYUN.Abp.WeChat.Common
 
-微信通用模块，提供微信产品线共享的基础功能实现。
+Mô-đun chung WeChat, cung cấp triển khai chức năng cơ bản dùng chung cho dòng sản phẩm WeChat.
 
-## 功能特性
+## Tính năng
 
-* 统一的消息处理框架
-* 统一的消息加解密机制
-* 统一的事件处理机制
-* 统一的API调用接口
-* 统一的错误处理机制
+* Khung xử lý thông điệp thống nhất
+* Cơ chế mã hóa/giải mã thông điệp thống nhất
+* Cơ chế xử lý sự kiện thống nhất
+* Giao diện gọi API thống nhất
+* Cơ chế xử lý lỗi thống nhất
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpWeChatCommonModule))]
@@ -19,32 +19,32 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 配置项
+## Mục cấu hình
 
 ```json
 {
   "WeChat": {
     "Common": {
       "MessageHandlerFactory": {
-        "MessageResolvers": [],           // 消息解析器列表
-        "MessageHandlers": []             // 消息处理器列表
+        "MessageResolvers": [],           // Danh sách trình phân giải thông điệp
+        "MessageHandlers": []             // Danh sách trình xử lý thông điệp
       }
     }
   }
 }
 ```
 
-## 消息处理
+## Xử lý thông điệp
 
-* 支持文本消息处理
-* 支持图片消息处理
-* 支持语音消息处理
-* 支持视频消息处理
-* 支持事件消息处理
-* 支持自定义消息处理器扩展
+* Hỗ trợ xử lý thông điệp văn bản
+* Hỗ trợ xử lý thông điệp hình ảnh
+* Hỗ trợ xử lý thông điệp thoại
+* Hỗ trợ xử lý thông điệp video
+* Hỗ trợ xử lý thông điệp sự kiện
+* Hỗ trợ mở rộng trình xử lý thông điệp tùy chỉnh
 
-## 更多文档
+## Tài liệu thêm
 
-* [微信通用模块文档](README.EN.md)
+* [Tài liệu mô-đun chung WeChat](README.EN.md)
 
-### 更新日志 
+### Nhật ký thay đổi 

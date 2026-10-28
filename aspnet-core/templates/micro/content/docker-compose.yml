@@ -7,9 +7,9 @@ services:
     container_name: project-name-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      # .NET 默认端口, See: https://learn.microsoft.com/zh-cn/dotnet/core/compatibility/containers/8.0/aspnet-port
+      # Cổng mặc định của .NET, See: https://learn.microsoft.com/zh-cn/dotnet/core/compatibility/containers/8.0/aspnet-port
       # ASPNETCORE_HTTP_PORTS=8080
-      # 时区问题自行修改
+      # Tự sửa vấn đề múi giờ
       # - TZ=Asia/Shanghai
     ports:
       - "5000:8080"

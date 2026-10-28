@@ -7,7 +7,7 @@
 
 `LINGYUN.Abp.OpenIddict.Application` is an application service layer implementation based on ABP OpenIddict, providing management functionality for OpenIddict clients, authorizations, tokens, and scopes.
 
-[简体中文](./README.md)
+[Tiếng Việt](./README.md)
 
 ## Features
 

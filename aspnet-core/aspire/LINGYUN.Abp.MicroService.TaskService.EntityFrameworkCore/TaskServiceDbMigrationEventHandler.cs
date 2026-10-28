@@ -33,13 +33,13 @@ public class TaskServiceDbMigrationEventHandler :
 
     public async Task HandleEventAsync(EntityDeletedEto<TenantEto> eventData)
     {
-        // 租户删除时移除轮询作业
+        // Loại bỏ job thăm dò khi xoá tenant
         await DataSeeder.RemoveSeedAsync(eventData.Entity.Id);
     }
 
     protected async override Task AfterTenantCreated(TenantCreatedEto eventData, bool schemaMigrated)
     {
-        // 新租户数据种子
+        // Seed dữ liệu tenant mới
         var context = new DataSeedContext(eventData.Id);
         if (eventData.Properties != null)
         {

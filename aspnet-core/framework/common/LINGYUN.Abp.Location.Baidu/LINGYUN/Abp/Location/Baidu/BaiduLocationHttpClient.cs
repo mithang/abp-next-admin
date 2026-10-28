@@ -204,7 +204,7 @@ public class BaiduLocationHttpClient : ITransientDependency
                 Name = r.Name
             }).ToList()
         };
-        // 如果存在Poi组,取最近的一个poi作为实际地址
+        // Nếu tồn tại nhóm Poi, lấy poi gần nhất làm địa chỉ thực tế
         if (location.Pois.Any())
         {
             var nearPoi = location.Pois.OrderBy(x => x.Distance).FirstOrDefault();

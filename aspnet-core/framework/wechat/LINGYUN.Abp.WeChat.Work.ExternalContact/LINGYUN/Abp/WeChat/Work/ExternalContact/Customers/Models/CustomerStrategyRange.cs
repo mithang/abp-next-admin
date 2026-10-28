@@ -5,26 +5,26 @@ using Volo.Abp;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Customers.Models;
 /// <summary>
-/// 规则组管理范围
+/// Phạm vi quản lý nhóm quy tắc
 /// </summary>
 public class CustomerStrategyRange
 {
     /// <summary>
-    /// 节点类型
+    /// Loại nút
     /// </summary>
     [NotNull]
     [JsonProperty("type")]
     [JsonPropertyName("type")]
     public CustomerStrategyRangeType Type { get; set; }
     /// <summary>
-    /// 管理范围内配置的成员userid，仅 Type为<see cref="CustomerStrategyRangeType.Member"/> 时返回
+    /// userid thành viên được cấu hình trong phạm vi quản lý, chỉ trả về khi Type là<see cref="CustomerStrategyRangeType.Member"/> thì trả về
     /// </summary>
     [CanBeNull]
     [JsonProperty("userid")]
     [JsonPropertyName("userid")]
     public string? UserId { get; set; }
     /// <summary>
-    /// 管理范围内配置的部门partyid，仅 Type为<see cref="CustomerStrategyRangeType.Part"/> 时返回
+    /// partyid phòng ban được cấu hình trong phạm vi quản lý, chỉ trả về khi Type là<see cref="CustomerStrategyRangeType.Part"/> thì trả về
     /// </summary>
     [CanBeNull]
     [JsonProperty("partyid")]

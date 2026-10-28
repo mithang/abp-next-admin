@@ -4,13 +4,13 @@ import type { TreeNode } from './tree';
 import { $t } from '@vben/locales';
 
 /**
- * 将扁平的特性列表转换为树形结构
+ * Chuyển danh sách tính năng phẳng thành cấu trúc cây
  */
 export function buildFeatureTree(features: FeatureDto[]): TreeNode[] {
   const nodeMap = new Map<string, TreeNode>();
   const roots: TreeNode[] = [];
 
-  // 创建所有节点
+  // Tạo tất cả các nút
   features.forEach((feature) => {
     const node: TreeNode = {
       feature,
@@ -21,7 +21,7 @@ export function buildFeatureTree(features: FeatureDto[]): TreeNode[] {
     nodeMap.set(feature.name, node);
   });
 
-  // 建立父子关系
+  // Thiết lập quan hệ cha-con
   features.forEach((feature) => {
     const node = nodeMap.get(feature.name);
     if (node && feature.parentName && nodeMap.has(feature.parentName)) {
@@ -35,7 +35,7 @@ export function buildFeatureTree(features: FeatureDto[]): TreeNode[] {
     }
   });
 
-  // 对子节点进行排序
+  // Sắp xếp các nút con
   const sortChildren = (nodes: TreeNode[]) => {
     nodes.forEach((node) => {
       if (node.children.length > 0) {
@@ -52,7 +52,7 @@ export function buildFeatureTree(features: FeatureDto[]): TreeNode[] {
 }
 
 /**
- * 更新节点的可见性（基于父级状态）
+ * Cập nhật khả năng hiển thị của nút (dựa trên trạng thái nút cha)
  */
 export function updateVisibility(
   node: TreeNode,
@@ -73,7 +73,7 @@ export function updateVisibility(
 }
 
 /**
- * 检查是否为复选框类型的特性
+ * Kiểm tra xem có phải tính năng kiểu hộp kiểm hay không
  */
 export function isCheckboxFeature(feature: FeatureDto): boolean {
   return (
@@ -83,7 +83,7 @@ export function isCheckboxFeature(feature: FeatureDto): boolean {
 }
 
 /**
- * 当特性值改变时，更新其子节点的可见性
+ * Khi giá trị tính năng thay đổi, cập nhật khả năng hiển thị của các nút con của nó
  */
 export function onFeatureValueChange(
   feature: FeatureDto,
@@ -107,7 +107,7 @@ export function onFeatureValueChange(
 }
 
 /**
- * 处理特性值类型转换
+ * Xử lý chuyển đổi kiểu giá trị tính năng
  */
 export function processFeatureValue(feature: FeatureDto): void {
   if (feature.valueType?.name === 'SelectionStringValueType') {
@@ -147,7 +147,7 @@ export function processFeatureValue(feature: FeatureDto): void {
 }
 
 /**
- * 递归处理所有特性值
+ * Xử lý đệ quy tất cả các giá trị tính năng
  */
 export function processAllFeatures(treeNodes: TreeNode[]): void {
   const traverse = (nodes: TreeNode[]) => {
@@ -160,7 +160,7 @@ export function processAllFeatures(treeNodes: TreeNode[]): void {
 }
 
 /**
- * 获取缩进样式
+ * Lấy kiểu thụt lề
  */
 export function getIndentStyle(level: number, indentSize: number = 8): string {
   return `${level * indentSize}px`;

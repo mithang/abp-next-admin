@@ -7,7 +7,7 @@
           :config="selectNode.props"
         />
       </TabPane>
-      <!-- <TabPane label="表单权限设置" name="permissions">
+      <!-- <TabPane label="Cài đặt quyền biểu mẫu" name="permissions">
         <form-authority-config/>
       </TabPane> -->
     </Tabs>
@@ -46,11 +46,11 @@
   const name = computed(() => {
     switch (selectNode.value.type) {
       case 'ROOT':
-        return '设置发起人';
+        return 'Cài đặt người khởi tạo';
       case 'APPROVAL':
-        return '设置审批人';
+        return 'Cài đặt người phê duyệt';
       case 'CC':
-        return '设置抄送人';
+        return 'Cài đặt người nhận CC';
       default:
         return undefined;
     }

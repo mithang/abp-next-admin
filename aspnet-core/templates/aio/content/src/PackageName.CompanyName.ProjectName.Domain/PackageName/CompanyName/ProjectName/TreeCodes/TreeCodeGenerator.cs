@@ -8,17 +8,17 @@ using Volo.Abp.Domain.Repositories;
 namespace PackageName.CompanyName.ProjectName.TreeCodes
 {
     /// <summary>
-    /// 树形编码生成器
+    /// Trình tạo mã dạng cây
     /// </summary>
     public class TreeCodeGenerator : ITreeCodeGenerator, ISingletonDependency
     {
         /// <summary>
-        /// 生成树形编码
+        /// Tạo mã dạng cây
         /// </summary>
-        /// <typeparam name="TEntity">实体类型</typeparam>
-        /// <param name="repository">仓储</param>
-        /// <param name="parentId">父级Id</param>
-        /// <returns>生成的树形编码</returns>
+        /// <typeparam name="TEntity">Loại thực thể</typeparam>
+        /// <param name="repository">Kho lưu trữ</param>
+        /// <param name="parentId">Id cấp cha</param>
+        /// <returns>Mã dạng cây đã tạo</returns>
         public async virtual Task<string> GenerateAsync<TEntity>(
             IRepository<TEntity, Guid> repository,
             Guid? parentId)
@@ -26,12 +26,12 @@ namespace PackageName.CompanyName.ProjectName.TreeCodes
         {
             if (!parentId.HasValue)
             {
-                // 生成根节点编码
+                // Tạo mã nút gốc
                 return await GenerateRootCodeAsync(repository);
             }
             else
             {
-                // 生成子节点编码
+                // Tạo mã nút con
                 return await GenerateChildCodeAsync(repository, parentId.Value);
             }
         }
@@ -79,12 +79,12 @@ namespace PackageName.CompanyName.ProjectName.TreeCodes
                 newCode = (maxCode + 1).ToString("D4");
             }
 
-            // 构建完整的TreeCode: 父TreeCode.新编码
+            // Xây dựng TreeCode đầy đủ: TreeCode cha.Mã mới
             return $"{parent.TreeCode}.{newCode}";
         }
 
         /// <summary>
-        /// 更新节点及其所有子节点的TreeCode
+        /// Cập nhật TreeCode của nút và tất cả các nút con của nó
         /// </summary>
         public async virtual Task UpdateTreeCodesAsync<TEntity>(
             IRepository<TEntity, Guid> repository,
@@ -98,7 +98,7 @@ namespace PackageName.CompanyName.ProjectName.TreeCodes
 
             foreach (var child in children)
             {
-                // 获取子节点编码（TreeCode最后一部分）或生成新编码
+                // Lấy mã nút con (phần cuối của TreeCode) hoặc tạo mã mới
                 string childCode = child.TreeCode.Contains('.')
                     ? child.TreeCode.Split('.').Last()
                     : child.TreeCode;
@@ -106,7 +106,7 @@ namespace PackageName.CompanyName.ProjectName.TreeCodes
                 child.TreeCode = $"{entity.TreeCode}.{childCode}";
                 await repository.UpdateAsync(child);
 
-                // 递归更新子节点
+                // Cập nhật đệ quy các nút con
                 await UpdateTreeCodesAsync(repository, child.Id);
             }
         }

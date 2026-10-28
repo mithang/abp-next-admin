@@ -2,24 +2,24 @@
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Attachments.Models;
 /// <summary>
-/// 媒体文件类型
+/// Loại tệp phương tiện
 /// </summary>
-[Description("媒体文件类型")]
+[Description("Loại tệp phương tiện")]
 public enum MediaType
 {
     /// <summary>
-    /// 图片
+    /// Hình ảnh
     /// </summary>
-    [Description("图片")]
+    [Description("Hình ảnh")]
     Image = 1,
     /// <summary>
-    /// 视频
+    /// Video
     /// </summary>
-    [Description("视频")]
+    [Description("Video")]
     Video = 2,
     /// <summary>
-    /// 普通文件
+    /// Tệp thông thường
     /// </summary>
-    [Description("普通文件")]
+    [Description("Tệp thông thường")]
     File = 3,
 }

@@ -32,14 +32,14 @@ const { hasAccessByCodes } = useAccess();
 const { deleteApi, getPagedListApi, sendApi } = useSmsMessagesApi();
 
 const formOptions: VbenFormProps = {
-  // 默认展开
+  // Mở rộng mặc định
   collapsed: true,
   collapsedRows: 2,
-  // 所有表单项共用，可单独在表单内覆盖
+  // Dùng chung cho mọi mục form, có thể ghi đè riêng trong từng form
   commonConfig: {
-    // 在label后显示一个冒号
+    // Hiển thị một dấu hai chấm sau label
     colon: true,
-    // 所有表单项
+    // Tất cả các mục form
     componentProps: {
       class: 'w-full',
     },
@@ -86,9 +86,9 @@ const formOptions: VbenFormProps = {
       label: $t('AbpUi.Search'),
     },
   ],
-  // 控制表单是否显示折叠按钮
+  // Điều khiển form có hiển thị nút thu gọn hay không
   showCollapseButton: true,
-  // 按下回车时是否提交表单
+  // Có gửi form khi nhấn Enter hay không
   submitOnEnter: true,
 };
 

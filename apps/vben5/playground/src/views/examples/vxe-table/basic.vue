@@ -21,7 +21,7 @@ interface RowType {
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
-    { title: '序号', type: 'seq', width: 50 },
+    { title: 'STT', type: 'seq', width: 50 },
     { field: 'name', title: 'Name' },
     { field: 'age', sortable: true, title: 'Age' },
     { field: 'nickname', title: 'Nickname' },
@@ -45,7 +45,7 @@ const gridEvents: VxeGridListeners<RowType> = {
 
 // @ts-ignore
 const [Grid, gridApi] = useVbenVxeGrid<RowType>({
-  // 放开注释查看表单组件的类型
+  // Bỏ ghi chú để xem kiểu của component form
   // formOptions: {
   //   schema: [
   //     {
@@ -58,7 +58,7 @@ const [Grid, gridApi] = useVbenVxeGrid<RowType>({
   gridOptions,
 });
 
-// 放开注释查看当前表格实例的类型
+// Bỏ ghi chú để xem kiểu của instance bảng hiện tại
 // gridApi.grid
 
 const showBorder = gridApi.useStore((state) => state.gridOptions?.border);
@@ -86,25 +86,25 @@ function changeLoading() {
 
 <template>
   <Page
-    description="表格组件常用于快速开发数据展示与交互界面，示例数据为静态数据。该组件是对vxe-table进行简单的二次封装，大部分属性与方法与vxe-table保持一致。"
-    title="表格基础示例"
+    description="Component bảng thường dùng để phát triển nhanh giao diện hiển thị và tương tác dữ liệu, dữ liệu ví dụ là dữ liệu tĩnh. Component này là bản đóng gói lại đơn giản của vxe-table, phần lớn thuộc tính và phương thức giữ nguyên như vxe-table."
+    title="Ví dụ bảng cơ bản"
   >
     <template #extra>
       <DocButton path="/components/common-ui/vben-vxe-table" />
     </template>
-    <Grid table-title="基础列表" table-title-help="提示">
+    <Grid table-title="Danh sách cơ bản" table-title-help="Gợi ý">
       <!-- <template #toolbar-actions>
-        <Button class="mr-2" type="primary">左侧插槽</Button>
+        <Button class="mr-2" type="primary">Slot bên trái</Button>
       </template> -->
       <template #toolbar-tools>
         <Button class="mr-2" type="primary" @click="changeBorder">
-          {{ showBorder ? '隐藏' : '显示' }}边框
+          {{ showBorder ? 'Ẩn' : 'Hiện' }}viền
         </Button>
         <Button class="mr-2" type="primary" @click="changeLoading">
-          显示loading
+          Hiển thị loading
         </Button>
         <Button type="primary" @click="changeStripe">
-          {{ showStripe ? '隐藏' : '显示' }}斑马纹
+          {{ showStripe ? 'Ẩn' : 'Hiện' }}sọc vằn
         </Button>
       </template>
     </Grid>

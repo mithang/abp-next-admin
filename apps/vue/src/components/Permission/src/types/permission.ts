@@ -7,16 +7,16 @@ export interface PermissionProps {
 
 export interface PermissionTree {
   isRoot: boolean;
-  /** 权限标识 */
+  /** Định danh quyền */
   name: string;
-  /** 显示名称 */
+  /** Tên hiển thị */
   displayName: string;
-  /** 是否授权 */
+  /** Có được cấp quyền hay không */
   isGranted?: boolean;
-  /** 是否禁用 */
+  /** Có bị vô hiệu hóa hay không */
   disabled: boolean;
-  /** 子节点 */
+  /** Nút con */
   children: PermissionTree[];
-  /** 父节点 */
+  /** Nút cha */
   parentName?: string;
 }

@@ -181,7 +181,7 @@ public class GdprRequestAppService(
 
             foreach (var gdprDataItem in gdprInfoData)
             {
-                // 导出数据本地化
+                // Bản địa hóa dữ liệu được xuất ra
                 var gdprDataKey = gdprDataItem.Key;
                 var gdprDataLocalizaztionKey = L[$"PersonalData:{gdprDataKey.ToPascalCase()}"];
                 if (!gdprDataLocalizaztionKey.ResourceNotFound)

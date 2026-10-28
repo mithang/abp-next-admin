@@ -6,39 +6,39 @@ namespace LINGYUN.Abp.WeChat.MiniProgram.Messages;
 public class SubscribeMessage
 {
     /// <summary>
-    /// 接收者（用户）的 openid
+    /// openid của người nhận (người dùng)
     /// </summary>
     [JsonProperty("touser")]
     public string ToUser { get; set; } = default!;
     /// <summary>
-    /// 所需下发的订阅模板id
+    /// Id của mẫu đăng ký cần gửi
     /// </summary>
     [JsonProperty("template_id")]
     public string TemplateId { get; set; } = default!;
     /// <summary>
-    /// 点击模板卡片后的跳转页面，仅限本小程序内的页面。
-    /// 支持带参数,（示例index?foo=bar）。
-    /// 该字段不填则模板无跳转
+    /// Trang chuyển hướng sau khi nhấn vào thẻ mẫu, chỉ giới hạn trong các trang của Mini Program này.
+    /// Hỗ trợ kèm tham số (ví dụ index?foo=bar).
+    /// Nếu không điền trường này thì mẫu không có chuyển hướng
     /// </summary>
     [JsonProperty("page")]
     public string? Page { get; set; }
     /// <summary>
-    /// 跳转小程序类型：
-    /// developer为开发版；trial为体验版；formal为正式版；
-    /// 默认为正式版
+    /// Loại Mini Program chuyển hướng:
+    /// developer là bản phát triển; trial là bản dùng thử; formal là bản chính thức;
+    /// Mặc định là bản chính thức
     /// </summary>
     [JsonProperty("miniprogram_state")]
     public string? MiniProgramState { get; set; }
     /// <summary>
-    /// 进入小程序查看”的语言类型，
-    /// 支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，
-    /// 默认为zh_CN
+    /// Loại ngôn ngữ khi vào Mini Program để xem,
+    /// hỗ trợ zh_CN (tiếng Trung giản thể), en_US (tiếng Anh), zh_HK (tiếng Trung phồn thể), zh_TW (tiếng Trung phồn thể),
+    /// mặc định là zh_CN
     /// </summary>
     [JsonProperty("lang")]
     public string? Lang { get; set; } = "zh_CN";
     /// <summary>
-    /// 模板内容，
-    /// 格式形如 { "key1": { "value": any }, "key2": { "value": any } }
+    /// Nội dung mẫu,
+    /// định dạng dạng { "key1": { "value": any }, "key2": { "value": any } }
     /// </summary>
     [JsonProperty("data")]
     public Dictionary<string, MessageData> Data { get; set; } = new Dictionary<string, MessageData>();
@@ -60,7 +60,7 @@ public class SubscribeMessage
 
     public SubscribeMessage WriteData(string prefix, string key, object value)
     {
-        // 只截取符合标记的数据
+        // Chỉ lấy dữ liệu khớp với tiền tố
         if (key.StartsWith(prefix))
         {
             key = key.Replace(prefix, "");

@@ -5,89 +5,89 @@ using System.Threading.Tasks;
 
 namespace LINGYUN.Abp.WeChat.Work.Contacts.Tags;
 /// <summary>
-/// 标签管理接口
+/// Giao diện quản lý nhãn
 /// </summary>
 public interface IWeChatWorkTagProvider
 {
     /// <summary>
-    /// 创建标签
+    /// Tạo nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90210"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90210"/>
     /// </remarks>
-    /// <param name="request">创建标签请求参数</param>
+    /// <param name="request">Tham số yêu cầu tạo nhãn</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>创建标签响应参数</returns>
+    /// <returns>Tham số phản hồi tạo nhãn</returns>
     Task<WeChatWorkTagCreateResponse> CreateAsync(
         WeChatWorkTagCreateRequest request, 
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 更新标签名字
+    /// Cập nhật tên nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90211"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90211"/>
     /// </remarks>
-    /// <param name="request">更新标签名字请求参数</param>
+    /// <param name="request">Tham số yêu cầu cập nhật tên nhãn</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>更新标签名字响应参数</returns>
+    /// <returns>Tham số phản hồi cập nhật tên nhãn</returns>
     Task<WeChatWorkResponse> UpdateAsync(
         WeChatWorkTagUpdateRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 删除标签
+    /// Xóa nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90212"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90212"/>
     /// </remarks>
-    /// <param name="request">删除标签请求参数</param>
+    /// <param name="request">Tham số yêu cầu xóa nhãn</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>删除标签响应参数</returns>
+    /// <returns>Tham số phản hồi xóa nhãn</returns>
     Task<WeChatWorkResponse> DeleteAsync(
         WeChatWorkGetTagRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取标签成员
+    /// Lấy thành viên của nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90213"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90213"/>
     /// </remarks>
-    /// <param name="request">获取标签成员请求参数</param>
+    /// <param name="request">Tham số yêu cầu lấy thành viên của nhãn</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>获取标签成员响应参数</returns>
+    /// <returns>Tham số phản hồi lấy thành viên của nhãn</returns>
     Task<WeChatWorkTagMemberInfoResponse> GetMemberAsync(
         WeChatWorkGetTagRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 增加标签成员
+    /// Thêm thành viên vào nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90214"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90214"/>
     /// </remarks>
-    /// <param name="request">增加标签成员请求参数</param>
+    /// <param name="request">Tham số yêu cầu thêm thành viên vào nhãn</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>增加标签成员响应参数</returns>
+    /// <returns>Tham số phản hồi thêm thành viên vào nhãn</returns>
     Task<WeChatWorkTagChangeMemberResponse> AddMemberAsync(
         WeChatWorkTagChangeMemberRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 删除标签成员
+    /// Xóa thành viên khỏi nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90215"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90215"/>
     /// </remarks>
-    /// <param name="request">增加标签成员请求参数</param>
+    /// <param name="request">Tham số yêu cầu thêm thành viên vào nhãn</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>增加标签成员响应参数</returns>
+    /// <returns>Tham số phản hồi thêm thành viên vào nhãn</returns>
     Task<WeChatWorkTagChangeMemberResponse> DeleteMemberAsync(
         WeChatWorkTagChangeMemberRequest request,
         CancellationToken cancellationToken = default);
     /// <summary>
-    /// 获取标签列表
+    /// Lấy danh sách nhãn
     /// </summary>
     /// <remarks>
-    /// 详情见：<see href="https://developer.work.weixin.qq.com/document/path/90216"/>
+    /// Xem chi tiết tại: <see href="https://developer.work.weixin.qq.com/document/path/90216"/>
     /// </remarks>
     /// <param name="cancellationToken"></param>
-    /// <returns>获取标签列表响应参数</returns>
+    /// <returns>Tham số phản hồi lấy danh sách nhãn</returns>
     Task<WeChatWorkTagListResponse> GetListAsync(CancellationToken cancellationToken = default);
 }

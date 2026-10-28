@@ -3,12 +3,12 @@ using System.Xml.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.Common.Messages;
 /// <summary>
-/// 企业微信普通消息
+/// Thông báo thường WeChat Work
 /// </summary>
 public abstract class WeChatWorkGeneralMessage : WeChatGeneralMessage
 {
     /// <summary>
-    /// 企业应用的id，整型。可在应用的设置页面查看
+    /// ID của ứng dụng doanh nghiệp, kiểu số nguyên. Có thể xem tại trang cài đặt của ứng dụng
     /// </summary>
     [XmlElement("AgentID")]
     public int AgentId { get; set; }

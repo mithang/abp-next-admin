@@ -1,16 +1,16 @@
 # LINGYUN.Abp.Notifications.HttpApi
 
-通知系统的HTTP API模块，提供了通知系统的REST API接口。
+Mô-đun HTTP API của hệ thống thông báo, cung cấp giao diện REST API của hệ thống thông báo.
 
-## 功能特性
+## Tính năng
 
-* 通知管理API
-* 通知订阅API
-* 通知状态管理API
-* 支持API版本控制
-* 支持Swagger文档
+* API quản lý thông báo
+* API đăng ký thông báo
+* API quản lý trạng thái thông báo
+* Hỗ trợ kiểm soát phiên bản API
+* Hỗ trợ tài liệu Swagger
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(typeof(AbpNotificationsHttpApiModule))]
@@ -20,26 +20,26 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## API接口
+## Giao diện API
 
 ### NotificationController
 
-* GET /api/notifications/{id} - 获取通知详情
-* GET /api/notifications - 获取通知列表
-* DELETE /api/notifications/{id} - 删除通知
-* PUT /api/notifications/{id}/read - 标记通知为已读
-* PUT /api/notifications/read - 标记所有通知为已读
+* GET /api/notifications/{id} - Lấy chi tiết thông báo
+* GET /api/notifications - Lấy danh sách thông báo
+* DELETE /api/notifications/{id} - Xóa thông báo
+* PUT /api/notifications/{id}/read - Đánh dấu thông báo là đã đọc
+* PUT /api/notifications/read - Đánh dấu tất cả thông báo là đã đọc
 
 ### NotificationSubscriptionController
 
-* POST /api/notifications/subscriptions - 订阅通知
-* DELETE /api/notifications/subscriptions - 取消订阅通知
-* GET /api/notifications/subscribers - 获取可分配的订阅者列表
-* GET /api/notifications/subscriptions - 获取已订阅的通知列表
+* POST /api/notifications/subscriptions - Đăng ký thông báo
+* DELETE /api/notifications/subscriptions - Hủy đăng ký thông báo
+* GET /api/notifications/subscribers - Lấy danh sách người đăng ký có thể phân bổ
+* GET /api/notifications/subscriptions - Lấy danh sách thông báo đã đăng ký
 
-## 基本用法
+## Cách dùng cơ bản
 
-1. 配置Startup
+1. Cấu hình Startup
 ```csharp
 public class Startup
 {
@@ -55,18 +55,18 @@ public class Startup
 }
 ```
 
-2. 调用API示例
+2. Ví dụ gọi API
 ```bash
-# 获取通知列表
+# Lấy danh sách thông báo
 curl -X GET "https://localhost:44300/api/notifications"
 
-# 订阅通知
+# Đăng ký thông báo
 curl -X POST "https://localhost:44300/api/notifications/subscriptions" \
      -H "Content-Type: application/json" \
      -d '{"notificationName":"YourNotification"}'
 ```
 
-## 更多信息
+## Thông tin thêm
 
-* [ABP文档](https://docs.abp.io)
-* [ASP.NET Core文档](https://docs.microsoft.com/aspnet/core)
+* [Tài liệu ABP](https://docs.abp.io)
+* [Tài liệu ASP.NET Core](https://docs.microsoft.com/aspnet/core)

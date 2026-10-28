@@ -9,15 +9,15 @@ namespace LINGYUN.Abp.OpenObserve;
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 创建用户
+    /// Tạo người dùng
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/users
-    /// 参考: https://openobserve.ai/docs/reference/api/user/create/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/user/create/
     /// </remarks>
-    /// <param name="email">邮箱</param>
-    /// <param name="password">密码</param>
-    /// <param name="role">角色: admin / user</param>
+    /// <param name="email">Email</param>
+    /// <param name="password">Mật khẩu</param>
+    /// <param name="role">Vai trò: admin / user</param>
     public async virtual Task<OpenObserveCodeMessageResponse> CreateUserAsync(
         string email,
         string password,
@@ -45,12 +45,12 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 更新用户
+    /// Cập nhật người dùng
     /// </summary>
     /// <remarks>
     /// PUT /api/{organization}/users/{user_email}
-    /// 不修改密码时不要传 oldPassword / newPassword
-    /// 参考: https://openobserve.ai/docs/reference/api/user/create/
+    /// Khi không thay đổi mật khẩu, đừng truyền oldPassword / newPassword
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/user/create/
     /// </remarks>
     public async virtual Task<OpenObserveCodeMessageResponse> UpdateUserAsync(
         string userEmail,
@@ -80,13 +80,13 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 添加已有用户到组织
+    /// Thêm người dùng đã có vào tổ chức
     /// </summary>
     /// <remarks>
     /// POST /api/{organization}/users/{user_email}
-    /// 参考: https://openobserve.ai/docs/reference/api/user/create/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/user/create/
     /// </remarks>
-    /// <param name="role">角色: admin / user</param>
+    /// <param name="role">Vai trò: admin / user</param>
     public async virtual Task<OpenObserveCodeMessageResponse> AddUserToOrganizationAsync(
         string userEmail,
         string? role = null,
@@ -107,11 +107,11 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 从组织移除用户
+    /// Xóa người dùng khỏi tổ chức
     /// </summary>
     /// <remarks>
     /// DELETE /api/{organization}/users/{user_email}
-    /// 参考: https://openobserve.ai/docs/reference/api/user/delete/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/user/delete/
     /// </remarks>
     public async virtual Task<OpenObserveCodeMessageResponse> RemoveUserFromOrganizationAsync(
         string userEmail,
@@ -124,11 +124,11 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 列出组织内的用户
+    /// Liệt kê người dùng trong tổ chức
     /// </summary>
     /// <remarks>
     /// GET /api/{organization}/users
-    /// 参考: https://openobserve.ai/docs/reference/api/user/list/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/user/list/
     /// </remarks>
     public async virtual Task<UserListResponse> GetUsersAsync(
         string? organization = null,

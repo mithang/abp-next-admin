@@ -1,0 +1,14 @@
+{
+  "auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "codeLogin": "Đăng nhập bằng mã xác minh",
+    "qrcodeLogin": "Đăng nhập bằng mã QR",
+    "forgetPassword": "Quên mật khẩu"
+  },
+  "dashboard": {
+    "title": "Tổng quan",
+    "analytics": "Trang phân tích",
+    "workspace": "Bàn làm việc"
+  }
+}

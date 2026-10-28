@@ -11,9 +11,9 @@ export function usePermissionsApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询权限
+   * Truy vấn quyền
    * @param provider
-   * @returns 权限实体数据传输对象
+   * @returns Đối tượng truyền dữ liệu thực thể quyền
    */
   function getApi(provider: PermissionProvider): Promise<PermissionResultDto> {
     return request<PermissionResultDto>(
@@ -26,7 +26,7 @@ export function usePermissionsApi() {
   }
 
   /**
-   * 更新权限
+   * Cập nhật quyền
    * @param provider
    * @param input
    */
@@ -42,10 +42,10 @@ export function usePermissionsApi() {
   }
 
   /**
-   * 获取已授权对象
-   * @param permissionName 权限名称
-   * @param providerName 授权提供者
-   * @returns
+   * Lấy đối tượng đã được cấp quyền
+   * @param permissionName Tên quyền
+   * @param providerName Nhà cung cấp ủy quyền
+   * @returns Danh sách quyền đã được cấp theo nhà cung cấp
    */
   function getGrantedByProviderApi(
     permissionName: string,

@@ -10,17 +10,17 @@ namespace LINGYUN.Abp.OpenObserve;
 public partial class OpenObserveClient
 {
     /// <summary>
-    /// 新增仪表盘面板
+    /// Thêm panel mới cho bảng điều khiển
     /// </summary>
     /// <remarks>
     /// POST /api/{org_id}/dashboards/{dashboard_id}/panels
-    /// 仅支持 v8 仪表盘; hash 为必填参数, 不匹配时返回 409
-    /// 参考: https://openobserve.ai/docs/reference/api/dashboard/
+    /// Chỉ hỗ trợ bảng điều khiển v8; hash là tham số bắt buộc, khi không khớp sẽ trả về 409
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/dashboard/
     /// </remarks>
-    /// <param name="panel">面板定义(v8 面板对象), 新增时可省略 layout 由服务端自动计算</param>
-    /// <param name="hash">当前仪表盘哈希</param>
-    /// <param name="tabId">页签标识, 默认第一个页签</param>
-    /// <param name="folder">仪表盘所在文件夹, 默认文件夹</param>
+    /// <param name="panel">Định nghĩa panel (đối tượng panel v8), khi thêm mới có thể bỏ qua layout để phía máy chủ tự tính</param>
+    /// <param name="hash">Hash hiện tại của bảng điều khiển</param>
+    /// <param name="tabId">Định danh tab, mặc định là tab đầu tiên</param>
+    /// <param name="folder">Thư mục chứa bảng điều khiển, thư mục mặc định</param>
     public async virtual Task<DashboardPanelResponse> AddDashboardPanelAsync(
         string dashboardId,
         string hash,
@@ -49,17 +49,17 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 更新仪表盘面板
+    /// Cập nhật panel của bảng điều khiển
     /// </summary>
     /// <remarks>
     /// PUT /api/{org_id}/dashboards/{dashboard_id}/panels/{panel_id}
-    /// 路径中的 panel_id 为准; panel 省略 layout 时保留原布局
-    /// 参考: https://openobserve.ai/docs/reference/api/dashboard/
+    /// Lấy panel_id trong đường dẫn làm chuẩn; khi panel bỏ qua layout thì giữ nguyên bố cục cũ
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/dashboard/
     /// </remarks>
-    /// <param name="panel">面板定义(v8 面板对象)</param>
-    /// <param name="hash">当前仪表盘哈希</param>
-    /// <param name="tabId">页签标识, 默认第一个页签</param>
-    /// <param name="folder">仪表盘所在文件夹, 默认文件夹</param>
+    /// <param name="panel">Định nghĩa panel (đối tượng panel v8)</param>
+    /// <param name="hash">Hash hiện tại của bảng điều khiển</param>
+    /// <param name="tabId">Định danh tab, mặc định là tab đầu tiên</param>
+    /// <param name="folder">Thư mục chứa bảng điều khiển, thư mục mặc định</param>
     public async virtual Task<DashboardPanelResponse> UpdateDashboardPanelAsync(
         string dashboardId,
         string panelId,
@@ -89,15 +89,15 @@ public partial class OpenObserveClient
     }
 
     /// <summary>
-    /// 删除仪表盘面板
+    /// Xóa panel của bảng điều khiển
     /// </summary>
     /// <remarks>
     /// DELETE /api/{org_id}/dashboards/{dashboard_id}/panels/{panel_id}
-    /// 参考: https://openobserve.ai/docs/reference/api/dashboard/
+    /// Tham khảo: https://openobserve.ai/docs/reference/api/dashboard/
     /// </remarks>
-    /// <param name="hash">当前仪表盘哈希</param>
-    /// <param name="tabId">指定页签, 省略时在所有页签中查找</param>
-    /// <param name="folder">仪表盘所在文件夹, 默认文件夹</param>
+    /// <param name="hash">Hash hiện tại của bảng điều khiển</param>
+    /// <param name="tabId">Tab được chỉ định, nếu bỏ qua sẽ tìm trong tất cả các tab</param>
+    /// <param name="folder">Thư mục chứa bảng điều khiển, thư mục mặc định</param>
     public async virtual Task<DeleteDashboardPanelResponse> DeleteDashboardPanelAsync(
         string dashboardId,
         string panelId,

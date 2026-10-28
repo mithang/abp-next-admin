@@ -1,18 +1,18 @@
-# 本地开发 {#development}
+# Phát triển cục bộ {#development}
 
-::: tip 代码获取
+::: tip Lấy mã nguồn
 
-如果你还没有获取代码，可以先从 [快速开始](../introduction/quick-start.md) 处开始阅读文档。
+Nếu bạn chưa lấy mã nguồn, bạn có thể bắt đầu đọc tài liệu từ [Bắt đầu nhanh](../introduction/quick-start.md).
 
 :::
 
-## 前置准备
+## Chuẩn bị trước
 
-为了更好的开发体验，我们提供了一些工具配置、项目说明，以便于您更好的开发。
+Để có trải nghiệm phát triển tốt hơn, chúng tôi cung cấp một số cấu hình công cụ và mô tả dự án, giúp bạn phát triển tốt hơn.
 
-### 需要掌握的基础知识
+### Kiến thức cơ bản cần nắm vững
 
-本项目需要一定前端基础知识，请确保掌握 Vue 的基础知识，以便能处理一些常见的问题。建议在开发前先学一下以下内容，提前了解和学习这些知识，会对项目理解非常有帮助:
+Dự án này cần một số kiến thức cơ bản về frontend, hãy đảm bảo nắm vững kiến thức cơ bản về Vue để xử lý một số vấn đề thường gặp. Bạn nên học trước các nội dung sau trong quá trình phát triển, việc tìm hiểu và học trước các kiến thức này sẽ rất hữu ích cho việc hiểu dự án:
 
 - [Vue3](https://vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -22,143 +22,143 @@
 - [Pnpm](https://pnpm.io/)
 - [Turbo](https://turbo.build/)
 
-### 工具配置
+### Cấu hình công cụ
 
-如果您使用的 IDE 是[vscode](https://code.visualstudio.com/)(推荐)的话，可以安装以下工具来提高开发效率及代码格式化:
+Nếu IDE bạn sử dụng là [vscode](https://code.visualstudio.com/) (khuyến nghị), bạn có thể cài đặt các công cụ sau để nâng cao hiệu quả phát triển và định dạng mã nguồn:
 
-- [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 官方插件（必备）。
-- [Tailwind CSS](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Tailwindcss 提示插件。
-- [CSS Variable Autocomplete](https://marketplace.visualstudio.com/items?itemName=bradlc.vunguyentuan.vscode-css-variables) - Css 变量提示插件。
-- [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - Iconify 图标插件
-- [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) - i18n 插件
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - 脚本代码检查
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
-- [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - css 格式化
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - 单词语法检查
-- [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) - .env 文件 高亮
+- [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Plugin chính thức của Vue (bắt buộc).
+- [Tailwind CSS](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Plugin gợi ý Tailwindcss.
+- [CSS Variable Autocomplete](https://marketplace.visualstudio.com/items?itemName=bradlc.vunguyentuan.vscode-css-variables) - Plugin gợi ý biến Css.
+- [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - Plugin biểu tượng Iconify
+- [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) - Plugin i18n
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Kiểm tra mã script
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Định dạng mã nguồn
+- [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - Định dạng css
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - Kiểm tra ngữ pháp từ
+- [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) - Làm nổi bật tệp .env
 
 ## Npm Scripts
 
-npm 脚本是项目常见的配置，用于执行一些常见的任务，比如启动项目、打包项目等。以下的脚本都可以在项目根目录的 `package.json` 文件中找到。
+npm script là cấu hình thường gặp của dự án, dùng để thực hiện một số tác vụ thường gặp, ví dụ như khởi động dự án, đóng gói dự án, v.v. Các script dưới đây đều có thể tìm thấy trong tệp `package.json` ở thư mục gốc của dự án.
 
-执行方式为：`pnpm run [script]` 或 `npm run [script]`。
+Cách thực thi là: `pnpm run [script]` hoặc `npm run [script]`.
 
 ```json
 {
   "scripts": {
-    // 构建项目
+    // Xây dựng dự án
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build",
-    // 构建项目并分析
+    // Xây dựng dự án và phân tích
     "build:analyze": "turbo build:analyze",
-    // 构建本地 docker 镜像
+    // Xây dựng image docker cục bộ
     "build:docker": "./build-local-docker-image.sh",
-    // 单独构建 web-antd 应用
+    // Xây dựng riêng ứng dụng web-antd
     "build:antd": "pnpm run build --filter=@vben/web-antd",
-    // 单独构建文档
+    // Xây dựng riêng tài liệu
     "build:docs": "pnpm run build --filter=@vben/docs",
-    // 单独构建 web-ele 应用
+    // Xây dựng riêng ứng dụng web-ele
     "build:ele": "pnpm run build --filter=@vben/web-ele",
-    // 单独构建 web-naive 应用
+    // Xây dựng riêng ứng dụng web-naive
     "build:naive": "pnpm run build --filter=@vben/naive",
-    // 单独构建 web-tdesign 应用
+    // Xây dựng riêng ứng dụng web-tdesign
     "build:tdesign": "pnpm run build --filter=@vben/web-tdesign",
-    // 单独构建 playground 应用
+    // Xây dựng riêng ứng dụng playground
     "build:play": "pnpm run build --filter=@vben/playground",
-    // changeset 版本管理
+    // Quản lý phiên bản changeset
     "changeset": "pnpm exec changeset",
-    // 检查项目各种问题
+    // Kiểm tra các vấn đề của dự án
     "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
-    // 检查循环引用
+    // Kiểm tra tham chiếu vòng tròn
     "check:circular": "vsh check-circular",
-    // 检查拼写
+    // Kiểm tra chính tả
     "check:cspell": "cspell lint **/*.ts **/README.md .changeset/*.md --no-progress"
-    // 检查依赖
+    // Kiểm tra phụ thuộc
     "check:dep": "vsh check-dep",
-    // 检查类型
+    // Kiểm tra kiểu
     "check:type": "turbo run typecheck",
-    // 清理项目（删除node_modules、dist、.turbo）等目录
+    // Dọn dẹp dự án (xóa các thư mục node_modules, dist, .turbo) v.v.
     "clean": "node ./scripts/clean.mjs",
-    // 提交代码
+    // Commit mã nguồn
     "commit": "czg",
-    // 启动项目（默认会运行整个仓库所有包的dev脚本）
+    // Khởi động dự án (mặc định sẽ chạy script dev của tất cả các gói trong toàn bộ kho)
     "dev": "turbo-run dev",
-    // 启动web-antd应用
+    // Khởi động ứng dụng web-antd
     "dev:antd": "pnpm -F @vben/web-antd run dev",
-    // 启动文档
+    // Khởi động tài liệu
     "dev:docs": "pnpm -F @vben/docs run dev",
-    // 启动web-ele应用
+    // Khởi động ứng dụng web-ele
     "dev:ele": "pnpm -F @vben/web-ele run dev",
-    // 启动web-naive应用
+    // Khởi động ứng dụng web-naive
     "dev:naive": "pnpm -F @vben/web-naive run dev",
-    // 启动演示应用
+    // Khởi động ứng dụng demo
     "dev:play": "pnpm -F @vben/playground run dev",
-    // 格式化代码
+    // Định dạng mã nguồn
     "format": "vsh lint --format",
-    // lint 代码
+    // Lint mã nguồn
     "lint": "vsh lint",
-    // 依赖安装完成之后，执行所有包的stub脚本
+    // Sau khi cài đặt phụ thuộc xong, thực thi script stub của tất cả các gói
     "postinstall": "pnpm -r run stub --if-present",
-    // 只允许使用pnpm
+    // Chỉ cho phép sử dụng pnpm
     "preinstall": "npx only-allow pnpm",
-    // lefthook的安装
+    // Cài đặt lefthook
     "prepare": "is-ci || lefthook install",
-    // 预览应用
+    // Xem trước ứng dụng
     "preview": "turbo-run preview",
-    // 包规范检查
+    // Kiểm tra quy chuẩn gói
     "publint": "vsh publint",
-    // 删除所有的node_modules、yarn.lock、package.lock.json，重新安装依赖
+    // Xóa tất cả node_modules, yarn.lock, package.lock.json, rồi cài đặt lại phụ thuộc
     "reinstall": "pnpm clean --del-lock && pnpm install",
-    // 运行 vitest 单元测试
+    // Chạy kiểm thử đơn vị vitest
     "test:unit": "vitest run --dom",
-    // 更新项目依赖
+    // Cập nhật phụ thuộc của dự án
     "update:deps": " pnpm update --latest --recursive",
-    // changeset生成提交集
+    // changeset tạo tập hợp commit
     "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
   }
 }
 ```
 
-## 本地运行项目
+## Chạy dự án cục bộ
 
-如需本地运行文档，并进行调整，可以执行以下命令，执行该命令，你可以选择需要的应用进行开发：
+Nếu cần chạy tài liệu cục bộ và điều chỉnh, bạn có thể thực thi lệnh sau, khi thực thi lệnh này, bạn có thể chọn ứng dụng cần thiết để phát triển:
 
 ```bash
 pnpm dev
 ```
 
-如果你想直接运行某个应用，可以执行以下命令：
+Nếu bạn muốn chạy trực tiếp một ứng dụng nào đó, bạn có thể thực thi lệnh sau:
 
-运行 `web-antd` 应用：
+Chạy ứng dụng `web-antd`:
 
 ```bash
 pnpm dev:antd
 ```
 
-运行 `web-naive` 应用：
+Chạy ứng dụng `web-naive`:
 
 ```bash
 pnpm dev:naive
 ```
 
-运行 `web-ele` 应用：
+Chạy ứng dụng `web-ele`:
 
 ```bash
 pnpm dev:ele
 ```
 
-运行 `docs` 应用：
+Chạy ứng dụng `docs`:
 
 ```bash
 pnpm dev:docs
 ```
 
-## 区分构建环境
+## Phân biệt môi trường build
 
-在实际的业务开发中，通常会在构建时区分多种环境，如测试环境`test`、生产环境`build`等。
+Trong quá trình phát triển nghiệp vụ thực tế, thường phân biệt nhiều môi trường khi build, ví dụ như môi trường kiểm thử `test`, môi trường sản xuất `build`, v.v.
 
-此时可以修改三个文件，在其中增加对应的脚本配置来达到区分生产环境的效果。
+Lúc này có thể sửa ba tệp, thêm cấu hình script tương ứng trong đó để đạt hiệu quả phân biệt môi trường sản xuất.
 
-以`@vben/web-antd`添加测试环境`test`为例：
+Lấy ví dụ thêm môi trường kiểm thử `test` cho `@vben/web-antd`:
 
 - `apps\web-antd\package.json`
 
@@ -173,7 +173,7 @@ pnpm dev:docs
 },
 ```
 
-增加命令`"build:test"`, 并将原`"build"`改为`"build:prod"`以避免同时构建两个环境的包。
+Thêm lệnh `"build:test"`, và đổi `"build"` gốc thành `"build:prod"` để tránh build đồng thời gói của hai môi trường.
 
 - `package.json`
 
@@ -188,7 +188,7 @@ pnpm dev:docs
 }
 ```
 
-在根目录`package.json`中加入构建测试环境的命令
+Thêm lệnh build môi trường kiểm thử vào `package.json` ở thư mục gốc
 
 - `turbo.json`
 
@@ -217,41 +217,41 @@ pnpm dev:docs
     ······
 ```
 
-在`turbo.json`中加入相关依赖的命令
+Thêm lệnh phụ thuộc liên quan vào `turbo.json`
 
-## 公共静态资源
+## Tài nguyên tĩnh công cộng
 
-项目中需要使用到的公共静态资源，如：图片、静态HTML等，需要在开发中通过 `src="/xxx.png"` 直接引入的。
+Tài nguyên tĩnh công cộng cần sử dụng trong dự án, ví dụ như: hình ảnh, HTML tĩnh, v.v., cần được nhúng trực tiếp trong quá trình phát triển qua `src="/xxx.png"`.
 
-需要将资源放在对应项目的 `public/static` 目录下。引入的路径为：`src="/static/xxx.png"`。
+Cần đặt tài nguyên vào thư mục `public/static` của dự án tương ứng. Đường dẫn nhúng là: `src="/static/xxx.png"`.
 
 ## DevTools
 
-项目内置了 [Vue DevTools](https://github.com/vuejs/devtools-next) 插件，可以在开发过程中使用。默认关闭，可在`.env.development` 内开启，并重新运行项目即可：
+Dự án đã tích hợp sẵn plugin [Vue DevTools](https://github.com/vuejs/devtools-next), có thể sử dụng trong quá trình phát triển. Mặc định tắt, có thể bật trong `.env.development` và chạy lại dự án:
 
 ```bash
 VITE_DEVTOOLS=true
 ```
 
-开启后，项目运行会在页面底部显示一个 Vue DevTools 的图标，点击即可打开 DevTools。
+Sau khi bật, khi dự án chạy sẽ hiển thị một biểu tượng Vue DevTools ở cuối trang, nhấp vào là có thể mở DevTools.
 
 ![Vue DevTools](/guide/devtools.png)
 
-## 本地运行文档
+## Chạy tài liệu cục bộ
 
-如需本地运行文档，并进行调整，可以执行以下命令：
+Nếu cần chạy tài liệu cục bộ và điều chỉnh, bạn có thể thực thi lệnh sau:
 
 ```bash
 pnpm dev:docs
 ```
 
-## 问题解决
+## Giải quyết vấn đề
 
-如果你在使用过程中遇到依赖相关的问题，可以尝试以下重新安装依赖：
+Nếu bạn gặp vấn đề liên quan đến phụ thuộc trong quá trình sử dụng, bạn có thể thử cài đặt lại phụ thuộc như sau:
 
 ```bash
-# 请在项目根目录下执行
-# 该命令会删除整个仓库所有的 node_modules、yarn.lock、package.lock.json后
-# 再进行依赖重新安装（安装速度会明显变慢）。
+# Hãy thực thi tại thư mục gốc của dự án
+# Lệnh này sẽ xóa toàn bộ node_modules, yarn.lock, package.lock.json của kho
+# rồi cài đặt lại phụ thuộc (tốc độ cài đặt sẽ chậm hơn rõ rệt).
 pnpm reinstall
 ```

@@ -60,7 +60,7 @@ class HomePage extends BasePage<HomeController> {
                   favoriteMenu.path,
                   aliasName: favoriteMenu.aliasName,
                   //icon: favoriteMenu.icon,
-                  // TODO: 需要各个模块自行提供本地图标
+                  // TODO: Cần các module tự cung cấp biểu tượng cục bộ
                   icon: 'res/images/setting.png',
                   color: favoriteMenu.color,
                   displayName: favoriteMenu.displayName,

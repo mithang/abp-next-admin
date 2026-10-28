@@ -4,26 +4,26 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.OA.Schedules.Models;
 /// <summary>
-/// 无效的日历通知范围成员
+/// Thành viên phạm vi thông báo lịch không hợp lệ
 /// </summary>
 public class CalendarFailShare
 {
     /// <summary>
-    /// 错误码
+    /// Mã lỗi
     /// </summary>
     [NotNull]
     [JsonProperty("errcode")]
     [JsonPropertyName("errcode")]
     public int ErrorCode { get; set; }
     /// <summary>
-    /// 错误消息
+    /// Thông báo lỗi
     /// </summary>
     [NotNull]
     [JsonProperty("errmsg")]
     [JsonPropertyName("errmsg")]
     public string ErrorMessage { get; set; } = default!;
     /// <summary>
-    /// 日历通知范围成员的id
+    /// Id của thành viên phạm vi thông báo lịch
     /// </summary>
     [NotNull]
     [JsonProperty("userid")]

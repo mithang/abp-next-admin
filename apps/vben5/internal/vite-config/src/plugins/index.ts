@@ -28,7 +28,7 @@ import { vitePrintPlugin } from './print';
 import { viteVxeTableImportsPlugin } from './vxe-table';
 
 /**
- * 获取条件成立的 vite 插件
+ * Lấy các plugin vite thỏa mãn điều kiện
  * @param conditionPlugins
  */
 async function loadConditionPlugins(conditionPlugins: ConditionPlugin[]) {
@@ -43,7 +43,7 @@ async function loadConditionPlugins(conditionPlugins: ConditionPlugin[]) {
 }
 
 /**
- * 根据条件获取通用的vite插件
+ * Lấy các plugin vite dùng chung theo điều kiện
  */
 async function loadCommonPlugins(
   options: CommonPluginOptions,
@@ -83,12 +83,12 @@ async function loadCommonPlugins(
 }
 
 /**
- * 根据条件获取应用类型的vite插件
+ * Lấy các plugin vite loại ứng dụng theo điều kiện
  */
 async function loadApplicationPlugins(
   options: ApplicationPluginOptions,
 ): Promise<PluginOption[]> {
-  // 单独取，否则commonOptions拿不到
+  // Lấy riêng, nếu không commonOptions sẽ không lấy được
   const isBuild = options.isBuild;
   const env = options.env;
 
@@ -217,12 +217,12 @@ async function loadApplicationPlugins(
 }
 
 /**
- * 根据条件获取库类型的vite插件
+ * Lấy các plugin vite loại thư viện theo điều kiện
  */
 async function loadLibraryPlugins(
   options: LibraryPluginOptions,
 ): Promise<PluginOption[]> {
-  // 单独取，否则commonOptions拿不到
+  // Lấy riêng, nếu không commonOptions sẽ không lấy được
   const isBuild = options.isBuild;
   const { dts, ...commonOptions } = options;
   const commonPlugins = await loadCommonPlugins(commonOptions);

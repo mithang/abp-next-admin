@@ -32,7 +32,7 @@ const enterAnimationPlugin = plugin(({ addUtilities }) => {
     };
   }
 
-  // 添加动画关键帧
+  // Thêm keyframe cho animation
   addUtilities(utilities);
   addUtilities({
     '@keyframes enter-x-animation': {

@@ -15,8 +15,8 @@ export function useAccountApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 获取可用的二次认证验证器
-   * @param input 参数
+   * Lấy các trình xác thực xác minh hai bước khả dụng
+   * @param input Tham số
    */
   function getTwoFactorProvidersApi(
     input: GetTwoFactorProvidersInput,
@@ -31,8 +31,8 @@ export function useAccountApi() {
   }
 
   /**
-   * 发送登陆验证邮件
-   * @param input 参数
+   * Gửi email xác minh đăng nhập
+   * @param input Tham số
    */
   function sendEmailSigninCodeApi(
     input: SendEmailSigninCodeDto,
@@ -44,8 +44,8 @@ export function useAccountApi() {
   }
 
   /**
-   * 发送登陆验证短信
-   * @param input 参数
+   * Gửi SMS xác minh đăng nhập
+   * @param input Tham số
    */
   function sendPhoneSigninCodeApi(
     input: SendPhoneSigninCodeDto,
@@ -57,8 +57,8 @@ export function useAccountApi() {
   }
 
   /**
-   * 发送重置密码验证短信
-   * @param input 参数
+   * Gửi SMS xác minh đặt lại mật khẩu
+   * @param input Tham số
    */
   function sendPhoneResetPasswordCodeApi(
     input: SendPhoneResetPasswordCodeDto,
@@ -70,8 +70,8 @@ export function useAccountApi() {
   }
 
   /**
-   * 重置密码
-   * @param input 参数
+   * Đặt lại mật khẩu
+   * @param input Tham số
    */
   function resetPasswordApi(input: PhoneResetPasswordDto): Promise<void> {
     return request('/api/account/phone/reset-password', {

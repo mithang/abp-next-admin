@@ -1,0 +1,8 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Job:Actions": "Thao tác sau khi thực thi",
+    "Job:AddAction": "Thêm bước công việc",
+    "Job:DeleteAction": "Xóa bước tác vụ"
+  }
+}

@@ -8,22 +8,22 @@ import type {
 } from '../../types/claims';
 
 interface ClaimEditModalProps {
-  /** 新增声明api */
+  /** Api thêm mới claim */
   createApi: (input: IdentityClaimCreateDto) => Promise<void>;
-  /** 新增声明权限代码 */
+  /** Mã quyền thêm mới claim */
   createPolicy: string;
-  /** 删除声明api */
+  /** Api xóa claim */
   deleteApi: (input: IdentityClaimDeleteDto) => Promise<void>;
-  /** 删除声明权限代码 */
+  /** Mã quyền xóa claim */
   deletePolicy: string;
-  /** 更新声明api */
+  /** Api cập nhật claim */
   updateApi: (input: IdentityClaimUpdateDto) => Promise<void>;
-  /** 更新声明权限代码 */
+  /** Mã quyền cập nhật claim */
   updatePolicy: string;
 }
 
 interface ClaimModalProps extends ClaimEditModalProps {
-  /** 加载声明列表api */
+  /** Api tải danh sách claim */
   getApi: () => Promise<ListResultDto<IdentityClaimDto>>;
 }
 

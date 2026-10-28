@@ -29,23 +29,23 @@ public abstract class NotificationJobExecutedProvider : JobExecutedProvider, ITr
     };
 
     /// <summary>
-    /// 指定发送工具
+    /// Chỉ định công cụ gửi
     /// </summary>
     public const string PropertyPushProvider = "push-provider";
     /// <summary>
-    /// 使用通知模板
+    /// Sử dụng mẫu thông báo
     /// </summary>
     public const string PropertyUseTemplate = "use-template";
     /// <summary>
-    /// 使用自定义通知
+    /// Sử dụng thông báo tùy chỉnh
     /// </summary>
     public const string PropertyNotificationName = "notification-name";
     /// <summary>
-    /// 通知内容, 不使用模板时必须
+    /// Nội dung thông báo, bắt buộc khi không sử dụng mẫu
     /// </summary>
     public const string PropertyContent = "content";
     /// <summary>
-    /// 可选, 模板消息中的区域性
+    /// Tùy chọn, thông tin vùng trong tin nhắn mẫu
     /// </summary>
     public const string PropertyCulture = "culture";
 

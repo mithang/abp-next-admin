@@ -1,25 +1,25 @@
 # LINGYUN.Abp.IM
 
-即时通讯模块的基础模块。
+Mô-đun cơ sở của mô-đun nhắn tin tức thời.
 
-## 功能特性
+## Tính năng
 
-* 提供即时通讯基础设施
-* 提供消息发送者提供程序接口
-* 可扩展的消息发送者提供程序
+* Cung cấp hạ tầng nhắn tin tức thời
+* Cung cấp giao diện nhà cung cấp người gửi tin nhắn
+* Nhà cung cấp người gửi tin nhắn có thể mở rộng
 
-## 配置使用
+## Cấu hình sử dụng
 
-模块配置使用 `AbpIMOptions` 选项类:
+Cấu hình mô-đun sử dụng lớp tùy chọn `AbpIMOptions`:
 
 ```csharp
 Configure<AbpIMOptions>(options =>
 {
-    // 添加自定义消息发送者提供程序
+    // Thêm nhà cung cấp người gửi tin nhắn tùy chỉnh
     options.Providers.Add<CustomMessageSenderProvider>();
 });
 ```
 
-## 更多
+## Thêm
 
 [English document](README.EN.md)

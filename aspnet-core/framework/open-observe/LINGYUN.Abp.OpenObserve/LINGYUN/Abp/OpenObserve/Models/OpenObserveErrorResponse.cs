@@ -33,7 +33,7 @@ public class OpenObserveErrorResponse
     /// Closest valid alternatives (up to 3), ranked by similarity
     /// </summary>
     /// <remarks>
-    /// 实测为字符串数组, 如 ["service"]
+    /// Thực tế là mảng chuỗi, ví dụ ["service"]
     /// </remarks>
     [JsonPropertyName("suggestions")]
     public string[]? Suggestions { get; set; }

@@ -1,26 +1,26 @@
 # LINGYUN.Abp.IdentityServer.SmsValidator
 
-IdentityServer短信验证模块，提供基于手机号和短信验证码的身份认证功能。
+Mô-đun xác minh SMS của IdentityServer, cung cấp chức năng xác thực danh tính dựa trên số điện thoại và mã xác minh SMS.
 
-## 功能特性
+## Tính năng
 
-* 短信验证
-  * `SmsTokenGrantValidator` - 短信验证授权器
-    * 支持手机号验证
-    * 支持短信验证码验证
-    * 防暴力破解保护
-    * 用户锁定检查
-    * 安全日志记录
-    * 事件通知
+* Xác minh SMS
+  * `SmsTokenGrantValidator` - Trình xác thực ủy quyền xác minh SMS
+    * Hỗ trợ xác minh số điện thoại
+    * Hỗ trợ xác minh mã SMS
+    * Bảo vệ chống tấn công brute-force
+    * Kiểm tra khóa người dùng
+    * Ghi nhật ký bảo mật
+    * Thông báo sự kiện
 
-* 认证流程
-  1. 用户使用手机号和短信验证码发起登录请求
-  2. 验证手机号和验证码的有效性
-  3. 验证用户状态（是否被锁定）
-  4. 验证通过后生成访问令牌
-  5. 记录安全日志和事件
+* Quy trình xác thực
+  1. Người dùng dùng số điện thoại và mã xác minh SMS để gửi yêu cầu đăng nhập
+  2. Xác minh tính hợp lệ của số điện thoại và mã xác minh
+  3. Xác minh trạng thái người dùng (có bị khóa hay không)
+  4. Sau khi xác minh thành công sẽ tạo mã truy cập
+  5. Ghi nhật ký bảo mật và sự kiện
 
-## 模块引用
+## Tham chiếu mô-đun
 
 ```csharp
 [DependsOn(
@@ -32,13 +32,13 @@ public class YourModule : AbpModule
 }
 ```
 
-## 依赖模块
+## Mô-đun phụ thuộc
 
-* `AbpIdentityServerDomainModule` - ABP IdentityServer领域模块
+* `AbpIdentityServerDomainModule` - Mô-đun miền ABP IdentityServer
 
-## 配置使用
+## Cấu hình và sử dụng
 
-### 配置短信验证
+### Cấu hình xác minh SMS
 
 ```csharp
 public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -50,43 +50,43 @@ public override void PreConfigureServices(ServiceConfigurationContext context)
 }
 ```
 
-### 认证请求参数
+### Tham số yêu cầu xác thực
 
-* `grant_type`: "phone_verify" (必填)
-* `phone_number`: 手机号 (必填)
-* `phone_verify_code`: 短信验证码 (必填)
-* `scope`: 请求范围 (可选)
+* `grant_type`: "phone_verify" (bắt buộc)
+* `phone_number`: Số điện thoại (bắt buộc)
+* `phone_verify_code`: Mã xác minh SMS (bắt buộc)
+* `scope`: Phạm vi yêu cầu (tùy chọn)
 
-### 认证响应
+### Phản hồi xác thực
 
-* 认证成功:
+* Xác thực thành công:
 ```json
 {
-    "access_token": "访问令牌",
-    "expires_in": 有效期,
+    "access_token": "Mã truy cập",
+    "expires_in": Thời hạn hiệu lực,
     "token_type": "Bearer",
-    "refresh_token": "刷新令牌"
+    "refresh_token": "Mã làm mới"
 }
 ```
 
-* 认证失败:
+* Xác thực thất bại:
 ```json
 {
     "error": "invalid_grant",
-    "error_description": "错误描述"
+    "error_description": "Mô tả lỗi"
 }
 ```
 
-### 错误类型
+### Loại lỗi
 
-* `invalid_grant`: 授权验证失败
-  * 手机号未注册
-  * 验证码无效
-  * 用户被锁定
-  * 参数缺失
+* `invalid_grant`: Xác thực ủy quyền thất bại
+  * Số điện thoại chưa đăng ký
+  * Mã xác minh không hợp lệ
+  * Người dùng bị khóa
+  * Thiếu tham số
 
-相关文档:
-* [IdentityServer4文档](https://identityserver4.readthedocs.io/)
-* [ABP Identity文档](https://docs.abp.io/en/abp/latest/Modules/Identity)
+Tài liệu liên quan:
+* [Tài liệu IdentityServer4](https://identityserver4.readthedocs.io/)
+* [Tài liệu ABP Identity](https://docs.abp.io/en/abp/latest/Modules/Identity)
 
-[查看英文文档](README.EN.md)
+[Xem tài liệu tiếng Anh](README.EN.md)

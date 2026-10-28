@@ -5,15 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace LINGYUN.Abp.WeChat.Work.ExternalContact.Follows.Response;
 /// <summary>
-/// 获取配置了客户联系功能的成员列表响应参数
+/// Tham số phản hồi lấy danh sách thành viên đã cấu hình tính năng liên hệ khách hàng
 /// </summary>
 /// <remarks>
-/// 详情见: <see href="https://developer.work.weixin.qq.com/document/path/91853" />
+/// Chi tiết xem: <see href="https://developer.work.weixin.qq.com/document/path/91853" />
 /// </remarks>
 public class WeChatWorkGetFollowUserListResponse : WeChatWorkResponse
 {
     /// <summary>
-    /// 配置了客户联系功能的成员userid列表
+    /// Danh sách userid của thành viên đã cấu hình tính năng liên hệ khách hàng
     /// </summary>
     [NotNull]
     [JsonProperty("follow_user")]

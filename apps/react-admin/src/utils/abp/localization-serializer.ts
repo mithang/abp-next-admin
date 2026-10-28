@@ -11,7 +11,7 @@ interface ILocalizableStringSerializer {
 	validate(value?: string, opt?: ValidateOptions): boolean;
 }
 
-//考虑是否去掉use前缀
+//Cân nhắc có nên bỏ tiền tố use hay không
 export function localizationSerializer(): ILocalizableStringSerializer {
 	function Validate(value?: string, opt?: ValidateOptions): boolean {
 		if (!value || isNullOrWhiteSpace(value)) {

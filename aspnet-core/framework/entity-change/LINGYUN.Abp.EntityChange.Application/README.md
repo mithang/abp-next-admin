@@ -1,14 +1,14 @@
 # LINGYUN.Abp.EntityChange.Application
 
-实体变更追踪与恢复的应用层实现模块。
+Mô-đun triển khai tầng ứng dụng cho việc theo dõi và khôi phục thay đổi thực thể.
 
-## 功能
+## Chức năng
 
-* 实现实体变更查询服务
-* 实现实体恢复服务
-* 提供实体变更的自动映射配置
+* Triển khai dịch vụ truy vấn thay đổi thực thể
+* Triển khai dịch vụ khôi phục thực thể
+* Cung cấp cấu hình ánh xạ tự động cho thay đổi thực thể
 
-## 基本用法
+## Cách dùng cơ bản
 
 ```csharp
 [DependsOn(typeof(AbpEntityChangeApplicationModule))]
@@ -21,16 +21,16 @@ public class YouProjectModule : AbpModule
 }
 ```
 
-## 服务实现
+## Triển khai dịch vụ
 
-* `EntityRestoreAppService<TEntity, TKey>`: 实体恢复服务实现
-  * `RestoreEntityAsync`: 通过审计日志恢复单个实体到指定版本
-  * `RestoreEntitesAsync`: 通过审计日志批量恢复实体到指定版本
-  * 支持通过 `RestorePolicy` 配置恢复权限策略
+* `EntityRestoreAppService<TEntity, TKey>`: triển khai dịch vụ khôi phục thực thể
+  * `RestoreEntityAsync`: khôi phục một thực thể về phiên bản chỉ định thông qua nhật ký kiểm toán
+  * `RestoreEntitesAsync`: khôi phục hàng loạt thực thể về phiên bản chỉ định thông qua nhật ký kiểm toán
+  * Hỗ trợ cấu hình chính sách quyền khôi phục thông qua `RestorePolicy`
 
-## 对象映射
+## Ánh xạ đối tượng
 
-模块使用AutoMapper实现以下对象的自动映射：
+Mô-đun sử dụng AutoMapper để triển khai ánh xạ tự động cho các đối tượng sau:
 * `EntityPropertyChange` -> `EntityPropertyChangeDto`
 * `EntityChange` -> `EntityChangeDto`
 

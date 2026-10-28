@@ -42,4 +42,4 @@ Multi-tenant SaaS management module, providing tenant management, version manage
 
 ## More
 
-[简体中文](README.md)
+[Tiếng Việt](README.md)

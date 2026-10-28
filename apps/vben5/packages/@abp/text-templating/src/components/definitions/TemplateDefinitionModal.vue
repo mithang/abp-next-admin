@@ -140,7 +140,7 @@ async function onInitLayouts() {
 }
 
 async function onInitResources() {
-  // TODO: 是否暴露localization、模块常量
+  // TODO: Có expose localization, hằng số module hay không
   if (!hasAccessByCodes(['LocalizationManagement.Resource'])) {
     return;
   }

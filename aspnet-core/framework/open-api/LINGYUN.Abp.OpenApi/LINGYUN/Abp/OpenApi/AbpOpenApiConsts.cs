@@ -11,47 +11,47 @@ public static class AbpOpenApiConsts
 
     public const string KeyPrefix = "AbpOpenApi";
     /// <summary>
-    /// 无效的应用标识 {AppKey}.
+    /// Định danh ứng dụng không hợp lệ {AppKey}.
     /// </summary>
     public const string InvalidAccessWithAppKey = KeyPrefix + ":9100";
     /// <summary>
-    /// 未携带应用标识(appKey).
+    /// Không mang theo định danh ứng dụng (appKey).
     /// </summary>
     public const string InvalidAccessWithAppKeyNotFound = KeyPrefix + ":9101";
 
     /// <summary>
-    /// 无效的签名 sign.
+    /// Chữ ký sign không hợp lệ.
     /// </summary>
     public const string InvalidAccessWithSign = KeyPrefix + ":9110";
     /// <summary>
-    /// 未携带签名(sign).
+    /// Không mang theo chữ ký (sign).
     /// </summary>
     public const string InvalidAccessWithSignNotFound = KeyPrefix + ":9111";
 
     /// <summary>
-    /// 请求超时或会话已过期.
+    /// Yêu cầu đã hết thời gian chờ hoặc phiên đã hết hạn.
     /// </summary>
     public const string InvalidAccessWithTimestamp = KeyPrefix + ":9210";
     /// <summary>
-    /// 未携带时间戳标识.
+    /// Không mang theo định danh dấu thời gian.
     /// </summary>
     public const string InvalidAccessWithTimestampNotFound = KeyPrefix + ":9211";
 
     /// <summary>
-    /// 重复发起的请求.
+    /// Yêu cầu được gửi lặp lại.
     /// </summary>
     public const string InvalidAccessWithNonceRepeated = KeyPrefix + ":9220";
     /// <summary>
-    /// 未携带随机数.
+    /// Không mang theo số ngẫu nhiên.
     /// </summary>
     public const string InvalidAccessWithNonceNotFound = KeyPrefix + ":9221";
 
     /// <summary>
-    /// 客户端不在允许的范围内.
+    /// Máy khách không nằm trong phạm vi cho phép.
     /// </summary>
     public const string InvalidAccessWithClientId = KeyPrefix + ":9300";
     /// <summary>
-    /// 客户端IP不在允许的范围内.
+    /// IP máy khách không nằm trong phạm vi cho phép.
     /// </summary>
     public const string InvalidAccessWithIpAddress = KeyPrefix + ":9400";
 }

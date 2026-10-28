@@ -8,8 +8,8 @@ export function useLinkUsersApi() {
   const { cancel, request } = useRequest();
 
   /**
-   * 查询关联用户列表
-   * @returns { Promise<ListResultDto<LinkUserDto>> } 关联用户列表
+   * Truy vấn danh sách người dùng liên kết
+   * @returns { Promise<ListResultDto<LinkUserDto>> } Danh sách người dùng liên kết
    */
   function getListApi(): Promise<ListResultDto<LinkUserDto>> {
     return request<ListResultDto<LinkUserDto>>('api/account/link-users', {
@@ -17,7 +17,7 @@ export function useLinkUsersApi() {
     });
   }
   /**
-   * 生成关联用户Token
+   * Tạo token người dùng liên kết
    */
   function generateLinkTokenApi(): Promise<string> {
     return request(`api/account/link-users/generate-link-token`, {
@@ -25,7 +25,7 @@ export function useLinkUsersApi() {
     });
   }
   /**
-   * 生成关联用户登录Token
+   * Tạo token đăng nhập người dùng liên kết
    */
   function generateLinkLoginTokenApi(): Promise<string> {
     return request(`api/account/link-users/generate-link-login-token`, {
@@ -34,8 +34,8 @@ export function useLinkUsersApi() {
   }
 
   /**
-   * 取消用户关联
-   * @param input 参数
+   * Hủy liên kết người dùng
+   * @param input Tham số
    */
   function unLinkApi(input: UnLinkUserInput): Promise<void> {
     return request(`api/account/link-users/unlink`, {

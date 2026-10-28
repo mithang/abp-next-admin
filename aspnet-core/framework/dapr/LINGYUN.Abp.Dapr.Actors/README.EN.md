@@ -126,4 +126,4 @@ The module provides custom error handling for Actor calls:
   * Error code
   * Original exception type
 
-[查看中文](README.md)
+[Xem tiếng Trung](README.md)

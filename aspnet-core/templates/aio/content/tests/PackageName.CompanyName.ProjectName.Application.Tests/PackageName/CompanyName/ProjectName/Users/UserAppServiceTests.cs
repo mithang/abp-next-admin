@@ -9,7 +9,7 @@ using Xunit;
 namespace PackageName.CompanyName.ProjectName.Users
 {
     /// <summary>
-    /// UserAppService 的单元测试
+    /// Kiểm thử đơn vị của UserAppService
     /// </summary>
     [Collection("Database")]
     public class UserAppServiceTests : ProjectNameApplicationTestBase
@@ -49,8 +49,8 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         [Theory]
-        [InlineData("", "Test123456!", "用户名称不能为空")]
-        [InlineData("test", "123", "密码长度必须在6-20个字符之间")]
+        [InlineData("", "Test123456!", "Tên người dùng không được để trống")]
+        [InlineData("test", "123", "Độ dài mật khẩu phải nằm trong khoảng 6-20 ký tự")]
         public async Task Should_Not_Create_User_With_Invalid_Input(string nickName, string password,
             string expectedErrorMessage)
         {
@@ -129,7 +129,7 @@ namespace PackageName.CompanyName.ProjectName.Users
                 NickName = "updateduser",
                 Password = "NewPassword123!",
                 ContactInfo = "13800138000",
-                Position = "开发工程师",
+                Position = "Kỹ sư phát triển",
                 IsActive = true
             };
 
@@ -140,9 +140,9 @@ namespace PackageName.CompanyName.ProjectName.Users
             result.ShouldNotBeNull();
             result.NickName.ShouldBe("updateduser");
             result.ContactInfo.ShouldBe("13800138000");
-            result.Position.ShouldBe("开发工程师");
+            result.Position.ShouldBe("Kỹ sư phát triển");
 
-            // 验证更新后的用户信息
+            // Xác minh thông tin người dùng sau khi cập nhật
             var updatedUser = await _userAppService.GetAsync(user.Id);
             updatedUser.NickName.ShouldBe("updateduser");
         }
@@ -173,7 +173,7 @@ namespace PackageName.CompanyName.ProjectName.Users
             // Act
             await _userAppService.DeleteAsync(user.Id);
 
-            // Assert - 尝试获取已删除的用户应该抛出异常
+            // Assert - thử lấy người dùng đã xóa phải ném ngoại lệ
             await Assert.ThrowsAsync<EntityNotFoundException>(async () =>
             {
                 await _userAppService.GetAsync(user.Id);
@@ -189,8 +189,8 @@ namespace PackageName.CompanyName.ProjectName.Users
             // Act & Assert
             await _userAppService.ChangePasswordAsync(user.Id, "OldPassword123!", "NewPassword123!");
 
-            // 尝试用新密码登录（这个需要集成测试才能完整测试）
-            // 这里我们只是验证方法执行不会抛出异常
+            // Thử đăng nhập bằng mật khẩu mới (cần kiểm thử tích hợp mới kiểm tra đầy đủ được)
+            // Ở đây chỉ xác minh việc thực thi phương thức không ném ngoại lệ
         }
 
         [Fact]
@@ -202,7 +202,7 @@ namespace PackageName.CompanyName.ProjectName.Users
             // Act & Assert
             await _userAppService.ResetPasswordAsync(user.Id, "NewPassword123!");
 
-            // 同样，完整测试需要验证用户能用新密码登录，这需要集成测试
+            // Tương tự, kiểm thử đầy đủ cần xác minh người dùng có thể đăng nhập bằng mật khẩu mới, điều này cần kiểm thử tích hợp
         }
 
         [Fact]
@@ -224,8 +224,8 @@ namespace PackageName.CompanyName.ProjectName.Users
         }
 
         [Theory]
-        [InlineData("13900000000", "工程师")]
-        [InlineData("13800000000", "设计师")]
+        [InlineData("13900000000", "Kỹ sư")]
+        [InlineData("13800000000", "Nhà thiết kế")]
         [InlineData(null, null)]
         public async Task Should_Create_User_With_Optional_Fields(string contactInfo, string position)
         {
