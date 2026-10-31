@@ -24,6 +24,7 @@
 	<ItemGroup>
 	  <EmbeddedResource Include="LINGYUN\Abp\Account\Emailing\Localization\Resources\en.json" />
 	  <EmbeddedResource Include="LINGYUN\Abp\Account\Emailing\Localization\Resources\zh-Hans.json" />
+	  <EmbeddedResource Include="LINGYUN\Abp\Account\Emailing\Localization\Resources\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -10,6 +10,8 @@ jobs:
   publish:
     name: "Publish"
     runs-on: "windows-latest"
+    permissions:
+      contents: read
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -27,4 +29,6 @@ jobs:
     - name: Publish Packages
       run: ..\..\build\package-aspnetcore-publish.ps1
       working-directory: .\aspnet-core\LocalNuget
+      env:
+        NUGETKEY: ${{ secrets.NUGETKEY }}
  

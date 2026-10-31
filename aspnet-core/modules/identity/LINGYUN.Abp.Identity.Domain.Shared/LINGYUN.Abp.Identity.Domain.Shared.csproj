@@ -16,11 +16,13 @@
 	<ItemGroup>
 	  <None Remove="LINGYUN\Abp\Identity\Localization\en.json" />
 	  <None Remove="LINGYUN\Abp\Identity\Localization\zh-Hans.json" />
+	  <None Remove="LINGYUN\Abp\Identity\Localization\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="LINGYUN\Abp\Identity\Localization\en.json" />
 	  <EmbeddedResource Include="LINGYUN\Abp\Identity\Localization\zh-Hans.json" />
+	  <EmbeddedResource Include="LINGYUN\Abp\Identity\Localization\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -28,7 +28,9 @@ async function viteLicensePlugin(
     enforce: 'post',
     generateBundle: {
       handler: (_options: NormalizedOutputOptions, bundle: OutputBundle) => {
-        const date = dateUtil().format('YYYY-MM-DD ');
+        // DEV-28b (devops iter-0022): tz() honours the Asia/Ho_Chi_Minh
+        // setDefault; plain dateUtil() formats in the builder host's zone.
+        const date = dateUtil.tz().format('YYYY-MM-DD ');
         const copyrightText = `/*!
   * Vben Admin
   * Version: ${version}

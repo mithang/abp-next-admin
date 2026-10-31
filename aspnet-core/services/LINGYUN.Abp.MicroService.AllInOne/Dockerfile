@@ -36,4 +36,16 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
+# DEV-16 (devops iter-0013): the AllInOne host reads
+# APPLICATION_DATABASE_PROVIDER in Program.cs and, when it is unset,
+# loads no provider-specific appsettings, so Quartz falls back to the
+# base Development config (clustered=true) with the default RAMJobStore
+# and aborts startup (reproduced this round: AbpInitializationException,
+# "Property 'clustered' has no setter"). Default to PostgreSql, the
+# same default docker-compose.allinone.yml already sets; compose
+# environment overrides this, so MySql/SqlServer deployments are
+# unaffected. Needs verification by a real `docker build/run`
+# (Docker BLOCKED).
+ENV APPLICATION_DATABASE_PROVIDER=PostgreSql
+
 ENTRYPOINT ["dotnet", "LINGYUN.Abp.MicroService.AllInOne.dll"]

@@ -5,8 +5,52 @@
 # production deploy; never rely on these defaults outside local dev.
 # Example override: MYSQL_ROOT_PASSWORD=<new-value> docker compose -f
 # docker-compose.middleware.yml up -d
-
-version: '3.4'
+#
+# DEV-17 (devops iter-0014): every published port below is bound to
+# 127.0.0.1 only. These are data-plane services (DB/cache/broker/search/
+# observability); nothing outside this host needs them, and two of them
+# are effectively unauthenticated (Redis has no password in this file,
+# Elasticsearch runs with xpack.security disabled). Container-to-container
+# traffic uses the compose network (service names), never the host ports,
+# so localhost binding does not break inter-service calls. If you really
+# need LAN access, remove the 127.0.0.1: prefix deliberately - do not
+# publish these ports on a shared network by accident.
+# DEV-15b (devops iter-0014): the obsolete `version: '3.4'` key was
+# removed (Compose Spec ignores it; docker compose v2 warns it is
+# obsolete) so kibana/logstash can use depends_on condition:
+# service_healthy against the Elasticsearch healthcheck added in iter-0013.
+# DEV-18 (devops iter-0015, OPEN — interaction with DEV-17, NOT fixed
+# here): the DEV-17 note above is only true for middleware-to-middleware
+# traffic. The 12 backend app services do NOT use service DNS: their
+# endpoints in docker-compose.override.configuration.yml (311
+# host.docker.internal references: MySQL connection strings, CAP
+# RabbitMQ, Redis, Elasticsearch, OTel, OpenObserve) reach middleware
+# through host-published ports via host-gateway. On native Linux Docker
+# a port bound to 127.0.0.1 is NOT reachable through the bridge-gateway
+# IP, so after DEV-17 those container flows will fail on Linux (Docker
+# Desktop forwards host loopback, so dev machines there may be
+# unaffected). Decided fix direction (to be applied + verified with a
+# real `docker compose up` on Linux, NOT guessed here): switch the
+# override.configuration endpoints to service DNS (abp-mysql,
+# abp-redis, abp-rabbitmq, abp-elasticsearch, abp-otel-collector,
+# abp-openobserve) — valid because README documents both stacks with
+# the same project name (-p labp) and the same network name
+# (abp-next-admin), i.e. one shared network — and leave the
+# host.docker.internal design alone for flows that genuinely target
+# the host (e.g. host-run migrations). Do NOT "fix" this by reverting
+# DEV-17 to 0.0.0.0: that would re-expose the unauthenticated
+# data-plane to the LAN.
+# DEV-18 UPDATE (devops iter-0016, FIXED at file level): the 298
+# middleware-bound endpoints in docker-compose.override.configuration.yml
+# were switched to service DNS (abp-mysql, abp-redis, abp-rabbitmq,
+# abp-elasticsearch, abp-otel-collector, abp-openobserve); the 13 remaining
+# host.docker.internal references there are app-to-app (ValidIssuers /
+# RefreshClaimsUrl) and were deliberately left alone. Runtime proof still
+# pending: real `docker compose up` on Linux (Docker BLOCKED on this VM).
+# DEV-19 (devops iter-0016, FIXED, see docker-compose.yml): iter-0015's
+# gateway healthcheck edit had accidentally deleted the gateway's
+# networks/extra_hosts lines, leaving extra_hosts entries under
+# `networks:` — restored verbatim from HEAD in the same round.
 
 services:
   abp-redis:
@@ -14,12 +58,23 @@ services:
     hostname: abp-redis
     container_name: abp-redis
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     volumes:
       - ./deploy/middleware/redis/data:/data
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     restart: always
+    # DEV-15 (devops iter-0013, provisional): middleware services had no
+    # healthcheck at all, so `docker compose ps` could not tell ready
+    # from merely started, and kibana/logstash depends_on below is
+    # start-order only. redis-cli ships in the redis image.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
     # DEV-10 (devops iter-0003, partial): local Redis 7.4.2 measured
     # 5.77 MB used_memory / ~10 MB RSS with maxmemory unset (unbounded by
     # default), so a container cap is the only guard against a runaway key
@@ -41,11 +96,11 @@ services:
     hostname: abp-mysql
     container_name: abp-mysql
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-123456}
       - MYSQL_ROOT_HOST=%
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     command:
       --default-authentication-plugin=mysql_native_password
       --character-set-server=utf8mb4
@@ -58,6 +113,16 @@ services:
       - ./deploy/middleware/mysql/logs:/logs
       - ./deploy/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     restart: always
+    # DEV-15 (devops iter-0013, provisional): mysqladmin ships in the
+    # mysql image; $$ escapes to $ so the container shell expands the
+    # MYSQL_ROOT_PASSWORD already set in environment above.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     # DEV-10 (devops iter-0007, provisional): this file sets
     # max_connections=1024; 2g covers the default buffer pool plus
     # per-connection overhead on a dev host. Needs verification by a
@@ -76,19 +141,28 @@ services:
     hostname: abp-rabbitmq
     container_name: abp-rabbitmq
     ports:
-      - "5672:5672"
-      - "15672:15672"
-      - "25672:25672"
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:15672:15672"
+      - "127.0.0.1:25672:25672"
     environment:
       - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE:-8ue48g9FJQ87YV9Hfd8yhg==}
       - RABBITMQ_DEFAULT_VHOST=/
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-admin}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-123456}
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     volumes:
       - ./deploy/middleware/rabbitmq/logs:/var/log/rabbitmq
       - ./deploy/middleware/rabbitmq/data:/var/lib/rabbitmq
     restart: always
+    # DEV-15 (devops iter-0013, provisional): rabbitmq-diagnostics
+    # ships in the management image and pings the node locally.
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     # DEV-10 (devops iter-0007, provisional): Erlang VM +
     # management plugin; no in-file memory setting to derive from, so
     # 1g is a dev cap, not a tuned value. Needs verification by a
@@ -113,12 +187,22 @@ services:
       - "discovery.type=single-node"
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
       - "xpack.security.enabled=false"
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     volumes:
       - ./deploy/middleware/elasticsearch/plugins:/usr/share/elasticsearch/plugins
       - ./deploy/middleware/elasticsearch/data:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - "127.0.0.1:9200:9200"
+    # DEV-15 (devops iter-0013, provisional): xpack.security is
+    # disabled above, so the cluster-health endpoint needs no auth;
+    # curl ships in the elasticsearch image. start_period covers JVM
+    # boot. Needs verification by a real `docker compose up` (Docker BLOCKED).
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
     networks:
       - abp-next-admin
 
@@ -132,12 +216,24 @@ services:
     mem_limit: 2g
     cpus: 1.0
     depends_on:
-      - abp-elasticsearch
+      abp-elasticsearch:
+        condition: service_healthy
     environment:
-      - ELASTICSEARCH_URL=http://host.docker.internal:9200
-      - TZ=Asia/Shanghai
+      - ELASTICSEARCH_URL=http://abp-elasticsearch:9200
+      - TZ=Asia/Ho_Chi_Minh
     ports:
-      - 5601:5601
+      - "127.0.0.1:5601:5601"
+    # DEV-15 (devops iter-0013, provisional): /api/status is 200 only
+    # once Kibana is serving; curl ships in the kibana image.
+    # DEV-15b (devops iter-0014): depends_on above is now gated on
+    # the Elasticsearch healthcheck (version key removed, see header).
+    # Needs verification by a real `docker compose up` (Docker BLOCKED).
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/api/status || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
     networks:
       - abp-next-admin
     extra_hosts:
@@ -154,13 +250,14 @@ services:
     mem_limit: 2g
     cpus: 1.0
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     depends_on:
-      - abp-elasticsearch
+      abp-elasticsearch:
+        condition: service_healthy
     links:
       - abp-elasticsearch:es
     ports:
-      - 4560:4560
+      - "127.0.0.1:4560:4560"
     networks:
       - abp-next-admin 
 
@@ -177,12 +274,12 @@ services:
       - "ZO_DATA_DIR=/data"
       - "ZO_ROOT_USER_EMAIL=admin@abp.io"
       - "ZO_ROOT_USER_PASSWORD=${ZO_ROOT_USER_PASSWORD:-ww1Z5L%6}"
-      - "TZ=Asia/Shanghai"
+      - "TZ=Asia/Ho_Chi_Minh"
     volumes:
       - ./deploy/openobserve/data:/data
     ports:
-      - 5080:5080
-      - 5081:5081
+      - "127.0.0.1:5080:5080"
+      - "127.0.0.1:5081:5081"
     networks:
       - abp-next-admin 
 
@@ -195,16 +292,23 @@ services:
     # Needs verification by a real `docker compose up` (Docker BLOCKED).
     mem_limit: 512m
     cpus: 0.5
+    environment:
+      # DEV-27 (devops iter-0021): collector auth MUST match the OpenObserve root
+      # credentials above (ZO_ROOT_USER_EMAIL / ZO_ROOT_USER_PASSWORD) — rotate
+      # them together. Dev only: override OPENOBSERVE_BASIC_AUTH from the
+      # environment when deploying outside local dev; never commit a production
+      # credential here.
+      - "OPENOBSERVE_BASIC_AUTH=${OPENOBSERVE_BASIC_AUTH:-Basic YWRtaW5AYWJwLmlvOnd3MVo1TCU2}"
     volumes:
       - ./deploy/openobserve/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     ports:
-      - 1888:1888 # pprof
-      - 8888:8888 # Collector Prometheus
-      - 8889:8889 # Prometheus
-      - 13133:13133 # health_check
-      - 4317:4317 # OTLP gRPC
-      - 4318:4318 # OTLP http
-      - 55679:55679
+      - "127.0.0.1:1888:1888" # pprof
+      - "127.0.0.1:8888:8888" # Collector Prometheus
+      - "127.0.0.1:8889:8889" # Prometheus
+      - "127.0.0.1:13133:13133" # health_check
+      - "127.0.0.1:4317:4317" # OTLP gRPC
+      - "127.0.0.1:4318:4318" # OTLP http
+      - "127.0.0.1:55679:55679"
     networks:
       - abp-next-admin 
 

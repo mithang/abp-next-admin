@@ -30,6 +30,10 @@ public static class IdentitySettingNames
         /// Thời gian giãn cách lặp lại mã xác thực đăng ký qua email
         /// </summary>
         public const string EmailRegisterRepetInterval = UserPrefix + ".EmailRegisterRepetInterval";
+        /// <summary>
+        /// Thời gian giãn cách lặp lại mã xác minh đăng nhập qua email
+        /// </summary>
+        public const string EmailSigninRepetInterval = UserPrefix + ".EmailSigninRepetInterval";
     }
 
     public static class Session

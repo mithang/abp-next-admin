@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY . /app
 
-#Múi giờ UTC+8
-ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
+#Múi giờ UTC+7 (Việt Nam)
+ENV TZ=Asia/Ho_Chi_Minh
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo "$TZ" > /etc/timezone
 
 EXPOSE 80/tcp
 VOLUME [ "./app/blobs" ]

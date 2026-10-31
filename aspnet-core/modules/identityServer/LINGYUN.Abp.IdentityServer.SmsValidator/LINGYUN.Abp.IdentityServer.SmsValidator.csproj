@@ -16,11 +16,13 @@
 	<ItemGroup>
 		<None Remove="LINGYUN\Abp\IdentityServer\Localization\SmsValidator\en.json" />
 		<None Remove="LINGYUN\Abp\IdentityServer\Localization\SmsValidator\zh-Hans.json" />
+		<None Remove="LINGYUN\Abp\IdentityServer\Localization\SmsValidator\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="LINGYUN\Abp\IdentityServer\Localization\SmsValidator\en.json" />
 		<EmbeddedResource Include="LINGYUN\Abp\IdentityServer\Localization\SmsValidator\zh-Hans.json" />
+		<EmbeddedResource Include="LINGYUN\Abp\IdentityServer\Localization\SmsValidator\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>

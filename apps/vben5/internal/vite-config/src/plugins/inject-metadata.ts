@@ -73,7 +73,11 @@ async function viteMetadataPlugin(
   const { author, description, homepage, license, version } =
     await readPackageJSON(root);
 
-  const buildTime = dateUtil().format('YYYY-MM-DD HH:mm:ss');
+  // DEV-28b (devops iter-0022): dateUtil.tz() — NOT dateUtil(): plain dayjs()
+  // ignores dayjs.tz.setDefault and formats in the BUILD MACHINE's local
+  // zone, so the old call stamped the builder host's zone, not Ho_Chi_Minh.
+  // tz() honours the Asia/Ho_Chi_Minh default set in @vben/node-utils.
+  const buildTime = dateUtil.tz().format('YYYY-MM-DD HH:mm:ss');
 
   return {
     async config() {

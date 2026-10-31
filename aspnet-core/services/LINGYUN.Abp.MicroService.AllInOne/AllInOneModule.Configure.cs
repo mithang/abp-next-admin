@@ -913,9 +913,19 @@ public partial class AllInOneModule
 
     private void ConfigureSecurity(IServiceCollection services, IConfiguration configuration, bool isDevelopment = false)
     {
+        // SEC-10 (vòng security 14): khôi phục antiforgery validation mặc định của ABP
+        // (AutoValidate = true). Trước đây AutoValidate = false khiến mọi API controller
+        // chấp nhận cookie session mà không cần antiforgery token (CSRF same-site).
+        // Đã chứng minh từ ABP 10.7.0 (Volo.Abp.AspNetCore.Mvc):
+        // ShouldValidate chỉ validate khi request mang cookie Identity.Application, và
+        // bỏ qua khi request không mang cookie nào — nên các SPA dùng bearer token
+        // (app-antd: withCredentials=false) không bị ảnh hưởng, còn request dùng cookie
+        // mà không có token sẽ bị chặn 400. Lưu ý: client nào POST /api bằng cookie
+        // (vd: react-admin external/register với withCredentials:true) phải gửi kèm
+        // antiforgery token, nếu không sẽ 400 sau thay đổi này.
         Configure<AbpAntiForgeryOptions>(options =>
         {
-            options.AutoValidate = false;
+            options.AutoValidate = true;
         });
 
         services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);

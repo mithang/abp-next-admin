@@ -1,5 +1,28 @@
 version: '3.4'
 
+# DEV-20 (devops iter-0017): status of this file. This is an OPTIONAL
+# override, NOT part of the documented stack: README steps 289/296 run
+# the backend with base + override + override.configuration only, and
+# override.configuration sets AgileConfig__IsEnabled=false for all 12
+# services. Do NOT merge this whole file with the base stack as-is:
+# the 11 *-api entries below are environment-only fragments with no
+# image/build, and their names (sts-server, admin-api, ...) do not match
+# the current base service names (auth-server, admin-service, ...), so
+# merging would create unrunnable services. The only runnable service
+# here is agile-config; run it alone (e.g. `up agile-config`) when an
+# AgileConfig server is wanted. agile-config now joins the shared
+# network abp-next-admin (previously it had no networks key, so it
+# would land on the default network, isolated from the backend and
+# middleware stacks that share labp_abp-next-admin under -p labp).
+# Its DB password follows the DEV-05 pattern: env var with the current
+# dev value as default (dev only -- change on deploy). The *-api
+# fragments are left untouched (their dev secrets keep the same
+# posture as the 220 Password= lines in override.configuration,
+# which the loop deliberately does not rewrite); renaming them to the
+# current service names is future work, not done here, to avoid
+# inventing a second configuration source. Needs verification by a
+# real `docker compose up agile-config` (Docker BLOCKED).
+
 services:
   agile-config:
     # DEV-10 (devops iter-0007, provisional): small
@@ -13,11 +36,15 @@ services:
     # `docker compose up` (Docker BLOCKED).
     image: kklldog/agile_config:v-1.13.3
     container_name: agile-config
+    restart: always
+    networks:
+      - abp-next-admin
     environment:
       - adminConsole=true
       - db:provider=mysql
-      - db:conn=Server=abp-mysql;Database=agile;User Id=root;Password=123456;Character Set=utf8mb4
-      - TZ=Asia/Shanghai
+      # DEV-20 (DEV-05 pattern): DB password via env, dev default kept.
+      - db:conn=Server=abp-mysql;Database=agile;User Id=root;Password=${AGILE_DB_PASSWORD:-123456};Character Set=utf8mb4
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "5000:5000"
 
@@ -226,6 +253,9 @@ services:
       - AgileConfig__nodes=http://agile-config:5000
       - AgileConfig__name=ApiGateway
       - AgileConfig__tag=ApiGateway
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     depends_on:
       - agile-config
+
+networks:
+  abp-next-admin:

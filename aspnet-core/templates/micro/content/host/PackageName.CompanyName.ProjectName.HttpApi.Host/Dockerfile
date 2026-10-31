@@ -8,8 +8,8 @@ COPY . /app
 ## Nên định nghĩa ở bên ngoài (ví dụ docker-compose.yml)
 ## Set server time zone.
 ## Suggest defining it externally (such as Docker Compose. yml)
-#ENV TZ=Asia/Shanghai
-#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
+#ENV TZ=Asia/Ho_Chi_Minh
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo "$TZ" > /etc/timezone
 
 
 ## Khắc phục sự cố phiên bản TLS quá cao khi kết nối SqlServer.

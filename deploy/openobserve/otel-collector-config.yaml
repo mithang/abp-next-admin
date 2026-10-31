@@ -13,9 +13,13 @@ exporters:
   debug:
     verbosity: detailed
   otlphttp:
-    endpoint: http://host.docker.internal:5080/api/default
+    endpoint: http://abp-openobserve:5080/api/default
     headers:
-      Authorization: Basic YWRtaW5AYWJwLmlvOnd3MVo1TCU2
+      # DEV-27 (devops iter-0021): auth comes from the OPENOBSERVE_BASIC_AUTH
+      # environment variable (set by docker-compose.middleware.yml) so this
+      # config file carries no credential. It must match the OpenObserve root
+      # credentials in that compose file; rotate them together.
+      Authorization: ${env:OPENOBSERVE_BASIC_AUTH}
       stream-name: default
 
 extensions:

@@ -70,6 +70,8 @@
     "Description:Abp.Identity.User.SmsRepetInterval": "Khoảng thời gian tối thiểu giữa các lần gửi lại mã xác minh SMS, đơn vị là phút",
     "DisplayName:Abp.Identity.User.EmailRegisterRepetInterval": "Khoảng thời gian gửi lại mã xác minh đăng ký email",
     "Description:Abp.Identity.User.EmailRegisterRepetInterval": "Khoảng thời gian tối thiểu giữa các lần gửi lại mã xác minh đăng ký email, đơn vị là phút",
+    "DisplayName:Abp.Identity.User.EmailSigninRepetInterval": "Khoảng thời gian gửi lại mã xác minh đăng nhập email",
+    "Description:Abp.Identity.User.EmailSigninRepetInterval": "Khoảng thời gian tối thiểu giữa các lần gửi lại mã xác minh đăng nhập email, đơn vị là phút",
     "DisplayName:Abp.Identity.Session.ConcurrentLoginStrategy": "Chính sách đăng nhập trùng lặp",
     "Description:Abp.Identity.Session.ConcurrentLoginStrategy": "Chính sách phiên đăng nhập trùng lặp của người dùng",
     "DisplayName:Abp.Identity.Session.LogoutFromSameTypeDevicesLimit": "Số lần đăng nhập cho phép trên cùng loại thiết bị",

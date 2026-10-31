@@ -412,6 +412,20 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
 
     public async virtual Task SendEmailSigninCodeAsync(SendEmailSigninCodeDto input)
     {
+        // SEC-27: chan gui lap ma dang nhap email trong khoang gian cach, theo dung
+        // mau cua SendPhoneSigninCodeAsync/SendEmailRegisterCodeAsync (truoc day method
+        // nay khong co throttle nao). Cache key dung purpose rieng "EmailAddressSignin"
+        // de khong va cham voi throttle dang ky (EmailAddressRegisterPurpose); cache chi
+        // dung de throttle, ma van do token provider cua Identity sinh/verify nhu cu.
+        var securityTokenCacheKey = SecurityTokenCacheItem.CalculateEmailCacheKey(
+            input.EmailAddress, "EmailAddressSignin");
+        var securityTokenCacheItem = await SecurityTokenCache.GetAsync(securityTokenCacheKey);
+        var interval = await SettingProvider.GetAsync(IdentitySettingNames.User.EmailSigninRepetInterval, 1);
+        if (securityTokenCacheItem != null)
+        {
+            throw new UserFriendlyException(L["SendRepeatEmailVerifyCode", interval]);
+        }
+
         var sender = LazyServiceProvider.LazyGetRequiredService<IAccountEmailSecurityCodeSender>();
 
         var user = await UserManager.FindByEmailAsync(input.EmailAddress) 
@@ -426,6 +440,14 @@ public class AccountAppService : AccountApplicationServiceBase, IAccountAppServi
         var code = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultEmailProvider);
 
         await sender.SendLoginCodeAsync(code, user.UserName, user.Email);
+        // Luu bo nho dem trang thai ma xac minh dang nhap, ngan cung mot email gui trung lap
+        securityTokenCacheItem = new SecurityTokenCacheItem(code, user.Id, user.SecurityStamp);
+        await SecurityTokenCache
+            .SetAsync(securityTokenCacheKey, securityTokenCacheItem,
+                new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(interval)
+                });
     }
 
     public async virtual Task SendEmailConfirmLinkAsync(SendUserEmailConfirmCodeDto input)

@@ -20,13 +20,15 @@ spec:
       # - name: internal-docker-repo
       containers:
       - name: project-name-api
-        image: project-name-api:latest
+        # DEV-02 iter-0012: scaffold template must not ship a floating :latest tag.
+        # Replace 1.0.0 with the real release version when scaffolding a project.
+        image: project-name-api:1.0.0
         env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production
             # Tự sửa nếu có vấn đề về múi giờ
             # - name: TZ
-            #   value: "Asia/Shanghai"
+            #   value: "Asia/Ho_Chi_Minh"
         ports:
             - containerPort: 8080
         imagePullPolicy: Always

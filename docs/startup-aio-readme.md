@@ -114,7 +114,7 @@ docker run -d --name postgres \
     -p 5432:5432 \
     -e POSTGRES_PASSWORD=123456 \
     -e PGDATA=/var/lib/postgresql/data \
-    postgres:latest
+    postgres:16
 ```
 
 ##### MySQL
@@ -124,7 +124,7 @@ docker run -d --name postgres \
 docker run -d --name mysql \
     -p 3306:3306 \
     -e MYSQL_ROOT_PASSWORD=123456 \
-    mysql:latest
+    mysql:8.0.46
 ```
 
 ##### SQL Server
@@ -135,7 +135,7 @@ docker run -d --name sqlserver \
     -p 1433:1433 \
     -e "ACCEPT_EULA=Y" \
     -e "SA_PASSWORD=123456" \
-    mcr.microsoft.com/mssql/server:latest
+    mcr.microsoft.com/mssql/server:2022-CU27-ubuntu-22.04
 ```
 
 #### 2. Sửa file cấu hình
@@ -181,7 +181,7 @@ SQL Server:
 
 ```shell
 # Dùng Docker để khởi động Redis
-docker run -d --name redis -p 6379:6379 redis:latest
+docker run -d --name redis -p 6379:6379 redis:6
 ```
 
 Ví dụ cấu hình Redis:

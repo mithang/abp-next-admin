@@ -16,11 +16,13 @@
 	<ItemGroup>
 		<None Remove="LINGYUN\Abp\Features\LimitValidation\Localization\Resources\en.json" />
 		<None Remove="LINGYUN\Abp\Features\LimitValidation\Localization\Resources\zh-Hans.json" />
+		<None Remove="LINGYUN\Abp\Features\LimitValidation\Localization\Resources\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="LINGYUN\Abp\Features\LimitValidation\Localization\Resources\en.json" />
 		<EmbeddedResource Include="LINGYUN\Abp\Features\LimitValidation\Localization\Resources\zh-Hans.json" />
+		<EmbeddedResource Include="LINGYUN\Abp\Features\LimitValidation\Localization\Resources\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>

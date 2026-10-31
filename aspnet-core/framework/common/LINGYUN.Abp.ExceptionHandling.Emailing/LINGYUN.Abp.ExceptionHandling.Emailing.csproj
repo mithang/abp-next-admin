@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<None Remove="LINGYUN\Abp\ExceptionHandling\Emailing\Localization\Resources\en.json" />
 		<None Remove="LINGYUN\Abp\ExceptionHandling\Emailing\Localization\Resources\zh-Hans.json" />
+		<None Remove="LINGYUN\Abp\ExceptionHandling\Emailing\Localization\Resources\vi.json" />
 		<None Remove="LINGYUN\Abp\ExceptionHandling\Emailing\Templates\SendEmail\en.tpl" />
 		<None Remove="LINGYUN\Abp\ExceptionHandling\Emailing\Templates\SendEmail\zh-Hans.tpl" />
 	</ItemGroup>
@@ -23,6 +24,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="LINGYUN\Abp\ExceptionHandling\Emailing\Localization\Resources\en.json" />
 		<EmbeddedResource Include="LINGYUN\Abp\ExceptionHandling\Emailing\Localization\Resources\zh-Hans.json" />
+		<EmbeddedResource Include="LINGYUN\Abp\ExceptionHandling\Emailing\Localization\Resources\vi.json" />
 		<EmbeddedResource Include="LINGYUN\Abp\ExceptionHandling\Emailing\Templates\SendEmail\en.tpl" />
 		<EmbeddedResource Include="LINGYUN\Abp\ExceptionHandling\Emailing\Templates\SendEmail\zh-Hans.tpl" />
 	</ItemGroup>

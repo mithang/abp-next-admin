@@ -1,3 +1,13 @@
+# DEV-21 (devops iter-0018): container timezone is Asia/Ho_Chi_Minh
+# (UTC+7, Vietnam) in this file and in docker-compose.middleware.yml,
+# docker-compose.override.agile.yml and docker-compose.allinone.yml.
+# The previous value Asia/Shanghai (UTC+8) was upstream residue from the
+# project's Chinese origin; it shifted container local time, log
+# timestamps and local-time Quartz schedules by one hour versus the
+# Vietnam deployment this fork targets. No application code references
+# Asia/Shanghai (verified by grep over services/framework), so this is
+# a compose-only change. Runtime verification still pending: real
+# `docker compose up` on Linux (Docker BLOCKED on this VM).
 version: '3.4'
 
 services:
@@ -15,7 +25,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "44385:80"
     networks:
@@ -43,7 +53,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30015:80"
     networks:
@@ -71,7 +81,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30010:80"
     networks:
@@ -99,7 +109,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30030:80"
     networks:
@@ -127,7 +137,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30025:80"
     networks:
@@ -155,7 +165,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30020:80"
     networks:
@@ -183,7 +193,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30040:80"
     networks:
@@ -211,7 +221,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30045:80"
     networks:
@@ -239,7 +249,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30050:80"
     networks:
@@ -267,7 +277,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30060:80"
     networks:
@@ -295,7 +305,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30070:80"
     networks:
@@ -322,9 +332,33 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30000:80"
+    # DEV-06 (devops iter-0015, CLOSED at file level): gateway was the
+    # only base service without a healthcheck. Proven live this round
+    # by running the gateway DLL standalone and probing /healthz:
+    # no Redis configured -> 200 Degraded; Redis reachable ->
+    # 200 Healthy; Redis configured but unreachable -> 503
+    # Unhealthy. So in the base-only stack (no Redis:Configuration)
+    # this wget check PASSES (Degraded maps to 200), and in the full
+    # stack (override.configuration now points Redis at service DNS
+    # abp-redis, DEV-18 iter-0016) an unhealthy result is a true
+    # dependency signal, not a false positive. Same shape as the other
+    # 11 services; wget inside the labp image still Needs verification
+    # by `docker compose up` (Docker BLOCKED).
+    # DEV-19 (devops iter-0016, FIXED): iter-0015's healthcheck edit
+    # accidentally deleted the two lines below it (networks:
+    # abp-next-admin and the extra_hosts header + first two entries),
+    # leaving the remaining extra_hosts entries under `networks:`.
+    # That made `docker compose config` fail (undefined networks) and
+    # detached the gateway from the shared network. Restored verbatim
+    # from HEAD; the healthcheck above is unchanged.
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider http://localhost/healthz || exit"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - abp-next-admin
     extra_hosts:

@@ -23,16 +23,22 @@ public class BlobController : BlobControllerBase, IBlobAppService
         _service = service;
     }
 
+    // SEC-10 (vòng 12): đã gỡ [IgnoreAntiforgeryToken] vì attribute này vốn không có tác
+    // dụng — các API controller không validate antiforgery token (đã chứng minh: endpoint
+    // tạo folder vốn không có Ignore vẫn nhận cookie upload không token, và sau khi gỡ
+    // thì cookie upload vẫn thành công). Việc gỡ chỉ dọn thuộc tính gây hiểu lầm, KHÔNG
+    // tạo thêm lớp bảo vệ. Chống CSRF cho session cookie hiện dựa vào SameSite=Lax của
+    // cookie .AspNetCore.Identity.Application (đã kiểm chứng thuộc tính cookie); hardening
+    // triệt để (chỉ nhận bearer cho /api) là việc app-wide, xem báo cáo security-iter-0012.
     [HttpPost("file")]
-    [IgnoreAntiforgeryToken]
     public virtual Task<BlobDto> CreateFileAsync([FromForm] BlobFileCreateDto input)
     {
         input.CompareMd5 ??= GetCompareMd5InHeader();
         return _service.CreateFileAsync(input);
     }
 
+    // SEC-10: như CreateFileAsync — gỡ [IgnoreAntiforgeryToken] (vốn không có tác dụng).
     [HttpPost("file/chunk")]
-    [IgnoreAntiforgeryToken]
     public virtual Task CreateChunkFileAsync([FromForm] BlobFileChunkCreateDto input)
     {
         input.CompareMd5 ??= GetCompareMd5InHeader();

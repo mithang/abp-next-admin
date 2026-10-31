@@ -10,7 +10,7 @@ services:
       # Cổng mặc định của .NET, See: https://learn.microsoft.com/zh-cn/dotnet/core/compatibility/containers/8.0/aspnet-port
       # ASPNETCORE_HTTP_PORTS=8080
       # Tự sửa vấn đề múi giờ
-      # - TZ=Asia/Shanghai
+      # - TZ=Asia/Ho_Chi_Minh
     ports:
       - "5000:8080"
     healthcheck:

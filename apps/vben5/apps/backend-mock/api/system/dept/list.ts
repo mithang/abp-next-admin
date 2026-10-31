@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { unAuthorizedResponse, useResponseSuccess } from '~/utils/response';
 
-const formatterCN = new Intl.DateTimeFormat('zh-CN', {
-  timeZone: 'Asia/Shanghai',
+const formatterVN = new Intl.DateTimeFormat('vi-VN', {
+  timeZone: 'Asia/Ho_Chi_Minh',
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -21,7 +21,7 @@ function generateMockDataList(count: number) {
       pid: 0,
       name: faker.commerce.department(),
       status: faker.helpers.arrayElement([0, 1]),
-      createTime: formatterCN.format(
+      createTime: formatterVN.format(
         faker.date.between({ from: '2021-01-01', to: '2022-12-31' }),
       ),
       remark: faker.lorem.sentence(),
@@ -34,7 +34,7 @@ function generateMockDataList(count: number) {
           pid: dataItem.id,
           name: faker.commerce.department(),
           status: faker.helpers.arrayElement([0, 1]),
-          createTime: formatterCN.format(
+          createTime: formatterVN.format(
             faker.date.between({ from: '2023-01-01', to: '2023-12-31' }),
           ),
           remark: faker.lorem.sentence(),

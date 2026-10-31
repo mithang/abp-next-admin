@@ -3,8 +3,8 @@ import { verifyAccessToken } from '~/utils/jwt-utils';
 import { getMenuIds, MOCK_MENU_LIST } from '~/utils/mock-data';
 import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
 
-const formatterCN = new Intl.DateTimeFormat('zh-CN', {
-  timeZone: 'Asia/Shanghai',
+const formatterVN = new Intl.DateTimeFormat('vi-VN', {
+  timeZone: 'Asia/Ho_Chi_Minh',
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -23,7 +23,7 @@ function generateMockDataList(count: number) {
       id: faker.string.uuid(),
       name: faker.commerce.product(),
       status: faker.helpers.arrayElement([0, 1]),
-      createTime: formatterCN.format(
+      createTime: formatterVN.format(
         faker.date.between({ from: '2022-01-01', to: '2025-01-01' }),
       ),
       permissions: faker.helpers.arrayElements(menuIds),

@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="LINGYUN\Abp\AspNetCore\Mvc\Localization\Resources\en.json" />
 		<EmbeddedResource Include="LINGYUN\Abp\AspNetCore\Mvc\Localization\Resources\zh-Hans.json" />
+		<EmbeddedResource Include="LINGYUN\Abp\AspNetCore\Mvc\Localization\Resources\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>

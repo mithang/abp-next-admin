@@ -1,7 +1,10 @@
 $ErrorActionPreference = "Stop"
 
 $NugetSource = "https://api.nuget.org/v3/index.json"
-$ApiKey = "${{ secrets.NUGETKEY }}"
+$ApiKey = $env:NUGETKEY
+if ([string]::IsNullOrWhiteSpace($ApiKey)) {
+    throw "NUGETKEY is not set. Set it as an environment variable (the publish workflow passes secrets.NUGETKEY through step env) before pushing packages."
+}
 
 Get-ChildItem -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" } | ForEach-Object {
     $pkg = $_.FullName

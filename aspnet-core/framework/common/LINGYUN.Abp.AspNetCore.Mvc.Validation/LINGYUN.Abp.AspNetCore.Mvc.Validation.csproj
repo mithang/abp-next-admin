@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="..\..\..\configureawait.props" />
-	<Import Project="..\..\..\common.props" />
+	<Import Project="..\..\..\..\configureawait.props" />
+	<Import Project="..\..\..\..\common.props" />
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
@@ -11,15 +11,17 @@
 	<ItemGroup>
 	  <None Remove="LINGYUN\Abp\AspNetCore\Mvc\Validation\Localization\MissingFields\en.json" />
 	  <None Remove="LINGYUN\Abp\AspNetCore\Mvc\Validation\Localization\MissingFields\zh-Hans.json" />
+	  <None Remove="LINGYUN\Abp\AspNetCore\Mvc\Validation\Localization\MissingFields\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="LINGYUN\Abp\AspNetCore\Mvc\Validation\Localization\MissingFields\en.json" />
 	  <EmbeddedResource Include="LINGYUN\Abp\AspNetCore\Mvc\Validation\Localization\MissingFields\zh-Hans.json" />
+	  <EmbeddedResource Include="LINGYUN\Abp\AspNetCore\Mvc\Validation\Localization\MissingFields\vi.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(VoloAbpPackageVersion)" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Mvc" />
 	</ItemGroup>
 
 </Project>

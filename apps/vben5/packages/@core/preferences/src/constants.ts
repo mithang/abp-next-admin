@@ -93,6 +93,11 @@ const DEFAULT_TIME_ZONE_OPTIONS: TimezoneOption[] = [
     label: 'Europe/London(GMT0)',
   },
   {
+    offset: 7,
+    timezone: 'Asia/Ho_Chi_Minh',
+    label: 'Asia/Ho_Chi_Minh(GMT+7)',
+  },
+  {
     offset: 8,
     timezone: 'Asia/Shanghai',
     label: 'Asia/Shanghai(GMT+8)',

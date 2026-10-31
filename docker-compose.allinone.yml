@@ -28,7 +28,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
       - APPLICATION_DATABASE_PROVIDER=${APPLICATION_DATABASE_PROVIDER:-PostgreSql}
-      - TZ=Asia/Shanghai
+      - TZ=Asia/Ho_Chi_Minh
     ports:
       - "30000:80"
     restart: unless-stopped

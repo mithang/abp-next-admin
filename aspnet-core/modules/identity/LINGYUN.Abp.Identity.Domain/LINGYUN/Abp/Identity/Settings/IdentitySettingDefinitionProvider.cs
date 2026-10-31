@@ -105,6 +105,21 @@ public class IdentitySettingDefinitionProvider : SettingDefinitionProvider
             .WithParent("User", L("Settings:Identity.User"), order: 1)
             .WithOrder(5)
             .WithValueType(ValueType.Number),
+            new SettingDefinition(
+                name: IdentitySettingNames.User.EmailSigninRepetInterval,
+                defaultValue: "1",
+                displayName: L("DisplayName:Abp.Identity.User.EmailSigninRepetInterval"),
+                description: L("Description:Abp.Identity.User.EmailSigninRepetInterval"),
+                isVisibleToClients: false)
+            .WithProviders(
+                DefaultValueSettingValueProvider.ProviderName,
+                ConfigurationSettingValueProvider.ProviderName,
+                GlobalSettingValueProvider.ProviderName,
+                TenantSettingValueProvider.ProviderName)
+            .WithGroup(GroupName, L("Settings:Identity"), GroupOrder)
+            .WithParent("User", L("Settings:Identity.User"), order: 1)
+            .WithOrder(6)
+            .WithValueType(ValueType.Number),
 
             new SettingDefinition(
                 name: IdentitySettingNames.Security.TwoFactorBehaviour,

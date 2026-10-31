@@ -481,7 +481,13 @@ public partial class WorkflowServiceModule
     {
         Configure<AbpAntiForgeryOptions>(options =>
         {
-            options.AutoValidate = false;
+            // SEC-10 (vòng 15): khôi phục default ABP (AutoValidate = true) cho nhất
+            // quán với host AllInOne (sửa vòng 14). Trước đây AutoValidate = false tắt
+            // hoàn toàn antiforgery auto-validation: request mang cookie Identity mà
+            // không có token vẫn qua được API controller. Bearer request không cookie
+            // vẫn được filter bỏ qua (ngữ nghĩa base filter của ABP 10.7.0), nên sửa
+            // này không chặn đường bearer của SPA.
+            options.AutoValidate = true;
         });
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
