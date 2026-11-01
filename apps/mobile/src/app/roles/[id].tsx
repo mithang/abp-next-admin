@@ -56,6 +56,16 @@ export default function RoleDetailScreen() {
           testID="role-edit"
         />
         <AppButton
+          title={t('menuAllot.title')}
+          variant="outline"
+          onPress={() =>
+            router.push(
+              `/platform/menu-allot?subject=role&id=${encodeURIComponent(role.name)}&label=${encodeURIComponent(role.name)}`,
+            )
+          }
+          testID="role-menu-allot"
+        />
+        <AppButton
           title={t('common.delete')}
           action="negative"
           variant="outline"

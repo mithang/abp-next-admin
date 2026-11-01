@@ -158,10 +158,11 @@ export interface LayoutUpdateDto {
 /* - Meta: drawer web xây form meta động từ mục của từ điển ràng     */
 /*   buộc của layout (layout.dataId); mobile chưa có form động nên    */
 /*   meta nhập dạng JSON text (mặc định {}), kiểm chứng JSON hợp lệ. */
-/* - Các API phân quyền menu (by-user/by-role/favorites/startup) là  */
-/*   chức năng gán menu cho user/role, KHÔNG thuộc bảng MenuTable của */
-/*   trang lá này (drawer/modal gán nằm ở trang Vai trò/Người dùng)  */
-/*   nên vòng này không xây chúng; ghi rõ để không giấu.              */
+/* - Các API phân bổ menu (by-user/by-role + startup) là chức năng   */
+/*   gán menu cho user/role, KHÔNG thuộc bảng MenuTable của trang lá  */
+/*   này: vòng 22 xây màn riêng src/app/platform/menu-allot.tsx       */
+/*   (mở từ chi tiết Người dùng/Vai trò, đúng MenuAllotModal web).    */
+/*   Favorites (my-favorite-menus) vẫn chưa xây — xem báo cáo vòng 22. */
 
 export interface MenuDto {
   id: string;

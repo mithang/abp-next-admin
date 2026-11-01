@@ -117,6 +117,12 @@ export default function MenusScreen() {
         onPress={() => router.push('/platform/menus/form')}
         testID="platform-menus-create"
       />
+      <AppButton
+        title={t('menuAllot.title')}
+        variant="outline"
+        onPress={() => router.push('/platform/menu-allot')}
+        testID="platform-menus-allot"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (

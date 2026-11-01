@@ -1,4 +1,5 @@
 import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import type { RoleMenuInput, UserMenuInput } from './menu-allotment';
 import type {
   DataCreateDto,
   DataDto,
@@ -177,6 +178,34 @@ export function updateMenu(id: string, input: MenuUpdateDto) {
 /** DELETE /api/platform/menus/{id} */
 export function deleteMenu(id: string) {
   return apiRequest<void>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'DELETE' });
+}
+
+/* ---------------- Phân bổ menu: by-user / by-role ---------------- */
+
+/** GET /api/platform/menus/by-user/{userId}/{framework} — menu đã gán cho user. */
+export function getUserMenus(userId: string, framework: string) {
+  return apiRequest<ListResult<MenuDto>>(
+    `/api/platform/menus/by-user/${encodeURIComponent(userId)}/${encodeURIComponent(framework)}`,
+    { method: 'GET' },
+  );
+}
+
+/** GET /api/platform/menus/by-role/{role}/{framework} — menu đã gán cho vai trò. */
+export function getRoleMenus(role: string, framework: string) {
+  return apiRequest<ListResult<MenuDto>>(
+    `/api/platform/menus/by-role/${encodeURIComponent(role)}/${encodeURIComponent(framework)}`,
+    { method: 'GET' },
+  );
+}
+
+/** PUT /api/platform/menus/by-user — gán menu + startup cho user. */
+export function setUserMenus(input: UserMenuInput) {
+  return apiRequest<void>('/api/platform/menus/by-user', { method: 'PUT', body: input });
+}
+
+/** PUT /api/platform/menus/by-role — gán menu + startup cho vai trò. */
+export function setRoleMenus(input: RoleMenuInput) {
+  return apiRequest<void>('/api/platform/menus/by-role', { method: 'PUT', body: input });
 }
 
 /* ---------------- Tin nhắn Email: /api/platform/messages/email ---------------- */

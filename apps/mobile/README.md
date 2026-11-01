@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 22
+
+Vòng P2 — phân bổ menu cho user/role (đóng P2 menu assignment APIs
+tồn đọng từ vòng 15, trừ favorites): màn mới
+`/platform/menu-allot` là bản mobile của MenuAllotModal web (mở từ
+bảng Người dùng/Vai trò) — chọn đối tượng (user qua userId, role qua
+roleName) từ danh sách thật có tìm kiếm, hoặc mở thẳng từ chi tiết
+Người dùng/Vai trò; nhập framework (gợi ý từ từ điển 'UI
+Framework'), tải toàn bộ menu của framework + menu đã gán, tick
+menu, chọn 1 startup (bấm startup ở menu chưa tick thì tick luôn menu
+đó; bỏ tick menu đang là startup thì startup rơi về null), lưu qua
+PUT by-user/by-role. API layer mới: GET by-user/{userId}/{framework},
+GET by-role/{role}/{framework}, PUT by-user, PUT by-role — route đã
+xác nhận qua Swagger của AllInOne đang chạy, probe không token trả
+401 (đúng auth-gate); route giả trùng mẫu GET {id} trả HTTP 200 kèm
+envelope lỗi code 400 nên không dùng HTTP status để phân biệt route
+ở controller này. Helper `menu-allotment.ts` (flatten cây, trạng thái
+khởi tạo, build input, coerce startup) có 8 test riêng. Vẫn còn P2:
+menu favorites (my-favorite-menus), tenant feature-values +
+impersonation, blob upload, formatter, RNTL component tests.
+
 ## Trạng thái vòng 21
 
 Vòng P2 — culture picker thật cho nội dung mẫu văn bản (đóng P2

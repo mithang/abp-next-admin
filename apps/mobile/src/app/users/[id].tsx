@@ -1,7 +1,8 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppButton } from '../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -11,6 +12,7 @@ import { toApiError } from '../../lib/errors';
 
 export default function UserDetailScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({ queryKey: ['users', id], queryFn: () => getUser(id), enabled: Boolean(id) });
 
@@ -40,6 +42,16 @@ export default function UserDetailScreen() {
           {t('users.emailConfirmed')}: {user.emailConfirmed ? '✓' : '—'}
         </Text>
         <Text>{user.roleNames.join(', ')}</Text>
+        <AppButton
+          title={t('menuAllot.title')}
+          variant="outline"
+          onPress={() =>
+            router.push(
+              `/platform/menu-allot?subject=user&id=${encodeURIComponent(user.id)}&label=${encodeURIComponent(displayName(user))}`,
+            )
+          }
+          testID="user-menu-allot"
+        />
       </VStack>
     </AppScreen>
   );

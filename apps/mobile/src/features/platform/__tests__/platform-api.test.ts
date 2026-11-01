@@ -18,10 +18,14 @@ import {
   getLayoutsPaged,
   getMenu,
   getMenusAll,
+  getRoleMenus,
   getSmsMessagesPaged,
+  getUserMenus,
   moveData,
   sendEmailMessage,
   sendSmsMessage,
+  setRoleMenus,
+  setUserMenus,
   updateData,
   updateDataItem,
   updateLayout,
@@ -183,6 +187,28 @@ describe('platform api', () => {
     const del = stubFetch('', 204);
     await deleteMenu('abc');
     expect(methodOf(del.calls)).toBe('DELETE');
+  });
+
+  it('menu allotment: get by-user/by-role đúng route path (framework trong path, KHÔNG query); set PUT đúng body', async () => {
+    const byUser = stubFetch(JSON.stringify({ items: [] }));
+    await getUserMenus('11111111-1111-1111-1111-111111111111', 'Vben');
+    expect(urlOf(byUser.calls)).toContain('/api/platform/menus/by-user/11111111-1111-1111-1111-111111111111/Vben');
+
+    const byRole = stubFetch(JSON.stringify({ items: [] }));
+    await getRoleMenus('Admin', 'Vben');
+    expect(urlOf(byRole.calls)).toContain('/api/platform/menus/by-role/Admin/Vben');
+
+    const setU = stubFetch('', 204);
+    await setUserMenus({ userId: 'u1', framework: 'Vben', startupMenuId: 'm2', menuIds: ['m1', 'm2'] });
+    expect(methodOf(setU.calls)).toBe('PUT');
+    expect(urlOf(setU.calls)).toContain('/api/platform/menus/by-user');
+    expect(bodyOf(setU.calls)).toEqual({ userId: 'u1', framework: 'Vben', startupMenuId: 'm2', menuIds: ['m1', 'm2'] });
+
+    const setR = stubFetch('', 204);
+    await setRoleMenus({ roleName: 'Admin', framework: 'Vben', menuIds: [] });
+    expect(methodOf(setR.calls)).toBe('PUT');
+    expect(urlOf(setR.calls)).toContain('/api/platform/menus/by-role');
+    expect(bodyOf(setR.calls)).toEqual({ roleName: 'Admin', framework: 'Vben', menuIds: [] });
   });
 
   it('email/sms messages: paged gắn filter/status; get email; delete + send đúng route; KHÔNG có create/update', async () => {
