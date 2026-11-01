@@ -23,6 +23,14 @@ export function setUnauthorizedHandler(fn: (() => void) | null) {
   unauthorizedHandler = fn;
 }
 
+/**
+ * Token hiện tại cho các client không dùng apiRequest (vd SSE chat, vốn
+ * không parse JSON). Chỉ trả token, không log hay lưu thêm ở đâu khác.
+ */
+export function getApiToken(): Promise<string | null> {
+  return tokenProvider ? tokenProvider() : Promise.resolve(null);
+}
+
 function buildQuery(params?: RequestOptions['params']): string {
   if (!params) return '';
   const search = new URLSearchParams();

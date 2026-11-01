@@ -45,6 +45,18 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 12
+
+Nhóm AI đã xây (34/50 trang lá): Công cụ AI (list phân trang, detail,
+tạo/sửa/xóa, provider khả dụng), Không gian làm việc AI (list phân trang,
+detail không lộ apiKey, tạo/sửa, đặt lại API key), Phiên hội thoại AI
+(list, tạo, đổi tên, xóa, màn chat gửi tin bằng SSE với parser chịu mảnh
+cắt đôi + nút Dừng) — đều qua tab hub "Quản trị" (thêm 3 mục, không thêm
+tab). Phát hiện vòng này: route PUT đổi tên phiên của web
+(/api/ai-management/conversations/{id}) không có trong Swagger và GET trả
+404; mobile dùng route /api/ai-management/chats/conversations/{id} đã xác
+minh (401 = tồn tại, cần auth). Trước đó: Tài liệu API + Cache (31/50).
+
 ## Trạng thái vòng 11
 
 Tài liệu API + Quản lý cache đã xây (31/50 trang lá): Tài liệu API mở

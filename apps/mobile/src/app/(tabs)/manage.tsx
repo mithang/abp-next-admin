@@ -34,6 +34,9 @@ const ENTRIES = [
   { route: '/notifications/send-records', titleKey: 'manage.notificationSendRecords', descKey: 'manage.notificationSendRecordsDesc' },
   { route: '/openapi', titleKey: 'manage.apiDocs', descKey: 'manage.apiDocsDesc' },
   { route: '/cache/caches', titleKey: 'manage.cache', descKey: 'manage.cacheDesc' },
+  { route: '/ai/tools', titleKey: 'manage.aiTools', descKey: 'manage.aiToolsDesc' },
+  { route: '/ai/workspaces', titleKey: 'manage.aiWorkspaces', descKey: 'manage.aiWorkspacesDesc' },
+  { route: '/ai/conversations', titleKey: 'manage.aiConversations', descKey: 'manage.aiConversationsDesc' },
 ] as const;
 
 export default function ManageScreen() {

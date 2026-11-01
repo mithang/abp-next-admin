@@ -1,0 +1,97 @@
+import { Alert } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppButton } from '../../../components/ui/AppButton';
+import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { VStack } from '@/components/ui/vstack';
+import { Text } from '@/components/ui/text';
+import { deleteAITool, getAITool } from '../../../features/ai/ai-api';
+import { isReadOnlyTool } from '../../../features/ai/types';
+import { toApiError } from '../../../lib/errors';
+
+/**
+ * Chi tiết công cụ AI. Công cụ hệ thống/tĩnh không sửa/xóa được (đúng
+ * luật web: modal khóa nút xác nhận khi isSystem || isStatic) nên màn
+ * này ẩn cả 2 nút thay vì để nút bấm rồi backend từ chối.
+ */
+export default function AIToolDetailScreen() {
+  const { t } = useTranslation();
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const query = useQuery({ queryKey: ['ai-tools', id], queryFn: () => getAITool(id), enabled: Boolean(id) });
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteAITool(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['ai-tools'] });
+      router.back();
+    },
+  });
+
+  if (query.isPending) return <AppLoading />;
+  if (query.isError) {
+    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+  }
+  const item = query.data;
+  if (!item) return <AppErrorState message={t('common.empty')} />;
+  const readOnly = isReadOnlyTool(item);
+
+  return (
+    <AppScreen title={item.name} subtitle={item.provider}>
+      <VStack space="sm">
+        <Text>
+          {t('aiTools.provider')}: {item.provider}
+        </Text>
+        {item.description ? (
+          <Text>
+            {t('aiTools.description')}: {item.description}
+          </Text>
+        ) : null}
+        <Text>
+          {t('aiTools.enabled')}: {item.isEnabled ? t('aiTools.yes') : t('aiTools.no')}
+        </Text>
+        <Text>
+          {t('aiTools.global')}: {item.isGlobal ? t('aiTools.yes') : t('aiTools.no')}
+        </Text>
+        {item.isSystem ? <Text>· {t('aiTools.system')}</Text> : null}
+        {item.isStatic ? <Text>· {t('aiTools.static')}</Text> : null}
+        {item.stateCheckers ? (
+          <Text>
+            {t('aiTools.stateCheckers')}: {item.stateCheckers}
+          </Text>
+        ) : null}
+        {item.extraProperties && Object.keys(item.extraProperties).length > 0 ? (
+          <Text>
+            {t('aiTools.extraProperties')}: {JSON.stringify(item.extraProperties)}
+          </Text>
+        ) : null}
+        {readOnly ? <Text>{t('aiTools.readOnlyHint')}</Text> : null}
+        {!readOnly ? (
+          <>
+            <AppButton
+              title={t('aiTools.editTitle')}
+              onPress={() => router.push(`/ai/tools/form?id=${encodeURIComponent(item.id)}`)}
+              variant="outline"
+            />
+            <AppButton
+              title={t('common.delete')}
+              action="negative"
+              variant="outline"
+              loading={deleteMutation.isPending}
+              onPress={() =>
+                Alert.alert(t('aiTools.deleteConfirmTitle'), t('aiTools.deleteConfirmMessage'), [
+                  { text: t('common.cancel'), style: 'cancel' },
+                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+                ])
+              }
+              testID="ai-tool-delete"
+            />
+          </>
+        ) : null}
+        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
+      </VStack>
+    </AppScreen>
+  );
+}
