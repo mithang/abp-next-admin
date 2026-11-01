@@ -1,7 +1,7 @@
 # Đối chiếu chức năng web → mobile (vòng 1)
 
 Nguồn: `~/workspace/run-logs/feature-inventory.md` (76 mục menu, 50 trang lá).
-Trạng thái vòng 4: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật (9/50 trang lá);
+Trạng thái vòng 5: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật + nhóm OpenIddict (Ứng dụng đủ CRUD, Phạm vi đủ CRUD, Ủy quyền list/detail/xóa, Token list/detail/xóa) qua tab hub "Quản trị" (13/50 trang lá);
 P0 OIDC đã kiểm chứng end-to-end ở tầng giao thức (authorize → login → code → đổi token PKCE, không secret);
 các trang còn lại đã có route kế hoạch trong bảng này, xây dần P0→P3 các vòng sau.
 Không màn hình nào dùng mock data trong production: trang chưa xây sẽ không xuất
@@ -12,10 +12,10 @@ hiện trong tab bar cho tới khi có API thật.
 | 1 | Phân tích | /dashboard/analytics | (tabs)/index — Dashboard | Đã xây khung (menu + tổng số users thật) |
 | 2 | Bàn làm việc | /dashboard/workspace | (tabs)/index | Đã xây khung |
 | 3 | Cài đặt cá nhân | /account/my-settings | (tabs)/account | Đã xây (profile thật) |
-| 4 | OpenIddict: Ứng dụng | /manage/openiddict/applications | manage/openiddict/applications | Chưa xây |
-| 5 | OpenIddict: Ủy quyền | /manage/openiddict/authorizations | manage/openiddict/authorizations | Chưa xây |
-| 6 | OpenIddict: Phạm vi | /manage/openiddict/scopes | manage/openiddict/scopes | Chưa xây |
-| 7 | OpenIddict: Token | /manage/openiddict/tokens | manage/openiddict/tokens | Chưa xây |
+| 4 | OpenIddict: Ứng dụng | /manage/openiddict/applications | (tabs)/manage → openiddict/applications + applications/[id] + applications/form | **Đã xây đủ CRUD vòng 5: list thật (search, phân trang, refresh), detail thật, tạo/sửa bằng form RHF+Zod (clientId bắt buộc, mảng nhập nhiều dòng, create/update luôn gửi requirements requirePkce=false + settings tokenLifetime rỗng), xóa có xác nhận — API thật, không mock** |
+| 5 | OpenIddict: Ủy quyền | /manage/openiddict/authorizations | (tabs)/manage → openiddict/authorizations + authorizations/[id] | **Đã xây vòng 5: list thật (search, phân trang, refresh), detail thật, xóa có xác nhận — đúng web (chỉ đọc + xóa, không form tạo/sửa)** |
+| 6 | OpenIddict: Phạm vi | /manage/openiddict/scopes | (tabs)/manage → openiddict/scopes + scopes/[id] + scopes/form | **Đã xây đủ CRUD vòng 5: list thật, detail thật, tạo/sửa bằng form RHF+Zod (name bắt buộc, resources nhập nhiều dòng), xóa có xác nhận — API thật, không mock** |
+| 7 | OpenIddict: Token | /manage/openiddict/tokens | (tabs)/manage → openiddict/tokens + tokens/[id] | **Đã xây vòng 5: list thật, detail thật chỉ metadata (không hiển thị payload token), xóa có xác nhận — đúng web (chỉ đọc + xóa, không form tạo/sửa)** |
 | 8 | Identity: Người dùng | /manage/identity/users | (tabs)/users + users/[id] | **Đã xây: list thật (search, phân trang, refresh), detail thật** |
 | 9 | Identity: Vai trò | /manage/identity/roles | (tabs)/roles + roles/[id] + roles/form | **Đã xây đủ CRUD vòng 2: list thật (search, phân trang, refresh), detail thật, tạo/sửa bằng form RHF+Zod, xóa có xác nhận — API thật, không mock** |
 | 10 | Identity: Loại claim | /manage/identity/claim-types | (tabs)/claim-types + claim-types/[id] + claim-types/form | **Đã xây đủ CRUD vòng 3: list thật, detail thật, tạo/sửa bằng form RHF+Zod (sửa chỉ gửi 4 field update, loại tĩnh ẩn Sửa/Xóa như web), xóa có xác nhận — API thật, không mock** |

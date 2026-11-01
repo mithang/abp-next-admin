@@ -45,7 +45,15 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
-## Giới hạn đã biết (vòng 4)
+## Trạng thái vòng 5
+
+Nhóm OpenIddict đã xây đủ (13/50 trang lá): Ứng dụng đủ CRUD, Phạm vi đủ CRUD,
+Ủy quyền và Token list/detail/xóa đúng web (chỉ đọc, không form tạo/sửa; detail
+Token chỉ hiển thị metadata, không hiển thị payload). Điều hướng qua tab hub
+"Quản trị" thay vì 4 tab riêng. Form ứng dụng không có field clientSecret và
+luôn gửi requirements requirePkce=false + settings tokenLifetime rỗng theo DTO web.
+
+## Giới hạn đã biết (vòng 5)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
@@ -55,7 +63,7 @@ thiết bị/emulator. Không nhúng client secret vào app.
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá còn lại (41/50): chưa xây, xem `docs/inventory-mapping.md`.
+- Các trang lá còn lại (37/50): chưa xây, xem `docs/inventory-mapping.md`.
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);
   lint trực tiếp cho 0 lỗi, 14 warning trong code Gluestack vendored.
