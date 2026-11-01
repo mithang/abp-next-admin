@@ -6,12 +6,15 @@ import {
   deleteEdition,
   deleteTenant,
   deleteTenantConnectionString,
+  deleteTenantFeatureValues,
   getEditionsPaged,
   getTenantConnectionStrings,
+  getTenantFeatureValues,
   getTenantsPaged,
   setTenantConnectionString,
   updateEdition,
   updateTenant,
+  updateTenantFeatureValues,
 } from '../saas-api';
 
 function stubFetch(body: string, status = 200) {
@@ -119,5 +122,27 @@ describe('saas api', () => {
     const del = stubFetch('', 204);
     await deleteEdition('e1');
     expect(methodOf(del.calls)).toBe('DELETE');
+  });
+
+  it('tenant features: GET/PUT/DELETE /api/feature-management/features với providerName=T + providerKey', async () => {
+    const get = stubFetch(JSON.stringify({ groups: [] }));
+    await getTenantFeatureValues('t1');
+    expect(methodOf(get.calls)).toBe('GET');
+    expect(urlOf(get.calls)).toContain('/api/feature-management/features?');
+    expect(urlOf(get.calls)).toContain('providerName=T');
+    expect(urlOf(get.calls)).toContain('providerKey=t1');
+
+    const put = stubFetch('', 204);
+    await updateTenantFeatureValues('t1', {
+      features: [{ name: 'Feature.Number', value: '7' }],
+    });
+    expect(methodOf(put.calls)).toBe('PUT');
+    expect(urlOf(put.calls)).toContain('providerName=T');
+    expect(bodyOf(put.calls).features).toEqual([{ name: 'Feature.Number', value: '7' }]);
+
+    const del = stubFetch('', 204);
+    await deleteTenantFeatureValues('t1');
+    expect(methodOf(del.calls)).toBe('DELETE');
+    expect(urlOf(del.calls)).toContain('providerKey=t1');
   });
 });

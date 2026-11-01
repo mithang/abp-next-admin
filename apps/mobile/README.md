@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 24
+
+Vòng P2 — giá trị tính năng theo tenant (đóng một nửa P2 tenant còn
+lại từ vòng 13): màn mới `/saas/tenants/features`, bản mobile của
+FeatureModal web trong TenantTable (providerName 'T', providerKey =
+tenant id) — xem các nhóm tính năng (GET
+/api/feature-management/features), sửa theo valueType (BOOLEAN →
+Switch, NUMERIC → bàn phím số + kiểm tra Min/Max, Selection →
+nút chọn trong itemSource.items, còn lại → text), nút Lưu chỉ bật
+khi có giá trị đổi và không lỗi validate, gửi đúng body PUT web
+{ features: [{ name, value }] } với value luôn là chuỗi, và nút
+"Đặt lại mặc định" (DELETE của web useFeaturesApi, có xác nhận).
+Mở màn từ nút "Tính năng" mới trên chi tiết tenant. Helper
+`tenant-features.ts` có 8 test riêng + 1 test API. Mạo danh
+(impersonation) vẫn chưa làm: nó đổi toàn bộ phiên OIDC qua
+extension grant `impersonation` (POST /connect/token với access
+token hiện tại + tenantId/tenantUserName) nên cần thiết kế lại auth
+store kèm luồng quay về tài khoản gốc + kiểm chứng live — ghi rõ
+lý do, không làm nửa vời trong vòng này. Vẫn còn P2: impersonation,
+blob upload, formatter, RNTL component tests.
+
 ## Trạng thái vòng 23
 
 Vòng P2 — menu yêu thích của tôi (đóng nốt P2 menu assignment:

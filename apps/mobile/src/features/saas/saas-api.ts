@@ -12,6 +12,10 @@ import type {
   TenantGetListInput,
   TenantUpdateDto,
 } from './types';
+import type {
+  GetFeatureValuesResult,
+  UpdateFeatureValuesInput,
+} from './tenant-features';
 
 /* ---------------- Tenant: /api/saas/tenants ---------------- */
 
@@ -100,6 +104,39 @@ export function checkTenantConnectionString(input: TenantConnectionStringCheckIn
   return apiRequest<void>('/api/saas/tenants/connection-string/check', {
     method: 'POST',
     body: input,
+  });
+}
+
+/* ---------------- Giá trị tính năng theo tenant ---------------- */
+
+/** GET /api/feature-management/features?providerName=T&providerKey={id}
+ * — đúng FeatureModal web trong TenantTable (providerName 'T').
+ */
+export function getTenantFeatureValues(tenantId: string) {
+  return apiRequest<GetFeatureValuesResult>('/api/feature-management/features', {
+    method: 'GET',
+    params: { providerName: 'T', providerKey: tenantId },
+  });
+}
+
+/** PUT /api/feature-management/features — body { features: [{ name, value }] }, value luôn là chuỗi. */
+export function updateTenantFeatureValues(tenantId: string, input: UpdateFeatureValuesInput) {
+  return apiRequest<void>('/api/feature-management/features', {
+    method: 'PUT',
+    params: { providerName: 'T', providerKey: tenantId },
+    body: input,
+  });
+}
+
+/**
+ * DELETE /api/feature-management/features — xóa toàn bộ giá trị tính
+ * năng của tenant, quay về giá trị mặc định (đúng deleteApi của web
+ * useFeaturesApi; màn hình dùng làm nút "Đặt lại mặc định").
+ */
+export function deleteTenantFeatureValues(tenantId: string) {
+  return apiRequest<void>('/api/feature-management/features', {
+    method: 'DELETE',
+    params: { providerName: 'T', providerKey: tenantId },
   });
 }
 

@@ -13,9 +13,11 @@ import { toApiError } from '../../../lib/errors';
 /**
  * Chi tiết tenant. Nút "Chuỗi kết nối" mở màn quản lý connection string
  * (đặt/xóa/kiểm tra) — đúng modal ConnectionStrings của web; giá trị
- * connection string đã lưu KHÔNG hiển thị (credential).
- * Tính năng theo tenant (nút Features của web) và mạo danh (impersonation)
- * chưa có ở vòng này, xem báo cáo vòng 13.
+ * connection string đã lưu KHÔNG hiển thị (credential). Nút "Tính năng"
+ * mở màn giá trị tính năng theo tenant (vòng 24, đúng FeatureModal web
+ * với providerName 'T'). Mạo danh (impersonation) vẫn chưa có, xem
+ * báo cáo vòng 24: nó đổi toàn bộ phiên OIDC qua extension grant và
+ * cần thiết kế lại auth store + kiểm chứng live, không làm trong vòng này.
  */
 export default function TenantDetailScreen() {
   const { t } = useTranslation();
@@ -78,6 +80,15 @@ export default function TenantDetailScreen() {
           title={t('saasTenants.connectionStrings')}
           onPress={() =>
             router.push(`/saas/tenants/connection-strings?tenantId=${encodeURIComponent(item.id)}`)
+          }
+          variant="outline"
+        />
+        <AppButton
+          title={t('saasTenants.features')}
+          onPress={() =>
+            router.push(
+              `/saas/tenants/features?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`,
+            )
           }
           variant="outline"
         />
