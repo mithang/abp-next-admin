@@ -28,6 +28,10 @@ const ENTRIES = [
   { route: '/data-protection/entity-type-infos', titleKey: 'manage.dataProtectionEntityTypeInfos', descKey: 'manage.dataProtectionEntityTypeInfosDesc' },
   { route: '/auditing/audit-logs', titleKey: 'manage.auditLogs', descKey: 'manage.auditLogsDesc' },
   { route: '/auditing/sys-logs', titleKey: 'manage.sysLogs', descKey: 'manage.sysLogsDesc' },
+  { route: '/notifications/my-notifilers', titleKey: 'manage.myNotifications', descKey: 'manage.myNotificationsDesc' },
+  { route: '/notifications/groups', titleKey: 'manage.notificationGroups', descKey: 'manage.notificationGroupsDesc' },
+  { route: '/notifications/definitions', titleKey: 'manage.notificationDefinitions', descKey: 'manage.notificationDefinitionsDesc' },
+  { route: '/notifications/send-records', titleKey: 'manage.notificationSendRecords', descKey: 'manage.notificationSendRecordsDesc' },
 ] as const;
 
 export default function ManageScreen() {

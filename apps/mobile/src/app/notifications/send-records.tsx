@@ -1,0 +1,148 @@
+import { useEffect, useState } from 'react';
+import { Alert, FlatList } from 'react-native';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { AppScreen } from '../../components/ui/AppScreen';
+import { AppInput } from '../../components/ui/AppInput';
+import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
+import { AppButton } from '../../components/ui/AppButton';
+import { VStack } from '@/components/ui/vstack';
+import { Text } from '@/components/ui/text';
+import { Card } from '@/components/ui/card';
+import { deleteNotificationSendRecord, getNotificationSendRecordsPaged, reSendNotificationRecord } from '../../features/notifications/notifications-api';
+import type { NotificationSendRecordDto } from '../../features/notifications/types';
+import { sendStateName } from '../../features/notifications/types';
+import { toApiError } from '../../lib/errors';
+
+const PAGE_SIZE = 20;
+
+function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteNotificationSendRecord(String(item.id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['notification-send-records'] });
+    },
+  });
+  const reSendMutation = useMutation({
+    mutationFn: () => reSendNotificationRecord(String(item.id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['notification-send-records'] });
+    },
+  });
+  return (
+    <Card className="p-4">
+      <VStack space="xs">
+        <Text>{item.notification?.name ?? String(item.id)}</Text>
+        <Text>
+          {t('notificationSendRecords.provider')}: {item.provider} · {t('notificationSendRecords.state')}: {sendStateName(item.state)}
+        </Text>
+        <Text>
+          {t('notificationSendRecords.user')}: {item.userName}
+        </Text>
+        {item.sendTime ? (
+          <Text>
+            {t('notificationSendRecords.sendTime')}: {new Date(item.sendTime).toLocaleString()}
+          </Text>
+        ) : null}
+        {item.reason ? (
+          <Text>
+            {t('notificationSendRecords.reason')}: {item.reason}
+          </Text>
+        ) : null}
+        <AppButton
+          title={t('notificationSendRecords.reSend')}
+          onPress={() => reSendMutation.mutate()}
+          loading={reSendMutation.isPending}
+          variant="outline"
+        />
+        <AppButton
+          title={t('common.delete')}
+          action="negative"
+          variant="outline"
+          loading={deleteMutation.isPending}
+          onPress={() =>
+            Alert.alert(t('notificationSendRecords.deleteConfirmTitle'), t('notificationSendRecords.deleteConfirmMessage'), [
+              { text: t('common.cancel'), style: 'cancel' },
+              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+            ])
+          }
+        />
+        {reSendMutation.isError ? <Text>{toApiError(reSendMutation.error).message}</Text> : null}
+        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
+      </VStack>
+    </Card>
+  );
+}
+
+/**
+ * Lịch sử gửi thông báo: phân trang server. Backend KHÔNG có GET {id} nên
+ * không có màn detail (bảng web cũng chỉ có list + xóa + gửi lại).
+ */
+export default function NotificationSendRecordsScreen() {
+  const { t } = useTranslation();
+  const [notificationName, setNotificationName] = useState('');
+  const [provider, setProvider] = useState('');
+  const [debounced, setDebounced] = useState({ notificationName: '', provider: '' });
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebounced({ notificationName, provider });
+      setPage(0);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [notificationName, provider]);
+
+  const query = useQuery({
+    queryKey: ['notification-send-records', debounced, page],
+    queryFn: () =>
+      getNotificationSendRecordsPaged({
+        notificationName: debounced.notificationName || undefined,
+        provider: debounced.provider || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
+  });
+  const items = query.data?.items ?? [];
+  const total = query.data?.totalCount ?? 0;
+  const hasMore = (page + 1) * PAGE_SIZE < total;
+
+  return (
+    <AppScreen title={t('notificationSendRecords.title')} subtitle={`${t('notificationSendRecords.total')}: ${total}`}>
+      <AppInput
+        value={notificationName}
+        onChangeText={setNotificationName}
+        placeholder={t('notificationSendRecords.searchNamePlaceholder')}
+        autoCapitalize="none"
+        testID="notification-send-records-search-name"
+      />
+      <AppInput
+        value={provider}
+        onChangeText={setProvider}
+        placeholder={t('notificationSendRecords.searchProviderPlaceholder')}
+        autoCapitalize="none"
+        testID="notification-send-records-search-provider"
+      />
+      {query.isPending ? (
+        <AppLoading />
+      ) : query.isError ? (
+        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+      ) : items.length === 0 ? (
+        <AppEmptyState message={t('notificationSendRecords.empty')} />
+      ) : (
+        <FlatList
+          data={items}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <SendRecordRow item={item} />}
+          refreshing={query.isFetching}
+          onRefresh={() => void query.refetch()}
+        />
+      )}
+      {hasMore ? (
+        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+      ) : null}
+    </AppScreen>
+  );
+}

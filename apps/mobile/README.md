@@ -45,6 +45,17 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 10
+
+Nhóm Thông báo đã xây (29/50 trang lá): Thông báo của tôi (list phân trang
+lọc filter + trạng thái đọc, detail rút title/message từ data.extraProperties
+như serializer web, đánh dấu đã đọc/chưa đọc, xóa), Nhóm thông báo (đủ CRUD,
+tĩnh chỉ đọc), Định nghĩa thông báo (đủ CRUD + form gửi POST
+/api/notifications/send, tĩnh chỉ đọc), Lịch sử gửi (list phân trang, xóa,
+gửi lại — không có detail vì backend không có GET {id}) — đều qua tab hub
+"Quản trị" (thêm 4 mục, không thêm tab). Trước đó: nhóm Kiểm toán + Bảo vệ
+dữ liệu xong (25/50).
+
 ## Trạng thái vòng 9
 
 Nhóm Kiểm toán + Bảo vệ dữ liệu đã xây (25/50 trang lá): Loại thực thể
@@ -55,7 +66,7 @@ entity changes, xóa đơn + API xóa hàng loạt sẵn) và Nhật ký hệ th
 exceptions, chỉ đọc vì backend không có xóa) — đều qua tab hub "Quản trị"
 (thêm 3 mục, không thêm tab). Trước đó: nhóm Bản địa hoá đủ (22/50).
 
-## Giới hạn đã biết (vòng 9)
+## Giới hạn đã biết (vòng 10)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
@@ -65,8 +76,8 @@ exceptions, chỉ đọc vì backend không có xóa) — đều qua tab hub "Qu
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá còn lại (25/50): chưa xây, xem `docs/inventory-mapping.md`.
-  CRUD thật của nhóm Quyền/Tính năng/Cài đặt/Bản địa hoá/Kiểm toán vẫn cần phiên admin
+- Các trang lá còn lại (21/50): chưa xây, xem `docs/inventory-mapping.md`.
+  CRUD thật của nhóm Quyền/Tính năng/Cài đặt/Bản địa hoá/Kiểm toán/Thông báo vẫn cần phiên admin
   (TOTP) như các nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu
   auth (401 vs 404 route giả, backend đã khởi động lại trong vòng này).
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
