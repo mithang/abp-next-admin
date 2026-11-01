@@ -1,0 +1,63 @@
+# Đối chiếu chức năng web → mobile (vòng 1)
+
+Nguồn: `~/workspace/run-logs/feature-inventory.md` (76 mục menu, 50 trang lá).
+Trạng thái vòng 1: Dashboard + Users + Vai trò + Tài khoản có màn hình thật;
+các trang còn lại đã có route kế hoạch trong bảng này, xây dần P0→P3 các vòng sau.
+Không màn hình nào dùng mock data trong production: trang chưa xây sẽ không xuất
+hiện trong tab bar cho tới khi có API thật.
+
+| # | Trang lá web | Đường dẫn web | Route mobile (kế hoạch) | Trạng thái vòng 1 |
+|---|---|---|---|---|
+| 1 | Phân tích | /dashboard/analytics | (tabs)/index — Dashboard | Đã xây khung (menu + tổng số users thật) |
+| 2 | Bàn làm việc | /dashboard/workspace | (tabs)/index | Đã xây khung |
+| 3 | Cài đặt cá nhân | /account/my-settings | (tabs)/account | Đã xây (profile thật) |
+| 4 | OpenIddict: Ứng dụng | /manage/openiddict/applications | manage/openiddict/applications | Chưa xây |
+| 5 | OpenIddict: Ủy quyền | /manage/openiddict/authorizations | manage/openiddict/authorizations | Chưa xây |
+| 6 | OpenIddict: Phạm vi | /manage/openiddict/scopes | manage/openiddict/scopes | Chưa xây |
+| 7 | OpenIddict: Token | /manage/openiddict/tokens | manage/openiddict/tokens | Chưa xây |
+| 8 | Identity: Người dùng | /manage/identity/users | (tabs)/users + users/[id] | **Đã xây: list thật (search, phân trang, refresh), detail thật** |
+| 9 | Identity: Vai trò | /manage/identity/roles | (tabs)/roles + roles/[id] | **Đã xây vòng 1 (báo cáo mobile-iter-0001): list thật (search, phân trang, refresh), detail thật; API create/update/delete đã có ở tầng API, UI tạo/sửa/xóa vòng sau** |
+| 10 | Identity: Loại claim | /manage/identity/claim-types | manage/identity/claim-types | Chưa xây |
+| 11 | Identity: Đơn vị tổ chức | /manage/identity/organization-units | manage/identity/organization-units | Chưa xây |
+| 12 | Identity: Nhật ký bảo mật | /manage/identity/security-logs | manage/identity/security-logs | Chưa xây |
+| 13 | Identity: Phiên | /manage/identity/sessions | manage/identity/sessions | Chưa xây |
+| 14 | Quyền: Nhóm | /manage/permissions/groups | manage/permissions/groups | Chưa xây |
+| 15 | Quyền: Định nghĩa | /manage/permissions/definitions | manage/permissions/definitions | Chưa xây |
+| 16 | Tính năng: Nhóm | /manage/features/groups | manage/features/groups | Chưa xây |
+| 17 | Tính năng: Định nghĩa | /manage/features/definitions | manage/features/definitions | Chưa xây |
+| 18 | Cài đặt hệ thống | /manage/settings/system | manage/settings/system | Chưa xây |
+| 19 | Định nghĩa cài đặt | /manage/settings/definitions | manage/settings/definitions | Chưa xây |
+| 20 | Ngôn ngữ | /manage/localization/languages | manage/localization/languages | Chưa xây |
+| 21 | Tài nguyên bản địa hoá | /manage/localization/resources | manage/localization/resources | Chưa xây |
+| 22 | Văn bản bản địa hoá | /manage/localization/texts | manage/localization/texts | Chưa xây |
+| 23 | Loại thực thể (Data Protection) | /manage/data-protection/entity-type-infos | manage/data-protection/entity-type-infos | Chưa xây |
+| 24 | Nhật ký kiểm toán | /manage/audit-logs | manage/audit-logs | Chưa xây |
+| 25 | Nhật ký hệ thống | /manage/sys-logs | manage/sys-logs | Chưa xây |
+| 26 | Thông báo của tôi | /manage/notifications/my-notifilers | (tabs)/notifications | Chưa xây |
+| 27 | Nhóm thông báo | /manage/notifications/groups | manage/notifications/groups | Chưa xây |
+| 28 | Định nghĩa thông báo | /manage/notifications/definitions | manage/notifications/definitions | Chưa xây |
+| 29 | Lịch sử gửi thông báo | /manage/notifications/send-records | manage/notifications/send-records | Chưa xây |
+| 30 | Tài liệu API | /manage/openapi | manage/openapi | Chưa xây (WebView/Swagger, vòng sau) |
+| 31 | Quản lý cache | /manage/cache | manage/cache | Chưa xây |
+| 32 | AI: Công cụ | /artificia-intelligence/tools | ai/tools | Chưa xây |
+| 33 | AI: Không gian làm việc | /artificia-intelligence/workspace | ai/workspaces | Chưa xây |
+| 34 | AI: Phiên hội thoại | /artificia-intelligence/conversations | ai/conversations | Chưa xây |
+| 35 | SaaS: Tenant | /saas/tenants | saas/tenants | Chưa xây |
+| 36 | SaaS: Phiên bản | /saas/editions | saas/editions | Chưa xây |
+| 37 | Từ điển dữ liệu | /platform/data-dictionaries | platform/data-dictionaries | Chưa xây |
+| 38 | Bố cục | /platform/layouts | platform/layouts | Chưa xây |
+| 39 | Menu | /platform/menus | platform/menus | Chưa xây (API /api/platform/menus/all đã có client) |
+| 40 | Email | /platform/messages/email | platform/messages/email | Chưa xây |
+| 41 | SMS | /platform/messages/sms | platform/messages/sms | Chưa xây |
+| 42 | Blob container | /blob-management/blob-containers | blob/containers | Chưa xây |
+| 43 | Tệp blob | /blob-management/blobs | blob/blobs | Chưa xây |
+| 44 | Tác vụ nền | /task-management/background-jobs | tasks/background-jobs | Chưa xây |
+| 45 | Webhook: Nhóm | /webhooks/groups | webhooks/groups | Chưa xây |
+| 46 | Webhook: Định nghĩa | /webhooks/definitions | webhooks/definitions | Chưa xây |
+| 47 | Webhook: Đăng ký | /webhooks/subscriptions | webhooks/subscriptions | Chưa xây |
+| 48 | Webhook: Bản ghi gửi | /webhooks/send-attempts | webhooks/send-attempts | Chưa xây |
+| 49 | Mẫu văn bản: Định nghĩa | /text-templating/definitions | text-templating/definitions | Chưa xây |
+| 50 | WeChat: Cài đặt | /wechat/settings | wechat/settings | Chưa xây |
+
+Nhóm vben-admin (document/github/naive/ele/about): trang giới thiệu/liên kết ngoài,
+ưu tiên P3, không tính trong 50 trang lá.
