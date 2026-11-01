@@ -47,6 +47,12 @@ const ENTRIES = [
   { route: '/blob/containers', titleKey: 'manage.blobContainers', descKey: 'manage.blobContainersDesc' },
   { route: '/blob/blobs', titleKey: 'manage.blobBlobs', descKey: 'manage.blobBlobsDesc' },
   { route: '/tasks/background-jobs', titleKey: 'manage.backgroundJobs', descKey: 'manage.backgroundJobsDesc' },
+  { route: '/webhooks/groups', titleKey: 'manage.webhookGroups', descKey: 'manage.webhookGroupsDesc' },
+  { route: '/webhooks/definitions', titleKey: 'manage.webhookDefinitions', descKey: 'manage.webhookDefinitionsDesc' },
+  { route: '/webhooks/subscriptions', titleKey: 'manage.webhookSubscriptions', descKey: 'manage.webhookSubscriptionsDesc' },
+  { route: '/webhooks/send-attempts', titleKey: 'manage.webhookSendAttempts', descKey: 'manage.webhookSendAttemptsDesc' },
+  { route: '/text-templating/definitions', titleKey: 'manage.textTemplateDefinitions', descKey: 'manage.textTemplateDefinitionsDesc' },
+  { route: '/wechat/settings', titleKey: 'manage.wechatSettings', descKey: 'manage.wechatSettingsDesc' },
 ] as const;
 
 export default function ManageScreen() {

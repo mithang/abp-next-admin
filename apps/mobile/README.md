@@ -45,6 +45,30 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 17
+
+Webhook + Mẫu văn bản + WeChat đã xong (50/50 trang lá): Nhóm Webhook
+(ListResult, detail, tạo/sửa/xóa — tĩnh chỉ đọc), Định nghĩa Webhook
+(ListResult lọc filter/groupName, detail, tạo/sửa/xóa — tĩnh chỉ đọc),
+Đăng ký Webhook (phân trang ABP, detail, tạo/sửa/xóa + API xóa hàng
+loạt sẵn + gợi ý webhook từ GET .../subscriptions/availables, secret
+không hiển thị ở màn detail), Bản ghi gửi Webhook (phân trang ABP,
+detail đúng drawer web, gửi lại + xóa ngay trên dòng + API bulk sẵn),
+Định nghĩa mẫu văn bản (ListResult, detail, tạo/sửa/xóa — tĩnh chỉ
+đọc — cộng màn nội dung theo culture: xem/lưu/khôi phục mặc định) và
+Cài đặt WeChat (SettingForm trên 2 route by-global/by-current-tenant,
+lưu qua change-global/change-current-tenant, chỉ gửi giá trị đã đổi;
+phạm vi chọn rõ ràng vì mobile không có tín hiệu tenant) — đều qua
+tab hub "Quản trị" (thêm 6 mục, không thêm tab). Điểm khác web cần
+biết: UpdateDto nhóm/định nghĩa Webhook có ConcurrencyStamp nhưng DTO
+trả về không có và modal web cũng không gửi stamp nên mobile không
+bịa stamp; getListApi mẫu văn bản của web nội suy biến `name` không
+tồn tại nên mobile dùng đúng route list của backend; UI chọn nhiều
+cho bulk webhook/subscription/send-attempt để vòng sau (cùng mẫu
+security-logs/audit-logs/jobs). Lỗi validation AllInOne trả HTTP 200
+kèm envelope code 400 vẫn chưa xử lý ở api-client (xem báo cáo vòng
+14, cần một vòng riêng). Trước đó: Blob + Tác vụ nền (44/50).
+
 ## Trạng thái vòng 16
 
 Blob + Tác vụ nền đã xong (44/50 trang lá): Container blob (list phân
@@ -155,7 +179,7 @@ exceptions, chỉ đọc vì backend không có xóa) — đều qua tab hub "Qu
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá còn lại (21/50): chưa xây, xem `docs/inventory-mapping.md`.
+- Các trang lá đã đủ 50/50 từ vòng 17 (xem `docs/inventory-mapping.md`); phần còn lại là các P2: xử lý envelope lỗi HTTP 200, upload tệp blob, UI chọn nhiều cho bulk, tenant feature-values/impersonation, menu assignment APIs, formatter, RNTL component tests.
   CRUD thật của nhóm Quyền/Tính năng/Cài đặt/Bản địa hoá/Kiểm toán/Thông báo vẫn cần phiên admin
   (TOTP) như các nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu
   auth (401 vs 404 route giả, backend đã khởi động lại trong vòng này).
