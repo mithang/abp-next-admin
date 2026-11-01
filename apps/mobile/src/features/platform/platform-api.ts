@@ -1,6 +1,11 @@
 import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type { RoleMenuInput, UserMenuInput } from './menu-allotment';
 import type {
+  UserFavoriteMenuCreateDto,
+  UserFavoriteMenuDto,
+  UserFavoriteMenuUpdateDto,
+} from './menu-favorites';
+import type {
   DataCreateDto,
   DataDto,
   DataGetListInput,
@@ -206,6 +211,50 @@ export function setUserMenus(input: UserMenuInput) {
 /** PUT /api/platform/menus/by-role — gán menu + startup cho vai trò. */
 export function setRoleMenus(input: RoleMenuInput) {
   return apiRequest<void>('/api/platform/menus/by-role', { method: 'PUT', body: input });
+}
+
+/* ---------------- Menu yêu thích của tôi: /api/platform/menus/favorites ---------------- */
+
+/**
+ * GET /api/platform/menus/favorites/my-favorite-menus — list "của tôi"
+ * (không cần userId; framework tùy chọn, trống = mọi framework).
+ */
+export function getMyFavoriteMenus(framework?: string) {
+  return apiRequest<ListResult<UserFavoriteMenuDto>>(
+    '/api/platform/menus/favorites/my-favorite-menus',
+    { method: 'GET', params: { framework: framework || undefined } },
+  );
+}
+
+/** POST .../my-favorite-menus — tạo (framework bắt buộc lúc tạo). */
+export function createMyFavoriteMenu(input: UserFavoriteMenuCreateDto) {
+  return apiRequest<UserFavoriteMenuDto>('/api/platform/menus/favorites/my-favorite-menus', {
+    method: 'POST',
+    body: input,
+  });
+}
+
+/**
+ * PUT .../my-favorite-menus — sửa alias/color/icon (menuId + stamp bắt buộc).
+ * Chưa có UI gọi hàm này ở vòng 23: DTO trả về không mang concurrencyStamp
+ * và web cũng không có UI sửa favorites — xem menu-favorites.ts.
+ */
+export function updateMyFavoriteMenu(input: UserFavoriteMenuUpdateDto) {
+  return apiRequest<UserFavoriteMenuDto>('/api/platform/menus/favorites/my-favorite-menus', {
+    method: 'PUT',
+    body: input,
+  });
+}
+
+/**
+ * DELETE .../my-favorite-menus/{MenuId} — {MenuId} là id của MENU,
+ * không phải id bản ghi favorite (service tìm bằng userId + menuId).
+ */
+export function deleteMyFavoriteMenu(menuId: string) {
+  return apiRequest<void>(
+    `/api/platform/menus/favorites/my-favorite-menus/${encodeURIComponent(menuId)}`,
+    { method: 'DELETE' },
+  );
 }
 
 /* ---------------- Tin nhắn Email: /api/platform/messages/email ---------------- */

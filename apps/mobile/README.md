@@ -45,6 +45,28 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 23
+
+Vòng P2 — menu yêu thích của tôi (đóng nốt P2 menu assignment:
+by-user/by-role xong ở vòng 22, favorites xong ở vòng này): màn mới
+`/platform/menu-favorites` là bản mobile của
+WorkbenchQuickNav + modal WorkbenchQuickNavModal web — xem danh sách
+menu yêu thích của chính mình (GET my-favorite-menus, lọc framework
+tùy chọn), thêm mới (chọn menu từ menus/all của framework, nhập
+alias/color/icon, màu mặc định #000000 như modal web, chặn trùng
+cùng framework + menuId trước khi gọi API vì backend ném lỗi trùng),
+xóa (xác nhận Alert, xóa bằng menuId — route DELETE nhận MenuId là
+id menu, không phải id bản ghi). API layer đủ 4 route "của tôi"
+(GET/POST/PUT/DELETE my-favorite-menus) đã xác nhận qua Swagger và
+probe không token 401 (route giả 2 đoạn trả 404); PUT sửa đã test
+route/body nhưng chưa có nút sửa trên UI vì DTO trả về không mang
+concurrencyStamp và web cũng không có UI sửa favorites — ghi rõ lý
+do, không suy đoán stamp. Bấm vào favorite không điều hướng (path
+là route web, không phải route mobile). Mở màn từ nút mới trên màn
+Menus. Helper `menu-favorites.ts` có 6 test riêng. Vẫn còn P2:
+tenant feature-values + impersonation, blob upload, formatter, RNTL
+component tests.
+
 ## Trạng thái vòng 22
 
 Vòng P2 — phân bổ menu cho user/role (đóng P2 menu assignment APIs

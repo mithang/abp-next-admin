@@ -4,11 +4,13 @@ import {
   createDataItem,
   createLayout,
   createMenu,
+  createMyFavoriteMenu,
   deleteData,
   deleteDataItem,
   deleteEmailMessage,
   deleteLayout,
   deleteMenu,
+  deleteMyFavoriteMenu,
   deleteSmsMessage,
   getDataByName,
   getDatasAll,
@@ -18,6 +20,7 @@ import {
   getLayoutsPaged,
   getMenu,
   getMenusAll,
+  getMyFavoriteMenus,
   getRoleMenus,
   getSmsMessagesPaged,
   getUserMenus,
@@ -27,6 +30,7 @@ import {
   setRoleMenus,
   setUserMenus,
   updateData,
+  updateMyFavoriteMenu,
   updateDataItem,
   updateLayout,
   updateMenu,
@@ -244,5 +248,37 @@ describe('platform api', () => {
     const delS = stubFetch('', 204);
     await deleteSmsMessage('abc');
     expect(methodOf(delS.calls)).toBe('DELETE');
+  });
+
+  it('my favorite menus: GET có framework tùy chọn; POST/PUT đúng body; DELETE dùng menuId', async () => {
+    const list = stubFetch(JSON.stringify({ items: [] }));
+    await getMyFavoriteMenus('Vben');
+    expect(methodOf(list.calls)).toBe('GET');
+    expect(urlOf(list.calls)).toContain('/api/platform/menus/favorites/my-favorite-menus');
+    expect(urlOf(list.calls)).toContain('framework=Vben');
+
+    const listAll = stubFetch(JSON.stringify({ items: [] }));
+    await getMyFavoriteMenus();
+    expect(urlOf(listAll.calls)).not.toContain('framework=');
+
+    const created = stubFetch(JSON.stringify({ id: 'f1' }));
+    await createMyFavoriteMenu({ framework: 'Vben', menuId: 'm1', color: '#000000' });
+    expect(methodOf(created.calls)).toBe('POST');
+    expect(urlOf(created.calls)).toContain('/api/platform/menus/favorites/my-favorite-menus');
+    expect(bodyOf(created.calls)).toEqual({ framework: 'Vben', menuId: 'm1', color: '#000000' });
+
+    const updated = stubFetch(JSON.stringify({ id: 'f1' }));
+    await updateMyFavoriteMenu({ menuId: 'm1', concurrencyStamp: 'stamp-1', aliasName: 'Chính' });
+    expect(methodOf(updated.calls)).toBe('PUT');
+    expect(bodyOf(updated.calls)).toEqual({
+      menuId: 'm1',
+      concurrencyStamp: 'stamp-1',
+      aliasName: 'Chính',
+    });
+
+    const deleted = stubFetch('', 204);
+    await deleteMyFavoriteMenu('m1');
+    expect(methodOf(deleted.calls)).toBe('DELETE');
+    expect(urlOf(deleted.calls)).toContain('/api/platform/menus/favorites/my-favorite-menus/m1');
   });
 });

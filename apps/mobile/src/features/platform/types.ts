@@ -162,7 +162,10 @@ export interface LayoutUpdateDto {
 /*   gán menu cho user/role, KHÔNG thuộc bảng MenuTable của trang lá  */
 /*   này: vòng 22 xây màn riêng src/app/platform/menu-allot.tsx       */
 /*   (mở từ chi tiết Người dùng/Vai trò, đúng MenuAllotModal web).    */
-/*   Favorites (my-favorite-menus) vẫn chưa xây — xem báo cáo vòng 22. */
+/*   Favorites (my-favorite-menus): vòng 23 xây màn riêng
+/*   src/app/platform/menu-favorites.tsx (list + tạo + xóa, đúng
+/*   QuickNav web); sửa qua PUT chưa có UI vì DTO trả về không mang
+/*   concurrencyStamp — xem menu-favorites.ts. */
 
 export interface MenuDto {
   id: string;

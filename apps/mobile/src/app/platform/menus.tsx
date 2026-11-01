@@ -123,6 +123,12 @@ export default function MenusScreen() {
         onPress={() => router.push('/platform/menu-allot')}
         testID="platform-menus-allot"
       />
+      <AppButton
+        title={t('menuFavorites.title')}
+        variant="outline"
+        onPress={() => router.push('/platform/menu-favorites')}
+        testID="platform-menus-favorites"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
