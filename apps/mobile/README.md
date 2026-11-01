@@ -45,6 +45,15 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 11
+
+Tài liệu API + Quản lý cache đã xây (31/50 trang lá): Tài liệu API mở
+Swagger UI thật của backend trong trình duyệt hệ thống (web nhúng IFrame,
+mobile không cài WebView nên dùng expo-web-browser đã có sẵn); Quản lý cache
+(list khóa phân trang bằng marker, detail giá trị, form đặt giá trị RHF+Zod,
+làm mới, xóa đơn, chọn nhiều + xóa hàng loạt) — đều qua tab hub "Quản trị"
+(thêm 2 mục, không thêm tab). Trước đó: nhóm Thông báo xong (29/50).
+
 ## Trạng thái vòng 10
 
 Nhóm Thông báo đã xây (29/50 trang lá): Thông báo của tôi (list phân trang

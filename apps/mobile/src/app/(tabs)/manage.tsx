@@ -32,6 +32,8 @@ const ENTRIES = [
   { route: '/notifications/groups', titleKey: 'manage.notificationGroups', descKey: 'manage.notificationGroupsDesc' },
   { route: '/notifications/definitions', titleKey: 'manage.notificationDefinitions', descKey: 'manage.notificationDefinitionsDesc' },
   { route: '/notifications/send-records', titleKey: 'manage.notificationSendRecords', descKey: 'manage.notificationSendRecordsDesc' },
+  { route: '/openapi', titleKey: 'manage.apiDocs', descKey: 'manage.apiDocsDesc' },
+  { route: '/cache/caches', titleKey: 'manage.cache', descKey: 'manage.cacheDesc' },
 ] as const;
 
 export default function ManageScreen() {
