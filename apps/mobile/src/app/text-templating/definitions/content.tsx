@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Pressable } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,14 +14,20 @@ import {
   restoreTextTemplateContentToDefault,
   updateTextTemplateContent,
 } from '../../../features/text-templating/text-templating-api';
+import { buildCulturePickerOptions } from '../../../features/text-templating/culture-options';
+import { getLanguagesPaged } from '../../../features/localization/localization-api';
 import { toApiError } from '../../../lib/errors';
 
 /**
  * Nội dung mẫu văn bản: đúng modal Edit contents của bảng web.
  * GET /templates/content[/{culture}]/{name} để xem; PUT cùng route để
- * lưu; PUT .../restore-to-default để khôi phục mặc định. Culture nhập
- * text (rỗng = nội dung mặc định, không culture); nội dung là ô text
- * multiline vì mẫu có thể dài và chứa ký tự đặc biệt của engine.
+ * lưu; PUT .../restore-to-default để khôi phục mặc định. Culture chọn
+ * từ danh sách ngôn ngữ thật (GET /api/localization/languages, vòng 21;
+ * rỗng = nội dung mặc định, không culture); ô "culture khác" giữ lại
+ * để vẫn nhập được culture chưa có trong danh sách ngôn ngữ. Nếu tải
+ * danh sách ngôn ngữ lỗi, picker ẩn đi và chỉ còn ô nhập tay — không
+ * chặn việc xem/sửa nội dung. Nội dung là ô text multiline vì mẫu có
+ * thể dài và chứa ký tự đặc biệt của engine.
  */
 export default function TextTemplateContentScreen() {
   const { t } = useTranslation();
@@ -37,6 +44,25 @@ export default function TextTemplateContentScreen() {
     queryFn: () => getTextTemplateContent({ name, culture: culture || undefined }),
     enabled: Boolean(name),
   });
+
+  // Danh sách ngôn ngữ thật để làm picker culture; lỗi tải không chặn
+  // màn nội dung (ô nhập tay bên dưới vẫn dùng được).
+  const languagesQuery = useQuery({
+    queryKey: ['languages-for-template-culture'],
+    queryFn: () => getLanguagesPaged({ maxResultCount: 1000 }),
+  });
+  const cultureOptions = languagesQuery.data
+    ? buildCulturePickerOptions(
+        languagesQuery.data.items ?? [],
+        t('textTemplateDefinitions.cultureDefault'),
+      )
+    : null;
+  const selectCulture = (value: string) => {
+    setCulture(value);
+    setContent(null);
+    setMessage(null);
+    setError(null);
+  };
 
   const currentContent = content ?? query.data?.content ?? '';
 
@@ -81,8 +107,27 @@ export default function TextTemplateContentScreen() {
         <Text>
           {t('textTemplateDefinitions.name')}: {name}
         </Text>
+        <Text>{t('textTemplateDefinitions.culture')}</Text>
+        {languagesQuery.isPending ? <Text>{t('common.loading')}</Text> : null}
+        {languagesQuery.isError ? (
+          <Text>{t('textTemplateDefinitions.cultureListLoadFailed')}</Text>
+        ) : null}
+        {cultureOptions
+          ? cultureOptions.map((option) => (
+              <Pressable
+                key={option.value || 'default'}
+                onPress={() => selectCulture(option.value)}
+                testID={`text-template-content-culture-${option.value || 'default'}`}
+              >
+                <Text>
+                  {culture === option.value ? '✓ ' : ''}
+                  {option.label}
+                </Text>
+              </Pressable>
+            ))
+          : null}
         <AppInput
-          label={t('textTemplateDefinitions.culture')}
+          label={t('textTemplateDefinitions.cultureCustom')}
           value={culture}
           onChangeText={(value) => {
             setCulture(value);
@@ -90,7 +135,7 @@ export default function TextTemplateContentScreen() {
             setMessage(null);
             setError(null);
           }}
-          placeholder={t('textTemplateDefinitions.culturePlaceholder')}
+          placeholder={t('textTemplateDefinitions.cultureCustomPlaceholder')}
           autoCapitalize="none"
           testID="text-template-content-culture"
         />

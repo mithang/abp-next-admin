@@ -45,6 +45,24 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 21
+
+Vòng P2 — culture picker thật cho nội dung mẫu văn bản (đóng P2
+template culture picker tồn đọng từ vòng 17): màn Nội dung mẫu nay
+chọn culture từ danh sách ngôn ngữ thật qua GET
+/api/localization/languages (không hardcode culture), kèm lựa chọn
+"Mặc định (không culture)" đầu tiên; helper mới
+`buildCulturePickerOptions` (khử trùng, trim, sắp xếp theo
+cultureName) có 5 test riêng. Ô "Culture tự nhập" giữ lại để vẫn
+nhập được culture chưa có trong danh sách; nếu tải danh sách ngôn
+ngữ lỗi, picker ẩn đi và chỉ còn ô nhập tay, không chặn xem/sửa nội
+dung. Swagger của AllInOne đang chạy xác nhận đủ route: GET
+/api/localization/languages và GET content có/không culture; probe
+không token: languages 401, route giả 404. Jest 214/214 (36 suites),
+i18n parity 1370/1370 (+4 key). Vẫn còn P2: upload tệp blob, tenant
+feature-values/impersonation, menu assignment APIs, formatter, RNTL
+component tests.
+
 ## Trạng thái vòng 20
 
 Vòng P2 — UI chọn nhiều cho bulk Webhook (đóng nốt P2 bulk tồn đọng
