@@ -96,8 +96,8 @@ function bulkAction(action: string, input: BackgroundJobInfoBatchInput) {
 
 /**
  * Các API bulk của web (bulk-pause/resume/trigger/stop/start/delete):
- * API layer có sẵn + có test; UI chọn nhiều để vòng sau (cùng mẫu
- * security-logs/audit-logs: API bulk sẵn, UI chọn nhiều hoãn lại).
+ * API layer có sẵn + có test; UI chọn nhiều ở màn list tác vụ nền
+ * (background-jobs.tsx, theo mẫu màn Cache) gọi đúng các hàm này.
  */
 export function bulkPauseBackgroundJobs(input: BackgroundJobInfoBatchInput) {
   return bulkAction('pause', input);

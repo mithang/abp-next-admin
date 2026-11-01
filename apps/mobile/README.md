@@ -45,6 +45,21 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 19
+
+Vòng P2 — UI chọn nhiều cho Tác vụ nền (đóng 1 phần P2 bulk tồn đọng
+từ vòng 16): màn list tác vụ nền nay có chế độ "Chọn nhiều" theo đúng
+mẫu màn Cache (chạm để chọn/bỏ chọn, đổi lọc thì xóa lựa chọn, nút
+bulk hiện số lượng đã chọn, xóa bulk có Alert xác nhận, các action
+bulk khác không xác nhận — giống nút đơn ở màn detail). 6 thao tác
+gọi đúng API bulk đã có sẵn + có test từ vòng 16 (PUT
+bulk-pause/resume/trigger/stop/start, DELETE bulk-delete, body
+`{ jobIds }`); Swagger của AllInOne đang chạy xác nhận đủ 6 route.
+Logic chọn/bỏ chọn tách ra `src/lib/selection.ts` (toggle trả Set mới,
+không mutate) kèm 4 unit test. Vẫn còn P2: UI chọn nhiều cho
+subscriptions/send-attempts của Webhook (API sẵn, UI chưa có), upload
+tệp blob, tenant feature-values/impersonation, menu assignment APIs.
+
 ## Trạng thái vòng 18
 
 Vòng P2 toàn app — xử lý envelope đóng gói của AllInOne (lỗi vòng 14,
@@ -208,7 +223,10 @@ exceptions, chỉ đọc vì backend không có xóa) — đều qua tab hub "Qu
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá đã đủ 50/50 từ vòng 17 (xem `docs/inventory-mapping.md`); envelope lỗi HTTP 200 đã xử lý xong ở vòng 18. Phần còn lại là các P2: upload tệp blob, UI chọn nhiều cho bulk, tenant feature-values/impersonation, menu assignment APIs, formatter, RNTL component tests.
+- Các trang lá đã đủ 50/50 từ vòng 17 (xem `docs/inventory-mapping.md`); envelope lỗi HTTP 200 đã xử lý xong ở vòng 18. Phần còn lại là các P2: upload tệp blob, UI chọn nhiều cho bulk
+Webhook (tác vụ nền đã xong ở vòng 19), tenant
+feature-values/impersonation, menu assignment APIs, formatter, RNTL
+component tests.
   CRUD thật của nhóm Quyền/Tính năng/Cài đặt/Bản địa hoá/Kiểm toán/Thông báo vẫn cần phiên admin
   (TOTP) như các nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu
   auth (401 vs 404 route giả, backend đã khởi động lại trong vòng này).

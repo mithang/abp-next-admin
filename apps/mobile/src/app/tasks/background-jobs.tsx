@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { Alert, FlatList, Pressable, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppInput } from '../../components/ui/AppInput';
@@ -10,7 +10,15 @@ import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
-import { getBackgroundJobsPaged } from '../../features/tasks/tasks-api';
+import {
+  bulkDeleteBackgroundJobs,
+  bulkPauseBackgroundJobs,
+  bulkResumeBackgroundJobs,
+  bulkStartBackgroundJobs,
+  bulkStopBackgroundJobs,
+  bulkTriggerBackgroundJobs,
+  getBackgroundJobsPaged,
+} from '../../features/tasks/tasks-api';
 import {
   JOB_PRIORITY_LABELS,
   JOB_STATUS_LABELS,
@@ -18,28 +26,48 @@ import {
   type BackgroundJobInfoDto,
 } from '../../features/tasks/types';
 import { toApiError } from '../../lib/errors';
+import { toggleSelection } from '../../lib/selection';
 
 const PAGE_SIZE = 20;
 
-function JobRow({ item }: { item: BackgroundJobInfoDto }) {
+type BulkAction = 'pause' | 'resume' | 'trigger' | 'stop' | 'start' | 'delete';
+
+function JobRow({
+  item,
+  selectMode,
+  isSelected,
+  onToggle,
+}: {
+  item: BackgroundJobInfoDto;
+  selectMode: boolean;
+  isSelected: boolean;
+  onToggle: () => void;
+}) {
+  const body = (
+    <Card className="p-4">
+      <VStack space="xs">
+        <Text>
+          {selectMode && isSelected ? '✓ ' : ''}
+          {item.name}
+        </Text>
+        <Text>
+          {item.group} · {item.type}
+        </Text>
+        <Text>
+          {JOB_STATUS_LABELS[item.status] ?? item.status} · {JOB_TYPE_LABELS[item.jobType] ?? item.jobType} ·{' '}
+          {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
+          {item.isEnabled ? '' : ' · disabled'}
+        </Text>
+        {item.nextRunTime ? <Text>{new Date(item.nextRunTime).toLocaleString()}</Text> : null}
+      </VStack>
+    </Card>
+  );
+  if (selectMode) {
+    return <Pressable onPress={onToggle}>{body}</Pressable>;
+  }
   return (
     <Link href={`/tasks/background-jobs/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.name}</Text>
-            <Text>
-              {item.group} · {item.type}
-            </Text>
-            <Text>
-              {JOB_STATUS_LABELS[item.status] ?? item.status} · {JOB_TYPE_LABELS[item.jobType] ?? item.jobType} ·{' '}
-              {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
-              {item.isEnabled ? '' : ' · disabled'}
-            </Text>
-            {item.nextRunTime ? <Text>{new Date(item.nextRunTime).toLocaleString()}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <Pressable>{body}</Pressable>
     </Link>
   );
 }
@@ -47,20 +75,26 @@ function JobRow({ item }: { item: BackgroundJobInfoDto }) {
 /**
  * Danh sách tác vụ nền: đúng backend — GET
  * /api/task-management/background-jobs (phân trang ABP, lọc filter).
- * Điều khiển (pause/resume/trigger/stop/start) ở màn detail; API bulk
- * có sẵn ở tasks-api nhưng UI chọn nhiều để vòng sau.
+ * Điều khiển đơn ở màn detail; chế độ chọn nhiều ở đây gọi đúng các API
+ * bulk đã có ở tasks-api (PUT bulk-pause/resume/trigger/stop/start,
+ * DELETE bulk-delete, body { jobIds }), theo mẫu màn Cache. Lọc đổi thì
+ * xóa lựa chọn (tránh bulk nhầm id ngoài danh sách đang hiển thị).
  */
 export default function BackgroundJobsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [filter, setFilter] = useState('');
   const [debounced, setDebounced] = useState('');
   const [page, setPage] = useState(0);
+  const [selectMode, setSelectMode] = useState(false);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(filter);
       setPage(0);
+      setSelected(new Set());
     }, 400);
     return () => clearTimeout(timer);
   }, [filter]);
@@ -73,6 +107,31 @@ export default function BackgroundJobsScreen() {
         skipCount: page * PAGE_SIZE,
         maxResultCount: PAGE_SIZE,
       }),
+  });
+
+  const bulkMutation = useMutation({
+    mutationFn: (action: BulkAction) => {
+      const input = { jobIds: [...selected] };
+      switch (action) {
+        case 'pause':
+          return bulkPauseBackgroundJobs(input);
+        case 'resume':
+          return bulkResumeBackgroundJobs(input);
+        case 'trigger':
+          return bulkTriggerBackgroundJobs(input);
+        case 'stop':
+          return bulkStopBackgroundJobs(input);
+        case 'start':
+          return bulkStartBackgroundJobs(input);
+        case 'delete':
+          return bulkDeleteBackgroundJobs(input);
+      }
+    },
+    onSuccess: async () => {
+      setSelected(new Set());
+      setSelectMode(false);
+      await queryClient.invalidateQueries({ queryKey: ['tasks-background-jobs'] });
+    },
   });
 
   const items = query.data?.items ?? [];
@@ -93,6 +152,47 @@ export default function BackgroundJobsScreen() {
         onPress={() => router.push('/tasks/background-jobs/form')}
         testID="background-jobs-create"
       />
+      <AppButton
+        title={selectMode ? t('backgroundJobs.exitSelectMode') : t('backgroundJobs.selectMode')}
+        onPress={() => {
+          setSelectMode((v) => !v);
+          setSelected(new Set());
+        }}
+        variant="outline"
+      />
+      {selected.size > 0 ? (
+        <>
+          {(['pause', 'resume', 'trigger', 'stop', 'start'] as const).map((action) => (
+            <AppButton
+              key={action}
+              title={`${t(`backgroundJobs.${action}`)} (${selected.size})`}
+              variant="outline"
+              loading={bulkMutation.isPending}
+              onPress={() => bulkMutation.mutate(action)}
+            />
+          ))}
+          <AppButton
+            title={`${t('backgroundJobs.bulkDelete')} (${selected.size})`}
+            action="negative"
+            variant="outline"
+            loading={bulkMutation.isPending}
+            onPress={() =>
+              Alert.alert(
+                t('backgroundJobs.bulkDeleteConfirmTitle'),
+                t('backgroundJobs.bulkDeleteConfirmMessage'),
+                [
+                  { text: t('common.cancel'), style: 'cancel' },
+                  {
+                    text: t('common.delete'),
+                    style: 'destructive',
+                    onPress: () => bulkMutation.mutate('delete'),
+                  },
+                ],
+              )
+            }
+          />
+        </>
+      ) : null}
       <View style={{ height: 8 }} />
       {query.isPending ? (
         <AppLoading />
@@ -104,11 +204,19 @@ export default function BackgroundJobsScreen() {
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <JobRow item={item} />}
+          renderItem={({ item }) => (
+            <JobRow
+              item={item}
+              selectMode={selectMode}
+              isSelected={selected.has(item.id)}
+              onToggle={() => setSelected((prev) => toggleSelection(prev, item.id))}
+            />
+          )}
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
       )}
+      {bulkMutation.isError ? <Text>{toApiError(bulkMutation.error).message}</Text> : null}
       {hasMore ? (
         <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
       ) : null}
