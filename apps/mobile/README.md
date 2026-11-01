@@ -45,6 +45,24 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 16
+
+Blob + Tác vụ nền đã xong (44/50 trang lá): Container blob (list phân
+trang, detail, tạo chỉ nhập name, xóa — không có sửa vì backend không
+có Update cho container) và Tệp blob (duyệt theo container + thư mục
+con qua parentId, detail đúng DTO backend, tạo thư mục, xóa, tải/xem
+trước qua generate-url mở bằng trình duyệt hệ thống) và Tác vụ nền (đủ
+CRUD + 5 action điều khiển + API bulk sẵn + nhật ký chạy xem/xóa) —
+đều qua tab hub "Quản trị" (thêm 3 mục, không thêm tab). Điểm khác web
+cần biết: BlobDto backend không có path (type web có path nhưng DTO C#
+không có); upload tệp chưa có vì cần file picker native + upload
+chunked (ghi P2, không tạo nút upload giả); sửa tác vụ không gửi
+name/group/type/nodeName/begin/end/source (đúng UpdateDto); UI chọn
+nhiều cho bulk tác vụ để vòng sau (cùng mẫu security-logs/audit-logs).
+Lỗi validation AllInOne trả HTTP 200 kèm envelope code 400 vẫn chưa
+xử lý ở api-client (xem báo cáo vòng 14, cần một vòng riêng). Trước
+đó: Nền tảng phần 2 (41/50).
+
 ## Trạng thái vòng 15
 
 Nhóm Nền tảng đã xong (41/50 trang lá): Menu (list cây từ /all, detail,

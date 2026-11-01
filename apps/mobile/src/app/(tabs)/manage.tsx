@@ -44,6 +44,9 @@ const ENTRIES = [
   { route: '/platform/menus', titleKey: 'manage.platformMenus', descKey: 'manage.platformMenusDesc' },
   { route: '/platform/messages/email', titleKey: 'manage.platformEmailMessages', descKey: 'manage.platformEmailMessagesDesc' },
   { route: '/platform/messages/sms', titleKey: 'manage.platformSmsMessages', descKey: 'manage.platformSmsMessagesDesc' },
+  { route: '/blob/containers', titleKey: 'manage.blobContainers', descKey: 'manage.blobContainersDesc' },
+  { route: '/blob/blobs', titleKey: 'manage.blobBlobs', descKey: 'manage.blobBlobsDesc' },
+  { route: '/tasks/background-jobs', titleKey: 'manage.backgroundJobs', descKey: 'manage.backgroundJobsDesc' },
 ] as const;
 
 export default function ManageScreen() {
