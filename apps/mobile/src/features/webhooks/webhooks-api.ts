@@ -140,7 +140,7 @@ export function deleteWebhookSubscription(id: string) {
 
 /**
  * DELETE /api/webhooks/subscriptions/delete-many — API bulk của web;
- * UI chọn nhiều để vòng sau (cùng mẫu security-logs/audit-logs/jobs).
+ * màn list gọi qua chế độ chọn nhiều (vòng 20, mẫu Tác vụ nền).
  */
 export function bulkDeleteWebhookSubscriptions(input: WebhookSubscriptionDeleteManyInput) {
   return apiRequest<void>(`${SUBSCRIPTIONS_BASE}/delete-many`, { method: 'DELETE', body: input });
@@ -186,7 +186,7 @@ export function deleteWebhookSendAttempt(id: string) {
 
 /**
  * DELETE /api/webhooks/send-attempts/delete-many — API bulk của web;
- * UI chọn nhiều để vòng sau (cùng mẫu các nhóm trước).
+ * màn list gọi qua chế độ chọn nhiều (vòng 20, mẫu Tác vụ nền).
  */
 export function bulkDeleteWebhookSendAttempts(input: WebhookSendRecordDeleteManyInput) {
   return apiRequest<void>(`${SEND_ATTEMPTS_BASE}/delete-many`, { method: 'DELETE', body: input });
@@ -201,7 +201,7 @@ export function resendWebhookSendAttempt(id: string) {
 
 /**
  * POST /api/webhooks/send-attempts/resend-many — API bulk của web;
- * UI chọn nhiều để vòng sau (cùng mẫu các nhóm trước).
+ * màn list gọi qua chế độ chọn nhiều (vòng 20, mẫu Tác vụ nền).
  */
 export function bulkResendWebhookSendAttempts(input: WebhookSendRecordResendManyInput) {
   return apiRequest<void>(`${SEND_ATTEMPTS_BASE}/resend-many`, { method: 'POST', body: input });

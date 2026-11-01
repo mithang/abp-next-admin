@@ -45,6 +45,24 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 20
+
+Vòng P2 — UI chọn nhiều cho bulk Webhook (đóng nốt P2 bulk tồn đọng
+từ vòng 16/17): màn Đăng ký Webhook nay có chế độ "Chọn nhiều" + nút
+xóa hàng loạt (Alert xác nhận); màn Bản ghi gửi Webhook có chế độ
+"Chọn nhiều" + nút gửi lại hàng loạt (không xác nhận, giống nút đơn)
+và xóa hàng loạt (có xác nhận). Cả hai dùng chung helper
+`toggleSelection` từ vòng 19, đổi lọc thì xóa lựa chọn, sau bulk
+thành công thì xóa lựa chọn + thoát chế độ chọn + invalidate query.
+3 route bulk đã có test từ vòng 17 và Swagger của AllInOne đang chạy
+xác nhận đủ: DELETE subscriptions/delete-many, DELETE
+send-attempts/delete-many, POST send-attempts/resend-many (body
+`{ recordIds }`); probe không token trả 401 cho cả 3. Không thêm test
+mới trong vòng này: logic chọn đã phủ ở vòng 19, API bulk đã phủ ở
+vòng 17 — Jest giữ 209/209, i18n parity 1366/1366. Vẫn còn P2: upload
+tệp blob, tenant feature-values/impersonation, menu assignment APIs,
+template culture picker, formatter, RNTL component tests.
+
 ## Trạng thái vòng 19
 
 Vòng P2 — UI chọn nhiều cho Tác vụ nền (đóng 1 phần P2 bulk tồn đọng
@@ -224,7 +242,7 @@ exceptions, chỉ đọc vì backend không có xóa) — đều qua tab hub "Qu
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
 - Các trang lá đã đủ 50/50 từ vòng 17 (xem `docs/inventory-mapping.md`); envelope lỗi HTTP 200 đã xử lý xong ở vòng 18. Phần còn lại là các P2: upload tệp blob, UI chọn nhiều cho bulk
-Webhook (tác vụ nền đã xong ở vòng 19), tenant
+đã xong hết ở vòng 20 (tác vụ nền vòng 19, Webhook vòng 20), tenant
 feature-values/impersonation, menu assignment APIs, formatter, RNTL
 component tests.
   CRUD thật của nhóm Quyền/Tính năng/Cài đặt/Bản địa hoá/Kiểm toán/Thông báo vẫn cần phiên admin
