@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -44,6 +44,7 @@ function RoleRow({ role }: { role: IdentityRoleDto }) {
 
 export default function RolesScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [filter, setFilter] = useState('');
   const [debouncedFilter, setDebouncedFilter] = useState('');
   const [page, setPage] = useState(0);
@@ -75,6 +76,7 @@ export default function RolesScreen() {
         autoCapitalize="none"
         testID="roles-search"
       />
+      <AppButton title={t('roles.createTitle')} onPress={() => router.push('/roles/form')} testID="roles-create" />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (

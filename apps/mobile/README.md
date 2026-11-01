@@ -39,15 +39,17 @@ npx expo-doctor
 
 ## Xác thực — đọc trước khi login thật
 
-Xem `docs/auth.md`. Blocker P0 vòng 1: client web hiện tại là confidential và
-chưa đăng ký redirect scheme mobile; cần một OpenIddict application public riêng
-cho mobile trước khi login thật hoạt động. Không nhúng client secret vào app.
+Xem `docs/auth.md`. Vòng 2 đã thêm public client `abp-mobile-client` ở phía
+backend (config + seeder AllInOne); login thật vẫn BLOCKED cho tới khi
+DbMigrator/seed chạy lại và backend sống để kiểm chứng authorize thật.
+Không nhúng client secret vào app.
 
-## Giới hạn đã biết (vòng 1)
+## Giới hạn đã biết (vòng 2)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
-- Các trang lá còn lại (45/50): chưa xây, xem `docs/inventory-mapping.md`.
+- Vai trò đã đủ CRUD; Loại claim mới có list/detail (UI tạo/sửa/xóa vòng sau).
+- Các trang lá còn lại (44/50): chưa xây, xem `docs/inventory-mapping.md`.
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);
   lint trực tiếp cho 0 lỗi, 14 warning trong code Gluestack vendored.

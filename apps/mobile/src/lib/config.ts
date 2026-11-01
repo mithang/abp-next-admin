@@ -7,10 +7,12 @@
 export const config = {
   apiUrl: process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:30000',
   authority: process.env.EXPO_PUBLIC_OIDC_AUTHORITY ?? 'http://localhost:30000',
-  // Client OIDC dùng chung với web app-antd cho môi trường dev local.
-  // Client này phải được cấu hình public (không secret) + PKCE ở phía OpenIddict
-  // trước khi đăng nhập thật trên mobile; xem docs/auth.md.
-  clientId: process.env.EXPO_PUBLIC_OIDC_CLIENT_ID ?? 'vue-admin-client',
+  // Public client riêng cho mobile (vòng 2): OpenIddict application
+  // abp-mobile-client, Native + Public, redirect abpnextadmin://auth, PKCE.
+  // Xem appsettings.Development.json + OpenIddictDataSeederContributor.cs
+  // của AllInOne và docs/auth.md. Không dùng chung vue-admin-client
+  // (confidential, chỉ có RootUrls web) nữa.
+  clientId: process.env.EXPO_PUBLIC_OIDC_CLIENT_ID ?? 'abp-mobile-client',
   scopes: ['openid', 'email', 'address', 'phone', 'profile', 'offline_access', 'lingyun-abp-application'],
   redirectScheme: 'abpnextadmin',
 };

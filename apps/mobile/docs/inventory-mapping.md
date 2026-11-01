@@ -1,7 +1,7 @@
 # Đối chiếu chức năng web → mobile (vòng 1)
 
 Nguồn: `~/workspace/run-logs/feature-inventory.md` (76 mục menu, 50 trang lá).
-Trạng thái vòng 1: Dashboard + Users + Vai trò + Tài khoản có màn hình thật;
+Trạng thái vòng 2: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim + Tài khoản có màn hình thật (6/50 trang lá);
 các trang còn lại đã có route kế hoạch trong bảng này, xây dần P0→P3 các vòng sau.
 Không màn hình nào dùng mock data trong production: trang chưa xây sẽ không xuất
 hiện trong tab bar cho tới khi có API thật.
@@ -16,8 +16,8 @@ hiện trong tab bar cho tới khi có API thật.
 | 6 | OpenIddict: Phạm vi | /manage/openiddict/scopes | manage/openiddict/scopes | Chưa xây |
 | 7 | OpenIddict: Token | /manage/openiddict/tokens | manage/openiddict/tokens | Chưa xây |
 | 8 | Identity: Người dùng | /manage/identity/users | (tabs)/users + users/[id] | **Đã xây: list thật (search, phân trang, refresh), detail thật** |
-| 9 | Identity: Vai trò | /manage/identity/roles | (tabs)/roles + roles/[id] | **Đã xây vòng 1 (báo cáo mobile-iter-0001): list thật (search, phân trang, refresh), detail thật; API create/update/delete đã có ở tầng API, UI tạo/sửa/xóa vòng sau** |
-| 10 | Identity: Loại claim | /manage/identity/claim-types | manage/identity/claim-types | Chưa xây |
+| 9 | Identity: Vai trò | /manage/identity/roles | (tabs)/roles + roles/[id] + roles/form | **Đã xây đủ CRUD vòng 2: list thật (search, phân trang, refresh), detail thật, tạo/sửa bằng form RHF+Zod, xóa có xác nhận — API thật, không mock** |
+| 10 | Identity: Loại claim | /manage/identity/claim-types | (tabs)/claim-types + claim-types/[id] | **Đã xây vòng 2: list thật (search, phân trang, refresh), detail thật; API create/update/delete đã có ở tầng API, UI tạo/sửa/xóa vòng sau** |
 | 11 | Identity: Đơn vị tổ chức | /manage/identity/organization-units | manage/identity/organization-units | Chưa xây |
 | 12 | Identity: Nhật ký bảo mật | /manage/identity/security-logs | manage/identity/security-logs | Chưa xây |
 | 13 | Identity: Phiên | /manage/identity/sessions | manage/identity/sessions | Chưa xây |

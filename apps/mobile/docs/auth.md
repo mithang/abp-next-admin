@@ -14,17 +14,23 @@
 6. Đăng xuất: revoke refresh token nếu có endpoint, rồi luôn xóa local tokens
    (kể cả khi revoke lỗi) và xóa cache TanStack Query.
 
-## Blocker P0 (vòng 1, chưa xử lý xong)
-Client web `vue-admin-client` trong `appsettings.Development.json` của AllInOne là
-client **confidential** (có client secret — giá trị không ghi lại ở đây) và chỉ có
-RootUrls cho web (`localhost:5666`, `localhost:30000`). Mobile là public client nên
-không thể dùng chung client này, và redirect scheme mobile chưa được đăng ký.
-**Hướng xử lý vòng sau (không dùng secret trên mobile):** thêm một OpenIddict
-application public mới (ví dụ `abp-mobile-client`) trong seeder/config của
-AllInOne: grant `authorization_code` + `refresh_token`, PKCE bắt buộc, redirect
-`abpnextadmin://auth`, scope như web. Cho tới lúc đó, màn hình đăng nhập vẫn gọi
-đúng luồng PKCE nhưng login thật sẽ bị backend từ chối — ghi rõ BLOCKED trong
-báo cáo vòng, không fake login thành công.
+## P0 — đã triển khai ở vòng 2, chờ kiểm chứng bằng backend sống
+Client web `vue-admin-client` là **confidential** và chỉ có RootUrls web nên
+không dùng được cho mobile. Vòng 2 đã thêm public client riêng (không secret):
+- Config: `OpenIddict:Applications:Mobile` trong
+  `aspnet-core/services/LINGYUN.Abp.MicroService.AllInOne/appsettings.Development.json`
+  và `aspnet-core/migrations/LINGYUN.Abp.MicroService.AllInOne.DbMigrator/appsettings.json`
+  — `ClientId: abp-mobile-client`, redirect/post-logout `abpnextadmin://auth`.
+- Seeder: `OpenIddictDataSeederContributor.cs` (AllInOne.EntityFrameworkCore)
+  tạo/cập nhật application Native + Public, consent Implicit, grant
+  `authorization_code` + `refresh_token`, scope như client web + scope API.
+  Redirect lấy trực tiếp từ `Mobile:RedirectUris` (không dùng pattern RootUrls
+  của web để tránh hỏng scheme native).
+- Mobile: `src/lib/config.ts` đổi client mặc định sang `abp-mobile-client`
+  (vẫn override được bằng `EXPO_PUBLIC_OIDC_CLIENT_ID`).
+Chưa kiểm chứng: client chỉ xuất hiện trong DB sau khi DbMigrator/seed chạy
+lại và backend sống — login thật vẫn ghi BLOCKED cho tới khi vòng sau boot
+backend và thử authorize thật. Không fake login thành công.
 
 ## Tài khoản test
 Chỉ dùng cho kiểm thử local (admin có TOTP 2FA; tài khoản test không 2FA theo

@@ -320,5 +320,44 @@ public class OpenIddictDataSeederContributor : OpenIddictDataSeedContributorBase
             };
             await PermissionDataSeeder.SeedAsync(ClientPermissionValueProvider.ProviderName, oauthClientId, oauthClientPermissions);
         }
+
+        // Public client cho app mobile Expo (không secret, PKCE bắt buộc theo
+        // OpenIddict khi dùng Authorization Code với client public; redirect là
+        // scheme native abpnextadmin://auth, KHÔNG dùng pattern RootUrls của web
+        // vì EnsureEndsWith('/') sẽ làm hỏng scheme). Vòng mobile-expo 2.
+        var mobileClientId = configurationSection["Mobile:ClientId"];
+        if (!mobileClientId.IsNullOrWhiteSpace())
+        {
+            Logger.LogInformation("Seeding application {mobileClientId}...", mobileClientId);
+
+            var mobileRedirectUris = configurationSection.GetSection("Mobile:RedirectUris").Get<List<string>>() ?? [];
+            var mobilePostLogoutRedirectUris = configurationSection.GetSection("Mobile:PostLogoutRedirectUris").Get<List<string>>() ?? [];
+
+            await CreateOrUpdateApplicationAsync(
+                OpenIddictConstants.ApplicationTypes.Native,
+                mobileClientId,
+                OpenIddictConstants.ClientTypes.Public,
+                OpenIddictConstants.ConsentTypes.Implicit,
+                "Abp Mobile Client",
+                null,
+                [OpenIddictConstants.GrantTypes.AuthorizationCode,
+                 OpenIddictConstants.GrantTypes.RefreshToken],
+                [OpenIddictConstants.Scopes.OpenId,
+                OpenIddictConstants.Scopes.Email,
+                OpenIddictConstants.Scopes.Roles,
+                OpenIddictConstants.Scopes.Address,
+                OpenIddictConstants.Scopes.Phone,
+                OpenIddictConstants.Scopes.Profile,
+                OpenIddictConstants.Scopes.OfflineAccess,
+                 scope],
+                mobileRedirectUris,
+                mobilePostLogoutRedirectUris);
+
+            var mobileClientPermissions = new string[1]
+            {
+                "AbpIdentity.UserLookup"
+            };
+            await PermissionDataSeeder.SeedAsync(ClientPermissionValueProvider.ProviderName, mobileClientId, mobileClientPermissions);
+        }
     }
 }

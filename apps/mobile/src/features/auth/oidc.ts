@@ -16,10 +16,10 @@ export interface TokenSet {
 
 /**
  * Discovery + Authorization Code + PKCE, KHÔNG client secret.
- * Yêu cầu phía backend: một OpenIddict application PUBLIC (không secret) với
- * redirect URI đúng `redirectUri` ở trên và grant authorization_code + refresh_token.
- * Client web vue-admin-client hiện tại là confidential + chỉ có RootUrls web nên
- * CHƯA dùng được cho mobile — xem docs/auth.md (P0, vòng sau đăng ký client riêng).
+ * Backend (vòng 2): OpenIddict application PUBLIC `abp-mobile-client`
+ * (Native, redirect `redirectUri` ở trên, grant authorization_code +
+ * refresh_token) — xem docs/auth.md. Client web vue-admin-client là
+ * confidential nên không dùng cho mobile.
  */
 export async function discover() {
   return AuthSession.fetchDiscoveryAsync(config.authority);
