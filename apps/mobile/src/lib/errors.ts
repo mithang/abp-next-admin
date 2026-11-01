@@ -53,6 +53,60 @@ const FALLBACK: Record<ApiErrorKind, string> = {
   unexpected: 'Đã xảy ra lỗi không xác định. Vui lòng thử lại.',
 };
 
+/** Chỉ dùng message nghiệp vụ ngắn, không chứa stack trace; ngược lại fallback. */
+function toSafeMessage(raw: string, kind: ApiErrorKind): string {
+  return raw && raw.length <= 300 && !/stack trace|at\s+\S+\(/i.test(raw) ? raw : FALLBACK[kind];
+}
+
+/**
+ * Envelope đóng gói của backend (LINGYUN.Abp.Wrapper, bật ở AllInOne với
+ * CodeWithSuccess "0" và HttpStatusCode OK mặc định): thành công là
+ * {code:"0", message:"OK", result:<DTO>}, lỗi là {code:"400"|"500"|...,
+ * message, details} kèm HTTP 200. Web xử lý envelope này ở
+ * useWrapperResult; mobile xử lý ở api-client.
+ *
+ * Lưu ý: envelope lỗi KHÔNG mang validationErrors có cấu trúc (WrapResult
+ * chỉ có code/message/details) nên lỗi validation qua envelope chỉ hiện
+ * message chung, không có lỗi theo field — đó là lý do api-client gửi kèm
+ * header _AbpDontWrapResult để nhận lỗi ABP chuẩn có validationErrors.
+ */
+export interface WrappedEnvelope {
+  code: string;
+  message?: string;
+  details?: string;
+  result?: unknown;
+}
+
+const WRAP_ENVELOPE_KEYS = new Set(['code', 'message', 'details', 'result']);
+
+export function isWrappedEnvelope(body: unknown): body is WrappedEnvelope {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return false;
+  const record = body as Record<string, unknown>;
+  if (typeof record.code !== 'string') return false;
+  // Chỉ nhận đúng shape envelope: tránh nhầm DTO thật có field `code`
+  // (vd DataDto/MenuDto) — các DTO đó luôn có thêm key ngoài 4 key này.
+  // Header _AbpWrapResult (xem api-client) là tín hiệu chính; shape này là
+  // fallback khi header bị lược (proxy) — và vẫn an toàn nhờ kiểm tra key.
+  return Object.keys(record).every((key) => WRAP_ENVELOPE_KEYS.has(key));
+}
+
+/**
+ * Map mã lỗi trong envelope sang ApiError. Mã số 3 chữ số (phổ biến nhất:
+ * DefaultExceptionWrapHandler dùng mã HTTP khi exception không có error
+ * code riêng) map như HTTP status; mã nghiệp vụ không phải số (phần sau
+ * dấu ":" của error code ABP) map về 'server' nhưng vẫn giữ message an
+ * toàn của envelope thay vì fallback chung.
+ */
+export function parseWrappedError(envelope: WrappedEnvelope): ApiError {
+  const numeric = /^\d{3}$/.test(envelope.code) ? Number(envelope.code) : null;
+  const kind = numeric !== null ? mapHttpStatusToKind(numeric) : 'server';
+  return {
+    kind,
+    status: numeric ?? undefined,
+    message: toSafeMessage(envelope.message ?? '', kind),
+  };
+}
+
 export function parseApiError(status: number, body: unknown): ApiError {
   const kind = mapHttpStatusToKind(status);
   const parsed = (body ?? {}) as AbpErrorBody;
@@ -65,15 +119,10 @@ export function parseApiError(status: number, body: unknown): ApiError {
       }
     }
   }
-  // Chỉ dùng message của ABP khi nó là thông điệp nghiệp vụ ngắn, không chứa
-  // stack trace; ngược lại dùng fallback thân thiện.
-  const raw = abp?.message ?? '';
-  const safeMessage =
-    raw && raw.length <= 300 && !/stack trace|at\s+\S+\(/i.test(raw) ? raw : FALLBACK[kind];
   return {
     kind,
     status,
-    message: safeMessage,
+    message: toSafeMessage(abp?.message ?? '', kind),
     fieldErrors: Object.keys(fieldErrors).length > 0 ? fieldErrors : undefined,
   };
 }

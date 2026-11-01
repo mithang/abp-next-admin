@@ -1,5 +1,11 @@
 import { describe, it, expect } from '@jest/globals';
-import { mapHttpStatusToKind, parseApiError, toApiError } from '../errors';
+import {
+  isWrappedEnvelope,
+  mapHttpStatusToKind,
+  parseApiError,
+  parseWrappedError,
+  toApiError,
+} from '../errors';
 
 describe('mapHttpStatusToKind', () => {
   it.each([
@@ -32,6 +38,44 @@ describe('parseApiError', () => {
     const err = parseApiError(500, { error: { message: 'boom\nstack trace at Foo.Bar()' } });
     expect(err.message).not.toContain('stack trace');
     expect(err.message.length).toBeGreaterThan(0);
+  });
+});
+
+describe('isWrappedEnvelope', () => {
+  it('nhận envelope đủ và envelope lỗi lược result null', () => {
+    expect(isWrappedEnvelope({ code: '0', message: 'OK', result: { totalCount: 1 } })).toBe(true);
+    expect(isWrappedEnvelope({ code: '400', message: 'Lỗi', details: null })).toBe(true);
+  });
+
+  it('từ chối DTO thật có code, body lỗi ABP, mảng và null', () => {
+    expect(
+      isWrappedEnvelope({ id: '1', name: 'root', code: 'root', displayName: 'Root', items: [] }),
+    ).toBe(false);
+    expect(isWrappedEnvelope({ error: { code: '400', message: 'Lỗi' } })).toBe(false);
+    expect(isWrappedEnvelope([{ code: '0', result: 1 }])).toBe(false);
+    expect(isWrappedEnvelope(null)).toBe(false);
+  });
+});
+
+describe('parseWrappedError', () => {
+  it('map mã số như HTTP status', () => {
+    expect(parseWrappedError({ code: '400', message: 'Dữ liệu không hợp lệ.' })).toMatchObject({
+      kind: 'validation',
+      status: 400,
+      message: 'Dữ liệu không hợp lệ.',
+    });
+    expect(parseWrappedError({ code: '500', message: 'Lỗi máy chủ.' })).toMatchObject({
+      kind: 'server',
+      status: 500,
+    });
+  });
+
+  it('mã nghiệp vụ không phải số vẫn giữ message an toàn', () => {
+    expect(parseWrappedError({ code: 'UserAlreadyExists', message: 'Người dùng đã tồn tại.' })).toMatchObject({
+      kind: 'server',
+      status: undefined,
+      message: 'Người dùng đã tồn tại.',
+    });
   });
 });
 

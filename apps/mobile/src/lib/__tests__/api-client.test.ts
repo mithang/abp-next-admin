@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from '@jest/globals';
-import { apiRequest } from '../api-client';
+import { apiRequest, setUnauthorizedHandler } from '../api-client';
 
 interface FakeResponse {
   ok: boolean;
@@ -52,5 +52,69 @@ describe('apiRequest', () => {
   it('trả undefined cho 204', async () => {
     stubFetch({ ok: true, status: 204, text: async () => '' });
     await expect(apiRequest('/api/identity/users/1', { method: 'DELETE' })).resolves.toBeUndefined();
+  });
+
+  it('gửi header _AbpDontWrapResult để nhận DTO thô thay vì envelope', async () => {
+    const { calls } = stubFetch({
+      ok: true,
+      status: 200,
+      text: async () => JSON.stringify({ totalCount: 1, items: [] }),
+    });
+    await apiRequest('/api/identity/users');
+    const init = calls[0][1] as { headers: Record<string, string> };
+    expect(init.headers._AbpDontWrapResult).toBe('true');
+  });
+
+  it('bóc envelope thành công {code:"0", result} về kèm HTTP 200', async () => {
+    stubFetch({
+      ok: true,
+      status: 200,
+      text: async () =>
+        JSON.stringify({ code: '0', message: 'OK', result: { totalCount: 2, items: [{ id: '1' }] } }),
+    });
+    const data = await apiRequest<{ totalCount: number }>('/api/identity/users');
+    expect(data.totalCount).toBe(2);
+  });
+
+  it('ném ApiError validation từ envelope lỗi HTTP 200 code 400', async () => {
+    stubFetch({
+      ok: true,
+      status: 200,
+      text: async () => JSON.stringify({ code: '400', message: 'Dữ liệu không hợp lệ.', details: null }),
+    });
+    await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({
+      kind: 'validation',
+      status: 400,
+      message: 'Dữ liệu không hợp lệ.',
+    });
+  });
+
+  it('envelope lỗi 401 gọi unauthorized handler', async () => {
+    stubFetch({
+      ok: true,
+      status: 200,
+      text: async () => JSON.stringify({ code: '401', message: 'Unauthorized' }),
+    });
+    let called = false;
+    setUnauthorizedHandler(() => {
+      called = true;
+    });
+    try {
+      await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({ kind: 'unauthorized' });
+      expect(called).toBe(true);
+    } finally {
+      setUnauthorizedHandler(null);
+    }
+  });
+
+  it('không bóc DTO thật có field code nhưng thừa key ngoài envelope', async () => {
+    stubFetch({
+      ok: true,
+      status: 200,
+      text: async () =>
+        JSON.stringify({ id: '1', name: 'root', code: 'root', displayName: 'Root', items: [] }),
+    });
+    const data = await apiRequest<{ code: string }>('/api/platform/data');
+    expect(data.code).toBe('root');
   });
 });

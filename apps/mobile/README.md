@@ -45,6 +45,35 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 18
+
+Vòng P2 toàn app — xử lý envelope đóng gói của AllInOne (lỗi vòng 14,
+đã xác minh live, không còn tồn đọng): backend bật AbpWrapper nên mọi
+kết quả controller về dạng {code, message, result} kèm HTTP 200 (kể cả
+lỗi), trong khi `api-client` cũ chỉ kiểm `response.ok` nên vừa coi lỗi
+là thành công, vừa trả nguyên envelope thay vì DTO cho cả 267 call
+site. Sửa ở đúng tầng trung tâm: `apiRequest` gửi header
+`_AbpDontWrapResult: true` (tính năng có sẵn của backend, proxy
+HttpClient nội bộ của backend cũng gửi) để nhận DTO thô + lỗi ABP
+chuẩn (HTTP status thật, validationErrors có cấu trúc); nếu envelope
+vẫn về (header bị lược) thì bóc `result` khi code "0", ném ApiError đã
+map khi code khác "0" (mã số 3 chữ số map như HTTP status, mã nghiệp vụ
+không phải số giữ message an toàn, code 401 gọi unauthorized handler).
+Phát hiện shape envelope an toàn: chỉ nhận đúng 4 key
+code/message/details/result nên không nhầm DTO thật có field `code`
+(vd DataDto/MenuDto). Kiểm chứng live bằng code thật (không phải test
+stub): fetch thô không header trả HTTP 200 đúng envelope
+{code,details,message,result} code "0"; fetch có header trả DTO thô
+{description,result}; `apiRequest` biên dịch thật trả DTO thô, không
+còn envelope. Giới hạn còn lại: envelope lỗi không mang
+validationErrors có cấu trúc nên khi rơi vào nhánh envelope, lỗi
+validation chỉ hiện message chung (nhánh chính DontWrap vẫn đủ field
+errors); SSE chat không qua `apiRequest` và endpoint stream không phải
+ObjectResult nên không bị wrap. Không thêm trang lá mới (vẫn 50/50);
+các P2 còn lại: upload tệp blob, UI chọn nhiều cho bulk, tenant
+feature-values/impersonation, menu assignment APIs, formatter, RNTL
+component tests. Trước đó: Webhook + Mẫu văn bản + WeChat (50/50).
+
 ## Trạng thái vòng 17
 
 Webhook + Mẫu văn bản + WeChat đã xong (50/50 trang lá): Nhóm Webhook
@@ -179,7 +208,7 @@ exceptions, chỉ đọc vì backend không có xóa) — đều qua tab hub "Qu
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá đã đủ 50/50 từ vòng 17 (xem `docs/inventory-mapping.md`); phần còn lại là các P2: xử lý envelope lỗi HTTP 200, upload tệp blob, UI chọn nhiều cho bulk, tenant feature-values/impersonation, menu assignment APIs, formatter, RNTL component tests.
+- Các trang lá đã đủ 50/50 từ vòng 17 (xem `docs/inventory-mapping.md`); envelope lỗi HTTP 200 đã xử lý xong ở vòng 18. Phần còn lại là các P2: upload tệp blob, UI chọn nhiều cho bulk, tenant feature-values/impersonation, menu assignment APIs, formatter, RNTL component tests.
   CRUD thật của nhóm Quyền/Tính năng/Cài đặt/Bản địa hoá/Kiểm toán/Thông báo vẫn cần phiên admin
   (TOTP) như các nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu
   auth (401 vs 404 route giả, backend đã khởi động lại trong vòng này).

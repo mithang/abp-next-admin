@@ -1,5 +1,12 @@
 import { apiUrl } from './config';
-import { parseApiError, toApiError, type ApiError } from './errors';
+import {
+  isWrappedEnvelope,
+  parseApiError,
+  parseWrappedError,
+  toApiError,
+  type ApiError,
+  type WrappedEnvelope,
+} from './errors';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
@@ -54,6 +61,13 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        // Backend AllInOne bật AbpWrapper nên mặc định đóng gói mọi kết quả
+        // vào envelope {code, message, result} kèm HTTP 200 (kể cả lỗi).
+        // Header này (AbpHttpWrapConsts.AbpDontWrapResult — chính proxy
+        // HttpClient nội bộ của backend cũng gửi) yêu cầu backend trả DTO
+        // thô + lỗi ABP chuẩn (có HTTP status thật và validationErrors).
+        // Nếu envelope vẫn về (header bị lược), khối dưới vẫn xử lý đúng.
+        _AbpDontWrapResult: 'true',
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       body: body === undefined ? undefined : JSON.stringify(body),
@@ -62,6 +76,23 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
     if (response.status === 204) return undefined as T;
     const text = await response.text();
     const parsed: unknown = text ? JSON.parse(text) : null;
+    // Envelope đóng gói (xem errors.ts): tín hiệu chính là header
+    // _AbpWrapResult=true, fallback là đúng shape {code, message?, details?, result?}.
+    // Xử lý TRƯỚC kiểm tra response.ok vì lỗi đóng gói về kèm HTTP 200.
+    const wrapHeader = response.headers?.get?.('_AbpWrapResult');
+    const headerWrapped = typeof wrapHeader === 'string' && wrapHeader.toLowerCase().includes('true');
+    const envelope: WrappedEnvelope | null =
+      headerWrapped || isWrappedEnvelope(parsed) ? (parsed as WrappedEnvelope) : null;
+    if (envelope && typeof envelope.code === 'string') {
+      if (envelope.code === '0') {
+        // Thành công đóng gói: trả đúng DTO trong result (có thể undefined
+        // khi backend lược result null — tương đương 204 cho mutation void).
+        return envelope.result as T;
+      }
+      const err = parseWrappedError(envelope);
+      if (err.status === 401) unauthorizedHandler?.();
+      throw err;
+    }
     if (!response.ok) {
       const err = parseApiError(response.status, parsed);
       if (response.status === 401) unauthorizedHandler?.();
