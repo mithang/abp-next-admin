@@ -1,7 +1,7 @@
 # Đối chiếu chức năng web → mobile (vòng 1)
 
 Nguồn: `~/workspace/run-logs/feature-inventory.md` (76 mục menu, 50 trang lá).
-Trạng thái vòng 5: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật + nhóm OpenIddict (Ứng dụng đủ CRUD, Phạm vi đủ CRUD, Ủy quyền list/detail/xóa, Token list/detail/xóa) qua tab hub "Quản trị" (13/50 trang lá);
+Trạng thái vòng 6: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật + nhóm OpenIddict (Ứng dụng đủ CRUD, Phạm vi đủ CRUD, Ủy quyền list/detail/xóa, Token list/detail/xóa) + nhóm Quyền (Nhóm đủ CRUD, Định nghĩa đủ CRUD) + nhóm Tính năng (Nhóm đủ CRUD, Định nghĩa đủ CRUD) qua tab hub "Quản trị" (17/50 trang lá);
 P0 OIDC đã kiểm chứng end-to-end ở tầng giao thức (authorize → login → code → đổi token PKCE, không secret);
 các trang còn lại đã có route kế hoạch trong bảng này, xây dần P0→P3 các vòng sau.
 Không màn hình nào dùng mock data trong production: trang chưa xây sẽ không xuất
@@ -22,10 +22,10 @@ hiện trong tab bar cho tới khi có API thật.
 | 11 | Identity: Đơn vị tổ chức | /manage/identity/organization-units | (tabs)/organization-units + organization-units/[id] + organization-units/form | **Đã xây đủ CRUD vòng 4: cây từ /all (DFS, chống vòng lặp), detail, tạo gốc/con, sửa chỉ displayName, xóa có xác nhận — chưa có quản lý thành viên/vai trò trong đơn vị, chưa có di chuyển (/move)** |
 | 12 | Identity: Nhật ký bảo mật | /manage/identity/security-logs | (tabs)/security-logs + security-logs/[id] | **Đã xây vòng 4: list phân trang (lọc userName), detail, xóa có xác nhận — chưa có xóa hàng loạt (API bulk đã sẵn)** |
 | 13 | Identity: Phiên | /manage/identity/sessions | (tabs)/sessions | **Đã xây vòng 4: list phân trang (lọc device), thu hồi theo sessionId có xác nhận — đúng web (chỉ bảng + thu hồi, không có trang detail)** |
-| 14 | Quyền: Nhóm | /manage/permissions/groups | manage/permissions/groups | Chưa xây |
-| 15 | Quyền: Định nghĩa | /manage/permissions/definitions | manage/permissions/definitions | Chưa xây |
-| 16 | Tính năng: Nhóm | /manage/features/groups | manage/features/groups | Chưa xây |
-| 17 | Tính năng: Định nghĩa | /manage/features/definitions | manage/features/definitions | Chưa xây |
+| 14 | Quyền: Nhóm | /manage/permissions/groups | manage/permissions/groups + groups/[name] + groups/form | **Đã xây đủ CRUD vòng 6: list thật (search, refresh), detail thật, tạo/sửa bằng form RHF+Zod (name bắt buộc khi tạo, sửa chỉ đổi displayName và giữ extraProperties), xóa có xác nhận — nhóm tĩnh cho sửa nhưng cấm xóa như web — API thật, không mock** |
+| 15 | Quyền: Định nghĩa | /manage/permissions/definitions | manage/permissions/definitions + definitions/[name] + definitions/form | **Đã xây đủ CRUD vòng 6: list thật (lọc filter/groupName), detail thật (multiTenancySide, providers, stateCheckers), tạo/sửa bằng form RHF+Zod (sửa không gửi name/groupName, giữ extraProperties), xóa có xác nhận — định nghĩa tĩnh cho sửa nhưng cấm xóa như web — API thật, không mock** |
+| 16 | Tính năng: Nhóm | /manage/features/groups | manage/features/groups + groups/[name] + groups/form | **Đã xây đủ CRUD vòng 6: list thật, detail thật, tạo/sửa bằng form RHF+Zod (sửa chỉ đổi displayName, giữ concurrencyStamp + extraProperties), xóa có xác nhận — nhóm tĩnh chỉ đọc (không Sửa/Xóa) như modal web — API thật, không mock** |
+| 17 | Tính năng: Định nghĩa | /manage/features/definitions | manage/features/definitions + definitions/[name] + definitions/form | **Đã xây đủ CRUD vòng 6: list thật, detail thật, tạo/sửa bằng form RHF+Zod (valueType nhập text, allowedProviders nhiều dòng, sửa giữ concurrencyStamp + extraProperties), xóa có xác nhận — định nghĩa tĩnh chỉ đọc như modal web — API thật, không mock** |
 | 18 | Cài đặt hệ thống | /manage/settings/system | manage/settings/system | Chưa xây |
 | 19 | Định nghĩa cài đặt | /manage/settings/definitions | manage/settings/definitions | Chưa xây |
 | 20 | Ngôn ngữ | /manage/localization/languages | manage/localization/languages | Chưa xây |

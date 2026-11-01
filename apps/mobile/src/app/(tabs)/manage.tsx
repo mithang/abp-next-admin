@@ -16,6 +16,10 @@ const ENTRIES = [
   { route: '/openiddict/scopes', titleKey: 'manage.openiddictScopes', descKey: 'manage.openiddictScopesDesc' },
   { route: '/openiddict/authorizations', titleKey: 'manage.openiddictAuthorizations', descKey: 'manage.openiddictAuthorizationsDesc' },
   { route: '/openiddict/tokens', titleKey: 'manage.openiddictTokens', descKey: 'manage.openiddictTokensDesc' },
+  { route: '/permissions/groups', titleKey: 'manage.permissionGroups', descKey: 'manage.permissionGroupsDesc' },
+  { route: '/permissions/definitions', titleKey: 'manage.permissionDefinitions', descKey: 'manage.permissionDefinitionsDesc' },
+  { route: '/features/groups', titleKey: 'manage.featureGroups', descKey: 'manage.featureGroupsDesc' },
+  { route: '/features/definitions', titleKey: 'manage.featureDefinitions', descKey: 'manage.featureDefinitionsDesc' },
 ] as const;
 
 export default function ManageScreen() {

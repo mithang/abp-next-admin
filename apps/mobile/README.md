@@ -45,15 +45,19 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
-## Trạng thái vòng 5
+## Trạng thái vòng 6
 
-Nhóm OpenIddict đã xây đủ (13/50 trang lá): Ứng dụng đủ CRUD, Phạm vi đủ CRUD,
-Ủy quyền và Token list/detail/xóa đúng web (chỉ đọc, không form tạo/sửa; detail
-Token chỉ hiển thị metadata, không hiển thị payload). Điều hướng qua tab hub
-"Quản trị" thay vì 4 tab riêng. Form ứng dụng không có field clientSecret và
-luôn gửi requirements requirePkce=false + settings tokenLifetime rỗng theo DTO web.
+Nhóm Quyền và Tính năng đã xây đủ (17/50 trang lá): Nhóm quyền đủ CRUD,
+Định nghĩa quyền đủ CRUD, Nhóm tính năng đủ CRUD, Định nghĩa tính năng đủ
+CRUD — đều qua tab hub "Quản trị" (thêm 4 mục, không thêm tab). Hành vi tĩnh
+theo đúng web: quyền (nhóm/định nghĩa) cho sửa nhưng cấm xóa với bản ghi
+tĩnh; tính năng (nhóm/định nghĩa) tĩnh là chỉ đọc (không Sửa/Xóa). Form sửa
+không gửi name/groupName (key nằm trong path) và giữ nguyên extraProperties
+(+ concurrencyStamp của tính năng) để không làm mất dữ liệu như lỗi vòng 5
+đã sửa. Danh sách quyền/tính năng dùng ListResult (web phân trang phía
+client) nên mobile lấy toàn bộ danh sách theo filter.
 
-## Giới hạn đã biết (vòng 5)
+## Giới hạn đã biết (vòng 6)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
@@ -63,7 +67,9 @@ luôn gửi requirements requirePkce=false + settings tokenLifetime rỗng theo 
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá còn lại (37/50): chưa xây, xem `docs/inventory-mapping.md`.
+- Các trang lá còn lại (33/50): chưa xây, xem `docs/inventory-mapping.md`.
+  CRUD thật của nhóm Quyền/Tính năng vẫn cần phiên admin (TOTP) như các
+  nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu auth (401).
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);
   lint trực tiếp cho 0 lỗi, 14 warning trong code Gluestack vendored.
