@@ -39,6 +39,8 @@ const ENTRIES = [
   { route: '/ai/conversations', titleKey: 'manage.aiConversations', descKey: 'manage.aiConversationsDesc' },
   { route: '/saas/tenants', titleKey: 'manage.saasTenants', descKey: 'manage.saasTenantsDesc' },
   { route: '/saas/editions', titleKey: 'manage.saasEditions', descKey: 'manage.saasEditionsDesc' },
+  { route: '/platform/data-dictionaries', titleKey: 'manage.platformDataDictionaries', descKey: 'manage.platformDataDictionariesDesc' },
+  { route: '/platform/layouts', titleKey: 'manage.platformLayouts', descKey: 'manage.platformLayoutsDesc' },
 ] as const;
 
 export default function ManageScreen() {

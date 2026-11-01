@@ -45,6 +45,20 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 14
+
+Nhóm Nền tảng (phần 1) đã xây (38/50 trang lá): Từ điển dữ liệu (list
+cây từ /all, detail kèm mục, tạo/sửa/xóa, tạo con, di chuyển sang cha
+khác, thêm/sửa/xóa mục) và Bố cục (list phân trang lọc filter/framework,
+detail, tạo/sửa/xóa) — đều qua tab hub "Quản trị" (thêm 2 mục, không
+thêm tab). Điểm khác web cần biết: update từ điển không gửi parentId
+và update bố cục không gửi dataId/framework (đúng UpdateDto, đổi cha qua
+move riêng); loại giá trị mục chỉ nhận 0–5 như modal web (Object=6 có
+trong enum backend nhưng web ghi TODO chưa hỗ trợ); lỗi validation của
+AllInOne trả HTTP 200 kèm envelope code 400 (xem báo cáo vòng 14) — API
+layer đã xác minh route tồn tại qua 401/404 và Swagger, CRUD thật vẫn
+cần phiên admin (TOTP) như các vòng trước. Trước đó: Nhóm SaaS (36/50).
+
 ## Trạng thái vòng 13
 
 Nhóm SaaS đã xây (36/50 trang lá): Tenant (list phân trang, detail,
