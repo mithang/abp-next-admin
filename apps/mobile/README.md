@@ -45,12 +45,17 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
-## Giới hạn đã biết (vòng 3)
+## Giới hạn đã biết (vòng 4)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
-- Vai trò và Loại claim đã đủ CRUD; P0 OIDC đã kiểm chứng ở tầng giao thức.
-- Các trang lá còn lại (44/50): chưa xây, xem `docs/inventory-mapping.md`.
+- Vai trò, Loại claim và Đơn vị tổ chức đã đủ CRUD; Nhật ký bảo mật
+  (list/detail/xóa) và Phiên (list/thu hồi) đã xây; P0 OIDC đã kiểm chứng ở
+  tầng giao thức. Vòng 4 kiểm chứng thêm: token PKCE thật lấy được, nhưng
+  tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
+  CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
+  TOTP 2FA và không có thiết bị.
+- Các trang lá còn lại (41/50): chưa xây, xem `docs/inventory-mapping.md`.
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);
   lint trực tiếp cho 0 lỗi, 14 warning trong code Gluestack vendored.

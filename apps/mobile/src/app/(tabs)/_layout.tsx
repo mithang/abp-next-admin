@@ -9,6 +9,9 @@ export default function TabsLayout() {
       <Tabs.Screen name="users" options={{ title: t('tabs.users') }} />
       <Tabs.Screen name="roles" options={{ title: t('tabs.roles') }} />
       <Tabs.Screen name="claim-types" options={{ title: t('tabs.claimTypes') }} />
+      <Tabs.Screen name="organization-units" options={{ title: t('tabs.organizationUnits') }} />
+      <Tabs.Screen name="security-logs" options={{ title: t('tabs.securityLogs') }} />
+      <Tabs.Screen name="sessions" options={{ title: t('tabs.sessions') }} />
       <Tabs.Screen name="account" options={{ title: t('tabs.account') }} />
     </Tabs>
   );

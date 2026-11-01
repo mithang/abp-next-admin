@@ -1,7 +1,7 @@
 # Đối chiếu chức năng web → mobile (vòng 1)
 
 Nguồn: `~/workspace/run-logs/feature-inventory.md` (76 mục menu, 50 trang lá).
-Trạng thái vòng 3: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Tài khoản có màn hình thật (6/50 trang lá);
+Trạng thái vòng 4: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật (9/50 trang lá);
 P0 OIDC đã kiểm chứng end-to-end ở tầng giao thức (authorize → login → code → đổi token PKCE, không secret);
 các trang còn lại đã có route kế hoạch trong bảng này, xây dần P0→P3 các vòng sau.
 Không màn hình nào dùng mock data trong production: trang chưa xây sẽ không xuất
@@ -19,9 +19,9 @@ hiện trong tab bar cho tới khi có API thật.
 | 8 | Identity: Người dùng | /manage/identity/users | (tabs)/users + users/[id] | **Đã xây: list thật (search, phân trang, refresh), detail thật** |
 | 9 | Identity: Vai trò | /manage/identity/roles | (tabs)/roles + roles/[id] + roles/form | **Đã xây đủ CRUD vòng 2: list thật (search, phân trang, refresh), detail thật, tạo/sửa bằng form RHF+Zod, xóa có xác nhận — API thật, không mock** |
 | 10 | Identity: Loại claim | /manage/identity/claim-types | (tabs)/claim-types + claim-types/[id] + claim-types/form | **Đã xây đủ CRUD vòng 3: list thật, detail thật, tạo/sửa bằng form RHF+Zod (sửa chỉ gửi 4 field update, loại tĩnh ẩn Sửa/Xóa như web), xóa có xác nhận — API thật, không mock** |
-| 11 | Identity: Đơn vị tổ chức | /manage/identity/organization-units | manage/identity/organization-units | Chưa xây |
-| 12 | Identity: Nhật ký bảo mật | /manage/identity/security-logs | manage/identity/security-logs | Chưa xây |
-| 13 | Identity: Phiên | /manage/identity/sessions | manage/identity/sessions | Chưa xây |
+| 11 | Identity: Đơn vị tổ chức | /manage/identity/organization-units | (tabs)/organization-units + organization-units/[id] + organization-units/form | **Đã xây đủ CRUD vòng 4: cây từ /all (DFS, chống vòng lặp), detail, tạo gốc/con, sửa chỉ displayName, xóa có xác nhận — chưa có quản lý thành viên/vai trò trong đơn vị, chưa có di chuyển (/move)** |
+| 12 | Identity: Nhật ký bảo mật | /manage/identity/security-logs | (tabs)/security-logs + security-logs/[id] | **Đã xây vòng 4: list phân trang (lọc userName), detail, xóa có xác nhận — chưa có xóa hàng loạt (API bulk đã sẵn)** |
+| 13 | Identity: Phiên | /manage/identity/sessions | (tabs)/sessions | **Đã xây vòng 4: list phân trang (lọc device), thu hồi theo sessionId có xác nhận — đúng web (chỉ bảng + thu hồi, không có trang detail)** |
 | 14 | Quyền: Nhóm | /manage/permissions/groups | manage/permissions/groups | Chưa xây |
 | 15 | Quyền: Định nghĩa | /manage/permissions/definitions | manage/permissions/definitions | Chưa xây |
 | 16 | Tính năng: Nhóm | /manage/features/groups | manage/features/groups | Chưa xây |
