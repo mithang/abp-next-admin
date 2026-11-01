@@ -45,6 +45,16 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 13
+
+Nhóm SaaS đã xây (36/50 trang lá): Tenant (list phân trang, detail,
+tạo/sửa/xóa, quản lý chuỗi kết nối đặt/xóa/kiểm tra) và Phiên bản
+(list phân trang, detail, tạo/sửa/xóa) — đều qua tab hub "Quản trị"
+(thêm 2 mục, không thêm tab). Điểm khác web cần biết: giá trị connection
+string đã lưu không hiển thị (credential, chỉ tên + đặt/xóa/kiểm tra);
+tính năng theo tenant và mạo danh (impersonation) của web chưa xây ở vòng
+này (xem báo cáo vòng 13). Trước đó: Nhóm AI (34/50).
+
 ## Trạng thái vòng 12
 
 Nhóm AI đã xây (34/50 trang lá): Công cụ AI (list phân trang, detail,
