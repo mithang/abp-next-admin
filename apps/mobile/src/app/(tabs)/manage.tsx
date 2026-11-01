@@ -25,6 +25,9 @@ const ENTRIES = [
   { route: '/localization/languages', titleKey: 'manage.localizationLanguages', descKey: 'manage.localizationLanguagesDesc' },
   { route: '/localization/resources', titleKey: 'manage.localizationResources', descKey: 'manage.localizationResourcesDesc' },
   { route: '/localization/texts', titleKey: 'manage.localizationTexts', descKey: 'manage.localizationTextsDesc' },
+  { route: '/data-protection/entity-type-infos', titleKey: 'manage.dataProtectionEntityTypeInfos', descKey: 'manage.dataProtectionEntityTypeInfosDesc' },
+  { route: '/auditing/audit-logs', titleKey: 'manage.auditLogs', descKey: 'manage.auditLogsDesc' },
+  { route: '/auditing/sys-logs', titleKey: 'manage.sysLogs', descKey: 'manage.sysLogsDesc' },
 ] as const;
 
 export default function ManageScreen() {
