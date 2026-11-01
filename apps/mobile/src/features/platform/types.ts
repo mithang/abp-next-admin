@@ -144,3 +144,128 @@ export interface LayoutUpdateDto {
   path: string;
   redirect?: string | null;
 }
+
+/* ------------------------------------------------------------------ */
+/* Menu: IMenuAppService — bảng web dùng GET /api/platform/menus/all  */
+/* rồi dựng cây theo parentId (giống từ điển), lọc layoutId/filter;   */
+/* CRUD: GET/POST /api/platform/menus, GET/PUT/DELETE /menus/{id}.    */
+/* Điểm backend làm rõ mà chỉ đọc web sẽ làm sai:                     */
+/* - MenuDto = RouteDto + code (backend sinh) + component +          */
+/*   framework + parentId + layoutId + isPublic + startup.            */
+/* - MenuCreateDto = base + layoutId BẮT BUỘC (chỉ lúc tạo);          */
+/*   MenuUpdateDto = base, KHÔNG có layoutId — sửa ẩn layoutId và     */
+/*   không gửi nó (giống bố cục với dataId/framework).                */
+/* - Meta: drawer web xây form meta động từ mục của từ điển ràng     */
+/*   buộc của layout (layout.dataId); mobile chưa có form động nên    */
+/*   meta nhập dạng JSON text (mặc định {}), kiểm chứng JSON hợp lệ. */
+/* - Các API phân quyền menu (by-user/by-role/favorites/startup) là  */
+/*   chức năng gán menu cho user/role, KHÔNG thuộc bảng MenuTable của */
+/*   trang lá này (drawer/modal gán nằm ở trang Vai trò/Người dùng)  */
+/*   nên vòng này không xây chúng; ghi rõ để không giấu.              */
+
+export interface MenuDto {
+  id: string;
+  path: string;
+  name: string;
+  displayName: string;
+  description?: string | null;
+  redirect?: string | null;
+  meta?: Record<string, unknown>;
+  code: string;
+  component: string;
+  framework: string;
+  parentId?: string | null;
+  layoutId: string;
+  isPublic: boolean;
+  startup: boolean;
+}
+
+export interface MenuGetAllInput {
+  framework?: string;
+  filter?: string;
+  layoutId?: string;
+  parentId?: string;
+}
+
+/** Base tạo/sửa menu (MenuCreateOrUpdateDto C#). */
+export interface MenuBaseDto {
+  parentId?: string | null;
+  name: string;
+  displayName: string;
+  description?: string | null;
+  path: string;
+  redirect?: string | null;
+  component: string;
+  isPublic: boolean;
+  meta?: Record<string, unknown>;
+}
+
+/** CreateDto: base + layoutId bắt buộc (chỉ lúc tạo). */
+export interface MenuCreateDto extends MenuBaseDto {
+  layoutId: string;
+}
+
+/** UpdateDto: base, KHÔNG có layoutId. */
+export type MenuUpdateDto = MenuBaseDto;
+
+/* ------------------------------------------------------------------ */
+/* Tin nhắn Email/SMS: IEmailMessageAppService / ISmsMessageAppService */
+/* - CHỈ ĐỌC + xóa + gửi lại: GET list phân trang, GET {id}, DELETE   */
+/*   {id}, POST {id}/send. KHÔNG có tạo/sửa (bảng web cũng vậy;      */
+/*   CreateDto chỉ dùng cho integration API /integration-api/...).   */
+/* - Email có modal xem chi tiết chỉ đọc (subject/receiver/sender/    */
+/*   creationTime/content); SMS KHÔNG có modal chi tiết ở web (chỉ    */
+/*   list + xóa + gửi lại) nên mobile cũng không làm màn detail SMS,  */
+/*   dù backend có GET {id} cho SMS.                                  */
+/* - MessageStatus C# (số): Pending -1, Sent 0, Failed 10.            */
+/* - EmailMessageDto = MessageDto + from/subject/isBodyHtml/cc/...;   */
+/*   SmsMessageDto = MessageDto thuần (receiver = số điện thoại).     */
+
+export const MESSAGE_STATUS_LABELS: Record<number, string> = {
+  [-1]: 'Pending',
+  0: 'Sent',
+  10: 'Failed',
+};
+
+export interface MessageDtoBase {
+  id: string;
+  userId?: string | null;
+  sender?: string | null;
+  provider?: string | null;
+  receiver: string;
+  content: string;
+  sendTime?: string | null;
+  sendCount: number;
+  status: number;
+  reason?: string | null;
+  creationTime?: string;
+}
+
+export interface EmailMessageDto extends MessageDtoBase {
+  from?: string | null;
+  subject?: string | null;
+  isBodyHtml: boolean;
+  cc?: string | null;
+  normalize: boolean;
+  priority?: number | null;
+}
+
+export type SmsMessageDto = MessageDtoBase;
+
+export interface EmailMessageGetListInput extends PagedInput {
+  emailAddress?: string;
+  content?: string;
+  from?: string;
+  subject?: string;
+  status?: number;
+  beginSendTime?: string;
+  endSendTime?: string;
+}
+
+export interface SmsMessageGetListInput extends PagedInput {
+  phoneNumber?: string;
+  content?: string;
+  status?: number;
+  beginSendTime?: string;
+  endSendTime?: string;
+}

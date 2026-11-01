@@ -45,6 +45,22 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 15
+
+Nhóm Nền tảng đã xong (41/50 trang lá): Menu (list cây từ /all, detail,
+tạo/sửa/xóa, tạo con preset parentId + layoutId của cha) và Email/SMS
+(list phân trang lọc filter/status/khoảng thời gian gửi, Email có detail
+chỉ đọc + gửi lại + xóa, SMS có gửi lại + xóa ngay trên dòng) — đều qua
+tab hub "Quản trị" (thêm 3 mục, không thêm tab). Điểm khác web cần
+biết: tạo menu bắt buộc layoutId, sửa menu không gửi layoutId (đúng
+UpdateDto); meta menu nhập JSON object vì drawer web xây form meta động
+từ từ điển ràng buộc của layout; Email/SMS không có tạo/sửa (backend
+cũng không có cho trang này); SMS không có màn detail như bảng web (chỉ
+list + gửi lại + xóa); API gán menu cho user/role/favorite/startup
+không thuộc bảng MenuTable nên chưa xây. Lỗi validation AllInOne trả
+HTTP 200 kèm envelope code 400 vẫn chưa xử lý ở api-client (xem báo cáo
+vòng 14, cần một vòng riêng). Trước đó: Nền tảng phần 1 (38/50).
+
 ## Trạng thái vòng 14
 
 Nhóm Nền tảng (phần 1) đã xây (38/50 trang lá): Từ điển dữ liệu (list

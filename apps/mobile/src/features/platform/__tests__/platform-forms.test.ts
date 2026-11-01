@@ -1,6 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { dataFormSchema, dataItemFormSchema, dataMoveFormSchema } from '../data-form-schema';
 import { layoutFormSchema } from '../layout-form-schema';
+import { menuFormSchema } from '../menu-form-schema';
 
 describe('platform forms', () => {
   it('data form: name/displayName bắt buộc; parentId sai Guid bị chặn', () => {
@@ -41,5 +42,31 @@ describe('platform forms', () => {
     ).toBe(true);
     expect(layoutFormSchema(false).safeParse(base).success).toBe(true);
     expect(layoutFormSchema(false).safeParse({ ...base, path: '' }).success).toBe(false);
+  });
+
+  it('menu form: tạo bắt buộc layoutId Guid; sửa không bắt layoutId; meta phải là JSON object; không tự làm cha của mình', () => {
+    const base = {
+      name: 'sys',
+      displayName: 'System',
+      path: '/sys',
+      component: 'sys',
+      redirect: '',
+      description: '',
+      parentId: '',
+      isPublic: false,
+      meta: '',
+      layoutId: '',
+    };
+    expect(menuFormSchema(false).safeParse(base).success).toBe(false);
+    expect(menuFormSchema(false).safeParse({ ...base, layoutId: 'not-a-guid' }).success).toBe(false);
+    expect(
+      menuFormSchema(false).safeParse({ ...base, layoutId: '11111111-1111-1111-1111-111111111111' }).success,
+    ).toBe(true);
+    expect(menuFormSchema(true, 'abc').safeParse(base).success).toBe(true);
+    expect(menuFormSchema(true, 'abc').safeParse({ ...base, meta: 'not json' }).success).toBe(false);
+    expect(menuFormSchema(true, 'abc').safeParse({ ...base, meta: '["x"]' }).success).toBe(false);
+    expect(menuFormSchema(true, 'abc').safeParse({ ...base, meta: '{"icon":"home"}' }).success).toBe(true);
+    expect(menuFormSchema(true, 'abc').safeParse({ ...base, parentId: 'abc' }).success).toBe(false);
+    expect(menuFormSchema(true, 'abc').safeParse({ ...base, path: '' }).success).toBe(false);
   });
 });

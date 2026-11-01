@@ -41,6 +41,9 @@ const ENTRIES = [
   { route: '/saas/editions', titleKey: 'manage.saasEditions', descKey: 'manage.saasEditionsDesc' },
   { route: '/platform/data-dictionaries', titleKey: 'manage.platformDataDictionaries', descKey: 'manage.platformDataDictionariesDesc' },
   { route: '/platform/layouts', titleKey: 'manage.platformLayouts', descKey: 'manage.platformLayoutsDesc' },
+  { route: '/platform/menus', titleKey: 'manage.platformMenus', descKey: 'manage.platformMenusDesc' },
+  { route: '/platform/messages/email', titleKey: 'manage.platformEmailMessages', descKey: 'manage.platformEmailMessagesDesc' },
+  { route: '/platform/messages/sms', titleKey: 'manage.platformSmsMessages', descKey: 'manage.platformSmsMessagesDesc' },
 ] as const;
 
 export default function ManageScreen() {

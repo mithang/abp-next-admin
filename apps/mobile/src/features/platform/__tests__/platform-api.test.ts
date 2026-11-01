@@ -3,17 +3,29 @@ import {
   createData,
   createDataItem,
   createLayout,
+  createMenu,
   deleteData,
   deleteDataItem,
+  deleteEmailMessage,
   deleteLayout,
+  deleteMenu,
+  deleteSmsMessage,
   getDataByName,
   getDatasAll,
   getDatasPaged,
+  getEmailMessage,
+  getEmailMessagesPaged,
   getLayoutsPaged,
+  getMenu,
+  getMenusAll,
+  getSmsMessagesPaged,
   moveData,
+  sendEmailMessage,
+  sendSmsMessage,
   updateData,
   updateDataItem,
   updateLayout,
+  updateMenu,
 } from '../platform-api';
 
 function stubFetch(body: string, status = 200) {
@@ -138,5 +150,73 @@ describe('platform api', () => {
     const del = stubFetch('', 204);
     await deleteLayout('abc');
     expect(methodOf(del.calls)).toBe('DELETE');
+  });
+
+  it('menus: all gắn filter/layoutId; create POST kèm layoutId; update PUT KHÔNG gửi layoutId; get/delete đúng route', async () => {
+    const all = stubFetch(JSON.stringify({ items: [] }));
+    await getMenusAll({ filter: 'sys', layoutId: '11111111-1111-1111-1111-111111111111' });
+    expect(urlOf(all.calls)).toContain('/api/platform/menus/all?');
+    expect(urlOf(all.calls)).toContain('layoutId=11111111-1111-1111-1111-111111111111');
+
+    const get = stubFetch(JSON.stringify({ id: '1' }));
+    await getMenu('abc');
+    expect(urlOf(get.calls)).toContain('/api/platform/menus/abc');
+
+    const create = stubFetch(JSON.stringify({ id: '1' }));
+    await createMenu({
+      name: 'sys',
+      displayName: 'System',
+      path: '/sys',
+      component: 'sys',
+      isPublic: false,
+      meta: {},
+      layoutId: '11111111-1111-1111-1111-111111111111',
+    });
+    expect(methodOf(create.calls)).toBe('POST');
+    expect(bodyOf(create.calls).layoutId).toBe('11111111-1111-1111-1111-111111111111');
+
+    const update = stubFetch(JSON.stringify({ id: '1' }));
+    await updateMenu('abc', { name: 'sys', displayName: 'System', path: '/sys', component: 'sys', isPublic: true, meta: {} });
+    expect(methodOf(update.calls)).toBe('PUT');
+    expect(bodyOf(update.calls).layoutId).toBeUndefined();
+
+    const del = stubFetch('', 204);
+    await deleteMenu('abc');
+    expect(methodOf(del.calls)).toBe('DELETE');
+  });
+
+  it('email/sms messages: paged gắn filter/status; get email; delete + send đúng route; KHÔNG có create/update', async () => {
+    const paged = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
+    await getEmailMessagesPaged({ filter: 'x', emailAddress: 'a@b.c', status: -1, skipCount: 0, maxResultCount: 20 });
+    expect(urlOf(paged.calls)).toContain('/api/platform/messages/email?');
+    expect(urlOf(paged.calls)).toContain('status=-1');
+    expect(urlOf(paged.calls)).toContain('emailAddress=a%40b.c');
+
+    const smsPaged = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
+    await getSmsMessagesPaged({ phoneNumber: '0901', status: 10, skipCount: 0, maxResultCount: 20 });
+    expect(urlOf(smsPaged.calls)).toContain('/api/platform/messages/sms?');
+    expect(urlOf(smsPaged.calls)).toContain('status=10');
+
+    const get = stubFetch(JSON.stringify({ id: '1' }));
+    await getEmailMessage('abc');
+    expect(urlOf(get.calls)).toContain('/api/platform/messages/email/abc');
+
+    const sendE = stubFetch('', 204);
+    await sendEmailMessage('abc');
+    expect(methodOf(sendE.calls)).toBe('POST');
+    expect(urlOf(sendE.calls)).toContain('/api/platform/messages/email/abc/send');
+
+    const sendS = stubFetch('', 204);
+    await sendSmsMessage('abc');
+    expect(methodOf(sendS.calls)).toBe('POST');
+    expect(urlOf(sendS.calls)).toContain('/api/platform/messages/sms/abc/send');
+
+    const delE = stubFetch('', 204);
+    await deleteEmailMessage('abc');
+    expect(methodOf(delE.calls)).toBe('DELETE');
+
+    const delS = stubFetch('', 204);
+    await deleteSmsMessage('abc');
+    expect(methodOf(delS.calls)).toBe('DELETE');
   });
 });

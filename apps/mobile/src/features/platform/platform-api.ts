@@ -7,10 +7,18 @@ import type {
   DataItemUpdateDto,
   DataMoveDto,
   DataUpdateDto,
+  EmailMessageDto,
+  EmailMessageGetListInput,
   LayoutCreateDto,
   LayoutDto,
   LayoutGetListInput,
   LayoutUpdateDto,
+  MenuCreateDto,
+  MenuDto,
+  MenuGetAllInput,
+  MenuUpdateDto,
+  SmsMessageDto,
+  SmsMessageGetListInput,
 } from './types';
 
 /* ---------------- Từ điển dữ liệu: /api/platform/datas ---------------- */
@@ -134,4 +142,106 @@ export function updateLayout(id: string, input: LayoutUpdateDto) {
 /** DELETE /api/platform/layouts/{id} */
 export function deleteLayout(id: string) {
   return apiRequest<void>(`/api/platform/layouts/${encodeURIComponent(id)}`, { method: 'DELETE' });
+}
+
+/* ---------------- Menu: /api/platform/menus ---------------- */
+
+/** GET /api/platform/menus/all — bảng web dùng route này rồi dựng cây theo parentId. */
+export function getMenusAll(input: MenuGetAllInput = {}) {
+  return apiRequest<ListResult<MenuDto>>('/api/platform/menus/all', {
+    method: 'GET',
+    params: {
+      framework: input.framework,
+      filter: input.filter,
+      layoutId: input.layoutId,
+      parentId: input.parentId,
+    },
+  });
+}
+
+/** GET /api/platform/menus/{id} */
+export function getMenu(id: string) {
+  return apiRequest<MenuDto>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'GET' });
+}
+
+/** POST /api/platform/menus — tạo kèm layoutId bắt buộc (chỉ lúc tạo). */
+export function createMenu(input: MenuCreateDto) {
+  return apiRequest<MenuDto>('/api/platform/menus', { method: 'POST', body: input });
+}
+
+/** PUT /api/platform/menus/{id} — KHÔNG gửi layoutId (không có trong UpdateDto). */
+export function updateMenu(id: string, input: MenuUpdateDto) {
+  return apiRequest<MenuDto>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'PUT', body: input });
+}
+
+/** DELETE /api/platform/menus/{id} */
+export function deleteMenu(id: string) {
+  return apiRequest<void>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'DELETE' });
+}
+
+/* ---------------- Tin nhắn Email: /api/platform/messages/email ---------------- */
+
+/** GET /api/platform/messages/email — phân trang ABP, lọc filter/status/emailAddress/khoảng thời gian gửi. */
+export function getEmailMessagesPaged(input: EmailMessageGetListInput = {}) {
+  return apiRequest<PagedResult<EmailMessageDto>>('/api/platform/messages/email', {
+    method: 'GET',
+    params: {
+      filter: input.filter,
+      emailAddress: input.emailAddress,
+      content: input.content,
+      from: input.from,
+      subject: input.subject,
+      status: input.status,
+      beginSendTime: input.beginSendTime,
+      endSendTime: input.endSendTime,
+      skipCount: input.skipCount ?? 0,
+      maxResultCount: input.maxResultCount ?? 20,
+      sorting: input.sorting,
+    },
+  });
+}
+
+/** GET /api/platform/messages/email/{id} — modal xem chi tiết chỉ đọc của web. */
+export function getEmailMessage(id: string) {
+  return apiRequest<EmailMessageDto>(`/api/platform/messages/email/${encodeURIComponent(id)}`, { method: 'GET' });
+}
+
+/** DELETE /api/platform/messages/email/{id} */
+export function deleteEmailMessage(id: string) {
+  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}`, { method: 'DELETE' });
+}
+
+/** POST /api/platform/messages/email/{id}/send — gửi lại. */
+export function sendEmailMessage(id: string) {
+  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}/send`, { method: 'POST' });
+}
+
+/* ---------------- Tin nhắn SMS: /api/platform/messages/sms ---------------- */
+
+/** GET /api/platform/messages/sms — phân trang ABP, lọc filter/status/phoneNumber/khoảng thời gian gửi. */
+export function getSmsMessagesPaged(input: SmsMessageGetListInput = {}) {
+  return apiRequest<PagedResult<SmsMessageDto>>('/api/platform/messages/sms', {
+    method: 'GET',
+    params: {
+      filter: input.filter,
+      phoneNumber: input.phoneNumber,
+      content: input.content,
+      status: input.status,
+      beginSendTime: input.beginSendTime,
+      endSendTime: input.endSendTime,
+      skipCount: input.skipCount ?? 0,
+      maxResultCount: input.maxResultCount ?? 20,
+      sorting: input.sorting,
+    },
+  });
+}
+
+/** DELETE /api/platform/messages/sms/{id} */
+export function deleteSmsMessage(id: string) {
+  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}`, { method: 'DELETE' });
+}
+
+/** POST /api/platform/messages/sms/{id}/send — gửi lại. */
+export function sendSmsMessage(id: string) {
+  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}/send`, { method: 'POST' });
 }
