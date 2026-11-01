@@ -11,11 +11,12 @@ interface AppInputProps {
   secureTextEntry?: boolean;
   keyboardType?: 'default' | 'email-address' | 'phone-pad' | 'numeric';
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  multiline?: boolean;
   testID?: string;
 }
 
 /** Input chuẩn: label + error theo field, dùng trong mọi form (kèm RHF ở vòng sau). */
-export function AppInput({ label, value, onChangeText, placeholder, error, secureTextEntry, keyboardType, autoCapitalize, testID }: AppInputProps) {
+export function AppInput({ label, value, onChangeText, placeholder, error, secureTextEntry, keyboardType, autoCapitalize, multiline, testID }: AppInputProps) {
   return (
     <VStack space="xs">
       <FormControl isInvalid={Boolean(error)}>
@@ -32,6 +33,8 @@ export function AppInput({ label, value, onChangeText, placeholder, error, secur
             secureTextEntry={secureTextEntry}
             keyboardType={keyboardType}
             autoCapitalize={autoCapitalize}
+            multiline={multiline}
+            numberOfLines={multiline ? 3 : undefined}
             testID={testID}
           />
         </Input>

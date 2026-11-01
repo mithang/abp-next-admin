@@ -40,15 +40,16 @@ npx expo-doctor
 ## Xác thực — đọc trước khi login thật
 
 Xem `docs/auth.md`. Vòng 2 đã thêm public client `abp-mobile-client` ở phía
-backend (config + seeder AllInOne); login thật vẫn BLOCKED cho tới khi
-DbMigrator/seed chạy lại và backend sống để kiểm chứng authorize thật.
-Không nhúng client secret vào app.
+backend (config + seeder AllInOne); vòng 3 đã seed thành công và kiểm chứng
+luồng PKCE end-to-end ở tầng giao thức (authorize → login → code → đổi token
+200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
+thiết bị/emulator. Không nhúng client secret vào app.
 
-## Giới hạn đã biết (vòng 2)
+## Giới hạn đã biết (vòng 3)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
-- Vai trò đã đủ CRUD; Loại claim mới có list/detail (UI tạo/sửa/xóa vòng sau).
+- Vai trò và Loại claim đã đủ CRUD; P0 OIDC đã kiểm chứng ở tầng giao thức.
 - Các trang lá còn lại (44/50): chưa xây, xem `docs/inventory-mapping.md`.
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);

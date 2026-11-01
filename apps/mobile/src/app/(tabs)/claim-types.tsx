@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -48,6 +48,7 @@ function ClaimTypeRow({ item }: { item: IdentityClaimTypeDto }) {
 
 export default function ClaimTypesScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [filter, setFilter] = useState('');
   const [debouncedFilter, setDebouncedFilter] = useState('');
   const [page, setPage] = useState(0);
@@ -97,6 +98,7 @@ export default function ClaimTypesScreen() {
       {hasMore ? (
         <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
       ) : null}
+      <AppButton title={t('claimTypes.createTitle')} onPress={() => router.push('/claim-types/form')} testID="claim-types-create" />
     </AppScreen>
   );
 }

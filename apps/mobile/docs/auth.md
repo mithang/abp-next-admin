@@ -14,7 +14,7 @@
 6. Đăng xuất: revoke refresh token nếu có endpoint, rồi luôn xóa local tokens
    (kể cả khi revoke lỗi) và xóa cache TanStack Query.
 
-## P0 — đã triển khai ở vòng 2, chờ kiểm chứng bằng backend sống
+## P0 — đã triển khai ở vòng 2, đã kiểm chứng ở tầng giao thức ở vòng 3
 Client web `vue-admin-client` là **confidential** và chỉ có RootUrls web nên
 không dùng được cho mobile. Vòng 2 đã thêm public client riêng (không secret):
 - Config: `OpenIddict:Applications:Mobile` trong
@@ -28,9 +28,16 @@ không dùng được cho mobile. Vòng 2 đã thêm public client riêng (khôn
   của web để tránh hỏng scheme native).
 - Mobile: `src/lib/config.ts` đổi client mặc định sang `abp-mobile-client`
   (vẫn override được bằng `EXPO_PUBLIC_OIDC_CLIENT_ID`).
-Chưa kiểm chứng: client chỉ xuất hiện trong DB sau khi DbMigrator/seed chạy
-lại và backend sống — login thật vẫn ghi BLOCKED cho tới khi vòng sau boot
-backend và thử authorize thật. Không fake login thành công.
+**Vòng 3 đã kiểm chứng ở tầng giao thức:** DbMigrator Release build 0 lỗi
+và chạy seed thành công (`Seeding application abp-mobile-client`); trước seed
+authorize trả `invalid_client`, sau seed trả 302 về trang login; luồng đầy đủ
+authorize → login (tài khoản test không 2FA) → authorize trả code đúng state →
+đổi code lấy token bằng PKCE verifier (không secret) trả 200 Bearer, đủ
+access/id/refresh token, scope đúng yêu cầu, hết hạn 7199s; authorize với đủ
+scope của app (openid email address phone profile offline_access
+lingyun-abp-application) cũng 302 về login (scope được chấp nhận). Phần còn
+lại vẫn BLOCKED: bấm login thật trong app cần thiết bị/emulator (chưa có),
+không chạy được Expo Go/dev build trên VM này.
 
 ## Tài khoản test
 Chỉ dùng cho kiểm thử local (admin có TOTP 2FA; tài khoản test không 2FA theo
