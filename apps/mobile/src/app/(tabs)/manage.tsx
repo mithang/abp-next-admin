@@ -22,6 +22,9 @@ const ENTRIES = [
   { route: '/features/definitions', titleKey: 'manage.featureDefinitions', descKey: 'manage.featureDefinitionsDesc' },
   { route: '/settings/system', titleKey: 'manage.systemSettings', descKey: 'manage.systemSettingsDesc' },
   { route: '/settings/definitions', titleKey: 'manage.settingDefinitions', descKey: 'manage.settingDefinitionsDesc' },
+  { route: '/localization/languages', titleKey: 'manage.localizationLanguages', descKey: 'manage.localizationLanguagesDesc' },
+  { route: '/localization/resources', titleKey: 'manage.localizationResources', descKey: 'manage.localizationResourcesDesc' },
+  { route: '/localization/texts', titleKey: 'manage.localizationTexts', descKey: 'manage.localizationTextsDesc' },
 ] as const;
 
 export default function ManageScreen() {
