@@ -20,6 +20,8 @@ const ENTRIES = [
   { route: '/permissions/definitions', titleKey: 'manage.permissionDefinitions', descKey: 'manage.permissionDefinitionsDesc' },
   { route: '/features/groups', titleKey: 'manage.featureGroups', descKey: 'manage.featureGroupsDesc' },
   { route: '/features/definitions', titleKey: 'manage.featureDefinitions', descKey: 'manage.featureDefinitionsDesc' },
+  { route: '/settings/system', titleKey: 'manage.systemSettings', descKey: 'manage.systemSettingsDesc' },
+  { route: '/settings/definitions', titleKey: 'manage.settingDefinitions', descKey: 'manage.settingDefinitionsDesc' },
 ] as const;
 
 export default function ManageScreen() {

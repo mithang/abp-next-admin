@@ -1,7 +1,7 @@
 # Đối chiếu chức năng web → mobile (vòng 1)
 
 Nguồn: `~/workspace/run-logs/feature-inventory.md` (76 mục menu, 50 trang lá).
-Trạng thái vòng 6: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật + nhóm OpenIddict (Ứng dụng đủ CRUD, Phạm vi đủ CRUD, Ủy quyền list/detail/xóa, Token list/detail/xóa) + nhóm Quyền (Nhóm đủ CRUD, Định nghĩa đủ CRUD) + nhóm Tính năng (Nhóm đủ CRUD, Định nghĩa đủ CRUD) qua tab hub "Quản trị" (17/50 trang lá);
+Trạng thái vòng 7: Dashboard + Users + Vai trò (đủ CRUD) + Loại claim (đủ CRUD) + Đơn vị tổ chức (đủ CRUD) + Nhật ký bảo mật (list/detail/xóa) + Phiên (list/thu hồi) + Tài khoản có màn hình thật + nhóm OpenIddict (Ứng dụng đủ CRUD, Phạm vi đủ CRUD, Ủy quyền list/detail/xóa, Token list/detail/xóa) + nhóm Quyền (Nhóm đủ CRUD, Định nghĩa đủ CRUD) + nhóm Tính năng (Nhóm đủ CRUD, Định nghĩa đủ CRUD) qua tab hub "Quản trị" (17/50 trang lá) + nhóm Cài đặt (Cài đặt hệ thống, Định nghĩa cài đặt đủ CRUD) qua cùng hub (19/50 trang lá);
 P0 OIDC đã kiểm chứng end-to-end ở tầng giao thức (authorize → login → code → đổi token PKCE, không secret);
 các trang còn lại đã có route kế hoạch trong bảng này, xây dần P0→P3 các vòng sau.
 Không màn hình nào dùng mock data trong production: trang chưa xây sẽ không xuất
@@ -26,8 +26,8 @@ hiện trong tab bar cho tới khi có API thật.
 | 15 | Quyền: Định nghĩa | /manage/permissions/definitions | manage/permissions/definitions + definitions/[name] + definitions/form | **Đã xây đủ CRUD vòng 6: list thật (lọc filter/groupName), detail thật (multiTenancySide, providers, stateCheckers), tạo/sửa bằng form RHF+Zod (sửa không gửi name/groupName, giữ extraProperties), xóa có xác nhận — định nghĩa tĩnh cho sửa nhưng cấm xóa như web — API thật, không mock** |
 | 16 | Tính năng: Nhóm | /manage/features/groups | manage/features/groups + groups/[name] + groups/form | **Đã xây đủ CRUD vòng 6: list thật, detail thật, tạo/sửa bằng form RHF+Zod (sửa chỉ đổi displayName, giữ concurrencyStamp + extraProperties), xóa có xác nhận — nhóm tĩnh chỉ đọc (không Sửa/Xóa) như modal web — API thật, không mock** |
 | 17 | Tính năng: Định nghĩa | /manage/features/definitions | manage/features/definitions + definitions/[name] + definitions/form | **Đã xây đủ CRUD vòng 6: list thật, detail thật, tạo/sửa bằng form RHF+Zod (valueType nhập text, allowedProviders nhiều dòng, sửa giữ concurrencyStamp + extraProperties), xóa có xác nhận — định nghĩa tĩnh chỉ đọc như modal web — API thật, không mock** |
-| 18 | Cài đặt hệ thống | /manage/settings/system | manage/settings/system | Chưa xây |
-| 19 | Định nghĩa cài đặt | /manage/settings/definitions | manage/settings/definitions | Chưa xây |
+| 18 | Cài đặt hệ thống | /manage/settings/system | manage/settings/system | **Đã xây vòng 7: form nhóm theo valueType (Boolean → Switch, Number → bàn phím số, Date → text YYYY-MM-DD, Option → text + chặn lưu khi ngoài options, String mã hoá → nhập ẩn, Array/Object/NoSet → chỉ đọc), nút Lưu chỉ bật khi có giá trị đổi và PUT v2 chỉ gửi giá trị đã đổi, slot send-test-email có ô email + nút gửi test — API thật, không mock** |
+| 19 | Định nghĩa cài đặt | /manage/settings/definitions | manage/settings/definitions + definitions/[name] + definitions/form | **Đã xây đủ CRUD vòng 7: list thật (lọc filter), detail thật, tạo/sửa bằng form RHF+Zod (name bắt buộc khi tạo, sửa không gửi name/isStatic, giữ concurrencyStamp + extraProperties, providers nhiều dòng + gợi ý assignable-providers từ API), xóa có xác nhận — định nghĩa tĩnh chỉ đọc (không Sửa/Xóa) như modal web — API thật, không mock** |
 | 20 | Ngôn ngữ | /manage/localization/languages | manage/localization/languages | Chưa xây |
 | 21 | Tài nguyên bản địa hoá | /manage/localization/resources | manage/localization/resources | Chưa xây |
 | 22 | Văn bản bản địa hoá | /manage/localization/texts | manage/localization/texts | Chưa xây |

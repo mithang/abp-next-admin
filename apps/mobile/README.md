@@ -45,19 +45,18 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
-## Trạng thái vòng 6
+## Trạng thái vòng 7
 
-Nhóm Quyền và Tính năng đã xây đủ (17/50 trang lá): Nhóm quyền đủ CRUD,
-Định nghĩa quyền đủ CRUD, Nhóm tính năng đủ CRUD, Định nghĩa tính năng đủ
-CRUD — đều qua tab hub "Quản trị" (thêm 4 mục, không thêm tab). Hành vi tĩnh
-theo đúng web: quyền (nhóm/định nghĩa) cho sửa nhưng cấm xóa với bản ghi
-tĩnh; tính năng (nhóm/định nghĩa) tĩnh là chỉ đọc (không Sửa/Xóa). Form sửa
-không gửi name/groupName (key nằm trong path) và giữ nguyên extraProperties
-(+ concurrencyStamp của tính năng) để không làm mất dữ liệu như lỗi vòng 5
-đã sửa. Danh sách quyền/tính năng dùng ListResult (web phân trang phía
-client) nên mobile lấy toàn bộ danh sách theo filter.
+Nhóm Cài đặt đã xây đủ (19/50 trang lá): Cài đặt hệ thống (form nhóm theo
+valueType, PUT v2 chỉ gửi giá trị đã đổi, có gửi email test) và Định nghĩa
+cài đặt đủ CRUD — đều qua tab hub "Quản trị" (thêm 2 mục, không thêm tab).
+Hành vi tĩnh theo đúng web: định nghĩa cài đặt tĩnh là chỉ đọc (không
+Sửa/Xóa) vì modal web ẩn nút xác nhận và bảng web vô hiệu nút xóa với bản
+ghi tĩnh. Form sửa định nghĩa không gửi name/isStatic và giữ nguyên
+concurrencyStamp + extraProperties. Trước đó: nhóm Quyền và Tính năng đủ
+CRUD (17/50) với cùng quy tắc giữ dữ liệu khi sửa.
 
-## Giới hạn đã biết (vòng 6)
+## Giới hạn đã biết (vòng 7)
 
 - EAS Build/Submit: BLOCKED (chưa có tài khoản Expo/credentials).
 - E2E trên thiết bị/emulator thật: BLOCKED (không có thiết bị).
@@ -67,9 +66,10 @@ client) nên mobile lấy toàn bộ danh sách theo filter.
   tài khoản test role Users bị 403 ở cả 3 API mới (đúng phân quyền admin) —
   CRUD thật với dữ liệu thật vẫn cần phiên admin, hiện BLOCKED vì admin có
   TOTP 2FA và không có thiết bị.
-- Các trang lá còn lại (33/50): chưa xây, xem `docs/inventory-mapping.md`.
-  CRUD thật của nhóm Quyền/Tính năng vẫn cần phiên admin (TOTP) như các
-  nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu auth (401).
+- Các trang lá còn lại (31/50): chưa xây, xem `docs/inventory-mapping.md`.
+  CRUD thật của nhóm Quyền/Tính năng/Cài đặt vẫn cần phiên admin (TOTP) như
+  các nhóm trước — endpoint đã chứng minh tồn tại và yêu cầu auth (401
+  vs 404 route giả, backend đã khởi động lại trong vòng này).
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);
   lint trực tiếp cho 0 lỗi, 14 warning trong code Gluestack vendored.
