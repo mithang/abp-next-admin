@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -310,8 +310,8 @@ export default function BackgroundJobFormScreen() {
           label={t('backgroundJobs.args')}
           placeholder={t('backgroundJobs.argsPlaceholder')}
         />
-        {submitError ? <Text>{submitError}</Text> : null}
-        <AppButton
+        <AppFormSubmit
+          error={submitError}
           title={t('common.save')}
           loading={mutation.isPending}
           onPress={() => void form.handleSubmit((values) => mutation.mutate(values))()}

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -116,8 +116,8 @@ export default function AIConversationFormScreen() {
               />
             )}
           />
-          {submitError ? <Text>{submitError}</Text> : null}
-          <AppButton
+          <AppFormSubmit
+            error={submitError}
             title={t('common.save')}
             loading={renameMutation.isPending}
             disabled={renameMutation.isPending}
@@ -166,8 +166,8 @@ export default function AIConversationFormScreen() {
             {t('aiConversations.workspacesHint')}: {workspaceNames}
           </Text>
         ) : null}
-        {submitError ? <Text>{submitError}</Text> : null}
-        <AppButton
+        <AppFormSubmit
+          error={submitError}
           title={t('common.create')}
           loading={createMutation.isPending}
           disabled={createMutation.isPending}

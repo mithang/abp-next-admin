@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { createBlobFolder } from '../../../features/blob/blob-api';
@@ -68,8 +68,8 @@ export default function BlobFolderFormScreen() {
             </>
           )}
         />
-        {submitError ? <Text>{submitError}</Text> : null}
-        <AppButton
+        <AppFormSubmit
+          error={submitError}
           title={t('common.save')}
           loading={mutation.isPending}
           onPress={() => void form.handleSubmit((values) => mutation.mutate(values))()}

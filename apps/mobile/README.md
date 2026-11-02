@@ -45,6 +45,22 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 45
+
+Vòng P3 chuẩn hóa chân form: cặp lặp lại ở mọi form —
+dòng lỗi submit `{submitError ? <Text>{submitError}</Text> :
+null}` ngay trước nút submit `<AppButton ... />` — được
+gộp thành component dùng chung
+`src/components/ui/AppFormSubmit.tsx` (prop error/title/
+loading/disabled/onPress/testID, forward nguyên vẹn xuống
+AppButton; thứ tự giữ nguyên: lỗi trên, nút dưới). Migrate
+35 cặp ở 33 file bằng script dry-run trước rồi apply, kiểm
+chứng 2 chiều (35 tag + 33 import, chỉ còn 1 dòng lỗi
+submitError ở cache/caches/form.tsx). Cố tình KHÔNG
+migrate cache/caches/form.tsx: thứ tự ở đó đảo ngược
+(nút trước, lỗi sau) nên gộp sẽ đổi thứ tự hiển thị.
+Jest 352/352, i18n parity 1463/1463.
+
 ## Trạng thái vòng 44
 
 Vòng P3 chuẩn hóa khung dòng danh sách: 33 bộ ba giống hệt
