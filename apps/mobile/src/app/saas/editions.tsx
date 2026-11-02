@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getEditionsPaged } from '../../features/saas/saas-api';
 import type { EditionDto } from '../../features/saas/types';
 import { toApiError } from '../../lib/errors';
@@ -19,13 +18,9 @@ import { usePagination } from '../../lib/use-pagination';
 function EditionRow({ item }: { item: EditionDto }) {
   return (
     <Link href={`/saas/editions/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName}</Text>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName}</Text>
+      </AppRowCard>
     </Link>
   );
 }

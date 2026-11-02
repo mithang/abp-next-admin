@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getTextTemplateDefinitions } from '../../features/text-templating/text-templating-api';
 import type { TextTemplateDefinitionDto } from '../../features/text-templating/types';
 import { toApiError } from '../../lib/errors';
@@ -18,16 +17,12 @@ import { useDebouncedValue } from '../../lib/use-debounced-value';
 function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
   return (
     <Link href={`/text-templating/definitions/${encodeURIComponent(item.name)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName}</Text>
-            <Text>{item.name}</Text>
-            {item.isStatic ? <Text>static</Text> : null}
-            {item.isLayout ? <Text>layout</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName}</Text>
+        <Text>{item.name}</Text>
+        {item.isStatic ? <Text>static</Text> : null}
+        {item.isLayout ? <Text>layout</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }

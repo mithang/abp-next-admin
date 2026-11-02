@@ -5,8 +5,8 @@ import * as DocumentPicker from 'expo-document-picker';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import {
@@ -26,22 +26,18 @@ function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) 
     : `/blob/blobs/${encodeURIComponent(item.id)}`;
   return (
     <Link href={href} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>
-              {isFolder ? '📁' : '📄'} {item.name}
-            </Text>
-            <Text>
-              {isFolder ? t('blobBlobs.folder') : t('blobBlobs.file')}
-              {item.contentType ? ` · ${item.contentType}` : ''}
-              {!isFolder
-                ? ` · ${item.size} bytes · ${t('blobBlobs.downloadCount')}: ${item.downloadCount}`
-                : ''}
-            </Text>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>
+          {isFolder ? '📁' : '📄'} {item.name}
+        </Text>
+        <Text>
+          {isFolder ? t('blobBlobs.folder') : t('blobBlobs.file')}
+          {item.contentType ? ` · ${item.contentType}` : ''}
+          {!isFolder
+            ? ` · ${item.size} bytes · ${t('blobBlobs.downloadCount')}: ${item.downloadCount}`
+            : ''}
+        </Text>
+      </AppRowCard>
     </Link>
   );
 }

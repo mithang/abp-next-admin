@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getTenantsPaged } from '../../features/saas/saas-api';
 import type { TenantDto } from '../../features/saas/types';
 import { toApiError } from '../../lib/errors';
@@ -20,17 +19,13 @@ function TenantRow({ item }: { item: TenantDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/saas/tenants/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.name}</Text>
-            <Text>
-              {item.isActive ? t('saasTenants.active') : t('saasTenants.inactive')}
-              {item.editionName ? ` · ${item.editionName}` : ''}
-            </Text>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.name}</Text>
+        <Text>
+          {item.isActive ? t('saasTenants.active') : t('saasTenants.inactive')}
+          {item.editionName ? ` · ${item.editionName}` : ''}
+        </Text>
+      </AppRowCard>
     </Link>
   );
 }

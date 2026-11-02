@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getAIToolsPaged } from '../../features/ai/ai-api';
 import type { AIToolDefinitionRecordDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
@@ -20,20 +19,16 @@ function ToolRow({ item }: { item: AIToolDefinitionRecordDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/ai/tools/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.name}</Text>
-            <Text>
-              {item.provider} · {item.isEnabled ? t('aiTools.enabled') : t('aiTools.disabled')}
-              {item.isGlobal ? ` · ${t('aiTools.global')}` : ''}
-              {item.isStatic ? ` · ${t('aiTools.static')}` : ''}
-              {item.isSystem ? ` · ${t('aiTools.system')}` : ''}
-            </Text>
-            {item.description ? <Text>{item.description}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.name}</Text>
+        <Text>
+          {item.provider} · {item.isEnabled ? t('aiTools.enabled') : t('aiTools.disabled')}
+          {item.isGlobal ? ` · ${t('aiTools.global')}` : ''}
+          {item.isStatic ? ` · ${t('aiTools.static')}` : ''}
+          {item.isSystem ? ` · ${t('aiTools.system')}` : ''}
+        </Text>
+        {item.description ? <Text>{item.description}</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }

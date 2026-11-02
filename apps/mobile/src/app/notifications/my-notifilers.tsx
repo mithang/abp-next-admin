@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getMyNotificationsPaged } from '../../features/notifications/notifications-api';
 import type { UserNotificationDto } from '../../features/notifications/types';
 import {
@@ -28,20 +28,16 @@ function MyNotificationRow({ item }: { item: UserNotificationDto }) {
   const { title } = deserializeNotification(item);
   return (
     <Link href={`/notifications/my-notifilers/${encodeURIComponent(String(item.id))}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{title || item.name}</Text>
-            <Text>
-              {severityName(item.severity)} · {readStateName(item.state)}
-            </Text>
-            {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
-            {item.state === NotificationReadState.UnRead ? (
-              <Text>{t('myNotifications.markRead')}</Text>
-            ) : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{title || item.name}</Text>
+        <Text>
+          {severityName(item.severity)} · {readStateName(item.state)}
+        </Text>
+        {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
+        {item.state === NotificationReadState.UnRead ? (
+          <Text>{t('myNotifications.markRead')}</Text>
+        ) : null}
+      </AppRowCard>
     </Link>
   );
 }

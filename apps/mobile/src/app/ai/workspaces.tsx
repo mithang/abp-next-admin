@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getWorkspacesPaged } from '../../features/ai/ai-api';
 import type { WorkspaceDefinitionRecordDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
@@ -20,20 +19,16 @@ function WorkspaceRow({ item }: { item: WorkspaceDefinitionRecordDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/ai/workspaces/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName || item.name}</Text>
-            <Text>
-              {item.name} · {item.provider}/{item.modelName} ·{' '}
-              {item.isEnabled ? t('aiWorkspaces.enabled') : t('aiWorkspaces.disabled')}
-              {item.isStatic ? ` · ${t('aiWorkspaces.static')}` : ''}
-              {item.isSystem ? ` · ${t('aiWorkspaces.system')}` : ''}
-            </Text>
-            {item.description ? <Text>{item.description}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName || item.name}</Text>
+        <Text>
+          {item.name} · {item.provider}/{item.modelName} ·{' '}
+          {item.isEnabled ? t('aiWorkspaces.enabled') : t('aiWorkspaces.disabled')}
+          {item.isStatic ? ` · ${t('aiWorkspaces.static')}` : ''}
+          {item.isSystem ? ` · ${t('aiWorkspaces.system')}` : ''}
+        </Text>
+        {item.description ? <Text>{item.description}</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }

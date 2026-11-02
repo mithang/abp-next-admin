@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getSysLogsPaged } from '../../features/auditing/auditing-api';
 import { logLevelName, type LogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
@@ -20,18 +19,14 @@ function SysLogRow({ item }: { item: LogDto }) {
   const id = item.fields?.id ?? `${item.timeStamp}-${item.message ?? ''}`;
   return (
     <Link href={`/auditing/sys-logs/${encodeURIComponent(id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>
-              {logLevelName(item.level)}: {item.message ?? ''}
-            </Text>
-            {item.timeStamp ? <Text>{formatDateTime(item.timeStamp)}</Text> : null}
-            {item.fields?.requestPath ? <Text>{item.fields.requestPath}</Text> : null}
-            {item.fields?.application ? <Text>{item.fields.application}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>
+          {logLevelName(item.level)}: {item.message ?? ''}
+        </Text>
+        {item.timeStamp ? <Text>{formatDateTime(item.timeStamp)}</Text> : null}
+        {item.fields?.requestPath ? <Text>{item.fields.requestPath}</Text> : null}
+        {item.fields?.application ? <Text>{item.fields.application}</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }

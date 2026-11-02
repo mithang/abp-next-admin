@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getSecurityLogsPaged } from '../../features/identity/security-logs-api';
 import type { SecurityLogDto } from '../../features/identity/security-logs';
 import { toApiError } from '../../lib/errors';
@@ -19,16 +18,12 @@ import { usePagination } from '../../lib/use-pagination';
 function SecurityLogRow({ item }: { item: SecurityLogDto }) {
   return (
     <Link href={`/security-logs/${item.id}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.userName ?? item.identity ?? item.id}</Text>
-            {item.action ? <Text>{item.action}</Text> : null}
-            {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
-            {item.clientIpAddress ? <Text>{item.clientIpAddress}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.userName ?? item.identity ?? item.id}</Text>
+        {item.action ? <Text>{item.action}</Text> : null}
+        {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
+        {item.clientIpAddress ? <Text>{item.clientIpAddress}</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }

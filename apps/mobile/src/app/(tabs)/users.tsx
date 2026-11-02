@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getUsersPaged } from '../../features/identity/api';
 import { displayName, type IdentityUserDto } from '../../features/identity/types';
@@ -20,19 +19,15 @@ function UserRow({ user }: { user: IdentityUserDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/users/${user.id}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{displayName(user)}</Text>
-            <Text>
-              {user.userName} · {user.email}
-            </Text>
-            <Badge variant={user.isActive ? 'default' : 'destructive'} className="self-start">
-              <BadgeText>{user.isActive ? t('users.active') : t('users.inactive')}</BadgeText>
-            </Badge>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{displayName(user)}</Text>
+        <Text>
+          {user.userName} · {user.email}
+        </Text>
+        <Badge variant={user.isActive ? 'default' : 'destructive'} className="self-start">
+          <BadgeText>{user.isActive ? t('users.active') : t('users.inactive')}</BadgeText>
+        </Badge>
+      </AppRowCard>
     </Link>
   );
 }

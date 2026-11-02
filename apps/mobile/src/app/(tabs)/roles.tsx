@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getRolesPaged } from '../../features/identity/roles-api';
 import { roleFlags, type IdentityRoleDto } from '../../features/identity/roles-types';
@@ -26,18 +25,14 @@ function RoleRow({ role }: { role: IdentityRoleDto }) {
   };
   return (
     <Link href={`/roles/${role.id}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{role.name}</Text>
-            {roleFlags(role).map((flag) => (
-              <Badge key={flag} variant="default" className="self-start">
-                <BadgeText>{flagLabels[flag]}</BadgeText>
-              </Badge>
-            ))}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{role.name}</Text>
+        {roleFlags(role).map((flag) => (
+          <Badge key={flag} variant="default" className="self-start">
+            <BadgeText>{flagLabels[flag]}</BadgeText>
+          </Badge>
+        ))}
+      </AppRowCard>
     </Link>
   );
 }

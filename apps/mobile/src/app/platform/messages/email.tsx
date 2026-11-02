@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppList } from '../../../components/ui/AppList';
+import { AppRowCard } from '../../../components/ui/AppRowCard';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppSearchInput } from '../../../components/ui/AppSearchInput';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getEmailMessagesPaged } from '../../../features/platform/platform-api';
 import type { EmailMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
@@ -29,34 +28,30 @@ function EmailRow({ item }: { item: EmailMessageDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/platform/messages/email/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.subject ?? item.receiver}</Text>
-            <Text>
-              {t('platformEmailMessages.provider')}: {item.provider ?? '—'} ·{' '}
-              {t('platformEmailMessages.status')}:{' '}
-              {messageStatusText(t, 'platformEmailMessages', item.status)}
-            </Text>
-            <Text>
-              {t('platformEmailMessages.receiver')}: {item.receiver}
-            </Text>
-            {item.sendTime ? (
-              <Text>
-                {t('platformEmailMessages.sendTime')}: {formatDateTime(item.sendTime)}
-              </Text>
-            ) : null}
-            <Text>
-              {t('platformEmailMessages.sendCount')}: {item.sendCount}
-            </Text>
-            {item.reason ? (
-              <Text>
-                {t('platformEmailMessages.reason')}: {item.reason}
-              </Text>
-            ) : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.subject ?? item.receiver}</Text>
+        <Text>
+          {t('platformEmailMessages.provider')}: {item.provider ?? '—'} ·{' '}
+          {t('platformEmailMessages.status')}:{' '}
+          {messageStatusText(t, 'platformEmailMessages', item.status)}
+        </Text>
+        <Text>
+          {t('platformEmailMessages.receiver')}: {item.receiver}
+        </Text>
+        {item.sendTime ? (
+          <Text>
+            {t('platformEmailMessages.sendTime')}: {formatDateTime(item.sendTime)}
+          </Text>
+        ) : null}
+        <Text>
+          {t('platformEmailMessages.sendCount')}: {item.sendCount}
+        </Text>
+        {item.reason ? (
+          <Text>
+            {t('platformEmailMessages.reason')}: {item.reason}
+          </Text>
+        ) : null}
+      </AppRowCard>
     </Link>
   );
 }

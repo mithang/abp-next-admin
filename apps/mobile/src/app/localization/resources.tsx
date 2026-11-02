@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getResourcesPaged } from '../../features/localization/localization-api';
 import type { ResourceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
@@ -20,15 +19,11 @@ function ResourceRow({ item }: { item: ResourceDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/localization/resources/${encodeURIComponent(item.name)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName || item.name}</Text>
-            <Text>{item.name}</Text>
-            <Text>{item.enable ? t('resources.enabled') : t('resources.disabled')}</Text>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName || item.name}</Text>
+        <Text>{item.name}</Text>
+        <Text>{item.enable ? t('resources.enabled') : t('resources.disabled')}</Text>
+      </AppRowCard>
     </Link>
   );
 }

@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getConversationsPaged } from '../../features/ai/ai-api';
 import type { ConversationDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
@@ -19,16 +18,12 @@ import { usePagination } from '../../lib/use-pagination';
 function ConversationRow({ item }: { item: ConversationDto }) {
   return (
     <Link href={`/ai/conversations/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.name}</Text>
-            <Text>
-              {item.workspace} · {item.createdAt}
-            </Text>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.name}</Text>
+        <Text>
+          {item.workspace} · {item.createdAt}
+        </Text>
+      </AppRowCard>
     </Link>
   );
 }

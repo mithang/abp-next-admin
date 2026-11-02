@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getLanguagesPaged } from '../../features/localization/localization-api';
 import type { LanguageDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
@@ -19,17 +18,13 @@ import { usePagination } from '../../lib/use-pagination';
 function LanguageRow({ item }: { item: LanguageDto }) {
   return (
     <Link href={`/localization/languages/${encodeURIComponent(item.cultureName)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName || item.cultureName}</Text>
-            <Text>{item.cultureName}</Text>
-            {item.uiCultureName && item.uiCultureName !== item.cultureName ? (
-              <Text>{item.uiCultureName}</Text>
-            ) : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName || item.cultureName}</Text>
+        <Text>{item.cultureName}</Text>
+        {item.uiCultureName && item.uiCultureName !== item.cultureName ? (
+          <Text>{item.uiCultureName}</Text>
+        ) : null}
+      </AppRowCard>
     </Link>
   );
 }

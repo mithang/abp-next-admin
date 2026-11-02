@@ -45,6 +45,34 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 44
+
+Vòng P3 chuẩn hóa khung dòng danh sách: 33 bộ ba giống hệt
+nhau `<Pressable> > <Card className="p-4"> > <VStack
+space="xs">` ở 33 màn hình danh sách, tất cả đều nằm trong
+`<Link asChild>` (điều hướng do Link clone onPress vào
+Pressable). Vòng này thêm component dùng chung
+`src/components/ui/AppRowCard.tsx` (Pressable + Card p-4 +
+VStack xs, forward toàn bộ prop Pressable — kể cả onPress do
+Link clone vào — nên điều hướng không đổi) và migrate cả 33
+bộ ba bằng script dry-run trước rồi apply, kiểm chứng 2
+chiều (33 tag + 33 import + 33 thẻ đóng = 99 refs; 0 bộ ba
+chính xác còn lại). Cố tình KHÔNG migrate: thẻ cây
+menus/organization-units (có View marginLeft/paddingLeft
+theo depth giữa Pressable và Card), thẻ container thứ hai
+của blobs (Pressable > Card nhưng con là Text trần, không
+có VStack), và các Card p-4 còn lại ở dashboard/detail/
+form/system/wechat (không phải dòng danh sách Link). Script
+gỡ import thừa theo từng file (blobs giữ Pressable/Card,
+my-notifilers giữ VStack vì còn dùng ở chỗ khác). Test mới
+`app-row-card.test.tsx` (4 test: render con, forward
+onPress, press không handler không lỗi, render nhiều con).
+Kết quả: Jest 348/348 (60 suite, +4), typecheck/lint/format/
+expo config PASS (lint 0 errors, đúng 14 warning vendored),
+parity i18n 1463/1463 (không đổi key). P1 impersonation vẫn
+BLOCKED ở backend, CRUD thật vẫn cần phiên admin TOTP;
+không còn P2 mở.
+
 ## Trạng thái vòng 43
 
 Vòng P3 chuẩn hóa ô tìm kiếm/lọc danh sách: 51 khối

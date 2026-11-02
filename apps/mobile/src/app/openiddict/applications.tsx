@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getApplicationsPaged } from '../../features/openiddict/applications-api';
 import type { OpenIddictApplicationDto } from '../../features/openiddict/types';
@@ -20,24 +19,20 @@ import { usePagination } from '../../lib/use-pagination';
 function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
   return (
     <Link href={`/openiddict/applications/${item.id}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName || item.clientId}</Text>
-            <Text>{item.clientId}</Text>
-            {item.clientType ? (
-              <Badge variant="default" className="self-start">
-                <BadgeText>{item.clientType}</BadgeText>
-              </Badge>
-            ) : null}
-            {item.applicationType ? (
-              <Badge variant="default" className="self-start">
-                <BadgeText>{item.applicationType}</BadgeText>
-              </Badge>
-            ) : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName || item.clientId}</Text>
+        <Text>{item.clientId}</Text>
+        {item.clientType ? (
+          <Badge variant="default" className="self-start">
+            <BadgeText>{item.clientType}</BadgeText>
+          </Badge>
+        ) : null}
+        {item.applicationType ? (
+          <Badge variant="default" className="self-start">
+            <BadgeText>{item.applicationType}</BadgeText>
+          </Badge>
+        ) : null}
+      </AppRowCard>
     </Link>
   );
 }

@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getNotificationDefinitions } from '../../features/notifications/notifications-api';
 import type { NotificationDefinitionDto } from '../../features/notifications/types';
 import { notificationTypeName } from '../../features/notifications/types';
@@ -20,17 +19,13 @@ function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/notifications/definitions/${encodeURIComponent(item.name)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName || item.name}</Text>
-            <Text>
-              {item.name} · {notificationTypeName(item.notificationType)}
-            </Text>
-            {item.isStatic ? <Text>· {t('notificationDefinitions.static')}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName || item.name}</Text>
+        <Text>
+          {item.name} · {notificationTypeName(item.notificationType)}
+        </Text>
+        {item.isStatic ? <Text>· {t('notificationDefinitions.static')}</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }

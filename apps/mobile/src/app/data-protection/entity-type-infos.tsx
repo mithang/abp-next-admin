@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getEntityTypeInfosPaged } from '../../features/auditing/data-protection-api';
 import type { EntityTypeInfoDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
@@ -19,18 +18,14 @@ function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
   const { t } = useTranslation();
   return (
     <Link href={`/data-protection/entity-type-infos/${item.id}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.displayName || item.name}</Text>
-            <Text>{item.typeFullName}</Text>
-            <Text>
-              {t('entityTypeInfos.auditEnabled')}:{' '}
-              {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
-            </Text>
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.displayName || item.name}</Text>
+        <Text>{item.typeFullName}</Text>
+        <Text>
+          {t('entityTypeInfos.auditEnabled')}:{' '}
+          {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
+        </Text>
+      </AppRowCard>
     </Link>
   );
 }

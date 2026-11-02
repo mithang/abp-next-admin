@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
@@ -20,14 +19,10 @@ import { usePagination } from '../../lib/use-pagination';
 function ContainerRow({ item }: { item: BlobContainerDto }) {
   return (
     <Link href={`/blob/containers/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{item.name}</Text>
-            {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
-          </VStack>
-        </Card>
-      </Pressable>
+      <AppRowCard>
+        <Text>{item.name}</Text>
+        {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
+      </AppRowCard>
     </Link>
   );
 }
