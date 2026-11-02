@@ -22,6 +22,7 @@ import {
 } from '../../../features/notifications/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 export default function MyNotificationDetailScreen() {
   const { t } = useTranslation();
@@ -92,7 +93,7 @@ export default function MyNotificationDetailScreen() {
         </Text>
         {item.creationTime ? (
           <Text>
-            {t('myNotifications.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('myNotifications.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         {item.data?.extraProperties ? (

@@ -17,6 +17,7 @@ import {
 import type { SmsMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 import { messageStatusText } from './email';
 
 const PAGE_SIZE = 20;
@@ -50,7 +51,7 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
         </Text>
         {item.sendTime ? (
           <Text>
-            {t('platformSmsMessages.sendTime')}: {new Date(item.sendTime).toLocaleString()}
+            {t('platformSmsMessages.sendTime')}: {formatDateTime(item.sendTime)}
           </Text>
         ) : null}
         <Text>

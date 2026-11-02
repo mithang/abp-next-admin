@@ -9,6 +9,7 @@ import { Text } from '@/components/ui/text';
 import { deleteBlobContainer, getBlobContainer } from '../../../features/blob/blob-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 /**
  * Chi tiết container blob: name + concurrencyStamp + thời gian tạo.
@@ -58,7 +59,7 @@ export default function BlobContainerDetailScreen() {
         </Text>
         {item.creationTime ? (
           <Text>
-            {t('blobContainers.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('blobContainers.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         <AppButton

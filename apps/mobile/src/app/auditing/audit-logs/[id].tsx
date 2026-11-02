@@ -10,6 +10,7 @@ import { deleteAuditLog, getAuditLog } from '../../../features/auditing/auditing
 import { entityChangeTypeName } from '../../../features/auditing/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 export default function AuditLogDetailScreen() {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ export default function AuditLogDetailScreen() {
         ) : null}
         {item.executionTime ? (
           <Text>
-            {t('auditLogs.executionTime')}: {new Date(item.executionTime).toLocaleString()}
+            {t('auditLogs.executionTime')}: {formatDateTime(item.executionTime)}
           </Text>
         ) : null}
         {item.executionDuration !== undefined ? (

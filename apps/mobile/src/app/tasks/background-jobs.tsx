@@ -28,6 +28,7 @@ import {
 import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -60,7 +61,7 @@ function JobRow({
           {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
           {item.isEnabled ? '' : ' · disabled'}
         </Text>
-        {item.nextRunTime ? <Text>{new Date(item.nextRunTime).toLocaleString()}</Text> : null}
+        {item.nextRunTime ? <Text>{formatDateTime(item.nextRunTime)}</Text> : null}
       </VStack>
     </Card>
   );

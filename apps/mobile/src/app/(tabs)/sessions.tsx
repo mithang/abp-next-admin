@@ -13,6 +13,7 @@ import { getSessionsPaged, revokeSession } from '../../features/identity/session
 import type { IdentitySessionDto } from '../../features/identity/sessions';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -45,11 +46,11 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
           </Text>
         ) : null}
         <Text>
-          {t('sessions.signedIn')}: {new Date(item.signedIn).toLocaleString()}
+          {t('sessions.signedIn')}: {formatDateTime(item.signedIn)}
         </Text>
         {item.lastAccessed ? (
           <Text>
-            {t('sessions.lastAccessed')}: {new Date(item.lastAccessed).toLocaleString()}
+            {t('sessions.lastAccessed')}: {formatDateTime(item.lastAccessed)}
           </Text>
         ) : null}
         <AppButton

@@ -21,6 +21,7 @@ import type { WebhookSendRecordDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -53,7 +54,7 @@ function AttemptRow({
       </Text>
       <Text>
         {item.responseStatusCode !== undefined ? `HTTP ${item.responseStatusCode}` : 'no response'}{' '}
-        · {new Date(item.creationTime).toLocaleString()}
+        · {formatDateTime(item.creationTime)}
       </Text>
     </VStack>
   );

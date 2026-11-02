@@ -26,6 +26,7 @@ import {
 } from '../../../features/tasks/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 /**
  * Chi tiết tác vụ nền: đúng drawer detail của web (status/source/
@@ -142,21 +143,21 @@ export default function BackgroundJobDetailScreen() {
           {t('backgroundJobs.interval')}: {item.interval}
         </Text>
         <Text>
-          {t('backgroundJobs.beginTime')}: {new Date(item.beginTime).toLocaleString()}
+          {t('backgroundJobs.beginTime')}: {formatDateTime(item.beginTime)}
         </Text>
         {item.endTime ? (
           <Text>
-            {t('backgroundJobs.endTime')}: {new Date(item.endTime).toLocaleString()}
+            {t('backgroundJobs.endTime')}: {formatDateTime(item.endTime)}
           </Text>
         ) : null}
         {item.lastRunTime ? (
           <Text>
-            {t('backgroundJobs.lastRunTime')}: {new Date(item.lastRunTime).toLocaleString()}
+            {t('backgroundJobs.lastRunTime')}: {formatDateTime(item.lastRunTime)}
           </Text>
         ) : null}
         {item.nextRunTime ? (
           <Text>
-            {t('backgroundJobs.nextRunTime')}: {new Date(item.nextRunTime).toLocaleString()}
+            {t('backgroundJobs.nextRunTime')}: {formatDateTime(item.nextRunTime)}
           </Text>
         ) : null}
         <Text>
@@ -189,7 +190,7 @@ export default function BackgroundJobDetailScreen() {
         ) : null}
         {item.creationTime ? (
           <Text>
-            {t('backgroundJobs.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('backgroundJobs.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         <Text>
@@ -263,7 +264,7 @@ export default function BackgroundJobDetailScreen() {
             {(logsQuery.data?.items ?? []).map((log) => (
               <VStack key={log.id} space="xs">
                 <Text>
-                  {log.jobName} · {new Date(log.runTime).toLocaleString()}
+                  {log.jobName} · {formatDateTime(log.runTime)}
                 </Text>
                 <Text>{log.message}</Text>
                 {log.exception ? (

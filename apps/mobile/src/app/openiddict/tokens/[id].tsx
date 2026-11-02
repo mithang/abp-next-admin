@@ -9,6 +9,7 @@ import { Text } from '@/components/ui/text';
 import { deleteToken, getToken } from '../../../features/openiddict/tokens-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
@@ -65,11 +66,11 @@ export default function TokenDetailScreen() {
         <Field label={t('openiddictTokens.referenceId')} value={token.referenceId} />
         <Field
           label={t('openiddictTokens.creationDate')}
-          value={token.creationDate ? new Date(token.creationDate).toLocaleString() : undefined}
+          value={formatDateTime(token.creationDate)}
         />
         <Field
           label={t('openiddictTokens.expirationDate')}
-          value={token.expirationDate ? new Date(token.expirationDate).toLocaleString() : undefined}
+          value={formatDateTime(token.expirationDate)}
         />
         <AppButton
           title={t('common.delete')}

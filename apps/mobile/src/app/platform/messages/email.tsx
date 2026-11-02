@@ -15,6 +15,7 @@ import { getEmailMessagesPaged } from '../../../features/platform/platform-api';
 import type { EmailMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
+import { formatDateTime } from '../../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -42,7 +43,7 @@ function EmailRow({ item }: { item: EmailMessageDto }) {
             </Text>
             {item.sendTime ? (
               <Text>
-                {t('platformEmailMessages.sendTime')}: {new Date(item.sendTime).toLocaleString()}
+                {t('platformEmailMessages.sendTime')}: {formatDateTime(item.sendTime)}
               </Text>
             ) : null}
             <Text>

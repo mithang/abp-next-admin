@@ -7,6 +7,7 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getEntityTypeInfo } from '../../../features/auditing/data-protection-api';
 import { toApiError } from '../../../lib/errors';
+import { formatDateTime } from '../../../lib/dates';
 
 export default function EntityTypeInfoDetailScreen() {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ export default function EntityTypeInfoDetailScreen() {
         </Text>
         {item.creationTime ? (
           <Text>
-            {t('entityTypeInfos.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('entityTypeInfos.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         <Text>{t('entityTypeInfos.properties')}:</Text>

@@ -13,6 +13,7 @@ import {
 } from '../../../../features/platform/platform-api';
 import { toApiError } from '../../../../lib/errors';
 import { showConfirmDialog } from '../../../../lib/confirm';
+import { formatDateTime } from '../../../../lib/dates';
 import { messageStatusText } from '../email';
 
 /**
@@ -82,7 +83,7 @@ export default function EmailMessageDetailScreen() {
         </Text>
         {item.sendTime ? (
           <Text>
-            {t('platformEmailMessages.sendTime')}: {new Date(item.sendTime).toLocaleString()}
+            {t('platformEmailMessages.sendTime')}: {formatDateTime(item.sendTime)}
           </Text>
         ) : null}
         <Text>
@@ -90,8 +91,7 @@ export default function EmailMessageDetailScreen() {
         </Text>
         {item.creationTime ? (
           <Text>
-            {t('platformEmailMessages.creationTime')}:{' '}
-            {new Date(item.creationTime).toLocaleString()}
+            {t('platformEmailMessages.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         {item.reason ? (

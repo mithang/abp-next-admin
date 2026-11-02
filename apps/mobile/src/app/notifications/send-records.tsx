@@ -18,6 +18,7 @@ import type { NotificationSendRecordDto } from '../../features/notifications/typ
 import { sendStateName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -49,7 +50,7 @@ function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
         </Text>
         {item.sendTime ? (
           <Text>
-            {t('notificationSendRecords.sendTime')}: {new Date(item.sendTime).toLocaleString()}
+            {t('notificationSendRecords.sendTime')}: {formatDateTime(item.sendTime)}
           </Text>
         ) : null}
         {item.reason ? (

@@ -8,6 +8,7 @@ import { Text } from '@/components/ui/text';
 import { getSysLog } from '../../../features/auditing/auditing-api';
 import { logLevelName } from '../../../features/auditing/types';
 import { toApiError } from '../../../lib/errors';
+import { formatDateTime } from '../../../lib/dates';
 
 export default function SysLogDetailScreen() {
   const { t } = useTranslation();
@@ -32,10 +33,7 @@ export default function SysLogDetailScreen() {
   const fields = item.fields ?? {};
 
   return (
-    <AppScreen
-      title={`${logLevelName(item.level)}`}
-      subtitle={item.timeStamp ? new Date(item.timeStamp).toLocaleString() : undefined}
-    >
+    <AppScreen title={`${logLevelName(item.level)}`} subtitle={formatDateTime(item.timeStamp)}>
       <VStack space="sm">
         {item.message ? (
           <Text>

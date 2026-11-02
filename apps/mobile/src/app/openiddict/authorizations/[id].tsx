@@ -12,6 +12,7 @@ import {
 } from '../../../features/openiddict/authorizations-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
@@ -63,7 +64,7 @@ export default function AuthorizationDetailScreen() {
         <Field label={t('openiddictAuthorizations.scopes')} value={authz.scopes?.join(', ')} />
         <Field
           label={t('openiddictAuthorizations.creationDate')}
-          value={authz.creationDate ? new Date(authz.creationDate).toLocaleString() : undefined}
+          value={formatDateTime(authz.creationDate)}
         />
         <AppButton
           title={t('common.delete')}

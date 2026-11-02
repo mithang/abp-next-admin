@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getSecurityLogsPaged } from '../../features/identity/security-logs-api';
 import type { SecurityLogDto } from '../../features/identity/security-logs';
 import { toApiError } from '../../lib/errors';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -24,7 +25,7 @@ function SecurityLogRow({ item }: { item: SecurityLogDto }) {
           <VStack space="xs">
             <Text>{item.userName ?? item.identity ?? item.id}</Text>
             {item.action ? <Text>{item.action}</Text> : null}
-            {item.creationTime ? <Text>{new Date(item.creationTime).toLocaleString()}</Text> : null}
+            {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
             {item.clientIpAddress ? <Text>{item.clientIpAddress}</Text> : null}
           </VStack>
         </Card>

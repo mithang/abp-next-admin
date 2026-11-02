@@ -13,6 +13,7 @@ import {
 } from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 /**
  * Chi tiết đăng ký Webhook: webhookUri/isActive/description/webhooks/
@@ -84,7 +85,7 @@ export default function WebhookSubscriptionDetailScreen() {
         ) : null}
         {item.creationTime ? (
           <Text>
-            {t('webhookSubscriptions.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('webhookSubscriptions.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         <AppButton

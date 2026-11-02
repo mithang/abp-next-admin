@@ -9,6 +9,7 @@ import { Text } from '@/components/ui/text';
 import { deleteSecurityLog, getSecurityLog } from '../../features/identity/security-logs-api';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { formatDateTime } from '../../lib/dates';
 
 export default function SecurityLogDetailScreen() {
   const { t } = useTranslation();
@@ -70,7 +71,7 @@ export default function SecurityLogDetailScreen() {
         ) : null}
         {item.creationTime ? (
           <Text>
-            {t('securityLogs.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('securityLogs.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         <AppButton

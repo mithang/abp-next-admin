@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -23,7 +24,7 @@ function ContainerRow({ item }: { item: BlobContainerDto }) {
         <Card className="p-4">
           <VStack space="xs">
             <Text>{item.name}</Text>
-            {item.creationTime ? <Text>{new Date(item.creationTime).toLocaleString()}</Text> : null}
+            {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
           </VStack>
         </Card>
       </Pressable>

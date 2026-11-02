@@ -19,6 +19,7 @@ import {
   severityName,
 } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -34,7 +35,7 @@ function MyNotificationRow({ item }: { item: UserNotificationDto }) {
             <Text>
               {severityName(item.severity)} · {readStateName(item.state)}
             </Text>
-            {item.creationTime ? <Text>{new Date(item.creationTime).toLocaleString()}</Text> : null}
+            {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
             {item.state === NotificationReadState.UnRead ? (
               <Text>{t('myNotifications.markRead')}</Text>
             ) : null}

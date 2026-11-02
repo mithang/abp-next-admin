@@ -14,6 +14,7 @@ import {
 } from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 /**
  * Chi tiết bản ghi gửi Webhook: đúng drawer detail của web (sự kiện:
@@ -80,7 +81,7 @@ export default function WebhookSendAttemptDetailScreen() {
           {t('webhookSendAttempts.subscriptionId')}: {item.webhookSubscriptionId}
         </Text>
         <Text>
-          {t('webhookSendAttempts.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+          {t('webhookSendAttempts.creationTime')}: {formatDateTime(item.creationTime)}
         </Text>
         {item.responseStatusCode !== undefined ? (
           <Text>

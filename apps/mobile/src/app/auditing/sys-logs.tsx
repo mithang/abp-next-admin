@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getSysLogsPaged } from '../../features/auditing/auditing-api';
 import { logLevelName, type LogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -26,7 +27,7 @@ function SysLogRow({ item }: { item: LogDto }) {
             <Text>
               {logLevelName(item.level)}: {item.message ?? ''}
             </Text>
-            {item.timeStamp ? <Text>{new Date(item.timeStamp).toLocaleString()}</Text> : null}
+            {item.timeStamp ? <Text>{formatDateTime(item.timeStamp)}</Text> : null}
             {item.fields?.requestPath ? <Text>{item.fields.requestPath}</Text> : null}
             {item.fields?.application ? <Text>{item.fields.application}</Text> : null}
           </VStack>

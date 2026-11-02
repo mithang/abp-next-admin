@@ -45,6 +45,31 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 35
+
+Vòng P3 chuẩn hóa control — format ngày giờ dùng chung: rà soát
+toàn app thấy 34 chỗ tự viết `new Date(x).toLocaleString()` ở 25
+màn hình, không có helper nào. Nay tất cả 34 chỗ dùng chung
+helper mới `src/lib/dates.ts` (`formatDateTime`: nhận string/Date/
+null/undefined, trả `undefined` cho giá trị rỗng hoặc chuỗi không
+hợp lệ, còn giá trị hợp lệ giữ nguyên định dạng `toLocaleString()`
+theo locale thiết bị — không hardcode format). Ngoài việc gom mẫu
+lặp, helper còn sửa một bug hiển thị thật: các field nullable
+(`blob expirationTime?`, task `endTime?`...) khi là `null` thì code
+cũ `new Date(null)` ra ngày epoch 1970-01-01, còn chuỗi lỗi ra
+chữ "Invalid Date"; nay đều render rỗng. 4 ternary
+`x ? ... : undefined` (token, authorization, sys-log) được gọn
+thành một lệnh gọi helper. Không thêm key i18n. Test mới
+`dates.test.ts` (5 test) kiểm chứng: chuỗi ISO hợp lệ cho đúng kết
+quả cũ, null/undefined/rỗng/chuỗi lỗi → undefined, và null không
+còn ra epoch. Kết quả: Jest 310/310 (52 suite, +5; lần chạy đầu
+có 1 test app-select fail rồi pass khi chạy lại — flaky do chạy
+song song, không liên quan thay đổi này), typecheck/lint/format/
+expo config PASS (lint 0 errors, đúng 14 warning vendored), parity
+i18n 1451/1451, backend /healthz Healthy + Redis (stack đã chạy
+sẵn, không khởi động lại). Không còn P2 mở; P1 impersonation vẫn
+BLOCKED ở backend và CRUD thật vẫn cần phiên admin TOTP.
+
 ## Trạng thái vòng 34
 
 Vòng P3 chuẩn hóa control — hộp thoại xác nhận dùng chung: rà

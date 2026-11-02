@@ -18,6 +18,7 @@ import { BLOB_TYPE_FOLDER } from '../../../features/blob/types';
 import { config } from '../../../lib/config';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 /**
  * Chi tiết blob: đúng BlobDto backend (name/fullName/type/contentType/
@@ -99,12 +100,12 @@ export default function BlobDetailScreen() {
         ) : null}
         {item.expirationTime ? (
           <Text>
-            {t('blobBlobs.expirationTime')}: {new Date(item.expirationTime).toLocaleString()}
+            {t('blobBlobs.expirationTime')}: {formatDateTime(item.expirationTime)}
           </Text>
         ) : null}
         {item.creationTime ? (
           <Text>
-            {t('blobContainers.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('blobContainers.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
         {!isFolder ? (

@@ -13,6 +13,7 @@ import {
 } from '../../../features/caching/caching-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { formatDateTime } from '../../../lib/dates';
 
 /**
  * Chi tiết giá trị cache: GET /api/caching-management/cache/value?key=...
@@ -67,7 +68,7 @@ export default function CacheValueDetailScreen() {
         </Text>
         {item.expiration ? (
           <Text>
-            {t('caches.expiration')}: {new Date(item.expiration).toLocaleString()}
+            {t('caches.expiration')}: {formatDateTime(item.expiration)}
           </Text>
         ) : null}
         <Text>{JSON.stringify(item.values, null, 2)}</Text>

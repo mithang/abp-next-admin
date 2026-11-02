@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getAuditLogsPaged } from '../../features/auditing/auditing-api';
 import type { AuditLogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
+import { formatDateTime } from '../../lib/dates';
 
 const PAGE_SIZE = 20;
 
@@ -26,9 +27,7 @@ function AuditLogRow({ item }: { item: AuditLogDto }) {
               {item.httpMethod ?? ''} {item.httpStatusCode ?? ''} {item.url ?? item.id}
             </Text>
             {item.userName ? <Text>{item.userName}</Text> : null}
-            {item.executionTime ? (
-              <Text>{new Date(item.executionTime).toLocaleString()}</Text>
-            ) : null}
+            {item.executionTime ? <Text>{formatDateTime(item.executionTime)}</Text> : null}
             {item.executionDuration !== undefined ? (
               <Text>{`${item.executionDuration} ms`}</Text>
             ) : null}
