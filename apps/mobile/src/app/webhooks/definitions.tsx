@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getWebhookDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookDefinitionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: WebhookDefinitionDto }) {
   return (
@@ -43,16 +44,8 @@ export default function WebhookDefinitionsScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [groupName, setGroupName] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
-  const [debouncedGroup, setDebouncedGroup] = useState('');
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFilter(filter);
-      setDebouncedGroup(groupName);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, groupName]);
+  const debouncedFilter = useDebouncedValue(filter);
+  const debouncedGroup = useDebouncedValue(groupName);
 
   const query = useQuery({
     queryKey: ['webhook-definitions', debouncedFilter, debouncedGroup],

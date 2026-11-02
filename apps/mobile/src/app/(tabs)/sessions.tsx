@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import type { IdentitySessionDto } from '../../features/identity/sessions';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -78,16 +79,10 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
 export default function SessionsScreen() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFilter(filter);
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debouncedFilter = useDebouncedValue(filter, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['sessions', debouncedFilter, page],

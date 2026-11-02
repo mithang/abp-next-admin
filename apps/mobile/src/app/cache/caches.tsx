@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
@@ -18,6 +18,7 @@ import {
 } from '../../features/caching/caching-api';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
  * Quản lý cache: danh sách khóa từ GET /api/caching-management/cache/keys.
@@ -32,21 +33,15 @@ export default function CacheKeysScreen() {
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState('');
   const [prefix, setPrefix] = useState('');
-  const [debounced, setDebounced] = useState({ filter: '', prefix: '' });
   const [extraKeys, setExtraKeys] = useState<string[]>([]);
   const [extraMarker, setExtraMarker] = useState<string | null>(null);
-  const [selectMode, setSelectMode] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ filter, prefix });
-      setExtraKeys([]);
-      setExtraMarker(null);
-      setSelected(new Set());
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, prefix]);
+  const debounced = useDebouncedValue({ filter, prefix }, 400, () => {
+    setExtraKeys([]);
+    setExtraMarker(null);
+    setSelected(new Set());
+  });
+  const [selectMode, setSelectMode] = useState(false);
 
   const query = useQuery({
     queryKey: ['cache-keys', debounced],

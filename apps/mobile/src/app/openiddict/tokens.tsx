@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getTokensPaged } from '../../features/openiddict/tokens-api';
 import type { OpenIddictTokenDto } from '../../features/openiddict/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -49,16 +50,10 @@ function TokenRow({ item }: { item: OpenIddictTokenDto }) {
 export default function TokensScreen() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFilter(filter);
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debouncedFilter = useDebouncedValue(filter, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['openiddict-tokens', debouncedFilter, page],

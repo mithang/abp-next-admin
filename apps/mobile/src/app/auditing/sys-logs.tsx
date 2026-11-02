@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { getSysLogsPaged } from '../../features/auditing/auditing-api';
 import { logLevelName, type LogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -41,16 +42,10 @@ export default function SysLogsScreen() {
   const { t } = useTranslation();
   const [requestPath, setRequestPath] = useState('');
   const [application, setApplication] = useState('');
-  const [debounced, setDebounced] = useState({ requestPath: '', application: '' });
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ requestPath, application });
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [requestPath, application]);
+  const debounced = useDebouncedValue({ requestPath, application }, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['sys-logs', debounced, page],

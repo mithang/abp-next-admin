@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { getSecurityLogsPaged } from '../../features/identity/security-logs-api'
 import type { SecurityLogDto } from '../../features/identity/security-logs';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -37,16 +38,10 @@ function SecurityLogRow({ item }: { item: SecurityLogDto }) {
 export default function SecurityLogsScreen() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFilter(filter);
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debouncedFilter = useDebouncedValue(filter, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['security-logs', debouncedFilter, page],

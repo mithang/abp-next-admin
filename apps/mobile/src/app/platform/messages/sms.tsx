@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import type { SmsMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useDebouncedValue } from '../../../lib/use-debounced-value';
 import { messageStatusText } from './email';
 
 const PAGE_SIZE = 20;
@@ -112,22 +113,14 @@ export default function SmsMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const [debounced, setDebounced] = useState({
-    filter: '',
-    phoneNumber: '',
-    status: '',
-    beginSendTime: '',
-    endSendTime: '',
-  });
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ filter, phoneNumber, status, beginSendTime, endSendTime });
+  const debounced = useDebouncedValue(
+    { filter, phoneNumber, status, beginSendTime, endSendTime },
+    400,
+    () => {
       setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, phoneNumber, status, beginSendTime, endSendTime]);
+    },
+  );
 
   const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim())
     ? Number(debounced.status.trim())

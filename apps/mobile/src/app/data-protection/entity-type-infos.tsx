@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getEntityTypeInfosPaged } from '../../features/auditing/data-protection-api';
 import type { EntityTypeInfoDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -39,16 +40,10 @@ function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
 export default function EntityTypeInfosScreen() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFilter(filter);
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debouncedFilter = useDebouncedValue(filter, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['entity-type-infos', debouncedFilter, page],

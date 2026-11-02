@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getWebhookGroupDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookGroupDefinitionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
   return (
@@ -39,12 +40,7 @@ export default function WebhookGroupsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const [filter, setFilter] = useState('');
-  const [debounced, setDebounced] = useState('');
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(filter), 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debounced = useDebouncedValue(filter);
 
   const query = useQuery({
     queryKey: ['webhook-groups', debounced],

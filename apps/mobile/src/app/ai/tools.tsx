@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getAIToolsPaged } from '../../features/ai/ai-api';
 import type { AIToolDefinitionRecordDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -44,16 +45,10 @@ export default function AIToolsScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [provider, setProvider] = useState('');
-  const [debounced, setDebounced] = useState({ filter: '', provider: '' });
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ filter, provider });
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, provider]);
+  const debounced = useDebouncedValue({ filter, provider }, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['ai-tools', debounced, page],

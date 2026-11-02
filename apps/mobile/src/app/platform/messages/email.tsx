@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -16,6 +16,7 @@ import type { EmailMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
+import { useDebouncedValue } from '../../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -76,22 +77,14 @@ export default function EmailMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const [debounced, setDebounced] = useState({
-    filter: '',
-    emailAddress: '',
-    status: '',
-    beginSendTime: '',
-    endSendTime: '',
-  });
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ filter, emailAddress, status, beginSendTime, endSendTime });
+  const debounced = useDebouncedValue(
+    { filter, emailAddress, status, beginSendTime, endSendTime },
+    400,
+    () => {
       setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, emailAddress, status, beginSendTime, endSendTime]);
+    },
+  );
 
   const parsedStatus = parseEmailStatusFilter(debounced.status);
   const query = useQuery({

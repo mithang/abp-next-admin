@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -22,6 +22,7 @@ import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -101,19 +102,13 @@ export default function WebhookSendAttemptsScreen() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState('');
-  const [debounced, setDebounced] = useState('');
   const [page, setPage] = useState(0);
-  const [selectMode, setSelectMode] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced(filter);
-      setPage(0);
-      setSelected(new Set());
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debounced = useDebouncedValue(filter, 400, () => {
+    setPage(0);
+    setSelected(new Set());
+  });
+  const [selectMode, setSelectMode] = useState(false);
 
   const query = useQuery({
     queryKey: ['webhook-send-attempts', debounced, page],

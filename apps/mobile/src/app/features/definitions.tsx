@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getFeatureDefinitions } from '../../features/features/feature-definitions-api';
 import type { FeatureDefinitionDto } from '../../features/features/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
   return (
@@ -35,12 +36,7 @@ export default function FeatureDefinitionsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const [filter, setFilter] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedFilter(filter), 400);
-    return () => clearTimeout(timer);
-  }, [filter]);
+  const debouncedFilter = useDebouncedValue(filter);
 
   const query = useQuery({
     queryKey: ['feature-definitions', debouncedFilter],

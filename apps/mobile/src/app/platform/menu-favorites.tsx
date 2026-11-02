@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,7 @@ import {
 } from '../../features/platform/menu-favorites';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
  * Menu yêu thích của tôi — bản mobile của WorkbenchQuickNav web
@@ -305,15 +306,10 @@ export default function MenuFavoritesScreen() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [framework, setFramework] = useState('');
-  const [debouncedFramework, setDebouncedFramework] = useState('');
+  const debouncedFramework = useDebouncedValue(framework);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<UserFavoriteMenuDto | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<UserFavoriteMenuDto | null>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedFramework(framework), 400);
-    return () => clearTimeout(timer);
-  }, [framework]);
 
   const frameworkHint = useQuery({
     queryKey: ['platform-data-ui-framework-hint'],

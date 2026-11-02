@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ import { sendStateName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -94,16 +95,10 @@ export default function NotificationSendRecordsScreen() {
   const { t } = useTranslation();
   const [notificationName, setNotificationName] = useState('');
   const [provider, setProvider] = useState('');
-  const [debounced, setDebounced] = useState({ notificationName: '', provider: '' });
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ notificationName, provider });
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [notificationName, provider]);
+  const debounced = useDebouncedValue({ notificationName, provider }, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['notification-send-records', debounced, page],

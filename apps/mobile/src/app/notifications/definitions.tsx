@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { getNotificationDefinitions } from '../../features/notifications/notific
 import type { NotificationDefinitionDto } from '../../features/notifications/types';
 import { notificationTypeName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
   const { t } = useTranslation();
@@ -40,14 +41,7 @@ export default function NotificationDefinitionsScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [groupName, setGroupName] = useState('');
-  const [debounced, setDebounced] = useState({ filter: '', groupName: '' });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ filter, groupName });
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, groupName]);
+  const debounced = useDebouncedValue({ filter, groupName });
 
   const query = useQuery({
     queryKey: ['notification-definitions', debounced],

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getLayoutsPaged, getMenusAll } from '../../features/platform/platform-api';
 import type { MenuDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
  * Danh sách menu: đúng bảng web — GET /api/platform/menus/all rồi dựng
@@ -70,12 +71,7 @@ export default function MenusScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [layoutId, setLayoutId] = useState('');
-  const [debounced, setDebounced] = useState({ filter: '', layoutId: '' });
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced({ filter, layoutId }), 400);
-    return () => clearTimeout(timer);
-  }, [filter, layoutId]);
+  const debounced = useDebouncedValue({ filter, layoutId });
 
   const query = useQuery({
     queryKey: ['platform-menus-all', debounced],

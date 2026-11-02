@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -33,6 +33,7 @@ import { getUsersPaged } from '../../features/identity/api';
 import { displayName } from '../../features/identity/types';
 import { toggleSelection } from '../../lib/selection';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
  * Phân bổ menu cho user/role — bản mobile của MenuAllotModal web
@@ -178,20 +179,10 @@ export default function MenuAllotScreen() {
   const [identityId, setIdentityId] = useState<string>(params.id ?? '');
   const [identityLabel, setIdentityLabel] = useState<string>(params.label ?? '');
   const [identityFilter, setIdentityFilter] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
+  const debouncedFilter = useDebouncedValue(identityFilter);
   const [identityPage, setIdentityPage] = useState(0);
   const [framework, setFramework] = useState('');
-  const [debouncedFramework, setDebouncedFramework] = useState('');
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedFilter(identityFilter), 400);
-    return () => clearTimeout(timer);
-  }, [identityFilter]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedFramework(framework), 400);
-    return () => clearTimeout(timer);
-  }, [framework]);
+  const debouncedFramework = useDebouncedValue(framework);
 
   const frameworkHint = useQuery({
     queryKey: ['platform-data-ui-framework-hint'],

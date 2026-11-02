@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -39,18 +40,13 @@ export default function LayoutsScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [framework, setFramework] = useState('');
-  const [debouncedFilter, setDebouncedFilter] = useState('');
-  const [debouncedFramework, setDebouncedFramework] = useState('');
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFilter(filter);
-      setDebouncedFramework(framework);
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [filter, framework]);
+  const debouncedFilter = useDebouncedValue(filter, 400, () => {
+    setPage(0);
+  });
+  const debouncedFramework = useDebouncedValue(framework, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['platform-layouts', debouncedFilter, debouncedFramework, page],

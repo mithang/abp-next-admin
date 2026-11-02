@@ -45,6 +45,47 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 36
+
+Vòng P3 chuẩn hóa control — hook debounce dùng chung: rà soát
+toàn app thấy 43 khối `useEffect` + `setTimeout(..., 400)` ở 42
+màn hình tự lặp cùng mẫu debounce filter (state debounced riêng
++ timer + clearTimeout), chỉ khác giá trị debounce và việc có
+reset page/selection kèm theo. Nay tất cả 43 khối dùng chung
+hook mới `src/lib/use-debounced-value.ts` (`useDebouncedValue`,
+mặc định 400ms): 45 lệnh gọi (layouts và webhook-definitions mỗi
+màn hình 2 giá trị), trong đó 30 lệnh gọi truyền reset cũ vào
+`onSettled` — callback chạy cùng tick timer với `setDebounced`
+nên page/selection reset vẫn batch chung một lần render như code
+cũ, query không chạy trung gian với (filter mới, page cũ). Với
+object debounce (`{ filter, provider }`...), dep của effect là
+`JSON.stringify(value)` nên timer chỉ reset khi một field thật sự
+đổi, đúng như danh sách dep cũ — không reset khi render do
+query/selection. Ngoại lệ cố tình giữ nguyên: timer 500ms ở
+`localization/texts/form.tsx` (trigger reload culture có trim +
+so sánh, không phải giá trị filter) và 2 timer abort của
+`api-client` (timeout request, không phải debounce). Trong vòng
+này từng có 2 lần script migration làm lệch offset (sửa khai báo
+state trước khi cắt effect) làm hỏng file — đã khôi phục bằng
+`git checkout` và chạy lại đúng thứ tự (cắt effect trước, sửa
+khai báo bằng regex sau), kiểm chứng bằng grep + typecheck +
+lint. Hai lỗi lint phát sinh đã sửa đúng cách: ref chỉ ghi trong
+effect (luật react-hooks/refs) và khai báo state `page`/`selected`
+được dời lên trước lệnh gọi hook chụp chúng trong `onSettled`
+(luật react-hooks/immutability). Không thêm key i18n. Test mới
+`use-debounced-value.test.ts` (5 test, RNTL v14 cần
+`await renderHook` + `await rerender` + `await act(async ...)`)
+kiểm chứng: giá trị ban đầu ngay lập tức, chưa đủ 400ms chưa
+đổi, gõ dồn chỉ chốt giá trị cuối, `onSettled` chạy cùng tick
+với cập nhật giá trị, object literal tạo lại với field không đổi
+không reset timer, delay tùy chọn được tôn trọng. Kết quả: Jest
+315/315 (53 suite, +5), typecheck/lint/format/expo config PASS
+(lint 0 errors, đúng 14 warning vendored), parity i18n
+1451/1451, backend /healthz Healthy + Redis/PostgreSQL (stack đã
+chạy sẵn, không khởi động lại). Diff ròng −210 dòng (42 file sửa
++ hook và test mới). Không còn P2 mở; P1 impersonation vẫn
+BLOCKED ở backend và CRUD thật vẫn cần phiên admin TOTP.
+
 ## Trạng thái vòng 35
 
 Vòng P3 chuẩn hóa control — format ngày giờ dùng chung: rà soát

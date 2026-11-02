@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { getAuditLogsPaged } from '../../features/auditing/auditing-api';
 import type { AuditLogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
+import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 const PAGE_SIZE = 20;
 
@@ -42,16 +43,10 @@ export default function AuditLogsScreen() {
   const { t } = useTranslation();
   const [userName, setUserName] = useState('');
   const [url, setUrl] = useState('');
-  const [debounced, setDebounced] = useState({ userName: '', url: '' });
   const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebounced({ userName, url });
-      setPage(0);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [userName, url]);
+  const debounced = useDebouncedValue({ userName, url }, 400, () => {
+    setPage(0);
+  });
 
   const query = useQuery({
     queryKey: ['audit-logs', debounced, page],
