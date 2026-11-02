@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -10,15 +11,6 @@ import { deleteToken, getToken } from '../../../features/openiddict/tokens-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 /**
  * Detail token chỉ hiển thị metadata — KHÔNG hiển thị payload token
@@ -58,17 +50,20 @@ export default function TokenDetailScreen() {
   return (
     <AppScreen scrollable title={token.referenceId ?? token.id} subtitle={token.id}>
       <VStack space="sm">
-        <Field label={t('openiddictTokens.applicationId')} value={token.applicationId} />
-        <Field label={t('openiddictTokens.authorizationId')} value={token.authorizationId} />
-        <Field label={t('openiddictTokens.subject')} value={token.subject} />
-        <Field label={t('openiddictTokens.type')} value={token.type} />
-        <Field label={t('openiddictTokens.status')} value={token.status} />
-        <Field label={t('openiddictTokens.referenceId')} value={token.referenceId} />
-        <Field
+        <AppDetailField label={t('openiddictTokens.applicationId')} value={token.applicationId} />
+        <AppDetailField
+          label={t('openiddictTokens.authorizationId')}
+          value={token.authorizationId}
+        />
+        <AppDetailField label={t('openiddictTokens.subject')} value={token.subject} />
+        <AppDetailField label={t('openiddictTokens.type')} value={token.type} />
+        <AppDetailField label={t('openiddictTokens.status')} value={token.status} />
+        <AppDetailField label={t('openiddictTokens.referenceId')} value={token.referenceId} />
+        <AppDetailField
           label={t('openiddictTokens.creationDate')}
           value={formatDateTime(token.creationDate)}
         />
-        <Field
+        <AppDetailField
           label={t('openiddictTokens.expirationDate')}
           value={formatDateTime(token.expirationDate)}
         />

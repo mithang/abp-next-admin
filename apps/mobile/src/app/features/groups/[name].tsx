@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -9,15 +10,6 @@ import { Text } from '@/components/ui/text';
 import { deleteFeatureGroup, getFeatureGroup } from '../../../features/features/feature-groups-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 /**
  * Chi tiết nhóm tính năng. Modal web vô hiệu mọi field và ẩn nút xác nhận
@@ -57,8 +49,8 @@ export default function FeatureGroupDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Field label={t('featureGroups.name')} value={item.name} />
-        <Field label={t('featureGroups.displayName')} value={item.displayName} />
+        <AppDetailField label={t('featureGroups.name')} value={item.name} />
+        <AppDetailField label={t('featureGroups.displayName')} value={item.displayName} />
         {item.isStatic ? <Text>{t('featureGroups.static')}</Text> : null}
         {!item.isStatic ? (
           <>

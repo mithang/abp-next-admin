@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -9,15 +10,6 @@ import { Text } from '@/components/ui/text';
 import { deleteLanguage, getLanguage } from '../../../features/localization/localization-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 /** Chi tiết ngôn ngữ: khóa là cultureName; web không có khái niệm tĩnh ở đây nên luôn có Sửa/Xóa. */
 export default function LanguageDetailScreen() {
@@ -54,11 +46,11 @@ export default function LanguageDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.cultureName} subtitle={item.cultureName}>
       <VStack space="sm">
-        <Field label={t('languages.cultureName')} value={item.cultureName} />
-        <Field label={t('languages.uiCultureName')} value={item.uiCultureName} />
-        <Field label={t('languages.displayName')} value={item.displayName} />
-        <Field label={t('languages.twoLetter')} value={item.twoLetterISOLanguageName} />
-        <Field label={t('languages.creationTime')} value={item.creationTime} />
+        <AppDetailField label={t('languages.cultureName')} value={item.cultureName} />
+        <AppDetailField label={t('languages.uiCultureName')} value={item.uiCultureName} />
+        <AppDetailField label={t('languages.displayName')} value={item.displayName} />
+        <AppDetailField label={t('languages.twoLetter')} value={item.twoLetterISOLanguageName} />
+        <AppDetailField label={t('languages.creationTime')} value={item.creationTime} />
         <AppButton
           title={t('languages.editTitle')}
           onPress={() =>

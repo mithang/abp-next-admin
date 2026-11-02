@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -13,15 +14,6 @@ import {
 import { MultiTenancySides } from '../../../features/permissions/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 function multiTenancySideLabel(side: MultiTenancySides): string {
   if (side === MultiTenancySides.Host) return 'Host';
@@ -67,11 +59,11 @@ export default function PermissionDefinitionDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Field label={t('permissionDefinitions.name')} value={item.name} />
-        <Field label={t('permissionDefinitions.groupName')} value={item.groupName} />
-        <Field label={t('permissionDefinitions.displayName')} value={item.displayName} />
-        <Field label={t('permissionDefinitions.parentName')} value={item.parentName} />
-        <Field
+        <AppDetailField label={t('permissionDefinitions.name')} value={item.name} />
+        <AppDetailField label={t('permissionDefinitions.groupName')} value={item.groupName} />
+        <AppDetailField label={t('permissionDefinitions.displayName')} value={item.displayName} />
+        <AppDetailField label={t('permissionDefinitions.parentName')} value={item.parentName} />
+        <AppDetailField
           label={t('permissionDefinitions.isEnabled')}
           value={
             item.isEnabled
@@ -79,12 +71,18 @@ export default function PermissionDefinitionDetailScreen() {
               : t('permissionDefinitions.disabled')
           }
         />
-        <Field
+        <AppDetailField
           label={t('permissionDefinitions.multiTenancySide')}
           value={multiTenancySideLabel(item.multiTenancySide)}
         />
-        <Field label={t('permissionDefinitions.providers')} value={item.providers?.join(', ')} />
-        <Field label={t('permissionDefinitions.stateCheckers')} value={item.stateCheckers} />
+        <AppDetailField
+          label={t('permissionDefinitions.providers')}
+          value={item.providers?.join(', ')}
+        />
+        <AppDetailField
+          label={t('permissionDefinitions.stateCheckers')}
+          value={item.stateCheckers}
+        />
         {item.isStatic ? <Text>{t('permissionDefinitions.static')}</Text> : null}
         <AppButton
           title={t('permissionDefinitions.editTitle')}

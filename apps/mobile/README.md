@@ -45,6 +45,29 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 41
+
+Vòng P3 chuẩn hóa dòng chi tiết: 11 màn hình chi tiết
+(openiddict applications/scopes/authorizations/tokens,
+permissions groups/definitions, features groups/definitions,
+settings definitions, localization languages/resources) mỗi màn
+tự định nghĩa hàm `Field` giống nhau từng ký tự — hiển thị
+"Nhãn: giá trị", trả null khi giá trị rỗng. Vòng này thêm
+component dùng chung `src/components/ui/AppDetailField.tsx`
+(giữ đúng hành vi cũ, kể cả chuỗi "0" vẫn hiển thị vì là chuỗi
+truthy) và migrate cả 67 tag trong 11 file bằng script có
+chế độ dry-run trước rồi mới apply, kiểm chứng 2 chiều
+(AppDetailField 78 = 67 tag + 11 import, không còn `function
+Field` hay `<Field` nào; import Text được giữ ở cả 11 file vì
+vẫn dùng cho dòng lỗi mutation). Test mới
+`app-detail-field.test.tsx` (5 test: render "Nhãn: giá trị",
+null khi undefined/rỗng, "0" vẫn hiện, giá trị join sẵn giữ
+nguyên). Kết quả: Jest 336/336 (57 suite, +5),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1463/1463 (không đổi key). P1
+impersonation vẫn BLOCKED ở backend, CRUD thật vẫn cần phiên
+admin TOTP; không còn P2 mở.
+
 ## Trạng thái vòng 40
 
 Vòng P3 chuẩn hóa khung danh sách: khối ternary trạng thái

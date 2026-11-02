@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -13,15 +14,6 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 export default function AuthorizationDetailScreen() {
   const { t } = useTranslation();
@@ -57,12 +49,18 @@ export default function AuthorizationDetailScreen() {
   return (
     <AppScreen scrollable title={authz.subject ?? authz.id} subtitle={authz.id}>
       <VStack space="sm">
-        <Field label={t('openiddictAuthorizations.applicationId')} value={authz.applicationId} />
-        <Field label={t('openiddictAuthorizations.subject')} value={authz.subject} />
-        <Field label={t('openiddictAuthorizations.type')} value={authz.type} />
-        <Field label={t('openiddictAuthorizations.status')} value={authz.status} />
-        <Field label={t('openiddictAuthorizations.scopes')} value={authz.scopes?.join(', ')} />
-        <Field
+        <AppDetailField
+          label={t('openiddictAuthorizations.applicationId')}
+          value={authz.applicationId}
+        />
+        <AppDetailField label={t('openiddictAuthorizations.subject')} value={authz.subject} />
+        <AppDetailField label={t('openiddictAuthorizations.type')} value={authz.type} />
+        <AppDetailField label={t('openiddictAuthorizations.status')} value={authz.status} />
+        <AppDetailField
+          label={t('openiddictAuthorizations.scopes')}
+          value={authz.scopes?.join(', ')}
+        />
+        <AppDetailField
           label={t('openiddictAuthorizations.creationDate')}
           value={formatDateTime(authz.creationDate)}
         />

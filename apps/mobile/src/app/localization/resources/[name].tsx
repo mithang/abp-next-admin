@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -9,15 +10,6 @@ import { Text } from '@/components/ui/text';
 import { deleteResource, getResource } from '../../../features/localization/localization-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 /** Chi tiết tài nguyên: khóa là name; web không có khái niệm tĩnh ở đây nên luôn có Sửa/Xóa. */
 export default function ResourceDetailScreen() {
@@ -54,14 +46,14 @@ export default function ResourceDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Field label={t('resources.name')} value={item.name} />
-        <Field label={t('resources.displayName')} value={item.displayName} />
-        <Field label={t('resources.description')} value={item.description} />
-        <Field label={t('resources.defaultCultureName')} value={item.defaultCultureName} />
+        <AppDetailField label={t('resources.name')} value={item.name} />
+        <AppDetailField label={t('resources.displayName')} value={item.displayName} />
+        <AppDetailField label={t('resources.description')} value={item.description} />
+        <AppDetailField label={t('resources.defaultCultureName')} value={item.defaultCultureName} />
         <Text>
           {t('resources.enable')}: {item.enable ? t('resources.enabled') : t('resources.disabled')}
         </Text>
-        <Field label={t('resources.creationTime')} value={item.creationTime} />
+        <AppDetailField label={t('resources.creationTime')} value={item.creationTime} />
         <AppButton
           title={t('resources.editTitle')}
           onPress={() =>

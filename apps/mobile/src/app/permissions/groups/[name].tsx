@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -12,15 +13,6 @@ import {
 } from '../../../features/permissions/permission-groups-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 /**
  * Chi tiết nhóm quyền. Web cho sửa nhóm tĩnh nhưng cấm xóa
@@ -60,8 +52,8 @@ export default function PermissionGroupDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Field label={t('permissionGroups.name')} value={item.name} />
-        <Field label={t('permissionGroups.displayName')} value={item.displayName} />
+        <AppDetailField label={t('permissionGroups.name')} value={item.name} />
+        <AppDetailField label={t('permissionGroups.displayName')} value={item.displayName} />
         {item.isStatic ? <Text>{t('permissionGroups.static')}</Text> : null}
         <AppButton
           title={t('permissionGroups.editTitle')}

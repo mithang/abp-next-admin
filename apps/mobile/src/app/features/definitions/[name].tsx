@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -12,15 +13,6 @@ import {
 } from '../../../features/features/feature-definitions-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 /**
  * Chi tiết định nghĩa tính năng. Modal web vô hiệu mọi field và ẩn nút xác
@@ -60,22 +52,22 @@ export default function FeatureDefinitionDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Field label={t('featureDefinitions.name')} value={item.name} />
-        <Field label={t('featureDefinitions.groupName')} value={item.groupName} />
-        <Field label={t('featureDefinitions.displayName')} value={item.displayName} />
-        <Field label={t('featureDefinitions.description')} value={item.description} />
-        <Field label={t('featureDefinitions.defaultValue')} value={item.defaultValue} />
-        <Field label={t('featureDefinitions.valueType')} value={item.valueType} />
-        <Field label={t('featureDefinitions.parentName')} value={item.parentName} />
-        <Field
+        <AppDetailField label={t('featureDefinitions.name')} value={item.name} />
+        <AppDetailField label={t('featureDefinitions.groupName')} value={item.groupName} />
+        <AppDetailField label={t('featureDefinitions.displayName')} value={item.displayName} />
+        <AppDetailField label={t('featureDefinitions.description')} value={item.description} />
+        <AppDetailField label={t('featureDefinitions.defaultValue')} value={item.defaultValue} />
+        <AppDetailField label={t('featureDefinitions.valueType')} value={item.valueType} />
+        <AppDetailField label={t('featureDefinitions.parentName')} value={item.parentName} />
+        <AppDetailField
           label={t('featureDefinitions.isAvailableToHost')}
           value={item.isAvailableToHost ? t('featureDefinitions.yes') : t('featureDefinitions.no')}
         />
-        <Field
+        <AppDetailField
           label={t('featureDefinitions.isVisibleToClients')}
           value={item.isVisibleToClients ? t('featureDefinitions.yes') : t('featureDefinitions.no')}
         />
-        <Field
+        <AppDetailField
           label={t('featureDefinitions.allowedProviders')}
           value={item.allowedProviders?.join(', ')}
         />

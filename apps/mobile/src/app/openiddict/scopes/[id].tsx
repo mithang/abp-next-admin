@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -9,15 +10,6 @@ import { Text } from '@/components/ui/text';
 import { deleteScope, getScope } from '../../../features/openiddict/scopes-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <Text>
-      {label}: {value}
-    </Text>
-  );
-}
 
 export default function ScopeDetailScreen() {
   const { t } = useTranslation();
@@ -53,10 +45,13 @@ export default function ScopeDetailScreen() {
   return (
     <AppScreen scrollable title={scope.displayName || scope.name} subtitle={scope.id}>
       <VStack space="sm">
-        <Field label={t('openiddictScopes.name')} value={scope.name} />
-        <Field label={t('openiddictScopes.displayName')} value={scope.displayName} />
-        <Field label={t('openiddictScopes.description')} value={scope.description} />
-        <Field label={t('openiddictScopes.resources')} value={scope.resources?.join(', ')} />
+        <AppDetailField label={t('openiddictScopes.name')} value={scope.name} />
+        <AppDetailField label={t('openiddictScopes.displayName')} value={scope.displayName} />
+        <AppDetailField label={t('openiddictScopes.description')} value={scope.description} />
+        <AppDetailField
+          label={t('openiddictScopes.resources')}
+          value={scope.resources?.join(', ')}
+        />
         <AppButton
           title={t('openiddictScopes.editTitle')}
           onPress={() => router.push(`/openiddict/scopes/form?id=${encodeURIComponent(scope.id)}`)}
