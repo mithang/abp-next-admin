@@ -2,29 +2,21 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
-import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { ImpersonationBanner } from '../../components/ui/ImpersonationBanner';
 import { getMyProfile } from '../../features/auth/api';
 import { useAuthStore } from '../../stores/auth-store';
 import { queryClient } from '../../lib/query-client';
-import { toApiError } from '../../lib/errors';
+import { queryStateElement } from '../../lib/query-state';
 
 export default function AccountScreen() {
   const { t } = useTranslation();
   const signOut = useAuthStore((s) => s.signOut);
   const profile = useQuery({ queryKey: ['profile'], queryFn: getMyProfile });
 
-  if (profile.isPending) return <AppLoading />;
-  if (profile.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(profile.error).message}
-        onRetry={() => void profile.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(profile);
+  if (queryState) return queryState;
 
   const data = profile.data;
 

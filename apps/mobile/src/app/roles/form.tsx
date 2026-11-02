@@ -8,7 +8,6 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppFormSubmit } from '../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { createRole, getRole, updateRole } from '../../features/identity/roles-api';
 import {
@@ -17,6 +16,7 @@ import {
   type RoleFormValues,
 } from '../../features/identity/role-form-schema';
 import { toApiError } from '../../lib/errors';
+import { queryStateElement } from '../../lib/query-state';
 import { createFieldError } from '../../lib/field-error';
 
 /**
@@ -63,15 +63,8 @@ export default function RoleFormScreen() {
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 
-  if (isEdit && detail.isPending) return <AppLoading />;
-  if (isEdit && detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (isEdit && queryState) return queryState;
 
   const fieldError = createFieldError(t, 'roles');
 

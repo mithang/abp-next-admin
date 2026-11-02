@@ -9,7 +9,6 @@ import { AppInput } from '../../../components/ui/AppInput';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { orderTreeItems } from '../../../lib/tree-options';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -25,6 +24,7 @@ import {
   type LayoutFormValues,
 } from '../../../features/platform/layout-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 
 /**
@@ -102,15 +102,8 @@ export default function LayoutFormScreen() {
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
-  if (isEdit && detail.isPending) return <AppLoading />;
-  if (isEdit && detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (isEdit && queryState) return queryState;
 
   const fieldError = createFieldError(t, 'platformLayouts');
   const dataOptions = orderTreeItems(datasQuery.data?.items ?? []).map(({ item, depth }) => ({

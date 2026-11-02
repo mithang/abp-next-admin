@@ -2,11 +2,11 @@ import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { AppErrorState } from '../../../components/ui/AppStates';
+import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getEntityTypeInfo } from '../../../features/auditing/data-protection-api';
-import { toApiError } from '../../../lib/errors';
 import { formatDateTime } from '../../../lib/dates';
 
 export default function EntityTypeInfoDetailScreen() {
@@ -18,15 +18,8 @@ export default function EntityTypeInfoDetailScreen() {
     enabled: Boolean(id),
   });
 
-  if (query.isPending) return <AppLoading />;
-  if (query.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(query);
+  if (queryState) return queryState;
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
 

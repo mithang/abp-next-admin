@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getData, getDatasAll, moveData } from '../../../features/platform/platform-api';
@@ -17,6 +16,7 @@ import {
   type DataMoveFormValues,
 } from '../../../features/platform/data-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 
 /**
@@ -60,15 +60,8 @@ export default function DataMoveScreen() {
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
-  if (detail.isPending) return <AppLoading />;
-  if (detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (queryState) return queryState;
 
   const fieldError = createFieldError(t, 'platformDataDictionaries');
   const parentsHint =

@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { AppEmptyState } from '../../../components/ui/AppStates';
+import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -109,23 +110,8 @@ export default function TenantConnectionStringsScreen() {
     },
   });
 
-  if (tenantQuery.isPending || listQuery.isPending) return <AppLoading />;
-  if (tenantQuery.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(tenantQuery.error).message}
-        onRetry={() => void tenantQuery.refetch()}
-      />
-    );
-  }
-  if (listQuery.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(listQuery.error).message}
-        onRetry={() => void listQuery.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement([tenantQuery, listQuery]);
+  if (queryState) return queryState;
 
   const fieldError = createFieldError(t, 'saasConnectionStrings');
   const items = listQuery.data?.items ?? [];

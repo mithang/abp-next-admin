@@ -45,6 +45,24 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 47
+
+Vòng P3 chuẩn hóa trạng thái query của màn hình detail/form: 74
+màn hình tự lặp cặp early return loading/error giống hệt nhau
+(`if (query.isPending) return <AppLoading />` + block
+`AppErrorState` với `toApiError(...).message` và retry
+`refetch()`) — nay gộp thành `src/lib/query-state.tsx`
+(`queryStateElement(query | query[])`: đang tải nếu bất kỳ
+query nào đang tải, lỗi lấy query lỗi đầu tiên). Form edit giữ
+guard `isEdit &&` như block gốc vì query detail bị disable khi
+tạo mới vẫn có `isPending = true`; helper là hàm thuần (không
+phải hook) nên an toàn ở vị trí early return cũ. Cố tình KHÔNG
+migrate: màn chat AI (tập pending gồm cả history nhưng tập lỗi
+ở đầu màn hình chỉ có detail, lỗi history render inline bên
+dưới) và dashboard (label loading riêng + retry refetch gộp cả
+3 query). Typecheck từng bắt 1 lỗi thật ở test mới (cast thiếu
+`type`), đã sửa ở test, không sửa production để che lỗi.
+
 ## Trạng thái vòng 46
 
 Vòng P3 chuẩn hóa helper dịch lỗi field của form: 32 form tự lặp

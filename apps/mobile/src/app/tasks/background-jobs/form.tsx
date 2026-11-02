@@ -9,7 +9,6 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -25,6 +24,7 @@ import {
   type BackgroundJobFormValues,
 } from '../../../features/tasks/task-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { queryStateElement } from '../../../lib/query-state';
 
 type TextFieldName =
   | 'name'
@@ -160,15 +160,8 @@ export default function BackgroundJobFormScreen() {
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
-  if (isEdit && detail.isPending) return <AppLoading />;
-  if (isEdit && detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (isEdit && queryState) return queryState;
 
   const definitionsHint =
     definitionsQuery.data?.items.map((d) => d.displayName ?? d.name).join(', ') ||

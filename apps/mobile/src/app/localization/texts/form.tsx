@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getTextByKey, setText } from '../../../features/localization/localization-api';
@@ -17,6 +16,7 @@ import {
   type TextFormValues,
 } from '../../../features/localization/form-schemas';
 import { toApiError } from '../../../lib/errors';
+import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 
 /**
@@ -105,15 +105,8 @@ export default function TextFormScreen() {
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 
-  if (isEdit && byKey.isPending) return <AppLoading />;
-  if (isEdit && byKey.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(byKey.error).message}
-        onRetry={() => void byKey.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(byKey);
+  if (isEdit && queryState) return queryState;
 
   const fieldError = createFieldError(t, 'texts');
 

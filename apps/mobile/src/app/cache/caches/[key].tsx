@@ -3,7 +3,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { AppEmptyState } from '../../../components/ui/AppStates';
+import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -45,15 +46,8 @@ export default function CacheValueDetailScreen() {
     },
   });
 
-  if (query.isPending) return <AppLoading />;
-  if (query.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(query);
+  if (queryState) return queryState;
   const item = query.data;
   if (!item) return <AppEmptyState message={t('common.empty')} />;
 

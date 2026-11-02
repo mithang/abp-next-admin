@@ -7,7 +7,8 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { AppEmptyState } from '../../../components/ui/AppStates';
+import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -95,15 +96,8 @@ export default function TenantFeaturesScreen() {
     onError: (error: unknown) => setSaveError(toApiError(error).message),
   });
 
-  if (query.isPending) return <AppLoading />;
-  if (query.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(query);
+  if (queryState) return queryState;
   const groups = query.data?.groups ?? [];
   const rows = flatten(groups);
   const changed = hasFeatureEdits(groups, edits);

@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { AppErrorState } from '../../../components/ui/AppStates';
+import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -66,15 +67,8 @@ export default function WebhookGroupFormScreen() {
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
-  if (isEdit && detail.isPending) return <AppLoading />;
-  if (isEdit && detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (isEdit && queryState) return queryState;
   if (isEdit && detail.data?.isStatic) {
     return (
       <AppErrorState message={t('webhookGroups.staticCannotEdit')} onRetry={() => router.back()} />

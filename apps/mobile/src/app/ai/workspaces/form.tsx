@@ -8,7 +8,6 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -27,6 +26,7 @@ import {
   type AIWorkspaceResetApiKeyValues,
 } from '../../../features/ai/ai-workspace-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 
 /**
@@ -173,15 +173,8 @@ export default function AIWorkspaceFormScreen() {
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
-  if (isEdit && detail.isPending) return <AppLoading />;
-  if (isEdit && detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (isEdit && queryState) return queryState;
 
   if (isReset) {
     return (

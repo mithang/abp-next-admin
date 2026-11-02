@@ -9,7 +9,8 @@ import { AppScreen } from '../../../../components/ui/AppScreen';
 import { AppSelect } from '../../../../components/ui/AppSelect';
 import { AppInput } from '../../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../../components/ui/AppFormSubmit';
-import { AppErrorState, AppLoading } from '../../../../components/ui/AppStates';
+import { AppErrorState } from '../../../../components/ui/AppStates';
+import { queryStateElement } from '../../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -89,15 +90,8 @@ export default function DataItemFormScreen() {
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
-  if (detail.isPending) return <AppLoading />;
-  if (detail.isError) {
-    return (
-      <AppErrorState
-        message={toApiError(detail.error).message}
-        onRetry={() => void detail.refetch()}
-      />
-    );
-  }
+  const queryState = queryStateElement(detail);
+  if (queryState) return queryState;
   if (isEdit && !existing) {
     return <AppErrorState message={t('common.empty')} onRetry={() => void detail.refetch()} />;
   }
