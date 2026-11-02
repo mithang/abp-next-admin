@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import * as DocumentPicker from 'expo-document-picker';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
@@ -9,7 +10,11 @@ import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
-import { getBlobContainersPaged, getBlobsPaged } from '../../features/blob/blob-api';
+import {
+  getBlobContainersPaged,
+  getBlobsPaged,
+  uploadBlobFile,
+} from '../../features/blob/blob-api';
 import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
 
@@ -51,9 +56,11 @@ function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) 
  * có parentId để dựng breadcrumb); tệp bấm vào mở màn detail.
  * Khi chưa có containerId (mở từ hub), màn hiển thị danh sách
  * container để chọn — không tự đoán container mặc định.
- * Upload tệp chưa có: cần file picker native + upload chunked
- * (xem P2 báo cáo vòng 16), nên màn chỉ ghi rõ điều đó, không tạo
- * nút upload giả.
+ * Upload tệp (vòng 31): DocumentPicker (Expo Go đã gồm sẵn module
+ * này theo docs SDK 58) + POST single-file /blobs/file; chunked
+ * /file/chunk cố tình không dùng vì backend gộp chunk sai thứ tự
+ * từ 10 chunk trở lên (xem blob-upload.ts). Tiến trình upload là
+ * trạng thái đang tải (fetch không báo % tiến trình), không bịa %.
  */
 export default function BlobsScreen() {
   const { t } = useTranslation();
@@ -63,6 +70,29 @@ export default function BlobsScreen() {
     parentId?: string;
   }>();
   const [page, setPage] = useState(0);
+  const queryClient = useQueryClient();
+
+  const uploadMutation = useMutation({
+    mutationFn: uploadBlobFile,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['blob-blobs'] });
+    },
+  });
+
+  async function onPickAndUpload() {
+    if (!containerId || uploadMutation.isPending) return;
+    const result = await DocumentPicker.getDocumentAsync({
+      type: '*/*',
+      copyToCacheDirectory: true,
+    });
+    if (result.canceled || !result.assets?.[0]) return;
+    const asset = result.assets[0];
+    uploadMutation.mutate({
+      containerId,
+      parentId: parentId || undefined,
+      file: { uri: asset.uri, name: asset.name, mimeType: asset.mimeType, size: asset.size },
+    });
+  }
 
   const containersQuery = useQuery({
     queryKey: ['blob-containers-picker'],
@@ -132,7 +162,14 @@ export default function BlobsScreen() {
         }
         testID="blob-blobs-create-folder"
       />
-      <Text>{t('blobBlobs.uploadNotAvailable')}</Text>
+      <AppButton
+        title={uploadMutation.isPending ? t('blobBlobs.uploading') : t('blobBlobs.upload')}
+        onPress={() => void onPickAndUpload()}
+        loading={uploadMutation.isPending}
+        testID="blob-blobs-upload"
+      />
+      {uploadMutation.isSuccess ? <Text>{t('blobBlobs.uploaded')}</Text> : null}
+      {uploadMutation.isError ? <Text>{toApiError(uploadMutation.error).message}</Text> : null}
       <View style={{ height: 8 }} />
       {query.isPending ? (
         <AppLoading />

@@ -45,6 +45,31 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 31
+
+Vòng P2 — upload tệp blob (đóng P2 lớn cuối cùng về chức năng, trừ
+review auth WeChat phía backend): màn danh sách tệp nay có nút "Tải
+tệp lên" thật — DocumentPicker (SDK 58, ~58.0.4, theo docs
+v58.0.0; module đã gồm trong Expo Go nên không cần dev build chỉ
+để chọn file) + POST multipart single-file tới
+/api/blob-management/blobs/file (CreateFileAsync, DTO
+BlobFileCreateDto: containerId/name/parentId? + file part 'File').
+Cố tình KHÔNG dùng chunked /file/chunk của web: server gộp chunk
+bằng OrderBy(tên file) dạng chuỗi nên từ 10 chunk trở lên thứ tự
+gộp sai ("10.chunk" trước "2.chunk") — chunked chỉ làm lại khi
+backend sửa thứ tự gộp. api-client có thêm apiUploadMultipart
+(token + _AbpDontWrapResult + envelope, không tự đặt Content-Type
+để fetch sinh boundary, timeout 120s). Sau upload invalidate query
+danh sách. Kiểm chứng live: POST không auth tới /blobs/file trả
+validation "The File field is required. The Name field is required"
+— chứng minh route + tên field đúng; upload thật vẫn BLOCKED chờ
+phiên admin TOTP. Kết quả: Jest 294/294 (48 suite, +5),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1450/1450 (+2 key ròng, bỏ
+uploadNotAvailable), backend /healthz Healthy (stack đã chạy sẵn,
+không khởi động lại). P2 còn lại duy nhất: review auth WeChat phía
+backend; P1 impersonation vẫn BLOCKED ở backend.
+
 ## Trạng thái vòng 25
 
 Vòng P2 — mạo danh (impersonation, đóng nốt P2 tenant còn lại từ vòng

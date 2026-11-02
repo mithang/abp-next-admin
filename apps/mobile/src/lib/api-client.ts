@@ -115,6 +115,72 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   }
 }
 
+/**
+ * POST multipart/form-data (upload tệp): KHÔNG tự đặt Content-Type để
+ * fetch/RN tự sinh boundary; các xử lý còn lại giống hệt apiRequest
+ * (token, _AbpDontWrapResult, envelope, 401 → unauthorizedHandler).
+ * Timeout mặc định dài hơn (120s) vì upload tệp lớn hơn JSON thường.
+ * Dùng cho endpoint nhận IRemoteStreamContent của ABP (vd blob file).
+ */
+export async function apiUploadMultipart<T>(
+  path: string,
+  form: FormData,
+  options: { timeoutMs?: number; signal?: AbortSignal } = {},
+): Promise<T> {
+  const { timeoutMs = 120000, signal } = options;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const onAbort = () => controller.abort();
+  signal?.addEventListener('abort', onAbort);
+  try {
+    const token = tokenProvider ? await tokenProvider() : null;
+    const response = await fetch(apiUrl(path), {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        _AbpDontWrapResult: 'true',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: form,
+      signal: controller.signal,
+    });
+    if (response.status === 204) return undefined as T;
+    const text = await response.text();
+    const parsed: unknown = text ? JSON.parse(text) : null;
+    const wrapHeader = response.headers?.get?.('_AbpWrapResult');
+    const headerWrapped =
+      typeof wrapHeader === 'string' && wrapHeader.toLowerCase().includes('true');
+    const envelope: WrappedEnvelope | null =
+      headerWrapped || isWrappedEnvelope(parsed) ? (parsed as WrappedEnvelope) : null;
+    if (envelope && typeof envelope.code === 'string') {
+      if (envelope.code === '0') {
+        return envelope.result as T;
+      }
+      const err = parseWrappedError(envelope);
+      if (err.status === 401) unauthorizedHandler?.();
+      throw err;
+    }
+    if (!response.ok) {
+      const err = parseApiError(response.status, parsed);
+      if (response.status === 401) unauthorizedHandler?.();
+      throw err;
+    }
+    return parsed as T;
+  } catch (error) {
+    if ((error as ApiError)?.kind) throw error;
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw {
+        kind: 'timeout',
+        message: 'Yêu cầu quá thời gian chờ. Vui lòng thử lại.',
+      } satisfies ApiError;
+    }
+    throw toApiError(error);
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener('abort', onAbort);
+  }
+}
+
 /** Kiểu phân trang chuẩn ABP: { totalCount, items }. */
 export interface PagedResult<T> {
   totalCount: number;

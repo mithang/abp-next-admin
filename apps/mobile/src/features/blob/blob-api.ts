@@ -1,4 +1,5 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiRequest, apiUploadMultipart, type PagedResult } from '../../lib/api-client';
+import { BLOB_FILE_UPLOAD_PATH, buildBlobUploadForm, type BlobUploadInput } from './blob-upload';
 import type {
   BlobContainerCreateDto,
   BlobContainerDto,
@@ -80,6 +81,22 @@ export function createBlobFolder(input: BlobFolderCreateDto) {
     method: 'POST',
     body: input,
   });
+}
+
+/**
+ * POST /api/blob-management/blobs/file — upload single-file (multipart):
+ * field scalar containerId/name/parentId? + file part 'File' (đúng tên
+ * property IRemoteStreamContent của BlobFileCreateDto). Xem blob-upload.ts
+ * vì sao không dùng chunked /file/chunk (lỗi thứ tự gộp của backend).
+ */
+export function uploadBlobFile(input: BlobUploadInput) {
+  const { fields, filePart } = buildBlobUploadForm(input);
+  const form = new FormData();
+  for (const [key, value] of Object.entries(fields)) {
+    form.append(key, value);
+  }
+  form.append('File', filePart as unknown as Blob);
+  return apiUploadMultipart<BlobDto>(BLOB_FILE_UPLOAD_PATH, form);
 }
 
 /** DELETE /api/blob-management/blobs/{id} */
