@@ -42,7 +42,7 @@ export default function EditionDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName}>
+    <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
         {item.creationTime ? (
           <Text>

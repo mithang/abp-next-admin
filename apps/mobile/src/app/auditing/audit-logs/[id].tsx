@@ -44,6 +44,7 @@ export default function AuditLogDetailScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={`${item.httpMethod ?? ''} ${item.httpStatusCode ?? ''}`.trim() || item.id}
       subtitle={item.url}
     >

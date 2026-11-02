@@ -67,7 +67,7 @@ export default function WebhookSendAttemptDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.webhookEvent.webhookName}>
+    <AppScreen scrollable title={item.webhookEvent.webhookName}>
       <VStack space="sm">
         <Text>
           {t('webhookSendAttempts.webhookName')}: {item.webhookEvent.webhookName}

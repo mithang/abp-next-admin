@@ -31,7 +31,7 @@ export default function EntityTypeInfoDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.typeFullName}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.typeFullName}>
       <VStack space="sm">
         <Text>
           {t('entityTypeInfos.name')}: {item.name}

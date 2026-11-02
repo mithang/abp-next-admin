@@ -55,7 +55,7 @@ export default function TextTemplateDefinitionDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName}>
+    <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
         <Text>
           {t('textTemplateDefinitions.name')}: {item.name}

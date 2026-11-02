@@ -43,7 +43,7 @@ export default function BlobContainerFormScreen() {
   });
 
   return (
-    <AppScreen title={t('blobContainers.createTitle')}>
+    <AppScreen scrollable title={t('blobContainers.createTitle')}>
       <VStack space="sm">
         <Controller
           control={form.control}

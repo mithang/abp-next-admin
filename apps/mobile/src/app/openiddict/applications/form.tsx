@@ -185,6 +185,7 @@ export default function ApplicationFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={
         isEdit ? t('openiddictApplications.editTitle') : t('openiddictApplications.createTitle')
       }

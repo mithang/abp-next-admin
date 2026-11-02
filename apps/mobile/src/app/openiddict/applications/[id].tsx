@@ -51,7 +51,7 @@ export default function ApplicationDetailScreen() {
   if (!app) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={app.displayName || app.clientId} subtitle={app.id}>
+    <AppScreen scrollable title={app.displayName || app.clientId} subtitle={app.id}>
       <VStack space="sm">
         <Field label={t('openiddictApplications.clientId')} value={app.clientId} />
         <Field label={t('openiddictApplications.displayName')} value={app.displayName} />

@@ -76,7 +76,7 @@ export default function RoleFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('roles.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('roles.editTitle') : t('roles.createTitle')}>
+    <AppScreen scrollable title={isEdit ? t('roles.editTitle') : t('roles.createTitle')}>
       <VStack space="md">
         <Controller
           control={form.control}

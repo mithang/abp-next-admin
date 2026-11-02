@@ -49,7 +49,7 @@ export default function TenantDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.name} subtitle={item.normalizedName}>
+    <AppScreen scrollable title={item.name} subtitle={item.normalizedName}>
       <VStack space="sm">
         <Text>
           {t('saasTenants.isActive')}:{' '}

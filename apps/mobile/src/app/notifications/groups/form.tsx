@@ -101,6 +101,7 @@ export default function NotificationGroupFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('notificationGroups.editTitle') : t('notificationGroups.createTitle')}
     >
       <VStack space="md">

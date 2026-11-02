@@ -122,6 +122,7 @@ export default function SettingDefinitionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('settingDefinitions.editTitle') : t('settingDefinitions.createTitle')}
     >
       <VStack space="md">

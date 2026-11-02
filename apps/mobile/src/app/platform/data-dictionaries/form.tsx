@@ -107,6 +107,7 @@ export default function DataFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={t(
         isEdit ? 'platformDataDictionaries.editTitle' : 'platformDataDictionaries.createTitle',
       )}

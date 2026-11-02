@@ -185,7 +185,7 @@ export default function AIWorkspaceFormScreen() {
 
   if (isReset) {
     return (
-      <AppScreen title={t('aiWorkspaces.resetApiKey')}>
+      <AppScreen scrollable title={t('aiWorkspaces.resetApiKey')}>
         <VStack space="sm">
           <Text>{t('aiWorkspaces.resetApiKeyHint')}</Text>
           <Controller
@@ -252,7 +252,7 @@ export default function AIWorkspaceFormScreen() {
   );
 
   return (
-    <AppScreen title={t(isEdit ? 'aiWorkspaces.editTitle' : 'aiWorkspaces.createTitle')}>
+    <AppScreen scrollable title={t(isEdit ? 'aiWorkspaces.editTitle' : 'aiWorkspaces.createTitle')}>
       <VStack space="sm">
         {!isEdit ? textField('name', 'aiWorkspaces.name', 'aiWorkspaces.namePlaceholder') : null}
         {textField(

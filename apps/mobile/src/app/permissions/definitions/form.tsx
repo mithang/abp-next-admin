@@ -107,6 +107,7 @@ export default function PermissionDefinitionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('permissionDefinitions.editTitle') : t('permissionDefinitions.createTitle')}
     >
       <VStack space="md">

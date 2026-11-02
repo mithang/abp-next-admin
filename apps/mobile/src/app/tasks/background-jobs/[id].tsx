@@ -117,7 +117,7 @@ export default function BackgroundJobDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.name}>
+    <AppScreen scrollable title={item.name}>
       <VStack space="sm">
         <Text>
           {t('backgroundJobs.status')}: {JOB_STATUS_LABELS[item.status] ?? item.status}

@@ -52,7 +52,7 @@ export default function LanguageDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.cultureName} subtitle={item.cultureName}>
+    <AppScreen scrollable title={item.displayName || item.cultureName} subtitle={item.cultureName}>
       <VStack space="sm">
         <Field label={t('languages.cultureName')} value={item.cultureName} />
         <Field label={t('languages.uiCultureName')} value={item.uiCultureName} />

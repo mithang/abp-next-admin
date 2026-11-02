@@ -80,7 +80,10 @@ export default function PermissionGroupFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('permissionGroups.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('permissionGroups.editTitle') : t('permissionGroups.createTitle')}>
+    <AppScreen
+      scrollable
+      title={isEdit ? t('permissionGroups.editTitle') : t('permissionGroups.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>

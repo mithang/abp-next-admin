@@ -51,7 +51,7 @@ export default function ScopeDetailScreen() {
   if (!scope) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={scope.displayName || scope.name} subtitle={scope.id}>
+    <AppScreen scrollable title={scope.displayName || scope.name} subtitle={scope.id}>
       <VStack space="sm">
         <Field label={t('openiddictScopes.name')} value={scope.name} />
         <Field label={t('openiddictScopes.displayName')} value={scope.displayName} />

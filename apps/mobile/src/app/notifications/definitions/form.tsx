@@ -120,6 +120,7 @@ export default function NotificationDefinitionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={
         isEdit ? t('notificationDefinitions.editTitle') : t('notificationDefinitions.createTitle')
       }

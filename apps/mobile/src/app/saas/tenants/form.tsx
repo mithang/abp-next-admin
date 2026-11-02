@@ -126,7 +126,7 @@ export default function TenantFormScreen() {
   const editionOptions = buildEditionOptions(editionsQuery.data?.items ?? []);
 
   return (
-    <AppScreen title={t(isEdit ? 'saasTenants.editTitle' : 'saasTenants.createTitle')}>
+    <AppScreen scrollable title={t(isEdit ? 'saasTenants.editTitle' : 'saasTenants.createTitle')}>
       <VStack space="sm">
         <Controller
           control={form.control}

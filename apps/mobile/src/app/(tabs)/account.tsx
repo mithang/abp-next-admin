@@ -29,7 +29,7 @@ export default function AccountScreen() {
   const data = profile.data;
 
   return (
-    <AppScreen title={t('account.title')}>
+    <AppScreen scrollable title={t('account.title')}>
       <VStack space="sm">
         <ImpersonationBanner />
         <Text>

@@ -45,6 +45,28 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 39
+
+Vòng P3 chuẩn hóa cuộn màn hình: rà soát thấy `AppScreen` (khung
+dùng chung của 132 màn hình) chỉ là VStack flex:1, không có
+ScrollView nào ở `src/app` — chỉ 51 màn hình danh sách tự cuộn
+được nhờ FlatList, còn 81 màn hình form/detail (32 form, 27
+detail `[id]` và các màn hình còn lại) bị cắt nội dung ở điện
+thoại màn hình nhỏ và bàn phím che field cuối. Vòng này thêm
+prop `scrollable` cho `AppScreen` (ScrollView +
+KeyboardAvoidingView iOS padding, `keyboardShouldPersistTaps`,
+padding 16 giữ đúng px-4/py-4 cũ) và bật cho đúng 81 màn hình
+không có FlatList (83 tag, 2 màn AI form có 2 tag); 51 màn hình
+danh sách giữ nguyên để không lồng VirtualizedList (phá
+virtualization). Test mới `app-screen.test.tsx` (3 test: mặc
+định không ScrollView, scrollable có ScrollView, không
+title/subtitle vẫn render). Kết quả: Jest 325/325 (55 suite, +3),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1463/1463 (không đổi key), stack
+khởi động lại cuối vòng: Redis PONG, PostgreSQL ready, backend
+/healthz Healthy, Vite 200. P1 impersonation vẫn BLOCKED ở
+backend, CRUD thật vẫn cần phiên admin TOTP; không còn P2 mở.
+
 ## Trạng thái vòng 38
 
 Vòng P3 chuẩn hóa i18n — không còn chuỗi UI hardcode ngoài hệ thống

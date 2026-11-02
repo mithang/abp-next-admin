@@ -56,7 +56,7 @@ export default function CacheSetFormScreen() {
     message && message.startsWith('caches.') ? t(message) : message;
 
   return (
-    <AppScreen title={t('caches.setTitle')}>
+    <AppScreen scrollable title={t('caches.setTitle')}>
       <VStack space="md">
         <Controller
           control={form.control}

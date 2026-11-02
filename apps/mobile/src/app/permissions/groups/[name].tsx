@@ -58,7 +58,7 @@ export default function PermissionGroupDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
         <Field label={t('permissionGroups.name')} value={item.name} />
         <Field label={t('permissionGroups.displayName')} value={item.displayName} />

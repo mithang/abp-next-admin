@@ -56,7 +56,7 @@ export default function DataDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName}>
+    <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
         <Text>
           {t('platformDataDictionaries.name')}: {item.name}

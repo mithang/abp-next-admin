@@ -58,7 +58,7 @@ export default function FeatureDefinitionDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
         <Field label={t('featureDefinitions.name')} value={item.name} />
         <Field label={t('featureDefinitions.groupName')} value={item.groupName} />

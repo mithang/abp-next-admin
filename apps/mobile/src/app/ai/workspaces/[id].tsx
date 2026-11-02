@@ -49,7 +49,7 @@ export default function AIWorkspaceDetailScreen() {
   const readOnly = isReadOnlyWorkspace(item);
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
         <Text>
           {t('aiWorkspaces.provider')}: {item.provider}

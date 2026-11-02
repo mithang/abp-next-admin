@@ -88,6 +88,7 @@ export default function OrganizationUnitFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('organizationUnits.editTitle') : t('organizationUnits.createTitle')}
     >
       <VStack space="md">

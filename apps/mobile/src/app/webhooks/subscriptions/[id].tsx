@@ -57,7 +57,7 @@ export default function WebhookSubscriptionDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.webhookUri}>
+    <AppScreen scrollable title={item.webhookUri}>
       <VStack space="sm">
         <Text>
           {t('webhookSubscriptions.webhookUri')}: {item.webhookUri}

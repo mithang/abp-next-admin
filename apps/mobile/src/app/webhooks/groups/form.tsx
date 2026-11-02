@@ -83,7 +83,10 @@ export default function WebhookGroupFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('webhookGroups.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('webhookGroups.editTitle') : t('webhookGroups.createTitle')}>
+    <AppScreen
+      scrollable
+      title={isEdit ? t('webhookGroups.editTitle') : t('webhookGroups.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>

@@ -55,7 +55,7 @@ export default function AuthorizationDetailScreen() {
   if (!authz) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={authz.subject ?? authz.id} subtitle={authz.id}>
+    <AppScreen scrollable title={authz.subject ?? authz.id} subtitle={authz.id}>
       <VStack space="sm">
         <Field label={t('openiddictAuthorizations.applicationId')} value={authz.applicationId} />
         <Field label={t('openiddictAuthorizations.subject')} value={authz.subject} />

@@ -58,7 +58,7 @@ export default function EmailMessageDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.subject ?? item.receiver}>
+    <AppScreen scrollable title={item.subject ?? item.receiver}>
       <VStack space="sm">
         <Text>
           {t('platformEmailMessages.subject')}: {item.subject ?? '—'}

@@ -105,7 +105,10 @@ export default function DataItemFormScreen() {
     message && message.startsWith('platformDataItems.') ? t(message) : message;
 
   return (
-    <AppScreen title={t(isEdit ? 'platformDataItems.editTitle' : 'platformDataItems.createTitle')}>
+    <AppScreen
+      scrollable
+      title={t(isEdit ? 'platformDataItems.editTitle' : 'platformDataItems.createTitle')}
+    >
       <VStack space="sm">
         {isEdit ? (
           <Text>

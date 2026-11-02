@@ -86,7 +86,10 @@ export default function FeatureGroupFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('featureGroups.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('featureGroups.editTitle') : t('featureGroups.createTitle')}>
+    <AppScreen
+      scrollable
+      title={isEdit ? t('featureGroups.editTitle') : t('featureGroups.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>

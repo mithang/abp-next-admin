@@ -30,7 +30,7 @@ export default function ApiDocsScreen() {
   };
 
   return (
-    <AppScreen title={t('apiDocs.title')} subtitle={t('apiDocs.subtitle')}>
+    <AppScreen scrollable title={t('apiDocs.title')} subtitle={t('apiDocs.subtitle')}>
       <VStack space="md">
         <Text>{t('apiDocs.description')}</Text>
         <Text>{swaggerUrl}</Text>

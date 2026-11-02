@@ -117,7 +117,7 @@ export default function AIToolFormScreen() {
     providersQuery.data?.items.map((p) => p.name).join(', ') || t('aiTools.providersLoading');
 
   return (
-    <AppScreen title={t(isEdit ? 'aiTools.editTitle' : 'aiTools.createTitle')}>
+    <AppScreen scrollable title={t(isEdit ? 'aiTools.editTitle' : 'aiTools.createTitle')}>
       <VStack space="sm">
         {!isEdit ? (
           <Controller

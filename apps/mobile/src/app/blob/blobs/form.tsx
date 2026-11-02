@@ -51,7 +51,7 @@ export default function BlobFolderFormScreen() {
   });
 
   return (
-    <AppScreen title={t('blobBlobs.createFolderTitle')}>
+    <AppScreen scrollable title={t('blobBlobs.createFolderTitle')}>
       <VStack space="sm">
         <Controller
           control={form.control}

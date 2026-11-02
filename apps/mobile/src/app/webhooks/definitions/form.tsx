@@ -110,6 +110,7 @@ export default function WebhookDefinitionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('webhookDefinitions.editTitle') : t('webhookDefinitions.createTitle')}
     >
       <VStack space="md">

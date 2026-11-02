@@ -59,7 +59,7 @@ export default function SettingDefinitionDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
         <Field label={t('settingDefinitions.name')} value={item.name} />
         <Field label={t('settingDefinitions.displayName')} value={item.displayName} />

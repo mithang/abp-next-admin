@@ -110,7 +110,7 @@ export default function TextTemplateContentScreen() {
   }
 
   return (
-    <AppScreen title={t('textTemplateDefinitions.editContentsTitle')}>
+    <AppScreen scrollable title={t('textTemplateDefinitions.editContentsTitle')}>
       <VStack space="md">
         <Text>
           {t('textTemplateDefinitions.name')}: {name}

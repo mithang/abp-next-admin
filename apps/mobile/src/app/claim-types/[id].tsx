@@ -44,7 +44,7 @@ export default function ClaimTypeDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.name} subtitle={item.id}>
+    <AppScreen scrollable title={item.name} subtitle={item.id}>
       <VStack space="sm">
         {item.description ? <Text>{item.description}</Text> : null}
         <Text>

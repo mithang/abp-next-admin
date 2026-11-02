@@ -48,7 +48,7 @@ export default function AIToolDetailScreen() {
   const readOnly = isReadOnlyTool(item);
 
   return (
-    <AppScreen title={item.name} subtitle={item.provider}>
+    <AppScreen scrollable title={item.name} subtitle={item.provider}>
       <VStack space="sm">
         <Text>
           {t('aiTools.provider')}: {item.provider}

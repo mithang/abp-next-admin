@@ -58,7 +58,7 @@ export default function CacheValueDetailScreen() {
   if (!item) return <AppEmptyState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={key as string} subtitle={t('caches.detailSubtitle')}>
+    <AppScreen scrollable title={key as string} subtitle={t('caches.detailSubtitle')}>
       <VStack space="sm">
         <Text>
           {t('caches.type')}: {item.type}

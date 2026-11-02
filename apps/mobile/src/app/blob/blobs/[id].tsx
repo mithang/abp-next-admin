@@ -79,7 +79,7 @@ export default function BlobDetailScreen() {
   const isFolder = item.type === BLOB_TYPE_FOLDER;
 
   return (
-    <AppScreen title={item.name}>
+    <AppScreen scrollable title={item.name}>
       <VStack space="sm">
         <Text>
           {t('blobBlobs.fullName')}: {item.fullName}

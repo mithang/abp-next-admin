@@ -124,7 +124,10 @@ export default function LayoutFormScreen() {
   }));
 
   return (
-    <AppScreen title={t(isEdit ? 'platformLayouts.editTitle' : 'platformLayouts.createTitle')}>
+    <AppScreen
+      scrollable
+      title={t(isEdit ? 'platformLayouts.editTitle' : 'platformLayouts.createTitle')}
+    >
       <VStack space="sm">
         <Controller
           control={form.control}

@@ -96,7 +96,7 @@ export default function ClaimTypeFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('claimTypes.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('claimTypes.editTitle') : t('claimTypes.createTitle')}>
+    <AppScreen scrollable title={isEdit ? t('claimTypes.editTitle') : t('claimTypes.createTitle')}>
       <VStack space="md">
         {isEdit ? (
           <>

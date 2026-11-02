@@ -78,7 +78,7 @@ export default function DataMoveScreen() {
       .join('\n') || t('platformDataDictionaries.parentsLoading');
 
   return (
-    <AppScreen title={t('platformDataDictionaries.moveTitle')}>
+    <AppScreen scrollable title={t('platformDataDictionaries.moveTitle')}>
       <VStack space="sm">
         <Text>
           {detail.data?.displayName} ({detail.data?.name})

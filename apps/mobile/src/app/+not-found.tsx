@@ -5,7 +5,7 @@ import { AppScreen } from '../components/ui/AppScreen';
 export default function NotFound() {
   const { t } = useTranslation();
   return (
-    <AppScreen title={t('notFound.title')}>
+    <AppScreen scrollable title={t('notFound.title')}>
       <Link href="/(tabs)">{t('notFound.backHome')}</Link>
     </AppScreen>
   );

@@ -42,7 +42,7 @@ export default function SecurityLogDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.userName ?? item.identity ?? item.id} subtitle={item.id}>
+    <AppScreen scrollable title={item.userName ?? item.identity ?? item.id} subtitle={item.id}>
       <VStack space="sm">
         {item.action ? (
           <Text>

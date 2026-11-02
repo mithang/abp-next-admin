@@ -53,7 +53,7 @@ export default function WebhookGroupDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName}>
+    <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
         <Text>
           {t('webhookGroups.name')}: {item.name}

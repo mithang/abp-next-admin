@@ -58,7 +58,7 @@ export default function NotificationSendScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('notificationSend.') ? t(key) : key);
 
   return (
-    <AppScreen title={t('notificationSend.title')}>
+    <AppScreen scrollable title={t('notificationSend.title')}>
       <VStack space="md">
         <Text>
           {t('notificationSend.name')}: {name}

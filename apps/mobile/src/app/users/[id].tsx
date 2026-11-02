@@ -59,7 +59,7 @@ export default function UserDetailScreen() {
   if (!user) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={displayName(user)} subtitle={user.userName}>
+    <AppScreen scrollable title={displayName(user)} subtitle={user.userName}>
       <VStack space="sm">
         <Text>
           {t('account.email')}: {user.email}

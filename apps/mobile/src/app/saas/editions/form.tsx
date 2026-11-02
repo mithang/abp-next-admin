@@ -83,7 +83,7 @@ export default function EditionFormScreen() {
     message && message.startsWith('saasEditions.') ? t(message) : message;
 
   return (
-    <AppScreen title={t(isEdit ? 'saasEditions.editTitle' : 'saasEditions.createTitle')}>
+    <AppScreen scrollable title={t(isEdit ? 'saasEditions.editTitle' : 'saasEditions.createTitle')}>
       <VStack space="sm">
         <Controller
           control={form.control}

@@ -174,7 +174,10 @@ export default function BackgroundJobFormScreen() {
     t('backgroundJobs.typeHint');
 
   return (
-    <AppScreen title={isEdit ? t('backgroundJobs.editTitle') : t('backgroundJobs.createTitle')}>
+    <AppScreen
+      scrollable
+      title={isEdit ? t('backgroundJobs.editTitle') : t('backgroundJobs.createTitle')}
+    >
       <VStack space="sm">
         {isEdit && detail.data ? (
           <>

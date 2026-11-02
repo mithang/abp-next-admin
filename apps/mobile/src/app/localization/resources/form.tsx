@@ -103,7 +103,7 @@ export default function ResourceFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('resources.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('resources.editTitle') : t('resources.createTitle')}>
+    <AppScreen scrollable title={isEdit ? t('resources.editTitle') : t('resources.createTitle')}>
       <VStack space="md">
         {isEdit ? (
           <Text>

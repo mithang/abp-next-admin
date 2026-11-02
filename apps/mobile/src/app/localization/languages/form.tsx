@@ -83,7 +83,7 @@ export default function LanguageFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('languages.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('languages.editTitle') : t('languages.createTitle')}>
+    <AppScreen scrollable title={isEdit ? t('languages.editTitle') : t('languages.createTitle')}>
       <VStack space="md">
         {isEdit ? (
           <>

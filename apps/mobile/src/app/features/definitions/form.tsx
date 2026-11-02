@@ -120,6 +120,7 @@ export default function FeatureDefinitionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('featureDefinitions.editTitle') : t('featureDefinitions.createTitle')}
     >
       <VStack space="md">

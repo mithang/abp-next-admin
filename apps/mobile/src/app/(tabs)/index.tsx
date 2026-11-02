@@ -38,6 +38,7 @@ export default function DashboardScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={t('dashboard.title')}
       subtitle={`${t('dashboard.welcome')}${userName ? `, ${userName}` : ''}`}
     >

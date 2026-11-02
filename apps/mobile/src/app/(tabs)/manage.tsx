@@ -188,7 +188,7 @@ export default function ManageScreen() {
   const router = useRouter();
 
   return (
-    <AppScreen title={t('manage.title')} subtitle={t('manage.subtitle')}>
+    <AppScreen scrollable title={t('manage.title')} subtitle={t('manage.subtitle')}>
       <VStack space="sm">
         {ENTRIES.map((entry) => (
           <Pressable key={entry.route} onPress={() => router.push(entry.route)}>

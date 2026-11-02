@@ -52,7 +52,7 @@ export default function ResourceDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
         <Field label={t('resources.name')} value={item.name} />
         <Field label={t('resources.displayName')} value={item.displayName} />

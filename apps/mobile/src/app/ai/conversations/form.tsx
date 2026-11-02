@@ -100,7 +100,7 @@ export default function AIConversationFormScreen() {
 
   if (isEdit) {
     return (
-      <AppScreen title={t('aiConversations.renameTitle')}>
+      <AppScreen scrollable title={t('aiConversations.renameTitle')}>
         <VStack space="sm">
           <Controller
             control={renameForm.control}
@@ -131,7 +131,7 @@ export default function AIConversationFormScreen() {
   }
 
   return (
-    <AppScreen title={t('aiConversations.createTitle')}>
+    <AppScreen scrollable title={t('aiConversations.createTitle')}>
       <VStack space="sm">
         <Controller
           control={createForm.control}

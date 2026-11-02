@@ -115,6 +115,7 @@ export default function WebhookSubscriptionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={isEdit ? t('webhookSubscriptions.editTitle') : t('webhookSubscriptions.createTitle')}
     >
       <VStack space="md">

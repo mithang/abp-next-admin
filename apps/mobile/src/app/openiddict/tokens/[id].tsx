@@ -56,7 +56,7 @@ export default function TokenDetailScreen() {
   if (!token) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={token.referenceId ?? token.id} subtitle={token.id}>
+    <AppScreen scrollable title={token.referenceId ?? token.id} subtitle={token.id}>
       <VStack space="sm">
         <Field label={t('openiddictTokens.applicationId')} value={token.applicationId} />
         <Field label={t('openiddictTokens.authorizationId')} value={token.authorizationId} />

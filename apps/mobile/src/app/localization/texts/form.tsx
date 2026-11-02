@@ -117,7 +117,7 @@ export default function TextFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('texts.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('texts.editTitle') : t('texts.createTitle')}>
+    <AppScreen scrollable title={isEdit ? t('texts.editTitle') : t('texts.createTitle')}>
       <VStack space="md">
         <Controller
           control={form.control}

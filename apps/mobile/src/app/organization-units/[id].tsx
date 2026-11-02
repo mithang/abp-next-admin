@@ -51,7 +51,7 @@ export default function OrganizationUnitDetailScreen() {
   const parentName = all.data ? findOrganizationUnitName(all.data.items, item.parentId) : undefined;
 
   return (
-    <AppScreen title={item.displayName} subtitle={item.id}>
+    <AppScreen scrollable title={item.displayName} subtitle={item.id}>
       <VStack space="sm">
         <Text>
           {t('organizationUnits.code')}: {item.code}

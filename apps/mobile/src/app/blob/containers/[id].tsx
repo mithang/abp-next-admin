@@ -49,7 +49,7 @@ export default function BlobContainerDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.name}>
+    <AppScreen scrollable title={item.name}>
       <VStack space="sm">
         <Text>
           {t('blobContainers.name')}: {item.name}

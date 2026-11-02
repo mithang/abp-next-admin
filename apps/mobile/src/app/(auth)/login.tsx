@@ -47,7 +47,7 @@ export default function LoginScreen() {
   if (busy) return <AppLoading label={t('auth.loggingIn')} />;
 
   return (
-    <AppScreen title={t('app.name')} subtitle={t('auth.loginSubtitle')}>
+    <AppScreen scrollable title={t('app.name')} subtitle={t('auth.loginSubtitle')}>
       <VStack space="md">
         <Text>{t('auth.loginHint')}</Text>
         <AppButton

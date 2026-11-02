@@ -49,7 +49,7 @@ export default function TenantImpersonateScreen() {
   }
 
   return (
-    <AppScreen title={t('impersonation.tenantTitle')} subtitle={tenantName}>
+    <AppScreen scrollable title={t('impersonation.tenantTitle')} subtitle={tenantName}>
       <VStack space="sm">
         <Text>{t('impersonation.tenantHint')}</Text>
         <AppInput

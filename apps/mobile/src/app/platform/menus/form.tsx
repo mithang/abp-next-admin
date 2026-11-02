@@ -154,7 +154,7 @@ export default function MenuFormScreen() {
       : t('platformMenus.createTitle');
 
   return (
-    <AppScreen title={title}>
+    <AppScreen scrollable title={title}>
       <VStack space="sm">
         <Controller
           control={form.control}

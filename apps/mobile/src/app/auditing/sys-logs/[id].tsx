@@ -33,7 +33,11 @@ export default function SysLogDetailScreen() {
   const fields = item.fields ?? {};
 
   return (
-    <AppScreen title={`${logLevelName(item.level)}`} subtitle={formatDateTime(item.timeStamp)}>
+    <AppScreen
+      scrollable
+      title={`${logLevelName(item.level)}`}
+      subtitle={formatDateTime(item.timeStamp)}
+    >
       <VStack space="sm">
         {item.message ? (
           <Text>

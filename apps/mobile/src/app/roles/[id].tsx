@@ -50,7 +50,7 @@ export default function RoleDetailScreen() {
   };
 
   return (
-    <AppScreen title={role.name} subtitle={role.id}>
+    <AppScreen scrollable title={role.name} subtitle={role.id}>
       <VStack space="sm">
         {roleFlags(role).map((flag) => (
           <Badge key={flag} variant="default" className="self-start">

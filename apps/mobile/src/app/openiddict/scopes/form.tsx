@@ -92,7 +92,10 @@ export default function ScopeFormScreen() {
   const fieldError = (key?: string) => (key && key.startsWith('openiddictScopes.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('openiddictScopes.editTitle') : t('openiddictScopes.createTitle')}>
+    <AppScreen
+      scrollable
+      title={isEdit ? t('openiddictScopes.editTitle') : t('openiddictScopes.createTitle')}
+    >
       <VStack space="md">
         <Controller
           control={form.control}

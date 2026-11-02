@@ -49,7 +49,7 @@ export default function NotificationDefinitionDetailScreen() {
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={item.displayName || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
         <Text>
           {t('notificationDefinitions.groupName')}: {item.groupName}

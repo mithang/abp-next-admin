@@ -64,7 +64,7 @@ export default function MyNotificationDetailScreen() {
   const isUnread = item.state === NotificationReadState.UnRead;
 
   return (
-    <AppScreen title={title || item.name} subtitle={item.name}>
+    <AppScreen scrollable title={title || item.name} subtitle={item.name}>
       <VStack space="sm">
         {message ? (
           <Text>

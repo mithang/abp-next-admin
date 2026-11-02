@@ -108,6 +108,7 @@ export default function TextTemplateDefinitionFormScreen() {
 
   return (
     <AppScreen
+      scrollable
       title={
         isEdit ? t('textTemplateDefinitions.editTitle') : t('textTemplateDefinitions.createTitle')
       }
