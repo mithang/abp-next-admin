@@ -9,10 +9,11 @@ import type { SettingGroup, SettingsUpdateInput } from '../settings/types';
  *   PUT /api/setting-management/settings/change-global và
  *   /change-current-tenant (cùng shape { settings: [{ name, value }] }
  *   như màn Cài đặt hệ thống, chỉ gửi các giá trị đã đổi).
- * - Web chọn tenant hay global theo currentTenant.isAvailable — mobile
- *   không có tín hiệu tenant (không fetch application-configuration),
- *   nên màn hình để người dùng chọn phạm vi rõ ràng (mặc định Toàn cục)
- *   thay vì đoán ngầm; 2 đường lấy/lưu đi theo cùng phạm vi đã chọn.
+ * - Web chọn tenant hay global theo currentTenant.isAvailable — từ vòng
+ *   32 mobile cũng đọc tín hiệu này từ application-configuration (xem
+ *   tenant-availability.ts): không có tenant thì màn hình khóa phạm vi
+ *   Tenant và ép đọc/ghi về Toàn cục; 2 đường lấy/lưu đi theo cùng
+ *   phạm vi hiệu dụng đã chọn.
  */
 
 /** GET /api/wechat/setting-management/by-global */

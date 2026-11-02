@@ -15,6 +15,7 @@ import {
   setWechatGlobalSettings,
   setWechatTenantSettings,
 } from '../../features/wechat/wechat-settings-api';
+import { getTenantAvailability } from '../../features/wechat/tenant-availability';
 import { collectChangedSettings, isValidOptionValue } from '../../features/settings/settings-api';
 import {
   SettingValueType,
@@ -55,8 +56,10 @@ function flatten(groups: SettingGroup[]): Row[] {
  * lưu khi ngoài options, mã hoá → nhập ẩn, Array/Object/NoSet → chỉ
  * đọc); nút Lưu chỉ gửi các giá trị đã đổi (collectChangedSettings).
  * Web chọn tenant hay global theo currentTenant.isAvailable — mobile
- * không có tín hiệu tenant nên để người dùng chọn phạm vi rõ ràng
- * (mặc định Toàn cục), tránh đoán ngầm phạm vi ghi.
+ * từ vòng 32 cũng đọc tín hiệu này từ application-configuration: khi
+ * không có tenant hiện tại, phạm vi Tenant bị khóa và mọi đọc/ghi ép
+ * về Toàn cục, vì route by-current-tenant nổ 500 khi không có tenant
+ * (CurrentTenant.GetId().ToString(), xem tenant-availability.ts).
  */
 export default function WechatSettingsScreen() {
   const { t } = useTranslation();
@@ -66,15 +69,27 @@ export default function WechatSettingsScreen() {
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
 
+  const tenantQuery = useQuery({
+    queryKey: ['wechat-tenant-availability'],
+    queryFn: getTenantAvailability,
+  });
+  const tenantAvailable = tenantQuery.data;
+  // Không có tenant → ép về Toàn cục thay vì để người dùng gọi route
+  // by-current-tenant rồi nhận 500 (xem tenant-availability.ts).
+  const effectiveScope = tenantAvailable === false ? 'global' : scope;
+
   const query = useQuery({
-    queryKey: ['wechat-settings', scope],
-    queryFn: () => (scope === 'tenant' ? getWechatTenantSettings() : getWechatGlobalSettings()),
+    queryKey: ['wechat-settings', effectiveScope],
+    queryFn: () =>
+      effectiveScope === 'tenant' ? getWechatTenantSettings() : getWechatGlobalSettings(),
   });
 
   const saveMutation = useMutation({
     mutationFn: () => {
       const input = collectChangedSettings(query.data?.items ?? [], edits);
-      return scope === 'tenant' ? setWechatTenantSettings(input) : setWechatGlobalSettings(input);
+      return effectiveScope === 'tenant'
+        ? setWechatTenantSettings(input)
+        : setWechatGlobalSettings(input);
     },
     onSuccess: async () => {
       setEdits({});
@@ -196,7 +211,7 @@ export default function WechatSettingsScreen() {
       <View style={{ flexDirection: 'row', gap: 8 }}>
         <AppButton
           title={t('wechatSettings.scopeGlobal')}
-          variant={scope === 'global' ? 'solid' : 'outline'}
+          variant={effectiveScope === 'global' ? 'solid' : 'outline'}
           onPress={() => {
             setScope('global');
             setEdits({});
@@ -206,7 +221,8 @@ export default function WechatSettingsScreen() {
         />
         <AppButton
           title={t('wechatSettings.scopeTenant')}
-          variant={scope === 'tenant' ? 'solid' : 'outline'}
+          variant={effectiveScope === 'tenant' ? 'solid' : 'outline'}
+          disabled={tenantQuery.isPending || tenantAvailable === false}
           onPress={() => {
             setScope('tenant');
             setEdits({});
@@ -215,6 +231,7 @@ export default function WechatSettingsScreen() {
           }}
         />
       </View>
+      {tenantAvailable === false ? <Text>{t('wechatSettings.scopeTenantUnavailable')}</Text> : null}
       <FlatList
         data={flatten(groups)}
         keyExtractor={(row) => row.key}

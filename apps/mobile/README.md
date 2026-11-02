@@ -70,6 +70,36 @@ uploadNotAvailable), backend /healthz Healthy (stack đã chạy sẵn,
 không khởi động lại). P2 còn lại duy nhất: review auth WeChat phía
 backend; P1 impersonation vẫn BLOCKED ở backend.
 
+## Trạng thái vòng 32
+
+Vòng P2 — đóng review auth WeChat (P2 cuối cùng còn mở): đọc thẳng
+controller + app service backend thay vì tin ghi chú vòng 17.
+Kết luận đã tinh chỉnh: controller WeChatSettingController thật sự
+không có [Authorize], NHƯNG các nhóm nhạy cảm (Official, MiniProgram,
+Work — AppId/AppSecret/Token/EncodingAESKey/CorpId/Secret) đều bị
+chặn bên trong app service bằng PermissionChecker + feature flag,
+nên đọc không auth tới by-global chỉ trả đúng 1 cờ boolean
+EnabledQuickLogin, không rò rỉ secret (kiểm chứng live, chỉ đếm
+shape, không in giá trị). Ghi qua PUT vẫn 401 khi không auth. Lỗi
+500 của by-current-tenant khi không auth/không tenant là do
+CurrentTenant.GetId().ToString() nổ khi không có tenant, không phải
+lỗi auth; web tránh bằng cách chỉ gọi route này khi
+currentTenant.isAvailable. Mẫu thiếu [Authorize] này là chung toàn
+repo (SettingController chung và mọi controller setting anh em đều
+vậy) nên KHÔNG vá riêng WeChat trong vòng mobile — ghi thành backlog
+backend: thêm [Authorize] đồng loạt cho các controller setting và
+trả 400/rỗng thay cho 500 khi không có tenant. Phần mobile sửa
+được thì sửa thật: màn WeChat nay đọc
+GET /api/abp/application-configuration, khóa nút "Tenant hiện tại"
+và ép đọc/ghi về Toàn cục khi không có tenant (kèm dòng giải
+thích), tránh đường gọi chắc chắn 500 cho tài khoản host. Kết quả:
+Jest 299/299 (49 suite, +5: tenant-availability), typecheck/lint/
+format/expo config PASS (lint 0 errors, đúng 14 warning vendored),
+parity i18n 1451/1451 (+1 key scopeTenantUnavailable), backend
+/healthz Healthy + Redis PONG (stack đã chạy sẵn, không khởi động
+lại). Sau vòng này không còn P2 mở nào; còn lại P1 impersonation
+BLOCKED ở backend và CRUD thật BLOCKED chờ phiên admin TOTP.
+
 ## Trạng thái vòng 25
 
 Vòng P2 — mạo danh (impersonation, đóng nốt P2 tenant còn lại từ vòng
