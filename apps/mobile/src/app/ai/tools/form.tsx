@@ -24,6 +24,7 @@ import {
   type AIToolFormValues,
 } from '../../../features/ai/ai-tool-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa công cụ AI. Tạo nhập name; sửa không đổi name (khóa định
@@ -106,8 +107,7 @@ export default function AIToolFormScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('aiTools.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'aiTools');
 
   const effectiveProvider = providerText || detail.data?.provider || '';
   const selectedProvider = providersQuery.data?.items.find(

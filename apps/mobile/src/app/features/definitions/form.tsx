@@ -23,6 +23,7 @@ import {
 } from '../../../features/features/feature-definition-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa định nghĩa tính năng: tạo nhập name + groupName + valueType;
@@ -115,8 +116,7 @@ export default function FeatureDefinitionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('featureDefinitions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'featureDefinitions');
 
   return (
     <AppScreen

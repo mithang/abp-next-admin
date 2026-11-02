@@ -24,6 +24,7 @@ import {
   type SettingDefinitionFormValues,
 } from '../../../features/settings/setting-definition-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa định nghĩa cài đặt: tạo nhập name + displayName; sửa không
@@ -117,8 +118,7 @@ export default function SettingDefinitionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('settingDefinitions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'settingDefinitions');
 
   return (
     <AppScreen

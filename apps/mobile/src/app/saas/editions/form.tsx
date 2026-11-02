@@ -17,6 +17,7 @@ import {
   type EditionFormValues,
 } from '../../../features/saas/edition-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /** Form tạo/sửa phiên bản: chỉ displayName (+ extraProperties JSON); sửa gửi kèm concurrencyStamp. */
 export default function EditionFormScreen() {
@@ -78,8 +79,7 @@ export default function EditionFormScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('saasEditions.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'saasEditions');
 
   return (
     <AppScreen scrollable title={t(isEdit ? 'saasEditions.editTitle' : 'saasEditions.createTitle')}>

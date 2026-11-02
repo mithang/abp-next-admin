@@ -26,6 +26,7 @@ import {
   type ClaimTypeFormValues,
 } from '../../features/identity/claim-type-form-schema';
 import { toApiError } from '../../lib/errors';
+import { createFieldError } from '../../lib/field-error';
 
 const VALUE_TYPE_OPTIONS = [ValueType.String, ValueType.Int, ValueType.Boolean, ValueType.DateTime];
 
@@ -94,7 +95,7 @@ export default function ClaimTypeFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('claimTypes.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'claimTypes');
 
   return (
     <AppScreen scrollable title={isEdit ? t('claimTypes.editTitle') : t('claimTypes.createTitle')}>

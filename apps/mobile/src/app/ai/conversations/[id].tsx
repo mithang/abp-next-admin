@@ -18,6 +18,7 @@ import {
 import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { resolveFieldError } from '../../../lib/field-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 
 interface ChatBubble {
@@ -83,7 +84,7 @@ export default function AIConversationChatScreen() {
     const parsed = aiChatMessageSchema.safeParse({ content });
     if (!parsed.success) {
       const message = parsed.error.issues[0]?.message ?? 'aiConversations.contentRequired';
-      setContentError(message.startsWith('aiConversations.') ? t(message) : message);
+      setContentError(resolveFieldError(t, 'aiConversations', message));
       return;
     }
     if (!detail.data) return;

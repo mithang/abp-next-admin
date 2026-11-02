@@ -17,6 +17,7 @@ import {
 } from '../../../features/openiddict/scope-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa phạm vi: route /openiddict/scopes/form (tạo) hoặc
@@ -88,7 +89,7 @@ export default function ScopeFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('openiddictScopes.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'openiddictScopes');
 
   return (
     <AppScreen

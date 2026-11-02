@@ -17,6 +17,7 @@ import {
 } from '../../../features/notifications/notification-send-form-schema';
 import { parseEnumNumber } from '../../../features/notifications/notification-definition-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form gửi thông báo (web NotificationSendModal): name khóa theo định nghĩa
@@ -55,7 +56,7 @@ export default function NotificationSendScreen() {
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 
-  const fieldError = (key?: string) => (key && key.startsWith('notificationSend.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'notificationSend');
 
   return (
     <AppScreen scrollable title={t('notificationSend.title')}>

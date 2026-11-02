@@ -17,6 +17,7 @@ import {
   type CacheSetFormValues,
 } from '../../../features/caching/cache-set-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form đặt giá trị cache: PUT /api/caching-management/cache/set.
@@ -52,8 +53,7 @@ export default function CacheSetFormScreen() {
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('caches.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'caches');
 
   return (
     <AppScreen scrollable title={t('caches.setTitle')}>

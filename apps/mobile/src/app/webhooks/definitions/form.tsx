@@ -23,6 +23,7 @@ import {
   type WebhookDefinitionFormValues,
 } from '../../../features/webhooks/webhook-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa định nghĩa Webhook: tạo nhập groupName + name; sửa chỉ
@@ -105,8 +106,7 @@ export default function WebhookDefinitionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('webhookDefinitions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'webhookDefinitions');
 
   return (
     <AppScreen

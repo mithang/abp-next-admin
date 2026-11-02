@@ -22,6 +22,7 @@ import {
   type ResourceFormValues,
 } from '../../../features/localization/form-schemas';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa tài nguyên theo modal web: enable + name + displayName +
@@ -100,7 +101,7 @@ export default function ResourceFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('resources.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'resources');
 
   return (
     <AppScreen scrollable title={isEdit ? t('resources.editTitle') : t('resources.createTitle')}>

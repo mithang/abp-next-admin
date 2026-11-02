@@ -21,6 +21,7 @@ import {
   type LanguageFormValues,
 } from '../../../features/localization/form-schemas';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa ngôn ngữ. Tạo nhập cultureName + uiCultureName + displayName.
@@ -80,7 +81,7 @@ export default function LanguageFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('languages.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'languages');
 
   return (
     <AppScreen scrollable title={isEdit ? t('languages.editTitle') : t('languages.createTitle')}>

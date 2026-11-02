@@ -17,6 +17,7 @@ import {
   type RoleFormValues,
 } from '../../features/identity/role-form-schema';
 import { toApiError } from '../../lib/errors';
+import { createFieldError } from '../../lib/field-error';
 
 /**
  * Form tạo/sửa vai trò: route /roles/form (tạo) hoặc /roles/form?id=<id> (sửa).
@@ -72,7 +73,7 @@ export default function RoleFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('roles.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'roles');
 
   return (
     <AppScreen scrollable title={isEdit ? t('roles.editTitle') : t('roles.createTitle')}>

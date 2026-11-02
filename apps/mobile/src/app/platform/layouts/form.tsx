@@ -25,6 +25,7 @@ import {
   type LayoutFormValues,
 } from '../../../features/platform/layout-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa bố cục, đúng DTO C#:
@@ -111,8 +112,7 @@ export default function LayoutFormScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('platformLayouts.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'platformLayouts');
   const dataOptions = orderTreeItems(datasQuery.data?.items ?? []).map(({ item, depth }) => ({
     value: item.id,
     label: item.displayName,

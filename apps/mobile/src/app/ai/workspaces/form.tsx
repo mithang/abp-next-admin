@@ -27,6 +27,7 @@ import {
   type AIWorkspaceResetApiKeyValues,
 } from '../../../features/ai/ai-workspace-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa không gian làm việc + chế độ đặt lại API key (?reset=1).
@@ -105,8 +106,7 @@ export default function AIWorkspaceFormScreen() {
     defaultValues: { apiKey: '' },
   });
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('aiWorkspaces.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'aiWorkspaces');
 
   const mutation = useMutation({
     mutationFn: async (values: AIWorkspaceFormValues) => {

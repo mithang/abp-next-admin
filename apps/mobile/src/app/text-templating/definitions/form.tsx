@@ -22,6 +22,7 @@ import {
   type TextTemplateDefinitionFormValues,
 } from '../../../features/text-templating/text-template-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa định nghĩa mẫu văn bản: tạo nhập name; sửa chỉ đổi các
@@ -103,8 +104,7 @@ export default function TextTemplateDefinitionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('textTemplateDefinitions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'textTemplateDefinitions');
 
   return (
     <AppScreen

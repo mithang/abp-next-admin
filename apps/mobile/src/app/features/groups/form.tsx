@@ -21,6 +21,7 @@ import {
   type FeatureGroupFormValues,
 } from '../../../features/features/feature-group-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa nhóm tính năng: tạo nhập name + displayName; sửa chỉ đổi
@@ -83,7 +84,7 @@ export default function FeatureGroupFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('featureGroups.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'featureGroups');
 
   return (
     <AppScreen

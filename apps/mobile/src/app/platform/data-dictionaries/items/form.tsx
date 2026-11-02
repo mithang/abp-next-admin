@@ -23,6 +23,7 @@ import {
   type DataItemFormValues,
 } from '../../../../features/platform/data-form-schema';
 import { toApiError } from '../../../../lib/errors';
+import { createFieldError } from '../../../../lib/field-error';
 import { buildDataValueTypeOptions } from '../../../../lib/app-select-options';
 
 /**
@@ -101,8 +102,7 @@ export default function DataItemFormScreen() {
     return <AppErrorState message={t('common.empty')} onRetry={() => void detail.refetch()} />;
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('platformDataItems.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'platformDataItems');
 
   return (
     <AppScreen

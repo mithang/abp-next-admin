@@ -22,6 +22,7 @@ import {
   type DataFormValues,
 } from '../../../features/platform/data-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa từ điển dữ liệu, đúng DTO C#:
@@ -99,8 +100,7 @@ export default function DataFormScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('platformDataDictionaries.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'platformDataDictionaries');
   const parentsHint =
     parentsQuery.data?.items.map((d) => `${d.displayName} — ${d.id}`).join('\n') ||
     t('platformDataDictionaries.parentsLoading');

@@ -23,6 +23,7 @@ import {
   type NotificationDefinitionFormValues,
 } from '../../../features/notifications/notification-definition-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa định nghĩa thông báo: tạo nhập name (+groupName); sửa chỉ
@@ -115,8 +116,7 @@ export default function NotificationDefinitionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('notificationDefinitions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'notificationDefinitions');
 
   return (
     <AppScreen

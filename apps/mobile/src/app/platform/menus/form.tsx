@@ -26,6 +26,7 @@ import {
   type MenuFormValues,
 } from '../../../features/platform/menu-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa menu, đúng DTO C#:
@@ -131,8 +132,7 @@ export default function MenuFormScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('platformMenus.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'platformMenus');
   const layoutOptions = (layoutsQuery.data?.items ?? []).map((l) => ({
     value: l.id,
     label: l.displayName,

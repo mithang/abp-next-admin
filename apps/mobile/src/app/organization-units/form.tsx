@@ -25,6 +25,7 @@ import {
   type OrganizationUnitFormValues,
 } from '../../features/identity/organization-unit-form-schema';
 import { toApiError } from '../../lib/errors';
+import { createFieldError } from '../../lib/field-error';
 
 /**
  * Form tạo/sửa đơn vị tổ chức: /organization-units/form (tạo gốc hoặc tạo con
@@ -84,7 +85,7 @@ export default function OrganizationUnitFormScreen() {
       />
     );
   }
-  const fieldError = (key?: string) => (key && key.startsWith('organizationUnits.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'organizationUnits');
 
   return (
     <AppScreen

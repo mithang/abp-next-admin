@@ -17,6 +17,7 @@ import {
   type TextFormValues,
 } from '../../../features/localization/form-schemas';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form đặt văn bản (PUT set-text), đúng modal web:
@@ -114,7 +115,7 @@ export default function TextFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('texts.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'texts');
 
   return (
     <AppScreen scrollable title={isEdit ? t('texts.editTitle') : t('texts.createTitle')}>

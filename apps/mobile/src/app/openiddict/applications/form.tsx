@@ -21,6 +21,7 @@ import {
 } from '../../../features/openiddict/application-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa ứng dụng: route /openiddict/applications/form (tạo) hoặc
@@ -179,8 +180,7 @@ export default function ApplicationFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('openiddictApplications.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'openiddictApplications');
 
   return (
     <AppScreen

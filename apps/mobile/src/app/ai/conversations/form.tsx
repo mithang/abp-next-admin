@@ -24,6 +24,7 @@ import {
   type AIConversationRenameValues,
 } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo phiên mới (?id trống) hoặc đổi tên (?id=...).
@@ -60,8 +61,7 @@ export default function AIConversationFormScreen() {
     values: detail.data ? { name: detail.data.name } : undefined,
   });
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('aiConversations.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'aiConversations');
 
   const createMutation = useMutation({
     mutationFn: async (values: AIConversationCreateValues) =>

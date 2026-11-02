@@ -45,6 +45,28 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 46
+
+Vòng P3 chuẩn hóa helper dịch lỗi field của form: 32 form tự lặp
+định nghĩa cục bộ `(msg?) => msg && msg.startsWith('<prefix>.')
+? t(msg) : msg` (mỗi form một prefix i18n riêng) cộng 1 chỗ
+inline cùng mẫu ở màn chat AI — nay gộp thành
+`src/lib/field-error.ts` (`createFieldError(t, prefix)` +
+`resolveFieldError`). Cố tình KHÔNG làm hook `useFieldError`:
+hầu hết định nghĩa gốc nằm sau early return
+(`if (isEdit && detail.isPending) return <AppLoading />`) nên
+hook sẽ vi phạm quy tắc thứ tự hook; factory thuần nhận `t`
+sẵn có nên an toàn ở mọi vị trí. Typecheck từng bắt 1 lỗi thật
+do helper mới trả `string | undefined` trong khi `setContentError`
+ở màn chat cần `string` — đã sửa bằng overload (message `string`
+→ `string`, message optional → `string | undefined`), không sửa
+kiểu của màn hình để che lỗi. Kết quả: Jest 357/357 (62 suite,
++5 test mới), typecheck/lint/format/expo config PASS (lint 0
+errors, đúng 14 warning vendored), parity i18n 1463/1463, backend
+/healthz Healthy + Vite 200 (stack sống suốt vòng, không cần
+khởi động lại). Không còn P2 mở; P1 impersonation vẫn BLOCKED
+ở backend và CRUD thật vẫn cần phiên admin TOTP.
+
 ## Trạng thái vòng 45
 
 Vòng P3 chuẩn hóa chân form: cặp lặp lại ở mọi form —

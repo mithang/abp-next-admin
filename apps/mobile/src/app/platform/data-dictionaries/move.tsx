@@ -17,6 +17,7 @@ import {
   type DataMoveFormValues,
 } from '../../../features/platform/data-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Di chuyển từ điển sang cha khác: PUT /api/platform/datas/{id}/move
@@ -69,8 +70,7 @@ export default function DataMoveScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('platformDataDictionaries.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'platformDataDictionaries');
   const parentsHint =
     parentsQuery.data?.items
       .filter((d) => d.id !== dataId)

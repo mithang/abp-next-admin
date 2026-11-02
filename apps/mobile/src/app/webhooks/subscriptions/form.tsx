@@ -26,6 +26,7 @@ import {
   type WebhookSubscriptionFormValues,
 } from '../../../features/webhooks/webhook-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa đăng ký Webhook, đúng DTO C#:
@@ -108,8 +109,7 @@ export default function WebhookSubscriptionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('webhookSubscriptions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'webhookSubscriptions');
   const availableHint =
     availablesQuery.data?.items.flatMap((g) => g.webhooks.map((w) => w.name)).join(', ') || '';
 

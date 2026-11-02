@@ -21,6 +21,7 @@ import {
   type PermissionGroupFormValues,
 } from '../../../features/permissions/permission-group-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa nhóm quyền: tạo nhập name + displayName; sửa chỉ đổi
@@ -77,7 +78,7 @@ export default function PermissionGroupFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('permissionGroups.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'permissionGroups');
 
   return (
     <AppScreen

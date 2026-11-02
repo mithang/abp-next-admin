@@ -25,6 +25,7 @@ import {
 } from '../../../features/saas/tenant-form-schema';
 import { buildEditionOptions } from '../../../lib/app-select-options';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa tenant, đúng DTO C#:
@@ -120,8 +121,7 @@ export default function TenantFormScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('saasTenants.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'saasTenants');
   const editionOptions = buildEditionOptions(editionsQuery.data?.items ?? []);
 
   return (

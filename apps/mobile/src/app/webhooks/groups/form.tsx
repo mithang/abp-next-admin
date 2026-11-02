@@ -21,6 +21,7 @@ import {
   type WebhookGroupFormValues,
 } from '../../../features/webhooks/webhook-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa nhóm Webhook: tạo nhập name + displayName; sửa chỉ đổi
@@ -80,7 +81,7 @@ export default function WebhookGroupFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('webhookGroups.') ? t(key) : key);
+  const fieldError = createFieldError(t, 'webhookGroups');
 
   return (
     <AppScreen

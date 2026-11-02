@@ -22,6 +22,7 @@ import {
   type NotificationGroupFormValues,
 } from '../../../features/notifications/notification-group-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa nhóm thông báo: tạo nhập name + displayName; sửa chỉ đổi
@@ -96,8 +97,7 @@ export default function NotificationGroupFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('notificationGroups.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'notificationGroups');
 
   return (
     <AppScreen

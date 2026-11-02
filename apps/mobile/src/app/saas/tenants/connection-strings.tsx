@@ -29,6 +29,7 @@ import {
 } from '../../../features/saas/connection-string-form-schema';
 import type { TenantConnectionStringDto } from '../../../features/saas/types';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
@@ -126,8 +127,7 @@ export default function TenantConnectionStringsScreen() {
     );
   }
 
-  const fieldError = (message?: string) =>
-    message && message.startsWith('saasConnectionStrings.') ? t(message) : message;
+  const fieldError = createFieldError(t, 'saasConnectionStrings');
   const items = listQuery.data?.items ?? [];
 
   const renderRow = ({ item }: { item: TenantConnectionStringDto }) => (

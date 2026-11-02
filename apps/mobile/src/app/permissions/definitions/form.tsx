@@ -23,6 +23,7 @@ import {
 } from '../../../features/permissions/permission-definition-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
+import { createFieldError } from '../../../lib/field-error';
 
 /**
  * Form tạo/sửa định nghĩa quyền: tạo nhập name + groupName; sửa chỉ đổi
@@ -102,8 +103,7 @@ export default function PermissionDefinitionFormScreen() {
     );
   }
 
-  const fieldError = (key?: string) =>
-    key && key.startsWith('permissionDefinitions.') ? t(key) : key;
+  const fieldError = createFieldError(t, 'permissionDefinitions');
 
   return (
     <AppScreen
