@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Switch, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
@@ -230,40 +230,22 @@ export default function FeatureDefinitionFormScreen() {
           control={form.control}
           name="isAvailableToHost"
           render={({ field }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Text>{t('featureDefinitions.isAvailableToHost')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('featureDefinitions.isAvailableToHost')}
+              value={field.value}
+              onValueChange={field.onChange}
+            />
           )}
         />
         <Controller
           control={form.control}
           name="isVisibleToClients"
           render={({ field }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Text>{t('featureDefinitions.isVisibleToClients')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('featureDefinitions.isVisibleToClients')}
+              value={field.value}
+              onValueChange={field.onChange}
+            />
           )}
         />
         <Controller

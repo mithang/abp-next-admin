@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Pressable, Switch, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
@@ -164,20 +165,11 @@ export default function ClaimTypeFormScreen() {
           control={form.control}
           name="required"
           render={({ field }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Text>{t('claimTypes.required')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('claimTypes.required')}
+              value={field.value}
+              onValueChange={field.onChange}
+            />
           )}
         />
         <Controller

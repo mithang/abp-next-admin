@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Switch, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
@@ -217,60 +217,33 @@ export default function SettingDefinitionFormScreen() {
           control={form.control}
           name="isEncrypted"
           render={({ field }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text>{t('settingDefinitions.isEncrypted')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('settingDefinitions.isEncrypted')}
+              value={field.value}
+              onValueChange={field.onChange}
+            />
           )}
         />
         <Controller
           control={form.control}
           name="isInherited"
           render={({ field }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text>{t('settingDefinitions.isInherited')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('settingDefinitions.isInherited')}
+              value={field.value}
+              onValueChange={field.onChange}
+            />
           )}
         />
         <Controller
           control={form.control}
           name="isVisibleToClients"
           render={({ field }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text>{t('settingDefinitions.isVisibleToClients')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('settingDefinitions.isVisibleToClients')}
+              value={field.value}
+              onValueChange={field.onChange}
+            />
           )}
         />
         {submitError ? <Text>{submitError}</Text> : null}

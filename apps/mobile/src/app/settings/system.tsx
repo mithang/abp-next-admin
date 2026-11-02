@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { FlatList, Switch, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
@@ -129,20 +130,11 @@ export default function SystemSettingsScreen() {
       return (
         <Card className="p-4">
           <VStack space="xs">
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text>{detail.displayName}</Text>
-              <Switch
-                value={current.toLowerCase() === 'true'}
-                onValueChange={(value) => setValue(value ? 'true' : 'false')}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={detail.displayName}
+              value={current.toLowerCase() === 'true'}
+              onValueChange={(value) => setValue(value ? 'true' : 'false')}
+            />
             {detail.description ? <Text>{detail.description}</Text> : null}
           </VStack>
         </Card>

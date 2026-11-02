@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Switch, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -146,14 +146,12 @@ export default function TenantFormScreen() {
           control={form.control}
           name="isActive"
           render={({ field }) => (
-            <View>
-              <Text>{t('saasTenants.isActive')}</Text>
-              <Switch
-                value={field.value}
-                onValueChange={field.onChange}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={t('saasTenants.isActive')}
+              value={field.value}
+              onValueChange={field.onChange}
+              layout="stack"
+            />
           )}
         />
         <Controller
@@ -239,14 +237,12 @@ export default function TenantFormScreen() {
               control={form.control}
               name="useSharedDatabase"
               render={({ field }) => (
-                <View>
-                  <Text>{t('saasTenants.useSharedDatabase')}</Text>
-                  <Switch
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    accessibilityRole="switch"
-                  />
-                </View>
+                <AppSwitchField
+                  label={t('saasTenants.useSharedDatabase')}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  layout="stack"
+                />
               )}
             />
             <Controller

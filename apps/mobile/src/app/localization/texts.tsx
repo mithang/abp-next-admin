@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FlatList, Pressable, Switch, View } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
@@ -108,12 +109,7 @@ export default function TextsScreen() {
           autoCapitalize="none"
           testID="texts-filter"
         />
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-        >
-          <Text>{t('texts.onlyNull')}</Text>
-          <Switch value={onlyNull} onValueChange={setOnlyNull} accessibilityRole="switch" />
-        </View>
+        <AppSwitchField label={t('texts.onlyNull')} value={onlyNull} onValueChange={setOnlyNull} />
         <AppButton title={t('texts.search')} onPress={onSearch} testID="texts-search" />
         <AppButton
           title={t('texts.createTitle')}

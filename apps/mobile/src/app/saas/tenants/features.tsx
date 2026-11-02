@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FlatList, Switch, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
@@ -130,20 +131,11 @@ export default function TenantFeaturesScreen() {
       return (
         <Card className="p-4">
           <VStack space="xs">
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text>{feature.displayName}</Text>
-              <Switch
-                value={current === 'true'}
-                onValueChange={(value) => setValue(value ? 'true' : 'false')}
-                accessibilityRole="switch"
-              />
-            </View>
+            <AppSwitchField
+              label={feature.displayName}
+              value={current === 'true'}
+              onValueChange={(value) => setValue(value ? 'true' : 'false')}
+            />
             {feature.description ? <Text>{feature.description}</Text> : null}
           </VStack>
         </Card>

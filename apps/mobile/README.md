@@ -45,6 +45,32 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 42
+
+Vòng P3 chuẩn hóa công tắc bật/tắt: 28 vị trí `<Switch>` trong
+21 file chia thành 2 dạng bố cục — 15 dạng hàng (nhãn trái,
+switch phải, `space-between`) và 12 dạng xếp chồng (View trần,
+nhãn trên switch dưới) — cộng 1 dạng VStack riêng
+(data-dictionaries items, giữ nguyên). Vòng này thêm component
+dùng chung `src/components/ui/AppSwitchField.tsx` (props
+`label`/`value`/`onValueChange`, `layout="row"` mặc định,
+`layout="stack"` giữ đúng dạng View trần cũ, luôn có
+`accessibilityRole="switch"`) và migrate 27 vị trí trong 20
+file bằng script dry-run trước rồi apply, kiểm chứng 2 chiều
+(27 tag AppSwitchField, chỉ còn 1 `<Switch>` là dạng VStack
+chưa migrate). Bài học trong vòng: bản script đầu dùng capture
+`.*?` với DOTALL đã match xuyên khối ở claim-types/form.tsx
+(nhãn valueTypeLabel nuốt tới khối Switch của trường required)
+— đã revert toàn bộ, siết capture thành `[^}<]*`/`[^}]*` rồi
+migrate lại, diff sau đó chỉ gồm khối Switch + import. Test
+mới `app-switch-field.test.tsx` (4 test: render nhãn + giá
+trị, valueChange gọi handler, layout stack giữ nguyên, mặc
+định row). Kết quả: Jest 340/340 (58 suite, +4),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1463/1463 (không đổi key). P1
+impersonation vẫn BLOCKED ở backend, CRUD thật vẫn cần phiên
+admin TOTP; không còn P2 mở.
+
 ## Trạng thái vòng 41
 
 Vòng P3 chuẩn hóa dòng chi tiết: 11 màn hình chi tiết
