@@ -404,3 +404,31 @@ import vòng — lỗi tooling test, không phải lỗi AppInput; sẽ cần
 hướng khác, ví dụ mock sâu hơn hoặc test trên device, không ép
 bằng mock làm mất ý nghĩa test). Vẫn còn P2: upload tệp blob, sửa
 favorites qua PUT, AppSelect/AppTreeSelect, review auth WeChat.
+
+## Trạng thái vòng 28
+
+AppSelect đã có và đã thay nhập Guid/text ở 2 form: component
+`src/components/ui/AppSelect.tsx` (mở inline dưới field, tìm kiếm,
+thụt lề theo depth cây, fallback hiển thị đúng value khi preset nằm
+ngoài trang gợi ý, nút xóa cho field tùy chọn) + helper
+`src/lib/tree-options.ts` sắp xếp danh sách phẳng có parentId thành
+thứ tự duyệt cây, an toàn với mục mồ côi và chu trình. Form bố cục
+dùng AppSelect cho framework (mục từ điển UI Framework) và dataId
+(cây từ điển); form menu dùng AppSelect cho layoutId và parentId
+(cây menu, loại chính menu đang sửa). Đáng chú ý, vòng này gỡ thêm
+1 rào chắn tooling test từ vòng 27: preset `nativewind/babel` viết
+lại import react-native dưới Jest làm mock TextInput crash ở
+`copyComponentProperties` — `babel.config.js` nay bỏ preset đó chỉ
+ở env test (cache theo env, dev/production giữ nguyên), nhờ đó
+AppSelect có ô tìm kiếm TextInput thuần mà vẫn test được; toàn bộ
+45 suite cũ vẫn PASS nên không phải regression. RNTL v14 cần lưu ý:
+state sau `fireEvent.press` không phản ánh đồng bộ — test phải dùng
+`findBy*`/`waitFor` (đã sửa trong test AppSelect). Kết quả: Jest
+280/280 (+14: AppSelect 10, tree-options 4), typecheck/lint/format/
+expo config PASS, parity i18n 1446/1446 (+4 key appSelect), backend
+/healthz Healthy (không cần khởi động lại). AppSelect P2 nay đóng
+một phần lớn: còn lại là các màn chưa chuyển (editionId ở form
+tenant, valueType ở mục từ điển, lọc status email) và AppTreeSelect
+riêng — nhưng AppSelect đã hỗ trợ depth nên tree select thực chất
+đã có dạng dùng chung qua helper này. Vẫn còn P2: upload tệp blob,
+sửa favorites qua PUT, review auth WeChat phía backend.

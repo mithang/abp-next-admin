@@ -31,8 +31,8 @@ import { toApiError } from '../../../lib/errors';
  *   mặc định bật; tắt DB chung thì defaultConnectionString bắt buộc.
  * - Sửa: ẩn admin fields, gửi kèm concurrencyStamp lấy từ detail.
  * - editionId nhập Guid; danh sách edition load từ GET /api/saas/editions
- *   hiển thị làm gợi ý "tên — id" (chưa có AppSelect, theo mẫu gợi ý
- *   provider của các vòng trước).
+ *   hiển thị làm gợi ý "tên — id" (AppSelect đã có từ vòng 28 nhưng
+ *   màn này chưa chuyển sang, theo mẫu gợi ý provider cũ).
  * - enableTime/disableTime nhập text ISO, schema chặn enable > disable.
  * Chuỗi kết nối có tên riêng (ngoài default) quản lý sau khi tạo ở màn
  * connection-strings, đúng API đặt/xóa của backend.

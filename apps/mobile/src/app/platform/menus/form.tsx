@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
+import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -15,8 +16,10 @@ import {
   createMenu,
   getLayoutsPaged,
   getMenu,
+  getMenusAll,
   updateMenu,
 } from '../../../features/platform/platform-api';
+import { orderTreeItems } from '../../../lib/tree-options';
 import {
   menuFormDefaults,
   menuFormSchema,
@@ -26,12 +29,14 @@ import { toApiError } from '../../../lib/errors';
 
 /**
  * Form tạo/sửa menu, đúng DTO C#:
- * - Tạo: layoutId bắt buộc (ApiSelect layout ở bảng web; mobile chưa
- *   có AppSelect nên nhập Guid kèm gợi ý layout hiện có), parentId
- *   preset từ ?parentId= (nút "Tạo con" ở detail, đúng nút
- *   AddChildren của bảng web; layoutId preset theo menu cha).
+ * - Tạo: layoutId bắt buộc, chọn qua AppSelect từ bố cục hiện có
+ *   (ApiSelect layout ở bảng web); parentId chọn qua AppSelect cây
+ *   từ GET /api/platform/menus/all (để trống = gốc), preset từ
+ *   ?parentId= (nút "Tạo con" ở detail, đúng nút AddChildren của
+ *   bảng web; layoutId preset theo menu cha).
  * - Sửa: ẩn layoutId, hiển thị chỉ đọc, không gửi (UpdateDto không
- *   có layoutId); chặn chọn chính menu làm cha của nó.
+ *   có layoutId); chính menu đang sửa bị loại khỏi option parentId
+ *   (schema cũng chặn, giữ cả 2 lớp như trước).
  * - Meta: drawer web xây form động từ từ điển ràng buộc của layout;
  *   mobile nhập JSON object (mặc định {}), schema kiểm chứng JSON.
  */
@@ -60,6 +65,11 @@ export default function MenuFormScreen() {
     queryKey: ['platform-layouts-hint'],
     queryFn: () => getLayoutsPaged({ maxResultCount: 20 }),
     enabled: !isEdit,
+  });
+  const menusQuery = useQuery({
+    queryKey: ['platform-menus-all'],
+    queryFn: () => getMenusAll(),
+    enabled: true,
   });
 
   const form = useForm<MenuFormValues>({
@@ -123,9 +133,20 @@ export default function MenuFormScreen() {
 
   const fieldError = (message?: string) =>
     message && message.startsWith('platformMenus.') ? t(message) : message;
-  const layoutsHint =
-    layoutsQuery.data?.items.map((l) => `${l.displayName} — ${l.id}`).join('\n') ||
-    t('platformMenus.layoutLoading');
+  const layoutOptions = (layoutsQuery.data?.items ?? []).map((l) => ({
+    value: l.id,
+    label: l.displayName,
+  }));
+  // Loại chính menu đang sửa khỏi cây cha (schema cũng chặn); preset
+  // ?parentId= ngoài danh sách vẫn hiển thị đúng value nhờ fallback
+  // của AppSelect, nên không cần thêm option giả.
+  const parentOptions = orderTreeItems(menusQuery.data?.items ?? [])
+    .filter(({ item }) => item.id !== id)
+    .map(({ item, depth }) => ({
+      value: item.id,
+      label: item.displayName,
+      depth,
+    }));
   const title = isEdit
     ? t('platformMenus.editTitle')
     : presetParentId
@@ -220,13 +241,17 @@ export default function MenuFormScreen() {
           control={form.control}
           name="parentId"
           render={({ field, fieldState }) => (
-            <AppInput
+            <AppSelect
               label={t('platformMenus.parentId')}
               value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.parentIdPlaceholder')}
-              autoCapitalize="none"
+              options={parentOptions}
+              onChange={field.onChange}
+              placeholder={
+                menusQuery.isPending ? t('common.loading') : t('platformMenus.parentIdPlaceholder')
+              }
               error={fieldError(fieldState.error?.message)}
+              clearable
+              testID="menu-parent"
             />
           )}
         />
@@ -269,19 +294,21 @@ export default function MenuFormScreen() {
               control={form.control}
               name="layoutId"
               render={({ field, fieldState }) => (
-                <AppInput
+                <AppSelect
                   label={t('platformMenus.layoutId')}
                   value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('platformMenus.layoutIdPlaceholder')}
-                  autoCapitalize="none"
+                  options={layoutOptions}
+                  onChange={field.onChange}
+                  placeholder={
+                    layoutsQuery.isPending
+                      ? t('platformMenus.layoutLoading')
+                      : t('platformMenus.layoutIdPlaceholder')
+                  }
                   error={fieldError(fieldState.error?.message)}
+                  testID="menu-layout"
                 />
               )}
             />
-            <Text>
-              {t('platformMenus.layoutHint')}: {layoutsHint}
-            </Text>
           </>
         )}
         {submitError ? <Text>{submitError}</Text> : null}

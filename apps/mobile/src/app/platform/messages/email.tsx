@@ -61,7 +61,8 @@ function EmailRow({ item }: { item: EmailMessageDto }) {
 /**
  * Tin nhắn Email: phân trang ABP, lọc filter/emailAddress/status +
  * khoảng thời gian gửi (đúng form lọc bảng web; status nhập -1/0/10
- * vì mobile chưa có AppSelect). Chỉ đọc + xóa + gửi lại ở màn detail;
+ * vì màn lọc này chưa chuyển sang AppSelect có từ vòng 28). Chỉ đọc
+ * + xóa + gửi lại ở màn detail;
  * KHÔNG có tạo/sửa (backend cũng không có Create/Update cho trang này).
  */
 export default function EmailMessagesScreen() {

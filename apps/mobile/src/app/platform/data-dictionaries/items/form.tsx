@@ -28,8 +28,8 @@ import { toApiError } from '../../../../lib/errors';
  * - Tạo: name bắt buộc. Sửa: name khóa hiển thị dạng chỉ đọc (UpdateDto
  *   không có name, mục xác định bằng name trên URL) và không gửi name.
  * - valueType nhập số 0–5 (String/Number/Boolean/Date/DateTime/Array);
- *   Object=6 không nhận như modal web. Chưa có AppSelect nên dùng input
- *   số kèm gợi ý, theo mẫu Guid của các vòng trước.
+ *   Object=6 không nhận như modal web. AppSelect đã có từ vòng 28
+ *   nhưng màn này chưa chuyển sang nên vẫn dùng input số kèm gợi ý.
  * - defaultValue: allowBeNull=false thì bắt buộc (đúng Validate backend);
  *   kiểm chứng theo kiểu (Number/Boolean/Date) như DatePicker/InputNumber/
  *   Checkbox của web khi đổi về chuỗi.

@@ -8,10 +8,9 @@ import { z } from 'zod';
  * - Sửa: không gửi dataId/framework (LayoutUpdateDto không có) — màn
  *   sửa ẩn 2 field, hiển thị giá trị hiện tại dạng chỉ đọc.
  * - Framework web lấy từ ApiSelect: từ điển tên 'UI Framework', value là
- *   name của mục; mobile nhập text kèm gợi ý tên mục (chưa có AppSelect,
- *   theo mẫu gợi ý của các vòng trước).
- * - dataId web lấy từ ApiTreeSelect: cây từ điển; mobile nhập Guid kèm
- *   gợi ý "tên hiển thị — id" từ GET /api/platform/datas/all.
+ *   name của mục; form bố cục chọn qua AppSelect từ vòng 28.
+ * - dataId web lấy từ ApiTreeSelect: cây từ điển; form bố cục chọn qua
+ *   AppSelect cây từ GET /api/platform/datas/all từ vòng 28.
  */
 
 const GUID_RE = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;

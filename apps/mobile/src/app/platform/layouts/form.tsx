@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
+import { AppSelect } from '../../../components/ui/AppSelect';
+import { orderTreeItems } from '../../../lib/tree-options';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -27,10 +29,10 @@ import { toApiError } from '../../../lib/errors';
 /**
  * Form tạo/sửa bố cục, đúng DTO C#:
  * - Tạo: dataId + framework bắt buộc (modal web ẩn 2 field khi sửa).
- *   Gợi ý dataId từ GET /api/platform/datas/all (tên — id); gợi ý
- *   framework từ mục của từ điển tên 'UI Framework' (đúng ApiSelect
- *   của modal web, value = name của mục) — chưa có AppSelect nên nhập
- *   text kèm gợi ý, theo mẫu các vòng trước.
+ *   dataId chọn qua AppSelect từ cây GET /api/platform/datas/all
+ *   (value = id, thụt lề theo parentId); framework chọn qua AppSelect
+ *   từ mục của từ điển tên 'UI Framework' (đúng ApiSelect của modal
+ *   web, value = name của mục) — vòng 28 thay nhập text kèm gợi ý.
  * - Sửa: ẩn dataId/framework, hiển thị giá trị hiện tại dạng chỉ đọc,
  *   không gửi 2 field này (UpdateDto không có).
  */
@@ -111,12 +113,15 @@ export default function LayoutFormScreen() {
 
   const fieldError = (message?: string) =>
     message && message.startsWith('platformLayouts.') ? t(message) : message;
-  const datasHint =
-    datasQuery.data?.items.map((d) => `${d.displayName} — ${d.id}`).join('\n') ||
-    t('platformLayouts.dataIdLoading');
-  const frameworksHint =
-    frameworksQuery.data?.items.map((i) => i.name).join(', ') ||
-    t('platformLayouts.frameworkLoading');
+  const dataOptions = orderTreeItems(datasQuery.data?.items ?? []).map(({ item, depth }) => ({
+    value: item.id,
+    label: item.displayName,
+    depth,
+  }));
+  const frameworkOptions = (frameworksQuery.data?.items ?? []).map((i) => ({
+    value: i.name,
+    label: i.name,
+  }));
 
   return (
     <AppScreen title={t(isEdit ? 'platformLayouts.editTitle' : 'platformLayouts.createTitle')}>
@@ -203,36 +208,40 @@ export default function LayoutFormScreen() {
               control={form.control}
               name="framework"
               render={({ field, fieldState }) => (
-                <AppInput
+                <AppSelect
                   label={t('platformLayouts.framework')}
                   value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('platformLayouts.frameworkPlaceholder')}
-                  autoCapitalize="none"
+                  options={frameworkOptions}
+                  onChange={field.onChange}
+                  placeholder={
+                    frameworksQuery.isPending
+                      ? t('platformLayouts.frameworkLoading')
+                      : t('platformLayouts.frameworkPlaceholder')
+                  }
                   error={fieldError(fieldState.error?.message)}
+                  testID="layout-framework"
                 />
               )}
             />
-            <Text>
-              {t('platformLayouts.frameworkHint')}: {frameworksHint}
-            </Text>
             <Controller
               control={form.control}
               name="dataId"
               render={({ field, fieldState }) => (
-                <AppInput
+                <AppSelect
                   label={t('platformLayouts.dataId')}
                   value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('platformLayouts.dataIdPlaceholder')}
-                  autoCapitalize="none"
+                  options={dataOptions}
+                  onChange={field.onChange}
+                  placeholder={
+                    datasQuery.isPending
+                      ? t('platformLayouts.dataIdLoading')
+                      : t('platformLayouts.dataIdPlaceholder')
+                  }
                   error={fieldError(fieldState.error?.message)}
+                  testID="layout-data"
                 />
               )}
             />
-            <Text>
-              {t('platformLayouts.dataIdHint')}: {datasHint}
-            </Text>
           </>
         )}
         {submitError ? <Text>{submitError}</Text> : null}
