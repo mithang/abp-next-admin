@@ -5,6 +5,7 @@ import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
+import { ImpersonationBanner } from '../../components/ui/ImpersonationBanner';
 import { getMyProfile } from '../../features/auth/api';
 import { getUsersPaged } from '../../features/identity/api';
 import { getAllMenus } from '../../features/dashboard/api';
@@ -35,6 +36,7 @@ export default function DashboardScreen() {
   return (
     <AppScreen title={t('dashboard.title')} subtitle={`${t('dashboard.welcome')}${userName ? `, ${userName}` : ''}`}>
       <VStack space="md">
+        <ImpersonationBanner />
         <Card className="p-4">
           <Text>{t('users.total')}</Text>
           <Text>{users.data?.totalCount ?? 0}</Text>

@@ -5,6 +5,7 @@ import { AppButton } from '../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
+import { ImpersonationBanner } from '../../components/ui/ImpersonationBanner';
 import { getMyProfile } from '../../features/auth/api';
 import { useAuthStore } from '../../stores/auth-store';
 import { queryClient } from '../../lib/query-client';
@@ -25,6 +26,7 @@ export default function AccountScreen() {
   return (
     <AppScreen title={t('account.title')}>
       <VStack space="sm">
+        <ImpersonationBanner />
         <Text>
           {t('account.username')}: {data?.userName ?? ''}
         </Text>

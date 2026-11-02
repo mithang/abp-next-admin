@@ -45,6 +45,35 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 25
+
+Vòng P2 — mạo danh (impersonation, đóng nốt P2 tenant còn lại từ vòng
+13 ở phía mobile): luồng đổi phiên OIDC qua extension grant
+`impersonation` — POST /connect/token (form urlencoded,
+grant_type=impersonation, client_id public abp-mobile-client, KHÔNG
+client secret, access_token hiện tại + UserId/TenantId hoặc
+TenantId+TenantUserName hoặc UserDelegationId; không đích = quay về
+tài khoản gốc, đúng backend ImpersonationTokenExtensionGrant). Phiên
+gốc lưu riêng trong SecureStore (marker "đang mạo danh" = còn
+original access token); revert ưu tiên grant server, thất bại thì
+khôi phục phiên gốc đã lưu; chặn mạo danh lồng nhau ở client (mirror
+backend) và xóa phiên gốc khi đăng xuất/đăng nhập mới. Điểm mở: nút
+"Mạo danh" trên chi tiết người dùng (xác nhận Alert, đúng
+UserTable web), nút "Mạo danh tenant" trên chi tiết tenant mở màn
+nhập tài khoản (mặc định admin, bắt buộc — đúng modal web), banner
+"đang mạo danh" + nút quay về trên Dashboard và Tài khoản. Helper
+`impersonation.ts` (build body, validate đích mirror backend,
+parse token response, swap/revert qua TokenVault để test không cần
+native module) có 15 test. PHÁT HIỆN BACKEND (không phải lỗi
+mobile): AllInOne đang chạy KHÔNG hỗ trợ grant này — discovery
+không liệt kê `impersonation`, probe trả unsupported_grant_type
+(ID2032) y như grant lạ; nguyên nhân là AllInOneModule không
+DependsOn AbpOpenIddictImpersonationModule (trong khi AuthServer
+đứng riêng thì có) — cần bật module ở phía backend thì luồng mobile
+mới chạy live được; kiểm chứng live vẫn BLOCKED (cần phiên admin
+TOTP + grant được bật). Vẫn còn P2: blob upload, formatter, RNTL
+component tests, sửa favorites qua PUT, AppSelect/AppTreeSelect.
+
 ## Trạng thái vòng 24
 
 Vòng P2 — giá trị tính năng theo tenant (đóng một nửa P2 tenant còn
