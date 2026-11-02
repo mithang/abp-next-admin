@@ -45,6 +45,30 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 33
+
+Vòng P3 chuẩn hóa control — rà soát toàn app tìm picker dạng danh sách
+thô còn sót sau các vòng AppSelect (28–29): chỉ còn đúng một chỗ là
+màn nội dung mẫu văn bản, nơi culture vẫn render bằng danh sách
+`Pressable` từ vòng 21 (không tìm kiếm, không thu gọn, culture nhập
+tay ngoài danh sách không có dấu hiệu đang chọn). Các
+`options.map` còn lại ở màn cài đặt hệ thống/WeChat chỉ là chuỗi
+hiển thị, không phải picker nên giữ nguyên. Màn nội dung nay dùng
+`AppSelect` chuẩn (label culture, value = culture đang chọn,
+options = `buildCulturePickerOptions` không chuyển dạng, onChange =
+`selectCulture` giữ nguyên việc reset nội dung/thông báo/lỗi);
+fallback preset của AppSelect khiến culture nhập tay ngoài danh sách
+vẫn hiển thị đúng giá trị. Hành vi khi tải danh sách ngôn ngữ lỗi
+(picker ẩn, chỉ còn ô nhập tay) và ô "culture khác" giữ nguyên.
+Không thêm key i18n (dùng lại key AppSelect sẵn có). Test mới
+`culture-picker-select.test.tsx` (3 test) kiểm chứng hợp đồng nối
+options → AppSelect. Kết quả: Jest 302/302 (50 suite, +3),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1451/1451, backend /healthz Healthy +
+Redis PONG (stack đã chạy sẵn, không khởi động lại). Không còn P2
+mở; P1 impersonation vẫn BLOCKED ở backend và CRUD thật vẫn cần
+phiên admin TOTP.
+
 ## Trạng thái vòng 31
 
 Vòng P2 — upload tệp blob (đóng P2 lớn cuối cùng về chức năng, trừ

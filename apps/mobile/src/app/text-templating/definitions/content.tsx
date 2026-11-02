@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Pressable } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
+import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -22,12 +22,15 @@ import { toApiError } from '../../../lib/errors';
  * Nội dung mẫu văn bản: đúng modal Edit contents của bảng web.
  * GET /templates/content[/{culture}]/{name} để xem; PUT cùng route để
  * lưu; PUT .../restore-to-default để khôi phục mặc định. Culture chọn
- * từ danh sách ngôn ngữ thật (GET /api/localization/languages, vòng 21;
+ * qua AppSelect chuẩn (vòng 33; trước đó là danh sách Pressable thô
+ * từ vòng 21, không có tìm kiếm và không thu gọn) từ danh sách ngôn
+ * ngữ thật (GET /api/localization/languages, vòng 21;
  * rỗng = nội dung mặc định, không culture); ô "culture khác" giữ lại
- * để vẫn nhập được culture chưa có trong danh sách ngôn ngữ. Nếu tải
- * danh sách ngôn ngữ lỗi, picker ẩn đi và chỉ còn ô nhập tay — không
- * chặn việc xem/sửa nội dung. Nội dung là ô text multiline vì mẫu có
- * thể dài và chứa ký tự đặc biệt của engine.
+ * để vẫn nhập được culture chưa có trong danh sách ngôn ngữ — giá trị
+ * nhập tay ngoài danh sách vẫn hiển thị đúng nhờ fallback preset của
+ * AppSelect. Nếu tải danh sách ngôn ngữ lỗi, picker ẩn đi và chỉ còn
+ * ô nhập tay — không chặn việc xem/sửa nội dung. Nội dung là ô text
+ * multiline vì mẫu có thể dài và chứa ký tự đặc biệt của engine.
  */
 export default function TextTemplateContentScreen() {
   const { t } = useTranslation();
@@ -112,25 +115,19 @@ export default function TextTemplateContentScreen() {
         <Text>
           {t('textTemplateDefinitions.name')}: {name}
         </Text>
-        <Text>{t('textTemplateDefinitions.culture')}</Text>
         {languagesQuery.isPending ? <Text>{t('common.loading')}</Text> : null}
         {languagesQuery.isError ? (
           <Text>{t('textTemplateDefinitions.cultureListLoadFailed')}</Text>
         ) : null}
-        {cultureOptions
-          ? cultureOptions.map((option) => (
-              <Pressable
-                key={option.value || 'default'}
-                onPress={() => selectCulture(option.value)}
-                testID={`text-template-content-culture-${option.value || 'default'}`}
-              >
-                <Text>
-                  {culture === option.value ? '✓ ' : ''}
-                  {option.label}
-                </Text>
-              </Pressable>
-            ))
-          : null}
+        {cultureOptions ? (
+          <AppSelect
+            label={t('textTemplateDefinitions.culture')}
+            value={culture}
+            options={cultureOptions}
+            onChange={selectCulture}
+            testID="text-template-content-culture-select"
+          />
+        ) : null}
         <AppInput
           label={t('textTemplateDefinitions.cultureCustom')}
           value={culture}
