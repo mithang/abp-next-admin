@@ -1,11 +1,46 @@
 import { describe, it, expect } from '@jest/globals';
+import i18n from '../../i18n';
 import {
+  fallbackMessage,
   isWrappedEnvelope,
   mapHttpStatusToKind,
   parseApiError,
   parseWrappedError,
   toApiError,
+  type ApiErrorKind,
 } from '../errors';
+
+const ALL_KINDS: ApiErrorKind[] = [
+  'network',
+  'timeout',
+  'unauthorized',
+  'forbidden',
+  'notFound',
+  'validation',
+  'conflict',
+  'rateLimit',
+  'server',
+  'unexpected',
+];
+
+describe('fallbackMessage', () => {
+  it('mọi kind đều có message i18n thật, không rơi về tên key', () => {
+    for (const kind of ALL_KINDS) {
+      const message = fallbackMessage(kind);
+      expect(message.length).toBeGreaterThan(0);
+      expect(message).not.toBe(`errors.${kind}`);
+    }
+  });
+
+  it('phân giải theo ngôn ngữ hiện tại, không đóng cứng lúc import', async () => {
+    await i18n.changeLanguage('vi');
+    expect(fallbackMessage('network')).toBe('Không có kết nối mạng. Vui lòng kiểm tra và thử lại.');
+    await i18n.changeLanguage('en');
+    expect(fallbackMessage('network')).toBe('No network connection. Please check and try again.');
+    await i18n.changeLanguage('vi');
+    expect(fallbackMessage('network')).toBe('Không có kết nối mạng. Vui lòng kiểm tra và thử lại.');
+  });
+});
 
 describe('mapHttpStatusToKind', () => {
   it.each([

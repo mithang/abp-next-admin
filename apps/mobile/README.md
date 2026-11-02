@@ -45,6 +45,23 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 38
+
+Vòng P3 chuẩn hóa i18n — không còn chuỗi UI hardcode ngoài hệ thống
+i18n: rà soát toàn `src` (trừ test, trừ comment) thấy đúng 16 dòng
+tiếng Việt hardcode — 10 message fallback lỗi trong `src/lib/errors.ts`,
+2 lần lặp message timeout trong `src/lib/api-client.ts`, label mặc định
+`AppLoading` + nút "Thử lại" của `AppErrorState`, và màn hình
+`+not-found`. Vòng này thêm 12 key mới (`errors.*` 10 key,
+`notFound.title`/`notFound.backHome`) cho cả vi lẫn en (1451 → 1463,
+parity sạch); `errors.ts` xuất `fallbackMessage(kind)` phân giải qua
+instance i18next tại thời điểm gọi nên đổi ngôn ngữ cũng đổi message
+lỗi; `api-client` dùng chung helper thay vì lặp literal; `AppStates`
+dùng key `common.loading`/`common.retry` đã có sẵn (không thêm key);
+`+not-found` dùng `notFound.*`. Test mới: mọi kind đều có message thật
+(không rơi về tên key) + đổi ngôn ngữ vi→en→vi đổi đúng message.
+Không còn P2 mở; P1 mạo danh và CRUD thật vẫn BLOCKED như trước.
+
 ## Trạng thái vòng 37
 
 Vòng P3 chuẩn hóa control — hook phân trang dùng chung: rà soát

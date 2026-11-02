@@ -1,5 +1,6 @@
 import { apiUrl } from './config';
 import {
+  fallbackMessage,
   isWrappedEnvelope,
   parseApiError,
   parseWrappedError,
@@ -105,7 +106,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
     if (error instanceof DOMException && error.name === 'AbortError') {
       throw {
         kind: 'timeout',
-        message: 'Yêu cầu quá thời gian chờ. Vui lòng thử lại.',
+        message: fallbackMessage('timeout'),
       } satisfies ApiError;
     }
     throw toApiError(error);
@@ -171,7 +172,7 @@ export async function apiUploadMultipart<T>(
     if (error instanceof DOMException && error.name === 'AbortError') {
       throw {
         kind: 'timeout',
-        message: 'Yêu cầu quá thời gian chờ. Vui lòng thử lại.',
+        message: fallbackMessage('timeout'),
       } satisfies ApiError;
     }
     throw toApiError(error);

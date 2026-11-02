@@ -1,3 +1,5 @@
+import i18n from '../i18n';
+
 /** Ánh xạ lỗi ABP Framework sang thông điệp thân thiện, không lộ nội dung nội bộ. */
 export type ApiErrorKind =
   | 'network'
@@ -40,22 +42,20 @@ export function mapHttpStatusToKind(status: number): ApiErrorKind {
   return 'unexpected';
 }
 
-const FALLBACK: Record<ApiErrorKind, string> = {
-  network: 'Không có kết nối mạng. Vui lòng kiểm tra và thử lại.',
-  timeout: 'Yêu cầu quá thời gian chờ. Vui lòng thử lại.',
-  unauthorized: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
-  forbidden: 'Bạn không có quyền thực hiện thao tác này.',
-  notFound: 'Không tìm thấy dữ liệu yêu cầu.',
-  validation: 'Dữ liệu nhập chưa hợp lệ. Vui lòng kiểm tra lại.',
-  conflict: 'Dữ liệu đã thay đổi hoặc bị trùng. Vui lòng tải lại và thử lại.',
-  rateLimit: 'Bạn thao tác quá nhanh. Vui lòng chờ giây lát rồi thử lại.',
-  server: 'Máy chủ đang gặp sự cố. Vui lòng thử lại sau.',
-  unexpected: 'Đã xảy ra lỗi không xác định. Vui lòng thử lại.',
-};
+/**
+ * Thông điệp fallback theo ngôn ngữ hiện tại (i18n `errors.*`), phân giải
+ * tại thời điểm gọi — không phải lúc import — nên đổi ngôn ngữ trong app
+ * cũng đổi luôn message lỗi fallback. Không còn chuỗi hardcode ở đây.
+ */
+export function fallbackMessage(kind: ApiErrorKind): string {
+  return i18n.t(`errors.${kind}`);
+}
 
 /** Chỉ dùng message nghiệp vụ ngắn, không chứa stack trace; ngược lại fallback. */
 function toSafeMessage(raw: string, kind: ApiErrorKind): string {
-  return raw && raw.length <= 300 && !/stack trace|at\s+\S+\(/i.test(raw) ? raw : FALLBACK[kind];
+  return raw && raw.length <= 300 && !/stack trace|at\s+\S+\(/i.test(raw)
+    ? raw
+    : fallbackMessage(kind);
 }
 
 /**
@@ -133,10 +133,10 @@ export function toApiError(error: unknown): ApiError {
     error instanceof Error &&
     /network|fetch failed|Network request failed/i.test(error.message)
   ) {
-    return { kind: 'network', message: FALLBACK.network };
+    return { kind: 'network', message: fallbackMessage('network') };
   }
   if (error instanceof Error && /timed out|timeout|aborted/i.test(error.message)) {
-    return { kind: 'timeout', message: FALLBACK.timeout };
+    return { kind: 'timeout', message: fallbackMessage('timeout') };
   }
-  return { kind: 'unexpected', message: FALLBACK.unexpected };
+  return { kind: 'unexpected', message: fallbackMessage('unexpected') };
 }

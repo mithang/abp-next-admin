@@ -1,5 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals';
 import { render, screen, fireEvent } from '@testing-library/react-native';
+import '../../../i18n';
 import { AppLoading, AppEmptyState, AppErrorState } from '../AppStates';
 
 describe('AppLoading', () => {
