@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -12,12 +12,12 @@ import { entityChangeTypeName } from '../../../features/auditing/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function AuditLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['audit-logs']);
   const query = useQuery({
     queryKey: ['audit-logs', id],
     queryFn: () => getAuditLog(id),
@@ -25,10 +25,7 @@ export default function AuditLogDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteAuditLog(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['audit-logs'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

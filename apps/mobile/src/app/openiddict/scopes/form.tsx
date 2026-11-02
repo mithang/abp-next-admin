@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import { parseMultiline, toMultiline } from '../../../features/openiddict/multil
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa phạm vi: route /openiddict/scopes/form (tạo) hoặc
@@ -26,8 +27,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function ScopeFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['openiddict-scopes']);
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -72,10 +72,7 @@ export default function ScopeFormScreen() {
       if (isEdit) return updateScope(id as string, body);
       return createScope(body);
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['openiddict-scopes'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

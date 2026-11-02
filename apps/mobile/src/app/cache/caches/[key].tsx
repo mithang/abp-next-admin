@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -15,6 +15,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết giá trị cache: GET /api/caching-management/cache/value?key=...
@@ -26,7 +27,8 @@ export default function CacheValueDetailScreen() {
   const { t } = useTranslation();
   const { key } = useLocalSearchParams<{ key: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['cache-values', key]);
+  const invalidateAndBack = useInvalidateAndBack(['cache-keys']);
   const query = useQuery({
     queryKey: ['cache-values', key],
     queryFn: () => getCacheValue({ key: key as string }),
@@ -34,16 +36,11 @@ export default function CacheValueDetailScreen() {
   });
   const refreshMutation = useMutation({
     mutationFn: () => refreshCacheKey({ key: key as string }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['cache-values', key] });
-    },
+    onSuccess: invalidate,
   });
   const deleteMutation = useMutation({
     mutationFn: () => removeCacheKey({ key: key as string }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['cache-keys'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

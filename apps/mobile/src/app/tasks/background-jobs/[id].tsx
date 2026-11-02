@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { useInvalidateAndBack, useInvalidateQueries } from '../../../lib/mutation-success';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -42,7 +43,6 @@ export default function BackgroundJobDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
   const [actionError, setActionError] = useState<string | null>(null);
 
   const query = useQuery({
@@ -51,16 +51,13 @@ export default function BackgroundJobDetailScreen() {
     enabled: Boolean(id),
   });
 
-  const invalidate = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['tasks-background-jobs'] });
-  };
+  const invalidate = useInvalidateQueries(['tasks-background-jobs']);
+  const invalidateAndBack = useInvalidateAndBack(['tasks-background-jobs']);
+  const invalidateLogs = useInvalidateQueries(['tasks-background-job-logs']);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteBackgroundJob(id),
-    onSuccess: async () => {
-      await invalidate();
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const {
@@ -82,8 +79,7 @@ export default function BackgroundJobDetailScreen() {
   });
   const deleteLogMutation = useMutation({
     mutationFn: (logId: string) => deleteBackgroundJobLog(logId),
-    onSuccess: () =>
-      void queryClient.invalidateQueries({ queryKey: ['tasks-background-job-logs'] }),
+    onSuccess: invalidateLogs,
     onError: (error) => setActionError(toApiError(error).message),
   });
 
@@ -101,7 +97,7 @@ export default function BackgroundJobDetailScreen() {
                 : startBackgroundJob;
       return fn(id);
     },
-    onSuccess: () => void invalidate(),
+    onSuccess: invalidate,
     onError: (error) => setActionError(toApiError(error).message),
   });
 

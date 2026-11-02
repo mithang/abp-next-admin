@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -15,11 +15,11 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function AuthorizationDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['openiddict-authorizations']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-authorizations', id],
@@ -28,10 +28,7 @@ export default function AuthorizationDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteAuthorization(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['openiddict-authorizations'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

@@ -25,6 +25,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo phiên mới (?id trống) hoặc đổi tên (?id=...).
@@ -37,6 +38,7 @@ export default function AIConversationFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['ai-conversations']);
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -79,10 +81,7 @@ export default function AIConversationFormScreen() {
   const renameMutation = useMutation({
     mutationFn: async (values: AIConversationRenameValues) =>
       updateConversation(id as string, { name: values.name.trim() }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-conversations'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

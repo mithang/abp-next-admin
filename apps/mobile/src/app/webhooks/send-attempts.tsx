@@ -24,6 +24,7 @@ import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { usePagination } from '../../lib/use-pagination';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 
 function AttemptRow({
   item,
@@ -37,14 +38,14 @@ function AttemptRow({
   onToggle: () => void;
 }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['webhook-send-attempts']);
   const resend = useMutation({
     mutationFn: () => resendWebhookSendAttempt(item.id),
-    onSuccess: () => void queryClient.invalidateQueries({ queryKey: ['webhook-send-attempts'] }),
+    onSuccess: invalidate,
   });
   const remove = useMutation({
     mutationFn: () => deleteWebhookSendAttempt(item.id),
-    onSuccess: () => void queryClient.invalidateQueries({ queryKey: ['webhook-send-attempts'] }),
+    onSuccess: invalidate,
   });
   const body = (
     <VStack space="xs">

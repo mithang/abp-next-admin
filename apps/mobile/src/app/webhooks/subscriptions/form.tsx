@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa đăng ký Webhook, đúng DTO C#:
@@ -40,8 +41,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function WebhookSubscriptionFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['webhook-subscriptions']);
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -92,10 +92,7 @@ export default function WebhookSubscriptionFormScreen() {
       }
       return createWebhookSubscription(input);
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['webhook-subscriptions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -18,12 +18,13 @@ import {
 } from '../../../features/notifications/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function NotificationDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useLocalSearchParams<{ name: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['notification-definitions']);
   const query = useQuery({
     queryKey: ['notification-definitions', name],
     queryFn: () => getNotificationDefinition(name),
@@ -31,10 +32,7 @@ export default function NotificationDefinitionDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteNotificationDefinition(name),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['notification-definitions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

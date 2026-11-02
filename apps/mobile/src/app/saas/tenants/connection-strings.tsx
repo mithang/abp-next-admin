@@ -32,6 +32,7 @@ import type { TenantConnectionStringDto } from '../../../features/saas/types';
 import { toApiError } from '../../../lib/errors';
 import { createFieldError } from '../../../lib/field-error';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 
 /**
  * Quản lý chuỗi kết nối của tenant, đúng modal ConnectionStrings của web:
@@ -47,6 +48,7 @@ export default function TenantConnectionStringsScreen() {
   const { t } = useTranslation();
   const { tenantId } = useLocalSearchParams<{ tenantId: string }>();
   const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['saas-tenant-connection-strings', tenantId]);
   const [setError, setSetError] = useState<string | null>(null);
   const [checkResult, setCheckResult] = useState<string | null>(null);
   const [checkError, setCheckError] = useState<string | null>(null);
@@ -86,11 +88,7 @@ export default function TenantConnectionStringsScreen() {
 
   const deleteMutation = useMutation({
     mutationFn: (name: string) => deleteTenantConnectionString(tenantId, name),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ['saas-tenant-connection-strings', tenantId],
-      });
-    },
+    onSuccess: invalidate,
   });
 
   const checkMutation = useMutation({

@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -12,6 +12,7 @@ import { deleteToken, getToken } from '../../../features/openiddict/tokens-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Detail token chỉ hiển thị metadata — KHÔNG hiển thị payload token
@@ -19,8 +20,7 @@ import { formatDateTime } from '../../../lib/dates';
  */
 export default function TokenDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['openiddict-tokens']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-tokens', id],
@@ -29,10 +29,7 @@ export default function TokenDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteToken(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['openiddict-tokens'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

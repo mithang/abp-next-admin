@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -10,13 +10,14 @@ import { Text } from '@/components/ui/text';
 import { deleteEdition, getEdition } from '../../../features/saas/saas-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /** Chi tiết phiên bản: DTO chỉ có displayName (+ audit/extraProperties). */
 export default function EditionDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['saas-editions']);
   const query = useQuery({
     queryKey: ['saas-editions', id],
     queryFn: () => getEdition(id),
@@ -24,10 +25,7 @@ export default function EditionDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteEdition(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['saas-editions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

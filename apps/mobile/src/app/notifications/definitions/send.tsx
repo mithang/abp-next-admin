@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import {
 import { parseEnumNumber } from '../../../features/notifications/notification-definition-form-schema';
 import { toApiError } from '../../../lib/errors';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form gửi thông báo (web NotificationSendModal): name khóa theo định nghĩa
@@ -27,8 +28,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function NotificationSendScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['notification-send-records']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -49,10 +49,7 @@ export default function NotificationSendScreen() {
         severity: parseEnumNumber(values.severity),
         culture: values.culture || undefined,
       }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['notification-send-records'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

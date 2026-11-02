@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
@@ -12,11 +12,12 @@ import { deleteRole, getRole } from '../../features/identity/roles-api';
 import { roleFlags } from '../../features/identity/roles-types';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function RoleDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['roles']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['roles', id],
@@ -25,10 +26,7 @@ export default function RoleDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteRole(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['roles'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

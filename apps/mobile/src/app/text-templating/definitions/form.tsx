@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import {
 } from '../../../features/text-templating/text-template-form-schema';
 import { toApiError } from '../../../lib/errors';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa định nghĩa mẫu văn bản: tạo nhập name; sửa chỉ đổi các
@@ -33,7 +34,7 @@ import { createFieldError } from '../../../lib/field-error';
 export default function TextTemplateDefinitionFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['text-template-definitions']);
   const { name } = useLocalSearchParams<{ name?: string }>();
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -80,10 +81,7 @@ export default function TextTemplateDefinitionFormScreen() {
       }
       return createTextTemplateDefinition({ name: values.name, ...rest });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['text-template-definitions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

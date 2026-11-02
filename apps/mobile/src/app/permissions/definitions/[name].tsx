@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -15,6 +15,7 @@ import {
 import { MultiTenancySides } from '../../../features/permissions/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 function multiTenancySideLabel(side: MultiTenancySides): string {
   if (side === MultiTenancySides.Host) return 'Host';
@@ -29,7 +30,7 @@ function multiTenancySideLabel(side: MultiTenancySides): string {
 export default function PermissionDefinitionDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['permission-definitions']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['permission-definitions', name],
@@ -38,10 +39,7 @@ export default function PermissionDefinitionDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deletePermissionDefinition(name),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['permission-definitions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

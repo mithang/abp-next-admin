@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -14,6 +14,7 @@ import {
 } from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết nhóm Webhook: name/displayName/isStatic. Nhóm tĩnh chỉ đọc
@@ -23,7 +24,7 @@ export default function WebhookGroupDetailScreen() {
   const { t } = useTranslation();
   const { name } = useLocalSearchParams<{ name: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['webhook-groups']);
   const [actionError, setActionError] = useState<string | null>(null);
 
   const query = useQuery({
@@ -34,10 +35,7 @@ export default function WebhookGroupDetailScreen() {
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookGroupDefinition(name),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['webhook-groups'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setActionError(toApiError(error).message),
   });
 

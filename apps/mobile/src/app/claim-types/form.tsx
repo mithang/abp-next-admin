@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,7 @@ import {
 } from '../../features/identity/claim-type-form-schema';
 import { toApiError } from '../../lib/errors';
 import { createFieldError } from '../../lib/field-error';
+import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 const VALUE_TYPE_OPTIONS = [ValueType.String, ValueType.Int, ValueType.Boolean, ValueType.DateTime];
 
@@ -40,7 +41,7 @@ const VALUE_TYPE_OPTIONS = [ValueType.String, ValueType.Int, ValueType.Boolean, 
 export default function ClaimTypeFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['claim-types']);
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -73,10 +74,7 @@ export default function ClaimTypeFormScreen() {
       }
       return createClaimType(toClaimTypeCreateInput(values));
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['claim-types'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

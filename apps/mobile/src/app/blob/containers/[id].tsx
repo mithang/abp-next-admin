@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -11,6 +11,7 @@ import { deleteBlobContainer, getBlobContainer } from '../../../features/blob/bl
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết container blob: name + concurrencyStamp + thời gian tạo.
@@ -21,7 +22,7 @@ export default function BlobContainerDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['blob-containers']);
 
   const query = useQuery({
     queryKey: ['blob-containers', id],
@@ -31,10 +32,7 @@ export default function BlobContainerDetailScreen() {
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteBlobContainer(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['blob-containers'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

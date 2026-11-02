@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
@@ -16,6 +16,7 @@ import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { usePagination } from '../../lib/use-pagination';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 
 /**
  * Web chỉ có bảng phiên + nút thu hồi (SessionTable), không có trang chi tiết —
@@ -23,12 +24,10 @@ import { usePagination } from '../../lib/use-pagination';
  */
 function SessionRow({ item }: { item: IdentitySessionDto }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['sessions']);
   const revokeMutation = useMutation({
     mutationFn: () => revokeSession(item.sessionId),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['sessions'] });
-    },
+    onSuccess: invalidate,
   });
   return (
     <Card className="p-4">

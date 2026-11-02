@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -11,11 +11,12 @@ import { Text } from '@/components/ui/text';
 import { deleteApplication, getApplication } from '../../../features/openiddict/applications-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function ApplicationDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['openiddict-applications']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-applications', id],
@@ -24,10 +25,7 @@ export default function ApplicationDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteApplication(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['openiddict-applications'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

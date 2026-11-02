@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa nhóm quyền: tạo nhập name + displayName; sửa chỉ đổi
@@ -30,8 +31,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function PermissionGroupFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['permission-groups']);
   const { name } = useLocalSearchParams<{ name?: string }>();
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -61,10 +61,7 @@ export default function PermissionGroupFormScreen() {
       if (isEdit) return updatePermissionGroup(name as string, { displayName: values.displayName });
       return createPermissionGroup({ name: values.name, displayName: values.displayName });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['permission-groups'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

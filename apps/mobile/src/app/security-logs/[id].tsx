@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
@@ -11,12 +11,12 @@ import { deleteSecurityLog, getSecurityLog } from '../../features/identity/secur
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
+import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function SecurityLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['security-logs']);
   const query = useQuery({
     queryKey: ['security-logs', id],
     queryFn: () => getSecurityLog(id),
@@ -24,10 +24,7 @@ export default function SecurityLogDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteSecurityLog(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['security-logs'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

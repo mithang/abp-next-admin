@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
 import { AppButton } from '../../../../components/ui/AppButton';
@@ -15,6 +15,7 @@ import {
 import { toApiError } from '../../../../lib/errors';
 import { showConfirmDialog } from '../../../../lib/confirm';
 import { formatDateTime } from '../../../../lib/dates';
+import { useInvalidateQueries, useInvalidateAndBack } from '../../../../lib/mutation-success';
 import { messageStatusText } from '../email';
 
 /**
@@ -25,8 +26,8 @@ import { messageStatusText } from '../email';
 export default function EmailMessageDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['platform-email-messages']);
+  const invalidateAndBack = useInvalidateAndBack(['platform-email-messages']);
   const query = useQuery({
     queryKey: ['platform-email-messages', id],
     queryFn: () => getEmailMessage(id),
@@ -34,16 +35,11 @@ export default function EmailMessageDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteEmailMessage(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-email-messages'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
   const sendMutation = useMutation({
     mutationFn: () => sendEmailMessage(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-email-messages'] });
-    },
+    onSuccess: invalidate,
   });
 
   const queryState = queryStateElement(query);

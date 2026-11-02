@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
@@ -12,12 +12,13 @@ import { deleteClaimType, getClaimType } from '../../features/identity/claim-typ
 import { valueTypeKey } from '../../features/identity/claim-types';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function ClaimTypeDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['claim-types']);
   const query = useQuery({
     queryKey: ['claim-types', id],
     queryFn: () => getClaimType(id),
@@ -25,10 +26,7 @@ export default function ClaimTypeDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteClaimType(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['claim-types'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

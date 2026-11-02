@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ import {
 } from '../../../features/tasks/task-form-schema';
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 type TextFieldName =
   | 'name'
@@ -91,8 +92,7 @@ function TextField({
  */
 export default function BackgroundJobFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['tasks-background-jobs']);
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -153,10 +153,7 @@ export default function BackgroundJobFormScreen() {
         source: 0,
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['tasks-background-jobs'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

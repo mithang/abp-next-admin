@@ -45,6 +45,24 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 48
+
+Vòng P3 chuẩn hóa callback thành công của mutation: 88 vị trí
+`onSuccess` tự lặp `await queryClient.invalidateQueries(...)`
+— trong đó 70 vị trí kèm `router.back()` — nay gộp thành
+`src/lib/mutation-success.ts` (`useInvalidateQueries(...keys)`
+chỉ invalidate, `useInvalidateAndBack(...keys)` invalidate rồi
+quay lại; gán trực tiếp cho `onSuccess`). Cố tình KHÔNG
+migrate 18 block có thêm logic khác (setState, reset form,
+router.replace, invalidate 2 key trong 1 block, gửi chat...).
+Bài học thật trong vòng: hook đánh giá key NGAY khi render
+(khác closure onSuccess gốc chỉ chạy sau render) nên script
+migrate đã đặt hook trước dòng khai báo `dataId` ở form mục từ
+điển gây lỗi TDZ — typecheck bắt được, đã dời hook xuống sau
+`useLocalSearchParams`; script cũng từng giữ thừa biến
+`queryClient` ở 72 file do check "còn dùng" quên trừ chính
+dòng khai báo, đã dọn sạch (lint trở lại 14 warning vendored).
+
 ## Trạng thái vòng 47
 
 Vòng P3 chuẩn hóa trạng thái query của màn hình detail/form: 74

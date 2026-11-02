@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa menu, đúng DTO C#:
@@ -43,8 +44,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function MenuFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['platform-menus']);
   const {
     id,
     parentId: presetParentId,
@@ -115,10 +115,7 @@ export default function MenuFormScreen() {
       }
       return createMenu({ ...shared, layoutId: (values.layoutId ?? '').trim() });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-menus'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa không gian làm việc + chế độ đặt lại API key (?reset=1).
@@ -42,8 +43,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function AIWorkspaceFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['ai-workspaces']);
   const { id, reset } = useLocalSearchParams<{ id?: string; reset?: string }>();
   const isEdit = Boolean(id);
   const isReset = reset === '1' && isEdit;
@@ -136,10 +136,7 @@ export default function AIWorkspaceFormScreen() {
         apiKey: values.apiKey?.trim() || undefined,
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-workspaces'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 
@@ -166,10 +163,7 @@ export default function AIWorkspaceFormScreen() {
         concurrencyStamp: d.concurrencyStamp,
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-workspaces'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

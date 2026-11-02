@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -11,11 +11,12 @@ import { Text } from '@/components/ui/text';
 import { deleteScope, getScope } from '../../../features/openiddict/scopes-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function ScopeDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['openiddict-scopes']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-scopes', id],
@@ -24,10 +25,7 @@ export default function ScopeDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteScope(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['openiddict-scopes'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
@@ -15,12 +15,13 @@ import {
 import { findOrganizationUnitName } from '../../features/identity/organization-units';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function OrganizationUnitDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['organization-units']);
   const query = useQuery({
     queryKey: ['organization-units', id],
     queryFn: () => getOrganizationUnit(id),
@@ -32,10 +33,7 @@ export default function OrganizationUnitDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteOrganizationUnit(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['organization-units'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

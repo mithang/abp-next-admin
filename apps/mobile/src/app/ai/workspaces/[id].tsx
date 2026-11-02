@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -11,6 +11,7 @@ import { deleteWorkspace, getWorkspace } from '../../../features/ai/ai-api';
 import { isReadOnlyWorkspace } from '../../../features/ai/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết không gian làm việc. DTO trả về KHÔNG chứa apiKey nên màn này
@@ -22,7 +23,7 @@ export default function AIWorkspaceDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['ai-workspaces']);
   const query = useQuery({
     queryKey: ['ai-workspaces', id],
     queryFn: () => getWorkspace(id),
@@ -30,10 +31,7 @@ export default function AIWorkspaceDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteWorkspace(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-workspaces'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

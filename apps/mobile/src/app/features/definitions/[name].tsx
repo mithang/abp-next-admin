@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -14,6 +14,7 @@ import {
 } from '../../../features/features/feature-definitions-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết định nghĩa tính năng. Modal web vô hiệu mọi field và ẩn nút xác
@@ -22,7 +23,7 @@ import { showConfirmDialog } from '../../../lib/confirm';
 export default function FeatureDefinitionDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['feature-definitions']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['feature-definitions', name],
@@ -31,10 +32,7 @@ export default function FeatureDefinitionDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteFeatureDefinition(name),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['feature-definitions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

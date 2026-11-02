@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import { parseMultiline, toMultiline } from '../../../features/openiddict/multil
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa định nghĩa quyền: tạo nhập name + groupName; sửa chỉ đổi
@@ -32,8 +33,7 @@ import { createFieldError } from '../../../lib/field-error';
  */
 export default function PermissionDefinitionFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['permission-definitions']);
   const { name } = useLocalSearchParams<{ name?: string }>();
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -86,10 +86,7 @@ export default function PermissionDefinitionFormScreen() {
         ...body,
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['permission-definitions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

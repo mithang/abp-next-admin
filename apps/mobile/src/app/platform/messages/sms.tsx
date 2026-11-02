@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppList } from '../../../components/ui/AppList';
@@ -21,22 +21,19 @@ import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
 import { usePagination } from '../../../lib/use-pagination';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { messageStatusText } from './email';
 
 function SmsRow({ item }: { item: SmsMessageDto }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['platform-sms-messages']);
   const deleteMutation = useMutation({
     mutationFn: () => deleteSmsMessage(item.id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-sms-messages'] });
-    },
+    onSuccess: invalidate,
   });
   const sendMutation = useMutation({
     mutationFn: () => sendSmsMessage(item.id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-sms-messages'] });
-    },
+    onSuccess: invalidate,
   });
   return (
     <Card className="p-4">

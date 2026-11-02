@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -20,6 +20,7 @@ import { config } from '../../../lib/config';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết blob: đúng BlobDto backend (name/fullName/type/contentType/
@@ -32,8 +33,7 @@ import { formatDateTime } from '../../../lib/dates';
 export default function BlobDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['blob-blobs']);
   const [openError, setOpenError] = useState<string | null>(null);
 
   const query = useQuery({
@@ -44,10 +44,7 @@ export default function BlobDetailScreen() {
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteBlob(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['blob-blobs'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const openGeneratedUrl = async (kind: 'download' | 'preview') => {

@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -10,13 +10,14 @@ import { Text } from '@/components/ui/text';
 import { deleteLayout, getLayout } from '../../../features/platform/platform-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /** Chi tiết bố cục: RouteDto + framework + dataId (2 field chỉ đọc ở đây, sửa không đổi chúng). */
 export default function LayoutDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['platform-layouts']);
   const query = useQuery({
     queryKey: ['platform-layouts', id],
     queryFn: () => getLayout(id),
@@ -24,10 +25,7 @@ export default function LayoutDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteLayout(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-layouts'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

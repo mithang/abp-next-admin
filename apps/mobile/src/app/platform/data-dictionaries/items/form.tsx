@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Switch } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +26,7 @@ import {
 import { toApiError } from '../../../../lib/errors';
 import { createFieldError } from '../../../../lib/field-error';
 import { buildDataValueTypeOptions } from '../../../../lib/app-select-options';
+import { useInvalidateAndBack } from '../../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa mục từ điển, đúng DTO C#:
@@ -41,9 +42,8 @@ import { buildDataValueTypeOptions } from '../../../../lib/app-select-options';
  */
 export default function DataItemFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
   const { dataId, name } = useLocalSearchParams<{ dataId: string; name?: string }>();
+  const invalidateAndBack = useInvalidateAndBack(['platform-datas', dataId]);
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -83,10 +83,7 @@ export default function DataItemFormScreen() {
       }
       return createDataItem(dataId, { ...shared, name: values.name.trim() });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-datas', dataId] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

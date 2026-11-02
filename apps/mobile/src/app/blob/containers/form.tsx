@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'expo-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +15,7 @@ import {
   type BlobContainerFormValues,
 } from '../../../features/blob/blob-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo container blob: chỉ có name (BlobContainerCreateDto).
@@ -23,8 +23,7 @@ import { toApiError } from '../../../lib/errors';
  */
 export default function BlobContainerFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['blob-containers']);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const form = useForm<BlobContainerFormValues>({
@@ -35,10 +34,7 @@ export default function BlobContainerFormScreen() {
   const mutation = useMutation({
     mutationFn: (values: BlobContainerFormValues) =>
       createBlobContainer({ name: values.name.trim() }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['blob-containers'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ import {
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa định nghĩa tính năng: tạo nhập name + groupName + valueType;
@@ -36,7 +37,7 @@ import { createFieldError } from '../../../lib/field-error';
 export default function FeatureDefinitionFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['feature-definitions']);
   const { name } = useLocalSearchParams<{ name?: string }>();
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -92,10 +93,7 @@ export default function FeatureDefinitionFormScreen() {
       if (isEdit) return updateFeatureDefinition(name as string, body);
       return createFeatureDefinition({ name: values.name, groupName: values.groupName, ...body });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['feature-definitions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

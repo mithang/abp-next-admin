@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import {
 } from '../../../features/notifications/notification-group-form-schema';
 import { toApiError } from '../../../lib/errors';
 import { createFieldError } from '../../../lib/field-error';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo/sửa nhóm thông báo: tạo nhập name + displayName; sửa chỉ đổi
@@ -33,7 +34,7 @@ import { createFieldError } from '../../../lib/field-error';
 export default function NotificationGroupFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['notification-groups']);
   const { name } = useLocalSearchParams<{ name?: string }>();
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -73,10 +74,7 @@ export default function NotificationGroupFormScreen() {
         allowSubscriptionToClients: values.allowSubscriptionToClients,
       });
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['notification-groups'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 

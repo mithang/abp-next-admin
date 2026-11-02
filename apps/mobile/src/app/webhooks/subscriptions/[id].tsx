@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -15,6 +15,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết đăng ký Webhook: webhookUri/isActive/description/webhooks/
@@ -27,7 +28,7 @@ export default function WebhookSubscriptionDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['webhook-subscriptions']);
   const [actionError, setActionError] = useState<string | null>(null);
 
   const query = useQuery({
@@ -38,10 +39,7 @@ export default function WebhookSubscriptionDetailScreen() {
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookSubscription(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['webhook-subscriptions'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setActionError(toApiError(error).message),
   });
 

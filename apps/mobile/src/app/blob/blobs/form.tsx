@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +16,7 @@ import {
   type BlobFolderFormValues,
 } from '../../../features/blob/blob-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Form tạo thư mục: containerId + parentId preset từ query (đúng nút
@@ -23,8 +24,7 @@ import { toApiError } from '../../../lib/errors';
  */
 export default function BlobFolderFormScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['blob-blobs']);
   const { containerId, parentId } = useLocalSearchParams<{
     containerId: string;
     parentId?: string;
@@ -43,10 +43,7 @@ export default function BlobFolderFormScreen() {
         name: values.name.trim(),
         parentId: parentId || undefined,
       }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['blob-blobs'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
     onError: (error) => setSubmitError(toApiError(error).message),
   });
 

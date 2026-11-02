@@ -1,5 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocalSearchParams } from 'expo-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -24,12 +24,13 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function MyNotificationDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['my-notifications']);
+  const invalidateAndBack = useInvalidateAndBack(['my-notifications']);
   const query = useQuery({
     queryKey: ['my-notifications', id],
     queryFn: () => getMyNotification(id),
@@ -38,16 +39,11 @@ export default function MyNotificationDetailScreen() {
 
   const markMutation = useMutation({
     mutationFn: (state: NotificationReadState) => markMyNotificationsRead({ idList: [id], state }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['my-notifications'] });
-    },
+    onSuccess: invalidate,
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteMyNotification(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['my-notifications'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

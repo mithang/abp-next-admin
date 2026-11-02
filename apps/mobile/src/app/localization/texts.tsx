@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
@@ -15,6 +15,7 @@ import { deleteText, getTexts } from '../../features/localization/localization-a
 import type { TextDifferenceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 
 interface AppliedSearch {
   cultureName: string;
@@ -34,7 +35,7 @@ interface AppliedSearch {
 export default function TextsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['texts']);
   const [cultureName, setCultureName] = useState('');
   const [targetCultureName, setTargetCultureName] = useState('');
   const [resourceName, setResourceName] = useState('');
@@ -51,9 +52,7 @@ export default function TextsScreen() {
   const deleteMutation = useMutation({
     mutationFn: (row: TextDifferenceDto) =>
       deleteText({ resourceName: row.resourceName, cultureName: row.cultureName, key: row.key }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['texts'] });
-    },
+    onSuccess: invalidate,
   });
 
   const items = query.data?.items ?? [];

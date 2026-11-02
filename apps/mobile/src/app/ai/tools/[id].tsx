@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -11,6 +11,7 @@ import { deleteAITool, getAITool } from '../../../features/ai/ai-api';
 import { isReadOnlyTool } from '../../../features/ai/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết công cụ AI. Công cụ hệ thống/tĩnh không sửa/xóa được (đúng
@@ -21,7 +22,7 @@ export default function AIToolDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['ai-tools']);
   const query = useQuery({
     queryKey: ['ai-tools', id],
     queryFn: () => getAITool(id),
@@ -29,10 +30,7 @@ export default function AIToolDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteAITool(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-tools'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

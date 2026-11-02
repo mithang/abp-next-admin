@@ -20,6 +20,7 @@ import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-s
 import { toApiError } from '../../../lib/errors';
 import { resolveFieldError } from '../../../lib/field-error';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 interface ChatBubble {
   key: string;
@@ -42,6 +43,7 @@ export default function AIConversationChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['ai-conversations']);
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState<string | null>(null);
   const [streamingText, setStreamingText] = useState<string | null>(null);
@@ -64,10 +66,7 @@ export default function AIConversationChatScreen() {
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteConversation(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-conversations'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const bubbles: ChatBubble[] = [];

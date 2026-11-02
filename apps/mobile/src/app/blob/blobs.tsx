@@ -1,6 +1,6 @@
 import { FlatList, Pressable, View } from 'react-native';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import * as DocumentPicker from 'expo-document-picker';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -17,6 +17,7 @@ import {
 import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
 import { usePagination } from '../../lib/use-pagination';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 
 function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) {
   const { t } = useTranslation();
@@ -64,13 +65,11 @@ export default function BlobsScreen() {
     parentId?: string;
   }>();
   const { page, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['blob-blobs']);
 
   const uploadMutation = useMutation({
     mutationFn: uploadBlobFile,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['blob-blobs'] });
-    },
+    onSuccess: invalidate,
   });
 
   async function onPickAndUpload() {

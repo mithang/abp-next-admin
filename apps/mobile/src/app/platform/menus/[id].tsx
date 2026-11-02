@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -10,13 +10,14 @@ import { Text } from '@/components/ui/text';
 import { deleteMenu, getMenu } from '../../../features/platform/platform-api';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /** Chi tiết menu: RouteDto + code/component/framework/layoutId/isPublic/startup + meta JSON. */
 export default function MenuDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateAndBack = useInvalidateAndBack(['platform-menus-all']);
   const query = useQuery({
     queryKey: ['platform-menus', id],
     queryFn: () => getMenu(id),
@@ -24,10 +25,7 @@ export default function MenuDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteMenu(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-menus-all'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);

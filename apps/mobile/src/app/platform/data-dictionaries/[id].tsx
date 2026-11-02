@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -12,6 +12,7 @@ import { deleteData, deleteDataItem, getData } from '../../../features/platform/
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
+import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết từ điển: code do backend sinh (chỉ đọc), tên/tên hiển thị/
@@ -24,7 +25,8 @@ export default function DataDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidate = useInvalidateQueries(['platform-datas', id]);
+  const invalidateAndBack = useInvalidateAndBack(['platform-datas']);
   const query = useQuery({
     queryKey: ['platform-datas', id],
     queryFn: () => getData(id),
@@ -32,16 +34,11 @@ export default function DataDetailScreen() {
   });
   const deleteMutation = useMutation({
     mutationFn: () => deleteData(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-datas'] });
-      router.back();
-    },
+    onSuccess: invalidateAndBack,
   });
   const deleteItemMutation = useMutation({
     mutationFn: (name: string) => deleteDataItem(id, name),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['platform-datas', id] });
-    },
+    onSuccess: invalidate,
   });
 
   const queryState = queryStateElement(query);
