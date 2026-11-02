@@ -380,3 +380,27 @@ wrap prose sẽ churn changelog). Từ vòng này, bước "chạy formatter"
 của prompt không còn BLOCKED. Vẫn còn P2: upload tệp blob, RNTL
 component tests, sửa favorites qua PUT, AppSelect/AppTreeSelect,
 review auth WeChat phía backend.
+
+## Trạng thái vòng 27
+
+RNTL component tests chính thức chạy được: trước vòng này thư viện
+`@testing-library/react-native` v14 đã có sẵn nhưng 0 test component
+nào render được — jest-expo không transform `@gluestack-ui` (ESM),
+react-aria (được Gluestack kéo vào) crash vì môi trường jest RN có
+`window` nhưng không có `window.screen`, và react-aria cần `react-dom`
+(web-only, không có trong app RN). Vòng này sửa ở tầng cấu hình test
+(không chạm production): `jest.config.js` mở rộng
+`transformIgnorePatterns` cho Gluestack + deps aria/styling, alias `@`,
+stub jest-only cho `react-dom` (chỉ `flushSync` identity cho hook
+animation web mà RN không gọi), `jest.setup.js` gắn `window.screen`
+rỗng trước khi import. Kết quả: 3 file test component mới
+(AppButton 4 test, AppStates 5 test, ImpersonationBanner 3 test —
+render thật, bấm thật, revert mạo danh thật qua store) = 12 test,
+tổng Jest 266/266, typecheck/lint/format/expo config đều PASS,
+parity i18n 1442/1442 không đổi. Giới hạn còn lại của P2 này:
+AppInput chưa render được dưới jest (vendored Gluestack Input qua
+react-native-css + mock TextInput của jest-preset crash ở import do
+import vòng — lỗi tooling test, không phải lỗi AppInput; sẽ cần
+hướng khác, ví dụ mock sâu hơn hoặc test trên device, không ép
+bằng mock làm mất ý nghĩa test). Vẫn còn P2: upload tệp blob, sửa
+favorites qua PUT, AppSelect/AppTreeSelect, review auth WeChat.
