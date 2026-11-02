@@ -3,7 +3,9 @@ import { SettingValueType, type SettingGroup, type SettingsUpdateInput } from '.
 
 /** GET /api/v2/setting-management/settings — web SystemSetting dùng đúng route v2 này. */
 export function getSystemSettings() {
-  return apiRequest<ListResult<SettingGroup>>('/api/v2/setting-management/settings', { method: 'GET' });
+  return apiRequest<ListResult<SettingGroup>>('/api/v2/setting-management/settings', {
+    method: 'GET',
+  });
 }
 
 /** PUT /api/v2/setting-management/settings — chỉ gửi các cài đặt đã đổi (xem collectChangedSettings). */
@@ -35,7 +37,11 @@ export function collectChangedSettings(
     for (const setting of group.settings) {
       for (const detail of setting.details) {
         if (detail.valueType === SettingValueType.NoSet) continue;
-        if (detail.valueType === SettingValueType.Array || detail.valueType === SettingValueType.Object) continue;
+        if (
+          detail.valueType === SettingValueType.Array ||
+          detail.valueType === SettingValueType.Object
+        )
+          continue;
         const edited = edits[detail.name];
         if (edited === undefined) continue;
         if (edited === (detail.value ?? '')) continue;

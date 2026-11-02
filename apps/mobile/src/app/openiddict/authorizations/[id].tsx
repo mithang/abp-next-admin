@@ -7,7 +7,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteAuthorization, getAuthorization } from '../../../features/openiddict/authorizations-api';
+import {
+  deleteAuthorization,
+  getAuthorization,
+} from '../../../features/openiddict/authorizations-api';
 import { toApiError } from '../../../lib/errors';
 
 function Field({ label, value }: { label: string; value?: string }) {
@@ -24,7 +27,11 @@ export default function AuthorizationDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['openiddict-authorizations', id], queryFn: () => getAuthorization(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['openiddict-authorizations', id],
+    queryFn: () => getAuthorization(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteAuthorization(id),
     onSuccess: async () => {
@@ -35,7 +42,12 @@ export default function AuthorizationDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const authz = query.data;
@@ -59,10 +71,18 @@ export default function AuthorizationDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('openiddictAuthorizations.deleteConfirmTitle'), t('openiddictAuthorizations.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('openiddictAuthorizations.deleteConfirmTitle'),
+              t('openiddictAuthorizations.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="authorization-delete"
         />

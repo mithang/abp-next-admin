@@ -40,8 +40,15 @@ export default function SettingDefinitionFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['setting-definitions', name], queryFn: () => getSettingDefinition(name as string), enabled: isEdit });
-  const providersQuery = useQuery({ queryKey: ['setting-assignable-providers'], queryFn: getAssignableProviders });
+  const detail = useQuery({
+    queryKey: ['setting-definitions', name],
+    queryFn: () => getSettingDefinition(name as string),
+    enabled: isEdit,
+  });
+  const providersQuery = useQuery({
+    queryKey: ['setting-assignable-providers'],
+    queryFn: getAssignableProviders,
+  });
 
   const form = useForm<SettingDefinitionFormValues>({
     resolver: zodResolver(settingDefinitionFormSchema),
@@ -94,16 +101,29 @@ export default function SettingDefinitionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('settingDefinitions.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState
+        message={t('settingDefinitions.staticCannotEdit')}
+        onRetry={() => router.back()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('settingDefinitions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('settingDefinitions.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('settingDefinitions.editTitle') : t('settingDefinitions.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('settingDefinitions.editTitle') : t('settingDefinitions.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>
@@ -188,16 +208,27 @@ export default function SettingDefinitionFormScreen() {
         />
         {providersQuery.data && providersQuery.data.items.length > 0 ? (
           <Text>
-            {t('settingDefinitions.assignableProviders')}: {providersQuery.data.items.map((item) => item.value).join(', ')}
+            {t('settingDefinitions.assignableProviders')}:{' '}
+            {providersQuery.data.items.map((item) => item.value).join(', ')}
           </Text>
         ) : null}
         <Controller
           control={form.control}
           name="isEncrypted"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Text>{t('settingDefinitions.isEncrypted')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -205,9 +236,19 @@ export default function SettingDefinitionFormScreen() {
           control={form.control}
           name="isInherited"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Text>{t('settingDefinitions.isInherited')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -215,9 +256,19 @@ export default function SettingDefinitionFormScreen() {
           control={form.control}
           name="isVisibleToClients"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Text>{t('settingDefinitions.isVisibleToClients')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

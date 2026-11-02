@@ -38,7 +38,9 @@ describe('permission groups api', () => {
   });
 
   it('getPermissionGroups gắn filter và parse ListResult', async () => {
-    const { calls } = stubFetch(JSON.stringify({ items: [{ name: 'AbpIdentity', displayName: 'Identity' }] }));
+    const { calls } = stubFetch(
+      JSON.stringify({ items: [{ name: 'AbpIdentity', displayName: 'Identity' }] }),
+    );
     const data = await getPermissionGroups({ filter: 'Identity' });
     expect(data.items).toHaveLength(1);
     const url = calls[0][0] as string;
@@ -49,7 +51,9 @@ describe('permission groups api', () => {
   it('getPermissionGroup encode name có dấu chấm trong URL', async () => {
     const { calls } = stubFetch(JSON.stringify({ name: 'AbpIdentity', displayName: 'Identity' }));
     await getPermissionGroup('AbpIdentity.Users');
-    expect(calls[0][0] as string).toContain('/api/permission-management/definitions/groups/AbpIdentity.Users');
+    expect(calls[0][0] as string).toContain(
+      '/api/permission-management/definitions/groups/AbpIdentity.Users',
+    );
   });
 
   it('updatePermissionGroup chỉ gửi displayName, không gửi name', async () => {
@@ -76,7 +80,9 @@ describe('permission groups api', () => {
   it('schema nhóm quyền bắt buộc name và displayName', () => {
     expect(permissionGroupFormSchema.safeParse({ name: '', displayName: 'X' }).success).toBe(false);
     expect(permissionGroupFormSchema.safeParse({ name: 'G', displayName: '' }).success).toBe(false);
-    expect(permissionGroupFormSchema.safeParse({ name: 'G', displayName: 'Nhóm' }).success).toBe(true);
+    expect(permissionGroupFormSchema.safeParse({ name: 'G', displayName: 'Nhóm' }).success).toBe(
+      true,
+    );
   });
 });
 
@@ -133,8 +139,18 @@ describe('permission definitions api', () => {
   });
 
   it('schema định nghĩa quyền bắt buộc name, groupName, displayName', () => {
-    const base = { name: 'P', groupName: 'G', displayName: 'Quyền', isEnabled: true, parentName: '', providers: '', stateCheckers: '' };
-    expect(permissionDefinitionFormSchema.safeParse({ ...base, groupName: '' }).success).toBe(false);
+    const base = {
+      name: 'P',
+      groupName: 'G',
+      displayName: 'Quyền',
+      isEnabled: true,
+      parentName: '',
+      providers: '',
+      stateCheckers: '',
+    };
+    expect(permissionDefinitionFormSchema.safeParse({ ...base, groupName: '' }).success).toBe(
+      false,
+    );
     expect(permissionDefinitionFormSchema.safeParse(base).success).toBe(true);
   });
 });

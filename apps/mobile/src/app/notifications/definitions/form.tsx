@@ -11,7 +11,11 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createNotificationDefinition, getNotificationDefinition, updateNotificationDefinition } from '../../../features/notifications/notifications-api';
+import {
+  createNotificationDefinition,
+  getNotificationDefinition,
+  updateNotificationDefinition,
+} from '../../../features/notifications/notifications-api';
 import {
   notificationDefinitionFormDefaults,
   notificationDefinitionFormSchema,
@@ -34,7 +38,11 @@ export default function NotificationDefinitionFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['notification-definitions', name], queryFn: () => getNotificationDefinition(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['notification-definitions', name],
+    queryFn: () => getNotificationDefinition(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<NotificationDefinitionFormValues>({
     resolver: zodResolver(notificationDefinitionFormSchema),
@@ -46,8 +54,12 @@ export default function NotificationDefinitionFormScreen() {
           displayName: detail.data.displayName ?? '',
           description: detail.data.description ?? '',
           allowSubscriptionToClients: detail.data.allowSubscriptionToClients,
-          notificationType: detail.data.notificationType === undefined ? '' : String(detail.data.notificationType),
-          notificationLifetime: detail.data.notificationLifetime === undefined ? '' : String(detail.data.notificationLifetime),
+          notificationType:
+            detail.data.notificationType === undefined ? '' : String(detail.data.notificationType),
+          notificationLifetime:
+            detail.data.notificationLifetime === undefined
+              ? ''
+              : String(detail.data.notificationLifetime),
           contentType: detail.data.contentType === undefined ? '' : String(detail.data.contentType),
           providers: (detail.data.providers ?? []).join('\n'),
           template: detail.data.template ?? '',
@@ -72,7 +84,11 @@ export default function NotificationDefinitionFormScreen() {
         template: values.template || undefined,
       };
       if (isEdit) return updateNotificationDefinition(name as string, shared);
-      return createNotificationDefinition({ ...shared, name: values.name, groupName: values.groupName || undefined });
+      return createNotificationDefinition({
+        ...shared,
+        name: values.name,
+        groupName: values.groupName || undefined,
+      });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['notification-definitions'] });
@@ -83,16 +99,31 @@ export default function NotificationDefinitionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('notificationDefinitions.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState
+        message={t('notificationDefinitions.staticCannotEdit')}
+        onRetry={() => router.back()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('notificationDefinitions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('notificationDefinitions.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('notificationDefinitions.editTitle') : t('notificationDefinitions.createTitle')}>
+    <AppScreen
+      title={
+        isEdit ? t('notificationDefinitions.editTitle') : t('notificationDefinitions.createTitle')
+      }
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>
@@ -167,7 +198,11 @@ export default function NotificationDefinitionFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('notificationDefinitions.allowSubscriptionToClients')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

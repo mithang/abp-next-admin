@@ -18,7 +18,12 @@ export default function AccountScreen() {
 
   if (profile.isPending) return <AppLoading />;
   if (profile.isError) {
-    return <AppErrorState message={toApiError(profile.error).message} onRetry={() => void profile.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(profile.error).message}
+        onRetry={() => void profile.refetch()}
+      />
+    );
   }
 
   const data = profile.data;

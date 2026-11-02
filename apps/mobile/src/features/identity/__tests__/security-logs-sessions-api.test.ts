@@ -1,5 +1,10 @@
 import { describe, it, expect, afterEach } from '@jest/globals';
-import { deleteSecurityLog, deleteSecurityLogsBulk, getSecurityLog, getSecurityLogsPaged } from '../security-logs-api';
+import {
+  deleteSecurityLog,
+  deleteSecurityLogsBulk,
+  getSecurityLog,
+  getSecurityLogsPaged,
+} from '../security-logs-api';
 import { getSessionsPaged, revokeSession } from '../sessions-api';
 
 function stubFetch(body: string, status = 200) {
@@ -19,8 +24,14 @@ describe('security-logs api', () => {
   });
 
   it('dùng endpoint /api/auditing/security-log (không phải /api/identity)', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 's1', userName: 'admin' }] }));
-    const data = await getSecurityLogsPaged({ userName: 'admin', skipCount: 0, maxResultCount: 20 });
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 's1', userName: 'admin' }] }),
+    );
+    const data = await getSecurityLogsPaged({
+      userName: 'admin',
+      skipCount: 0,
+      maxResultCount: 20,
+    });
     expect(data.totalCount).toBe(1);
     const url = calls[0][0] as string;
     expect(url).toContain('/api/auditing/security-log?');

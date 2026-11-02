@@ -11,8 +11,16 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createNotificationGroup, getNotificationGroup, updateNotificationGroup } from '../../../features/notifications/notifications-api';
-import { notificationGroupFormDefaults, notificationGroupFormSchema, type NotificationGroupFormValues } from '../../../features/notifications/notification-group-form-schema';
+import {
+  createNotificationGroup,
+  getNotificationGroup,
+  updateNotificationGroup,
+} from '../../../features/notifications/notifications-api';
+import {
+  notificationGroupFormDefaults,
+  notificationGroupFormSchema,
+  type NotificationGroupFormValues,
+} from '../../../features/notifications/notification-group-form-schema';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -28,7 +36,11 @@ export default function NotificationGroupFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['notification-groups', name], queryFn: () => getNotificationGroup(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['notification-groups', name],
+    queryFn: () => getNotificationGroup(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<NotificationGroupFormValues>({
     resolver: zodResolver(notificationGroupFormSchema),
@@ -68,16 +80,29 @@ export default function NotificationGroupFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('notificationGroups.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState
+        message={t('notificationGroups.staticCannotEdit')}
+        onRetry={() => router.back()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('notificationGroups.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('notificationGroups.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('notificationGroups.editTitle') : t('notificationGroups.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('notificationGroups.editTitle') : t('notificationGroups.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>
@@ -135,7 +160,11 @@ export default function NotificationGroupFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('notificationGroups.allowSubscriptionToClients')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

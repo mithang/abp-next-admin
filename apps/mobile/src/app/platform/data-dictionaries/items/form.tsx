@@ -42,7 +42,11 @@ export default function DataItemFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['platform-datas', dataId], queryFn: () => getData(dataId), enabled: Boolean(dataId) });
+  const detail = useQuery({
+    queryKey: ['platform-datas', dataId],
+    queryFn: () => getData(dataId),
+    enabled: Boolean(dataId),
+  });
   const existing = detail.data?.items.find((i) => i.name === name);
 
   const form = useForm<DataItemFormValues>({
@@ -83,13 +87,19 @@ export default function DataItemFormScreen() {
 
   if (detail.isPending) return <AppLoading />;
   if (detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && !existing) {
     return <AppErrorState message={t('common.empty')} onRetry={() => void detail.refetch()} />;
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('platformDataItems.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('platformDataItems.') ? t(message) : message;
 
   return (
     <AppScreen title={t(isEdit ? 'platformDataItems.editTitle' : 'platformDataItems.createTitle')}>

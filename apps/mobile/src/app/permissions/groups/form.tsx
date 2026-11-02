@@ -10,8 +10,16 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createPermissionGroup, getPermissionGroup, updatePermissionGroup } from '../../../features/permissions/permission-groups-api';
-import { permissionGroupFormDefaults, permissionGroupFormSchema, type PermissionGroupFormValues } from '../../../features/permissions/permission-group-form-schema';
+import {
+  createPermissionGroup,
+  getPermissionGroup,
+  updatePermissionGroup,
+} from '../../../features/permissions/permission-groups-api';
+import {
+  permissionGroupFormDefaults,
+  permissionGroupFormSchema,
+  type PermissionGroupFormValues,
+} from '../../../features/permissions/permission-group-form-schema';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -27,18 +35,27 @@ export default function PermissionGroupFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['permission-groups', name], queryFn: () => getPermissionGroup(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['permission-groups', name],
+    queryFn: () => getPermissionGroup(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<PermissionGroupFormValues>({
     resolver: zodResolver(permissionGroupFormSchema),
     defaultValues: permissionGroupFormDefaults,
-    values: detail.data ? { name: detail.data.name, displayName: detail.data.displayName ?? '' } : undefined,
+    values: detail.data
+      ? { name: detail.data.name, displayName: detail.data.displayName ?? '' }
+      : undefined,
   });
 
   const mutation = useMutation({
     mutationFn: async (values: PermissionGroupFormValues) => {
       if (isEdit && detail.data) {
-        return updatePermissionGroup(name as string, { displayName: values.displayName, extraProperties: detail.data.extraProperties });
+        return updatePermissionGroup(name as string, {
+          displayName: values.displayName,
+          extraProperties: detail.data.extraProperties,
+        });
       }
       if (isEdit) return updatePermissionGroup(name as string, { displayName: values.displayName });
       return createPermissionGroup({ name: values.name, displayName: values.displayName });
@@ -52,7 +69,12 @@ export default function PermissionGroupFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('permissionGroups.') ? t(key) : key);

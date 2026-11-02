@@ -1,5 +1,10 @@
 import { describe, it, expect } from '@jest/globals';
-import { claimTypeFormSchema, toClaimTypeCreateInput, toClaimTypeUpdateInput, claimTypeFormDefaults } from '../claim-type-form-schema';
+import {
+  claimTypeFormSchema,
+  toClaimTypeCreateInput,
+  toClaimTypeUpdateInput,
+  claimTypeFormDefaults,
+} from '../claim-type-form-schema';
 import { ValueType } from '../claim-types';
 
 describe('claim type form schema', () => {
@@ -15,7 +20,8 @@ describe('claim type form schema', () => {
 
   it('từ chối tên rỗng (sau trim) và valueType ngoài enum', () => {
     expect(
-      claimTypeFormSchema.safeParse({ name: '   ', valueType: ValueType.String, required: false }).success,
+      claimTypeFormSchema.safeParse({ name: '   ', valueType: ValueType.String, required: false })
+        .success,
     ).toBe(false);
     expect(
       claimTypeFormSchema.safeParse({ name: 'x', valueType: 99, required: false }).success,
@@ -24,7 +30,11 @@ describe('claim type form schema', () => {
 
   it('từ chối tên quá 256 ký tự', () => {
     expect(
-      claimTypeFormSchema.safeParse({ name: 'a'.repeat(257), valueType: ValueType.Int, required: true }).success,
+      claimTypeFormSchema.safeParse({
+        name: 'a'.repeat(257),
+        valueType: ValueType.Int,
+        required: true,
+      }).success,
     ).toBe(false);
   });
 
@@ -38,7 +48,12 @@ describe('claim type form schema', () => {
       regex: '',
       regexDescription: undefined,
     });
-    expect(body).toEqual({ description: 'Số điện thoại', regex: undefined, regexDescription: undefined, required: true });
+    expect(body).toEqual({
+      description: 'Số điện thoại',
+      regex: undefined,
+      regexDescription: undefined,
+      required: true,
+    });
     expect(body).not.toHaveProperty('name');
     expect(body).not.toHaveProperty('valueType');
   });

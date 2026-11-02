@@ -9,7 +9,10 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { getOrganizationUnitsAll } from '../../features/identity/organization-units-api';
-import { flattenOrganizationUnits, type FlattenedOrganizationUnit } from '../../features/identity/organization-units';
+import {
+  flattenOrganizationUnits,
+  type FlattenedOrganizationUnit,
+} from '../../features/identity/organization-units';
 import { toApiError } from '../../lib/errors';
 
 function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
@@ -20,7 +23,10 @@ function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
         <View style={{ paddingLeft: depth * 20 }}>
           <Card className="p-4">
             <VStack space="xs">
-              <Text>{'— '.repeat(depth)}{unit.displayName}</Text>
+              <Text>
+                {'— '.repeat(depth)}
+                {unit.displayName}
+              </Text>
               <Text>{unit.code}</Text>
             </VStack>
           </Card>
@@ -33,15 +39,24 @@ function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
 export default function OrganizationUnitsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const query = useQuery({ queryKey: ['organization-units', 'all'], queryFn: getOrganizationUnitsAll });
+  const query = useQuery({
+    queryKey: ['organization-units', 'all'],
+    queryFn: getOrganizationUnitsAll,
+  });
   const flat = query.data ? flattenOrganizationUnits(query.data.items) : [];
 
   return (
-    <AppScreen title={t('organizationUnits.title')} subtitle={`${t('organizationUnits.total')}: ${flat.length}`}>
+    <AppScreen
+      title={t('organizationUnits.title')}
+      subtitle={`${t('organizationUnits.total')}: ${flat.length}`}
+    >
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : flat.length === 0 ? (
         <AppEmptyState message={t('organizationUnits.empty')} />
       ) : (
@@ -53,7 +68,11 @@ export default function OrganizationUnitsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <AppButton title={t('organizationUnits.createTitle')} onPress={() => router.push('/organization-units/form')} testID="organization-units-create" />
+      <AppButton
+        title={t('organizationUnits.createTitle')}
+        onPress={() => router.push('/organization-units/form')}
+        testID="organization-units-create"
+      />
     </AppScreen>
   );
 }

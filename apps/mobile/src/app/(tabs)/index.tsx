@@ -14,7 +14,10 @@ import { toApiError } from '../../lib/errors';
 export default function DashboardScreen() {
   const { t } = useTranslation();
   const profile = useQuery({ queryKey: ['profile'], queryFn: getMyProfile });
-  const users = useQuery({ queryKey: ['users', 'total'], queryFn: () => getUsersPaged({ maxResultCount: 1 }) });
+  const users = useQuery({
+    queryKey: ['users', 'total'],
+    queryFn: () => getUsersPaged({ maxResultCount: 1 }),
+  });
   const menus = useQuery({ queryKey: ['menus', 'all'], queryFn: getAllMenus });
 
   if (profile.isPending || users.isPending || menus.isPending) {
@@ -34,7 +37,10 @@ export default function DashboardScreen() {
   const menuCount = menus.data?.items?.length ?? 0;
 
   return (
-    <AppScreen title={t('dashboard.title')} subtitle={`${t('dashboard.welcome')}${userName ? `, ${userName}` : ''}`}>
+    <AppScreen
+      title={t('dashboard.title')}
+      subtitle={`${t('dashboard.welcome')}${userName ? `, ${userName}` : ''}`}
+    >
       <VStack space="md">
         <ImpersonationBanner />
         <Card className="p-4">

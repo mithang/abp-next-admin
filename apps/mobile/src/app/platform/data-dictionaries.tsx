@@ -87,7 +87,10 @@ export default function DataDictionariesScreen() {
   const total = query.data?.items.length ?? 0;
 
   return (
-    <AppScreen title={t('platformDataDictionaries.title')} subtitle={`${t('platformDataDictionaries.total')}: ${total}`}>
+    <AppScreen
+      title={t('platformDataDictionaries.title')}
+      subtitle={`${t('platformDataDictionaries.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -103,7 +106,10 @@ export default function DataDictionariesScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : rows.length === 0 ? (
         <AppEmptyState message={t('platformDataDictionaries.empty')} />
       ) : (

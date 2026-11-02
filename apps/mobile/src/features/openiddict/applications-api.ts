@@ -20,9 +20,12 @@ export function getApplicationsPaged(input: OpenIddictApplicationGetListInput = 
 
 /** GET /api/openiddict/applications/{id} */
 export function getApplication(id: string) {
-  return apiRequest<OpenIddictApplicationDto>(`/api/openiddict/applications/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<OpenIddictApplicationDto>(
+    `/api/openiddict/applications/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /**
@@ -31,13 +34,18 @@ export function getApplication(id: string) {
  * requirements { features: { requirePkce: false } } và settings { tokenLifetime: {} }
  * vì UI chưa có chỗ sửa sâu hai nhóm này.
  */
-export function createApplication(input: Omit<OpenIddictApplicationCreateOrUpdateDto, 'requirements' | 'settings'>) {
+export function createApplication(
+  input: Omit<OpenIddictApplicationCreateOrUpdateDto, 'requirements' | 'settings'>,
+) {
   const body: OpenIddictApplicationCreateOrUpdateDto = {
     ...input,
     requirements: { features: { requirePkce: false } },
     settings: { tokenLifetime: {} },
   };
-  return apiRequest<OpenIddictApplicationDto>('/api/openiddict/applications', { method: 'POST', body });
+  return apiRequest<OpenIddictApplicationDto>('/api/openiddict/applications', {
+    method: 'POST',
+    body,
+  });
 }
 
 /**
@@ -57,13 +65,18 @@ export function updateApplication(
     requirements: input.requirements ?? { features: { requirePkce: false } },
     settings: input.settings ?? { tokenLifetime: {} },
   };
-  return apiRequest<OpenIddictApplicationDto>(`/api/openiddict/applications/${encodeURIComponent(id)}`, {
-    method: 'PUT',
-    body,
-  });
+  return apiRequest<OpenIddictApplicationDto>(
+    `/api/openiddict/applications/${encodeURIComponent(id)}`,
+    {
+      method: 'PUT',
+      body,
+    },
+  );
 }
 
 /** DELETE /api/openiddict/applications/{id} */
 export function deleteApplication(id: string) {
-  return apiRequest<void>(`/api/openiddict/applications/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/openiddict/applications/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }

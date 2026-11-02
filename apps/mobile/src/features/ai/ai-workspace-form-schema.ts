@@ -17,10 +17,27 @@ const optionalNumberText = z
   .optional();
 
 export const aiWorkspaceFormSchema = z.object({
-  name: z.string().trim().min(1, 'aiWorkspaces.nameRequired').max(256, 'aiWorkspaces.nameTooLong').optional(),
-  provider: z.string().trim().min(1, 'aiWorkspaces.providerRequired').max(256, 'aiWorkspaces.providerTooLong'),
-  modelName: z.string().trim().min(1, 'aiWorkspaces.modelNameRequired').max(256, 'aiWorkspaces.modelNameTooLong'),
-  displayName: z.string().trim().min(1, 'aiWorkspaces.displayNameRequired').max(256, 'aiWorkspaces.displayNameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'aiWorkspaces.nameRequired')
+    .max(256, 'aiWorkspaces.nameTooLong')
+    .optional(),
+  provider: z
+    .string()
+    .trim()
+    .min(1, 'aiWorkspaces.providerRequired')
+    .max(256, 'aiWorkspaces.providerTooLong'),
+  modelName: z
+    .string()
+    .trim()
+    .min(1, 'aiWorkspaces.modelNameRequired')
+    .max(256, 'aiWorkspaces.modelNameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'aiWorkspaces.displayNameRequired')
+    .max(256, 'aiWorkspaces.displayNameTooLong'),
   description: z.string().max(2048, 'aiWorkspaces.descriptionTooLong').optional(),
   apiKey: z.string().max(1024, 'aiWorkspaces.apiKeyTooLong').optional(),
   apiBaseUrl: z.string().max(1024, 'aiWorkspaces.apiBaseUrlTooLong').optional(),
@@ -81,7 +98,11 @@ export function toWorkspaceNumericFields(values: AIWorkspaceFormValues) {
 
 /** Schema màn đặt lại API key: chỉ apiKey bắt buộc, đúng modal web (InputPassword required). */
 export const aiWorkspaceResetApiKeySchema = z.object({
-  apiKey: z.string().trim().min(1, 'aiWorkspaces.apiKeyRequired').max(1024, 'aiWorkspaces.apiKeyTooLong'),
+  apiKey: z
+    .string()
+    .trim()
+    .min(1, 'aiWorkspaces.apiKeyRequired')
+    .max(1024, 'aiWorkspaces.apiKeyTooLong'),
 });
 
 export type AIWorkspaceResetApiKeyValues = z.infer<typeof aiWorkspaceResetApiKeySchema>;

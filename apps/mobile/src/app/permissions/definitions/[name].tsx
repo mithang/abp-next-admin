@@ -7,7 +7,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deletePermissionDefinition, getPermissionDefinition } from '../../../features/permissions/permission-definitions-api';
+import {
+  deletePermissionDefinition,
+  getPermissionDefinition,
+} from '../../../features/permissions/permission-definitions-api';
 import { MultiTenancySides } from '../../../features/permissions/types';
 import { toApiError } from '../../../lib/errors';
 
@@ -35,7 +38,11 @@ export default function PermissionDefinitionDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['permission-definitions', name], queryFn: () => getPermissionDefinition(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['permission-definitions', name],
+    queryFn: () => getPermissionDefinition(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deletePermissionDefinition(name),
     onSuccess: async () => {
@@ -46,7 +53,12 @@ export default function PermissionDefinitionDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -59,14 +71,26 @@ export default function PermissionDefinitionDetailScreen() {
         <Field label={t('permissionDefinitions.groupName')} value={item.groupName} />
         <Field label={t('permissionDefinitions.displayName')} value={item.displayName} />
         <Field label={t('permissionDefinitions.parentName')} value={item.parentName} />
-        <Field label={t('permissionDefinitions.isEnabled')} value={item.isEnabled ? t('permissionDefinitions.enabled') : t('permissionDefinitions.disabled')} />
-        <Field label={t('permissionDefinitions.multiTenancySide')} value={multiTenancySideLabel(item.multiTenancySide)} />
+        <Field
+          label={t('permissionDefinitions.isEnabled')}
+          value={
+            item.isEnabled
+              ? t('permissionDefinitions.enabled')
+              : t('permissionDefinitions.disabled')
+          }
+        />
+        <Field
+          label={t('permissionDefinitions.multiTenancySide')}
+          value={multiTenancySideLabel(item.multiTenancySide)}
+        />
         <Field label={t('permissionDefinitions.providers')} value={item.providers?.join(', ')} />
         <Field label={t('permissionDefinitions.stateCheckers')} value={item.stateCheckers} />
         {item.isStatic ? <Text>{t('permissionDefinitions.static')}</Text> : null}
         <AppButton
           title={t('permissionDefinitions.editTitle')}
-          onPress={() => router.push(`/permissions/definitions/form?name=${encodeURIComponent(item.name)}`)}
+          onPress={() =>
+            router.push(`/permissions/definitions/form?name=${encodeURIComponent(item.name)}`)
+          }
           variant="outline"
           testID="permission-definition-edit"
         />
@@ -77,10 +101,18 @@ export default function PermissionDefinitionDetailScreen() {
             variant="outline"
             loading={deleteMutation.isPending}
             onPress={() =>
-              Alert.alert(t('permissionDefinitions.deleteConfirmTitle'), t('permissionDefinitions.deleteConfirmMessage'), [
-                { text: t('common.cancel'), style: 'cancel' },
-                { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-              ])
+              Alert.alert(
+                t('permissionDefinitions.deleteConfirmTitle'),
+                t('permissionDefinitions.deleteConfirmMessage'),
+                [
+                  { text: t('common.cancel'), style: 'cancel' },
+                  {
+                    text: t('common.delete'),
+                    style: 'destructive',
+                    onPress: () => deleteMutation.mutate(),
+                  },
+                ],
+              )
             }
             testID="permission-definition-delete"
           />

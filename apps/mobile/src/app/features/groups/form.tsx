@@ -10,8 +10,16 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createFeatureGroup, getFeatureGroup, updateFeatureGroup } from '../../../features/features/feature-groups-api';
-import { featureGroupFormDefaults, featureGroupFormSchema, type FeatureGroupFormValues } from '../../../features/features/feature-group-form-schema';
+import {
+  createFeatureGroup,
+  getFeatureGroup,
+  updateFeatureGroup,
+} from '../../../features/features/feature-groups-api';
+import {
+  featureGroupFormDefaults,
+  featureGroupFormSchema,
+  type FeatureGroupFormValues,
+} from '../../../features/features/feature-group-form-schema';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -27,12 +35,18 @@ export default function FeatureGroupFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['feature-groups', name], queryFn: () => getFeatureGroup(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['feature-groups', name],
+    queryFn: () => getFeatureGroup(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<FeatureGroupFormValues>({
     resolver: zodResolver(featureGroupFormSchema),
     defaultValues: featureGroupFormDefaults,
-    values: detail.data ? { name: detail.data.name, displayName: detail.data.displayName ?? '' } : undefined,
+    values: detail.data
+      ? { name: detail.data.name, displayName: detail.data.displayName ?? '' }
+      : undefined,
   });
 
   const mutation = useMutation({
@@ -56,10 +70,17 @@ export default function FeatureGroupFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('featureGroups.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState message={t('featureGroups.staticCannotEdit')} onRetry={() => router.back()} />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('featureGroups.') ? t(key) : key);

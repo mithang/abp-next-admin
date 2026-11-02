@@ -129,7 +129,9 @@ export function getLayoutsPaged(input: LayoutGetListInput = {}) {
 
 /** GET /api/platform/layouts/{id} */
 export function getLayout(id: string) {
-  return apiRequest<LayoutDto>(`/api/platform/layouts/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<LayoutDto>(`/api/platform/layouts/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** POST /api/platform/layouts — tạo kèm dataId + framework (chỉ lúc tạo). */
@@ -177,7 +179,10 @@ export function createMenu(input: MenuCreateDto) {
 
 /** PUT /api/platform/menus/{id} — KHÔNG gửi layoutId (không có trong UpdateDto). */
 export function updateMenu(id: string, input: MenuUpdateDto) {
-  return apiRequest<MenuDto>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'PUT', body: input });
+  return apiRequest<MenuDto>(`/api/platform/menus/${encodeURIComponent(id)}`, {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/platform/menus/{id} */
@@ -281,17 +286,23 @@ export function getEmailMessagesPaged(input: EmailMessageGetListInput = {}) {
 
 /** GET /api/platform/messages/email/{id} — modal xem chi tiết chỉ đọc của web. */
 export function getEmailMessage(id: string) {
-  return apiRequest<EmailMessageDto>(`/api/platform/messages/email/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<EmailMessageDto>(`/api/platform/messages/email/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** DELETE /api/platform/messages/email/{id} */
 export function deleteEmailMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }
 
 /** POST /api/platform/messages/email/{id}/send — gửi lại. */
 export function sendEmailMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}/send`, { method: 'POST' });
+  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}/send`, {
+    method: 'POST',
+  });
 }
 
 /* ---------------- Tin nhắn SMS: /api/platform/messages/sms ---------------- */
@@ -316,10 +327,14 @@ export function getSmsMessagesPaged(input: SmsMessageGetListInput = {}) {
 
 /** DELETE /api/platform/messages/sms/{id} */
 export function deleteSmsMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }
 
 /** POST /api/platform/messages/sms/{id}/send — gửi lại. */
 export function sendSmsMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}/send`, { method: 'POST' });
+  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}/send`, {
+    method: 'POST',
+  });
 }

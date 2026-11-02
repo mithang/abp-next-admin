@@ -11,7 +11,12 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createAITool, getAITool, getAIToolProviders, updateAITool } from '../../../features/ai/ai-api';
+import {
+  createAITool,
+  getAITool,
+  getAIToolProviders,
+  updateAITool,
+} from '../../../features/ai/ai-api';
 import {
   aiToolFormDefaults,
   aiToolFormSchema,
@@ -37,8 +42,15 @@ export default function AIToolFormScreen() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [providerText, setProviderText] = useState('');
 
-  const detail = useQuery({ queryKey: ['ai-tools', id], queryFn: () => getAITool(id as string), enabled: isEdit });
-  const providersQuery = useQuery({ queryKey: ['ai-tool-providers'], queryFn: () => getAIToolProviders() });
+  const detail = useQuery({
+    queryKey: ['ai-tools', id],
+    queryFn: () => getAITool(id as string),
+    enabled: isEdit,
+  });
+  const providersQuery = useQuery({
+    queryKey: ['ai-tool-providers'],
+    queryFn: () => getAIToolProviders(),
+  });
 
   const form = useForm<AIToolFormValues>({
     resolver: zodResolver(aiToolFormSchema),
@@ -70,7 +82,10 @@ export default function AIToolFormScreen() {
         extraProperties: parseExtraPropertiesJson(values),
       };
       if (isEdit) {
-        return updateAITool(id as string, { ...shared, concurrencyStamp: detail.data?.concurrencyStamp ?? '' });
+        return updateAITool(id as string, {
+          ...shared,
+          concurrencyStamp: detail.data?.concurrencyStamp ?? '',
+        });
       }
       return createAITool({ ...shared, name: (values.name ?? '').trim() });
     },
@@ -83,13 +98,21 @@ export default function AIToolFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('aiTools.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('aiTools.') ? t(message) : message;
 
   const effectiveProvider = providerText || detail.data?.provider || '';
-  const selectedProvider = providersQuery.data?.items.find((p) => p.name === effectiveProvider.trim());
+  const selectedProvider = providersQuery.data?.items.find(
+    (p) => p.name === effectiveProvider.trim(),
+  );
   const providerHint =
     providersQuery.data?.items.map((p) => p.name).join(', ') || t('aiTools.providersLoading');
 
@@ -129,7 +152,9 @@ export default function AIToolFormScreen() {
             />
           )}
         />
-        <Text>{t('aiTools.providersHint')}: {providerHint}</Text>
+        <Text>
+          {t('aiTools.providersHint')}: {providerHint}
+        </Text>
         {selectedProvider && selectedProvider.properties.length > 0 ? (
           <Text>
             {t('aiTools.providerProperties')}:{' '}
@@ -156,7 +181,11 @@ export default function AIToolFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('aiTools.enabled')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -166,7 +195,11 @@ export default function AIToolFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('aiTools.global')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

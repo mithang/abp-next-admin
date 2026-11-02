@@ -51,8 +51,12 @@ export default function BlobDetailScreen() {
   const openGeneratedUrl = async (kind: 'download' | 'preview') => {
     setOpenError(null);
     try {
-      const raw = kind === 'download' ? await generateBlobDownloadUrl(id) : await generateBlobPreviewUrl(id);
-      const url = typeof raw === 'string' && /^https?:\/\//.test(raw) ? raw : `${config.apiUrl.replace(/\/$/, '')}${raw}`;
+      const raw =
+        kind === 'download' ? await generateBlobDownloadUrl(id) : await generateBlobPreviewUrl(id);
+      const url =
+        typeof raw === 'string' && /^https?:\/\//.test(raw)
+          ? raw
+          : `${config.apiUrl.replace(/\/$/, '')}${raw}`;
       await WebBrowser.openBrowserAsync(url);
     } catch (e) {
       setOpenError(e instanceof Error ? e.message : t('blobBlobs.openFailed'));
@@ -61,7 +65,12 @@ export default function BlobDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -100,7 +109,10 @@ export default function BlobDetailScreen() {
         ) : null}
         {!isFolder ? (
           <>
-            <AppButton title={t('blobBlobs.download')} onPress={() => void openGeneratedUrl('download')} />
+            <AppButton
+              title={t('blobBlobs.download')}
+              onPress={() => void openGeneratedUrl('download')}
+            />
             <AppButton
               title={t('blobBlobs.preview')}
               variant="outline"
@@ -117,7 +129,11 @@ export default function BlobDetailScreen() {
           onPress={() =>
             Alert.alert(t('blobBlobs.deleteConfirmTitle'), t('blobBlobs.deleteConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => deleteMutation.mutate(),
+              },
             ])
           }
         />

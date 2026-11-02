@@ -64,7 +64,11 @@ export default function ClaimTypesScreen() {
   const query = useQuery({
     queryKey: ['claim-types', debouncedFilter, page],
     queryFn: () =>
-      getClaimTypesPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getClaimTypesPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -83,7 +87,10 @@ export default function ClaimTypesScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('claimTypes.empty')} />
       ) : (
@@ -96,9 +103,17 @@ export default function ClaimTypesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
-      <AppButton title={t('claimTypes.createTitle')} onPress={() => router.push('/claim-types/form')} testID="claim-types-create" />
+      <AppButton
+        title={t('claimTypes.createTitle')}
+        onPress={() => router.push('/claim-types/form')}
+        testID="claim-types-create"
+      />
     </AppScreen>
   );
 }

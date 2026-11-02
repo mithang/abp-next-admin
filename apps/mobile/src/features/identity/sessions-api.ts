@@ -18,5 +18,7 @@ export function getSessionsPaged(input: GetUserSessionsInput = {}) {
 
 /** DELETE /api/identity/sessions/{sessionId}/revoke — sessionId đã encode, không dùng id entity. */
 export function revokeSession(sessionId: string) {
-  return apiRequest<void>(`/api/identity/sessions/${encodeURIComponent(sessionId)}/revoke`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/identity/sessions/${encodeURIComponent(sessionId)}/revoke`, {
+    method: 'DELETE',
+  });
 }

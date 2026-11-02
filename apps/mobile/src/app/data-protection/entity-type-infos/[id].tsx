@@ -11,11 +11,20 @@ import { toApiError } from '../../../lib/errors';
 export default function EntityTypeInfoDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['entity-type-infos', id], queryFn: () => getEntityTypeInfo(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['entity-type-infos', id],
+    queryFn: () => getEntityTypeInfo(id),
+    enabled: Boolean(id),
+  });
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -30,7 +39,8 @@ export default function EntityTypeInfoDetailScreen() {
           {t('entityTypeInfos.typeFullName')}: {item.typeFullName}
         </Text>
         <Text>
-          {t('entityTypeInfos.auditEnabled')}: {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
+          {t('entityTypeInfos.auditEnabled')}:{' '}
+          {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
         </Text>
         {item.creationTime ? (
           <Text>

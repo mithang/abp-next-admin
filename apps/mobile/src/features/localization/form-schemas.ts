@@ -12,9 +12,17 @@ import { z } from 'zod';
  */
 
 export const languageFormSchema = z.object({
-  cultureName: z.string().trim().min(1, 'languages.cultureNameRequired').max(256, 'languages.cultureNameTooLong'),
+  cultureName: z
+    .string()
+    .trim()
+    .min(1, 'languages.cultureNameRequired')
+    .max(256, 'languages.cultureNameTooLong'),
   uiCultureName: z.string(),
-  displayName: z.string().trim().min(1, 'languages.displayNameRequired').max(256, 'languages.displayNameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'languages.displayNameRequired')
+    .max(256, 'languages.displayNameTooLong'),
 });
 
 export type LanguageFormValues = z.infer<typeof languageFormSchema>;
@@ -27,7 +35,11 @@ export const languageFormDefaults: LanguageFormValues = {
 
 export const resourceFormSchema = z.object({
   name: z.string().trim().min(1, 'resources.nameRequired').max(256, 'resources.nameTooLong'),
-  displayName: z.string().trim().min(1, 'resources.displayNameRequired').max(256, 'resources.displayNameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'resources.displayNameRequired')
+    .max(256, 'resources.displayNameTooLong'),
   description: z.string(),
   enable: z.boolean(),
 });

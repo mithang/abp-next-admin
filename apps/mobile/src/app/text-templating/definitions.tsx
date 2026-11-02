@@ -55,7 +55,10 @@ export default function TextTemplateDefinitionsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('textTemplateDefinitions.title')} subtitle={`${t('textTemplateDefinitions.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('textTemplateDefinitions.title')}
+      subtitle={`${t('textTemplateDefinitions.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -72,7 +75,10 @@ export default function TextTemplateDefinitionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('textTemplateDefinitions.empty')} />
       ) : (

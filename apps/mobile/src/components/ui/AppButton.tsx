@@ -17,8 +17,17 @@ interface AppButtonProps {
  * loading và disabled rõ ràng. API map: solid→default, outline→outline,
  * negative→destructive (theo đúng variant của component v5 đã cài).
  */
-export function AppButton({ title, onPress, disabled, loading, variant = 'solid', action = 'primary', testID }: AppButtonProps) {
-  const gluestackVariant = action === 'negative' ? 'destructive' : variant === 'outline' ? 'outline' : 'default';
+export function AppButton({
+  title,
+  onPress,
+  disabled,
+  loading,
+  variant = 'solid',
+  action = 'primary',
+  testID,
+}: AppButtonProps) {
+  const gluestackVariant =
+    action === 'negative' ? 'destructive' : variant === 'outline' ? 'outline' : 'default';
   return (
     <Button
       onPress={onPress}

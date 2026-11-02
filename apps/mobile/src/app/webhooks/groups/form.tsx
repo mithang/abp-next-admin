@@ -67,10 +67,17 @@ export default function WebhookGroupFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('webhookGroups.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState message={t('webhookGroups.staticCannotEdit')} onRetry={() => router.back()} />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('webhookGroups.') ? t(key) : key);

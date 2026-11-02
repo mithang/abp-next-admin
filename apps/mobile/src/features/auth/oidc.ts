@@ -5,7 +5,10 @@ import { clearTokens, getRefreshToken, saveTokens } from './token-storage';
 
 WebBrowser.maybeCompleteAuthSession();
 
-export const redirectUri = AuthSession.makeRedirectUri({ scheme: config.redirectScheme, path: 'auth' });
+export const redirectUri = AuthSession.makeRedirectUri({
+  scheme: config.redirectScheme,
+  path: 'auth',
+});
 
 export interface TokenSet {
   accessToken: string;
@@ -42,7 +45,12 @@ export async function exchangeCode(
   code: string,
 ): Promise<TokenSet> {
   const tokenResult = await AuthSession.exchangeCodeAsync(
-    { clientId: config.clientId, code, redirectUri, extraParams: { code_verifier: request.codeVerifier ?? '' } },
+    {
+      clientId: config.clientId,
+      code,
+      redirectUri,
+      extraParams: { code_verifier: request.codeVerifier ?? '' },
+    },
     discovery,
   );
   const tokens: TokenSet = {
@@ -55,11 +63,16 @@ export async function exchangeCode(
   return tokens;
 }
 
-export async function refreshAccessToken(discovery: AuthSession.DiscoveryDocument): Promise<string | null> {
+export async function refreshAccessToken(
+  discovery: AuthSession.DiscoveryDocument,
+): Promise<string | null> {
   const refreshToken = await getRefreshToken();
   if (!refreshToken) return null;
   try {
-    const result = await AuthSession.refreshAsync({ clientId: config.clientId, refreshToken }, discovery);
+    const result = await AuthSession.refreshAsync(
+      { clientId: config.clientId, refreshToken },
+      discovery,
+    );
     await saveTokens({
       accessToken: result.accessToken,
       refreshToken: result.refreshToken ?? undefined,
@@ -76,7 +89,10 @@ export async function logout(discovery: AuthSession.DiscoveryDocument): Promise<
   try {
     const refreshToken = await getRefreshToken();
     if (refreshToken && discovery.revocationEndpoint) {
-      await AuthSession.revokeAsync({ clientId: config.clientId, token: refreshToken }, discovery).catch(() => undefined);
+      await AuthSession.revokeAsync(
+        { clientId: config.clientId, token: refreshToken },
+        discovery,
+      ).catch(() => undefined);
     }
   } finally {
     await clearTokens();

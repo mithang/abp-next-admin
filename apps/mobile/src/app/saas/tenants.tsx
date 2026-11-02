@@ -74,11 +74,18 @@ export default function TenantsScreen() {
         autoCapitalize="none"
         testID="saas-tenants-search"
       />
-      <AppButton title={t('saasTenants.createTitle')} onPress={() => router.push('/saas/tenants/form')} testID="saas-tenants-create" />
+      <AppButton
+        title={t('saasTenants.createTitle')}
+        onPress={() => router.push('/saas/tenants/form')}
+        testID="saas-tenants-create"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('saasTenants.empty')} />
       ) : (
@@ -91,7 +98,11 @@ export default function TenantsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

@@ -12,10 +12,13 @@ import type {
  * mobile lấy toàn bộ danh sách rồi hiển thị qua FlatList.
  */
 export function getPermissionGroups(input: PermissionGroupDefinitionGetListInput = {}) {
-  return apiRequest<ListResult<PermissionGroupDefinitionDto>>('/api/permission-management/definitions/groups', {
-    method: 'GET',
-    params: { filter: input.filter },
-  });
+  return apiRequest<ListResult<PermissionGroupDefinitionDto>>(
+    '/api/permission-management/definitions/groups',
+    {
+      method: 'GET',
+      params: { filter: input.filter },
+    },
+  );
 }
 
 /** GET /api/permission-management/definitions/groups/{name} */
@@ -44,7 +47,10 @@ export function updatePermissionGroup(name: string, input: PermissionGroupDefini
 
 /** DELETE /api/permission-management/definitions/groups/{name} */
 export function deletePermissionGroup(name: string) {
-  return apiRequest<void>(`/api/permission-management/definitions/groups/${encodeURIComponent(name)}`, {
-    method: 'DELETE',
-  });
+  return apiRequest<void>(
+    `/api/permission-management/definitions/groups/${encodeURIComponent(name)}`,
+    {
+      method: 'DELETE',
+    },
+  );
 }

@@ -82,7 +82,13 @@ function FavoriteRow({
   );
 }
 
-function AddFavoriteForm({ framework, existing }: { framework: string; existing: UserFavoriteMenuDto[] }) {
+function AddFavoriteForm({
+  framework,
+  existing,
+}: {
+  framework: string;
+  existing: UserFavoriteMenuDto[];
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [menuFilter, setMenuFilter] = useState('');

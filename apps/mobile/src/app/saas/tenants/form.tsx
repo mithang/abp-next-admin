@@ -11,7 +11,12 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createTenant, getEditionsPaged, getTenant, updateTenant } from '../../../features/saas/saas-api';
+import {
+  createTenant,
+  getEditionsPaged,
+  getTenant,
+  updateTenant,
+} from '../../../features/saas/saas-api';
 import {
   parseExtraPropertiesJson,
   tenantFormDefaults,
@@ -40,8 +45,15 @@ export default function TenantFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['saas-tenants', id], queryFn: () => getTenant(id as string), enabled: isEdit });
-  const editionsQuery = useQuery({ queryKey: ['saas-editions-hint'], queryFn: () => getEditionsPaged({ maxResultCount: 100 }) });
+  const detail = useQuery({
+    queryKey: ['saas-tenants', id],
+    queryFn: () => getTenant(id as string),
+    enabled: isEdit,
+  });
+  const editionsQuery = useQuery({
+    queryKey: ['saas-editions-hint'],
+    queryFn: () => getEditionsPaged({ maxResultCount: 100 }),
+  });
 
   const form = useForm<TenantFormValues>({
     resolver: zodResolver(tenantFormSchema(!isEdit)),
@@ -76,7 +88,10 @@ export default function TenantFormScreen() {
         extraProperties: parseExtraPropertiesJson(values),
       };
       if (isEdit) {
-        return updateTenant(id as string, { ...shared, concurrencyStamp: detail.data?.concurrencyStamp ?? '' });
+        return updateTenant(id as string, {
+          ...shared,
+          concurrencyStamp: detail.data?.concurrencyStamp ?? '',
+        });
       }
       return createTenant({
         ...shared,
@@ -96,10 +111,16 @@ export default function TenantFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('saasTenants.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('saasTenants.') ? t(message) : message;
   const editionsHint =
     editionsQuery.data?.items.map((e) => `${e.displayName} — ${e.id}`).join('\n') ||
     t('saasTenants.editionsLoading');
@@ -127,7 +148,11 @@ export default function TenantFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('saasTenants.isActive')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -145,7 +170,9 @@ export default function TenantFormScreen() {
             />
           )}
         />
-        <Text>{t('saasTenants.editionsHint')}: {editionsHint}</Text>
+        <Text>
+          {t('saasTenants.editionsHint')}: {editionsHint}
+        </Text>
         <Controller
           control={form.control}
           name="enableTime"
@@ -211,7 +238,11 @@ export default function TenantFormScreen() {
               render={({ field }) => (
                 <View>
                   <Text>{t('saasTenants.useSharedDatabase')}</Text>
-                  <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+                  <Switch
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    accessibilityRole="switch"
+                  />
                 </View>
               )}
             />

@@ -1,5 +1,10 @@
 import { describe, it, expect, afterEach } from '@jest/globals';
-import { deleteClaimType, getClaimType, getClaimTypesPaged, updateClaimType } from '../claim-types-api';
+import {
+  deleteClaimType,
+  getClaimType,
+  getClaimTypesPaged,
+  updateClaimType,
+} from '../claim-types-api';
 import { ValueType, valueTypeKey } from '../claim-types';
 
 function stubFetch(body: string, status = 200) {
@@ -20,7 +25,9 @@ describe('claim-types api', () => {
   });
 
   it('getClaimTypesPaged gắn query ABP và parse PagedResult', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 'c1', name: 'email', valueType: 0 }] }));
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 'c1', name: 'email', valueType: 0 }] }),
+    );
     const data = await getClaimTypesPaged({ filter: 'em', skipCount: 0, maxResultCount: 20 });
     expect(data.totalCount).toBe(1);
     const url = calls[0][0] as string;

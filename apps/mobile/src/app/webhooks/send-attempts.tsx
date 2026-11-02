@@ -51,8 +51,8 @@ function AttemptRow({
         {item.webhookEvent.webhookName}
       </Text>
       <Text>
-        {item.responseStatusCode !== undefined ? `HTTP ${item.responseStatusCode}` : 'no response'} ·{' '}
-        {new Date(item.creationTime).toLocaleString()}
+        {item.responseStatusCode !== undefined ? `HTTP ${item.responseStatusCode}` : 'no response'}{' '}
+        · {new Date(item.creationTime).toLocaleString()}
       </Text>
     </VStack>
   );
@@ -140,7 +140,10 @@ export default function WebhookSendAttemptsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('webhookSendAttempts.title')} subtitle={`${t('webhookSendAttempts.total')}: ${total}`}>
+    <AppScreen
+      title={t('webhookSendAttempts.title')}
+      subtitle={`${t('webhookSendAttempts.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -149,7 +152,9 @@ export default function WebhookSendAttemptsScreen() {
         testID="webhook-send-attempts-search"
       />
       <AppButton
-        title={selectMode ? t('webhookSendAttempts.exitSelectMode') : t('webhookSendAttempts.selectMode')}
+        title={
+          selectMode ? t('webhookSendAttempts.exitSelectMode') : t('webhookSendAttempts.selectMode')
+        }
         onPress={() => {
           setSelectMode((v) => !v);
           setSelected(new Set());
@@ -190,7 +195,10 @@ export default function WebhookSendAttemptsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('webhookSendAttempts.empty')} />
       ) : (
@@ -211,7 +219,11 @@ export default function WebhookSendAttemptsScreen() {
       )}
       {bulkMutation.isError ? <Text>{toApiError(bulkMutation.error).message}</Text> : null}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

@@ -109,7 +109,11 @@ describe('feature definitions api', () => {
       isAvailableToHost: true,
       isVisibleToClients: false,
     });
-    expect(bodyOf(calls)).toMatchObject({ name: 'F', groupName: 'G', valueType: 'ToggleStringValueType' });
+    expect(bodyOf(calls)).toMatchObject({
+      name: 'F',
+      groupName: 'G',
+      valueType: 'ToggleStringValueType',
+    });
   });
 
   it('delete/get dùng route definitions/{name}', async () => {
@@ -123,9 +127,16 @@ describe('feature definitions api', () => {
 
   it('schema định nghĩa tính năng bắt buộc name, groupName, displayName, valueType', () => {
     const base = {
-      name: 'F', groupName: 'G', displayName: 'Tính năng', description: '', defaultValue: '',
-      valueType: 'FreeTextStringValueType', isAvailableToHost: true, isVisibleToClients: true,
-      parentName: '', allowedProviders: '',
+      name: 'F',
+      groupName: 'G',
+      displayName: 'Tính năng',
+      description: '',
+      defaultValue: '',
+      valueType: 'FreeTextStringValueType',
+      isAvailableToHost: true,
+      isVisibleToClients: true,
+      parentName: '',
+      allowedProviders: '',
     };
     expect(featureDefinitionFormSchema.safeParse({ ...base, valueType: '' }).success).toBe(false);
     expect(featureDefinitionFormSchema.safeParse(base).success).toBe(true);

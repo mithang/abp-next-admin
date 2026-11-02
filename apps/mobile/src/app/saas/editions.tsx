@@ -69,11 +69,18 @@ export default function EditionsScreen() {
         autoCapitalize="none"
         testID="saas-editions-search"
       />
-      <AppButton title={t('saasEditions.createTitle')} onPress={() => router.push('/saas/editions/form')} testID="saas-editions-create" />
+      <AppButton
+        title={t('saasEditions.createTitle')}
+        onPress={() => router.push('/saas/editions/form')}
+        testID="saas-editions-create"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('saasEditions.empty')} />
       ) : (
@@ -86,7 +93,11 @@ export default function EditionsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

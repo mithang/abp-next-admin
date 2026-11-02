@@ -7,7 +7,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteSettingDefinition, getSettingDefinition } from '../../../features/settings/settings-definitions-api';
+import {
+  deleteSettingDefinition,
+  getSettingDefinition,
+} from '../../../features/settings/settings-definitions-api';
 import { toApiError } from '../../../lib/errors';
 
 function Field({ label, value }: { label: string; value?: string }) {
@@ -29,7 +32,11 @@ export default function SettingDefinitionDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['setting-definitions', name], queryFn: () => getSettingDefinition(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['setting-definitions', name],
+    queryFn: () => getSettingDefinition(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteSettingDefinition(name),
     onSuccess: async () => {
@@ -40,7 +47,12 @@ export default function SettingDefinitionDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -55,20 +67,25 @@ export default function SettingDefinitionDetailScreen() {
         <Field label={t('settingDefinitions.defaultValue')} value={item.defaultValue} />
         <Field label={t('settingDefinitions.providers')} value={item.providers?.join(', ')} />
         <Text>
-          {t('settingDefinitions.isEncrypted')}: {item.isEncrypted ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
+          {t('settingDefinitions.isEncrypted')}:{' '}
+          {item.isEncrypted ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
         </Text>
         <Text>
-          {t('settingDefinitions.isInherited')}: {item.isInherited ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
+          {t('settingDefinitions.isInherited')}:{' '}
+          {item.isInherited ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
         </Text>
         <Text>
-          {t('settingDefinitions.isVisibleToClients')}: {item.isVisibleToClients ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
+          {t('settingDefinitions.isVisibleToClients')}:{' '}
+          {item.isVisibleToClients ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
         </Text>
         {item.isStatic ? <Text>{t('settingDefinitions.static')}</Text> : null}
         {!item.isStatic ? (
           <>
             <AppButton
               title={t('settingDefinitions.editTitle')}
-              onPress={() => router.push(`/settings/definitions/form?name=${encodeURIComponent(item.name)}`)}
+              onPress={() =>
+                router.push(`/settings/definitions/form?name=${encodeURIComponent(item.name)}`)
+              }
               variant="outline"
               testID="setting-definition-edit"
             />
@@ -78,10 +95,18 @@ export default function SettingDefinitionDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('settingDefinitions.deleteConfirmTitle'), t('settingDefinitions.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-                ])
+                Alert.alert(
+                  t('settingDefinitions.deleteConfirmTitle'),
+                  t('settingDefinitions.deleteConfirmMessage'),
+                  [
+                    { text: t('common.cancel'), style: 'cancel' },
+                    {
+                      text: t('common.delete'),
+                      style: 'destructive',
+                      onPress: () => deleteMutation.mutate(),
+                    },
+                  ],
+                )
               }
               testID="setting-definition-delete"
             />

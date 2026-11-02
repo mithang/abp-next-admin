@@ -8,19 +8,31 @@ import { z } from 'zod';
  * riêng dùng ô text multiline + lưu/khôi phục mặc định.
  */
 export const textTemplateDefinitionFormSchema = z.object({
-  name: z.string().trim().min(1, 'textTemplateDefinitions.nameRequired').max(256, 'textTemplateDefinitions.nameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'textTemplateDefinitions.nameRequired')
+    .max(256, 'textTemplateDefinitions.nameTooLong'),
   displayName: z
     .string()
     .trim()
     .min(1, 'textTemplateDefinitions.displayNameRequired')
     .max(256, 'textTemplateDefinitions.displayNameTooLong'),
-  defaultCultureName: z.string().trim().max(32, 'textTemplateDefinitions.defaultCultureNameTooLong').optional(),
+  defaultCultureName: z
+    .string()
+    .trim()
+    .max(32, 'textTemplateDefinitions.defaultCultureNameTooLong')
+    .optional(),
   localizationResourceName: z
     .string()
     .trim()
     .max(256, 'textTemplateDefinitions.localizationResourceNameTooLong')
     .optional(),
-  renderEngine: z.string().trim().max(256, 'textTemplateDefinitions.renderEngineTooLong').optional(),
+  renderEngine: z
+    .string()
+    .trim()
+    .max(256, 'textTemplateDefinitions.renderEngineTooLong')
+    .optional(),
   isInlineLocalized: z.boolean(),
   isLayout: z.boolean(),
   layout: z.string().trim().max(1024, 'textTemplateDefinitions.layoutTooLong').optional(),

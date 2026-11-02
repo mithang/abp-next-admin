@@ -17,7 +17,11 @@ import {
   sendTestEmail,
   setSystemSettings,
 } from '../../features/settings/settings-api';
-import { SettingValueType, type SettingDetail, type SettingGroup } from '../../features/settings/types';
+import {
+  SettingValueType,
+  type SettingDetail,
+  type SettingGroup,
+} from '../../features/settings/types';
 import { toApiError } from '../../lib/errors';
 
 type Row =
@@ -30,7 +34,11 @@ function flatten(groups: SettingGroup[]): Row[] {
   for (const group of groups) {
     rows.push({ kind: 'group', key: `group:${group.displayName}`, displayName: group.displayName });
     for (const setting of group.settings) {
-      rows.push({ kind: 'setting', key: `setting:${group.displayName}:${setting.displayName}`, displayName: setting.displayName });
+      rows.push({
+        kind: 'setting',
+        key: `setting:${group.displayName}:${setting.displayName}`,
+        displayName: setting.displayName,
+      });
       for (const detail of setting.details) {
         rows.push({ kind: 'detail', key: `detail:${detail.name}`, detail });
       }
@@ -92,7 +100,12 @@ export default function SystemSettingsScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   if (groups.length === 0) return <AppEmptyState message={t('systemSettings.empty')} />;
 
@@ -116,7 +129,13 @@ export default function SystemSettingsScreen() {
       return (
         <Card className="p-4">
           <VStack space="xs">
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Text>{detail.displayName}</Text>
               <Switch
                 value={current.toLowerCase() === 'true'}
@@ -156,10 +175,13 @@ export default function SystemSettingsScreen() {
           />
           {detail.valueType === SettingValueType.Option && detail.options.length > 0 ? (
             <Text>
-              {t('systemSettings.options')}: {detail.options.map((option) => option.value).join(', ')}
+              {t('systemSettings.options')}:{' '}
+              {detail.options.map((option) => option.value).join(', ')}
             </Text>
           ) : null}
-          {detail.valueType === SettingValueType.Date ? <Text>{t('systemSettings.dateHint')}</Text> : null}
+          {detail.valueType === SettingValueType.Date ? (
+            <Text>{t('systemSettings.dateHint')}</Text>
+          ) : null}
           {detail.slot === 'send-test-email' ? (
             <VStack space="xs">
               <AppInput
@@ -191,7 +213,10 @@ export default function SystemSettingsScreen() {
   };
 
   return (
-    <AppScreen title={t('systemSettings.title')} subtitle={`${t('systemSettings.changed')}: ${changed.settings.length}`}>
+    <AppScreen
+      title={t('systemSettings.title')}
+      subtitle={`${t('systemSettings.changed')}: ${changed.settings.length}`}
+    >
       <FlatList
         data={flatten(groups)}
         keyExtractor={(row) => row.key}

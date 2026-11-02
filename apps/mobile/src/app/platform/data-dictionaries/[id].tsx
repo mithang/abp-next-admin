@@ -8,11 +8,7 @@ import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
-import {
-  deleteData,
-  deleteDataItem,
-  getData,
-} from '../../../features/platform/platform-api';
+import { deleteData, deleteDataItem, getData } from '../../../features/platform/platform-api';
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 
@@ -28,7 +24,11 @@ export default function DataDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['platform-datas', id], queryFn: () => getData(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['platform-datas', id],
+    queryFn: () => getData(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteData(id),
     onSuccess: async () => {
@@ -45,7 +45,12 @@ export default function DataDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -66,7 +71,9 @@ export default function DataDetailScreen() {
         ) : null}
         <AppButton
           title={t('platformDataDictionaries.editTitle')}
-          onPress={() => router.push(`/platform/data-dictionaries/form?id=${encodeURIComponent(item.id)}`)}
+          onPress={() =>
+            router.push(`/platform/data-dictionaries/form?id=${encodeURIComponent(item.id)}`)
+          }
           variant="outline"
         />
         <AppButton
@@ -78,7 +85,9 @@ export default function DataDetailScreen() {
         />
         <AppButton
           title={t('platformDataDictionaries.moveTitle')}
-          onPress={() => router.push(`/platform/data-dictionaries/move?dataId=${encodeURIComponent(item.id)}`)}
+          onPress={() =>
+            router.push(`/platform/data-dictionaries/move?dataId=${encodeURIComponent(item.id)}`)
+          }
           variant="outline"
         />
         <AppButton
@@ -87,10 +96,18 @@ export default function DataDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformDataDictionaries.deleteConfirmTitle'), t('platformDataDictionaries.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformDataDictionaries.deleteConfirmTitle'),
+              t('platformDataDictionaries.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="platform-data-delete"
         />
@@ -99,7 +116,9 @@ export default function DataDetailScreen() {
         <AppButton
           title={t('platformDataItems.createTitle')}
           onPress={() =>
-            router.push(`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}`)
+            router.push(
+              `/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}`,
+            )
           }
           variant="outline"
         />
@@ -133,21 +152,27 @@ export default function DataDetailScreen() {
                   variant="outline"
                   loading={deleteItemMutation.isPending}
                   onPress={() =>
-                    Alert.alert(t('platformDataItems.deleteConfirmTitle'), t('platformDataItems.deleteConfirmMessage'), [
-                      { text: t('common.cancel'), style: 'cancel' },
-                      {
-                        text: t('common.delete'),
-                        style: 'destructive',
-                        onPress: () => deleteItemMutation.mutate(dataItem.name),
-                      },
-                    ])
+                    Alert.alert(
+                      t('platformDataItems.deleteConfirmTitle'),
+                      t('platformDataItems.deleteConfirmMessage'),
+                      [
+                        { text: t('common.cancel'), style: 'cancel' },
+                        {
+                          text: t('common.delete'),
+                          style: 'destructive',
+                          onPress: () => deleteItemMutation.mutate(dataItem.name),
+                        },
+                      ],
+                    )
                   }
                 />
               </VStack>
             </Card>
           ))
         )}
-        {deleteItemMutation.isError ? <Text>{toApiError(deleteItemMutation.error).message}</Text> : null}
+        {deleteItemMutation.isError ? (
+          <Text>{toApiError(deleteItemMutation.error).message}</Text>
+        ) : null}
       </VStack>
     </AppScreen>
   );

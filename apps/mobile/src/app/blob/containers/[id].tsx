@@ -37,7 +37,12 @@ export default function BlobContainerDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -66,10 +71,18 @@ export default function BlobContainerDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('blobContainers.deleteConfirmTitle'), t('blobContainers.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('blobContainers.deleteConfirmTitle'),
+              t('blobContainers.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}

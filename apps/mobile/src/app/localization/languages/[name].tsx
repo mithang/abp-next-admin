@@ -25,7 +25,11 @@ export default function LanguageDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['languages', name], queryFn: () => getLanguage(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['languages', name],
+    queryFn: () => getLanguage(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteLanguage(name),
     onSuccess: async () => {
@@ -36,7 +40,12 @@ export default function LanguageDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -52,7 +61,9 @@ export default function LanguageDetailScreen() {
         <Field label={t('languages.creationTime')} value={item.creationTime} />
         <AppButton
           title={t('languages.editTitle')}
-          onPress={() => router.push(`/localization/languages/form?name=${encodeURIComponent(item.cultureName)}`)}
+          onPress={() =>
+            router.push(`/localization/languages/form?name=${encodeURIComponent(item.cultureName)}`)
+          }
           variant="outline"
           testID="language-edit"
         />
@@ -64,7 +75,11 @@ export default function LanguageDetailScreen() {
           onPress={() =>
             Alert.alert(t('languages.deleteConfirmTitle'), t('languages.deleteConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => deleteMutation.mutate(),
+              },
             ])
           }
           testID="language-delete"

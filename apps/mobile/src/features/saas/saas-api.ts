@@ -12,10 +12,7 @@ import type {
   TenantGetListInput,
   TenantUpdateDto,
 } from './types';
-import type {
-  GetFeatureValuesResult,
-  UpdateFeatureValuesInput,
-} from './tenant-features';
+import type { GetFeatureValuesResult, UpdateFeatureValuesInput } from './tenant-features';
 
 /* ---------------- Tenant: /api/saas/tenants ---------------- */
 

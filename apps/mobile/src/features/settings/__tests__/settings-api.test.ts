@@ -40,13 +40,73 @@ const groups: SettingGroup[] = [
       {
         displayName: 'SMTP',
         details: [
-          { name: 'Abp.Mailing.Smtp.Host', displayName: 'Host', defaultValue: '', value: 'smtp.example.com', valueType: SettingValueType.String, isEncrypted: false, options: [] },
-          { name: 'Abp.Mailing.Smtp.EnableSsl', displayName: 'SSL', defaultValue: 'false', value: 'false', valueType: SettingValueType.Boolean, isEncrypted: false, options: [] },
-          { name: 'Abp.Mailing.Smtp.Port', displayName: 'Port', defaultValue: '25', value: '587', valueType: SettingValueType.Number, isEncrypted: false, options: [] },
-          { name: 'Abp.Mailing.DefaultFromAddress', displayName: 'From', defaultValue: '', value: 'a@b.co', valueType: SettingValueType.String, isEncrypted: false, options: [], slot: 'send-test-email' },
-          { name: 'Some.Option', displayName: 'Option', defaultValue: 'A', value: 'A', valueType: SettingValueType.Option, isEncrypted: false, options: [{ name: 'A', value: 'A' }, { name: 'B', value: 'B' }] },
-          { name: 'Some.NoSet', displayName: 'NoSet', defaultValue: '', value: 'x', valueType: SettingValueType.NoSet, isEncrypted: false, options: [] },
-          { name: 'Some.Array', displayName: 'Array', defaultValue: '', value: '[]', valueType: SettingValueType.Array, isEncrypted: false, options: [] },
+          {
+            name: 'Abp.Mailing.Smtp.Host',
+            displayName: 'Host',
+            defaultValue: '',
+            value: 'smtp.example.com',
+            valueType: SettingValueType.String,
+            isEncrypted: false,
+            options: [],
+          },
+          {
+            name: 'Abp.Mailing.Smtp.EnableSsl',
+            displayName: 'SSL',
+            defaultValue: 'false',
+            value: 'false',
+            valueType: SettingValueType.Boolean,
+            isEncrypted: false,
+            options: [],
+          },
+          {
+            name: 'Abp.Mailing.Smtp.Port',
+            displayName: 'Port',
+            defaultValue: '25',
+            value: '587',
+            valueType: SettingValueType.Number,
+            isEncrypted: false,
+            options: [],
+          },
+          {
+            name: 'Abp.Mailing.DefaultFromAddress',
+            displayName: 'From',
+            defaultValue: '',
+            value: 'a@b.co',
+            valueType: SettingValueType.String,
+            isEncrypted: false,
+            options: [],
+            slot: 'send-test-email',
+          },
+          {
+            name: 'Some.Option',
+            displayName: 'Option',
+            defaultValue: 'A',
+            value: 'A',
+            valueType: SettingValueType.Option,
+            isEncrypted: false,
+            options: [
+              { name: 'A', value: 'A' },
+              { name: 'B', value: 'B' },
+            ],
+          },
+          {
+            name: 'Some.NoSet',
+            displayName: 'NoSet',
+            defaultValue: '',
+            value: 'x',
+            valueType: SettingValueType.NoSet,
+            isEncrypted: false,
+            options: [],
+          },
+          {
+            name: 'Some.Array',
+            displayName: 'Array',
+            defaultValue: '',
+            value: '[]',
+            valueType: SettingValueType.Array,
+            isEncrypted: false,
+            options: [],
+          },
         ],
       },
     ],
@@ -88,10 +148,14 @@ describe('system settings api', () => {
 
   it('setSystemSettings PUT đúng route v2 với body đã thu thập', async () => {
     const { calls } = stubFetch('');
-    await setSystemSettings({ settings: [{ name: 'Abp.Mailing.Smtp.Host', value: 'smtp.new.com' }] });
+    await setSystemSettings({
+      settings: [{ name: 'Abp.Mailing.Smtp.Host', value: 'smtp.new.com' }],
+    });
     expect(calls[0][0]).toContain('/api/v2/setting-management/settings');
     expect((calls[0][1] as { method: string }).method).toBe('PUT');
-    expect(bodyOf(calls)).toEqual({ settings: [{ name: 'Abp.Mailing.Smtp.Host', value: 'smtp.new.com' }] });
+    expect(bodyOf(calls)).toEqual({
+      settings: [{ name: 'Abp.Mailing.Smtp.Host', value: 'smtp.new.com' }],
+    });
   });
 
   it('sendTestEmail POST đúng route với emailAddress', async () => {
@@ -131,18 +195,34 @@ describe('setting definitions api', () => {
   it('getSettingDefinition encode name có dấu chấm', async () => {
     const { calls } = stubFetch(JSON.stringify({ name: 'Abp.Mailing.Smtp.Host' }));
     await getSettingDefinition('Abp.Mailing.Smtp.Host');
-    expect(calls[0][0]).toContain('/api/setting-management/settings/definitions/Abp.Mailing.Smtp.Host');
+    expect(calls[0][0]).toContain(
+      '/api/setting-management/settings/definitions/Abp.Mailing.Smtp.Host',
+    );
   });
 
   it('createSettingDefinition gửi name + displayName', async () => {
     const { calls } = stubFetch(JSON.stringify({ name: 'X', displayName: 'X' }));
-    await createSettingDefinition({ name: 'X', displayName: 'X', isEncrypted: false, isInherited: false, isVisibleToClients: true, providers: [] });
+    await createSettingDefinition({
+      name: 'X',
+      displayName: 'X',
+      isEncrypted: false,
+      isInherited: false,
+      isVisibleToClients: true,
+      providers: [],
+    });
     expect(bodyOf(calls)).toMatchObject({ name: 'X', displayName: 'X' });
   });
 
   it('updateSettingDefinition không gửi name/isStatic, giữ concurrencyStamp khi caller truyền', async () => {
     const { calls } = stubFetch(JSON.stringify({ name: 'X' }));
-    await updateSettingDefinition('X', { displayName: 'Mới', isEncrypted: false, isInherited: false, isVisibleToClients: true, providers: ['T'], concurrencyStamp: 'abc' });
+    await updateSettingDefinition('X', {
+      displayName: 'Mới',
+      isEncrypted: false,
+      isInherited: false,
+      isVisibleToClients: true,
+      providers: ['T'],
+      concurrencyStamp: 'abc',
+    });
     const body = bodyOf(calls);
     expect(body).not.toHaveProperty('name');
     expect(body).not.toHaveProperty('isStatic');
@@ -159,13 +239,25 @@ describe('setting definitions api', () => {
   it('getAssignableProviders gọi đúng route', async () => {
     const { calls } = stubFetch(JSON.stringify({ items: [] }));
     await getAssignableProviders();
-    expect(calls[0][0]).toContain('/api/setting-management/settings/definitions/assignable-providers');
+    expect(calls[0][0]).toContain(
+      '/api/setting-management/settings/definitions/assignable-providers',
+    );
   });
 
   it('schema định nghĩa cài đặt bắt buộc name và displayName', () => {
-    const base = { displayName: 'X', description: '', defaultValue: '', isEncrypted: false, isInherited: false, isVisibleToClients: true, providers: '' };
+    const base = {
+      displayName: 'X',
+      description: '',
+      defaultValue: '',
+      isEncrypted: false,
+      isInherited: false,
+      isVisibleToClients: true,
+      providers: '',
+    };
     expect(settingDefinitionFormSchema.safeParse({ ...base, name: '' }).success).toBe(false);
-    expect(settingDefinitionFormSchema.safeParse({ ...base, name: 'X', displayName: '' }).success).toBe(false);
+    expect(
+      settingDefinitionFormSchema.safeParse({ ...base, name: 'X', displayName: '' }).success,
+    ).toBe(false);
     expect(settingDefinitionFormSchema.safeParse({ ...base, name: 'X' }).success).toBe(true);
   });
 });

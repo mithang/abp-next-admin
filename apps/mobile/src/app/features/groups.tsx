@@ -51,7 +51,10 @@ export default function FeatureGroupsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('featureGroups.title')} subtitle={`${t('featureGroups.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('featureGroups.title')}
+      subtitle={`${t('featureGroups.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -62,7 +65,10 @@ export default function FeatureGroupsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('featureGroups.empty')} />
       ) : (
@@ -74,7 +80,11 @@ export default function FeatureGroupsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <AppButton title={t('featureGroups.createTitle')} onPress={() => router.push('/features/groups/form')} testID="feature-groups-create" />
+      <AppButton
+        title={t('featureGroups.createTitle')}
+        onPress={() => router.push('/features/groups/form')}
+        testID="feature-groups-create"
+      />
     </AppScreen>
   );
 }

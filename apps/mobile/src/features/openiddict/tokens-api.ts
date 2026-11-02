@@ -25,7 +25,9 @@ export function getTokensPaged(input: OpenIddictTokenGetListInput = {}) {
 
 /** GET /api/openiddict/tokens/{id} */
 export function getToken(id: string) {
-  return apiRequest<OpenIddictTokenDto>(`/api/openiddict/tokens/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<OpenIddictTokenDto>(`/api/openiddict/tokens/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** DELETE /api/openiddict/tokens/{id} */

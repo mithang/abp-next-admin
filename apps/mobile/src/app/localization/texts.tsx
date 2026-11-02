@@ -71,7 +71,10 @@ export default function TextsScreen() {
   };
 
   return (
-    <AppScreen title={t('texts.title')} subtitle={applied ? `${t('texts.total')}: ${items.length}` : undefined}>
+    <AppScreen
+      title={t('texts.title')}
+      subtitle={applied ? `${t('texts.total')}: ${items.length}` : undefined}
+    >
       <VStack space="md">
         <AppInput
           label={t('texts.cultureName')}
@@ -104,7 +107,9 @@ export default function TextsScreen() {
           autoCapitalize="none"
           testID="texts-filter"
         />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View
+          style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+        >
           <Text>{t('texts.onlyNull')}</Text>
           <Switch value={onlyNull} onValueChange={setOnlyNull} accessibilityRole="switch" />
         </View>
@@ -125,7 +130,10 @@ export default function TextsScreen() {
       ) : query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('texts.empty')} />
       ) : (
@@ -159,7 +167,11 @@ export default function TextsScreen() {
                     onPress={() =>
                       Alert.alert(t('texts.deleteConfirmTitle'), t('texts.deleteConfirmMessage'), [
                         { text: t('common.cancel'), style: 'cancel' },
-                        { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate(item) },
+                        {
+                          text: t('common.delete'),
+                          style: 'destructive',
+                          onPress: () => deleteMutation.mutate(item),
+                        },
                       ])
                     }
                   >

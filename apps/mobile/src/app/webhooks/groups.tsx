@@ -54,7 +54,10 @@ export default function WebhookGroupsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('webhookGroups.title')} subtitle={`${t('webhookGroups.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('webhookGroups.title')}
+      subtitle={`${t('webhookGroups.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -71,7 +74,10 @@ export default function WebhookGroupsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('webhookGroups.empty')} />
       ) : (

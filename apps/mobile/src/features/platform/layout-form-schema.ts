@@ -38,7 +38,11 @@ export function layoutFormSchema(isCreate: boolean) {
       ctx.addIssue({ code: 'custom', path: ['dataId'], message: 'platformLayouts.dataIdRequired' });
     }
     if ((values.framework ?? '').trim() === '') {
-      ctx.addIssue({ code: 'custom', path: ['framework'], message: 'platformLayouts.frameworkRequired' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['framework'],
+        message: 'platformLayouts.frameworkRequired',
+      });
     }
   });
 }

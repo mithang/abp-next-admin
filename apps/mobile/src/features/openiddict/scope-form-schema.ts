@@ -6,7 +6,11 @@ import { z } from 'zod';
  * nhiều dòng, mỗi dòng một giá trị, chuyển thành mảng lúc submit.
  */
 export const scopeFormSchema = z.object({
-  name: z.string().trim().min(1, 'openiddictScopes.nameRequired').max(256, 'openiddictScopes.nameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'openiddictScopes.nameRequired')
+    .max(256, 'openiddictScopes.nameTooLong'),
   displayName: z.string().trim().max(256, 'openiddictScopes.displayNameTooLong'),
   description: z.string().trim().max(2048, 'openiddictScopes.descriptionTooLong'),
   resources: z.string(),

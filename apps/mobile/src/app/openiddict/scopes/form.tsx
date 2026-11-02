@@ -11,7 +11,11 @@ import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { createScope, getScope, updateScope } from '../../../features/openiddict/scopes-api';
-import { scopeFormDefaults, scopeFormSchema, type ScopeFormValues } from '../../../features/openiddict/scope-form-schema';
+import {
+  scopeFormDefaults,
+  scopeFormSchema,
+  type ScopeFormValues,
+} from '../../../features/openiddict/scope-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
 
@@ -28,7 +32,11 @@ export default function ScopeFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['openiddict-scopes', id], queryFn: () => getScope(id as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['openiddict-scopes', id],
+    queryFn: () => getScope(id as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<ScopeFormValues>({
     resolver: zodResolver(scopeFormSchema),
@@ -73,7 +81,12 @@ export default function ScopeFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('openiddictScopes.') ? t(key) : key);

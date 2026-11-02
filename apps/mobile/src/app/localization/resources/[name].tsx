@@ -25,7 +25,11 @@ export default function ResourceDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['resources', name], queryFn: () => getResource(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['resources', name],
+    queryFn: () => getResource(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteResource(name),
     onSuccess: async () => {
@@ -36,7 +40,12 @@ export default function ResourceDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -55,7 +64,9 @@ export default function ResourceDetailScreen() {
         <Field label={t('resources.creationTime')} value={item.creationTime} />
         <AppButton
           title={t('resources.editTitle')}
-          onPress={() => router.push(`/localization/resources/form?name=${encodeURIComponent(item.name)}`)}
+          onPress={() =>
+            router.push(`/localization/resources/form?name=${encodeURIComponent(item.name)}`)
+          }
           variant="outline"
           testID="resource-edit"
         />
@@ -67,7 +78,11 @@ export default function ResourceDetailScreen() {
           onPress={() =>
             Alert.alert(t('resources.deleteConfirmTitle'), t('resources.deleteConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => deleteMutation.mutate(),
+              },
             ])
           }
           testID="resource-delete"

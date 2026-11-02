@@ -68,7 +68,10 @@ export default function AIConversationsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('aiConversations.title')} subtitle={`${t('aiConversations.total')}: ${total}`}>
+    <AppScreen
+      title={t('aiConversations.title')}
+      subtitle={`${t('aiConversations.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -84,7 +87,10 @@ export default function AIConversationsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('aiConversations.empty')} />
       ) : (
@@ -97,7 +103,11 @@ export default function AIConversationsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

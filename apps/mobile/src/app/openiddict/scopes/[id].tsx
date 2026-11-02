@@ -24,7 +24,11 @@ export default function ScopeDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['openiddict-scopes', id], queryFn: () => getScope(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['openiddict-scopes', id],
+    queryFn: () => getScope(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteScope(id),
     onSuccess: async () => {
@@ -35,7 +39,12 @@ export default function ScopeDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const scope = query.data;
@@ -60,10 +69,18 @@ export default function ScopeDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('openiddictScopes.deleteConfirmTitle'), t('openiddictScopes.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('openiddictScopes.deleteConfirmTitle'),
+              t('openiddictScopes.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="scope-delete"
         />

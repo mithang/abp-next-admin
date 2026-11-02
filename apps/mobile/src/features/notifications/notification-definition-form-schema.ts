@@ -13,13 +13,24 @@ function enumText(allowed: number[]) {
     .string()
     .trim()
     .optional()
-    .refine((v) => v === undefined || v === '' || allowed.includes(Number(v)), 'notificationDefinitions.invalidNumber');
+    .refine(
+      (v) => v === undefined || v === '' || allowed.includes(Number(v)),
+      'notificationDefinitions.invalidNumber',
+    );
 }
 
 export const notificationDefinitionFormSchema = z.object({
-  name: z.string().trim().min(1, 'notificationDefinitions.nameRequired').max(256, 'notificationDefinitions.nameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'notificationDefinitions.nameRequired')
+    .max(256, 'notificationDefinitions.nameTooLong'),
   groupName: z.string().trim().max(256, 'notificationDefinitions.groupNameTooLong').optional(),
-  displayName: z.string().trim().min(1, 'notificationDefinitions.displayNameRequired').max(256, 'notificationDefinitions.displayNameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'notificationDefinitions.displayNameRequired')
+    .max(256, 'notificationDefinitions.displayNameTooLong'),
   description: z.string().trim().max(1024, 'notificationDefinitions.descriptionTooLong').optional(),
   allowSubscriptionToClients: z.boolean(),
   notificationType: enumText([0, 10, 20, 30]),

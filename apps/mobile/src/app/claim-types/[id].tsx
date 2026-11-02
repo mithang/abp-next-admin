@@ -17,7 +17,11 @@ export default function ClaimTypeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['claim-types', id], queryFn: () => getClaimType(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['claim-types', id],
+    queryFn: () => getClaimType(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteClaimType(id),
     onSuccess: async () => {
@@ -28,7 +32,12 @@ export default function ClaimTypeDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -39,7 +48,8 @@ export default function ClaimTypeDetailScreen() {
       <VStack space="sm">
         {item.description ? <Text>{item.description}</Text> : null}
         <Text>
-          {t('claimTypes.valueTypeLabel')}: {t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)}
+          {t('claimTypes.valueTypeLabel')}:{' '}
+          {t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)}
         </Text>
         {item.regex ? (
           <Text>
@@ -68,14 +78,24 @@ export default function ClaimTypeDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('claimTypes.deleteConfirmTitle'), t('claimTypes.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-                ])
+                Alert.alert(
+                  t('claimTypes.deleteConfirmTitle'),
+                  t('claimTypes.deleteConfirmMessage'),
+                  [
+                    { text: t('common.cancel'), style: 'cancel' },
+                    {
+                      text: t('common.delete'),
+                      style: 'destructive',
+                      onPress: () => deleteMutation.mutate(),
+                    },
+                  ],
+                )
               }
               testID="claim-type-delete"
             />
-            {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
+            {deleteMutation.isError ? (
+              <Text>{toApiError(deleteMutation.error).message}</Text>
+            ) : null}
           </>
         ) : null}
       </VStack>

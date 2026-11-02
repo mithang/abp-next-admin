@@ -12,18 +12,30 @@ import { toApiError } from '../../../lib/errors';
 export default function SysLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['sys-logs', id], queryFn: () => getSysLog(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['sys-logs', id],
+    queryFn: () => getSysLog(id),
+    enabled: Boolean(id),
+  });
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
   const fields = item.fields ?? {};
 
   return (
-    <AppScreen title={`${logLevelName(item.level)}`} subtitle={item.timeStamp ? new Date(item.timeStamp).toLocaleString() : undefined}>
+    <AppScreen
+      title={`${logLevelName(item.level)}`}
+      subtitle={item.timeStamp ? new Date(item.timeStamp).toLocaleString() : undefined}
+    >
       <VStack space="sm">
         {item.message ? (
           <Text>

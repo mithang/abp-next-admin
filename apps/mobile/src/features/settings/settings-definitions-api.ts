@@ -8,10 +8,13 @@ import type {
 
 /** GET /api/setting-management/settings/definitions — web lọc filter, phân trang phía client. */
 export function getSettingDefinitions(input: SettingDefinitionGetListInput = {}) {
-  return apiRequest<ListResult<SettingDefinitionDto>>('/api/setting-management/settings/definitions', {
-    method: 'GET',
-    params: { filter: input.filter, providerName: input.providerName },
-  });
+  return apiRequest<ListResult<SettingDefinitionDto>>(
+    '/api/setting-management/settings/definitions',
+    {
+      method: 'GET',
+      params: { filter: input.filter, providerName: input.providerName },
+    },
+  );
 }
 
 /** GET /api/setting-management/settings/definitions/{name} */
@@ -40,9 +43,12 @@ export function updateSettingDefinition(name: string, input: SettingDefinitionUp
 
 /** DELETE /api/setting-management/settings/definitions/{name} — web vô hiệu nút này với bản ghi tĩnh. */
 export function deleteSettingDefinition(name: string) {
-  return apiRequest<void>(`/api/setting-management/settings/definitions/${encodeURIComponent(name)}`, {
-    method: 'DELETE',
-  });
+  return apiRequest<void>(
+    `/api/setting-management/settings/definitions/${encodeURIComponent(name)}`,
+    {
+      method: 'DELETE',
+    },
+  );
 }
 
 /** GET /api/setting-management/settings/definitions/assignable-providers — dùng làm gợi ý cho ô providers ở form. */

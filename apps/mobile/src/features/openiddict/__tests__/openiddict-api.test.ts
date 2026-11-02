@@ -7,7 +7,11 @@ import {
   updateApplication,
 } from '../applications-api';
 import { createScope, deleteScope, getScope, getScopesPaged, updateScope } from '../scopes-api';
-import { deleteAuthorization, getAuthorization, getAuthorizationsPaged } from '../authorizations-api';
+import {
+  deleteAuthorization,
+  getAuthorization,
+  getAuthorizationsPaged,
+} from '../authorizations-api';
 import { deleteToken, getToken, getTokensPaged } from '../tokens-api';
 import { parseMultiline, toMultiline } from '../multiline';
 
@@ -33,7 +37,9 @@ describe('openiddict applications api', () => {
   });
 
   it('getApplicationsPaged gắn query ABP và parse PagedResult', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 'a1', clientId: 'web' }] }));
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 'a1', clientId: 'web' }] }),
+    );
     const data = await getApplicationsPaged({ filter: 'web', skipCount: 0, maxResultCount: 20 });
     expect(data.totalCount).toBe(1);
     const url = calls[0][0] as string;
@@ -49,7 +55,12 @@ describe('openiddict applications api', () => {
 
   it('createApplication luôn gửi requirements requirePkce=false và settings tokenLifetime rỗng', async () => {
     const { calls } = stubFetch(JSON.stringify({ id: 'a1', clientId: 'web' }));
-    await createApplication({ clientId: 'web', displayName: 'Web', redirectUris: ['https://x/cb'], scopes: ['openid'] });
+    await createApplication({
+      clientId: 'web',
+      displayName: 'Web',
+      redirectUris: ['https://x/cb'],
+      scopes: ['openid'],
+    });
     const body = bodyOf(calls);
     expect(body.clientId).toBe('web');
     expect(body.redirectUris).toEqual(['https://x/cb']);
@@ -93,7 +104,9 @@ describe('openiddict scopes api', () => {
   });
 
   it('getScopesPaged gắn filter và parse PagedResult', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 's1', name: 'openid' }] }));
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 's1', name: 'openid' }] }),
+    );
     const data = await getScopesPaged({ filter: 'open', skipCount: 0, maxResultCount: 20 });
     expect(data.totalCount).toBe(1);
     expect(calls[0][0] as string).toContain('/api/openiddict/scopes?');
@@ -103,7 +116,12 @@ describe('openiddict scopes api', () => {
   it('createScope gửi name/displayName/description/resources', async () => {
     const { calls } = stubFetch(JSON.stringify({ id: 's1', name: 'api' }));
     await createScope({ name: 'api', displayName: 'API', description: 'd', resources: ['res1'] });
-    expect(bodyOf(calls)).toEqual({ name: 'api', displayName: 'API', description: 'd', resources: ['res1'] });
+    expect(bodyOf(calls)).toEqual({
+      name: 'api',
+      displayName: 'API',
+      description: 'd',
+      resources: ['res1'],
+    });
   });
 
   it('updateScope PUT đúng id và body', async () => {
@@ -158,7 +176,13 @@ describe('openiddict tokens api (chỉ đọc + xóa)', () => {
 
   it('getTokensPaged gắn filter/subject/status/type/clientId', async () => {
     const { calls } = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getTokensPaged({ filter: 'u1', subject: 'u1', status: 'valid', type: 'refresh_token', clientId: 'web' });
+    await getTokensPaged({
+      filter: 'u1',
+      subject: 'u1',
+      status: 'valid',
+      type: 'refresh_token',
+      clientId: 'web',
+    });
     const url = calls[0][0] as string;
     expect(url).toContain('/api/openiddict/tokens?');
     expect(url).toContain('clientId=web');

@@ -74,7 +74,9 @@ export default function TenantConnectionStringsScreen() {
     onSuccess: async () => {
       setSetError(null);
       setForm.reset();
-      await queryClient.invalidateQueries({ queryKey: ['saas-tenant-connection-strings', tenantId] });
+      await queryClient.invalidateQueries({
+        queryKey: ['saas-tenant-connection-strings', tenantId],
+      });
     },
     onError: (error) => setSetError(toApiError(error).message),
   });
@@ -82,7 +84,9 @@ export default function TenantConnectionStringsScreen() {
   const deleteMutation = useMutation({
     mutationFn: (name: string) => deleteTenantConnectionString(tenantId, name),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['saas-tenant-connection-strings', tenantId] });
+      await queryClient.invalidateQueries({
+        queryKey: ['saas-tenant-connection-strings', tenantId],
+      });
     },
   });
 
@@ -105,10 +109,20 @@ export default function TenantConnectionStringsScreen() {
 
   if (tenantQuery.isPending || listQuery.isPending) return <AppLoading />;
   if (tenantQuery.isError) {
-    return <AppErrorState message={toApiError(tenantQuery.error).message} onRetry={() => void tenantQuery.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(tenantQuery.error).message}
+        onRetry={() => void tenantQuery.refetch()}
+      />
+    );
   }
   if (listQuery.isError) {
-    return <AppErrorState message={toApiError(listQuery.error).message} onRetry={() => void listQuery.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(listQuery.error).message}
+        onRetry={() => void listQuery.refetch()}
+      />
+    );
   }
 
   const fieldError = (message?: string) =>
@@ -127,7 +141,11 @@ export default function TenantConnectionStringsScreen() {
               t('saasConnectionStrings.deleteConfirmMessage'),
               [
                 { text: t('common.cancel'), style: 'cancel' },
-                { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate(item.name) },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(item.name),
+                },
               ],
             )
           }

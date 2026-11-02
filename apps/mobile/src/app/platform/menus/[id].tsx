@@ -16,7 +16,11 @@ export default function MenuDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['platform-menus', id], queryFn: () => getMenu(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['platform-menus', id],
+    queryFn: () => getMenu(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteMenu(id),
     onSuccess: async () => {
@@ -27,7 +31,12 @@ export default function MenuDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -74,7 +83,9 @@ export default function MenuDetailScreen() {
         <Text>
           {t('platformMenus.startup')}: {item.startup ? t('common.yes') : t('common.no')}
         </Text>
-        {item.meta && Object.keys(item.meta).length > 0 ? <Text>Meta: {JSON.stringify(item.meta)}</Text> : null}
+        {item.meta && Object.keys(item.meta).length > 0 ? (
+          <Text>Meta: {JSON.stringify(item.meta)}</Text>
+        ) : null}
         <AppButton
           title={t('platformMenus.editTitle')}
           onPress={() => router.push(`/platform/menus/form?id=${encodeURIComponent(item.id)}`)}
@@ -94,10 +105,18 @@ export default function MenuDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformMenus.deleteConfirmTitle'), t('platformMenus.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformMenus.deleteConfirmTitle'),
+              t('platformMenus.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}

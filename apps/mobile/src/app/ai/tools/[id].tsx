@@ -21,7 +21,11 @@ export default function AIToolDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['ai-tools', id], queryFn: () => getAITool(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['ai-tools', id],
+    queryFn: () => getAITool(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteAITool(id),
     onSuccess: async () => {
@@ -32,7 +36,12 @@ export default function AIToolDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -83,7 +92,11 @@ export default function AIToolDetailScreen() {
               onPress={() =>
                 Alert.alert(t('aiTools.deleteConfirmTitle'), t('aiTools.deleteConfirmMessage'), [
                   { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+                  {
+                    text: t('common.delete'),
+                    style: 'destructive',
+                    onPress: () => deleteMutation.mutate(),
+                  },
                 ])
               }
               testID="ai-tool-delete"

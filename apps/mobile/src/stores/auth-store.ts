@@ -72,7 +72,12 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   signOut: async () => {
     // clearTokens đã xóa cả phiên gốc (xem token-storage).
     await clearTokens();
-    set({ status: 'unauthenticated', userName: null, isImpersonating: false, originalUserName: null });
+    set({
+      status: 'unauthenticated',
+      userName: null,
+      isImpersonating: false,
+      originalUserName: null,
+    });
   },
   impersonate: async (target) => {
     const discovery = await discover();

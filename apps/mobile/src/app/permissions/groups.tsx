@@ -54,7 +54,10 @@ export default function PermissionGroupsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('permissionGroups.title')} subtitle={`${t('permissionGroups.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('permissionGroups.title')}
+      subtitle={`${t('permissionGroups.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -65,7 +68,10 @@ export default function PermissionGroupsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('permissionGroups.empty')} />
       ) : (
@@ -77,7 +83,11 @@ export default function PermissionGroupsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <AppButton title={t('permissionGroups.createTitle')} onPress={() => router.push('/permissions/groups/form')} testID="permission-groups-create" />
+      <AppButton
+        title={t('permissionGroups.createTitle')}
+        onPress={() => router.push('/permissions/groups/form')}
+        testID="permission-groups-create"
+      />
     </AppScreen>
   );
 }

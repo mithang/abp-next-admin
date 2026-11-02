@@ -31,8 +31,14 @@ export default function TextFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const params = useLocalSearchParams<{ edit?: string; cultureName?: string; resourceName?: string; key?: string }>();
-  const isEdit = params.edit === '1' && Boolean(params.cultureName && params.resourceName && params.key);
+  const params = useLocalSearchParams<{
+    edit?: string;
+    cultureName?: string;
+    resourceName?: string;
+    key?: string;
+  }>();
+  const isEdit =
+    params.edit === '1' && Boolean(params.cultureName && params.resourceName && params.key);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [queryCulture, setQueryCulture] = useState(params.cultureName ?? '');
   const reloadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -49,28 +55,38 @@ export default function TextFormScreen() {
   const byKey = useQuery({
     queryKey: ['texts-by-key', queryCulture, params.resourceName, params.key],
     queryFn: () =>
-      getTextByKey({ cultureName: queryCulture, resourceName: params.resourceName as string, key: params.key as string }),
+      getTextByKey({
+        cultureName: queryCulture,
+        resourceName: params.resourceName as string,
+        key: params.key as string,
+      }),
     enabled: isEdit && Boolean(queryCulture),
   });
 
   const form = useForm<TextFormValues>({
     resolver: zodResolver(textFormSchema),
     defaultValues: isEdit
-      ? { ...textFormDefaults, cultureName: params.cultureName ?? '', resourceName: params.resourceName ?? '', key: params.key ?? '' }
+      ? {
+          ...textFormDefaults,
+          cultureName: params.cultureName ?? '',
+          resourceName: params.resourceName ?? '',
+          key: params.key ?? '',
+        }
       : {
           cultureName: params.cultureName ?? '',
           resourceName: params.resourceName ?? '',
           key: '',
           value: '',
         },
-    values: isEdit && byKey.data
-      ? {
-          cultureName: queryCulture,
-          resourceName: params.resourceName ?? '',
-          key: params.key ?? '',
-          value: byKey.data.value ?? '',
-        }
-      : undefined,
+    values:
+      isEdit && byKey.data
+        ? {
+            cultureName: queryCulture,
+            resourceName: params.resourceName ?? '',
+            key: params.key ?? '',
+            value: byKey.data.value ?? '',
+          }
+        : undefined,
   });
 
   const mutation = useMutation({
@@ -90,7 +106,12 @@ export default function TextFormScreen() {
 
   if (isEdit && byKey.isPending) return <AppLoading />;
   if (isEdit && byKey.isError) {
-    return <AppErrorState message={toApiError(byKey.error).message} onRetry={() => void byKey.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(byKey.error).message}
+        onRetry={() => void byKey.refetch()}
+      />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('texts.') ? t(key) : key);

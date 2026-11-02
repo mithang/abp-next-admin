@@ -11,8 +11,16 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createPermissionDefinition, getPermissionDefinition, updatePermissionDefinition } from '../../../features/permissions/permission-definitions-api';
-import { permissionDefinitionFormDefaults, permissionDefinitionFormSchema, type PermissionDefinitionFormValues } from '../../../features/permissions/permission-definition-form-schema';
+import {
+  createPermissionDefinition,
+  getPermissionDefinition,
+  updatePermissionDefinition,
+} from '../../../features/permissions/permission-definitions-api';
+import {
+  permissionDefinitionFormDefaults,
+  permissionDefinitionFormSchema,
+  type PermissionDefinitionFormValues,
+} from '../../../features/permissions/permission-definition-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
 
@@ -29,7 +37,11 @@ export default function PermissionDefinitionFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['permission-definitions', name], queryFn: () => getPermissionDefinition(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['permission-definitions', name],
+    queryFn: () => getPermissionDefinition(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<PermissionDefinitionFormValues>({
     resolver: zodResolver(permissionDefinitionFormSchema),
@@ -61,10 +73,17 @@ export default function PermissionDefinitionFormScreen() {
         stateCheckers: values.stateCheckers,
       };
       if (isEdit && detail.data) {
-        return updatePermissionDefinition(name as string, { ...body, extraProperties: detail.data.extraProperties });
+        return updatePermissionDefinition(name as string, {
+          ...body,
+          extraProperties: detail.data.extraProperties,
+        });
       }
       if (isEdit) return updatePermissionDefinition(name as string, body);
-      return createPermissionDefinition({ name: values.name, groupName: values.groupName, ...body });
+      return createPermissionDefinition({
+        name: values.name,
+        groupName: values.groupName,
+        ...body,
+      });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['permission-definitions'] });
@@ -75,13 +94,21 @@ export default function PermissionDefinitionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('permissionDefinitions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('permissionDefinitions.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('permissionDefinitions.editTitle') : t('permissionDefinitions.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('permissionDefinitions.editTitle') : t('permissionDefinitions.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <>
@@ -144,9 +171,19 @@ export default function PermissionDefinitionFormScreen() {
           control={form.control}
           name="isEnabled"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Text>{t('permissionDefinitions.isEnabled')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

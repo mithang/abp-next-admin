@@ -95,14 +95,20 @@ export function deleteBlob(id: string) {
  * openapi), không tự tải binary về máy vì chưa có file-system flow.
  */
 export function generateBlobDownloadUrl(id: string) {
-  return apiRequest<string>(`/api/blob-management/blobs/generate/download-url/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<string>(
+    `/api/blob-management/blobs/generate/download-url/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /** GET /api/blob-management/blobs/generate/preview-url/{id} — trả về chuỗi URL. */
 export function generateBlobPreviewUrl(id: string) {
-  return apiRequest<string>(`/api/blob-management/blobs/generate/preview-url/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<string>(
+    `/api/blob-management/blobs/generate/preview-url/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }

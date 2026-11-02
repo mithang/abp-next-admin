@@ -63,7 +63,8 @@ export default function WebhookSubscriptionFormScreen() {
           webhookUri: detail.data.webhookUri,
           secret: detail.data.secret ?? '',
           description: detail.data.description ?? '',
-          timeoutDuration: detail.data.timeoutDuration !== undefined ? String(detail.data.timeoutDuration) : '',
+          timeoutDuration:
+            detail.data.timeoutDuration !== undefined ? String(detail.data.timeoutDuration) : '',
           isActive: detail.data.isActive,
           webhooks: (detail.data.webhooks ?? []).join('\n'),
           headers: JSON.stringify(detail.data.headers ?? {}),
@@ -99,15 +100,23 @@ export default function WebhookSubscriptionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('webhookSubscriptions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('webhookSubscriptions.') ? t(key) : key;
   const availableHint =
     availablesQuery.data?.items.flatMap((g) => g.webhooks.map((w) => w.name)).join(', ') || '';
 
   return (
-    <AppScreen title={isEdit ? t('webhookSubscriptions.editTitle') : t('webhookSubscriptions.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('webhookSubscriptions.editTitle') : t('webhookSubscriptions.createTitle')}
+    >
       <VStack space="md">
         <Controller
           control={form.control}
@@ -161,7 +170,11 @@ export default function WebhookSubscriptionFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('webhookSubscriptions.isActive')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

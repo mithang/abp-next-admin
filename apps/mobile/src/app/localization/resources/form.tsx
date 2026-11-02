@@ -36,7 +36,11 @@ export default function ResourceFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['resources', name], queryFn: () => getResource(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['resources', name],
+    queryFn: () => getResource(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<ResourceFormValues>({
     resolver: zodResolver(resourceFormSchema),
@@ -88,7 +92,12 @@ export default function ResourceFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('resources.') ? t(key) : key);
@@ -150,9 +159,19 @@ export default function ResourceFormScreen() {
           control={form.control}
           name="enable"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Text>{t('resources.enable')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

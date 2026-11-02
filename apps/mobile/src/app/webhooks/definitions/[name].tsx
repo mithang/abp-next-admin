@@ -8,7 +8,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteWebhookDefinition, getWebhookDefinition } from '../../../features/webhooks/webhooks-api';
+import {
+  deleteWebhookDefinition,
+  getWebhookDefinition,
+} from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -40,7 +43,12 @@ export default function WebhookDefinitionDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -77,7 +85,9 @@ export default function WebhookDefinitionDetailScreen() {
           <>
             <AppButton
               title={t('webhookDefinitions.editTitle')}
-              onPress={() => router.push(`/webhooks/definitions/form?name=${encodeURIComponent(item.name)}`)}
+              onPress={() =>
+                router.push(`/webhooks/definitions/form?name=${encodeURIComponent(item.name)}`)
+              }
             />
             <AppButton
               title={t('common.delete')}
@@ -85,10 +95,18 @@ export default function WebhookDefinitionDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('webhookDefinitions.deleteConfirmTitle'), t('webhookDefinitions.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-                ])
+                Alert.alert(
+                  t('webhookDefinitions.deleteConfirmTitle'),
+                  t('webhookDefinitions.deleteConfirmMessage'),
+                  [
+                    { text: t('common.cancel'), style: 'cancel' },
+                    {
+                      text: t('common.delete'),
+                      style: 'destructive',
+                      onPress: () => deleteMutation.mutate(),
+                    },
+                  ],
+                )
               }
             />
           </>

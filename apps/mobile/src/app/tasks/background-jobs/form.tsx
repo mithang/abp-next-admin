@@ -161,11 +161,17 @@ export default function BackgroundJobFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const definitionsHint =
-    definitionsQuery.data?.items.map((d) => d.displayName ?? d.name).join(', ') || t('backgroundJobs.typeHint');
+    definitionsQuery.data?.items.map((d) => d.displayName ?? d.name).join(', ') ||
+    t('backgroundJobs.typeHint');
 
   return (
     <AppScreen title={isEdit ? t('backgroundJobs.editTitle') : t('backgroundJobs.createTitle')}>
@@ -234,7 +240,11 @@ export default function BackgroundJobFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('backgroundJobs.isEnabled')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

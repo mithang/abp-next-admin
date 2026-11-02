@@ -40,7 +40,8 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
       <VStack space="xs">
         <Text>{item.receiver}</Text>
         <Text>
-          {t('platformSmsMessages.provider')}: {item.provider ?? '—'} · {t('platformSmsMessages.status')}:{' '}
+          {t('platformSmsMessages.provider')}: {item.provider ?? '—'} ·{' '}
+          {t('platformSmsMessages.status')}:{' '}
           {messageStatusText(t, 'platformSmsMessages', item.status)}
         </Text>
         <Text>
@@ -64,10 +65,14 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
           variant="outline"
           loading={sendMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformSmsMessages.sendConfirmTitle'), t('platformSmsMessages.sendConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('platformSmsMessages.send'), onPress: () => sendMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformSmsMessages.sendConfirmTitle'),
+              t('platformSmsMessages.sendConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                { text: t('platformSmsMessages.send'), onPress: () => sendMutation.mutate() },
+              ],
+            )
           }
         />
         <AppButton
@@ -76,10 +81,18 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformSmsMessages.deleteConfirmTitle'), t('platformSmsMessages.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformSmsMessages.deleteConfirmTitle'),
+              t('platformSmsMessages.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}
@@ -102,7 +115,13 @@ export default function SmsMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const [debounced, setDebounced] = useState({ filter: '', phoneNumber: '', status: '', beginSendTime: '', endSendTime: '' });
+  const [debounced, setDebounced] = useState({
+    filter: '',
+    phoneNumber: '',
+    status: '',
+    beginSendTime: '',
+    endSendTime: '',
+  });
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -113,7 +132,9 @@ export default function SmsMessagesScreen() {
     return () => clearTimeout(timer);
   }, [filter, phoneNumber, status, beginSendTime, endSendTime]);
 
-  const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim()) ? Number(debounced.status.trim()) : undefined;
+  const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim())
+    ? Number(debounced.status.trim())
+    : undefined;
   const query = useQuery({
     queryKey: ['platform-sms-messages', debounced, parsedStatus, page],
     queryFn: () =>
@@ -133,7 +154,10 @@ export default function SmsMessagesScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('platformSmsMessages.title')} subtitle={`${t('platformSmsMessages.total')}: ${total}`}>
+    <AppScreen
+      title={t('platformSmsMessages.title')}
+      subtitle={`${t('platformSmsMessages.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -153,7 +177,6 @@ export default function SmsMessagesScreen() {
         onChangeText={setStatus}
         placeholder={t('platformSmsMessages.statusPlaceholder')}
         autoCapitalize="none"
-
       />
       <AppInput
         value={beginSendTime}
@@ -170,7 +193,10 @@ export default function SmsMessagesScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('platformSmsMessages.empty')} />
       ) : (
@@ -183,7 +209,11 @@ export default function SmsMessagesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

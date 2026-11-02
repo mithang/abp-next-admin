@@ -20,7 +20,9 @@ export function getScopesPaged(input: OpenIddictScopeGetListInput = {}) {
 
 /** GET /api/openiddict/scopes/{id} */
 export function getScope(id: string) {
-  return apiRequest<OpenIddictScopeDto>(`/api/openiddict/scopes/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<OpenIddictScopeDto>(`/api/openiddict/scopes/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** POST /api/openiddict/scopes */

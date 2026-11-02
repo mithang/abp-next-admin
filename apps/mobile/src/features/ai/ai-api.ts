@@ -37,9 +37,12 @@ export function getAIToolsPaged(input: AIToolDefinitionRecordGetPagedListInput =
 
 /** GET /api/ai-management/tools/{id} */
 export function getAITool(id: string) {
-  return apiRequest<AIToolDefinitionRecordDto>(`/api/ai-management/tools/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<AIToolDefinitionRecordDto>(
+    `/api/ai-management/tools/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /** POST /api/ai-management/tools */
@@ -52,10 +55,13 @@ export function createAITool(input: AIToolDefinitionRecordCreateDto) {
 
 /** PUT /api/ai-management/tools/{id} — body bắt buộc có concurrencyStamp (DTO C#). */
 export function updateAITool(id: string, input: AIToolDefinitionRecordUpdateDto) {
-  return apiRequest<AIToolDefinitionRecordDto>(`/api/ai-management/tools/${encodeURIComponent(id)}`, {
-    method: 'PUT',
-    body: input,
-  });
+  return apiRequest<AIToolDefinitionRecordDto>(
+    `/api/ai-management/tools/${encodeURIComponent(id)}`,
+    {
+      method: 'PUT',
+      body: input,
+    },
+  );
 }
 
 /** DELETE /api/ai-management/tools/{id} */
@@ -91,9 +97,12 @@ export function getWorkspacesPaged(input: WorkspaceDefinitionRecordGetPagedListI
 
 /** GET /api/ai-management/workspaces/{id} */
 export function getWorkspace(id: string) {
-  return apiRequest<WorkspaceDefinitionRecordDto>(`/api/ai-management/workspaces/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<WorkspaceDefinitionRecordDto>(
+    `/api/ai-management/workspaces/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /** POST /api/ai-management/workspaces */
@@ -106,10 +115,13 @@ export function createWorkspace(input: WorkspaceDefinitionRecordCreateDto) {
 
 /** PUT /api/ai-management/workspaces/{id} — body bắt buộc có concurrencyStamp. */
 export function updateWorkspace(id: string, input: WorkspaceDefinitionRecordUpdateDto) {
-  return apiRequest<WorkspaceDefinitionRecordDto>(`/api/ai-management/workspaces/${encodeURIComponent(id)}`, {
-    method: 'PUT',
-    body: input,
-  });
+  return apiRequest<WorkspaceDefinitionRecordDto>(
+    `/api/ai-management/workspaces/${encodeURIComponent(id)}`,
+    {
+      method: 'PUT',
+      body: input,
+    },
+  );
 }
 
 /** DELETE /api/ai-management/workspaces/{id} */
@@ -121,9 +133,12 @@ export function deleteWorkspace(id: string) {
 
 /** GET /api/ai-management/workspaces/available-providers — ListResult { name, models[] }. */
 export function getWorkspaceProviders() {
-  return apiRequest<ListResult<ChatClientProviderDto>>('/api/ai-management/workspaces/available-providers', {
-    method: 'GET',
-  });
+  return apiRequest<ListResult<ChatClientProviderDto>>(
+    '/api/ai-management/workspaces/available-providers',
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /* ---------------- Phiên hội thoại: /api/ai-management/chats/conversations ---------------- */
@@ -143,9 +158,12 @@ export function getConversationsPaged(input: ConversationGetListInput = {}) {
 
 /** GET /api/ai-management/chats/conversations/{id} */
 export function getConversation(id: string) {
-  return apiRequest<ConversationDto>(`/api/ai-management/chats/conversations/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<ConversationDto>(
+    `/api/ai-management/chats/conversations/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /** POST /api/ai-management/chats/conversations — name tùy chọn, workspace bắt buộc. */
@@ -162,10 +180,13 @@ export function createConversation(input: ConversationCreateDto) {
  * mà web dùng (route đó không tồn tại trên AllInOne, GET không token trả 404).
  */
 export function updateConversation(id: string, input: ConversationUpdateDto) {
-  return apiRequest<ConversationDto>(`/api/ai-management/chats/conversations/${encodeURIComponent(id)}`, {
-    method: 'PUT',
-    body: input,
-  });
+  return apiRequest<ConversationDto>(
+    `/api/ai-management/chats/conversations/${encodeURIComponent(id)}`,
+    {
+      method: 'PUT',
+      body: input,
+    },
+  );
 }
 
 /** DELETE /api/ai-management/chats/conversations/{id} */

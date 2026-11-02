@@ -32,7 +32,11 @@ export default function DataMoveScreen() {
   const { dataId } = useLocalSearchParams<{ dataId: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['platform-datas', dataId], queryFn: () => getData(dataId), enabled: Boolean(dataId) });
+  const detail = useQuery({
+    queryKey: ['platform-datas', dataId],
+    queryFn: () => getData(dataId),
+    enabled: Boolean(dataId),
+  });
   const parentsQuery = useQuery({ queryKey: ['platform-datas-all'], queryFn: () => getDatasAll() });
 
   const form = useForm<DataMoveFormValues>({
@@ -57,10 +61,16 @@ export default function DataMoveScreen() {
 
   if (detail.isPending) return <AppLoading />;
   if (detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('platformDataDictionaries.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('platformDataDictionaries.') ? t(message) : message;
   const parentsHint =
     parentsQuery.data?.items
       .filter((d) => d.id !== dataId)

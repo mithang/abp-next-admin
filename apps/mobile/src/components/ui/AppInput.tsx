@@ -1,5 +1,11 @@
 import { Input, InputField } from '@/components/ui/input';
-import { FormControl, FormControlLabel, FormControlLabelText, FormControlError, FormControlErrorText } from '@/components/ui/form-control';
+import {
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+  FormControlError,
+  FormControlErrorText,
+} from '@/components/ui/form-control';
 import { VStack } from '@/components/ui/vstack';
 
 interface AppInputProps {
@@ -16,7 +22,18 @@ interface AppInputProps {
 }
 
 /** Input chuẩn: label + error theo field, dùng trong mọi form (kèm RHF ở vòng sau). */
-export function AppInput({ label, value, onChangeText, placeholder, error, secureTextEntry, keyboardType, autoCapitalize, multiline, testID }: AppInputProps) {
+export function AppInput({
+  label,
+  value,
+  onChangeText,
+  placeholder,
+  error,
+  secureTextEntry,
+  keyboardType,
+  autoCapitalize,
+  multiline,
+  testID,
+}: AppInputProps) {
   return (
     <VStack space="xs">
       <FormControl isInvalid={Boolean(error)}>

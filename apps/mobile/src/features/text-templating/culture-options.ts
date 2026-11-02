@@ -51,6 +51,9 @@ export function buildCulturePickerOptions(
 }
 
 /** Culture đang chọn có nằm trong danh sách picker không ('' luôn hợp lệ). */
-export function isCultureInOptions(culture: string, options: readonly CulturePickerOption[]): boolean {
+export function isCultureInOptions(
+  culture: string,
+  options: readonly CulturePickerOption[],
+): boolean {
   return options.some((option) => option.value === culture);
 }

@@ -10,7 +10,11 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { sendNotification } from '../../../features/notifications/notifications-api';
-import { notificationSendFormDefaults, notificationSendFormSchema, type NotificationSendFormValues } from '../../../features/notifications/notification-send-form-schema';
+import {
+  notificationSendFormDefaults,
+  notificationSendFormSchema,
+  type NotificationSendFormValues,
+} from '../../../features/notifications/notification-send-form-schema';
 import { parseEnumNumber } from '../../../features/notifications/notification-definition-form-schema';
 import { toApiError } from '../../../lib/errors';
 
@@ -36,7 +40,11 @@ export default function NotificationSendScreen() {
     mutationFn: async (values: NotificationSendFormValues) =>
       sendNotification({
         name: name as string,
-        data: { title: values.title, message: values.message, description: values.description || undefined },
+        data: {
+          title: values.title,
+          message: values.message,
+          description: values.description || undefined,
+        },
         severity: parseEnumNumber(values.severity),
         culture: values.culture || undefined,
       }),

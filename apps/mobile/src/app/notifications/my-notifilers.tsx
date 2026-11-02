@@ -12,7 +12,12 @@ import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { getMyNotificationsPaged } from '../../features/notifications/notifications-api';
 import type { UserNotificationDto } from '../../features/notifications/types';
-import { deserializeNotification, NotificationReadState, readStateName, severityName } from '../../features/notifications/types';
+import {
+  deserializeNotification,
+  NotificationReadState,
+  readStateName,
+  severityName,
+} from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
 
 const PAGE_SIZE = 20;
@@ -30,7 +35,9 @@ function MyNotificationRow({ item }: { item: UserNotificationDto }) {
               {severityName(item.severity)} · {readStateName(item.state)}
             </Text>
             {item.creationTime ? <Text>{new Date(item.creationTime).toLocaleString()}</Text> : null}
-            {item.state === NotificationReadState.UnRead ? <Text>{t('myNotifications.markRead')}</Text> : null}
+            {item.state === NotificationReadState.UnRead ? (
+              <Text>{t('myNotifications.markRead')}</Text>
+            ) : null}
           </VStack>
         </Card>
       </Pressable>
@@ -68,7 +75,10 @@ export default function MyNotificationsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('myNotifications.title')} subtitle={`${t('myNotifications.total')}: ${total}`}>
+    <AppScreen
+      title={t('myNotifications.title')}
+      subtitle={`${t('myNotifications.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -105,7 +115,10 @@ export default function MyNotificationsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('myNotifications.empty')} />
       ) : (
@@ -118,7 +131,11 @@ export default function MyNotificationsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

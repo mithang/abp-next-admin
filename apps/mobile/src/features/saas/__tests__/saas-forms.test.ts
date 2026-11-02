@@ -47,7 +47,9 @@ describe('saas forms', () => {
 
   it('tenant: editionId sai dạng Guid, ngày giờ sai, enable muộn hơn disable đều bị chặn; sửa không bắt admin fields', () => {
     const base = { ...tenantFormDefaults, name: 'acme' };
-    expect(tenantFormSchema(true).safeParse({ ...base, editionId: 'not-a-guid' }).success).toBe(false);
+    expect(tenantFormSchema(true).safeParse({ ...base, editionId: 'not-a-guid' }).success).toBe(
+      false,
+    );
     expect(
       tenantFormSchema(true).safeParse({ ...base, enableTime: 'khong-phai-ngay' }).success,
     ).toBe(false);
@@ -63,7 +65,9 @@ describe('saas forms', () => {
   });
 
   it('edition: displayName bắt buộc; extraProperties JSON sai bị chặn', () => {
-    expect(editionFormSchema.safeParse({ displayName: '', extraPropertiesJson: '' }).success).toBe(false);
+    expect(editionFormSchema.safeParse({ displayName: '', extraPropertiesJson: '' }).success).toBe(
+      false,
+    );
     expect(
       editionFormSchema.safeParse({ displayName: 'Pro', extraPropertiesJson: '{sai' }).success,
     ).toBe(false);
@@ -74,17 +78,24 @@ describe('saas forms', () => {
 
   it('connection strings: đặt cần name + value; kiểm tra cần provider + connectionString', () => {
     expect(connectionStringSetFormSchema.safeParse({ name: '', value: 'x' }).success).toBe(false);
-    expect(connectionStringSetFormSchema.safeParse({ name: 'Default', value: '' }).success).toBe(false);
-    expect(connectionStringSetFormSchema.safeParse({ name: 'Default', value: 'Host=.;' }).success).toBe(true);
+    expect(connectionStringSetFormSchema.safeParse({ name: 'Default', value: '' }).success).toBe(
+      false,
+    );
+    expect(
+      connectionStringSetFormSchema.safeParse({ name: 'Default', value: 'Host=.;' }).success,
+    ).toBe(true);
     expect(
       connectionStringCheckFormSchema.safeParse({ provider: '', connectionString: 'x' }).success,
     ).toBe(false);
     expect(
-      connectionStringCheckFormSchema.safeParse({ provider: 'PostgreSql', connectionString: '' }).success,
+      connectionStringCheckFormSchema.safeParse({ provider: 'PostgreSql', connectionString: '' })
+        .success,
     ).toBe(false);
     expect(
-      connectionStringCheckFormSchema.safeParse({ provider: 'PostgreSql', connectionString: 'Host=.;' })
-        .success,
+      connectionStringCheckFormSchema.safeParse({
+        provider: 'PostgreSql',
+        connectionString: 'Host=.;',
+      }).success,
     ).toBe(true);
   });
 });

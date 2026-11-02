@@ -11,7 +11,13 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createWorkspace, getAIToolsPaged, getWorkspace, getWorkspaceProviders, updateWorkspace } from '../../../features/ai/ai-api';
+import {
+  createWorkspace,
+  getAIToolsPaged,
+  getWorkspace,
+  getWorkspaceProviders,
+  updateWorkspace,
+} from '../../../features/ai/ai-api';
 import {
   aiWorkspaceFormDefaults,
   aiWorkspaceFormSchema,
@@ -43,8 +49,15 @@ export default function AIWorkspaceFormScreen() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [providerText, setProviderText] = useState('');
 
-  const detail = useQuery({ queryKey: ['ai-workspaces', id], queryFn: () => getWorkspace(id as string), enabled: isEdit });
-  const providersQuery = useQuery({ queryKey: ['ai-workspace-providers'], queryFn: () => getWorkspaceProviders() });
+  const detail = useQuery({
+    queryKey: ['ai-workspaces', id],
+    queryFn: () => getWorkspace(id as string),
+    enabled: isEdit,
+  });
+  const providersQuery = useQuery({
+    queryKey: ['ai-workspace-providers'],
+    queryFn: () => getWorkspaceProviders(),
+  });
   const toolsQuery = useQuery({
     queryKey: ['ai-tools-enabled'],
     queryFn: () => getAIToolsPaged({ isEnabled: true, maxResultCount: 50 }),
@@ -64,13 +77,22 @@ export default function AIWorkspaceFormScreen() {
           apiBaseUrl: detail.data.apiBaseUrl ?? '',
           systemPrompt: detail.data.systemPrompt ?? '',
           instructions: detail.data.instructions ?? '',
-          temperature: detail.data.temperature === undefined || detail.data.temperature === null ? '' : String(detail.data.temperature),
+          temperature:
+            detail.data.temperature === undefined || detail.data.temperature === null
+              ? ''
+              : String(detail.data.temperature),
           maxOutputTokens:
-            detail.data.maxOutputTokens === undefined || detail.data.maxOutputTokens === null ? '' : String(detail.data.maxOutputTokens),
+            detail.data.maxOutputTokens === undefined || detail.data.maxOutputTokens === null
+              ? ''
+              : String(detail.data.maxOutputTokens),
           frequencyPenalty:
-            detail.data.frequencyPenalty === undefined || detail.data.frequencyPenalty === null ? '' : String(detail.data.frequencyPenalty),
+            detail.data.frequencyPenalty === undefined || detail.data.frequencyPenalty === null
+              ? ''
+              : String(detail.data.frequencyPenalty),
           presencePenalty:
-            detail.data.presencePenalty === undefined || detail.data.presencePenalty === null ? '' : String(detail.data.presencePenalty),
+            detail.data.presencePenalty === undefined || detail.data.presencePenalty === null
+              ? ''
+              : String(detail.data.presencePenalty),
           isEnabled: detail.data.isEnabled,
           tools: (detail.data.tools ?? []).join('\n'),
           stateCheckers: detail.data.stateCheckers ?? '',
@@ -83,7 +105,8 @@ export default function AIWorkspaceFormScreen() {
     defaultValues: { apiKey: '' },
   });
 
-  const fieldError = (message?: string) => (message && message.startsWith('aiWorkspaces.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('aiWorkspaces.') ? t(message) : message;
 
   const mutation = useMutation({
     mutationFn: async (values: AIWorkspaceFormValues) => {
@@ -107,7 +130,11 @@ export default function AIWorkspaceFormScreen() {
           concurrencyStamp: detail.data?.concurrencyStamp ?? '',
         });
       }
-      return createWorkspace({ ...shared, name: (values.name ?? '').trim(), apiKey: values.apiKey?.trim() || undefined });
+      return createWorkspace({
+        ...shared,
+        name: (values.name ?? '').trim(),
+        apiKey: values.apiKey?.trim() || undefined,
+      });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['ai-workspaces'] });
@@ -148,7 +175,12 @@ export default function AIWorkspaceFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   if (isReset) {
@@ -184,8 +216,11 @@ export default function AIWorkspaceFormScreen() {
   }
 
   const effectiveProvider = providerText || detail.data?.provider || '';
-  const selectedProvider = providersQuery.data?.items.find((p) => p.name === effectiveProvider.trim());
-  const providerHint = providersQuery.data?.items.map((p) => p.name).join(', ') || t('aiWorkspaces.providersLoading');
+  const selectedProvider = providersQuery.data?.items.find(
+    (p) => p.name === effectiveProvider.trim(),
+  );
+  const providerHint =
+    providersQuery.data?.items.map((p) => p.name).join(', ') || t('aiWorkspaces.providersLoading');
   const enabledToolNames = toolsQuery.data?.items.map((item) => item.name).join(', ') ?? '';
 
   const textField = (
@@ -220,43 +255,99 @@ export default function AIWorkspaceFormScreen() {
     <AppScreen title={t(isEdit ? 'aiWorkspaces.editTitle' : 'aiWorkspaces.createTitle')}>
       <VStack space="sm">
         {!isEdit ? textField('name', 'aiWorkspaces.name', 'aiWorkspaces.namePlaceholder') : null}
-        {textField('displayName', 'aiWorkspaces.displayName', 'aiWorkspaces.displayNamePlaceholder')}
+        {textField(
+          'displayName',
+          'aiWorkspaces.displayName',
+          'aiWorkspaces.displayNamePlaceholder',
+        )}
         {textField('provider', 'aiWorkspaces.provider', 'aiWorkspaces.providerPlaceholder')}
-        <Text>{t('aiWorkspaces.providersHint')}: {providerHint}</Text>
+        <Text>
+          {t('aiWorkspaces.providersHint')}: {providerHint}
+        </Text>
         {selectedProvider && selectedProvider.models.length > 0 ? (
           <Text>
             {t('aiWorkspaces.modelsHint')}: {selectedProvider.models.join(', ')}
           </Text>
         ) : null}
         {textField('modelName', 'aiWorkspaces.modelName', 'aiWorkspaces.modelNamePlaceholder')}
-        {textField('description', 'aiWorkspaces.description', 'aiWorkspaces.descriptionPlaceholder', { multiline: true })}
+        {textField(
+          'description',
+          'aiWorkspaces.description',
+          'aiWorkspaces.descriptionPlaceholder',
+          { multiline: true },
+        )}
         {textField('apiBaseUrl', 'aiWorkspaces.apiBaseUrl', 'aiWorkspaces.apiBaseUrlPlaceholder')}
-        {textField('apiKey', 'aiWorkspaces.apiKey', isEdit ? 'aiWorkspaces.apiKeyEditPlaceholder' : 'aiWorkspaces.apiKeyPlaceholder', {
-          secure: true,
-        })}
-        {textField('systemPrompt', 'aiWorkspaces.systemPrompt', 'aiWorkspaces.systemPromptPlaceholder', { multiline: true })}
-        {textField('instructions', 'aiWorkspaces.instructions', 'aiWorkspaces.instructionsPlaceholder', { multiline: true })}
-        {textField('temperature', 'aiWorkspaces.temperature', 'aiWorkspaces.temperaturePlaceholder', { numeric: true })}
-        {textField('maxOutputTokens', 'aiWorkspaces.maxOutputTokens', 'aiWorkspaces.maxOutputTokensPlaceholder', { numeric: true })}
-        {textField('frequencyPenalty', 'aiWorkspaces.frequencyPenalty', 'aiWorkspaces.frequencyPenaltyPlaceholder', { numeric: true })}
-        {textField('presencePenalty', 'aiWorkspaces.presencePenalty', 'aiWorkspaces.presencePenaltyPlaceholder', { numeric: true })}
+        {textField(
+          'apiKey',
+          'aiWorkspaces.apiKey',
+          isEdit ? 'aiWorkspaces.apiKeyEditPlaceholder' : 'aiWorkspaces.apiKeyPlaceholder',
+          {
+            secure: true,
+          },
+        )}
+        {textField(
+          'systemPrompt',
+          'aiWorkspaces.systemPrompt',
+          'aiWorkspaces.systemPromptPlaceholder',
+          { multiline: true },
+        )}
+        {textField(
+          'instructions',
+          'aiWorkspaces.instructions',
+          'aiWorkspaces.instructionsPlaceholder',
+          { multiline: true },
+        )}
+        {textField(
+          'temperature',
+          'aiWorkspaces.temperature',
+          'aiWorkspaces.temperaturePlaceholder',
+          { numeric: true },
+        )}
+        {textField(
+          'maxOutputTokens',
+          'aiWorkspaces.maxOutputTokens',
+          'aiWorkspaces.maxOutputTokensPlaceholder',
+          { numeric: true },
+        )}
+        {textField(
+          'frequencyPenalty',
+          'aiWorkspaces.frequencyPenalty',
+          'aiWorkspaces.frequencyPenaltyPlaceholder',
+          { numeric: true },
+        )}
+        {textField(
+          'presencePenalty',
+          'aiWorkspaces.presencePenalty',
+          'aiWorkspaces.presencePenaltyPlaceholder',
+          { numeric: true },
+        )}
         <Controller
           control={form.control}
           name="isEnabled"
           render={({ field }) => (
             <View>
               <Text>{t('aiWorkspaces.enabled')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
-        {textField('tools', 'aiWorkspaces.tools', 'aiWorkspaces.toolsPlaceholder', { multiline: true })}
+        {textField('tools', 'aiWorkspaces.tools', 'aiWorkspaces.toolsPlaceholder', {
+          multiline: true,
+        })}
         {enabledToolNames ? (
           <Text>
             {t('aiWorkspaces.enabledToolsHint')}: {enabledToolNames}
           </Text>
         ) : null}
-        {textField('stateCheckers', 'aiWorkspaces.stateCheckers', 'aiWorkspaces.stateCheckersPlaceholder')}
+        {textField(
+          'stateCheckers',
+          'aiWorkspaces.stateCheckers',
+          'aiWorkspaces.stateCheckersPlaceholder',
+        )}
         {submitError ? <Text>{submitError}</Text> : null}
         <AppButton
           title={t('common.save')}

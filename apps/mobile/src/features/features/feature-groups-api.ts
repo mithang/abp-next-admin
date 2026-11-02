@@ -8,10 +8,13 @@ import type {
 
 /** GET /api/feature-management/definitions/groups — web phân trang phía client. */
 export function getFeatureGroups(input: FeatureGroupDefinitionGetListInput = {}) {
-  return apiRequest<ListResult<FeatureGroupDefinitionDto>>('/api/feature-management/definitions/groups', {
-    method: 'GET',
-    params: { filter: input.filter },
-  });
+  return apiRequest<ListResult<FeatureGroupDefinitionDto>>(
+    '/api/feature-management/definitions/groups',
+    {
+      method: 'GET',
+      params: { filter: input.filter },
+    },
+  );
 }
 
 /** GET /api/feature-management/definitions/groups/{name} */
@@ -40,7 +43,10 @@ export function updateFeatureGroup(name: string, input: FeatureGroupDefinitionUp
 
 /** DELETE /api/feature-management/definitions/groups/{name} */
 export function deleteFeatureGroup(name: string) {
-  return apiRequest<void>(`/api/feature-management/definitions/groups/${encodeURIComponent(name)}`, {
-    method: 'DELETE',
-  });
+  return apiRequest<void>(
+    `/api/feature-management/definitions/groups/${encodeURIComponent(name)}`,
+    {
+      method: 'DELETE',
+    },
+  );
 }

@@ -7,7 +7,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deletePermissionGroup, getPermissionGroup } from '../../../features/permissions/permission-groups-api';
+import {
+  deletePermissionGroup,
+  getPermissionGroup,
+} from '../../../features/permissions/permission-groups-api';
 import { toApiError } from '../../../lib/errors';
 
 function Field({ label, value }: { label: string; value?: string }) {
@@ -28,7 +31,11 @@ export default function PermissionGroupDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['permission-groups', name], queryFn: () => getPermissionGroup(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['permission-groups', name],
+    queryFn: () => getPermissionGroup(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deletePermissionGroup(name),
     onSuccess: async () => {
@@ -39,7 +46,12 @@ export default function PermissionGroupDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -53,7 +65,9 @@ export default function PermissionGroupDetailScreen() {
         {item.isStatic ? <Text>{t('permissionGroups.static')}</Text> : null}
         <AppButton
           title={t('permissionGroups.editTitle')}
-          onPress={() => router.push(`/permissions/groups/form?name=${encodeURIComponent(item.name)}`)}
+          onPress={() =>
+            router.push(`/permissions/groups/form?name=${encodeURIComponent(item.name)}`)
+          }
           variant="outline"
           testID="permission-group-edit"
         />
@@ -64,10 +78,18 @@ export default function PermissionGroupDetailScreen() {
             variant="outline"
             loading={deleteMutation.isPending}
             onPress={() =>
-              Alert.alert(t('permissionGroups.deleteConfirmTitle'), t('permissionGroups.deleteConfirmMessage'), [
-                { text: t('common.cancel'), style: 'cancel' },
-                { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-              ])
+              Alert.alert(
+                t('permissionGroups.deleteConfirmTitle'),
+                t('permissionGroups.deleteConfirmMessage'),
+                [
+                  { text: t('common.cancel'), style: 'cancel' },
+                  {
+                    text: t('common.delete'),
+                    style: 'destructive',
+                    onPress: () => deleteMutation.mutate(),
+                  },
+                ],
+              )
             }
             testID="permission-group-delete"
           />

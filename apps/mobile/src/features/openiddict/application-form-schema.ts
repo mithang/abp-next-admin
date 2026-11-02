@@ -8,7 +8,11 @@ import { z } from 'zod';
  * clientSecret KHÔNG có trong form: không tạo client có secret từ mobile.
  */
 export const applicationFormSchema = z.object({
-  clientId: z.string().trim().min(1, 'openiddictApplications.clientIdRequired').max(256, 'openiddictApplications.clientIdTooLong'),
+  clientId: z
+    .string()
+    .trim()
+    .min(1, 'openiddictApplications.clientIdRequired')
+    .max(256, 'openiddictApplications.clientIdTooLong'),
   displayName: z.string().trim().max(256, 'openiddictApplications.displayNameTooLong'),
   clientType: z.string().trim().max(256, 'openiddictApplications.clientTypeTooLong'),
   applicationType: z.string().trim().max(256, 'openiddictApplications.applicationTypeTooLong'),

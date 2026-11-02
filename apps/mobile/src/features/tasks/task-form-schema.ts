@@ -24,18 +24,15 @@ const intNumber = (message: string) =>
 const argsJson = z
   .string()
   .trim()
-  .refine(
-    (v) => {
-      if (v === '') return true;
-      try {
-        const parsed: unknown = JSON.parse(v);
-        return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed);
-      } catch {
-        return false;
-      }
-    },
-    'backgroundJobs.invalidArgsJson',
-  )
+  .refine((v) => {
+    if (v === '') return true;
+    try {
+      const parsed: unknown = JSON.parse(v);
+      return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed);
+    } catch {
+      return false;
+    }
+  }, 'backgroundJobs.invalidArgsJson')
   .optional();
 
 const isoDateTime = (message: string) =>
@@ -65,7 +62,10 @@ export function backgroundJobFormSchema(isEdit: boolean) {
     priority: z
       .string()
       .trim()
-      .refine((v) => v === '' || ['5', '10', '15', '20', '25'].includes(v), 'backgroundJobs.invalidPriority'),
+      .refine(
+        (v) => v === '' || ['5', '10', '15', '20', '25'].includes(v),
+        'backgroundJobs.invalidPriority',
+      ),
     lockTimeOut: intNumber('backgroundJobs.invalidNumber'),
     args: argsJson,
   });
@@ -81,15 +81,31 @@ export function backgroundJobFormSchema(isEdit: boolean) {
       ctx.addIssue({ code: 'custom', path: ['type'], message: 'backgroundJobs.typeRequired' });
     }
     if ((values.beginTime ?? '').trim() === '') {
-      ctx.addIssue({ code: 'custom', path: ['beginTime'], message: 'backgroundJobs.beginTimeRequired' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['beginTime'],
+        message: 'backgroundJobs.beginTimeRequired',
+      });
     } else if (Number.isNaN(Date.parse(values.beginTime as string))) {
-      ctx.addIssue({ code: 'custom', path: ['beginTime'], message: 'backgroundJobs.invalidDateTime' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['beginTime'],
+        message: 'backgroundJobs.invalidDateTime',
+      });
     }
     if ((values.jobType ?? '').trim() === '') {
-      ctx.addIssue({ code: 'custom', path: ['jobType'], message: 'backgroundJobs.jobTypeRequired' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['jobType'],
+        message: 'backgroundJobs.jobTypeRequired',
+      });
     }
     if ((values.priority ?? '').trim() === '') {
-      ctx.addIssue({ code: 'custom', path: ['priority'], message: 'backgroundJobs.priorityRequired' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['priority'],
+        message: 'backgroundJobs.priorityRequired',
+      });
     }
   });
 }
@@ -124,7 +140,10 @@ export const backgroundJobFormDefaults: BackgroundJobFormValues = {
 export function backgroundJobBaseFromForm(values: BackgroundJobFormValues) {
   return {
     isEnabled: values.isEnabled,
-    args: values.args && values.args.trim() !== '' ? (JSON.parse(values.args) as Record<string, unknown>) : {},
+    args:
+      values.args && values.args.trim() !== ''
+        ? (JSON.parse(values.args) as Record<string, unknown>)
+        : {},
     description: values.description?.trim() || undefined,
     jobType: Number(values.jobType),
     cron: values.cron?.trim() || undefined,

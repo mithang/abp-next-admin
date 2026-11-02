@@ -87,16 +87,31 @@ export default function TextTemplateDefinitionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('textTemplateDefinitions.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState
+        message={t('textTemplateDefinitions.staticCannotEdit')}
+        onRetry={() => router.back()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('textTemplateDefinitions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('textTemplateDefinitions.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('textTemplateDefinitions.editTitle') : t('textTemplateDefinitions.createTitle')}>
+    <AppScreen
+      title={
+        isEdit ? t('textTemplateDefinitions.editTitle') : t('textTemplateDefinitions.createTitle')
+      }
+    >
       <VStack space="md">
         {isEdit ? (
           <Text>
@@ -184,7 +199,11 @@ export default function TextTemplateDefinitionFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('textTemplateDefinitions.isInlineLocalized')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -194,7 +213,11 @@ export default function TextTemplateDefinitionFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('textTemplateDefinitions.isLayout')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

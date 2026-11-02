@@ -50,7 +50,11 @@ export default function ScopesScreen() {
   const query = useQuery({
     queryKey: ['openiddict-scopes', debouncedFilter, page],
     queryFn: () =>
-      getScopesPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getScopesPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -58,7 +62,10 @@ export default function ScopesScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('openiddictScopes.title')} subtitle={`${t('openiddictScopes.total')}: ${total}`}>
+    <AppScreen
+      title={t('openiddictScopes.title')}
+      subtitle={`${t('openiddictScopes.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -69,7 +76,10 @@ export default function ScopesScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('openiddictScopes.empty')} />
       ) : (
@@ -82,9 +92,17 @@ export default function ScopesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
-      <AppButton title={t('openiddictScopes.createTitle')} onPress={() => router.push('/openiddict/scopes/form')} testID="scopes-create" />
+      <AppButton
+        title={t('openiddictScopes.createTitle')}
+        onPress={() => router.push('/openiddict/scopes/form')}
+        testID="scopes-create"
+      />
     </AppScreen>
   );
 }

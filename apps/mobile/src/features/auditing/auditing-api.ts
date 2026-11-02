@@ -28,12 +28,16 @@ export function getAuditLogsPaged(input: AuditLogGetListInput = {}) {
 
 /** GET /api/auditing/audit-log/{id} — detail gồm actions + entityChanges như drawer web. */
 export function getAuditLog(id: string) {
-  return apiRequest<AuditLogDto>(`/api/auditing/audit-log/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<AuditLogDto>(`/api/auditing/audit-log/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** DELETE /api/auditing/audit-log/{id} */
 export function deleteAuditLog(id: string) {
-  return apiRequest<void>(`/api/auditing/audit-log/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/auditing/audit-log/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }
 
 /** DELETE /api/auditing/audit-log/bulk — xóa hàng loạt, API sẵn cho vòng sau (UI chưa có chọn nhiều, như security-logs). */

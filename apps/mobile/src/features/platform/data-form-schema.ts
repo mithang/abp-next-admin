@@ -62,16 +62,32 @@ export function dataItemFormSchema() {
     const value = (values.defaultValue ?? '').trim();
     const type = Number(values.valueType);
     if (!values.allowBeNull && value === '') {
-      ctx.addIssue({ code: 'custom', path: ['defaultValue'], message: 'platformDataItems.defaultValueRequired' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['defaultValue'],
+        message: 'platformDataItems.defaultValueRequired',
+      });
       return;
     }
     if (value === '') return;
     if (type === 1 && Number.isNaN(Number(value))) {
-      ctx.addIssue({ code: 'custom', path: ['defaultValue'], message: 'platformDataItems.defaultValueNotNumber' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['defaultValue'],
+        message: 'platformDataItems.defaultValueNotNumber',
+      });
     } else if (type === 2 && value !== 'true' && value !== 'false') {
-      ctx.addIssue({ code: 'custom', path: ['defaultValue'], message: 'platformDataItems.defaultValueNotBoolean' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['defaultValue'],
+        message: 'platformDataItems.defaultValueNotBoolean',
+      });
     } else if ((type === 3 || type === 4) && Number.isNaN(Date.parse(value))) {
-      ctx.addIssue({ code: 'custom', path: ['defaultValue'], message: 'platformDataItems.defaultValueNotDate' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['defaultValue'],
+        message: 'platformDataItems.defaultValueNotDate',
+      });
     }
   });
 }

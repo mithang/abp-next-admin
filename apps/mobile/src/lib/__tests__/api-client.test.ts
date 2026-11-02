@@ -45,13 +45,18 @@ describe('apiRequest', () => {
       status: 401,
       text: async () => JSON.stringify({ error: { message: 'Unauthorized' } }),
     });
-    await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({ kind: 'unauthorized', status: 401 });
+    await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({
+      kind: 'unauthorized',
+      status: 401,
+    });
     expect(calls).toHaveLength(1);
   });
 
   it('trả undefined cho 204', async () => {
     stubFetch({ ok: true, status: 204, text: async () => '' });
-    await expect(apiRequest('/api/identity/users/1', { method: 'DELETE' })).resolves.toBeUndefined();
+    await expect(
+      apiRequest('/api/identity/users/1', { method: 'DELETE' }),
+    ).resolves.toBeUndefined();
   });
 
   it('gửi header _AbpDontWrapResult để nhận DTO thô thay vì envelope', async () => {
@@ -70,7 +75,11 @@ describe('apiRequest', () => {
       ok: true,
       status: 200,
       text: async () =>
-        JSON.stringify({ code: '0', message: 'OK', result: { totalCount: 2, items: [{ id: '1' }] } }),
+        JSON.stringify({
+          code: '0',
+          message: 'OK',
+          result: { totalCount: 2, items: [{ id: '1' }] },
+        }),
     });
     const data = await apiRequest<{ totalCount: number }>('/api/identity/users');
     expect(data.totalCount).toBe(2);
@@ -80,7 +89,8 @@ describe('apiRequest', () => {
     stubFetch({
       ok: true,
       status: 200,
-      text: async () => JSON.stringify({ code: '400', message: 'Dữ liệu không hợp lệ.', details: null }),
+      text: async () =>
+        JSON.stringify({ code: '400', message: 'Dữ liệu không hợp lệ.', details: null }),
     });
     await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({
       kind: 'validation',
@@ -100,7 +110,9 @@ describe('apiRequest', () => {
       called = true;
     });
     try {
-      await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({ kind: 'unauthorized' });
+      await expect(apiRequest('/api/identity/users')).rejects.toMatchObject({
+        kind: 'unauthorized',
+      });
       expect(called).toBe(true);
     } finally {
       setUnauthorizedHandler(null);

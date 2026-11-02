@@ -39,7 +39,6 @@ function bodyOf(calls: unknown[][], index = 0) {
   return JSON.parse((calls[index][1] as { body: string }).body) as Record<string, unknown>;
 }
 
-
 const base = {
   isEnabled: true,
   args: {},
@@ -53,8 +52,14 @@ const base = {
 
 describe('background jobs api', () => {
   it('paged list gắn filter + phân trang ABP', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 'j1', name: 'cleanup' }] }));
-    const result = await getBackgroundJobsPaged({ filter: 'clean', skipCount: 0, maxResultCount: 20 });
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 'j1', name: 'cleanup' }] }),
+    );
+    const result = await getBackgroundJobsPaged({
+      filter: 'clean',
+      skipCount: 0,
+      maxResultCount: 20,
+    });
     expect(urlOf(calls)).toContain('/api/task-management/background-jobs?');
     expect(urlOf(calls)).toContain('filter=clean');
     expect(result.totalCount).toBe(1);
@@ -102,7 +107,9 @@ describe('background jobs api', () => {
   });
 
   it('logs: list lọc jobId + delete đúng route', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 'l1', message: 'ok' }] }));
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 'l1', message: 'ok' }] }),
+    );
     const result = await getBackgroundJobLogsPaged({ jobId: 'j1' });
     expect(urlOf(calls)).toContain('/api/task-management/background-jobs/logs?');
     expect(urlOf(calls)).toContain('jobId=j1');

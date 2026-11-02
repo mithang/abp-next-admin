@@ -46,7 +46,12 @@ export default function EmailMessageDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -72,7 +77,8 @@ export default function EmailMessageDetailScreen() {
           {t('platformEmailMessages.provider')}: {item.provider ?? '—'}
         </Text>
         <Text>
-          {t('platformEmailMessages.status')}: {messageStatusText(t, 'platformEmailMessages', item.status)}
+          {t('platformEmailMessages.status')}:{' '}
+          {messageStatusText(t, 'platformEmailMessages', item.status)}
         </Text>
         {item.sendTime ? (
           <Text>
@@ -84,7 +90,8 @@ export default function EmailMessageDetailScreen() {
         </Text>
         {item.creationTime ? (
           <Text>
-            {t('platformEmailMessages.creationTime')}: {new Date(item.creationTime).toLocaleString()}
+            {t('platformEmailMessages.creationTime')}:{' '}
+            {new Date(item.creationTime).toLocaleString()}
           </Text>
         ) : null}
         {item.reason ? (
@@ -100,10 +107,14 @@ export default function EmailMessageDetailScreen() {
           variant="outline"
           loading={sendMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformEmailMessages.sendConfirmTitle'), t('platformEmailMessages.sendConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('platformEmailMessages.send'), onPress: () => sendMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformEmailMessages.sendConfirmTitle'),
+              t('platformEmailMessages.sendConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                { text: t('platformEmailMessages.send'), onPress: () => sendMutation.mutate() },
+              ],
+            )
           }
         />
         {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}
@@ -113,10 +124,18 @@ export default function EmailMessageDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformEmailMessages.deleteConfirmTitle'), t('platformEmailMessages.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformEmailMessages.deleteConfirmTitle'),
+              t('platformEmailMessages.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}

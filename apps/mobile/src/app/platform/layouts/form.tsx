@@ -42,8 +42,16 @@ export default function LayoutFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['platform-layouts', id], queryFn: () => getLayout(id as string), enabled: isEdit });
-  const datasQuery = useQuery({ queryKey: ['platform-datas-all'], queryFn: () => getDatasAll(), enabled: !isEdit });
+  const detail = useQuery({
+    queryKey: ['platform-layouts', id],
+    queryFn: () => getLayout(id as string),
+    enabled: isEdit,
+  });
+  const datasQuery = useQuery({
+    queryKey: ['platform-datas-all'],
+    queryFn: () => getDatasAll(),
+    enabled: !isEdit,
+  });
   const frameworksQuery = useQuery({
     queryKey: ['platform-ui-framework'],
     queryFn: () => getDataByName('UI Framework'),
@@ -93,15 +101,22 @@ export default function LayoutFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('platformLayouts.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('platformLayouts.') ? t(message) : message;
   const datasHint =
     datasQuery.data?.items.map((d) => `${d.displayName} — ${d.id}`).join('\n') ||
     t('platformLayouts.dataIdLoading');
   const frameworksHint =
-    frameworksQuery.data?.items.map((i) => i.name).join(', ') || t('platformLayouts.frameworkLoading');
+    frameworksQuery.data?.items.map((i) => i.name).join(', ') ||
+    t('platformLayouts.frameworkLoading');
 
   return (
     <AppScreen title={t(isEdit ? 'platformLayouts.editTitle' : 'platformLayouts.createTitle')}>

@@ -80,7 +80,8 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
     // _AbpWrapResult=true, fallback là đúng shape {code, message?, details?, result?}.
     // Xử lý TRƯỚC kiểm tra response.ok vì lỗi đóng gói về kèm HTTP 200.
     const wrapHeader = response.headers?.get?.('_AbpWrapResult');
-    const headerWrapped = typeof wrapHeader === 'string' && wrapHeader.toLowerCase().includes('true');
+    const headerWrapped =
+      typeof wrapHeader === 'string' && wrapHeader.toLowerCase().includes('true');
     const envelope: WrappedEnvelope | null =
       headerWrapped || isWrappedEnvelope(parsed) ? (parsed as WrappedEnvelope) : null;
     if (envelope && typeof envelope.code === 'string') {
@@ -102,7 +103,10 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   } catch (error) {
     if ((error as ApiError)?.kind) throw error;
     if (error instanceof DOMException && error.name === 'AbortError') {
-      throw { kind: 'timeout', message: 'Yêu cầu quá thời gian chờ. Vui lòng thử lại.' } satisfies ApiError;
+      throw {
+        kind: 'timeout',
+        message: 'Yêu cầu quá thời gian chờ. Vui lòng thử lại.',
+      } satisfies ApiError;
     }
     throw toApiError(error);
   } finally {

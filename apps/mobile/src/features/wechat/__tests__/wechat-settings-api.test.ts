@@ -47,7 +47,9 @@ describe('wechat settings api', () => {
 
     const setTenant = stubFetch('');
     await setWechatTenantSettings({ settings: [{ name: 'WeChat.AppId', value: 'wx123' }] });
-    expect(urlOf(setTenant.calls)).toContain('/api/setting-management/settings/change-current-tenant');
+    expect(urlOf(setTenant.calls)).toContain(
+      '/api/setting-management/settings/change-current-tenant',
+    );
     expect(methodOf(setTenant.calls)).toBe('PUT');
   });
 });

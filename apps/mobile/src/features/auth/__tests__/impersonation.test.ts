@@ -12,7 +12,9 @@ import {
 import type { SavedTokenSet } from '../token-storage';
 
 /** Vault bộ nhớ: thay SecureStore trong test, không cần native module. */
-function memoryVault(initial: SavedTokenSet): TokenVault & { saved: SavedTokenSet; original: SavedTokenSet | null } {
+function memoryVault(
+  initial: SavedTokenSet,
+): TokenVault & { saved: SavedTokenSet; original: SavedTokenSet | null } {
   const state = {
     saved: { ...initial },
     original: null as SavedTokenSet | null,
@@ -42,7 +44,10 @@ function memoryVault(initial: SavedTokenSet): TokenVault & { saved: SavedTokenSe
   };
 }
 
-const DEPS = { tokenEndpoint: 'http://localhost:30000/connect/token', clientId: 'abp-mobile-client' };
+const DEPS = {
+  tokenEndpoint: 'http://localhost:30000/connect/token',
+  clientId: 'abp-mobile-client',
+};
 
 function stubTokenFetch(responseBody: unknown, status = 200) {
   const calls: { url: string; body: string }[] = [];
@@ -68,13 +73,18 @@ describe('impersonation form body', () => {
 
   it('tenant target: TenantId + TenantUserName; revert: không có tham số đích nào', () => {
     const tenant = new URLSearchParams(
-      buildImpersonationFormBody('abp-mobile-client', 'tok-1', { tenantId: 't-1', tenantUserName: 'admin' }),
+      buildImpersonationFormBody('abp-mobile-client', 'tok-1', {
+        tenantId: 't-1',
+        tenantUserName: 'admin',
+      }),
     );
     expect(tenant.get('TenantId')).toBe('t-1');
     expect(tenant.get('TenantUserName')).toBe('admin');
     expect(tenant.has('UserId')).toBe(false);
 
-    const revert = new URLSearchParams(buildImpersonationFormBody('abp-mobile-client', 'tok-1', undefined));
+    const revert = new URLSearchParams(
+      buildImpersonationFormBody('abp-mobile-client', 'tok-1', undefined),
+    );
     expect(revert.has('UserId')).toBe(false);
     expect(revert.has('TenantId')).toBe(false);
     expect(revert.has('TenantUserName')).toBe(false);
@@ -109,15 +119,26 @@ describe('impersonation token response', () => {
       expires_in: 3600,
       token_type: 'Bearer',
     });
-    expect(tokens).toEqual({ accessToken: 'a2', refreshToken: 'r2', idToken: 'i2', expiresIn: 3600 });
+    expect(tokens).toEqual({
+      accessToken: 'a2',
+      refreshToken: 'r2',
+      idToken: 'i2',
+      expiresIn: 3600,
+    });
   });
 
   it('error server -> tokenRejected kèm error_description', () => {
     expect(() =>
-      parseImpersonationTokenResponse({ error: 'invalid_request', error_description: 'NestedImpersonationNotAllowed' }),
+      parseImpersonationTokenResponse({
+        error: 'invalid_request',
+        error_description: 'NestedImpersonationNotAllowed',
+      }),
     ).toThrow(ImpersonationError);
     try {
-      parseImpersonationTokenResponse({ error: 'invalid_request', error_description: 'NestedImpersonationNotAllowed' });
+      parseImpersonationTokenResponse({
+        error: 'invalid_request',
+        error_description: 'NestedImpersonationNotAllowed',
+      });
     } catch (error) {
       expect((error as ImpersonationError).code).toBe('tokenRejected');
       expect((error as ImpersonationError).serverMessage).toBe('NestedImpersonationNotAllowed');
@@ -132,18 +153,32 @@ describe('impersonation token response', () => {
 describe('impersonation session swap (vault bộ nhớ)', () => {
   it('impersonate: lưu phiên gốc trước khi ghi đè, token mới thành current', async () => {
     const vault = memoryVault({ accessToken: 'orig-a', refreshToken: 'orig-r', idToken: 'orig-i' });
-    const { fetchImpl } = stubTokenFetch({ access_token: 'imp-a', refresh_token: 'imp-r', expires_in: 1800 });
-    const tokens = await impersonate(vault, { ...DEPS, fetchImpl }, { userId: 'u-1', tenantId: 't-1' });
+    const { fetchImpl } = stubTokenFetch({
+      access_token: 'imp-a',
+      refresh_token: 'imp-r',
+      expires_in: 1800,
+    });
+    const tokens = await impersonate(
+      vault,
+      { ...DEPS, fetchImpl },
+      { userId: 'u-1', tenantId: 't-1' },
+    );
     expect(tokens.accessToken).toBe('imp-a');
     expect(vault.saved.accessToken).toBe('imp-a');
-    expect(vault.original).toEqual({ accessToken: 'orig-a', refreshToken: 'orig-r', idToken: 'orig-i' });
+    expect(vault.original).toEqual({
+      accessToken: 'orig-a',
+      refreshToken: 'orig-r',
+      idToken: 'orig-i',
+    });
   });
 
   it('đang mạo danh mà mạo danh tiếp -> alreadyImpersonating, không gọi fetch', async () => {
     const vault = memoryVault({ accessToken: 'imp-a', refreshToken: 'imp-r', idToken: null });
     await vault.saveOriginal({ accessToken: 'orig-a', refreshToken: 'orig-r', idToken: null });
     const { calls, fetchImpl } = stubTokenFetch({ access_token: 'x' });
-    await expect(impersonate(vault, { ...DEPS, fetchImpl }, { userId: 'u-2' })).rejects.toMatchObject({
+    await expect(
+      impersonate(vault, { ...DEPS, fetchImpl }, { userId: 'u-2' }),
+    ).rejects.toMatchObject({
       code: 'alreadyImpersonating',
     });
     expect(calls).toHaveLength(0);
@@ -152,7 +187,9 @@ describe('impersonation session swap (vault bộ nhớ)', () => {
   it('không có đích -> invalidTarget, không gọi fetch', async () => {
     const vault = memoryVault({ accessToken: 'orig-a', refreshToken: null, idToken: null });
     const { calls, fetchImpl } = stubTokenFetch({ access_token: 'x' });
-    await expect(impersonate(vault, { ...DEPS, fetchImpl }, { tenantUserName: 'admin' })).rejects.toMatchObject({
+    await expect(
+      impersonate(vault, { ...DEPS, fetchImpl }, { tenantUserName: 'admin' }),
+    ).rejects.toMatchObject({
       code: 'invalidTarget',
     });
     expect(calls).toHaveLength(0);
@@ -182,7 +219,10 @@ describe('impersonation session swap (vault bộ nhớ)', () => {
   it('revert server thất bại mà còn phiên gốc: khôi phục phiên đã lưu, viaSavedOriginal=true', async () => {
     const vault = memoryVault({ accessToken: 'imp-a', refreshToken: 'imp-r', idToken: null });
     await vault.saveOriginal({ accessToken: 'orig-a', refreshToken: 'orig-r', idToken: null });
-    const { fetchImpl } = stubTokenFetch({ error: 'invalid_request', error_description: 'NoImpersonationContext' }, 400);
+    const { fetchImpl } = stubTokenFetch(
+      { error: 'invalid_request', error_description: 'NoImpersonationContext' },
+      400,
+    );
     const result = await revertImpersonation(vault, { ...DEPS, fetchImpl });
     expect(result.viaSavedOriginal).toBe(true);
     expect(result.tokens.accessToken).toBe('orig-a');
@@ -192,7 +232,10 @@ describe('impersonation session swap (vault bộ nhớ)', () => {
 
   it('revert server thất bại và không còn phiên gốc: ném lỗi server gốc', async () => {
     const vault = memoryVault({ accessToken: 'imp-a', refreshToken: null, idToken: null });
-    const { fetchImpl } = stubTokenFetch({ error: 'invalid_grant', error_description: 'bad token' }, 400);
+    const { fetchImpl } = stubTokenFetch(
+      { error: 'invalid_grant', error_description: 'bad token' },
+      400,
+    );
     await expect(revertImpersonation(vault, { ...DEPS, fetchImpl })).rejects.toMatchObject({
       code: 'tokenRejected',
     });

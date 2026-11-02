@@ -26,8 +26,12 @@ function AuditLogRow({ item }: { item: AuditLogDto }) {
               {item.httpMethod ?? ''} {item.httpStatusCode ?? ''} {item.url ?? item.id}
             </Text>
             {item.userName ? <Text>{item.userName}</Text> : null}
-            {item.executionTime ? <Text>{new Date(item.executionTime).toLocaleString()}</Text> : null}
-            {item.executionDuration !== undefined ? <Text>{`${item.executionDuration} ms`}</Text> : null}
+            {item.executionTime ? (
+              <Text>{new Date(item.executionTime).toLocaleString()}</Text>
+            ) : null}
+            {item.executionDuration !== undefined ? (
+              <Text>{`${item.executionDuration} ms`}</Text>
+            ) : null}
           </VStack>
         </Card>
       </Pressable>
@@ -83,7 +87,10 @@ export default function AuditLogsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('auditLogs.empty')} />
       ) : (
@@ -96,7 +103,11 @@ export default function AuditLogsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

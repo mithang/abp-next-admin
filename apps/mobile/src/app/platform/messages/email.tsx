@@ -32,7 +32,8 @@ function EmailRow({ item }: { item: EmailMessageDto }) {
             <Text>{item.subject ?? item.receiver}</Text>
             <Text>
               {t('platformEmailMessages.provider')}: {item.provider ?? '—'} ·{' '}
-              {t('platformEmailMessages.status')}: {messageStatusText(t, 'platformEmailMessages', item.status)}
+              {t('platformEmailMessages.status')}:{' '}
+              {messageStatusText(t, 'platformEmailMessages', item.status)}
             </Text>
             <Text>
               {t('platformEmailMessages.receiver')}: {item.receiver}
@@ -70,7 +71,13 @@ export default function EmailMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const [debounced, setDebounced] = useState({ filter: '', emailAddress: '', status: '', beginSendTime: '', endSendTime: '' });
+  const [debounced, setDebounced] = useState({
+    filter: '',
+    emailAddress: '',
+    status: '',
+    beginSendTime: '',
+    endSendTime: '',
+  });
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -81,7 +88,9 @@ export default function EmailMessagesScreen() {
     return () => clearTimeout(timer);
   }, [filter, emailAddress, status, beginSendTime, endSendTime]);
 
-  const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim()) ? Number(debounced.status.trim()) : undefined;
+  const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim())
+    ? Number(debounced.status.trim())
+    : undefined;
   const query = useQuery({
     queryKey: ['platform-email-messages', debounced, parsedStatus, page],
     queryFn: () =>
@@ -101,7 +110,10 @@ export default function EmailMessagesScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('platformEmailMessages.title')} subtitle={`${t('platformEmailMessages.total')}: ${total}`}>
+    <AppScreen
+      title={t('platformEmailMessages.title')}
+      subtitle={`${t('platformEmailMessages.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -120,7 +132,6 @@ export default function EmailMessagesScreen() {
         onChangeText={setStatus}
         placeholder={t('platformEmailMessages.statusPlaceholder')}
         autoCapitalize="none"
-
       />
       <AppInput
         value={beginSendTime}
@@ -137,7 +148,10 @@ export default function EmailMessagesScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('platformEmailMessages.empty')} />
       ) : (
@@ -150,7 +164,11 @@ export default function EmailMessagesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

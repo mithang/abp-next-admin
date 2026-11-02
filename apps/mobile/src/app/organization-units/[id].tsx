@@ -7,7 +7,11 @@ import { AppButton } from '../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteOrganizationUnit, getOrganizationUnit, getOrganizationUnitsAll } from '../../features/identity/organization-units-api';
+import {
+  deleteOrganizationUnit,
+  getOrganizationUnit,
+  getOrganizationUnitsAll,
+} from '../../features/identity/organization-units-api';
 import { findOrganizationUnitName } from '../../features/identity/organization-units';
 import { toApiError } from '../../lib/errors';
 
@@ -16,8 +20,15 @@ export default function OrganizationUnitDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['organization-units', id], queryFn: () => getOrganizationUnit(id), enabled: Boolean(id) });
-  const all = useQuery({ queryKey: ['organization-units', 'all'], queryFn: getOrganizationUnitsAll });
+  const query = useQuery({
+    queryKey: ['organization-units', id],
+    queryFn: () => getOrganizationUnit(id),
+    enabled: Boolean(id),
+  });
+  const all = useQuery({
+    queryKey: ['organization-units', 'all'],
+    queryFn: getOrganizationUnitsAll,
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteOrganizationUnit(id),
     onSuccess: async () => {
@@ -28,7 +39,12 @@ export default function OrganizationUnitDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -41,7 +57,8 @@ export default function OrganizationUnitDetailScreen() {
           {t('organizationUnits.code')}: {item.code}
         </Text>
         <Text>
-          {t('organizationUnits.parent')}: {parentName ?? (item.parentId ? item.parentId : t('organizationUnits.root'))}
+          {t('organizationUnits.parent')}:{' '}
+          {parentName ?? (item.parentId ? item.parentId : t('organizationUnits.root'))}
         </Text>
         <AppButton
           title={t('organizationUnits.editTitle')}
@@ -51,7 +68,9 @@ export default function OrganizationUnitDetailScreen() {
         />
         <AppButton
           title={t('organizationUnits.createChildTitle')}
-          onPress={() => router.push(`/organization-units/form?parentId=${encodeURIComponent(item.id)}`)}
+          onPress={() =>
+            router.push(`/organization-units/form?parentId=${encodeURIComponent(item.id)}`)
+          }
           variant="outline"
           testID="organization-unit-create-child"
         />
@@ -61,10 +80,18 @@ export default function OrganizationUnitDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('organizationUnits.deleteConfirmTitle'), t('organizationUnits.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('organizationUnits.deleteConfirmTitle'),
+              t('organizationUnits.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="organization-unit-delete"
         />

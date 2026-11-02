@@ -8,7 +8,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteWebhookSubscription, getWebhookSubscription } from '../../../features/webhooks/webhooks-api';
+import {
+  deleteWebhookSubscription,
+  getWebhookSubscription,
+} from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -42,7 +45,12 @@ export default function WebhookSubscriptionDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -81,7 +89,9 @@ export default function WebhookSubscriptionDetailScreen() {
         ) : null}
         <AppButton
           title={t('webhookSubscriptions.editTitle')}
-          onPress={() => router.push(`/webhooks/subscriptions/form?id=${encodeURIComponent(item.id)}`)}
+          onPress={() =>
+            router.push(`/webhooks/subscriptions/form?id=${encodeURIComponent(item.id)}`)
+          }
         />
         <AppButton
           title={t('common.delete')}
@@ -89,10 +99,18 @@ export default function WebhookSubscriptionDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('webhookSubscriptions.deleteConfirmTitle'), t('webhookSubscriptions.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('webhookSubscriptions.deleteConfirmTitle'),
+              t('webhookSubscriptions.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {actionError ? <Text>{actionError}</Text> : null}

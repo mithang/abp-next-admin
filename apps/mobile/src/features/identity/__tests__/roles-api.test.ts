@@ -20,7 +20,9 @@ describe('roles api', () => {
   });
 
   it('getRolesPaged gắn query ABP và parse PagedResult', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 'r1', name: 'Admin' }] }));
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 'r1', name: 'Admin' }] }),
+    );
     const data = await getRolesPaged({ filter: 'adm', skipCount: 0, maxResultCount: 20 });
     expect(data.totalCount).toBe(1);
     const url = calls[0][0] as string;
@@ -32,7 +34,7 @@ describe('roles api', () => {
   it('getRole encode id trong URL', async () => {
     const { calls } = stubFetch(JSON.stringify({ id: 'a/b', name: 'Admin' }));
     await getRole('a/b');
-    expect((calls[0][0] as string)).toContain('/api/identity/roles/a%2Fb');
+    expect(calls[0][0] as string).toContain('/api/identity/roles/a%2Fb');
   });
 
   it('deleteRole trả undefined cho 204', async () => {

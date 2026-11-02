@@ -8,7 +8,11 @@ import { z } from 'zod';
  * Giá trị value/connectionString là credential: chỉ gửi đi, không render lại.
  */
 export const connectionStringSetFormSchema = z.object({
-  name: z.string().trim().min(1, 'saasConnectionStrings.nameRequired').max(256, 'saasConnectionStrings.nameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'saasConnectionStrings.nameRequired')
+    .max(256, 'saasConnectionStrings.nameTooLong'),
   value: z.string().min(1, 'saasConnectionStrings.valueRequired'),
 });
 

@@ -59,7 +59,11 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
           onPress={() =>
             Alert.alert(t('sessions.revokeConfirmTitle'), t('sessions.revokeConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('sessions.revoke'), style: 'destructive', onPress: () => revokeMutation.mutate() },
+              {
+                text: t('sessions.revoke'),
+                style: 'destructive',
+                onPress: () => revokeMutation.mutate(),
+              },
             ])
           }
           testID={`session-revoke-${item.sessionId}`}
@@ -87,7 +91,11 @@ export default function SessionsScreen() {
   const query = useQuery({
     queryKey: ['sessions', debouncedFilter, page],
     queryFn: () =>
-      getSessionsPaged({ device: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getSessionsPaged({
+        device: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
@@ -105,7 +113,10 @@ export default function SessionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('sessions.empty')} />
       ) : (
@@ -118,7 +129,11 @@ export default function SessionsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

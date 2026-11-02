@@ -60,7 +60,11 @@ export default function RolesScreen() {
   const query = useQuery({
     queryKey: ['roles', debouncedFilter, page],
     queryFn: () =>
-      getRolesPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getRolesPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -76,11 +80,18 @@ export default function RolesScreen() {
         autoCapitalize="none"
         testID="roles-search"
       />
-      <AppButton title={t('roles.createTitle')} onPress={() => router.push('/roles/form')} testID="roles-create" />
+      <AppButton
+        title={t('roles.createTitle')}
+        onPress={() => router.push('/roles/form')}
+        testID="roles-create"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('roles.empty')} />
       ) : (
@@ -93,7 +104,11 @@ export default function RolesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

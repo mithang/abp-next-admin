@@ -34,7 +34,11 @@ export default function ApiDocsScreen() {
       <VStack space="md">
         <Text>{t('apiDocs.description')}</Text>
         <Text>{swaggerUrl}</Text>
-        <AppButton title={t('apiDocs.open')} onPress={() => void openDocs()} testID="api-docs-open" />
+        <AppButton
+          title={t('apiDocs.open')}
+          onPress={() => void openDocs()}
+          testID="api-docs-open"
+        />
         {error ? <Text>{error}</Text> : null}
       </VStack>
     </AppScreen>

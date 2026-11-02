@@ -98,7 +98,12 @@ export default function TextTemplateContentScreen() {
 
   if (query.isPending && content === null) return <AppLoading />;
   if (query.isError && content === null) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   return (

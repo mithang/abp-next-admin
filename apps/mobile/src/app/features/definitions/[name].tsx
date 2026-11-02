@@ -7,7 +7,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteFeatureDefinition, getFeatureDefinition } from '../../../features/features/feature-definitions-api';
+import {
+  deleteFeatureDefinition,
+  getFeatureDefinition,
+} from '../../../features/features/feature-definitions-api';
 import { toApiError } from '../../../lib/errors';
 
 function Field({ label, value }: { label: string; value?: string }) {
@@ -28,7 +31,11 @@ export default function FeatureDefinitionDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['feature-definitions', name], queryFn: () => getFeatureDefinition(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['feature-definitions', name],
+    queryFn: () => getFeatureDefinition(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteFeatureDefinition(name),
     onSuccess: async () => {
@@ -39,7 +46,12 @@ export default function FeatureDefinitionDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -55,15 +67,26 @@ export default function FeatureDefinitionDetailScreen() {
         <Field label={t('featureDefinitions.defaultValue')} value={item.defaultValue} />
         <Field label={t('featureDefinitions.valueType')} value={item.valueType} />
         <Field label={t('featureDefinitions.parentName')} value={item.parentName} />
-        <Field label={t('featureDefinitions.isAvailableToHost')} value={item.isAvailableToHost ? t('featureDefinitions.yes') : t('featureDefinitions.no')} />
-        <Field label={t('featureDefinitions.isVisibleToClients')} value={item.isVisibleToClients ? t('featureDefinitions.yes') : t('featureDefinitions.no')} />
-        <Field label={t('featureDefinitions.allowedProviders')} value={item.allowedProviders?.join(', ')} />
+        <Field
+          label={t('featureDefinitions.isAvailableToHost')}
+          value={item.isAvailableToHost ? t('featureDefinitions.yes') : t('featureDefinitions.no')}
+        />
+        <Field
+          label={t('featureDefinitions.isVisibleToClients')}
+          value={item.isVisibleToClients ? t('featureDefinitions.yes') : t('featureDefinitions.no')}
+        />
+        <Field
+          label={t('featureDefinitions.allowedProviders')}
+          value={item.allowedProviders?.join(', ')}
+        />
         {item.isStatic ? <Text>{t('featureDefinitions.static')}</Text> : null}
         {!item.isStatic ? (
           <>
             <AppButton
               title={t('featureDefinitions.editTitle')}
-              onPress={() => router.push(`/features/definitions/form?name=${encodeURIComponent(item.name)}`)}
+              onPress={() =>
+                router.push(`/features/definitions/form?name=${encodeURIComponent(item.name)}`)
+              }
               variant="outline"
               testID="feature-definition-edit"
             />
@@ -73,10 +96,18 @@ export default function FeatureDefinitionDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('featureDefinitions.deleteConfirmTitle'), t('featureDefinitions.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-                ])
+                Alert.alert(
+                  t('featureDefinitions.deleteConfirmTitle'),
+                  t('featureDefinitions.deleteConfirmMessage'),
+                  [
+                    { text: t('common.cancel'), style: 'cancel' },
+                    {
+                      text: t('common.delete'),
+                      style: 'destructive',
+                      onPress: () => deleteMutation.mutate(),
+                    },
+                  ],
+                )
               }
               testID="feature-definition-delete"
             />

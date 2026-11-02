@@ -12,7 +12,11 @@ import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { createRole, getRole, updateRole } from '../../features/identity/roles-api';
-import { roleFormDefaults, roleFormSchema, type RoleFormValues } from '../../features/identity/role-form-schema';
+import {
+  roleFormDefaults,
+  roleFormSchema,
+  type RoleFormValues,
+} from '../../features/identity/role-form-schema';
 import { toApiError } from '../../lib/errors';
 
 /**
@@ -28,7 +32,11 @@ export default function RoleFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['roles', id], queryFn: () => getRole(id as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['roles', id],
+    queryFn: () => getRole(id as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<RoleFormValues>({
     resolver: zodResolver(roleFormSchema),
@@ -41,7 +49,10 @@ export default function RoleFormScreen() {
   const mutation = useMutation({
     mutationFn: async (values: RoleFormValues) => {
       if (isEdit) {
-        return updateRole(id as string, { ...values, concurrencyStamp: detail.data?.concurrencyStamp });
+        return updateRole(id as string, {
+          ...values,
+          concurrencyStamp: detail.data?.concurrencyStamp,
+        });
       }
       return createRole(values);
     },
@@ -54,7 +65,12 @@ export default function RoleFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('roles.') ? t(key) : key);
@@ -81,9 +97,19 @@ export default function RoleFormScreen() {
           control={form.control}
           name="isDefault"
           render={({ field }) => (
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Text>{t('roles.isDefault')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -91,9 +117,19 @@ export default function RoleFormScreen() {
           control={form.control}
           name="isPublic"
           render={({ field }) => (
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Text>{t('roles.isPublic')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

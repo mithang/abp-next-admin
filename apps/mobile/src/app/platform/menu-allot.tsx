@@ -146,7 +146,9 @@ function AllotEditor({
                     }}
                     testID={`menu-allot-startup-${item.id}`}
                   >
-                    <Text>{isStartup ? `★ ${t('menuAllot.startup')}` : `☆ ${t('menuAllot.setStartup')}`}</Text>
+                    <Text>
+                      {isStartup ? `★ ${t('menuAllot.startup')}` : `☆ ${t('menuAllot.setStartup')}`}
+                    </Text>
                   </Pressable>
                 </VStack>
               </Card>
@@ -169,7 +171,8 @@ function AllotEditor({
 export default function MenuAllotScreen() {
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ subject?: string; id?: string; label?: string }>();
-  const paramSubject = params.subject === 'role' ? 'role' : params.subject === 'user' ? 'user' : null;
+  const paramSubject =
+    params.subject === 'role' ? 'role' : params.subject === 'user' ? 'user' : null;
 
   const [subject, setSubject] = useState<MenuAllotSubject>(paramSubject ?? 'user');
   const [identityId, setIdentityId] = useState<string>(params.id ?? '');
@@ -299,10 +302,12 @@ export default function MenuAllotScreen() {
               renderItem={({ item }) => {
                 const isPicked = identityId === item.key;
                 return (
-                  <Pressable onPress={() => {
-                    setIdentityId(item.key);
-                    setIdentityLabel(item.label);
-                  }}>
+                  <Pressable
+                    onPress={() => {
+                      setIdentityId(item.key);
+                      setIdentityLabel(item.label);
+                    }}
+                  >
                     <Card className="p-4">
                       <Text>
                         {isPicked ? '✓ ' : ''}

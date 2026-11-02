@@ -61,7 +61,12 @@ describe('notifications api', () => {
 
   it('getMyNotificationsPaged gắn filter/readState/skipCount/maxResultCount', async () => {
     const { calls } = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getMyNotificationsPaged({ filter: 'order', readState: NotificationReadState.UnRead, skipCount: 20, maxResultCount: 20 });
+    await getMyNotificationsPaged({
+      filter: 'order',
+      readState: NotificationReadState.UnRead,
+      skipCount: 20,
+      maxResultCount: 20,
+    });
     const url = calls[0][0] as string;
     expect(url).toContain('/api/notifications/my-notifilers?');
     expect(url).toContain('filter=order');
@@ -94,7 +99,11 @@ describe('notifications api', () => {
     await getNotificationGroup('a/b');
     expect(get.calls[0][0]).toContain('/api/notifications/definitions/groups/a%2Fb');
     const create = stubFetch(JSON.stringify({ name: 'g' }));
-    await createNotificationGroup({ name: 'g', displayName: 'G', allowSubscriptionToClients: true });
+    await createNotificationGroup({
+      name: 'g',
+      displayName: 'G',
+      allowSubscriptionToClients: true,
+    });
     expect(methodOf(create.calls, 0)).toBe('POST');
     expect(bodyOf(create.calls)).toMatchObject({ name: 'g', allowSubscriptionToClients: true });
     const update = stubFetch(JSON.stringify({ name: 'g' }));
@@ -109,7 +118,11 @@ describe('notifications api', () => {
 
   it('definitions: list gắn filter/groupName, update không gửi name/groupName', async () => {
     const list = stubFetch(JSON.stringify({ items: [] }));
-    await getNotificationDefinitions({ filter: 'order', groupName: 'sys', notificationType: NotificationType.System });
+    await getNotificationDefinitions({
+      filter: 'order',
+      groupName: 'sys',
+      notificationType: NotificationType.System,
+    });
     const url = list.calls[0][0] as string;
     expect(url).toContain('/api/notifications/definitions/notifications?');
     expect(url).toContain('filter=order');
@@ -132,10 +145,18 @@ describe('notifications api', () => {
 
   it('sendNotification POST /api/notifications/send với data { title, message, description } như web', async () => {
     const { calls } = stubFetch('', 204);
-    await sendNotification({ name: 'n', data: { title: 'T', message: 'M', description: 'D' }, severity: NotificationSeverity.Info });
+    await sendNotification({
+      name: 'n',
+      data: { title: 'T', message: 'M', description: 'D' },
+      severity: NotificationSeverity.Info,
+    });
     expect(calls[0][0]).toContain('/api/notifications/send');
     expect(methodOf(calls, 0)).toBe('POST');
-    expect(bodyOf(calls)).toEqual({ name: 'n', data: { title: 'T', message: 'M', description: 'D' }, severity: 10 });
+    expect(bodyOf(calls)).toEqual({
+      name: 'n',
+      data: { title: 'T', message: 'M', description: 'D' },
+      severity: 10,
+    });
   });
 
   it('send-records: list gắn notificationName/provider, delete DELETE, re-send POST {id}/re-send', async () => {
@@ -174,9 +195,16 @@ describe('notifications api', () => {
     const item = {
       data: { type: 'x', extraProperties: { title: 'Hello', message: 'World', description: 'D' } },
     } as unknown as Parameters<typeof deserializeNotification>[0];
-    expect(deserializeNotification(item)).toEqual({ title: 'Hello', message: 'World', description: 'D' });
+    expect(deserializeNotification(item)).toEqual({
+      title: 'Hello',
+      message: 'World',
+      description: 'D',
+    });
     const localized = {
-      data: { type: 'x', extraProperties: { L: true, title: { name: 'K' }, message: { name: 'M' } } },
+      data: {
+        type: 'x',
+        extraProperties: { L: true, title: { name: 'K' }, message: { name: 'M' } },
+      },
     } as unknown as Parameters<typeof deserializeNotification>[0];
     const out = deserializeNotification(localized);
     expect(out.title).toContain('K');

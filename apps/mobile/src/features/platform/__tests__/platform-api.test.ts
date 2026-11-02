@@ -80,7 +80,11 @@ describe('platform api', () => {
     expect(urlOf(byName.calls)).toContain('/api/platform/datas/by-name/UI%20Framework');
 
     const create = stubFetch(JSON.stringify({ id: '1' }));
-    await createData({ name: 'ui', displayName: 'UI', parentId: '11111111-1111-1111-1111-111111111111' });
+    await createData({
+      name: 'ui',
+      displayName: 'UI',
+      parentId: '11111111-1111-1111-1111-111111111111',
+    });
     expect(methodOf(create.calls)).toBe('POST');
     expect(bodyOf(create.calls).parentId).toBe('11111111-1111-1111-1111-111111111111');
 
@@ -184,7 +188,14 @@ describe('platform api', () => {
     expect(bodyOf(create.calls).layoutId).toBe('11111111-1111-1111-1111-111111111111');
 
     const update = stubFetch(JSON.stringify({ id: '1' }));
-    await updateMenu('abc', { name: 'sys', displayName: 'System', path: '/sys', component: 'sys', isPublic: true, meta: {} });
+    await updateMenu('abc', {
+      name: 'sys',
+      displayName: 'System',
+      path: '/sys',
+      component: 'sys',
+      isPublic: true,
+      meta: {},
+    });
     expect(methodOf(update.calls)).toBe('PUT');
     expect(bodyOf(update.calls).layoutId).toBeUndefined();
 
@@ -196,17 +207,29 @@ describe('platform api', () => {
   it('menu allotment: get by-user/by-role đúng route path (framework trong path, KHÔNG query); set PUT đúng body', async () => {
     const byUser = stubFetch(JSON.stringify({ items: [] }));
     await getUserMenus('11111111-1111-1111-1111-111111111111', 'Vben');
-    expect(urlOf(byUser.calls)).toContain('/api/platform/menus/by-user/11111111-1111-1111-1111-111111111111/Vben');
+    expect(urlOf(byUser.calls)).toContain(
+      '/api/platform/menus/by-user/11111111-1111-1111-1111-111111111111/Vben',
+    );
 
     const byRole = stubFetch(JSON.stringify({ items: [] }));
     await getRoleMenus('Admin', 'Vben');
     expect(urlOf(byRole.calls)).toContain('/api/platform/menus/by-role/Admin/Vben');
 
     const setU = stubFetch('', 204);
-    await setUserMenus({ userId: 'u1', framework: 'Vben', startupMenuId: 'm2', menuIds: ['m1', 'm2'] });
+    await setUserMenus({
+      userId: 'u1',
+      framework: 'Vben',
+      startupMenuId: 'm2',
+      menuIds: ['m1', 'm2'],
+    });
     expect(methodOf(setU.calls)).toBe('PUT');
     expect(urlOf(setU.calls)).toContain('/api/platform/menus/by-user');
-    expect(bodyOf(setU.calls)).toEqual({ userId: 'u1', framework: 'Vben', startupMenuId: 'm2', menuIds: ['m1', 'm2'] });
+    expect(bodyOf(setU.calls)).toEqual({
+      userId: 'u1',
+      framework: 'Vben',
+      startupMenuId: 'm2',
+      menuIds: ['m1', 'm2'],
+    });
 
     const setR = stubFetch('', 204);
     await setRoleMenus({ roleName: 'Admin', framework: 'Vben', menuIds: [] });
@@ -217,13 +240,24 @@ describe('platform api', () => {
 
   it('email/sms messages: paged gắn filter/status; get email; delete + send đúng route; KHÔNG có create/update', async () => {
     const paged = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getEmailMessagesPaged({ filter: 'x', emailAddress: 'a@b.c', status: -1, skipCount: 0, maxResultCount: 20 });
+    await getEmailMessagesPaged({
+      filter: 'x',
+      emailAddress: 'a@b.c',
+      status: -1,
+      skipCount: 0,
+      maxResultCount: 20,
+    });
     expect(urlOf(paged.calls)).toContain('/api/platform/messages/email?');
     expect(urlOf(paged.calls)).toContain('status=-1');
     expect(urlOf(paged.calls)).toContain('emailAddress=a%40b.c');
 
     const smsPaged = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getSmsMessagesPaged({ phoneNumber: '0901', status: 10, skipCount: 0, maxResultCount: 20 });
+    await getSmsMessagesPaged({
+      phoneNumber: '0901',
+      status: 10,
+      skipCount: 0,
+      maxResultCount: 20,
+    });
     expect(urlOf(smsPaged.calls)).toContain('/api/platform/messages/sms?');
     expect(urlOf(smsPaged.calls)).toContain('status=10');
 

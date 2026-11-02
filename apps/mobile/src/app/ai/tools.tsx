@@ -86,11 +86,18 @@ export default function AIToolsScreen() {
         autoCapitalize="none"
         testID="ai-tools-search-provider"
       />
-      <AppButton title={t('aiTools.createTitle')} onPress={() => router.push('/ai/tools/form')} testID="ai-tools-create" />
+      <AppButton
+        title={t('aiTools.createTitle')}
+        onPress={() => router.push('/ai/tools/form')}
+        testID="ai-tools-create"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('aiTools.empty')} />
       ) : (
@@ -103,7 +110,11 @@ export default function AIToolsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

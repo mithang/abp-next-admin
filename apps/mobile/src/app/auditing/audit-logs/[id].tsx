@@ -16,7 +16,11 @@ export default function AuditLogDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['audit-logs', id], queryFn: () => getAuditLog(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['audit-logs', id],
+    queryFn: () => getAuditLog(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteAuditLog(id),
     onSuccess: async () => {
@@ -27,13 +31,21 @@ export default function AuditLogDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
 
   return (
-    <AppScreen title={`${item.httpMethod ?? ''} ${item.httpStatusCode ?? ''}`.trim() || item.id} subtitle={item.url}>
+    <AppScreen
+      title={`${item.httpMethod ?? ''} ${item.httpStatusCode ?? ''}`.trim() || item.id}
+      subtitle={item.url}
+    >
       <VStack space="sm">
         {item.userName ? (
           <Text>
@@ -120,7 +132,11 @@ export default function AuditLogDetailScreen() {
           onPress={() =>
             Alert.alert(t('auditLogs.deleteConfirmTitle'), t('auditLogs.deleteConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => deleteMutation.mutate(),
+              },
             ])
           }
           testID="audit-log-delete"

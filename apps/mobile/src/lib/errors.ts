@@ -129,7 +129,10 @@ export function parseApiError(status: number, body: unknown): ApiError {
 
 export function toApiError(error: unknown): ApiError {
   if (error && typeof error === 'object' && 'kind' in error) return error as ApiError;
-  if (error instanceof Error && /network|fetch failed|Network request failed/i.test(error.message)) {
+  if (
+    error instanceof Error &&
+    /network|fetch failed|Network request failed/i.test(error.message)
+  ) {
     return { kind: 'network', message: FALLBACK.network };
   }
   if (error instanceof Error && /timed out|timeout|aborted/i.test(error.message)) {

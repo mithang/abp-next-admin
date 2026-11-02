@@ -60,7 +60,11 @@ export default function ApplicationsScreen() {
   const query = useQuery({
     queryKey: ['openiddict-applications', debouncedFilter, page],
     queryFn: () =>
-      getApplicationsPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getApplicationsPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -68,7 +72,10 @@ export default function ApplicationsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('openiddictApplications.title')} subtitle={`${t('openiddictApplications.total')}: ${total}`}>
+    <AppScreen
+      title={t('openiddictApplications.title')}
+      subtitle={`${t('openiddictApplications.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -79,7 +86,10 @@ export default function ApplicationsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('openiddictApplications.empty')} />
       ) : (
@@ -92,9 +102,17 @@ export default function ApplicationsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
-      <AppButton title={t('openiddictApplications.createTitle')} onPress={() => router.push('/openiddict/applications/form')} testID="applications-create" />
+      <AppButton
+        title={t('openiddictApplications.createTitle')}
+        onPress={() => router.push('/openiddict/applications/form')}
+        testID="applications-create"
+      />
     </AppScreen>
   );
 }

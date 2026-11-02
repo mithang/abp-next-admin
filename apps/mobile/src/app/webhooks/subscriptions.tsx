@@ -104,7 +104,10 @@ export default function WebhookSubscriptionsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('webhookSubscriptions.title')} subtitle={`${t('webhookSubscriptions.total')}: ${total}`}>
+    <AppScreen
+      title={t('webhookSubscriptions.title')}
+      subtitle={`${t('webhookSubscriptions.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -118,7 +121,11 @@ export default function WebhookSubscriptionsScreen() {
         testID="webhook-subscriptions-create"
       />
       <AppButton
-        title={selectMode ? t('webhookSubscriptions.exitSelectMode') : t('webhookSubscriptions.selectMode')}
+        title={
+          selectMode
+            ? t('webhookSubscriptions.exitSelectMode')
+            : t('webhookSubscriptions.selectMode')
+        }
         onPress={() => {
           setSelectMode((v) => !v);
           setSelected(new Set());
@@ -151,7 +158,10 @@ export default function WebhookSubscriptionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('webhookSubscriptions.empty')} />
       ) : (
@@ -172,7 +182,11 @@ export default function WebhookSubscriptionsScreen() {
       )}
       {bulkDelete.isError ? <Text>{toApiError(bulkDelete.error).message}</Text> : null}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

@@ -9,7 +9,11 @@ import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
-import { deleteNotificationSendRecord, getNotificationSendRecordsPaged, reSendNotificationRecord } from '../../features/notifications/notifications-api';
+import {
+  deleteNotificationSendRecord,
+  getNotificationSendRecordsPaged,
+  reSendNotificationRecord,
+} from '../../features/notifications/notifications-api';
 import type { NotificationSendRecordDto } from '../../features/notifications/types';
 import { sendStateName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
@@ -36,7 +40,8 @@ function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
       <VStack space="xs">
         <Text>{item.notification?.name ?? String(item.id)}</Text>
         <Text>
-          {t('notificationSendRecords.provider')}: {item.provider} · {t('notificationSendRecords.state')}: {sendStateName(item.state)}
+          {t('notificationSendRecords.provider')}: {item.provider} ·{' '}
+          {t('notificationSendRecords.state')}: {sendStateName(item.state)}
         </Text>
         <Text>
           {t('notificationSendRecords.user')}: {item.userName}
@@ -63,10 +68,18 @@ function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('notificationSendRecords.deleteConfirmTitle'), t('notificationSendRecords.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('notificationSendRecords.deleteConfirmTitle'),
+              t('notificationSendRecords.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {reSendMutation.isError ? <Text>{toApiError(reSendMutation.error).message}</Text> : null}
@@ -110,7 +123,10 @@ export default function NotificationSendRecordsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('notificationSendRecords.title')} subtitle={`${t('notificationSendRecords.total')}: ${total}`}>
+    <AppScreen
+      title={t('notificationSendRecords.title')}
+      subtitle={`${t('notificationSendRecords.total')}: ${total}`}
+    >
       <AppInput
         value={notificationName}
         onChangeText={setNotificationName}
@@ -128,7 +144,10 @@ export default function NotificationSendRecordsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('notificationSendRecords.empty')} />
       ) : (
@@ -141,7 +160,11 @@ export default function NotificationSendRecordsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

@@ -19,12 +19,16 @@ export function getSecurityLogsPaged(input: GetSecurityLogPagedInput = {}) {
 
 /** GET /api/auditing/security-log/{id} */
 export function getSecurityLog(id: string) {
-  return apiRequest<SecurityLogDto>(`/api/auditing/security-log/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<SecurityLogDto>(`/api/auditing/security-log/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** DELETE /api/auditing/security-log/{id} */
 export function deleteSecurityLog(id: string) {
-  return apiRequest<void>(`/api/auditing/security-log/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/auditing/security-log/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }
 
 /** DELETE /api/auditing/security-log/bulk — xóa hàng loạt, API sẵn cho vòng sau (UI chưa có chọn nhiều). */

@@ -40,19 +40,32 @@ export default function OrganizationUnitFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['organization-units', id], queryFn: () => getOrganizationUnit(id as string), enabled: isEdit });
-  const all = useQuery({ queryKey: ['organization-units', 'all'], queryFn: getOrganizationUnitsAll, enabled: !isEdit && Boolean(parentId) });
+  const detail = useQuery({
+    queryKey: ['organization-units', id],
+    queryFn: () => getOrganizationUnit(id as string),
+    enabled: isEdit,
+  });
+  const all = useQuery({
+    queryKey: ['organization-units', 'all'],
+    queryFn: getOrganizationUnitsAll,
+    enabled: !isEdit && Boolean(parentId),
+  });
   const parentName = all.data ? findOrganizationUnitName(all.data.items, parentId) : undefined;
 
   const form = useForm<OrganizationUnitFormValues>({
     resolver: zodResolver(organizationUnitFormSchema),
     defaultValues: organizationUnitFormDefaults,
-    values: detail.data ? { displayName: detail.data.displayName, parentId: detail.data.parentId } : parentId ? { displayName: '', parentId } : undefined,
+    values: detail.data
+      ? { displayName: detail.data.displayName, parentId: detail.data.parentId }
+      : parentId
+        ? { displayName: '', parentId }
+        : undefined,
   });
 
   const mutation = useMutation({
     mutationFn: async (values: OrganizationUnitFormValues) => {
-      if (isEdit) return updateOrganizationUnit(id as string, toOrganizationUnitUpdateInput(values));
+      if (isEdit)
+        return updateOrganizationUnit(id as string, toOrganizationUnitUpdateInput(values));
       return createOrganizationUnit(toOrganizationUnitCreateInput(values));
     },
     onSuccess: async () => {
@@ -64,16 +77,23 @@ export default function OrganizationUnitFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   const fieldError = (key?: string) => (key && key.startsWith('organizationUnits.') ? t(key) : key);
 
   return (
-    <AppScreen title={isEdit ? t('organizationUnits.editTitle') : t('organizationUnits.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('organizationUnits.editTitle') : t('organizationUnits.createTitle')}
+    >
       <VStack space="md">
         {!isEdit ? (
           <Text>
-            {t('organizationUnits.parent')}: {parentName ?? (parentId ?? t('organizationUnits.root'))}
+            {t('organizationUnits.parent')}: {parentName ?? parentId ?? t('organizationUnits.root')}
           </Text>
         ) : null}
         <Controller

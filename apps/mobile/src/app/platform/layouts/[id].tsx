@@ -16,7 +16,11 @@ export default function LayoutDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['platform-layouts', id], queryFn: () => getLayout(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['platform-layouts', id],
+    queryFn: () => getLayout(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteLayout(id),
     onSuccess: async () => {
@@ -27,7 +31,12 @@ export default function LayoutDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -57,7 +66,9 @@ export default function LayoutDetailScreen() {
             {t('platformLayouts.description')}: {item.description}
           </Text>
         ) : null}
-        {item.meta && Object.keys(item.meta).length > 0 ? <Text>{JSON.stringify(item.meta)}</Text> : null}
+        {item.meta && Object.keys(item.meta).length > 0 ? (
+          <Text>{JSON.stringify(item.meta)}</Text>
+        ) : null}
         <AppButton
           title={t('platformLayouts.editTitle')}
           onPress={() => router.push(`/platform/layouts/form?id=${encodeURIComponent(item.id)}`)}
@@ -69,10 +80,18 @@ export default function LayoutDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('platformLayouts.deleteConfirmTitle'), t('platformLayouts.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('platformLayouts.deleteConfirmTitle'),
+              t('platformLayouts.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="platform-layout-delete"
         />

@@ -58,7 +58,9 @@ export function deleteBackgroundJob(id: string) {
 
 /** GET /api/task-management/background-jobs/definitions — gợi ý type cho form tạo. */
 export function getBackgroundJobDefinitions() {
-  return apiRequest<ListResult<BackgroundJobDefinitionDto>>(`${BASE}/definitions`, { method: 'GET' });
+  return apiRequest<ListResult<BackgroundJobDefinitionDto>>(`${BASE}/definitions`, {
+    method: 'GET',
+  });
 }
 
 function jobAction(id: string, action: string) {

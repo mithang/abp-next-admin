@@ -52,7 +52,11 @@ export default function ResourcesScreen() {
   const query = useQuery({
     queryKey: ['resources', debouncedFilter, page],
     queryFn: () =>
-      getResourcesPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getResourcesPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -68,11 +72,18 @@ export default function ResourcesScreen() {
         autoCapitalize="none"
         testID="resources-search"
       />
-      <AppButton title={t('resources.createTitle')} onPress={() => router.push('/localization/resources/form')} testID="resources-create" />
+      <AppButton
+        title={t('resources.createTitle')}
+        onPress={() => router.push('/localization/resources/form')}
+        testID="resources-create"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('resources.empty')} />
       ) : (
@@ -85,7 +96,11 @@ export default function ResourcesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

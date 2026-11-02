@@ -8,7 +8,10 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteTextTemplateDefinition, getTextTemplateDefinition } from '../../../features/text-templating/text-templating-api';
+import {
+  deleteTextTemplateDefinition,
+  getTextTemplateDefinition,
+} from '../../../features/text-templating/text-templating-api';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -41,7 +44,12 @@ export default function TextTemplateDefinitionDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -71,10 +79,12 @@ export default function TextTemplateDefinitionDetailScreen() {
           </Text>
         ) : null}
         <Text>
-          {t('textTemplateDefinitions.isInlineLocalized')}: {item.isInlineLocalized ? t('common.yes') : t('common.no')}
+          {t('textTemplateDefinitions.isInlineLocalized')}:{' '}
+          {item.isInlineLocalized ? t('common.yes') : t('common.no')}
         </Text>
         <Text>
-          {t('textTemplateDefinitions.isLayout')}: {item.isLayout ? t('common.yes') : t('common.no')}
+          {t('textTemplateDefinitions.isLayout')}:{' '}
+          {item.isLayout ? t('common.yes') : t('common.no')}
         </Text>
         {item.layout ? (
           <Text>
@@ -82,18 +92,27 @@ export default function TextTemplateDefinitionDetailScreen() {
           </Text>
         ) : null}
         <Text>
-          {t('textTemplateDefinitions.isStatic')}: {item.isStatic ? t('common.yes') : t('common.no')}
+          {t('textTemplateDefinitions.isStatic')}:{' '}
+          {item.isStatic ? t('common.yes') : t('common.no')}
         </Text>
         <AppButton
           title={t('textTemplateDefinitions.editContentsTitle')}
           variant="outline"
-          onPress={() => router.push(`/text-templating/definitions/content?name=${encodeURIComponent(item.name)}`)}
+          onPress={() =>
+            router.push(
+              `/text-templating/definitions/content?name=${encodeURIComponent(item.name)}`,
+            )
+          }
         />
         {item.isStatic ? null : (
           <>
             <AppButton
               title={t('textTemplateDefinitions.editTitle')}
-              onPress={() => router.push(`/text-templating/definitions/form?name=${encodeURIComponent(item.name)}`)}
+              onPress={() =>
+                router.push(
+                  `/text-templating/definitions/form?name=${encodeURIComponent(item.name)}`,
+                )
+              }
             />
             <AppButton
               title={t('common.delete')}
@@ -101,10 +120,18 @@ export default function TextTemplateDefinitionDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('textTemplateDefinitions.deleteConfirmTitle'), t('textTemplateDefinitions.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-                ])
+                Alert.alert(
+                  t('textTemplateDefinitions.deleteConfirmTitle'),
+                  t('textTemplateDefinitions.deleteConfirmMessage'),
+                  [
+                    { text: t('common.cancel'), style: 'cancel' },
+                    {
+                      text: t('common.delete'),
+                      style: 'destructive',
+                      onPress: () => deleteMutation.mutate(),
+                    },
+                  ],
+                )
               }
             />
           </>

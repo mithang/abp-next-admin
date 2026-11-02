@@ -46,6 +46,7 @@
     "eslint-config-expo": "~58.0.4",
     "jest": "~30.5.2",
     "jest-expo": "~58.0.13",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3"
   },
@@ -56,7 +57,9 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"*.{js,mjs,json,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"*.{js,mjs,json,css}\""
   },
   "private": true,
   "overrides": {

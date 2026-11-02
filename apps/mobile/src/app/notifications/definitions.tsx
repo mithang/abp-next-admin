@@ -52,12 +52,18 @@ export default function NotificationDefinitionsScreen() {
   const query = useQuery({
     queryKey: ['notification-definitions', debounced],
     queryFn: () =>
-      getNotificationDefinitions({ filter: debounced.filter || undefined, groupName: debounced.groupName || undefined }),
+      getNotificationDefinitions({
+        filter: debounced.filter || undefined,
+        groupName: debounced.groupName || undefined,
+      }),
   });
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('notificationDefinitions.title')} subtitle={`${t('notificationDefinitions.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('notificationDefinitions.title')}
+      subtitle={`${t('notificationDefinitions.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -72,11 +78,17 @@ export default function NotificationDefinitionsScreen() {
         autoCapitalize="none"
         testID="notification-definitions-search-group"
       />
-      <AppButton title={t('common.create')} onPress={() => router.push('/notifications/definitions/form')} />
+      <AppButton
+        title={t('common.create')}
+        onPress={() => router.push('/notifications/definitions/form')}
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('notificationDefinitions.empty')} />
       ) : (

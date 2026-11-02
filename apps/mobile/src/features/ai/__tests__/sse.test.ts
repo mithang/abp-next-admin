@@ -62,7 +62,11 @@ describe('sendChatMessageStream', () => {
 
   it('đọc stream bằng reader khi có, kể cả event cắt đôi giữa 2 chunk byte', async () => {
     const encoder = new TextEncoder();
-    const parts = [encoder.encode('data: {"m": "X'), encoder.encode('Y"}\n\n'), encoder.encode('data: {"m": "FINISHED"}\n\n')];
+    const parts = [
+      encoder.encode('data: {"m": "X'),
+      encoder.encode('Y"}\n\n'),
+      encoder.encode('data: {"m": "FINISHED"}\n\n'),
+    ];
     let i = 0;
     const reader = {
       read: async () => (i < parts.length ? { done: false, value: parts[i++] } : { done: true }),
@@ -90,7 +94,10 @@ describe('sendChatMessageStream', () => {
       text: async () => JSON.stringify({ error: { message: 'Unauthorized' } }),
     })) as unknown as typeof fetch;
     await expect(
-      sendChatMessageStream({ conversationId: 'c1', workspace: 'ws', content: 'hi' }, { onChunk: () => {} }),
+      sendChatMessageStream(
+        { conversationId: 'c1', workspace: 'ws', content: 'hi' },
+        { onChunk: () => {} },
+      ),
     ).rejects.toMatchObject({ kind: 'unauthorized' });
   });
 });

@@ -52,7 +52,8 @@ export default function CacheSetFormScreen() {
     onError: (error: unknown) => setSubmitError(toApiError(error).message),
   });
 
-  const fieldError = (message?: string) => (message && message.startsWith('caches.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('caches.') ? t(message) : message;
 
   return (
     <AppScreen title={t('caches.setTitle')}>

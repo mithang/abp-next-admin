@@ -26,7 +26,8 @@ function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
             <Text>{item.displayName || item.name}</Text>
             <Text>{item.typeFullName}</Text>
             <Text>
-              {t('entityTypeInfos.auditEnabled')}: {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
+              {t('entityTypeInfos.auditEnabled')}:{' '}
+              {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
             </Text>
           </VStack>
         </Card>
@@ -52,14 +53,21 @@ export default function EntityTypeInfosScreen() {
   const query = useQuery({
     queryKey: ['entity-type-infos', debouncedFilter, page],
     queryFn: () =>
-      getEntityTypeInfosPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getEntityTypeInfosPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('entityTypeInfos.title')} subtitle={`${t('entityTypeInfos.total')}: ${total}`}>
+    <AppScreen
+      title={t('entityTypeInfos.title')}
+      subtitle={`${t('entityTypeInfos.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -70,7 +78,10 @@ export default function EntityTypeInfosScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('entityTypeInfos.empty')} />
       ) : (
@@ -83,7 +94,11 @@ export default function EntityTypeInfosScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

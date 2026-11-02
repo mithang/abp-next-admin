@@ -50,7 +50,10 @@ export default function FeatureDefinitionsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('featureDefinitions.title')} subtitle={`${t('featureDefinitions.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('featureDefinitions.title')}
+      subtitle={`${t('featureDefinitions.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -61,7 +64,10 @@ export default function FeatureDefinitionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('featureDefinitions.empty')} />
       ) : (
@@ -73,7 +79,11 @@ export default function FeatureDefinitionsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <AppButton title={t('featureDefinitions.createTitle')} onPress={() => router.push('/features/definitions/form')} testID="feature-definitions-create" />
+      <AppButton
+        title={t('featureDefinitions.createTitle')}
+        onPress={() => router.push('/features/definitions/form')}
+        testID="feature-definitions-create"
+      />
     </AppScreen>
   );
 }

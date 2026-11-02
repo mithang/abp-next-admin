@@ -89,16 +89,29 @@ export default function WebhookDefinitionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('webhookDefinitions.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState
+        message={t('webhookDefinitions.staticCannotEdit')}
+        onRetry={() => router.back()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('webhookDefinitions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('webhookDefinitions.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('webhookDefinitions.editTitle') : t('webhookDefinitions.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('webhookDefinitions.editTitle') : t('webhookDefinitions.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <>
@@ -178,7 +191,11 @@ export default function WebhookDefinitionFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('webhookDefinitions.isEnabled')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

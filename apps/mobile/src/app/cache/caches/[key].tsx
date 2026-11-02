@@ -7,7 +7,11 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { getCacheValue, refreshCacheKey, removeCacheKey } from '../../../features/caching/caching-api';
+import {
+  getCacheValue,
+  refreshCacheKey,
+  removeCacheKey,
+} from '../../../features/caching/caching-api';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -42,7 +46,12 @@ export default function CacheValueDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppEmptyState message={t('common.empty')} />;
@@ -81,7 +90,11 @@ export default function CacheValueDetailScreen() {
           onPress={() =>
             Alert.alert(t('caches.deleteConfirmTitle'), t('caches.deleteConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => deleteMutation.mutate(),
+              },
             ])
           }
         />

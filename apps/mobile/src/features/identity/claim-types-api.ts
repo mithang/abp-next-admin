@@ -16,7 +16,9 @@ export function getClaimTypesPaged(input: GetClaimTypePagedListInput = {}) {
 
 /** GET /api/identity/claim-types/{id} */
 export function getClaimType(id: string) {
-  return apiRequest<IdentityClaimTypeDto>(`/api/identity/claim-types/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<IdentityClaimTypeDto>(`/api/identity/claim-types/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** POST /api/identity/claim-types — UI tạo/sửa để vòng sau (theo pattern roles). */
@@ -29,7 +31,10 @@ export function createClaimType(input: {
   regex?: string;
   regexDescription?: string;
 }) {
-  return apiRequest<IdentityClaimTypeDto>('/api/identity/claim-types', { method: 'POST', body: input });
+  return apiRequest<IdentityClaimTypeDto>('/api/identity/claim-types', {
+    method: 'POST',
+    body: input,
+  });
 }
 
 /** PUT /api/identity/claim-types/{id} — update chỉ nhận description/regex/required (theo IdentityClaimTypeUpdateDto). */
@@ -45,5 +50,7 @@ export function updateClaimType(
 
 /** DELETE /api/identity/claim-types/{id} */
 export function deleteClaimType(id: string) {
-  return apiRequest<void>(`/api/identity/claim-types/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/identity/claim-types/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }

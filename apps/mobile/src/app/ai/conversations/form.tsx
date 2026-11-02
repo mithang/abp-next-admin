@@ -10,7 +10,12 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createConversation, getConversation, getWorkspacesPaged, updateConversation } from '../../../features/ai/ai-api';
+import {
+  createConversation,
+  getConversation,
+  getWorkspacesPaged,
+  updateConversation,
+} from '../../../features/ai/ai-api';
 import {
   aiConversationCreateDefaults,
   aiConversationCreateSchema,
@@ -55,11 +60,15 @@ export default function AIConversationFormScreen() {
     values: detail.data ? { name: detail.data.name } : undefined,
   });
 
-  const fieldError = (message?: string) => (message && message.startsWith('aiConversations.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('aiConversations.') ? t(message) : message;
 
   const createMutation = useMutation({
     mutationFn: async (values: AIConversationCreateValues) =>
-      createConversation({ name: values.name?.trim() || undefined, workspace: values.workspace.trim() }),
+      createConversation({
+        name: values.name?.trim() || undefined,
+        workspace: values.workspace.trim(),
+      }),
     onSuccess: async (created) => {
       await queryClient.invalidateQueries({ queryKey: ['ai-conversations'] });
       router.replace(`/ai/conversations/${encodeURIComponent(created.id)}`);
@@ -68,7 +77,8 @@ export default function AIConversationFormScreen() {
   });
 
   const renameMutation = useMutation({
-    mutationFn: async (values: AIConversationRenameValues) => updateConversation(id as string, { name: values.name.trim() }),
+    mutationFn: async (values: AIConversationRenameValues) =>
+      updateConversation(id as string, { name: values.name.trim() }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['ai-conversations'] });
       router.back();
@@ -78,7 +88,12 @@ export default function AIConversationFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const workspaceNames = workspacesQuery.data?.items.map((w) => w.name).join(', ') ?? '';
@@ -106,7 +121,9 @@ export default function AIConversationFormScreen() {
             title={t('common.save')}
             loading={renameMutation.isPending}
             disabled={renameMutation.isPending}
-            onPress={() => void renameForm.handleSubmit((values) => renameMutation.mutate(values))()}
+            onPress={() =>
+              void renameForm.handleSubmit((values) => renameMutation.mutate(values))()
+            }
           />
         </VStack>
       </AppScreen>

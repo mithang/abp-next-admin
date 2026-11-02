@@ -143,16 +143,27 @@ export default function CacheKeysScreen() {
           onPress={() =>
             Alert.alert(t('caches.bulkDeleteConfirmTitle'), t('caches.bulkDeleteConfirmMessage'), [
               { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => bulkDeleteMutation.mutate() },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => bulkDeleteMutation.mutate(),
+              },
             ])
           }
         />
       ) : null}
-      <AppButton title={t('caches.setValue')} onPress={() => router.push('/cache/caches/form')} variant="outline" />
+      <AppButton
+        title={t('caches.setValue')}
+        onPress={() => router.push('/cache/caches/form')}
+        variant="outline"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : keys.length === 0 ? (
         <AppEmptyState message={t('caches.empty')} />
       ) : (
@@ -184,10 +195,18 @@ export default function CacheKeysScreen() {
                     variant="outline"
                     loading={deleteMutation.isPending}
                     onPress={() =>
-                      Alert.alert(t('caches.deleteConfirmTitle'), t('caches.deleteConfirmMessage'), [
-                        { text: t('common.cancel'), style: 'cancel' },
-                        { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate(item) },
-                      ])
+                      Alert.alert(
+                        t('caches.deleteConfirmTitle'),
+                        t('caches.deleteConfirmMessage'),
+                        [
+                          { text: t('common.cancel'), style: 'cancel' },
+                          {
+                            text: t('common.delete'),
+                            style: 'destructive',
+                            onPress: () => deleteMutation.mutate(item),
+                          },
+                        ],
+                      )
                     }
                   />
                 </VStack>
@@ -213,7 +232,9 @@ export default function CacheKeysScreen() {
         />
       ) : null}
       {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
-      {bulkDeleteMutation.isError ? <Text>{toApiError(bulkDeleteMutation.error).message}</Text> : null}
+      {bulkDeleteMutation.isError ? (
+        <Text>{toApiError(bulkDeleteMutation.error).message}</Text>
+      ) : null}
     </AppScreen>
   );
 }

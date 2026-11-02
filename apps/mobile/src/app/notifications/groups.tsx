@@ -50,7 +50,10 @@ export default function NotificationGroupsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('notificationGroups.title')} subtitle={`${t('notificationGroups.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('notificationGroups.title')}
+      subtitle={`${t('notificationGroups.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -58,11 +61,17 @@ export default function NotificationGroupsScreen() {
         autoCapitalize="none"
         testID="notification-groups-search"
       />
-      <AppButton title={t('common.create')} onPress={() => router.push('/notifications/groups/form')} />
+      <AppButton
+        title={t('common.create')}
+        onPress={() => router.push('/notifications/groups/form')}
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('notificationGroups.empty')} />
       ) : (

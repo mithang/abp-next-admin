@@ -66,7 +66,10 @@ export default function WebhookDefinitionsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('webhookDefinitions.title')} subtitle={`${t('webhookDefinitions.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('webhookDefinitions.title')}
+      subtitle={`${t('webhookDefinitions.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -90,7 +93,10 @@ export default function WebhookDefinitionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('webhookDefinitions.empty')} />
       ) : (

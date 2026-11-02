@@ -28,7 +28,11 @@ export default function TokenDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['openiddict-tokens', id], queryFn: () => getToken(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['openiddict-tokens', id],
+    queryFn: () => getToken(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteToken(id),
     onSuccess: async () => {
@@ -39,7 +43,12 @@ export default function TokenDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const token = query.data;
@@ -68,10 +77,18 @@ export default function TokenDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('openiddictTokens.deleteConfirmTitle'), t('openiddictTokens.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('openiddictTokens.deleteConfirmTitle'),
+              t('openiddictTokens.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="token-delete"
         />

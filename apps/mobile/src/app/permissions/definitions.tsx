@@ -53,7 +53,10 @@ export default function PermissionDefinitionsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('permissionDefinitions.title')} subtitle={`${t('permissionDefinitions.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('permissionDefinitions.title')}
+      subtitle={`${t('permissionDefinitions.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -64,7 +67,10 @@ export default function PermissionDefinitionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('permissionDefinitions.empty')} />
       ) : (
@@ -76,7 +82,11 @@ export default function PermissionDefinitionsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <AppButton title={t('permissionDefinitions.createTitle')} onPress={() => router.push('/permissions/definitions/form')} testID="permission-definitions-create" />
+      <AppButton
+        title={t('permissionDefinitions.createTitle')}
+        onPress={() => router.push('/permissions/definitions/form')}
+        testID="permission-definitions-create"
+      />
     </AppScreen>
   );
 }

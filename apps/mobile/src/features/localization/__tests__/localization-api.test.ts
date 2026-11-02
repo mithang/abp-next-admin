@@ -66,7 +66,11 @@ describe('localization languages api', () => {
     const { calls } = stubFetch(JSON.stringify({ cultureName: 'vi' }));
     await createLanguage({ cultureName: 'vi', uiCultureName: 'vi', displayName: 'Tiếng Việt' });
     expect(methodOf(calls)).toBe('POST');
-    expect(bodyOf(calls)).toEqual({ cultureName: 'vi', uiCultureName: 'vi', displayName: 'Tiếng Việt' });
+    expect(bodyOf(calls)).toEqual({
+      cultureName: 'vi',
+      uiCultureName: 'vi',
+      displayName: 'Tiếng Việt',
+    });
   });
 
   it('updateLanguage CHỈ gửi displayName (backend update DTO không có uiCultureName)', async () => {
@@ -84,9 +88,21 @@ describe('localization languages api', () => {
   });
 
   it('languageFormSchema bắt buộc cultureName và displayName', () => {
-    expect(languageFormSchema.safeParse({ cultureName: '', uiCultureName: '', displayName: 'X' }).success).toBe(false);
-    expect(languageFormSchema.safeParse({ cultureName: 'vi', uiCultureName: '', displayName: '' }).success).toBe(false);
-    expect(languageFormSchema.safeParse({ cultureName: 'vi', uiCultureName: 'vi', displayName: 'Tiếng Việt' }).success).toBe(true);
+    expect(
+      languageFormSchema.safeParse({ cultureName: '', uiCultureName: '', displayName: 'X' })
+        .success,
+    ).toBe(false);
+    expect(
+      languageFormSchema.safeParse({ cultureName: 'vi', uiCultureName: '', displayName: '' })
+        .success,
+    ).toBe(false);
+    expect(
+      languageFormSchema.safeParse({
+        cultureName: 'vi',
+        uiCultureName: 'vi',
+        displayName: 'Tiếng Việt',
+      }).success,
+    ).toBe(true);
   });
 });
 
@@ -108,14 +124,29 @@ describe('localization resources api', () => {
   it('createResource POST đủ name/displayName/enable', async () => {
     const { calls } = stubFetch(JSON.stringify({ name: 'Abp' }));
     await createResource({ name: 'MyRes', displayName: 'My', description: 'd', enable: true });
-    expect(bodyOf(calls)).toEqual({ name: 'MyRes', displayName: 'My', description: 'd', enable: true });
+    expect(bodyOf(calls)).toEqual({
+      name: 'MyRes',
+      displayName: 'My',
+      description: 'd',
+      enable: true,
+    });
   });
 
   it('updateResource giữ defaultCultureName đã tải trong body', async () => {
     const { calls } = stubFetch(JSON.stringify({ name: 'MyRes' }));
-    await updateResource('MyRes', { displayName: 'My2', description: 'd2', defaultCultureName: 'en', enable: false });
+    await updateResource('MyRes', {
+      displayName: 'My2',
+      description: 'd2',
+      defaultCultureName: 'en',
+      enable: false,
+    });
     expect(methodOf(calls)).toBe('PUT');
-    expect(bodyOf(calls)).toEqual({ displayName: 'My2', description: 'd2', defaultCultureName: 'en', enable: false });
+    expect(bodyOf(calls)).toEqual({
+      displayName: 'My2',
+      description: 'd2',
+      defaultCultureName: 'en',
+      enable: false,
+    });
   });
 
   it('deleteResource DELETE đúng path', async () => {
@@ -126,8 +157,18 @@ describe('localization resources api', () => {
   });
 
   it('resourceFormSchema bắt buộc name và displayName', () => {
-    expect(resourceFormSchema.safeParse({ name: '', displayName: 'X', description: '', enable: true }).success).toBe(false);
-    expect(resourceFormSchema.safeParse({ name: 'MyRes', displayName: 'My', description: '', enable: true }).success).toBe(true);
+    expect(
+      resourceFormSchema.safeParse({ name: '', displayName: 'X', description: '', enable: true })
+        .success,
+    ).toBe(false);
+    expect(
+      resourceFormSchema.safeParse({
+        name: 'MyRes',
+        displayName: 'My',
+        description: '',
+        enable: true,
+      }).success,
+    ).toBe(true);
   });
 });
 
@@ -140,7 +181,13 @@ describe('localization texts api', () => {
 
   it('getTexts gắn đủ cultureName/targetCultureName và onlyNull', async () => {
     const { calls } = stubFetch(JSON.stringify({ items: [] }));
-    await getTexts({ cultureName: 'en', targetCultureName: 'vi', resourceName: 'Abp', filter: 'Save', onlyNull: true });
+    await getTexts({
+      cultureName: 'en',
+      targetCultureName: 'vi',
+      resourceName: 'Abp',
+      filter: 'Save',
+      onlyNull: true,
+    });
     const url = calls[0][0] as string;
     expect(url).toContain('/api/localization/texts?');
     expect(url).toContain('cultureName=en');
@@ -162,7 +209,12 @@ describe('localization texts api', () => {
     const { calls } = stubFetch('');
     await setText({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: 'Lưu' });
     expect(methodOf(calls)).toBe('PUT');
-    expect(bodyOf(calls)).toEqual({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: 'Lưu' });
+    expect(bodyOf(calls)).toEqual({
+      cultureName: 'vi',
+      resourceName: 'Abp',
+      key: 'Save',
+      value: 'Lưu',
+    });
   });
 
   it('deleteText DELETE gửi body đúng như bảng web (cultureName nguồn của dòng)', async () => {
@@ -174,15 +226,35 @@ describe('localization texts api', () => {
 
   it('textEditInitialValues sửa bản dịch của culture ĐÍCH, giữ key và targetValue', () => {
     expect(
-      textEditInitialValues({ resourceName: 'Abp', key: 'Save', targetCultureName: 'vi', targetValue: 'Lưu' }),
+      textEditInitialValues({
+        resourceName: 'Abp',
+        key: 'Save',
+        targetCultureName: 'vi',
+        targetValue: 'Lưu',
+      }),
     ).toEqual({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: 'Lưu' });
     expect(
-      textEditInitialValues({ resourceName: 'Abp', key: 'Save', targetCultureName: 'vi', targetValue: null }),
+      textEditInitialValues({
+        resourceName: 'Abp',
+        key: 'Save',
+        targetCultureName: 'vi',
+        targetValue: null,
+      }),
     ).toEqual({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: '' });
   });
 
   it('textFormSchema bắt buộc cả 4 trường', () => {
-    expect(textFormSchema.safeParse({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: '' }).success).toBe(false);
-    expect(textFormSchema.safeParse({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: 'Lưu' }).success).toBe(true);
+    expect(
+      textFormSchema.safeParse({ cultureName: 'vi', resourceName: 'Abp', key: 'Save', value: '' })
+        .success,
+    ).toBe(false);
+    expect(
+      textFormSchema.safeParse({
+        cultureName: 'vi',
+        resourceName: 'Abp',
+        key: 'Save',
+        value: 'Lưu',
+      }).success,
+    ).toBe(true);
   });
 });

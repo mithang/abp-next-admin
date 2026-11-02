@@ -24,7 +24,11 @@ export default function ApplicationDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['openiddict-applications', id], queryFn: () => getApplication(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['openiddict-applications', id],
+    queryFn: () => getApplication(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteApplication(id),
     onSuccess: async () => {
@@ -35,7 +39,12 @@ export default function ApplicationDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const app = query.data;
@@ -51,14 +60,25 @@ export default function ApplicationDetailScreen() {
         <Field label={t('openiddictApplications.consentType')} value={app.consentType} />
         <Field label={t('openiddictApplications.clientUri')} value={app.clientUri} />
         <Field label={t('openiddictApplications.logoUri')} value={app.logoUri} />
-        <Field label={t('openiddictApplications.redirectUris')} value={app.redirectUris?.join(', ')} />
-        <Field label={t('openiddictApplications.postLogoutRedirectUris')} value={app.postLogoutRedirectUris?.join(', ')} />
+        <Field
+          label={t('openiddictApplications.redirectUris')}
+          value={app.redirectUris?.join(', ')}
+        />
+        <Field
+          label={t('openiddictApplications.postLogoutRedirectUris')}
+          value={app.postLogoutRedirectUris?.join(', ')}
+        />
         <Field label={t('openiddictApplications.grantTypes')} value={app.grantTypes?.join(', ')} />
-        <Field label={t('openiddictApplications.responseTypes')} value={app.responseTypes?.join(', ')} />
+        <Field
+          label={t('openiddictApplications.responseTypes')}
+          value={app.responseTypes?.join(', ')}
+        />
         <Field label={t('openiddictApplications.scopes')} value={app.scopes?.join(', ')} />
         <AppButton
           title={t('openiddictApplications.editTitle')}
-          onPress={() => router.push(`/openiddict/applications/form?id=${encodeURIComponent(app.id)}`)}
+          onPress={() =>
+            router.push(`/openiddict/applications/form?id=${encodeURIComponent(app.id)}`)
+          }
           variant="outline"
           testID="application-edit"
         />
@@ -68,10 +88,18 @@ export default function ApplicationDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('openiddictApplications.deleteConfirmTitle'), t('openiddictApplications.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('openiddictApplications.deleteConfirmTitle'),
+              t('openiddictApplications.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="application-delete"
         />

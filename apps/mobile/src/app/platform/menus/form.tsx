@@ -39,7 +39,11 @@ export default function MenuFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { id, parentId: presetParentId, layoutId: presetLayoutId } = useLocalSearchParams<{
+  const {
+    id,
+    parentId: presetParentId,
+    layoutId: presetLayoutId,
+  } = useLocalSearchParams<{
     id?: string;
     parentId?: string;
     layoutId?: string;
@@ -47,7 +51,11 @@ export default function MenuFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['platform-menus', id], queryFn: () => getMenu(id as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['platform-menus', id],
+    queryFn: () => getMenu(id as string),
+    enabled: isEdit,
+  });
   const layoutsQuery = useQuery({
     queryKey: ['platform-layouts-hint'],
     queryFn: () => getLayoutsPaged({ maxResultCount: 20 }),
@@ -105,10 +113,16 @@ export default function MenuFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('platformMenus.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('platformMenus.') ? t(message) : message;
   const layoutsHint =
     layoutsQuery.data?.items.map((l) => `${l.displayName} — ${l.id}`).join('\n') ||
     t('platformMenus.layoutLoading');
@@ -222,7 +236,11 @@ export default function MenuFormScreen() {
           render={({ field }) => (
             <View>
               <Text>{t('platformMenus.isPublic')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

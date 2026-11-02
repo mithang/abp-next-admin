@@ -13,7 +13,15 @@ export const config = {
   // của AllInOne và docs/auth.md. Không dùng chung vue-admin-client
   // (confidential, chỉ có RootUrls web) nữa.
   clientId: process.env.EXPO_PUBLIC_OIDC_CLIENT_ID ?? 'abp-mobile-client',
-  scopes: ['openid', 'email', 'address', 'phone', 'profile', 'offline_access', 'lingyun-abp-application'],
+  scopes: [
+    'openid',
+    'email',
+    'address',
+    'phone',
+    'profile',
+    'offline_access',
+    'lingyun-abp-application',
+  ],
   redirectScheme: 'abpnextadmin',
 };
 

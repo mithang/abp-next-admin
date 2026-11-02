@@ -69,7 +69,8 @@ export default function BackgroundJobDetailScreen() {
   });
   const deleteLogMutation = useMutation({
     mutationFn: (logId: string) => deleteBackgroundJobLog(logId),
-    onSuccess: () => void queryClient.invalidateQueries({ queryKey: ['tasks-background-job-logs'] }),
+    onSuccess: () =>
+      void queryClient.invalidateQueries({ queryKey: ['tasks-background-job-logs'] }),
     onError: (error) => setActionError(toApiError(error).message),
   });
 
@@ -93,7 +94,12 @@ export default function BackgroundJobDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -191,7 +197,9 @@ export default function BackgroundJobDetailScreen() {
         </Text>
         <AppButton
           title={t('backgroundJobs.editTitle')}
-          onPress={() => router.push(`/tasks/background-jobs/form?id=${encodeURIComponent(item.id)}`)}
+          onPress={() =>
+            router.push(`/tasks/background-jobs/form?id=${encodeURIComponent(item.id)}`)
+          }
         />
         <AppButton
           title={t('backgroundJobs.pause')}
@@ -230,10 +238,18 @@ export default function BackgroundJobDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('backgroundJobs.deleteConfirmTitle'), t('backgroundJobs.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('backgroundJobs.deleteConfirmTitle'),
+              t('backgroundJobs.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
@@ -283,7 +299,11 @@ export default function BackgroundJobDetailScreen() {
               </VStack>
             ))}
             {(logPage + 1) * 20 < (logsQuery.data?.totalCount ?? 0) ? (
-              <AppButton title={t('common.loadMore')} onPress={() => setLogPage((p) => p + 1)} variant="outline" />
+              <AppButton
+                title={t('common.loadMore')}
+                onPress={() => setLogPage((p) => p + 1)}
+                variant="outline"
+              />
             ) : null}
           </>
         )}

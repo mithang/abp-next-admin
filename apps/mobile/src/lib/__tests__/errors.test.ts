@@ -71,7 +71,9 @@ describe('parseWrappedError', () => {
   });
 
   it('mã nghiệp vụ không phải số vẫn giữ message an toàn', () => {
-    expect(parseWrappedError({ code: 'UserAlreadyExists', message: 'Người dùng đã tồn tại.' })).toMatchObject({
+    expect(
+      parseWrappedError({ code: 'UserAlreadyExists', message: 'Người dùng đã tồn tại.' }),
+    ).toMatchObject({
       kind: 'server',
       status: undefined,
       message: 'Người dùng đã tồn tại.',

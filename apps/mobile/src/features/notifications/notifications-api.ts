@@ -32,9 +32,12 @@ export function getMyNotificationsPaged(input: GetMyNotifilerPagedListInput = {}
 
 /** GET /api/notifications/my-notifilers/{id} — backend id là long, encode như mọi id khác. */
 export function getMyNotification(id: string) {
-  return apiRequest<UserNotificationDto>(`/api/notifications/my-notifilers/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<UserNotificationDto>(
+    `/api/notifications/my-notifilers/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /** DELETE /api/notifications/my-notifilers/{id} */
@@ -54,10 +57,13 @@ export function markMyNotificationsRead(input: MarkReadStateInput) {
 
 /** GET /api/notifications/definitions/groups — ListResult, không phân trang server. */
 export function getNotificationGroups(input: NotificationGroupDefinitionGetListInput = {}) {
-  return apiRequest<ListResult<NotificationGroupDefinitionDto>>('/api/notifications/definitions/groups', {
-    method: 'GET',
-    params: { filter: input.filter },
-  });
+  return apiRequest<ListResult<NotificationGroupDefinitionDto>>(
+    '/api/notifications/definitions/groups',
+    {
+      method: 'GET',
+      params: { filter: input.filter },
+    },
+  );
 }
 
 /** GET /api/notifications/definitions/groups/{name} */
@@ -93,18 +99,21 @@ export function deleteNotificationGroup(name: string) {
 
 /** GET /api/notifications/definitions/notifications — ListResult, không phân trang server. */
 export function getNotificationDefinitions(input: NotificationDefinitionGetListInput = {}) {
-  return apiRequest<ListResult<NotificationDefinitionDto>>('/api/notifications/definitions/notifications', {
-    method: 'GET',
-    params: {
-      filter: input.filter,
-      groupName: input.groupName,
-      allowSubscriptionToClients: input.allowSubscriptionToClients,
-      contentType: input.contentType,
-      notificationLifetime: input.notificationLifetime,
-      notificationType: input.notificationType,
-      template: input.template,
+  return apiRequest<ListResult<NotificationDefinitionDto>>(
+    '/api/notifications/definitions/notifications',
+    {
+      method: 'GET',
+      params: {
+        filter: input.filter,
+        groupName: input.groupName,
+        allowSubscriptionToClients: input.allowSubscriptionToClients,
+        contentType: input.contentType,
+        notificationLifetime: input.notificationLifetime,
+        notificationType: input.notificationType,
+        template: input.template,
+      },
     },
-  });
+  );
 }
 
 /** GET /api/notifications/definitions/notifications/{name} */
@@ -133,9 +142,12 @@ export function updateNotificationDefinition(name: string, input: NotificationDe
 
 /** DELETE /api/notifications/definitions/notifications/{name} — web chỉ hiện khi !isStatic. */
 export function deleteNotificationDefinition(name: string) {
-  return apiRequest<void>(`/api/notifications/definitions/notifications/${encodeURIComponent(name)}`, {
-    method: 'DELETE',
-  });
+  return apiRequest<void>(
+    `/api/notifications/definitions/notifications/${encodeURIComponent(name)}`,
+    {
+      method: 'DELETE',
+    },
+  );
 }
 
 /** POST /api/notifications/send — gửi thông báo theo định nghĩa (web NotificationSendModal). */
@@ -144,7 +156,9 @@ export function sendNotification(input: NotificationSendInput) {
 }
 
 /** GET /api/notifications/send-records — phân trang ABP. Backend KHÔNG có GET {id} (chỉ list/xóa/gửi lại) nên mobile không có màn detail. */
-export function getNotificationSendRecordsPaged(input: NotificationSendRecordGetPagedListInput = {}) {
+export function getNotificationSendRecordsPaged(
+  input: NotificationSendRecordGetPagedListInput = {},
+) {
   return apiRequest<PagedResult<NotificationSendRecordDto>>('/api/notifications/send-records', {
     method: 'GET',
     params: {

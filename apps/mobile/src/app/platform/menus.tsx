@@ -111,7 +111,9 @@ export default function MenusScreen() {
         placeholder={t('platformMenus.layoutPlaceholder')}
         autoCapitalize="none"
       />
-      <Text>{t('platformMenus.layoutHint')}: {layoutsHint}</Text>
+      <Text>
+        {t('platformMenus.layoutHint')}: {layoutsHint}
+      </Text>
       <AppButton
         title={t('platformMenus.createTitle')}
         onPress={() => router.push('/platform/menus/form')}
@@ -132,7 +134,10 @@ export default function MenusScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : rows.length === 0 ? (
         <AppEmptyState message={t('platformMenus.empty')} />
       ) : (

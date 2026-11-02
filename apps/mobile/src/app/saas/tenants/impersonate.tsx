@@ -21,7 +21,10 @@ export default function TenantImpersonateScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { tenantId, tenantName } = useLocalSearchParams<{ tenantId: string; tenantName?: string }>();
+  const { tenantId, tenantName } = useLocalSearchParams<{
+    tenantId: string;
+    tenantName?: string;
+  }>();
   const impersonate = useAuthStore((s) => s.impersonate);
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
   const [userName, setUserName] = useState('admin');

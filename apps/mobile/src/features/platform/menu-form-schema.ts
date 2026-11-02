@@ -26,18 +26,15 @@ const optionalGuid = z
 const metaJson = z
   .string()
   .trim()
-  .refine(
-    (v) => {
-      if (v === '') return true;
-      try {
-        const parsed: unknown = JSON.parse(v);
-        return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed);
-      } catch {
-        return false;
-      }
-    },
-    'platformMenus.invalidMetaJson',
-  )
+  .refine((v) => {
+    if (v === '') return true;
+    try {
+      const parsed: unknown = JSON.parse(v);
+      return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed);
+    } catch {
+      return false;
+    }
+  }, 'platformMenus.invalidMetaJson')
   .optional();
 
 export function menuFormSchema(isEdit: boolean, selfId?: string) {
@@ -57,13 +54,21 @@ export function menuFormSchema(isEdit: boolean, selfId?: string) {
     if (!isEdit) {
       const layoutId = (values.layoutId ?? '').trim();
       if (layoutId === '') {
-        ctx.addIssue({ code: 'custom', path: ['layoutId'], message: 'platformMenus.layoutIdRequired' });
+        ctx.addIssue({
+          code: 'custom',
+          path: ['layoutId'],
+          message: 'platformMenus.layoutIdRequired',
+        });
       } else if (!GUID_RE.test(layoutId)) {
         ctx.addIssue({ code: 'custom', path: ['layoutId'], message: 'platformMenus.invalidGuid' });
       }
     }
     if (isEdit && selfId && (values.parentId ?? '').trim() === selfId) {
-      ctx.addIssue({ code: 'custom', path: ['parentId'], message: 'platformMenus.selfParentForbidden' });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['parentId'],
+        message: 'platformMenus.selfParentForbidden',
+      });
     }
   });
 }

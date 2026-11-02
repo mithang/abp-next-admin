@@ -24,7 +24,9 @@ function LanguageRow({ item }: { item: LanguageDto }) {
           <VStack space="xs">
             <Text>{item.displayName || item.cultureName}</Text>
             <Text>{item.cultureName}</Text>
-            {item.uiCultureName && item.uiCultureName !== item.cultureName ? <Text>{item.uiCultureName}</Text> : null}
+            {item.uiCultureName && item.uiCultureName !== item.cultureName ? (
+              <Text>{item.uiCultureName}</Text>
+            ) : null}
           </VStack>
         </Card>
       </Pressable>
@@ -51,7 +53,11 @@ export default function LanguagesScreen() {
   const query = useQuery({
     queryKey: ['languages', debouncedFilter, page],
     queryFn: () =>
-      getLanguagesPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getLanguagesPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -67,11 +73,18 @@ export default function LanguagesScreen() {
         autoCapitalize="none"
         testID="languages-search"
       />
-      <AppButton title={t('languages.createTitle')} onPress={() => router.push('/localization/languages/form')} testID="languages-create" />
+      <AppButton
+        title={t('languages.createTitle')}
+        onPress={() => router.push('/localization/languages/form')}
+        testID="languages-create"
+      />
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('languages.empty')} />
       ) : (
@@ -84,7 +97,11 @@ export default function LanguagesScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

@@ -62,7 +62,11 @@ export default function AuthorizationsScreen() {
   const query = useQuery({
     queryKey: ['openiddict-authorizations', debouncedFilter, page],
     queryFn: () =>
-      getAuthorizationsPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getAuthorizationsPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -70,7 +74,10 @@ export default function AuthorizationsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('openiddictAuthorizations.title')} subtitle={`${t('openiddictAuthorizations.total')}: ${total}`}>
+    <AppScreen
+      title={t('openiddictAuthorizations.title')}
+      subtitle={`${t('openiddictAuthorizations.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -81,7 +88,10 @@ export default function AuthorizationsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('openiddictAuthorizations.empty')} />
       ) : (
@@ -94,7 +104,11 @@ export default function AuthorizationsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

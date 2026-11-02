@@ -35,12 +35,23 @@ export default function DataFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { id, parentId: presetParentId } = useLocalSearchParams<{ id?: string; parentId?: string }>();
+  const { id, parentId: presetParentId } = useLocalSearchParams<{
+    id?: string;
+    parentId?: string;
+  }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['platform-datas', id], queryFn: () => getData(id as string), enabled: isEdit });
-  const parentsQuery = useQuery({ queryKey: ['platform-datas-all'], queryFn: () => getDatasAll(), enabled: !isEdit });
+  const detail = useQuery({
+    queryKey: ['platform-datas', id],
+    queryFn: () => getData(id as string),
+    enabled: isEdit,
+  });
+  const parentsQuery = useQuery({
+    queryKey: ['platform-datas-all'],
+    queryFn: () => getDatasAll(),
+    enabled: !isEdit,
+  });
 
   const form = useForm<DataFormValues>({
     resolver: zodResolver(dataFormSchema()),
@@ -80,16 +91,26 @@ export default function DataFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('platformDataDictionaries.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('platformDataDictionaries.') ? t(message) : message;
   const parentsHint =
     parentsQuery.data?.items.map((d) => `${d.displayName} — ${d.id}`).join('\n') ||
     t('platformDataDictionaries.parentsLoading');
 
   return (
-    <AppScreen title={t(isEdit ? 'platformDataDictionaries.editTitle' : 'platformDataDictionaries.createTitle')}>
+    <AppScreen
+      title={t(
+        isEdit ? 'platformDataDictionaries.editTitle' : 'platformDataDictionaries.createTitle',
+      )}
+    >
       <VStack space="sm">
         <Controller
           control={form.control}

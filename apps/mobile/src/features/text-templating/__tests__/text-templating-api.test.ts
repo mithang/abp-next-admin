@@ -45,7 +45,12 @@ describe('text template definitions api', () => {
     expect(urlOf(get.calls)).toContain('/api/text-templating/template/definitions/t1');
 
     const created = stubFetch(JSON.stringify({ name: 't1' }));
-    await createTextTemplateDefinition({ name: 't1', displayName: 'T1', isInlineLocalized: false, isLayout: false });
+    await createTextTemplateDefinition({
+      name: 't1',
+      displayName: 'T1',
+      isInlineLocalized: false,
+      isLayout: false,
+    });
     expect(methodOf(created.calls)).toBe('POST');
     expect(bodyOf(created.calls).name).toBe('t1');
 
@@ -84,7 +89,9 @@ describe('text template content api', () => {
 
     const restore = stubFetch('');
     await restoreTextTemplateContentToDefault('t1', { culture: 'vi' });
-    expect(urlOf(restore.calls)).toContain('/api/text-templating/templates/content/t1/restore-to-default');
+    expect(urlOf(restore.calls)).toContain(
+      '/api/text-templating/templates/content/t1/restore-to-default',
+    );
     expect(methodOf(restore.calls)).toBe('PUT');
     expect(bodyOf(restore.calls).culture).toBe('vi');
   });

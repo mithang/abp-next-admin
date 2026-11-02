@@ -7,7 +7,11 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { deleteMyNotification, getMyNotification, markMyNotificationsRead } from '../../../features/notifications/notifications-api';
+import {
+  deleteMyNotification,
+  getMyNotification,
+  markMyNotificationsRead,
+} from '../../../features/notifications/notifications-api';
 import {
   contentTypeName,
   deserializeNotification,
@@ -24,7 +28,11 @@ export default function MyNotificationDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['my-notifications', id], queryFn: () => getMyNotification(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['my-notifications', id],
+    queryFn: () => getMyNotification(id),
+    enabled: Boolean(id),
+  });
 
   const markMutation = useMutation({
     mutationFn: (state: NotificationReadState) => markMyNotificationsRead({ idList: [id], state }),
@@ -42,7 +50,12 @@ export default function MyNotificationDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -89,7 +102,11 @@ export default function MyNotificationDetailScreen() {
         ) : null}
         <AppButton
           title={isUnread ? t('myNotifications.markRead') : t('myNotifications.markUnread')}
-          onPress={() => markMutation.mutate(isUnread ? NotificationReadState.Read : NotificationReadState.UnRead)}
+          onPress={() =>
+            markMutation.mutate(
+              isUnread ? NotificationReadState.Read : NotificationReadState.UnRead,
+            )
+          }
           loading={markMutation.isPending}
           variant="outline"
           testID="my-notification-mark"
@@ -101,10 +118,18 @@ export default function MyNotificationDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('myNotifications.deleteConfirmTitle'), t('myNotifications.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('myNotifications.deleteConfirmTitle'),
+              t('myNotifications.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="my-notification-delete"
         />

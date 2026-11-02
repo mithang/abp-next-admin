@@ -19,7 +19,11 @@ export default function UserDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const query = useQuery({ queryKey: ['users', id], queryFn: () => getUser(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['users', id],
+    queryFn: () => getUser(id),
+    enabled: Boolean(id),
+  });
   const impersonate = useAuthStore((s) => s.impersonate);
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
   const [impersonating, setImpersonating] = useState(false);
@@ -43,7 +47,12 @@ export default function UserDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const user = query.data;

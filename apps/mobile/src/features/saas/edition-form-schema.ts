@@ -36,7 +36,9 @@ export const editionFormDefaults: EditionFormValues = {
 };
 
 /** Đổi extraPropertiesJson rỗng → undefined, còn lại parse thành object. */
-export function parseExtraPropertiesJson(values: EditionFormValues): Record<string, unknown> | undefined {
+export function parseExtraPropertiesJson(
+  values: EditionFormValues,
+): Record<string, unknown> | undefined {
   const trimmed = (values.extraPropertiesJson ?? '').trim();
   if (trimmed === '') return undefined;
   return JSON.parse(trimmed) as Record<string, unknown>;

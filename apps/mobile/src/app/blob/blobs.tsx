@@ -32,7 +32,9 @@ function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) 
             <Text>
               {isFolder ? t('blobBlobs.folder') : t('blobBlobs.file')}
               {item.contentType ? ` · ${item.contentType}` : ''}
-              {!isFolder ? ` · ${item.size} bytes · ${t('blobBlobs.downloadCount')}: ${item.downloadCount}` : ''}
+              {!isFolder
+                ? ` · ${item.size} bytes · ${t('blobBlobs.downloadCount')}: ${item.downloadCount}`
+                : ''}
             </Text>
           </VStack>
         </Card>
@@ -56,7 +58,10 @@ function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) 
 export default function BlobsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { containerId, parentId } = useLocalSearchParams<{ containerId?: string; parentId?: string }>();
+  const { containerId, parentId } = useLocalSearchParams<{
+    containerId?: string;
+    parentId?: string;
+  }>();
   const [page, setPage] = useState(0);
 
   const containersQuery = useQuery({
@@ -132,7 +137,10 @@ export default function BlobsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('blobBlobs.empty')} />
       ) : (
@@ -145,7 +153,11 @@ export default function BlobsScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

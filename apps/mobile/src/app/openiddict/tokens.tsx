@@ -63,7 +63,11 @@ export default function TokensScreen() {
   const query = useQuery({
     queryKey: ['openiddict-tokens', debouncedFilter, page],
     queryFn: () =>
-      getTokensPaged({ filter: debouncedFilter || undefined, skipCount: page * PAGE_SIZE, maxResultCount: PAGE_SIZE }),
+      getTokensPaged({
+        filter: debouncedFilter || undefined,
+        skipCount: page * PAGE_SIZE,
+        maxResultCount: PAGE_SIZE,
+      }),
   });
 
   const items = query.data?.items ?? [];
@@ -71,7 +75,10 @@ export default function TokensScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('openiddictTokens.title')} subtitle={`${t('openiddictTokens.total')}: ${total}`}>
+    <AppScreen
+      title={t('openiddictTokens.title')}
+      subtitle={`${t('openiddictTokens.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -82,7 +89,10 @@ export default function TokensScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('openiddictTokens.empty')} />
       ) : (
@@ -95,7 +105,11 @@ export default function TokensScreen() {
         />
       )}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

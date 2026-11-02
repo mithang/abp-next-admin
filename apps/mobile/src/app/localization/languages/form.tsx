@@ -36,7 +36,11 @@ export default function LanguageFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['languages', name], queryFn: () => getLanguage(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['languages', name],
+    queryFn: () => getLanguage(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<LanguageFormValues>({
     resolver: zodResolver(languageFormSchema),
@@ -68,7 +72,12 @@ export default function LanguageFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('languages.') ? t(key) : key);

@@ -7,9 +7,21 @@ import { z } from 'zod';
  * stateCheckers là chuỗi. Khi sửa không gửi name/groupName (key trong path).
  */
 export const permissionDefinitionFormSchema = z.object({
-  name: z.string().trim().min(1, 'permissionDefinitions.nameRequired').max(256, 'permissionDefinitions.nameTooLong'),
-  groupName: z.string().trim().min(1, 'permissionDefinitions.groupNameRequired').max(256, 'permissionDefinitions.groupNameTooLong'),
-  displayName: z.string().trim().min(1, 'permissionDefinitions.displayNameRequired').max(256, 'permissionDefinitions.displayNameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'permissionDefinitions.nameRequired')
+    .max(256, 'permissionDefinitions.nameTooLong'),
+  groupName: z
+    .string()
+    .trim()
+    .min(1, 'permissionDefinitions.groupNameRequired')
+    .max(256, 'permissionDefinitions.groupNameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'permissionDefinitions.displayNameRequired')
+    .max(256, 'permissionDefinitions.displayNameTooLong'),
   isEnabled: z.boolean(),
   parentName: z.string(),
   providers: z.string(),

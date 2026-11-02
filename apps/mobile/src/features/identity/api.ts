@@ -16,5 +16,7 @@ export function getUsersPaged(input: GetUserPagedListInput = {}) {
 
 /** GET /api/identity/users/{id} */
 export function getUser(id: string) {
-  return apiRequest<IdentityUserDto>(`/api/identity/users/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<IdentityUserDto>(`/api/identity/users/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }

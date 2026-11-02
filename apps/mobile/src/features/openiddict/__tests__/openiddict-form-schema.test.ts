@@ -4,8 +4,12 @@ import { scopeFormDefaults, scopeFormSchema } from '../scope-form-schema';
 
 describe('applicationFormSchema', () => {
   it('clientId bắt buộc, chuỗi trắng bị trim thành rỗng và lỗi', () => {
-    expect(applicationFormSchema.safeParse({ ...applicationFormDefaults, clientId: '' }).success).toBe(false);
-    expect(applicationFormSchema.safeParse({ ...applicationFormDefaults, clientId: '   ' }).success).toBe(false);
+    expect(
+      applicationFormSchema.safeParse({ ...applicationFormDefaults, clientId: '' }).success,
+    ).toBe(false);
+    expect(
+      applicationFormSchema.safeParse({ ...applicationFormDefaults, clientId: '   ' }).success,
+    ).toBe(false);
   });
 
   it('clientId hợp lệ cho phép các field còn lại trống', () => {

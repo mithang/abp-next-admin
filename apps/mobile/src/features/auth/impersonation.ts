@@ -38,11 +38,7 @@ export interface ImpersonationTarget {
 }
 
 export type ImpersonationErrorCode =
-  | 'alreadyImpersonating'
-  | 'invalidTarget'
-  | 'noAccessToken'
-  | 'tokenRejected'
-  | 'network';
+  'alreadyImpersonating' | 'invalidTarget' | 'noAccessToken' | 'tokenRejected' | 'network';
 
 export class ImpersonationError extends Error {
   readonly code: ImpersonationErrorCode;

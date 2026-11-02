@@ -362,3 +362,21 @@ component tests.
   Lưu ý vòng 1: `npm run lint` dùng `eslint .` trực tiếp vì wrapper `expo lint`
   của SDK 58 lỗi với ESLint 9 đã cài (báo cần ≥ 8.57.0 dù đã có 9.39);
   lint trực tiếp cho 0 lỗi, 14 warning trong code Gluestack vendored.
+
+## Trạng thái vòng 26
+
+Formatter chính thức có mặt: prettier 3.9.10 (devDependency, npm +
+package-lock giữ nguyên), config `.prettierrc.json` (single quote,
+trailing comma all, printWidth 100 — chọn 100 thay vì 80 mặc định vì
+code hiện có nhiều dòng 100–132 ký tự, 80 sẽ xé nhỏ vô ích), script
+`npm run format` / `npm run format:check`. Lần format đầu tiên chạm
+223 file (+4728/−1254, chỉ là ngắt dòng/khoảng trắng — typecheck,
+lint, Jest 254/254 và parity i18n 1442/1442 đều giữ nguyên sau
+format, chứng tỏ format không đổi hành vi). Cố tình KHÔNG format:
+`components/ui` (Gluestack vendored), `src/i18n/*.json` (đang là JSON
+một dòng theo workflow i18n; format sẽ phình thành ~3000 dòng vô
+ích, parity check vẫn là cổng kiểm soát), markdown/docs (prettier
+wrap prose sẽ churn changelog). Từ vòng này, bước "chạy formatter"
+của prompt không còn BLOCKED. Vẫn còn P2: upload tệp blob, RNTL
+component tests, sửa favorites qua PUT, AppSelect/AppTreeSelect,
+review auth WeChat phía backend.

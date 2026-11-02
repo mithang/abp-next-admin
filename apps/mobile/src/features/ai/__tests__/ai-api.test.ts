@@ -48,7 +48,13 @@ describe('ai api', () => {
     await getAIToolProviders();
     expect(urlOf(calls)).toContain('/api/ai-management/tools/available-providers');
     const list = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getAIToolsPaged({ filter: 'x', isEnabled: true, provider: 'p', skipCount: 20, maxResultCount: 20 });
+    await getAIToolsPaged({
+      filter: 'x',
+      isEnabled: true,
+      provider: 'p',
+      skipCount: 20,
+      maxResultCount: 20,
+    });
     expect(urlOf(list.calls)).toContain('/api/ai-management/tools?');
     expect(urlOf(list.calls)).toContain('filter=x');
     expect(urlOf(list.calls)).toContain('isEnabled=true');
@@ -62,7 +68,12 @@ describe('ai api', () => {
     expect(methodOf(create.calls)).toBe('POST');
     expect(urlOf(create.calls)).toContain('/api/ai-management/tools');
     const update = stubFetch(JSON.stringify({ id: '1' }));
-    await updateAITool('abc', { provider: 'p', isEnabled: true, isGlobal: false, concurrencyStamp: 'stamp' });
+    await updateAITool('abc', {
+      provider: 'p',
+      isEnabled: true,
+      isGlobal: false,
+      concurrencyStamp: 'stamp',
+    });
     expect(methodOf(update.calls)).toBe('PUT');
     expect(urlOf(update.calls)).toContain('/api/ai-management/tools/abc');
     expect(bodyOf(update.calls).concurrencyStamp).toBe('stamp');
@@ -87,7 +98,13 @@ describe('ai api', () => {
     expect(urlOf(update.calls)).toContain('/api/ai-management/workspaces/w1');
     expect(bodyOf(update.calls).concurrencyStamp).toBe('stamp');
     const create = stubFetch(JSON.stringify({ id: '1' }));
-    await createWorkspace({ name: 'w', provider: 'p', modelName: 'm', displayName: 'W', isEnabled: true });
+    await createWorkspace({
+      name: 'w',
+      provider: 'p',
+      modelName: 'm',
+      displayName: 'W',
+      isEnabled: true,
+    });
     expect(methodOf(create.calls)).toBe('POST');
   });
 
@@ -104,7 +121,9 @@ describe('ai api', () => {
     expect(methodOf(update.calls)).toBe('PUT');
     // Route đã xác minh qua Swagger; route /api/ai-management/conversations/{id} của web là 404.
     expect(urlOf(update.calls)).toContain('/api/ai-management/chats/conversations/c1');
-    expect(urlOf(update.calls)).not.toBe('http://localhost:30000/api/ai-management/conversations/c1');
+    expect(urlOf(update.calls)).not.toBe(
+      'http://localhost:30000/api/ai-management/conversations/c1',
+    );
   });
 
   it('chat messages: GET /chats?conversationId=... (POST gửi tin là SSE, xem sse.test.ts)', async () => {

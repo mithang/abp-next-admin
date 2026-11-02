@@ -14,10 +14,13 @@ describe('text template definition forms', () => {
       layout: '',
     };
     expect(textTemplateDefinitionFormSchema.safeParse({ ...base, name: '' }).success).toBe(false);
-    expect(textTemplateDefinitionFormSchema.safeParse({ ...base, displayName: '' }).success).toBe(false);
+    expect(textTemplateDefinitionFormSchema.safeParse({ ...base, displayName: '' }).success).toBe(
+      false,
+    );
     expect(textTemplateDefinitionFormSchema.safeParse(base).success).toBe(true);
     expect(
-      textTemplateDefinitionFormSchema.safeParse({ ...base, isLayout: true, layout: 'main' }).success,
+      textTemplateDefinitionFormSchema.safeParse({ ...base, isLayout: true, layout: 'main' })
+        .success,
     ).toBe(true);
   });
 });

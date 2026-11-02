@@ -37,7 +37,12 @@ describe('auditing api', () => {
 
   it('getEntityTypeInfosPaged gắn filter/skipCount/maxResultCount/isAuditEnabled', async () => {
     const { calls } = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getEntityTypeInfosPaged({ filter: 'user', isAuditEnabled: true, skipCount: 20, maxResultCount: 20 });
+    await getEntityTypeInfosPaged({
+      filter: 'user',
+      isAuditEnabled: true,
+      skipCount: 20,
+      maxResultCount: 20,
+    });
     const url = calls[0][0] as string;
     expect(url).toContain('/api/data-protection-management/entity-type-infos?');
     expect(url).toContain('filter=user');
@@ -54,7 +59,13 @@ describe('auditing api', () => {
 
   it('getAuditLogsPaged gắn userName/url/httpMethod/httpStatusCode/hasException', async () => {
     const { calls } = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getAuditLogsPaged({ userName: 'admin', url: '/api/x', httpMethod: 'POST', httpStatusCode: 200, hasException: true });
+    await getAuditLogsPaged({
+      userName: 'admin',
+      url: '/api/x',
+      httpMethod: 'POST',
+      httpStatusCode: 200,
+      hasException: true,
+    });
     const url = calls[0][0] as string;
     expect(url).toContain('/api/auditing/audit-log?');
     expect(url).toContain('userName=admin');
@@ -84,7 +95,12 @@ describe('auditing api', () => {
 
   it('getSysLogsPaged gắn level/application/requestPath/correlationId', async () => {
     const { calls } = stubFetch(JSON.stringify({ totalCount: 0, items: [] }));
-    await getSysLogsPaged({ level: LogLevel.Error, application: 'AllInOne', requestPath: '/api/x', correlationId: 'c1' });
+    await getSysLogsPaged({
+      level: LogLevel.Error,
+      application: 'AllInOne',
+      requestPath: '/api/x',
+      correlationId: 'c1',
+    });
     const url = calls[0][0] as string;
     expect(url).toContain('/api/auditing/logging?');
     expect(url).toContain('level=4');

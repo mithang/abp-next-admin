@@ -1,0 +1,13 @@
+# Build / generated / vendored — không format để tránh churn code upstream
+node_modules
+.expo
+dist
+coverage
+# Gluestack UI v5 vendored components (code upstream, đã có 14 lint warning riêng)
+components/ui
+# Lockfile do npm quản lý
+package-lock.json
+# Locale JSON giữ dạng một dòng theo workflow i18n hiện có (parity check
+# mới là cổng kiểm soát, không phải format); format sẽ phình 2 file này
+# thành ~3000 dòng mà không thêm giá trị
+src/i18n/*.json

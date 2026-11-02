@@ -28,7 +28,11 @@ export default function FeatureGroupDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const query = useQuery({ queryKey: ['feature-groups', name], queryFn: () => getFeatureGroup(name), enabled: Boolean(name) });
+  const query = useQuery({
+    queryKey: ['feature-groups', name],
+    queryFn: () => getFeatureGroup(name),
+    enabled: Boolean(name),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteFeatureGroup(name),
     onSuccess: async () => {
@@ -39,7 +43,12 @@ export default function FeatureGroupDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
 
   const item = query.data;
@@ -55,7 +64,9 @@ export default function FeatureGroupDetailScreen() {
           <>
             <AppButton
               title={t('featureGroups.editTitle')}
-              onPress={() => router.push(`/features/groups/form?name=${encodeURIComponent(item.name)}`)}
+              onPress={() =>
+                router.push(`/features/groups/form?name=${encodeURIComponent(item.name)}`)
+              }
               variant="outline"
               testID="feature-group-edit"
             />
@@ -65,10 +76,18 @@ export default function FeatureGroupDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('featureGroups.deleteConfirmTitle'), t('featureGroups.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-                ])
+                Alert.alert(
+                  t('featureGroups.deleteConfirmTitle'),
+                  t('featureGroups.deleteConfirmMessage'),
+                  [
+                    { text: t('common.cancel'), style: 'cancel' },
+                    {
+                      text: t('common.delete'),
+                      style: 'destructive',
+                      onPress: () => deleteMutation.mutate(),
+                    },
+                  ],
+                )
               }
               testID="feature-group-delete"
             />

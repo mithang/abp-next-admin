@@ -17,7 +17,10 @@ export const organizationUnitFormSchema = z.object({
 
 export type OrganizationUnitFormValues = z.infer<typeof organizationUnitFormSchema>;
 
-export const organizationUnitFormDefaults: OrganizationUnitFormValues = { displayName: '', parentId: undefined };
+export const organizationUnitFormDefaults: OrganizationUnitFormValues = {
+  displayName: '',
+  parentId: undefined,
+};
 
 /** Create gửi đủ displayName + parentId (nếu có); update chỉ gửi displayName. */
 export function toOrganizationUnitCreateInput(values: OrganizationUnitFormValues) {

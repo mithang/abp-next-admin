@@ -68,7 +68,8 @@ export default function TenantFeaturesScreen() {
   });
 
   const saveMutation = useMutation({
-    mutationFn: () => updateTenantFeatureValues(tenantId, buildFeatureUpdateInput(query.data?.groups ?? [], edits)),
+    mutationFn: () =>
+      updateTenantFeatureValues(tenantId, buildFeatureUpdateInput(query.data?.groups ?? [], edits)),
     onSuccess: async () => {
       setEdits({});
       setSaved(true);
@@ -94,7 +95,12 @@ export default function TenantFeaturesScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const groups = query.data?.groups ?? [];
   const rows = flatten(groups);
@@ -123,7 +129,13 @@ export default function TenantFeaturesScreen() {
       return (
         <Card className="p-4">
           <VStack space="xs">
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Text>{feature.displayName}</Text>
               <Switch
                 value={current === 'true'}
@@ -191,14 +203,18 @@ export default function TenantFeaturesScreen() {
         action="negative"
         loading={resetMutation.isPending}
         onPress={() =>
-          Alert.alert(t('tenantFeatures.resetConfirmTitle'), t('tenantFeatures.resetConfirmMessage'), [
-            { text: t('common.cancel'), style: 'cancel' },
-            {
-              text: t('tenantFeatures.reset'),
-              style: 'destructive',
-              onPress: () => resetMutation.mutate(),
-            },
-          ])
+          Alert.alert(
+            t('tenantFeatures.resetConfirmTitle'),
+            t('tenantFeatures.resetConfirmMessage'),
+            [
+              { text: t('common.cancel'), style: 'cancel' },
+              {
+                text: t('tenantFeatures.reset'),
+                style: 'destructive',
+                onPress: () => resetMutation.mutate(),
+              },
+            ],
+          )
         }
         testID="tenant-feature-reset"
       />

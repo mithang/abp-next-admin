@@ -10,7 +10,11 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createApplication, getApplication, updateApplication } from '../../../features/openiddict/applications-api';
+import {
+  createApplication,
+  getApplication,
+  updateApplication,
+} from '../../../features/openiddict/applications-api';
 import {
   applicationFormDefaults,
   applicationFormSchema,
@@ -27,21 +31,69 @@ import { toApiError } from '../../../lib/errors';
  * Không có field clientSecret: không tạo client có secret từ mobile.
  */
 const MULTILINE_FIELDS = [
-  { name: 'redirectUris', labelKey: 'openiddictApplications.redirectUris', placeholderKey: 'openiddictApplications.redirectUrisPlaceholder' },
-  { name: 'postLogoutRedirectUris', labelKey: 'openiddictApplications.postLogoutRedirectUris', placeholderKey: 'openiddictApplications.postLogoutRedirectUrisPlaceholder' },
-  { name: 'grantTypes', labelKey: 'openiddictApplications.grantTypes', placeholderKey: 'openiddictApplications.grantTypesPlaceholder' },
-  { name: 'responseTypes', labelKey: 'openiddictApplications.responseTypes', placeholderKey: 'openiddictApplications.responseTypesPlaceholder' },
-  { name: 'scopes', labelKey: 'openiddictApplications.scopes', placeholderKey: 'openiddictApplications.scopesPlaceholder' },
+  {
+    name: 'redirectUris',
+    labelKey: 'openiddictApplications.redirectUris',
+    placeholderKey: 'openiddictApplications.redirectUrisPlaceholder',
+  },
+  {
+    name: 'postLogoutRedirectUris',
+    labelKey: 'openiddictApplications.postLogoutRedirectUris',
+    placeholderKey: 'openiddictApplications.postLogoutRedirectUrisPlaceholder',
+  },
+  {
+    name: 'grantTypes',
+    labelKey: 'openiddictApplications.grantTypes',
+    placeholderKey: 'openiddictApplications.grantTypesPlaceholder',
+  },
+  {
+    name: 'responseTypes',
+    labelKey: 'openiddictApplications.responseTypes',
+    placeholderKey: 'openiddictApplications.responseTypesPlaceholder',
+  },
+  {
+    name: 'scopes',
+    labelKey: 'openiddictApplications.scopes',
+    placeholderKey: 'openiddictApplications.scopesPlaceholder',
+  },
 ] as const;
 
 const TEXT_FIELDS = [
-  { name: 'clientId', labelKey: 'openiddictApplications.clientId', placeholderKey: 'openiddictApplications.clientIdPlaceholder' },
-  { name: 'displayName', labelKey: 'openiddictApplications.displayName', placeholderKey: 'openiddictApplications.displayNamePlaceholder' },
-  { name: 'clientType', labelKey: 'openiddictApplications.clientType', placeholderKey: 'openiddictApplications.clientTypePlaceholder' },
-  { name: 'applicationType', labelKey: 'openiddictApplications.applicationType', placeholderKey: 'openiddictApplications.applicationTypePlaceholder' },
-  { name: 'consentType', labelKey: 'openiddictApplications.consentType', placeholderKey: 'openiddictApplications.consentTypePlaceholder' },
-  { name: 'clientUri', labelKey: 'openiddictApplications.clientUri', placeholderKey: 'openiddictApplications.clientUriPlaceholder' },
-  { name: 'logoUri', labelKey: 'openiddictApplications.logoUri', placeholderKey: 'openiddictApplications.logoUriPlaceholder' },
+  {
+    name: 'clientId',
+    labelKey: 'openiddictApplications.clientId',
+    placeholderKey: 'openiddictApplications.clientIdPlaceholder',
+  },
+  {
+    name: 'displayName',
+    labelKey: 'openiddictApplications.displayName',
+    placeholderKey: 'openiddictApplications.displayNamePlaceholder',
+  },
+  {
+    name: 'clientType',
+    labelKey: 'openiddictApplications.clientType',
+    placeholderKey: 'openiddictApplications.clientTypePlaceholder',
+  },
+  {
+    name: 'applicationType',
+    labelKey: 'openiddictApplications.applicationType',
+    placeholderKey: 'openiddictApplications.applicationTypePlaceholder',
+  },
+  {
+    name: 'consentType',
+    labelKey: 'openiddictApplications.consentType',
+    placeholderKey: 'openiddictApplications.consentTypePlaceholder',
+  },
+  {
+    name: 'clientUri',
+    labelKey: 'openiddictApplications.clientUri',
+    placeholderKey: 'openiddictApplications.clientUriPlaceholder',
+  },
+  {
+    name: 'logoUri',
+    labelKey: 'openiddictApplications.logoUri',
+    placeholderKey: 'openiddictApplications.logoUriPlaceholder',
+  },
 ] as const;
 
 export default function ApplicationFormScreen() {
@@ -120,13 +172,23 @@ export default function ApplicationFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('openiddictApplications.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('openiddictApplications.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('openiddictApplications.editTitle') : t('openiddictApplications.createTitle')}>
+    <AppScreen
+      title={
+        isEdit ? t('openiddictApplications.editTitle') : t('openiddictApplications.createTitle')
+      }
+    >
       <VStack space="md">
         {TEXT_FIELDS.map((fieldDef) => (
           <Controller

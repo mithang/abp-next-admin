@@ -22,7 +22,11 @@ export default function AIWorkspaceDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['ai-workspaces', id], queryFn: () => getWorkspace(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['ai-workspaces', id],
+    queryFn: () => getWorkspace(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteWorkspace(id),
     onSuccess: async () => {
@@ -33,7 +37,12 @@ export default function AIWorkspaceDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -89,7 +98,8 @@ export default function AIWorkspaceDetailScreen() {
           </Text>
         ) : null}
         <Text>
-          {t('aiWorkspaces.enabled')}: {item.isEnabled ? t('aiWorkspaces.yes') : t('aiWorkspaces.no')}
+          {t('aiWorkspaces.enabled')}:{' '}
+          {item.isEnabled ? t('aiWorkspaces.yes') : t('aiWorkspaces.no')}
         </Text>
         {(item.tools ?? []).length > 0 ? (
           <Text>
@@ -105,7 +115,9 @@ export default function AIWorkspaceDetailScreen() {
         {item.isStatic ? <Text>· {t('aiWorkspaces.static')}</Text> : null}
         <AppButton
           title={t('aiWorkspaces.resetApiKey')}
-          onPress={() => router.push(`/ai/workspaces/form?id=${encodeURIComponent(item.id)}&reset=1`)}
+          onPress={() =>
+            router.push(`/ai/workspaces/form?id=${encodeURIComponent(item.id)}&reset=1`)
+          }
           variant="outline"
         />
         {!readOnly ? (
@@ -123,10 +135,18 @@ export default function AIWorkspaceDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('aiWorkspaces.deleteConfirmTitle'), t('aiWorkspaces.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('aiWorkspaces.deleteConfirmTitle'),
+              t('aiWorkspaces.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="ai-workspace-delete"
         />

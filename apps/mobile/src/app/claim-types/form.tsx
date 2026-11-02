@@ -11,7 +11,11 @@ import { AppButton } from '../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createClaimType, getClaimType, updateClaimType } from '../../features/identity/claim-types-api';
+import {
+  createClaimType,
+  getClaimType,
+  updateClaimType,
+} from '../../features/identity/claim-types-api';
 import { ValueType, valueTypeKey } from '../../features/identity/claim-types';
 import {
   claimTypeFormDefaults,
@@ -38,7 +42,11 @@ export default function ClaimTypeFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['claim-types', id], queryFn: () => getClaimType(id as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['claim-types', id],
+    queryFn: () => getClaimType(id as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<ClaimTypeFormValues>({
     resolver: zodResolver(claimTypeFormSchema),
@@ -71,11 +79,18 @@ export default function ClaimTypeFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   // Loại tĩnh không sửa được (giống web ẩn nút xác nhận): chặn ở form thay vì để API từ chối.
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('claimTypes.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState message={t('claimTypes.staticCannotEdit')} onRetry={() => router.back()} />
+    );
   }
 
   const fieldError = (key?: string) => (key && key.startsWith('claimTypes.') ? t(key) : key);
@@ -149,9 +164,19 @@ export default function ClaimTypeFormScreen() {
           control={form.control}
           name="required"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Text>{t('claimTypes.required')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

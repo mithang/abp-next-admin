@@ -39,7 +39,9 @@ export interface FlattenedOrganizationUnit {
  * trong từng cấp. Đơn vị mồ côi (parentId không có trong danh sách) được coi là gốc.
  * Chống vòng lặp parent: một nút đã thăm không được duyệt lại, độ sâu tối đa 50.
  */
-export function flattenOrganizationUnits(units: OrganizationUnitDto[]): FlattenedOrganizationUnit[] {
+export function flattenOrganizationUnits(
+  units: OrganizationUnitDto[],
+): FlattenedOrganizationUnit[] {
   const byParent = new Map<string | undefined, OrganizationUnitDto[]>();
   for (const unit of units) {
     const key = units.some((u) => u.id === unit.parentId) ? unit.parentId : undefined;
@@ -67,7 +69,10 @@ export function flattenOrganizationUnits(units: OrganizationUnitDto[]): Flattene
 }
 
 /** Tìm tên đơn vị cha để hiển thị ở màn hình chi tiết; thiếu thì trả undefined. */
-export function findOrganizationUnitName(units: OrganizationUnitDto[], parentId?: string): string | undefined {
+export function findOrganizationUnitName(
+  units: OrganizationUnitDto[],
+  parentId?: string,
+): string | undefined {
   if (!parentId) return undefined;
   return units.find((u) => u.id === parentId)?.displayName;
 }

@@ -16,7 +16,9 @@ export function getRolesPaged(input: GetRolePagedListInput = {}) {
 
 /** GET /api/identity/roles/{id} */
 export function getRole(id: string) {
-  return apiRequest<IdentityRoleDto>(`/api/identity/roles/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<IdentityRoleDto>(`/api/identity/roles/${encodeURIComponent(id)}`, {
+    method: 'GET',
+  });
 }
 
 /** POST /api/identity/roles — API layer sẵn cho màn hình tạo vai trò vòng sau. */

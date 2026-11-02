@@ -28,7 +28,11 @@ export default function EditionFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['saas-editions', id], queryFn: () => getEdition(id as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['saas-editions', id],
+    queryFn: () => getEdition(id as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<EditionFormValues>({
     resolver: zodResolver(editionFormSchema),
@@ -51,7 +55,10 @@ export default function EditionFormScreen() {
         extraProperties: parseExtraPropertiesJson(values),
       };
       if (isEdit) {
-        return updateEdition(id as string, { ...shared, concurrencyStamp: detail.data?.concurrencyStamp ?? '' });
+        return updateEdition(id as string, {
+          ...shared,
+          concurrencyStamp: detail.data?.concurrencyStamp ?? '',
+        });
       }
       return createEdition(shared);
     },
@@ -64,10 +71,16 @@ export default function EditionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
 
-  const fieldError = (message?: string) => (message && message.startsWith('saasEditions.') ? t(message) : message);
+  const fieldError = (message?: string) =>
+    message && message.startsWith('saasEditions.') ? t(message) : message;
 
   return (
     <AppScreen title={t(isEdit ? 'saasEditions.editTitle' : 'saasEditions.createTitle')}>

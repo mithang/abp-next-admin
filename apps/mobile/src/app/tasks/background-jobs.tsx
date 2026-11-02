@@ -54,7 +54,8 @@ function JobRow({
           {item.group} · {item.type}
         </Text>
         <Text>
-          {JOB_STATUS_LABELS[item.status] ?? item.status} · {JOB_TYPE_LABELS[item.jobType] ?? item.jobType} ·{' '}
+          {JOB_STATUS_LABELS[item.status] ?? item.status} ·{' '}
+          {JOB_TYPE_LABELS[item.jobType] ?? item.jobType} ·{' '}
           {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
           {item.isEnabled ? '' : ' · disabled'}
         </Text>
@@ -139,7 +140,10 @@ export default function BackgroundJobsScreen() {
   const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
-    <AppScreen title={t('backgroundJobs.title')} subtitle={`${t('backgroundJobs.total')}: ${total}`}>
+    <AppScreen
+      title={t('backgroundJobs.title')}
+      subtitle={`${t('backgroundJobs.total')}: ${total}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -197,7 +201,10 @@ export default function BackgroundJobsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('backgroundJobs.empty')} />
       ) : (
@@ -218,7 +225,11 @@ export default function BackgroundJobsScreen() {
       )}
       {bulkMutation.isError ? <Text>{toApiError(bulkMutation.error).message}</Text> : null}
       {hasMore ? (
-        <AppButton title={t('common.loadMore')} onPress={() => setPage((p) => p + 1)} variant="outline" />
+        <AppButton
+          title={t('common.loadMore')}
+          onPress={() => setPage((p) => p + 1)}
+          variant="outline"
+        />
       ) : null}
     </AppScreen>
   );

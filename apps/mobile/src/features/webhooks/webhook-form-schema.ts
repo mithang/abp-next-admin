@@ -12,8 +12,16 @@ import { z } from 'zod';
  */
 
 export const webhookGroupFormSchema = z.object({
-  name: z.string().trim().min(1, 'webhookGroups.nameRequired').max(256, 'webhookGroups.nameTooLong'),
-  displayName: z.string().trim().min(1, 'webhookGroups.displayNameRequired').max(256, 'webhookGroups.displayNameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'webhookGroups.nameRequired')
+    .max(256, 'webhookGroups.nameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'webhookGroups.displayNameRequired')
+    .max(256, 'webhookGroups.displayNameTooLong'),
 });
 
 export type WebhookGroupFormValues = z.infer<typeof webhookGroupFormSchema>;
@@ -24,9 +32,21 @@ export const webhookGroupFormDefaults: WebhookGroupFormValues = {
 };
 
 export const webhookDefinitionFormSchema = z.object({
-  groupName: z.string().trim().min(1, 'webhookDefinitions.groupNameRequired').max(256, 'webhookDefinitions.groupNameTooLong'),
-  name: z.string().trim().min(1, 'webhookDefinitions.nameRequired').max(256, 'webhookDefinitions.nameTooLong'),
-  displayName: z.string().trim().min(1, 'webhookDefinitions.displayNameRequired').max(256, 'webhookDefinitions.displayNameTooLong'),
+  groupName: z
+    .string()
+    .trim()
+    .min(1, 'webhookDefinitions.groupNameRequired')
+    .max(256, 'webhookDefinitions.groupNameTooLong'),
+  name: z
+    .string()
+    .trim()
+    .min(1, 'webhookDefinitions.nameRequired')
+    .max(256, 'webhookDefinitions.nameTooLong'),
+  displayName: z
+    .string()
+    .trim()
+    .min(1, 'webhookDefinitions.displayNameRequired')
+    .max(256, 'webhookDefinitions.displayNameTooLong'),
   description: z.string().trim().max(1024, 'webhookDefinitions.descriptionTooLong').optional(),
   isEnabled: z.boolean(),
   requiredFeatures: z.string().optional(),
@@ -44,7 +64,11 @@ export const webhookDefinitionFormDefaults: WebhookDefinitionFormValues = {
 };
 
 export const webhookSubscriptionFormSchema = z.object({
-  webhookUri: z.string().trim().min(1, 'webhookSubscriptions.webhookUriRequired').max(2048, 'webhookSubscriptions.webhookUriTooLong'),
+  webhookUri: z
+    .string()
+    .trim()
+    .min(1, 'webhookSubscriptions.webhookUriRequired')
+    .max(2048, 'webhookSubscriptions.webhookUriTooLong'),
   secret: z.string().trim().max(256, 'webhookSubscriptions.secretTooLong').optional(),
   description: z.string().trim().max(1024, 'webhookSubscriptions.descriptionTooLong').optional(),
   timeoutDuration: z

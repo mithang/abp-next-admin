@@ -1,8 +1,5 @@
 import { apiRequest, type PagedResult } from '../../lib/api-client';
-import type {
-  OpenIddictAuthorizationDto,
-  OpenIddictAuthorizationGetListInput,
-} from './types';
+import type { OpenIddictAuthorizationDto, OpenIddictAuthorizationGetListInput } from './types';
 
 /**
  * GET /api/openiddict/authorizations — đã kiểm chứng từ useAuthorizationsApi.ts của web.
@@ -26,12 +23,17 @@ export function getAuthorizationsPaged(input: OpenIddictAuthorizationGetListInpu
 
 /** GET /api/openiddict/authorizations/{id} */
 export function getAuthorization(id: string) {
-  return apiRequest<OpenIddictAuthorizationDto>(`/api/openiddict/authorizations/${encodeURIComponent(id)}`, {
-    method: 'GET',
-  });
+  return apiRequest<OpenIddictAuthorizationDto>(
+    `/api/openiddict/authorizations/${encodeURIComponent(id)}`,
+    {
+      method: 'GET',
+    },
+  );
 }
 
 /** DELETE /api/openiddict/authorizations/{id} */
 export function deleteAuthorization(id: string) {
-  return apiRequest<void>(`/api/openiddict/authorizations/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(`/api/openiddict/authorizations/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }

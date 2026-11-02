@@ -25,7 +25,10 @@ export default function BlobFolderFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { containerId, parentId } = useLocalSearchParams<{ containerId: string; parentId?: string }>();
+  const { containerId, parentId } = useLocalSearchParams<{
+    containerId: string;
+    parentId?: string;
+  }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const form = useForm<BlobFolderFormValues>({

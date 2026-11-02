@@ -11,8 +11,16 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { createFeatureDefinition, getFeatureDefinition, updateFeatureDefinition } from '../../../features/features/feature-definitions-api';
-import { featureDefinitionFormDefaults, featureDefinitionFormSchema, type FeatureDefinitionFormValues } from '../../../features/features/feature-definition-form-schema';
+import {
+  createFeatureDefinition,
+  getFeatureDefinition,
+  updateFeatureDefinition,
+} from '../../../features/features/feature-definitions-api';
+import {
+  featureDefinitionFormDefaults,
+  featureDefinitionFormSchema,
+  type FeatureDefinitionFormValues,
+} from '../../../features/features/feature-definition-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
 import { toApiError } from '../../../lib/errors';
 
@@ -31,7 +39,11 @@ export default function FeatureDefinitionFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({ queryKey: ['feature-definitions', name], queryFn: () => getFeatureDefinition(name as string), enabled: isEdit });
+  const detail = useQuery({
+    queryKey: ['feature-definitions', name],
+    queryFn: () => getFeatureDefinition(name as string),
+    enabled: isEdit,
+  });
 
   const form = useForm<FeatureDefinitionFormValues>({
     resolver: zodResolver(featureDefinitionFormSchema),
@@ -87,16 +99,29 @@ export default function FeatureDefinitionFormScreen() {
 
   if (isEdit && detail.isPending) return <AppLoading />;
   if (isEdit && detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (isEdit && detail.data?.isStatic) {
-    return <AppErrorState message={t('featureDefinitions.staticCannotEdit')} onRetry={() => router.back()} />;
+    return (
+      <AppErrorState
+        message={t('featureDefinitions.staticCannotEdit')}
+        onRetry={() => router.back()}
+      />
+    );
   }
 
-  const fieldError = (key?: string) => (key && key.startsWith('featureDefinitions.') ? t(key) : key);
+  const fieldError = (key?: string) =>
+    key && key.startsWith('featureDefinitions.') ? t(key) : key;
 
   return (
-    <AppScreen title={isEdit ? t('featureDefinitions.editTitle') : t('featureDefinitions.createTitle')}>
+    <AppScreen
+      title={isEdit ? t('featureDefinitions.editTitle') : t('featureDefinitions.createTitle')}
+    >
       <VStack space="md">
         {isEdit ? (
           <>
@@ -204,9 +229,19 @@ export default function FeatureDefinitionFormScreen() {
           control={form.control}
           name="isAvailableToHost"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Text>{t('featureDefinitions.isAvailableToHost')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />
@@ -214,9 +249,19 @@ export default function FeatureDefinitionFormScreen() {
           control={form.control}
           name="isVisibleToClients"
           render={({ field }) => (
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Text>{t('featureDefinitions.isVisibleToClients')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} accessibilityRole="switch" />
+              <Switch
+                value={field.value}
+                onValueChange={field.onChange}
+                accessibilityRole="switch"
+              />
             </View>
           )}
         />

@@ -10,7 +10,11 @@ import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
-import { deleteConversation, getChatMessagesPaged, getConversation } from '../../../features/ai/ai-api';
+import {
+  deleteConversation,
+  getChatMessagesPaged,
+  getConversation,
+} from '../../../features/ai/ai-api';
 import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
@@ -67,10 +71,12 @@ export default function AIConversationChatScreen() {
   const bubbles: ChatBubble[] = [];
   for (const msg of history.data?.items ?? []) {
     bubbles.push({ key: `u-${msg.id}`, role: 'user', text: msg.content });
-    if (msg.replyMessage) bubbles.push({ key: `a-${msg.id}`, role: 'assistant', text: msg.replyMessage });
+    if (msg.replyMessage)
+      bubbles.push({ key: `a-${msg.id}`, role: 'assistant', text: msg.replyMessage });
   }
   localUserMessages.forEach((text, i) => bubbles.push({ key: `local-${i}`, role: 'user', text }));
-  if (streamingText !== null) bubbles.push({ key: 'streaming', role: 'assistant', text: streamingText });
+  if (streamingText !== null)
+    bubbles.push({ key: 'streaming', role: 'assistant', text: streamingText });
 
   const send = async () => {
     const parsed = aiChatMessageSchema.safeParse({ content });
@@ -117,7 +123,12 @@ export default function AIConversationChatScreen() {
 
   if (detail.isPending || history.isPending) return <AppLoading />;
   if (detail.isError) {
-    return <AppErrorState message={toApiError(detail.error).message} onRetry={() => void detail.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(detail.error).message}
+        onRetry={() => void detail.refetch()}
+      />
+    );
   }
   if (!detail.data) return <AppErrorState message={t('common.empty')} />;
 
@@ -134,15 +145,26 @@ export default function AIConversationChatScreen() {
         variant="outline"
         loading={deleteMutation.isPending}
         onPress={() =>
-          Alert.alert(t('aiConversations.deleteConfirmTitle'), t('aiConversations.deleteConfirmMessage'), [
-            { text: t('common.cancel'), style: 'cancel' },
-            { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-          ])
+          Alert.alert(
+            t('aiConversations.deleteConfirmTitle'),
+            t('aiConversations.deleteConfirmMessage'),
+            [
+              { text: t('common.cancel'), style: 'cancel' },
+              {
+                text: t('common.delete'),
+                style: 'destructive',
+                onPress: () => deleteMutation.mutate(),
+              },
+            ],
+          )
         }
         testID="ai-conversation-delete"
       />
       {history.isError ? (
-        <AppErrorState message={toApiError(history.error).message} onRetry={() => void history.refetch()} />
+        <AppErrorState
+          message={toApiError(history.error).message}
+          onRetry={() => void history.refetch()}
+        />
       ) : bubbles.length === 0 ? (
         <AppEmptyState message={t('aiConversations.noMessages')} />
       ) : (
@@ -152,7 +174,9 @@ export default function AIConversationChatScreen() {
           renderItem={({ item }) => (
             <Card className="p-4">
               <VStack space="xs">
-                <Text>{item.role === 'user' ? t('aiConversations.you') : t('aiConversations.assistant')}</Text>
+                <Text>
+                  {item.role === 'user' ? t('aiConversations.you') : t('aiConversations.assistant')}
+                </Text>
                 <Text>{item.text}</Text>
               </VStack>
             </Card>

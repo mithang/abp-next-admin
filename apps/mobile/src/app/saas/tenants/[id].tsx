@@ -23,7 +23,11 @@ export default function TenantDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const query = useQuery({ queryKey: ['saas-tenants', id], queryFn: () => getTenant(id), enabled: Boolean(id) });
+  const query = useQuery({
+    queryKey: ['saas-tenants', id],
+    queryFn: () => getTenant(id),
+    enabled: Boolean(id),
+  });
   const deleteMutation = useMutation({
     mutationFn: () => deleteTenant(id),
     onSuccess: async () => {
@@ -34,7 +38,12 @@ export default function TenantDetailScreen() {
 
   if (query.isPending) return <AppLoading />;
   if (query.isError) {
-    return <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />;
+    return (
+      <AppErrorState
+        message={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+      />
+    );
   }
   const item = query.data;
   if (!item) return <AppErrorState message={t('common.empty')} />;
@@ -43,7 +52,8 @@ export default function TenantDetailScreen() {
     <AppScreen title={item.name} subtitle={item.normalizedName}>
       <VStack space="sm">
         <Text>
-          {t('saasTenants.isActive')}: {item.isActive ? t('saasTenants.active') : t('saasTenants.inactive')}
+          {t('saasTenants.isActive')}:{' '}
+          {item.isActive ? t('saasTenants.active') : t('saasTenants.inactive')}
         </Text>
         {item.editionName ? (
           <Text>
@@ -107,10 +117,18 @@ export default function TenantDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('saasTenants.deleteConfirmTitle'), t('saasTenants.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('common.delete'), style: 'destructive', onPress: () => deleteMutation.mutate() },
-            ])
+            Alert.alert(
+              t('saasTenants.deleteConfirmTitle'),
+              t('saasTenants.deleteConfirmMessage'),
+              [
+                { text: t('common.cancel'), style: 'cancel' },
+                {
+                  text: t('common.delete'),
+                  style: 'destructive',
+                  onPress: () => deleteMutation.mutate(),
+                },
+              ],
+            )
           }
           testID="saas-tenant-delete"
         />

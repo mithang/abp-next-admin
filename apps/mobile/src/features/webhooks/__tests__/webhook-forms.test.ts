@@ -13,7 +13,9 @@ describe('webhook forms', () => {
   it('nhóm: name + displayName bắt buộc', () => {
     expect(webhookGroupFormSchema.safeParse({ name: '', displayName: 'X' }).success).toBe(false);
     expect(webhookGroupFormSchema.safeParse({ name: 'g1', displayName: '' }).success).toBe(false);
-    expect(webhookGroupFormSchema.safeParse({ name: 'g1', displayName: 'Nhóm 1' }).success).toBe(true);
+    expect(webhookGroupFormSchema.safeParse({ name: 'g1', displayName: 'Nhóm 1' }).success).toBe(
+      true,
+    );
   });
 
   it('định nghĩa: groupName + name + displayName bắt buộc', () => {
@@ -30,13 +32,25 @@ describe('webhook forms', () => {
       timeoutDuration: '',
       headers: '{}',
     };
-    expect(webhookSubscriptionFormSchema.safeParse({ ...base, webhookUri: '' }).success).toBe(false);
-    expect(webhookSubscriptionFormSchema.safeParse({ ...base, timeoutDuration: '-1' }).success).toBe(false);
-    expect(webhookSubscriptionFormSchema.safeParse({ ...base, timeoutDuration: '1.5' }).success).toBe(false);
-    expect(webhookSubscriptionFormSchema.safeParse({ ...base, timeoutDuration: '30' }).success).toBe(true);
-    expect(webhookSubscriptionFormSchema.safeParse({ ...base, headers: '[1,2]' }).success).toBe(false);
+    expect(webhookSubscriptionFormSchema.safeParse({ ...base, webhookUri: '' }).success).toBe(
+      false,
+    );
+    expect(
+      webhookSubscriptionFormSchema.safeParse({ ...base, timeoutDuration: '-1' }).success,
+    ).toBe(false);
+    expect(
+      webhookSubscriptionFormSchema.safeParse({ ...base, timeoutDuration: '1.5' }).success,
+    ).toBe(false);
+    expect(
+      webhookSubscriptionFormSchema.safeParse({ ...base, timeoutDuration: '30' }).success,
+    ).toBe(true);
+    expect(webhookSubscriptionFormSchema.safeParse({ ...base, headers: '[1,2]' }).success).toBe(
+      false,
+    );
     expect(webhookSubscriptionFormSchema.safeParse({ ...base, headers: '{x' }).success).toBe(false);
-    expect(webhookSubscriptionFormSchema.safeParse({ ...base, headers: '{"X-A":"1"}' }).success).toBe(true);
+    expect(
+      webhookSubscriptionFormSchema.safeParse({ ...base, headers: '{"X-A":"1"}' }).success,
+    ).toBe(true);
   });
 
   it('helpers: linesToArray bỏ dòng trống; parseHeadersJson; parseTimeoutDuration', () => {

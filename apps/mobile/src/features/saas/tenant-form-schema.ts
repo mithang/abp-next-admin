@@ -59,35 +59,53 @@ const baseShape = {
 
 /** isCreate=true: bật các ràng buộc chỉ có lúc tạo (admin fields, DB riêng). */
 export function tenantFormSchema(isCreate: boolean) {
-  return z
-    .object(baseShape)
-    .superRefine((values, ctx) => {
-      const enable = (values.enableTime ?? '').trim();
-      const disable = (values.disableTime ?? '').trim();
-      if (enable !== '' && disable !== '' && Date.parse(enable) > Date.parse(disable)) {
-        ctx.addIssue({ code: 'custom', path: ['disableTime'], message: 'saasTenants.enableAfterDisable' });
-      }
-      if (!isCreate) return;
-      const email = (values.adminEmailAddress ?? '').trim();
-      if (email === '') {
-        ctx.addIssue({ code: 'custom', path: ['adminEmailAddress'], message: 'saasTenants.adminEmailRequired' });
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        ctx.addIssue({ code: 'custom', path: ['adminEmailAddress'], message: 'saasTenants.invalidEmail' });
-      }
-      const password = values.adminPassword ?? '';
-      if (password === '') {
-        ctx.addIssue({ code: 'custom', path: ['adminPassword'], message: 'saasTenants.adminPasswordRequired' });
-      } else if (password.length > 128) {
-        ctx.addIssue({ code: 'custom', path: ['adminPassword'], message: 'saasTenants.adminPasswordTooLong' });
-      }
-      if (!values.useSharedDatabase && (values.defaultConnectionString ?? '').trim() === '') {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['defaultConnectionString'],
-          message: 'saasTenants.defaultConnectionStringRequired',
-        });
-      }
-    });
+  return z.object(baseShape).superRefine((values, ctx) => {
+    const enable = (values.enableTime ?? '').trim();
+    const disable = (values.disableTime ?? '').trim();
+    if (enable !== '' && disable !== '' && Date.parse(enable) > Date.parse(disable)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['disableTime'],
+        message: 'saasTenants.enableAfterDisable',
+      });
+    }
+    if (!isCreate) return;
+    const email = (values.adminEmailAddress ?? '').trim();
+    if (email === '') {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['adminEmailAddress'],
+        message: 'saasTenants.adminEmailRequired',
+      });
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['adminEmailAddress'],
+        message: 'saasTenants.invalidEmail',
+      });
+    }
+    const password = values.adminPassword ?? '';
+    if (password === '') {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['adminPassword'],
+        message: 'saasTenants.adminPasswordRequired',
+      });
+    } else if (password.length > 128) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['adminPassword'],
+        message: 'saasTenants.adminPasswordTooLong',
+      });
+    }
+    if (!values.useSharedDatabase && (values.defaultConnectionString ?? '').trim() === '') {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['defaultConnectionString'],
+        message: 'saasTenants.defaultConnectionStringRequired',
+      });
+    }
+  });
 }
 
 export type TenantFormValues = z.infer<ReturnType<typeof tenantFormSchema>>;
@@ -106,7 +124,9 @@ export const tenantFormDefaults: TenantFormValues = {
 };
 
 /** Đổi extraPropertiesJson rỗng → undefined, còn lại parse thành object. */
-export function parseExtraPropertiesJson(values: TenantFormValues): Record<string, unknown> | undefined {
+export function parseExtraPropertiesJson(
+  values: TenantFormValues,
+): Record<string, unknown> | undefined {
   const trimmed = (values.extraPropertiesJson ?? '').trim();
   if (trimmed === '') return undefined;
   return JSON.parse(trimmed) as Record<string, unknown>;

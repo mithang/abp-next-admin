@@ -25,8 +25,10 @@ export async function saveTokens(tokens: {
   refreshToken?: string;
   idToken?: string;
 }): Promise<void> {
-  if (tokens.accessToken !== undefined) await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, tokens.accessToken);
-  if (tokens.refreshToken !== undefined) await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, tokens.refreshToken);
+  if (tokens.accessToken !== undefined)
+    await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, tokens.accessToken);
+  if (tokens.refreshToken !== undefined)
+    await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, tokens.refreshToken);
   if (tokens.idToken !== undefined) await SecureStore.setItemAsync(ID_TOKEN_KEY, tokens.idToken);
 }
 
@@ -69,8 +71,10 @@ export async function saveOriginalTokens(tokens: {
   refreshToken?: string | null;
   idToken?: string | null;
 }): Promise<void> {
-  if (tokens.accessToken) await SecureStore.setItemAsync(ORIGINAL_ACCESS_TOKEN_KEY, tokens.accessToken);
-  if (tokens.refreshToken) await SecureStore.setItemAsync(ORIGINAL_REFRESH_TOKEN_KEY, tokens.refreshToken);
+  if (tokens.accessToken)
+    await SecureStore.setItemAsync(ORIGINAL_ACCESS_TOKEN_KEY, tokens.accessToken);
+  if (tokens.refreshToken)
+    await SecureStore.setItemAsync(ORIGINAL_REFRESH_TOKEN_KEY, tokens.refreshToken);
   if (tokens.idToken) await SecureStore.setItemAsync(ORIGINAL_ID_TOKEN_KEY, tokens.idToken);
 }
 

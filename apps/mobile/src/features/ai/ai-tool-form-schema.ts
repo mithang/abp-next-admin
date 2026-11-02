@@ -25,7 +25,11 @@ const optionalJsonObject = z
 
 export const aiToolFormSchema = z.object({
   name: z.string().trim().min(1, 'aiTools.nameRequired').max(256, 'aiTools.nameTooLong').optional(),
-  provider: z.string().trim().min(1, 'aiTools.providerRequired').max(256, 'aiTools.providerTooLong'),
+  provider: z
+    .string()
+    .trim()
+    .min(1, 'aiTools.providerRequired')
+    .max(256, 'aiTools.providerTooLong'),
   description: z.string().max(1024, 'aiTools.descriptionTooLong').optional(),
   isEnabled: z.boolean(),
   isGlobal: z.boolean(),
@@ -46,7 +50,9 @@ export const aiToolFormDefaults: AIToolFormValues = {
 };
 
 /** Đổi extraPropertiesJson rỗng → undefined, còn lại parse thành object. */
-export function parseExtraPropertiesJson(values: AIToolFormValues): Record<string, unknown> | undefined {
+export function parseExtraPropertiesJson(
+  values: AIToolFormValues,
+): Record<string, unknown> | undefined {
   const trimmed = (values.extraPropertiesJson ?? '').trim();
   if (trimmed === '') return undefined;
   return JSON.parse(trimmed) as Record<string, unknown>;

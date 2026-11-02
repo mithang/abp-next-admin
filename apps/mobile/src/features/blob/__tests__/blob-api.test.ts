@@ -34,11 +34,16 @@ function bodyOf(calls: unknown[][], index = 0) {
   return JSON.parse((calls[index][1] as { body: string }).body) as Record<string, unknown>;
 }
 
-
 describe('blob containers api', () => {
   it('paged list gắn filter + phân trang ABP', async () => {
-    const { calls } = stubFetch(JSON.stringify({ totalCount: 1, items: [{ id: 'c1', name: 'files' }] }));
-    const result = await getBlobContainersPaged({ filter: 'fil', skipCount: 20, maxResultCount: 20 });
+    const { calls } = stubFetch(
+      JSON.stringify({ totalCount: 1, items: [{ id: 'c1', name: 'files' }] }),
+    );
+    const result = await getBlobContainersPaged({
+      filter: 'fil',
+      skipCount: 20,
+      maxResultCount: 20,
+    });
     expect(urlOf(calls)).toContain('/api/blob-management/containers?');
     expect(urlOf(calls)).toContain('filter=fil');
     expect(urlOf(calls)).toContain('skipCount=20');

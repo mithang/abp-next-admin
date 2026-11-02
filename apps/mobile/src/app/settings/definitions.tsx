@@ -51,7 +51,10 @@ export default function SettingDefinitionsScreen() {
   const items = query.data?.items ?? [];
 
   return (
-    <AppScreen title={t('settingDefinitions.title')} subtitle={`${t('settingDefinitions.total')}: ${items.length}`}>
+    <AppScreen
+      title={t('settingDefinitions.title')}
+      subtitle={`${t('settingDefinitions.total')}: ${items.length}`}
+    >
       <AppInput
         value={filter}
         onChangeText={setFilter}
@@ -62,7 +65,10 @@ export default function SettingDefinitionsScreen() {
       {query.isPending ? (
         <AppLoading />
       ) : query.isError ? (
-        <AppErrorState message={toApiError(query.error).message} onRetry={() => void query.refetch()} />
+        <AppErrorState
+          message={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+        />
       ) : items.length === 0 ? (
         <AppEmptyState message={t('settingDefinitions.empty')} />
       ) : (
@@ -74,7 +80,11 @@ export default function SettingDefinitionsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <AppButton title={t('settingDefinitions.createTitle')} onPress={() => router.push('/settings/definitions/form')} testID="setting-definitions-create" />
+      <AppButton
+        title={t('settingDefinitions.createTitle')}
+        onPress={() => router.push('/settings/definitions/form')}
+        testID="setting-definitions-create"
+      />
     </AppScreen>
   );
 }

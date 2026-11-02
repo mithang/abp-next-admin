@@ -58,12 +58,19 @@ describe('caching api', () => {
     await setCacheValue({ key: 'k', value: 'v', absoluteExpiration: '2026-11-02T00:00:00.000Z' });
     expect(set.calls[0][0]).toContain('/api/caching-management/cache/set');
     expect(methodOf(set.calls, 0)).toBe('PUT');
-    expect(bodyOf(set.calls)).toEqual({ key: 'k', value: 'v', absoluteExpiration: '2026-11-02T00:00:00.000Z' });
+    expect(bodyOf(set.calls)).toEqual({
+      key: 'k',
+      value: 'v',
+      absoluteExpiration: '2026-11-02T00:00:00.000Z',
+    });
     const refresh = stubFetch('', 204);
     await refreshCacheKey({ key: 'k', slidingExpiration: '2026-11-03T00:00:00.000Z' });
     expect(refresh.calls[0][0]).toContain('/api/caching-management/cache/refresh');
     expect(methodOf(refresh.calls, 0)).toBe('PUT');
-    expect(bodyOf(refresh.calls)).toEqual({ key: 'k', slidingExpiration: '2026-11-03T00:00:00.000Z' });
+    expect(bodyOf(refresh.calls)).toEqual({
+      key: 'k',
+      slidingExpiration: '2026-11-03T00:00:00.000Z',
+    });
   });
 
   it('remove DELETE .../remove?key; bulk remove DELETE .../bulk/remove body { keys }', async () => {
@@ -80,8 +87,14 @@ describe('caching api', () => {
 
   it('cache set form: key bắt buộc, ngày không hợp lệ bị chặn, đổi hạn sang ISO', () => {
     expect(cacheSetFormSchema.safeParse({ key: '', value: '' }).success).toBe(false);
-    expect(cacheSetFormSchema.safeParse({ key: 'k', absoluteExpiration: 'not-a-date' }).success).toBe(false);
-    const ok = cacheSetFormSchema.safeParse({ key: 'k', value: 'v', absoluteExpiration: '2026-11-02T10:00:00' });
+    expect(
+      cacheSetFormSchema.safeParse({ key: 'k', absoluteExpiration: 'not-a-date' }).success,
+    ).toBe(false);
+    const ok = cacheSetFormSchema.safeParse({
+      key: 'k',
+      value: 'v',
+      absoluteExpiration: '2026-11-02T10:00:00',
+    });
     expect(ok.success).toBe(true);
     if (ok.success) {
       expect(toCacheSetExpirations(ok.data)).toEqual({
@@ -89,7 +102,9 @@ describe('caching api', () => {
         slidingExpiration: undefined,
       });
     }
-    expect(toCacheSetExpirations({ key: 'k', absoluteExpiration: '', slidingExpiration: '' })).toEqual({
+    expect(
+      toCacheSetExpirations({ key: 'k', absoluteExpiration: '', slidingExpiration: '' }),
+    ).toEqual({
       absoluteExpiration: undefined,
       slidingExpiration: undefined,
     });
