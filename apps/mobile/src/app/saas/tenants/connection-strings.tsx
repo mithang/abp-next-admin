@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, FlatList, Pressable } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
@@ -29,6 +29,7 @@ import {
 } from '../../../features/saas/connection-string-form-schema';
 import type { TenantConnectionStringDto } from '../../../features/saas/types';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Quản lý chuỗi kết nối của tenant, đúng modal ConnectionStrings của web:
@@ -136,18 +137,13 @@ export default function TenantConnectionStringsScreen() {
         <Text>{t('saasConnectionStrings.valueHidden')}</Text>
         <Pressable
           onPress={() =>
-            Alert.alert(
-              t('saasConnectionStrings.deleteConfirmTitle'),
-              t('saasConnectionStrings.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(item.name),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('saasConnectionStrings.deleteConfirmTitle'),
+              message: t('saasConnectionStrings.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(item.name),
+            })
           }
         >
           <Text>{t('common.delete')}</Text>

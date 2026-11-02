@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, FlatList, Pressable, Switch, View } from 'react-native';
+import { FlatList, Pressable, Switch, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { deleteText, getTexts } from '../../features/localization/localization-api';
 import type { TextDifferenceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 interface AppliedSearch {
   cultureName: string;
@@ -165,14 +166,13 @@ export default function TextsScreen() {
                   </Pressable>
                   <Pressable
                     onPress={() =>
-                      Alert.alert(t('texts.deleteConfirmTitle'), t('texts.deleteConfirmMessage'), [
-                        { text: t('common.cancel'), style: 'cancel' },
-                        {
-                          text: t('common.delete'),
-                          style: 'destructive',
-                          onPress: () => deleteMutation.mutate(item),
-                        },
-                      ])
+                      showConfirmDialog({
+                        title: t('texts.deleteConfirmTitle'),
+                        message: t('texts.deleteConfirmMessage'),
+                        confirmText: t('common.delete'),
+                        cancelText: t('common.cancel'),
+                        onConfirm: () => deleteMutation.mutate(item),
+                      })
                     }
                   >
                     <Text>{t('common.delete')}</Text>

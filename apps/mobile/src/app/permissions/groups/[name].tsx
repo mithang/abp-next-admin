@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import {
   getPermissionGroup,
 } from '../../../features/permissions/permission-groups-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
@@ -78,18 +78,13 @@ export default function PermissionGroupDetailScreen() {
             variant="outline"
             loading={deleteMutation.isPending}
             onPress={() =>
-              Alert.alert(
-                t('permissionGroups.deleteConfirmTitle'),
-                t('permissionGroups.deleteConfirmMessage'),
-                [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  {
-                    text: t('common.delete'),
-                    style: 'destructive',
-                    onPress: () => deleteMutation.mutate(),
-                  },
-                ],
-              )
+              showConfirmDialog({
+                title: t('permissionGroups.deleteConfirmTitle'),
+                message: t('permissionGroups.deleteConfirmMessage'),
+                confirmText: t('common.delete'),
+                cancelText: t('common.cancel'),
+                onConfirm: () => deleteMutation.mutate(),
+              })
             }
             testID="permission-group-delete"
           />

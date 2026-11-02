@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Pressable } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import {
   removeCacheKeys,
 } from '../../features/caching/caching-api';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 /**
  * Quản lý cache: danh sách khóa từ GET /api/caching-management/cache/keys.
@@ -141,14 +142,13 @@ export default function CacheKeysScreen() {
           variant="outline"
           loading={bulkDeleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('caches.bulkDeleteConfirmTitle'), t('caches.bulkDeleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('common.delete'),
-                style: 'destructive',
-                onPress: () => bulkDeleteMutation.mutate(),
-              },
-            ])
+            showConfirmDialog({
+              title: t('caches.bulkDeleteConfirmTitle'),
+              message: t('caches.bulkDeleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => bulkDeleteMutation.mutate(),
+            })
           }
         />
       ) : null}
@@ -195,18 +195,13 @@ export default function CacheKeysScreen() {
                     variant="outline"
                     loading={deleteMutation.isPending}
                     onPress={() =>
-                      Alert.alert(
-                        t('caches.deleteConfirmTitle'),
-                        t('caches.deleteConfirmMessage'),
-                        [
-                          { text: t('common.cancel'), style: 'cancel' },
-                          {
-                            text: t('common.delete'),
-                            style: 'destructive',
-                            onPress: () => deleteMutation.mutate(item),
-                          },
-                        ],
-                      )
+                      showConfirmDialog({
+                        title: t('caches.deleteConfirmTitle'),
+                        message: t('caches.deleteConfirmMessage'),
+                        confirmText: t('common.delete'),
+                        cancelText: t('common.cancel'),
+                        onConfirm: () => deleteMutation.mutate(item),
+                      })
                     }
                   />
                 </VStack>

@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteMenu, getMenu } from '../../../features/platform/platform-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /** Chi tiết menu: RouteDto + code/component/framework/layoutId/isPublic/startup + meta JSON. */
 export default function MenuDetailScreen() {
@@ -105,18 +105,13 @@ export default function MenuDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('platformMenus.deleteConfirmTitle'),
-              t('platformMenus.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('platformMenus.deleteConfirmTitle'),
+              message: t('platformMenus.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,7 @@ import {
 } from '../../features/tasks/types';
 import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
+import { showConfirmDialog } from '../../lib/confirm';
 
 const PAGE_SIZE = 20;
 
@@ -181,18 +182,13 @@ export default function BackgroundJobsScreen() {
             variant="outline"
             loading={bulkMutation.isPending}
             onPress={() =>
-              Alert.alert(
-                t('backgroundJobs.bulkDeleteConfirmTitle'),
-                t('backgroundJobs.bulkDeleteConfirmMessage'),
-                [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  {
-                    text: t('common.delete'),
-                    style: 'destructive',
-                    onPress: () => bulkMutation.mutate('delete'),
-                  },
-                ],
-              )
+              showConfirmDialog({
+                title: t('backgroundJobs.bulkDeleteConfirmTitle'),
+                message: t('backgroundJobs.bulkDeleteConfirmMessage'),
+                confirmText: t('common.delete'),
+                cancelText: t('common.cancel'),
+                onConfirm: () => bulkMutation.mutate('delete'),
+              })
             }
           />
         </>

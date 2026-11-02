@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { deleteData, deleteDataItem, getData } from '../../../features/platform/platform-api';
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết từ điển: code do backend sinh (chỉ đọc), tên/tên hiển thị/
@@ -96,18 +96,13 @@ export default function DataDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('platformDataDictionaries.deleteConfirmTitle'),
-              t('platformDataDictionaries.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('platformDataDictionaries.deleteConfirmTitle'),
+              message: t('platformDataDictionaries.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
           testID="platform-data-delete"
         />
@@ -152,18 +147,13 @@ export default function DataDetailScreen() {
                   variant="outline"
                   loading={deleteItemMutation.isPending}
                   onPress={() =>
-                    Alert.alert(
-                      t('platformDataItems.deleteConfirmTitle'),
-                      t('platformDataItems.deleteConfirmMessage'),
-                      [
-                        { text: t('common.cancel'), style: 'cancel' },
-                        {
-                          text: t('common.delete'),
-                          style: 'destructive',
-                          onPress: () => deleteItemMutation.mutate(dataItem.name),
-                        },
-                      ],
-                    )
+                    showConfirmDialog({
+                      title: t('platformDataItems.deleteConfirmTitle'),
+                      message: t('platformDataItems.deleteConfirmMessage'),
+                      confirmText: t('common.delete'),
+                      cancelText: t('common.cancel'),
+                      onConfirm: () => deleteItemMutation.mutate(dataItem.name),
+                    })
                   }
                 />
               </VStack>

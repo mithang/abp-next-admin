@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +9,7 @@ import { Text } from '@/components/ui/text';
 import { deleteAuditLog, getAuditLog } from '../../../features/auditing/auditing-api';
 import { entityChangeTypeName } from '../../../features/auditing/types';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 export default function AuditLogDetailScreen() {
   const { t } = useTranslation();
@@ -130,14 +130,13 @@ export default function AuditLogDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('auditLogs.deleteConfirmTitle'), t('auditLogs.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('common.delete'),
-                style: 'destructive',
-                onPress: () => deleteMutation.mutate(),
-              },
-            ])
+            showConfirmDialog({
+              title: t('auditLogs.deleteConfirmTitle'),
+              message: t('auditLogs.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
           testID="audit-log-delete"
         />

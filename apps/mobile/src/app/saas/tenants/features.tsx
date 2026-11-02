@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, FlatList, Switch, View } from 'react-native';
+import { FlatList, Switch, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,7 @@ import {
   type FeatureValueGroup,
 } from '../../../features/saas/tenant-features';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 type Row =
   | { kind: 'group'; key: string; displayName: string }
@@ -203,18 +204,13 @@ export default function TenantFeaturesScreen() {
         action="negative"
         loading={resetMutation.isPending}
         onPress={() =>
-          Alert.alert(
-            t('tenantFeatures.resetConfirmTitle'),
-            t('tenantFeatures.resetConfirmMessage'),
-            [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('tenantFeatures.reset'),
-                style: 'destructive',
-                onPress: () => resetMutation.mutate(),
-              },
-            ],
-          )
+          showConfirmDialog({
+            title: t('tenantFeatures.resetConfirmTitle'),
+            message: t('tenantFeatures.resetConfirmMessage'),
+            confirmText: t('tenantFeatures.reset'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => resetMutation.mutate(),
+          })
         }
         testID="tenant-feature-reset"
       />

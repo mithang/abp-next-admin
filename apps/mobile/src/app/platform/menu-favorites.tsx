@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Alert, FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -27,6 +27,7 @@ import {
   type UserFavoriteMenuDto,
 } from '../../features/platform/menu-favorites';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 /**
  * Menu yêu thích của tôi — bản mobile của WorkbenchQuickNav web
@@ -338,17 +339,16 @@ export default function MenuFavoritesScreen() {
   });
 
   const confirmDelete = (item: UserFavoriteMenuDto) => {
-    Alert.alert(t('menuFavorites.deleteConfirmTitle'), t('menuFavorites.deleteConfirmMessage'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('common.delete'),
-        style: 'destructive',
-        onPress: () => {
-          setDeleteTarget(item);
-          deleteMutation.mutate(item);
-        },
+    showConfirmDialog({
+      title: t('menuFavorites.deleteConfirmTitle'),
+      message: t('menuFavorites.deleteConfirmMessage'),
+      confirmText: t('common.delete'),
+      cancelText: t('common.cancel'),
+      onConfirm: () => {
+        setDeleteTarget(item);
+        deleteMutation.mutate(item);
       },
-    ]);
+    });
   };
 
   const items = listQuery.data?.items ?? [];

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import { displayName } from '../../features/identity/types';
 import { impersonationErrorText } from '../../features/auth/impersonation';
 import { useAuthStore } from '../../stores/auth-store';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 export default function UserDetailScreen() {
   const { t } = useTranslation();
@@ -92,14 +92,13 @@ export default function UserDetailScreen() {
           disabled={isImpersonating}
           loading={impersonating}
           onPress={() =>
-            Alert.alert(t('impersonation.confirmTitle'), t('impersonation.confirmUserMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('impersonation.impersonateUser'),
-                style: 'destructive',
-                onPress: () => void handleImpersonate(user.id, user.tenantId),
-              },
-            ])
+            showConfirmDialog({
+              title: t('impersonation.confirmTitle'),
+              message: t('impersonation.confirmUserMessage'),
+              confirmText: t('impersonation.impersonateUser'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => void handleImpersonate(user.id, user.tenantId),
+            })
           }
           testID="user-impersonate"
         />

@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteEdition, getEdition } from '../../../features/saas/saas-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /** Chi tiết phiên bản: DTO chỉ có displayName (+ audit/extraProperties). */
 export default function EditionDetailScreen() {
@@ -65,18 +65,13 @@ export default function EditionDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('saasEditions.deleteConfirmTitle'),
-              t('saasEditions.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('saasEditions.deleteConfirmTitle'),
+              message: t('saasEditions.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
           testID="saas-edition-delete"
         />

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import {
   getTextTemplateDefinition,
 } from '../../../features/text-templating/text-templating-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết định nghĩa mẫu văn bản: name/displayName/defaultCulture/
@@ -120,18 +120,13 @@ export default function TextTemplateDefinitionDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(
-                  t('textTemplateDefinitions.deleteConfirmTitle'),
-                  t('textTemplateDefinitions.deleteConfirmMessage'),
-                  [
-                    { text: t('common.cancel'), style: 'cancel' },
-                    {
-                      text: t('common.delete'),
-                      style: 'destructive',
-                      onPress: () => deleteMutation.mutate(),
-                    },
-                  ],
-                )
+                showConfirmDialog({
+                  title: t('textTemplateDefinitions.deleteConfirmTitle'),
+                  message: t('textTemplateDefinitions.deleteConfirmMessage'),
+                  confirmText: t('common.delete'),
+                  cancelText: t('common.cancel'),
+                  onConfirm: () => deleteMutation.mutate(),
+                })
               }
             />
           </>

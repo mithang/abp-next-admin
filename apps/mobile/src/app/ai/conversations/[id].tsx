@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import {
 import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 interface ChatBubble {
   key: string;
@@ -145,18 +146,13 @@ export default function AIConversationChatScreen() {
         variant="outline"
         loading={deleteMutation.isPending}
         onPress={() =>
-          Alert.alert(
-            t('aiConversations.deleteConfirmTitle'),
-            t('aiConversations.deleteConfirmMessage'),
-            [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('common.delete'),
-                style: 'destructive',
-                onPress: () => deleteMutation.mutate(),
-              },
-            ],
-          )
+          showConfirmDialog({
+            title: t('aiConversations.deleteConfirmTitle'),
+            message: t('aiConversations.deleteConfirmMessage'),
+            confirmText: t('common.delete'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => deleteMutation.mutate(),
+          })
         }
         testID="ai-conversation-delete"
       />

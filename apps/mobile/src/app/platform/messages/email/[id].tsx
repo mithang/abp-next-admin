@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import {
   sendEmailMessage,
 } from '../../../../features/platform/platform-api';
 import { toApiError } from '../../../../lib/errors';
+import { showConfirmDialog } from '../../../../lib/confirm';
 import { messageStatusText } from '../email';
 
 /**
@@ -107,14 +107,14 @@ export default function EmailMessageDetailScreen() {
           variant="outline"
           loading={sendMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('platformEmailMessages.sendConfirmTitle'),
-              t('platformEmailMessages.sendConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                { text: t('platformEmailMessages.send'), onPress: () => sendMutation.mutate() },
-              ],
-            )
+            showConfirmDialog({
+              title: t('platformEmailMessages.sendConfirmTitle'),
+              message: t('platformEmailMessages.sendConfirmMessage'),
+              confirmText: t('platformEmailMessages.send'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => sendMutation.mutate(),
+              destructive: false,
+            })
           }
         />
         {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}
@@ -124,18 +124,13 @@ export default function EmailMessageDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('platformEmailMessages.deleteConfirmTitle'),
-              t('platformEmailMessages.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('platformEmailMessages.deleteConfirmTitle'),
+              message: t('platformEmailMessages.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}

@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { deleteRole, getRole } from '../../features/identity/roles-api';
 import { roleFlags } from '../../features/identity/roles-types';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 export default function RoleDetailScreen() {
   const { t } = useTranslation();
@@ -80,14 +80,13 @@ export default function RoleDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('roles.deleteConfirmTitle'), t('roles.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('common.delete'),
-                style: 'destructive',
-                onPress: () => deleteMutation.mutate(),
-              },
-            ])
+            showConfirmDialog({
+              title: t('roles.deleteConfirmTitle'),
+              message: t('roles.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
           testID="role-delete"
         />

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -18,6 +17,7 @@ import {
 import { BLOB_TYPE_FOLDER } from '../../../features/blob/types';
 import { config } from '../../../lib/config';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết blob: đúng BlobDto backend (name/fullName/type/contentType/
@@ -127,14 +127,13 @@ export default function BlobDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('blobBlobs.deleteConfirmTitle'), t('blobBlobs.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('common.delete'),
-                style: 'destructive',
-                onPress: () => deleteMutation.mutate(),
-              },
-            ])
+            showConfirmDialog({
+              title: t('blobBlobs.deleteConfirmTitle'),
+              message: t('blobBlobs.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}

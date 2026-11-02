@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import {
   getWebhookSubscription,
 } from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết đăng ký Webhook: webhookUri/isActive/description/webhooks/
@@ -99,18 +99,13 @@ export default function WebhookSubscriptionDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('webhookSubscriptions.deleteConfirmTitle'),
-              t('webhookSubscriptions.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('webhookSubscriptions.deleteConfirmTitle'),
+              message: t('webhookSubscriptions.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {actionError ? <Text>{actionError}</Text> : null}

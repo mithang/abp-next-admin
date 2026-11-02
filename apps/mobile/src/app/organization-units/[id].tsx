@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +13,7 @@ import {
 } from '../../features/identity/organization-units-api';
 import { findOrganizationUnitName } from '../../features/identity/organization-units';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 export default function OrganizationUnitDetailScreen() {
   const { t } = useTranslation();
@@ -80,18 +80,13 @@ export default function OrganizationUnitDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('organizationUnits.deleteConfirmTitle'),
-              t('organizationUnits.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('organizationUnits.deleteConfirmTitle'),
+              message: t('organizationUnits.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
           testID="organization-unit-delete"
         />

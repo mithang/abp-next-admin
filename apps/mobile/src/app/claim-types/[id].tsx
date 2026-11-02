@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { deleteClaimType, getClaimType } from '../../features/identity/claim-types-api';
 import { valueTypeKey } from '../../features/identity/claim-types';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 export default function ClaimTypeDetailScreen() {
   const { t } = useTranslation();
@@ -78,18 +78,13 @@ export default function ClaimTypeDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(
-                  t('claimTypes.deleteConfirmTitle'),
-                  t('claimTypes.deleteConfirmMessage'),
-                  [
-                    { text: t('common.cancel'), style: 'cancel' },
-                    {
-                      text: t('common.delete'),
-                      style: 'destructive',
-                      onPress: () => deleteMutation.mutate(),
-                    },
-                  ],
-                )
+                showConfirmDialog({
+                  title: t('claimTypes.deleteConfirmTitle'),
+                  message: t('claimTypes.deleteConfirmMessage'),
+                  confirmText: t('common.delete'),
+                  cancelText: t('common.cancel'),
+                  onConfirm: () => deleteMutation.mutate(),
+                })
               }
               testID="claim-type-delete"
             />

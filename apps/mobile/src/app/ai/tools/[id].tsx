@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +9,7 @@ import { Text } from '@/components/ui/text';
 import { deleteAITool, getAITool } from '../../../features/ai/ai-api';
 import { isReadOnlyTool } from '../../../features/ai/types';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết công cụ AI. Công cụ hệ thống/tĩnh không sửa/xóa được (đúng
@@ -90,14 +90,13 @@ export default function AIToolDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(t('aiTools.deleteConfirmTitle'), t('aiTools.deleteConfirmMessage'), [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  {
-                    text: t('common.delete'),
-                    style: 'destructive',
-                    onPress: () => deleteMutation.mutate(),
-                  },
-                ])
+                showConfirmDialog({
+                  title: t('aiTools.deleteConfirmTitle'),
+                  message: t('aiTools.deleteConfirmMessage'),
+                  confirmText: t('common.delete'),
+                  cancelText: t('common.cancel'),
+                  onConfirm: () => deleteMutation.mutate(),
+                })
               }
               testID="ai-tool-delete"
             />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -16,6 +16,7 @@ import {
 } from '../../../features/platform/platform-api';
 import type { SmsMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 import { messageStatusText } from './email';
 
 const PAGE_SIZE = 20;
@@ -65,14 +66,14 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
           variant="outline"
           loading={sendMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('platformSmsMessages.sendConfirmTitle'),
-              t('platformSmsMessages.sendConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                { text: t('platformSmsMessages.send'), onPress: () => sendMutation.mutate() },
-              ],
-            )
+            showConfirmDialog({
+              title: t('platformSmsMessages.sendConfirmTitle'),
+              message: t('platformSmsMessages.sendConfirmMessage'),
+              confirmText: t('platformSmsMessages.send'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => sendMutation.mutate(),
+              destructive: false,
+            })
           }
         />
         <AppButton
@@ -81,18 +82,13 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('platformSmsMessages.deleteConfirmTitle'),
-              t('platformSmsMessages.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('platformSmsMessages.deleteConfirmTitle'),
+              message: t('platformSmsMessages.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}

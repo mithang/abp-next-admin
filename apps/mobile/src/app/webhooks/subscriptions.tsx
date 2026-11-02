@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import {
 import type { WebhookSubscriptionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
+import { showConfirmDialog } from '../../lib/confirm';
 
 const PAGE_SIZE = 20;
 
@@ -139,18 +140,13 @@ export default function WebhookSubscriptionsScreen() {
           variant="outline"
           loading={bulkDelete.isPending}
           onPress={() =>
-            Alert.alert(
-              t('webhookSubscriptions.bulkDeleteConfirmTitle'),
-              t('webhookSubscriptions.bulkDeleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => bulkDelete.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('webhookSubscriptions.bulkDeleteConfirmTitle'),
+              message: t('webhookSubscriptions.bulkDeleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => bulkDelete.mutate(),
+            })
           }
         />
       ) : null}

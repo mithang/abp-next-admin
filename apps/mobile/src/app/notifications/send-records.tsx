@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -17,6 +17,7 @@ import {
 import type { NotificationSendRecordDto } from '../../features/notifications/types';
 import { sendStateName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 const PAGE_SIZE = 20;
 
@@ -68,18 +69,13 @@ function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('notificationSendRecords.deleteConfirmTitle'),
-              t('notificationSendRecords.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('notificationSendRecords.deleteConfirmTitle'),
+              message: t('notificationSendRecords.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {reSendMutation.isError ? <Text>{toApiError(reSendMutation.error).message}</Text> : null}

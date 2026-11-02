@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import {
   getWebhookGroupDefinition,
 } from '../../../features/webhooks/webhooks-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết nhóm Webhook: name/displayName/isStatic. Nhóm tĩnh chỉ đọc
@@ -78,18 +78,13 @@ export default function WebhookGroupDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(
-                  t('webhookGroups.deleteConfirmTitle'),
-                  t('webhookGroups.deleteConfirmMessage'),
-                  [
-                    { text: t('common.cancel'), style: 'cancel' },
-                    {
-                      text: t('common.delete'),
-                      style: 'destructive',
-                      onPress: () => deleteMutation.mutate(),
-                    },
-                  ],
-                )
+                showConfirmDialog({
+                  title: t('webhookGroups.deleteConfirmTitle'),
+                  message: t('webhookGroups.deleteConfirmMessage'),
+                  confirmText: t('common.delete'),
+                  cancelText: t('common.cancel'),
+                  onConfirm: () => deleteMutation.mutate(),
+                })
               }
             />
           </>

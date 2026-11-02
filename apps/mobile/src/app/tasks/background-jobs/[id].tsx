@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +25,7 @@ import {
   JOB_TYPE_LABELS,
 } from '../../../features/tasks/types';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết tác vụ nền: đúng drawer detail của web (status/source/
@@ -238,18 +238,13 @@ export default function BackgroundJobDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(
-              t('backgroundJobs.deleteConfirmTitle'),
-              t('backgroundJobs.deleteConfirmMessage'),
-              [
-                { text: t('common.cancel'), style: 'cancel' },
-                {
-                  text: t('common.delete'),
-                  style: 'destructive',
-                  onPress: () => deleteMutation.mutate(),
-                },
-              ],
-            )
+            showConfirmDialog({
+              title: t('backgroundJobs.deleteConfirmTitle'),
+              message: t('backgroundJobs.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
@@ -282,18 +277,13 @@ export default function BackgroundJobDetailScreen() {
                   variant="outline"
                   loading={deleteLogMutation.isPending}
                   onPress={() =>
-                    Alert.alert(
-                      t('backgroundJobs.deleteJobLogConfirmTitle'),
-                      t('backgroundJobs.deleteJobLogConfirmMessage'),
-                      [
-                        { text: t('common.cancel'), style: 'cancel' },
-                        {
-                          text: t('common.delete'),
-                          style: 'destructive',
-                          onPress: () => deleteLogMutation.mutate(log.id),
-                        },
-                      ],
-                    )
+                    showConfirmDialog({
+                      title: t('backgroundJobs.deleteJobLogConfirmTitle'),
+                      message: t('backgroundJobs.deleteJobLogConfirmMessage'),
+                      confirmText: t('common.delete'),
+                      cancelText: t('common.cancel'),
+                      onConfirm: () => deleteLogMutation.mutate(log.id),
+                    })
                   }
                 />
               </VStack>

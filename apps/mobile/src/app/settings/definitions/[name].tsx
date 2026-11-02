@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import {
   getSettingDefinition,
 } from '../../../features/settings/settings-definitions-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
@@ -95,18 +95,13 @@ export default function SettingDefinitionDetailScreen() {
               variant="outline"
               loading={deleteMutation.isPending}
               onPress={() =>
-                Alert.alert(
-                  t('settingDefinitions.deleteConfirmTitle'),
-                  t('settingDefinitions.deleteConfirmMessage'),
-                  [
-                    { text: t('common.cancel'), style: 'cancel' },
-                    {
-                      text: t('common.delete'),
-                      style: 'destructive',
-                      onPress: () => deleteMutation.mutate(),
-                    },
-                  ],
-                )
+                showConfirmDialog({
+                  title: t('settingDefinitions.deleteConfirmTitle'),
+                  message: t('settingDefinitions.deleteConfirmMessage'),
+                  confirmText: t('common.delete'),
+                  cancelText: t('common.cancel'),
+                  onConfirm: () => deleteMutation.mutate(),
+                })
               }
               testID="setting-definition-delete"
             />

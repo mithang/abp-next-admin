@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -12,6 +12,7 @@ import { Card } from '@/components/ui/card';
 import { getSessionsPaged, revokeSession } from '../../features/identity/sessions-api';
 import type { IdentitySessionDto } from '../../features/identity/sessions';
 import { toApiError } from '../../lib/errors';
+import { showConfirmDialog } from '../../lib/confirm';
 
 const PAGE_SIZE = 20;
 
@@ -57,14 +58,13 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
           variant="outline"
           loading={revokeMutation.isPending}
           onPress={() =>
-            Alert.alert(t('sessions.revokeConfirmTitle'), t('sessions.revokeConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('sessions.revoke'),
-                style: 'destructive',
-                onPress: () => revokeMutation.mutate(),
-              },
-            ])
+            showConfirmDialog({
+              title: t('sessions.revokeConfirmTitle'),
+              message: t('sessions.revokeConfirmMessage'),
+              confirmText: t('sessions.revoke'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => revokeMutation.mutate(),
+            })
           }
           testID={`session-revoke-${item.sessionId}`}
         />

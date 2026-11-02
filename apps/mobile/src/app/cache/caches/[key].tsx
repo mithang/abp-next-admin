@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import {
   removeCacheKey,
 } from '../../../features/caching/caching-api';
 import { toApiError } from '../../../lib/errors';
+import { showConfirmDialog } from '../../../lib/confirm';
 
 /**
  * Chi tiết giá trị cache: GET /api/caching-management/cache/value?key=...
@@ -88,14 +88,13 @@ export default function CacheValueDetailScreen() {
           variant="outline"
           loading={deleteMutation.isPending}
           onPress={() =>
-            Alert.alert(t('caches.deleteConfirmTitle'), t('caches.deleteConfirmMessage'), [
-              { text: t('common.cancel'), style: 'cancel' },
-              {
-                text: t('common.delete'),
-                style: 'destructive',
-                onPress: () => deleteMutation.mutate(),
-              },
-            ])
+            showConfirmDialog({
+              title: t('caches.deleteConfirmTitle'),
+              message: t('caches.deleteConfirmMessage'),
+              confirmText: t('common.delete'),
+              cancelText: t('common.cancel'),
+              onConfirm: () => deleteMutation.mutate(),
+            })
           }
         />
         {refreshMutation.isError ? <Text>{toApiError(refreshMutation.error).message}</Text> : null}

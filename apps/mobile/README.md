@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 34
+
+Vòng P3 chuẩn hóa control — hộp thoại xác nhận dùng chung: rà
+soát toàn app thấy 54 chỗ tự viết `Alert.alert` với cùng một khuôn
+mẫu (nút Hủy style 'cancel' + nút xác nhận, 52 chỗ destructive,
+2 chỗ gửi lại SMS/Email không đặt style). Nay tất cả 54 chỗ ở 49
+màn hình dùng chung helper mới `src/lib/confirm.ts`
+(`showConfirmDialog`: title/message/confirmText/cancelText truyền
+chuỗi đã dịch sẵn, `destructive` mặc định true, false cho 2 nút
+gửi) — giữ nguyên hành vi (thứ tự nút, style, onPress từng chỗ,
+kể cả onPress dạng khối ở menu-favorites); import `Alert` khỏi
+màn hình được gỡ, chỉ còn đúng một import `Alert` ở helper.
+Không thêm key i18n. Test mới `confirm.test.ts` (3 test, mock
+`Alert.alert`) kiểm chứng nút hủy/nút xác nhận/style
+default-vs-destructive và việc bấm nút gọi đúng onConfirm. Kết
+quả: Jest 305/305 (51 suite, +3), typecheck/lint/format/expo
+config PASS (lint 0 errors, đúng 14 warning vendored), parity
+i18n 1451/1451, backend /healthz Healthy + Redis (stack đã chạy
+sẵn, không khởi động lại). Không còn P2 mở; P1 impersonation vẫn
+BLOCKED ở backend và CRUD thật vẫn cần phiên admin TOTP.
+
 ## Trạng thái vòng 33
 
 Vòng P3 chuẩn hóa control — rà soát toàn app tìm picker dạng danh sách
