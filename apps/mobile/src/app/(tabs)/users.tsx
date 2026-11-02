@@ -15,8 +15,7 @@ import { getUsersPaged } from '../../features/identity/api';
 import { displayName, type IdentityUserDto } from '../../features/identity/types';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function UserRow({ user }: { user: IdentityUserDto }) {
   const { t } = useTranslation();
@@ -42,7 +41,7 @@ function UserRow({ user }: { user: IdentityUserDto }) {
 export default function UsersScreen() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
     setPage(0);
   });
@@ -52,14 +51,13 @@ export default function UsersScreen() {
     queryFn: () =>
       getUsersPaged({
         filter: debouncedFilter || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen title={t('users.title')} subtitle={`${t('users.total')}: ${total}`}>
@@ -88,12 +86,8 @@ export default function UsersScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

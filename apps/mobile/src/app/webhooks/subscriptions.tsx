@@ -19,8 +19,7 @@ import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function SubscriptionRow({
   item,
@@ -68,7 +67,7 @@ export default function WebhookSubscriptionsScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const debounced = useDebouncedValue(filter, 400, () => {
     setPage(0);
@@ -81,8 +80,8 @@ export default function WebhookSubscriptionsScreen() {
     queryFn: () =>
       getWebhookSubscriptionsPaged({
         filter: debounced || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
@@ -97,7 +96,6 @@ export default function WebhookSubscriptionsScreen() {
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -172,12 +170,8 @@ export default function WebhookSubscriptionsScreen() {
         />
       )}
       {bulkDelete.isError ? <Text>{toApiError(bulkDelete.error).message}</Text> : null}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

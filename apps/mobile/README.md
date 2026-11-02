@@ -45,6 +45,39 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 37
+
+Vòng P3 chuẩn hóa control — hook phân trang dùng chung: rà soát
+toàn app thấy 29 màn hình danh sách tự lặp cùng mẫu phân trang
+"load more": `const PAGE_SIZE = 20;` riêng, state `page` 0-based,
+`skipCount: page * PAGE_SIZE`, `maxResultCount: PAGE_SIZE`,
+`hasMore = (page + 1) * PAGE_SIZE < total` và nút tải thêm
+`setPage((p) => p + 1)`. Nay tất cả dùng chung hook mới
+`src/lib/use-pagination.ts` (`usePagination`, mặc định
+`DEFAULT_PAGE_SIZE = 20`, trả `page/setPage/resetPage/loadMore/
+skipCount/maxResultCount/hasMore(totalCount)/pageSize` đúng công
+thức cũ). Hai phân trang phụ cùng mẫu cũng di chuyển: chọn
+identity ở menu-allot (dạng alias `identityPage/...`, công thức
+`total > (page + 1) * PAGE_SIZE` tương đương `hasMore`) và log
+của background job (trước dùng literal 20, nay dùng hook). Sau
+vòng này `grep PAGE_SIZE` toàn `src/` chỉ còn trong chính hook;
+`setPage(0)` reset của debounce (vòng 36) giữ nguyên, `setPage`
+vẫn expose cho các màn hình cần reset. Hai binding setter thừa
+đã bỏ để lint sạch (blobs và job-logs chỉ dùng setter cho nút
+tải thêm trước đây). Cố tình giữ nguyên: phân trang marker của
+cache (dùng nextMarker, không có skipCount/page — giao thức
+khác). Không thêm key i18n. Test mới `use-pagination.test.ts`
+(5 test): page 0/skipCount 0 ban đầu, `hasMore` đúng biên
+(20 → false, 21 → true; page 1: 40 → false, 41 → true),
+`resetPage`, `setPage` trực tiếp (đường reset của debounce) và
+page size tùy chọn. Kết quả: Jest 320/320 (54 suite, +5),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored như trước), parity i18n 1451/1451. Diff tracked
++236/−365 (32 file: 31 màn hình + README) cộng hook và test mới.
+Không còn P2 mở;
+P1 impersonation vẫn BLOCKED ở backend và CRUD thật vẫn cần
+phiên admin TOTP.
+
 ## Trạng thái vòng 36
 
 Vòng P3 chuẩn hóa control — hook debounce dùng chung: rà soát

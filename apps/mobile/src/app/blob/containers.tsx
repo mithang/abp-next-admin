@@ -15,8 +15,7 @@ import type { BlobContainerDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function ContainerRow({ item }: { item: BlobContainerDto }) {
   return (
@@ -43,7 +42,7 @@ export default function BlobContainersScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debounced = useDebouncedValue(filter, 400, () => {
     setPage(0);
   });
@@ -53,14 +52,13 @@ export default function BlobContainersScreen() {
     queryFn: () =>
       getBlobContainersPaged({
         filter: debounced || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -98,12 +96,8 @@ export default function BlobContainersScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

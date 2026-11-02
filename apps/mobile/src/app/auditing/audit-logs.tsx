@@ -15,8 +15,7 @@ import type { AuditLogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function AuditLogRow({ item }: { item: AuditLogDto }) {
   return (
@@ -43,7 +42,7 @@ export default function AuditLogsScreen() {
   const { t } = useTranslation();
   const [userName, setUserName] = useState('');
   const [url, setUrl] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debounced = useDebouncedValue({ userName, url }, 400, () => {
     setPage(0);
   });
@@ -54,13 +53,12 @@ export default function AuditLogsScreen() {
       getAuditLogsPaged({
         userName: debounced.userName || undefined,
         url: debounced.url || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen title={t('auditLogs.title')} subtitle={`${t('auditLogs.total')}: ${total}`}>
@@ -96,12 +94,8 @@ export default function AuditLogsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

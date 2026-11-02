@@ -14,8 +14,7 @@ import { getEntityTypeInfosPaged } from '../../features/auditing/data-protection
 import type { EntityTypeInfoDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
   const { t } = useTranslation();
@@ -40,7 +39,7 @@ function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
 export default function EntityTypeInfosScreen() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
     setPage(0);
   });
@@ -50,13 +49,12 @@ export default function EntityTypeInfosScreen() {
     queryFn: () =>
       getEntityTypeInfosPaged({
         filter: debouncedFilter || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -88,12 +86,8 @@ export default function EntityTypeInfosScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

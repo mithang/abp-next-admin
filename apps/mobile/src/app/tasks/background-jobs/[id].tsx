@@ -27,6 +27,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
+import { usePagination } from '../../../lib/use-pagination';
 
 /**
  * Chi tiết tác vụ nền: đúng drawer detail của web (status/source/
@@ -61,11 +62,21 @@ export default function BackgroundJobDetailScreen() {
     },
   });
 
-  const [logPage, setLogPage] = useState(0);
+  const {
+    page: logPage,
+    skipCount: logSkipCount,
+    maxResultCount: logMaxResultCount,
+    hasMore: hasMoreLogs,
+    loadMore: loadMoreLogs,
+  } = usePagination();
   const logsQuery = useQuery({
     queryKey: ['tasks-background-job-logs', id, logPage],
     queryFn: () =>
-      getBackgroundJobLogsPaged({ jobId: id, skipCount: logPage * 20, maxResultCount: 20 }),
+      getBackgroundJobLogsPaged({
+        jobId: id,
+        skipCount: logSkipCount,
+        maxResultCount: logMaxResultCount,
+      }),
     enabled: Boolean(id),
   });
   const deleteLogMutation = useMutation({
@@ -289,12 +300,8 @@ export default function BackgroundJobDetailScreen() {
                 />
               </VStack>
             ))}
-            {(logPage + 1) * 20 < (logsQuery.data?.totalCount ?? 0) ? (
-              <AppButton
-                title={t('common.loadMore')}
-                onPress={() => setLogPage((p) => p + 1)}
-                variant="outline"
-              />
+            {hasMoreLogs(logsQuery.data?.totalCount ?? 0) ? (
+              <AppButton title={t('common.loadMore')} onPress={loadMoreLogs} variant="outline" />
             ) : null}
           </>
         )}

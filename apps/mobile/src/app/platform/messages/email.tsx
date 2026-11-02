@@ -17,8 +17,7 @@ import { toApiError } from '../../../lib/errors';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../../lib/use-pagination';
 
 export function messageStatusText(t: (key: string) => string, ns: string, status: number): string {
   if (status === -1) return t(`${ns}.statusPending`);
@@ -77,7 +76,7 @@ export default function EmailMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debounced = useDebouncedValue(
     { filter, emailAddress, status, beginSendTime, endSendTime },
     400,
@@ -96,14 +95,13 @@ export default function EmailMessagesScreen() {
         status: parsedStatus,
         beginSendTime: debounced.beginSendTime || undefined,
         endSendTime: debounced.endSendTime || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -162,12 +160,8 @@ export default function EmailMessagesScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

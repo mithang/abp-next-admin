@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -17,8 +16,7 @@ import {
 } from '../../features/blob/blob-api';
 import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) {
   const { t } = useTranslation();
@@ -69,7 +67,7 @@ export default function BlobsScreen() {
     containerId?: string;
     parentId?: string;
   }>();
-  const [page, setPage] = useState(0);
+  const { page, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const queryClient = useQueryClient();
 
   const uploadMutation = useMutation({
@@ -106,8 +104,8 @@ export default function BlobsScreen() {
       getBlobsPaged({
         containerId: containerId as string,
         parentId: parentId || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
     enabled: Boolean(containerId),
   });
@@ -146,7 +144,6 @@ export default function BlobsScreen() {
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -189,12 +186,8 @@ export default function BlobsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

@@ -14,8 +14,7 @@ import { getLanguagesPaged } from '../../features/localization/localization-api'
 import type { LanguageDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function LanguageRow({ item }: { item: LanguageDto }) {
   return (
@@ -40,7 +39,7 @@ export default function LanguagesScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
     setPage(0);
   });
@@ -50,14 +49,13 @@ export default function LanguagesScreen() {
     queryFn: () =>
       getLanguagesPaged({
         filter: debouncedFilter || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen title={t('languages.title')} subtitle={`${t('languages.total')}: ${total}`}>
@@ -91,12 +89,8 @@ export default function LanguagesScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

@@ -14,8 +14,7 @@ import { getTenantsPaged } from '../../features/saas/saas-api';
 import type { TenantDto } from '../../features/saas/types';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function TenantRow({ item }: { item: TenantDto }) {
   const { t } = useTranslation();
@@ -41,7 +40,7 @@ export default function TenantsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
     setPage(0);
   });
@@ -51,14 +50,13 @@ export default function TenantsScreen() {
     queryFn: () =>
       getTenantsPaged({
         filter: debouncedFilter || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen title={t('saasTenants.title')} subtitle={`${t('saasTenants.total')}: ${total}`}>
@@ -92,12 +90,8 @@ export default function TenantsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

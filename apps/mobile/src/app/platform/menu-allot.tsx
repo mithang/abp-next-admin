@@ -34,6 +34,7 @@ import { displayName } from '../../features/identity/types';
 import { toggleSelection } from '../../lib/selection';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { usePagination } from '../../lib/use-pagination';
 
 /**
  * Phân bổ menu cho user/role — bản mobile của MenuAllotModal web
@@ -52,7 +53,6 @@ import { useDebouncedValue } from '../../lib/use-debounced-value';
  * framework là remount với trạng thái chọn mới từ dữ liệu đã gán, không
  * đồng bộ state qua effect (tránh cascading renders).
  */
-const PAGE_SIZE = 20;
 
 function AllotEditor({
   subject,
@@ -180,7 +180,14 @@ export default function MenuAllotScreen() {
   const [identityLabel, setIdentityLabel] = useState<string>(params.label ?? '');
   const [identityFilter, setIdentityFilter] = useState('');
   const debouncedFilter = useDebouncedValue(identityFilter);
-  const [identityPage, setIdentityPage] = useState(0);
+  const {
+    page: identityPage,
+    setPage: setIdentityPage,
+    skipCount: identitySkipCount,
+    maxResultCount: identityMaxResultCount,
+    hasMore: hasMoreIdentities,
+    loadMore: loadMoreIdentities,
+  } = usePagination();
   const [framework, setFramework] = useState('');
   const debouncedFramework = useDebouncedValue(framework);
 
@@ -202,8 +209,8 @@ export default function MenuAllotScreen() {
       if (subject === 'user') {
         const page = await getUsersPaged({
           filter: debouncedFilter || undefined,
-          skipCount: identityPage * PAGE_SIZE,
-          maxResultCount: PAGE_SIZE,
+          skipCount: identitySkipCount,
+          maxResultCount: identityMaxResultCount,
         });
         return {
           items: page.items.map((user) => ({ key: user.id, label: displayName(user) })),
@@ -212,8 +219,8 @@ export default function MenuAllotScreen() {
       }
       const page = await getRolesPaged({
         filter: debouncedFilter || undefined,
-        skipCount: identityPage * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount: identitySkipCount,
+        maxResultCount: identityMaxResultCount,
       });
       return {
         items: page.items.map((role) => ({ key: role.name, label: role.name })),
@@ -310,11 +317,11 @@ export default function MenuAllotScreen() {
               }}
             />
           )}
-          {(identityQuery.data?.totalCount ?? 0) > (identityPage + 1) * PAGE_SIZE ? (
+          {hasMoreIdentities(identityQuery.data?.totalCount ?? 0) ? (
             <AppButton
               title={t('common.loadMore')}
               variant="outline"
-              onPress={() => setIdentityPage((p) => p + 1)}
+              onPress={loadMoreIdentities}
             />
           ) : null}
         </VStack>

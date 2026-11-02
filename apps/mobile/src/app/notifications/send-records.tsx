@@ -20,8 +20,7 @@ import { toApiError } from '../../lib/errors';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
   const { t } = useTranslation();
@@ -95,7 +94,7 @@ export default function NotificationSendRecordsScreen() {
   const { t } = useTranslation();
   const [notificationName, setNotificationName] = useState('');
   const [provider, setProvider] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debounced = useDebouncedValue({ notificationName, provider }, 400, () => {
     setPage(0);
   });
@@ -106,13 +105,12 @@ export default function NotificationSendRecordsScreen() {
       getNotificationSendRecordsPaged({
         notificationName: debounced.notificationName || undefined,
         provider: debounced.provider || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -151,12 +149,8 @@ export default function NotificationSendRecordsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );

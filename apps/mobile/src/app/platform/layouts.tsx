@@ -14,8 +14,7 @@ import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-
-const PAGE_SIZE = 20;
+import { usePagination } from '../../lib/use-pagination';
 
 function LayoutRow({ item }: { item: LayoutDto }) {
   return (
@@ -40,7 +39,7 @@ export default function LayoutsScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState('');
   const [framework, setFramework] = useState('');
-  const [page, setPage] = useState(0);
+  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
     setPage(0);
   });
@@ -54,14 +53,13 @@ export default function LayoutsScreen() {
       getLayoutsPaged({
         filter: debouncedFilter || undefined,
         framework: debouncedFramework || undefined,
-        skipCount: page * PAGE_SIZE,
-        maxResultCount: PAGE_SIZE,
+        skipCount,
+        maxResultCount,
       }),
   });
 
   const items = query.data?.items ?? [];
   const total = query.data?.totalCount ?? 0;
-  const hasMore = (page + 1) * PAGE_SIZE < total;
 
   return (
     <AppScreen
@@ -104,12 +102,8 @@ export default function LayoutsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      {hasMore ? (
-        <AppButton
-          title={t('common.loadMore')}
-          onPress={() => setPage((p) => p + 1)}
-          variant="outline"
-        />
+      {hasMore(total) ? (
+        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}
     </AppScreen>
   );
