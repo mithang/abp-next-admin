@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
@@ -23,6 +24,7 @@ import {
   tenantFormSchema,
   type TenantFormValues,
 } from '../../../features/saas/tenant-form-schema';
+import { buildEditionOptions } from '../../../lib/app-select-options';
 import { toApiError } from '../../../lib/errors';
 
 /**
@@ -30,9 +32,9 @@ import { toApiError } from '../../../lib/errors';
  * - Tạo: name + adminEmailAddress/adminPassword bắt buộc, useSharedDatabase
  *   mặc định bật; tắt DB chung thì defaultConnectionString bắt buộc.
  * - Sửa: ẩn admin fields, gửi kèm concurrencyStamp lấy từ detail.
- * - editionId nhập Guid; danh sách edition load từ GET /api/saas/editions
- *   hiển thị làm gợi ý "tên — id" (AppSelect đã có từ vòng 28 nhưng
- *   màn này chưa chuyển sang, theo mẫu gợi ý provider cũ).
+ * - editionId chọn qua AppSelect từ GET /api/saas/editions (vòng 29,
+ *   đóng nốt mục này của P2 AppSelect); để trống = không gán, nhờ
+ *   clearable — đúng schema optionalGuid cũ.
  * - enableTime/disableTime nhập text ISO, schema chặn enable > disable.
  * Chuỗi kết nối có tên riêng (ngoài default) quản lý sau khi tạo ở màn
  * connection-strings, đúng API đặt/xóa của backend.
@@ -121,9 +123,7 @@ export default function TenantFormScreen() {
 
   const fieldError = (message?: string) =>
     message && message.startsWith('saasTenants.') ? t(message) : message;
-  const editionsHint =
-    editionsQuery.data?.items.map((e) => `${e.displayName} — ${e.id}`).join('\n') ||
-    t('saasTenants.editionsLoading');
+  const editionOptions = buildEditionOptions(editionsQuery.data?.items ?? []);
 
   return (
     <AppScreen title={t(isEdit ? 'saasTenants.editTitle' : 'saasTenants.createTitle')}>
@@ -160,19 +160,22 @@ export default function TenantFormScreen() {
           control={form.control}
           name="editionId"
           render={({ field, fieldState }) => (
-            <AppInput
+            <AppSelect
               label={t('saasTenants.edition')}
               value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('saasTenants.editionPlaceholder')}
-              autoCapitalize="none"
+              options={editionOptions}
+              onChange={field.onChange}
+              placeholder={
+                editionsQuery.isPending
+                  ? t('saasTenants.editionsLoading')
+                  : t('saasTenants.editionPlaceholder')
+              }
               error={fieldError(fieldState.error?.message)}
+              clearable
+              testID="tenant-edition"
             />
           )}
         />
-        <Text>
-          {t('saasTenants.editionsHint')}: {editionsHint}
-        </Text>
         <Controller
           control={form.control}
           name="enableTime"

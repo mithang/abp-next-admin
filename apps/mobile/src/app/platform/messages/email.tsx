@@ -4,6 +4,7 @@ import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -13,6 +14,7 @@ import { Card } from '@/components/ui/card';
 import { getEmailMessagesPaged } from '../../../features/platform/platform-api';
 import type { EmailMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
+import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 
 const PAGE_SIZE = 20;
 
@@ -60,8 +62,9 @@ function EmailRow({ item }: { item: EmailMessageDto }) {
 
 /**
  * Tin nhắn Email: phân trang ABP, lọc filter/emailAddress/status +
- * khoảng thời gian gửi (đúng form lọc bảng web; status nhập -1/0/10
- * vì màn lọc này chưa chuyển sang AppSelect có từ vòng 28). Chỉ đọc
+ * khoảng thời gian gửi (đúng form lọc bảng web; status chọn qua
+ * AppSelect -1/0/10 từ vòng 29, đóng nốt mục này của P2 AppSelect;
+ * để trống = tất cả). Chỉ đọc
  * + xóa + gửi lại ở màn detail;
  * KHÔNG có tạo/sửa (backend cũng không có Create/Update cho trang này).
  */
@@ -89,9 +92,7 @@ export default function EmailMessagesScreen() {
     return () => clearTimeout(timer);
   }, [filter, emailAddress, status, beginSendTime, endSendTime]);
 
-  const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim())
-    ? Number(debounced.status.trim())
-    : undefined;
+  const parsedStatus = parseEmailStatusFilter(debounced.status);
   const query = useQuery({
     queryKey: ['platform-email-messages', debounced, parsedStatus, page],
     queryFn: () =>
@@ -128,11 +129,14 @@ export default function EmailMessagesScreen() {
         placeholder={t('platformEmailMessages.emailPlaceholder')}
         autoCapitalize="none"
       />
-      <AppInput
+      <AppSelect
+        label={t('platformEmailMessages.status')}
         value={status}
-        onChangeText={setStatus}
+        options={buildEmailStatusOptions(t)}
+        onChange={setStatus}
         placeholder={t('platformEmailMessages.statusPlaceholder')}
-        autoCapitalize="none"
+        clearable
+        testID="platform-email-status"
       />
       <AppInput
         value={beginSendTime}

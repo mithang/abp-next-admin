@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
+import { AppSelect } from '../../../../components/ui/AppSelect';
 import { AppInput } from '../../../../components/ui/AppInput';
 import { AppButton } from '../../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../../components/ui/AppStates';
@@ -22,14 +23,16 @@ import {
   type DataItemFormValues,
 } from '../../../../features/platform/data-form-schema';
 import { toApiError } from '../../../../lib/errors';
+import { buildDataValueTypeOptions } from '../../../../lib/app-select-options';
 
 /**
  * Form tạo/sửa mục từ điển, đúng DTO C#:
  * - Tạo: name bắt buộc. Sửa: name khóa hiển thị dạng chỉ đọc (UpdateDto
  *   không có name, mục xác định bằng name trên URL) và không gửi name.
- * - valueType nhập số 0–5 (String/Number/Boolean/Date/DateTime/Array);
- *   Object=6 không nhận như modal web. AppSelect đã có từ vòng 28
- *   nhưng màn này chưa chuyển sang nên vẫn dùng input số kèm gợi ý.
+ * - valueType chọn qua AppSelect 0–5 (String/Number/Boolean/Date/
+ *   DateTime/Array, vòng 29 đóng nốt mục này của P2 AppSelect);
+ *   Object=6 không nhận như modal web; schema giữ nguyên (chuỗi
+ *   '0'–'5') nên giá trị gửi đi không đổi.
  * - defaultValue: allowBeNull=false thì bắt buộc (đúng Validate backend);
  *   kiểm chứng theo kiểu (Number/Boolean/Date) như DatePicker/InputNumber/
  *   Checkbox của web khi đổi về chuỗi.
@@ -141,18 +144,17 @@ export default function DataItemFormScreen() {
           control={form.control}
           name="valueType"
           render={({ field, fieldState }) => (
-            <AppInput
+            <AppSelect
               label={t('platformDataItems.valueType')}
               value={field.value}
-              onChangeText={field.onChange}
+              options={buildDataValueTypeOptions()}
+              onChange={field.onChange}
               placeholder={t('platformDataItems.valueTypePlaceholder')}
-              keyboardType="numeric"
-              autoCapitalize="none"
               error={fieldError(fieldState.error?.message)}
+              testID="data-item-value-type"
             />
           )}
         />
-        <Text>{t('platformDataItems.valueTypeHint')}</Text>
         <Controller
           control={form.control}
           name="defaultValue"

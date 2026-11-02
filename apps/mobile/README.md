@@ -432,3 +432,29 @@ tenant, valueType ở mục từ điển, lọc status email) và AppTreeSelect
 riêng — nhưng AppSelect đã hỗ trợ depth nên tree select thực chất
 đã có dạng dùng chung qua helper này. Vẫn còn P2: upload tệp blob,
 sửa favorites qua PUT, review auth WeChat phía backend.
+
+## Trạng thái vòng 29
+
+Đóng nốt P2 AppSelect: form tenant chọn editionId qua AppSelect
+(clearable, để trống = không gán, label "tên — id" từ GET
+/api/saas/editions), form mục từ điển chọn valueType qua AppSelect
+(chỉ 0–5, loại Object=6 như modal web, schema chuỗi '0'–'5' không
+đổi nên payload gửi đi không đổi), màn email chọn status qua
+AppSelect (-1 chưa gửi / 0 đã gửi / 10 thất bại, để trống = tất
+cả; parseEmailStatusFilter thay regex cũ, chuỗi lạ trả undefined).
+Helper dùng chung mới `src/lib/app-select-options.ts` (edition /
+valueType / status email + parse) kèm 5 test. Ngoài ra, test
+AppInput nay chạy được nhờ sửa babel env test ở vòng 28 (import
+GlueStack Input không còn crash): thêm suite `app-input.test.tsx`
+3 test (render value/placeholder + onChangeText, secureTextEntry,
+hiển thị error) — P2 "AppInput component test" ở vòng 27 chính thức
+đóng. Các key i18n hint cũ (editionsHint, valueTypeHint) giữ lại
+trong vi/en dù UI không còn dùng, để tránh churn file locale một
+dòng; placeholder của 3 field đã đổi sang dạng "Chọn …". Kết quả:
+Jest 288/288 (47 suite, +8: app-select-options 5, app-input 3),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored như mọi vòng), parity i18n 1446/1446, backend
+/healthz Healthy + Redis PONG (không cần khởi động lại stack).
+Vẫn còn P2: upload tệp blob, sửa favorites qua PUT, review auth
+WeChat phía backend; P1 impersonation vẫn BLOCKED ở backend và
+CRUD thật vẫn cần phiên admin TOTP.
