@@ -3,8 +3,8 @@ import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -131,16 +131,16 @@ export default function NotificationSendRecordsScreen() {
         autoCapitalize="none"
         testID="notification-send-records-search-provider"
       />
-      {query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : items.length === 0 ? (
-        <AppEmptyState message={t('notificationSendRecords.empty')} />
-      ) : (
+      <AppList
+        items={items}
+        isPending={query.isPending}
+        isError={query.isError}
+        errorMessage={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+        emptyMessage={t('notificationSendRecords.empty')}
+        hasMore={hasMore(total)}
+        onLoadMore={loadMore}
+      >
         <FlatList
           data={items}
           keyExtractor={(item) => String(item.id)}
@@ -148,10 +148,7 @@ export default function NotificationSendRecordsScreen() {
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
-      )}
-      {hasMore(total) ? (
-        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
-      ) : null}
+      </AppList>
     </AppScreen>
   );
 }

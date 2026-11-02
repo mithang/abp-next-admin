@@ -4,8 +4,8 @@ import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -127,16 +127,14 @@ export default function MenusScreen() {
         onPress={() => router.push('/platform/menu-favorites')}
         testID="platform-menus-favorites"
       />
-      {query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : rows.length === 0 ? (
-        <AppEmptyState message={t('platformMenus.empty')} />
-      ) : (
+      <AppList
+        items={rows}
+        isPending={query.isPending}
+        isError={query.isError}
+        errorMessage={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+        emptyMessage={t('platformMenus.empty')}
+      >
         <FlatList
           data={rows}
           keyExtractor={({ item }) => item.id}
@@ -144,7 +142,7 @@ export default function MenusScreen() {
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
-      )}
+      </AppList>
     </AppScreen>
   );
 }

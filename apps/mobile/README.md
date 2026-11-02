@@ -45,6 +45,31 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 40
+
+Vòng P3 chuẩn hóa khung danh sách: khối ternary trạng thái
+`isPending → AppLoading / isError → AppErrorState / rỗng →
+AppEmptyState / còn lại → FlatList` lặp lại ở 46 màn hình, cộng
+nút "Tải thêm" viết tay sau mỗi danh sách phân trang. Vòng này
+thêm component dùng chung `src/components/ui/AppList.tsx`
+(nhận trạng thái + thông báo + `items` để xét rỗng, render
+FlatList nguyên văn của caller làm children để không trích xuất
+lại renderItem, và nút "Tải thêm" với đúng luật cũ: chỉ phụ
+thuộc hasMore) và migrate 48 khối ternary trong 46 file bằng
+script có kiểm chứng 2 chiều (AppList 48, không còn ternary
+danh sách nào; 28 nút tải thêm gộp vào AppList, 3 màn bulk giữ
+nút ngoài vì có dòng lỗi mutation xen giữa, các màn không phân
+trang giữ nguyên). Cố tình không migrate: khối 2 lỗi của
+AllotEditor (menu-allot), danh sách chat (early return), nhật ký
+job ở màn detail (empty là Text thường, list render bằng .map),
+và các FlatList không có ternary (form/features/system/wechat).
+Test mới `app-list.test.tsx` (6 test: tải/lỗi + retry/rỗng/render
+list/có-không nút tải thêm). Kết quả: Jest 331/331 (56 suite, +6),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1463/1463 (không đổi key). P1
+impersonation vẫn BLOCKED ở backend, CRUD thật vẫn cần phiên
+admin TOTP; không còn P2 mở.
+
 ## Trạng thái vòng 39
 
 Vòng P3 chuẩn hóa cuộn màn hình: rà soát thấy `AppScreen` (khung

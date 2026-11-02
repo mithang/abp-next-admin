@@ -4,8 +4,8 @@ import { Link } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -182,16 +182,14 @@ export default function WebhookSendAttemptsScreen() {
         </>
       ) : null}
       <View style={{ height: 8 }} />
-      {query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : items.length === 0 ? (
-        <AppEmptyState message={t('webhookSendAttempts.empty')} />
-      ) : (
+      <AppList
+        items={items}
+        isPending={query.isPending}
+        isError={query.isError}
+        errorMessage={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+        emptyMessage={t('webhookSendAttempts.empty')}
+      >
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
@@ -206,7 +204,7 @@ export default function WebhookSendAttemptsScreen() {
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
-      )}
+      </AppList>
       {bulkMutation.isError ? <Text>{toApiError(bulkMutation.error).message}</Text> : null}
       {hasMore(total) ? (
         <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />

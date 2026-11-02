@@ -4,6 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
@@ -284,16 +285,16 @@ export default function MenuAllotScreen() {
             placeholder={t('menuAllot.identitySearchPlaceholder')}
             autoCapitalize="none"
           />
-          {identityQuery.isPending ? (
-            <AppLoading />
-          ) : identityQuery.isError ? (
-            <AppErrorState
-              message={toApiError(identityQuery.error).message}
-              onRetry={() => void identityQuery.refetch()}
-            />
-          ) : (identityQuery.data?.items.length ?? 0) === 0 ? (
-            <AppEmptyState message={t('menuAllot.identityEmpty')} />
-          ) : (
+          <AppList
+            items={identityQuery.data?.items ?? []}
+            isPending={identityQuery.isPending}
+            isError={identityQuery.isError}
+            errorMessage={toApiError(identityQuery.error).message}
+            onRetry={() => void identityQuery.refetch()}
+            emptyMessage={t('menuAllot.identityEmpty')}
+            hasMore={hasMoreIdentities(identityQuery.data?.totalCount ?? 0)}
+            onLoadMore={loadMoreIdentities}
+          >
             <FlatList
               data={identityQuery.data?.items ?? []}
               keyExtractor={(item) => item.key}
@@ -316,14 +317,7 @@ export default function MenuAllotScreen() {
                 );
               }}
             />
-          )}
-          {hasMoreIdentities(identityQuery.data?.totalCount ?? 0) ? (
-            <AppButton
-              title={t('common.loadMore')}
-              variant="outline"
-              onPress={loadMoreIdentities}
-            />
-          ) : null}
+          </AppList>
         </VStack>
       ) : null}
 

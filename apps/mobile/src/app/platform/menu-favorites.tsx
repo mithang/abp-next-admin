@@ -3,8 +3,9 @@ import { FlatList, Pressable, View } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
+import { AppEmptyState } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -167,16 +168,14 @@ function AddFavoriteForm({
         placeholder={t('menuFavorites.menuSearchPlaceholder')}
         autoCapitalize="none"
       />
-      {menusQuery.isPending ? (
-        <AppLoading />
-      ) : menusQuery.isError ? (
-        <AppErrorState
-          message={toApiError(menusQuery.error).message}
-          onRetry={() => void menusQuery.refetch()}
-        />
-      ) : visibleRows.length === 0 ? (
-        <AppEmptyState message={t('menuFavorites.menuEmpty')} />
-      ) : (
+      <AppList
+        items={visibleRows}
+        isPending={menusQuery.isPending}
+        isError={menusQuery.isError}
+        errorMessage={toApiError(menusQuery.error).message}
+        onRetry={() => void menusQuery.refetch()}
+        emptyMessage={t('menuFavorites.menuEmpty')}
+      >
         <FlatList
           data={visibleRows}
           keyExtractor={({ item }) => item.id}
@@ -197,7 +196,7 @@ function AddFavoriteForm({
             );
           }}
         />
-      )}
+      </AppList>
       <AppInput
         value={aliasName}
         onChangeText={setAliasName}
@@ -379,16 +378,14 @@ export default function MenuFavoritesScreen() {
       {editingItem ? (
         <EditFavoriteForm item={editingItem} onDone={() => setEditingItem(null)} />
       ) : null}
-      {listQuery.isPending ? (
-        <AppLoading />
-      ) : listQuery.isError ? (
-        <AppErrorState
-          message={toApiError(listQuery.error).message}
-          onRetry={() => void listQuery.refetch()}
-        />
-      ) : items.length === 0 ? (
-        <AppEmptyState message={t('menuFavorites.empty')} />
-      ) : (
+      <AppList
+        items={items}
+        isPending={listQuery.isPending}
+        isError={listQuery.isError}
+        errorMessage={toApiError(listQuery.error).message}
+        onRetry={() => void listQuery.refetch()}
+        emptyMessage={t('menuFavorites.empty')}
+      >
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
@@ -403,7 +400,7 @@ export default function MenuFavoritesScreen() {
           refreshing={listQuery.isFetching}
           onRefresh={() => void listQuery.refetch()}
         />
-      )}
+      </AppList>
     </AppScreen>
   );
 }

@@ -4,9 +4,8 @@ import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
-import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -78,16 +77,16 @@ export default function AuthorizationsScreen() {
         autoCapitalize="none"
         testID="authorizations-search"
       />
-      {query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : items.length === 0 ? (
-        <AppEmptyState message={t('openiddictAuthorizations.empty')} />
-      ) : (
+      <AppList
+        items={items}
+        isPending={query.isPending}
+        isError={query.isError}
+        errorMessage={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+        emptyMessage={t('openiddictAuthorizations.empty')}
+        hasMore={hasMore(total)}
+        onLoadMore={loadMore}
+      >
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
@@ -95,10 +94,7 @@ export default function AuthorizationsScreen() {
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
-      )}
-      {hasMore(total) ? (
-        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
-      ) : null}
+      </AppList>
     </AppScreen>
   );
 }

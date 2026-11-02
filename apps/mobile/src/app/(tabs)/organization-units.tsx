@@ -3,7 +3,7 @@ import { Link, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
+import { AppList } from '../../components/ui/AppList';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -50,16 +50,14 @@ export default function OrganizationUnitsScreen() {
       title={t('organizationUnits.title')}
       subtitle={`${t('organizationUnits.total')}: ${flat.length}`}
     >
-      {query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : flat.length === 0 ? (
-        <AppEmptyState message={t('organizationUnits.empty')} />
-      ) : (
+      <AppList
+        items={flat}
+        isPending={query.isPending}
+        isError={query.isError}
+        errorMessage={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+        emptyMessage={t('organizationUnits.empty')}
+      >
         <FlatList
           data={flat}
           keyExtractor={(item) => item.unit.id}
@@ -67,7 +65,7 @@ export default function OrganizationUnitsScreen() {
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
-      )}
+      </AppList>
       <AppButton
         title={t('organizationUnits.createTitle')}
         onPress={() => router.push('/organization-units/form')}

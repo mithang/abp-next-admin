@@ -4,8 +4,8 @@ import { useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -128,62 +128,62 @@ export default function TextsScreen() {
       </VStack>
       {!applied || !applied.cultureName || !applied.targetCultureName ? (
         <Text>{t('texts.searchHint')}</Text>
-      ) : query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : items.length === 0 ? (
-        <AppEmptyState message={t('texts.empty')} />
       ) : (
-        <FlatList
-          data={items}
-          keyExtractor={(item) => `${item.resourceName}:${item.key}`}
-          renderItem={({ item }) => (
-            <Card className="p-4">
-              <VStack space="xs">
-                <Text>{item.key}</Text>
-                <Text>
-                  {t('texts.value')}: {item.value}
-                </Text>
-                <Text>
-                  {t('texts.targetValue')}: {item.targetValue ?? t('texts.missing')}
-                </Text>
-                <Text>
-                  {t('texts.resourceName')}: {item.resourceName}
-                </Text>
+        <AppList
+          items={items}
+          isPending={query.isPending}
+          isError={query.isError}
+          errorMessage={toApiError(query.error).message}
+          onRetry={() => void query.refetch()}
+          emptyMessage={t('texts.empty')}
+        >
+          <FlatList
+            data={items}
+            keyExtractor={(item) => `${item.resourceName}:${item.key}`}
+            renderItem={({ item }) => (
+              <Card className="p-4">
                 <VStack space="xs">
-                  <Pressable
-                    onPress={() =>
-                      router.push(
-                        `/localization/texts/form?edit=1&cultureName=${encodeURIComponent(item.targetCultureName)}&resourceName=${encodeURIComponent(item.resourceName)}&key=${encodeURIComponent(item.key)}`,
-                      )
-                    }
-                  >
-                    <Text>{t('texts.editTitle')}</Text>
-                  </Pressable>
-                  <Pressable
-                    onPress={() =>
-                      showConfirmDialog({
-                        title: t('texts.deleteConfirmTitle'),
-                        message: t('texts.deleteConfirmMessage'),
-                        confirmText: t('common.delete'),
-                        cancelText: t('common.cancel'),
-                        onConfirm: () => deleteMutation.mutate(item),
-                      })
-                    }
-                  >
-                    <Text>{t('common.delete')}</Text>
-                  </Pressable>
+                  <Text>{item.key}</Text>
+                  <Text>
+                    {t('texts.value')}: {item.value}
+                  </Text>
+                  <Text>
+                    {t('texts.targetValue')}: {item.targetValue ?? t('texts.missing')}
+                  </Text>
+                  <Text>
+                    {t('texts.resourceName')}: {item.resourceName}
+                  </Text>
+                  <VStack space="xs">
+                    <Pressable
+                      onPress={() =>
+                        router.push(
+                          `/localization/texts/form?edit=1&cultureName=${encodeURIComponent(item.targetCultureName)}&resourceName=${encodeURIComponent(item.resourceName)}&key=${encodeURIComponent(item.key)}`,
+                        )
+                      }
+                    >
+                      <Text>{t('texts.editTitle')}</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() =>
+                        showConfirmDialog({
+                          title: t('texts.deleteConfirmTitle'),
+                          message: t('texts.deleteConfirmMessage'),
+                          confirmText: t('common.delete'),
+                          cancelText: t('common.cancel'),
+                          onConfirm: () => deleteMutation.mutate(item),
+                        })
+                      }
+                    >
+                      <Text>{t('common.delete')}</Text>
+                    </Pressable>
+                  </VStack>
                 </VStack>
-              </VStack>
-            </Card>
-          )}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
-        />
+              </Card>
+            )}
+            refreshing={query.isFetching}
+            onRefresh={() => void query.refetch()}
+          />
+        </AppList>
       )}
       {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
     </AppScreen>

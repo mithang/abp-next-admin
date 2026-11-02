@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as DocumentPicker from 'expo-document-picker';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
+import { AppList } from '../../components/ui/AppList';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -114,16 +114,14 @@ export default function BlobsScreen() {
     const containers: BlobContainerDto[] = containersQuery.data?.items ?? [];
     return (
       <AppScreen title={t('blobBlobs.title')} subtitle={t('blobBlobs.chooseContainer')}>
-        {containersQuery.isPending ? (
-          <AppLoading />
-        ) : containersQuery.isError ? (
-          <AppErrorState
-            message={toApiError(containersQuery.error).message}
-            onRetry={() => void containersQuery.refetch()}
-          />
-        ) : containers.length === 0 ? (
-          <AppEmptyState message={t('blobContainers.empty')} />
-        ) : (
+        <AppList
+          items={containers}
+          isPending={containersQuery.isPending}
+          isError={containersQuery.isError}
+          errorMessage={toApiError(containersQuery.error).message}
+          onRetry={() => void containersQuery.refetch()}
+          emptyMessage={t('blobContainers.empty')}
+        >
           <FlatList
             data={containers}
             keyExtractor={(item) => item.id}
@@ -137,7 +135,7 @@ export default function BlobsScreen() {
               </Link>
             )}
           />
-        )}
+        </AppList>
       </AppScreen>
     );
   }
@@ -168,16 +166,16 @@ export default function BlobsScreen() {
       {uploadMutation.isSuccess ? <Text>{t('blobBlobs.uploaded')}</Text> : null}
       {uploadMutation.isError ? <Text>{toApiError(uploadMutation.error).message}</Text> : null}
       <View style={{ height: 8 }} />
-      {query.isPending ? (
-        <AppLoading />
-      ) : query.isError ? (
-        <AppErrorState
-          message={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-        />
-      ) : items.length === 0 ? (
-        <AppEmptyState message={t('blobBlobs.empty')} />
-      ) : (
+      <AppList
+        items={items}
+        isPending={query.isPending}
+        isError={query.isError}
+        errorMessage={toApiError(query.error).message}
+        onRetry={() => void query.refetch()}
+        emptyMessage={t('blobBlobs.empty')}
+        hasMore={hasMore(total)}
+        onLoadMore={loadMore}
+      >
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
@@ -185,10 +183,7 @@ export default function BlobsScreen() {
           refreshing={query.isFetching}
           onRefresh={() => void query.refetch()}
         />
-      )}
-      {hasMore(total) ? (
-        <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
-      ) : null}
+      </AppList>
     </AppScreen>
   );
 }
