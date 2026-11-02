@@ -458,3 +458,25 @@ warning vendored như mọi vòng), parity i18n 1446/1446, backend
 Vẫn còn P2: upload tệp blob, sửa favorites qua PUT, review auth
 WeChat phía backend; P1 impersonation vẫn BLOCKED ở backend và
 CRUD thật vẫn cần phiên admin TOTP.
+
+## Trạng thái vòng 30
+
+Đóng P2 "sửa favorites qua PUT": màn menu yêu thích nay có nút
+Sửa ở mỗi dòng (form sửa alias/color/icon, Lưu qua PUT
+/api/platform/menus/favorites/my-favorite-menus, Hủy đóng form,
+invalidate query danh sách sau khi lưu). Chìa khóa là kiểm chứng
+ở tầng backend thay vì đoán: UserFavoriteMenuAppService.UpdateByInput
+chỉ gán color/alias/icon và KHÔNG gọi SetConcurrencyStampIfNotNull
+như PackageAppService:167 hay EnterpriseAppService:83, trong khi
+DTO trả về không có field stamp — nên stamp gửi lên không bao giờ
+được áp vào entity và PUT thành công với concurrencyStamp '' (giá
+trị duy nhất client có thể gửi, không phải stamp bịa). Ghi rõ cảnh
+báo: nếu backend sau này ép stamp thật thì phải sửa cùng lúc vì
+DTO vẫn không trả stamp. Test mới: build update với stamp rỗng
+giữ nguyên ''. Kết quả: Jest 289/289 (47 suite, +1), typecheck/
+lint/format/expo config PASS (lint 0 errors, đúng 14 warning
+vendored), parity i18n 1448/1448 (+2 key edit/updated), backend
+/healthz Healthy + Redis PONG (stack đã chạy sẵn, không khởi động
+lại). Sửa thật qua UI vẫn BLOCKED chờ phiên admin TOTP; P2 còn
+lại: upload tệp blob, review auth WeChat phía backend; P1
+impersonation vẫn BLOCKED ở backend.

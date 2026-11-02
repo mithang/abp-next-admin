@@ -32,6 +32,18 @@ describe('menu favorites helpers', () => {
     ).toEqual({ menuId: 'm1', concurrencyStamp: 'stamp-1', color: '#000000', icon: 'home' });
   });
 
+  it('build update với stamp rỗng: giữ nguyên "" (vòng 30: client không có stamp nào khác)', () => {
+    expect(
+      buildFavoriteUpdateInput({
+        menuId: 'm1',
+        concurrencyStamp: '',
+        color: ' #ff0000 ',
+        aliasName: '',
+        icon: '',
+      }),
+    ).toEqual({ menuId: 'm1', concurrencyStamp: '', color: '#ff0000' });
+  });
+
   it('duplicate: cùng menuId + cùng framework mới là trùng', () => {
     const items = [{ menuId: 'm1', framework: 'Vben' }];
     expect(isDuplicateFavorite(items, 'm1', 'Vben')).toBe(true);

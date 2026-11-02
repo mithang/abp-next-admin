@@ -12,11 +12,20 @@
  *   đúng phạm vi QuickNav web (người dùng tự quản lý menu của mình).
  * - DTO trả về (UserFavoriteMenuDto C#): menuId, userId, aliasName?,
  *   color?, framework?, name, displayName, path, icon? — KHÔNG có
- *   concurrencyStamp trong DTO trả về, dù UpdateDto yêu cầu stamp.
- *   Vì vậy web cũng KHÔNG có UI sửa favorites (QuickNav chỉ tạo + xóa):
- *   màn mobile vòng này giữ đúng parity đó — list + tạo + xóa.
- *   Hàm updateMyFavoriteMenu vẫn có ở tầng API (đã test route/body)
- *   để vòng sau dùng khi xác minh được cách lấy stamp hợp lệ.
+ *   concurrencyStamp trong DTO trả về, dù UpdateDto khai báo stamp
+ *   (IHasConcurrencyStamp). Vòng 30 đã kiểm chứng ở tầng service:
+ *   UserFavoriteMenuAppService.UpdateByInput CHỈ gán color/alias/icon,
+ *   KHÔNG gọi SetConcurrencyStampIfNotNull như PackageAppService:167
+ *   hay EnterpriseAppService:83 — nghĩa là stamp gửi lên KHÔNG BAO
+ *   GIỜ được áp vào entity, EF chỉ đối chiếu stamp đã load từ DB,
+ *   nên PUT thành công với stamp rỗng; không có endpoint nào trả
+ *   stamp về cho client. Web không có UI sửa (QuickNav chỉ tạo +
+ *   xóa), nhưng mobile vòng 30 thêm UI sửa alias/color/icon và gửi
+ *   concurrencyStamp '' — giá trị duy nhất client có thể gửi, đúng
+ *   với hành vi service đã kiểm chứng, KHÔNG phải stamp giả mạo.
+ *   Nếu backend sau này sửa service để ép stamp thật, UI sửa này
+ *   phải xem lại cùng lúc vì DTO vẫn không trả stamp (lỗi backend,
+ *   không phải lỗi mobile).
  * - DELETE nhận MenuId (id của MENU, không phải id bản ghi favorite):
  *   service tìm bản ghi bằng FindByUserMenuAsync(userId, menuId) rồi xóa,
  *   nên UI xóa phải truyền item.menuId — truyền item.id sẽ xóa sai.

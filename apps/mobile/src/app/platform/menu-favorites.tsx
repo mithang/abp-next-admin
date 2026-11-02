@@ -15,10 +15,12 @@ import {
   getDataByName,
   getMenusAll,
   getMyFavoriteMenus,
+  updateMyFavoriteMenu,
 } from '../../features/platform/platform-api';
 import { flattenMenuTree } from '../../features/platform/menu-allotment';
 import {
   buildFavoriteCreateInput,
+  buildFavoriteUpdateInput,
   favoriteDisplayName,
   isDuplicateFavorite,
   isHexColor,
@@ -31,8 +33,10 @@ import { toApiError } from '../../lib/errors';
  * (lưới menu thường dùng trên workbench + modal WorkbenchQuickNavModal).
  *
  * Phạm vi đúng web: xem danh sách, thêm mới, xóa. Web không có UI sửa
- * favorites (xem menu-favorites.ts: DTO trả về không mang stamp), nên
- * màn này cũng không có nút sửa — chỉ API update đã test route/body.
+ * favorites, nhưng mobile vòng 30 thêm nút Sửa (alias/color/icon qua
+ * PUT): đã kiểm chứng service sửa không áp dụng stamp gửi lên (xem
+ * menu-favorites.ts), nên UI gửi concurrencyStamp '' — giá trị duy
+ * nhất client có thể gửi, không phải stamp giả.
  * Bấm vào một favorite KHÔNG điều hướng: path của nó là route web,
  * không phải route mobile — không tạo điều hướng giả.
  * Xóa truyền item.menuId (id menu), không phải item.id — xem
@@ -42,10 +46,12 @@ import { toApiError } from '../../lib/errors';
 function FavoriteRow({
   item,
   onDelete,
+  onEdit,
   deleting,
 }: {
   item: UserFavoriteMenuDto;
   onDelete: (item: UserFavoriteMenuDto) => void;
+  onEdit: (item: UserFavoriteMenuDto) => void;
   deleting: boolean;
 }) {
   const { t } = useTranslation();
@@ -70,13 +76,21 @@ function FavoriteRow({
           {item.framework ? ` · ${item.framework}` : ''}
         </Text>
         {item.icon ? <Text>{item.icon}</Text> : null}
-        <AppButton
-          title={t('common.delete')}
-          variant="outline"
-          onPress={() => onDelete(item)}
-          loading={deleting}
-          testID={`menu-favorites-delete-${item.menuId}`}
-        />
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <AppButton
+            title={t('menuFavorites.edit')}
+            variant="outline"
+            onPress={() => onEdit(item)}
+            testID={`menu-favorites-edit-${item.menuId}`}
+          />
+          <AppButton
+            title={t('common.delete')}
+            variant="outline"
+            onPress={() => onDelete(item)}
+            loading={deleting}
+            testID={`menu-favorites-delete-${item.menuId}`}
+          />
+        </View>
       </VStack>
     </Card>
   );
@@ -212,12 +226,87 @@ function AddFavoriteForm({
   );
 }
 
+function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone: () => void }) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const [aliasName, setAliasName] = useState(item.aliasName ?? '');
+  const [color, setColor] = useState(item.color ?? '');
+  const [icon, setIcon] = useState(item.icon ?? '');
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      updateMyFavoriteMenu(
+        buildFavoriteUpdateInput({
+          menuId: item.menuId,
+          // Xem menu-favorites.ts: service sửa không áp dụng stamp
+          // gửi lên và DTO không trả stamp về, nên '' là giá trị
+          // duy nhất client có thể gửi — không tự bịa stamp.
+          concurrencyStamp: '',
+          color,
+          aliasName,
+          icon,
+        }),
+      ),
+    onSuccess: async () => {
+      setFormError(null);
+      await queryClient.invalidateQueries({ queryKey: ['platform-menu-favorites'] });
+      onDone();
+    },
+    onError: (error: unknown) => setFormError(toApiError(error).message),
+  });
+
+  return (
+    <Card className="p-4">
+      <VStack space="sm">
+        <Text>
+          {t('menuFavorites.edit')}: {favoriteDisplayName(item)}
+        </Text>
+        <AppInput
+          value={aliasName}
+          onChangeText={setAliasName}
+          placeholder={t('menuFavorites.aliasPlaceholder')}
+          autoCapitalize="none"
+        />
+        <AppInput
+          value={color}
+          onChangeText={setColor}
+          placeholder={t('menuFavorites.colorPlaceholder')}
+          autoCapitalize="none"
+        />
+        <AppInput
+          value={icon}
+          onChangeText={setIcon}
+          placeholder={t('menuFavorites.iconPlaceholder')}
+          autoCapitalize="none"
+        />
+        {formError ? <Text>{formError}</Text> : null}
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <AppButton
+            title={t('common.save')}
+            onPress={() => mutation.mutate()}
+            loading={mutation.isPending}
+            testID="menu-favorites-save-edit"
+          />
+          <AppButton
+            title={t('common.cancel')}
+            variant="outline"
+            onPress={onDone}
+            testID="menu-favorites-cancel-edit"
+          />
+        </View>
+      </VStack>
+    </Card>
+  );
+}
+
 export default function MenuFavoritesScreen() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [framework, setFramework] = useState('');
   const [debouncedFramework, setDebouncedFramework] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [editingItem, setEditingItem] = useState<UserFavoriteMenuDto | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<UserFavoriteMenuDto | null>(null);
 
   useEffect(() => {
@@ -291,6 +380,9 @@ export default function MenuFavoritesScreen() {
           <AddFavoriteForm framework={debouncedFramework.trim()} existing={items} />
         )
       ) : null}
+      {editingItem ? (
+        <EditFavoriteForm item={editingItem} onDone={() => setEditingItem(null)} />
+      ) : null}
       {listQuery.isPending ? (
         <AppLoading />
       ) : listQuery.isError ? (
@@ -308,6 +400,7 @@ export default function MenuFavoritesScreen() {
             <FavoriteRow
               item={item}
               onDelete={confirmDelete}
+              onEdit={setEditingItem}
               deleting={deleteMutation.isPending && deleteTarget?.menuId === item.menuId}
             />
           )}
