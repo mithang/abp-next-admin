@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppEmptyState } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
@@ -350,11 +351,10 @@ export default function MenuFavoritesScreen() {
 
   return (
     <AppScreen title={t('menuFavorites.title')} subtitle={t('menuFavorites.subtitle')}>
-      <AppInput
+      <AppSearchInput
         value={framework}
         onChangeText={setFramework}
         placeholder={t('menuFavorites.frameworkPlaceholder')}
-        autoCapitalize="none"
         testID="menu-favorites-framework"
       />
       {frameworkNames ? (

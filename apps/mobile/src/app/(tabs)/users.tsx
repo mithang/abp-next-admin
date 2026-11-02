@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -60,11 +60,10 @@ export default function UsersScreen() {
 
   return (
     <AppScreen title={t('users.title')} subtitle={`${t('users.total')}: ${total}`}>
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('users.searchPlaceholder')}
-        autoCapitalize="none"
         testID="users-search"
       />
       <AppList

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -63,18 +63,16 @@ export default function WebhookDefinitionsScreen() {
       title={t('webhookDefinitions.title')}
       subtitle={`${t('webhookDefinitions.total')}: ${items.length}`}
     >
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('webhookDefinitions.searchPlaceholder')}
-        autoCapitalize="none"
         testID="webhook-definitions-search"
       />
-      <AppInput
+      <AppSearchInput
         value={groupName}
         onChangeText={setGroupName}
         placeholder={t('webhookDefinitions.groupNamePlaceholder')}
-        autoCapitalize="none"
         testID="webhook-definitions-group"
       />
       <AppButton

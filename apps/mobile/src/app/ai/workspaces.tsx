@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -65,18 +65,16 @@ export default function AIWorkspacesScreen() {
 
   return (
     <AppScreen title={t('aiWorkspaces.title')} subtitle={`${t('aiWorkspaces.total')}: ${total}`}>
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('aiWorkspaces.searchPlaceholder')}
-        autoCapitalize="none"
         testID="ai-workspaces-search"
       />
-      <AppInput
+      <AppSearchInput
         value={provider}
         onChangeText={setProvider}
         placeholder={t('aiWorkspaces.searchProviderPlaceholder')}
-        autoCapitalize="none"
         testID="ai-workspaces-search-provider"
       />
       <AppButton

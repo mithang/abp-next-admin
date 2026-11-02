@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -61,18 +61,16 @@ export default function AuditLogsScreen() {
 
   return (
     <AppScreen title={t('auditLogs.title')} subtitle={`${t('auditLogs.total')}: ${total}`}>
-      <AppInput
+      <AppSearchInput
         value={userName}
         onChangeText={setUserName}
         placeholder={t('auditLogs.searchUserPlaceholder')}
-        autoCapitalize="none"
         testID="audit-logs-search-user"
       />
-      <AppInput
+      <AppSearchInput
         value={url}
         onChangeText={setUrl}
         placeholder={t('auditLogs.searchUrlPlaceholder')}
-        autoCapitalize="none"
         testID="audit-logs-search-url"
       />
       <AppList

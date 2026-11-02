@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -108,18 +108,16 @@ export default function CacheKeysScreen() {
 
   return (
     <AppScreen title={t('caches.title')} subtitle={`${t('caches.total')}: ${keys.length}`}>
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('caches.searchFilterPlaceholder')}
-        autoCapitalize="none"
         testID="cache-keys-search-filter"
       />
-      <AppInput
+      <AppSearchInput
         value={prefix}
         onChangeText={setPrefix}
         placeholder={t('caches.searchPrefixPlaceholder')}
-        autoCapitalize="none"
         testID="cache-keys-search-prefix"
       />
       <AppButton

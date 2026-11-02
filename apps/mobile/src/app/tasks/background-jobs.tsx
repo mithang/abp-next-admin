@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -139,11 +139,10 @@ export default function BackgroundJobsScreen() {
       title={t('backgroundJobs.title')}
       subtitle={`${t('backgroundJobs.total')}: ${total}`}
     >
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('backgroundJobs.searchPlaceholder')}
-        autoCapitalize="none"
         testID="background-jobs-search"
       />
       <AppButton

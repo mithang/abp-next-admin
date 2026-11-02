@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -70,11 +70,10 @@ export default function ClaimTypesScreen() {
 
   return (
     <AppScreen title={t('claimTypes.title')} subtitle={`${t('claimTypes.total')}: ${total}`}>
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('claimTypes.searchPlaceholder')}
-        autoCapitalize="none"
         testID="claim-types-search"
       />
       <AppList

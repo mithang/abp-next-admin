@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
@@ -321,11 +322,10 @@ export default function MenuAllotScreen() {
         </VStack>
       ) : null}
 
-      <AppInput
+      <AppSearchInput
         value={framework}
         onChangeText={setFramework}
         placeholder={t('menuAllot.frameworkPlaceholder')}
-        autoCapitalize="none"
         testID="menu-allot-framework"
       />
       {frameworkNames ? (

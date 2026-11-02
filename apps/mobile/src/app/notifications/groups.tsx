@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -50,11 +50,10 @@ export default function NotificationGroupsScreen() {
       title={t('notificationGroups.title')}
       subtitle={`${t('notificationGroups.total')}: ${items.length}`}
     >
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('notificationGroups.searchPlaceholder')}
-        autoCapitalize="none"
         testID="notification-groups-search"
       />
       <AppButton

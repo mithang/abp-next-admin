@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -60,18 +60,16 @@ export default function SysLogsScreen() {
 
   return (
     <AppScreen title={t('sysLogs.title')} subtitle={`${t('sysLogs.total')}: ${total}`}>
-      <AppInput
+      <AppSearchInput
         value={requestPath}
         onChangeText={setRequestPath}
         placeholder={t('sysLogs.searchPathPlaceholder')}
-        autoCapitalize="none"
         testID="sys-logs-search-path"
       />
-      <AppInput
+      <AppSearchInput
         value={application}
         onChangeText={setApplication}
         placeholder={t('sysLogs.searchAppPlaceholder')}
-        autoCapitalize="none"
         testID="sys-logs-search-app"
       />
       <AppList

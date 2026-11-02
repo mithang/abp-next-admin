@@ -45,6 +45,37 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 43
+
+Vòng P3 chuẩn hóa ô tìm kiếm/lọc danh sách: 51 khối
+`<AppInput>` giống hệt nhau (value + onChangeText +
+placeholder tìm kiếm/lọc + `autoCapitalize="none"` + testID,
+không nhãn, không lỗi theo field) ở 43 màn hình danh sách —
+gồm các placeholder `searchPlaceholder` và biến thể
+(searchProvider/Filter/Prefix/Name/Group/App/Url/User,
+frameworkPlaceholder của menu-allot/menu-favorites,
+groupNamePlaceholder của webhook-definitions). Vòng này thêm
+component dùng chung `src/components/ui/AppSearchInput.tsx`
+(props `value`/`onChangeText`/`placeholder`/`testID`, cố định
+`autoCapitalize="none"` để chuỗi tìm kiếm không bị viết hoa
+chữ đầu) và migrate cả 51 khối bằng script dry-run trước
+rồi apply, kiểm chứng 2 chiều (51 tag AppSearchInput + 43
+import = 94 refs; không còn khối AppInput tìm kiếm nào).
+Bài học trong vòng: bản script đầu lấy nhầm độ sâu import
+(capture `(\.\./)+` chỉ giữ lại `../` cuối, sinh ra
+`../components/ui/AppSearchInput` sai cho cả file
+`../../` lẫn `../../../`) — đã sửa bằng cách lấy đúng
+prefix từ dòng import AppInput của từng file, đồng thời gỡ
+37 import AppInput thừa ở các file chỉ dùng AppInput cho ô
+tìm kiếm. Test mới `app-search-input.test.tsx` (4 test:
+render value + placeholder + changeText, autoCapitalize
+luôn "none", không render nhãn, render được khi thiếu
+testID). Kết quả: Jest 344/344 (59 suite, +4),
+typecheck/lint/format/expo config PASS (lint 0 errors, đúng 14
+warning vendored), parity i18n 1463/1463 (không đổi key). P1
+impersonation vẫn BLOCKED ở backend, CRUD thật vẫn cần phiên
+admin TOTP; không còn P2 mở.
+
 ## Trạng thái vòng 42
 
 Vòng P3 chuẩn hóa công tắc bật/tắt: 28 vị trí `<Switch>` trong

@@ -7,6 +7,7 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppList } from '../../../components/ui/AppList';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppInput } from '../../../components/ui/AppInput';
+import { AppSearchInput } from '../../../components/ui/AppSearchInput';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -107,11 +108,10 @@ export default function EmailMessagesScreen() {
       title={t('platformEmailMessages.title')}
       subtitle={`${t('platformEmailMessages.total')}: ${total}`}
     >
-      <AppInput
+      <AppSearchInput
         value={filter}
         onChangeText={setFilter}
         placeholder={t('platformEmailMessages.searchPlaceholder')}
-        autoCapitalize="none"
         testID="platform-email-search"
       />
       <AppInput

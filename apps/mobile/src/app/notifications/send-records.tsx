@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -117,18 +117,16 @@ export default function NotificationSendRecordsScreen() {
       title={t('notificationSendRecords.title')}
       subtitle={`${t('notificationSendRecords.total')}: ${total}`}
     >
-      <AppInput
+      <AppSearchInput
         value={notificationName}
         onChangeText={setNotificationName}
         placeholder={t('notificationSendRecords.searchNamePlaceholder')}
-        autoCapitalize="none"
         testID="notification-send-records-search-name"
       />
-      <AppInput
+      <AppSearchInput
         value={provider}
         onChangeText={setProvider}
         placeholder={t('notificationSendRecords.searchProviderPlaceholder')}
-        autoCapitalize="none"
         testID="notification-send-records-search-provider"
       />
       <AppList
