@@ -8,9 +8,8 @@ import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
-import { VStack } from '@/components/ui/vstack';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   bulkDeleteWebhookSubscriptions,
   getWebhookSubscriptionsPaged,
@@ -36,17 +35,15 @@ function SubscriptionRow({
   onToggle: () => void;
 }) {
   const body = (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Text>
-          {selectMode && isSelected ? '✓ ' : ''}
-          {item.webhookUri}
-        </Text>
-        <Text>{item.isActive ? 'active' : 'inactive'}</Text>
-        {item.description ? <Text>{item.description}</Text> : null}
-        <Text>{item.webhooks.join(', ')}</Text>
-      </VStack>
-    </Card>
+    <AppSectionCard>
+      <Text>
+        {selectMode && isSelected ? '✓ ' : ''}
+        {item.webhookUri}
+      </Text>
+      <Text>{item.isActive ? 'active' : 'inactive'}</Text>
+      {item.description ? <Text>{item.description}</Text> : null}
+      <Text>{item.webhooks.join(', ')}</Text>
+    </AppSectionCard>
   );
   if (selectMode) {
     return <Pressable onPress={onToggle}>{body}</Pressable>;

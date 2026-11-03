@@ -45,6 +45,22 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 64
+
+Vòng P3 rà soát các thẻ Card còn lại ngoài AppRowCard/
+AppTreeRowCard: tạo wrapper `AppSectionCard` (Card p-4 >
+VStack xs, children giữ nguyên verbatim) gộp 21 thẻ nội
+dung tĩnh ở 15 màn hình (system 3, features 3, wechat 3,
+sessions, conversations, texts, send-records, sms,
+connection-strings, background-jobs, subscriptions,
+send-attempts, menu-allot, menu-favorites, chi tiết
+từ điển giữ key). Lỗi script vòng này (guard import bị
+tag đánh lừa) đã sửa trước khi kiểm chứng. Các thẻ Card
+còn lại giữ có lý do: 2 thẻ dashboard (children Text),
+thẻ blobs (Text trần), thẻ {body} send-attempts, thẻ
+VStack sm menu-favorites, thẻ Text menu-allot. Jest
+417/417, i18n parity 1463/1463.
+
 ## Trạng thái vòng 63
 
 Vòng P3 rà soát toàn bộ 20 Pressable còn lại ngoài

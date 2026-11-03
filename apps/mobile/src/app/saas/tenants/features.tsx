@@ -8,11 +8,10 @@ import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
+import { AppSectionCard } from '../../../components/ui/AppSectionCard';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   deleteTenantFeatureValues,
   getTenantFeatureValues,
@@ -124,55 +123,49 @@ export default function TenantFeaturesScreen() {
 
     if (kind === 'boolean') {
       return (
-        <Card className="p-4">
-          <VStack space="xs">
-            <AppSwitchField
-              label={feature.displayName}
-              value={current === 'true'}
-              onValueChange={(value) => setValue(value ? 'true' : 'false')}
-            />
-            {feature.description ? <Text>{feature.description}</Text> : null}
-          </VStack>
-        </Card>
+        <AppSectionCard>
+          <AppSwitchField
+            label={feature.displayName}
+            value={current === 'true'}
+            onValueChange={(value) => setValue(value ? 'true' : 'false')}
+          />
+          {feature.description ? <Text>{feature.description}</Text> : null}
+        </AppSectionCard>
       );
     }
     if (kind === 'selection') {
       const items = feature.valueType?.itemSource?.items ?? [];
       return (
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{feature.displayName}</Text>
-            {feature.description ? <Text>{feature.description}</Text> : null}
-            {items.map((item) => (
-              <AppButton
-                key={item.value}
-                title={selectionItemLabel(item)}
-                variant={current === item.value ? 'solid' : 'outline'}
-                onPress={() => setValue(item.value)}
-                testID={`tenant-feature-option-${feature.name}-${item.value}`}
-              />
-            ))}
-            {error ? <Text>{error}</Text> : null}
-          </VStack>
-        </Card>
+        <AppSectionCard>
+          <Text>{feature.displayName}</Text>
+          {feature.description ? <Text>{feature.description}</Text> : null}
+          {items.map((item) => (
+            <AppButton
+              key={item.value}
+              title={selectionItemLabel(item)}
+              variant={current === item.value ? 'solid' : 'outline'}
+              onPress={() => setValue(item.value)}
+              testID={`tenant-feature-option-${feature.name}-${item.value}`}
+            />
+          ))}
+          {error ? <Text>{error}</Text> : null}
+        </AppSectionCard>
       );
     }
     return (
-      <Card className="p-4">
-        <VStack space="xs">
-          <AppInput
-            label={feature.displayName}
-            value={current}
-            onChangeText={setValue}
-            placeholder={feature.description}
-            keyboardType={kind === 'numeric' ? 'numeric' : 'default'}
-            autoCapitalize="none"
-            error={error}
-            testID={`tenant-feature-${feature.name}`}
-          />
-          {feature.description ? <Text>{feature.description}</Text> : null}
-        </VStack>
-      </Card>
+      <AppSectionCard>
+        <AppInput
+          label={feature.displayName}
+          value={current}
+          onChangeText={setValue}
+          placeholder={feature.description}
+          keyboardType={kind === 'numeric' ? 'numeric' : 'default'}
+          autoCapitalize="none"
+          error={error}
+          testID={`tenant-feature-${feature.name}`}
+        />
+        {feature.description ? <Text>{feature.description}</Text> : null}
+      </AppSectionCard>
     );
   };
 

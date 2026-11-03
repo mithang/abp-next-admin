@@ -9,6 +9,7 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppEmptyState } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppTreeRowCard } from '../../components/ui/AppTreeRowCard';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -65,43 +66,41 @@ function FavoriteRow({
 }) {
   const { t } = useTranslation();
   return (
-    <Card className="p-4">
-      <VStack space="xs">
-        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-          {isHexColor(item.color) ? (
-            <View
-              style={{
-                width: 16,
-                height: 16,
-                borderRadius: 4,
-                backgroundColor: (item.color as string).trim(),
-              }}
-            />
-          ) : null}
-          <Text>{favoriteDisplayName(item)}</Text>
-        </View>
-        <Text>
-          {item.name} · {item.path}
-          {item.framework ? ` · ${item.framework}` : ''}
-        </Text>
-        {item.icon ? <Text>{item.icon}</Text> : null}
-        <View style={{ flexDirection: 'row', gap: 8 }}>
-          <AppButton
-            title={t('menuFavorites.edit')}
-            variant="outline"
-            onPress={() => onEdit(item)}
-            testID={`menu-favorites-edit-${item.menuId}`}
+    <AppSectionCard>
+      <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+        {isHexColor(item.color) ? (
+          <View
+            style={{
+              width: 16,
+              height: 16,
+              borderRadius: 4,
+              backgroundColor: (item.color as string).trim(),
+            }}
           />
-          <AppButton
-            title={t('common.delete')}
-            variant="outline"
-            onPress={() => onDelete(item)}
-            loading={deleting}
-            testID={`menu-favorites-delete-${item.menuId}`}
-          />
-        </View>
-      </VStack>
-    </Card>
+        ) : null}
+        <Text>{favoriteDisplayName(item)}</Text>
+      </View>
+      <Text>
+        {item.name} · {item.path}
+        {item.framework ? ` · ${item.framework}` : ''}
+      </Text>
+      {item.icon ? <Text>{item.icon}</Text> : null}
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <AppButton
+          title={t('menuFavorites.edit')}
+          variant="outline"
+          onPress={() => onEdit(item)}
+          testID={`menu-favorites-edit-${item.menuId}`}
+        />
+        <AppButton
+          title={t('common.delete')}
+          variant="outline"
+          onPress={() => onDelete(item)}
+          loading={deleting}
+          testID={`menu-favorites-delete-${item.menuId}`}
+        />
+      </View>
+    </AppSectionCard>
   );
 }
 

@@ -6,12 +6,12 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
+import { AppSectionCard } from '../../../components/ui/AppSectionCard';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { mutationErrorElement } from '../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { deleteData, deleteDataItem, getData } from '../../../features/platform/platform-api';
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
 import { showConfirmDialog } from '../../../lib/confirm';
@@ -89,39 +89,37 @@ export default function DataDetailScreen() {
           <AppEmptyState message={t('platformDataItems.empty')} />
         ) : (
           item.items.map((dataItem) => (
-            <Card key={dataItem.id} className="p-4">
-              <VStack space="xs">
-                <Text>
-                  {dataItem.displayName} ({dataItem.name})
-                </Text>
-                <Text>
-                  {DATA_VALUE_TYPE_LABELS[dataItem.valueType] ?? dataItem.valueType}
-                  {dataItem.defaultValue ? ` · ${dataItem.defaultValue}` : ''}
-                  {dataItem.allowBeNull ? '' : ` · ${t('platformDataItems.notNull')}`}
-                </Text>
-                {dataItem.description ? <Text>{dataItem.description}</Text> : null}
-                <AppNavButton
-                  title={t('platformDataItems.editTitle')}
-                  href={`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}&name=${encodeURIComponent(dataItem.name)}`}
-                  variant="outline"
-                />
-                <AppButton
-                  title={t('common.delete')}
-                  action="negative"
-                  variant="outline"
-                  loading={deleteItemMutation.isPending}
-                  onPress={() =>
-                    showConfirmDialog({
-                      title: t('platformDataItems.deleteConfirmTitle'),
-                      message: t('platformDataItems.deleteConfirmMessage'),
-                      confirmText: t('common.delete'),
-                      cancelText: t('common.cancel'),
-                      onConfirm: () => deleteItemMutation.mutate(dataItem.name),
-                    })
-                  }
-                />
-              </VStack>
-            </Card>
+            <AppSectionCard key={dataItem.id}>
+              <Text>
+                {dataItem.displayName} ({dataItem.name})
+              </Text>
+              <Text>
+                {DATA_VALUE_TYPE_LABELS[dataItem.valueType] ?? dataItem.valueType}
+                {dataItem.defaultValue ? ` · ${dataItem.defaultValue}` : ''}
+                {dataItem.allowBeNull ? '' : ` · ${t('platformDataItems.notNull')}`}
+              </Text>
+              {dataItem.description ? <Text>{dataItem.description}</Text> : null}
+              <AppNavButton
+                title={t('platformDataItems.editTitle')}
+                href={`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}&name=${encodeURIComponent(dataItem.name)}`}
+                variant="outline"
+              />
+              <AppButton
+                title={t('common.delete')}
+                action="negative"
+                variant="outline"
+                loading={deleteItemMutation.isPending}
+                onPress={() =>
+                  showConfirmDialog({
+                    title: t('platformDataItems.deleteConfirmTitle'),
+                    message: t('platformDataItems.deleteConfirmMessage'),
+                    confirmText: t('common.delete'),
+                    cancelText: t('common.cancel'),
+                    onConfirm: () => deleteItemMutation.mutate(dataItem.name),
+                  })
+                }
+              />
+            </AppSectionCard>
           ))
         )}
         {mutationErrorElement(deleteItemMutation)}

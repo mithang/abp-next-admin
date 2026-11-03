@@ -9,6 +9,7 @@ import { AppInput } from '../../components/ui/AppInput';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -130,34 +131,32 @@ function AllotEditor({
           const isStartup = startupMenuId === item.id;
           return (
             <View style={{ marginLeft: depth * 16 }}>
-              <Card className="p-4">
-                <VStack space="xs">
-                  <Pressable
-                    onPress={() => {
-                      setSelected((prev) => toggleSelection(prev, item.id));
-                      if (checked && startupMenuId === item.id) setStartupMenuId(null);
-                    }}
-                    testID={`menu-allot-menu-${item.id}`}
-                  >
-                    <Text>
-                      {'— '.repeat(depth)}
-                      {checked ? '☑ ' : '☐ '}
-                      {item.displayName} · {item.name}
-                    </Text>
-                  </Pressable>
-                  <Pressable
-                    onPress={() => {
-                      if (!checked) setSelected((prev) => toggleSelection(prev, item.id));
-                      setStartupMenuId(item.id);
-                    }}
-                    testID={`menu-allot-startup-${item.id}`}
-                  >
-                    <Text>
-                      {isStartup ? `★ ${t('menuAllot.startup')}` : `☆ ${t('menuAllot.setStartup')}`}
-                    </Text>
-                  </Pressable>
-                </VStack>
-              </Card>
+              <AppSectionCard>
+                <Pressable
+                  onPress={() => {
+                    setSelected((prev) => toggleSelection(prev, item.id));
+                    if (checked && startupMenuId === item.id) setStartupMenuId(null);
+                  }}
+                  testID={`menu-allot-menu-${item.id}`}
+                >
+                  <Text>
+                    {'— '.repeat(depth)}
+                    {checked ? '☑ ' : '☐ '}
+                    {item.displayName} · {item.name}
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    if (!checked) setSelected((prev) => toggleSelection(prev, item.id));
+                    setStartupMenuId(item.id);
+                  }}
+                  testID={`menu-allot-startup-${item.id}`}
+                >
+                  <Text>
+                    {isStartup ? `★ ${t('menuAllot.startup')}` : `☆ ${t('menuAllot.setStartup')}`}
+                  </Text>
+                </Pressable>
+              </AppSectionCard>
             </View>
           );
         }}

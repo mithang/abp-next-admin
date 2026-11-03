@@ -9,9 +9,9 @@ import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { deleteText, getTexts } from '../../features/localization/localization-api';
 import type { TextDifferenceDto } from '../../features/localization/types';
 import { mutationErrorElement } from '../../lib/mutation-error';
@@ -128,44 +128,42 @@ export default function TextsScreen() {
             data={items}
             keyExtractor={(item) => `${item.resourceName}:${item.key}`}
             renderItem={({ item }) => (
-              <Card className="p-4">
+              <AppSectionCard>
+                <Text>{item.key}</Text>
+                <Text>
+                  {t('texts.value')}: {item.value}
+                </Text>
+                <Text>
+                  {t('texts.targetValue')}: {item.targetValue ?? t('texts.missing')}
+                </Text>
+                <Text>
+                  {t('texts.resourceName')}: {item.resourceName}
+                </Text>
                 <VStack space="xs">
-                  <Text>{item.key}</Text>
-                  <Text>
-                    {t('texts.value')}: {item.value}
-                  </Text>
-                  <Text>
-                    {t('texts.targetValue')}: {item.targetValue ?? t('texts.missing')}
-                  </Text>
-                  <Text>
-                    {t('texts.resourceName')}: {item.resourceName}
-                  </Text>
-                  <VStack space="xs">
-                    <Pressable
-                      onPress={() =>
-                        router.push(
-                          `/localization/texts/form?edit=1&cultureName=${encodeURIComponent(item.targetCultureName)}&resourceName=${encodeURIComponent(item.resourceName)}&key=${encodeURIComponent(item.key)}`,
-                        )
-                      }
-                    >
-                      <Text>{t('texts.editTitle')}</Text>
-                    </Pressable>
-                    <Pressable
-                      onPress={() =>
-                        showConfirmDialog({
-                          title: t('texts.deleteConfirmTitle'),
-                          message: t('texts.deleteConfirmMessage'),
-                          confirmText: t('common.delete'),
-                          cancelText: t('common.cancel'),
-                          onConfirm: () => deleteMutation.mutate(item),
-                        })
-                      }
-                    >
-                      <Text>{t('common.delete')}</Text>
-                    </Pressable>
-                  </VStack>
+                  <Pressable
+                    onPress={() =>
+                      router.push(
+                        `/localization/texts/form?edit=1&cultureName=${encodeURIComponent(item.targetCultureName)}&resourceName=${encodeURIComponent(item.resourceName)}&key=${encodeURIComponent(item.key)}`,
+                      )
+                    }
+                  >
+                    <Text>{t('texts.editTitle')}</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() =>
+                      showConfirmDialog({
+                        title: t('texts.deleteConfirmTitle'),
+                        message: t('texts.deleteConfirmMessage'),
+                        confirmText: t('common.delete'),
+                        cancelText: t('common.cancel'),
+                        onConfirm: () => deleteMutation.mutate(item),
+                      })
+                    }
+                  >
+                    <Text>{t('common.delete')}</Text>
+                  </Pressable>
                 </VStack>
-              </Card>
+              </AppSectionCard>
             )}
             {...listRefreshProps(query)}
           />

@@ -7,12 +7,11 @@ import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppEmptyState } from '../../components/ui/AppStates';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { queryStateElement } from '../../lib/query-state';
 import { stateErrorElement } from '../../lib/state-error';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   getWechatGlobalSettings,
   getWechatTenantSettings,
@@ -140,54 +139,47 @@ export default function WechatSettingsScreen() {
 
     if (detail.valueType === SettingValueType.Boolean) {
       return (
-        <Card className="p-4">
-          <VStack space="xs">
-            <AppSwitchField
-              label={detail.displayName}
-              value={current.toLowerCase() === 'true'}
-              onValueChange={(value) => setValue(value ? 'true' : 'false')}
-            />
-            {detail.description ? <Text>{detail.description}</Text> : null}
-          </VStack>
-        </Card>
+        <AppSectionCard>
+          <AppSwitchField
+            label={detail.displayName}
+            value={current.toLowerCase() === 'true'}
+            onValueChange={(value) => setValue(value ? 'true' : 'false')}
+          />
+          {detail.description ? <Text>{detail.description}</Text> : null}
+        </AppSectionCard>
       );
     }
     if (isReadOnly) {
       return (
-        <Card className="p-4">
-          <VStack space="xs">
-            <Text>{detail.displayName}</Text>
-            <Text>{current}</Text>
-            <Text>{t('wechatSettings.readOnly')}</Text>
-          </VStack>
-        </Card>
+        <AppSectionCard>
+          <Text>{detail.displayName}</Text>
+          <Text>{current}</Text>
+          <Text>{t('wechatSettings.readOnly')}</Text>
+        </AppSectionCard>
       );
     }
     return (
-      <Card className="p-4">
-        <VStack space="xs">
-          <AppInput
-            label={detail.displayName}
-            value={current}
-            onChangeText={setValue}
-            placeholder={detail.description}
-            secureTextEntry={detail.isEncrypted}
-            keyboardType={detail.valueType === SettingValueType.Number ? 'numeric' : 'default'}
-            autoCapitalize="none"
-            error={optionInvalid ? t('wechatSettings.invalidOption') : undefined}
-            testID={`wechat-setting-${detail.name}`}
-          />
-          {detail.valueType === SettingValueType.Option && detail.options.length > 0 ? (
-            <Text>
-              {t('wechatSettings.options')}:{' '}
-              {detail.options.map((option) => option.value).join(', ')}
-            </Text>
-          ) : null}
-          {detail.valueType === SettingValueType.Date ? (
-            <Text>{t('wechatSettings.dateHint')}</Text>
-          ) : null}
-        </VStack>
-      </Card>
+      <AppSectionCard>
+        <AppInput
+          label={detail.displayName}
+          value={current}
+          onChangeText={setValue}
+          placeholder={detail.description}
+          secureTextEntry={detail.isEncrypted}
+          keyboardType={detail.valueType === SettingValueType.Number ? 'numeric' : 'default'}
+          autoCapitalize="none"
+          error={optionInvalid ? t('wechatSettings.invalidOption') : undefined}
+          testID={`wechat-setting-${detail.name}`}
+        />
+        {detail.valueType === SettingValueType.Option && detail.options.length > 0 ? (
+          <Text>
+            {t('wechatSettings.options')}: {detail.options.map((option) => option.value).join(', ')}
+          </Text>
+        ) : null}
+        {detail.valueType === SettingValueType.Date ? (
+          <Text>{t('wechatSettings.dateHint')}</Text>
+        ) : null}
+      </AppSectionCard>
     );
   };
 

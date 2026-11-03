@@ -7,6 +7,7 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -69,26 +70,24 @@ function AttemptRow({
     );
   }
   return (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Link href={`/webhooks/send-attempts/${encodeURIComponent(item.id)}`} asChild>
-          <Pressable>{body}</Pressable>
-        </Link>
-        <AppButton
-          title={t('webhookSendAttempts.resend')}
-          variant="outline"
-          loading={resend.isPending}
-          onPress={() => resend.mutate()}
-        />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={remove.isPending}
-          onPress={() => remove.mutate()}
-        />
-      </VStack>
-    </Card>
+    <AppSectionCard>
+      <Link href={`/webhooks/send-attempts/${encodeURIComponent(item.id)}`} asChild>
+        <Pressable>{body}</Pressable>
+      </Link>
+      <AppButton
+        title={t('webhookSendAttempts.resend')}
+        variant="outline"
+        loading={resend.isPending}
+        onPress={() => resend.mutate()}
+      />
+      <AppButton
+        title={t('common.delete')}
+        action="negative"
+        variant="outline"
+        loading={remove.isPending}
+        onPress={() => remove.mutate()}
+      />
+    </AppSectionCard>
   );
 }
 

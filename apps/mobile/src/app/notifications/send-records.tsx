@@ -6,9 +6,8 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   deleteNotificationSendRecord,
   getNotificationSendRecordsPaged,
@@ -38,51 +37,49 @@ function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
     onSuccess: invalidate,
   });
   return (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Text>{item.notification?.name ?? String(item.id)}</Text>
+    <AppSectionCard>
+      <Text>{item.notification?.name ?? String(item.id)}</Text>
+      <Text>
+        {t('notificationSendRecords.provider')}: {item.provider} ·{' '}
+        {t('notificationSendRecords.state')}: {sendStateName(item.state)}
+      </Text>
+      <Text>
+        {t('notificationSendRecords.user')}: {item.userName}
+      </Text>
+      {item.sendTime ? (
         <Text>
-          {t('notificationSendRecords.provider')}: {item.provider} ·{' '}
-          {t('notificationSendRecords.state')}: {sendStateName(item.state)}
+          {t('notificationSendRecords.sendTime')}: {formatDateTime(item.sendTime)}
         </Text>
+      ) : null}
+      {item.reason ? (
         <Text>
-          {t('notificationSendRecords.user')}: {item.userName}
+          {t('notificationSendRecords.reason')}: {item.reason}
         </Text>
-        {item.sendTime ? (
-          <Text>
-            {t('notificationSendRecords.sendTime')}: {formatDateTime(item.sendTime)}
-          </Text>
-        ) : null}
-        {item.reason ? (
-          <Text>
-            {t('notificationSendRecords.reason')}: {item.reason}
-          </Text>
-        ) : null}
-        <AppButton
-          title={t('notificationSendRecords.reSend')}
-          onPress={() => reSendMutation.mutate()}
-          loading={reSendMutation.isPending}
-          variant="outline"
-        />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('notificationSendRecords.deleteConfirmTitle'),
-              message: t('notificationSendRecords.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
-        />
-        {mutationErrorElement(reSendMutation)}
-        {mutationErrorElement(deleteMutation)}
-      </VStack>
-    </Card>
+      ) : null}
+      <AppButton
+        title={t('notificationSendRecords.reSend')}
+        onPress={() => reSendMutation.mutate()}
+        loading={reSendMutation.isPending}
+        variant="outline"
+      />
+      <AppButton
+        title={t('common.delete')}
+        action="negative"
+        variant="outline"
+        loading={deleteMutation.isPending}
+        onPress={() =>
+          showConfirmDialog({
+            title: t('notificationSendRecords.deleteConfirmTitle'),
+            message: t('notificationSendRecords.deleteConfirmMessage'),
+            confirmText: t('common.delete'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => deleteMutation.mutate(),
+          })
+        }
+      />
+      {mutationErrorElement(reSendMutation)}
+      {mutationErrorElement(deleteMutation)}
+    </AppSectionCard>
   );
 }
 

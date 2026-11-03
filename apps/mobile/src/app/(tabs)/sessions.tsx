@@ -5,9 +5,8 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getSessionsPaged, revokeSession } from '../../features/identity/sessions-api';
 import type { IdentitySessionDto } from '../../features/identity/sessions';
 import { mutationErrorElement } from '../../lib/mutation-error';
@@ -30,47 +29,45 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
     onSuccess: invalidate,
   });
   return (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Text>{item.device}</Text>
-        {item.deviceInfo ? <Text>{item.deviceInfo}</Text> : null}
-        {item.clientId ? (
-          <Text>
-            {t('sessions.client')}: {item.clientId}
-          </Text>
-        ) : null}
-        {item.ipAddresses ? (
-          <Text>
-            {t('sessions.ipAddresses')}: {item.ipAddresses}
-          </Text>
-        ) : null}
+    <AppSectionCard>
+      <Text>{item.device}</Text>
+      {item.deviceInfo ? <Text>{item.deviceInfo}</Text> : null}
+      {item.clientId ? (
         <Text>
-          {t('sessions.signedIn')}: {formatDateTime(item.signedIn)}
+          {t('sessions.client')}: {item.clientId}
         </Text>
-        {item.lastAccessed ? (
-          <Text>
-            {t('sessions.lastAccessed')}: {formatDateTime(item.lastAccessed)}
-          </Text>
-        ) : null}
-        <AppButton
-          title={t('sessions.revoke')}
-          action="negative"
-          variant="outline"
-          loading={revokeMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('sessions.revokeConfirmTitle'),
-              message: t('sessions.revokeConfirmMessage'),
-              confirmText: t('sessions.revoke'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => revokeMutation.mutate(),
-            })
-          }
-          testID={`session-revoke-${item.sessionId}`}
-        />
-        {mutationErrorElement(revokeMutation)}
-      </VStack>
-    </Card>
+      ) : null}
+      {item.ipAddresses ? (
+        <Text>
+          {t('sessions.ipAddresses')}: {item.ipAddresses}
+        </Text>
+      ) : null}
+      <Text>
+        {t('sessions.signedIn')}: {formatDateTime(item.signedIn)}
+      </Text>
+      {item.lastAccessed ? (
+        <Text>
+          {t('sessions.lastAccessed')}: {formatDateTime(item.lastAccessed)}
+        </Text>
+      ) : null}
+      <AppButton
+        title={t('sessions.revoke')}
+        action="negative"
+        variant="outline"
+        loading={revokeMutation.isPending}
+        onPress={() =>
+          showConfirmDialog({
+            title: t('sessions.revokeConfirmTitle'),
+            message: t('sessions.revokeConfirmMessage'),
+            confirmText: t('sessions.revoke'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => revokeMutation.mutate(),
+          })
+        }
+        testID={`session-revoke-${item.sessionId}`}
+      />
+      {mutationErrorElement(revokeMutation)}
+    </AppSectionCard>
   );
 }
 

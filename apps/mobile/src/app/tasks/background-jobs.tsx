@@ -8,9 +8,8 @@ import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
-import { VStack } from '@/components/ui/vstack';
+import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   bulkDeleteBackgroundJobs,
   bulkPauseBackgroundJobs,
@@ -49,24 +48,22 @@ function JobRow({
   onToggle: () => void;
 }) {
   const body = (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Text>
-          {selectMode && isSelected ? '✓ ' : ''}
-          {item.name}
-        </Text>
-        <Text>
-          {item.group} · {item.type}
-        </Text>
-        <Text>
-          {JOB_STATUS_LABELS[item.status] ?? item.status} ·{' '}
-          {JOB_TYPE_LABELS[item.jobType] ?? item.jobType} ·{' '}
-          {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
-          {item.isEnabled ? '' : ' · disabled'}
-        </Text>
-        {item.nextRunTime ? <Text>{formatDateTime(item.nextRunTime)}</Text> : null}
-      </VStack>
-    </Card>
+    <AppSectionCard>
+      <Text>
+        {selectMode && isSelected ? '✓ ' : ''}
+        {item.name}
+      </Text>
+      <Text>
+        {item.group} · {item.type}
+      </Text>
+      <Text>
+        {JOB_STATUS_LABELS[item.status] ?? item.status} ·{' '}
+        {JOB_TYPE_LABELS[item.jobType] ?? item.jobType} ·{' '}
+        {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
+        {item.isEnabled ? '' : ' · disabled'}
+      </Text>
+      {item.nextRunTime ? <Text>{formatDateTime(item.nextRunTime)}</Text> : null}
+    </AppSectionCard>
   );
   if (selectMode) {
     return <Pressable onPress={onToggle}>{body}</Pressable>;

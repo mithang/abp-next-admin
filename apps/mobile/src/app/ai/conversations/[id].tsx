@@ -8,11 +8,10 @@ import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppSectionCard } from '../../../components/ui/AppSectionCard';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { notFoundElement } from '../../../lib/not-found';
-import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   deleteConversation,
   getChatMessagesPaged,
@@ -155,14 +154,12 @@ export default function AIConversationChatScreen() {
           data={bubbles}
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
-            <Card className="p-4">
-              <VStack space="xs">
-                <Text>
-                  {item.role === 'user' ? t('aiConversations.you') : t('aiConversations.assistant')}
-                </Text>
-                <Text>{item.text}</Text>
-              </VStack>
-            </Card>
+            <AppSectionCard>
+              <Text>
+                {item.role === 'user' ? t('aiConversations.you') : t('aiConversations.assistant')}
+              </Text>
+              <Text>{item.text}</Text>
+            </AppSectionCard>
           )}
           {...listRefreshProps(history)}
         />

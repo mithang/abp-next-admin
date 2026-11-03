@@ -9,13 +9,13 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
+import { AppSectionCard } from '../../../components/ui/AppSectionCard';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { keyByName } from '../../../lib/list-keys';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   checkTenantConnectionString,
   deleteTenantConnectionString,
@@ -118,25 +118,23 @@ export default function TenantConnectionStringsScreen() {
   const items = listQuery.data?.items ?? [];
 
   const renderRow = ({ item }: { item: TenantConnectionStringDto }) => (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Text>{item.name}</Text>
-        <Text>{t('saasConnectionStrings.valueHidden')}</Text>
-        <Pressable
-          onPress={() =>
-            showConfirmDialog({
-              title: t('saasConnectionStrings.deleteConfirmTitle'),
-              message: t('saasConnectionStrings.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(item.name),
-            })
-          }
-        >
-          <Text>{t('common.delete')}</Text>
-        </Pressable>
-      </VStack>
-    </Card>
+    <AppSectionCard>
+      <Text>{item.name}</Text>
+      <Text>{t('saasConnectionStrings.valueHidden')}</Text>
+      <Pressable
+        onPress={() =>
+          showConfirmDialog({
+            title: t('saasConnectionStrings.deleteConfirmTitle'),
+            message: t('saasConnectionStrings.deleteConfirmMessage'),
+            confirmText: t('common.delete'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => deleteMutation.mutate(item.name),
+          })
+        }
+      >
+        <Text>{t('common.delete')}</Text>
+      </Pressable>
+    </AppSectionCard>
   );
 
   return (

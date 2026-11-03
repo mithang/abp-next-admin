@@ -7,9 +7,8 @@ import { AppList } from '../../../components/ui/AppList';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppSearchInput } from '../../../components/ui/AppSearchInput';
 import { AppButton } from '../../../components/ui/AppButton';
-import { VStack } from '@/components/ui/vstack';
+import { AppSectionCard } from '../../../components/ui/AppSectionCard';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   deleteSmsMessage,
   getSmsMessagesPaged,
@@ -39,64 +38,62 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
     onSuccess: invalidate,
   });
   return (
-    <Card className="p-4">
-      <VStack space="xs">
-        <Text>{item.receiver}</Text>
+    <AppSectionCard>
+      <Text>{item.receiver}</Text>
+      <Text>
+        {t('platformSmsMessages.provider')}: {item.provider ?? '—'} ·{' '}
+        {t('platformSmsMessages.status')}:{' '}
+        {messageStatusText(t, 'platformSmsMessages', item.status)}
+      </Text>
+      <Text>
+        {t('platformSmsMessages.content')}: {item.content}
+      </Text>
+      {item.sendTime ? (
         <Text>
-          {t('platformSmsMessages.provider')}: {item.provider ?? '—'} ·{' '}
-          {t('platformSmsMessages.status')}:{' '}
-          {messageStatusText(t, 'platformSmsMessages', item.status)}
+          {t('platformSmsMessages.sendTime')}: {formatDateTime(item.sendTime)}
         </Text>
+      ) : null}
+      <Text>
+        {t('platformSmsMessages.sendCount')}: {item.sendCount}
+      </Text>
+      {item.reason ? (
         <Text>
-          {t('platformSmsMessages.content')}: {item.content}
+          {t('platformSmsMessages.reason')}: {item.reason}
         </Text>
-        {item.sendTime ? (
-          <Text>
-            {t('platformSmsMessages.sendTime')}: {formatDateTime(item.sendTime)}
-          </Text>
-        ) : null}
-        <Text>
-          {t('platformSmsMessages.sendCount')}: {item.sendCount}
-        </Text>
-        {item.reason ? (
-          <Text>
-            {t('platformSmsMessages.reason')}: {item.reason}
-          </Text>
-        ) : null}
-        <AppButton
-          title={t('platformSmsMessages.send')}
-          variant="outline"
-          loading={sendMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('platformSmsMessages.sendConfirmTitle'),
-              message: t('platformSmsMessages.sendConfirmMessage'),
-              confirmText: t('platformSmsMessages.send'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => sendMutation.mutate(),
-              destructive: false,
-            })
-          }
-        />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('platformSmsMessages.deleteConfirmTitle'),
-              message: t('platformSmsMessages.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
-        />
-        {mutationErrorElement(sendMutation)}
-        {mutationErrorElement(deleteMutation)}
-      </VStack>
-    </Card>
+      ) : null}
+      <AppButton
+        title={t('platformSmsMessages.send')}
+        variant="outline"
+        loading={sendMutation.isPending}
+        onPress={() =>
+          showConfirmDialog({
+            title: t('platformSmsMessages.sendConfirmTitle'),
+            message: t('platformSmsMessages.sendConfirmMessage'),
+            confirmText: t('platformSmsMessages.send'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => sendMutation.mutate(),
+            destructive: false,
+          })
+        }
+      />
+      <AppButton
+        title={t('common.delete')}
+        action="negative"
+        variant="outline"
+        loading={deleteMutation.isPending}
+        onPress={() =>
+          showConfirmDialog({
+            title: t('platformSmsMessages.deleteConfirmTitle'),
+            message: t('platformSmsMessages.deleteConfirmMessage'),
+            confirmText: t('common.delete'),
+            cancelText: t('common.cancel'),
+            onConfirm: () => deleteMutation.mutate(),
+          })
+        }
+      />
+      {mutationErrorElement(sendMutation)}
+      {mutationErrorElement(deleteMutation)}
+    </AppSectionCard>
   );
 }
 
