@@ -45,6 +45,26 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 58
+
+Vòng P3 gộp 18 dòng lỗi chuỗi-state lặp lại ở 16 màn hình
+ngoài form vào helper `stateErrorElement`
+(`src/lib/state-error.tsx`): `{xError ? <Text>{xError}</Text> :
+null}` thành một lần gọi `{stateErrorElement(xError)}`.
+Helper nhận `string | null | undefined`, falsy -> null đúng
+ngữ nghĩa ternary cũ, message giữ nguyên verbatim (không qua
+`toApiError` như họ mutation). Migrate 18 điểm (16 file, trong
+đó connection-strings 2 dòng set + check và menu-favorites 2
+dòng form theo đúng thứ tự cũ), kiểm chứng 2 chiều: 18 lần gọi
++ 16 import, 0 pattern cũ còn lại; chỉ form cache bỏ import
+`Text` thừa (dòng lỗi là `<Text>` duy nhất của file). Cố tình
+giữ: dòng thành công (`saved`, `saveMessage`, `checkResult`,
+`formMessage` — họ khác), dòng lỗi trong component
+(AppScreen subtitle, ImpersonationBanner, AppSelect label,
+AppFormSubmit — API của component, không phải state màn hình);
+form cache vẫn không dùng cặp AppFormSubmit (giữ nguyên thứ tự
+nút-trước-lỗi như vòng 45), chỉ dòng lỗi đơn lẻ đổi sang helper.
+
 ## Trạng thái vòng 57
 
 Vòng P3 gộp 16 dòng lỗi mutation lặp lại ở 13 màn hình ngoài

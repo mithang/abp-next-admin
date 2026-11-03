@@ -8,7 +8,6 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { setCacheValue } from '../../../features/caching/caching-api';
 import {
   cacheSetFormDefaults,
@@ -17,6 +16,7 @@ import {
   type CacheSetFormValues,
 } from '../../../features/caching/cache-set-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { stateErrorElement } from '../../../lib/state-error';
 import { createFieldError } from '../../../lib/field-error';
 
 /**
@@ -99,7 +99,7 @@ export default function CacheSetFormScreen() {
           loading={mutation.isPending}
           onPress={() => void form.handleSubmit((values) => mutation.mutate(values))()}
         />
-        {submitError ? <Text>{submitError}</Text> : null}
+        {stateErrorElement(submitError)}
       </VStack>
     </AppScreen>
   );

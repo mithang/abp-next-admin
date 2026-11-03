@@ -8,6 +8,7 @@ import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { stateErrorElement } from '../../../lib/state-error';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -226,7 +227,7 @@ export default function BackgroundJobDetailScreen() {
           loading={actionMutation.isPending}
           onPress={() => actionMutation.mutate('start')}
         />
-        {actionError ? <Text>{actionError}</Text> : null}
+        {stateErrorElement(actionError)}
         <AppDeleteButton
           confirmTitle={t('backgroundJobs.deleteConfirmTitle')}
           confirmMessage={t('backgroundJobs.deleteConfirmMessage')}

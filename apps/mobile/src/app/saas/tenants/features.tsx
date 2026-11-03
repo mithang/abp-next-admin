@@ -9,6 +9,7 @@ import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -201,7 +202,7 @@ export default function TenantFeaturesScreen() {
         testID="tenant-feature-reset"
       />
       {saved ? <Text>{t('tenantFeatures.saved')}</Text> : null}
-      {saveError ? <Text>{saveError}</Text> : null}
+      {stateErrorElement(saveError)}
       <FlatList
         data={rows}
         keyExtractor={(row) => row.key}

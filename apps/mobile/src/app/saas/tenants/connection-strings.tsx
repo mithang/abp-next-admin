@@ -10,6 +10,7 @@ import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -168,7 +169,7 @@ export default function TenantConnectionStringsScreen() {
           secureTextEntry
           fieldError={fieldError}
         />
-        {setError ? <Text>{setError}</Text> : null}
+        {stateErrorElement(setError)}
         <AppButton
           title={t('common.save')}
           loading={setMutation.isPending}
@@ -202,7 +203,7 @@ export default function TenantConnectionStringsScreen() {
           fieldError={fieldError}
         />
         {checkResult ? <Text>{checkResult}</Text> : null}
-        {checkError ? <Text>{checkError}</Text> : null}
+        {stateErrorElement(checkError)}
         <AppButton
           title={t('saasConnectionStrings.check')}
           loading={checkMutation.isPending}

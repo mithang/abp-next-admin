@@ -8,6 +8,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -104,7 +105,7 @@ export default function BlobDetailScreen() {
             />
           </>
         ) : null}
-        {openError ? <Text>{openError}</Text> : null}
+        {stateErrorElement(openError)}
         <AppDeleteButton
           confirmTitle={t('blobBlobs.deleteConfirmTitle')}
           confirmMessage={t('blobBlobs.deleteConfirmMessage')}

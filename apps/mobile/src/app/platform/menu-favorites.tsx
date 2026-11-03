@@ -29,6 +29,7 @@ import {
   type UserFavoriteMenuDto,
 } from '../../features/platform/menu-favorites';
 import { toApiError } from '../../lib/errors';
+import { stateErrorElement } from '../../lib/state-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
@@ -217,7 +218,7 @@ function AddFavoriteForm({
         placeholder={t('menuFavorites.iconPlaceholder')}
         autoCapitalize="none"
       />
-      {formError ? <Text>{formError}</Text> : null}
+      {stateErrorElement(formError)}
       {formMessage ? <Text>{formMessage}</Text> : null}
       <AppButton
         title={t('menuFavorites.create')}
@@ -283,7 +284,7 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
           placeholder={t('menuFavorites.iconPlaceholder')}
           autoCapitalize="none"
         />
-        {formError ? <Text>{formError}</Text> : null}
+        {stateErrorElement(formError)}
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <AppButton
             title={t('common.save')}

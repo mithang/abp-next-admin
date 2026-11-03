@@ -7,6 +7,7 @@ import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
+import { stateErrorElement } from '../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getUser } from '../../features/identity/api';
@@ -92,7 +93,7 @@ export default function UserDetailScreen() {
           }
           testID="user-impersonate"
         />
-        {impersonateError ? <Text>{impersonateError}</Text> : null}
+        {stateErrorElement(impersonateError)}
       </VStack>
     </AppScreen>
   );

@@ -20,6 +20,7 @@ import {
 import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { resolveFieldError } from '../../../lib/field-error';
 
@@ -165,7 +166,7 @@ export default function AIConversationChatScreen() {
           {...listRefreshProps(history)}
         />
       )}
-      {streamError ? <Text>{streamError}</Text> : null}
+      {stateErrorElement(streamError)}
       <AppInput
         value={content}
         onChangeText={setContent}

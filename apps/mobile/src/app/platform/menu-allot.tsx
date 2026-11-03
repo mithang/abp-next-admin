@@ -34,6 +34,7 @@ import { getRolesPaged } from '../../features/identity/roles-api';
 import { getUsersPaged } from '../../features/identity/api';
 import { displayName } from '../../features/identity/types';
 import { toggleSelection } from '../../lib/selection';
+import { stateErrorElement } from '../../lib/state-error';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 import { usePagination } from '../../lib/use-pagination';
@@ -160,7 +161,7 @@ function AllotEditor({
         }}
       />
       {saveMessage ? <Text>{saveMessage}</Text> : null}
-      {saveError ? <Text>{saveError}</Text> : null}
+      {stateErrorElement(saveError)}
       <AppButton
         title={t('menuAllot.save')}
         onPress={() => mutation.mutate()}
