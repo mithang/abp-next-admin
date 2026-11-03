@@ -12,8 +12,8 @@ import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { getDatasAll } from '../../features/platform/platform-api';
 import type { DataDto } from '../../features/platform/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 
 /**
  * Danh sách từ điển dữ liệu: đúng bảng web — GET /api/platform/datas/all
@@ -104,10 +104,7 @@ export default function DataDictionariesScreen() {
       />
       <AppList
         items={rows}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('platformDataDictionaries.empty')}
       >
         <FlatList

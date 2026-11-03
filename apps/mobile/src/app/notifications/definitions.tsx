@@ -12,8 +12,8 @@ import { Text } from '@/components/ui/text';
 import { getNotificationDefinitions } from '../../features/notifications/notifications-api';
 import type { NotificationDefinitionDto } from '../../features/notifications/types';
 import { notificationTypeName } from '../../features/notifications/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
@@ -68,10 +68,7 @@ export default function NotificationDefinitionsScreen() {
       <AppNavButton title={t('common.create')} href={'/notifications/definitions/form'} />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('notificationDefinitions.empty')}
       >
         <FlatList

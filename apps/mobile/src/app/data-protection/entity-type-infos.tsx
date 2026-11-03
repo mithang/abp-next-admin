@@ -9,8 +9,8 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { Text } from '@/components/ui/text';
 import { getEntityTypeInfosPaged } from '../../features/auditing/data-protection-api';
 import type { EntityTypeInfoDto } from '../../features/auditing/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
@@ -59,10 +59,7 @@ export default function EntityTypeInfosScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('entityTypeInfos.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

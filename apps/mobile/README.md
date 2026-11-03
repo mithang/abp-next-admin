@@ -45,6 +45,21 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 60
+
+Vòng P3 gộp bộ 4 props trạng thái query lặp lại ở cả 48
+màn hình danh sách dùng AppList vào helper thuần
+`listQueryProps` (`src/lib/list-query-props.ts`):
+`isPending`/`isError`/`errorMessage` (qua `toApiError`)/
+`onRetry` (refetch) thành một lần spread
+`{...listQueryProps(query)}`, chỉ khác tên biến query ở 4
+màn hình (listQuery/menusQuery/identityQuery/
+containersQuery). 44 file bỏ import `toApiError` thừa
+(menu-allot và menu-favorites giữ vì còn dùng ở chỗ
+khác); AppErrorState lẻ ngoài AppList và các màn hình
+detail dùng queryStateElement cố tình không dùng helper
+này. Jest 400/400, i18n parity 1463/1463.
+
 ## Trạng thái vòng 59
 
 Vòng P3 gộp 40 guard không-tìm-thấy lặp lại ở 40 màn hình

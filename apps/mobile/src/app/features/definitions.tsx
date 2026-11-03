@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getFeatureDefinitions } from '../../features/features/feature-definitions-api';
 import type { FeatureDefinitionDto } from '../../features/features/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
@@ -51,10 +51,7 @@ export default function FeatureDefinitionsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('featureDefinitions.empty')}
       >
         <FlatList

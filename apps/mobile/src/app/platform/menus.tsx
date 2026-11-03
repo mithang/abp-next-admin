@@ -13,8 +13,8 @@ import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { getLayoutsPaged, getMenusAll } from '../../features/platform/platform-api';
 import type { MenuDto } from '../../features/platform/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
@@ -127,14 +127,7 @@ export default function MenusScreen() {
         variant="outline"
         testID="platform-menus-favorites"
       />
-      <AppList
-        items={rows}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-        emptyMessage={t('platformMenus.empty')}
-      >
+      <AppList items={rows} {...listQueryProps(query)} emptyMessage={t('platformMenus.empty')}>
         <FlatList
           data={rows}
           keyExtractor={({ item }) => item.id}

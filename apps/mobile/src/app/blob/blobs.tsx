@@ -16,9 +16,9 @@ import {
   uploadBlobFile,
 } from '../../features/blob/blob-api';
 import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../features/blob/types';
-import { toApiError } from '../../lib/errors';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { usePagination } from '../../lib/use-pagination';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 
@@ -113,10 +113,7 @@ export default function BlobsScreen() {
       <AppScreen title={t('blobBlobs.title')} subtitle={t('blobBlobs.chooseContainer')}>
         <AppList
           items={containers}
-          isPending={containersQuery.isPending}
-          isError={containersQuery.isError}
-          errorMessage={toApiError(containersQuery.error).message}
-          onRetry={() => void containersQuery.refetch()}
+          {...listQueryProps(containersQuery)}
           emptyMessage={t('blobContainers.empty')}
         >
           <FlatList
@@ -161,10 +158,7 @@ export default function BlobsScreen() {
       <View style={{ height: 8 }} />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('blobBlobs.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

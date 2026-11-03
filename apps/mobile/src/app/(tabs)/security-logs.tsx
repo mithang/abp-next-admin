@@ -9,8 +9,8 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { Text } from '@/components/ui/text';
 import { getSecurityLogsPaged } from '../../features/identity/security-logs-api';
 import type { SecurityLogDto } from '../../features/identity/security-logs';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -54,10 +54,7 @@ export default function SecurityLogsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('securityLogs.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

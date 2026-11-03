@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getWebhookDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookDefinitionDto } from '../../features/webhooks/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: WebhookDefinitionDto }) {
@@ -75,10 +75,7 @@ export default function WebhookDefinitionsScreen() {
       <View style={{ height: 8 }} />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('webhookDefinitions.empty')}
       >
         <FlatList

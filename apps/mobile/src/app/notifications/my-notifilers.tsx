@@ -18,8 +18,8 @@ import {
   readStateName,
   severityName,
 } from '../../features/notifications/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -109,10 +109,7 @@ export default function MyNotificationsScreen() {
       </VStack>
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('myNotifications.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

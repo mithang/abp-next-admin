@@ -16,9 +16,9 @@ import {
   getWebhookSubscriptionsPaged,
 } from '../../features/webhooks/webhooks-api';
 import type { WebhookSubscriptionDto } from '../../features/webhooks/types';
-import { toApiError } from '../../lib/errors';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useListFilter } from '../../lib/use-list-filter';
@@ -144,10 +144,7 @@ export default function WebhookSubscriptionsScreen() {
       <View style={{ height: 8 }} />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('webhookSubscriptions.empty')}
       >
         <FlatList

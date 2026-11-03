@@ -18,9 +18,9 @@ import {
   resendWebhookSendAttempt,
 } from '../../features/webhooks/webhooks-api';
 import type { WebhookSendRecordDto } from '../../features/webhooks/types';
-import { toApiError } from '../../lib/errors';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
@@ -183,10 +183,7 @@ export default function WebhookSendAttemptsScreen() {
       <View style={{ height: 8 }} />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('webhookSendAttempts.empty')}
       >
         <FlatList

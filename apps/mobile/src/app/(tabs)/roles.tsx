@@ -11,8 +11,8 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getRolesPaged } from '../../features/identity/roles-api';
 import { roleFlags, type IdentityRoleDto } from '../../features/identity/roles-types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function RoleRow({ role }: { role: IdentityRoleDto }) {
@@ -65,10 +65,7 @@ export default function RolesScreen() {
       <AppNavButton title={t('roles.createTitle')} href={'/roles/form'} testID="roles-create" />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('roles.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

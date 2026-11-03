@@ -16,9 +16,9 @@ import {
 } from '../../features/notifications/notifications-api';
 import type { NotificationSendRecordDto } from '../../features/notifications/types';
 import { sendStateName } from '../../features/notifications/types';
-import { toApiError } from '../../lib/errors';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
@@ -130,10 +130,7 @@ export default function NotificationSendRecordsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('notificationSendRecords.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

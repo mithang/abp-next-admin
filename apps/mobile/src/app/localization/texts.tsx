@@ -14,9 +14,9 @@ import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { deleteText, getTexts } from '../../features/localization/localization-api';
 import type { TextDifferenceDto } from '../../features/localization/types';
-import { toApiError } from '../../lib/errors';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 
@@ -123,14 +123,7 @@ export default function TextsScreen() {
       {!applied || !applied.cultureName || !applied.targetCultureName ? (
         <Text>{t('texts.searchHint')}</Text>
       ) : (
-        <AppList
-          items={items}
-          isPending={query.isPending}
-          isError={query.isError}
-          errorMessage={toApiError(query.error).message}
-          onRetry={() => void query.refetch()}
-          emptyMessage={t('texts.empty')}
-        >
+        <AppList items={items} {...listQueryProps(query)} emptyMessage={t('texts.empty')}>
           <FlatList
             data={items}
             keyExtractor={(item) => `${item.resourceName}:${item.key}`}

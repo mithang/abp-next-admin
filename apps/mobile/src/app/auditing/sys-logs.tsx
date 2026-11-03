@@ -10,8 +10,8 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { Text } from '@/components/ui/text';
 import { getSysLogsPaged } from '../../features/auditing/auditing-api';
 import { logLevelName, type LogDto } from '../../features/auditing/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { usePagination } from '../../lib/use-pagination';
@@ -70,10 +70,7 @@ export default function SysLogsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('sysLogs.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

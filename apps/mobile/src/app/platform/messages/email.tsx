@@ -12,8 +12,8 @@ import { AppSearchInput } from '../../../components/ui/AppSearchInput';
 import { Text } from '@/components/ui/text';
 import { getEmailMessagesPaged } from '../../../features/platform/platform-api';
 import type { EmailMessageDto } from '../../../features/platform/types';
-import { toApiError } from '../../../lib/errors';
 import { listRefreshProps } from '../../../lib/list-refresh';
+import { listQueryProps } from '../../../lib/list-query-props';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
@@ -139,10 +139,7 @@ export default function EmailMessagesScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('platformEmailMessages.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

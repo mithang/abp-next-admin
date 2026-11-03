@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getPermissionGroups } from '../../features/permissions/permission-groups-api';
 import type { PermissionGroupDefinitionDto } from '../../features/permissions/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
@@ -53,14 +53,7 @@ export default function PermissionGroupsScreen() {
         placeholder={t('permissionGroups.searchPlaceholder')}
         testID="permission-groups-search"
       />
-      <AppList
-        items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-        emptyMessage={t('permissionGroups.empty')}
-      >
+      <AppList items={items} {...listQueryProps(query)} emptyMessage={t('permissionGroups.empty')}>
         <FlatList
           data={items}
           keyExtractor={(item) => item.name}

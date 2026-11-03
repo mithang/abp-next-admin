@@ -12,8 +12,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -87,10 +87,7 @@ export default function LayoutsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('platformLayouts.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

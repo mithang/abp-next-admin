@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getNotificationGroups } from '../../features/notifications/notifications-api';
 import type { NotificationGroupDefinitionDto } from '../../features/notifications/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: NotificationGroupDefinitionDto }) {
@@ -52,10 +52,7 @@ export default function NotificationGroupsScreen() {
       <AppNavButton title={t('common.create')} href={'/notifications/groups/form'} />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('notificationGroups.empty')}
       >
         <FlatList

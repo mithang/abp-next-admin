@@ -11,8 +11,8 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getClaimTypesPaged } from '../../features/identity/claim-types-api';
 import { valueTypeKey, type IdentityClaimTypeDto } from '../../features/identity/claim-types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ClaimTypeRow({ item }: { item: IdentityClaimTypeDto }) {
@@ -68,10 +68,7 @@ export default function ClaimTypesScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('claimTypes.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

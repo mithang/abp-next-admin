@@ -10,8 +10,8 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getAuthorizationsPaged } from '../../features/openiddict/authorizations-api';
 import type { OpenIddictAuthorizationDto } from '../../features/openiddict/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 /**
@@ -69,10 +69,7 @@ export default function AuthorizationsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('openiddictAuthorizations.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

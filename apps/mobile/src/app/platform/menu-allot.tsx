@@ -36,6 +36,7 @@ import { displayName } from '../../features/identity/types';
 import { toggleSelection } from '../../lib/selection';
 import { stateErrorElement } from '../../lib/state-error';
 import { toApiError } from '../../lib/errors';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 import { usePagination } from '../../lib/use-pagination';
 
@@ -287,10 +288,7 @@ export default function MenuAllotScreen() {
           />
           <AppList
             items={identityQuery.data?.items ?? []}
-            isPending={identityQuery.isPending}
-            isError={identityQuery.isError}
-            errorMessage={toApiError(identityQuery.error).message}
-            onRetry={() => void identityQuery.refetch()}
+            {...listQueryProps(identityQuery)}
             emptyMessage={t('menuAllot.identityEmpty')}
             hasMore={hasMoreIdentities(identityQuery.data?.totalCount ?? 0)}
             onLoadMore={loadMoreIdentities}

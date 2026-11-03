@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getFeatureGroups } from '../../features/features/feature-groups-api';
 import type { FeatureGroupDefinitionDto } from '../../features/features/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: FeatureGroupDefinitionDto }) {
@@ -50,14 +50,7 @@ export default function FeatureGroupsScreen() {
         placeholder={t('featureGroups.searchPlaceholder')}
         testID="feature-groups-search"
       />
-      <AppList
-        items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-        emptyMessage={t('featureGroups.empty')}
-      >
+      <AppList items={items} {...listQueryProps(query)} emptyMessage={t('featureGroups.empty')}>
         <FlatList
           data={items}
           keyExtractor={(item) => item.name}

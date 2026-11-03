@@ -10,9 +10,9 @@ import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { getSessionsPaged, revokeSession } from '../../features/identity/sessions-api';
 import type { IdentitySessionDto } from '../../features/identity/sessions';
-import { toApiError } from '../../lib/errors';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
@@ -101,10 +101,7 @@ export default function SessionsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('sessions.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

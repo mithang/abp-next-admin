@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getWebhookGroupDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookGroupDefinitionDto } from '../../features/webhooks/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
@@ -59,14 +59,7 @@ export default function WebhookGroupsScreen() {
         testID="webhook-groups-create"
       />
       <View style={{ height: 8 }} />
-      <AppList
-        items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-        emptyMessage={t('webhookGroups.empty')}
-      >
+      <AppList items={items} {...listQueryProps(query)} emptyMessage={t('webhookGroups.empty')}>
         <FlatList
           data={items}
           keyExtractor={(item) => item.name}

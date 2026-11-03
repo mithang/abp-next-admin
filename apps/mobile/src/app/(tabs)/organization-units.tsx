@@ -13,8 +13,8 @@ import {
   flattenOrganizationUnits,
   type FlattenedOrganizationUnit,
 } from '../../features/identity/organization-units';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 
 function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
   const { unit, depth } = item;
@@ -50,14 +50,7 @@ export default function OrganizationUnitsScreen() {
       title={t('organizationUnits.title')}
       subtitle={`${t('organizationUnits.total')}: ${flat.length}`}
     >
-      <AppList
-        items={flat}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
-        emptyMessage={t('organizationUnits.empty')}
-      >
+      <AppList items={flat} {...listQueryProps(query)} emptyMessage={t('organizationUnits.empty')}>
         <FlatList
           data={flat}
           keyExtractor={(item) => item.unit.id}

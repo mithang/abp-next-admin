@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getConversationsPaged } from '../../features/ai/ai-api';
 import type { ConversationDto } from '../../features/ai/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ConversationRow({ item }: { item: ConversationDto }) {
@@ -68,10 +68,7 @@ export default function AIConversationsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('aiConversations.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

@@ -17,7 +17,7 @@ import {
   removeCacheKey,
   removeCacheKeys,
 } from '../../features/caching/caching-api';
-import { toApiError } from '../../lib/errors';
+import { listQueryProps } from '../../lib/list-query-props';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
@@ -150,10 +150,7 @@ export default function CacheKeysScreen() {
       <AppNavButton title={t('caches.setValue')} href={'/cache/caches/form'} variant="outline" />
       <AppList
         items={keys}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('caches.empty')}
         hasMore={Boolean(nextMarker)}
         onLoadMore={() => {

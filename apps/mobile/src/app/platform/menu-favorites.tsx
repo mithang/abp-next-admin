@@ -31,6 +31,7 @@ import {
 import { toApiError } from '../../lib/errors';
 import { stateErrorElement } from '../../lib/state-error';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
@@ -173,10 +174,7 @@ function AddFavoriteForm({
       />
       <AppList
         items={visibleRows}
-        isPending={menusQuery.isPending}
-        isError={menusQuery.isError}
-        errorMessage={toApiError(menusQuery.error).message}
-        onRetry={() => void menusQuery.refetch()}
+        {...listQueryProps(menusQuery)}
         emptyMessage={t('menuFavorites.menuEmpty')}
       >
         <FlatList
@@ -379,14 +377,7 @@ export default function MenuFavoritesScreen() {
       {editingItem ? (
         <EditFavoriteForm item={editingItem} onDone={() => setEditingItem(null)} />
       ) : null}
-      <AppList
-        items={items}
-        isPending={listQuery.isPending}
-        isError={listQuery.isError}
-        errorMessage={toApiError(listQuery.error).message}
-        onRetry={() => void listQuery.refetch()}
-        emptyMessage={t('menuFavorites.empty')}
-      >
+      <AppList items={items} {...listQueryProps(listQuery)} emptyMessage={t('menuFavorites.empty')}>
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}

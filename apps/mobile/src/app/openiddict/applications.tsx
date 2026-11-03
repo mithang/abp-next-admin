@@ -11,8 +11,8 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getApplicationsPaged } from '../../features/openiddict/applications-api';
 import type { OpenIddictApplicationDto } from '../../features/openiddict/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
@@ -67,10 +67,7 @@ export default function ApplicationsScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('openiddictApplications.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

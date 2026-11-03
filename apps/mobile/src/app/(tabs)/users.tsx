@@ -10,8 +10,8 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getUsersPaged } from '../../features/identity/api';
 import { displayName, type IdentityUserDto } from '../../features/identity/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function UserRow({ user }: { user: IdentityUserDto }) {
@@ -59,10 +59,7 @@ export default function UsersScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('users.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}

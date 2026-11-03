@@ -10,8 +10,8 @@ import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getLanguagesPaged } from '../../features/localization/localization-api';
 import type { LanguageDto } from '../../features/localization/types';
-import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
+import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function LanguageRow({ item }: { item: LanguageDto }) {
@@ -62,10 +62,7 @@ export default function LanguagesScreen() {
       />
       <AppList
         items={items}
-        isPending={query.isPending}
-        isError={query.isError}
-        errorMessage={toApiError(query.error).message}
-        onRetry={() => void query.refetch()}
+        {...listQueryProps(query)}
         emptyMessage={t('languages.empty')}
         hasMore={hasMore(total)}
         onLoadMore={loadMore}
