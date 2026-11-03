@@ -1,8 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -10,23 +11,15 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { deleteClaimType, getClaimType } from '../../features/identity/claim-types-api';
 import { valueTypeKey } from '../../features/identity/claim-types';
-import { toApiError } from '../../lib/errors';
-import { showConfirmDialog } from '../../lib/confirm';
-import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function ClaimTypeDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['claim-types']);
   const query = useQuery({
     queryKey: ['claim-types', id],
     queryFn: () => getClaimType(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteClaimType(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -64,25 +57,13 @@ export default function ClaimTypeDetailScreen() {
               variant="outline"
               testID="claim-type-edit"
             />
-            <AppButton
-              title={t('common.delete')}
-              action="negative"
-              variant="outline"
-              loading={deleteMutation.isPending}
-              onPress={() =>
-                showConfirmDialog({
-                  title: t('claimTypes.deleteConfirmTitle'),
-                  message: t('claimTypes.deleteConfirmMessage'),
-                  confirmText: t('common.delete'),
-                  cancelText: t('common.cancel'),
-                  onConfirm: () => deleteMutation.mutate(),
-                })
-              }
+            <AppDeleteButton
+              confirmTitle={t('claimTypes.deleteConfirmTitle')}
+              confirmMessage={t('claimTypes.deleteConfirmMessage')}
+              onDelete={() => deleteClaimType(id)}
+              invalidateKey={['claim-types']}
               testID="claim-type-delete"
             />
-            {deleteMutation.isError ? (
-              <Text>{toApiError(deleteMutation.error).message}</Text>
-            ) : null}
           </>
         ) : null}
       </VStack>

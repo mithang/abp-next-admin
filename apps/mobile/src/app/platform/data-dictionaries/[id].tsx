@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState, AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -12,7 +13,7 @@ import { deleteData, deleteDataItem, getData } from '../../../features/platform/
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết từ điển: code do backend sinh (chỉ đọc), tên/tên hiển thị/
@@ -26,15 +27,10 @@ export default function DataDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const invalidate = useInvalidateQueries(['platform-datas', id]);
-  const invalidateAndBack = useInvalidateAndBack(['platform-datas']);
   const query = useQuery({
     queryKey: ['platform-datas', id],
     queryFn: () => getData(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteData(id),
-    onSuccess: invalidateAndBack,
   });
   const deleteItemMutation = useMutation({
     mutationFn: (name: string) => deleteDataItem(id, name),
@@ -81,23 +77,13 @@ export default function DataDetailScreen() {
           }
           variant="outline"
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('platformDataDictionaries.deleteConfirmTitle'),
-              message: t('platformDataDictionaries.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('platformDataDictionaries.deleteConfirmTitle')}
+          confirmMessage={t('platformDataDictionaries.deleteConfirmMessage')}
+          onDelete={() => deleteData(id)}
+          invalidateKey={['platform-datas']}
           testID="platform-data-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
         <Text>{t('platformDataItems.title')}</Text>
         <AppButton
           title={t('platformDataItems.createTitle')}

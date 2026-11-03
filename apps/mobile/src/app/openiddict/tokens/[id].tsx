@@ -1,18 +1,14 @@
 import { useLocalSearchParams } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteToken, getToken } from '../../../features/openiddict/tokens-api';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Detail token chỉ hiển thị metadata — KHÔNG hiển thị payload token
@@ -20,16 +16,11 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
  */
 export default function TokenDetailScreen() {
   const { t } = useTranslation();
-  const invalidateAndBack = useInvalidateAndBack(['openiddict-tokens']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-tokens', id],
     queryFn: () => getToken(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteToken(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -58,23 +49,13 @@ export default function TokenDetailScreen() {
           label={t('openiddictTokens.expirationDate')}
           value={formatDateTime(token.expirationDate)}
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('openiddictTokens.deleteConfirmTitle'),
-              message: t('openiddictTokens.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('openiddictTokens.deleteConfirmTitle')}
+          confirmMessage={t('openiddictTokens.deleteConfirmMessage')}
+          onDelete={() => deleteToken(id)}
+          invalidateKey={['openiddict-tokens']}
           testID="token-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

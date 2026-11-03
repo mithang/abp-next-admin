@@ -1,31 +1,23 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteApplication, getApplication } from '../../../features/openiddict/applications-api';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function ApplicationDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['openiddict-applications']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-applications', id],
     queryFn: () => getApplication(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteApplication(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -72,23 +64,13 @@ export default function ApplicationDetailScreen() {
           variant="outline"
           testID="application-edit"
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('openiddictApplications.deleteConfirmTitle'),
-              message: t('openiddictApplications.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('openiddictApplications.deleteConfirmTitle')}
+          confirmMessage={t('openiddictApplications.deleteConfirmMessage')}
+          onDelete={() => deleteApplication(id)}
+          invalidateKey={['openiddict-applications']}
           testID="application-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

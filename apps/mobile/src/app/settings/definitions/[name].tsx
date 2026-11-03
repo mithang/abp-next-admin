@@ -1,9 +1,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -12,9 +13,6 @@ import {
   deleteSettingDefinition,
   getSettingDefinition,
 } from '../../../features/settings/settings-definitions-api';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết định nghĩa cài đặt. Modal web ẩn nút xác nhận với định nghĩa
@@ -24,16 +22,11 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function SettingDefinitionDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['setting-definitions']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['setting-definitions', name],
     queryFn: () => getSettingDefinition(name),
     enabled: Boolean(name),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteSettingDefinition(name),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -76,25 +69,15 @@ export default function SettingDefinitionDetailScreen() {
               variant="outline"
               testID="setting-definition-edit"
             />
-            <AppButton
-              title={t('common.delete')}
-              action="negative"
-              variant="outline"
-              loading={deleteMutation.isPending}
-              onPress={() =>
-                showConfirmDialog({
-                  title: t('settingDefinitions.deleteConfirmTitle'),
-                  message: t('settingDefinitions.deleteConfirmMessage'),
-                  confirmText: t('common.delete'),
-                  cancelText: t('common.cancel'),
-                  onConfirm: () => deleteMutation.mutate(),
-                })
-              }
+            <AppDeleteButton
+              confirmTitle={t('settingDefinitions.deleteConfirmTitle')}
+              confirmMessage={t('settingDefinitions.deleteConfirmMessage')}
+              onDelete={() => deleteSettingDefinition(name)}
+              invalidateKey={['setting-definitions']}
               testID="setting-definition-delete"
             />
           </>
         ) : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

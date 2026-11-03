@@ -1,17 +1,15 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteFeatureGroup, getFeatureGroup } from '../../../features/features/feature-groups-api';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết nhóm tính năng. Modal web vô hiệu mọi field và ẩn nút xác nhận
@@ -20,16 +18,11 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function FeatureGroupDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['feature-groups']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['feature-groups', name],
     queryFn: () => getFeatureGroup(name),
     enabled: Boolean(name),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteFeatureGroup(name),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -54,25 +47,15 @@ export default function FeatureGroupDetailScreen() {
               variant="outline"
               testID="feature-group-edit"
             />
-            <AppButton
-              title={t('common.delete')}
-              action="negative"
-              variant="outline"
-              loading={deleteMutation.isPending}
-              onPress={() =>
-                showConfirmDialog({
-                  title: t('featureGroups.deleteConfirmTitle'),
-                  message: t('featureGroups.deleteConfirmMessage'),
-                  confirmText: t('common.delete'),
-                  cancelText: t('common.cancel'),
-                  onConfirm: () => deleteMutation.mutate(),
-                })
-              }
+            <AppDeleteButton
+              confirmTitle={t('featureGroups.deleteConfirmTitle')}
+              confirmMessage={t('featureGroups.deleteConfirmMessage')}
+              onDelete={() => deleteFeatureGroup(name)}
+              invalidateKey={['feature-groups']}
               testID="feature-group-delete"
             />
           </>
         ) : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

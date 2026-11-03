@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -13,9 +14,8 @@ import {
   removeCacheKey,
 } from '../../../features/caching/caching-api';
 import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết giá trị cache: GET /api/caching-management/cache/value?key=...
@@ -28,7 +28,6 @@ export default function CacheValueDetailScreen() {
   const { key } = useLocalSearchParams<{ key: string }>();
   const router = useRouter();
   const invalidate = useInvalidateQueries(['cache-values', key]);
-  const invalidateAndBack = useInvalidateAndBack(['cache-keys']);
   const query = useQuery({
     queryKey: ['cache-values', key],
     queryFn: () => getCacheValue({ key: key as string }),
@@ -37,10 +36,6 @@ export default function CacheValueDetailScreen() {
   const refreshMutation = useMutation({
     mutationFn: () => refreshCacheKey({ key: key as string }),
     onSuccess: invalidate,
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => removeCacheKey({ key: key as string }),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -74,23 +69,13 @@ export default function CacheValueDetailScreen() {
           variant="outline"
           onPress={() => router.push(`/cache/caches/form?key=${encodeURIComponent(key as string)}`)}
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('caches.deleteConfirmTitle'),
-              message: t('caches.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('caches.deleteConfirmTitle')}
+          confirmMessage={t('caches.deleteConfirmMessage')}
+          onDelete={() => removeCacheKey({ key: key as string })}
+          invalidateKey={['cache-keys']}
         />
         {refreshMutation.isError ? <Text>{toApiError(refreshMutation.error).message}</Text> : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

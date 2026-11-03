@@ -4,9 +4,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
-import { useInvalidateAndBack, useInvalidateQueries } from '../../../lib/mutation-success';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -52,13 +53,7 @@ export default function BackgroundJobDetailScreen() {
   });
 
   const invalidate = useInvalidateQueries(['tasks-background-jobs']);
-  const invalidateAndBack = useInvalidateAndBack(['tasks-background-jobs']);
   const invalidateLogs = useInvalidateQueries(['tasks-background-job-logs']);
-
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteBackgroundJob(id),
-    onSuccess: invalidateAndBack,
-  });
 
   const {
     page: logPage,
@@ -234,22 +229,12 @@ export default function BackgroundJobDetailScreen() {
           onPress={() => actionMutation.mutate('start')}
         />
         {actionError ? <Text>{actionError}</Text> : null}
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('backgroundJobs.deleteConfirmTitle'),
-              message: t('backgroundJobs.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('backgroundJobs.deleteConfirmTitle')}
+          confirmMessage={t('backgroundJobs.deleteConfirmMessage')}
+          onDelete={() => deleteBackgroundJob(id)}
+          invalidateKey={['tasks-background-jobs']}
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
         <Text>{t('backgroundJobs.jobLogs')}</Text>
         {logsQuery.isPending ? (
           <AppLoading />

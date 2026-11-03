@@ -1,16 +1,14 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteTenant, getTenant } from '../../../features/saas/saas-api';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết tenant. Nút "Chuỗi kết nối" mở màn quản lý connection string
@@ -24,15 +22,10 @@ export default function TenantDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['saas-tenants']);
   const query = useQuery({
     queryKey: ['saas-tenants', id],
     queryFn: () => getTenant(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteTenant(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -103,23 +96,13 @@ export default function TenantDetailScreen() {
           variant="outline"
           testID="saas-tenant-impersonate"
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('saasTenants.deleteConfirmTitle'),
-              message: t('saasTenants.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('saasTenants.deleteConfirmTitle')}
+          confirmMessage={t('saasTenants.deleteConfirmMessage')}
+          onDelete={() => deleteTenant(id)}
+          invalidateKey={['saas-tenants']}
           testID="saas-tenant-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

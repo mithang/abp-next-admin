@@ -45,6 +45,33 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 51
+
+Vòng P3 chuẩn hóa nút xóa của màn hình chi tiết: 32 khối
+`useMutation` + `useInvalidateAndBack` + nút AppButton
+negative/outline + `showConfirmDialog` + dòng lỗi nay gộp
+thành `src/components/ui/AppDeleteButton.tsx` (nhận
+confirmTitle/confirmMessage/onDelete/invalidateKey/testID;
+bên trong tự làm mutation, invalidate rồi quay lại, hiện
+dòng lỗi ngay dưới nút). Cố tình KHÔNG migrate các khối
+xóa khác khuôn: xóa theo dòng ở màn hình list, xóa có
+onError riêng (webhook, text-templating), xóa hàng loạt,
+và các thao tác không phải xóa (gửi lại, làm mới, thu hồi
+phiên). Bài học thật trong vòng: script migrate từng mắc
+2 bug — nhân đôi indent dòng đầu (bài học vòng 50, đã sửa
+rồi checkout lại toàn bộ `src/app` và migrate lại sạch)
+và prune import đếm cả chính dòng import nên không prune
+được gì (đã sửa bằng cách kiểm tra token trên bản đã bỏ
+dòng import đó, cộng sửa tay 5 import gộp
+`useInvalidateAndBack`/`useInvalidateQueries`); test mới
+từng fail vì chuỗi fallback `errors.unexpected` đầy đủ dài
+hơn chuỗi đoán ban đầu. 3 ngoại lệ vị trí dòng lỗi có chủ
+ý: conversations (dòng lỗi từ cuối màn hình về ngay dưới
+nút), cache chi tiết (dòng lỗi refresh/xóa đổi chỗ nhau),
+các màn hình nút xóa trong fragment điều kiện (dòng lỗi
+vào trong fragment, tương đương vì mutation chỉ gọi được
+khi fragment đang render).
+
 ## Trạng thái vòng 50
 
 Vòng P3 chuẩn hóa switch và select của form: 23 khối

@@ -1,9 +1,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -12,9 +13,6 @@ import {
   deletePermissionGroup,
   getPermissionGroup,
 } from '../../../features/permissions/permission-groups-api';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết nhóm quyền. Web cho sửa nhóm tĩnh nhưng cấm xóa
@@ -23,16 +21,11 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function PermissionGroupDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['permission-groups']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['permission-groups', name],
     queryFn: () => getPermissionGroup(name),
     enabled: Boolean(name),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deletePermissionGroup(name),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -56,24 +49,14 @@ export default function PermissionGroupDetailScreen() {
           testID="permission-group-edit"
         />
         {!item.isStatic ? (
-          <AppButton
-            title={t('common.delete')}
-            action="negative"
-            variant="outline"
-            loading={deleteMutation.isPending}
-            onPress={() =>
-              showConfirmDialog({
-                title: t('permissionGroups.deleteConfirmTitle'),
-                message: t('permissionGroups.deleteConfirmMessage'),
-                confirmText: t('common.delete'),
-                cancelText: t('common.cancel'),
-                onConfirm: () => deleteMutation.mutate(),
-              })
-            }
+          <AppDeleteButton
+            confirmTitle={t('permissionGroups.deleteConfirmTitle')}
+            confirmMessage={t('permissionGroups.deleteConfirmMessage')}
+            onDelete={() => deletePermissionGroup(name)}
+            invalidateKey={['permission-groups']}
             testID="permission-group-delete"
           />
         ) : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

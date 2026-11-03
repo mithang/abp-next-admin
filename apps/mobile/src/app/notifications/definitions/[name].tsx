@@ -1,8 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -16,23 +17,15 @@ import {
   lifetimeName,
   notificationTypeName,
 } from '../../../features/notifications/types';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 export default function NotificationDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useLocalSearchParams<{ name: string }>();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['notification-definitions']);
   const query = useQuery({
     queryKey: ['notification-definitions', name],
     queryFn: () => getNotificationDefinition(name),
     enabled: Boolean(name),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteNotificationDefinition(name),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -92,25 +85,15 @@ export default function NotificationDefinitionDetailScreen() {
               }
               variant="outline"
             />
-            <AppButton
-              title={t('common.delete')}
-              action="negative"
-              variant="outline"
-              loading={deleteMutation.isPending}
-              onPress={() =>
-                showConfirmDialog({
-                  title: t('notificationDefinitions.deleteConfirmTitle'),
-                  message: t('notificationDefinitions.deleteConfirmMessage'),
-                  confirmText: t('common.delete'),
-                  cancelText: t('common.cancel'),
-                  onConfirm: () => deleteMutation.mutate(),
-                })
-              }
+            <AppDeleteButton
+              confirmTitle={t('notificationDefinitions.deleteConfirmTitle')}
+              confirmMessage={t('notificationDefinitions.deleteConfirmMessage')}
+              onDelete={() => deleteNotificationDefinition(name)}
+              invalidateKey={['notification-definitions']}
               testID="notification-definition-delete"
             />
           </>
         ) : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

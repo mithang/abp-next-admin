@@ -1,17 +1,15 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteWorkspace, getWorkspace } from '../../../features/ai/ai-api';
 import { isReadOnlyWorkspace } from '../../../features/ai/types';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết không gian làm việc. DTO trả về KHÔNG chứa apiKey nên màn này
@@ -23,15 +21,10 @@ export default function AIWorkspaceDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['ai-workspaces']);
   const query = useQuery({
     queryKey: ['ai-workspaces', id],
     queryFn: () => getWorkspace(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteWorkspace(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -121,23 +114,13 @@ export default function AIWorkspaceDetailScreen() {
         ) : (
           <Text>{t('aiWorkspaces.readOnlyHint')}</Text>
         )}
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('aiWorkspaces.deleteConfirmTitle'),
-              message: t('aiWorkspaces.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('aiWorkspaces.deleteConfirmTitle')}
+          confirmMessage={t('aiWorkspaces.deleteConfirmMessage')}
+          onDelete={() => deleteWorkspace(id)}
+          invalidateKey={['ai-workspaces']}
           testID="ai-workspace-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

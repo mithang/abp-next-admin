@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -22,15 +23,13 @@ import {
   severityName,
 } from '../../../features/notifications/types';
 import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 
 export default function MyNotificationDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['my-notifications']);
-  const invalidateAndBack = useInvalidateAndBack(['my-notifications']);
   const query = useQuery({
     queryKey: ['my-notifications', id],
     queryFn: () => getMyNotification(id),
@@ -40,10 +39,6 @@ export default function MyNotificationDetailScreen() {
   const markMutation = useMutation({
     mutationFn: (state: NotificationReadState) => markMyNotificationsRead({ idList: [id], state }),
     onSuccess: invalidate,
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteMyNotification(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -103,23 +98,13 @@ export default function MyNotificationDetailScreen() {
           testID="my-notification-mark"
         />
         {markMutation.isError ? <Text>{toApiError(markMutation.error).message}</Text> : null}
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('myNotifications.deleteConfirmTitle'),
-              message: t('myNotifications.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('myNotifications.deleteConfirmTitle')}
+          confirmMessage={t('myNotifications.deleteConfirmMessage')}
+          onDelete={() => deleteMyNotification(id)}
+          invalidateKey={['my-notifications']}
           testID="my-notification-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

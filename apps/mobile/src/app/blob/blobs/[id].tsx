@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { useLocalSearchParams } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -17,10 +18,7 @@ import {
 } from '../../../features/blob/blob-api';
 import { BLOB_TYPE_FOLDER } from '../../../features/blob/types';
 import { config } from '../../../lib/config';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
  * Chi tiết blob: đúng BlobDto backend (name/fullName/type/contentType/
@@ -33,18 +31,12 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function BlobDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const invalidateAndBack = useInvalidateAndBack(['blob-blobs']);
   const [openError, setOpenError] = useState<string | null>(null);
 
   const query = useQuery({
     queryKey: ['blob-blobs', id],
     queryFn: () => getBlob(id),
     enabled: Boolean(id),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteBlob(id),
-    onSuccess: invalidateAndBack,
   });
 
   const openGeneratedUrl = async (kind: 'download' | 'preview') => {
@@ -113,22 +105,12 @@ export default function BlobDetailScreen() {
           </>
         ) : null}
         {openError ? <Text>{openError}</Text> : null}
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('blobBlobs.deleteConfirmTitle'),
-              message: t('blobBlobs.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('blobBlobs.deleteConfirmTitle')}
+          confirmMessage={t('blobBlobs.deleteConfirmMessage')}
+          onDelete={() => deleteBlob(id)}
+          invalidateKey={['blob-blobs']}
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

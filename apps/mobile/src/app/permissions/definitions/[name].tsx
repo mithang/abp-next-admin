@@ -1,9 +1,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -13,9 +14,6 @@ import {
   getPermissionDefinition,
 } from '../../../features/permissions/permission-definitions-api';
 import { MultiTenancySides } from '../../../features/permissions/types';
-import { toApiError } from '../../../lib/errors';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 function multiTenancySideLabel(side: MultiTenancySides): string {
   if (side === MultiTenancySides.Host) return 'Host';
@@ -30,16 +28,11 @@ function multiTenancySideLabel(side: MultiTenancySides): string {
 export default function PermissionDefinitionDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['permission-definitions']);
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['permission-definitions', name],
     queryFn: () => getPermissionDefinition(name),
     enabled: Boolean(name),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deletePermissionDefinition(name),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -85,24 +78,14 @@ export default function PermissionDefinitionDetailScreen() {
           testID="permission-definition-edit"
         />
         {!item.isStatic ? (
-          <AppButton
-            title={t('common.delete')}
-            action="negative"
-            variant="outline"
-            loading={deleteMutation.isPending}
-            onPress={() =>
-              showConfirmDialog({
-                title: t('permissionDefinitions.deleteConfirmTitle'),
-                message: t('permissionDefinitions.deleteConfirmMessage'),
-                confirmText: t('common.delete'),
-                cancelText: t('common.cancel'),
-                onConfirm: () => deleteMutation.mutate(),
-              })
-            }
+          <AppDeleteButton
+            confirmTitle={t('permissionDefinitions.deleteConfirmTitle')}
+            confirmMessage={t('permissionDefinitions.deleteConfirmMessage')}
+            onDelete={() => deletePermissionDefinition(name)}
+            invalidateKey={['permission-definitions']}
             testID="permission-definition-delete"
           />
         ) : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

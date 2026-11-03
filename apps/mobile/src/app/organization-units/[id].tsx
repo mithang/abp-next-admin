@@ -1,8 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -13,15 +14,11 @@ import {
   getOrganizationUnitsAll,
 } from '../../features/identity/organization-units-api';
 import { findOrganizationUnitName } from '../../features/identity/organization-units';
-import { toApiError } from '../../lib/errors';
-import { showConfirmDialog } from '../../lib/confirm';
-import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function OrganizationUnitDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['organization-units']);
   const query = useQuery({
     queryKey: ['organization-units', id],
     queryFn: () => getOrganizationUnit(id),
@@ -30,10 +27,6 @@ export default function OrganizationUnitDetailScreen() {
   const all = useQuery({
     queryKey: ['organization-units', 'all'],
     queryFn: getOrganizationUnitsAll,
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteOrganizationUnit(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -66,23 +59,13 @@ export default function OrganizationUnitDetailScreen() {
           variant="outline"
           testID="organization-unit-create-child"
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('organizationUnits.deleteConfirmTitle'),
-              message: t('organizationUnits.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('organizationUnits.deleteConfirmTitle')}
+          confirmMessage={t('organizationUnits.deleteConfirmMessage')}
+          onDelete={() => deleteOrganizationUnit(id)}
+          invalidateKey={['organization-units']}
           testID="organization-unit-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

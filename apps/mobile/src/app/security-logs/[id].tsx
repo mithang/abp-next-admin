@@ -1,30 +1,22 @@
 import { useLocalSearchParams } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteSecurityLog, getSecurityLog } from '../../features/identity/security-logs-api';
-import { toApiError } from '../../lib/errors';
-import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
-import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function SecurityLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const invalidateAndBack = useInvalidateAndBack(['security-logs']);
   const query = useQuery({
     queryKey: ['security-logs', id],
     queryFn: () => getSecurityLog(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteSecurityLog(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -65,23 +57,13 @@ export default function SecurityLogDetailScreen() {
             {t('securityLogs.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('securityLogs.deleteConfirmTitle'),
-              message: t('securityLogs.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('securityLogs.deleteConfirmTitle')}
+          confirmMessage={t('securityLogs.deleteConfirmMessage')}
+          onDelete={() => deleteSecurityLog(id)}
+          invalidateKey={['security-logs']}
           testID="security-log-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

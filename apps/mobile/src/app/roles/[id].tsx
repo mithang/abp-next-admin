@@ -1,8 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -10,23 +11,15 @@ import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { deleteRole, getRole } from '../../features/identity/roles-api';
 import { roleFlags } from '../../features/identity/roles-types';
-import { toApiError } from '../../lib/errors';
-import { showConfirmDialog } from '../../lib/confirm';
-import { useInvalidateAndBack } from '../../lib/mutation-success';
 
 export default function RoleDetailScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const invalidateAndBack = useInvalidateAndBack(['roles']);
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['roles', id],
     queryFn: () => getRole(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteRole(id),
-    onSuccess: invalidateAndBack,
   });
 
   const queryState = queryStateElement(query);
@@ -66,23 +59,13 @@ export default function RoleDetailScreen() {
           }
           testID="role-menu-allot"
         />
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('roles.deleteConfirmTitle'),
-              message: t('roles.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('roles.deleteConfirmTitle')}
+          confirmMessage={t('roles.deleteConfirmMessage')}
+          onDelete={() => deleteRole(id)}
+          invalidateKey={['roles']}
           testID="role-delete"
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );

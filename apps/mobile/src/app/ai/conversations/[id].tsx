@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -19,8 +20,6 @@ import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
 import { resolveFieldError } from '../../../lib/field-error';
-import { showConfirmDialog } from '../../../lib/confirm';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 interface ChatBubble {
   key: string;
@@ -43,7 +42,6 @@ export default function AIConversationChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const invalidateAndBack = useInvalidateAndBack(['ai-conversations']);
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState<string | null>(null);
   const [streamingText, setStreamingText] = useState<string | null>(null);
@@ -63,11 +61,6 @@ export default function AIConversationChatScreen() {
   });
 
   useEffect(() => () => abortRef.current?.abort(), []);
-
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteConversation(id),
-    onSuccess: invalidateAndBack,
-  });
 
   const bubbles: ChatBubble[] = [];
   for (const msg of history.data?.items ?? []) {
@@ -140,20 +133,11 @@ export default function AIConversationChatScreen() {
         onPress={() => router.push(`/ai/conversations/form?id=${encodeURIComponent(id)}`)}
         variant="outline"
       />
-      <AppButton
-        title={t('common.delete')}
-        action="negative"
-        variant="outline"
-        loading={deleteMutation.isPending}
-        onPress={() =>
-          showConfirmDialog({
-            title: t('aiConversations.deleteConfirmTitle'),
-            message: t('aiConversations.deleteConfirmMessage'),
-            confirmText: t('common.delete'),
-            cancelText: t('common.cancel'),
-            onConfirm: () => deleteMutation.mutate(),
-          })
-        }
+      <AppDeleteButton
+        confirmTitle={t('aiConversations.deleteConfirmTitle')}
+        confirmMessage={t('aiConversations.deleteConfirmMessage')}
+        onDelete={() => deleteConversation(id)}
+        invalidateKey={['ai-conversations']}
         testID="ai-conversation-delete"
       />
       {history.isError ? (
@@ -182,7 +166,6 @@ export default function AIConversationChatScreen() {
         />
       )}
       {streamError ? <Text>{streamError}</Text> : null}
-      {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       <AppInput
         value={content}
         onChangeText={setContent}

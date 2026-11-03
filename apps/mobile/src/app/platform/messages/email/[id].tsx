@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
 import { AppButton } from '../../../../components/ui/AppButton';
+import { AppDeleteButton } from '../../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../../components/ui/AppStates';
 import { queryStateElement } from '../../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -15,7 +16,7 @@ import {
 import { toApiError } from '../../../../lib/errors';
 import { showConfirmDialog } from '../../../../lib/confirm';
 import { formatDateTime } from '../../../../lib/dates';
-import { useInvalidateQueries, useInvalidateAndBack } from '../../../../lib/mutation-success';
+import { useInvalidateQueries } from '../../../../lib/mutation-success';
 import { messageStatusText } from '../email';
 
 /**
@@ -27,15 +28,10 @@ export default function EmailMessageDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['platform-email-messages']);
-  const invalidateAndBack = useInvalidateAndBack(['platform-email-messages']);
   const query = useQuery({
     queryKey: ['platform-email-messages', id],
     queryFn: () => getEmailMessage(id),
     enabled: Boolean(id),
-  });
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteEmailMessage(id),
-    onSuccess: invalidateAndBack,
   });
   const sendMutation = useMutation({
     mutationFn: () => sendEmailMessage(id),
@@ -108,22 +104,12 @@ export default function EmailMessageDetailScreen() {
           }
         />
         {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}
-        <AppButton
-          title={t('common.delete')}
-          action="negative"
-          variant="outline"
-          loading={deleteMutation.isPending}
-          onPress={() =>
-            showConfirmDialog({
-              title: t('platformEmailMessages.deleteConfirmTitle'),
-              message: t('platformEmailMessages.deleteConfirmMessage'),
-              confirmText: t('common.delete'),
-              cancelText: t('common.cancel'),
-              onConfirm: () => deleteMutation.mutate(),
-            })
-          }
+        <AppDeleteButton
+          confirmTitle={t('platformEmailMessages.deleteConfirmTitle')}
+          confirmMessage={t('platformEmailMessages.deleteConfirmMessage')}
+          onDelete={() => deleteEmailMessage(id)}
+          invalidateKey={['platform-email-messages']}
         />
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
       </VStack>
     </AppScreen>
   );
