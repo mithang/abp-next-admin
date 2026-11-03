@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getWebhookDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookDefinitionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: WebhookDefinitionDto }) {
   return (
@@ -37,10 +36,8 @@ function DefinitionRow({ item }: { item: WebhookDefinitionDto }) {
  */
 export default function WebhookDefinitionsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const [groupName, setGroupName] = useState('');
-  const debouncedFilter = useDebouncedValue(filter);
-  const debouncedGroup = useDebouncedValue(groupName);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
+  const [groupName, setGroupName, debouncedGroup] = useDebouncedFilter();
 
   const query = useQuery({
     queryKey: ['webhook-definitions', debouncedFilter, debouncedGroup],

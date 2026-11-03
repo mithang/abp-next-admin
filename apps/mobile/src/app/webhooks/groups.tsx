@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getWebhookGroupDefinitions } from '../../features/webhooks/webhooks-api
 import type { WebhookGroupDefinitionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
   return (
@@ -34,12 +33,11 @@ function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
  */
 export default function WebhookGroupsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debounced = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
-    queryKey: ['webhook-groups', debounced],
-    queryFn: () => getWebhookGroupDefinitions({ filter: debounced || undefined }),
+    queryKey: ['webhook-groups', debouncedFilter],
+    queryFn: () => getWebhookGroupDefinitions({ filter: debouncedFilter || undefined }),
   });
 
   const items = query.data?.items ?? [];

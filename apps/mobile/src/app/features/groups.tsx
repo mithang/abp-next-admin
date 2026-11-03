@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getFeatureGroups } from '../../features/features/feature-groups-api';
 import type { FeatureGroupDefinitionDto } from '../../features/features/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: FeatureGroupDefinitionDto }) {
   const { t } = useTranslation();
@@ -31,8 +30,7 @@ function GroupRow({ item }: { item: FeatureGroupDefinitionDto }) {
 /** Danh sách nhóm tính năng: ListResult, web phân trang phía client. */
 export default function FeatureGroupsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debouncedFilter = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
     queryKey: ['feature-groups', debouncedFilter],

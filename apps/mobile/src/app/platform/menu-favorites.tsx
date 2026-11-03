@@ -31,7 +31,7 @@ import {
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 /**
  * Menu yêu thích của tôi — bản mobile của WorkbenchQuickNav web
@@ -306,8 +306,7 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
 export default function MenuFavoritesScreen() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const [framework, setFramework] = useState('');
-  const debouncedFramework = useDebouncedValue(framework);
+  const [framework, setFramework, debouncedFramework] = useDebouncedFilter();
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<UserFavoriteMenuDto | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<UserFavoriteMenuDto | null>(null);

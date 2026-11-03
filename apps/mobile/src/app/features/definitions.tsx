@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getFeatureDefinitions } from '../../features/features/feature-definitio
 import type { FeatureDefinitionDto } from '../../features/features/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
   return (
@@ -30,8 +29,7 @@ function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
 /** Danh sách định nghĩa tính năng: ListResult, lọc filter/groupName phía server. */
 export default function FeatureDefinitionsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debouncedFilter = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
     queryKey: ['feature-definitions', debouncedFilter],

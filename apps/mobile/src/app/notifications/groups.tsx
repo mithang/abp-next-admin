@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getNotificationGroups } from '../../features/notifications/notification
 import type { NotificationGroupDefinitionDto } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: NotificationGroupDefinitionDto }) {
   const { t } = useTranslation();
@@ -31,8 +30,7 @@ function GroupRow({ item }: { item: NotificationGroupDefinitionDto }) {
 /** Danh sách nhóm thông báo: ListResult, web không phân trang server (lọc client). */
 export default function NotificationGroupsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debouncedFilter = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
     queryKey: ['notification-groups', debouncedFilter],

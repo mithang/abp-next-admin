@@ -45,6 +45,41 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 56
+
+Vòng P3 gộp bộ ba lọc đơn đã debounce của màn hình KHÔNG
+phân trang vào hook `useDebouncedFilter`
+(`src/lib/use-debounced-filter.ts`): `useState('')` +
+`useDebouncedValue(filter)` thành một lần destructure tuple
+`[filter, setFilter, debouncedFilter]`. Trả về tuple thay vì
+object để mỗi màn hình giữ đúng tên biến cũ khi destructure
+— menu-allot dùng 2 hook trong cùng file (identityFilter và
+framework), webhooks/definitions dùng 2 hook (filter và
+groupName). Migrate 13 điểm gọi ở 10 file (6 màn hình
+filter/debouncedFilter tuyệt đối, text-templating và webhook
+groups đổi tên biến `debounced` thành `debouncedFilter`,
+webhooks/definitions 2 hook, menu-allot 2 hook, menu-favorites
+1 hook framework); kiểm chứng 2 chiều: 13 lần gọi +
+13 import, 0 `useDebouncedValue` còn lại ở các file đã migrate.
+9/11 file bỏ import `useState` không còn dùng (lint trở lại
+đúng 14 warning vendored). Cố tình GIỮ: các màn hình lọc đa
+field debounce cả object, các màn hình cần `onSettled` riêng
+(layouts) và các màn hình phân trang (đã dùng `useListFilter`
+từ vòng 54) — hook này không có reset page, đúng như các màn
+hình đã migrate vốn không reset page khi settled (menu-allot
+identity giữ nguyên hành vi không reset). 4 test mới cho hook
+(khởi tạo, initial khác rỗng, debounce đúng 400 ms mặc định,
+destructure tên tùy ý cho hook thứ hai trong cùng màn hình).
+Lỗi thật do vòng này bắt được (ở khâu dry-run, chưa apply):
+bản dry-run đầu đổi tên `debounced` bằng regex `\bdebounced\b`
+sẽ ăn cả từ trong `use-debounced-filter` ở import mới —
+đã sửa bằng lookaround `(?<![\w-])debounced(?![\w-])` và
+xác nhận đúng 3 điểm đổi tên mỗi file trước khi apply; và
+webhooks/definitions có 2 state khai báo liên tiếp rồi mới
+đến 2 dòng debounce nên mẫu cặp liền kề không khớp — đã xử
+lý bằng thay cả khối 4 dòng. Bài học ghi thêm: dry-run phải
+in cả diff mẫu, không chỉ đếm số lượng thay thế.
+
 ## Trạng thái vòng 55
 
 Vòng P3 gộp cặp props pull-to-refresh của FlatList vào helper

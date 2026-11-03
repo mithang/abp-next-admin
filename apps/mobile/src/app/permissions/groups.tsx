@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getPermissionGroups } from '../../features/permissions/permission-group
 import type { PermissionGroupDefinitionDto } from '../../features/permissions/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
   const { t } = useTranslation();
@@ -34,8 +33,7 @@ function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
  */
 export default function PermissionGroupsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debouncedFilter = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
     queryKey: ['permission-groups', debouncedFilter],

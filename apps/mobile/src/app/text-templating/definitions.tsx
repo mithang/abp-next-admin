@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getTextTemplateDefinitions } from '../../features/text-templating/text-
 import type { TextTemplateDefinitionDto } from '../../features/text-templating/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
   return (
@@ -35,12 +34,11 @@ function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
  */
 export default function TextTemplateDefinitionsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debounced = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
-    queryKey: ['text-template-definitions', debounced],
-    queryFn: () => getTextTemplateDefinitions({ filter: debounced || undefined }),
+    queryKey: ['text-template-definitions', debouncedFilter],
+    queryFn: () => getTextTemplateDefinitions({ filter: debouncedFilter || undefined }),
   });
 
   const items = query.data?.items ?? [];

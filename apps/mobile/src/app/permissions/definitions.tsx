@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ import { getPermissionDefinitions } from '../../features/permissions/permission-
 import type { PermissionDefinitionDto } from '../../features/permissions/types';
 import { toApiError } from '../../lib/errors';
 import { listRefreshProps } from '../../lib/list-refresh';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: PermissionDefinitionDto }) {
   return (
@@ -33,8 +32,7 @@ function DefinitionRow({ item }: { item: PermissionDefinitionDto }) {
  */
 export default function PermissionDefinitionsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const debouncedFilter = useDebouncedValue(filter);
+  const [filter, setFilter, debouncedFilter] = useDebouncedFilter();
 
   const query = useQuery({
     queryKey: ['permission-definitions', debouncedFilter],

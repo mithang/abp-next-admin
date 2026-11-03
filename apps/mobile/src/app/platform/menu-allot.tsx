@@ -35,7 +35,7 @@ import { getUsersPaged } from '../../features/identity/api';
 import { displayName } from '../../features/identity/types';
 import { toggleSelection } from '../../lib/selection';
 import { toApiError } from '../../lib/errors';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 import { usePagination } from '../../lib/use-pagination';
 
 /**
@@ -180,8 +180,7 @@ export default function MenuAllotScreen() {
   const [subject, setSubject] = useState<MenuAllotSubject>(paramSubject ?? 'user');
   const [identityId, setIdentityId] = useState<string>(params.id ?? '');
   const [identityLabel, setIdentityLabel] = useState<string>(params.label ?? '');
-  const [identityFilter, setIdentityFilter] = useState('');
-  const debouncedFilter = useDebouncedValue(identityFilter);
+  const [identityFilter, setIdentityFilter, debouncedFilter] = useDebouncedFilter();
   const {
     page: identityPage,
     setPage: setIdentityPage,
@@ -190,8 +189,7 @@ export default function MenuAllotScreen() {
     hasMore: hasMoreIdentities,
     loadMore: loadMoreIdentities,
   } = usePagination();
-  const [framework, setFramework] = useState('');
-  const debouncedFramework = useDebouncedValue(framework);
+  const [framework, setFramework, debouncedFramework] = useDebouncedFilter();
 
   const frameworkHint = useQuery({
     queryKey: ['platform-data-ui-framework-hint'],
