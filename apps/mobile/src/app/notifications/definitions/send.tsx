@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -61,79 +61,49 @@ export default function NotificationSendScreen() {
         <Text>
           {t('notificationSend.name')}: {name}
         </Text>
-        <Controller
+        <AppFormInput
           control={form.control}
           name="title"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationSend.notifTitle')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('notificationSend.titlePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-send-title"
-            />
-          )}
+          label={t('notificationSend.notifTitle')}
+          placeholder={t('notificationSend.titlePlaceholder')}
+          testID="notification-send-title"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="message"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationSend.message')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('notificationSend.messagePlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-send-message"
-            />
-          )}
+          label={t('notificationSend.message')}
+          placeholder={t('notificationSend.messagePlaceholder')}
+          multiline
+          testID="notification-send-message"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationSend.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationSend.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-send-description"
-            />
-          )}
+          label={t('notificationSend.description')}
+          placeholder={t('notificationSend.descriptionPlaceholder')}
+          multiline
+          testID="notification-send-description"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="culture"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationSend.culture')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationSend.culturePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-send-culture"
-            />
-          )}
+          label={t('notificationSend.culture')}
+          placeholder={t('notificationSend.culturePlaceholder')}
+          autoCapitalize="none"
+          testID="notification-send-culture"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="severity"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationSend.severity')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationSend.severityHint')}
-              keyboardType="numeric"
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-send-severity"
-            />
-          )}
+          label={t('notificationSend.severity')}
+          placeholder={t('notificationSend.severityHint')}
+          keyboardType="numeric"
+          testID="notification-send-severity"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -89,51 +89,33 @@ export default function LanguageFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="cultureName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('languages.cultureName')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('languages.cultureNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="language-cultureName"
-                />
-              )}
+              label={t('languages.cultureName')}
+              placeholder={t('languages.cultureNamePlaceholder')}
+              autoCapitalize="none"
+              testID="language-cultureName"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="uiCultureName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('languages.uiCultureName')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('languages.uiCultureNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="language-uiCultureName"
-                />
-              )}
+              label={t('languages.uiCultureName')}
+              placeholder={t('languages.uiCultureNamePlaceholder')}
+              autoCapitalize="none"
+              testID="language-uiCultureName"
+              fieldError={fieldError}
             />
           </>
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('languages.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('languages.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="language-displayName"
-            />
-          )}
+          label={t('languages.displayName')}
+          placeholder={t('languages.displayNamePlaceholder')}
+          testID="language-displayName"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

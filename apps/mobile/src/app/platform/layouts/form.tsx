@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { orderTreeItems } from '../../../lib/tree-options';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
@@ -119,72 +119,42 @@ export default function LayoutFormScreen() {
       title={t(isEdit ? 'platformLayouts.editTitle' : 'platformLayouts.createTitle')}
     >
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformLayouts.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformLayouts.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformLayouts.name')}
+          placeholder={t('platformLayouts.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformLayouts.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformLayouts.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformLayouts.displayName')}
+          placeholder={t('platformLayouts.displayNamePlaceholder')}
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="path"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformLayouts.path')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformLayouts.pathPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformLayouts.path')}
+          placeholder={t('platformLayouts.pathPlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="redirect"
-          render={({ field }) => (
-            <AppInput
-              label={t('platformLayouts.redirect')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformLayouts.redirectPlaceholder')}
-              autoCapitalize="none"
-            />
-          )}
+          label={t('platformLayouts.redirect')}
+          placeholder={t('platformLayouts.redirectPlaceholder')}
+          autoCapitalize="none"
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <AppInput
-              label={t('platformLayouts.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformLayouts.descriptionPlaceholder')}
-              multiline
-            />
-          )}
+          label={t('platformLayouts.description')}
+          placeholder={t('platformLayouts.descriptionPlaceholder')}
+          multiline
         />
         {isEdit ? (
           <>

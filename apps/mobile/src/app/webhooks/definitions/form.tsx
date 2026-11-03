@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -117,66 +117,42 @@ export default function WebhookDefinitionFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="groupName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('webhookDefinitions.groupName')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('webhookDefinitions.groupNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="webhook-definition-groupName"
-                />
-              )}
+              label={t('webhookDefinitions.groupName')}
+              placeholder={t('webhookDefinitions.groupNamePlaceholder')}
+              autoCapitalize="none"
+              testID="webhook-definition-groupName"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('webhookDefinitions.name')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('webhookDefinitions.namePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="webhook-definition-name"
-                />
-              )}
+              label={t('webhookDefinitions.name')}
+              placeholder={t('webhookDefinitions.namePlaceholder')}
+              autoCapitalize="none"
+              testID="webhook-definition-name"
+              fieldError={fieldError}
             />
           </>
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookDefinitions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('webhookDefinitions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-definition-displayName"
-            />
-          )}
+          label={t('webhookDefinitions.displayName')}
+          placeholder={t('webhookDefinitions.displayNamePlaceholder')}
+          testID="webhook-definition-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookDefinitions.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookDefinitions.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-definition-description"
-            />
-          )}
+          label={t('webhookDefinitions.description')}
+          placeholder={t('webhookDefinitions.descriptionPlaceholder')}
+          multiline
+          testID="webhook-definition-description"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -190,21 +166,15 @@ export default function WebhookDefinitionFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="requiredFeatures"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookDefinitions.requiredFeatures')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookDefinitions.requiredFeaturesPlaceholder')}
-              multiline
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-definition-requiredFeatures"
-            />
-          )}
+          label={t('webhookDefinitions.requiredFeatures')}
+          placeholder={t('webhookDefinitions.requiredFeaturesPlaceholder')}
+          multiline
+          autoCapitalize="none"
+          testID="webhook-definition-requiredFeatures"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

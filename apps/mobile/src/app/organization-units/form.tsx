@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppFormInput } from '../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -88,19 +88,13 @@ export default function OrganizationUnitFormScreen() {
             {t('organizationUnits.parent')}: {parentName ?? parentId ?? t('organizationUnits.root')}
           </Text>
         ) : null}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('organizationUnits.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('organizationUnits.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="organization-unit-display-name"
-            />
-          )}
+          label={t('organizationUnits.displayName')}
+          placeholder={t('organizationUnits.displayNamePlaceholder')}
+          testID="organization-unit-display-name"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

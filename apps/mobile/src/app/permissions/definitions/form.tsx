@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -112,51 +112,33 @@ export default function PermissionDefinitionFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('permissionDefinitions.name')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('permissionDefinitions.namePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="permission-definition-name"
-                />
-              )}
+              label={t('permissionDefinitions.name')}
+              placeholder={t('permissionDefinitions.namePlaceholder')}
+              autoCapitalize="none"
+              testID="permission-definition-name"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="groupName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('permissionDefinitions.groupName')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('permissionDefinitions.groupNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="permission-definition-groupName"
-                />
-              )}
+              label={t('permissionDefinitions.groupName')}
+              placeholder={t('permissionDefinitions.groupNamePlaceholder')}
+              autoCapitalize="none"
+              testID="permission-definition-groupName"
+              fieldError={fieldError}
             />
           </>
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('permissionDefinitions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('permissionDefinitions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="permission-definition-displayName"
-            />
-          )}
+          label={t('permissionDefinitions.displayName')}
+          placeholder={t('permissionDefinitions.displayNamePlaceholder')}
+          testID="permission-definition-displayName"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -169,51 +151,33 @@ export default function PermissionDefinitionFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="parentName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('permissionDefinitions.parentName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('permissionDefinitions.parentNamePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="permission-definition-parentName"
-            />
-          )}
+          label={t('permissionDefinitions.parentName')}
+          placeholder={t('permissionDefinitions.parentNamePlaceholder')}
+          autoCapitalize="none"
+          testID="permission-definition-parentName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="providers"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('permissionDefinitions.providers')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('permissionDefinitions.providersPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="permission-definition-providers"
-            />
-          )}
+          label={t('permissionDefinitions.providers')}
+          placeholder={t('permissionDefinitions.providersPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          testID="permission-definition-providers"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="stateCheckers"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('permissionDefinitions.stateCheckers')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('permissionDefinitions.stateCheckersPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="permission-definition-stateCheckers"
-            />
-          )}
+          label={t('permissionDefinitions.stateCheckers')}
+          placeholder={t('permissionDefinitions.stateCheckersPlaceholder')}
+          autoCapitalize="none"
+          testID="permission-definition-stateCheckers"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

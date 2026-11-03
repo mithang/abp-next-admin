@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -89,35 +89,23 @@ export default function FeatureGroupFormScreen() {
             {t('featureGroups.name')}: {detail.data?.name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('featureGroups.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('featureGroups.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-                testID="feature-group-name"
-              />
-            )}
+            label={t('featureGroups.name')}
+            placeholder={t('featureGroups.namePlaceholder')}
+            autoCapitalize="none"
+            testID="feature-group-name"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureGroups.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureGroups.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-group-displayName"
-            />
-          )}
+          label={t('featureGroups.displayName')}
+          placeholder={t('featureGroups.displayNamePlaceholder')}
+          testID="feature-group-displayName"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

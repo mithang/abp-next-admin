@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -151,34 +151,22 @@ export default function TenantConnectionStringsScreen() {
           />
         )}
         <Text>{t('saasConnectionStrings.setTitle')}</Text>
-        <Controller
+        <AppFormInput
           control={setForm.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasConnectionStrings.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('saasConnectionStrings.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasConnectionStrings.name')}
+          placeholder={t('saasConnectionStrings.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={setForm.control}
           name="value"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasConnectionStrings.value')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('saasConnectionStrings.valuePlaceholder')}
-              autoCapitalize="none"
-              secureTextEntry
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasConnectionStrings.value')}
+          placeholder={t('saasConnectionStrings.valuePlaceholder')}
+          autoCapitalize="none"
+          secureTextEntry
+          fieldError={fieldError}
         />
         {setError ? <Text>{setError}</Text> : null}
         <AppButton
@@ -188,48 +176,30 @@ export default function TenantConnectionStringsScreen() {
           onPress={() => void setForm.handleSubmit((values) => setMutation.mutate(values))()}
         />
         <Text>{t('saasConnectionStrings.checkTitle')}</Text>
-        <Controller
+        <AppFormInput
           control={checkForm.control}
           name="provider"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasConnectionStrings.provider')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('saasConnectionStrings.providerPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasConnectionStrings.provider')}
+          placeholder={t('saasConnectionStrings.providerPlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={checkForm.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasConnectionStrings.name')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('saasConnectionStrings.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasConnectionStrings.name')}
+          placeholder={t('saasConnectionStrings.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={checkForm.control}
           name="connectionString"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasConnectionStrings.connectionString')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('saasConnectionStrings.connectionStringPlaceholder')}
-              autoCapitalize="none"
-              secureTextEntry
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasConnectionStrings.connectionString')}
+          placeholder={t('saasConnectionStrings.connectionStringPlaceholder')}
+          autoCapitalize="none"
+          secureTextEntry
+          fieldError={fieldError}
         />
         {checkResult ? <Text>{checkResult}</Text> : null}
         {checkError ? <Text>{checkError}</Text> : null}

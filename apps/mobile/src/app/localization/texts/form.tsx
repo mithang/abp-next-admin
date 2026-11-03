@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -139,52 +140,34 @@ export default function TextFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="resourceName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('texts.resourceName')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('texts.resourceNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="text-resourceName"
-                />
-              )}
+              label={t('texts.resourceName')}
+              placeholder={t('texts.resourceNamePlaceholder')}
+              autoCapitalize="none"
+              testID="text-resourceName"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="key"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('texts.key')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('texts.keyPlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="text-key"
-                />
-              )}
+              label={t('texts.key')}
+              placeholder={t('texts.keyPlaceholder')}
+              autoCapitalize="none"
+              testID="text-key"
+              fieldError={fieldError}
             />
           </>
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="value"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('texts.value')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('texts.valuePlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="text-value"
-            />
-          )}
+          label={t('texts.value')}
+          placeholder={t('texts.valuePlaceholder')}
+          multiline
+          testID="text-value"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

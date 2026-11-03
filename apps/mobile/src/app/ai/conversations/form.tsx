@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -94,19 +94,13 @@ export default function AIConversationFormScreen() {
     return (
       <AppScreen scrollable title={t('aiConversations.renameTitle')}>
         <VStack space="sm">
-          <Controller
+          <AppFormInput
             control={renameForm.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('aiConversations.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('aiConversations.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-              />
-            )}
+            label={t('aiConversations.name')}
+            placeholder={t('aiConversations.namePlaceholder')}
+            autoCapitalize="none"
+            fieldError={fieldError}
           />
           <AppFormSubmit
             error={submitError}
@@ -125,33 +119,21 @@ export default function AIConversationFormScreen() {
   return (
     <AppScreen scrollable title={t('aiConversations.createTitle')}>
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={createForm.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('aiConversations.name')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('aiConversations.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('aiConversations.name')}
+          placeholder={t('aiConversations.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={createForm.control}
           name="workspace"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('aiConversations.workspace')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('aiConversations.workspacePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('aiConversations.workspace')}
+          placeholder={t('aiConversations.workspacePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
         {workspaceNames ? (
           <Text>

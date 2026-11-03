@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { createScope, getScope, updateScope } from '../../../features/openiddict/scopes-api';
@@ -87,65 +87,41 @@ export default function ScopeFormScreen() {
       title={isEdit ? t('openiddictScopes.editTitle') : t('openiddictScopes.createTitle')}
     >
       <VStack space="md">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('openiddictScopes.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('openiddictScopes.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="scope-name"
-            />
-          )}
+          label={t('openiddictScopes.name')}
+          placeholder={t('openiddictScopes.namePlaceholder')}
+          autoCapitalize="none"
+          testID="scope-name"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('openiddictScopes.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('openiddictScopes.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="scope-displayName"
-            />
-          )}
+          label={t('openiddictScopes.displayName')}
+          placeholder={t('openiddictScopes.displayNamePlaceholder')}
+          testID="scope-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('openiddictScopes.description')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('openiddictScopes.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="scope-description"
-            />
-          )}
+          label={t('openiddictScopes.description')}
+          placeholder={t('openiddictScopes.descriptionPlaceholder')}
+          multiline
+          testID="scope-description"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="resources"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('openiddictScopes.resources')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('openiddictScopes.resourcesPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="scope-resources"
-            />
-          )}
+          label={t('openiddictScopes.resources')}
+          placeholder={t('openiddictScopes.resourcesPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          testID="scope-resources"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -103,61 +103,37 @@ export default function DataFormScreen() {
       )}
     >
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformDataDictionaries.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataDictionaries.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformDataDictionaries.name')}
+          placeholder={t('platformDataDictionaries.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformDataDictionaries.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataDictionaries.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformDataDictionaries.displayName')}
+          placeholder={t('platformDataDictionaries.displayNamePlaceholder')}
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <AppInput
-              label={t('platformDataDictionaries.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataDictionaries.descriptionPlaceholder')}
-              multiline
-            />
-          )}
+          label={t('platformDataDictionaries.description')}
+          placeholder={t('platformDataDictionaries.descriptionPlaceholder')}
+          multiline
         />
         {!isEdit ? (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="parentId"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('platformDataDictionaries.parent')}
-                  value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('platformDataDictionaries.parentPlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                />
-              )}
+              label={t('platformDataDictionaries.parent')}
+              placeholder={t('platformDataDictionaries.parentPlaceholder')}
+              autoCapitalize="none"
+              fieldError={fieldError}
             />
             <Text>
               {t('platformDataDictionaries.parentsHint')}: {parentsHint}

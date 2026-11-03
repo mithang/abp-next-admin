@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { createEdition, getEdition, updateEdition } from '../../../features/saas/saas-api';
@@ -74,33 +74,21 @@ export default function EditionFormScreen() {
   return (
     <AppScreen scrollable title={t(isEdit ? 'saasEditions.editTitle' : 'saasEditions.createTitle')}>
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasEditions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('saasEditions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasEditions.displayName')}
+          placeholder={t('saasEditions.displayNamePlaceholder')}
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="extraPropertiesJson"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasEditions.extraProperties')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('saasEditions.extraPropertiesPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasEditions.extraProperties')}
+          placeholder={t('saasEditions.extraPropertiesPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

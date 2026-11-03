@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -110,19 +111,13 @@ export default function AIToolFormScreen() {
     <AppScreen scrollable title={t(isEdit ? 'aiTools.editTitle' : 'aiTools.createTitle')}>
       <VStack space="sm">
         {!isEdit ? (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('aiTools.name')}
-                value={field.value ?? ''}
-                onChangeText={field.onChange}
-                placeholder={t('aiTools.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-              />
-            )}
+            label={t('aiTools.name')}
+            placeholder={t('aiTools.namePlaceholder')}
+            autoCapitalize="none"
+            fieldError={fieldError}
           />
         ) : null}
         <Controller
@@ -151,19 +146,13 @@ export default function AIToolFormScreen() {
             {selectedProvider.properties.map((p) => p.displayName || p.name).join(', ')}
           </Text>
         ) : null}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('aiTools.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('aiTools.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('aiTools.description')}
+          placeholder={t('aiTools.descriptionPlaceholder')}
+          multiline
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -189,34 +178,22 @@ export default function AIToolFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="stateCheckers"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('aiTools.stateCheckers')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('aiTools.stateCheckersPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('aiTools.stateCheckers')}
+          placeholder={t('aiTools.stateCheckersPlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="extraPropertiesJson"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('aiTools.extraProperties')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('aiTools.extraPropertiesPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('aiTools.extraProperties')}
+          placeholder={t('aiTools.extraPropertiesPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppFormInput } from '../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
@@ -104,20 +104,14 @@ export default function ClaimTypeFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('claimTypes.name')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('claimTypes.namePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="claim-type-name"
-                />
-              )}
+              label={t('claimTypes.name')}
+              placeholder={t('claimTypes.namePlaceholder')}
+              autoCapitalize="none"
+              testID="claim-type-name"
+              fieldError={fieldError}
             />
             <Controller
               control={form.control}
@@ -165,46 +159,28 @@ export default function ClaimTypeFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="regex"
-          render={({ field }) => (
-            <AppInput
-              label={t('claimTypes.regex')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('claimTypes.regexPlaceholder')}
-              autoCapitalize="none"
-              testID="claim-type-regex"
-            />
-          )}
+          label={t('claimTypes.regex')}
+          placeholder={t('claimTypes.regexPlaceholder')}
+          autoCapitalize="none"
+          testID="claim-type-regex"
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="regexDescription"
-          render={({ field }) => (
-            <AppInput
-              label={t('claimTypes.regexDescription')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('claimTypes.regexDescriptionPlaceholder')}
-              testID="claim-type-regex-description"
-            />
-          )}
+          label={t('claimTypes.regexDescription')}
+          placeholder={t('claimTypes.regexDescriptionPlaceholder')}
+          testID="claim-type-regex-description"
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <AppInput
-              label={t('claimTypes.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('claimTypes.descriptionPlaceholder')}
-              multiline
-              testID="claim-type-description"
-            />
-          )}
+          label={t('claimTypes.description')}
+          placeholder={t('claimTypes.descriptionPlaceholder')}
+          multiline
+          testID="claim-type-description"
         />
         <AppFormSubmit
           error={submitError}

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
-import { AppInput } from '../../components/ui/AppInput';
+import { AppFormInput } from '../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { createRole, getRole, updateRole } from '../../features/identity/roles-api';
@@ -68,20 +68,14 @@ export default function RoleFormScreen() {
   return (
     <AppScreen scrollable title={isEdit ? t('roles.editTitle') : t('roles.createTitle')}>
       <VStack space="md">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('roles.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('roles.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="role-name"
-            />
-          )}
+          label={t('roles.name')}
+          placeholder={t('roles.namePlaceholder')}
+          autoCapitalize="none"
+          testID="role-name"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}

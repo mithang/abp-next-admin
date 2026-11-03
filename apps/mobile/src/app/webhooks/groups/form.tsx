@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -86,35 +86,23 @@ export default function WebhookGroupFormScreen() {
             {t('webhookGroups.name')}: {detail.data?.name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('webhookGroups.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('webhookGroups.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-                testID="webhook-group-name"
-              />
-            )}
+            label={t('webhookGroups.name')}
+            placeholder={t('webhookGroups.namePlaceholder')}
+            autoCapitalize="none"
+            testID="webhook-group-name"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookGroups.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('webhookGroups.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-group-displayName"
-            />
-          )}
+          label={t('webhookGroups.displayName')}
+          placeholder={t('webhookGroups.displayNamePlaceholder')}
+          testID="webhook-group-displayName"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

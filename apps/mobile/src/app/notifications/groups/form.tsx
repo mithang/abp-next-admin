@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -102,50 +102,32 @@ export default function NotificationGroupFormScreen() {
             {t('notificationGroups.name')}: {detail.data?.name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('notificationGroups.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('notificationGroups.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-                testID="notification-group-name"
-              />
-            )}
+            label={t('notificationGroups.name')}
+            placeholder={t('notificationGroups.namePlaceholder')}
+            autoCapitalize="none"
+            testID="notification-group-name"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationGroups.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('notificationGroups.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-group-displayName"
-            />
-          )}
+          label={t('notificationGroups.displayName')}
+          placeholder={t('notificationGroups.displayNamePlaceholder')}
+          testID="notification-group-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationGroups.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationGroups.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-group-description"
-            />
-          )}
+          label={t('notificationGroups.description')}
+          placeholder={t('notificationGroups.descriptionPlaceholder')}
+          multiline
+          testID="notification-group-description"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}

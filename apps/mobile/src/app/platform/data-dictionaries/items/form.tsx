@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
 import { AppSelect } from '../../../../components/ui/AppSelect';
-import { AppInput } from '../../../../components/ui/AppInput';
+import { AppFormInput } from '../../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../../components/ui/AppStates';
 import { queryStateElement } from '../../../../lib/query-state';
@@ -106,33 +106,21 @@ export default function DataItemFormScreen() {
             {t('platformDataItems.name')}: {name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('platformDataItems.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('platformDataItems.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-              />
-            )}
+            label={t('platformDataItems.name')}
+            placeholder={t('platformDataItems.namePlaceholder')}
+            autoCapitalize="none"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformDataItems.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataItems.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformDataItems.displayName')}
+          placeholder={t('platformDataItems.displayNamePlaceholder')}
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -149,18 +137,12 @@ export default function DataItemFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="defaultValue"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformDataItems.defaultValue')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataItems.defaultValuePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformDataItems.defaultValue')}
+          placeholder={t('platformDataItems.defaultValuePlaceholder')}
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -172,18 +154,12 @@ export default function DataItemFormScreen() {
             </VStack>
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <AppInput
-              label={t('platformDataItems.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataItems.descriptionPlaceholder')}
-              multiline
-            />
-          )}
+          label={t('platformDataItems.description')}
+          placeholder={t('platformDataItems.descriptionPlaceholder')}
+          multiline
         />
         <AppFormSubmit
           error={submitError}

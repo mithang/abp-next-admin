@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -124,66 +124,42 @@ export default function NotificationDefinitionFormScreen() {
           </Text>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('notificationDefinitions.name')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('notificationDefinitions.namePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="notification-definition-name"
-                />
-              )}
+              label={t('notificationDefinitions.name')}
+              placeholder={t('notificationDefinitions.namePlaceholder')}
+              autoCapitalize="none"
+              testID="notification-definition-name"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="groupName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('notificationDefinitions.groupName')}
-                  value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('notificationDefinitions.groupNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="notification-definition-groupName"
-                />
-              )}
+              label={t('notificationDefinitions.groupName')}
+              placeholder={t('notificationDefinitions.groupNamePlaceholder')}
+              autoCapitalize="none"
+              testID="notification-definition-groupName"
+              fieldError={fieldError}
             />
           </>
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationDefinitions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-definition-displayName"
-            />
-          )}
+          label={t('notificationDefinitions.displayName')}
+          placeholder={t('notificationDefinitions.displayNamePlaceholder')}
+          testID="notification-definition-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationDefinitions.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-definition-description"
-            />
-          )}
+          label={t('notificationDefinitions.description')}
+          placeholder={t('notificationDefinitions.descriptionPlaceholder')}
+          multiline
+          testID="notification-definition-description"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -197,80 +173,50 @@ export default function NotificationDefinitionFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="notificationType"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationDefinitions.notificationType')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.notificationTypeHint')}
-              keyboardType="numeric"
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-definition-type"
-            />
-          )}
+          label={t('notificationDefinitions.notificationType')}
+          placeholder={t('notificationDefinitions.notificationTypeHint')}
+          keyboardType="numeric"
+          testID="notification-definition-type"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="notificationLifetime"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationDefinitions.notificationLifetime')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.notificationLifetimeHint')}
-              keyboardType="numeric"
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-definition-lifetime"
-            />
-          )}
+          label={t('notificationDefinitions.notificationLifetime')}
+          placeholder={t('notificationDefinitions.notificationLifetimeHint')}
+          keyboardType="numeric"
+          testID="notification-definition-lifetime"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="contentType"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationDefinitions.contentType')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.contentTypeHint')}
-              keyboardType="numeric"
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-definition-contentType"
-            />
-          )}
+          label={t('notificationDefinitions.contentType')}
+          placeholder={t('notificationDefinitions.contentTypeHint')}
+          keyboardType="numeric"
+          testID="notification-definition-contentType"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="providers"
-          render={({ field }) => (
-            <AppInput
-              label={t('notificationDefinitions.providers')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.providersPlaceholder')}
-              multiline
-              autoCapitalize="none"
-              testID="notification-definition-providers"
-            />
-          )}
+          label={t('notificationDefinitions.providers')}
+          placeholder={t('notificationDefinitions.providersPlaceholder')}
+          multiline
+          autoCapitalize="none"
+          testID="notification-definition-providers"
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="template"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('notificationDefinitions.template')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('notificationDefinitions.templatePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="notification-definition-template"
-            />
-          )}
+          label={t('notificationDefinitions.template')}
+          placeholder={t('notificationDefinitions.templatePlaceholder')}
+          autoCapitalize="none"
+          testID="notification-definition-template"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

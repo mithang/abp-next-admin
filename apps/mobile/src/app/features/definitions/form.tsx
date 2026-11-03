@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -127,96 +127,60 @@ export default function FeatureDefinitionFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('featureDefinitions.name')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('featureDefinitions.namePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="feature-definition-name"
-                />
-              )}
+              label={t('featureDefinitions.name')}
+              placeholder={t('featureDefinitions.namePlaceholder')}
+              autoCapitalize="none"
+              testID="feature-definition-name"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="groupName"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('featureDefinitions.groupName')}
-                  value={field.value}
-                  onChangeText={field.onChange}
-                  placeholder={t('featureDefinitions.groupNamePlaceholder')}
-                  autoCapitalize="none"
-                  error={fieldError(fieldState.error?.message)}
-                  testID="feature-definition-groupName"
-                />
-              )}
+              label={t('featureDefinitions.groupName')}
+              placeholder={t('featureDefinitions.groupNamePlaceholder')}
+              autoCapitalize="none"
+              testID="feature-definition-groupName"
+              fieldError={fieldError}
             />
           </>
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureDefinitions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureDefinitions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-definition-displayName"
-            />
-          )}
+          label={t('featureDefinitions.displayName')}
+          placeholder={t('featureDefinitions.displayNamePlaceholder')}
+          testID="feature-definition-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureDefinitions.description')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureDefinitions.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-definition-description"
-            />
-          )}
+          label={t('featureDefinitions.description')}
+          placeholder={t('featureDefinitions.descriptionPlaceholder')}
+          multiline
+          testID="feature-definition-description"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="defaultValue"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureDefinitions.defaultValue')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureDefinitions.defaultValuePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-definition-defaultValue"
-            />
-          )}
+          label={t('featureDefinitions.defaultValue')}
+          placeholder={t('featureDefinitions.defaultValuePlaceholder')}
+          autoCapitalize="none"
+          testID="feature-definition-defaultValue"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="valueType"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureDefinitions.valueType')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureDefinitions.valueTypePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-definition-valueType"
-            />
-          )}
+          label={t('featureDefinitions.valueType')}
+          placeholder={t('featureDefinitions.valueTypePlaceholder')}
+          autoCapitalize="none"
+          testID="feature-definition-valueType"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -240,36 +204,24 @@ export default function FeatureDefinitionFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="parentName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureDefinitions.parentName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureDefinitions.parentNamePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-definition-parentName"
-            />
-          )}
+          label={t('featureDefinitions.parentName')}
+          placeholder={t('featureDefinitions.parentNamePlaceholder')}
+          autoCapitalize="none"
+          testID="feature-definition-parentName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="allowedProviders"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('featureDefinitions.allowedProviders')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('featureDefinitions.allowedProvidersPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="feature-definition-allowedProviders"
-            />
-          )}
+          label={t('featureDefinitions.allowedProviders')}
+          placeholder={t('featureDefinitions.allowedProvidersPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          testID="feature-definition-allowedProviders"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

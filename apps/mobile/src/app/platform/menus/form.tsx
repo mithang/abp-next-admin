@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
@@ -146,86 +146,50 @@ export default function MenuFormScreen() {
   return (
     <AppScreen scrollable title={title}>
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformMenus.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformMenus.name')}
+          placeholder={t('platformMenus.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformMenus.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformMenus.displayName')}
+          placeholder={t('platformMenus.displayNamePlaceholder')}
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="path"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformMenus.path')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.pathPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformMenus.path')}
+          placeholder={t('platformMenus.pathPlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="component"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformMenus.component')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.componentPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformMenus.component')}
+          placeholder={t('platformMenus.componentPlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="redirect"
-          render={({ field }) => (
-            <AppInput
-              label={t('platformMenus.redirect')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.redirectPlaceholder')}
-              autoCapitalize="none"
-            />
-          )}
+          label={t('platformMenus.redirect')}
+          placeholder={t('platformMenus.redirectPlaceholder')}
+          autoCapitalize="none"
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <AppInput
-              label={t('platformMenus.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.descriptionPlaceholder')}
-              multiline
-            />
-          )}
+          label={t('platformMenus.description')}
+          placeholder={t('platformMenus.descriptionPlaceholder')}
+          multiline
         />
         <Controller
           control={form.control}
@@ -257,20 +221,14 @@ export default function MenuFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="meta"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformMenus.meta')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformMenus.metaPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformMenus.meta')}
+          placeholder={t('platformMenus.metaPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          fieldError={fieldError}
         />
         {isEdit ? (
           <Text>

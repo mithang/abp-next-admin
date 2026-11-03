@@ -45,6 +45,25 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 49
+
+Vòng P3 chuẩn hóa field text của form: 124 khối
+`Controller` + `AppInput` tự lặp 9–13 dòng (control/name/
+render + value/onChangeText/placeholder/error/testID) nay
+gộp thành `src/components/ui/AppFormInput.tsx` (generic
+`Control<TFieldValues>` + `FieldPath`, giữ nguyên ngữ nghĩa:
+value `field.value ?? ''`, error chỉ dịch qua `fieldError`
+khi caller truyền hàm). Cố tình KHÔNG migrate 9 site
+AppInput (2 onChange kèm side effect, 5 name động theo
+danh sách field runtime, 2 fragment render error riêng) và
+31 Controller còn lại (AppSwitchField/AppSelect/custom).
+Bài học thật trong vòng: script migrate từng làm mất đoạn
+text trước site bị skip (con trỏ output nhảy mà không
+append) — đã sửa bằng cách tách con trỏ tìm kiếm khỏi con
+trỏ output; và cache transform của Jest dưới TMPDIR từng
+cho fail giả ở test mới dù nội dung đã đúng — chạy
+`--no-cache` mới ra kết quả thật.
+
 ## Trạng thái vòng 48
 
 Vòng P3 chuẩn hóa callback thành công của mutation: 88 vị trí

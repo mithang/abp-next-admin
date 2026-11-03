@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -123,81 +123,51 @@ export default function SettingDefinitionFormScreen() {
             {t('settingDefinitions.name')}: {detail.data?.name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('settingDefinitions.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('settingDefinitions.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-                testID="setting-definition-name"
-              />
-            )}
+            label={t('settingDefinitions.name')}
+            placeholder={t('settingDefinitions.namePlaceholder')}
+            autoCapitalize="none"
+            testID="setting-definition-name"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('settingDefinitions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('settingDefinitions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="setting-definition-displayName"
-            />
-          )}
+          label={t('settingDefinitions.displayName')}
+          placeholder={t('settingDefinitions.displayNamePlaceholder')}
+          testID="setting-definition-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('settingDefinitions.description')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('settingDefinitions.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="setting-definition-description"
-            />
-          )}
+          label={t('settingDefinitions.description')}
+          placeholder={t('settingDefinitions.descriptionPlaceholder')}
+          multiline
+          testID="setting-definition-description"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="defaultValue"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('settingDefinitions.defaultValue')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('settingDefinitions.defaultValuePlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="setting-definition-defaultValue"
-            />
-          )}
+          label={t('settingDefinitions.defaultValue')}
+          placeholder={t('settingDefinitions.defaultValuePlaceholder')}
+          multiline
+          testID="setting-definition-defaultValue"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="providers"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('settingDefinitions.providers')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('settingDefinitions.providersPlaceholder')}
-              multiline
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="setting-definition-providers"
-            />
-          )}
+          label={t('settingDefinitions.providers')}
+          placeholder={t('settingDefinitions.providersPlaceholder')}
+          multiline
+          autoCapitalize="none"
+          testID="setting-definition-providers"
+          fieldError={fieldError}
         />
         {providersQuery.data && providersQuery.data.items.length > 0 ? (
           <Text>

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -111,80 +111,50 @@ export default function TextTemplateDefinitionFormScreen() {
             {t('textTemplateDefinitions.name')}: {detail.data?.name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('textTemplateDefinitions.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('textTemplateDefinitions.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-                testID="text-template-definition-name"
-              />
-            )}
+            label={t('textTemplateDefinitions.name')}
+            placeholder={t('textTemplateDefinitions.namePlaceholder')}
+            autoCapitalize="none"
+            testID="text-template-definition-name"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('textTemplateDefinitions.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('textTemplateDefinitions.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="text-template-definition-displayName"
-            />
-          )}
+          label={t('textTemplateDefinitions.displayName')}
+          placeholder={t('textTemplateDefinitions.displayNamePlaceholder')}
+          testID="text-template-definition-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="defaultCultureName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('textTemplateDefinitions.defaultCultureName')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('textTemplateDefinitions.defaultCultureNamePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="text-template-definition-defaultCultureName"
-            />
-          )}
+          label={t('textTemplateDefinitions.defaultCultureName')}
+          placeholder={t('textTemplateDefinitions.defaultCultureNamePlaceholder')}
+          autoCapitalize="none"
+          testID="text-template-definition-defaultCultureName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="localizationResourceName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('textTemplateDefinitions.localizationResourceName')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('textTemplateDefinitions.localizationResourceNamePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="text-template-definition-localizationResourceName"
-            />
-          )}
+          label={t('textTemplateDefinitions.localizationResourceName')}
+          placeholder={t('textTemplateDefinitions.localizationResourceNamePlaceholder')}
+          autoCapitalize="none"
+          testID="text-template-definition-localizationResourceName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="renderEngine"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('textTemplateDefinitions.renderEngine')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('textTemplateDefinitions.renderEnginePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="text-template-definition-renderEngine"
-            />
-          )}
+          label={t('textTemplateDefinitions.renderEngine')}
+          placeholder={t('textTemplateDefinitions.renderEnginePlaceholder')}
+          autoCapitalize="none"
+          testID="text-template-definition-renderEngine"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -210,21 +180,15 @@ export default function TextTemplateDefinitionFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="layout"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('textTemplateDefinitions.layout')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('textTemplateDefinitions.layoutPlaceholder')}
-              multiline
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="text-template-definition-layout"
-            />
-          )}
+          label={t('textTemplateDefinitions.layout')}
+          placeholder={t('textTemplateDefinitions.layoutPlaceholder')}
+          multiline
+          autoCapitalize="none"
+          testID="text-template-definition-layout"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

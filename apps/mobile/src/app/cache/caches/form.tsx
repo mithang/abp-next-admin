@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -58,65 +58,41 @@ export default function CacheSetFormScreen() {
   return (
     <AppScreen scrollable title={t('caches.setTitle')}>
       <VStack space="md">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="key"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('caches.key')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('caches.keyPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="cache-set-key"
-            />
-          )}
+          label={t('caches.key')}
+          placeholder={t('caches.keyPlaceholder')}
+          autoCapitalize="none"
+          testID="cache-set-key"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="value"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('caches.value')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('caches.valuePlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="cache-set-value"
-            />
-          )}
+          label={t('caches.value')}
+          placeholder={t('caches.valuePlaceholder')}
+          multiline
+          testID="cache-set-value"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="absoluteExpiration"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('caches.absoluteExpiration')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('caches.dateTimePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="cache-set-absolute-expiration"
-            />
-          )}
+          label={t('caches.absoluteExpiration')}
+          placeholder={t('caches.dateTimePlaceholder')}
+          autoCapitalize="none"
+          testID="cache-set-absolute-expiration"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="slidingExpiration"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('caches.slidingExpiration')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('caches.dateTimePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="cache-set-sliding-expiration"
-            />
-          )}
+          label={t('caches.slidingExpiration')}
+          placeholder={t('caches.dateTimePlaceholder')}
+          autoCapitalize="none"
+          testID="cache-set-sliding-expiration"
+          fieldError={fieldError}
         />
         <AppButton
           title={t('common.save')}

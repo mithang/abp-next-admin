@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -101,50 +101,32 @@ export default function ResourceFormScreen() {
             {t('resources.name')}: {detail.data?.name}
           </Text>
         ) : (
-          <Controller
+          <AppFormInput
             control={form.control}
             name="name"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('resources.name')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('resources.namePlaceholder')}
-                autoCapitalize="none"
-                error={fieldError(fieldState.error?.message)}
-                testID="resource-name"
-              />
-            )}
+            label={t('resources.name')}
+            placeholder={t('resources.namePlaceholder')}
+            autoCapitalize="none"
+            testID="resource-name"
+            fieldError={fieldError}
           />
         )}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="displayName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('resources.displayName')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('resources.displayNamePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="resource-displayName"
-            />
-          )}
+          label={t('resources.displayName')}
+          placeholder={t('resources.displayNamePlaceholder')}
+          testID="resource-displayName"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('resources.description')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('resources.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="resource-description"
-            />
-          )}
+          label={t('resources.description')}
+          placeholder={t('resources.descriptionPlaceholder')}
+          multiline
+          testID="resource-description"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}

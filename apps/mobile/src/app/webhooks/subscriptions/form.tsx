@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -109,51 +109,33 @@ export default function WebhookSubscriptionFormScreen() {
       title={isEdit ? t('webhookSubscriptions.editTitle') : t('webhookSubscriptions.createTitle')}
     >
       <VStack space="md">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="webhookUri"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookSubscriptions.webhookUri')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('webhookSubscriptions.webhookUriPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-subscription-webhookUri"
-            />
-          )}
+          label={t('webhookSubscriptions.webhookUri')}
+          placeholder={t('webhookSubscriptions.webhookUriPlaceholder')}
+          autoCapitalize="none"
+          testID="webhook-subscription-webhookUri"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="secret"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookSubscriptions.secret')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookSubscriptions.secretPlaceholder')}
-              autoCapitalize="none"
-              secureTextEntry
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-subscription-secret"
-            />
-          )}
+          label={t('webhookSubscriptions.secret')}
+          placeholder={t('webhookSubscriptions.secretPlaceholder')}
+          autoCapitalize="none"
+          secureTextEntry
+          testID="webhook-subscription-secret"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="description"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookSubscriptions.description')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookSubscriptions.descriptionPlaceholder')}
-              multiline
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-subscription-description"
-            />
-          )}
+          label={t('webhookSubscriptions.description')}
+          placeholder={t('webhookSubscriptions.descriptionPlaceholder')}
+          multiline
+          testID="webhook-subscription-description"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -167,57 +149,39 @@ export default function WebhookSubscriptionFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="timeoutDuration"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookSubscriptions.timeoutDuration')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookSubscriptions.timeoutDurationPlaceholder')}
-              keyboardType="numeric"
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-subscription-timeoutDuration"
-            />
-          )}
+          label={t('webhookSubscriptions.timeoutDuration')}
+          placeholder={t('webhookSubscriptions.timeoutDurationPlaceholder')}
+          keyboardType="numeric"
+          testID="webhook-subscription-timeoutDuration"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="webhooks"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookSubscriptions.webhooks')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookSubscriptions.webhooksPlaceholder')}
-              multiline
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-subscription-webhooks"
-            />
-          )}
+          label={t('webhookSubscriptions.webhooks')}
+          placeholder={t('webhookSubscriptions.webhooksPlaceholder')}
+          multiline
+          autoCapitalize="none"
+          testID="webhook-subscription-webhooks"
+          fieldError={fieldError}
         />
         {availableHint ? (
           <Text>
             {t('webhookSubscriptions.availableHint')}: {availableHint}
           </Text>
         ) : null}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="headers"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('webhookSubscriptions.headers')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('webhookSubscriptions.headersPlaceholder')}
-              multiline
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="webhook-subscription-headers"
-            />
-          )}
+          label={t('webhookSubscriptions.headers')}
+          placeholder={t('webhookSubscriptions.headersPlaceholder')}
+          multiline
+          autoCapitalize="none"
+          testID="webhook-subscription-headers"
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

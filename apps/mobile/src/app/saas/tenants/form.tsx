@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
 import { AppSelect } from '../../../components/ui/AppSelect';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import {
@@ -117,19 +117,13 @@ export default function TenantFormScreen() {
   return (
     <AppScreen scrollable title={t(isEdit ? 'saasTenants.editTitle' : 'saasTenants.createTitle')}>
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasTenants.name')}
-              value={field.value}
-              onChangeText={field.onChange}
-              placeholder={t('saasTenants.namePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasTenants.name')}
+          placeholder={t('saasTenants.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
         <Controller
           control={form.control}
@@ -163,64 +157,40 @@ export default function TenantFormScreen() {
             />
           )}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="enableTime"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasTenants.enableTime')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('saasTenants.dateTimePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasTenants.enableTime')}
+          placeholder={t('saasTenants.dateTimePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
-        <Controller
+        <AppFormInput
           control={form.control}
           name="disableTime"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasTenants.disableTime')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('saasTenants.dateTimePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasTenants.disableTime')}
+          placeholder={t('saasTenants.dateTimePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
         {!isEdit ? (
           <>
-            <Controller
+            <AppFormInput
               control={form.control}
               name="adminEmailAddress"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('saasTenants.adminEmailAddress')}
-                  value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('saasTenants.adminEmailPlaceholder')}
-                  autoCapitalize="none"
-                  keyboardType="email-address"
-                  error={fieldError(fieldState.error?.message)}
-                />
-              )}
+              label={t('saasTenants.adminEmailAddress')}
+              placeholder={t('saasTenants.adminEmailPlaceholder')}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              fieldError={fieldError}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="adminPassword"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('saasTenants.adminPassword')}
-                  value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('saasTenants.adminPasswordPlaceholder')}
-                  secureTextEntry
-                  error={fieldError(fieldState.error?.message)}
-                />
-              )}
+              label={t('saasTenants.adminPassword')}
+              placeholder={t('saasTenants.adminPasswordPlaceholder')}
+              secureTextEntry
+              fieldError={fieldError}
             />
             <Controller
               control={form.control}
@@ -234,37 +204,25 @@ export default function TenantFormScreen() {
                 />
               )}
             />
-            <Controller
+            <AppFormInput
               control={form.control}
               name="defaultConnectionString"
-              render={({ field, fieldState }) => (
-                <AppInput
-                  label={t('saasTenants.defaultConnectionString')}
-                  value={field.value ?? ''}
-                  onChangeText={field.onChange}
-                  placeholder={t('saasTenants.defaultConnectionStringPlaceholder')}
-                  autoCapitalize="none"
-                  secureTextEntry
-                  error={fieldError(fieldState.error?.message)}
-                />
-              )}
+              label={t('saasTenants.defaultConnectionString')}
+              placeholder={t('saasTenants.defaultConnectionStringPlaceholder')}
+              autoCapitalize="none"
+              secureTextEntry
+              fieldError={fieldError}
             />
           </>
         ) : null}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="extraPropertiesJson"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('saasTenants.extraProperties')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('saasTenants.extraPropertiesPlaceholder')}
-              autoCapitalize="none"
-              multiline
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('saasTenants.extraProperties')}
+          placeholder={t('saasTenants.extraPropertiesPlaceholder')}
+          autoCapitalize="none"
+          multiline
+          fieldError={fieldError}
         />
         <AppFormSubmit
           error={submitError}

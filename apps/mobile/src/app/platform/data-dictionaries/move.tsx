@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -73,19 +73,13 @@ export default function DataMoveScreen() {
         <Text>
           {detail.data?.displayName} ({detail.data?.name})
         </Text>
-        <Controller
+        <AppFormInput
           control={form.control}
           name="parentId"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('platformDataDictionaries.parent')}
-              value={field.value ?? ''}
-              onChangeText={field.onChange}
-              placeholder={t('platformDataDictionaries.movePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('platformDataDictionaries.parent')}
+          placeholder={t('platformDataDictionaries.movePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
         />
         <Text>
           {t('platformDataDictionaries.parentsHint')}: {parentsHint}
