@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { GetUserSessionsInput, IdentitySessionDto } from './sessions';
 
 /** GET /api/identity/sessions — phân trang ABP, lọc theo device (ô tìm kiếm mobile). */
@@ -6,8 +7,7 @@ export function getSessionsPaged(input: GetUserSessionsInput = {}) {
   return apiRequest<PagedResult<IdentitySessionDto>>('/api/identity/sessions', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       userId: input.userId,
       device: input.device,

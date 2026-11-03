@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type {
   AIToolDefinitionRecordCreateDto,
   AIToolDefinitionRecordDto,
@@ -28,8 +29,7 @@ export function getAIToolsPaged(input: AIToolDefinitionRecordGetPagedListInput =
       filter: input.filter,
       isEnabled: input.isEnabled,
       provider: input.provider,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -82,8 +82,7 @@ export function getWorkspacesPaged(input: WorkspaceDefinitionRecordGetPagedListI
       filter: input.filter,
       provider: input.provider,
       modelName: input.modelName,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -137,8 +136,7 @@ export function getConversationsPaged(input: ConversationGetListInput = {}) {
     method: 'GET',
     params: {
       filter: input.filter,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });

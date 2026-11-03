@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, apiUploadMultipart, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import { BLOB_FILE_UPLOAD_PATH, buildBlobUploadForm, type BlobUploadInput } from './blob-upload';
 import type {
   BlobContainerCreateDto,
@@ -17,8 +18,7 @@ export function getBlobContainersPaged(input: BlobContainerGetListInput = {}) {
     method: 'GET',
     params: {
       filter: input.filter,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -61,8 +61,7 @@ export function getBlobsPaged(input: BlobGetListInput) {
       parentId: input.parentId,
       type: input.type,
       contentType: input.contentType,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });

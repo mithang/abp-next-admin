@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type {
   GetMyNotifilerPagedListInput,
   MarkReadStateInput,
@@ -23,8 +24,7 @@ export function getMyNotificationsPaged(input: GetMyNotifilerPagedListInput = {}
     params: {
       filter: input.filter,
       readState: input.readState,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -162,8 +162,7 @@ export function getNotificationSendRecordsPaged(
       userId: input.userId,
       beginSendTime: input.beginSendTime,
       endSendTime: input.endSendTime,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });

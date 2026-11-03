@@ -45,6 +45,30 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 70
+
+Vòng P3 gộp họ default phân trang ở tầng API (tiếp nối vòng
+69 ở tầng query): helper mới `pagedDefaults(input)` trong
+`src/lib/paged-params.ts` và migrate 30 fetcher `*Paged` ở
+19 file từ cặp dòng lặp `skipCount: input.skipCount ?? 0` /
+`maxResultCount: input.maxResultCount ?? 20`. Lý do thật,
+không chỉ gộp cho gọn: con số 20 khi đó là bản sao rời của
+`DEFAULT_PAGE_SIZE` ở `use-pagination.ts` (màn hình dùng
+hook, API layer tự hardcode), nên đổi kích thước trang ở
+một tầng sẽ làm hai tầng lệch nhau mà không báo lỗi nào;
+helper lấy default từ cùng một hằng số. Helper cố tình chỉ
+trả về đúng 2 field phân trang (không spread toàn bộ
+`input`) để không gửi thêm query param lạ từ các field
+input chỉ dùng ở tầng khác. Cố tình giữ: `getChatMessagesPaged`
+(`maxResultCount ?? 50`, chat tải trang lớn hơn có chủ ý)
+và 2 fetcher localization truyền thẳng `input.skipCount` /
+`input.maxResultCount` (undefined được `apiRequest` bỏ qua
+nên đang dựa vào default phía server — ép về 0/20 sẽ đổi
+request thực tế). Kiểm tra: format/typecheck/lint PASS (0
+errors, 14 warning vendored), Jest 453/453 (+4 test
+paged-params mới), i18n 1463/1463, expo config PASS
+(SDK 58.0.0, `com.mithang.abpnextadmin`).
+
 ## Trạng thái vòng 69
 
 Vòng P3 gộp họ query chi tiết (tiếp nối vòng 68 ở tầng data):

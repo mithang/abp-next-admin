@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { GetClaimTypePagedListInput, IdentityClaimTypeDto } from './claim-types';
 
 /** GET /api/identity/claim-types — đã kiểm chứng từ useClaimTypesApi.ts của web app-antd. */
@@ -6,8 +7,7 @@ export function getClaimTypesPaged(input: GetClaimTypePagedListInput = {}) {
   return apiRequest<PagedResult<IdentityClaimTypeDto>>('/api/identity/claim-types', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       filter: input.filter,
     },

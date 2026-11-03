@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { EntityTypeInfoDto, GetEntityTypeInfoListInput } from './types';
 
 /** GET /api/data-protection-management/entity-type-infos — phân trang ABP, lọc filter. */
@@ -11,8 +12,7 @@ export function getEntityTypeInfosPaged(input: GetEntityTypeInfoListInput = {}) 
         filter: input.filter,
         isAuditEnabled: input.isAuditEnabled,
         sorting: input.sorting,
-        skipCount: input.skipCount ?? 0,
-        maxResultCount: input.maxResultCount ?? 20,
+        ...pagedDefaults(input),
       },
     },
   );

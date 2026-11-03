@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { AuditLogDto, AuditLogGetListInput, LogDto, LogGetListInput } from './types';
 
 /** GET /api/auditing/audit-log — phân trang ABP, lọc theo userName/url/method/status... */
@@ -6,8 +7,7 @@ export function getAuditLogsPaged(input: AuditLogGetListInput = {}) {
   return apiRequest<PagedResult<AuditLogDto>>('/api/auditing/audit-log', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       userName: input.userName,
       url: input.url,
@@ -50,8 +50,7 @@ export function getSysLogsPaged(input: LogGetListInput = {}) {
   return apiRequest<PagedResult<LogDto>>('/api/auditing/logging', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       level: input.level,
       application: input.application,

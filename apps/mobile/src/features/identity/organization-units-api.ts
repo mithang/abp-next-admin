@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type {
   GetOrganizationUnitPagedListInput,
   OrganizationUnitCreateInput,
@@ -18,8 +19,7 @@ export function getOrganizationUnitsPaged(input: GetOrganizationUnitPagedListInp
   return apiRequest<PagedResult<OrganizationUnitDto>>('/api/identity/organization-units', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       filter: input.filter,
     },

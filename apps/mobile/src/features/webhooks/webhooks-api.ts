@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type {
   WebhookAvailableGroupDto,
   WebhookDefinitionCreateDto,
@@ -106,8 +107,7 @@ export function getWebhookSubscriptionsPaged(input: WebhookSubscriptionGetListIn
       webhookUri: input.webhookUri,
       isActive: input.isActive,
       webhooks: input.webhooks,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -165,8 +165,7 @@ export function getWebhookSendAttemptsPaged(input: WebhookSendRecordGetListInput
       subscriptionId: input.subscriptionId,
       webhookEventId: input.webhookEventId,
       responseStatusCode: input.responseStatusCode,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });

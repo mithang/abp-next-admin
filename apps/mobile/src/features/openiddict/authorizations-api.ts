@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { OpenIddictAuthorizationDto, OpenIddictAuthorizationGetListInput } from './types';
 
 /**
@@ -10,8 +11,7 @@ export function getAuthorizationsPaged(input: OpenIddictAuthorizationGetListInpu
   return apiRequest<PagedResult<OpenIddictAuthorizationDto>>('/api/openiddict/authorizations', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       filter: input.filter,
       subject: input.subject,

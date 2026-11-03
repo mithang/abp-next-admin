@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { RoleMenuInput, UserMenuInput } from './menu-allotment';
 import type {
   UserFavoriteMenuCreateDto,
@@ -35,8 +36,7 @@ export function getDatasPaged(input: DataGetListInput = {}) {
     method: 'GET',
     params: {
       filter: input.filter,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -117,8 +117,7 @@ export function getLayoutsPaged(input: LayoutGetListInput = {}) {
     params: {
       filter: input.filter,
       framework: input.framework,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -272,8 +271,7 @@ export function getEmailMessagesPaged(input: EmailMessageGetListInput = {}) {
       status: input.status,
       beginSendTime: input.beginSendTime,
       endSendTime: input.endSendTime,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });
@@ -313,8 +311,7 @@ export function getSmsMessagesPaged(input: SmsMessageGetListInput = {}) {
       status: input.status,
       beginSendTime: input.beginSendTime,
       endSendTime: input.endSendTime,
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
     },
   });

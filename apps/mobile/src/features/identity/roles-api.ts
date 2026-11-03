@@ -1,4 +1,5 @@
 import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
+import { pagedDefaults } from '../../lib/paged-params';
 import type { GetRolePagedListInput, IdentityRoleDto } from './roles-types';
 
 /** GET /api/identity/roles — đã kiểm chứng từ useRolesApi.ts của web app-antd. */
@@ -6,8 +7,7 @@ export function getRolesPaged(input: GetRolePagedListInput = {}) {
   return apiRequest<PagedResult<IdentityRoleDto>>('/api/identity/roles', {
     method: 'GET',
     params: {
-      skipCount: input.skipCount ?? 0,
-      maxResultCount: input.maxResultCount ?? 20,
+      ...pagedDefaults(input),
       sorting: input.sorting,
       filter: input.filter,
     },
