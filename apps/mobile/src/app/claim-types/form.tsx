@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../lib/route-params';
@@ -28,7 +27,7 @@ import {
   toClaimTypeUpdateInput,
   type ClaimTypeFormValues,
 } from '../../features/identity/claim-type-form-schema';
-import { toApiError } from '../../lib/errors';
+import { useSubmitError } from '../../lib/use-submit-error';
 import { createFieldError } from '../../lib/field-error';
 import { useInvalidateAndBack } from '../../lib/mutation-success';
 
@@ -46,7 +45,11 @@ export default function ClaimTypeFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['claim-types']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('claim-types', id, getClaimType);
 
@@ -73,7 +76,7 @@ export default function ClaimTypeFormScreen() {
       return createClaimType(toClaimTypeCreateInput(values));
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -174,7 +177,7 @@ export default function ClaimTypeFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

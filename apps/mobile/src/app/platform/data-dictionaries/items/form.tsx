@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../../lib/route-params';
 import { AppFormSwitch } from '../../../../components/ui/AppFormSwitch';
 import { useMutation } from '@tanstack/react-query';
@@ -24,7 +23,7 @@ import {
   dataItemFormSchema,
   type DataItemFormValues,
 } from '../../../../features/platform/data-form-schema';
-import { toApiError } from '../../../../lib/errors';
+import { useSubmitError } from '../../../../lib/use-submit-error';
 import { createFieldError } from '../../../../lib/field-error';
 import { buildDataValueTypeOptions } from '../../../../lib/app-select-options';
 import { useInvalidateAndBack } from '../../../../lib/mutation-success';
@@ -46,7 +45,7 @@ export default function DataItemFormScreen() {
   const { dataId, name } = useRouteParams<{ dataId: string; name?: string }>();
   const invalidateAndBack = useInvalidateAndBack(['platform-datas', dataId]);
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('platform-datas', dataId, getData);
   const existing = detail.data?.items.find((i) => i.name === name);
@@ -81,7 +80,7 @@ export default function DataItemFormScreen() {
       return createDataItem(dataId, { ...shared, name: values.name.trim() });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

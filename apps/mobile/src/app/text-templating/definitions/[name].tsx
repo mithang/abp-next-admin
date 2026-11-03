@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -15,7 +14,7 @@ import {
   deleteTextTemplateDefinition,
   getTextTemplateDefinition,
 } from '../../../features/text-templating/text-templating-api';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 import { navHref } from '../../../lib/nav-href';
@@ -30,14 +29,14 @@ export default function TextTemplateDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useRouteParams<{ name: string }>();
   const invalidateAndBack = useInvalidateAndBack(['text-template-definitions']);
-  const [actionError, setActionError] = useState<string | null>(null);
+  const { error: actionError, onError: handleActionError } = useSubmitError();
 
   const query = useDetailQuery('text-template-definitions', name, getTextTemplateDefinition);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteTextTemplateDefinition(name),
     onSuccess: invalidateAndBack,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const queryState = queryStateElement(query);

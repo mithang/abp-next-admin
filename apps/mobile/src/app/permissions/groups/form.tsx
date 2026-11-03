@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -20,7 +19,7 @@ import {
   permissionGroupFormSchema,
   type PermissionGroupFormValues,
 } from '../../../features/permissions/permission-group-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -35,7 +34,11 @@ export default function PermissionGroupFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['permission-groups']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('permission-groups', name, getPermissionGroup);
 
@@ -59,7 +62,7 @@ export default function PermissionGroupFormScreen() {
       return createPermissionGroup({ name: values.name, displayName: values.displayName });
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -100,7 +103,7 @@ export default function PermissionGroupFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -16,7 +15,7 @@ import {
   parseExtraPropertiesJson,
   type EditionFormValues,
 } from '../../../features/saas/edition-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -27,7 +26,7 @@ export default function EditionFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['saas-editions']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('saas-editions', id, getEdition);
 
@@ -60,7 +59,7 @@ export default function EditionFormScreen() {
       return createEdition(shared);
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

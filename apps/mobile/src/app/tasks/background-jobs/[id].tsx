@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -32,6 +31,7 @@ import {
   JOB_TYPE_LABELS,
 } from '../../../features/tasks/types';
 import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { usePagination } from '../../../lib/use-pagination';
@@ -48,7 +48,7 @@ import { navHref } from '../../../lib/nav-href';
 export default function BackgroundJobDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const [actionError, setActionError] = useState<string | null>(null);
+  const { error: actionError, onError: handleActionError } = useSubmitError();
 
   const query = useDetailQuery('tasks-background-jobs', id, getBackgroundJob);
 
@@ -75,7 +75,7 @@ export default function BackgroundJobDetailScreen() {
   const deleteLogMutation = useMutation({
     mutationFn: (logId: string) => deleteBackgroundJobLog(logId),
     onSuccess: invalidateLogs,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const actionMutation = useMutation({
@@ -93,7 +93,7 @@ export default function BackgroundJobDetailScreen() {
       return fn(id);
     },
     onSuccess: invalidate,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const queryState = queryStateElement(query);

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -24,7 +23,7 @@ import {
   layoutFormSchema,
   type LayoutFormValues,
 } from '../../../features/platform/layout-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -44,7 +43,7 @@ export default function LayoutFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['platform-layouts']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('platform-layouts', id, getLayout);
   const datasQuery = useQuery({
@@ -93,7 +92,7 @@ export default function LayoutFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

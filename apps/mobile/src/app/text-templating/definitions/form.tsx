@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
@@ -24,7 +23,7 @@ import {
   textTemplateDefinitionFormSchema,
   type TextTemplateDefinitionFormValues,
 } from '../../../features/text-templating/text-template-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -39,7 +38,7 @@ export default function TextTemplateDefinitionFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['text-template-definitions']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('text-template-definitions', name, getTextTemplateDefinition);
 
@@ -80,7 +79,7 @@ export default function TextTemplateDefinitionFormScreen() {
       return createTextTemplateDefinition({ name: values.name, ...rest });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

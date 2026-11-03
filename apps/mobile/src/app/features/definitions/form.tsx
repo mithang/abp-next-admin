@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
@@ -25,7 +24,7 @@ import {
   type FeatureDefinitionFormValues,
 } from '../../../features/features/feature-definition-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -42,7 +41,11 @@ export default function FeatureDefinitionFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['feature-definitions']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('feature-definitions', name, getFeatureDefinition);
 
@@ -92,7 +95,7 @@ export default function FeatureDefinitionFormScreen() {
       return createFeatureDefinition({ name: values.name, groupName: values.groupName, ...body });
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -213,7 +216,7 @@ export default function FeatureDefinitionFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

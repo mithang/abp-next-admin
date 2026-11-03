@@ -22,6 +22,7 @@ import {
 import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { resolveFieldError } from '../../../lib/field-error';
@@ -50,7 +51,11 @@ export default function AIConversationChatScreen() {
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState<string | null>(null);
   const [streamingText, setStreamingText] = useState<string | null>(null);
-  const [streamError, setStreamError] = useState<string | null>(null);
+  const {
+    error: streamError,
+    onError: handleStreamError,
+    clearError: clearStreamError,
+  } = useSubmitError();
   const [localUserMessages, setLocalUserMessages] = useState<string[]>([]);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -82,7 +87,7 @@ export default function AIConversationChatScreen() {
     }
     if (!detail.data) return;
     setContentError(null);
-    setStreamError(null);
+    clearStreamError();
     const text = parsed.data.content;
     setLocalUserMessages((prev) => [...prev, text]);
     setContent('');
@@ -106,7 +111,7 @@ export default function AIConversationChatScreen() {
       if (error instanceof DOMException && error.name === 'AbortError') {
         setStreamingText(null);
       } else {
-        setStreamError(toApiError(error).message);
+        handleStreamError(error);
         setStreamingText(null);
       }
     } finally {

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
@@ -17,7 +16,7 @@ import {
   toCacheSetExpirations,
   type CacheSetFormValues,
 } from '../../../features/caching/cache-set-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { stateErrorElement } from '../../../lib/state-error';
 import { createFieldError } from '../../../lib/field-error';
 
@@ -31,7 +30,7 @@ export default function CacheSetFormScreen() {
   const router = useRouter();
   const invalidateCache = useInvalidateQueries(['cache-keys'], ['cache-values']);
   const { key } = useRouteParams<{ key?: string }>();
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const form = useForm<CacheSetFormValues>({
     resolver: zodResolver(cacheSetFormSchema),
@@ -51,7 +50,7 @@ export default function CacheSetFormScreen() {
       await invalidateCache();
       router.back();
     },
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const fieldError = createFieldError(t, 'caches');

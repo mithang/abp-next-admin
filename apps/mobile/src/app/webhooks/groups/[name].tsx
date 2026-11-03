@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -15,7 +14,7 @@ import {
   deleteWebhookGroupDefinition,
   getWebhookGroupDefinition,
 } from '../../../features/webhooks/webhooks-api';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 import { navHref } from '../../../lib/nav-href';
@@ -28,14 +27,14 @@ export default function WebhookGroupDetailScreen() {
   const { t } = useTranslation();
   const { name } = useRouteParams<{ name: string }>();
   const invalidateAndBack = useInvalidateAndBack(['webhook-groups']);
-  const [actionError, setActionError] = useState<string | null>(null);
+  const { error: actionError, onError: handleActionError } = useSubmitError();
 
   const query = useDetailQuery('webhook-groups', name, getWebhookGroupDefinition);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookGroupDefinition(name),
     onSuccess: invalidateAndBack,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const queryState = queryStateElement(query);

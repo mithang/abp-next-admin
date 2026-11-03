@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
@@ -23,7 +22,7 @@ import {
   webhookGroupFormSchema,
   type WebhookGroupFormValues,
 } from '../../../features/webhooks/webhook-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -38,7 +37,7 @@ export default function WebhookGroupFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['webhook-groups']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('webhook-groups', name, getWebhookGroupDefinition);
 
@@ -60,7 +59,7 @@ export default function WebhookGroupFormScreen() {
       return createWebhookGroupDefinition({ name: values.name, displayName: values.displayName });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

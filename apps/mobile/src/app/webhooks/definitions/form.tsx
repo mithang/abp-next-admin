@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
@@ -25,7 +24,7 @@ import {
   webhookDefinitionFormSchema,
   type WebhookDefinitionFormValues,
 } from '../../../features/webhooks/webhook-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -42,7 +41,7 @@ export default function WebhookDefinitionFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['webhook-definitions']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('webhook-definitions', name, getWebhookDefinition);
 
@@ -82,7 +81,7 @@ export default function WebhookDefinitionFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

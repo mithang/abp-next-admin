@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -14,7 +13,7 @@ import {
   blobFolderFormSchema,
   type BlobFolderFormValues,
 } from '../../../features/blob/blob-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
@@ -28,7 +27,7 @@ export default function BlobFolderFormScreen() {
     containerId: string;
     parentId?: string;
   }>();
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const form = useForm<BlobFolderFormValues>({
     resolver: zodResolver(blobFolderFormSchema),
@@ -43,7 +42,7 @@ export default function BlobFolderFormScreen() {
         parentId: parentId || undefined,
       }),
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   return (

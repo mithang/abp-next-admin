@@ -38,6 +38,7 @@ import { displayName } from '../../features/identity/types';
 import { toggleSelection } from '../../lib/selection';
 import { stateErrorElement } from '../../lib/state-error';
 import { toApiError } from '../../lib/errors';
+import { useSubmitError } from '../../lib/use-submit-error';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByNestedId } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
@@ -87,7 +88,11 @@ function AllotEditor({
   const [selected, setSelected] = useState<ReadonlySet<string>>(initial.selected);
   const [startupMenuId, setStartupMenuId] = useState<string | null>(initial.startup);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
-  const [saveError, setSaveError] = useState<string | null>(null);
+  const {
+    error: saveError,
+    onError: handleSaveError,
+    clearError: clearSaveError,
+  } = useSubmitError();
 
   const rows = useMemo(() => flattenMenuTree(allMenus), [allMenus]);
 
@@ -103,13 +108,13 @@ function AllotEditor({
       );
     },
     onSuccess: async () => {
-      setSaveError(null);
+      clearSaveError();
       setSaveMessage(t('menuAllot.saved'));
       await invalidateMenusAllot();
     },
     onError: (error: unknown) => {
       setSaveMessage(null);
-      setSaveError(toApiError(error).message);
+      handleSaveError(error);
     },
   });
 

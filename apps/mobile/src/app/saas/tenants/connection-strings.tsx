@@ -33,7 +33,7 @@ import {
   type ConnectionStringSetFormValues,
 } from '../../../features/saas/connection-string-form-schema';
 import type { TenantConnectionStringDto } from '../../../features/saas/types';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
@@ -52,9 +52,13 @@ export default function TenantConnectionStringsScreen() {
   const { t } = useTranslation();
   const { tenantId } = useRouteParams<{ tenantId: string }>();
   const invalidate = useInvalidateQueries(['saas-tenant-connection-strings', tenantId]);
-  const [setError, setSetError] = useState<string | null>(null);
+  const { error: setError, onError: handleSetError, clearError: clearSetError } = useSubmitError();
   const [checkResult, setCheckResult] = useState<string | null>(null);
-  const [checkError, setCheckError] = useState<string | null>(null);
+  const {
+    error: checkError,
+    onError: handleCheckError,
+    clearError: clearCheckError,
+  } = useSubmitError();
 
   const tenantQuery = useDetailQuery('saas-tenants', tenantId, getTenant);
   const listQuery = useDetailQuery(
@@ -76,11 +80,11 @@ export default function TenantConnectionStringsScreen() {
     mutationFn: (values: ConnectionStringSetFormValues) =>
       setTenantConnectionString(tenantId, { name: values.name.trim(), value: values.value }),
     onSuccess: async () => {
-      setSetError(null);
+      clearSetError();
       setForm.reset();
       await invalidate();
     },
-    onError: (error) => setSetError(toApiError(error).message),
+    onError: handleSetError,
   });
 
   const deleteMutation = useMutation({
@@ -96,12 +100,12 @@ export default function TenantConnectionStringsScreen() {
         connectionString: values.connectionString,
       }),
     onSuccess: () => {
-      setCheckError(null);
+      clearCheckError();
       setCheckResult(t('saasConnectionStrings.connected'));
     },
     onError: (error) => {
       setCheckResult(null);
-      setCheckError(toApiError(error).message);
+      handleCheckError(error);
     },
   });
 

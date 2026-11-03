@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -24,7 +23,7 @@ import {
   type TenantFormValues,
 } from '../../../features/saas/tenant-form-schema';
 import { buildEditionOptions } from '../../../lib/app-select-options';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -46,7 +45,7 @@ export default function TenantFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['saas-tenants']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('saas-tenants', id, getTenant);
   const editionsQuery = useQuery({
@@ -102,7 +101,7 @@ export default function TenantFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

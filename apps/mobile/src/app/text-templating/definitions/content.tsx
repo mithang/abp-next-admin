@@ -19,6 +19,7 @@ import {
 import { buildCulturePickerOptions } from '../../../features/text-templating/culture-options';
 import { getLanguagesPaged } from '../../../features/localization/localization-api';
 import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 
 /**
  * Nội dung mẫu văn bản: đúng modal Edit contents của bảng web.
@@ -42,7 +43,7 @@ export default function TextTemplateContentScreen() {
   const [culture, setCulture] = useState('');
   const [content, setContent] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { error, onError: handleError, clearError } = useSubmitError();
 
   const query = useQuery({
     queryKey: ['text-template-content', name, culture],
@@ -66,7 +67,7 @@ export default function TextTemplateContentScreen() {
     setCulture(value);
     setContent(null);
     setMessage(null);
-    setError(null);
+    clearError();
   };
 
   const currentContent = content ?? query.data?.content ?? '';
@@ -76,12 +77,12 @@ export default function TextTemplateContentScreen() {
       updateTextTemplateContent(name, { content: currentContent, culture: culture || undefined }),
     onSuccess: async () => {
       setMessage(t('textTemplateDefinitions.contentSaved'));
-      setError(null);
+      clearError();
       await invalidateTemplateContent();
     },
     onError: (err) => {
       setMessage(null);
-      setError(toApiError(err).message);
+      handleError(err);
     },
   });
 
@@ -92,12 +93,12 @@ export default function TextTemplateContentScreen() {
       // thay vì giữ chuỗi rỗng đã nhập (restore không có nghĩa là xóa).
       setContent(null);
       setMessage(t('textTemplateDefinitions.contentRestored'));
-      setError(null);
+      clearError();
       await invalidateTemplateContent();
     },
     onError: (err) => {
       setMessage(null);
-      setError(toApiError(err).message);
+      handleError(err);
     },
   });
 
@@ -137,7 +138,7 @@ export default function TextTemplateContentScreen() {
             setCulture(value);
             setContent(null);
             setMessage(null);
-            setError(null);
+            clearError();
           }}
           placeholder={t('textTemplateDefinitions.cultureCustomPlaceholder')}
           autoCapitalize="none"
@@ -149,7 +150,7 @@ export default function TextTemplateContentScreen() {
           onChangeText={(value) => {
             setContent(value);
             setMessage(null);
-            setError(null);
+            clearError();
           }}
           placeholder={t('textTemplateDefinitions.contentPlaceholder')}
           multiline

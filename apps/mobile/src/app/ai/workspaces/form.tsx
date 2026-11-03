@@ -26,7 +26,7 @@ import {
   type AIWorkspaceFormValues,
   type AIWorkspaceResetApiKeyValues,
 } from '../../../features/ai/ai-workspace-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -48,7 +48,7 @@ export default function AIWorkspaceFormScreen() {
   const { id, reset } = useRouteParams<{ id?: string; reset?: string }>();
   const isEdit = Boolean(id);
   const isReset = reset === '1' && isEdit;
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
   const [providerText, setProviderText] = useState('');
 
   const detail = useDetailQuery('ai-workspaces', id, getWorkspace);
@@ -134,7 +134,7 @@ export default function AIWorkspaceFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const resetMutation = useMutation({
@@ -161,7 +161,7 @@ export default function AIWorkspaceFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../lib/use-detail-query';
@@ -24,7 +23,7 @@ import {
   toOrganizationUnitUpdateInput,
   type OrganizationUnitFormValues,
 } from '../../features/identity/organization-unit-form-schema';
-import { toApiError } from '../../lib/errors';
+import { useSubmitError } from '../../lib/use-submit-error';
 import { queryStateElement } from '../../lib/query-state';
 import { createFieldError } from '../../lib/field-error';
 import { useInvalidateAndBack } from '../../lib/mutation-success';
@@ -40,7 +39,11 @@ export default function OrganizationUnitFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['organization-units']);
   const { id, parentId } = useRouteParams<{ id?: string; parentId?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('organization-units', id, getOrganizationUnit);
   const all = useQuery({
@@ -67,7 +70,7 @@ export default function OrganizationUnitFormScreen() {
       return createOrganizationUnit(toOrganizationUnitCreateInput(values));
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -97,7 +100,7 @@ export default function OrganizationUnitFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

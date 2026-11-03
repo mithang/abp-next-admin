@@ -31,7 +31,7 @@ import {
   isHexColor,
   type UserFavoriteMenuDto,
 } from '../../features/platform/menu-favorites';
-import { toApiError } from '../../lib/errors';
+import { useSubmitError } from '../../lib/use-submit-error';
 import { stateErrorElement } from '../../lib/state-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
@@ -119,7 +119,11 @@ function AddFavoriteForm({
   const [aliasName, setAliasName] = useState('');
   const [color, setColor] = useState('#000000');
   const [icon, setIcon] = useState('');
-  const [formError, setFormError] = useState<string | null>(null);
+  const {
+    error: formError,
+    onError: handleFormError,
+    clearError: clearFormError,
+  } = useSubmitError();
   const [formMessage, setFormMessage] = useState<string | null>(null);
 
   const menusQuery = useQuery({
@@ -153,7 +157,7 @@ function AddFavoriteForm({
       return createMyFavoriteMenu(input);
     },
     onSuccess: async () => {
-      setFormError(null);
+      clearFormError();
       setFormMessage(t('menuFavorites.created'));
       setSelectedMenuId('');
       setAliasName('');
@@ -162,7 +166,7 @@ function AddFavoriteForm({
     },
     onError: (error: unknown) => {
       setFormMessage(null);
-      setFormError(toApiError(error).message);
+      handleFormError(error);
     },
   });
 
@@ -232,7 +236,11 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
   const [aliasName, setAliasName] = useState(item.aliasName ?? '');
   const [color, setColor] = useState(item.color ?? '');
   const [icon, setIcon] = useState(item.icon ?? '');
-  const [formError, setFormError] = useState<string | null>(null);
+  const {
+    error: formError,
+    onError: handleFormError,
+    clearError: clearFormError,
+  } = useSubmitError();
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -249,11 +257,11 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
         }),
       ),
     onSuccess: async () => {
-      setFormError(null);
+      clearFormError();
       await invalidateMenuFavorites();
       onDone();
     },
-    onError: (error: unknown) => setFormError(toApiError(error).message),
+    onError: handleFormError,
   });
 
   return (

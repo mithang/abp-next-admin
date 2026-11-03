@@ -26,7 +26,7 @@ import {
   type SettingDetail,
   type SettingGroup,
 } from '../../features/settings/types';
-import { toApiError } from '../../lib/errors';
+import { useSubmitError } from '../../lib/use-submit-error';
 
 type Row =
   | { kind: 'group'; key: string; displayName: string }
@@ -70,7 +70,11 @@ export default function WechatSettingsScreen() {
   const invalidateWechatSettings = useInvalidateQueries(['wechat-settings']);
   const [scope, setScope] = useState<'global' | 'tenant'>('global');
   const [edits, setEdits] = useState<Record<string, string>>({});
-  const [saveError, setSaveError] = useState<string | null>(null);
+  const {
+    error: saveError,
+    onError: handleSaveError,
+    clearError: clearSaveError,
+  } = useSubmitError();
   const [saved, setSaved] = useState(false);
 
   const tenantQuery = useQuery({
@@ -98,12 +102,12 @@ export default function WechatSettingsScreen() {
     onSuccess: async () => {
       setEdits({});
       setSaved(true);
-      setSaveError(null);
+      clearSaveError();
       await invalidateWechatSettings();
     },
     onError: (error: unknown) => {
       setSaved(false);
-      setSaveError(toApiError(error).message);
+      handleSaveError(error);
     },
   });
 
@@ -126,7 +130,7 @@ export default function WechatSettingsScreen() {
     const current = edits[detail.name] ?? detail.value ?? '';
     const setValue = (value: string) => {
       setSaved(false);
-      setSaveError(null);
+      clearSaveError();
       setEdits((prev) => ({ ...prev, [detail.name]: value }));
     };
     const isReadOnly =
@@ -197,7 +201,7 @@ export default function WechatSettingsScreen() {
             setScope('global');
             setEdits({});
             setSaved(false);
-            setSaveError(null);
+            clearSaveError();
           }}
         />
         <AppButton
@@ -208,7 +212,7 @@ export default function WechatSettingsScreen() {
             setScope('tenant');
             setEdits({});
             setSaved(false);
-            setSaveError(null);
+            clearSaveError();
           }}
         />
       </View>

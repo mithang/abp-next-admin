@@ -15,7 +15,7 @@ import {
   textFormSchema,
   type TextFormValues,
 } from '../../../features/localization/form-schemas';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -40,7 +40,11 @@ export default function TextFormScreen() {
   }>();
   const isEdit =
     params.edit === '1' && Boolean(params.cultureName && params.resourceName && params.key);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
   const [queryCulture, setQueryCulture] = useState(params.cultureName ?? '');
   const reloadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -99,7 +103,7 @@ export default function TextFormScreen() {
         value: values.value,
       }),
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(byKey);
@@ -164,7 +168,7 @@ export default function TextFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

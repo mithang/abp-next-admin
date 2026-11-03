@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
@@ -25,7 +24,7 @@ import {
   parseEnumNumber,
   type NotificationDefinitionFormValues,
 } from '../../../features/notifications/notification-definition-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -41,7 +40,11 @@ export default function NotificationDefinitionFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['notification-definitions']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('notification-definitions', name, getNotificationDefinition);
 
@@ -92,7 +95,7 @@ export default function NotificationDefinitionFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -214,7 +217,7 @@ export default function NotificationDefinitionFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -26,7 +25,7 @@ import {
   settingDefinitionFormSchema,
   type SettingDefinitionFormValues,
 } from '../../../features/settings/setting-definition-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -43,7 +42,11 @@ export default function SettingDefinitionFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['setting-definitions']);
   const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('setting-definitions', name, getSettingDefinition);
   const providersQuery = useQuery({
@@ -94,7 +97,7 @@ export default function SettingDefinitionFormScreen() {
       return createSettingDefinition({ name: values.name, ...body });
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -192,7 +195,7 @@ export default function SettingDefinitionFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

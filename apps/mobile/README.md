@@ -45,6 +45,19 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 72
+
+Vòng P3 gộp họ state lỗi mutation còn sót về hook mới
+`useSubmitError` (error + onError + clearError, ánh xạ qua
+`toApiError`): 50 điểm trong 48 file — 48 điểm mutation
+`onError` (single-line + block đa dòng giữ nguyên setState
+phụ như `setSaved(false)`/`setMessage(null)`), điểm
+stream-error trong catch-block chat, và 2 block `(err)` ở
+màn hình nội dung mẫu văn bản. Sau vòng này, `setX(toApiError`
+chỉ còn đúng 1 điểm cố tình giữ: thông điệp test-email ở
+cài đặt hệ thống (state mang cả thông báo thành công, không
+chỉ lỗi). Jest 458/458, i18n 1463/1463.
+
 ## Trạng thái vòng 71
 
 Vòng P3 gộp 20 điểm invalidate cache còn sót ở tầng handler

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -20,7 +19,7 @@ import {
   type ApplicationFormValues,
 } from '../../../features/openiddict/application-form-schema';
 import { parseMultiline, toMultiline } from '../../../features/openiddict/multiline';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -103,7 +102,11 @@ export default function ApplicationFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['openiddict-applications']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const detail = useDetailQuery('openiddict-applications', id, getApplication);
 
@@ -161,7 +164,7 @@ export default function ApplicationFormScreen() {
       return createApplication(body);
     },
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);
@@ -206,7 +209,7 @@ export default function ApplicationFormScreen() {
           error={submitError}
           title={isEdit ? t('common.save') : t('common.create')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

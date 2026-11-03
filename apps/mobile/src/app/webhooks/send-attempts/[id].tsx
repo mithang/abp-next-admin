@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -15,7 +14,7 @@ import {
   getWebhookSendAttempt,
   resendWebhookSendAttempt,
 } from '../../../features/webhooks/webhooks-api';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -31,20 +30,20 @@ export default function WebhookSendAttemptDetailScreen() {
   const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['webhook-send-attempts']);
   const invalidateAndBack = useInvalidateAndBack(['webhook-send-attempts']);
-  const [actionError, setActionError] = useState<string | null>(null);
+  const { error: actionError, onError: handleActionError } = useSubmitError();
 
   const query = useDetailQuery('webhook-send-attempts', id, getWebhookSendAttempt);
 
   const resendMutation = useMutation({
     mutationFn: () => resendWebhookSendAttempt(id),
     onSuccess: invalidate,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookSendAttempt(id),
     onSuccess: invalidateAndBack,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const queryState = queryStateElement(query);

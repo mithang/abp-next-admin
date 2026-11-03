@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -16,7 +15,7 @@ import {
   type NotificationSendFormValues,
 } from '../../../features/notifications/notification-send-form-schema';
 import { parseEnumNumber } from '../../../features/notifications/notification-definition-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -30,7 +29,11 @@ export default function NotificationSendScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['notification-send-records']);
   const { name } = useRouteParams<{ name: string }>();
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const {
+    error: submitError,
+    onError: handleSubmitError,
+    clearError: clearSubmitError,
+  } = useSubmitError();
 
   const form = useForm<NotificationSendFormValues>({
     resolver: zodResolver(notificationSendFormSchema),
@@ -50,7 +53,7 @@ export default function NotificationSendScreen() {
         culture: values.culture || undefined,
       }),
     onSuccess: invalidateAndBack,
-    onError: (error: unknown) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const fieldError = createFieldError(t, 'notificationSend');
@@ -109,7 +112,7 @@ export default function NotificationSendScreen() {
           error={submitError}
           title={t('notificationDefinitions.send')}
           onPress={form.handleSubmit((values) => {
-            setSubmitError(null);
+            clearSubmitError();
             mutation.mutate(values);
           })}
           loading={mutation.isPending}

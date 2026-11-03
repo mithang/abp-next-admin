@@ -23,7 +23,7 @@ import {
   parseExtraPropertiesJson,
   type AIToolFormValues,
 } from '../../../features/ai/ai-tool-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -41,7 +41,7 @@ export default function AIToolFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['ai-tools']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
   const [providerText, setProviderText] = useState('');
 
   const detail = useDetailQuery('ai-tools', id, getAITool);
@@ -88,7 +88,7 @@ export default function AIToolFormScreen() {
       return createAITool({ ...shared, name: (values.name ?? '').trim() });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

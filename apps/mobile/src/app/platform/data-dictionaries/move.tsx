@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -16,7 +15,7 @@ import {
   dataMoveFormSchema,
   type DataMoveFormValues,
 } from '../../../features/platform/data-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -32,7 +31,7 @@ export default function DataMoveScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['platform-datas']);
   const { dataId } = useRouteParams<{ dataId: string }>();
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('platform-datas', dataId, getData);
   const parentsQuery = useQuery({ queryKey: ['platform-datas-all'], queryFn: () => getDatasAll() });
@@ -51,7 +50,7 @@ export default function DataMoveScreen() {
       return moveData(dataId, { parentId: parentId ?? null });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

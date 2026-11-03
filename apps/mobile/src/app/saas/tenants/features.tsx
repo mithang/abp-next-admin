@@ -30,7 +30,7 @@ import {
   type FeatureValue,
   type FeatureValueGroup,
 } from '../../../features/saas/tenant-features';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 
 type Row =
@@ -63,7 +63,11 @@ export default function TenantFeaturesScreen() {
   const { tenantId, tenantName } = useRouteParams<{ tenantId: string; tenantName: string }>();
   const invalidateTenantFeatures = useInvalidateQueries(['tenant-features', tenantId]);
   const [edits, setEdits] = useState<Record<string, string>>({});
-  const [saveError, setSaveError] = useState<string | null>(null);
+  const {
+    error: saveError,
+    onError: handleSaveError,
+    clearError: clearSaveError,
+  } = useSubmitError();
   const [saved, setSaved] = useState(false);
 
   const query = useDetailQuery('tenant-features', tenantId, getTenantFeatureValues);
@@ -74,12 +78,12 @@ export default function TenantFeaturesScreen() {
     onSuccess: async () => {
       setEdits({});
       setSaved(true);
-      setSaveError(null);
+      clearSaveError();
       await invalidateTenantFeatures();
     },
     onError: (error: unknown) => {
       setSaved(false);
-      setSaveError(toApiError(error).message);
+      handleSaveError(error);
     },
   });
 
@@ -88,10 +92,10 @@ export default function TenantFeaturesScreen() {
     onSuccess: async () => {
       setEdits({});
       setSaved(false);
-      setSaveError(null);
+      clearSaveError();
       await invalidateTenantFeatures();
     },
-    onError: (error: unknown) => setSaveError(toApiError(error).message),
+    onError: handleSaveError,
   });
 
   const queryState = queryStateElement(query);
@@ -110,7 +114,7 @@ export default function TenantFeaturesScreen() {
     const current = edits[feature.name] ?? initialEditValue(feature);
     const setValue = (value: string) => {
       setSaved(false);
-      setSaveError(null);
+      clearSaveError();
       setEdits((prev) => ({ ...prev, [feature.name]: value }));
     };
     const errorCode = Object.prototype.hasOwnProperty.call(edits, feature.name)

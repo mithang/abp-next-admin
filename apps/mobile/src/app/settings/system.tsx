@@ -28,6 +28,7 @@ import {
   type SettingGroup,
 } from '../../features/settings/types';
 import { toApiError } from '../../lib/errors';
+import { useSubmitError } from '../../lib/use-submit-error';
 
 type Row =
   | { kind: 'group'; key: string; displayName: string }
@@ -65,7 +66,11 @@ export default function SystemSettingsScreen() {
   const { t } = useTranslation();
   const invalidateSystemSettings = useInvalidateQueries(['system-settings']);
   const [edits, setEdits] = useState<Record<string, string>>({});
-  const [saveError, setSaveError] = useState<string | null>(null);
+  const {
+    error: saveError,
+    onError: handleSaveError,
+    clearError: clearSaveError,
+  } = useSubmitError();
   const [saved, setSaved] = useState(false);
   const [testEmail, setTestEmail] = useState('');
   const [testEmailMessage, setTestEmailMessage] = useState<string | null>(null);
@@ -77,12 +82,12 @@ export default function SystemSettingsScreen() {
     onSuccess: async () => {
       setEdits({});
       setSaved(true);
-      setSaveError(null);
+      clearSaveError();
       await invalidateSystemSettings();
     },
     onError: (error: unknown) => {
       setSaved(false);
-      setSaveError(toApiError(error).message);
+      handleSaveError(error);
     },
   });
 
@@ -111,7 +116,7 @@ export default function SystemSettingsScreen() {
     const current = edits[detail.name] ?? detail.value ?? '';
     const setValue = (value: string) => {
       setSaved(false);
-      setSaveError(null);
+      clearSaveError();
       setEdits((prev) => ({ ...prev, [detail.name]: value }));
     };
     const isReadOnly =

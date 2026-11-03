@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -24,7 +23,7 @@ import {
   type AIConversationCreateValues,
   type AIConversationRenameValues,
 } from '../../../features/ai/ai-conversation-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack, useInvalidateQueries } from '../../../lib/mutation-success';
@@ -44,7 +43,7 @@ export default function AIConversationFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['ai-conversations']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('ai-conversations', id, getConversation);
   const workspacesQuery = useQuery({
@@ -74,14 +73,14 @@ export default function AIConversationFormScreen() {
       await invalidateConversations();
       router.replace(navPath('/ai/conversations', created.id));
     },
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const renameMutation = useMutation({
     mutationFn: async (values: AIConversationRenameValues) =>
       updateConversation(id as string, { name: values.name.trim() }),
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

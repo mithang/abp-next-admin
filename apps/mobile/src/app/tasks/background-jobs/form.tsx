@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -23,7 +22,7 @@ import {
   backgroundJobFormSchema,
   type BackgroundJobFormValues,
 } from '../../../features/tasks/task-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { queryStateElement } from '../../../lib/query-state';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
@@ -87,7 +86,7 @@ export default function BackgroundJobFormScreen() {
   const invalidateAndBack = useInvalidateAndBack(['tasks-background-jobs']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const detail = useDetailQuery('tasks-background-jobs', id, getBackgroundJob);
   const definitionsQuery = useQuery({
@@ -142,7 +141,7 @@ export default function BackgroundJobFormScreen() {
       });
     },
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   const queryState = queryStateElement(detail);

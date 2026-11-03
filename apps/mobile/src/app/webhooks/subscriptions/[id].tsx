@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
@@ -15,7 +14,7 @@ import {
   deleteWebhookSubscription,
   getWebhookSubscription,
 } from '../../../features/webhooks/webhooks-api';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
@@ -32,14 +31,14 @@ export default function WebhookSubscriptionDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
   const invalidateAndBack = useInvalidateAndBack(['webhook-subscriptions']);
-  const [actionError, setActionError] = useState<string | null>(null);
+  const { error: actionError, onError: handleActionError } = useSubmitError();
 
   const query = useDetailQuery('webhook-subscriptions', id, getWebhookSubscription);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookSubscription(id),
     onSuccess: invalidateAndBack,
-    onError: (error) => setActionError(toApiError(error).message),
+    onError: handleActionError,
   });
 
   const queryState = queryStateElement(query);

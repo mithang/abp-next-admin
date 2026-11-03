@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,7 +12,7 @@ import {
   blobContainerFormSchema,
   type BlobContainerFormValues,
 } from '../../../features/blob/blob-form-schema';
-import { toApiError } from '../../../lib/errors';
+import { useSubmitError } from '../../../lib/use-submit-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
 
 /**
@@ -23,7 +22,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function BlobContainerFormScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['blob-containers']);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { error: submitError, onError: handleSubmitError } = useSubmitError();
 
   const form = useForm<BlobContainerFormValues>({
     resolver: zodResolver(blobContainerFormSchema),
@@ -34,7 +33,7 @@ export default function BlobContainerFormScreen() {
     mutationFn: (values: BlobContainerFormValues) =>
       createBlobContainer({ name: values.name.trim() }),
     onSuccess: invalidateAndBack,
-    onError: (error) => setSubmitError(toApiError(error).message),
+    onError: handleSubmitError,
   });
 
   return (
