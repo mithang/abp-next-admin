@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getSettingDefinitions } from '../../features/settings/settings-definitions-api';
 import type { SettingDefinitionDto } from '../../features/settings/types';
@@ -30,7 +30,6 @@ function DefinitionRow({ item }: { item: SettingDefinitionDto }) {
 /** Danh sách định nghĩa cài đặt: ListResult, lọc filter phía server, phân trang phía client như web. */
 export default function SettingDefinitionsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const debouncedFilter = useDebouncedValue(filter);
 
@@ -68,9 +67,9 @@ export default function SettingDefinitionsScreen() {
           onRefresh={() => void query.refetch()}
         />
       </AppList>
-      <AppButton
+      <AppNavButton
         title={t('settingDefinitions.createTitle')}
-        onPress={() => router.push('/settings/definitions/form')}
+        href={'/settings/definitions/form'}
         testID="setting-definitions-create"
       />
     </AppScreen>

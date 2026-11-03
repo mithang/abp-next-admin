@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -85,7 +86,6 @@ function JobRow({
  */
 export default function BackgroundJobsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
@@ -145,9 +145,9 @@ export default function BackgroundJobsScreen() {
         placeholder={t('backgroundJobs.searchPlaceholder')}
         testID="background-jobs-search"
       />
-      <AppButton
+      <AppNavButton
         title={t('backgroundJobs.createTitle')}
-        onPress={() => router.push('/tasks/background-jobs/form')}
+        href={'/tasks/background-jobs/form'}
         testID="background-jobs-create"
       />
       <AppButton

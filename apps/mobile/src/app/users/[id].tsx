@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -69,14 +70,10 @@ export default function UserDetailScreen() {
           {t('users.emailConfirmed')}: {user.emailConfirmed ? '✓' : '—'}
         </Text>
         <Text>{user.roleNames.join(', ')}</Text>
-        <AppButton
+        <AppNavButton
           title={t('menuAllot.title')}
+          href={`/platform/menu-allot?subject=user&id=${encodeURIComponent(user.id)}&label=${encodeURIComponent(displayName(user))}`}
           variant="outline"
-          onPress={() =>
-            router.push(
-              `/platform/menu-allot?subject=user&id=${encodeURIComponent(user.id)}&label=${encodeURIComponent(displayName(user))}`,
-            )
-          }
           testID="user-menu-allot"
         />
         <AppButton

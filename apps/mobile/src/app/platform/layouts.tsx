@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -8,7 +8,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
@@ -32,7 +32,6 @@ function LayoutRow({ item }: { item: LayoutDto }) {
 /** Danh sách bố cục: GET /api/platform/layouts, phân trang ABP, lọc filter + framework. */
 export default function LayoutsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const [framework, setFramework] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
@@ -74,9 +73,9 @@ export default function LayoutsScreen() {
         placeholder={t('platformLayouts.frameworkPlaceholder')}
         autoCapitalize="none"
       />
-      <AppButton
+      <AppNavButton
         title={t('platformLayouts.createTitle')}
-        onPress={() => router.push('/platform/layouts/form')}
+        href={'/platform/layouts/form'}
         testID="platform-layouts-create"
       />
       <AppList

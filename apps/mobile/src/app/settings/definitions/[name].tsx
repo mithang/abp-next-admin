@@ -1,9 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -21,7 +21,6 @@ import {
  */
 export default function SettingDefinitionDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['setting-definitions', name],
@@ -61,11 +60,9 @@ export default function SettingDefinitionDetailScreen() {
         {item.isStatic ? <Text>{t('settingDefinitions.static')}</Text> : null}
         {!item.isStatic ? (
           <>
-            <AppButton
+            <AppNavButton
               title={t('settingDefinitions.editTitle')}
-              onPress={() =>
-                router.push(`/settings/definitions/form?name=${encodeURIComponent(item.name)}`)
-              }
+              href={`/settings/definitions/form?name=${encodeURIComponent(item.name)}`}
               variant="outline"
               testID="setting-definition-edit"
             />

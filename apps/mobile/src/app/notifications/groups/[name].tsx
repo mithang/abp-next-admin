@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -16,7 +16,6 @@ import {
 export default function NotificationGroupDetailScreen() {
   const { t } = useTranslation();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['notification-groups', name],
     queryFn: () => getNotificationGroup(name),
@@ -43,11 +42,9 @@ export default function NotificationGroupDetailScreen() {
         {item.isStatic ? <Text>· {t('notificationGroups.static')}</Text> : null}
         {!item.isStatic ? (
           <>
-            <AppButton
+            <AppNavButton
               title={t('notificationGroups.editTitle')}
-              onPress={() =>
-                router.push(`/notifications/groups/form?name=${encodeURIComponent(item.name)}`)
-              }
+              href={`/notifications/groups/form?name=${encodeURIComponent(item.name)}`}
               variant="outline"
             />
             <AppDeleteButton

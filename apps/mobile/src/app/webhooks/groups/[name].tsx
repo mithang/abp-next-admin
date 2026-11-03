@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -23,7 +24,6 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function WebhookGroupDetailScreen() {
   const { t } = useTranslation();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const router = useRouter();
   const invalidateAndBack = useInvalidateAndBack(['webhook-groups']);
   const [actionError, setActionError] = useState<string | null>(null);
 
@@ -58,11 +58,9 @@ export default function WebhookGroupDetailScreen() {
         </Text>
         {item.isStatic ? null : (
           <>
-            <AppButton
+            <AppNavButton
               title={t('webhookGroups.editTitle')}
-              onPress={() =>
-                router.push(`/webhooks/groups/form?name=${encodeURIComponent(item.name)}`)
-              }
+              href={`/webhooks/groups/form?name=${encodeURIComponent(item.name)}`}
             />
             <AppButton
               title={t('common.delete')}

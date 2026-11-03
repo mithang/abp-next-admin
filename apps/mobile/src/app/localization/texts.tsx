@@ -8,6 +8,7 @@ import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -110,14 +111,10 @@ export default function TextsScreen() {
         />
         <AppSwitchField label={t('texts.onlyNull')} value={onlyNull} onValueChange={setOnlyNull} />
         <AppButton title={t('texts.search')} onPress={onSearch} testID="texts-search" />
-        <AppButton
+        <AppNavButton
           title={t('texts.createTitle')}
+          href={`/localization/texts/form?cultureName=${encodeURIComponent(applied?.targetCultureName ?? '')}&resourceName=${encodeURIComponent(applied?.resourceName ?? '')}`}
           variant="outline"
-          onPress={() =>
-            router.push(
-              `/localization/texts/form?cultureName=${encodeURIComponent(applied?.targetCultureName ?? '')}&resourceName=${encodeURIComponent(applied?.resourceName ?? '')}`,
-            )
-          }
           testID="texts-create"
         />
       </VStack>

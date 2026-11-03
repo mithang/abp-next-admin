@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -43,7 +44,6 @@ import { usePagination } from '../../../lib/use-pagination';
 export default function BackgroundJobDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const [actionError, setActionError] = useState<string | null>(null);
 
   const query = useQuery({
@@ -192,11 +192,9 @@ export default function BackgroundJobDetailScreen() {
         <Text>
           {t('backgroundJobs.args')}: {JSON.stringify(item.args ?? {})}
         </Text>
-        <AppButton
+        <AppNavButton
           title={t('backgroundJobs.editTitle')}
-          onPress={() =>
-            router.push(`/tasks/background-jobs/form?id=${encodeURIComponent(item.id)}`)
-          }
+          href={`/tasks/background-jobs/form?id=${encodeURIComponent(item.id)}`}
         />
         <AppButton
           title={t('backgroundJobs.pause')}

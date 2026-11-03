@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -21,7 +21,6 @@ import { deleteTenant, getTenant } from '../../../features/saas/saas-api';
 export default function TenantDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['saas-tenants', id],
     queryFn: () => getTenant(id),
@@ -65,34 +64,24 @@ export default function TenantDetailScreen() {
             {t('saasTenants.extraProperties')}: {JSON.stringify(item.extraProperties)}
           </Text>
         ) : null}
-        <AppButton
+        <AppNavButton
           title={t('saasTenants.editTitle')}
-          onPress={() => router.push(`/saas/tenants/form?id=${encodeURIComponent(item.id)}`)}
+          href={`/saas/tenants/form?id=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
-        <AppButton
+        <AppNavButton
           title={t('saasTenants.connectionStrings')}
-          onPress={() =>
-            router.push(`/saas/tenants/connection-strings?tenantId=${encodeURIComponent(item.id)}`)
-          }
+          href={`/saas/tenants/connection-strings?tenantId=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
-        <AppButton
+        <AppNavButton
           title={t('saasTenants.features')}
-          onPress={() =>
-            router.push(
-              `/saas/tenants/features?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`,
-            )
-          }
+          href={`/saas/tenants/features?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`}
           variant="outline"
         />
-        <AppButton
+        <AppNavButton
           title={t('saasTenants.impersonate')}
-          onPress={() =>
-            router.push(
-              `/saas/tenants/impersonate?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`,
-            )
-          }
+          href={`/saas/tenants/impersonate?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`}
           variant="outline"
           testID="saas-tenant-impersonate"
         />

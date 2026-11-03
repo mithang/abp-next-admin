@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -66,7 +66,6 @@ function DataRow({ item, depth }: { item: DataDto; depth: number }) {
 
 export default function DataDictionariesScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
 
   const query = useQuery({ queryKey: ['platform-datas-all'], queryFn: () => getDatasAll() });
@@ -97,9 +96,9 @@ export default function DataDictionariesScreen() {
         placeholder={t('platformDataDictionaries.searchPlaceholder')}
         testID="platform-datas-search"
       />
-      <AppButton
+      <AppNavButton
         title={t('platformDataDictionaries.createTitle')}
-        onPress={() => router.push('/platform/data-dictionaries/form')}
+        href={'/platform/data-dictionaries/form'}
         testID="platform-datas-create"
       />
       <AppList

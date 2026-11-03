@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getWorkspacesPaged } from '../../features/ai/ai-api';
 import type { WorkspaceDefinitionRecordDto } from '../../features/ai/types';
@@ -36,7 +36,6 @@ function WorkspaceRow({ item }: { item: WorkspaceDefinitionRecordDto }) {
 /** Danh sách không gian làm việc: GET /api/ai-management/workspaces, phân trang ABP. */
 export default function AIWorkspacesScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const [provider, setProvider] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
@@ -72,9 +71,9 @@ export default function AIWorkspacesScreen() {
         placeholder={t('aiWorkspaces.searchProviderPlaceholder')}
         testID="ai-workspaces-search-provider"
       />
-      <AppButton
+      <AppNavButton
         title={t('aiWorkspaces.createTitle')}
-        onPress={() => router.push('/ai/workspaces/form')}
+        href={'/ai/workspaces/form'}
         testID="ai-workspaces-create"
       />
       <AppList

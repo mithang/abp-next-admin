@@ -1,9 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -20,7 +20,6 @@ import {
  */
 export default function PermissionGroupDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['permission-groups', name],
@@ -40,11 +39,9 @@ export default function PermissionGroupDetailScreen() {
         <AppDetailField label={t('permissionGroups.name')} value={item.name} />
         <AppDetailField label={t('permissionGroups.displayName')} value={item.displayName} />
         {item.isStatic ? <Text>{t('permissionGroups.static')}</Text> : null}
-        <AppButton
+        <AppNavButton
           title={t('permissionGroups.editTitle')}
-          onPress={() =>
-            router.push(`/permissions/groups/form?name=${encodeURIComponent(item.name)}`)
-          }
+          href={`/permissions/groups/form?name=${encodeURIComponent(item.name)}`}
           variant="outline"
           testID="permission-group-edit"
         />

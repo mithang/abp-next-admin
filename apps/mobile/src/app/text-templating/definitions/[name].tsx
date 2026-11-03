@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -25,7 +26,6 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function TextTemplateDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useLocalSearchParams<{ name: string }>();
-  const router = useRouter();
   const invalidateAndBack = useInvalidateAndBack(['text-template-definitions']);
   const [actionError, setActionError] = useState<string | null>(null);
 
@@ -87,24 +87,16 @@ export default function TextTemplateDefinitionDetailScreen() {
           {t('textTemplateDefinitions.isStatic')}:{' '}
           {item.isStatic ? t('common.yes') : t('common.no')}
         </Text>
-        <AppButton
+        <AppNavButton
           title={t('textTemplateDefinitions.editContentsTitle')}
+          href={`/text-templating/definitions/content?name=${encodeURIComponent(item.name)}`}
           variant="outline"
-          onPress={() =>
-            router.push(
-              `/text-templating/definitions/content?name=${encodeURIComponent(item.name)}`,
-            )
-          }
         />
         {item.isStatic ? null : (
           <>
-            <AppButton
+            <AppNavButton
               title={t('textTemplateDefinitions.editTitle')}
-              onPress={() =>
-                router.push(
-                  `/text-templating/definitions/form?name=${encodeURIComponent(item.name)}`,
-                )
-              }
+              href={`/text-templating/definitions/form?name=${encodeURIComponent(item.name)}`}
             />
             <AppButton
               title={t('common.delete')}

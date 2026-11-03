@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getApplicationsPaged } from '../../features/openiddict/applications-api';
@@ -39,7 +39,6 @@ function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
 
 export default function ApplicationsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
@@ -88,9 +87,9 @@ export default function ApplicationsScreen() {
           onRefresh={() => void query.refetch()}
         />
       </AppList>
-      <AppButton
+      <AppNavButton
         title={t('openiddictApplications.createTitle')}
-        onPress={() => router.push('/openiddict/applications/form')}
+        href={'/openiddict/applications/form'}
         testID="applications-create"
       />
     </AppScreen>

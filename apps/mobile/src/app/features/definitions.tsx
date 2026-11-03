@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getFeatureDefinitions } from '../../features/features/feature-definitions-api';
 import type { FeatureDefinitionDto } from '../../features/features/types';
@@ -29,7 +29,6 @@ function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
 /** Danh sách định nghĩa tính năng: ListResult, lọc filter/groupName phía server. */
 export default function FeatureDefinitionsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const debouncedFilter = useDebouncedValue(filter);
 
@@ -67,9 +66,9 @@ export default function FeatureDefinitionsScreen() {
           onRefresh={() => void query.refetch()}
         />
       </AppList>
-      <AppButton
+      <AppNavButton
         title={t('featureDefinitions.createTitle')}
-        onPress={() => router.push('/features/definitions/form')}
+        href={'/features/definitions/form'}
         testID="feature-definitions-create"
       />
     </AppScreen>

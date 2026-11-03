@@ -1,9 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -27,7 +27,6 @@ function multiTenancySideLabel(side: MultiTenancySides): string {
  */
 export default function PermissionDefinitionDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['permission-definitions', name],
@@ -69,11 +68,9 @@ export default function PermissionDefinitionDetailScreen() {
           value={item.stateCheckers}
         />
         {item.isStatic ? <Text>{t('permissionDefinitions.static')}</Text> : null}
-        <AppButton
+        <AppNavButton
           title={t('permissionDefinitions.editTitle')}
-          onPress={() =>
-            router.push(`/permissions/definitions/form?name=${encodeURIComponent(item.name)}`)
-          }
+          href={`/permissions/definitions/form?name=${encodeURIComponent(item.name)}`}
           variant="outline"
           testID="permission-definition-edit"
         />

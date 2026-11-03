@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -14,7 +14,6 @@ import { deleteEdition, getEdition } from '../../../features/saas/saas-api';
 export default function EditionDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['saas-editions', id],
     queryFn: () => getEdition(id),
@@ -39,9 +38,9 @@ export default function EditionDetailScreen() {
             {t('saasEditions.extraProperties')}: {JSON.stringify(item.extraProperties)}
           </Text>
         ) : null}
-        <AppButton
+        <AppNavButton
           title={t('saasEditions.editTitle')}
-          onPress={() => router.push(`/saas/editions/form?id=${encodeURIComponent(item.id)}`)}
+          href={`/saas/editions/form?id=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
         <AppDeleteButton

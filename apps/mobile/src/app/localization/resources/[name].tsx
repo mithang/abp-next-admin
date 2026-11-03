@@ -1,9 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -14,7 +14,6 @@ import { deleteResource, getResource } from '../../../features/localization/loca
 /** Chi tiết tài nguyên: khóa là name; web không có khái niệm tĩnh ở đây nên luôn có Sửa/Xóa. */
 export default function ResourceDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { name } = useLocalSearchParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['resources', name],
@@ -39,11 +38,9 @@ export default function ResourceDetailScreen() {
           {t('resources.enable')}: {item.enable ? t('resources.enabled') : t('resources.disabled')}
         </Text>
         <AppDetailField label={t('resources.creationTime')} value={item.creationTime} />
-        <AppButton
+        <AppNavButton
           title={t('resources.editTitle')}
-          onPress={() =>
-            router.push(`/localization/resources/form?name=${encodeURIComponent(item.name)}`)
-          }
+          href={`/localization/resources/form?name=${encodeURIComponent(item.name)}`}
           variant="outline"
           testID="resource-edit"
         />

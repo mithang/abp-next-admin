@@ -1,8 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -26,7 +27,6 @@ import { useInvalidateQueries } from '../../../lib/mutation-success';
 export default function CacheValueDetailScreen() {
   const { t } = useTranslation();
   const { key } = useLocalSearchParams<{ key: string }>();
-  const router = useRouter();
   const invalidate = useInvalidateQueries(['cache-values', key]);
   const query = useQuery({
     queryKey: ['cache-values', key],
@@ -64,10 +64,10 @@ export default function CacheValueDetailScreen() {
           loading={refreshMutation.isPending}
           onPress={() => refreshMutation.mutate()}
         />
-        <AppButton
+        <AppNavButton
           title={t('caches.setValue')}
+          href={`/cache/caches/form?key=${encodeURIComponent(key as string)}`}
           variant="outline"
-          onPress={() => router.push(`/cache/caches/form?key=${encodeURIComponent(key as string)}`)}
         />
         <AppDeleteButton
           confirmTitle={t('caches.deleteConfirmTitle')}

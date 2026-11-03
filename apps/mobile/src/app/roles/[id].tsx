@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
@@ -14,7 +14,6 @@ import { roleFlags } from '../../features/identity/roles-types';
 
 export default function RoleDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['roles', id],
@@ -43,20 +42,16 @@ export default function RoleDetailScreen() {
           </Badge>
         ))}
         {roleFlags(role).length === 0 ? <Text>{t('roles.noFlags')}</Text> : null}
-        <AppButton
+        <AppNavButton
           title={t('roles.editTitle')}
-          onPress={() => router.push(`/roles/form?id=${encodeURIComponent(role.id)}`)}
+          href={`/roles/form?id=${encodeURIComponent(role.id)}`}
           variant="outline"
           testID="role-edit"
         />
-        <AppButton
+        <AppNavButton
           title={t('menuAllot.title')}
+          href={`/platform/menu-allot?subject=role&id=${encodeURIComponent(role.name)}&label=${encodeURIComponent(role.name)}`}
           variant="outline"
-          onPress={() =>
-            router.push(
-              `/platform/menu-allot?subject=role&id=${encodeURIComponent(role.name)}&label=${encodeURIComponent(role.name)}`,
-            )
-          }
           testID="role-menu-allot"
         />
         <AppDeleteButton

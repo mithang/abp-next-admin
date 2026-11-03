@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
 import { VStack } from '@/components/ui/vstack';
@@ -40,7 +41,6 @@ interface ChatBubble {
 export default function AIConversationChatScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const queryClient = useQueryClient();
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState<string | null>(null);
@@ -128,9 +128,9 @@ export default function AIConversationChatScreen() {
 
   return (
     <AppScreen title={detail.data.name} subtitle={detail.data.workspace}>
-      <AppButton
+      <AppNavButton
         title={t('aiConversations.renameTitle')}
-        onPress={() => router.push(`/ai/conversations/form?id=${encodeURIComponent(id)}`)}
+        href={`/ai/conversations/form?id=${encodeURIComponent(id)}`}
         variant="outline"
       />
       <AppDeleteButton

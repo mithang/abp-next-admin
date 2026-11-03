@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -20,7 +20,6 @@ import { isReadOnlyWorkspace } from '../../../features/ai/types';
 export default function AIWorkspaceDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['ai-workspaces', id],
     queryFn: () => getWorkspace(id),
@@ -98,17 +97,15 @@ export default function AIWorkspaceDetailScreen() {
         ) : null}
         {item.isSystem ? <Text>· {t('aiWorkspaces.system')}</Text> : null}
         {item.isStatic ? <Text>· {t('aiWorkspaces.static')}</Text> : null}
-        <AppButton
+        <AppNavButton
           title={t('aiWorkspaces.resetApiKey')}
-          onPress={() =>
-            router.push(`/ai/workspaces/form?id=${encodeURIComponent(item.id)}&reset=1`)
-          }
+          href={`/ai/workspaces/form?id=${encodeURIComponent(item.id)}&reset=1`}
           variant="outline"
         />
         {!readOnly ? (
-          <AppButton
+          <AppNavButton
             title={t('aiWorkspaces.editTitle')}
-            onPress={() => router.push(`/ai/workspaces/form?id=${encodeURIComponent(item.id)}`)}
+            href={`/ai/workspaces/form?id=${encodeURIComponent(item.id)}`}
             variant="outline"
           />
         ) : (

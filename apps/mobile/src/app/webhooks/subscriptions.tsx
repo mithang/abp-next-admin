@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -64,7 +65,6 @@ function SubscriptionRow({
  */
 export default function WebhookSubscriptionsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
@@ -108,9 +108,9 @@ export default function WebhookSubscriptionsScreen() {
         placeholder={t('webhookSubscriptions.searchPlaceholder')}
         testID="webhook-subscriptions-search"
       />
-      <AppButton
+      <AppNavButton
         title={t('webhookSubscriptions.createTitle')}
-        onPress={() => router.push('/webhooks/subscriptions/form')}
+        href={'/webhooks/subscriptions/form'}
         testID="webhook-subscriptions-create"
       />
       <AppButton

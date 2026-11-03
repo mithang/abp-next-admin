@@ -7,6 +7,7 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -145,11 +146,7 @@ export default function CacheKeysScreen() {
           }
         />
       ) : null}
-      <AppButton
-        title={t('caches.setValue')}
-        onPress={() => router.push('/cache/caches/form')}
-        variant="outline"
-      />
+      <AppNavButton title={t('caches.setValue')} href={'/cache/caches/form'} variant="outline" />
       <AppList
         items={keys}
         isPending={query.isPending}

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getLanguagesPaged } from '../../features/localization/localization-api';
 import type { LanguageDto } from '../../features/localization/types';
@@ -32,7 +32,6 @@ function LanguageRow({ item }: { item: LanguageDto }) {
 /** Danh sách ngôn ngữ: phân trang phía server như bảng web (filter/skipCount/maxResultCount). */
 export default function LanguagesScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
@@ -60,9 +59,9 @@ export default function LanguagesScreen() {
         placeholder={t('languages.searchPlaceholder')}
         testID="languages-search"
       />
-      <AppButton
+      <AppNavButton
         title={t('languages.createTitle')}
-        onPress={() => router.push('/localization/languages/form')}
+        href={'/localization/languages/form'}
         testID="languages-create"
       />
       <AppList

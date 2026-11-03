@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
@@ -35,7 +35,6 @@ function ContainerRow({ item }: { item: BlobContainerDto }) {
  */
 export default function BlobContainersScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debounced = useDebouncedValue(filter, 400, () => {
@@ -66,9 +65,9 @@ export default function BlobContainersScreen() {
         placeholder={t('blobContainers.searchPlaceholder')}
         testID="blob-containers-search"
       />
-      <AppButton
+      <AppNavButton
         title={t('blobContainers.createTitle')}
-        onPress={() => router.push('/blob/containers/form')}
+        href={'/blob/containers/form'}
         testID="blob-containers-create"
       />
       <View style={{ height: 8 }} />

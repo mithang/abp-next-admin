@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -14,7 +14,6 @@ import { deleteLayout, getLayout } from '../../../features/platform/platform-api
 export default function LayoutDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['platform-layouts', id],
     queryFn: () => getLayout(id),
@@ -54,9 +53,9 @@ export default function LayoutDetailScreen() {
         {item.meta && Object.keys(item.meta).length > 0 ? (
           <Text>{JSON.stringify(item.meta)}</Text>
         ) : null}
-        <AppButton
+        <AppNavButton
           title={t('platformLayouts.editTitle')}
-          onPress={() => router.push(`/platform/layouts/form?id=${encodeURIComponent(item.id)}`)}
+          href={`/platform/layouts/form?id=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
         <AppDeleteButton

@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
@@ -18,7 +18,6 @@ import { findOrganizationUnitName } from '../../features/identity/organization-u
 export default function OrganizationUnitDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['organization-units', id],
     queryFn: () => getOrganizationUnit(id),
@@ -45,17 +44,15 @@ export default function OrganizationUnitDetailScreen() {
           {t('organizationUnits.parent')}:{' '}
           {parentName ?? (item.parentId ? item.parentId : t('organizationUnits.root'))}
         </Text>
-        <AppButton
+        <AppNavButton
           title={t('organizationUnits.editTitle')}
-          onPress={() => router.push(`/organization-units/form?id=${encodeURIComponent(item.id)}`)}
+          href={`/organization-units/form?id=${encodeURIComponent(item.id)}`}
           variant="outline"
           testID="organization-unit-edit"
         />
-        <AppButton
+        <AppNavButton
           title={t('organizationUnits.createChildTitle')}
-          onPress={() =>
-            router.push(`/organization-units/form?parentId=${encodeURIComponent(item.id)}`)
-          }
+          href={`/organization-units/form?parentId=${encodeURIComponent(item.id)}`}
           variant="outline"
           testID="organization-unit-create-child"
         />

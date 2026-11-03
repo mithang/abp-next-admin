@@ -1,8 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState, AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -25,7 +26,6 @@ import { useInvalidateQueries } from '../../../lib/mutation-success';
 export default function DataDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const invalidate = useInvalidateQueries(['platform-datas', id]);
   const query = useQuery({
     queryKey: ['platform-datas', id],
@@ -56,25 +56,19 @@ export default function DataDetailScreen() {
             {t('platformDataDictionaries.description')}: {item.description}
           </Text>
         ) : null}
-        <AppButton
+        <AppNavButton
           title={t('platformDataDictionaries.editTitle')}
-          onPress={() =>
-            router.push(`/platform/data-dictionaries/form?id=${encodeURIComponent(item.id)}`)
-          }
+          href={`/platform/data-dictionaries/form?id=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
-        <AppButton
+        <AppNavButton
           title={t('platformDataDictionaries.createChildTitle')}
-          onPress={() =>
-            router.push(`/platform/data-dictionaries/form?parentId=${encodeURIComponent(item.id)}`)
-          }
+          href={`/platform/data-dictionaries/form?parentId=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
-        <AppButton
+        <AppNavButton
           title={t('platformDataDictionaries.moveTitle')}
-          onPress={() =>
-            router.push(`/platform/data-dictionaries/move?dataId=${encodeURIComponent(item.id)}`)
-          }
+          href={`/platform/data-dictionaries/move?dataId=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
         <AppDeleteButton
@@ -85,13 +79,9 @@ export default function DataDetailScreen() {
           testID="platform-data-delete"
         />
         <Text>{t('platformDataItems.title')}</Text>
-        <AppButton
+        <AppNavButton
           title={t('platformDataItems.createTitle')}
-          onPress={() =>
-            router.push(
-              `/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}`,
-            )
-          }
+          href={`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}`}
           variant="outline"
         />
         {item.items.length === 0 ? (
@@ -109,14 +99,10 @@ export default function DataDetailScreen() {
                   {dataItem.allowBeNull ? '' : ` · ${t('platformDataItems.notNull')}`}
                 </Text>
                 {dataItem.description ? <Text>{dataItem.description}</Text> : null}
-                <AppButton
+                <AppNavButton
                   title={t('platformDataItems.editTitle')}
+                  href={`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}&name=${encodeURIComponent(dataItem.name)}`}
                   variant="outline"
-                  onPress={() =>
-                    router.push(
-                      `/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}&name=${encodeURIComponent(dataItem.name)}`,
-                    )
-                  }
                 />
                 <AppButton
                   title={t('common.delete')}

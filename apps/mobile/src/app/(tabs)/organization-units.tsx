@@ -1,10 +1,10 @@
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -38,7 +38,6 @@ function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
 
 export default function OrganizationUnitsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['organization-units', 'all'],
     queryFn: getOrganizationUnitsAll,
@@ -66,9 +65,9 @@ export default function OrganizationUnitsScreen() {
           onRefresh={() => void query.refetch()}
         />
       </AppList>
-      <AppButton
+      <AppNavButton
         title={t('organizationUnits.createTitle')}
-        onPress={() => router.push('/organization-units/form')}
+        href={'/organization-units/form'}
         testID="organization-units-create"
       />
     </AppScreen>

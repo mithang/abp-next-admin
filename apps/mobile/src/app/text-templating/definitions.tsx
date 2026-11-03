@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getTextTemplateDefinitions } from '../../features/text-templating/text-templating-api';
 import type { TextTemplateDefinitionDto } from '../../features/text-templating/types';
@@ -34,7 +34,6 @@ function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
  */
 export default function TextTemplateDefinitionsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const debounced = useDebouncedValue(filter);
 
@@ -56,9 +55,9 @@ export default function TextTemplateDefinitionsScreen() {
         placeholder={t('textTemplateDefinitions.searchPlaceholder')}
         testID="text-template-definitions-search"
       />
-      <AppButton
+      <AppNavButton
         title={t('textTemplateDefinitions.createTitle')}
-        onPress={() => router.push('/text-templating/definitions/form')}
+        href={'/text-templating/definitions/form'}
         testID="text-template-definitions-create"
       />
       <View style={{ height: 8 }} />

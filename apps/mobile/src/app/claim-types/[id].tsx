@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
@@ -15,7 +15,6 @@ import { valueTypeKey } from '../../features/identity/claim-types';
 export default function ClaimTypeDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['claim-types', id],
     queryFn: () => getClaimType(id),
@@ -51,9 +50,9 @@ export default function ClaimTypeDetailScreen() {
         {/* Web ẩn Sửa/Xóa với loại tĩnh (ClaimTypeTable v-if isStatic === false). */}
         {!item.isStatic ? (
           <>
-            <AppButton
+            <AppNavButton
               title={t('claimTypes.editTitle')}
-              onPress={() => router.push(`/claim-types/form?id=${encodeURIComponent(item.id)}`)}
+              href={`/claim-types/form?id=${encodeURIComponent(item.id)}`}
               variant="outline"
               testID="claim-type-edit"
             />

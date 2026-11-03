@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getFeatureGroups } from '../../features/features/feature-groups-api';
 import type { FeatureGroupDefinitionDto } from '../../features/features/types';
@@ -30,7 +30,6 @@ function GroupRow({ item }: { item: FeatureGroupDefinitionDto }) {
 /** Danh sách nhóm tính năng: ListResult, web phân trang phía client. */
 export default function FeatureGroupsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const debouncedFilter = useDebouncedValue(filter);
 
@@ -68,9 +67,9 @@ export default function FeatureGroupsScreen() {
           onRefresh={() => void query.refetch()}
         />
       </AppList>
-      <AppButton
+      <AppNavButton
         title={t('featureGroups.createTitle')}
-        onPress={() => router.push('/features/groups/form')}
+        href={'/features/groups/form'}
         testID="feature-groups-create"
       />
     </AppScreen>

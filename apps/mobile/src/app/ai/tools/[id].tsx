@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -19,7 +19,6 @@ import { isReadOnlyTool } from '../../../features/ai/types';
 export default function AIToolDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['ai-tools', id],
     queryFn: () => getAITool(id),
@@ -64,9 +63,9 @@ export default function AIToolDetailScreen() {
         {readOnly ? <Text>{t('aiTools.readOnlyHint')}</Text> : null}
         {!readOnly ? (
           <>
-            <AppButton
+            <AppNavButton
               title={t('aiTools.editTitle')}
-              onPress={() => router.push(`/ai/tools/form?id=${encodeURIComponent(item.id)}`)}
+              href={`/ai/tools/form?id=${encodeURIComponent(item.id)}`}
               variant="outline"
             />
             <AppDeleteButton

@@ -1,9 +1,9 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -12,7 +12,6 @@ import { deleteScope, getScope } from '../../../features/openiddict/scopes-api';
 
 export default function ScopeDetailScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['openiddict-scopes', id],
@@ -36,9 +35,9 @@ export default function ScopeDetailScreen() {
           label={t('openiddictScopes.resources')}
           value={scope.resources?.join(', ')}
         />
-        <AppButton
+        <AppNavButton
           title={t('openiddictScopes.editTitle')}
-          onPress={() => router.push(`/openiddict/scopes/form?id=${encodeURIComponent(scope.id)}`)}
+          href={`/openiddict/scopes/form?id=${encodeURIComponent(scope.id)}`}
           variant="outline"
           testID="scope-edit"
         />

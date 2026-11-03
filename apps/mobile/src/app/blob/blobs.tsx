@@ -1,5 +1,5 @@
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useLocalSearchParams, useRouter } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import * as DocumentPicker from 'expo-document-picker';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import {
@@ -59,7 +60,6 @@ function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) 
  */
 export default function BlobsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const { containerId, parentId } = useLocalSearchParams<{
     containerId?: string;
     parentId?: string;
@@ -143,13 +143,9 @@ export default function BlobsScreen() {
       title={t('blobBlobs.title')}
       subtitle={parentId ? `${t('blobBlobs.folder')}: ${parentId}` : t('blobBlobs.rootFolder')}
     >
-      <AppButton
+      <AppNavButton
         title={t('blobBlobs.createFolderTitle')}
-        onPress={() =>
-          router.push(
-            `/blob/blobs/form?containerId=${encodeURIComponent(containerId)}${parentId ? `&parentId=${encodeURIComponent(parentId)}` : ''}`,
-          )
-        }
+        href={`/blob/blobs/form?containerId=${encodeURIComponent(containerId)}${parentId ? `&parentId=${encodeURIComponent(parentId)}` : ''}`}
         testID="blob-blobs-create-folder"
       />
       <AppButton

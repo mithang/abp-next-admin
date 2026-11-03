@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { getRolesPaged } from '../../features/identity/roles-api';
@@ -39,7 +39,6 @@ function RoleRow({ role }: { role: IdentityRoleDto }) {
 
 export default function RolesScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const debouncedFilter = useDebouncedValue(filter, 400, () => {
@@ -67,11 +66,7 @@ export default function RolesScreen() {
         placeholder={t('roles.searchPlaceholder')}
         testID="roles-search"
       />
-      <AppButton
-        title={t('roles.createTitle')}
-        onPress={() => router.push('/roles/form')}
-        testID="roles-create"
-      />
+      <AppNavButton title={t('roles.createTitle')} href={'/roles/form'} testID="roles-create" />
       <AppList
         items={items}
         isPending={query.isPending}

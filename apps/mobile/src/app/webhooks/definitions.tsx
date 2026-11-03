@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { getWebhookDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookDefinitionDto } from '../../features/webhooks/types';
@@ -36,7 +36,6 @@ function DefinitionRow({ item }: { item: WebhookDefinitionDto }) {
  */
 export default function WebhookDefinitionsScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const [groupName, setGroupName] = useState('');
   const debouncedFilter = useDebouncedValue(filter);
@@ -70,9 +69,9 @@ export default function WebhookDefinitionsScreen() {
         placeholder={t('webhookDefinitions.groupNamePlaceholder')}
         testID="webhook-definitions-group"
       />
-      <AppButton
+      <AppNavButton
         title={t('webhookDefinitions.createTitle')}
-        onPress={() => router.push('/webhooks/definitions/form')}
+        href={'/webhooks/definitions/form'}
         testID="webhook-definitions-create"
       />
       <View style={{ height: 8 }} />

@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { AppButton } from '../../components/ui/AppButton';
+import { AppNavButton } from '../../components/ui/AppNavButton';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -69,7 +69,6 @@ function MenuRow({ item, depth }: { item: MenuDto; depth: number }) {
 
 export default function MenusScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [filter, setFilter] = useState('');
   const [layoutId, setLayoutId] = useState('');
   const debounced = useDebouncedValue({ filter, layoutId });
@@ -110,21 +109,21 @@ export default function MenusScreen() {
       <Text>
         {t('platformMenus.layoutHint')}: {layoutsHint}
       </Text>
-      <AppButton
+      <AppNavButton
         title={t('platformMenus.createTitle')}
-        onPress={() => router.push('/platform/menus/form')}
+        href={'/platform/menus/form'}
         testID="platform-menus-create"
       />
-      <AppButton
+      <AppNavButton
         title={t('menuAllot.title')}
+        href={'/platform/menu-allot'}
         variant="outline"
-        onPress={() => router.push('/platform/menu-allot')}
         testID="platform-menus-allot"
       />
-      <AppButton
+      <AppNavButton
         title={t('menuFavorites.title')}
+        href={'/platform/menu-favorites'}
         variant="outline"
-        onPress={() => router.push('/platform/menu-favorites')}
         testID="platform-menus-favorites"
       />
       <AppList

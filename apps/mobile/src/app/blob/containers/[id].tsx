@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -19,7 +19,6 @@ import { formatDateTime } from '../../../lib/dates';
 export default function BlobContainerDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
 
   const query = useQuery({
     queryKey: ['blob-containers', id],
@@ -46,9 +45,9 @@ export default function BlobContainerDetailScreen() {
             {t('blobContainers.creationTime')}: {formatDateTime(item.creationTime)}
           </Text>
         ) : null}
-        <AppButton
+        <AppNavButton
           title={t('blobContainers.viewBlobs')}
-          onPress={() => router.push(`/blob/blobs?containerId=${encodeURIComponent(item.id)}`)}
+          href={`/blob/blobs?containerId=${encodeURIComponent(item.id)}`}
         />
         <AppDeleteButton
           confirmTitle={t('blobContainers.deleteConfirmTitle')}

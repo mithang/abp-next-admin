@@ -1,8 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppButton } from '../../../components/ui/AppButton';
+import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
@@ -14,7 +14,6 @@ import { deleteMenu, getMenu } from '../../../features/platform/platform-api';
 export default function MenuDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const query = useQuery({
     queryKey: ['platform-menus', id],
     queryFn: () => getMenu(id),
@@ -71,18 +70,14 @@ export default function MenuDetailScreen() {
         {item.meta && Object.keys(item.meta).length > 0 ? (
           <Text>Meta: {JSON.stringify(item.meta)}</Text>
         ) : null}
-        <AppButton
+        <AppNavButton
           title={t('platformMenus.editTitle')}
-          onPress={() => router.push(`/platform/menus/form?id=${encodeURIComponent(item.id)}`)}
+          href={`/platform/menus/form?id=${encodeURIComponent(item.id)}`}
         />
-        <AppButton
+        <AppNavButton
           title={t('platformMenus.createChildTitle')}
+          href={`/platform/menus/form?parentId=${encodeURIComponent(item.id)}&layoutId=${encodeURIComponent(item.layoutId)}`}
           variant="outline"
-          onPress={() =>
-            router.push(
-              `/platform/menus/form?parentId=${encodeURIComponent(item.id)}&layoutId=${encodeURIComponent(item.layoutId)}`,
-            )
-          }
         />
         <AppDeleteButton
           confirmTitle={t('platformMenus.deleteConfirmTitle')}

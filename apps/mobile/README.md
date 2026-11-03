@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 52
+
+Vòng P3 chuẩn hóa nút điều hướng: 76 khối AppButton chỉ để
+điều hướng (title + onPress `router.push(href)` + variant/
+testID tùy chọn) nay gộp thành
+`src/components/ui/AppNavButton.tsx` (nhận title/href/
+variant/action/testID; bên trong tự `useRouter().push(href)`).
+Migration bằng script dry-run trước rồi mới apply, kiểm chứng
+2 chiều (76 tag + 76 import; chạy lại script: 0 site còn lại).
+Cố tình KHÔNG migrate: nút có loading/disabled (nút hành động,
+không phải điều hướng thuần), nút onPress làm thêm việc khác
+(set state, mutation, xác nhận), nút dùng Link asChild và nút
+back. Bài học thật trong vòng: script migrate từng mắc 3 bug
+(chỉ số `(` của `push(` lệch 1 ký tự, kiểm tra phần sau `push`
+không cho prop đứng sau onPress, và probe `\brouter\b` khớp
+cả chuỗi `'expo-router'` nên không prune được import) — cả 3
+đã sửa, cộng thêm bug nhân đôi indent dòng đầu (đã sửa hậu
+migrate cho cả 76 tag). Kiểm chứng: format/typecheck/lint
+(0 errors, 14 warning vendored) PASS, Jest 372/372, i18n
+1463/1463, expo config PASS.
+
 ## Trạng thái vòng 51
 
 Vòng P3 chuẩn hóa nút xóa của màn hình chi tiết: 32 khối
