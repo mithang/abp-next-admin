@@ -1,5 +1,6 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -30,11 +31,7 @@ export default function MyNotificationDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['my-notifications']);
-  const query = useQuery({
-    queryKey: ['my-notifications', id],
-    queryFn: () => getMyNotification(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('my-notifications', id, getMyNotification);
 
   const markMutation = useMutation({
     mutationFn: (state: NotificationReadState) => markMyNotificationsRead({ idList: [id], state }),

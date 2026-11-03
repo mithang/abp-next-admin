@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -17,11 +17,7 @@ import { formatDateTime } from '../../../lib/dates';
 export default function TokenDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['openiddict-tokens', id],
-    queryFn: () => getToken(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('openiddict-tokens', id, getToken);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

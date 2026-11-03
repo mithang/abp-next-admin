@@ -1,5 +1,6 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -29,11 +30,7 @@ export default function DataDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['platform-datas', id]);
-  const query = useQuery({
-    queryKey: ['platform-datas', id],
-    queryFn: () => getData(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('platform-datas', id, getData);
   const deleteItemMutation = useMutation({
     mutationFn: (name: string) => deleteDataItem(id, name),
     onSuccess: invalidate,

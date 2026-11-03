@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
@@ -15,11 +15,7 @@ import { navHref } from '../../../lib/nav-href';
 export default function EditionDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['saas-editions', id],
-    queryFn: () => getEdition(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('saas-editions', id, getEdition);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

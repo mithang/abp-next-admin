@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppSwitchField } from '../../../components/ui/AppSwitchField';
@@ -64,11 +65,7 @@ export default function TenantFeaturesScreen() {
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
 
-  const query = useQuery({
-    queryKey: ['tenant-features', tenantId],
-    queryFn: () => getTenantFeatureValues(tenantId),
-    enabled: Boolean(tenantId),
-  });
+  const query = useDetailQuery('tenant-features', tenantId, getTenantFeatureValues);
 
   const saveMutation = useMutation({
     mutationFn: () =>

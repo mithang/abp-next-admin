@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -56,16 +57,12 @@ export default function TenantConnectionStringsScreen() {
   const [checkResult, setCheckResult] = useState<string | null>(null);
   const [checkError, setCheckError] = useState<string | null>(null);
 
-  const tenantQuery = useQuery({
-    queryKey: ['saas-tenants', tenantId],
-    queryFn: () => getTenant(tenantId),
-    enabled: Boolean(tenantId),
-  });
-  const listQuery = useQuery({
-    queryKey: ['saas-tenant-connection-strings', tenantId],
-    queryFn: () => getTenantConnectionStrings(tenantId),
-    enabled: Boolean(tenantId),
-  });
+  const tenantQuery = useDetailQuery('saas-tenants', tenantId, getTenant);
+  const listQuery = useDetailQuery(
+    'saas-tenant-connection-strings',
+    tenantId,
+    getTenantConnectionStrings,
+  );
 
   const setForm = useForm<ConnectionStringSetFormValues>({
     resolver: zodResolver(connectionStringSetFormSchema),

@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -29,11 +29,7 @@ function multiTenancySideLabel(side: MultiTenancySides): string {
 export default function PermissionDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useRouteParams<{ name: string }>();
-  const query = useQuery({
-    queryKey: ['permission-definitions', name],
-    queryFn: () => getPermissionDefinition(name),
-    enabled: Boolean(name),
-  });
+  const query = useDetailQuery('permission-definitions', name, getPermissionDefinition);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

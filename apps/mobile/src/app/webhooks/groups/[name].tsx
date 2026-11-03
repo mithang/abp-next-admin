@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -29,11 +30,7 @@ export default function WebhookGroupDetailScreen() {
   const invalidateAndBack = useInvalidateAndBack(['webhook-groups']);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const query = useQuery({
-    queryKey: ['webhook-groups', name],
-    queryFn: () => getWebhookGroupDefinition(name),
-    enabled: Boolean(name),
-  });
+  const query = useDetailQuery('webhook-groups', name, getWebhookGroupDefinition);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookGroupDefinition(name),

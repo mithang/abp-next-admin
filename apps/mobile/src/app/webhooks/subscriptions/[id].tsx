@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -33,11 +34,7 @@ export default function WebhookSubscriptionDetailScreen() {
   const invalidateAndBack = useInvalidateAndBack(['webhook-subscriptions']);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const query = useQuery({
-    queryKey: ['webhook-subscriptions', id],
-    queryFn: () => getWebhookSubscription(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('webhook-subscriptions', id, getWebhookSubscription);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteWebhookSubscription(id),

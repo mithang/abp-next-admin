@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
@@ -21,11 +21,7 @@ export default function BlobContainerDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
 
-  const query = useQuery({
-    queryKey: ['blob-containers', id],
-    queryFn: () => getBlobContainer(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('blob-containers', id, getBlobContainer);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

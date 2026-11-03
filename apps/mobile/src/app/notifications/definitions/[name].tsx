@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
@@ -22,11 +22,7 @@ import { navHref } from '../../../lib/nav-href';
 export default function NotificationDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useRouteParams<{ name: string }>();
-  const query = useQuery({
-    queryKey: ['notification-definitions', name],
-    queryFn: () => getNotificationDefinition(name),
-    enabled: Boolean(name),
-  });
+  const query = useDetailQuery('notification-definitions', name, getNotificationDefinition);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

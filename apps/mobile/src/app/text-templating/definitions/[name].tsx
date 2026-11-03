@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -31,11 +32,7 @@ export default function TextTemplateDefinitionDetailScreen() {
   const invalidateAndBack = useInvalidateAndBack(['text-template-definitions']);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const query = useQuery({
-    queryKey: ['text-template-definitions', name],
-    queryFn: () => getTextTemplateDefinition(name),
-    enabled: Boolean(name),
-  });
+  const query = useDetailQuery('text-template-definitions', name, getTextTemplateDefinition);
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteTextTemplateDefinition(name),

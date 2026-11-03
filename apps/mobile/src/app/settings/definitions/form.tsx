@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -44,11 +45,7 @@ export default function SettingDefinitionFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['setting-definitions', name],
-    queryFn: () => getSettingDefinition(name as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('setting-definitions', name, getSettingDefinition);
   const providersQuery = useQuery({
     queryKey: ['setting-assignable-providers'],
     queryFn: getAssignableProviders,

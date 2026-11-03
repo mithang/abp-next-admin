@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -34,11 +34,7 @@ export default function BlobDetailScreen() {
   const { id } = useRouteParams<{ id: string }>();
   const [openError, setOpenError] = useState<string | null>(null);
 
-  const query = useQuery({
-    queryKey: ['blob-blobs', id],
-    queryFn: () => getBlob(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('blob-blobs', id, getBlob);
 
   const openGeneratedUrl = async (kind: 'download' | 'preview') => {
     setOpenError(null);

@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
@@ -14,11 +14,7 @@ import { formatDateTime } from '../../../lib/dates';
 export default function AuditLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['audit-logs', id],
-    queryFn: () => getAuditLog(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('audit-logs', id, getAuditLog);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

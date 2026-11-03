@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -40,11 +41,7 @@ export default function NotificationGroupFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['notification-groups', name],
-    queryFn: () => getNotificationGroup(name as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('notification-groups', name, getNotificationGroup);
 
   const form = useForm<NotificationGroupFormValues>({
     resolver: zodResolver(notificationGroupFormSchema),

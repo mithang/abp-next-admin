@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -32,11 +33,7 @@ export default function RoleFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['roles', id],
-    queryFn: () => getRole(id as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('roles', id, getRole);
 
   const form = useForm<RoleFormValues>({
     resolver: zodResolver(roleFormSchema),

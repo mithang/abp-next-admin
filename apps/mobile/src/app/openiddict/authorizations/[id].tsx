@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -16,11 +16,7 @@ import { formatDateTime } from '../../../lib/dates';
 export default function AuthorizationDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['openiddict-authorizations', id],
-    queryFn: () => getAuthorization(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('openiddict-authorizations', id, getAuthorization);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

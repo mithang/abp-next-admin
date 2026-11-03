@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
@@ -13,11 +13,7 @@ import { formatDateTime } from '../../lib/dates';
 export default function SecurityLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['security-logs', id],
-    queryFn: () => getSecurityLog(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('security-logs', id, getSecurityLog);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

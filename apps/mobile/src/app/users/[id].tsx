@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../lib/route-params';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
+import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
@@ -23,11 +24,7 @@ export default function UserDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['users', id],
-    queryFn: () => getUser(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('users', id, getUser);
   const impersonate = useAuthStore((s) => s.impersonate);
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
   const [impersonating, setImpersonating] = useState(false);

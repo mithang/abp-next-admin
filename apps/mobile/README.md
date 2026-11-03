@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 69
+
+Vòng P3 gộp họ query chi tiết (tiếp nối vòng 68 ở tầng data):
+helper mới `useDetailQuery(key, param, fetcher)` trong
+`src/lib/use-detail-query.ts` và migrate 71 điểm ở 70 file từ
+`useQuery` 3 field (`queryKey`/`queryFn`/`enabled`) lặp lại.
+Lý do thật, không chỉ gộp cho gọn: 27 form đang cast
+`id as string`/`name as string` ở từng call site vì param kiểu
+`string | undefined` nhưng fetcher nhận `string`; helper gom
+cast về một chỗ duy nhất, và cast đó an toàn vì
+`enabled: Boolean(param)` đảm bảo fetcher không chạy khi
+param rỗng. Giữ nguyên key cache `[entity, param]` và guard
+(`Boolean(var)` hoặc `isEdit = Boolean(var)` đã kiểm chứng
+từng file), nên hành vi fetch/invalidation không đổi. Cố
+tình giữ 17 block `useQuery` có `enabled` khác họ (key nhiều
+đoạn, fetcher nhận object, query gợi ý `!isEdit`, menu-allot
+đa param...). Kiểm tra: format/typecheck/lint PASS (0
+errors, 14 warning vendored), Jest 449/449 (+4 test
+use-detail-query mới), i18n 1463/1463, expo config PASS
+(SDK 58.0.0, `com.mithang.abpnextadmin`).
+
 ## Trạng thái vòng 68
 
 Vòng P3 gộp họ đọc route param (tiếp nối vòng 67 ở tầng điều

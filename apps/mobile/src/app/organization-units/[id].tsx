@@ -1,5 +1,6 @@
 import { useRouteParams } from '../../lib/route-params';
 import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppNavButton } from '../../components/ui/AppNavButton';
@@ -19,11 +20,7 @@ import { navHref } from '../../lib/nav-href';
 export default function OrganizationUnitDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['organization-units', id],
-    queryFn: () => getOrganizationUnit(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('organization-units', id, getOrganizationUnit);
   const all = useQuery({
     queryKey: ['organization-units', 'all'],
     queryFn: getOrganizationUnitsAll,

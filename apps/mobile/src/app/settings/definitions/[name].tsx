@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -23,11 +23,7 @@ import { navHref } from '../../../lib/nav-href';
 export default function SettingDefinitionDetailScreen() {
   const { t } = useTranslation();
   const { name } = useRouteParams<{ name: string }>();
-  const query = useQuery({
-    queryKey: ['setting-definitions', name],
-    queryFn: () => getSettingDefinition(name),
-    enabled: Boolean(name),
-  });
+  const query = useDetailQuery('setting-definitions', name, getSettingDefinition);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

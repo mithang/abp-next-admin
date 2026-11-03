@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../lib/use-detail-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -47,11 +48,7 @@ export default function ClaimTypeFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['claim-types', id],
-    queryFn: () => getClaimType(id as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('claim-types', id, getClaimType);
 
   const form = useForm<ClaimTypeFormValues>({
     resolver: zodResolver(claimTypeFormSchema),

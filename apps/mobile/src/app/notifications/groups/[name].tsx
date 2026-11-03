@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
@@ -17,11 +17,7 @@ import { navHref } from '../../../lib/nav-href';
 export default function NotificationGroupDetailScreen() {
   const { t } = useTranslation();
   const { name } = useRouteParams<{ name: string }>();
-  const query = useQuery({
-    queryKey: ['notification-groups', name],
-    queryFn: () => getNotificationGroup(name),
-    enabled: Boolean(name),
-  });
+  const query = useDetailQuery('notification-groups', name, getNotificationGroup);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

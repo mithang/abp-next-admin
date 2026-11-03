@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -50,11 +51,7 @@ export default function AIWorkspaceFormScreen() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [providerText, setProviderText] = useState('');
 
-  const detail = useQuery({
-    queryKey: ['ai-workspaces', id],
-    queryFn: () => getWorkspace(id as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('ai-workspaces', id, getWorkspace);
   const providersQuery = useQuery({
     queryKey: ['ai-workspace-providers'],
     queryFn: () => getWorkspaceProviders(),

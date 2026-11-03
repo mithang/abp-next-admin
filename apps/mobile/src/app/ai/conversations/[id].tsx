@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useRouteParams } from '../../../lib/route-params';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
@@ -52,11 +53,7 @@ export default function AIConversationChatScreen() {
   const [localUserMessages, setLocalUserMessages] = useState<string[]>([]);
   const abortRef = useRef<AbortController | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['ai-conversations', id],
-    queryFn: () => getConversation(id),
-    enabled: Boolean(id),
-  });
+  const detail = useDetailQuery('ai-conversations', id, getConversation);
   const history = useQuery({
     queryKey: ['ai-chat-messages', id],
     queryFn: () => getChatMessagesPaged({ conversationId: id, maxResultCount: 50 }),

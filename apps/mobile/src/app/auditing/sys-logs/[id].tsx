@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { notFoundElement } from '../../../lib/not-found';
@@ -13,11 +13,7 @@ import { formatDateTime } from '../../../lib/dates';
 export default function SysLogDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['sys-logs', id],
-    queryFn: () => getSysLog(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('sys-logs', id, getSysLog);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

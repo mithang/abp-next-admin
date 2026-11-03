@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -45,11 +46,7 @@ export default function AIConversationFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['ai-conversations', id],
-    queryFn: () => getConversation(id as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('ai-conversations', id, getConversation);
   const workspacesQuery = useQuery({
     queryKey: ['ai-workspaces', 'names'],
     queryFn: () => getWorkspacesPaged({ maxResultCount: 50 }),

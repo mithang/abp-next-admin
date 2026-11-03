@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
@@ -49,11 +50,7 @@ export default function BackgroundJobDetailScreen() {
   const { id } = useRouteParams<{ id: string }>();
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const query = useQuery({
-    queryKey: ['tasks-background-jobs', id],
-    queryFn: () => getBackgroundJob(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('tasks-background-jobs', id, getBackgroundJob);
 
   const invalidate = useInvalidateQueries(['tasks-background-jobs']);
   const invalidateLogs = useInvalidateQueries(['tasks-background-job-logs']);

@@ -1,5 +1,5 @@
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
@@ -14,11 +14,7 @@ import { navHref } from '../../../lib/nav-href';
 export default function ScopeDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const query = useQuery({
-    queryKey: ['openiddict-scopes', id],
-    queryFn: () => getScope(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('openiddict-scopes', id, getScope);
 
   const queryState = queryStateElement(query);
   if (queryState) return queryState;

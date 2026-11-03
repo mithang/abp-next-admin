@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -38,11 +39,7 @@ export default function PermissionDefinitionFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['permission-definitions', name],
-    queryFn: () => getPermissionDefinition(name as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('permission-definitions', name, getPermissionDefinition);
 
   const form = useForm<PermissionDefinitionFormValues>({
     resolver: zodResolver(permissionDefinitionFormSchema),

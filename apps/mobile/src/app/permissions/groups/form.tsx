@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -36,11 +37,7 @@ export default function PermissionGroupFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['permission-groups', name],
-    queryFn: () => getPermissionGroup(name as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('permission-groups', name, getPermissionGroup);
 
   const form = useForm<PermissionGroupFormValues>({
     resolver: zodResolver(permissionGroupFormSchema),

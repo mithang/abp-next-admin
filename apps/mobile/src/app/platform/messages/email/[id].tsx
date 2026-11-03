@@ -1,5 +1,6 @@
 import { useRouteParams } from '../../../../lib/route-params';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
 import { AppButton } from '../../../../components/ui/AppButton';
@@ -28,11 +29,7 @@ export default function EmailMessageDetailScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['platform-email-messages']);
-  const query = useQuery({
-    queryKey: ['platform-email-messages', id],
-    queryFn: () => getEmailMessage(id),
-    enabled: Boolean(id),
-  });
+  const query = useDetailQuery('platform-email-messages', id, getEmailMessage);
   const sendMutation = useMutation({
     mutationFn: () => sendEmailMessage(id),
     onSuccess: invalidate,

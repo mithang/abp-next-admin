@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useDetailQuery } from '../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -41,11 +42,7 @@ export default function OrganizationUnitFormScreen() {
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['organization-units', id],
-    queryFn: () => getOrganizationUnit(id as string),
-    enabled: isEdit,
-  });
+  const detail = useDetailQuery('organization-units', id, getOrganizationUnit);
   const all = useQuery({
     queryKey: ['organization-units', 'all'],
     queryFn: getOrganizationUnitsAll,

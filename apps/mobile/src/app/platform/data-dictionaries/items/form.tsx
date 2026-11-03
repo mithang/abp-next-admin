@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useRouteParams } from '../../../../lib/route-params';
 import { AppFormSwitch } from '../../../../components/ui/AppFormSwitch';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useDetailQuery } from '../../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -47,11 +48,7 @@ export default function DataItemFormScreen() {
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const detail = useQuery({
-    queryKey: ['platform-datas', dataId],
-    queryFn: () => getData(dataId),
-    enabled: Boolean(dataId),
-  });
+  const detail = useDetailQuery('platform-datas', dataId, getData);
   const existing = detail.data?.items.find((i) => i.name === name);
 
   const form = useForm<DataItemFormValues>({
