@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   AIToolDefinitionRecordCreateDto,
   AIToolDefinitionRecordDto,
@@ -37,12 +37,9 @@ export function getAIToolsPaged(input: AIToolDefinitionRecordGetPagedListInput =
 
 /** GET /api/ai-management/tools/{id} */
 export function getAITool(id: string) {
-  return apiRequest<AIToolDefinitionRecordDto>(
-    `/api/ai-management/tools/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<AIToolDefinitionRecordDto>(apiPath('/api/ai-management/tools', id), {
+    method: 'GET',
+  });
 }
 
 /** POST /api/ai-management/tools */
@@ -55,18 +52,15 @@ export function createAITool(input: AIToolDefinitionRecordCreateDto) {
 
 /** PUT /api/ai-management/tools/{id} — body bắt buộc có concurrencyStamp (DTO C#). */
 export function updateAITool(id: string, input: AIToolDefinitionRecordUpdateDto) {
-  return apiRequest<AIToolDefinitionRecordDto>(
-    `/api/ai-management/tools/${encodeURIComponent(id)}`,
-    {
-      method: 'PUT',
-      body: input,
-    },
-  );
+  return apiRequest<AIToolDefinitionRecordDto>(apiPath('/api/ai-management/tools', id), {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/ai-management/tools/{id} */
 export function deleteAITool(id: string) {
-  return apiRequest<void>(`/api/ai-management/tools/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/ai-management/tools', id), {
     method: 'DELETE',
   });
 }
@@ -97,12 +91,9 @@ export function getWorkspacesPaged(input: WorkspaceDefinitionRecordGetPagedListI
 
 /** GET /api/ai-management/workspaces/{id} */
 export function getWorkspace(id: string) {
-  return apiRequest<WorkspaceDefinitionRecordDto>(
-    `/api/ai-management/workspaces/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<WorkspaceDefinitionRecordDto>(apiPath('/api/ai-management/workspaces', id), {
+    method: 'GET',
+  });
 }
 
 /** POST /api/ai-management/workspaces */
@@ -115,18 +106,15 @@ export function createWorkspace(input: WorkspaceDefinitionRecordCreateDto) {
 
 /** PUT /api/ai-management/workspaces/{id} — body bắt buộc có concurrencyStamp. */
 export function updateWorkspace(id: string, input: WorkspaceDefinitionRecordUpdateDto) {
-  return apiRequest<WorkspaceDefinitionRecordDto>(
-    `/api/ai-management/workspaces/${encodeURIComponent(id)}`,
-    {
-      method: 'PUT',
-      body: input,
-    },
-  );
+  return apiRequest<WorkspaceDefinitionRecordDto>(apiPath('/api/ai-management/workspaces', id), {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/ai-management/workspaces/{id} */
 export function deleteWorkspace(id: string) {
-  return apiRequest<void>(`/api/ai-management/workspaces/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/ai-management/workspaces', id), {
     method: 'DELETE',
   });
 }
@@ -158,12 +146,9 @@ export function getConversationsPaged(input: ConversationGetListInput = {}) {
 
 /** GET /api/ai-management/chats/conversations/{id} */
 export function getConversation(id: string) {
-  return apiRequest<ConversationDto>(
-    `/api/ai-management/chats/conversations/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<ConversationDto>(apiPath('/api/ai-management/chats/conversations', id), {
+    method: 'GET',
+  });
 }
 
 /** POST /api/ai-management/chats/conversations — name tùy chọn, workspace bắt buộc. */
@@ -180,18 +165,15 @@ export function createConversation(input: ConversationCreateDto) {
  * mà web dùng (route đó không tồn tại trên AllInOne, GET không token trả 404).
  */
 export function updateConversation(id: string, input: ConversationUpdateDto) {
-  return apiRequest<ConversationDto>(
-    `/api/ai-management/chats/conversations/${encodeURIComponent(id)}`,
-    {
-      method: 'PUT',
-      body: input,
-    },
-  );
+  return apiRequest<ConversationDto>(apiPath('/api/ai-management/chats/conversations', id), {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/ai-management/chats/conversations/{id} */
 export function deleteConversation(id: string) {
-  return apiRequest<void>(`/api/ai-management/chats/conversations/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/ai-management/chats/conversations', id), {
     method: 'DELETE',
   });
 }

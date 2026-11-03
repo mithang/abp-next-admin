@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   GetOrganizationUnitPagedListInput,
   OrganizationUnitCreateInput,
@@ -28,10 +28,9 @@ export function getOrganizationUnitsPaged(input: GetOrganizationUnitPagedListInp
 
 /** GET /api/identity/organization-units/{id} */
 export function getOrganizationUnit(id: string) {
-  return apiRequest<OrganizationUnitDto>(
-    `/api/identity/organization-units/${encodeURIComponent(id)}`,
-    { method: 'GET' },
-  );
+  return apiRequest<OrganizationUnitDto>(apiPath('/api/identity/organization-units', id), {
+    method: 'GET',
+  });
 }
 
 /** POST /api/identity/organization-units — create nhận displayName + parentId (theo OrganizationUnitCreateDto). */
@@ -44,18 +43,15 @@ export function createOrganizationUnit(input: OrganizationUnitCreateInput) {
 
 /** PUT /api/identity/organization-units/{id} — update chỉ nhận displayName (theo OrganizationUnitUpdateDto). */
 export function updateOrganizationUnit(id: string, input: OrganizationUnitUpdateInput) {
-  return apiRequest<OrganizationUnitDto>(
-    `/api/identity/organization-units/${encodeURIComponent(id)}`,
-    {
-      method: 'PUT',
-      body: input,
-    },
-  );
+  return apiRequest<OrganizationUnitDto>(apiPath('/api/identity/organization-units', id), {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/identity/organization-units/{id} */
 export function deleteOrganizationUnit(id: string) {
-  return apiRequest<void>(`/api/identity/organization-units/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/identity/organization-units', id), {
     method: 'DELETE',
   });
 }

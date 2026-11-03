@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult } from '../../lib/api-client';
 import type {
   TextTemplateContentDto,
   TextTemplateContentGetInput,
@@ -25,7 +25,7 @@ export function getTextTemplateDefinitions(input: TextTemplateDefinitionGetListI
 
 /** GET /api/text-templating/template/definitions/{name} */
 export function getTextTemplateDefinition(name: string) {
-  return apiRequest<TextTemplateDefinitionDto>(`${DEFINITIONS_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<TextTemplateDefinitionDto>(apiPath(DEFINITIONS_BASE, name), {
     method: 'GET',
   });
 }
@@ -37,7 +37,7 @@ export function createTextTemplateDefinition(input: TextTemplateDefinitionCreate
 
 /** PUT /api/text-templating/template/definitions/{name} — sửa không gửi name. */
 export function updateTextTemplateDefinition(name: string, input: TextTemplateDefinitionUpdateDto) {
-  return apiRequest<TextTemplateDefinitionDto>(`${DEFINITIONS_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<TextTemplateDefinitionDto>(apiPath(DEFINITIONS_BASE, name), {
     method: 'PUT',
     body: input,
   });
@@ -45,7 +45,7 @@ export function updateTextTemplateDefinition(name: string, input: TextTemplateDe
 
 /** DELETE /api/text-templating/template/definitions/{name} — bảng web vô hiệu với mẫu tĩnh. */
 export function deleteTextTemplateDefinition(name: string) {
-  return apiRequest<void>(`${DEFINITIONS_BASE}/${encodeURIComponent(name)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(DEFINITIONS_BASE, name), { method: 'DELETE' });
 }
 
 /* ---------------- Nội dung mẫu: theo culture (modal Edit contents của web) ---------------- */
@@ -53,14 +53,14 @@ export function deleteTextTemplateDefinition(name: string) {
 /** GET /api/text-templating/templates/content[/{culture}]/{name} */
 export function getTextTemplateContent(input: TextTemplateContentGetInput) {
   const path = input.culture
-    ? `${CONTENT_BASE}/${encodeURIComponent(input.culture)}/${encodeURIComponent(input.name)}`
-    : `${CONTENT_BASE}/${encodeURIComponent(input.name)}`;
+    ? apiPath(CONTENT_BASE, input.culture, input.name)
+    : apiPath(CONTENT_BASE, input.name);
   return apiRequest<TextTemplateContentDto>(path, { method: 'GET' });
 }
 
 /** PUT /api/text-templating/templates/content/{name} */
 export function updateTextTemplateContent(name: string, input: TextTemplateContentUpdateDto) {
-  return apiRequest<TextTemplateContentDto>(`${CONTENT_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<TextTemplateContentDto>(apiPath(CONTENT_BASE, name), {
     method: 'PUT',
     body: input,
   });
@@ -68,7 +68,7 @@ export function updateTextTemplateContent(name: string, input: TextTemplateConte
 
 /** PUT /api/text-templating/templates/content/{name}/restore-to-default */
 export function restoreTextTemplateContentToDefault(name: string, input: TextTemplateRestoreInput) {
-  return apiRequest<void>(`${CONTENT_BASE}/${encodeURIComponent(name)}/restore-to-default`, {
+  return apiRequest<void>(apiPath(CONTENT_BASE, name, 'restore-to-default'), {
     method: 'PUT',
     body: input,
   });

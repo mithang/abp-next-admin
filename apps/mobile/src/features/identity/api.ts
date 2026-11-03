@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { GetUserPagedListInput, IdentityUserDto } from './types';
 
 /** GET /api/identity/users — đã kiểm chứng từ useUsersApi.ts của web app-antd. */
@@ -16,7 +16,7 @@ export function getUsersPaged(input: GetUserPagedListInput = {}) {
 
 /** GET /api/identity/users/{id} */
 export function getUser(id: string) {
-  return apiRequest<IdentityUserDto>(`/api/identity/users/${encodeURIComponent(id)}`, {
+  return apiRequest<IdentityUserDto>(apiPath('/api/identity/users', id), {
     method: 'GET',
   });
 }

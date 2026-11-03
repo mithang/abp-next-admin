@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { EntityTypeInfoDto, GetEntityTypeInfoListInput } from './types';
 
 /** GET /api/data-protection-management/entity-type-infos — phân trang ABP, lọc filter. */
@@ -21,7 +21,7 @@ export function getEntityTypeInfosPaged(input: GetEntityTypeInfoListInput = {}) 
 /** GET /api/data-protection-management/entity-type-infos/{id} — backend chỉ có Get/GetList, không tạo/sửa/xóa. */
 export function getEntityTypeInfo(id: string) {
   return apiRequest<EntityTypeInfoDto>(
-    `/api/data-protection-management/entity-type-infos/${encodeURIComponent(id)}`,
+    apiPath('/api/data-protection-management/entity-type-infos', id),
     {
       method: 'GET',
     },

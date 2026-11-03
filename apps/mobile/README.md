@@ -45,6 +45,26 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 66
+
+Vòng P3 gộp họ lặp encode path API: helper mới `apiPath(base,
+...segments)` trong `src/lib/api-client.ts` (mỗi segment đi qua
+`encodeURIComponent`, base lược `/` cuối, segment tĩnh như
+`items`/`revoke`/`resend` qua encode vẫn giữ nguyên) và migrate
+129 điểm ở 26 file API module trong `src/features/` — gồm cả
+dạng template `/api/…` (105) lẫn dạng `${BASE}/…` (24), kể cả
+đa segment (`connection-string`, `items`, `by-user`) và segment
+tĩnh đứng trước segment động (`BASE/logs/id`). Kiểm chứng 2
+chiều: 129 call `apiPath`, 0 `encodeURIComponent` còn lại ở
+features (1 còn lại nằm trong file test, là expectation giữ
+nguyên). Cố tình giữ: `bulk-${action}` (nội suy hậu tố, không
+phải segment), các template `${BASE}/keys` thuần tĩnh (không có
+gì để encode), và toàn bộ `encodeURIComponent` ở href điều
+hướng trong `src/app/` (thuộc họ navigation, ứng viên vòng sau
+nếu còn). Lỗi typecheck vòng này (reduce suy ra
+`string | number`) đã sửa bằng generic `reduce<string>`, không
+nới type. Jest 428/428 (+6 test apiPath), i18n parity 1463/1463.
+
 ## Trạng thái vòng 65
 
 Vòng P3 gộp họ lặp cuối cùng của nhóm lọc/phân trang: tạo

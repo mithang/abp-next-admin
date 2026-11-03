@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   EditionCreateDto,
   EditionDto,
@@ -31,7 +31,7 @@ export function getTenantsPaged(input: TenantGetListInput = {}) {
 
 /** GET /api/saas/tenants/{id} */
 export function getTenant(id: string) {
-  return apiRequest<TenantDto>(`/api/saas/tenants/${encodeURIComponent(id)}`, {
+  return apiRequest<TenantDto>(apiPath('/api/saas/tenants', id), {
     method: 'GET',
   });
 }
@@ -46,7 +46,7 @@ export function createTenant(input: TenantCreateDto) {
 
 /** PUT /api/saas/tenants/{id} — body bắt buộc có concurrencyStamp (DTO C#). */
 export function updateTenant(id: string, input: TenantUpdateDto) {
-  return apiRequest<TenantDto>(`/api/saas/tenants/${encodeURIComponent(id)}`, {
+  return apiRequest<TenantDto>(apiPath('/api/saas/tenants', id), {
     method: 'PUT',
     body: input,
   });
@@ -54,7 +54,7 @@ export function updateTenant(id: string, input: TenantUpdateDto) {
 
 /** DELETE /api/saas/tenants/{id} */
 export function deleteTenant(id: string) {
-  return apiRequest<void>(`/api/saas/tenants/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/saas/tenants', id), {
     method: 'DELETE',
   });
 }
@@ -64,7 +64,7 @@ export function deleteTenant(id: string) {
 /** GET /api/saas/tenants/{id}/connection-string — tất cả chuỗi kết nối (ListResult). */
 export function getTenantConnectionStrings(id: string) {
   return apiRequest<ListResult<TenantConnectionStringDto>>(
-    `/api/saas/tenants/${encodeURIComponent(id)}/connection-string`,
+    apiPath('/api/saas/tenants', id, 'connection-string'),
     { method: 'GET' },
   );
 }
@@ -72,7 +72,7 @@ export function getTenantConnectionStrings(id: string) {
 /** GET /api/saas/tenants/{id}/connection-string/{name} */
 export function getTenantConnectionString(id: string, name: string) {
   return apiRequest<TenantConnectionStringDto>(
-    `/api/saas/tenants/${encodeURIComponent(id)}/connection-string/${encodeURIComponent(name)}`,
+    apiPath('/api/saas/tenants', id, 'connection-string', name),
     { method: 'GET' },
   );
 }
@@ -80,17 +80,16 @@ export function getTenantConnectionString(id: string, name: string) {
 /** PUT /api/saas/tenants/{id}/connection-string — đặt (tạo mới hoặc ghi đè). */
 export function setTenantConnectionString(id: string, input: TenantConnectionStringSetInput) {
   return apiRequest<TenantConnectionStringDto>(
-    `/api/saas/tenants/${encodeURIComponent(id)}/connection-string`,
+    apiPath('/api/saas/tenants', id, 'connection-string'),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/saas/tenants/{id}/connection-string/{name} */
 export function deleteTenantConnectionString(id: string, name: string) {
-  return apiRequest<void>(
-    `/api/saas/tenants/${encodeURIComponent(id)}/connection-string/${encodeURIComponent(name)}`,
-    { method: 'DELETE' },
-  );
+  return apiRequest<void>(apiPath('/api/saas/tenants', id, 'connection-string', name), {
+    method: 'DELETE',
+  });
 }
 
 /**
@@ -154,7 +153,7 @@ export function getEditionsPaged(input: EditionGetListInput = {}) {
 
 /** GET /api/saas/editions/{id} */
 export function getEdition(id: string) {
-  return apiRequest<EditionDto>(`/api/saas/editions/${encodeURIComponent(id)}`, {
+  return apiRequest<EditionDto>(apiPath('/api/saas/editions', id), {
     method: 'GET',
   });
 }
@@ -169,7 +168,7 @@ export function createEdition(input: EditionCreateDto) {
 
 /** PUT /api/saas/editions/{id} — body bắt buộc có concurrencyStamp. */
 export function updateEdition(id: string, input: EditionUpdateDto) {
-  return apiRequest<EditionDto>(`/api/saas/editions/${encodeURIComponent(id)}`, {
+  return apiRequest<EditionDto>(apiPath('/api/saas/editions', id), {
     method: 'PUT',
     body: input,
   });
@@ -177,7 +176,7 @@ export function updateEdition(id: string, input: EditionUpdateDto) {
 
 /** DELETE /api/saas/editions/{id} */
 export function deleteEdition(id: string) {
-  return apiRequest<void>(`/api/saas/editions/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/saas/editions', id), {
     method: 'DELETE',
   });
 }

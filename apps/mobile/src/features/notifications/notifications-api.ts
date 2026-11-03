@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   GetMyNotifilerPagedListInput,
   MarkReadStateInput,
@@ -32,17 +32,14 @@ export function getMyNotificationsPaged(input: GetMyNotifilerPagedListInput = {}
 
 /** GET /api/notifications/my-notifilers/{id} — backend id là long, encode như mọi id khác. */
 export function getMyNotification(id: string) {
-  return apiRequest<UserNotificationDto>(
-    `/api/notifications/my-notifilers/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<UserNotificationDto>(apiPath('/api/notifications/my-notifilers', id), {
+    method: 'GET',
+  });
 }
 
 /** DELETE /api/notifications/my-notifilers/{id} */
 export function deleteMyNotification(id: string) {
-  return apiRequest<void>(`/api/notifications/my-notifilers/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/notifications/my-notifilers', id), {
     method: 'DELETE',
   });
 }
@@ -69,7 +66,7 @@ export function getNotificationGroups(input: NotificationGroupDefinitionGetListI
 /** GET /api/notifications/definitions/groups/{name} */
 export function getNotificationGroup(name: string) {
   return apiRequest<NotificationGroupDefinitionDto>(
-    `/api/notifications/definitions/groups/${encodeURIComponent(name)}`,
+    apiPath('/api/notifications/definitions/groups', name),
     { method: 'GET' },
   );
 }
@@ -85,14 +82,14 @@ export function createNotificationGroup(input: NotificationGroupDefinitionCreate
 /** PUT /api/notifications/definitions/groups/{name} — không gửi name (key). */
 export function updateNotificationGroup(name: string, input: NotificationGroupDefinitionUpdateDto) {
   return apiRequest<NotificationGroupDefinitionDto>(
-    `/api/notifications/definitions/groups/${encodeURIComponent(name)}`,
+    apiPath('/api/notifications/definitions/groups', name),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/notifications/definitions/groups/{name} — web chỉ hiện khi !isStatic. */
 export function deleteNotificationGroup(name: string) {
-  return apiRequest<void>(`/api/notifications/definitions/groups/${encodeURIComponent(name)}`, {
+  return apiRequest<void>(apiPath('/api/notifications/definitions/groups', name), {
     method: 'DELETE',
   });
 }
@@ -119,7 +116,7 @@ export function getNotificationDefinitions(input: NotificationDefinitionGetListI
 /** GET /api/notifications/definitions/notifications/{name} */
 export function getNotificationDefinition(name: string) {
   return apiRequest<NotificationDefinitionDto>(
-    `/api/notifications/definitions/notifications/${encodeURIComponent(name)}`,
+    apiPath('/api/notifications/definitions/notifications', name),
     { method: 'GET' },
   );
 }
@@ -135,19 +132,16 @@ export function createNotificationDefinition(input: NotificationDefinitionCreate
 /** PUT /api/notifications/definitions/notifications/{name} — không gửi name/groupName (key). */
 export function updateNotificationDefinition(name: string, input: NotificationDefinitionUpdateDto) {
   return apiRequest<NotificationDefinitionDto>(
-    `/api/notifications/definitions/notifications/${encodeURIComponent(name)}`,
+    apiPath('/api/notifications/definitions/notifications', name),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/notifications/definitions/notifications/{name} — web chỉ hiện khi !isStatic. */
 export function deleteNotificationDefinition(name: string) {
-  return apiRequest<void>(
-    `/api/notifications/definitions/notifications/${encodeURIComponent(name)}`,
-    {
-      method: 'DELETE',
-    },
-  );
+  return apiRequest<void>(apiPath('/api/notifications/definitions/notifications', name), {
+    method: 'DELETE',
+  });
 }
 
 /** POST /api/notifications/send — gửi thông báo theo định nghĩa (web NotificationSendModal). */
@@ -177,14 +171,14 @@ export function getNotificationSendRecordsPaged(
 
 /** DELETE /api/notifications/send-records/{id} */
 export function deleteNotificationSendRecord(id: string) {
-  return apiRequest<void>(`/api/notifications/send-records/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/notifications/send-records', id), {
     method: 'DELETE',
   });
 }
 
 /** POST /api/notifications/send-records/{id}/re-send */
 export function reSendNotificationRecord(id: string) {
-  return apiRequest<void>(`/api/notifications/send-records/${encodeURIComponent(id)}/re-send`, {
+  return apiRequest<void>(apiPath('/api/notifications/send-records', id, 're-send'), {
     method: 'POST',
   });
 }

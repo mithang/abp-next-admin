@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult } from '../../lib/api-client';
 import type {
   PermissionDefinitionCreateDto,
   PermissionDefinitionDto,
@@ -17,7 +17,7 @@ export function getPermissionDefinitions(input: PermissionDefinitionGetListInput
 /** GET /api/permission-management/definitions/{name} */
 export function getPermissionDefinition(name: string) {
   return apiRequest<PermissionDefinitionDto>(
-    `/api/permission-management/definitions/${encodeURIComponent(name)}`,
+    apiPath('/api/permission-management/definitions', name),
     { method: 'GET' },
   );
 }
@@ -33,14 +33,14 @@ export function createPermissionDefinition(input: PermissionDefinitionCreateDto)
 /** PUT /api/permission-management/definitions/{name} — không gửi name/groupName. */
 export function updatePermissionDefinition(name: string, input: PermissionDefinitionUpdateDto) {
   return apiRequest<PermissionDefinitionDto>(
-    `/api/permission-management/definitions/${encodeURIComponent(name)}`,
+    apiPath('/api/permission-management/definitions', name),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/permission-management/definitions/{name} */
 export function deletePermissionDefinition(name: string) {
-  return apiRequest<void>(`/api/permission-management/definitions/${encodeURIComponent(name)}`, {
+  return apiRequest<void>(apiPath('/api/permission-management/definitions', name), {
     method: 'DELETE',
   });
 }

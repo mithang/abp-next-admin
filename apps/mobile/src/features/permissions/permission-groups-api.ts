@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult } from '../../lib/api-client';
 import type {
   PermissionGroupDefinitionCreateDto,
   PermissionGroupDefinitionDto,
@@ -24,7 +24,7 @@ export function getPermissionGroups(input: PermissionGroupDefinitionGetListInput
 /** GET /api/permission-management/definitions/groups/{name} */
 export function getPermissionGroup(name: string) {
   return apiRequest<PermissionGroupDefinitionDto>(
-    `/api/permission-management/definitions/groups/${encodeURIComponent(name)}`,
+    apiPath('/api/permission-management/definitions/groups', name),
     { method: 'GET' },
   );
 }
@@ -40,17 +40,14 @@ export function createPermissionGroup(input: PermissionGroupDefinitionCreateDto)
 /** PUT /api/permission-management/definitions/groups/{name} — chỉ displayName (+ extraProperties). */
 export function updatePermissionGroup(name: string, input: PermissionGroupDefinitionUpdateDto) {
   return apiRequest<PermissionGroupDefinitionDto>(
-    `/api/permission-management/definitions/groups/${encodeURIComponent(name)}`,
+    apiPath('/api/permission-management/definitions/groups', name),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/permission-management/definitions/groups/{name} */
 export function deletePermissionGroup(name: string) {
-  return apiRequest<void>(
-    `/api/permission-management/definitions/groups/${encodeURIComponent(name)}`,
-    {
-      method: 'DELETE',
-    },
-  );
+  return apiRequest<void>(apiPath('/api/permission-management/definitions/groups', name), {
+    method: 'DELETE',
+  });
 }

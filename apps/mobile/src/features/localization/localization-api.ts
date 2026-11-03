@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   DeleteTextInput,
   GetTextByKeyInput,
@@ -33,7 +33,7 @@ export function getLanguagesPaged(input: LanguageGetPagedListInput = {}) {
 
 /** GET /api/localization/languages/{cultureName} */
 export function getLanguage(cultureName: string) {
-  return apiRequest<LanguageDto>(`/api/localization/languages/${encodeURIComponent(cultureName)}`, {
+  return apiRequest<LanguageDto>(apiPath('/api/localization/languages', cultureName), {
     method: 'GET',
   });
 }
@@ -45,7 +45,7 @@ export function createLanguage(input: LanguageCreateDto) {
 
 /** PUT /api/localization/languages/{cultureName} — backend chỉ nhận displayName. */
 export function updateLanguage(cultureName: string, input: LanguageUpdateDto) {
-  return apiRequest<LanguageDto>(`/api/localization/languages/${encodeURIComponent(cultureName)}`, {
+  return apiRequest<LanguageDto>(apiPath('/api/localization/languages', cultureName), {
     method: 'PUT',
     body: input,
   });
@@ -53,7 +53,7 @@ export function updateLanguage(cultureName: string, input: LanguageUpdateDto) {
 
 /** DELETE /api/localization/languages/{cultureName} */
 export function deleteLanguage(cultureName: string) {
-  return apiRequest<void>(`/api/localization/languages/${encodeURIComponent(cultureName)}`, {
+  return apiRequest<void>(apiPath('/api/localization/languages', cultureName), {
     method: 'DELETE',
   });
 }
@@ -75,7 +75,7 @@ export function getResourcesPaged(input: ResourceGetPagedListInput = {}) {
 
 /** GET /api/localization/resources/{name} */
 export function getResource(name: string) {
-  return apiRequest<ResourceDto>(`/api/localization/resources/${encodeURIComponent(name)}`, {
+  return apiRequest<ResourceDto>(apiPath('/api/localization/resources', name), {
     method: 'GET',
   });
 }
@@ -87,7 +87,7 @@ export function createResource(input: ResourceCreateDto) {
 
 /** PUT /api/localization/resources/{name} — giữ defaultCultureName đã tải (modal web không có ô này). */
 export function updateResource(name: string, input: ResourceUpdateDto) {
-  return apiRequest<ResourceDto>(`/api/localization/resources/${encodeURIComponent(name)}`, {
+  return apiRequest<ResourceDto>(apiPath('/api/localization/resources', name), {
     method: 'PUT',
     body: input,
   });
@@ -95,7 +95,7 @@ export function updateResource(name: string, input: ResourceUpdateDto) {
 
 /** DELETE /api/localization/resources/{name} */
 export function deleteResource(name: string) {
-  return apiRequest<void>(`/api/localization/resources/${encodeURIComponent(name)}`, {
+  return apiRequest<void>(apiPath('/api/localization/resources', name), {
     method: 'DELETE',
   });
 }

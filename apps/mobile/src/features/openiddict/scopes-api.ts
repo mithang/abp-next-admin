@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type {
   OpenIddictScopeCreateOrUpdateDto,
   OpenIddictScopeDto,
@@ -20,7 +20,7 @@ export function getScopesPaged(input: OpenIddictScopeGetListInput = {}) {
 
 /** GET /api/openiddict/scopes/{id} */
 export function getScope(id: string) {
-  return apiRequest<OpenIddictScopeDto>(`/api/openiddict/scopes/${encodeURIComponent(id)}`, {
+  return apiRequest<OpenIddictScopeDto>(apiPath('/api/openiddict/scopes', id), {
     method: 'GET',
   });
 }
@@ -32,7 +32,7 @@ export function createScope(input: OpenIddictScopeCreateOrUpdateDto) {
 
 /** PUT /api/openiddict/scopes/{id} */
 export function updateScope(id: string, input: OpenIddictScopeCreateOrUpdateDto) {
-  return apiRequest<OpenIddictScopeDto>(`/api/openiddict/scopes/${encodeURIComponent(id)}`, {
+  return apiRequest<OpenIddictScopeDto>(apiPath('/api/openiddict/scopes', id), {
     method: 'PUT',
     body: input,
   });
@@ -40,5 +40,5 @@ export function updateScope(id: string, input: OpenIddictScopeCreateOrUpdateDto)
 
 /** DELETE /api/openiddict/scopes/{id} */
 export function deleteScope(id: string) {
-  return apiRequest<void>(`/api/openiddict/scopes/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath('/api/openiddict/scopes', id), { method: 'DELETE' });
 }

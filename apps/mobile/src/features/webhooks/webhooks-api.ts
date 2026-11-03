@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   WebhookAvailableGroupDto,
   WebhookDefinitionCreateDto,
@@ -37,7 +37,7 @@ export function getWebhookGroupDefinitions(input: WebhookGroupDefinitionGetListI
 
 /** GET /api/webhooks/definitions/groups/{name} */
 export function getWebhookGroupDefinition(name: string) {
-  return apiRequest<WebhookGroupDefinitionDto>(`${GROUPS_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<WebhookGroupDefinitionDto>(apiPath(GROUPS_BASE, name), {
     method: 'GET',
   });
 }
@@ -49,7 +49,7 @@ export function createWebhookGroupDefinition(input: WebhookGroupDefinitionCreate
 
 /** PUT /api/webhooks/definitions/groups/{name} — sửa không gửi name. */
 export function updateWebhookGroupDefinition(name: string, input: WebhookGroupDefinitionUpdateDto) {
-  return apiRequest<WebhookGroupDefinitionDto>(`${GROUPS_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<WebhookGroupDefinitionDto>(apiPath(GROUPS_BASE, name), {
     method: 'PUT',
     body: input,
   });
@@ -57,7 +57,7 @@ export function updateWebhookGroupDefinition(name: string, input: WebhookGroupDe
 
 /** DELETE /api/webhooks/definitions/groups/{name} — bảng web ẩn với nhóm tĩnh. */
 export function deleteWebhookGroupDefinition(name: string) {
-  return apiRequest<void>(`${GROUPS_BASE}/${encodeURIComponent(name)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(GROUPS_BASE, name), { method: 'DELETE' });
 }
 
 /* ---------------- Định nghĩa Webhook: ListResult, key = name ---------------- */
@@ -72,7 +72,7 @@ export function getWebhookDefinitions(input: WebhookDefinitionGetListInput = {})
 
 /** GET /api/webhooks/definitions/{name} */
 export function getWebhookDefinition(name: string) {
-  return apiRequest<WebhookDefinitionDto>(`${DEFINITIONS_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<WebhookDefinitionDto>(apiPath(DEFINITIONS_BASE, name), {
     method: 'GET',
   });
 }
@@ -84,7 +84,7 @@ export function createWebhookDefinition(input: WebhookDefinitionCreateDto) {
 
 /** PUT /api/webhooks/definitions/{name} — sửa không gửi groupName/name. */
 export function updateWebhookDefinition(name: string, input: WebhookDefinitionUpdateDto) {
-  return apiRequest<WebhookDefinitionDto>(`${DEFINITIONS_BASE}/${encodeURIComponent(name)}`, {
+  return apiRequest<WebhookDefinitionDto>(apiPath(DEFINITIONS_BASE, name), {
     method: 'PUT',
     body: input,
   });
@@ -92,7 +92,7 @@ export function updateWebhookDefinition(name: string, input: WebhookDefinitionUp
 
 /** DELETE /api/webhooks/definitions/{name} — bảng web ẩn với định nghĩa tĩnh. */
 export function deleteWebhookDefinition(name: string) {
-  return apiRequest<void>(`${DEFINITIONS_BASE}/${encodeURIComponent(name)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(DEFINITIONS_BASE, name), { method: 'DELETE' });
 }
 
 /* ---------------- Đăng ký Webhook: phân trang ABP, key = Guid ---------------- */
@@ -115,7 +115,7 @@ export function getWebhookSubscriptionsPaged(input: WebhookSubscriptionGetListIn
 
 /** GET /api/webhooks/subscriptions/{id} */
 export function getWebhookSubscription(id: string) {
-  return apiRequest<WebhookSubscriptionDto>(`${SUBSCRIPTIONS_BASE}/${encodeURIComponent(id)}`, {
+  return apiRequest<WebhookSubscriptionDto>(apiPath(SUBSCRIPTIONS_BASE, id), {
     method: 'GET',
   });
 }
@@ -127,7 +127,7 @@ export function createWebhookSubscription(input: WebhookSubscriptionCreateDto) {
 
 /** PUT /api/webhooks/subscriptions/{id} — gửi concurrencyStamp (UpdateDto). */
 export function updateWebhookSubscription(id: string, input: WebhookSubscriptionUpdateDto) {
-  return apiRequest<WebhookSubscriptionDto>(`${SUBSCRIPTIONS_BASE}/${encodeURIComponent(id)}`, {
+  return apiRequest<WebhookSubscriptionDto>(apiPath(SUBSCRIPTIONS_BASE, id), {
     method: 'PUT',
     body: input,
   });
@@ -135,7 +135,7 @@ export function updateWebhookSubscription(id: string, input: WebhookSubscription
 
 /** DELETE /api/webhooks/subscriptions/{id} */
 export function deleteWebhookSubscription(id: string) {
-  return apiRequest<void>(`${SUBSCRIPTIONS_BASE}/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(SUBSCRIPTIONS_BASE, id), { method: 'DELETE' });
 }
 
 /**
@@ -174,14 +174,14 @@ export function getWebhookSendAttemptsPaged(input: WebhookSendRecordGetListInput
 
 /** GET /api/webhooks/send-attempts/{id} */
 export function getWebhookSendAttempt(id: string) {
-  return apiRequest<WebhookSendRecordDto>(`${SEND_ATTEMPTS_BASE}/${encodeURIComponent(id)}`, {
+  return apiRequest<WebhookSendRecordDto>(apiPath(SEND_ATTEMPTS_BASE, id), {
     method: 'GET',
   });
 }
 
 /** DELETE /api/webhooks/send-attempts/{id} */
 export function deleteWebhookSendAttempt(id: string) {
-  return apiRequest<void>(`${SEND_ATTEMPTS_BASE}/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(SEND_ATTEMPTS_BASE, id), { method: 'DELETE' });
 }
 
 /**
@@ -194,7 +194,7 @@ export function bulkDeleteWebhookSendAttempts(input: WebhookSendRecordDeleteMany
 
 /** POST /api/webhooks/send-attempts/{id}/resend */
 export function resendWebhookSendAttempt(id: string) {
-  return apiRequest<void>(`${SEND_ATTEMPTS_BASE}/${encodeURIComponent(id)}/resend`, {
+  return apiRequest<void>(apiPath(SEND_ATTEMPTS_BASE, id, 'resend'), {
     method: 'POST',
   });
 }

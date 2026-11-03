@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from '@jest/globals';
-import { apiRequest, setUnauthorizedHandler } from '../api-client';
+import { apiPath, apiRequest, setUnauthorizedHandler } from '../api-client';
 
 interface FakeResponse {
   ok: boolean;
@@ -128,5 +128,35 @@ describe('apiRequest', () => {
     });
     const data = await apiRequest<{ code: string }>('/api/platform/data');
     expect(data.code).toBe('root');
+  });
+});
+
+describe('apiPath', () => {
+  it('encode segment chứa khoảng trắng và dấu /', () => {
+    expect(apiPath('/api/identity/users', 'a b/c')).toBe('/api/identity/users/a%20b%2Fc');
+  });
+
+  it('nhiều segment gồm cả segment tĩnh ở giữa', () => {
+    expect(apiPath('/api/saas/tenants', 't1', 'connection-string', 'Default')).toBe(
+      '/api/saas/tenants/t1/connection-string/Default',
+    );
+  });
+
+  it('segment tĩnh đứng trước segment động (dạng BASE/logs/id)', () => {
+    expect(apiPath('/api/task-management/background-jobs', 'logs', 'j1')).toBe(
+      '/api/task-management/background-jobs/logs/j1',
+    );
+  });
+
+  it('lược dấu / cuối của base để không tạo //', () => {
+    expect(apiPath('/api/x/', 'a')).toBe('/api/x/a');
+  });
+
+  it('segment số được chuyển thành chuỗi rồi encode', () => {
+    expect(apiPath('/api/x', 42)).toBe('/api/x/42');
+  });
+
+  it('không có segment thì trả nguyên base', () => {
+    expect(apiPath('/api/x')).toBe('/api/x');
   });
 });

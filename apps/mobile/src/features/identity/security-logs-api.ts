@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { GetSecurityLogPagedInput, SecurityLogDto } from './security-logs';
 
 /** GET /api/auditing/security-log — phân trang ABP, lọc theo userName (ô tìm kiếm mobile). */
@@ -19,14 +19,14 @@ export function getSecurityLogsPaged(input: GetSecurityLogPagedInput = {}) {
 
 /** GET /api/auditing/security-log/{id} */
 export function getSecurityLog(id: string) {
-  return apiRequest<SecurityLogDto>(`/api/auditing/security-log/${encodeURIComponent(id)}`, {
+  return apiRequest<SecurityLogDto>(apiPath('/api/auditing/security-log', id), {
     method: 'GET',
   });
 }
 
 /** DELETE /api/auditing/security-log/{id} */
 export function deleteSecurityLog(id: string) {
-  return apiRequest<void>(`/api/auditing/security-log/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/auditing/security-log', id), {
     method: 'DELETE',
   });
 }

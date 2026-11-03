@@ -49,6 +49,22 @@ function buildQuery(params?: RequestOptions['params']): string {
   return q ? `?${q}` : '';
 }
 
+/**
+ * Ghép path API từ base + các segment, mỗi segment đi qua encodeURIComponent.
+ * Dùng thay cho nội suy `${...}` trực tiếp vào template path: quên encode làm
+ * vỡ route khi id/name chứa dấu / hoặc khoảng trắng (vd tên permission, culture).
+ * Segment tĩnh ('items', 'revoke', 'resend'...) đi qua encode vẫn giữ nguyên vì
+ * chỉ chứa ký tự [A-Za-z0-9-], nên gọi chung một hàm cho cả segment động và tĩnh.
+ * Base có dấu / cuối sẽ được lược để không tạo '//'.
+ */
+export function apiPath(base: string, ...segments: (string | number)[]): string {
+  const cleanBase = base.replace(/\/+$/, '');
+  return segments.reduce<string>(
+    (acc, segment) => `${acc}/${encodeURIComponent(String(segment))}`,
+    cleanBase,
+  );
+}
+
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, params, signal, timeoutMs = 30000 } = options;
   const controller = new AbortController();

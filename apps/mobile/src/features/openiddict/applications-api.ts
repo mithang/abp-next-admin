@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type {
   OpenIddictApplicationCreateOrUpdateDto,
   OpenIddictApplicationDto,
@@ -20,12 +20,9 @@ export function getApplicationsPaged(input: OpenIddictApplicationGetListInput = 
 
 /** GET /api/openiddict/applications/{id} */
 export function getApplication(id: string) {
-  return apiRequest<OpenIddictApplicationDto>(
-    `/api/openiddict/applications/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<OpenIddictApplicationDto>(apiPath('/api/openiddict/applications', id), {
+    method: 'GET',
+  });
 }
 
 /**
@@ -65,18 +62,15 @@ export function updateApplication(
     requirements: input.requirements ?? { features: { requirePkce: false } },
     settings: input.settings ?? { tokenLifetime: {} },
   };
-  return apiRequest<OpenIddictApplicationDto>(
-    `/api/openiddict/applications/${encodeURIComponent(id)}`,
-    {
-      method: 'PUT',
-      body,
-    },
-  );
+  return apiRequest<OpenIddictApplicationDto>(apiPath('/api/openiddict/applications', id), {
+    method: 'PUT',
+    body,
+  });
 }
 
 /** DELETE /api/openiddict/applications/{id} */
 export function deleteApplication(id: string) {
-  return apiRequest<void>(`/api/openiddict/applications/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/openiddict/applications', id), {
     method: 'DELETE',
   });
 }

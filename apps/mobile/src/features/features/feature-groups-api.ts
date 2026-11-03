@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult } from '../../lib/api-client';
 import type {
   FeatureGroupDefinitionCreateDto,
   FeatureGroupDefinitionDto,
@@ -20,7 +20,7 @@ export function getFeatureGroups(input: FeatureGroupDefinitionGetListInput = {})
 /** GET /api/feature-management/definitions/groups/{name} */
 export function getFeatureGroup(name: string) {
   return apiRequest<FeatureGroupDefinitionDto>(
-    `/api/feature-management/definitions/groups/${encodeURIComponent(name)}`,
+    apiPath('/api/feature-management/definitions/groups', name),
     { method: 'GET' },
   );
 }
@@ -36,17 +36,14 @@ export function createFeatureGroup(input: FeatureGroupDefinitionCreateDto) {
 /** PUT /api/feature-management/definitions/groups/{name} — chỉ displayName + concurrencyStamp. */
 export function updateFeatureGroup(name: string, input: FeatureGroupDefinitionUpdateDto) {
   return apiRequest<FeatureGroupDefinitionDto>(
-    `/api/feature-management/definitions/groups/${encodeURIComponent(name)}`,
+    apiPath('/api/feature-management/definitions/groups', name),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/feature-management/definitions/groups/{name} */
 export function deleteFeatureGroup(name: string) {
-  return apiRequest<void>(
-    `/api/feature-management/definitions/groups/${encodeURIComponent(name)}`,
-    {
-      method: 'DELETE',
-    },
-  );
+  return apiRequest<void>(apiPath('/api/feature-management/definitions/groups', name), {
+    method: 'DELETE',
+  });
 }

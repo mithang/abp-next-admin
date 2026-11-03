@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { GetRolePagedListInput, IdentityRoleDto } from './roles-types';
 
 /** GET /api/identity/roles — đã kiểm chứng từ useRolesApi.ts của web app-antd. */
@@ -16,7 +16,7 @@ export function getRolesPaged(input: GetRolePagedListInput = {}) {
 
 /** GET /api/identity/roles/{id} */
 export function getRole(id: string) {
-  return apiRequest<IdentityRoleDto>(`/api/identity/roles/${encodeURIComponent(id)}`, {
+  return apiRequest<IdentityRoleDto>(apiPath('/api/identity/roles', id), {
     method: 'GET',
   });
 }
@@ -31,7 +31,7 @@ export function updateRole(
   id: string,
   input: { name: string; isDefault: boolean; isPublic: boolean; concurrencyStamp?: string },
 ) {
-  return apiRequest<IdentityRoleDto>(`/api/identity/roles/${encodeURIComponent(id)}`, {
+  return apiRequest<IdentityRoleDto>(apiPath('/api/identity/roles', id), {
     method: 'PUT',
     body: input,
   });
@@ -39,5 +39,5 @@ export function updateRole(
 
 /** DELETE /api/identity/roles/{id} */
 export function deleteRole(id: string) {
-  return apiRequest<void>(`/api/identity/roles/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath('/api/identity/roles', id), { method: 'DELETE' });
 }

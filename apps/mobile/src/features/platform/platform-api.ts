@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type { RoleMenuInput, UserMenuInput } from './menu-allotment';
 import type {
   UserFavoriteMenuCreateDto,
@@ -49,14 +49,14 @@ export function getDatasAll() {
 
 /** GET /api/platform/datas/by-name/{name} — web dùng để lấy mục 'UI Framework' làm gợi ý framework cho bố cục. */
 export function getDataByName(name: string) {
-  return apiRequest<DataDto>(`/api/platform/datas/by-name/${encodeURIComponent(name)}`, {
+  return apiRequest<DataDto>(apiPath('/api/platform/datas/by-name', name), {
     method: 'GET',
   });
 }
 
 /** GET /api/platform/datas/{id} */
 export function getData(id: string) {
-  return apiRequest<DataDto>(`/api/platform/datas/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<DataDto>(apiPath('/api/platform/datas', id), { method: 'GET' });
 }
 
 /** POST /api/platform/datas — tạo kèm parentId tùy chọn (để trống = gốc). */
@@ -66,7 +66,7 @@ export function createData(input: DataCreateDto) {
 
 /** PUT /api/platform/datas/{id} — KHÔNG gửi parentId/code (không có trong UpdateDto). */
 export function updateData(id: string, input: DataUpdateDto) {
-  return apiRequest<DataDto>(`/api/platform/datas/${encodeURIComponent(id)}`, {
+  return apiRequest<DataDto>(apiPath('/api/platform/datas', id), {
     method: 'PUT',
     body: input,
   });
@@ -74,12 +74,12 @@ export function updateData(id: string, input: DataUpdateDto) {
 
 /** DELETE /api/platform/datas/{id} */
 export function deleteData(id: string) {
-  return apiRequest<void>(`/api/platform/datas/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath('/api/platform/datas', id), { method: 'DELETE' });
 }
 
 /** PUT /api/platform/datas/{id}/move — đổi từ điển cha; parentId rỗng = về gốc. */
 export function moveData(id: string, input: DataMoveDto) {
-  return apiRequest<DataDto>(`/api/platform/datas/${encodeURIComponent(id)}/move`, {
+  return apiRequest<DataDto>(apiPath('/api/platform/datas', id, 'move'), {
     method: 'PUT',
     body: input,
   });
@@ -89,7 +89,7 @@ export function moveData(id: string, input: DataMoveDto) {
 
 /** POST /api/platform/datas/{id}/items — tạo mục (name bắt buộc lúc tạo). */
 export function createDataItem(id: string, input: DataItemCreateDto) {
-  return apiRequest<void>(`/api/platform/datas/${encodeURIComponent(id)}/items`, {
+  return apiRequest<void>(apiPath('/api/platform/datas', id, 'items'), {
     method: 'POST',
     body: input,
   });
@@ -97,18 +97,15 @@ export function createDataItem(id: string, input: DataItemCreateDto) {
 
 /** PUT /api/platform/datas/{id}/items/{name} — sửa mục, body KHÔNG có name. */
 export function updateDataItem(id: string, name: string, input: DataItemUpdateDto) {
-  return apiRequest<void>(
-    `/api/platform/datas/${encodeURIComponent(id)}/items/${encodeURIComponent(name)}`,
-    { method: 'PUT', body: input },
-  );
+  return apiRequest<void>(apiPath('/api/platform/datas', id, 'items', name), {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/platform/datas/{id}/items/{name} */
 export function deleteDataItem(id: string, name: string) {
-  return apiRequest<void>(
-    `/api/platform/datas/${encodeURIComponent(id)}/items/${encodeURIComponent(name)}`,
-    { method: 'DELETE' },
-  );
+  return apiRequest<void>(apiPath('/api/platform/datas', id, 'items', name), { method: 'DELETE' });
 }
 
 /* ---------------- Bố cục: /api/platform/layouts ---------------- */
@@ -129,7 +126,7 @@ export function getLayoutsPaged(input: LayoutGetListInput = {}) {
 
 /** GET /api/platform/layouts/{id} */
 export function getLayout(id: string) {
-  return apiRequest<LayoutDto>(`/api/platform/layouts/${encodeURIComponent(id)}`, {
+  return apiRequest<LayoutDto>(apiPath('/api/platform/layouts', id), {
     method: 'GET',
   });
 }
@@ -141,7 +138,7 @@ export function createLayout(input: LayoutCreateDto) {
 
 /** PUT /api/platform/layouts/{id} — KHÔNG gửi dataId/framework (không có trong UpdateDto). */
 export function updateLayout(id: string, input: LayoutUpdateDto) {
-  return apiRequest<LayoutDto>(`/api/platform/layouts/${encodeURIComponent(id)}`, {
+  return apiRequest<LayoutDto>(apiPath('/api/platform/layouts', id), {
     method: 'PUT',
     body: input,
   });
@@ -149,7 +146,7 @@ export function updateLayout(id: string, input: LayoutUpdateDto) {
 
 /** DELETE /api/platform/layouts/{id} */
 export function deleteLayout(id: string) {
-  return apiRequest<void>(`/api/platform/layouts/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath('/api/platform/layouts', id), { method: 'DELETE' });
 }
 
 /* ---------------- Menu: /api/platform/menus ---------------- */
@@ -169,7 +166,7 @@ export function getMenusAll(input: MenuGetAllInput = {}) {
 
 /** GET /api/platform/menus/{id} */
 export function getMenu(id: string) {
-  return apiRequest<MenuDto>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<MenuDto>(apiPath('/api/platform/menus', id), { method: 'GET' });
 }
 
 /** POST /api/platform/menus — tạo kèm layoutId bắt buộc (chỉ lúc tạo). */
@@ -179,7 +176,7 @@ export function createMenu(input: MenuCreateDto) {
 
 /** PUT /api/platform/menus/{id} — KHÔNG gửi layoutId (không có trong UpdateDto). */
 export function updateMenu(id: string, input: MenuUpdateDto) {
-  return apiRequest<MenuDto>(`/api/platform/menus/${encodeURIComponent(id)}`, {
+  return apiRequest<MenuDto>(apiPath('/api/platform/menus', id), {
     method: 'PUT',
     body: input,
   });
@@ -187,7 +184,7 @@ export function updateMenu(id: string, input: MenuUpdateDto) {
 
 /** DELETE /api/platform/menus/{id} */
 export function deleteMenu(id: string) {
-  return apiRequest<void>(`/api/platform/menus/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath('/api/platform/menus', id), { method: 'DELETE' });
 }
 
 /* ---------------- Phân bổ menu: by-user / by-role ---------------- */
@@ -195,17 +192,16 @@ export function deleteMenu(id: string) {
 /** GET /api/platform/menus/by-user/{userId}/{framework} — menu đã gán cho user. */
 export function getUserMenus(userId: string, framework: string) {
   return apiRequest<ListResult<MenuDto>>(
-    `/api/platform/menus/by-user/${encodeURIComponent(userId)}/${encodeURIComponent(framework)}`,
+    apiPath('/api/platform/menus/by-user', userId, framework),
     { method: 'GET' },
   );
 }
 
 /** GET /api/platform/menus/by-role/{role}/{framework} — menu đã gán cho vai trò. */
 export function getRoleMenus(role: string, framework: string) {
-  return apiRequest<ListResult<MenuDto>>(
-    `/api/platform/menus/by-role/${encodeURIComponent(role)}/${encodeURIComponent(framework)}`,
-    { method: 'GET' },
-  );
+  return apiRequest<ListResult<MenuDto>>(apiPath('/api/platform/menus/by-role', role, framework), {
+    method: 'GET',
+  });
 }
 
 /** PUT /api/platform/menus/by-user — gán menu + startup cho user. */
@@ -256,10 +252,9 @@ export function updateMyFavoriteMenu(input: UserFavoriteMenuUpdateDto) {
  * không phải id bản ghi favorite (service tìm bằng userId + menuId).
  */
 export function deleteMyFavoriteMenu(menuId: string) {
-  return apiRequest<void>(
-    `/api/platform/menus/favorites/my-favorite-menus/${encodeURIComponent(menuId)}`,
-    { method: 'DELETE' },
-  );
+  return apiRequest<void>(apiPath('/api/platform/menus/favorites/my-favorite-menus', menuId), {
+    method: 'DELETE',
+  });
 }
 
 /* ---------------- Tin nhắn Email: /api/platform/messages/email ---------------- */
@@ -286,21 +281,21 @@ export function getEmailMessagesPaged(input: EmailMessageGetListInput = {}) {
 
 /** GET /api/platform/messages/email/{id} — modal xem chi tiết chỉ đọc của web. */
 export function getEmailMessage(id: string) {
-  return apiRequest<EmailMessageDto>(`/api/platform/messages/email/${encodeURIComponent(id)}`, {
+  return apiRequest<EmailMessageDto>(apiPath('/api/platform/messages/email', id), {
     method: 'GET',
   });
 }
 
 /** DELETE /api/platform/messages/email/{id} */
 export function deleteEmailMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/platform/messages/email', id), {
     method: 'DELETE',
   });
 }
 
 /** POST /api/platform/messages/email/{id}/send — gửi lại. */
 export function sendEmailMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/email/${encodeURIComponent(id)}/send`, {
+  return apiRequest<void>(apiPath('/api/platform/messages/email', id, 'send'), {
     method: 'POST',
   });
 }
@@ -327,14 +322,14 @@ export function getSmsMessagesPaged(input: SmsMessageGetListInput = {}) {
 
 /** DELETE /api/platform/messages/sms/{id} */
 export function deleteSmsMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/platform/messages/sms', id), {
     method: 'DELETE',
   });
 }
 
 /** POST /api/platform/messages/sms/{id}/send — gửi lại. */
 export function sendSmsMessage(id: string) {
-  return apiRequest<void>(`/api/platform/messages/sms/${encodeURIComponent(id)}/send`, {
+  return apiRequest<void>(apiPath('/api/platform/messages/sms', id, 'send'), {
     method: 'POST',
   });
 }

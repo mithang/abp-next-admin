@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult } from '../../lib/api-client';
 import type {
   SettingDefinitionCreateDto,
   SettingDefinitionDto,
@@ -20,7 +20,7 @@ export function getSettingDefinitions(input: SettingDefinitionGetListInput = {})
 /** GET /api/setting-management/settings/definitions/{name} */
 export function getSettingDefinition(name: string) {
   return apiRequest<SettingDefinitionDto>(
-    `/api/setting-management/settings/definitions/${encodeURIComponent(name)}`,
+    apiPath('/api/setting-management/settings/definitions', name),
     { method: 'GET' },
   );
 }
@@ -36,19 +36,16 @@ export function createSettingDefinition(input: SettingDefinitionCreateDto) {
 /** PUT /api/setting-management/settings/definitions/{name} — không gửi name/isStatic. */
 export function updateSettingDefinition(name: string, input: SettingDefinitionUpdateDto) {
   return apiRequest<SettingDefinitionDto>(
-    `/api/setting-management/settings/definitions/${encodeURIComponent(name)}`,
+    apiPath('/api/setting-management/settings/definitions', name),
     { method: 'PUT', body: input },
   );
 }
 
 /** DELETE /api/setting-management/settings/definitions/{name} — web vô hiệu nút này với bản ghi tĩnh. */
 export function deleteSettingDefinition(name: string) {
-  return apiRequest<void>(
-    `/api/setting-management/settings/definitions/${encodeURIComponent(name)}`,
-    {
-      method: 'DELETE',
-    },
-  );
+  return apiRequest<void>(apiPath('/api/setting-management/settings/definitions', name), {
+    method: 'DELETE',
+  });
 }
 
 /** GET /api/setting-management/settings/definitions/assignable-providers — dùng làm gợi ý cho ô providers ở form. */

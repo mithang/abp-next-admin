@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { GetClaimTypePagedListInput, IdentityClaimTypeDto } from './claim-types';
 
 /** GET /api/identity/claim-types — đã kiểm chứng từ useClaimTypesApi.ts của web app-antd. */
@@ -16,7 +16,7 @@ export function getClaimTypesPaged(input: GetClaimTypePagedListInput = {}) {
 
 /** GET /api/identity/claim-types/{id} */
 export function getClaimType(id: string) {
-  return apiRequest<IdentityClaimTypeDto>(`/api/identity/claim-types/${encodeURIComponent(id)}`, {
+  return apiRequest<IdentityClaimTypeDto>(apiPath('/api/identity/claim-types', id), {
     method: 'GET',
   });
 }
@@ -42,7 +42,7 @@ export function updateClaimType(
   id: string,
   input: { description?: string; regex?: string; regexDescription?: string; required: boolean },
 ) {
-  return apiRequest<IdentityClaimTypeDto>(`/api/identity/claim-types/${encodeURIComponent(id)}`, {
+  return apiRequest<IdentityClaimTypeDto>(apiPath('/api/identity/claim-types', id), {
     method: 'PUT',
     body: input,
   });
@@ -50,7 +50,7 @@ export function updateClaimType(
 
 /** DELETE /api/identity/claim-types/{id} */
 export function deleteClaimType(id: string) {
-  return apiRequest<void>(`/api/identity/claim-types/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/identity/claim-types', id), {
     method: 'DELETE',
   });
 }

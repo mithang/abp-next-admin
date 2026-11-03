@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { GetUserSessionsInput, IdentitySessionDto } from './sessions';
 
 /** GET /api/identity/sessions — phân trang ABP, lọc theo device (ô tìm kiếm mobile). */
@@ -18,7 +18,7 @@ export function getSessionsPaged(input: GetUserSessionsInput = {}) {
 
 /** DELETE /api/identity/sessions/{sessionId}/revoke — sessionId đã encode, không dùng id entity. */
 export function revokeSession(sessionId: string) {
-  return apiRequest<void>(`/api/identity/sessions/${encodeURIComponent(sessionId)}/revoke`, {
+  return apiRequest<void>(apiPath('/api/identity/sessions', sessionId, 'revoke'), {
     method: 'DELETE',
   });
 }

@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult, type PagedResult } from '../../lib/api-client';
 import type {
   BackgroundJobDefinitionDto,
   BackgroundJobInfoBatchInput,
@@ -35,7 +35,7 @@ export function getBackgroundJobsPaged(input: BackgroundJobInfoGetListInput = {}
 
 /** GET /api/task-management/background-jobs/{id} */
 export function getBackgroundJob(id: string) {
-  return apiRequest<BackgroundJobInfoDto>(`${BASE}/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<BackgroundJobInfoDto>(apiPath(BASE, id), { method: 'GET' });
 }
 
 /** POST /api/task-management/background-jobs */
@@ -45,7 +45,7 @@ export function createBackgroundJob(input: BackgroundJobInfoCreateDto) {
 
 /** PUT /api/task-management/background-jobs/{id} — chỉ gửi base + concurrencyStamp. */
 export function updateBackgroundJob(id: string, input: BackgroundJobInfoUpdateDto) {
-  return apiRequest<BackgroundJobInfoDto>(`${BASE}/${encodeURIComponent(id)}`, {
+  return apiRequest<BackgroundJobInfoDto>(apiPath(BASE, id), {
     method: 'PUT',
     body: input,
   });
@@ -53,7 +53,7 @@ export function updateBackgroundJob(id: string, input: BackgroundJobInfoUpdateDt
 
 /** DELETE /api/task-management/background-jobs/{id} */
 export function deleteBackgroundJob(id: string) {
-  return apiRequest<void>(`${BASE}/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(BASE, id), { method: 'DELETE' });
 }
 
 /** GET /api/task-management/background-jobs/definitions — gợi ý type cho form tạo. */
@@ -64,7 +64,7 @@ export function getBackgroundJobDefinitions() {
 }
 
 function jobAction(id: string, action: string) {
-  return apiRequest<void>(`${BASE}/${encodeURIComponent(id)}/${action}`, { method: 'PUT' });
+  return apiRequest<void>(apiPath(BASE, id, action), { method: 'PUT' });
 }
 
 /** PUT .../{id}/pause */
@@ -147,5 +147,5 @@ export function getBackgroundJobLogsPaged(input: BackgroundJobLogGetListInput = 
 
 /** DELETE /api/task-management/background-jobs/logs/{id} */
 export function deleteBackgroundJobLog(id: string) {
-  return apiRequest<void>(`${BASE}/logs/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath(BASE, 'logs', id), { method: 'DELETE' });
 }

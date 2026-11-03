@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { OpenIddictTokenDto, OpenIddictTokenGetListInput } from './types';
 
 /**
@@ -25,12 +25,12 @@ export function getTokensPaged(input: OpenIddictTokenGetListInput = {}) {
 
 /** GET /api/openiddict/tokens/{id} */
 export function getToken(id: string) {
-  return apiRequest<OpenIddictTokenDto>(`/api/openiddict/tokens/${encodeURIComponent(id)}`, {
+  return apiRequest<OpenIddictTokenDto>(apiPath('/api/openiddict/tokens', id), {
     method: 'GET',
   });
 }
 
 /** DELETE /api/openiddict/tokens/{id} */
 export function deleteToken(id: string) {
-  return apiRequest<void>(`/api/openiddict/tokens/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  return apiRequest<void>(apiPath('/api/openiddict/tokens', id), { method: 'DELETE' });
 }

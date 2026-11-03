@@ -1,4 +1,4 @@
-import { apiRequest, apiUploadMultipart, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, apiUploadMultipart, type PagedResult } from '../../lib/api-client';
 import { BLOB_FILE_UPLOAD_PATH, buildBlobUploadForm, type BlobUploadInput } from './blob-upload';
 import type {
   BlobContainerCreateDto,
@@ -26,7 +26,7 @@ export function getBlobContainersPaged(input: BlobContainerGetListInput = {}) {
 
 /** GET /api/blob-management/containers/{id} */
 export function getBlobContainer(id: string) {
-  return apiRequest<BlobContainerDto>(`/api/blob-management/containers/${encodeURIComponent(id)}`, {
+  return apiRequest<BlobContainerDto>(apiPath('/api/blob-management/containers', id), {
     method: 'GET',
   });
 }
@@ -41,7 +41,7 @@ export function createBlobContainer(input: BlobContainerCreateDto) {
 
 /** DELETE /api/blob-management/containers/{id} — backend không có Update. */
 export function deleteBlobContainer(id: string) {
-  return apiRequest<void>(`/api/blob-management/containers/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/blob-management/containers', id), {
     method: 'DELETE',
   });
 }
@@ -70,7 +70,7 @@ export function getBlobsPaged(input: BlobGetListInput) {
 
 /** GET /api/blob-management/blobs/{id} */
 export function getBlob(id: string) {
-  return apiRequest<BlobDto>(`/api/blob-management/blobs/${encodeURIComponent(id)}`, {
+  return apiRequest<BlobDto>(apiPath('/api/blob-management/blobs', id), {
     method: 'GET',
   });
 }
@@ -101,7 +101,7 @@ export function uploadBlobFile(input: BlobUploadInput) {
 
 /** DELETE /api/blob-management/blobs/{id} */
 export function deleteBlob(id: string) {
-  return apiRequest<void>(`/api/blob-management/blobs/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/blob-management/blobs', id), {
     method: 'DELETE',
   });
 }
@@ -112,20 +112,14 @@ export function deleteBlob(id: string) {
  * openapi), không tự tải binary về máy vì chưa có file-system flow.
  */
 export function generateBlobDownloadUrl(id: string) {
-  return apiRequest<string>(
-    `/api/blob-management/blobs/generate/download-url/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<string>(apiPath('/api/blob-management/blobs/generate/download-url', id), {
+    method: 'GET',
+  });
 }
 
 /** GET /api/blob-management/blobs/generate/preview-url/{id} — trả về chuỗi URL. */
 export function generateBlobPreviewUrl(id: string) {
-  return apiRequest<string>(
-    `/api/blob-management/blobs/generate/preview-url/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<string>(apiPath('/api/blob-management/blobs/generate/preview-url', id), {
+    method: 'GET',
+  });
 }

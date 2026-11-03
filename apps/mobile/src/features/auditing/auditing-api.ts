@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { AuditLogDto, AuditLogGetListInput, LogDto, LogGetListInput } from './types';
 
 /** GET /api/auditing/audit-log — phân trang ABP, lọc theo userName/url/method/status... */
@@ -28,14 +28,14 @@ export function getAuditLogsPaged(input: AuditLogGetListInput = {}) {
 
 /** GET /api/auditing/audit-log/{id} — detail gồm actions + entityChanges như drawer web. */
 export function getAuditLog(id: string) {
-  return apiRequest<AuditLogDto>(`/api/auditing/audit-log/${encodeURIComponent(id)}`, {
+  return apiRequest<AuditLogDto>(apiPath('/api/auditing/audit-log', id), {
     method: 'GET',
   });
 }
 
 /** DELETE /api/auditing/audit-log/{id} */
 export function deleteAuditLog(id: string) {
-  return apiRequest<void>(`/api/auditing/audit-log/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/auditing/audit-log', id), {
     method: 'DELETE',
   });
 }
@@ -72,5 +72,5 @@ export function getSysLogsPaged(input: LogGetListInput = {}) {
 
 /** GET /api/auditing/logging/{id} — id là fields.id của log (LogDto không có id top-level). */
 export function getSysLog(id: string) {
-  return apiRequest<LogDto>(`/api/auditing/logging/${encodeURIComponent(id)}`, { method: 'GET' });
+  return apiRequest<LogDto>(apiPath('/api/auditing/logging', id), { method: 'GET' });
 }

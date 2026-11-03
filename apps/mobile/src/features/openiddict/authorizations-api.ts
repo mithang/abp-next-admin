@@ -1,4 +1,4 @@
-import { apiRequest, type PagedResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type PagedResult } from '../../lib/api-client';
 import type { OpenIddictAuthorizationDto, OpenIddictAuthorizationGetListInput } from './types';
 
 /**
@@ -23,17 +23,14 @@ export function getAuthorizationsPaged(input: OpenIddictAuthorizationGetListInpu
 
 /** GET /api/openiddict/authorizations/{id} */
 export function getAuthorization(id: string) {
-  return apiRequest<OpenIddictAuthorizationDto>(
-    `/api/openiddict/authorizations/${encodeURIComponent(id)}`,
-    {
-      method: 'GET',
-    },
-  );
+  return apiRequest<OpenIddictAuthorizationDto>(apiPath('/api/openiddict/authorizations', id), {
+    method: 'GET',
+  });
 }
 
 /** DELETE /api/openiddict/authorizations/{id} */
 export function deleteAuthorization(id: string) {
-  return apiRequest<void>(`/api/openiddict/authorizations/${encodeURIComponent(id)}`, {
+  return apiRequest<void>(apiPath('/api/openiddict/authorizations', id), {
     method: 'DELETE',
   });
 }

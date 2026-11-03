@@ -1,4 +1,4 @@
-import { apiRequest, type ListResult } from '../../lib/api-client';
+import { apiPath, apiRequest, type ListResult } from '../../lib/api-client';
 import type {
   FeatureDefinitionCreateDto,
   FeatureDefinitionDto,
@@ -16,10 +16,9 @@ export function getFeatureDefinitions(input: FeatureDefinitionGetListInput = {})
 
 /** GET /api/feature-management/definitions/{name} */
 export function getFeatureDefinition(name: string) {
-  return apiRequest<FeatureDefinitionDto>(
-    `/api/feature-management/definitions/${encodeURIComponent(name)}`,
-    { method: 'GET' },
-  );
+  return apiRequest<FeatureDefinitionDto>(apiPath('/api/feature-management/definitions', name), {
+    method: 'GET',
+  });
 }
 
 /** POST /api/feature-management/definitions */
@@ -32,15 +31,15 @@ export function createFeatureDefinition(input: FeatureDefinitionCreateDto) {
 
 /** PUT /api/feature-management/definitions/{name} — không gửi name/groupName. */
 export function updateFeatureDefinition(name: string, input: FeatureDefinitionUpdateDto) {
-  return apiRequest<FeatureDefinitionDto>(
-    `/api/feature-management/definitions/${encodeURIComponent(name)}`,
-    { method: 'PUT', body: input },
-  );
+  return apiRequest<FeatureDefinitionDto>(apiPath('/api/feature-management/definitions', name), {
+    method: 'PUT',
+    body: input,
+  });
 }
 
 /** DELETE /api/feature-management/definitions/{name} */
 export function deleteFeatureDefinition(name: string) {
-  return apiRequest<void>(`/api/feature-management/definitions/${encodeURIComponent(name)}`, {
+  return apiRequest<void>(apiPath('/api/feature-management/definitions', name), {
     method: 'DELETE',
   });
 }
