@@ -7,6 +7,7 @@ import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { mutationErrorElement } from '../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -14,7 +15,6 @@ import {
   refreshCacheKey,
   removeCacheKey,
 } from '../../../features/caching/caching-api';
-import { toApiError } from '../../../lib/errors';
 import { formatDateTime } from '../../../lib/dates';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
 
@@ -75,7 +75,7 @@ export default function CacheValueDetailScreen() {
           onDelete={() => removeCacheKey({ key: key as string })}
           invalidateKey={['cache-keys']}
         />
-        {refreshMutation.isError ? <Text>{toApiError(refreshMutation.error).message}</Text> : null}
+        {mutationErrorElement(refreshMutation)}
       </VStack>
     </AppScreen>
   );

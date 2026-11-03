@@ -17,6 +17,7 @@ import {
 } from '../../features/blob/blob-api';
 import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
+import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { usePagination } from '../../lib/use-pagination';
 import { useInvalidateQueries } from '../../lib/mutation-success';
@@ -156,7 +157,7 @@ export default function BlobsScreen() {
         testID="blob-blobs-upload"
       />
       {uploadMutation.isSuccess ? <Text>{t('blobBlobs.uploaded')}</Text> : null}
-      {uploadMutation.isError ? <Text>{toApiError(uploadMutation.error).message}</Text> : null}
+      {mutationErrorElement(uploadMutation)}
       <View style={{ height: 8 }} />
       <AppList
         items={items}

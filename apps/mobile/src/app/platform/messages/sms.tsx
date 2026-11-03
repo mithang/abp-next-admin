@@ -17,6 +17,7 @@ import {
 } from '../../../features/platform/platform-api';
 import type { SmsMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
+import { mutationErrorElement } from '../../../lib/mutation-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
@@ -91,8 +92,8 @@ function SmsRow({ item }: { item: SmsMessageDto }) {
             })
           }
         />
-        {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
+        {mutationErrorElement(sendMutation)}
+        {mutationErrorElement(deleteMutation)}
       </VStack>
     </Card>
   );

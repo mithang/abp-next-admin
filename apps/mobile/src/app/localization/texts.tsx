@@ -15,6 +15,7 @@ import { Card } from '@/components/ui/card';
 import { deleteText, getTexts } from '../../features/localization/localization-api';
 import type { TextDifferenceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
+import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useInvalidateQueries } from '../../lib/mutation-success';
@@ -177,7 +178,7 @@ export default function TextsScreen() {
           />
         </AppList>
       )}
-      {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
+      {mutationErrorElement(deleteMutation)}
     </AppScreen>
   );
 }

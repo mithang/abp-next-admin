@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import { getSessionsPaged, revokeSession } from '../../features/identity/sessions-api';
 import type { IdentitySessionDto } from '../../features/identity/sessions';
 import { toApiError } from '../../lib/errors';
+import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
@@ -67,7 +68,7 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
           }
           testID={`session-revoke-${item.sessionId}`}
         />
-        {revokeMutation.isError ? <Text>{toApiError(revokeMutation.error).message}</Text> : null}
+        {mutationErrorElement(revokeMutation)}
       </VStack>
     </Card>
   );

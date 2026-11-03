@@ -18,6 +18,7 @@ import {
   removeCacheKeys,
 } from '../../features/caching/caching-api';
 import { toApiError } from '../../lib/errors';
+import { mutationErrorElement } from '../../lib/mutation-error';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
@@ -211,10 +212,8 @@ export default function CacheKeysScreen() {
           }}
         />
       </AppList>
-      {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
-      {bulkDeleteMutation.isError ? (
-        <Text>{toApiError(bulkDeleteMutation.error).message}</Text>
-      ) : null}
+      {mutationErrorElement(deleteMutation)}
+      {mutationErrorElement(bulkDeleteMutation)}
     </AppScreen>
   );
 }

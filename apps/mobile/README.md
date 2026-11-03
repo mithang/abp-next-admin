@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 57
+
+Vòng P3 gộp 16 dòng lỗi mutation lặp lại ở 13 màn hình ngoài
+form vào helper `mutationErrorElement`
+(`src/lib/mutation-error.tsx`): `{xMutation.isError ?
+<Text>{toApiError(xMutation.error).message}</Text> : null}`
+thành một lần gọi `{mutationErrorElement(xMutation)}`.
+Helper nhận đúng một mutation (không nhận mảng) để màn hình
+nhiều mutation (gửi lại + xóa, xóa + xóa hàng loạt) chỉ cần
+gọi hai lần theo đúng thứ tự dòng cũ, không cần key/fragment;
+lỗi submit của form vẫn dùng AppFormSubmit, lỗi query vẫn dùng
+queryStateElement/AppList. Migrate 16 điểm (14 dòng đơn + 2
+khối đa dòng ở cache và data-dictionaries), kiểm chứng 2 chiều:
+16 lần gọi + 13 import, 0 pattern cũ còn lại; 4 file bỏ import
+`toApiError` thừa (caches/[key], my-notifilers/[id],
+messages/email/[id], data-dictionaries/[id]). Lỗi thật do vòng
+này bắt được nằm ở test mới, không phải helper: `toApiError`
+với `Error` thuần chỉ trả fallback (chỉ object có kind/message
+mới được giữ message) nên 3 test đầu viết sai kỳ vọng đã được
+sửa theo đúng hành vi của `errors.ts`.
+
 ## Trạng thái vòng 56
 
 Vòng P3 gộp bộ ba lọc đơn đã debounce của màn hình KHÔNG

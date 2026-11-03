@@ -17,6 +17,7 @@ import {
 import type { NotificationSendRecordDto } from '../../features/notifications/types';
 import { sendStateName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
@@ -77,8 +78,8 @@ function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
             })
           }
         />
-        {reSendMutation.isError ? <Text>{toApiError(reSendMutation.error).message}</Text> : null}
-        {deleteMutation.isError ? <Text>{toApiError(deleteMutation.error).message}</Text> : null}
+        {mutationErrorElement(reSendMutation)}
+        {mutationErrorElement(deleteMutation)}
       </VStack>
     </Card>
   );

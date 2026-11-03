@@ -6,6 +6,7 @@ import { AppButton } from '../../../../components/ui/AppButton';
 import { AppDeleteButton } from '../../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../../components/ui/AppStates';
 import { queryStateElement } from '../../../../lib/query-state';
+import { mutationErrorElement } from '../../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -13,7 +14,6 @@ import {
   getEmailMessage,
   sendEmailMessage,
 } from '../../../../features/platform/platform-api';
-import { toApiError } from '../../../../lib/errors';
 import { showConfirmDialog } from '../../../../lib/confirm';
 import { formatDateTime } from '../../../../lib/dates';
 import { useInvalidateQueries } from '../../../../lib/mutation-success';
@@ -103,7 +103,7 @@ export default function EmailMessageDetailScreen() {
             })
           }
         />
-        {sendMutation.isError ? <Text>{toApiError(sendMutation.error).message}</Text> : null}
+        {mutationErrorElement(sendMutation)}
         <AppDeleteButton
           confirmTitle={t('platformEmailMessages.deleteConfirmTitle')}
           confirmMessage={t('platformEmailMessages.deleteConfirmMessage')}

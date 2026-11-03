@@ -6,6 +6,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { mutationErrorElement } from '../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -22,7 +23,6 @@ import {
   readStateName,
   severityName,
 } from '../../../features/notifications/types';
-import { toApiError } from '../../../lib/errors';
 import { formatDateTime } from '../../../lib/dates';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
 
@@ -97,7 +97,7 @@ export default function MyNotificationDetailScreen() {
           variant="outline"
           testID="my-notification-mark"
         />
-        {markMutation.isError ? <Text>{toApiError(markMutation.error).message}</Text> : null}
+        {mutationErrorElement(markMutation)}
         <AppDeleteButton
           confirmTitle={t('myNotifications.deleteConfirmTitle')}
           confirmMessage={t('myNotifications.deleteConfirmMessage')}

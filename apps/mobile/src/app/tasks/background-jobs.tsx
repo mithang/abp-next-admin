@@ -27,6 +27,7 @@ import {
   type BackgroundJobInfoDto,
 } from '../../features/tasks/types';
 import { toApiError } from '../../lib/errors';
+import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
@@ -207,7 +208,7 @@ export default function BackgroundJobsScreen() {
           {...listRefreshProps(query)}
         />
       </AppList>
-      {bulkMutation.isError ? <Text>{toApiError(bulkMutation.error).message}</Text> : null}
+      {mutationErrorElement(bulkMutation)}
       {hasMore(total) ? (
         <AppButton title={t('common.loadMore')} onPress={loadMore} variant="outline" />
       ) : null}

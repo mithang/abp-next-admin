@@ -7,12 +7,12 @@ import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState, AppErrorState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { mutationErrorElement } from '../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import { deleteData, deleteDataItem, getData } from '../../../features/platform/platform-api';
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
-import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
 
@@ -123,9 +123,7 @@ export default function DataDetailScreen() {
             </Card>
           ))
         )}
-        {deleteItemMutation.isError ? (
-          <Text>{toApiError(deleteItemMutation.error).message}</Text>
-        ) : null}
+        {mutationErrorElement(deleteItemMutation)}
       </VStack>
     </AppScreen>
   );
