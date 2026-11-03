@@ -45,6 +45,20 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 73
+
+Vòng P3 gộp họ state chọn nhiều (bulk selection) về hook mới
+`useBulkSelection` (selected + selectMode + toggleSelect +
+clearSelection + toggleSelectMode + exitSelectMode): 4 màn hình
+— cache keys, background-jobs, webhook subscriptions,
+send-attempts — trước đây tự lặp đúng cùng semantics (nút chế
+độ vừa đảo mode vừa xoá lựa chọn, filter settled chỉ xoá lựa
+chọn, bulk thành công vừa xoá vừa thoát chế độ); màn cache còn
+tự định nghĩa `toggleSelect` trùng helper `toggleSelection`.
+Sau vòng này, 0 `setSelected`/`setSelectMode` còn lại trong 4
+màn; menu-allot cố tình giữ riêng (selection khởi tạo từ
+server, không có selectMode). Jest 463/463, i18n 1463/1463.
+
 ## Trạng thái vòng 72
 
 Vòng P3 gộp họ state lỗi mutation còn sót về hook mới

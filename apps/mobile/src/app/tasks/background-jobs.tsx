@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useInvalidateQueries } from '../../lib/mutation-success';
+import { useBulkSelection } from '../../lib/use-bulk-selection';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
@@ -30,7 +30,6 @@ import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
-import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
@@ -88,12 +87,10 @@ function JobRow({
 export default function BackgroundJobsScreen() {
   const { t } = useTranslation();
   const invalidateBackgroundJobs = useInvalidateQueries(['tasks-background-jobs']);
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const { selected, selectMode, toggleSelect, clearSelection, toggleSelectMode, exitSelectMode } =
+    useBulkSelection();
   const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
-    useListFilter(() => {
-      setSelected(new Set());
-    });
-  const [selectMode, setSelectMode] = useState(false);
+    useListFilter(clearSelection);
 
   const query = useQuery({
     queryKey: ['tasks-background-jobs', debouncedFilter, page],
@@ -124,8 +121,7 @@ export default function BackgroundJobsScreen() {
       }
     },
     onSuccess: async () => {
-      setSelected(new Set());
-      setSelectMode(false);
+      exitSelectMode();
       await invalidateBackgroundJobs();
     },
   });
@@ -151,10 +147,7 @@ export default function BackgroundJobsScreen() {
       />
       <AppButton
         title={selectMode ? t('backgroundJobs.exitSelectMode') : t('backgroundJobs.selectMode')}
-        onPress={() => {
-          setSelectMode((v) => !v);
-          setSelected(new Set());
-        }}
+        onPress={toggleSelectMode}
         variant="outline"
       />
       {selected.size > 0 ? (
@@ -195,7 +188,7 @@ export default function BackgroundJobsScreen() {
               item={item}
               selectMode={selectMode}
               isSelected={selected.has(item.id)}
-              onToggle={() => setSelected((prev) => toggleSelection(prev, item.id))}
+              onToggle={() => toggleSelect(item.id)}
             />
           )}
           {...listRefreshProps(query)}

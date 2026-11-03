@@ -21,6 +21,7 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { useBulkSelection } from '../../lib/use-bulk-selection';
 import { navPath } from '../../lib/nav-href';
 
 /**
@@ -38,13 +39,13 @@ export default function CacheKeysScreen() {
   const [prefix, setPrefix] = useState('');
   const [extraKeys, setExtraKeys] = useState<string[]>([]);
   const [extraMarker, setExtraMarker] = useState<string | null>(null);
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const { selected, selectMode, toggleSelect, clearSelection, toggleSelectMode, exitSelectMode } =
+    useBulkSelection();
   const debounced = useDebouncedValue({ filter, prefix }, 400, () => {
     setExtraKeys([]);
     setExtraMarker(null);
-    setSelected(new Set());
+    clearSelection();
   });
-  const [selectMode, setSelectMode] = useState(false);
 
   const query = useQuery({
     queryKey: ['cache-keys', debounced],
@@ -92,22 +93,12 @@ export default function CacheKeysScreen() {
   const bulkDeleteMutation = useMutation({
     mutationFn: () => removeCacheKeys({ keys: [...selected] }),
     onSuccess: async () => {
-      setSelected(new Set());
-      setSelectMode(false);
+      exitSelectMode();
       await invalidateCacheKeys();
       setExtraKeys([]);
       setExtraMarker(null);
     },
   });
-
-  const toggleSelect = (key: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  };
 
   return (
     <AppScreen title={t('caches.title')} subtitle={`${t('caches.total')}: ${keys.length}`}>
@@ -125,10 +116,7 @@ export default function CacheKeysScreen() {
       />
       <AppButton
         title={selectMode ? t('caches.exitSelectMode') : t('caches.selectMode')}
-        onPress={() => {
-          setSelectMode((v) => !v);
-          setSelected(new Set());
-        }}
+        onPress={toggleSelectMode}
         variant="outline"
       />
       {selected.size > 0 ? (
