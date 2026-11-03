@@ -13,8 +13,7 @@ import { logLevelName, type LogDto } from '../../features/auditing/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { formatDateTime } from '../../lib/dates';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
 
 function SysLogRow({ item }: { item: LogDto }) {
   const id = item.fields?.id ?? `${item.timeStamp}-${item.message ?? ''}`;
@@ -36,10 +35,9 @@ export default function SysLogsScreen() {
   const { t } = useTranslation();
   const [requestPath, setRequestPath] = useState('');
   const [application, setApplication] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debounced = useDebouncedValue({ requestPath, application }, 400, () => {
-    setPage(0);
-  });
+  const { page, skipCount, maxResultCount, hasMore, loadMore, debounced } = useDebouncedPagedFilter(
+    { requestPath, application },
+  );
 
   const query = useQuery({
     queryKey: ['sys-logs', debounced, page],

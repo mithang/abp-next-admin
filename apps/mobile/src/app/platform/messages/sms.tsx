@@ -21,8 +21,7 @@ import { listQueryProps } from '../../../lib/list-query-props';
 import { keyById } from '../../../lib/list-keys';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
-import { useDebouncedValue } from '../../../lib/use-debounced-value';
-import { usePagination } from '../../../lib/use-pagination';
+import { useDebouncedPagedFilter } from '../../../lib/use-debounced-paged-filter';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { messageStatusText } from './email';
 
@@ -110,13 +109,8 @@ export default function SmsMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debounced = useDebouncedValue(
+  const { page, skipCount, maxResultCount, hasMore, loadMore, debounced } = useDebouncedPagedFilter(
     { filter, phoneNumber, status, beginSendTime, endSendTime },
-    400,
-    () => {
-      setPage(0);
-    },
   );
 
   const parsedStatus = /^(-1|0|10)$/.test(debounced.status.trim())

@@ -21,8 +21,7 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 
 function SendRecordRow({ item }: { item: NotificationSendRecordDto }) {
@@ -91,10 +90,9 @@ export default function NotificationSendRecordsScreen() {
   const { t } = useTranslation();
   const [notificationName, setNotificationName] = useState('');
   const [provider, setProvider] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debounced = useDebouncedValue({ notificationName, provider }, 400, () => {
-    setPage(0);
-  });
+  const { page, skipCount, maxResultCount, hasMore, loadMore, debounced } = useDebouncedPagedFilter(
+    { notificationName, provider },
+  );
 
   const query = useQuery({
     queryKey: ['notification-send-records', debounced, page],

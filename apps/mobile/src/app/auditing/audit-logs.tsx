@@ -14,8 +14,7 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
 
 function AuditLogRow({ item }: { item: AuditLogDto }) {
   return (
@@ -38,10 +37,9 @@ export default function AuditLogsScreen() {
   const { t } = useTranslation();
   const [userName, setUserName] = useState('');
   const [url, setUrl] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debounced = useDebouncedValue({ userName, url }, 400, () => {
-    setPage(0);
-  });
+  const { page, skipCount, maxResultCount, hasMore, loadMore, debounced } = useDebouncedPagedFilter(
+    { userName, url },
+  );
 
   const query = useQuery({
     queryKey: ['audit-logs', debounced, page],

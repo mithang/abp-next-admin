@@ -45,6 +45,23 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 65
+
+Vòng P3 gộp họ lặp cuối cùng của nhóm lọc/phân trang: tạo
+hook `useDebouncedPagedFilter` (phân trang `usePagination` +
+`useDebouncedValue` object tự reset về trang 0 khi settled,
+kèm `onSettledExtra` tuỳ chọn như `useListFilter`) và migrate
+7 màn hình lọc đa field từng tự lặp đúng bộ đôi này
+(audit-logs, sys-logs, send-records, ai/tools, ai/workspaces,
+email, sms). Đây là phần mở rộng đa field mà vòng 54 đã ghi
+rõ là cố tình chưa gộp vào `useListFilter` (chỉ nhận một chuỗi
+filter). Lỗi test vòng này (timer lúc mount vẫn chờ nên
+advance 400ms reset page) là sai tiền đề của test, không phải
+lỗi hook — đã sửa test flush timer mount trước. Cố tình giữ:
+definitions, menus, cache (lọc đa field nhưng không phân
+trang), layouts (đã dùng `useListFilter` + debounce riêng cho
+framework). Jest 422/422, i18n parity 1463/1463.
+
 ## Trạng thái vòng 64
 
 Vòng P3 rà soát các thẻ Card còn lại ngoài AppRowCard/

@@ -17,8 +17,7 @@ import { listQueryProps } from '../../../lib/list-query-props';
 import { keyById } from '../../../lib/list-keys';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
-import { useDebouncedValue } from '../../../lib/use-debounced-value';
-import { usePagination } from '../../../lib/use-pagination';
+import { useDebouncedPagedFilter } from '../../../lib/use-debounced-paged-filter';
 
 export function messageStatusText(t: (key: string) => string, ns: string, status: number): string {
   if (status === -1) return t(`${ns}.statusPending`);
@@ -73,13 +72,8 @@ export default function EmailMessagesScreen() {
   const [status, setStatus] = useState('');
   const [beginSendTime, setBeginSendTime] = useState('');
   const [endSendTime, setEndSendTime] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debounced = useDebouncedValue(
+  const { page, skipCount, maxResultCount, hasMore, loadMore, debounced } = useDebouncedPagedFilter(
     { filter, emailAddress, status, beginSendTime, endSendTime },
-    400,
-    () => {
-      setPage(0);
-    },
   );
 
   const parsedStatus = parseEmailStatusFilter(debounced.status);
