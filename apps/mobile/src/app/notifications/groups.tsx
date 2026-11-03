@@ -12,6 +12,7 @@ import { getNotificationGroups } from '../../features/notifications/notification
 import type { NotificationGroupDefinitionDto } from '../../features/notifications/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: NotificationGroupDefinitionDto }) {
@@ -57,7 +58,7 @@ export default function NotificationGroupsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <GroupRow item={item} />}
           {...listRefreshProps(query)}
         />

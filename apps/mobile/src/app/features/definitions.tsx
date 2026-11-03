@@ -12,6 +12,7 @@ import { getFeatureDefinitions } from '../../features/features/feature-definitio
 import type { FeatureDefinitionDto } from '../../features/features/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
@@ -56,7 +57,7 @@ export default function FeatureDefinitionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <DefinitionRow item={item} />}
           {...listRefreshProps(query)}
         />

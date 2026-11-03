@@ -19,6 +19,7 @@ import type { WebhookSubscriptionDto } from '../../features/webhooks/types';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useListFilter } from '../../lib/use-list-filter';
@@ -149,7 +150,7 @@ export default function WebhookSubscriptionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => (
             <SubscriptionRow
               item={item}

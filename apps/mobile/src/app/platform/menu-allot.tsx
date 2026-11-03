@@ -37,6 +37,7 @@ import { toggleSelection } from '../../lib/selection';
 import { stateErrorElement } from '../../lib/state-error';
 import { toApiError } from '../../lib/errors';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByNestedId } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 import { usePagination } from '../../lib/use-pagination';
 
@@ -122,7 +123,7 @@ function AllotEditor({
       </Text>
       <FlatList
         data={rows}
-        keyExtractor={({ item }) => item.id}
+        keyExtractor={keyByNestedId}
         renderItem={({ item: row }) => {
           const { item, depth } = row;
           const checked = selected.has(item.id);

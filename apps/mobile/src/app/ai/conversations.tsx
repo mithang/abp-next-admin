@@ -12,6 +12,7 @@ import { getConversationsPaged } from '../../features/ai/ai-api';
 import type { ConversationDto } from '../../features/ai/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ConversationRow({ item }: { item: ConversationDto }) {
@@ -75,7 +76,7 @@ export default function AIConversationsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <ConversationRow item={item} />}
           {...listRefreshProps(query)}
         />

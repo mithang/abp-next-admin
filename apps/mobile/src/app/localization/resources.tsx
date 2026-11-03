@@ -12,6 +12,7 @@ import { getResourcesPaged } from '../../features/localization/localization-api'
 import type { ResourceDto } from '../../features/localization/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ResourceRow({ item }: { item: ResourceDto }) {
@@ -68,7 +69,7 @@ export default function ResourcesScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <ResourceRow item={item} />}
           {...listRefreshProps(query)}
         />

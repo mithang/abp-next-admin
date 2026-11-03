@@ -15,6 +15,7 @@ import { getLayoutsPaged, getMenusAll } from '../../features/platform/platform-a
 import type { MenuDto } from '../../features/platform/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByNestedId } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
@@ -130,7 +131,7 @@ export default function MenusScreen() {
       <AppList items={rows} {...listQueryProps(query)} emptyMessage={t('platformMenus.empty')}>
         <FlatList
           data={rows}
-          keyExtractor={({ item }) => item.id}
+          keyExtractor={keyByNestedId}
           renderItem={({ item }) => <MenuRow item={item.item} depth={item.depth} />}
           {...listRefreshProps(query)}
         />

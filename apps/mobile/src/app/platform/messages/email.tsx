@@ -14,6 +14,7 @@ import { getEmailMessagesPaged } from '../../../features/platform/platform-api';
 import type { EmailMessageDto } from '../../../features/platform/types';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { listQueryProps } from '../../../lib/list-query-props';
+import { keyById } from '../../../lib/list-keys';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
@@ -146,7 +147,7 @@ export default function EmailMessagesScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <EmailRow item={item} />}
           {...listRefreshProps(query)}
         />

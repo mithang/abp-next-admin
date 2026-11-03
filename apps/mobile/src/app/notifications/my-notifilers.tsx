@@ -20,6 +20,7 @@ import {
 } from '../../features/notifications/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -116,7 +117,7 @@ export default function MyNotificationsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => String(item.id)}
+          keyExtractor={keyById}
           renderItem={({ item }) => <MyNotificationRow item={item} />}
           {...listRefreshProps(query)}
         />

@@ -19,6 +19,7 @@ import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../fea
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { usePagination } from '../../lib/use-pagination';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 
@@ -118,7 +119,7 @@ export default function BlobsScreen() {
         >
           <FlatList
             data={containers}
-            keyExtractor={(item) => item.id}
+            keyExtractor={keyById}
             renderItem={({ item }) => (
               <Link href={`/blob/blobs?containerId=${encodeURIComponent(item.id)}`} asChild>
                 <Pressable>
@@ -165,7 +166,7 @@ export default function BlobsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <BlobRow item={item} containerId={containerId} />}
           {...listRefreshProps(query)}
         />

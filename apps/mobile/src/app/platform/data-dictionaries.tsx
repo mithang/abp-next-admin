@@ -14,6 +14,7 @@ import { getDatasAll } from '../../features/platform/platform-api';
 import type { DataDto } from '../../features/platform/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByNestedId } from '../../lib/list-keys';
 
 /**
  * Danh sách từ điển dữ liệu: đúng bảng web — GET /api/platform/datas/all
@@ -109,7 +110,7 @@ export default function DataDictionariesScreen() {
       >
         <FlatList
           data={rows}
-          keyExtractor={({ item }) => item.id}
+          keyExtractor={keyByNestedId}
           renderItem={({ item }) => <DataRow item={item.item} depth={item.depth} />}
           {...listRefreshProps(query)}
         />

@@ -12,6 +12,7 @@ import { getPermissionDefinitions } from '../../features/permissions/permission-
 import type { PermissionDefinitionDto } from '../../features/permissions/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: PermissionDefinitionDto }) {
@@ -59,7 +60,7 @@ export default function PermissionDefinitionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <DefinitionRow item={item} />}
           {...listRefreshProps(query)}
         />

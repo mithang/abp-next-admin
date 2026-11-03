@@ -12,6 +12,7 @@ import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
+import { keyByName } from '../../../lib/list-keys';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -146,7 +147,7 @@ export default function TenantConnectionStringsScreen() {
         ) : (
           <FlatList
             data={items}
-            keyExtractor={(item) => item.name}
+            keyExtractor={keyByName}
             renderItem={renderRow}
             {...listRefreshProps(listQuery)}
           />

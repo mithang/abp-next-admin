@@ -29,6 +29,7 @@ import {
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
@@ -189,7 +190,7 @@ export default function BackgroundJobsScreen() {
       <AppList items={items} {...listQueryProps(query)} emptyMessage={t('backgroundJobs.empty')}>
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => (
             <JobRow
               item={item}

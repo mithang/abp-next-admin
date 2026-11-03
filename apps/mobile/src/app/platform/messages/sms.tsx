@@ -19,6 +19,7 @@ import type { SmsMessageDto } from '../../../features/platform/types';
 import { mutationErrorElement } from '../../../lib/mutation-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { listQueryProps } from '../../../lib/list-query-props';
+import { keyById } from '../../../lib/list-keys';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
@@ -186,7 +187,7 @@ export default function SmsMessagesScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <SmsRow item={item} />}
           {...listRefreshProps(query)}
         />

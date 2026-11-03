@@ -12,6 +12,7 @@ import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -76,7 +77,7 @@ export default function BlobContainersScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <ContainerRow item={item} />}
           {...listRefreshProps(query)}
         />

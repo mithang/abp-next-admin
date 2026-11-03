@@ -13,6 +13,7 @@ import { getAIToolsPaged } from '../../features/ai/ai-api';
 import type { AIToolDefinitionRecordDto } from '../../features/ai/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { usePagination } from '../../lib/use-pagination';
 
@@ -86,7 +87,7 @@ export default function AIToolsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <ToolRow item={item} />}
           {...listRefreshProps(query)}
         />

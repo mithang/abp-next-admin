@@ -12,6 +12,7 @@ import { getTenantsPaged } from '../../features/saas/saas-api';
 import type { TenantDto } from '../../features/saas/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function TenantRow({ item }: { item: TenantDto }) {
@@ -70,7 +71,7 @@ export default function TenantsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <TenantRow item={item} />}
           {...listRefreshProps(query)}
         />

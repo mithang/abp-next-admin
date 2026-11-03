@@ -11,6 +11,7 @@ import { getEntityTypeInfosPaged } from '../../features/auditing/data-protection
 import type { EntityTypeInfoDto } from '../../features/auditing/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
@@ -66,7 +67,7 @@ export default function EntityTypeInfosScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <EntityTypeInfoRow item={item} />}
           {...listRefreshProps(query)}
         />

@@ -12,6 +12,7 @@ import { getSettingDefinitions } from '../../features/settings/settings-definiti
 import type { SettingDefinitionDto } from '../../features/settings/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: SettingDefinitionDto }) {
@@ -57,7 +58,7 @@ export default function SettingDefinitionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <DefinitionRow item={item} />}
           {...listRefreshProps(query)}
         />

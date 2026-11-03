@@ -14,6 +14,7 @@ import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -94,7 +95,7 @@ export default function LayoutsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <LayoutRow item={item} />}
           {...listRefreshProps(query)}
         />

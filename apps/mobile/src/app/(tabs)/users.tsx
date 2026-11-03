@@ -12,6 +12,7 @@ import { getUsersPaged } from '../../features/identity/api';
 import { displayName, type IdentityUserDto } from '../../features/identity/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function UserRow({ user }: { user: IdentityUserDto }) {
@@ -66,7 +67,7 @@ export default function UsersScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <UserRow user={item} />}
           {...listRefreshProps(query)}
         />

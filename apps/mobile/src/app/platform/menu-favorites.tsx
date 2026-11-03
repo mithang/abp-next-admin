@@ -32,6 +32,7 @@ import { toApiError } from '../../lib/errors';
 import { stateErrorElement } from '../../lib/state-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById, keyByNestedId } from '../../lib/list-keys';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
@@ -179,7 +180,7 @@ function AddFavoriteForm({
       >
         <FlatList
           data={visibleRows}
-          keyExtractor={({ item }) => item.id}
+          keyExtractor={keyByNestedId}
           renderItem={({ item: row }) => {
             const picked = selectedMenuId === row.item.id;
             return (
@@ -380,7 +381,7 @@ export default function MenuFavoritesScreen() {
       <AppList items={items} {...listQueryProps(listQuery)} emptyMessage={t('menuFavorites.empty')}>
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => (
             <FavoriteRow
               item={item}

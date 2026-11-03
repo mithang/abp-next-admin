@@ -12,6 +12,7 @@ import { getPermissionGroups } from '../../features/permissions/permission-group
 import type { PermissionGroupDefinitionDto } from '../../features/permissions/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
@@ -56,7 +57,7 @@ export default function PermissionGroupsScreen() {
       <AppList items={items} {...listQueryProps(query)} emptyMessage={t('permissionGroups.empty')}>
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <GroupRow item={item} />}
           {...listRefreshProps(query)}
         />

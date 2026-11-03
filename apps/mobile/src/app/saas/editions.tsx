@@ -12,6 +12,7 @@ import { getEditionsPaged } from '../../features/saas/saas-api';
 import type { EditionDto } from '../../features/saas/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function EditionRow({ item }: { item: EditionDto }) {
@@ -65,7 +66,7 @@ export default function EditionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <EditionRow item={item} />}
           {...listRefreshProps(query)}
         />

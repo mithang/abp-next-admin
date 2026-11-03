@@ -13,6 +13,7 @@ import { getRolesPaged } from '../../features/identity/roles-api';
 import { roleFlags, type IdentityRoleDto } from '../../features/identity/roles-types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function RoleRow({ role }: { role: IdentityRoleDto }) {
@@ -72,7 +73,7 @@ export default function RolesScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <RoleRow role={item} />}
           {...listRefreshProps(query)}
         />

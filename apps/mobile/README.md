@@ -45,6 +45,20 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 61
+
+Vòng P3 gộp 43 keyExtractor lặp lại ở 41 màn hình FlatList
+vào 3 helper thuần trong `src/lib/list-keys.ts`, đặt tên
+theo đúng ngữ nghĩa key để không làm mờ trường làm key:
+`keyById` (27 điểm: 25 `item.id` + 2 `String(item.id)` cho
+id số), `keyByName` (12 điểm `item.name`), `keyByNestedId`
+(4 danh sách cây mà phần tử FlatList là wrapper
+`{ item, depth }`). 11 điểm còn lại cố tình giữ nguyên
+(unit.id, sessionId, row.key ×3, cultureName,
+resourceName:key, key dự phòng timestamp-index, phần tử
+chuỗi, item.key ×2) vì mỗi dạng chỉ 1–3 điểm. Jest
+405/405, i18n parity 1463/1463.
+
 ## Trạng thái vòng 60
 
 Vòng P3 gộp bộ 4 props trạng thái query lặp lại ở cả 48

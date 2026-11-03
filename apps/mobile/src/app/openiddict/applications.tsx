@@ -13,6 +13,7 @@ import { getApplicationsPaged } from '../../features/openiddict/applications-api
 import type { OpenIddictApplicationDto } from '../../features/openiddict/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
@@ -74,7 +75,7 @@ export default function ApplicationsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => <ApplicationRow item={item} />}
           {...listRefreshProps(query)}
         />

@@ -14,6 +14,7 @@ import type { NotificationDefinitionDto } from '../../features/notifications/typ
 import { notificationTypeName } from '../../features/notifications/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
@@ -73,7 +74,7 @@ export default function NotificationDefinitionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <DefinitionRow item={item} />}
           {...listRefreshProps(query)}
         />

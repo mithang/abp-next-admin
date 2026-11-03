@@ -21,6 +21,7 @@ import type { WebhookSendRecordDto } from '../../features/webhooks/types';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyById } from '../../lib/list-keys';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
@@ -188,7 +189,7 @@ export default function WebhookSendAttemptsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyById}
           renderItem={({ item }) => (
             <AttemptRow
               item={item}

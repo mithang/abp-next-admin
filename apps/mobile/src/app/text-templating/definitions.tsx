@@ -12,6 +12,7 @@ import { getTextTemplateDefinitions } from '../../features/text-templating/text-
 import type { TextTemplateDefinitionDto } from '../../features/text-templating/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
 
 function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
@@ -67,7 +68,7 @@ export default function TextTemplateDefinitionsScreen() {
       >
         <FlatList
           data={items}
-          keyExtractor={(item) => item.name}
+          keyExtractor={keyByName}
           renderItem={({ item }) => <DefinitionRow item={item} />}
           {...listRefreshProps(query)}
         />
