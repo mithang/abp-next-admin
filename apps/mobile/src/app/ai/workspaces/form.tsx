@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -175,20 +175,14 @@ export default function AIWorkspaceFormScreen() {
       <AppScreen scrollable title={t('aiWorkspaces.resetApiKey')}>
         <VStack space="sm">
           <Text>{t('aiWorkspaces.resetApiKeyHint')}</Text>
-          <Controller
+          <AppFormInput
             control={resetForm.control}
             name="apiKey"
-            render={({ field, fieldState }) => (
-              <AppInput
-                label={t('aiWorkspaces.apiKey')}
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('aiWorkspaces.apiKeyPlaceholder')}
-                autoCapitalize="none"
-                secureTextEntry
-                error={fieldError(fieldState.error?.message)}
-              />
-            )}
+            label={t('aiWorkspaces.apiKey')}
+            placeholder={t('aiWorkspaces.apiKeyPlaceholder')}
+            autoCapitalize="none"
+            secureTextEntry
+            fieldError={fieldError}
           />
           <AppFormSubmit
             error={submitError}
@@ -216,25 +210,17 @@ export default function AIWorkspaceFormScreen() {
     placeholderKey: string,
     opts: { multiline?: boolean; secure?: boolean; numeric?: boolean } = {},
   ) => (
-    <Controller
+    <AppFormInput
       control={form.control}
       name={name}
-      render={({ field, fieldState }) => (
-        <AppInput
-          label={t(labelKey)}
-          value={(field.value as string) ?? ''}
-          onChangeText={(text) => {
-            field.onChange(text);
-            if (name === 'provider') setProviderText(text);
-          }}
-          placeholder={t(placeholderKey)}
-          autoCapitalize="none"
-          multiline={opts.multiline}
-          secureTextEntry={opts.secure}
-          keyboardType={opts.numeric ? 'numeric' : 'default'}
-          error={fieldError(fieldState.error?.message)}
-        />
-      )}
+      label={t(labelKey)}
+      placeholder={t(placeholderKey)}
+      autoCapitalize="none"
+      multiline={opts.multiline}
+      secureTextEntry={opts.secure}
+      keyboardType={opts.numeric ? 'numeric' : 'default'}
+      fieldError={fieldError}
+      onChangeExtra={name === 'provider' ? setProviderText : undefined}
     />
   );
 

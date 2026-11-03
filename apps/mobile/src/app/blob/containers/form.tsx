@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { createBlobContainer } from '../../../features/blob/blob-api';
 import {
   blobContainerFormDefaults,
@@ -41,20 +40,12 @@ export default function BlobContainerFormScreen() {
   return (
     <AppScreen scrollable title={t('blobContainers.createTitle')}>
       <VStack space="sm">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="name"
-          render={({ field, fieldState }) => (
-            <>
-              <AppInput
-                value={field.value}
-                onChangeText={field.onChange}
-                placeholder={t('blobContainers.namePlaceholder')}
-                autoCapitalize="none"
-              />
-              {fieldState.error ? <Text>{t(fieldState.error.message as string)}</Text> : null}
-            </>
-          )}
+          placeholder={t('blobContainers.namePlaceholder')}
+          autoCapitalize="none"
+          fieldError={(message) => (message ? t(message) : undefined)}
         />
         <AppFormSubmit
           error={submitError}

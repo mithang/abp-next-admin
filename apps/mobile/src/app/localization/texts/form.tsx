@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
@@ -111,23 +110,15 @@ export default function TextFormScreen() {
   return (
     <AppScreen scrollable title={isEdit ? t('texts.editTitle') : t('texts.createTitle')}>
       <VStack space="md">
-        <Controller
+        <AppFormInput
           control={form.control}
           name="cultureName"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('texts.cultureName')}
-              value={field.value}
-              onChangeText={(value) => {
-                field.onChange(value);
-                scheduleCultureReload(value);
-              }}
-              placeholder={t('texts.cultureNamePlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-              testID="text-cultureName"
-            />
-          )}
+          label={t('texts.cultureName')}
+          placeholder={t('texts.cultureNamePlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
+          testID="text-cultureName"
+          onChangeExtra={scheduleCultureReload}
         />
         {isEdit ? (
           <>

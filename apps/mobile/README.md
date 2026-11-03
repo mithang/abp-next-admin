@@ -45,6 +45,27 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 53
+
+Vòng P3 đóng nốt họ AppForm*: 10/11 Controller còn lại trong
+`src/app` nay dùng AppFormInput/AppFormSwitch. AppFormInput thêm
+prop `onChangeExtra` (chạy sau `field.onChange`) nên các site
+từng bị loại vì onChange phụ nay migrate được: texts cultureName
+(tải lại culture), ai/tools provider và ai/workspaces textField
+(cập nhật hint provider). Các site name động qua map fieldDef
+(openiddict TEXT_FIELDS + MULTILINE_FIELDS, `as const` nên vẫn
+đúng kiểu FieldPath) và các site error render riêng (blob
+containers/blobs, background-jobs TextField) nay dùng
+`fieldError` dịch thông điệp (lỗi hiện qua FormControlErrorText
+của AppInput thay cho Text trần). data-dictionaries allowBeNull
+dùng AppFormSwitch layout="stack" (nhãn trên, switch dưới).
+Cố tình GIỮ 1 Controller duy nhất: claim-types valueType là
+chip selector Pressable duy nhất trong app, không có site thứ
+hai để chia sẻ component. Test onChangeExtra gộp vào test
+AppFormInput có sẵn (render riêng gây overlapping act() như
+bài học vòng 49–50; assert qua payload submit vì props của
+wrapper Gluestack không phản ánh giá trị RHF).
+
 ## Trạng thái vòng 52
 
 Vòng P3 chuẩn hóa nút điều hướng: 76 khối AppButton chỉ để

@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm, type Control } from 'react-hook-form';
+import { useForm, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
-import { AppInput } from '../../../components/ui/AppInput';
+import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -59,22 +58,14 @@ function TextField({
 }) {
   const { t } = useTranslation();
   return (
-    <Controller
+    <AppFormInput
       control={control}
       name={name}
-      render={({ field, fieldState }) => (
-        <View>
-          <Text>{label}</Text>
-          <AppInput
-            value={field.value ?? ''}
-            onChangeText={field.onChange}
-            placeholder={placeholder}
-            autoCapitalize="none"
-            keyboardType={keyboardType}
-          />
-          {fieldState.error ? <Text>{t(fieldState.error.message as string)}</Text> : null}
-        </View>
-      )}
+      label={label}
+      placeholder={placeholder}
+      autoCapitalize="none"
+      keyboardType={keyboardType}
+      fieldError={(message) => (message ? t(message) : undefined)}
     />
   );
 }

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
-import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
@@ -120,22 +119,14 @@ export default function AIToolFormScreen() {
             fieldError={fieldError}
           />
         ) : null}
-        <Controller
+        <AppFormInput
           control={form.control}
           name="provider"
-          render={({ field, fieldState }) => (
-            <AppInput
-              label={t('aiTools.provider')}
-              value={field.value}
-              onChangeText={(text) => {
-                field.onChange(text);
-                setProviderText(text);
-              }}
-              placeholder={t('aiTools.providerPlaceholder')}
-              autoCapitalize="none"
-              error={fieldError(fieldState.error?.message)}
-            />
-          )}
+          label={t('aiTools.provider')}
+          placeholder={t('aiTools.providerPlaceholder')}
+          autoCapitalize="none"
+          fieldError={fieldError}
+          onChangeExtra={setProviderText}
         />
         <Text>
           {t('aiTools.providersHint')}: {providerHint}

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Switch } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import { AppFormSwitch } from '../../../../components/ui/AppFormSwitch';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
@@ -138,15 +138,11 @@ export default function DataItemFormScreen() {
           placeholder={t('platformDataItems.defaultValuePlaceholder')}
           fieldError={fieldError}
         />
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="allowBeNull"
-          render={({ field }) => (
-            <VStack space="xs">
-              <Text>{t('platformDataItems.allowBeNull')}</Text>
-              <Switch value={field.value} onValueChange={field.onChange} />
-            </VStack>
-          )}
+          label={t('platformDataItems.allowBeNull')}
+          layout="stack"
         />
         <AppFormInput
           control={form.control}

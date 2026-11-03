@@ -22,9 +22,12 @@ interface AppFormSwitchProps<TFieldValues extends FieldValues> {
  * `field.value` cho field boolean co default — cung ket qua khi
  * value da co, va tranh warning Switch khi value undefined).
  *
- * Co tinh KHONG bao gom: 2 site Controller custom (claim-types
- * valueType dung View + Pressable rieng, data-dictionaries
- * allowBeNull dung VStack + Switch tran — khong phai AppSwitchField).
+ * Co tinh KHONG bao gom: 1 site Controller custom (claim-types
+ * valueType dung View + Pressable rieng, khong phai AppSwitchField).
+ * Tu vong 53, site data-dictionaries allowBeNull (VStack + Switch tran)
+ * cung duoc dong qua layout="stack" cua AppSwitchField (nhan tren,
+ * switch duoi; khoang cach xs cua VStack cu khong con, khong doi
+ * hanh vi bat/tat).
  */
 export function AppFormSwitch<TFieldValues extends FieldValues>({
   control,

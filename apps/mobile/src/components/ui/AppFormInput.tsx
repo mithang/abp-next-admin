@@ -13,6 +13,13 @@ interface AppFormInputProps<TFieldValues extends FieldValues> {
   testID?: string;
   /** Ham dich loi field (createFieldError): neu khong truyen, khong hien loi. */
   fieldError?: (message?: string) => string | undefined;
+  /**
+   * Side effect chay sau field.onChange (vi du tai lai culture, cap nhat
+   * hint theo provider): truoc vong 53, Controller co onChange phu bi
+   * loai khoi AppFormInput; tu vong 53, truyen qua day thay vi giu
+   * Controller rieng, gia tri form van do field.onChange quyet dinh.
+   */
+  onChangeExtra?: (value: string) => void;
 }
 
 /**
@@ -29,10 +36,13 @@ interface AppFormInputProps<TFieldValues extends FieldValues> {
  * `fieldError` khi caller truyen ham (cac site khong co error giu
  * nguyen khong hien loi).
  *
- * Co tinh KHONG bao gom: Controller co onChange phu (side effect),
- * Controller name dong (form render theo danh sach field runtime),
- * Controller boc AppInput trong fragment (error render rieng), va cac
- * Controller AppSelect/AppSwitchField (pattern rieng, de vong sau).
+ * Co tinh KHONG bao gom: Controller chip chon option duy nhat
+ * (claim-types valueType dung Pressable rieng, khong co site thu hai
+ * de chia se) va cac Controller AppSelect/AppSwitchField (pattern
+ * rieng, de vong sau). Tu vong 53, cac loai tru cu deu duoc dong:
+ * onChange phu qua onChangeExtra, name dong qua map fieldDef
+ * (openiddict), error render rieng qua fieldError dich thong diep
+ * (blob containers/blobs, background-jobs TextField).
  */
 export function AppFormInput<TFieldValues extends FieldValues>({
   control,
@@ -45,6 +55,7 @@ export function AppFormInput<TFieldValues extends FieldValues>({
   secureTextEntry,
   testID,
   fieldError,
+  onChangeExtra,
 }: AppFormInputProps<TFieldValues>) {
   return (
     <Controller
@@ -54,7 +65,10 @@ export function AppFormInput<TFieldValues extends FieldValues>({
         <AppInput
           label={label}
           value={field.value ?? ''}
-          onChangeText={field.onChange}
+          onChangeText={(text) => {
+            field.onChange(text);
+            onChangeExtra?.(text);
+          }}
           placeholder={placeholder}
           autoCapitalize={autoCapitalize}
           keyboardType={keyboardType}
