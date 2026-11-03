@@ -8,7 +8,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { getRolesPaged } from '../../features/identity/roles-api';
 import { roleFlags, type IdentityRoleDto } from '../../features/identity/roles-types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -28,9 +28,7 @@ function RoleRow({ role }: { role: IdentityRoleDto }) {
       <AppRowCard>
         <Text>{role.name}</Text>
         {roleFlags(role).map((flag) => (
-          <Badge key={flag} variant="default" className="self-start">
-            <BadgeText>{flagLabels[flag]}</BadgeText>
-          </Badge>
+          <AppBadge key={flag} label={flagLabels[flag]} />
         ))}
       </AppRowCard>
     </Link>

@@ -8,7 +8,7 @@ import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { deleteClaimType, getClaimType } from '../../features/identity/claim-types-api';
 import { valueTypeKey } from '../../features/identity/claim-types';
 
@@ -41,12 +41,14 @@ export default function ClaimTypeDetailScreen() {
           </Text>
         ) : null}
         {item.regexDescription ? <Text>{item.regexDescription}</Text> : null}
-        <Badge variant="default" className="self-start">
-          <BadgeText>
-            {item.required ? t('claimTypes.required') : t('claimTypes.optional')}
-            {item.isStatic ? ` · ${t('claimTypes.static')}` : ''}
-          </BadgeText>
-        </Badge>
+        <AppBadge
+          label={
+            <>
+              {item.required ? t('claimTypes.required') : t('claimTypes.optional')}
+              {item.isStatic ? ` · ${t('claimTypes.static')}` : ''}
+            </>
+          }
+        />
         {/* Web ẩn Sửa/Xóa với loại tĩnh (ClaimTypeTable v-if isStatic === false). */}
         {!item.isStatic ? (
           <>

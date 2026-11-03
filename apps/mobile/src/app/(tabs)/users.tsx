@@ -7,7 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { getUsersPaged } from '../../features/identity/api';
 import { displayName, type IdentityUserDto } from '../../features/identity/types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -24,9 +24,10 @@ function UserRow({ user }: { user: IdentityUserDto }) {
         <Text>
           {user.userName} · {user.email}
         </Text>
-        <Badge variant={user.isActive ? 'default' : 'destructive'} className="self-start">
-          <BadgeText>{user.isActive ? t('users.active') : t('users.inactive')}</BadgeText>
-        </Badge>
+        <AppBadge
+          variant={user.isActive ? 'default' : 'destructive'}
+          label={user.isActive ? t('users.active') : t('users.inactive')}
+        />
       </AppRowCard>
     </Link>
   );

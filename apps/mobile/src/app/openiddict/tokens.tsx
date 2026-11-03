@@ -7,7 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { getTokensPaged } from '../../features/openiddict/tokens-api';
 import type { OpenIddictTokenDto } from '../../features/openiddict/types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -25,16 +25,8 @@ function TokenRow({ item }: { item: OpenIddictTokenDto }) {
       <AppRowCard>
         {item.subject ? <Text>{item.subject}</Text> : null}
         {item.referenceId ? <Text>{item.referenceId}</Text> : null}
-        {item.type ? (
-          <Badge variant="default" className="self-start">
-            <BadgeText>{item.type}</BadgeText>
-          </Badge>
-        ) : null}
-        {item.status ? (
-          <Badge variant="default" className="self-start">
-            <BadgeText>{item.status}</BadgeText>
-          </Badge>
-        ) : null}
+        {item.type ? <AppBadge label={item.type} /> : null}
+        {item.status ? <AppBadge label={item.status} /> : null}
       </AppRowCard>
     </Link>
   );

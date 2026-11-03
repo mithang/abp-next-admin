@@ -8,7 +8,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { getApplicationsPaged } from '../../features/openiddict/applications-api';
 import type { OpenIddictApplicationDto } from '../../features/openiddict/types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -22,16 +22,8 @@ function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
       <AppRowCard>
         <Text>{item.displayName || item.clientId}</Text>
         <Text>{item.clientId}</Text>
-        {item.clientType ? (
-          <Badge variant="default" className="self-start">
-            <BadgeText>{item.clientType}</BadgeText>
-          </Badge>
-        ) : null}
-        {item.applicationType ? (
-          <Badge variant="default" className="self-start">
-            <BadgeText>{item.applicationType}</BadgeText>
-          </Badge>
-        ) : null}
+        {item.clientType ? <AppBadge label={item.clientType} /> : null}
+        {item.applicationType ? <AppBadge label={item.applicationType} /> : null}
       </AppRowCard>
     </Link>
   );

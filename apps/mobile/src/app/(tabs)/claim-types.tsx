@@ -8,7 +8,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { getClaimTypesPaged } from '../../features/identity/claim-types-api';
 import { valueTypeKey, type IdentityClaimTypeDto } from '../../features/identity/claim-types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -23,19 +23,9 @@ function ClaimTypeRow({ item }: { item: IdentityClaimTypeDto }) {
       <AppRowCard>
         <Text>{item.name}</Text>
         {item.description ? <Text>{item.description}</Text> : null}
-        <Badge variant="default" className="self-start">
-          <BadgeText>{t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)}</BadgeText>
-        </Badge>
-        {item.required ? (
-          <Badge variant="default" className="self-start">
-            <BadgeText>{t('claimTypes.required')}</BadgeText>
-          </Badge>
-        ) : null}
-        {item.isStatic ? (
-          <Badge variant="default" className="self-start">
-            <BadgeText>{t('claimTypes.static')}</BadgeText>
-          </Badge>
-        ) : null}
+        <AppBadge label={t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)} />
+        {item.required ? <AppBadge label={t('claimTypes.required')} /> : null}
+        {item.isStatic ? <AppBadge label={t('claimTypes.static')} /> : null}
       </AppRowCard>
     </Link>
   );

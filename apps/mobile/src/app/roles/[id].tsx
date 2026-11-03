@@ -8,7 +8,7 @@ import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Badge, BadgeText } from '@/components/ui/badge';
+import { AppBadge } from '../../components/ui/AppBadge';
 import { deleteRole, getRole } from '../../features/identity/roles-api';
 import { roleFlags } from '../../features/identity/roles-types';
 
@@ -37,9 +37,7 @@ export default function RoleDetailScreen() {
     <AppScreen scrollable title={role.name} subtitle={role.id}>
       <VStack space="sm">
         {roleFlags(role).map((flag) => (
-          <Badge key={flag} variant="default" className="self-start">
-            <BadgeText>{flagLabels[flag]}</BadgeText>
-          </Badge>
+          <AppBadge key={flag} label={flagLabels[flag]} />
         ))}
         {roleFlags(role).length === 0 ? <Text>{t('roles.noFlags')}</Text> : null}
         <AppNavButton

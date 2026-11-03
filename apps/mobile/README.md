@@ -45,6 +45,18 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 62
+
+Vòng P3 tạo wrapper `AppBadge` (prompt mục 5.3 đã liệt kê
+nhưng app chưa có) gộp 13 khối Badge 3 dòng lặp lại ở
+8 màn hình (claim-types list/detail, roles list/detail,
+users, openiddict applications/authorizations/tokens) thành
+`<AppBadge label variant?>` — mọi điểm cũ đều dùng
+className "self-start", chỉ khác nhãn + variant (mặc định
+"default", riêng users đổi default/destructive theo
+isActive). 0 điểm Badge/BadgeText cũ còn lại. Jest
+409/409, i18n parity 1463/1463.
+
 ## Trạng thái vòng 61
 
 Vòng P3 gộp 43 keyExtractor lặp lại ở 41 màn hình FlatList
