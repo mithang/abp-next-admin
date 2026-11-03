@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -8,6 +8,7 @@ import { AppInput } from '../../components/ui/AppInput';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppEmptyState } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppTreeRowCard } from '../../components/ui/AppTreeRowCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -184,17 +185,13 @@ function AddFavoriteForm({
           renderItem={({ item: row }) => {
             const picked = selectedMenuId === row.item.id;
             return (
-              <Pressable onPress={() => setSelectedMenuId(row.item.id)}>
-                <View style={{ marginLeft: row.depth * 16 }}>
-                  <Card className="p-4">
-                    <Text>
-                      {'— '.repeat(row.depth)}
-                      {picked ? '✓ ' : ''}
-                      {row.item.displayName} · {row.item.name}
-                    </Text>
-                  </Card>
-                </View>
-              </Pressable>
+              <AppTreeRowCard depth={row.depth} onPress={() => setSelectedMenuId(row.item.id)}>
+                <Text>
+                  {'— '.repeat(row.depth)}
+                  {picked ? '✓ ' : ''}
+                  {row.item.displayName} · {row.item.name}
+                </Text>
+              </AppTreeRowCard>
             );
           }}
         />

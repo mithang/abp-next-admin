@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -7,9 +7,9 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppTreeRowCard } from '../../components/ui/AppTreeRowCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import { getDatasAll } from '../../features/platform/platform-api';
 import type { DataDto } from '../../features/platform/types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -47,21 +47,17 @@ function flattenTree(items: DataDto[]): { item: DataDto; depth: number }[] {
 function DataRow({ item, depth }: { item: DataDto; depth: number }) {
   return (
     <Link href={`/platform/data-dictionaries/${encodeURIComponent(item.id)}`} asChild>
-      <Pressable>
-        <View style={{ marginLeft: depth * 16 }}>
-          <Card className="p-4">
-            <VStack space="xs">
-              <Text>
-                {'— '.repeat(depth)}
-                {item.displayName}
-              </Text>
-              <Text>
-                {item.name} · {item.code}
-              </Text>
-            </VStack>
-          </Card>
-        </View>
-      </Pressable>
+      <AppTreeRowCard depth={depth}>
+        <VStack space="xs">
+          <Text>
+            {'— '.repeat(depth)}
+            {item.displayName}
+          </Text>
+          <Text>
+            {item.name} · {item.code}
+          </Text>
+        </VStack>
+      </AppTreeRowCard>
     </Link>
   );
 }

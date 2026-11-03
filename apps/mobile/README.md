@@ -45,6 +45,20 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 63
+
+Vòng P3 rà soát toàn bộ 20 Pressable còn lại ngoài
+AppRowCard: tạo wrapper `AppTreeRowCard` gộp 4 thẻ cây
+(organization-units giữ paddingLeft depth*20, menus/
+data-dictionaries/menu-favorites dùng marginLeft depth*16,
+children giữ nguyên verbatim) và mở rộng `AppRowCard`
+sang 2 dòng onPress trực tiếp (manage.tsx, caches.tsx),
+nâng AppRowCard lên 35 điểm. 14 Pressable còn lại được
+giữ có lý do (chip claim-types, nút text texts/
+connection-strings, 3 picker menu-allot, thẻ blobs
+không VStack, nhánh chọn-nhiều jobs/subscriptions/
+send-attempts). Jest 413/413, i18n parity 1463/1463.
+
 ## Trạng thái vòng 62
 
 Vòng P3 tạo wrapper `AppBadge` (prompt mục 5.3 đã liệt kê

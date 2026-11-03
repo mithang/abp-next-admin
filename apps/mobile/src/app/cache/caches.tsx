@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -8,9 +8,8 @@ import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
-import { VStack } from '@/components/ui/vstack';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 import {
   getCacheKeys,
   refreshCacheKey,
@@ -162,42 +161,38 @@ export default function CacheKeysScreen() {
           data={keys}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <Pressable
+            <AppRowCard
               onPress={() => {
                 if (selectMode) toggleSelect(item);
                 else router.push(`/cache/caches/${encodeURIComponent(item)}`);
               }}
             >
-              <Card className="p-4">
-                <VStack space="xs">
-                  <Text>
-                    {selectMode && selected.has(item) ? '✓ ' : ''}
-                    {item}
-                  </Text>
-                  <AppButton
-                    title={t('common.refresh')}
-                    variant="outline"
-                    loading={refreshMutation.isPending}
-                    onPress={() => refreshMutation.mutate(item)}
-                  />
-                  <AppButton
-                    title={t('common.delete')}
-                    action="negative"
-                    variant="outline"
-                    loading={deleteMutation.isPending}
-                    onPress={() =>
-                      showConfirmDialog({
-                        title: t('caches.deleteConfirmTitle'),
-                        message: t('caches.deleteConfirmMessage'),
-                        confirmText: t('common.delete'),
-                        cancelText: t('common.cancel'),
-                        onConfirm: () => deleteMutation.mutate(item),
-                      })
-                    }
-                  />
-                </VStack>
-              </Card>
-            </Pressable>
+              <Text>
+                {selectMode && selected.has(item) ? '✓ ' : ''}
+                {item}
+              </Text>
+              <AppButton
+                title={t('common.refresh')}
+                variant="outline"
+                loading={refreshMutation.isPending}
+                onPress={() => refreshMutation.mutate(item)}
+              />
+              <AppButton
+                title={t('common.delete')}
+                action="negative"
+                variant="outline"
+                loading={deleteMutation.isPending}
+                onPress={() =>
+                  showConfirmDialog({
+                    title: t('caches.deleteConfirmTitle'),
+                    message: t('caches.deleteConfirmMessage'),
+                    confirmText: t('common.delete'),
+                    cancelText: t('common.cancel'),
+                    onConfirm: () => deleteMutation.mutate(item),
+                  })
+                }
+              />
+            </AppRowCard>
           )}
           refreshing={query.isFetching}
           onRefresh={() => {

@@ -1,10 +1,9 @@
-import { Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppRowCard } from '../../components/ui/AppRowCard';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
-import { Card } from '@/components/ui/card';
 
 /**
  * Tab "Quản trị": hub cho các nhóm quản trị hệ thống thay vì mỗi nhóm một tab
@@ -191,14 +190,10 @@ export default function ManageScreen() {
     <AppScreen scrollable title={t('manage.title')} subtitle={t('manage.subtitle')}>
       <VStack space="sm">
         {ENTRIES.map((entry) => (
-          <Pressable key={entry.route} onPress={() => router.push(entry.route)}>
-            <Card className="p-4">
-              <VStack space="xs">
-                <Text>{t(entry.titleKey)}</Text>
-                <Text>{t(entry.descKey)}</Text>
-              </VStack>
-            </Card>
-          </Pressable>
+          <AppRowCard key={entry.route} onPress={() => router.push(entry.route)}>
+            <Text>{t(entry.titleKey)}</Text>
+            <Text>{t(entry.descKey)}</Text>
+          </AppRowCard>
         ))}
       </VStack>
     </AppScreen>

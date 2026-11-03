@@ -9,11 +9,11 @@ type AppRowCardProps = Omit<PressableProps, 'children'> & {
 
 /**
  * Khung dòng danh sách dùng chung: Pressable > Card p-4 > VStack xs.
- * Đúng mẫu của 33 dòng danh sách (Link asChild bọc ngoài): mọi prop
+ * Đúng mẫu của 35 dòng danh sách (33 Link asChild từ vòng 44 + 2 dòng
+ * onPress trực tiếp manage.tsx và caches.tsx từ vòng 63): mọi prop
  * Pressable — kể cả onPress do Link clone vào — được forward xuống
- * Pressable nên điều hướng không đổi. Không dùng cho thẻ không phải
- * dòng danh sách (thẻ cây organization-units có paddingLeft riêng,
- * thẻ manage.tsx, thẻ detail) — các thẻ đó giữ nguyên.
+ * Pressable nên điều hướng không đổi. Không dùng cho thẻ cây
+ * (dùng AppTreeRowCard) hay thẻ không phải dòng danh sách.
  */
 export function AppRowCard({ children, ...pressableProps }: AppRowCardProps) {
   return (
