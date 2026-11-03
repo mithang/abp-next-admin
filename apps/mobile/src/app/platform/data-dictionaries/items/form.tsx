@@ -9,7 +9,7 @@ import { AppScreen } from '../../../../components/ui/AppScreen';
 import { AppFormSelect } from '../../../../components/ui/AppFormSelect';
 import { AppFormInput } from '../../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../../components/ui/AppFormSubmit';
-import { AppErrorState } from '../../../../components/ui/AppStates';
+import { notFoundElement } from '../../../../lib/not-found';
 import { queryStateElement } from '../../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -90,7 +90,7 @@ export default function DataItemFormScreen() {
   const queryState = queryStateElement(detail);
   if (queryState) return queryState;
   if (isEdit && !existing) {
-    return <AppErrorState message={t('common.empty')} onRetry={() => void detail.refetch()} />;
+    return notFoundElement(t('common.empty'), () => void detail.refetch());
   }
 
   const fieldError = createFieldError(t, 'platformDataItems');

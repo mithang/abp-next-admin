@@ -5,7 +5,7 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
-import { AppErrorState } from '../../../components/ui/AppStates';
+import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { deleteScope, getScope } from '../../../features/openiddict/scopes-api';
@@ -23,7 +23,7 @@ export default function ScopeDetailScreen() {
   if (queryState) return queryState;
 
   const scope = query.data;
-  if (!scope) return <AppErrorState message={t('common.empty')} />;
+  if (!scope) return notFoundElement(t('common.empty'));
 
   return (
     <AppScreen scrollable title={scope.displayName || scope.name} subtitle={scope.id}>

@@ -45,6 +45,29 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 59
+
+Vòng P3 gộp 40 guard không-tìm-thấy lặp lại ở 40 màn hình
+detail vào helper `notFoundElement`
+(`src/lib/not-found.tsx`): `if (!item) return <AppErrorState
+message={t('common.empty')} />;` thành `return
+notFoundElement(t('common.empty'));`, giữ nguyên vị trí
+early-return (không đổi thứ tự hook hay luồng render sau
+guard). Helper nhận message đã dịch + onRetry tùy chọn
+(chỉ site data-dictionaries items form dùng onRetry
+`detail.refetch()`). Migrate 40 điểm (40 file, chỉ khác tên
+biến kiểm tra: item/user/role/app/scope/token/authz/detail.data),
+kiểm chứng 2 chiều: 40 lần gọi + 40 import, 0 pattern cũ còn
+lại; 38 file bỏ import `AppErrorState` thừa (conversations và
+background-jobs giữ vì còn dùng AppErrorState ở chỗ khác,
+data-dictionaries [id] giữ `AppEmptyState`). Cố tình giữ:
+cache [key] dùng `AppEmptyState` (giá trị trống không phải
+lỗi), guard login discovery -> `AppLoading`, throw Error
+trong form và Text trống của entity-type properties. Lỗi
+typecheck thật do vòng này bắt được: `@/` trỏ về gốc project
+(vendored Gluestack), không phải `src/`, nên helper import
+AppStates bằng đường dẫn tương đối như `query-state.tsx`.
+
 ## Trạng thái vòng 58
 
 Vòng P3 gộp 18 dòng lỗi chuỗi-state lặp lại ở 16 màn hình

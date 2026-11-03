@@ -9,6 +9,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { notFoundElement } from '../../../lib/not-found';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -126,7 +127,7 @@ export default function AIConversationChatScreen() {
       />
     );
   }
-  if (!detail.data) return <AppErrorState message={t('common.empty')} />;
+  if (!detail.data) return notFoundElement(t('common.empty'));
 
   return (
     <AppScreen title={detail.data.name} subtitle={detail.data.workspace}>

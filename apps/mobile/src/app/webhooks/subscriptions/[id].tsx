@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
-import { AppErrorState } from '../../../components/ui/AppStates';
+import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
@@ -47,7 +47,7 @@ export default function WebhookSubscriptionDetailScreen() {
   const queryState = queryStateElement(query);
   if (queryState) return queryState;
   const item = query.data;
-  if (!item) return <AppErrorState message={t('common.empty')} />;
+  if (!item) return notFoundElement(t('common.empty'));
 
   return (
     <AppScreen scrollable title={item.webhookUri}>

@@ -7,6 +7,7 @@ import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
@@ -100,7 +101,7 @@ export default function BackgroundJobDetailScreen() {
   const queryState = queryStateElement(query);
   if (queryState) return queryState;
   const item = query.data;
-  if (!item) return <AppErrorState message={t('common.empty')} />;
+  if (!item) return notFoundElement(t('common.empty'));
 
   return (
     <AppScreen scrollable title={item.name}>

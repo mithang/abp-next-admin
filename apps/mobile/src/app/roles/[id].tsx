@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
-import { AppErrorState } from '../../components/ui/AppStates';
+import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -25,7 +25,7 @@ export default function RoleDetailScreen() {
   if (queryState) return queryState;
 
   const role = query.data;
-  if (!role) return <AppErrorState message={t('common.empty')} />;
+  if (!role) return notFoundElement(t('common.empty'));
 
   const flagLabels: Record<string, string> = {
     default: t('roles.isDefault'),
