@@ -45,6 +45,32 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 71
+
+Vòng P3 gộp 20 điểm invalidate cache còn sót ở tầng handler
+về helper `useInvalidateQueries` đã có từ vòng 48 (không tạo
+helper mới): 14 file, 16 khai báo `useQueryClient` bị xóa,
+mọi lệnh `queryClient.invalidateQueries(...)` trực tiếp trong
+`src/app` nay bằng 0 — mọi invalidation đều đi qua một
+helper duy nhất. Các điểm này là họ mà vòng 48 cố tình giữ
+lại (onSuccess có thêm setState/router.replace, 2 key, key có
+tham số tenantId/id, callback onEnd của chat stream, 3
+component trong menu-favorites) nên không gán trực tiếp được
+cho `onSuccess`; vòng này tạo hook call ở đầu component và
+gọi đúng vị trí cũ, giữ nguyên thứ tự invalidation so với
+các setState xung quanh. Connection-strings đã có sẵn hook
+call (dùng cho mutation xóa) nên onSuccess đặt chuỗi kết nối
+tái dùng nó thay vì tạo thêm; send-attempts có hook cùng
+tên ở component hàng AttemptRow (scope khác) nên màn hình
+vẫn cần hook riêng, chỉ dùng chung import ở cấp file. Lỗi
+đã bắt và sửa: script chèn import trùng ở send-attempts
+(đã có import từ hàng AttemptRow) và import trùng module
+ở conversations/form (gộp thành một import), cả hai đều
+do typecheck/lint bắt, không phải do test. Kiểm
+tra: format/typecheck/lint PASS (0 errors, 14 warning
+vendored), Jest 454/454 (+1 test key có tham số), i18n
+1463/1463, expo config PASS.
+
 ## Trạng thái vòng 70
 
 Vòng P3 gộp họ default phân trang ở tầng API (tiếp nối vòng

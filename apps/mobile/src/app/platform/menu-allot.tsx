@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { useRouteParams } from '../../lib/route-params';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
@@ -74,7 +75,7 @@ function AllotEditor({
   assigned: MenuDto[];
 }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateMenusAllot = useInvalidateQueries(['platform-menus-allot']);
   const initial = useMemo(() => {
     const resolved = resolveAllotInitial(assigned);
     const selectedSet = new Set(resolved.menuIds);
@@ -104,7 +105,7 @@ function AllotEditor({
     onSuccess: async () => {
       setSaveError(null);
       setSaveMessage(t('menuAllot.saved'));
-      await queryClient.invalidateQueries({ queryKey: ['platform-menus-allot'] });
+      await invalidateMenusAllot();
     },
     onError: (error: unknown) => {
       setSaveMessage(null);

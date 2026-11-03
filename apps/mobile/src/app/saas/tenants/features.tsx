@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -60,7 +61,7 @@ function flatten(groups: FeatureValueGroup[]): Row[] {
 export default function TenantFeaturesScreen() {
   const { t } = useTranslation();
   const { tenantId, tenantName } = useRouteParams<{ tenantId: string; tenantName: string }>();
-  const queryClient = useQueryClient();
+  const invalidateTenantFeatures = useInvalidateQueries(['tenant-features', tenantId]);
   const [edits, setEdits] = useState<Record<string, string>>({});
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
@@ -74,7 +75,7 @@ export default function TenantFeaturesScreen() {
       setEdits({});
       setSaved(true);
       setSaveError(null);
-      await queryClient.invalidateQueries({ queryKey: ['tenant-features', tenantId] });
+      await invalidateTenantFeatures();
     },
     onError: (error: unknown) => {
       setSaved(false);
@@ -88,7 +89,7 @@ export default function TenantFeaturesScreen() {
       setEdits({});
       setSaved(false);
       setSaveError(null);
-      await queryClient.invalidateQueries({ queryKey: ['tenant-features', tenantId] });
+      await invalidateTenantFeatures();
     },
     onError: (error: unknown) => setSaveError(toApiError(error).message),
   });

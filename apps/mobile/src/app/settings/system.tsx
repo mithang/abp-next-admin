@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
@@ -62,7 +63,7 @@ function flatten(groups: SettingGroup[]): Row[] {
  */
 export default function SystemSettingsScreen() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateSystemSettings = useInvalidateQueries(['system-settings']);
   const [edits, setEdits] = useState<Record<string, string>>({});
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
@@ -77,7 +78,7 @@ export default function SystemSettingsScreen() {
       setEdits({});
       setSaved(true);
       setSaveError(null);
-      await queryClient.invalidateQueries({ queryKey: ['system-settings'] });
+      await invalidateSystemSettings();
     },
     onError: (error: unknown) => {
       setSaved(false);

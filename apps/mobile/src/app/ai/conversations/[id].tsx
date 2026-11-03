@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useRouteParams } from '../../../lib/route-params';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -45,7 +46,7 @@ interface ChatBubble {
 export default function AIConversationChatScreen() {
   const { t } = useTranslation();
   const { id } = useRouteParams<{ id: string }>();
-  const queryClient = useQueryClient();
+  const invalidateChatMessages = useInvalidateQueries(['ai-chat-messages', id]);
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState<string | null>(null);
   const [streamingText, setStreamingText] = useState<string | null>(null);
@@ -97,7 +98,7 @@ export default function AIConversationChatScreen() {
           onEnd: async () => {
             setStreamingText(null);
             setLocalUserMessages([]);
-            await queryClient.invalidateQueries({ queryKey: ['ai-chat-messages', id] });
+            await invalidateChatMessages();
           },
         },
       );

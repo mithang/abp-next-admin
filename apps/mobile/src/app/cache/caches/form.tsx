@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +29,7 @@ import { createFieldError } from '../../../lib/field-error';
 export default function CacheSetFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateCache = useInvalidateQueries(['cache-keys'], ['cache-values']);
   const { key } = useRouteParams<{ key?: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -47,8 +48,7 @@ export default function CacheSetFormScreen() {
       });
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['cache-keys'] });
-      await queryClient.invalidateQueries({ queryKey: ['cache-values'] });
+      await invalidateCache();
       router.back();
     },
     onError: (error: unknown) => setSubmitError(toApiError(error).message),

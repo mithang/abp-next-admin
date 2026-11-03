@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -32,7 +33,7 @@ import { navPath } from '../../lib/nav-href';
 export default function CacheKeysScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateCacheKeys = useInvalidateQueries(['cache-keys']);
   const [filter, setFilter] = useState('');
   const [prefix, setPrefix] = useState('');
   const [extraKeys, setExtraKeys] = useState<string[]>([]);
@@ -78,7 +79,7 @@ export default function CacheKeysScreen() {
   const deleteMutation = useMutation({
     mutationFn: (key: string) => removeCacheKey({ key }),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['cache-keys'] });
+      await invalidateCacheKeys();
       setExtraKeys([]);
       setExtraMarker(null);
     },
@@ -93,7 +94,7 @@ export default function CacheKeysScreen() {
     onSuccess: async () => {
       setSelected(new Set());
       setSelectMode(false);
-      await queryClient.invalidateQueries({ queryKey: ['cache-keys'] });
+      await invalidateCacheKeys();
       setExtraKeys([]);
       setExtraMarker(null);
     },

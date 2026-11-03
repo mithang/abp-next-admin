@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
@@ -112,7 +113,7 @@ function AddFavoriteForm({
   existing: UserFavoriteMenuDto[];
 }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateMenuFavorites = useInvalidateQueries(['platform-menu-favorites']);
   const [menuFilter, setMenuFilter] = useState('');
   const [selectedMenuId, setSelectedMenuId] = useState('');
   const [aliasName, setAliasName] = useState('');
@@ -157,7 +158,7 @@ function AddFavoriteForm({
       setSelectedMenuId('');
       setAliasName('');
       setIcon('');
-      await queryClient.invalidateQueries({ queryKey: ['platform-menu-favorites'] });
+      await invalidateMenuFavorites();
     },
     onError: (error: unknown) => {
       setFormMessage(null);
@@ -227,7 +228,7 @@ function AddFavoriteForm({
 
 function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone: () => void }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateMenuFavorites = useInvalidateQueries(['platform-menu-favorites']);
   const [aliasName, setAliasName] = useState(item.aliasName ?? '');
   const [color, setColor] = useState(item.color ?? '');
   const [icon, setIcon] = useState(item.icon ?? '');
@@ -249,7 +250,7 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
       ),
     onSuccess: async () => {
       setFormError(null);
-      await queryClient.invalidateQueries({ queryKey: ['platform-menu-favorites'] });
+      await invalidateMenuFavorites();
       onDone();
     },
     onError: (error: unknown) => setFormError(toApiError(error).message),
@@ -301,7 +302,7 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
 
 export default function MenuFavoritesScreen() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateMenuFavorites = useInvalidateQueries(['platform-menu-favorites']);
   const [framework, setFramework, debouncedFramework] = useDebouncedFilter();
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<UserFavoriteMenuDto | null>(null);
@@ -325,7 +326,7 @@ export default function MenuFavoritesScreen() {
     mutationFn: (item: UserFavoriteMenuDto) => deleteMyFavoriteMenu(item.menuId),
     onSuccess: async () => {
       setDeleteTarget(null);
-      await queryClient.invalidateQueries({ queryKey: ['platform-menu-favorites'] });
+      await invalidateMenuFavorites();
     },
     onError: () => setDeleteTarget(null),
   });

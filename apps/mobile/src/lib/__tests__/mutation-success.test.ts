@@ -44,6 +44,20 @@ describe('useInvalidateQueries', () => {
     expect(client.getQueryState(['roles'])?.isInvalidated).toBe(true);
     expect(client.getQueryState(['users'])?.isInvalidated).toBe(false);
   });
+
+  it('key có tham số chỉ invalidate đúng tham số đó', async () => {
+    const { client, wrapper } = createWrapper();
+    client.setQueryData(['tenant-features', 't1'], []);
+    client.setQueryData(['tenant-features', 't2'], []);
+    const { result } = await renderHook(() => useInvalidateQueries(['tenant-features', 't1']), {
+      wrapper,
+    });
+    await act(async () => {
+      await result.current();
+    });
+    expect(client.getQueryState(['tenant-features', 't1'])?.isInvalidated).toBe(true);
+    expect(client.getQueryState(['tenant-features', 't2'])?.isInvalidated).toBe(false);
+  });
 });
 
 describe('useInvalidateAndBack', () => {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
@@ -66,7 +67,7 @@ function flatten(groups: SettingGroup[]): Row[] {
  */
 export default function WechatSettingsScreen() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateWechatSettings = useInvalidateQueries(['wechat-settings']);
   const [scope, setScope] = useState<'global' | 'tenant'>('global');
   const [edits, setEdits] = useState<Record<string, string>>({});
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -98,7 +99,7 @@ export default function WechatSettingsScreen() {
       setEdits({});
       setSaved(true);
       setSaveError(null);
-      await queryClient.invalidateQueries({ queryKey: ['wechat-settings'] });
+      await invalidateWechatSettings();
     },
     onError: (error: unknown) => {
       setSaved(false);

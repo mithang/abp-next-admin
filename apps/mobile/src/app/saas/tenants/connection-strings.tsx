@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -51,7 +51,6 @@ import { useInvalidateQueries } from '../../../lib/mutation-success';
 export default function TenantConnectionStringsScreen() {
   const { t } = useTranslation();
   const { tenantId } = useRouteParams<{ tenantId: string }>();
-  const queryClient = useQueryClient();
   const invalidate = useInvalidateQueries(['saas-tenant-connection-strings', tenantId]);
   const [setError, setSetError] = useState<string | null>(null);
   const [checkResult, setCheckResult] = useState<string | null>(null);
@@ -79,9 +78,7 @@ export default function TenantConnectionStringsScreen() {
     onSuccess: async () => {
       setSetError(null);
       setForm.reset();
-      await queryClient.invalidateQueries({
-        queryKey: ['saas-tenant-connection-strings', tenantId],
-      });
+      await invalidate();
     },
     onError: (error) => setSetError(toApiError(error).message),
   });

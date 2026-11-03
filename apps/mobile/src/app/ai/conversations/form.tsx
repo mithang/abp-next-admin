@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,7 +27,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
-import { useInvalidateAndBack } from '../../../lib/mutation-success';
+import { useInvalidateAndBack, useInvalidateQueries } from '../../../lib/mutation-success';
 import { navPath } from '../../../lib/nav-href';
 
 /**
@@ -40,7 +40,7 @@ import { navPath } from '../../../lib/nav-href';
 export default function AIConversationFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateConversations = useInvalidateQueries(['ai-conversations']);
   const invalidateAndBack = useInvalidateAndBack(['ai-conversations']);
   const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
@@ -71,7 +71,7 @@ export default function AIConversationFormScreen() {
         workspace: values.workspace.trim(),
       }),
     onSuccess: async (created) => {
-      await queryClient.invalidateQueries({ queryKey: ['ai-conversations'] });
+      await invalidateConversations();
       router.replace(navPath('/ai/conversations', created.id));
     },
     onError: (error) => setSubmitError(toApiError(error).message),

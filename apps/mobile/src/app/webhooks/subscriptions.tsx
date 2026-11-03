@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { Link } from 'expo-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
@@ -65,7 +66,7 @@ function SubscriptionRow({
  */
 export default function WebhookSubscriptionsScreen() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const invalidateSubscriptions = useInvalidateQueries(['webhook-subscriptions']);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
     useListFilter(() => {
@@ -88,7 +89,7 @@ export default function WebhookSubscriptionsScreen() {
     onSuccess: async () => {
       setSelected(new Set());
       setSelectMode(false);
-      await queryClient.invalidateQueries({ queryKey: ['webhook-subscriptions'] });
+      await invalidateSubscriptions();
     },
   });
 

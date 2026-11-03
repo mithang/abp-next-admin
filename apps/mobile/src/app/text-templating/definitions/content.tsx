@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useRouteParams } from '../../../lib/route-params';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInvalidateQueries } from '../../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
@@ -36,7 +37,7 @@ import { toApiError } from '../../../lib/errors';
 export default function TextTemplateContentScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const invalidateTemplateContent = useInvalidateQueries(['text-template-content']);
   const { name } = useRouteParams<{ name: string }>();
   const [culture, setCulture] = useState('');
   const [content, setContent] = useState<string | null>(null);
@@ -76,7 +77,7 @@ export default function TextTemplateContentScreen() {
     onSuccess: async () => {
       setMessage(t('textTemplateDefinitions.contentSaved'));
       setError(null);
-      await queryClient.invalidateQueries({ queryKey: ['text-template-content'] });
+      await invalidateTemplateContent();
     },
     onError: (err) => {
       setMessage(null);
@@ -92,7 +93,7 @@ export default function TextTemplateContentScreen() {
       setContent(null);
       setMessage(t('textTemplateDefinitions.contentRestored'));
       setError(null);
-      await queryClient.invalidateQueries({ queryKey: ['text-template-content'] });
+      await invalidateTemplateContent();
     },
     onError: (err) => {
       setMessage(null);
