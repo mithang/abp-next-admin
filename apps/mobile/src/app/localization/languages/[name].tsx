@@ -9,6 +9,7 @@ import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { deleteLanguage, getLanguage } from '../../../features/localization/localization-api';
+import { navHref } from '../../../lib/nav-href';
 
 /** Chi tiết ngôn ngữ: khóa là cultureName; web không có khái niệm tĩnh ở đây nên luôn có Sửa/Xóa. */
 export default function LanguageDetailScreen() {
@@ -36,7 +37,7 @@ export default function LanguageDetailScreen() {
         <AppDetailField label={t('languages.creationTime')} value={item.creationTime} />
         <AppNavButton
           title={t('languages.editTitle')}
-          href={`/localization/languages/form?name=${encodeURIComponent(item.cultureName)}`}
+          href={navHref('/localization/languages/form', { name: item.cultureName })}
           variant="outline"
           testID="language-edit"
         />

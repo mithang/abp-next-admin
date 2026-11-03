@@ -14,10 +14,11 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function SecurityLogRow({ item }: { item: SecurityLogDto }) {
   return (
-    <Link href={`/security-logs/${item.id}`} asChild>
+    <Link href={navPath('/security-logs', item.id)} asChild>
       <AppRowCard>
         <Text>{item.userName ?? item.identity ?? item.id}</Text>
         {item.action ? <Text>{item.action}</Text> : null}

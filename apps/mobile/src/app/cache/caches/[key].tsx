@@ -17,6 +17,7 @@ import {
 } from '../../../features/caching/caching-api';
 import { formatDateTime } from '../../../lib/dates';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết giá trị cache: GET /api/caching-management/cache/value?key=...
@@ -66,7 +67,7 @@ export default function CacheValueDetailScreen() {
         />
         <AppNavButton
           title={t('caches.setValue')}
-          href={`/cache/caches/form?key=${encodeURIComponent(key as string)}`}
+          href={navHref('/cache/caches/form', { key: key as string })}
           variant="outline"
         />
         <AppDeleteButton

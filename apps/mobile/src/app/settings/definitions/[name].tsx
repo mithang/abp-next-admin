@@ -13,6 +13,7 @@ import {
   deleteSettingDefinition,
   getSettingDefinition,
 } from '../../../features/settings/settings-definitions-api';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết định nghĩa cài đặt. Modal web ẩn nút xác nhận với định nghĩa
@@ -62,7 +63,7 @@ export default function SettingDefinitionDetailScreen() {
           <>
             <AppNavButton
               title={t('settingDefinitions.editTitle')}
-              href={`/settings/definitions/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/settings/definitions/form', { name: item.name })}
               variant="outline"
               testID="setting-definition-edit"
             />

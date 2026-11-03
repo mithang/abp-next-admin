@@ -12,6 +12,7 @@ import {
   deleteNotificationGroup,
   getNotificationGroup,
 } from '../../../features/notifications/notifications-api';
+import { navHref } from '../../../lib/nav-href';
 
 export default function NotificationGroupDetailScreen() {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ export default function NotificationGroupDetailScreen() {
           <>
             <AppNavButton
               title={t('notificationGroups.editTitle')}
-              href={`/notifications/groups/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/notifications/groups/form', { name: item.name })}
               variant="outline"
             />
             <AppDeleteButton

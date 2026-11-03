@@ -15,10 +15,11 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function ContainerRow({ item }: { item: BlobContainerDto }) {
   return (
-    <Link href={`/blob/containers/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/blob/containers', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
         {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}

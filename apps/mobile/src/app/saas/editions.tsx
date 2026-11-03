@@ -14,10 +14,11 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function EditionRow({ item }: { item: EditionDto }) {
   return (
-    <Link href={`/saas/editions/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/saas/editions', item.id)} asChild>
       <AppRowCard>
         <Text>{item.displayName}</Text>
       </AppRowCard>

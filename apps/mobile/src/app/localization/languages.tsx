@@ -13,10 +13,11 @@ import type { LanguageDto } from '../../features/localization/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function LanguageRow({ item }: { item: LanguageDto }) {
   return (
-    <Link href={`/localization/languages/${encodeURIComponent(item.cultureName)}`} asChild>
+    <Link href={navPath('/localization/languages', item.cultureName)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.cultureName}</Text>
         <Text>{item.cultureName}</Text>

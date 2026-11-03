@@ -9,6 +9,7 @@ import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { deleteApplication, getApplication } from '../../../features/openiddict/applications-api';
+import { navHref } from '../../../lib/nav-href';
 
 export default function ApplicationDetailScreen() {
   const { t } = useTranslation();
@@ -57,7 +58,7 @@ export default function ApplicationDetailScreen() {
         <AppDetailField label={t('openiddictApplications.scopes')} value={app.scopes?.join(', ')} />
         <AppNavButton
           title={t('openiddictApplications.editTitle')}
-          href={`/openiddict/applications/form?id=${encodeURIComponent(app.id)}`}
+          href={navHref('/openiddict/applications/form', { id: app.id })}
           variant="outline"
           testID="application-edit"
         />

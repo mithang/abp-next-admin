@@ -16,11 +16,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByName } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { navPath } from '../../lib/nav-href';
 
 function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/notifications/definitions/${encodeURIComponent(item.name)}`} asChild>
+    <Link href={navPath('/notifications/definitions', item.name)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>

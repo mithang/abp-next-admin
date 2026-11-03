@@ -34,6 +34,7 @@ import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { usePagination } from '../../../lib/use-pagination';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết tác vụ nền: đúng drawer detail của web (status/source/
@@ -196,7 +197,7 @@ export default function BackgroundJobDetailScreen() {
         </Text>
         <AppNavButton
           title={t('backgroundJobs.editTitle')}
-          href={`/tasks/background-jobs/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/tasks/background-jobs/form', { id: item.id })}
         />
         <AppButton
           title={t('backgroundJobs.pause')}

@@ -15,10 +15,11 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
   return (
-    <Link href={`/openiddict/applications/${item.id}`} asChild>
+    <Link href={navPath('/openiddict/applications', item.id)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.clientId}</Text>
         <Text>{item.clientId}</Text>

@@ -14,11 +14,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByName } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function ResourceRow({ item }: { item: ResourceDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/localization/resources/${encodeURIComponent(item.name)}`} asChild>
+    <Link href={navPath('/localization/resources', item.name)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.name}</Text>

@@ -26,6 +26,7 @@ import { toApiError } from '../../../lib/errors';
 import { queryStateElement } from '../../../lib/query-state';
 import { createFieldError } from '../../../lib/field-error';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
+import { navPath } from '../../../lib/nav-href';
 
 /**
  * Form tạo phiên mới (?id trống) hoặc đổi tên (?id=...).
@@ -73,7 +74,7 @@ export default function AIConversationFormScreen() {
       }),
     onSuccess: async (created) => {
       await queryClient.invalidateQueries({ queryKey: ['ai-conversations'] });
-      router.replace(`/ai/conversations/${encodeURIComponent(created.id)}`);
+      router.replace(navPath('/ai/conversations', created.id));
     },
     onError: (error) => setSubmitError(toApiError(error).message),
   });

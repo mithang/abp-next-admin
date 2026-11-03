@@ -10,6 +10,7 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteAITool, getAITool } from '../../../features/ai/ai-api';
 import { isReadOnlyTool } from '../../../features/ai/types';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết công cụ AI. Công cụ hệ thống/tĩnh không sửa/xóa được (đúng
@@ -65,7 +66,7 @@ export default function AIToolDetailScreen() {
           <>
             <AppNavButton
               title={t('aiTools.editTitle')}
-              href={`/ai/tools/form?id=${encodeURIComponent(item.id)}`}
+              href={navHref('/ai/tools/form', { id: item.id })}
               variant="outline"
             />
             <AppDeleteButton

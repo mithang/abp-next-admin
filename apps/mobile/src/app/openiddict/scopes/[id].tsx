@@ -9,6 +9,7 @@ import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { deleteScope, getScope } from '../../../features/openiddict/scopes-api';
+import { navHref } from '../../../lib/nav-href';
 
 export default function ScopeDetailScreen() {
   const { t } = useTranslation();
@@ -37,7 +38,7 @@ export default function ScopeDetailScreen() {
         />
         <AppNavButton
           title={t('openiddictScopes.editTitle')}
-          href={`/openiddict/scopes/form?id=${encodeURIComponent(scope.id)}`}
+          href={navHref('/openiddict/scopes/form', { id: scope.id })}
           variant="outline"
           testID="scope-edit"
         />

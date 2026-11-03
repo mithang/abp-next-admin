@@ -17,10 +17,11 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function LayoutRow({ item }: { item: LayoutDto }) {
   return (
-    <Link href={`/platform/layouts/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/platform/layouts', item.id)} asChild>
       <AppRowCard>
         <Text>{item.displayName}</Text>
         <Text>

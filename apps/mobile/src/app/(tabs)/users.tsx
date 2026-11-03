@@ -14,11 +14,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function UserRow({ user }: { user: IdentityUserDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/users/${user.id}`} asChild>
+    <Link href={navPath('/users', user.id)} asChild>
       <AppRowCard>
         <Text>{displayName(user)}</Text>
         <Text>

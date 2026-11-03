@@ -14,10 +14,11 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
+import { navPath } from '../../lib/nav-href';
 
 function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
   return (
-    <Link href={`/features/definitions/${encodeURIComponent(item.name)}`} asChild>
+    <Link href={navPath('/features/definitions', item.name)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.name}</Text>

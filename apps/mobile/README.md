@@ -45,6 +45,24 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 67
+
+Vòng P3 gộp họ lặp encode href điều hướng (tiếp nối vòng 66 ở tầng
+API): helper mới `navPath(base, ...segments)` + `navHref(path,
+query)` trong `src/lib/nav-href.ts` (segment encode `/` thành
+`%2F`, query encode `&`/`=` thành `%26`/`%3D`, bỏ qua giá trị
+`undefined`/`null`, giữ nguyên chuỗi rỗng) và migrate 89 điểm ở
+72 file: 83 template `href` (27 path đã encode + 11 path chưa
+encode toàn GUID + 45 query đã encode) qua script dry-run trước,
+cộng 6 điểm migrate tay (ternary href blobs 2 nhánh, href tạo
+folder blobs có param điều kiện, `router.push` caches,
+`router.push` texts, `router.replace` form conversations — điểm
+cuối bị sót trong lần quét `router.push` đầu vòng). Cố tình giữ:
+href tĩnh, `entry.route` ở manage, các `router.replace('/')`
+tĩnh. Kiểm tra: format/typecheck/lint PASS (0 errors, 14
+warning vendored), Jest 438/438, i18n 1463/1463, expo config
+PASS (SDK 58.0.0, `com.mithang.abpnextadmin`).
+
 ## Trạng thái vòng 66
 
 Vòng P3 gộp họ lặp encode path API: helper mới `apiPath(base,

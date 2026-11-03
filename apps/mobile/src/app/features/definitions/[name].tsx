@@ -13,6 +13,7 @@ import {
   deleteFeatureDefinition,
   getFeatureDefinition,
 } from '../../../features/features/feature-definitions-api';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết định nghĩa tính năng. Modal web vô hiệu mọi field và ẩn nút xác
@@ -60,7 +61,7 @@ export default function FeatureDefinitionDetailScreen() {
           <>
             <AppNavButton
               title={t('featureDefinitions.editTitle')}
-              href={`/features/definitions/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/features/definitions/form', { name: item.name })}
               variant="outline"
               testID="feature-definition-edit"
             />

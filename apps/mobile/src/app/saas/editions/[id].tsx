@@ -9,6 +9,7 @@ import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteEdition, getEdition } from '../../../features/saas/saas-api';
+import { navHref } from '../../../lib/nav-href';
 
 /** Chi tiết phiên bản: DTO chỉ có displayName (+ audit/extraProperties). */
 export default function EditionDetailScreen() {
@@ -40,7 +41,7 @@ export default function EditionDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('saasEditions.editTitle')}
-          href={`/saas/editions/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/saas/editions/form', { id: item.id })}
           variant="outline"
         />
         <AppDeleteButton

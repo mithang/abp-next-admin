@@ -14,11 +14,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function TenantRow({ item }: { item: TenantDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/saas/tenants/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/saas/tenants', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
         <Text>

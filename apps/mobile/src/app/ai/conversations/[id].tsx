@@ -23,6 +23,7 @@ import { toApiError } from '../../../lib/errors';
 import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
 import { resolveFieldError } from '../../../lib/field-error';
+import { navHref } from '../../../lib/nav-href';
 
 interface ChatBubble {
   key: string;
@@ -132,7 +133,7 @@ export default function AIConversationChatScreen() {
     <AppScreen title={detail.data.name} subtitle={detail.data.workspace}>
       <AppNavButton
         title={t('aiConversations.renameTitle')}
-        href={`/ai/conversations/form?id=${encodeURIComponent(id)}`}
+        href={navHref('/ai/conversations/form', { id: id })}
         variant="outline"
       />
       <AppDeleteButton

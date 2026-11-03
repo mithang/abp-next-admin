@@ -9,6 +9,7 @@ import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteLayout, getLayout } from '../../../features/platform/platform-api';
+import { navHref } from '../../../lib/nav-href';
 
 /** Chi tiết bố cục: RouteDto + framework + dataId (2 field chỉ đọc ở đây, sửa không đổi chúng). */
 export default function LayoutDetailScreen() {
@@ -55,7 +56,7 @@ export default function LayoutDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('platformLayouts.editTitle')}
-          href={`/platform/layouts/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/platform/layouts/form', { id: item.id })}
           variant="outline"
         />
         <AppDeleteButton

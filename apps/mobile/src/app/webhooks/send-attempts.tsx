@@ -28,6 +28,7 @@ import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 import { useInvalidateQueries } from '../../lib/mutation-success';
+import { navPath } from '../../lib/nav-href';
 
 function AttemptRow({
   item,
@@ -71,7 +72,7 @@ function AttemptRow({
   }
   return (
     <AppSectionCard>
-      <Link href={`/webhooks/send-attempts/${encodeURIComponent(item.id)}`} asChild>
+      <Link href={navPath('/webhooks/send-attempts', item.id)} asChild>
         <Pressable>{body}</Pressable>
       </Link>
       <AppButton

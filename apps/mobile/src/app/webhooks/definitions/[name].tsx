@@ -17,6 +17,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết định nghĩa Webhook: groupName/name/displayName/description/
@@ -78,7 +79,7 @@ export default function WebhookDefinitionDetailScreen() {
           <>
             <AppNavButton
               title={t('webhookDefinitions.editTitle')}
-              href={`/webhooks/definitions/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/webhooks/definitions/form', { name: item.name })}
             />
             <AppButton
               title={t('common.delete')}

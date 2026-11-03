@@ -33,6 +33,7 @@ import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 type BulkAction = 'pause' | 'resume' | 'trigger' | 'stop' | 'start' | 'delete';
 
@@ -69,7 +70,7 @@ function JobRow({
     return <Pressable onPress={onToggle}>{body}</Pressable>;
   }
   return (
-    <Link href={`/tasks/background-jobs/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/tasks/background-jobs', item.id)} asChild>
       <Pressable>{body}</Pressable>
     </Link>
   );

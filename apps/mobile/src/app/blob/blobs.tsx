@@ -22,13 +22,14 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { usePagination } from '../../lib/use-pagination';
 import { useInvalidateQueries } from '../../lib/mutation-success';
+import { navHref, navPath } from '../../lib/nav-href';
 
 function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) {
   const { t } = useTranslation();
   const isFolder = item.type === BLOB_TYPE_FOLDER;
   const href = isFolder
-    ? `/blob/blobs?containerId=${encodeURIComponent(containerId)}&parentId=${encodeURIComponent(item.id)}`
-    : `/blob/blobs/${encodeURIComponent(item.id)}`;
+    ? navHref('/blob/blobs', { containerId, parentId: item.id })
+    : navPath('/blob/blobs', item.id);
   return (
     <Link href={href} asChild>
       <AppRowCard>
@@ -121,7 +122,7 @@ export default function BlobsScreen() {
             data={containers}
             keyExtractor={keyById}
             renderItem={({ item }) => (
-              <Link href={`/blob/blobs?containerId=${encodeURIComponent(item.id)}`} asChild>
+              <Link href={navHref('/blob/blobs', { containerId: item.id })} asChild>
                 <Pressable>
                   <Card className="p-4">
                     <Text>{item.name}</Text>
@@ -145,7 +146,7 @@ export default function BlobsScreen() {
     >
       <AppNavButton
         title={t('blobBlobs.createFolderTitle')}
-        href={`/blob/blobs/form?containerId=${encodeURIComponent(containerId)}${parentId ? `&parentId=${encodeURIComponent(parentId)}` : ''}`}
+        href={navHref('/blob/blobs/form', { containerId, parentId: parentId || undefined })}
         testID="blob-blobs-create-folder"
       />
       <AppButton

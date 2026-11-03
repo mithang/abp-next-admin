@@ -13,6 +13,7 @@ import {
   deletePermissionGroup,
   getPermissionGroup,
 } from '../../../features/permissions/permission-groups-api';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết nhóm quyền. Web cho sửa nhóm tĩnh nhưng cấm xóa
@@ -41,7 +42,7 @@ export default function PermissionGroupDetailScreen() {
         {item.isStatic ? <Text>{t('permissionGroups.static')}</Text> : null}
         <AppNavButton
           title={t('permissionGroups.editTitle')}
-          href={`/permissions/groups/form?name=${encodeURIComponent(item.name)}`}
+          href={navHref('/permissions/groups/form', { name: item.name })}
           variant="outline"
           testID="permission-group-edit"
         />

@@ -10,6 +10,7 @@ import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteFeatureGroup, getFeatureGroup } from '../../../features/features/feature-groups-api';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết nhóm tính năng. Modal web vô hiệu mọi field và ẩn nút xác nhận
@@ -40,7 +41,7 @@ export default function FeatureGroupDetailScreen() {
           <>
             <AppNavButton
               title={t('featureGroups.editTitle')}
-              href={`/features/groups/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/features/groups/form', { name: item.name })}
               variant="outline"
               testID="feature-group-edit"
             />

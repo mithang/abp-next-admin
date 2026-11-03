@@ -9,6 +9,7 @@ import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteTenant, getTenant } from '../../../features/saas/saas-api';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết tenant. Nút "Chuỗi kết nối" mở màn quản lý connection string
@@ -66,22 +67,22 @@ export default function TenantDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('saasTenants.editTitle')}
-          href={`/saas/tenants/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/saas/tenants/form', { id: item.id })}
           variant="outline"
         />
         <AppNavButton
           title={t('saasTenants.connectionStrings')}
-          href={`/saas/tenants/connection-strings?tenantId=${encodeURIComponent(item.id)}`}
+          href={navHref('/saas/tenants/connection-strings', { tenantId: item.id })}
           variant="outline"
         />
         <AppNavButton
           title={t('saasTenants.features')}
-          href={`/saas/tenants/features?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`}
+          href={navHref('/saas/tenants/features', { tenantId: item.id, tenantName: item.name })}
           variant="outline"
         />
         <AppNavButton
           title={t('saasTenants.impersonate')}
-          href={`/saas/tenants/impersonate?tenantId=${encodeURIComponent(item.id)}&tenantName=${encodeURIComponent(item.name)}`}
+          href={navHref('/saas/tenants/impersonate', { tenantId: item.id, tenantName: item.name })}
           variant="outline"
           testID="saas-tenant-impersonate"
         />

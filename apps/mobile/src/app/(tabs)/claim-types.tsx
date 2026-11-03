@@ -15,11 +15,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function ClaimTypeRow({ item }: { item: IdentityClaimTypeDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/claim-types/${item.id}`} asChild>
+    <Link href={navPath('/claim-types', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
         {item.description ? <Text>{item.description}</Text> : null}

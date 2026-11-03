@@ -17,6 +17,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết định nghĩa mẫu văn bản: name/displayName/defaultCulture/
@@ -90,14 +91,14 @@ export default function TextTemplateDefinitionDetailScreen() {
         </Text>
         <AppNavButton
           title={t('textTemplateDefinitions.editContentsTitle')}
-          href={`/text-templating/definitions/content?name=${encodeURIComponent(item.name)}`}
+          href={navHref('/text-templating/definitions/content', { name: item.name })}
           variant="outline"
         />
         {item.isStatic ? null : (
           <>
             <AppNavButton
               title={t('textTemplateDefinitions.editTitle')}
-              href={`/text-templating/definitions/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/text-templating/definitions/form', { name: item.name })}
             />
             <AppButton
               title={t('common.delete')}

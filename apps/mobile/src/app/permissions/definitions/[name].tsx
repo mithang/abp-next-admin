@@ -14,6 +14,7 @@ import {
   getPermissionDefinition,
 } from '../../../features/permissions/permission-definitions-api';
 import { MultiTenancySides } from '../../../features/permissions/types';
+import { navHref } from '../../../lib/nav-href';
 
 function multiTenancySideLabel(side: MultiTenancySides): string {
   if (side === MultiTenancySides.Host) return 'Host';
@@ -70,7 +71,7 @@ export default function PermissionDefinitionDetailScreen() {
         {item.isStatic ? <Text>{t('permissionDefinitions.static')}</Text> : null}
         <AppNavButton
           title={t('permissionDefinitions.editTitle')}
-          href={`/permissions/definitions/form?name=${encodeURIComponent(item.name)}`}
+          href={navHref('/permissions/definitions/form', { name: item.name })}
           variant="outline"
           testID="permission-definition-edit"
         />

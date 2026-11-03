@@ -19,6 +19,7 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useInvalidateQueries } from '../../lib/mutation-success';
+import { navHref } from '../../lib/nav-href';
 
 interface AppliedSearch {
   cultureName: string;
@@ -115,7 +116,10 @@ export default function TextsScreen() {
         <AppButton title={t('texts.search')} onPress={onSearch} testID="texts-search" />
         <AppNavButton
           title={t('texts.createTitle')}
-          href={`/localization/texts/form?cultureName=${encodeURIComponent(applied?.targetCultureName ?? '')}&resourceName=${encodeURIComponent(applied?.resourceName ?? '')}`}
+          href={navHref('/localization/texts/form', {
+            cultureName: applied?.targetCultureName ?? '',
+            resourceName: applied?.resourceName ?? '',
+          })}
           variant="outline"
           testID="texts-create"
         />
@@ -143,7 +147,12 @@ export default function TextsScreen() {
                   <Pressable
                     onPress={() =>
                       router.push(
-                        `/localization/texts/form?edit=1&cultureName=${encodeURIComponent(item.targetCultureName)}&resourceName=${encodeURIComponent(item.resourceName)}&key=${encodeURIComponent(item.key)}`,
+                        navHref('/localization/texts/form', {
+                          edit: 1,
+                          cultureName: item.targetCultureName,
+                          resourceName: item.resourceName,
+                          key: item.key,
+                        }),
                       )
                     }
                   >

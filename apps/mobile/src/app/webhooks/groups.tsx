@@ -14,10 +14,11 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
+import { navPath } from '../../lib/nav-href';
 
 function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
   return (
-    <Link href={`/webhooks/groups/${encodeURIComponent(item.name)}`} asChild>
+    <Link href={navPath('/webhooks/groups', item.name)} asChild>
       <AppRowCard>
         <Text>{item.displayName}</Text>
         <Text>{item.name}</Text>

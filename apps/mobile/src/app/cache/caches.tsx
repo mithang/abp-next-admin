@@ -20,6 +20,7 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { mutationErrorElement } from '../../lib/mutation-error';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { navPath } from '../../lib/nav-href';
 
 /**
  * Quản lý cache: danh sách khóa từ GET /api/caching-management/cache/keys.
@@ -164,7 +165,7 @@ export default function CacheKeysScreen() {
             <AppRowCard
               onPress={() => {
                 if (selectMode) toggleSelect(item);
-                else router.push(`/cache/caches/${encodeURIComponent(item)}`);
+                else router.push(navPath('/cache/caches', item));
               }}
             >
               <Text>

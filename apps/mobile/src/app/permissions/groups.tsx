@@ -14,11 +14,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByName } from '../../lib/list-keys';
 import { useDebouncedFilter } from '../../lib/use-debounced-filter';
+import { navPath } from '../../lib/nav-href';
 
 function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/permissions/groups/${encodeURIComponent(item.name)}`} asChild>
+    <Link href={navPath('/permissions/groups', item.name)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.name}</Text>

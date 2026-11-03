@@ -14,6 +14,7 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 /**
  * Web chỉ có bảng token + xem/xóa (TokenModal chỉ đọc) nên mobile theo đúng
@@ -21,7 +22,7 @@ import { useListFilter } from '../../lib/use-list-filter';
  */
 function TokenRow({ item }: { item: OpenIddictTokenDto }) {
   return (
-    <Link href={`/openiddict/tokens/${item.id}`} asChild>
+    <Link href={navPath('/openiddict/tokens', item.id)} asChild>
       <AppRowCard>
         {item.subject ? <Text>{item.subject}</Text> : null}
         {item.referenceId ? <Text>{item.referenceId}</Text> : null}

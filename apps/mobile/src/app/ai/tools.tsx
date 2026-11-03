@@ -15,11 +15,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
+import { navPath } from '../../lib/nav-href';
 
 function ToolRow({ item }: { item: AIToolDefinitionRecordDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/ai/tools/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/ai/tools', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
         <Text>

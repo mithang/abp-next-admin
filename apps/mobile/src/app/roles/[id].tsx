@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { AppBadge } from '../../components/ui/AppBadge';
 import { deleteRole, getRole } from '../../features/identity/roles-api';
 import { roleFlags } from '../../features/identity/roles-types';
+import { navHref } from '../../lib/nav-href';
 
 export default function RoleDetailScreen() {
   const { t } = useTranslation();
@@ -42,13 +43,17 @@ export default function RoleDetailScreen() {
         {roleFlags(role).length === 0 ? <Text>{t('roles.noFlags')}</Text> : null}
         <AppNavButton
           title={t('roles.editTitle')}
-          href={`/roles/form?id=${encodeURIComponent(role.id)}`}
+          href={navHref('/roles/form', { id: role.id })}
           variant="outline"
           testID="role-edit"
         />
         <AppNavButton
           title={t('menuAllot.title')}
-          href={`/platform/menu-allot?subject=role&id=${encodeURIComponent(role.name)}&label=${encodeURIComponent(role.name)}`}
+          href={navHref('/platform/menu-allot', {
+            subject: 'role',
+            id: role.name,
+            label: role.name,
+          })}
           variant="outline"
           testID="role-menu-allot"
         />

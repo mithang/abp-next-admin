@@ -17,6 +17,7 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByNestedId } from '../../lib/list-keys';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
+import { navPath } from '../../lib/nav-href';
 
 /**
  * Danh sách menu: đúng bảng web — GET /api/platform/menus/all rồi dựng
@@ -48,7 +49,7 @@ function flattenTree(items: MenuDto[]): { item: MenuDto; depth: number }[] {
 
 function MenuRow({ item, depth }: { item: MenuDto; depth: number }) {
   return (
-    <Link href={`/platform/menus/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/platform/menus', item.id)} asChild>
       <AppTreeRowCard depth={depth}>
         <VStack space="xs">
           <Text>

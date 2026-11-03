@@ -14,6 +14,7 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 /**
  * Web chỉ có bảng ủy quyền + xem/xóa (AuthorizationModal chỉ đọc) nên mobile
@@ -21,7 +22,7 @@ import { useListFilter } from '../../lib/use-list-filter';
  */
 function AuthorizationRow({ item }: { item: OpenIddictAuthorizationDto }) {
   return (
-    <Link href={`/openiddict/authorizations/${item.id}`} asChild>
+    <Link href={navPath('/openiddict/authorizations', item.id)} asChild>
       <AppRowCard>
         {item.subject ? <Text>{item.subject}</Text> : null}
         {item.type ? <AppBadge label={item.type} /> : null}

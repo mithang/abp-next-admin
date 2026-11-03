@@ -15,6 +15,7 @@ import type { DataDto } from '../../features/platform/types';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyByNestedId } from '../../lib/list-keys';
+import { navPath } from '../../lib/nav-href';
 
 /**
  * Danh sách từ điển dữ liệu: đúng bảng web — GET /api/platform/datas/all
@@ -46,7 +47,7 @@ function flattenTree(items: DataDto[]): { item: DataDto; depth: number }[] {
 
 function DataRow({ item, depth }: { item: DataDto; depth: number }) {
   return (
-    <Link href={`/platform/data-dictionaries/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/platform/data-dictionaries', item.id)} asChild>
       <AppTreeRowCard depth={depth}>
         <VStack space="xs">
           <Text>

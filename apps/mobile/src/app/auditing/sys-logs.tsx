@@ -14,11 +14,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
+import { navPath } from '../../lib/nav-href';
 
 function SysLogRow({ item }: { item: LogDto }) {
   const id = item.fields?.id ?? `${item.timeStamp}-${item.message ?? ''}`;
   return (
-    <Link href={`/auditing/sys-logs/${encodeURIComponent(id)}`} asChild>
+    <Link href={navPath('/auditing/sys-logs', id)} asChild>
       <AppRowCard>
         <Text>
           {logLevelName(item.level)}: {item.message ?? ''}

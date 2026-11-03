@@ -17,6 +17,7 @@ import {
   lifetimeName,
   notificationTypeName,
 } from '../../../features/notifications/types';
+import { navHref } from '../../../lib/nav-href';
 
 export default function NotificationDefinitionDetailScreen() {
   const { t } = useTranslation();
@@ -71,13 +72,13 @@ export default function NotificationDefinitionDetailScreen() {
         {item.isStatic ? <Text>· {t('notificationDefinitions.static')}</Text> : null}
         <AppNavButton
           title={t('notificationDefinitions.send')}
-          href={`/notifications/definitions/send?name=${encodeURIComponent(item.name)}`}
+          href={navHref('/notifications/definitions/send', { name: item.name })}
         />
         {!item.isStatic ? (
           <>
             <AppNavButton
               title={t('notificationDefinitions.editTitle')}
-              href={`/notifications/definitions/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/notifications/definitions/form', { name: item.name })}
               variant="outline"
             />
             <AppDeleteButton

@@ -10,6 +10,7 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteWorkspace, getWorkspace } from '../../../features/ai/ai-api';
 import { isReadOnlyWorkspace } from '../../../features/ai/types';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết không gian làm việc. DTO trả về KHÔNG chứa apiKey nên màn này
@@ -99,13 +100,13 @@ export default function AIWorkspaceDetailScreen() {
         {item.isStatic ? <Text>· {t('aiWorkspaces.static')}</Text> : null}
         <AppNavButton
           title={t('aiWorkspaces.resetApiKey')}
-          href={`/ai/workspaces/form?id=${encodeURIComponent(item.id)}&reset=1`}
+          href={navHref('/ai/workspaces/form', { id: item.id, reset: '1' })}
           variant="outline"
         />
         {!readOnly ? (
           <AppNavButton
             title={t('aiWorkspaces.editTitle')}
-            href={`/ai/workspaces/form?id=${encodeURIComponent(item.id)}`}
+            href={navHref('/ai/workspaces/form', { id: item.id })}
             variant="outline"
           />
         ) : (

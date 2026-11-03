@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { AppBadge } from '../../components/ui/AppBadge';
 import { deleteClaimType, getClaimType } from '../../features/identity/claim-types-api';
 import { valueTypeKey } from '../../features/identity/claim-types';
+import { navHref } from '../../lib/nav-href';
 
 export default function ClaimTypeDetailScreen() {
   const { t } = useTranslation();
@@ -54,7 +55,7 @@ export default function ClaimTypeDetailScreen() {
           <>
             <AppNavButton
               title={t('claimTypes.editTitle')}
-              href={`/claim-types/form?id=${encodeURIComponent(item.id)}`}
+              href={navHref('/claim-types/form', { id: item.id })}
               variant="outline"
               testID="claim-type-edit"
             />

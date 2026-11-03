@@ -14,6 +14,7 @@ import {
   getOrganizationUnitsAll,
 } from '../../features/identity/organization-units-api';
 import { findOrganizationUnitName } from '../../features/identity/organization-units';
+import { navHref } from '../../lib/nav-href';
 
 export default function OrganizationUnitDetailScreen() {
   const { t } = useTranslation();
@@ -46,13 +47,13 @@ export default function OrganizationUnitDetailScreen() {
         </Text>
         <AppNavButton
           title={t('organizationUnits.editTitle')}
-          href={`/organization-units/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/organization-units/form', { id: item.id })}
           variant="outline"
           testID="organization-unit-edit"
         />
         <AppNavButton
           title={t('organizationUnits.createChildTitle')}
-          href={`/organization-units/form?parentId=${encodeURIComponent(item.id)}`}
+          href={navHref('/organization-units/form', { parentId: item.id })}
           variant="outline"
           testID="organization-unit-create-child"
         />

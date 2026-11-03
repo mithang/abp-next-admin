@@ -17,6 +17,7 @@ import {
 import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết nhóm Webhook: name/displayName/isStatic. Nhóm tĩnh chỉ đọc
@@ -61,7 +62,7 @@ export default function WebhookGroupDetailScreen() {
           <>
             <AppNavButton
               title={t('webhookGroups.editTitle')}
-              href={`/webhooks/groups/form?name=${encodeURIComponent(item.name)}`}
+              href={navHref('/webhooks/groups/form', { name: item.name })}
             />
             <AppButton
               title={t('common.delete')}

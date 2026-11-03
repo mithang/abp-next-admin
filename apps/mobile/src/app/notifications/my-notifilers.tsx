@@ -23,12 +23,13 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function MyNotificationRow({ item }: { item: UserNotificationDto }) {
   const { t } = useTranslation();
   const { title } = deserializeNotification(item);
   return (
-    <Link href={`/notifications/my-notifilers/${encodeURIComponent(String(item.id))}`} asChild>
+    <Link href={navPath('/notifications/my-notifilers', String(item.id))} asChild>
       <AppRowCard>
         <Text>{title || item.name}</Text>
         <Text>

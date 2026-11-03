@@ -18,6 +18,7 @@ import { toApiError } from '../../../lib/errors';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { useInvalidateAndBack } from '../../../lib/mutation-success';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết đăng ký Webhook: webhookUri/isActive/description/webhooks/
@@ -83,7 +84,7 @@ export default function WebhookSubscriptionDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('webhookSubscriptions.editTitle')}
-          href={`/webhooks/subscriptions/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/webhooks/subscriptions/form', { id: item.id })}
         />
         <AppButton
           title={t('common.delete')}

@@ -9,6 +9,7 @@ import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteMenu, getMenu } from '../../../features/platform/platform-api';
+import { navHref } from '../../../lib/nav-href';
 
 /** Chi tiết menu: RouteDto + code/component/framework/layoutId/isPublic/startup + meta JSON. */
 export default function MenuDetailScreen() {
@@ -72,11 +73,11 @@ export default function MenuDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('platformMenus.editTitle')}
-          href={`/platform/menus/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/platform/menus/form', { id: item.id })}
         />
         <AppNavButton
           title={t('platformMenus.createChildTitle')}
-          href={`/platform/menus/form?parentId=${encodeURIComponent(item.id)}&layoutId=${encodeURIComponent(item.layoutId)}`}
+          href={navHref('/platform/menus/form', { parentId: item.id, layoutId: item.layoutId })}
           variant="outline"
         />
         <AppDeleteButton

@@ -14,10 +14,11 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function ConversationRow({ item }: { item: ConversationDto }) {
   return (
-    <Link href={`/ai/conversations/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/ai/conversations', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
         <Text>

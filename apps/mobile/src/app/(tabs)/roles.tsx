@@ -15,6 +15,7 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function RoleRow({ role }: { role: IdentityRoleDto }) {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ function RoleRow({ role }: { role: IdentityRoleDto }) {
     static: t('roles.isStatic'),
   };
   return (
-    <Link href={`/roles/${role.id}`} asChild>
+    <Link href={navPath('/roles', role.id)} asChild>
       <AppRowCard>
         <Text>{role.name}</Text>
         {roleFlags(role).map((flag) => (

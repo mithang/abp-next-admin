@@ -13,11 +13,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/data-protection/entity-type-infos/${item.id}`} asChild>
+    <Link href={navPath('/data-protection/entity-type-infos', item.id)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.typeFullName}</Text>

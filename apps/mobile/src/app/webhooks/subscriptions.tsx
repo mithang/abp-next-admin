@@ -22,6 +22,7 @@ import { keyById } from '../../lib/list-keys';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useListFilter } from '../../lib/use-list-filter';
+import { navPath } from '../../lib/nav-href';
 
 function SubscriptionRow({
   item,
@@ -49,7 +50,7 @@ function SubscriptionRow({
     return <Pressable onPress={onToggle}>{body}</Pressable>;
   }
   return (
-    <Link href={`/webhooks/subscriptions/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/webhooks/subscriptions', item.id)} asChild>
       <Pressable>{body}</Pressable>
     </Link>
   );

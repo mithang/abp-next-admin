@@ -18,6 +18,7 @@ import { keyById } from '../../../lib/list-keys';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedPagedFilter } from '../../../lib/use-debounced-paged-filter';
+import { navPath } from '../../../lib/nav-href';
 
 export function messageStatusText(t: (key: string) => string, ns: string, status: number): string {
   if (status === -1) return t(`${ns}.statusPending`);
@@ -28,7 +29,7 @@ export function messageStatusText(t: (key: string) => string, ns: string, status
 function EmailRow({ item }: { item: EmailMessageDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/platform/messages/email/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/platform/messages/email', item.id)} asChild>
       <AppRowCard>
         <Text>{item.subject ?? item.receiver}</Text>
         <Text>

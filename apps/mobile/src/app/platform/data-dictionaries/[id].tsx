@@ -16,6 +16,7 @@ import { deleteData, deleteDataItem, getData } from '../../../features/platform/
 import { DATA_VALUE_TYPE_LABELS } from '../../../features/platform/types';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { useInvalidateQueries } from '../../../lib/mutation-success';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết từ điển: code do backend sinh (chỉ đọc), tên/tên hiển thị/
@@ -59,17 +60,17 @@ export default function DataDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('platformDataDictionaries.editTitle')}
-          href={`/platform/data-dictionaries/form?id=${encodeURIComponent(item.id)}`}
+          href={navHref('/platform/data-dictionaries/form', { id: item.id })}
           variant="outline"
         />
         <AppNavButton
           title={t('platformDataDictionaries.createChildTitle')}
-          href={`/platform/data-dictionaries/form?parentId=${encodeURIComponent(item.id)}`}
+          href={navHref('/platform/data-dictionaries/form', { parentId: item.id })}
           variant="outline"
         />
         <AppNavButton
           title={t('platformDataDictionaries.moveTitle')}
-          href={`/platform/data-dictionaries/move?dataId=${encodeURIComponent(item.id)}`}
+          href={navHref('/platform/data-dictionaries/move', { dataId: item.id })}
           variant="outline"
         />
         <AppDeleteButton
@@ -82,7 +83,7 @@ export default function DataDetailScreen() {
         <Text>{t('platformDataItems.title')}</Text>
         <AppNavButton
           title={t('platformDataItems.createTitle')}
-          href={`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}`}
+          href={navHref('/platform/data-dictionaries/items/form', { dataId: item.id })}
           variant="outline"
         />
         {item.items.length === 0 ? (
@@ -101,7 +102,10 @@ export default function DataDetailScreen() {
               {dataItem.description ? <Text>{dataItem.description}</Text> : null}
               <AppNavButton
                 title={t('platformDataItems.editTitle')}
-                href={`/platform/data-dictionaries/items/form?dataId=${encodeURIComponent(item.id)}&name=${encodeURIComponent(dataItem.name)}`}
+                href={navHref('/platform/data-dictionaries/items/form', {
+                  dataId: item.id,
+                  name: dataItem.name,
+                })}
                 variant="outline"
               />
               <AppButton

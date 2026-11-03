@@ -15,6 +15,7 @@ import { displayName } from '../../features/identity/types';
 import { impersonationErrorText } from '../../features/auth/impersonation';
 import { useAuthStore } from '../../stores/auth-store';
 import { showConfirmDialog } from '../../lib/confirm';
+import { navHref } from '../../lib/nav-href';
 
 export default function UserDetailScreen() {
   const { t } = useTranslation();
@@ -73,7 +74,11 @@ export default function UserDetailScreen() {
         <Text>{user.roleNames.join(', ')}</Text>
         <AppNavButton
           title={t('menuAllot.title')}
-          href={`/platform/menu-allot?subject=user&id=${encodeURIComponent(user.id)}&label=${encodeURIComponent(displayName(user))}`}
+          href={navHref('/platform/menu-allot', {
+            subject: 'user',
+            id: user.id,
+            label: displayName(user),
+          })}
           variant="outline"
           testID="user-menu-allot"
         />

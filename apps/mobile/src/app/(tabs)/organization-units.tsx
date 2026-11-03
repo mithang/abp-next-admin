@@ -15,11 +15,12 @@ import {
 } from '../../features/identity/organization-units';
 import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
+import { navPath } from '../../lib/nav-href';
 
 function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
   const { unit, depth } = item;
   return (
-    <Link href={`/organization-units/${unit.id}`} asChild>
+    <Link href={navPath('/organization-units', unit.id)} asChild>
       <AppTreeRowCard depth={depth} indent={20} indentStyle="padding">
         <VStack space="xs">
           <Text>

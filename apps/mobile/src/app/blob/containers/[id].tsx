@@ -10,6 +10,7 @@ import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteBlobContainer, getBlobContainer } from '../../../features/blob/blob-api';
 import { formatDateTime } from '../../../lib/dates';
+import { navHref } from '../../../lib/nav-href';
 
 /**
  * Chi tiết container blob: name + concurrencyStamp + thời gian tạo.
@@ -47,7 +48,7 @@ export default function BlobContainerDetailScreen() {
         ) : null}
         <AppNavButton
           title={t('blobContainers.viewBlobs')}
-          href={`/blob/blobs?containerId=${encodeURIComponent(item.id)}`}
+          href={navHref('/blob/blobs', { containerId: item.id })}
         />
         <AppDeleteButton
           confirmTitle={t('blobContainers.deleteConfirmTitle')}

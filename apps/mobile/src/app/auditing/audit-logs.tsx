@@ -15,10 +15,11 @@ import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
+import { navPath } from '../../lib/nav-href';
 
 function AuditLogRow({ item }: { item: AuditLogDto }) {
   return (
-    <Link href={`/auditing/audit-logs/${item.id}`} asChild>
+    <Link href={navPath('/auditing/audit-logs', item.id)} asChild>
       <AppRowCard>
         <Text>
           {item.httpMethod ?? ''} {item.httpStatusCode ?? ''} {item.url ?? item.id}

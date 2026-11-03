@@ -15,11 +15,12 @@ import { listRefreshProps } from '../../lib/list-refresh';
 import { listQueryProps } from '../../lib/list-query-props';
 import { keyById } from '../../lib/list-keys';
 import { useDebouncedPagedFilter } from '../../lib/use-debounced-paged-filter';
+import { navPath } from '../../lib/nav-href';
 
 function WorkspaceRow({ item }: { item: WorkspaceDefinitionRecordDto }) {
   const { t } = useTranslation();
   return (
-    <Link href={`/ai/workspaces/${encodeURIComponent(item.id)}`} asChild>
+    <Link href={navPath('/ai/workspaces', item.id)} asChild>
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>

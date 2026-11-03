@@ -10,6 +10,7 @@ import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { deleteResource, getResource } from '../../../features/localization/localization-api';
+import { navHref } from '../../../lib/nav-href';
 
 /** Chi tiết tài nguyên: khóa là name; web không có khái niệm tĩnh ở đây nên luôn có Sửa/Xóa. */
 export default function ResourceDetailScreen() {
@@ -40,7 +41,7 @@ export default function ResourceDetailScreen() {
         <AppDetailField label={t('resources.creationTime')} value={item.creationTime} />
         <AppNavButton
           title={t('resources.editTitle')}
-          href={`/localization/resources/form?name=${encodeURIComponent(item.name)}`}
+          href={navHref('/localization/resources/form', { name: item.name })}
           variant="outline"
           testID="resource-edit"
         />
