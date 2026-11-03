@@ -55,7 +55,7 @@ phân trang vào hook `useDebouncedFilter`
 object để mỗi màn hình giữ đúng tên biến cũ khi destructure
 — menu-allot dùng 2 hook trong cùng file (identityFilter và
 framework), webhooks/definitions dùng 2 hook (filter và
-groupName). Migrate 13 điểm gọi ở 10 file (6 màn hình
+groupName). Migrate 13 điểm gọi ở 11 file (6 màn hình
 filter/debouncedFilter tuyệt đối, text-templating và webhook
 groups đổi tên biến `debounced` thành `debouncedFilter`,
 webhooks/definitions 2 hook, menu-allot 2 hook, menu-favorites
