@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import { getSessionsPaged, revokeSession } from '../../features/identity/sessions-api';
 import type { IdentitySessionDto } from '../../features/identity/sessions';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
@@ -111,8 +112,7 @@ export default function SessionsScreen() {
           data={items}
           keyExtractor={(item) => item.sessionId}
           renderItem={({ item }) => <SessionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

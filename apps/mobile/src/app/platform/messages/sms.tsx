@@ -17,6 +17,7 @@ import {
 } from '../../../features/platform/platform-api';
 import type { SmsMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
+import { listRefreshProps } from '../../../lib/list-refresh';
 import { showConfirmDialog } from '../../../lib/confirm';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
@@ -189,8 +190,7 @@ export default function SmsMessagesScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <SmsRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

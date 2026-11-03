@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/card';
 import { getDatasAll } from '../../features/platform/platform-api';
 import type { DataDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 
 /**
  * Danh sách từ điển dữ liệu: đúng bảng web — GET /api/platform/datas/all
@@ -113,8 +114,7 @@ export default function DataDictionariesScreen() {
           data={rows}
           keyExtractor={({ item }) => item.id}
           renderItem={({ item }) => <DataRow item={item.item} depth={item.depth} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

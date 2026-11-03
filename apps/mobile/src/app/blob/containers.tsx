@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -80,8 +81,7 @@ export default function BlobContainersScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ContainerRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

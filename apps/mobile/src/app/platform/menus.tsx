@@ -14,6 +14,7 @@ import { Card } from '@/components/ui/card';
 import { getLayoutsPaged, getMenusAll } from '../../features/platform/platform-api';
 import type { MenuDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 /**
@@ -138,8 +139,7 @@ export default function MenusScreen() {
           data={rows}
           keyExtractor={({ item }) => item.id}
           renderItem={({ item }) => <MenuRow item={item.item} depth={item.depth} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

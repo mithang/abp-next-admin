@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getTenantsPaged } from '../../features/saas/saas-api';
 import type { TenantDto } from '../../features/saas/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function TenantRow({ item }: { item: TenantDto }) {
@@ -74,8 +75,7 @@ export default function TenantsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <TenantRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

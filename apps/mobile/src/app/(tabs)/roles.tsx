@@ -12,6 +12,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getRolesPaged } from '../../features/identity/roles-api';
 import { roleFlags, type IdentityRoleDto } from '../../features/identity/roles-types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function RoleRow({ role }: { role: IdentityRoleDto }) {
@@ -76,8 +77,7 @@ export default function RolesScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <RoleRow role={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

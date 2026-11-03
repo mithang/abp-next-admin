@@ -8,6 +8,7 @@ import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppEmptyState } from '../../components/ui/AppStates';
 import { queryStateElement } from '../../lib/query-state';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -211,8 +212,7 @@ export default function SystemSettingsScreen() {
           if (item.kind === 'setting') return <Text>{item.displayName}</Text>;
           return renderDetail(item.detail);
         }}
-        refreshing={query.isFetching}
-        onRefresh={() => void query.refetch()}
+        {...listRefreshProps(query)}
       />
       {saved ? <Text>{t('systemSettings.saved')}</Text> : null}
       {saveError ? <Text>{saveError}</Text> : null}

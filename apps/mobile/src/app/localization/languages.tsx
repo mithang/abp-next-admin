@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getLanguagesPaged } from '../../features/localization/localization-api';
 import type { LanguageDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function LanguageRow({ item }: { item: LanguageDto }) {
@@ -73,8 +74,7 @@ export default function LanguagesScreen() {
           data={items}
           keyExtractor={(item) => item.cultureName}
           renderItem={({ item }) => <LanguageRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

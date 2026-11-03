@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getFeatureDefinitions } from '../../features/features/feature-definitions-api';
 import type { FeatureDefinitionDto } from '../../features/features/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: FeatureDefinitionDto }) {
@@ -62,8 +63,7 @@ export default function FeatureDefinitionsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <DefinitionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

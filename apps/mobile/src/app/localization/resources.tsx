@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getResourcesPaged } from '../../features/localization/localization-api';
 import type { ResourceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ResourceRow({ item }: { item: ResourceDto }) {
@@ -72,8 +73,7 @@ export default function ResourcesScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <ResourceRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

@@ -17,6 +17,7 @@ import {
 } from '../../features/webhooks/webhooks-api';
 import type { WebhookSubscriptionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useListFilter } from '../../lib/use-list-filter';
@@ -159,8 +160,7 @@ export default function WebhookSubscriptionsScreen() {
               onToggle={() => setSelected((prev) => toggleSelection(prev, item.id))}
             />
           )}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       {bulkDelete.isError ? <Text>{toApiError(bulkDelete.error).message}</Text> : null}

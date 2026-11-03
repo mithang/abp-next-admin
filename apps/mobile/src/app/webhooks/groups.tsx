@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getWebhookGroupDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookGroupDefinitionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
@@ -72,8 +73,7 @@ export default function WebhookGroupsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <GroupRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

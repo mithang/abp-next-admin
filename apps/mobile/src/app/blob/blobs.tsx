@@ -17,6 +17,7 @@ import {
 } from '../../features/blob/blob-api';
 import { BLOB_TYPE_FOLDER, type BlobContainerDto, type BlobDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { usePagination } from '../../lib/use-pagination';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 
@@ -171,8 +172,7 @@ export default function BlobsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <BlobRow item={item} containerId={containerId} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getConversationsPaged } from '../../features/ai/ai-api';
 import type { ConversationDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ConversationRow({ item }: { item: ConversationDto }) {
@@ -79,8 +80,7 @@ export default function AIConversationsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ConversationRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

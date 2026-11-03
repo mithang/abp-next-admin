@@ -15,6 +15,7 @@ import { Card } from '@/components/ui/card';
 import { deleteText, getTexts } from '../../features/localization/localization-api';
 import type { TextDifferenceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 
@@ -172,8 +173,7 @@ export default function TextsScreen() {
                 </VStack>
               </Card>
             )}
-            refreshing={query.isFetching}
-            onRefresh={() => void query.refetch()}
+            {...listRefreshProps(query)}
           />
         </AppList>
       )}

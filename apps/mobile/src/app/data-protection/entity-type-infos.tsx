@@ -10,6 +10,7 @@ import { Text } from '@/components/ui/text';
 import { getEntityTypeInfosPaged } from '../../features/auditing/data-protection-api';
 import type { EntityTypeInfoDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function EntityTypeInfoRow({ item }: { item: EntityTypeInfoDto }) {
@@ -70,8 +71,7 @@ export default function EntityTypeInfosScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <EntityTypeInfoRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

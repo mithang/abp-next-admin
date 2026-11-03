@@ -11,6 +11,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getTokensPaged } from '../../features/openiddict/tokens-api';
 import type { OpenIddictTokenDto } from '../../features/openiddict/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 /**
@@ -81,8 +82,7 @@ export default function TokensScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <TokenRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

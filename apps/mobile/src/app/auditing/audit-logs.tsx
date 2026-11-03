@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getAuditLogsPaged } from '../../features/auditing/auditing-api';
 import type { AuditLogDto } from '../../features/auditing/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { usePagination } from '../../lib/use-pagination';
@@ -82,8 +83,7 @@ export default function AuditLogsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <AuditLogRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

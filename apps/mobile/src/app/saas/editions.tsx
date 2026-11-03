@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getEditionsPaged } from '../../features/saas/saas-api';
 import type { EditionDto } from '../../features/saas/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function EditionRow({ item }: { item: EditionDto }) {
@@ -69,8 +70,7 @@ export default function EditionsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <EditionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

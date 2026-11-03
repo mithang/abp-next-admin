@@ -12,6 +12,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getApplicationsPaged } from '../../features/openiddict/applications-api';
 import type { OpenIddictApplicationDto } from '../../features/openiddict/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ApplicationRow({ item }: { item: OpenIddictApplicationDto }) {
@@ -78,8 +79,7 @@ export default function ApplicationsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ApplicationRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

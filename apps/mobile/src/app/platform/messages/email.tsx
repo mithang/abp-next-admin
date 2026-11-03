@@ -13,6 +13,7 @@ import { Text } from '@/components/ui/text';
 import { getEmailMessagesPaged } from '../../../features/platform/platform-api';
 import type { EmailMessageDto } from '../../../features/platform/types';
 import { toApiError } from '../../../lib/errors';
+import { listRefreshProps } from '../../../lib/list-refresh';
 import { buildEmailStatusOptions, parseEmailStatusFilter } from '../../../lib/app-select-options';
 import { formatDateTime } from '../../../lib/dates';
 import { useDebouncedValue } from '../../../lib/use-debounced-value';
@@ -150,8 +151,7 @@ export default function EmailMessagesScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <EmailRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

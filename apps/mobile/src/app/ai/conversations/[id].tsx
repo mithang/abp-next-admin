@@ -20,6 +20,7 @@ import {
 import { sendChatMessageStream } from '../../../features/ai/sse';
 import { aiChatMessageSchema } from '../../../features/ai/ai-conversation-form-schema';
 import { toApiError } from '../../../lib/errors';
+import { listRefreshProps } from '../../../lib/list-refresh';
 import { resolveFieldError } from '../../../lib/field-error';
 
 interface ChatBubble {
@@ -161,8 +162,7 @@ export default function AIConversationChatScreen() {
               </VStack>
             </Card>
           )}
-          refreshing={history.isFetching}
-          onRefresh={() => void history.refetch()}
+          {...listRefreshProps(history)}
         />
       )}
       {streamError ? <Text>{streamError}</Text> : null}

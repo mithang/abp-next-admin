@@ -19,6 +19,7 @@ import {
   severityName,
 } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -120,8 +121,7 @@ export default function MyNotificationsScreen() {
           data={items}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => <MyNotificationRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

@@ -17,6 +17,7 @@ import {
 import type { NotificationSendRecordDto } from '../../features/notifications/types';
 import { sendStateName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { formatDateTime } from '../../lib/dates';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
@@ -140,8 +141,7 @@ export default function NotificationSendRecordsScreen() {
           data={items}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => <SendRecordRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

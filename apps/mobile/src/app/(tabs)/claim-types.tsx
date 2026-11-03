@@ -12,6 +12,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getClaimTypesPaged } from '../../features/identity/claim-types-api';
 import { valueTypeKey, type IdentityClaimTypeDto } from '../../features/identity/claim-types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ClaimTypeRow({ item }: { item: IdentityClaimTypeDto }) {
@@ -79,8 +80,7 @@ export default function ClaimTypesScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ClaimTypeRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

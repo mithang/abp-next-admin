@@ -10,6 +10,7 @@ import { Text } from '@/components/ui/text';
 import { getSecurityLogsPaged } from '../../features/identity/security-logs-api';
 import type { SecurityLogDto } from '../../features/identity/security-logs';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { formatDateTime } from '../../lib/dates';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -65,8 +66,7 @@ export default function SecurityLogsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <SecurityLogRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

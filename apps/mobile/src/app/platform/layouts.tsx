@@ -13,6 +13,7 @@ import { Text } from '@/components/ui/text';
 import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { useListFilter } from '../../lib/use-list-filter';
 
@@ -98,8 +99,7 @@ export default function LayoutsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <LayoutRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

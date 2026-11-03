@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getAIToolsPaged } from '../../features/ai/ai-api';
 import type { AIToolDefinitionRecordDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 import { usePagination } from '../../lib/use-pagination';
 
@@ -90,8 +91,7 @@ export default function AIToolsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ToolRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

@@ -10,6 +10,7 @@ import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { queryStateElement } from '../../../lib/query-state';
+import { listRefreshProps } from '../../../lib/list-refresh';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -146,8 +147,7 @@ export default function TenantConnectionStringsScreen() {
             data={items}
             keyExtractor={(item) => item.name}
             renderItem={renderRow}
-            refreshing={listQuery.isFetching}
-            onRefresh={() => void listQuery.refetch()}
+            {...listRefreshProps(listQuery)}
           />
         )}
         <Text>{t('saasConnectionStrings.setTitle')}</Text>

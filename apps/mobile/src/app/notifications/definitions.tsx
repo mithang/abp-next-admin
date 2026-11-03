@@ -13,6 +13,7 @@ import { getNotificationDefinitions } from '../../features/notifications/notific
 import type { NotificationDefinitionDto } from '../../features/notifications/types';
 import { notificationTypeName } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
@@ -77,8 +78,7 @@ export default function NotificationDefinitionsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <DefinitionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

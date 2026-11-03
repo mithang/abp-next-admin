@@ -11,6 +11,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getUsersPaged } from '../../features/identity/api';
 import { displayName, type IdentityUserDto } from '../../features/identity/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function UserRow({ user }: { user: IdentityUserDto }) {
@@ -70,8 +71,7 @@ export default function UsersScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <UserRow user={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

@@ -45,6 +45,30 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 55
+
+Vòng P3 gộp cặp props pull-to-refresh của FlatList vào helper
+thuần `listRefreshProps` (`src/lib/list-refresh.ts`):
+`refreshing={query.isFetching}` +
+`onRefresh={() => void query.refetch()}` thành một lần spread
+`{...listRefreshProps(query)}` — một thay đổi quy tắc refresh
+(ví dụ đổi isFetching thành isRefetching) từ nay chỉ sửa một
+chỗ. Migrate 48 màn hình (45 dùng biến `query`, 2 dùng
+`listQuery`, 1 dùng `history` ở chat detail); kiểm chứng 2
+chiều: 48 spread + 48 import, chỉ còn đúng 1 `refreshing=`
+cũ (cache, giữ có lý do) và 0 lambda onRefresh cũ. Cố tình
+GIỮ màn hình cache: onRefresh của nó còn xóa các khóa/marker
+đã tải thêm trước khi refetch, nếu không danh sách sẽ trùng
+khóa trang đầu. 3 test mới cho helper (passthrough
+isFetching, refetch đúng 1 lần mỗi onRefresh, chấp nhận
+mọi query-like object). Lỗi thật do vòng này bắt được: script
+migrate ghép prefix import `lib/` hai lần
+(`lib/lib/list-refresh`) ở cả 48 file — typecheck báo
+TS2307, đã sửa bằng sửa đệ quy và chạy lại typecheck sạch
+trước khi kết thúc vòng (lưu ý cho vòng sau: kiểm tra
+đường dẫn import đã chèn ngay sau migrate, không chỉ đếm
+số lượng).
+
 ## Trạng thái vòng 54
 
 Vòng P3 gộp bộ ba lọc + phân trang của màn hình list vào hook

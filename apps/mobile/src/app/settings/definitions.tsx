@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getSettingDefinitions } from '../../features/settings/settings-definitions-api';
 import type { SettingDefinitionDto } from '../../features/settings/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: SettingDefinitionDto }) {
@@ -63,8 +64,7 @@ export default function SettingDefinitionsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <DefinitionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

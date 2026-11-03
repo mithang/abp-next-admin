@@ -29,6 +29,7 @@ import {
   type UserFavoriteMenuDto,
 } from '../../features/platform/menu-favorites';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { showConfirmDialog } from '../../lib/confirm';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
@@ -397,8 +398,7 @@ export default function MenuFavoritesScreen() {
               deleting={deleteMutation.isPending && deleteTarget?.menuId === item.menuId}
             />
           )}
-          refreshing={listQuery.isFetching}
-          onRefresh={() => void listQuery.refetch()}
+          {...listRefreshProps(listQuery)}
         />
       </AppList>
     </AppScreen>

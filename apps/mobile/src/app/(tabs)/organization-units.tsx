@@ -14,6 +14,7 @@ import {
   type FlattenedOrganizationUnit,
 } from '../../features/identity/organization-units';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 
 function OrganizationUnitRow({ item }: { item: FlattenedOrganizationUnit }) {
   const { unit, depth } = item;
@@ -61,8 +62,7 @@ export default function OrganizationUnitsScreen() {
           data={flat}
           keyExtractor={(item) => item.unit.id}
           renderItem={({ item }) => <OrganizationUnitRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

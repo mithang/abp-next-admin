@@ -11,6 +11,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getAuthorizationsPaged } from '../../features/openiddict/authorizations-api';
 import type { OpenIddictAuthorizationDto } from '../../features/openiddict/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 /**
@@ -80,8 +81,7 @@ export default function AuthorizationsScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <AuthorizationRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

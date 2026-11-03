@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getTextTemplateDefinitions } from '../../features/text-templating/text-templating-api';
 import type { TextTemplateDefinitionDto } from '../../features/text-templating/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
@@ -73,8 +74,7 @@ export default function TextTemplateDefinitionsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <DefinitionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>

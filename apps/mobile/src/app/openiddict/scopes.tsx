@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getScopesPaged } from '../../features/openiddict/scopes-api';
 import type { OpenIddictScopeDto } from '../../features/openiddict/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useListFilter } from '../../lib/use-list-filter';
 
 function ScopeRow({ item }: { item: OpenIddictScopeDto }) {
@@ -68,8 +69,7 @@ export default function ScopesScreen() {
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ScopeRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

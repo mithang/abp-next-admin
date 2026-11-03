@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getPermissionDefinitions } from '../../features/permissions/permission-definitions-api';
 import type { PermissionDefinitionDto } from '../../features/permissions/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function DefinitionRow({ item }: { item: PermissionDefinitionDto }) {
@@ -65,8 +66,7 @@ export default function PermissionDefinitionsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <DefinitionRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

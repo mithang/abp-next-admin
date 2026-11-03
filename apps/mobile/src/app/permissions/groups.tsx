@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getPermissionGroups } from '../../features/permissions/permission-groups-api';
 import type { PermissionGroupDefinitionDto } from '../../features/permissions/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
@@ -66,8 +67,7 @@ export default function PermissionGroupsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <GroupRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
       <AppNavButton

@@ -12,6 +12,7 @@ import { Text } from '@/components/ui/text';
 import { getNotificationGroups } from '../../features/notifications/notifications-api';
 import type { NotificationGroupDefinitionDto } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
+import { listRefreshProps } from '../../lib/list-refresh';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
 
 function GroupRow({ item }: { item: NotificationGroupDefinitionDto }) {
@@ -63,8 +64,7 @@ export default function NotificationGroupsScreen() {
           data={items}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => <GroupRow item={item} />}
-          refreshing={query.isFetching}
-          onRefresh={() => void query.refetch()}
+          {...listRefreshProps(query)}
         />
       </AppList>
     </AppScreen>
