@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -41,7 +41,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function LayoutFormScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['platform-layouts']);
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 

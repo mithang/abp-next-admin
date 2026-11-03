@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,7 +29,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function NotificationSendScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['notification-send-records']);
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { name } = useRouteParams<{ name: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const form = useForm<NotificationSendFormValues>({

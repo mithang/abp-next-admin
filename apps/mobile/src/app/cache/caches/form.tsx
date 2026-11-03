@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,7 +29,7 @@ export default function CacheSetFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { key } = useLocalSearchParams<{ key?: string }>();
+  const { key } = useRouteParams<{ key?: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const form = useForm<CacheSetFormValues>({

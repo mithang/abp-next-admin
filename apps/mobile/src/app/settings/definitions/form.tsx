@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -39,7 +40,7 @@ export default function SettingDefinitionFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const invalidateAndBack = useInvalidateAndBack(['setting-definitions']);
-  const { name } = useLocalSearchParams<{ name?: string }>();
+  const { name } = useRouteParams<{ name?: string }>();
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -58,7 +58,7 @@ function flatten(groups: FeatureValueGroup[]): Row[] {
  */
 export default function TenantFeaturesScreen() {
   const { t } = useTranslation();
-  const { tenantId, tenantName } = useLocalSearchParams<{ tenantId: string; tenantName: string }>();
+  const { tenantId, tenantName } = useRouteParams<{ tenantId: string; tenantName: string }>();
   const queryClient = useQueryClient();
   const [edits, setEdits] = useState<Record<string, string>>({});
   const [saveError, setSaveError] = useState<string | null>(null);

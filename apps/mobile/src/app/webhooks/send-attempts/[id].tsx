@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -27,7 +27,7 @@ import { useInvalidateQueries, useInvalidateAndBack } from '../../../lib/mutatio
  */
 export default function WebhookSendAttemptDetailScreen() {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['webhook-send-attempts']);
   const invalidateAndBack = useInvalidateAndBack(['webhook-send-attempts']);
   const [actionError, setActionError] = useState<string | null>(null);

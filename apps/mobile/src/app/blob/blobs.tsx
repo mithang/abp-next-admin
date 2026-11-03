@@ -1,5 +1,6 @@
 import { FlatList, Pressable, View } from 'react-native';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { Link } from 'expo-router';
+import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import * as DocumentPicker from 'expo-document-picker';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +65,7 @@ function BlobRow({ item, containerId }: { item: BlobDto; containerId: string }) 
  */
 export default function BlobsScreen() {
   const { t } = useTranslation();
-  const { containerId, parentId } = useLocalSearchParams<{
+  const { containerId, parentId } = useRouteParams<{
     containerId?: string;
     parentId?: string;
   }>();

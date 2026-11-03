@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -27,7 +27,7 @@ import { navHref } from '../../../lib/nav-href';
  */
 export default function CacheValueDetailScreen() {
   const { t } = useTranslation();
-  const { key } = useLocalSearchParams<{ key: string }>();
+  const { key } = useRouteParams<{ key: string }>();
   const invalidate = useInvalidateQueries(['cache-values', key]);
   const query = useQuery({
     queryKey: ['cache-values', key],

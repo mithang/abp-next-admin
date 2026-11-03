@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
@@ -26,7 +26,7 @@ import { messageStatusText } from '../email';
  */
 export default function EmailMessageDetailScreen() {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['platform-email-messages']);
   const query = useQuery({
     queryKey: ['platform-email-messages', id],

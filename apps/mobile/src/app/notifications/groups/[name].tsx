@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -16,7 +16,7 @@ import { navHref } from '../../../lib/nav-href';
 
 export default function NotificationGroupDetailScreen() {
   const { t } = useTranslation();
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { name } = useRouteParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['notification-groups', name],
     queryFn: () => getNotificationGroup(name),

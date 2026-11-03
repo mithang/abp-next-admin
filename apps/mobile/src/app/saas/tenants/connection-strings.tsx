@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList, Pressable } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,7 +49,7 @@ import { useInvalidateQueries } from '../../../lib/mutation-success';
  */
 export default function TenantConnectionStringsScreen() {
   const { t } = useTranslation();
-  const { tenantId } = useLocalSearchParams<{ tenantId: string }>();
+  const { tenantId } = useRouteParams<{ tenantId: string }>();
   const queryClient = useQueryClient();
   const invalidate = useInvalidateQueries(['saas-tenant-connection-strings', tenantId]);
   const [setError, setSetError] = useState<string | null>(null);

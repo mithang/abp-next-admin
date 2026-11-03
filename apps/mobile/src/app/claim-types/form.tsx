@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -42,7 +43,7 @@ export default function ClaimTypeFormScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const invalidateAndBack = useInvalidateAndBack(['claim-types']);
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 

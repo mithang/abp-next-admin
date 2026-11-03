@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,7 +49,7 @@ export default function MenuFormScreen() {
     id,
     parentId: presetParentId,
     layoutId: presetLayoutId,
-  } = useLocalSearchParams<{
+  } = useRouteParams<{
     id?: string;
     parentId?: string;
     layoutId?: string;

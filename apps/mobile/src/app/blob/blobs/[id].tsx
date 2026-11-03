@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -31,7 +31,7 @@ import { formatDateTime } from '../../../lib/dates';
  */
 export default function BlobDetailScreen() {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useRouteParams<{ id: string }>();
   const [openError, setOpenError] = useState<string | null>(null);
 
   const query = useQuery({

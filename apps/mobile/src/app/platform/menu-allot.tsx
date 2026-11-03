@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
@@ -175,7 +175,7 @@ function AllotEditor({
 
 export default function MenuAllotScreen() {
   const { t } = useTranslation();
-  const params = useLocalSearchParams<{ subject?: string; id?: string; label?: string }>();
+  const params = useRouteParams<{ subject?: string; id?: string; label?: string }>();
   const paramSubject =
     params.subject === 'role' ? 'role' : params.subject === 'user' ? 'user' : null;
 

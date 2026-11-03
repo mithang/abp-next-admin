@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -14,7 +14,7 @@ import { navHref } from '../../../lib/nav-href';
 /** Chi tiết menu: RouteDto + code/component/framework/layoutId/isPublic/startup + meta JSON. */
 export default function MenuDetailScreen() {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useRouteParams<{ id: string }>();
   const query = useQuery({
     queryKey: ['platform-menus', id],
     queryFn: () => getMenu(id),

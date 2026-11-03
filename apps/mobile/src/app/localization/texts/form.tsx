@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,7 +32,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function TextFormScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['texts']);
-  const params = useLocalSearchParams<{
+  const params = useRouteParams<{
     edit?: string;
     cultureName?: string;
     resourceName?: string;

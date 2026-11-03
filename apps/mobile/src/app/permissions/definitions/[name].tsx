@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -28,7 +28,7 @@ function multiTenancySideLabel(side: MultiTenancySides): string {
  */
 export default function PermissionDefinitionDetailScreen() {
   const { t } = useTranslation();
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { name } = useRouteParams<{ name: string }>();
   const query = useQuery({
     queryKey: ['permission-definitions', name],
     queryFn: () => getPermissionDefinition(name),

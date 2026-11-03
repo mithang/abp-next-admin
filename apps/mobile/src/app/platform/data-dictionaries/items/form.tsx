@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../../lib/route-params';
 import { AppFormSwitch } from '../../../../components/ui/AppFormSwitch';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -42,7 +42,7 @@ import { useInvalidateAndBack } from '../../../../lib/mutation-success';
  */
 export default function DataItemFormScreen() {
   const { t } = useTranslation();
-  const { dataId, name } = useLocalSearchParams<{ dataId: string; name?: string }>();
+  const { dataId, name } = useRouteParams<{ dataId: string; name?: string }>();
   const invalidateAndBack = useInvalidateAndBack(['platform-datas', dataId]);
   const isEdit = Boolean(name);
   const [submitError, setSubmitError] = useState<string | null>(null);

@@ -45,6 +45,28 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 68
+
+Vòng P3 gộp họ đọc route param (tiếp nối vòng 67 ở tầng điều
+hướng): helper mới `useRouteParams<T>()` +
+`normalizeRouteParam`/`normalizeRouteParams` trong
+`src/lib/route-params.ts` và migrate 79 màn hình ở 79 file từ
+`useLocalSearchParams` trực tiếp. Lý do thật, không chỉ gộp cho
+gọn: kiểu `string` mà màn hình tự khai là nói dối ở runtime —
+expo-router trả `string | string[] | undefined`, deep link hoặc
+query key lặp cho ra mảng và mảng đó trước đây đi thẳng vào
+query key/API call mà TypeScript không bắt được. Helper giữ
+nguyên contract kiểu (`T` trả về đúng `T`, không sửa call site
+nào khác), chỉ chuẩn hóa runtime: mảng -> phần tử đầu,
+`undefined`/`''` giữ nguyên. Cố tình không ép về
+`string | undefined`: 27 màn hình `id: string` bắt buộc đang
+truyền thẳng vào API nhận `string` (đã có
+`enabled: Boolean(id)`), ép kiểu sẽ bắt thêm guard giả. Kiểm
+tra: format/typecheck/lint PASS (0 errors, 14 warning
+vendored), Jest 445/445 (+7 test route-params mới), i18n
+1463/1463, expo config PASS (SDK 58.0.0,
+`com.mithang.abpnextadmin`).
+
 ## Trạng thái vòng 67
 
 Vòng P3 gộp họ lặp encode href điều hướng (tiếp nối vòng 66 ở tầng

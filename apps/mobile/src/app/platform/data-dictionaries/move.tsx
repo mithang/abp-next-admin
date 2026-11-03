@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,7 +30,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function DataMoveScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['platform-datas']);
-  const { dataId } = useLocalSearchParams<{ dataId: string }>();
+  const { dataId } = useRouteParams<{ dataId: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const detail = useQuery({

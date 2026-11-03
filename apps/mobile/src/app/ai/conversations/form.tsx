@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -40,7 +41,7 @@ export default function AIConversationFormScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const invalidateAndBack = useInvalidateAndBack(['ai-conversations']);
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id } = useRouteParams<{ id?: string }>();
   const isEdit = Boolean(id);
   const [submitError, setSubmitError] = useState<string | null>(null);
 

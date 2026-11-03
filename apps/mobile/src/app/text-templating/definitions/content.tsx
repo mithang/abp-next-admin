@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -36,7 +37,7 @@ export default function TextTemplateContentScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { name } = useRouteParams<{ name: string }>();
   const [culture, setCulture] = useState('');
   const [content, setContent] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -44,7 +44,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function AIWorkspaceFormScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['ai-workspaces']);
-  const { id, reset } = useLocalSearchParams<{ id?: string; reset?: string }>();
+  const { id, reset } = useRouteParams<{ id?: string; reset?: string }>();
   const isEdit = Boolean(id);
   const isReset = reset === '1' && isEdit;
   const [submitError, setSubmitError] = useState<string | null>(null);

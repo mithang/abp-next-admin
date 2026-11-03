@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +24,7 @@ import { useInvalidateAndBack } from '../../../lib/mutation-success';
 export default function BlobFolderFormScreen() {
   const { t } = useTranslation();
   const invalidateAndBack = useInvalidateAndBack(['blob-blobs']);
-  const { containerId, parentId } = useLocalSearchParams<{
+  const { containerId, parentId } = useRouteParams<{
     containerId: string;
     parentId?: string;
   }>();

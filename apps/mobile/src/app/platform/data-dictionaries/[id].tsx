@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
@@ -27,7 +27,7 @@ import { navHref } from '../../../lib/nav-href';
  */
 export default function DataDetailScreen() {
   const { t } = useTranslation();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useRouteParams<{ id: string }>();
   const invalidate = useInvalidateQueries(['platform-datas', id]);
   const query = useQuery({
     queryKey: ['platform-datas', id],
