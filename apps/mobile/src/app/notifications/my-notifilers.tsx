@@ -20,8 +20,7 @@ import {
 } from '../../features/notifications/types';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function MyNotificationRow({ item }: { item: UserNotificationDto }) {
   const { t } = useTranslation();
@@ -44,11 +43,17 @@ function MyNotificationRow({ item }: { item: UserNotificationDto }) {
 
 export default function MyNotificationsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const {
+    filter,
+    setFilter,
+    debouncedFilter,
+    page,
+    setPage,
+    skipCount,
+    maxResultCount,
+    hasMore,
+    loadMore,
+  } = useListFilter();
   const [readState, setReadState] = useState<NotificationReadState | undefined>(undefined);
 
   const query = useQuery({

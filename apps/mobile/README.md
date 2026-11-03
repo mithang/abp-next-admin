@@ -45,6 +45,30 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 54
+
+Vòng P3 gộp bộ ba lọc + phân trang của màn hình list vào hook
+`useListFilter` (`src/lib/use-list-filter.ts`): state `filter`,
+phân trang `usePagination` và `debouncedFilter` tự reset về
+trang 0 khi settled — đúng mẫu 21 màn hình từng tự lặp.
+Migrate 21 màn hình single-filter: 17 khớp tuyệt đối
+(debouncedFilter), blob/containers (đổi tên biến `debounced`
+thành `debouncedFilter`) và 3 màn hình bulk (background-jobs,
+webhook subscriptions, send-attempts) qua tham số
+`onSettledExtra` để vẫn xoá selection cùng timer với reset
+page, giữ nguyên batching một lần render như code cũ. 19/21
+file bỏ `setPage` khỏi destructure vì không còn tự reset page
+(lint trở lại đúng 14 warning vendored); chỉ my-notifilers và
+layouts giữ `setPage` (reset page ở chỗ khác). Cố tình GIỮ:
+các màn hình lọc đa field (email/sms messages, ai/tools,
+audit-logs, send-records, cache, menus) debounce cả object
+`{ filter, ... }` và các màn hình không phân trang
+(permissions/features/settings definitions, menu-allot
+identity) — ép vào hook single-filter sẽ làm mờ queryKey/
+queryFn của từng màn hình. 4 test mới cho hook (khởi tạo,
+debounce + reset page cùng tick, onSettledExtra, hasMore/
+loadMore).
+
 ## Trạng thái vòng 53
 
 Vòng P3 đóng nốt họ AppForm*: 10/11 Controller còn lại trong

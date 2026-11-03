@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -12,8 +11,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getAuthorizationsPaged } from '../../features/openiddict/authorizations-api';
 import type { OpenIddictAuthorizationDto } from '../../features/openiddict/types';
 import { toApiError } from '../../lib/errors';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 /**
  * Web chỉ có bảng ủy quyền + xem/xóa (AuthorizationModal chỉ đọc) nên mobile
@@ -41,11 +39,8 @@ function AuthorizationRow({ item }: { item: OpenIddictAuthorizationDto }) {
 
 export default function AuthorizationsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter();
 
   const query = useQuery({
     queryKey: ['openiddict-authorizations', debouncedFilter, page],

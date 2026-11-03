@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -12,8 +11,7 @@ import { getSecurityLogsPaged } from '../../features/identity/security-logs-api'
 import type { SecurityLogDto } from '../../features/identity/security-logs';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function SecurityLogRow({ item }: { item: SecurityLogDto }) {
   return (
@@ -30,11 +28,8 @@ function SecurityLogRow({ item }: { item: SecurityLogDto }) {
 
 export default function SecurityLogsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter();
 
   const query = useQuery({
     queryKey: ['security-logs', debouncedFilter, page],

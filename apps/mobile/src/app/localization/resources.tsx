@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -12,8 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getResourcesPaged } from '../../features/localization/localization-api';
 import type { ResourceDto } from '../../features/localization/types';
 import { toApiError } from '../../lib/errors';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function ResourceRow({ item }: { item: ResourceDto }) {
   const { t } = useTranslation();
@@ -31,11 +29,8 @@ function ResourceRow({ item }: { item: ResourceDto }) {
 /** Danh sách tài nguyên: phân trang phía server như bảng web (filter/skipCount/maxResultCount). */
 export default function ResourcesScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter();
 
   const query = useQuery({
     queryKey: ['resources', debouncedFilter, page],

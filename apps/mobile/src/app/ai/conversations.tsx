@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -12,8 +11,7 @@ import { Text } from '@/components/ui/text';
 import { getConversationsPaged } from '../../features/ai/ai-api';
 import type { ConversationDto } from '../../features/ai/types';
 import { toApiError } from '../../lib/errors';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function ConversationRow({ item }: { item: ConversationDto }) {
   return (
@@ -35,11 +33,8 @@ function ConversationRow({ item }: { item: ConversationDto }) {
  */
 export default function AIConversationsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter();
 
   const query = useQuery({
     queryKey: ['ai-conversations', debouncedFilter, page],

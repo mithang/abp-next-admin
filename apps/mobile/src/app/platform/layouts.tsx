@@ -14,7 +14,7 @@ import { getLayoutsPaged } from '../../features/platform/platform-api';
 import type { LayoutDto } from '../../features/platform/types';
 import { toApiError } from '../../lib/errors';
 import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function LayoutRow({ item }: { item: LayoutDto }) {
   return (
@@ -32,12 +32,18 @@ function LayoutRow({ item }: { item: LayoutDto }) {
 /** Danh sách bố cục: GET /api/platform/layouts, phân trang ABP, lọc filter + framework. */
 export default function LayoutsScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
   const [framework, setFramework] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const {
+    filter,
+    setFilter,
+    debouncedFilter,
+    page,
+    setPage,
+    skipCount,
+    maxResultCount,
+    hasMore,
+    loadMore,
+  } = useListFilter();
   const debouncedFramework = useDebouncedValue(framework, 400, () => {
     setPage(0);
   });

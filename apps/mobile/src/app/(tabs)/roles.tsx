@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,8 +12,7 @@ import { Badge, BadgeText } from '@/components/ui/badge';
 import { getRolesPaged } from '../../features/identity/roles-api';
 import { roleFlags, type IdentityRoleDto } from '../../features/identity/roles-types';
 import { toApiError } from '../../lib/errors';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function RoleRow({ role }: { role: IdentityRoleDto }) {
   const { t } = useTranslation();
@@ -39,11 +37,8 @@ function RoleRow({ role }: { role: IdentityRoleDto }) {
 
 export default function RolesScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debouncedFilter = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter();
 
   const query = useQuery({
     queryKey: ['roles', debouncedFilter, page],

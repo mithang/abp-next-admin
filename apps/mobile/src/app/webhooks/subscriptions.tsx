@@ -19,8 +19,7 @@ import type { WebhookSubscriptionDto } from '../../features/webhooks/types';
 import { toApiError } from '../../lib/errors';
 import { toggleSelection } from '../../lib/selection';
 import { showConfirmDialog } from '../../lib/confirm';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function SubscriptionRow({
   item,
@@ -66,20 +65,18 @@ function SubscriptionRow({
 export default function WebhookSubscriptionsScreen() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const debounced = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-    setSelected(new Set());
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter(() => {
+      setSelected(new Set());
+    });
   const [selectMode, setSelectMode] = useState(false);
 
   const query = useQuery({
-    queryKey: ['webhook-subscriptions', debounced, page],
+    queryKey: ['webhook-subscriptions', debouncedFilter, page],
     queryFn: () =>
       getWebhookSubscriptionsPaged({
-        filter: debounced || undefined,
+        filter: debouncedFilter || undefined,
         skipCount,
         maxResultCount,
       }),

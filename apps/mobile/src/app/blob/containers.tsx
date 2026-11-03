@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -13,8 +12,7 @@ import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
 import { toApiError } from '../../lib/errors';
 import { formatDateTime } from '../../lib/dates';
-import { useDebouncedValue } from '../../lib/use-debounced-value';
-import { usePagination } from '../../lib/use-pagination';
+import { useListFilter } from '../../lib/use-list-filter';
 
 function ContainerRow({ item }: { item: BlobContainerDto }) {
   return (
@@ -35,17 +33,14 @@ function ContainerRow({ item }: { item: BlobContainerDto }) {
  */
 export default function BlobContainersScreen() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('');
-  const { page, setPage, skipCount, maxResultCount, hasMore, loadMore } = usePagination();
-  const debounced = useDebouncedValue(filter, 400, () => {
-    setPage(0);
-  });
+  const { filter, setFilter, debouncedFilter, page, skipCount, maxResultCount, hasMore, loadMore } =
+    useListFilter();
 
   const query = useQuery({
-    queryKey: ['blob-containers', debounced, page],
+    queryKey: ['blob-containers', debouncedFilter, page],
     queryFn: () =>
       getBlobContainersPaged({
-        filter: debounced || undefined,
+        filter: debouncedFilter || undefined,
         skipCount,
         maxResultCount,
       }),
