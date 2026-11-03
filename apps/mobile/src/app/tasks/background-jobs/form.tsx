@@ -6,7 +6,7 @@ import { Controller, useForm, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppSwitchField } from '../../../components/ui/AppSwitchField';
+import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
@@ -228,17 +228,11 @@ export default function BackgroundJobFormScreen() {
             />
           </>
         )}
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="isEnabled"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('backgroundJobs.isEnabled')}
-              value={field.value}
-              onValueChange={field.onChange}
-              layout="stack"
-            />
-          )}
+          label={t('backgroundJobs.isEnabled')}
+          layout="stack"
         />
         <TextField
           control={form.control}

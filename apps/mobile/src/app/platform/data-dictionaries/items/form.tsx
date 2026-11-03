@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
-import { AppSelect } from '../../../../components/ui/AppSelect';
+import { AppFormSelect } from '../../../../components/ui/AppFormSelect';
 import { AppFormInput } from '../../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../../components/ui/AppStates';
@@ -122,20 +122,14 @@ export default function DataItemFormScreen() {
           placeholder={t('platformDataItems.displayNamePlaceholder')}
           fieldError={fieldError}
         />
-        <Controller
+        <AppFormSelect
           control={form.control}
           name="valueType"
-          render={({ field, fieldState }) => (
-            <AppSelect
-              label={t('platformDataItems.valueType')}
-              value={field.value}
-              options={buildDataValueTypeOptions()}
-              onChange={field.onChange}
-              placeholder={t('platformDataItems.valueTypePlaceholder')}
-              error={fieldError(fieldState.error?.message)}
-              testID="data-item-value-type"
-            />
-          )}
+          label={t('platformDataItems.valueType')}
+          options={buildDataValueTypeOptions()}
+          placeholder={t('platformDataItems.valueTypePlaceholder')}
+          fieldError={fieldError}
+          testID="data-item-value-type"
         />
         <AppFormInput
           control={form.control}

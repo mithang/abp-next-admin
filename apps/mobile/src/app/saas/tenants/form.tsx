@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppSwitchField } from '../../../components/ui/AppSwitchField';
-import { AppSelect } from '../../../components/ui/AppSelect';
+import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
+import { AppFormSelect } from '../../../components/ui/AppFormSelect';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
@@ -125,37 +125,25 @@ export default function TenantFormScreen() {
           autoCapitalize="none"
           fieldError={fieldError}
         />
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="isActive"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('saasTenants.isActive')}
-              value={field.value}
-              onValueChange={field.onChange}
-              layout="stack"
-            />
-          )}
+          label={t('saasTenants.isActive')}
+          layout="stack"
         />
-        <Controller
+        <AppFormSelect
           control={form.control}
           name="editionId"
-          render={({ field, fieldState }) => (
-            <AppSelect
-              label={t('saasTenants.edition')}
-              value={field.value ?? ''}
-              options={editionOptions}
-              onChange={field.onChange}
-              placeholder={
-                editionsQuery.isPending
-                  ? t('saasTenants.editionsLoading')
-                  : t('saasTenants.editionPlaceholder')
-              }
-              error={fieldError(fieldState.error?.message)}
-              clearable
-              testID="tenant-edition"
-            />
-          )}
+          label={t('saasTenants.edition')}
+          options={editionOptions}
+          placeholder={
+            editionsQuery.isPending
+              ? t('saasTenants.editionsLoading')
+              : t('saasTenants.editionPlaceholder')
+          }
+          fieldError={fieldError}
+          clearable
+          testID="tenant-edition"
         />
         <AppFormInput
           control={form.control}
@@ -192,17 +180,11 @@ export default function TenantFormScreen() {
               secureTextEntry
               fieldError={fieldError}
             />
-            <Controller
+            <AppFormSwitch
               control={form.control}
               name="useSharedDatabase"
-              render={({ field }) => (
-                <AppSwitchField
-                  label={t('saasTenants.useSharedDatabase')}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  layout="stack"
-                />
-              )}
+              label={t('saasTenants.useSharedDatabase')}
+              layout="stack"
             />
             <AppFormInput
               control={form.control}

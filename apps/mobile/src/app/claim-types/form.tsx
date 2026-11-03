@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
-import { AppSwitchField } from '../../components/ui/AppSwitchField';
+import { AppFormSwitch } from '../../components/ui/AppFormSwitch';
 import { AppFormInput } from '../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../components/ui/AppStates';
@@ -148,17 +148,7 @@ export default function ClaimTypeFormScreen() {
             />
           </>
         )}
-        <Controller
-          control={form.control}
-          name="required"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('claimTypes.required')}
-              value={field.value}
-              onValueChange={field.onChange}
-            />
-          )}
-        />
+        <AppFormSwitch control={form.control} name="required" label={t('claimTypes.required')} />
         <AppFormInput
           control={form.control}
           name="regex"

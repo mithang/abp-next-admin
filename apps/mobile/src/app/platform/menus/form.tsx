@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppSwitchField } from '../../../components/ui/AppSwitchField';
+import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
-import { AppSelect } from '../../../components/ui/AppSelect';
+import { AppFormSelect } from '../../../components/ui/AppFormSelect';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
@@ -191,35 +191,23 @@ export default function MenuFormScreen() {
           placeholder={t('platformMenus.descriptionPlaceholder')}
           multiline
         />
-        <Controller
+        <AppFormSelect
           control={form.control}
           name="parentId"
-          render={({ field, fieldState }) => (
-            <AppSelect
-              label={t('platformMenus.parentId')}
-              value={field.value ?? ''}
-              options={parentOptions}
-              onChange={field.onChange}
-              placeholder={
-                menusQuery.isPending ? t('common.loading') : t('platformMenus.parentIdPlaceholder')
-              }
-              error={fieldError(fieldState.error?.message)}
-              clearable
-              testID="menu-parent"
-            />
-          )}
+          label={t('platformMenus.parentId')}
+          options={parentOptions}
+          placeholder={
+            menusQuery.isPending ? t('common.loading') : t('platformMenus.parentIdPlaceholder')
+          }
+          fieldError={fieldError}
+          clearable
+          testID="menu-parent"
         />
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="isPublic"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('platformMenus.isPublic')}
-              value={field.value}
-              onValueChange={field.onChange}
-              layout="stack"
-            />
-          )}
+          label={t('platformMenus.isPublic')}
+          layout="stack"
         />
         <AppFormInput
           control={form.control}
@@ -236,24 +224,18 @@ export default function MenuFormScreen() {
           </Text>
         ) : (
           <>
-            <Controller
+            <AppFormSelect
               control={form.control}
               name="layoutId"
-              render={({ field, fieldState }) => (
-                <AppSelect
-                  label={t('platformMenus.layoutId')}
-                  value={field.value ?? ''}
-                  options={layoutOptions}
-                  onChange={field.onChange}
-                  placeholder={
-                    layoutsQuery.isPending
-                      ? t('platformMenus.layoutLoading')
-                      : t('platformMenus.layoutIdPlaceholder')
-                  }
-                  error={fieldError(fieldState.error?.message)}
-                  testID="menu-layout"
-                />
-              )}
+              label={t('platformMenus.layoutId')}
+              options={layoutOptions}
+              placeholder={
+                layoutsQuery.isPending
+                  ? t('platformMenus.layoutLoading')
+                  : t('platformMenus.layoutIdPlaceholder')
+              }
+              fieldError={fieldError}
+              testID="menu-layout"
             />
           </>
         )}

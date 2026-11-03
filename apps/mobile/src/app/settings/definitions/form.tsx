@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
-import { AppSwitchField } from '../../../components/ui/AppSwitchField';
+import { AppFormSwitch } from '../../../components/ui/AppFormSwitch';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { AppErrorState } from '../../../components/ui/AppStates';
@@ -175,38 +175,20 @@ export default function SettingDefinitionFormScreen() {
             {providersQuery.data.items.map((item) => item.value).join(', ')}
           </Text>
         ) : null}
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="isEncrypted"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('settingDefinitions.isEncrypted')}
-              value={field.value}
-              onValueChange={field.onChange}
-            />
-          )}
+          label={t('settingDefinitions.isEncrypted')}
         />
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="isInherited"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('settingDefinitions.isInherited')}
-              value={field.value}
-              onValueChange={field.onChange}
-            />
-          )}
+          label={t('settingDefinitions.isInherited')}
         />
-        <Controller
+        <AppFormSwitch
           control={form.control}
           name="isVisibleToClients"
-          render={({ field }) => (
-            <AppSwitchField
-              label={t('settingDefinitions.isVisibleToClients')}
-              value={field.value}
-              onValueChange={field.onChange}
-            />
-          )}
+          label={t('settingDefinitions.isVisibleToClients')}
         />
         <AppFormSubmit
           error={submitError}

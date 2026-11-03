@@ -45,6 +45,29 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 50
+
+Vòng P3 chuẩn hóa switch và select của form: 23 khối
+`Controller` + `AppSwitchField` và 6 khối `Controller` +
+`AppSelect` nay gộp thành `src/components/ui/AppFormSwitch.tsx`
+và `src/components/ui/AppFormSelect.tsx` (generic
+`Control<TFieldValues>` + `FieldPath`, giữ nguyên ngữ nghĩa:
+switch value `field.value ?? false`, select value
+`field.value ?? ''`, error chỉ dịch qua `fieldError` khi
+caller truyền hàm). Cố tình KHÔNG migrate 11 Controller còn
+lại (9 AppInput giữ từ vòng 49, 2 custom: claim-types
+valueType và data-dictionaries allowBeNull) và các
+AppSwitchField/AppSelect dùng ngoài form (toggle theo state,
+filter list, culture picker). Bài học thật trong vòng:
+script migrate từng nhân đôi indent của tag mở (thay từ vị
+trí `<` nhưng vẫn cộng thêm indent của dòng) — đã sửa bằng
+cách bỏ indent ở dòng đầu của replacement, checkout lại
+toàn bộ `src/app` rồi migrate lại sạch; và test mới dùng
+`handleSubmit` của RHF để lại act scope treo làm suite chạy
+liền sau render timeout — đã bỏ `handleSubmit` khỏi 2 suite
+mới, kiểm tra qua UI phản ánh state của form thay vì
+submit (đường submit đã có suite AppFormInput chứng minh).
+
 ## Trạng thái vòng 49
 
 Vòng P3 chuẩn hóa field text của form: 124 khối

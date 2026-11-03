@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppFormInput } from '../../../components/ui/AppFormInput';
-import { AppSelect } from '../../../components/ui/AppSelect';
+import { AppFormSelect } from '../../../components/ui/AppFormSelect';
 import { orderTreeItems } from '../../../lib/tree-options';
 import { AppFormSubmit } from '../../../components/ui/AppFormSubmit';
 import { VStack } from '@/components/ui/vstack';
@@ -167,43 +167,31 @@ export default function LayoutFormScreen() {
           </>
         ) : (
           <>
-            <Controller
+            <AppFormSelect
               control={form.control}
               name="framework"
-              render={({ field, fieldState }) => (
-                <AppSelect
-                  label={t('platformLayouts.framework')}
-                  value={field.value ?? ''}
-                  options={frameworkOptions}
-                  onChange={field.onChange}
-                  placeholder={
-                    frameworksQuery.isPending
-                      ? t('platformLayouts.frameworkLoading')
-                      : t('platformLayouts.frameworkPlaceholder')
-                  }
-                  error={fieldError(fieldState.error?.message)}
-                  testID="layout-framework"
-                />
-              )}
+              label={t('platformLayouts.framework')}
+              options={frameworkOptions}
+              placeholder={
+                frameworksQuery.isPending
+                  ? t('platformLayouts.frameworkLoading')
+                  : t('platformLayouts.frameworkPlaceholder')
+              }
+              fieldError={fieldError}
+              testID="layout-framework"
             />
-            <Controller
+            <AppFormSelect
               control={form.control}
               name="dataId"
-              render={({ field, fieldState }) => (
-                <AppSelect
-                  label={t('platformLayouts.dataId')}
-                  value={field.value ?? ''}
-                  options={dataOptions}
-                  onChange={field.onChange}
-                  placeholder={
-                    datasQuery.isPending
-                      ? t('platformLayouts.dataIdLoading')
-                      : t('platformLayouts.dataIdPlaceholder')
-                  }
-                  error={fieldError(fieldState.error?.message)}
-                  testID="layout-data"
-                />
-              )}
+              label={t('platformLayouts.dataId')}
+              options={dataOptions}
+              placeholder={
+                datasQuery.isPending
+                  ? t('platformLayouts.dataIdLoading')
+                  : t('platformLayouts.dataIdPlaceholder')
+              }
+              fieldError={fieldError}
+              testID="layout-data"
             />
           </>
         )}
