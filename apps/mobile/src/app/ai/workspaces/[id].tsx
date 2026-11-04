@@ -6,6 +6,7 @@ import { AppDetailField } from '../../../components/ui/AppDetailField';
 
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -63,8 +64,8 @@ export default function AIWorkspaceDetailScreen() {
           <AppDetailField label={t('aiWorkspaces.tools')} value={(item.tools ?? []).join(', ')} />
         ) : null}
         <AppDetailField label={t('aiWorkspaces.stateCheckers')} value={item.stateCheckers} />
-        {item.isSystem ? <Text>· {t('aiWorkspaces.system')}</Text> : null}
-        {item.isStatic ? <Text>· {t('aiWorkspaces.static')}</Text> : null}
+        <AppOptionalText show={item.isSystem} value={`· ${t('aiWorkspaces.system')}`} />
+        <AppOptionalText show={item.isStatic} value={`· ${t('aiWorkspaces.static')}`} />
         <AppNavButton
           title={t('aiWorkspaces.resetApiKey')}
           href={navHref('/ai/workspaces/form', { id: item.id, reset: '1' })}

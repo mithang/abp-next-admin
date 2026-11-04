@@ -8,6 +8,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSpacer } from '../../components/ui/AppSpacer';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getTextTemplateDefinitions } from '../../features/text-templating/text-templating-api';
 import type { TextTemplateDefinitionDto } from '../../features/text-templating/types';
@@ -23,8 +24,8 @@ function DefinitionRow({ item }: { item: TextTemplateDefinitionDto }) {
       <AppRowCard>
         <Text>{item.displayName}</Text>
         <Text>{item.name}</Text>
-        {item.isStatic ? <Text>static</Text> : null}
-        {item.isLayout ? <Text>layout</Text> : null}
+        <AppOptionalText show={item.isStatic} value="static" />
+        <AppOptionalText show={item.isLayout} value="layout" />
       </AppRowCard>
     </Link>
   );

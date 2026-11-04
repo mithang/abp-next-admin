@@ -10,6 +10,7 @@ import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { AppSectionCard } from '../../../components/ui/AppSectionCard';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { mutationErrorElement } from '../../../lib/mutation-error';
@@ -93,7 +94,7 @@ export default function DataDetailScreen() {
                 {dataItem.defaultValue ? ` · ${dataItem.defaultValue}` : ''}
                 {dataItem.allowBeNull ? '' : ` · ${t('platformDataItems.notNull')}`}
               </Text>
-              {dataItem.description ? <Text>{dataItem.description}</Text> : null}
+              <AppOptionalText value={dataItem.description} />
               <AppNavButton
                 title={t('platformDataItems.editTitle')}
                 href={navHref('/platform/data-dictionaries/items/form', {

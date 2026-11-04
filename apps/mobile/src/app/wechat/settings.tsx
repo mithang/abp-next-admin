@@ -10,6 +10,7 @@ import { AppInput } from '../../components/ui/AppInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppEmptyState } from '../../components/ui/AppStates';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { queryStateElement } from '../../lib/query-state';
 import { stateErrorElement } from '../../lib/state-error';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -151,7 +152,7 @@ export default function WechatSettingsScreen() {
             value={current.toLowerCase() === 'true'}
             onValueChange={(value) => setValue(value ? 'true' : 'false')}
           />
-          {detail.description ? <Text>{detail.description}</Text> : null}
+          <AppOptionalText value={detail.description} />
         </AppSectionCard>
       );
     }
@@ -217,7 +218,10 @@ export default function WechatSettingsScreen() {
           }}
         />
       </AppButtonRow>
-      {tenantAvailable === false ? <Text>{t('wechatSettings.scopeTenantUnavailable')}</Text> : null}
+      <AppOptionalText
+        show={tenantAvailable === false}
+        value={t('wechatSettings.scopeTenantUnavailable')}
+      />
       <FlatList
         data={flatten(groups)}
         keyExtractor={(row) => row.key}
@@ -228,7 +232,7 @@ export default function WechatSettingsScreen() {
         }}
         {...listRefreshProps(query)}
       />
-      {saved ? <Text>{t('wechatSettings.saved')}</Text> : null}
+      <AppOptionalText show={saved} value={t('wechatSettings.saved')} />
       {stateErrorElement(saveError)}
       <AppButton
         title={t('common.save')}

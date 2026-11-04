@@ -12,6 +12,7 @@ import { AppEmptyState } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppTreeRowCard } from '../../components/ui/AppTreeRowCard';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -86,7 +87,7 @@ function FavoriteRow({
         {item.name} · {item.path}
         {item.framework ? ` · ${item.framework}` : ''}
       </Text>
-      {item.icon ? <Text>{item.icon}</Text> : null}
+      <AppOptionalText value={item.icon} />
       <AppButtonRow>
         <AppButton
           title={t('menuFavorites.edit')}
@@ -220,7 +221,7 @@ function AddFavoriteForm({
         autoCapitalize="none"
       />
       {stateErrorElement(formError)}
-      {formMessage ? <Text>{formMessage}</Text> : null}
+      <AppOptionalText value={formMessage} />
       <AppButton
         title={t('menuFavorites.create')}
         onPress={() => mutation.mutate()}

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { impersonationErrorText } from '../../../features/auth/impersonation';
@@ -69,7 +70,7 @@ export default function TenantImpersonateScreen() {
           onPress={() => void handleSubmit()}
           testID="tenant-impersonate-submit"
         />
-        {error ? <Text>{error}</Text> : null}
+        <AppOptionalText value={error} />
       </VStack>
     </AppScreen>
   );

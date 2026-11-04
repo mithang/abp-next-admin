@@ -5,10 +5,10 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteFeatureGroup, getFeatureGroup } from '../../../features/features/feature-groups-api';
 import { navHref } from '../../../lib/nav-href';
 
@@ -32,7 +32,7 @@ export default function FeatureGroupDetailScreen() {
       <VStack space="sm">
         <AppDetailField label={t('featureGroups.name')} value={item.name} />
         <AppDetailField label={t('featureGroups.displayName')} value={item.displayName} />
-        {item.isStatic ? <Text>{t('featureGroups.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={t('featureGroups.static')} />
         {!item.isStatic ? (
           <>
             <AppNavButton

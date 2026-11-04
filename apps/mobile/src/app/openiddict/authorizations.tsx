@@ -6,8 +6,8 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
-import { Text } from '@/components/ui/text';
 import { AppBadge } from '../../components/ui/AppBadge';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { getAuthorizationsPaged } from '../../features/openiddict/authorizations-api';
 import type { OpenIddictAuthorizationDto } from '../../features/openiddict/types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -24,7 +24,7 @@ function AuthorizationRow({ item }: { item: OpenIddictAuthorizationDto }) {
   return (
     <Link href={navPath('/openiddict/authorizations', item.id)} asChild>
       <AppRowCard>
-        {item.subject ? <Text>{item.subject}</Text> : null}
+        <AppOptionalText value={item.subject} />
         {item.type ? <AppBadge label={item.type} /> : null}
         {item.status ? <AppBadge label={item.status} /> : null}
       </AppRowCard>

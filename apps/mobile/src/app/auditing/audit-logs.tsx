@@ -7,6 +7,7 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getAuditLogsPaged } from '../../features/auditing/auditing-api';
 import type { AuditLogDto } from '../../features/auditing/types';
@@ -24,8 +25,8 @@ function AuditLogRow({ item }: { item: AuditLogDto }) {
         <Text>
           {item.httpMethod ?? ''} {item.httpStatusCode ?? ''} {item.url ?? item.id}
         </Text>
-        {item.userName ? <Text>{item.userName}</Text> : null}
-        {item.executionTime ? <Text>{formatDateTime(item.executionTime)}</Text> : null}
+        <AppOptionalText value={item.userName} />
+        <AppOptionalText value={formatDateTime(item.executionTime)} />
         {item.executionDuration !== undefined ? (
           <Text>{`${item.executionDuration} ms`}</Text>
         ) : null}

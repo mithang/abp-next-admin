@@ -5,10 +5,10 @@ import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deletePermissionGroup,
   getPermissionGroup,
@@ -35,7 +35,7 @@ export default function PermissionGroupDetailScreen() {
       <VStack space="sm">
         <AppDetailField label={t('permissionGroups.name')} value={item.name} />
         <AppDetailField label={t('permissionGroups.displayName')} value={item.displayName} />
-        {item.isStatic ? <Text>{t('permissionGroups.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={t('permissionGroups.static')} />
         <AppNavButton
           title={t('permissionGroups.editTitle')}
           href={navHref('/permissions/groups/form', { name: item.name })}

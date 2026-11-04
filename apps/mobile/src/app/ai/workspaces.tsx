@@ -8,6 +8,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getWorkspacesPaged } from '../../features/ai/ai-api';
 import type { WorkspaceDefinitionRecordDto } from '../../features/ai/types';
@@ -29,7 +30,7 @@ function WorkspaceRow({ item }: { item: WorkspaceDefinitionRecordDto }) {
           {item.isStatic ? ` · ${t('aiWorkspaces.static')}` : ''}
           {item.isSystem ? ` · ${t('aiWorkspaces.system')}` : ''}
         </Text>
-        {item.description ? <Text>{item.description}</Text> : null}
+        <AppOptionalText value={item.description} />
       </AppRowCard>
     </Link>
   );

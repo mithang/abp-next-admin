@@ -3,6 +3,7 @@ import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
 import { AppDetailField } from '../../../components/ui/AppDetailField';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
@@ -50,7 +51,7 @@ export default function EntityTypeInfoDetailScreen() {
             ))}
           </VStack>
         ))}
-        {(item.properties ?? []).length === 0 ? <Text>{t('common.empty')}</Text> : null}
+        <AppOptionalText show={(item.properties ?? []).length === 0} value={t('common.empty')} />
       </VStack>
     </AppScreen>
   );

@@ -7,6 +7,7 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getSysLogsPaged } from '../../features/auditing/auditing-api';
 import { logLevelName, type LogDto } from '../../features/auditing/types';
@@ -24,9 +25,9 @@ function SysLogRow({ item }: { item: LogDto }) {
         <Text>
           {logLevelName(item.level)}: {item.message ?? ''}
         </Text>
-        {item.timeStamp ? <Text>{formatDateTime(item.timeStamp)}</Text> : null}
-        {item.fields?.requestPath ? <Text>{item.fields.requestPath}</Text> : null}
-        {item.fields?.application ? <Text>{item.fields.application}</Text> : null}
+        <AppOptionalText value={formatDateTime(item.timeStamp)} />
+        <AppOptionalText value={item.fields?.requestPath} />
+        <AppOptionalText value={item.fields?.application} />
       </AppRowCard>
     </Link>
   );

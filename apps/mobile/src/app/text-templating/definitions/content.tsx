@@ -9,6 +9,7 @@ import { AppInput } from '../../../components/ui/AppInput';
 import { AppSelect } from '../../../components/ui/AppSelect';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppErrorState, AppLoading } from '../../../components/ui/AppStates';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import {
@@ -118,7 +119,7 @@ export default function TextTemplateContentScreen() {
         <Text>
           {t('textTemplateDefinitions.name')}: {name}
         </Text>
-        {languagesQuery.isPending ? <Text>{t('common.loading')}</Text> : null}
+        <AppOptionalText show={languagesQuery.isPending} value={t('common.loading')} />
         {languagesQuery.isError ? (
           <Text>{t('textTemplateDefinitions.cultureListLoadFailed')}</Text>
         ) : null}
@@ -157,8 +158,8 @@ export default function TextTemplateContentScreen() {
           autoCapitalize="none"
           testID="text-template-content-body"
         />
-        {message ? <Text>{message}</Text> : null}
-        {error ? <Text>{error}</Text> : null}
+        <AppOptionalText value={message} />
+        <AppOptionalText value={error} />
         <AppButton
           title={t('common.save')}
           loading={saveMutation.isPending}

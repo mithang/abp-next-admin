@@ -7,8 +7,8 @@ import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { AppBadge } from '../../components/ui/AppBadge';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { deleteRole, getRole } from '../../features/identity/roles-api';
 import { roleFlags } from '../../features/identity/roles-types';
 import { navHref } from '../../lib/nav-href';
@@ -36,7 +36,7 @@ export default function RoleDetailScreen() {
         {roleFlags(role).map((flag) => (
           <AppBadge key={flag} label={flagLabels[flag]} />
         ))}
-        {roleFlags(role).length === 0 ? <Text>{t('roles.noFlags')}</Text> : null}
+        <AppOptionalText show={roleFlags(role).length === 0} value={t('roles.noFlags')} />
         <AppNavButton
           title={t('roles.editTitle')}
           href={navHref('/roles/form', { id: role.id })}

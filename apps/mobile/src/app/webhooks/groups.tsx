@@ -8,6 +8,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSpacer } from '../../components/ui/AppSpacer';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getWebhookGroupDefinitions } from '../../features/webhooks/webhooks-api';
 import type { WebhookGroupDefinitionDto } from '../../features/webhooks/types';
@@ -23,7 +24,7 @@ function GroupRow({ item }: { item: WebhookGroupDefinitionDto }) {
       <AppRowCard>
         <Text>{item.displayName}</Text>
         <Text>{item.name}</Text>
-        {item.isStatic ? <Text>static</Text> : null}
+        <AppOptionalText show={item.isStatic} value="static" />
       </AppRowCard>
     </Link>
   );

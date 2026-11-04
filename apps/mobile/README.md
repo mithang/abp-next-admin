@@ -45,6 +45,22 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 76
+
+Vòng P3 gộp họ dòng Text có điều kiện còn sót về component
+dùng chung `AppOptionalText` (props `value` + `show` tùy chọn,
+mặc định `show = Boolean(value)`): 68 điểm trong 46 màn — mô tả
+tùy chọn, ngày đã format, nhãn cờ "· static", thông báo
+lưu/thành công và dòng lỗi chuỗi — kèm 3 khối nhãn:giá trị
+nhiều dòng của màn phiên (client, ipAddresses, lastAccessed)
+về `AppDetailField` có sẵn. Cố tình giữ nguyên: dòng rẽ nhánh
+`kind === 'group' ? <Text>…</Text> : renderFeature(…)` ở tenant
+features (không phải fallback null), các dòng Text trong chính
+các component dùng chung (subtitle của AppScreen, nhãn của
+AppSelect, lỗi của AppFormSubmit/AppDeleteButton) và dòng
+signedIn không điều kiện ở sessions. Jest 479/479 (+7 test
+mới), i18n 1463/1463, format/typecheck/lint/expo config PASS.
+
 ## Trạng thái vòng 75
 
 Vòng P3 gộp 3 họ layout nhỏ còn sót từ vòng 74 thành component

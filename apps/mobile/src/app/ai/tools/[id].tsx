@@ -6,10 +6,10 @@ import { AppDetailField } from '../../../components/ui/AppDetailField';
 
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteAITool, getAITool } from '../../../features/ai/ai-api';
 import { isReadOnlyTool } from '../../../features/ai/types';
 import { navHref } from '../../../lib/nav-href';
@@ -43,8 +43,8 @@ export default function AIToolDetailScreen() {
           label={t('aiTools.global')}
           value={item.isGlobal ? t('aiTools.yes') : t('aiTools.no')}
         />
-        {item.isSystem ? <Text>· {t('aiTools.system')}</Text> : null}
-        {item.isStatic ? <Text>· {t('aiTools.static')}</Text> : null}
+        <AppOptionalText show={item.isSystem} value={`· ${t('aiTools.system')}`} />
+        <AppOptionalText show={item.isStatic} value={`· ${t('aiTools.static')}`} />
         <AppDetailField label={t('aiTools.stateCheckers')} value={item.stateCheckers} />
         {item.extraProperties && Object.keys(item.extraProperties).length > 0 ? (
           <AppDetailField
@@ -52,7 +52,7 @@ export default function AIToolDetailScreen() {
             value={JSON.stringify(item.extraProperties)}
           />
         ) : null}
-        {readOnly ? <Text>{t('aiTools.readOnlyHint')}</Text> : null}
+        <AppOptionalText show={readOnly} value={t('aiTools.readOnlyHint')} />
         {!readOnly ? (
           <>
             <AppNavButton

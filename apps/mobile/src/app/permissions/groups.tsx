@@ -7,6 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getPermissionGroups } from '../../features/permissions/permission-groups-api';
 import type { PermissionGroupDefinitionDto } from '../../features/permissions/types';
@@ -23,7 +24,7 @@ function GroupRow({ item }: { item: PermissionGroupDefinitionDto }) {
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.name}</Text>
-        {item.isStatic ? <Text>· {t('permissionGroups.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={`· ${t('permissionGroups.static')}`} />
       </AppRowCard>
     </Link>
   );

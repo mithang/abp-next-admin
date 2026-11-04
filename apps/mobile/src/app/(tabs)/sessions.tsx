@@ -6,6 +6,8 @@ import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
+import { AppDetailField } from '../../components/ui/AppDetailField';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getSessionsPaged, revokeSession } from '../../features/identity/sessions-api';
 import type { IdentitySessionDto } from '../../features/identity/sessions';
@@ -31,25 +33,16 @@ function SessionRow({ item }: { item: IdentitySessionDto }) {
   return (
     <AppSectionCard>
       <Text>{item.device}</Text>
-      {item.deviceInfo ? <Text>{item.deviceInfo}</Text> : null}
-      {item.clientId ? (
-        <Text>
-          {t('sessions.client')}: {item.clientId}
-        </Text>
-      ) : null}
-      {item.ipAddresses ? (
-        <Text>
-          {t('sessions.ipAddresses')}: {item.ipAddresses}
-        </Text>
-      ) : null}
+      <AppOptionalText value={item.deviceInfo} />
+      <AppDetailField label={t('sessions.client')} value={item.clientId} />
+      <AppDetailField label={t('sessions.ipAddresses')} value={item.ipAddresses} />
       <Text>
         {t('sessions.signedIn')}: {formatDateTime(item.signedIn)}
       </Text>
-      {item.lastAccessed ? (
-        <Text>
-          {t('sessions.lastAccessed')}: {formatDateTime(item.lastAccessed)}
-        </Text>
-      ) : null}
+      <AppDetailField
+        label={t('sessions.lastAccessed')}
+        value={formatDateTime(item.lastAccessed)}
+      />
       <AppButton
         title={t('sessions.revoke')}
         action="negative"

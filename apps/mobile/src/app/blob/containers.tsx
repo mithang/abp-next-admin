@@ -8,6 +8,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSpacer } from '../../components/ui/AppSpacer';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
@@ -23,7 +24,7 @@ function ContainerRow({ item }: { item: BlobContainerDto }) {
     <Link href={navPath('/blob/containers', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
-        {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
+        <AppOptionalText value={formatDateTime(item.creationTime)} />
       </AppRowCard>
     </Link>
   );

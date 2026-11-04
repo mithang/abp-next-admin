@@ -3,6 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { config } from '../../lib/config';
@@ -39,7 +40,7 @@ export default function ApiDocsScreen() {
           onPress={() => void openDocs()}
           testID="api-docs-open"
         />
-        {error ? <Text>{error}</Text> : null}
+        <AppOptionalText value={error} />
       </VStack>
     </AppScreen>
   );

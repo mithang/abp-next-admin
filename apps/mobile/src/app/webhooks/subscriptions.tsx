@@ -11,6 +11,7 @@ import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { AppSpacer } from '../../components/ui/AppSpacer';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import {
   bulkDeleteWebhookSubscriptions,
@@ -43,7 +44,7 @@ function SubscriptionRow({
         {item.webhookUri}
       </Text>
       <Text>{item.isActive ? 'active' : 'inactive'}</Text>
-      {item.description ? <Text>{item.description}</Text> : null}
+      <AppOptionalText value={item.description} />
       <Text>{item.webhooks.join(', ')}</Text>
     </AppSectionCard>
   );

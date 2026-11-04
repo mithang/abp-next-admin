@@ -6,10 +6,10 @@ import { AppDetailField } from '../../../components/ui/AppDetailField';
 
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteNotificationGroup,
   getNotificationGroup,
@@ -34,7 +34,7 @@ export default function NotificationGroupDetailScreen() {
           label={t('notificationGroups.allowSubscriptionToClients')}
           value={item.allowSubscriptionToClients ? t('featureGroups.yes') : t('featureGroups.no')}
         />
-        {item.isStatic ? <Text>· {t('notificationGroups.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={`· ${t('notificationGroups.static')}`} />
         {!item.isStatic ? (
           <>
             <AppNavButton

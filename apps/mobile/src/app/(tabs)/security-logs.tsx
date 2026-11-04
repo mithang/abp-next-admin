@@ -6,6 +6,7 @@ import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getSecurityLogsPaged } from '../../features/identity/security-logs-api';
 import type { SecurityLogDto } from '../../features/identity/security-logs';
@@ -21,9 +22,9 @@ function SecurityLogRow({ item }: { item: SecurityLogDto }) {
     <Link href={navPath('/security-logs', item.id)} asChild>
       <AppRowCard>
         <Text>{item.userName ?? item.identity ?? item.id}</Text>
-        {item.action ? <Text>{item.action}</Text> : null}
-        {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
-        {item.clientIpAddress ? <Text>{item.clientIpAddress}</Text> : null}
+        <AppOptionalText value={item.action} />
+        <AppOptionalText value={formatDateTime(item.creationTime)} />
+        <AppOptionalText value={item.clientIpAddress} />
       </AppRowCard>
     </Link>
   );

@@ -11,6 +11,7 @@ import { AppFormInput } from '../../../components/ui/AppFormInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { AppSectionCard } from '../../../components/ui/AppSectionCard';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { listRefreshProps } from '../../../lib/list-refresh';
@@ -199,7 +200,7 @@ export default function TenantConnectionStringsScreen() {
           secureTextEntry
           fieldError={fieldError}
         />
-        {checkResult ? <Text>{checkResult}</Text> : null}
+        <AppOptionalText value={checkResult} />
         {stateErrorElement(checkError)}
         <AppButton
           title={t('saasConnectionStrings.check')}

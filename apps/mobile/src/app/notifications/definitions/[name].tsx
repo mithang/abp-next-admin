@@ -6,10 +6,10 @@ import { AppDetailField } from '../../../components/ui/AppDetailField';
 
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteNotificationDefinition,
   getNotificationDefinition,
@@ -59,7 +59,7 @@ export default function NotificationDefinitionDetailScreen() {
           />
         ) : null}
         <AppDetailField label={t('notificationDefinitions.template')} value={item.template} />
-        {item.isStatic ? <Text>· {t('notificationDefinitions.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={`· ${t('notificationDefinitions.static')}`} />
         <AppNavButton
           title={t('notificationDefinitions.send')}
           href={navHref('/notifications/definitions/send', { name: item.name })}

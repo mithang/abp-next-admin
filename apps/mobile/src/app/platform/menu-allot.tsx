@@ -12,6 +12,7 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppEmptyState, AppErrorState, AppLoading } from '../../components/ui/AppStates';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -168,7 +169,7 @@ function AllotEditor({
           );
         }}
       />
-      {saveMessage ? <Text>{saveMessage}</Text> : null}
+      <AppOptionalText value={saveMessage} />
       {stateErrorElement(saveError)}
       <AppButton
         title={t('menuAllot.save')}

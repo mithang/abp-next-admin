@@ -9,6 +9,7 @@ import { AppInput } from '../../components/ui/AppInput';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppTreeRowCard } from '../../components/ui/AppTreeRowCard';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getLayoutsPaged, getMenusAll } from '../../features/platform/platform-api';
@@ -59,7 +60,7 @@ function MenuRow({ item, depth }: { item: MenuDto; depth: number }) {
           <Text>
             {item.name} · {item.path} · {item.component}
           </Text>
-          {item.isPublic ? <Text>Public</Text> : null}
+          <AppOptionalText show={item.isPublic} value="Public" />
         </VStack>
       </AppTreeRowCard>
     </Link>

@@ -11,6 +11,7 @@ import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
 import { AppSpacer } from '../../components/ui/AppSpacer';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import {
   bulkDeleteBackgroundJobs,
@@ -64,7 +65,7 @@ function JobRow({
         {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
         {item.isEnabled ? '' : ' · disabled'}
       </Text>
-      {item.nextRunTime ? <Text>{formatDateTime(item.nextRunTime)}</Text> : null}
+      <AppOptionalText value={formatDateTime(item.nextRunTime)} />
     </AppSectionCard>
   );
   if (selectMode) {

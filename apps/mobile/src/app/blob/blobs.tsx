@@ -10,6 +10,7 @@ import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSpacer } from '../../components/ui/AppSpacer';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import {
@@ -157,7 +158,7 @@ export default function BlobsScreen() {
         loading={uploadMutation.isPending}
         testID="blob-blobs-upload"
       />
-      {uploadMutation.isSuccess ? <Text>{t('blobBlobs.uploaded')}</Text> : null}
+      <AppOptionalText show={uploadMutation.isSuccess} value={t('blobBlobs.uploaded')} />
       {mutationErrorElement(uploadMutation)}
       <AppSpacer />
       <AppList

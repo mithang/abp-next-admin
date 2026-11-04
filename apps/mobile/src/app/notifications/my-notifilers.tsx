@@ -8,6 +8,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { getMyNotificationsPaged } from '../../features/notifications/notifications-api';
@@ -35,7 +36,7 @@ function MyNotificationRow({ item }: { item: UserNotificationDto }) {
         <Text>
           {severityName(item.severity)} · {readStateName(item.state)}
         </Text>
-        {item.creationTime ? <Text>{formatDateTime(item.creationTime)}</Text> : null}
+        <AppOptionalText value={formatDateTime(item.creationTime)} />
         {item.state === NotificationReadState.UnRead ? (
           <Text>{t('myNotifications.markRead')}</Text>
         ) : null}

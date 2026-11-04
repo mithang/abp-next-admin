@@ -7,6 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getScopesPaged } from '../../features/openiddict/scopes-api';
 import type { OpenIddictScopeDto } from '../../features/openiddict/types';
@@ -22,7 +23,7 @@ function ScopeRow({ item }: { item: OpenIddictScopeDto }) {
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.name}</Text>
-        {item.description ? <Text>{item.description}</Text> : null}
+        <AppOptionalText value={item.description} />
       </AppRowCard>
     </Link>
   );

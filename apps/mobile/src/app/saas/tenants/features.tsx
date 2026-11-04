@@ -11,6 +11,7 @@ import { AppInput } from '../../../components/ui/AppInput';
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppEmptyState } from '../../../components/ui/AppStates';
 import { AppSectionCard } from '../../../components/ui/AppSectionCard';
+import { AppOptionalText } from '../../../components/ui/AppOptionalText';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { Text } from '@/components/ui/text';
@@ -131,7 +132,7 @@ export default function TenantFeaturesScreen() {
             value={current === 'true'}
             onValueChange={(value) => setValue(value ? 'true' : 'false')}
           />
-          {feature.description ? <Text>{feature.description}</Text> : null}
+          <AppOptionalText value={feature.description} />
         </AppSectionCard>
       );
     }
@@ -140,7 +141,7 @@ export default function TenantFeaturesScreen() {
       return (
         <AppSectionCard>
           <Text>{feature.displayName}</Text>
-          {feature.description ? <Text>{feature.description}</Text> : null}
+          <AppOptionalText value={feature.description} />
           {items.map((item) => (
             <AppButton
               key={item.value}
@@ -150,7 +151,7 @@ export default function TenantFeaturesScreen() {
               testID={`tenant-feature-option-${feature.name}-${item.value}`}
             />
           ))}
-          {error ? <Text>{error}</Text> : null}
+          <AppOptionalText value={error} />
         </AppSectionCard>
       );
     }
@@ -166,7 +167,7 @@ export default function TenantFeaturesScreen() {
           error={error}
           testID={`tenant-feature-${feature.name}`}
         />
-        {feature.description ? <Text>{feature.description}</Text> : null}
+        <AppOptionalText value={feature.description} />
       </AppSectionCard>
     );
   };
@@ -196,7 +197,7 @@ export default function TenantFeaturesScreen() {
         }
         testID="tenant-feature-reset"
       />
-      {saved ? <Text>{t('tenantFeatures.saved')}</Text> : null}
+      <AppOptionalText show={saved} value={t('tenantFeatures.saved')} />
       {stateErrorElement(saveError)}
       <FlatList
         data={rows}

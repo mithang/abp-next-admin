@@ -9,8 +9,8 @@ import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { AppBadge } from '../../components/ui/AppBadge';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { deleteClaimType, getClaimType } from '../../features/identity/claim-types-api';
 import { valueTypeKey } from '../../features/identity/claim-types';
 import { navHref } from '../../lib/nav-href';
@@ -29,13 +29,13 @@ export default function ClaimTypeDetailScreen() {
   return (
     <AppScreen scrollable title={item.name} subtitle={item.id}>
       <VStack space="sm">
-        {item.description ? <Text>{item.description}</Text> : null}
+        <AppOptionalText value={item.description} />
         <AppDetailField
           label={t('claimTypes.valueTypeLabel')}
           value={t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)}
         />
         <AppDetailField label={t('claimTypes.regex')} value={item.regex} />
-        {item.regexDescription ? <Text>{item.regexDescription}</Text> : null}
+        <AppOptionalText value={item.regexDescription} />
         <AppBadge
           label={
             <>

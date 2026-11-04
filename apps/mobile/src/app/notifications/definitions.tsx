@@ -8,6 +8,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getNotificationDefinitions } from '../../features/notifications/notifications-api';
 import type { NotificationDefinitionDto } from '../../features/notifications/types';
@@ -27,7 +28,7 @@ function DefinitionRow({ item }: { item: NotificationDefinitionDto }) {
         <Text>
           {item.name} · {notificationTypeName(item.notificationType)}
         </Text>
-        {item.isStatic ? <Text>· {t('notificationDefinitions.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={`· ${t('notificationDefinitions.static')}`} />
       </AppRowCard>
     </Link>
   );

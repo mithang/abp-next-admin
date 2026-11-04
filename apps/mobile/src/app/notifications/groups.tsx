@@ -7,6 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { Text } from '@/components/ui/text';
 import { getNotificationGroups } from '../../features/notifications/notifications-api';
 import type { NotificationGroupDefinitionDto } from '../../features/notifications/types';
@@ -23,7 +24,7 @@ function GroupRow({ item }: { item: NotificationGroupDefinitionDto }) {
       <AppRowCard>
         <Text>{item.displayName || item.name}</Text>
         <Text>{item.name}</Text>
-        {item.isStatic ? <Text>· {t('notificationGroups.static')}</Text> : null}
+        <AppOptionalText show={item.isStatic} value={`· ${t('notificationGroups.static')}`} />
       </AppRowCard>
     </Link>
   );

@@ -9,6 +9,7 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { Text } from '@/components/ui/text';
 import { AppBadge } from '../../components/ui/AppBadge';
+import { AppOptionalText } from '../../components/ui/AppOptionalText';
 import { getClaimTypesPaged } from '../../features/identity/claim-types-api';
 import { valueTypeKey, type IdentityClaimTypeDto } from '../../features/identity/claim-types';
 import { listRefreshProps } from '../../lib/list-refresh';
@@ -23,7 +24,7 @@ function ClaimTypeRow({ item }: { item: IdentityClaimTypeDto }) {
     <Link href={navPath('/claim-types', item.id)} asChild>
       <AppRowCard>
         <Text>{item.name}</Text>
-        {item.description ? <Text>{item.description}</Text> : null}
+        <AppOptionalText value={item.description} />
         <AppBadge label={t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)} />
         {item.required ? <AppBadge label={t('claimTypes.required')} /> : null}
         {item.isStatic ? <AppBadge label={t('claimTypes.static')} /> : null}
