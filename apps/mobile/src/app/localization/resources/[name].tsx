@@ -8,7 +8,6 @@ import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteResource, getResource } from '../../../features/localization/localization-api';
 import { navHref } from '../../../lib/nav-href';
 
@@ -31,9 +30,10 @@ export default function ResourceDetailScreen() {
         <AppDetailField label={t('resources.displayName')} value={item.displayName} />
         <AppDetailField label={t('resources.description')} value={item.description} />
         <AppDetailField label={t('resources.defaultCultureName')} value={item.defaultCultureName} />
-        <Text>
-          {t('resources.enable')}: {item.enable ? t('resources.enabled') : t('resources.disabled')}
-        </Text>
+        <AppDetailField
+          label={t('resources.enable')}
+          value={item.enable ? t('resources.enabled') : t('resources.disabled')}
+        />
         <AppDetailField label={t('resources.creationTime')} value={item.creationTime} />
         <AppNavButton
           title={t('resources.editTitle')}

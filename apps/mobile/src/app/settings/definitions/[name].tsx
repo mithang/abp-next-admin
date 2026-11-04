@@ -42,18 +42,18 @@ export default function SettingDefinitionDetailScreen() {
           label={t('settingDefinitions.providers')}
           value={item.providers?.join(', ')}
         />
-        <Text>
-          {t('settingDefinitions.isEncrypted')}:{' '}
-          {item.isEncrypted ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
-        </Text>
-        <Text>
-          {t('settingDefinitions.isInherited')}:{' '}
-          {item.isInherited ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
-        </Text>
-        <Text>
-          {t('settingDefinitions.isVisibleToClients')}:{' '}
-          {item.isVisibleToClients ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
-        </Text>
+        <AppDetailField
+          label={t('settingDefinitions.isEncrypted')}
+          value={item.isEncrypted ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
+        />
+        <AppDetailField
+          label={t('settingDefinitions.isInherited')}
+          value={item.isInherited ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
+        />
+        <AppDetailField
+          label={t('settingDefinitions.isVisibleToClients')}
+          value={item.isVisibleToClients ? t('settingDefinitions.yes') : t('settingDefinitions.no')}
+        />
         {item.isStatic ? <Text>{t('settingDefinitions.static')}</Text> : null}
         {!item.isStatic ? (
           <>

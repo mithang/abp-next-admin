@@ -5,6 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppDetailField } from '../../components/ui/AppDetailField';
+
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { notFoundElement } from '../../lib/not-found';
@@ -55,20 +57,10 @@ export default function UserDetailScreen() {
   return (
     <AppScreen scrollable title={displayName(user)} subtitle={user.userName}>
       <VStack space="sm">
-        <Text>
-          {t('account.email')}: {user.email}
-        </Text>
-        {user.phoneNumber ? (
-          <Text>
-            {t('account.phone')}: {user.phoneNumber}
-          </Text>
-        ) : null}
-        <Text>
-          {t('users.active')}: {user.isActive ? '✓' : '—'}
-        </Text>
-        <Text>
-          {t('users.emailConfirmed')}: {user.emailConfirmed ? '✓' : '—'}
-        </Text>
+        <AppDetailField label={t('account.email')} value={user.email} />
+        <AppDetailField label={t('account.phone')} value={user.phoneNumber} />
+        <AppDetailField label={t('users.active')} value={user.isActive ? '✓' : '—'} />
+        <AppDetailField label={t('users.emailConfirmed')} value={user.emailConfirmed ? '✓' : '—'} />
         <Text>{user.roleNames.join(', ')}</Text>
         <AppNavButton
           title={t('menuAllot.title')}

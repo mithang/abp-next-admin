@@ -2,12 +2,13 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteBlobContainer, getBlobContainer } from '../../../features/blob/blob-api';
 import { formatDateTime } from '../../../lib/dates';
 import { navHref } from '../../../lib/nav-href';
@@ -31,16 +32,16 @@ export default function BlobContainerDetailScreen() {
   return (
     <AppScreen scrollable title={item.name}>
       <VStack space="sm">
-        <Text>
-          {t('blobContainers.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('blobContainers.concurrencyStamp')}: {item.concurrencyStamp}
-        </Text>
+        <AppDetailField label={t('blobContainers.name')} value={item.name} />
+        <AppDetailField
+          label={t('blobContainers.concurrencyStamp')}
+          value={item.concurrencyStamp}
+        />
         {item.creationTime ? (
-          <Text>
-            {t('blobContainers.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('blobContainers.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
         <AppNavButton
           title={t('blobContainers.viewBlobs')}

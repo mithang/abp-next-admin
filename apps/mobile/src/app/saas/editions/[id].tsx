@@ -2,12 +2,13 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteEdition, getEdition } from '../../../features/saas/saas-api';
 import { navHref } from '../../../lib/nav-href';
 
@@ -25,15 +26,12 @@ export default function EditionDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
-        {item.creationTime ? (
-          <Text>
-            {t('saasEditions.creationTime')}: {item.creationTime}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('saasEditions.creationTime')} value={item.creationTime} />
         {item.extraProperties && Object.keys(item.extraProperties).length > 0 ? (
-          <Text>
-            {t('saasEditions.extraProperties')}: {JSON.stringify(item.extraProperties)}
-          </Text>
+          <AppDetailField
+            label={t('saasEditions.extraProperties')}
+            value={JSON.stringify(item.extraProperties)}
+          />
         ) : null}
         <AppNavButton
           title={t('saasEditions.editTitle')}

@@ -3,13 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteWebhookGroupDefinition,
   getWebhookGroupDefinition,
@@ -45,15 +46,12 @@ export default function WebhookGroupDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
-        <Text>
-          {t('webhookGroups.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('webhookGroups.displayName')}: {item.displayName}
-        </Text>
-        <Text>
-          {t('webhookGroups.isStatic')}: {item.isStatic ? t('common.yes') : t('common.no')}
-        </Text>
+        <AppDetailField label={t('webhookGroups.name')} value={item.name} />
+        <AppDetailField label={t('webhookGroups.displayName')} value={item.displayName} />
+        <AppDetailField
+          label={t('webhookGroups.isStatic')}
+          value={item.isStatic ? t('common.yes') : t('common.no')}
+        />
         {item.isStatic ? null : (
           <>
             <AppNavButton

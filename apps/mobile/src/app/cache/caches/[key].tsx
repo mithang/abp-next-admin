@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
@@ -47,16 +49,10 @@ export default function CacheValueDetailScreen() {
   return (
     <AppScreen scrollable title={key as string} subtitle={t('caches.detailSubtitle')}>
       <VStack space="sm">
-        <Text>
-          {t('caches.type')}: {item.type}
-        </Text>
-        <Text>
-          {t('caches.size')}: {item.size}
-        </Text>
+        <AppDetailField label={t('caches.type')} value={item.type} />
+        <AppDetailField label={t('caches.size')} value={item.size} />
         {item.expiration ? (
-          <Text>
-            {t('caches.expiration')}: {formatDateTime(item.expiration)}
-          </Text>
+          <AppDetailField label={t('caches.expiration')} value={formatDateTime(item.expiration)} />
         ) : null}
         <Text>{JSON.stringify(item.values, null, 2)}</Text>
         <AppButton

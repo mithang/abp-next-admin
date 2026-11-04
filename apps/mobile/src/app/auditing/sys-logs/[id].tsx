@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -28,68 +30,26 @@ export default function SysLogDetailScreen() {
       subtitle={formatDateTime(item.timeStamp)}
     >
       <VStack space="sm">
-        {item.message ? (
-          <Text>
-            {t('sysLogs.message')}: {item.message}
-          </Text>
-        ) : null}
-        {fields.application ? (
-          <Text>
-            {t('sysLogs.application')}: {fields.application}
-          </Text>
-        ) : null}
-        {fields.machineName ? (
-          <Text>
-            {t('sysLogs.machine')}: {fields.machineName}
-          </Text>
-        ) : null}
-        {fields.environment ? (
-          <Text>
-            {t('sysLogs.environment')}: {fields.environment}
-          </Text>
-        ) : null}
-        {fields.requestPath ? (
-          <Text>
-            {t('sysLogs.requestPath')}: {fields.requestPath}
-          </Text>
-        ) : null}
-        {fields.requestId ? (
-          <Text>
-            {t('sysLogs.requestId')}: {fields.requestId}
-          </Text>
-        ) : null}
-        {fields.connectionId ? (
-          <Text>
-            {t('sysLogs.connectionId')}: {fields.connectionId}
-          </Text>
-        ) : null}
-        {fields.correlationId ? (
-          <Text>
-            {t('sysLogs.correlation')}: {fields.correlationId}
-          </Text>
-        ) : null}
-        {fields.clientId ? (
-          <Text>
-            {t('sysLogs.client')}: {fields.clientId}
-          </Text>
-        ) : null}
-        {fields.userId ? (
-          <Text>
-            {t('sysLogs.user')}: {fields.userId}
-          </Text>
-        ) : null}
-        {fields.actionName ? (
-          <Text>
-            {t('sysLogs.action')}: {fields.actionName}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('sysLogs.message')} value={item.message} />
+        <AppDetailField label={t('sysLogs.application')} value={fields.application} />
+        <AppDetailField label={t('sysLogs.machine')} value={fields.machineName} />
+        <AppDetailField label={t('sysLogs.environment')} value={fields.environment} />
+        <AppDetailField label={t('sysLogs.requestPath')} value={fields.requestPath} />
+        <AppDetailField label={t('sysLogs.requestId')} value={fields.requestId} />
+        <AppDetailField label={t('sysLogs.connectionId')} value={fields.connectionId} />
+        <AppDetailField label={t('sysLogs.correlation')} value={fields.correlationId} />
+        <AppDetailField label={t('sysLogs.client')} value={fields.clientId} />
+        <AppDetailField label={t('sysLogs.user')} value={fields.userId} />
+        <AppDetailField label={t('sysLogs.action')} value={fields.actionName} />
         {(item.exceptions ?? []).length > 0 ? (
           <>
             <Text>{t('sysLogs.exceptions')}:</Text>
             {(item.exceptions ?? []).map((ex, index) => (
-              <Text key={`${ex.class ?? 'ex'}-${index}`}>
-                {ex.class ?? ''}: {ex.message ?? ''}
-              </Text>
+              <AppDetailField
+                key={`${ex.class ?? 'ex'}-${index}`}
+                label={ex.class ?? ''}
+                value={ex.message ?? ''}
+              />
             ))}
           </>
         ) : null}

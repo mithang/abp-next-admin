@@ -4,6 +4,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
@@ -61,32 +63,28 @@ export default function BlobDetailScreen() {
   return (
     <AppScreen scrollable title={item.name}>
       <VStack space="sm">
-        <Text>
-          {t('blobBlobs.fullName')}: {item.fullName}
-        </Text>
+        <AppDetailField label={t('blobBlobs.fullName')} value={item.fullName} />
         <Text>
           {isFolder ? t('blobBlobs.folder') : t('blobBlobs.file')}
           {item.contentType ? ` · ${item.contentType}` : ''}
         </Text>
         {!isFolder ? (
           <>
-            <Text>
-              {t('blobBlobs.size')}: {item.size} bytes
-            </Text>
-            <Text>
-              {t('blobBlobs.downloadCount')}: {item.downloadCount}
-            </Text>
+            <AppDetailField label={t('blobBlobs.size')} value={`${item.size} bytes`} />
+            <AppDetailField label={t('blobBlobs.downloadCount')} value={item.downloadCount} />
           </>
         ) : null}
         {item.expirationTime ? (
-          <Text>
-            {t('blobBlobs.expirationTime')}: {formatDateTime(item.expirationTime)}
-          </Text>
+          <AppDetailField
+            label={t('blobBlobs.expirationTime')}
+            value={formatDateTime(item.expirationTime)}
+          />
         ) : null}
         {item.creationTime ? (
-          <Text>
-            {t('blobContainers.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('blobContainers.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
         {!isFolder ? (
           <>

@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppDetailField } from '../../components/ui/AppDetailField';
+
 import { AppButton } from '../../components/ui/AppButton';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { ImpersonationBanner } from '../../components/ui/ImpersonationBanner';
 import { getMyProfile } from '../../features/auth/api';
 import { useAuthStore } from '../../stores/auth-store';
@@ -24,16 +25,10 @@ export default function AccountScreen() {
     <AppScreen scrollable title={t('account.title')}>
       <VStack space="sm">
         <ImpersonationBanner />
-        <Text>
-          {t('account.username')}: {data?.userName ?? ''}
-        </Text>
-        <Text>
-          {t('account.email')}: {data?.email ?? ''}
-        </Text>
+        <AppDetailField label={t('account.username')} value={data?.userName ?? ''} />
+        <AppDetailField label={t('account.email')} value={data?.email ?? ''} />
         {data?.phoneNumber ? (
-          <Text>
-            {t('account.phone')}: {data.phoneNumber}
-          </Text>
+          <AppDetailField label={t('account.phone')} value={data.phoneNumber} />
         ) : null}
       </VStack>
       <AppButton

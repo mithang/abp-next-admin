@@ -2,6 +2,8 @@ import { useRouteParams } from '../../lib/route-params';
 import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppDetailField } from '../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../lib/not-found';
@@ -28,15 +30,11 @@ export default function ClaimTypeDetailScreen() {
     <AppScreen scrollable title={item.name} subtitle={item.id}>
       <VStack space="sm">
         {item.description ? <Text>{item.description}</Text> : null}
-        <Text>
-          {t('claimTypes.valueTypeLabel')}:{' '}
-          {t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)}
-        </Text>
-        {item.regex ? (
-          <Text>
-            {t('claimTypes.regex')}: {item.regex}
-          </Text>
-        ) : null}
+        <AppDetailField
+          label={t('claimTypes.valueTypeLabel')}
+          value={t(`claimTypes.valueType.${valueTypeKey(item.valueType)}`)}
+        />
+        <AppDetailField label={t('claimTypes.regex')} value={item.regex} />
         {item.regexDescription ? <Text>{item.regexDescription}</Text> : null}
         <AppBadge
           label={

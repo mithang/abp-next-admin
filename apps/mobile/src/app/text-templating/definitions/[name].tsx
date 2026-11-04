@@ -3,13 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteTextTemplateDefinition,
   getTextTemplateDefinition,
@@ -47,44 +48,33 @@ export default function TextTemplateDefinitionDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
-        <Text>
-          {t('textTemplateDefinitions.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('textTemplateDefinitions.displayName')}: {item.displayName}
-        </Text>
-        {item.defaultCultureName ? (
-          <Text>
-            {t('textTemplateDefinitions.defaultCultureName')}: {item.defaultCultureName}
-          </Text>
-        ) : null}
-        {item.localizationResourceName ? (
-          <Text>
-            {t('textTemplateDefinitions.localizationResourceName')}: {item.localizationResourceName}
-          </Text>
-        ) : null}
-        {item.renderEngine ? (
-          <Text>
-            {t('textTemplateDefinitions.renderEngine')}: {item.renderEngine}
-          </Text>
-        ) : null}
-        <Text>
-          {t('textTemplateDefinitions.isInlineLocalized')}:{' '}
-          {item.isInlineLocalized ? t('common.yes') : t('common.no')}
-        </Text>
-        <Text>
-          {t('textTemplateDefinitions.isLayout')}:{' '}
-          {item.isLayout ? t('common.yes') : t('common.no')}
-        </Text>
-        {item.layout ? (
-          <Text>
-            {t('textTemplateDefinitions.layout')}: {item.layout}
-          </Text>
-        ) : null}
-        <Text>
-          {t('textTemplateDefinitions.isStatic')}:{' '}
-          {item.isStatic ? t('common.yes') : t('common.no')}
-        </Text>
+        <AppDetailField label={t('textTemplateDefinitions.name')} value={item.name} />
+        <AppDetailField label={t('textTemplateDefinitions.displayName')} value={item.displayName} />
+        <AppDetailField
+          label={t('textTemplateDefinitions.defaultCultureName')}
+          value={item.defaultCultureName}
+        />
+        <AppDetailField
+          label={t('textTemplateDefinitions.localizationResourceName')}
+          value={item.localizationResourceName}
+        />
+        <AppDetailField
+          label={t('textTemplateDefinitions.renderEngine')}
+          value={item.renderEngine}
+        />
+        <AppDetailField
+          label={t('textTemplateDefinitions.isInlineLocalized')}
+          value={item.isInlineLocalized ? t('common.yes') : t('common.no')}
+        />
+        <AppDetailField
+          label={t('textTemplateDefinitions.isLayout')}
+          value={item.isLayout ? t('common.yes') : t('common.no')}
+        />
+        <AppDetailField label={t('textTemplateDefinitions.layout')} value={item.layout} />
+        <AppDetailField
+          label={t('textTemplateDefinitions.isStatic')}
+          value={item.isStatic ? t('common.yes') : t('common.no')}
+        />
         <AppNavButton
           title={t('textTemplateDefinitions.editContentsTitle')}
           href={navHref('/text-templating/definitions/content', { name: item.name })}

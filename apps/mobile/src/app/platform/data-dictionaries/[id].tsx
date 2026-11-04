@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
@@ -44,17 +46,12 @@ export default function DataDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
-        <Text>
-          {t('platformDataDictionaries.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('platformDataDictionaries.code')}: {item.code}
-        </Text>
-        {item.description ? (
-          <Text>
-            {t('platformDataDictionaries.description')}: {item.description}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('platformDataDictionaries.name')} value={item.name} />
+        <AppDetailField label={t('platformDataDictionaries.code')} value={item.code} />
+        <AppDetailField
+          label={t('platformDataDictionaries.description')}
+          value={item.description}
+        />
         <AppNavButton
           title={t('platformDataDictionaries.editTitle')}
           href={navHref('/platform/data-dictionaries/form', { id: item.id })}

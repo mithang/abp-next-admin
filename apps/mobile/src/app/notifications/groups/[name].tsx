@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
@@ -27,15 +29,11 @@ export default function NotificationGroupDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        {item.description ? (
-          <Text>
-            {t('notificationGroups.description')}: {item.description}
-          </Text>
-        ) : null}
-        <Text>
-          {t('notificationGroups.allowSubscriptionToClients')}:{' '}
-          {item.allowSubscriptionToClients ? t('featureGroups.yes') : t('featureGroups.no')}
-        </Text>
+        <AppDetailField label={t('notificationGroups.description')} value={item.description} />
+        <AppDetailField
+          label={t('notificationGroups.allowSubscriptionToClients')}
+          value={item.allowSubscriptionToClients ? t('featureGroups.yes') : t('featureGroups.no')}
+        />
         {item.isStatic ? <Text>· {t('notificationGroups.static')}</Text> : null}
         {!item.isStatic ? (
           <>

@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
@@ -22,20 +24,17 @@ export default function EntityTypeInfoDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.typeFullName}>
       <VStack space="sm">
-        <Text>
-          {t('entityTypeInfos.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('entityTypeInfos.typeFullName')}: {item.typeFullName}
-        </Text>
-        <Text>
-          {t('entityTypeInfos.auditEnabled')}:{' '}
-          {item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
-        </Text>
+        <AppDetailField label={t('entityTypeInfos.name')} value={item.name} />
+        <AppDetailField label={t('entityTypeInfos.typeFullName')} value={item.typeFullName} />
+        <AppDetailField
+          label={t('entityTypeInfos.auditEnabled')}
+          value={item.isAuditEnabled ? t('entityTypeInfos.enabled') : t('entityTypeInfos.disabled')}
+        />
         {item.creationTime ? (
-          <Text>
-            {t('entityTypeInfos.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('entityTypeInfos.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
         <Text>{t('entityTypeInfos.properties')}:</Text>
         {(item.properties ?? []).map((prop) => (

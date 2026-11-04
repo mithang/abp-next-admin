@@ -3,13 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../../components/ui/AppButton';
 import { AppDeleteButton } from '../../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../../lib/not-found';
 import { queryStateElement } from '../../../../lib/query-state';
 import { mutationErrorElement } from '../../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteEmailMessage,
   getEmailMessage,
@@ -43,48 +44,33 @@ export default function EmailMessageDetailScreen() {
   return (
     <AppScreen scrollable title={item.subject ?? item.receiver}>
       <VStack space="sm">
-        <Text>
-          {t('platformEmailMessages.subject')}: {item.subject ?? '—'}
-        </Text>
-        <Text>
-          {t('platformEmailMessages.receiver')}: {item.receiver}
-        </Text>
-        <Text>
-          {t('platformEmailMessages.from')}: {item.sender ?? item.from ?? '—'}
-        </Text>
-        {item.cc ? (
-          <Text>
-            {t('platformEmailMessages.cc')}: {item.cc}
-          </Text>
-        ) : null}
-        <Text>
-          {t('platformEmailMessages.provider')}: {item.provider ?? '—'}
-        </Text>
-        <Text>
-          {t('platformEmailMessages.status')}:{' '}
-          {messageStatusText(t, 'platformEmailMessages', item.status)}
-        </Text>
+        <AppDetailField label={t('platformEmailMessages.subject')} value={item.subject ?? '—'} />
+        <AppDetailField label={t('platformEmailMessages.receiver')} value={item.receiver} />
+        <AppDetailField
+          label={t('platformEmailMessages.from')}
+          value={item.sender ?? item.from ?? '—'}
+        />
+        <AppDetailField label={t('platformEmailMessages.cc')} value={item.cc} />
+        <AppDetailField label={t('platformEmailMessages.provider')} value={item.provider ?? '—'} />
+        <AppDetailField
+          label={t('platformEmailMessages.status')}
+          value={messageStatusText(t, 'platformEmailMessages', item.status)}
+        />
         {item.sendTime ? (
-          <Text>
-            {t('platformEmailMessages.sendTime')}: {formatDateTime(item.sendTime)}
-          </Text>
+          <AppDetailField
+            label={t('platformEmailMessages.sendTime')}
+            value={formatDateTime(item.sendTime)}
+          />
         ) : null}
-        <Text>
-          {t('platformEmailMessages.sendCount')}: {item.sendCount}
-        </Text>
+        <AppDetailField label={t('platformEmailMessages.sendCount')} value={item.sendCount} />
         {item.creationTime ? (
-          <Text>
-            {t('platformEmailMessages.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('platformEmailMessages.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
-        {item.reason ? (
-          <Text>
-            {t('platformEmailMessages.reason')}: {item.reason}
-          </Text>
-        ) : null}
-        <Text>
-          {t('platformEmailMessages.content')}: {item.content}
-        </Text>
+        <AppDetailField label={t('platformEmailMessages.reason')} value={item.reason} />
+        <AppDetailField label={t('platformEmailMessages.content')} value={item.content} />
         <AppButton
           title={t('platformEmailMessages.send')}
           variant="outline"

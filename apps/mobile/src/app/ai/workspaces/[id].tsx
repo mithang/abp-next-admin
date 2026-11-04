@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
@@ -32,66 +34,35 @@ export default function AIWorkspaceDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Text>
-          {t('aiWorkspaces.provider')}: {item.provider}
-        </Text>
-        <Text>
-          {t('aiWorkspaces.modelName')}: {item.modelName}
-        </Text>
-        {item.description ? (
-          <Text>
-            {t('aiWorkspaces.description')}: {item.description}
-          </Text>
-        ) : null}
-        {item.apiBaseUrl ? (
-          <Text>
-            {t('aiWorkspaces.apiBaseUrl')}: {item.apiBaseUrl}
-          </Text>
-        ) : null}
-        {item.systemPrompt ? (
-          <Text>
-            {t('aiWorkspaces.systemPrompt')}: {item.systemPrompt}
-          </Text>
-        ) : null}
-        {item.instructions ? (
-          <Text>
-            {t('aiWorkspaces.instructions')}: {item.instructions}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('aiWorkspaces.provider')} value={item.provider} />
+        <AppDetailField label={t('aiWorkspaces.modelName')} value={item.modelName} />
+        <AppDetailField label={t('aiWorkspaces.description')} value={item.description} />
+        <AppDetailField label={t('aiWorkspaces.apiBaseUrl')} value={item.apiBaseUrl} />
+        <AppDetailField label={t('aiWorkspaces.systemPrompt')} value={item.systemPrompt} />
+        <AppDetailField label={t('aiWorkspaces.instructions')} value={item.instructions} />
         {item.temperature !== undefined && item.temperature !== null ? (
-          <Text>
-            {t('aiWorkspaces.temperature')}: {item.temperature}
-          </Text>
+          <AppDetailField label={t('aiWorkspaces.temperature')} value={item.temperature} />
         ) : null}
         {item.maxOutputTokens !== undefined && item.maxOutputTokens !== null ? (
-          <Text>
-            {t('aiWorkspaces.maxOutputTokens')}: {item.maxOutputTokens}
-          </Text>
+          <AppDetailField label={t('aiWorkspaces.maxOutputTokens')} value={item.maxOutputTokens} />
         ) : null}
         {item.frequencyPenalty !== undefined && item.frequencyPenalty !== null ? (
-          <Text>
-            {t('aiWorkspaces.frequencyPenalty')}: {item.frequencyPenalty}
-          </Text>
+          <AppDetailField
+            label={t('aiWorkspaces.frequencyPenalty')}
+            value={item.frequencyPenalty}
+          />
         ) : null}
         {item.presencePenalty !== undefined && item.presencePenalty !== null ? (
-          <Text>
-            {t('aiWorkspaces.presencePenalty')}: {item.presencePenalty}
-          </Text>
+          <AppDetailField label={t('aiWorkspaces.presencePenalty')} value={item.presencePenalty} />
         ) : null}
-        <Text>
-          {t('aiWorkspaces.enabled')}:{' '}
-          {item.isEnabled ? t('aiWorkspaces.yes') : t('aiWorkspaces.no')}
-        </Text>
+        <AppDetailField
+          label={t('aiWorkspaces.enabled')}
+          value={item.isEnabled ? t('aiWorkspaces.yes') : t('aiWorkspaces.no')}
+        />
         {(item.tools ?? []).length > 0 ? (
-          <Text>
-            {t('aiWorkspaces.tools')}: {(item.tools ?? []).join(', ')}
-          </Text>
+          <AppDetailField label={t('aiWorkspaces.tools')} value={(item.tools ?? []).join(', ')} />
         ) : null}
-        {item.stateCheckers ? (
-          <Text>
-            {t('aiWorkspaces.stateCheckers')}: {item.stateCheckers}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('aiWorkspaces.stateCheckers')} value={item.stateCheckers} />
         {item.isSystem ? <Text>· {t('aiWorkspaces.system')}</Text> : null}
         {item.isStatic ? <Text>· {t('aiWorkspaces.static')}</Text> : null}
         <AppNavButton

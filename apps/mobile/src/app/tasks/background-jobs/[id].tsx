@@ -3,6 +3,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
@@ -104,94 +106,71 @@ export default function BackgroundJobDetailScreen() {
   return (
     <AppScreen scrollable title={item.name}>
       <VStack space="sm">
-        <Text>
-          {t('backgroundJobs.status')}: {JOB_STATUS_LABELS[item.status] ?? item.status}
-        </Text>
-        <Text>
-          {t('backgroundJobs.source')}: {JOB_SOURCE_LABELS[item.source] ?? item.source}
-        </Text>
-        <Text>
-          {t('backgroundJobs.isEnabled')}: {item.isEnabled ? t('common.yes') : t('common.no')}
-        </Text>
-        <Text>
-          {t('backgroundJobs.priority')}: {JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
-        </Text>
-        <Text>
-          {t('backgroundJobs.group')}: {item.group}
-        </Text>
-        <Text>
-          {t('backgroundJobs.type')}: {item.type}
-        </Text>
-        {item.description ? (
-          <Text>
-            {t('backgroundJobs.description')}: {item.description}
-          </Text>
-        ) : null}
-        <Text>
-          {t('backgroundJobs.jobType')}: {JOB_TYPE_LABELS[item.jobType] ?? item.jobType}
-        </Text>
-        {item.cron ? (
-          <Text>
-            {t('backgroundJobs.cron')}: {item.cron}
-          </Text>
-        ) : null}
-        <Text>
-          {t('backgroundJobs.interval')}: {item.interval}
-        </Text>
-        <Text>
-          {t('backgroundJobs.beginTime')}: {formatDateTime(item.beginTime)}
-        </Text>
+        <AppDetailField
+          label={t('backgroundJobs.status')}
+          value={JOB_STATUS_LABELS[item.status] ?? item.status}
+        />
+        <AppDetailField
+          label={t('backgroundJobs.source')}
+          value={JOB_SOURCE_LABELS[item.source] ?? item.source}
+        />
+        <AppDetailField
+          label={t('backgroundJobs.isEnabled')}
+          value={item.isEnabled ? t('common.yes') : t('common.no')}
+        />
+        <AppDetailField
+          label={t('backgroundJobs.priority')}
+          value={JOB_PRIORITY_LABELS[item.priority] ?? item.priority}
+        />
+        <AppDetailField label={t('backgroundJobs.group')} value={item.group} />
+        <AppDetailField label={t('backgroundJobs.type')} value={item.type} />
+        <AppDetailField label={t('backgroundJobs.description')} value={item.description} />
+        <AppDetailField
+          label={t('backgroundJobs.jobType')}
+          value={JOB_TYPE_LABELS[item.jobType] ?? item.jobType}
+        />
+        <AppDetailField label={t('backgroundJobs.cron')} value={item.cron} />
+        <AppDetailField label={t('backgroundJobs.interval')} value={item.interval} />
+        <AppDetailField
+          label={t('backgroundJobs.beginTime')}
+          value={formatDateTime(item.beginTime)}
+        />
         {item.endTime ? (
-          <Text>
-            {t('backgroundJobs.endTime')}: {formatDateTime(item.endTime)}
-          </Text>
+          <AppDetailField
+            label={t('backgroundJobs.endTime')}
+            value={formatDateTime(item.endTime)}
+          />
         ) : null}
         {item.lastRunTime ? (
-          <Text>
-            {t('backgroundJobs.lastRunTime')}: {formatDateTime(item.lastRunTime)}
-          </Text>
+          <AppDetailField
+            label={t('backgroundJobs.lastRunTime')}
+            value={formatDateTime(item.lastRunTime)}
+          />
         ) : null}
         {item.nextRunTime ? (
-          <Text>
-            {t('backgroundJobs.nextRunTime')}: {formatDateTime(item.nextRunTime)}
-          </Text>
+          <AppDetailField
+            label={t('backgroundJobs.nextRunTime')}
+            value={formatDateTime(item.nextRunTime)}
+          />
         ) : null}
-        <Text>
-          {t('backgroundJobs.triggerCount')}: {item.triggerCount}
-        </Text>
-        <Text>
-          {t('backgroundJobs.maxCount')}: {item.maxCount}
-        </Text>
-        <Text>
-          {t('backgroundJobs.tryCount')}: {item.tryCount}
-        </Text>
-        <Text>
-          {t('backgroundJobs.maxTryCount')}: {item.maxTryCount}
-        </Text>
-        <Text>
-          {t('backgroundJobs.lockTimeOut')}: {item.lockTimeOut}
-        </Text>
-        {item.nodeName ? (
-          <Text>
-            {t('backgroundJobs.nodeName')}: {item.nodeName}
-          </Text>
-        ) : null}
-        <Text>
-          {t('backgroundJobs.isAbandoned')}: {item.isAbandoned ? t('common.yes') : t('common.no')}
-        </Text>
-        {item.result ? (
-          <Text>
-            {t('backgroundJobs.result')}: {item.result}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('backgroundJobs.triggerCount')} value={item.triggerCount} />
+        <AppDetailField label={t('backgroundJobs.maxCount')} value={item.maxCount} />
+        <AppDetailField label={t('backgroundJobs.tryCount')} value={item.tryCount} />
+        <AppDetailField label={t('backgroundJobs.maxTryCount')} value={item.maxTryCount} />
+        <AppDetailField label={t('backgroundJobs.lockTimeOut')} value={item.lockTimeOut} />
+        <AppDetailField label={t('backgroundJobs.nodeName')} value={item.nodeName} />
+        <AppDetailField
+          label={t('backgroundJobs.isAbandoned')}
+          value={item.isAbandoned ? t('common.yes') : t('common.no')}
+        />
+        <AppDetailField label={t('backgroundJobs.result')} value={item.result} />
         {item.creationTime ? (
-          <Text>
-            {t('backgroundJobs.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('backgroundJobs.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
-        <Text>
-          {t('backgroundJobs.args')}: {JSON.stringify(item.args ?? {})}
-        </Text>
+        <AppDetailField label={t('backgroundJobs.args')} value={JSON.stringify(item.args ?? {})} />
         <AppNavButton
           title={t('backgroundJobs.editTitle')}
           href={navHref('/tasks/background-jobs/form', { id: item.id })}
@@ -251,11 +230,7 @@ export default function BackgroundJobDetailScreen() {
                   {log.jobName} · {formatDateTime(log.runTime)}
                 </Text>
                 <Text>{log.message}</Text>
-                {log.exception ? (
-                  <Text>
-                    {t('backgroundJobs.exception')}: {log.exception}
-                  </Text>
-                ) : null}
+                <AppDetailField label={t('backgroundJobs.exception')} value={log.exception} />
                 <AppButton
                   title={t('common.delete')}
                   action="negative"

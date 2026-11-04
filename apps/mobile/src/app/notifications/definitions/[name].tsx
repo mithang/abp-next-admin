@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
@@ -32,39 +34,31 @@ export default function NotificationDefinitionDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName || item.name} subtitle={item.name}>
       <VStack space="sm">
-        <Text>
-          {t('notificationDefinitions.groupName')}: {item.groupName}
-        </Text>
-        {item.description ? (
-          <Text>
-            {t('notificationDefinitions.description')}: {item.description}
-          </Text>
-        ) : null}
-        <Text>
-          {t('notificationDefinitions.notificationType')}:{' '}
-          {notificationTypeName(item.notificationType)}
-        </Text>
-        <Text>
-          {t('notificationDefinitions.notificationLifetime')}:{' '}
-          {lifetimeName(item.notificationLifetime)}
-        </Text>
-        <Text>
-          {t('notificationDefinitions.contentType')}: {contentTypeName(item.contentType)}
-        </Text>
-        <Text>
-          {t('notificationDefinitions.allowSubscriptionToClients')}:{' '}
-          {item.allowSubscriptionToClients ? t('featureGroups.yes') : t('featureGroups.no')}
-        </Text>
+        <AppDetailField label={t('notificationDefinitions.groupName')} value={item.groupName} />
+        <AppDetailField label={t('notificationDefinitions.description')} value={item.description} />
+        <AppDetailField
+          label={t('notificationDefinitions.notificationType')}
+          value={notificationTypeName(item.notificationType)}
+        />
+        <AppDetailField
+          label={t('notificationDefinitions.notificationLifetime')}
+          value={lifetimeName(item.notificationLifetime)}
+        />
+        <AppDetailField
+          label={t('notificationDefinitions.contentType')}
+          value={contentTypeName(item.contentType)}
+        />
+        <AppDetailField
+          label={t('notificationDefinitions.allowSubscriptionToClients')}
+          value={item.allowSubscriptionToClients ? t('featureGroups.yes') : t('featureGroups.no')}
+        />
         {(item.providers ?? []).length > 0 ? (
-          <Text>
-            {t('notificationDefinitions.providers')}: {item.providers?.join(', ')}
-          </Text>
+          <AppDetailField
+            label={t('notificationDefinitions.providers')}
+            value={item.providers?.join(', ')}
+          />
         ) : null}
-        {item.template ? (
-          <Text>
-            {t('notificationDefinitions.template')}: {item.template}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('notificationDefinitions.template')} value={item.template} />
         {item.isStatic ? <Text>· {t('notificationDefinitions.static')}</Text> : null}
         <AppNavButton
           title={t('notificationDefinitions.send')}

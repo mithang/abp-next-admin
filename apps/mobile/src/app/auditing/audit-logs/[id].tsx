@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
@@ -28,56 +30,26 @@ export default function AuditLogDetailScreen() {
       subtitle={item.url}
     >
       <VStack space="sm">
-        {item.userName ? (
-          <Text>
-            {t('auditLogs.userName')}: {item.userName}
-          </Text>
-        ) : null}
-        {item.applicationName ? (
-          <Text>
-            {t('auditLogs.application')}: {item.applicationName}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('auditLogs.userName')} value={item.userName} />
+        <AppDetailField label={t('auditLogs.application')} value={item.applicationName} />
         {item.executionTime ? (
-          <Text>
-            {t('auditLogs.executionTime')}: {formatDateTime(item.executionTime)}
-          </Text>
+          <AppDetailField
+            label={t('auditLogs.executionTime')}
+            value={formatDateTime(item.executionTime)}
+          />
         ) : null}
         {item.executionDuration !== undefined ? (
-          <Text>
-            {t('auditLogs.executionDuration')}: {item.executionDuration} ms
-          </Text>
+          <AppDetailField
+            label={t('auditLogs.executionDuration')}
+            value={`${item.executionDuration} ms`}
+          />
         ) : null}
-        {item.clientIpAddress ? (
-          <Text>
-            {t('auditLogs.ipAddress')}: {item.clientIpAddress}
-          </Text>
-        ) : null}
-        {item.clientId ? (
-          <Text>
-            {t('auditLogs.client')}: {item.clientId}
-          </Text>
-        ) : null}
-        {item.correlationId ? (
-          <Text>
-            {t('auditLogs.correlation')}: {item.correlationId}
-          </Text>
-        ) : null}
-        {item.browserInfo ? (
-          <Text>
-            {t('auditLogs.browser')}: {item.browserInfo}
-          </Text>
-        ) : null}
-        {item.comments ? (
-          <Text>
-            {t('auditLogs.comments')}: {item.comments}
-          </Text>
-        ) : null}
-        {item.exceptions ? (
-          <Text>
-            {t('auditLogs.exceptions')}: {item.exceptions}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('auditLogs.ipAddress')} value={item.clientIpAddress} />
+        <AppDetailField label={t('auditLogs.client')} value={item.clientId} />
+        <AppDetailField label={t('auditLogs.correlation')} value={item.correlationId} />
+        <AppDetailField label={t('auditLogs.browser')} value={item.browserInfo} />
+        <AppDetailField label={t('auditLogs.comments')} value={item.comments} />
+        <AppDetailField label={t('auditLogs.exceptions')} value={item.exceptions} />
         {(item.actions ?? []).length > 0 ? (
           <>
             <Text>{t('auditLogs.actions')}:</Text>
@@ -93,13 +65,16 @@ export default function AuditLogDetailScreen() {
             <Text>{t('auditLogs.entityChanges')}:</Text>
             {(item.entityChanges ?? []).map((change) => (
               <VStack key={change.id} space="xs">
-                <Text>
-                  {entityChangeTypeName(change.changeType)}: {change.entityTypeFullName}
-                </Text>
+                <AppDetailField
+                  label={entityChangeTypeName(change.changeType)}
+                  value={change.entityTypeFullName}
+                />
                 {(change.propertyChanges ?? []).map((prop) => (
-                  <Text key={prop.id}>
-                    {prop.propertyName}: {prop.originalValue ?? ''} → {prop.newValue ?? ''}
-                  </Text>
+                  <AppDetailField
+                    key={prop.id}
+                    label={prop.propertyName ?? ''}
+                    value={`${prop.originalValue ?? ''} → ${prop.newValue ?? ''}`}
+                  />
                 ))}
               </VStack>
             ))}

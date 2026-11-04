@@ -3,12 +3,13 @@ import { useQuery } from '@tanstack/react-query';
 import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppDetailField } from '../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteOrganizationUnit,
   getOrganizationUnit,
@@ -35,13 +36,11 @@ export default function OrganizationUnitDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName} subtitle={item.id}>
       <VStack space="sm">
-        <Text>
-          {t('organizationUnits.code')}: {item.code}
-        </Text>
-        <Text>
-          {t('organizationUnits.parent')}:{' '}
-          {parentName ?? (item.parentId ? item.parentId : t('organizationUnits.root'))}
-        </Text>
+        <AppDetailField label={t('organizationUnits.code')} value={item.code} />
+        <AppDetailField
+          label={t('organizationUnits.parent')}
+          value={parentName ?? (item.parentId ? item.parentId : t('organizationUnits.root'))}
+        />
         <AppNavButton
           title={t('organizationUnits.editTitle')}
           href={navHref('/organization-units/form', { id: item.id })}

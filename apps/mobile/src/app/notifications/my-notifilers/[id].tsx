@@ -3,13 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { mutationErrorElement } from '../../../lib/mutation-error';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteMyNotification,
   getMyNotification,
@@ -48,40 +49,27 @@ export default function MyNotificationDetailScreen() {
   return (
     <AppScreen scrollable title={title || item.name} subtitle={item.name}>
       <VStack space="sm">
-        {message ? (
-          <Text>
-            {t('myNotifications.message')}: {message}
-          </Text>
-        ) : null}
-        {description ? (
-          <Text>
-            {t('myNotifications.description')}: {description}
-          </Text>
-        ) : null}
-        <Text>
-          {t('myNotifications.severity')}: {severityName(item.severity)}
-        </Text>
-        <Text>
-          {t('myNotifications.type')}: {notificationTypeName(item.type)}
-        </Text>
-        <Text>
-          {t('myNotifications.lifetime')}: {lifetimeName(item.lifetime)}
-        </Text>
-        <Text>
-          {t('myNotifications.contentType')}: {contentTypeName(item.contentType)}
-        </Text>
-        <Text>
-          {t('myNotifications.state')}: {readStateName(item.state)}
-        </Text>
+        <AppDetailField label={t('myNotifications.message')} value={message} />
+        <AppDetailField label={t('myNotifications.description')} value={description} />
+        <AppDetailField label={t('myNotifications.severity')} value={severityName(item.severity)} />
+        <AppDetailField label={t('myNotifications.type')} value={notificationTypeName(item.type)} />
+        <AppDetailField label={t('myNotifications.lifetime')} value={lifetimeName(item.lifetime)} />
+        <AppDetailField
+          label={t('myNotifications.contentType')}
+          value={contentTypeName(item.contentType)}
+        />
+        <AppDetailField label={t('myNotifications.state')} value={readStateName(item.state)} />
         {item.creationTime ? (
-          <Text>
-            {t('myNotifications.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('myNotifications.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
         {item.data?.extraProperties ? (
-          <Text>
-            {t('myNotifications.data')}: {JSON.stringify(item.data.extraProperties)}
-          </Text>
+          <AppDetailField
+            label={t('myNotifications.data')}
+            value={JSON.stringify(item.data.extraProperties)}
+          />
         ) : null}
         <AppButton
           title={isUnread ? t('myNotifications.markRead') : t('myNotifications.markUnread')}

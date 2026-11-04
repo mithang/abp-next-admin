@@ -3,13 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteWebhookSubscription,
   getWebhookSubscription,
@@ -49,34 +50,33 @@ export default function WebhookSubscriptionDetailScreen() {
   return (
     <AppScreen scrollable title={item.webhookUri}>
       <VStack space="sm">
-        <Text>
-          {t('webhookSubscriptions.webhookUri')}: {item.webhookUri}
-        </Text>
-        <Text>
-          {t('webhookSubscriptions.isActive')}: {item.isActive ? t('common.yes') : t('common.no')}
-        </Text>
-        {item.description ? (
-          <Text>
-            {t('webhookSubscriptions.description')}: {item.description}
-          </Text>
-        ) : null}
-        <Text>
-          {t('webhookSubscriptions.webhooks')}: {item.webhooks.join(', ')}
-        </Text>
+        <AppDetailField label={t('webhookSubscriptions.webhookUri')} value={item.webhookUri} />
+        <AppDetailField
+          label={t('webhookSubscriptions.isActive')}
+          value={item.isActive ? t('common.yes') : t('common.no')}
+        />
+        <AppDetailField label={t('webhookSubscriptions.description')} value={item.description} />
+        <AppDetailField
+          label={t('webhookSubscriptions.webhooks')}
+          value={item.webhooks.join(', ')}
+        />
         {item.headers && Object.keys(item.headers).length > 0 ? (
-          <Text>
-            {t('webhookSubscriptions.headers')}: {JSON.stringify(item.headers)}
-          </Text>
+          <AppDetailField
+            label={t('webhookSubscriptions.headers')}
+            value={JSON.stringify(item.headers)}
+          />
         ) : null}
         {item.timeoutDuration !== undefined && item.timeoutDuration !== null ? (
-          <Text>
-            {t('webhookSubscriptions.timeoutDuration')}: {item.timeoutDuration}
-          </Text>
+          <AppDetailField
+            label={t('webhookSubscriptions.timeoutDuration')}
+            value={item.timeoutDuration}
+          />
         ) : null}
         {item.creationTime ? (
-          <Text>
-            {t('webhookSubscriptions.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('webhookSubscriptions.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
         <AppNavButton
           title={t('webhookSubscriptions.editTitle')}

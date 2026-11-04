@@ -3,12 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppButton } from '../../../components/ui/AppButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { stateErrorElement } from '../../../lib/state-error';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import {
   deleteWebhookSendAttempt,
   getWebhookSendAttempt,
@@ -54,43 +55,41 @@ export default function WebhookSendAttemptDetailScreen() {
   return (
     <AppScreen scrollable title={item.webhookEvent.webhookName}>
       <VStack space="sm">
-        <Text>
-          {t('webhookSendAttempts.webhookName')}: {item.webhookEvent.webhookName}
-        </Text>
-        {item.webhookEvent.data ? (
-          <Text>
-            {t('webhookSendAttempts.data')}: {item.webhookEvent.data}
-          </Text>
-        ) : null}
-        <Text>
-          {t('webhookSendAttempts.subscriptionId')}: {item.webhookSubscriptionId}
-        </Text>
-        <Text>
-          {t('webhookSendAttempts.creationTime')}: {formatDateTime(item.creationTime)}
-        </Text>
+        <AppDetailField
+          label={t('webhookSendAttempts.webhookName')}
+          value={item.webhookEvent.webhookName}
+        />
+        <AppDetailField label={t('webhookSendAttempts.data')} value={item.webhookEvent.data} />
+        <AppDetailField
+          label={t('webhookSendAttempts.subscriptionId')}
+          value={item.webhookSubscriptionId}
+        />
+        <AppDetailField
+          label={t('webhookSendAttempts.creationTime')}
+          value={formatDateTime(item.creationTime)}
+        />
         {item.responseStatusCode !== undefined ? (
-          <Text>
-            {t('webhookSendAttempts.responseStatusCode')}: {item.responseStatusCode}
-          </Text>
+          <AppDetailField
+            label={t('webhookSendAttempts.responseStatusCode')}
+            value={item.responseStatusCode}
+          />
         ) : null}
-        {item.response ? (
-          <Text>
-            {t('webhookSendAttempts.response')}: {item.response}
-          </Text>
-        ) : null}
-        <Text>
-          {t('webhookSendAttempts.sendExactSameData')}:{' '}
-          {item.sendExactSameData ? t('common.yes') : t('common.no')}
-        </Text>
+        <AppDetailField label={t('webhookSendAttempts.response')} value={item.response} />
+        <AppDetailField
+          label={t('webhookSendAttempts.sendExactSameData')}
+          value={item.sendExactSameData ? t('common.yes') : t('common.no')}
+        />
         {item.requestHeaders && Object.keys(item.requestHeaders).length > 0 ? (
-          <Text>
-            {t('webhookSendAttempts.requestHeaders')}: {JSON.stringify(item.requestHeaders)}
-          </Text>
+          <AppDetailField
+            label={t('webhookSendAttempts.requestHeaders')}
+            value={JSON.stringify(item.requestHeaders)}
+          />
         ) : null}
         {item.responseHeaders && Object.keys(item.responseHeaders).length > 0 ? (
-          <Text>
-            {t('webhookSendAttempts.responseHeaders')}: {JSON.stringify(item.responseHeaders)}
-          </Text>
+          <AppDetailField
+            label={t('webhookSendAttempts.responseHeaders')}
+            value={JSON.stringify(item.responseHeaders)}
+          />
         ) : null}
         <AppButton
           title={t('webhookSendAttempts.resend')}

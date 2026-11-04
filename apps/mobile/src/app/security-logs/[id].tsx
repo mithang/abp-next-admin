@@ -2,11 +2,12 @@ import { useRouteParams } from '../../lib/route-params';
 import { useDetailQuery } from '../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../components/ui/AppScreen';
+import { AppDetailField } from '../../components/ui/AppDetailField';
+
 import { AppDeleteButton } from '../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../lib/not-found';
 import { queryStateElement } from '../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteSecurityLog, getSecurityLog } from '../../features/identity/security-logs-api';
 import { formatDateTime } from '../../lib/dates';
 
@@ -23,35 +24,16 @@ export default function SecurityLogDetailScreen() {
   return (
     <AppScreen scrollable title={item.userName ?? item.identity ?? item.id} subtitle={item.id}>
       <VStack space="sm">
-        {item.action ? (
-          <Text>
-            {t('securityLogs.action')}: {item.action}
-          </Text>
-        ) : null}
-        {item.applicationName ? (
-          <Text>
-            {t('securityLogs.application')}: {item.applicationName}
-          </Text>
-        ) : null}
-        {item.clientId ? (
-          <Text>
-            {t('securityLogs.client')}: {item.clientId}
-          </Text>
-        ) : null}
-        {item.clientIpAddress ? (
-          <Text>
-            {t('securityLogs.ipAddress')}: {item.clientIpAddress}
-          </Text>
-        ) : null}
-        {item.browserInfo ? (
-          <Text>
-            {t('securityLogs.browser')}: {item.browserInfo}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('securityLogs.action')} value={item.action} />
+        <AppDetailField label={t('securityLogs.application')} value={item.applicationName} />
+        <AppDetailField label={t('securityLogs.client')} value={item.clientId} />
+        <AppDetailField label={t('securityLogs.ipAddress')} value={item.clientIpAddress} />
+        <AppDetailField label={t('securityLogs.browser')} value={item.browserInfo} />
         {item.creationTime ? (
-          <Text>
-            {t('securityLogs.creationTime')}: {formatDateTime(item.creationTime)}
-          </Text>
+          <AppDetailField
+            label={t('securityLogs.creationTime')}
+            value={formatDateTime(item.creationTime)}
+          />
         ) : null}
         <AppDeleteButton
           confirmTitle={t('securityLogs.deleteConfirmTitle')}

@@ -2,12 +2,13 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteTenant, getTenant } from '../../../features/saas/saas-api';
 import { navHref } from '../../../lib/nav-href';
 
@@ -32,34 +33,19 @@ export default function TenantDetailScreen() {
   return (
     <AppScreen scrollable title={item.name} subtitle={item.normalizedName}>
       <VStack space="sm">
-        <Text>
-          {t('saasTenants.isActive')}:{' '}
-          {item.isActive ? t('saasTenants.active') : t('saasTenants.inactive')}
-        </Text>
-        {item.editionName ? (
-          <Text>
-            {t('saasTenants.edition')}: {item.editionName}
-          </Text>
-        ) : null}
-        {item.enableTime ? (
-          <Text>
-            {t('saasTenants.enableTime')}: {item.enableTime}
-          </Text>
-        ) : null}
-        {item.disableTime ? (
-          <Text>
-            {t('saasTenants.disableTime')}: {item.disableTime}
-          </Text>
-        ) : null}
-        {item.creationTime ? (
-          <Text>
-            {t('saasTenants.creationTime')}: {item.creationTime}
-          </Text>
-        ) : null}
+        <AppDetailField
+          label={t('saasTenants.isActive')}
+          value={item.isActive ? t('saasTenants.active') : t('saasTenants.inactive')}
+        />
+        <AppDetailField label={t('saasTenants.edition')} value={item.editionName} />
+        <AppDetailField label={t('saasTenants.enableTime')} value={item.enableTime} />
+        <AppDetailField label={t('saasTenants.disableTime')} value={item.disableTime} />
+        <AppDetailField label={t('saasTenants.creationTime')} value={item.creationTime} />
         {item.extraProperties && Object.keys(item.extraProperties).length > 0 ? (
-          <Text>
-            {t('saasTenants.extraProperties')}: {JSON.stringify(item.extraProperties)}
-          </Text>
+          <AppDetailField
+            label={t('saasTenants.extraProperties')}
+            value={JSON.stringify(item.extraProperties)}
+          />
         ) : null}
         <AppNavButton
           title={t('saasTenants.editTitle')}

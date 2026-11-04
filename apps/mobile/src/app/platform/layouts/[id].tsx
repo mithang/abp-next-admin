@@ -2,6 +2,8 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
@@ -25,28 +27,12 @@ export default function LayoutDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
-        <Text>
-          {t('platformLayouts.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('platformLayouts.path')}: {item.path}
-        </Text>
-        <Text>
-          {t('platformLayouts.framework')}: {item.framework}
-        </Text>
-        <Text>
-          {t('platformLayouts.dataId')}: {item.dataId}
-        </Text>
-        {item.redirect ? (
-          <Text>
-            {t('platformLayouts.redirect')}: {item.redirect}
-          </Text>
-        ) : null}
-        {item.description ? (
-          <Text>
-            {t('platformLayouts.description')}: {item.description}
-          </Text>
-        ) : null}
+        <AppDetailField label={t('platformLayouts.name')} value={item.name} />
+        <AppDetailField label={t('platformLayouts.path')} value={item.path} />
+        <AppDetailField label={t('platformLayouts.framework')} value={item.framework} />
+        <AppDetailField label={t('platformLayouts.dataId')} value={item.dataId} />
+        <AppDetailField label={t('platformLayouts.redirect')} value={item.redirect} />
+        <AppDetailField label={t('platformLayouts.description')} value={item.description} />
         {item.meta && Object.keys(item.meta).length > 0 ? (
           <Text>{JSON.stringify(item.meta)}</Text>
         ) : null}

@@ -2,12 +2,13 @@ import { useRouteParams } from '../../../lib/route-params';
 import { useDetailQuery } from '../../../lib/use-detail-query';
 import { useTranslation } from 'react-i18next';
 import { AppScreen } from '../../../components/ui/AppScreen';
+import { AppDetailField } from '../../../components/ui/AppDetailField';
+
 import { AppNavButton } from '../../../components/ui/AppNavButton';
 import { AppDeleteButton } from '../../../components/ui/AppDeleteButton';
 import { notFoundElement } from '../../../lib/not-found';
 import { queryStateElement } from '../../../lib/query-state';
 import { VStack } from '@/components/ui/vstack';
-import { Text } from '@/components/ui/text';
 import { deleteMenu, getMenu } from '../../../features/platform/platform-api';
 import { navHref } from '../../../lib/nav-href';
 
@@ -25,47 +26,25 @@ export default function MenuDetailScreen() {
   return (
     <AppScreen scrollable title={item.displayName}>
       <VStack space="sm">
-        <Text>
-          {t('platformMenus.name')}: {item.name}
-        </Text>
-        <Text>
-          {t('platformMenus.code')}: {item.code}
-        </Text>
-        <Text>
-          {t('platformMenus.path')}: {item.path}
-        </Text>
-        <Text>
-          {t('platformMenus.component')}: {item.component}
-        </Text>
-        <Text>
-          {t('platformMenus.framework')}: {item.framework}
-        </Text>
-        <Text>
-          {t('platformMenus.layoutId')}: {item.layoutId}
-        </Text>
-        {item.parentId ? (
-          <Text>
-            {t('platformMenus.parentId')}: {item.parentId}
-          </Text>
-        ) : null}
-        {item.redirect ? (
-          <Text>
-            {t('platformMenus.redirect')}: {item.redirect}
-          </Text>
-        ) : null}
-        {item.description ? (
-          <Text>
-            {t('platformMenus.description')}: {item.description}
-          </Text>
-        ) : null}
-        <Text>
-          {t('platformMenus.isPublic')}: {item.isPublic ? t('common.yes') : t('common.no')}
-        </Text>
-        <Text>
-          {t('platformMenus.startup')}: {item.startup ? t('common.yes') : t('common.no')}
-        </Text>
+        <AppDetailField label={t('platformMenus.name')} value={item.name} />
+        <AppDetailField label={t('platformMenus.code')} value={item.code} />
+        <AppDetailField label={t('platformMenus.path')} value={item.path} />
+        <AppDetailField label={t('platformMenus.component')} value={item.component} />
+        <AppDetailField label={t('platformMenus.framework')} value={item.framework} />
+        <AppDetailField label={t('platformMenus.layoutId')} value={item.layoutId} />
+        <AppDetailField label={t('platformMenus.parentId')} value={item.parentId} />
+        <AppDetailField label={t('platformMenus.redirect')} value={item.redirect} />
+        <AppDetailField label={t('platformMenus.description')} value={item.description} />
+        <AppDetailField
+          label={t('platformMenus.isPublic')}
+          value={item.isPublic ? t('common.yes') : t('common.no')}
+        />
+        <AppDetailField
+          label={t('platformMenus.startup')}
+          value={item.startup ? t('common.yes') : t('common.no')}
+        />
         {item.meta && Object.keys(item.meta).length > 0 ? (
-          <Text>Meta: {JSON.stringify(item.meta)}</Text>
+          <AppDetailField label="Meta" value={JSON.stringify(item.meta)} />
         ) : null}
         <AppNavButton
           title={t('platformMenus.editTitle')}

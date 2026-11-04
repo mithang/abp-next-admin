@@ -45,6 +45,21 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 74
+
+Vòng P3 gộp các dòng chi tiết thô còn sót về `AppDetailField`:
+30 màn hình chi tiết (29 màn dynamic `[id]/[name]/[key]` + tab
+tài khoản) trước đây tự vẽ `<Text>{nhãn}: {giá trị}</Text>` nay
+dùng chung component — 198 điểm, kể cả 2 dòng lồng trong `.map`
+của audit-logs và dòng exceptions của sys-logs. Để gộp được các
+giá trị số, `AppDetailField` mở rộng kiểu `value` sang
+`string | number | null` (số 0 vẫn hiển thị, null/rỗng vẫn ẩn —
+typecheck bắt 24 lỗi `string | null` trước khi sửa). Wrapper
+điều kiện chỉ được bỏ khi điều kiện trùng đúng biểu thức value
+(34 wrapper giữ nguyên vì điều kiện là `formatDateTime(...)`,
+`!== undefined` hay kiểm tra độ dài). Jest 466/466, i18n
+1463/1463.
+
 ## Trạng thái vòng 73
 
 Vòng P3 gộp họ state chọn nhiều (bulk selection) về hook mới
