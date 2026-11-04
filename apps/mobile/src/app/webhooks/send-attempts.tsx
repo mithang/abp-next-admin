@@ -1,4 +1,4 @@
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
+import { AppSpacer } from '../../components/ui/AppSpacer';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
@@ -174,7 +175,7 @@ export default function WebhookSendAttemptsScreen() {
           />
         </>
       ) : null}
-      <View style={{ height: 8 }} />
+      <AppSpacer />
       <AppList
         items={items}
         {...listQueryProps(query)}

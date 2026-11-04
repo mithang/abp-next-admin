@@ -3,6 +3,7 @@ import { FlatList } from 'react-native';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
+import { AppDetailField } from '../../components/ui/AppDetailField';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppInput } from '../../components/ui/AppInput';
@@ -163,9 +164,10 @@ export default function SystemSettingsScreen() {
           testID={`system-setting-${detail.name}`}
         />
         {detail.valueType === SettingValueType.Option && detail.options.length > 0 ? (
-          <Text>
-            {t('systemSettings.options')}: {detail.options.map((option) => option.value).join(', ')}
-          </Text>
+          <AppDetailField
+            label={t('systemSettings.options')}
+            value={detail.options.map((option) => option.value).join(', ')}
+          />
         ) : null}
         {detail.valueType === SettingValueType.Date ? (
           <Text>{t('systemSettings.dateHint')}</Text>

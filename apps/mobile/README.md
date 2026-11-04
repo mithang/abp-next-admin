@@ -45,6 +45,19 @@ luồng PKCE end-to-end ở tầng giao thức (authorize → login → code →
 200 Bearer, không secret). Bấm login thật trong app vẫn BLOCKED vì chưa có
 thiết bị/emulator. Không nhúng client secret vào app.
 
+## Trạng thái vòng 75
+
+Vòng P3 gộp 3 họ layout nhỏ còn sót từ vòng 74 thành component
+dùng chung: `AppSpacer` (8 khoảng trống cao 8 trước AppList),
+`AppButtonRow` (4 hàng nút ngang gap 8 ở menu-allot,
+menu-favorites, WeChat) và dòng options cuối cùng của màn form
+cài đặt hệ thống về `AppDetailField` (giữ nguyên wrapper điều
+kiện, chỉ khác trường hợp suy biến mọi option đều rỗng thì dòng
+nay ẩn thay vì in "Options: " trơ trọi). Hàng icon + nhãn có
+alignItems center của menu-favorites được giữ nguyên vì ngữ
+nghĩa căn giữa khác hàng nút. Jest 472/472 (+6 test mới),
+i18n 1463/1463, format/typecheck/lint/expo config PASS.
+
 ## Trạng thái vòng 74
 
 Vòng P3 gộp các dòng chi tiết thô còn sót về `AppDetailField`:

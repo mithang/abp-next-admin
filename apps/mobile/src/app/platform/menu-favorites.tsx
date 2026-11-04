@@ -3,6 +3,7 @@ import { FlatList, View } from 'react-native';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
+import { AppButtonRow } from '../../components/ui/AppButtonRow';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
@@ -86,7 +87,7 @@ function FavoriteRow({
         {item.framework ? ` · ${item.framework}` : ''}
       </Text>
       {item.icon ? <Text>{item.icon}</Text> : null}
-      <View style={{ flexDirection: 'row', gap: 8 }}>
+      <AppButtonRow>
         <AppButton
           title={t('menuFavorites.edit')}
           variant="outline"
@@ -100,7 +101,7 @@ function FavoriteRow({
           loading={deleting}
           testID={`menu-favorites-delete-${item.menuId}`}
         />
-      </View>
+      </AppButtonRow>
     </AppSectionCard>
   );
 }
@@ -289,7 +290,7 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
           autoCapitalize="none"
         />
         {stateErrorElement(formError)}
-        <View style={{ flexDirection: 'row', gap: 8 }}>
+        <AppButtonRow>
           <AppButton
             title={t('common.save')}
             onPress={() => mutation.mutate()}
@@ -302,7 +303,7 @@ function EditFavoriteForm({ item, onDone }: { item: UserFavoriteMenuDto; onDone:
             onPress={onDone}
             testID="menu-favorites-cancel-edit"
           />
-        </View>
+        </AppButtonRow>
       </VStack>
     </Card>
   );

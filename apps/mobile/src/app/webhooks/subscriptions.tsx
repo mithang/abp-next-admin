@@ -1,4 +1,4 @@
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useInvalidateQueries } from '../../lib/mutation-success';
@@ -10,6 +10,7 @@ import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
 import { AppSectionCard } from '../../components/ui/AppSectionCard';
+import { AppSpacer } from '../../components/ui/AppSpacer';
 import { Text } from '@/components/ui/text';
 import {
   bulkDeleteWebhookSubscriptions,
@@ -134,7 +135,7 @@ export default function WebhookSubscriptionsScreen() {
           }
         />
       ) : null}
-      <View style={{ height: 8 }} />
+      <AppSpacer />
       <AppList
         items={items}
         {...listQueryProps(query)}

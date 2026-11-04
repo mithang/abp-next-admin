@@ -1,4 +1,4 @@
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -9,6 +9,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppButton } from '../../components/ui/AppButton';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppSpacer } from '../../components/ui/AppSpacer';
 import { Text } from '@/components/ui/text';
 import { Card } from '@/components/ui/card';
 import {
@@ -158,7 +159,7 @@ export default function BlobsScreen() {
       />
       {uploadMutation.isSuccess ? <Text>{t('blobBlobs.uploaded')}</Text> : null}
       {mutationErrorElement(uploadMutation)}
-      <View style={{ height: 8 }} />
+      <AppSpacer />
       <AppList
         items={items}
         {...listQueryProps(query)}

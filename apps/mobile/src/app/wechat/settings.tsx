@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
+import { AppButtonRow } from '../../components/ui/AppButtonRow';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppSwitchField } from '../../components/ui/AppSwitchField';
 import { AppInput } from '../../components/ui/AppInput';
@@ -193,7 +194,7 @@ export default function WechatSettingsScreen() {
       title={t('wechatSettings.title')}
       subtitle={`${t('wechatSettings.changed')}: ${changed.settings.length}`}
     >
-      <View style={{ flexDirection: 'row', gap: 8 }}>
+      <AppButtonRow>
         <AppButton
           title={t('wechatSettings.scopeGlobal')}
           variant={effectiveScope === 'global' ? 'solid' : 'outline'}
@@ -215,7 +216,7 @@ export default function WechatSettingsScreen() {
             clearSaveError();
           }}
         />
-      </View>
+      </AppButtonRow>
       {tenantAvailable === false ? <Text>{t('wechatSettings.scopeTenantUnavailable')}</Text> : null}
       <FlatList
         data={flatten(groups)}

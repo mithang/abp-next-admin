@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import { AppList } from '../../components/ui/AppList';
 import { AppRowCard } from '../../components/ui/AppRowCard';
 import { AppSearchInput } from '../../components/ui/AppSearchInput';
 import { AppNavButton } from '../../components/ui/AppNavButton';
+import { AppSpacer } from '../../components/ui/AppSpacer';
 import { Text } from '@/components/ui/text';
 import { getBlobContainersPaged } from '../../features/blob/blob-api';
 import type { BlobContainerDto } from '../../features/blob/types';
@@ -68,7 +69,7 @@ export default function BlobContainersScreen() {
         href={'/blob/containers/form'}
         testID="blob-containers-create"
       />
-      <View style={{ height: 8 }} />
+      <AppSpacer />
       <AppList
         items={items}
         {...listQueryProps(query)}

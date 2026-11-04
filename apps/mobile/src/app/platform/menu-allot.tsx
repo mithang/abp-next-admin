@@ -4,6 +4,7 @@ import { useRouteParams } from '../../lib/route-params';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useInvalidateQueries } from '../../lib/mutation-success';
 import { useTranslation } from 'react-i18next';
+import { AppButtonRow } from '../../components/ui/AppButtonRow';
 import { AppScreen } from '../../components/ui/AppScreen';
 import { AppList } from '../../components/ui/AppList';
 import { AppInput } from '../../components/ui/AppInput';
@@ -259,7 +260,7 @@ export default function MenuAllotScreen() {
     <AppScreen title={title} subtitle={t('menuAllot.subtitle')}>
       {!paramSubject ? (
         <VStack space="sm">
-          <View style={{ flexDirection: 'row', gap: 8 }}>
+          <AppButtonRow>
             <AppButton
               title={t('menuAllot.subjectUser')}
               variant={subject === 'user' ? 'solid' : 'outline'}
@@ -282,7 +283,7 @@ export default function MenuAllotScreen() {
               }}
               testID="menu-allot-subject-role"
             />
-          </View>
+          </AppButtonRow>
           <AppInput
             value={identityFilter}
             onChangeText={(value) => {
